@@ -18,6 +18,7 @@ lignée Zenodo liée au présent dépôt. La publication courante est
 lignée conceptuelle permanente
 [10.5281/zenodo.22134072](https://doi.org/10.5281/zenodo.22134072). Les
 manifests exacts de chaque partie sont conservés sous `parts/`.
+Le reçu public de relecture anonyme est conservé sous `receipts/`.
 
 ## Autorité
 
