@@ -13,8 +13,11 @@ amont figée `a04446e57ec1fbc252a871afcec7752fb2807b14`.
 | 2 | 11–15 | 748 | `020E23158E5657DEF3B4AE97008741C6C47CF12867F3B8B3C2E44DC4D106582A` | `13B75960E1B2A64F608FDC4888E645AF49D0EE6A7E37F412238F337D0998ACA9` |
 
 Les fichiers publics sont distribués dans les releases GitHub et dans la
-lignée Zenodo liée au présent dépôt. Les manifests exacts de chaque partie sont
-conservés sous `parts/`.
+lignée Zenodo liée au présent dépôt. La publication courante est
+[10.5281/zenodo.22134073](https://doi.org/10.5281/zenodo.22134073), dans la
+lignée conceptuelle permanente
+[10.5281/zenodo.22134072](https://doi.org/10.5281/zenodo.22134072). Les
+manifests exacts de chaque partie sont conservés sous `parts/`.
 
 ## Autorité
 
