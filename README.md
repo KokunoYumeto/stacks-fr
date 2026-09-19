@@ -8,6 +8,7 @@ The available later chapter work is now preserved online as well:
 - [Current editable chapter sources and honest progress table](source-progress/2026-09-19/)
 - [Current-source ZIP](source-progress/2026-09-19/French_Stacks_Current_Chapter_Sources_2026-09-19.zip)
 - [Verified reader release and direct LaTeX downloads](https://github.com/KokunoYumeto/stacks-fr/releases/tag/2026-08-27-parts-01-02)
+- [Zenodo edition with direct full-text LaTeX for both parts](https://doi.org/10.5281/zenodo.22839695)
 
 All 116 chapter source positions are represented in the progress snapshot; this
 does **not** mean that all 116 have been translated. In-progress files are labelled,
@@ -32,7 +33,7 @@ amont figée `a04446e57ec1fbc252a871afcec7752fb2807b14`.
 
 Les fichiers publics sont distribués dans les releases GitHub et dans la
 lignée Zenodo liée au présent dépôt. La publication courante est
-[10.5281/zenodo.22134073](https://doi.org/10.5281/zenodo.22134073), dans la
+[10.5281/zenodo.22839695](https://doi.org/10.5281/zenodo.22839695), dans la
 lignée conceptuelle permanente
 [10.5281/zenodo.22134072](https://doi.org/10.5281/zenodo.22134072). Les
 manifests exacts de chaque partie sont conservés sous `parts/`.
