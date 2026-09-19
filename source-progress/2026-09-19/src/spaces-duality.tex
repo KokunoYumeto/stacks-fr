@@ -1,0 +1,2179 @@
+\input{preamble}
+
+% OK, commencer ici.
+%
+\begin{document}
+
+\title{Dualité pour les espaces}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Ce chapitre est l'analogue du chapitre correspondant pour les
+schémas, voir Dualité pour les schémas, Section \ref{duality-section-introduction}.
+Le développement est semblable à celui des articles
+\cite{Neeman-Grothendieck}, \cite{LN},
+\cite{Lipman-notes} et \cite{Neeman-improvement}.
+
+
+
+
+\section{Complexes dualisants sur les espaces algébriques}
+\label{section-dualizing-spaces}
+
+\noindent
+Soit $U$ un schéma localement noethérien. Soit $\mathcal{O}_\etale$
+le faisceau structural de $U$ sur le petit site \'etale de $U$.
+Nous dirons qu'un objet $K \in D_\QCoh(\mathcal{O}_\etale)$ est
+un complexe dualisant sur $U$ si $K = \epsilon^*(\omega_U^\bullet)$
+pour un complexe dualisant $\omega_U^\bullet$ au sens de
+Dualité pour les schémas, Section \ref{duality-section-dualizing-schemes}.
+Ici, $\epsilon^* : D_\QCoh(\mathcal{O}_U) \to D_\QCoh(\mathcal{O}_\etale)$
+est l'équivalence de Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}.
+La plupart des propriétés de $\omega_U^\bullet$ étudiées dans
+Dualité pour les schémas, Section \ref{duality-section-dualizing-schemes},
+se transmettent à $K$ grâce à la discussion de
+Catégories dérivées des espaces, Sections
+\ref{spaces-perfect-section-derived-quasi-coherent-etale} et
+\ref{spaces-perfect-section-spell-out}.
+
+\medskip\noindent
+Nous définissons un complexe dualisant sur un espace algébrique localement noethérien
+comme un complexe qui, localement pour la topologie \'etale, provient d'un complexe dualisant
+sur le schéma correspondant.
+
+\begin{lemma}
+\label{lemma-equivalent-definitions}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soit $K$ un objet de $D_\QCoh(\mathcal{O}_X)$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item Pour tout morphisme \'etale $U \to X$, où $U$ est un schéma,
+la restriction $K|_U$ est un complexe dualisant sur $U$ (au sens expliqué ci-dessus).
+\item Il existe un morphisme \'etale surjectif $U \to X$, où $U$ est un
+schéma, tel que $K|_U$ soit un complexe dualisant sur $U$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que $U \to X$ soit \'etale surjectif, où $U$ est un schéma.
+Soit $V \to X$ un morphisme \'etale, où $V$ est un schéma.
+Alors
+$$
+U \leftarrow U \times_X V \rightarrow V
+$$
+sont des morphismes \'etales de schémas, celui qui aboutit à $V$ étant surjectif.
+Nous pouvons donc appliquer Dualité pour les schémas, Lemme \ref{duality-lemma-descent-ascent},
+pour voir que, si $K|_U$ est un complexe dualisant sur $U$, alors
+$K|_V$ est un complexe dualisant sur $V$.
+\end{proof}
+
+\begin{definition}
+\label{definition-dualizing-scheme}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique localement noethérien sur $S$.
+Un objet $K$ de $D_\QCoh(\mathcal{O}_X)$ est appelé un
+{\it complexe dualisant} si $K$ satisfait aux conditions équivalentes du
+Lemme \ref{lemma-equivalent-definitions}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-affine-duality}
+Soit $A$ un anneau noethérien et soit $X = \Spec(A)$. Soit
+$\mathcal{O}_\etale$ le faisceau structural de $X$ sur le
+petit site \'etale de $X$. Soient $K, L$ des objets de $D(A)$.
+Si $K \in D_{\textit{Coh}}(A)$ et si $L$ est de dimension injective
+finie, alors
+$$
+\epsilon^*\widetilde{R\Hom_A(K, L)} =
+R\SheafHom_{\mathcal{O}_\etale}(\epsilon^*\widetilde{K},
+\epsilon^*\widetilde{L})
+$$
+dans $D(\mathcal{O}_\etale)$, où
+$\epsilon : (X_\etale, \mathcal{O}_\etale) \to (X, \mathcal{O}_X)$
+est comme dans Catégories dérivées des espaces, Section
+\ref{spaces-perfect-section-derived-quasi-coherent-etale}.
+\end{lemma}
+
+\begin{proof}
+D'après Dualité pour les schémas, Lemme \ref{duality-lemma-affine-duality},
+nous avons un isomorphisme canonique
+$$
+\widetilde{R\Hom_A(K, L)} =
+R\SheafHom_{\mathcal{O}_X}(\widetilde{K}, \widetilde{L})
+$$
+dans $D(\mathcal{O}_X)$. Il existe un morphisme canonique
+$$
+\epsilon^*R\Hom_{\mathcal{O}_X}(\widetilde{K}, \widetilde{L})
+\longrightarrow
+R\SheafHom_{\mathcal{O}_\etale}(\epsilon^*\widetilde{K},
+\epsilon^*\widetilde{L})
+$$
+dans $D(\mathcal{O}_\etale)$, voir Cohomologie sur les sites, Remarque
+\ref{sites-cohomology-remark-prepare-fancy-base-change}.
+Nous allons montrer que les membres de gauche et de droite de ce morphisme
+ont des faisceaux de cohomologie isomorphes, mais nous omettrons de
+vérifier que l'isomorphisme est donné par ce morphisme.
+
+\medskip\noindent
+Nous pouvons supposer que $L$ est donné par un complexe fini $I^\bullet$
+de $A$-modules injectifs. Par récurrence sur la longueur de $I^\bullet$
+et par compatibilité des constructions avec les triangles distingués,
+nous nous ramenons au cas où $L = I[0]$, avec $I$ un $A$-module injectif.
+Rappelons que les faisceaux de cohomologie de
+$R\SheafHom_{\mathcal{O}_\etale}(\epsilon^*\widetilde{K},
+\epsilon^*\widetilde{L}))$
+sont les faisceaux associés au préfaisceau qui, à $U$ \'etale
+sur $X$, associe le $i$-ème groupe d'Ext entre les restrictions de
+$\epsilon^*\widetilde{K}$ et $\epsilon^*\widetilde{L}$
+à $U_\etale$. Voir
+Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-section-RHom-over-U}.
+Si $U = \Spec(B)$ est affine, ce groupe d'Ext
+est égal à $\text{Ext}^i_B(K \otimes_A B, L \otimes_A B)$
+par l'équivalence de
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}, et
+Catégories dérivées des schémas, Lemme
+\ref{perfect-lemma-affine-compare-bounded}
+(on utilise aussi les compatibilités détaillées dans
+Catégories dérivées des espaces, Remarque
+\ref{spaces-perfect-remark-match-total-direct-images}).
+Puisque $A \to B$ est \'etale, nous voyons que
+$I \otimes_A B$ est un $B$-module injectif
+par Complexes dualisants, Lemme \ref{dualizing-lemma-injective-goes-up}.
+Nous voyons donc que
+\begin{align*}
+\Ext^n_B(K \otimes_A B, I \otimes_A B)
+& =
+\Hom_B(H^{-n}(K \otimes_A B), I \otimes_A B) \\
+& =
+\Hom_{A_f}(H^{-n}(K) \otimes_A B, I \otimes_A B) \\
+& =
+\Hom_A(H^{-n}(K), I) \otimes_A B \\
+& =
+\text{Ext}^n_A(K, I) \otimes_A B
+\end{align*}
+L'avant-dernière égalité vaut parce que $H^{-n}(K)$ est un $A$-module fini, voir
+Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext}.
+Par conséquent, les faisceaux de cohomologie des membres de gauche et de droite
+de l'égalité du lemme sont les mêmes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-spaces}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soit $K$ un complexe dualisant sur $X$.
+Alors $K$ est un objet de $D_{\textit{Coh}}(\mathcal{O}_X)$
+et $D = R\SheafHom_{\mathcal{O}_X}(-, K)$ induit une anti-équivalence
+$$
+D :
+D_{\textit{Coh}}(\mathcal{O}_X)
+\longrightarrow
+D_{\textit{Coh}}(\mathcal{O}_X)
+$$
+munie d'un isomorphisme canonique
+$\text{id} \to D \circ D$. Si $X$ est quasi-compact, alors
+$D$ échange $D^+_{\textit{Coh}}(\mathcal{O}_X)$ et
+$D^-_{\textit{Coh}}(\mathcal{O}_X)$ et induit une équivalence
+$D^b_{\textit{Coh}}(\mathcal{O}_X) \to D^b_{\textit{Coh}}(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $U \to X$ un morphisme \'etale, avec $U$ affine. Écrivons $U = \Spec(A)$ et
+soit $\omega_A^\bullet$ un complexe dualisant pour $A$ correspondant à $K|_U$
+comme dans le Lemme \ref{lemma-equivalent-definitions} et
+Dualité pour les schémas, Lemme \ref{duality-lemma-equivalent-definitions}.
+D'après le Lemme \ref{lemma-affine-duality}, le diagramme
+$$
+\xymatrix{
+D_{\textit{Coh}}(A) \ar[r] \ar[d]_{R\Hom_A(-, \omega_A^\bullet)} &
+D_{\textit{Coh}}(\mathcal{O}_\etale)
+\ar[d]^{R\SheafHom_{\mathcal{O}_\etale}(-, K|_U)} \\
+D_{\textit{Coh}}(A) \ar[r] &
+D(\mathcal{O}_\etale)
+}
+$$
+est commutatif, où $\mathcal{O}_\etale$ est le faisceau structural du
+petit site \'etale de $U$. Comme la formation de $R\SheafHom$ commute
+à la restriction, nous concluons que $D$ envoie
+$D_{\textit{Coh}}(\mathcal{O}_X)$ dans
+$D_{\textit{Coh}}(\mathcal{O}_X)$. De plus, le morphisme canonique
+$$
+L \longrightarrow
+R\SheafHom_{\mathcal{O}_X}(R\SheafHom_{\mathcal{O}_X}(L, K), K)
+$$
+(Cohomologie sur les sites, Lemme \ref{sites-cohomology-lemma-internal-hom-evaluate})
+est un isomorphisme pour tout $L$ de $D_{\textit{Coh}}(\mathcal{O}_X)$,
+car il en est ainsi au-dessus de tout $U$ comme ci-dessus, d'après
+Complexes dualisants, Lemme \ref{dualizing-lemma-dualizing}.
+L'assertion sur les propriétés de bornitude du foncteur $D$
+dans le cas quasi-compact résulte également des assertions correspondantes de
+Complexes dualisants, Lemme \ref{dualizing-lemma-dualizing}.
+\end{proof}
+
+\noindent
+Soit $(\mathcal{C}, \mathcal{O})$ un site annelé. Rappelons
+qu'un objet $L$ de $D(\mathcal{O})$ est {\it inversible}
+s'il est un objet inversible pour la structure monoïdale symétrique
+sur $D(\mathcal{O}_X)$ donnée par le produit tensoriel dérivé. Dans
+Cohomologie sur les sites, Lemme \ref{sites-cohomology-lemma-invertible-derived},
+nous avons vu que cela signifie que $L$ est parfait et que, si $(\mathcal{C}, \mathcal{O})$
+est un site localement annelé, alors, pour tout objet $U$ de $\mathcal{C}$,
+il existe un recouvrement $\{U_i \to U\}$ de $U$ dans $\mathcal{C}$
+tel que $L|_{U_i} \cong \mathcal{O}_{U_i}[-n_i]$
+pour certains entiers $n_i$.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Si $L$ dans $D(\mathcal{O}_X)$ est inversible, il existe une
+décomposition en réunion disjointe $X = \coprod_{n \in \mathbf{Z}} X_n$
+telle que $L|_{X_n}$ soit un module inversible placé en degré $n$.
+En particulier, il s'ensuit que $L = \bigoplus H^n(L)[-n]$,
+ce qui donne un complexe bien défini de $\mathcal{O}_X$-modules
+(à différentielles nulles) représentant $L$.
+
+\begin{lemma}
+\label{lemma-dualizing-unique-spaces}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique localement noethérien sur $S$.
+Si $K$ et $K'$ sont des complexes dualisants sur $X$, alors $K'$
+est isomorphe à $K \otimes_{\mathcal{O}_X}^\mathbf{L} L$
+pour un objet inversible $L$ de $D(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Posons
+$$
+L = R\SheafHom_{\mathcal{O}_X}(K, K')
+$$
+C'est un objet inversible de $D(\mathcal{O}_X)$, car cette assertion est vraie
+localement sur les affines. Utiliser le Lemme \ref{lemma-affine-duality} et
+Complexes dualisants, Lemme
+\ref{dualizing-lemma-dualizing-unique}, ainsi que sa démonstration.
+Le morphisme d'évaluation $L \otimes_{\mathcal{O}_X}^\mathbf{L} K \to K'$
+est un isomorphisme pour la même raison.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-function-scheme}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien
+et quasi-séparé sur $S$.
+Soit $\omega_X^\bullet$ un complexe dualisant sur $X$. Alors la fonction sur $X$
+$|X| \to \mathbf{Z}$ définie par
+$$
+x \longmapsto \delta(x)\text{ tel que }
+\omega_{X, \overline{x}}^\bullet[-\delta(x)]
+\text{ soit un complexe dualisant normalisé sur }
+\mathcal{O}_{X, \overline{x}}
+$$
+est une fonction de dimension sur $|X|$.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $U \to X$ un morphisme \'etale surjectif.
+Soit $\omega_U^\bullet$ le complexe dualisant sur $U$ associé
+à $\omega_X^\bullet|_U$.
+Si $u \in U$ s'envoie sur $x \in |X|$, alors $\mathcal{O}_{X, \overline{x}}$
+est l'hensélisé strict de $\mathcal{O}_{U, u}$. D'après
+Complexes dualisants, Lemme \ref{dualizing-lemma-flat-unramified},
+nous voyons que, si $\omega^\bullet$ est un complexe dualisant normalisé
+pour $\mathcal{O}_{U, u}$, alors
+$\omega^\bullet \otimes_{\mathcal{O}_{U, u}} \mathcal{O}_{X, \overline{x}}$
+est un complexe dualisant normalisé pour $\mathcal{O}_{X, \overline{x}}$.
+Nous voyons donc que la fonction de dimension $U \to \mathbf{Z}$ de
+Dualité pour les schémas, Lemme \ref{duality-lemma-dimension-function-scheme},
+pour le schéma $U$ et le complexe
+$\omega_U^\bullet$ est égale au composé de $U \to |X|$ et de $\delta$.
+En utilisant le fait que les spécialisations dans $|X|$ se relèvent en des spécialisations dans $U$
+et que les spécialisations non triviales dans $U$ s'envoient sur des
+spécialisations non triviales dans $X$
+(Espaces raisonnables, Lemmes \ref{decent-spaces-lemma-decent-specialization} et
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}),
+un argument topologique facile montre que $\delta$ est une fonction de dimension
+sur $|X|$.
+\end{proof}
+
+
+
+
+ 
+\section{Adjoint à droite de l'image directe}
+\label{section-twisted-inverse-image}
+
+\noindent
+C'est l'analogue de Dualité pour les schémas, Section
+\ref{duality-section-twisted-inverse-image}.
+
+\begin{lemma}
+\label{lemma-twisted-inverse-image}
+\begin{reference}
+C'est presque le même résultat que \cite[exemple 4.2]{Neeman-Grothendieck}.
+\end{reference}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme entre espaces algébriques quasi-séparés et quasi-compacts
+sur $S$. Le foncteur $Rf_* : D_\QCoh(X) \to D_\QCoh(Y)$
+admet un adjoint à droite.
+\end{lemma}
+
+\begin{proof}
+Nous allons démontrer l'existence d'un adjoint à droite en vérifiant les hypothèses de
+Catégories dérivées, Proposition \ref{derived-proposition-brown}.
+Tout d'abord, la catégorie $D_\QCoh(\mathcal{O}_X)$ admet les sommes directes, voir
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-quasi-coherence-direct-sums}.
+La catégorie $D_\QCoh(\mathcal{O}_X)$ est compactement engendrée d'après
+Catégories dérivées des espaces, Théorème
+\ref{spaces-perfect-theorem-bondal-van-den-Bergh}.
+Comme $X$ et $Y$ sont quasi-compacts et quasi-séparés, il en est de même de $f$, voir
+Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-compose-after-separated} et
+\ref{spaces-morphisms-lemma-quasi-compact-permanence}.
+Le foncteur $Rf_*$ commute donc aux sommes directes, voir
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-quasi-coherence-pushforward-direct-sums}.
+Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-twisted-inverse-image-bounded-below}
+Notations et hypothèses comme dans le Lemme \ref{lemma-twisted-inverse-image}.
+Soit $a : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$ l'adjoint à droite
+de $Rf_*$. Alors $a$ envoie
+$D^+_\QCoh(\mathcal{O}_Y)$ dans $D^+_\QCoh(\mathcal{O}_X)$.
+En fait, il existe un entier $N$ tel que
+$H^i(K) = 0$ pour $i \leq c$ implique $H^i(a(K)) = 0$ pour $i \leq c - N$.
+\end{lemma}
+
+\begin{proof}
+D'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-quasi-coherence-direct-image},
+le foncteur $Rf_*$ est de dimension cohomologique finie. Autrement dit,
+il existe un entier $N$ tel que
+$H^i(Rf_*L) = 0$ pour $i \geq N + c$ si $H^i(L) = 0$ pour $i \geq c$.
+Soit $K \in D^+_\QCoh(\mathcal{O}_Y)$ tel que $H^i(K) = 0$ pour $i \leq c$.
+Alors
+$$
+\Hom_{D(\mathcal{O}_X)}(\tau_{\leq c - N}a(K), a(K)) =
+\Hom_{D(\mathcal{O}_Y)}(Rf_*\tau_{\leq c - N}a(K), K) = 0
+$$
+d'après ce qui précède. Cela implique manifestement que
+$H^i(a(K)) = 0$ pour $i \leq c - N$.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques quasi-séparés et quasi-compacts
+sur $S$.
+Notons $a$ l'adjoint à droite de
+$Rf_* : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$. Pour tous
+$K \in D_\QCoh(\mathcal{O}_Y)$ et $L \in D_\QCoh(\mathcal{O}_X)$,
+nous obtenons un morphisme canonique
+\begin{equation}
+\label{equation-sheafy-trace}
+Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K))
+\longrightarrow
+R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K)
+\end{equation}
+Ce morphisme est en effet défini comme le composé
+$$
+Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K)) \to
+R\SheafHom_{\mathcal{O}_Y}(Rf_*L, Rf_*a(K)) \to
+R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K)
+$$
+où la première flèche est celle de
+Cohomologie sur les sites, Remarque
+\ref{sites-cohomology-remark-projection-formula-for-internal-hom},
+et la seconde est la co-unité $Rf_*a(K) \to K$ de l'adjonction.
+
+\begin{lemma}
+\label{lemma-iso-on-RSheafHom}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques quasi-compacts et quasi-séparés
+sur $S$.
+Soit $a$ l'adjoint à droite de
+$Rf_* : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$.
+Soient $L \in D_\QCoh(\mathcal{O}_X)$ et
+$K \in D_\QCoh(\mathcal{O}_Y)$.
+Alors le morphisme (\ref{equation-sheafy-trace})
+$$
+Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K))
+\longrightarrow
+R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K)
+$$
+devient un isomorphisme après application du foncteur
+$DQ_Y : D(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_Y)$
+décrit dans Catégories dérivées des espaces, Section
+\ref{spaces-perfect-section-better-coherator}.
+\end{lemma}
+
+\begin{proof}
+L'énoncé a un sens puisque $DQ_Y$ existe d'après
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-better-coherator}.
+Comme $DQ_Y$ est l'adjoint à droite du foncteur d'inclusion
+$D_\QCoh(\mathcal{O}_Y) \to D(\mathcal{O}_Y)$,
+pour démontrer le lemme, il suffit de montrer que, pour tout
+$M \in D_\QCoh(\mathcal{O}_Y)$,
+le morphisme (\ref{equation-sheafy-trace}) induit une bijection
+$$
+\Hom_Y(M, Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K)))
+\longrightarrow
+\Hom_Y(M, R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K))
+$$
+Pour le voir, nous utilisons la suite d'égalités suivante :
+\begin{align*}
+\Hom_Y(M, Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K)))
+& =
+\Hom_X(Lf^*M, R\SheafHom_{\mathcal{O}_X}(L, a(K))) \\
+& =
+\Hom_X(Lf^*M \otimes_{\mathcal{O}_X}^\mathbf{L} L, a(K)) \\
+& =
+\Hom_Y(Rf_*(Lf^*M \otimes_{\mathcal{O}_X}^\mathbf{L} L), K) \\
+& =
+\Hom_Y(M \otimes_{\mathcal{O}_Y}^\mathbf{L} Rf_*L, K) \\
+& =
+\Hom_Y(M, R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K))
+\end{align*}
+La première égalité résulte de Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-adjoint}.
+La deuxième résulte de Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-internal-hom}.
+La troisième résulte de la construction de $a$.
+La quatrième résulte de Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-cohomology-base-change} (c'est l'étape importante).
+La cinquième résulte de Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-internal-hom}.
+\end{proof}
+
+\begin{example}
+\label{example-iso-on-RSheafHom}
+L'énoncé du Lemme \ref{lemma-iso-on-RSheafHom} n'est pas vrai sans
+appliquer le « cohérateur » $DQ_Y$. Voir
+Dualité pour les schémas, Exemple \ref{duality-example-iso-on-RSheafHom}.
+\end{example}
+
+\begin{remark}
+\label{remark-iso-on-RSheafHom}
+Dans la situation du Lemme \ref{lemma-iso-on-RSheafHom}, nous avons
+$$
+DQ_Y(Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K))) =
+Rf_* DQ_X(R\SheafHom_{\mathcal{O}_X}(L, a(K)))
+$$
+d'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-pushforward-better-coherator}.
+Ainsi, si $R\SheafHom_{\mathcal{O}_X}(L, a(K)) \in D_\QCoh(\mathcal{O}_X)$,
+nous pouvons « supprimer » le $DQ_Y$ du membre de gauche du morphisme.
+D'autre part, si nous savons que
+$R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K) \in D_\QCoh(\mathcal{O}_Y)$,
+nous pouvons « supprimer » le $DQ_Y$ du membre de droite du morphisme.
+Si ces deux conditions sont satisfaites, nous voyons que (\ref{equation-sheafy-trace})
+est un isomorphisme. En combinant ceci avec
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-quasi-coherence-internal-hom},
+nous voyons que $Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K)) \to
+R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K)$ est un isomorphisme si
+\begin{enumerate}
+\item $L$ et $Rf_*L$ sont parfaits, ou
+\item $K$ est borné inférieurement et $L$ et $Rf_*L$ sont pseudo-cohérents.
+\end{enumerate}
+Pour (2), nous utilisons le fait que $a(K)$ est borné inférieurement si $K$
+est borné inférieurement, voir Lemme \ref{lemma-twisted-inverse-image-bounded-below}.
+\end{remark}
+
+\begin{example}
+\label{example-iso-on-RSheafHom-noetherian}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme propre d'espaces algébriques noethériens
+sur $S$, $L \in D^-_{\textit{Coh}}(X)$ et $K \in D^+_{\QCoh}(\mathcal{O}_Y)$.
+Alors le morphisme $Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K)) \to
+R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K)$ est un isomorphisme.
+En effet, les complexes $L$ et $Rf_*L$ sont pseudo-cohérents d'après
+Catégories dérivées des espaces, Lemmes
+\ref{spaces-perfect-lemma-identify-pseudo-coherent-noetherian} et
+\ref{spaces-perfect-lemma-direct-image-coherent},
+et la discussion de la Remarque \ref{remark-iso-on-RSheafHom} s'applique.
+\end{example}
+
+\begin{lemma}
+\label{lemma-iso-global-hom}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques quasi-séparés et quasi-compacts
+sur $S$.
+Pour tous $L \in D_\QCoh(\mathcal{O}_X)$ et $K \in D_\QCoh(\mathcal{O}_Y)$,
+(\ref{equation-sheafy-trace}) induit un isomorphisme
+$R\Hom_X(L, a(K)) \to R\Hom_Y(Rf_*L, K)$ entre les Hom dérivés globaux.
+\end{lemma}
+
+\begin{proof}
+Par construction (Cohomologie sur les sites, Section
+\ref{sites-cohomology-section-global-RHom}), les complexes
+$$
+R\Hom_X(L, a(K)) =
+R\Gamma(X, R\SheafHom_{\mathcal{O}_X}(L, a(K))) =
+R\Gamma(Y, Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K)))
+$$
+et
+$$
+R\Hom_Y(Rf_*L, K) = R\Gamma(Y, R\SheafHom_{\mathcal{O}_X}(Rf_*L, a(K)))
+$$
+Ainsi, le lemme est une conséquence du Lemme \ref{lemma-iso-on-RSheafHom}.
+En effet, un morphisme $E \to E'$ dans $D(\mathcal{O}_Y)$ qui induit
+un isomorphisme $DQ_Y(E) \to DQ_Y(E')$ induit un quasi-isomorphisme
+$R\Gamma(Y, E) \to R\Gamma(Y, E')$. Nous avons en effet
+$H^i(Y, E) = \Ext^i_Y(\mathcal{O}_Y, E) = \Hom(\mathcal{O}_Y[-i], E) =
+\Hom(\mathcal{O}_Y[-i], DQ_Y(E))$, car $\mathcal{O}_Y[-i]$
+appartient à $D_\QCoh(\mathcal{O}_Y)$ et $DQ_Y$ est l'adjoint à droite
+du foncteur d'inclusion $D_\QCoh(\mathcal{O}_Y) \to D(\mathcal{O}_Y)$.
+\end{proof}
+
+
+
+
+
+
+
+ 
+\section{Adjoint à droite de l'image directe et changement de base, I}
+\label{section-base-change-map}
+
+\noindent
+Définissons le morphisme de changement de base entre les adjoints à droite de l'image directe.
+Soit $S$ un schéma. Considérons un diagramme cartésien
+\begin{equation}
+\label{equation-base-change}
+\vcenter{
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+}
+\end{equation}
+où $Y'$ et $X$ sont {\bf indépendants au sens de Tor} sur $Y$. Notons
+$$
+a  : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)
+\quad\text{et}\quad
+a' : D_\QCoh(\mathcal{O}_{Y'}) \to D_\QCoh(\mathcal{O}_{X'})
+$$
+les adjoints à droite de $Rf_*$ et $Rf'_*$
+(Lemme \ref{lemma-twisted-inverse-image}).
+Le morphisme de changement de base de
+Cohomologie sur les sites, Remarque \ref{sites-cohomology-remark-base-change},
+donne une transformation de foncteurs
+$$
+Lg^* \circ Rf_* \longrightarrow Rf'_* \circ L(g')^*
+$$
+sur les catégories dérivées de faisceaux à cohomologie quasi-cohérente.
+Il donne donc une transformation entre les adjoints à droite en sens opposé
+$$
+a \circ Rg_* \longleftarrow Rg'_* \circ a'
+$$
+
+\begin{lemma}
+\label{lemma-flat-precompose-pus}
+Dans le diagramme (\ref{equation-base-change}), le morphisme
+$a \circ Rg_* \leftarrow Rg'_* \circ a'$ est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Le morphisme de changement de base $Lg^* \circ Rf_* K \to Rf'_* \circ L(g')^*K$
+est un isomorphisme pour tout $K$ de $D_\QCoh(\mathcal{O}_X)$ d'après
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-compare-base-change}
+(on utilise ici l'hypothèse d'indépendance au sens de Tor).
+La transformation correspondante entre foncteurs adjoints est donc
+elle aussi un isomorphisme.
+\end{proof}
+
+\noindent
+Nous pouvons alors considérer le
+morphisme de foncteurs
+$D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_{X'})$
+donné par le composé
+\begin{equation}
+\label{equation-base-change-map}
+L(g')^* \circ a \to
+L(g')^* \circ a \circ Rg_* \circ Lg^* \leftarrow
+L(g')^* \circ Rg'_* \circ a' \circ Lg^* \to a' \circ Lg^*
+\end{equation}
+La première flèche provient du morphisme d'adjonction $\text{id} \to Rg_* Lg^*$,
+et la dernière du morphisme d'adjonction $L(g')^*Rg'_* \to \text{id}$.
+Nous avons besoin de l'hypothèse d'indépendance au sens de Tor pour inverser la flèche
+du milieu, voir Lemme \ref{lemma-flat-precompose-pus}.
+On peut aussi considérer (\ref{equation-base-change-map}), par
+adjonction entre $L(g')^*$ et $R(g')_*$, comme une transformation naturelle
+$$
+a \to a \circ Rg_* \circ Lg^* \leftarrow Rg'_* \circ a' \circ Lg^*
+$$
+où, là encore, la seconde flèche est inversible. Si $M \in D_\QCoh(\mathcal{O}_X)$
+et $K \in D_\QCoh(\mathcal{O}_Y)$,
+alors ce morphisme est donné sur les foncteurs de Yoneda par
+\begin{align*}
+\Hom_X(M, a(K))
+& =
+\Hom_Y(Rf_*M, K) \\
+& \to
+\Hom_Y(Rf_*M, Rg_* Lg^*K) \\
+& =
+\Hom_{Y'}(Lg^*Rf_*M, Lg^*K) \\
+& \leftarrow
+\Hom_{Y'}(Rf'_* L(g')^*M, Lg^*K) \\
+& =
+\Hom_{X'}(L(g')^*M, a'(Lg^*K)) \\
+& =
+\Hom_X(M, Rg'_*a'(Lg^*K))
+\end{align*}
+(la flèche dirigée vers la gauche est inversible par le théorème de
+changement de base donné dans
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-compare-base-change}),
+ce qui rend les choses un peu plus explicites.
+
+\medskip\noindent
+Dans cette section, nous démontrons d'abord que le morphisme de changement de base satisfait
+à certaines compatibilités naturelles relativement à l'empilement de carrés, comme dans
+Cohomologie sur les sites, Remarques
+\ref{sites-cohomology-remark-compose-base-change} et
+\ref{sites-cohomology-remark-compose-base-change-horizontal},
+pour le morphisme de changement de base usuel.
+Nous suggérons au lecteur de sauter le reste de cette section en première lecture.
+
+\begin{lemma}
+\label{lemma-compose-base-change-maps}
+Soit $S$ un schéma. Considérons un diagramme commutatif
+$$
+\xymatrix{
+X' \ar[r]_k \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^l \ar[d]_{g'} & Y \ar[d]^g \\
+Z' \ar[r]^m & Z
+}
+$$
+d'espaces algébriques quasi-compacts et quasi-séparés sur $S$, dans lequel
+les deux carrés sont cartésiens, et où $f$ et $l$
+ainsi que $g$ et $m$ sont indépendants au sens de Tor.
+Alors les morphismes (\ref{equation-base-change-map})
+des deux carrés se composent pour donner le morphisme de
+changement de base du rectangle extérieur (voir la démonstration pour un énoncé précis).
+\end{lemma}
+
+\begin{proof}
+Il résulte des hypothèses que $g \circ f$ et $m$ sont indépendants au sens de Tor
+(nous omettons les détails), de sorte que l'énoncé a un sens.
+Dans cette démonstration, nous écrivons $k^*$ à la place de $Lk^*$ et $f_*$ à la place
+de $Rf_*$. Soient $a$, $b$ et $c$ les adjoints à droite du
+Lemme \ref{lemma-twisted-inverse-image}
+pour $f$, $g$ et $g \circ f$, et de même pour les versions munies d'un prime.
+La flèche correspondant au carré supérieur est le composé
+$$
+\gamma_{top} :
+k^* \circ a \to k^* \circ a \circ l_* \circ l^*
+\xleftarrow{\xi_{top}} k^* \circ k_* \circ a' \circ l^* \to a' \circ l^*
+$$
+où $\xi_{top} : k_* \circ a' \to a \circ l_*$
+est un isomorphisme (et peut donc être inversé)
+et est la flèche « duale » du morphisme de changement de base
+$l^* \circ f_* \to f'_* \circ k^*$. Les flèches extérieures proviennent
+des morphismes canoniques $1 \to l_* \circ l^*$ et $k^* \circ k_* \to 1$.
+De même, pour le second carré, nous avons
+$$
+\gamma_{bot} :
+l^* \circ b \to l^* \circ b \circ m_* \circ m^*
+\xleftarrow{\xi_{bot}} l^* \circ l_* \circ b' \circ m^* \to b' \circ m^*
+$$
+Pour le rectangle extérieur, nous obtenons
+$$
+\gamma_{rect} :
+k^* \circ c \to k^* \circ c \circ m_* \circ m^*
+\xleftarrow{\xi_{rect}} k^* \circ k_* \circ c' \circ m^* \to c' \circ m^*
+$$
+Nous avons $(g \circ f)_* = g_* \circ f_*$ et donc
+$c = a \circ b$, et de même $c' = a' \circ b'$.
+L'assertion du lemme est que $\gamma_{rect}$
+est égal au composé
+$$
+k^* \circ c = k^* \circ a \circ b \xrightarrow{\gamma_{top}}
+a' \circ l^* \circ b \xrightarrow{\gamma_{bot}}
+a' \circ b' \circ m^* = c' \circ m^*
+$$
+Pour le voir, considérons le diagramme suivant :
+$$
+\xymatrix{
+& & k^* \circ a \circ b \ar[d] \ar[lldd] \\
+& & k^* \circ a \circ l_* \circ l^* \circ b \ar[ld] \\
+k^* \circ a \circ b \circ m_* \circ m^* \ar[r] &
+k^* \circ a \circ l_* \circ l^* \circ b \circ m_* \circ m^* &
+k^* \circ k_* \circ a' \circ l^* \circ b \ar[u]_{\xi_{top}} \ar[d] \ar[ld] \\
+& k^*\circ k_* \circ a' \circ l^* \circ b \circ m_* \circ m^*
+\ar[u]_{\xi_{top}} \ar[rd] &
+a' \circ l^* \circ b \ar[d] \\
+k^* \circ k_* \circ a' \circ b' \circ m^* \ar[uu]_{\xi_{rect}} \ar[ddrr] &
+k^*\circ k_* \circ a' \circ l^* \circ l_* \circ b' \circ m^*
+\ar[u]_{\xi_{bot}} \ar[l] \ar[dr] &
+a' \circ l^* \circ b \circ m_* \circ m^* \\
+& & a' \circ l^* \circ l_* \circ b' \circ m^* \ar[u]_{\xi_{bot}} \ar[d] \\
+& & a' \circ b' \circ m^*
+}
+$$
+En descendant du côté droit, nous obtenons le composé, et en descendant
+du côté gauche, nous obtenons $\gamma_{rect}$.
+Tous les quadrilatères du côté droit de ce diagramme sont commutatifs
+d'après Catégories, Lemme \ref{categories-lemma-properties-2-cat-cats},
+ou, plus simplement, d'après la discussion qui précède
+Catégories, Définition \ref{categories-definition-horizontal-composition}.
+Il suffit donc de montrer que le diagramme
+$$
+\xymatrix{
+a \circ l_* \circ l^* \circ b \circ m_* &
+a \circ b \circ m_* \ar[l] \\
+k_* \circ a' \circ l^* \circ b \circ m_* \ar[u]_{\xi_{top}} & \\
+k_* \circ a' \circ l^* \circ l_* \circ b' \ar[u]_{\xi_{bot}} \ar[r] &
+k_* \circ a' \circ b' \ar[uu]_{\xi_{rect}}
+}
+$$
+devient commutatif lorsque nous inversons les flèches $\xi_{top}$, $\xi_{bot}$
+et $\xi_{rect}$ (noter que cela diffère du fait de demander que le
+diagramme soit commutatif). Cependant, le diagramme
+$$
+\xymatrix{
+& a \circ l_* \circ l^* \circ b \circ m_* \\
+a \circ l_* \circ l^* \circ l_* \circ b'
+\ar[ru]^{\xi_{bot}} & &
+k_* \circ a' \circ l^* \circ b \circ m_* \ar[ul]_{\xi_{top}} \\
+& k_* \circ a' \circ l^* \circ l_* \circ b'
+\ar[ul]^{\xi_{top}} \ar[ur]_{\xi_{bot}}
+}
+$$
+est commutatif d'après Catégories, Lemme \ref{categories-lemma-properties-2-cat-cats}.
+Puisque les diagrammes
+$$
+\vcenter{
+\xymatrix{
+a \circ l_* \circ l^* \circ b \circ m_* & a \circ b \circ m \ar[l] \\
+a \circ l_* \circ l^* \circ l_* \circ b' \ar[u] &
+a \circ l_* \circ b' \ar[l] \ar[u]
+}
+}
+\quad\text{et}\quad
+\vcenter{
+\xymatrix{
+a \circ l_* \circ l^* \circ l_* \circ b' \ar[r] & a \circ l_* \circ b' \\
+k_* \circ a' \circ l^* \circ l_* \circ b' \ar[u] \ar[r] &
+k_* \circ a' \circ b' \ar[u]
+}
+}
+$$
+sont commutatifs (voir les références citées) et puisque le composé de
+$l_* \to l_* \circ l^* \circ l_* \to l_*$ est l'identité,
+nous trouvons qu'il suffit de démontrer que
+$$
+k \circ a' \circ b' \xrightarrow{\xi_{bot}} a \circ l_* \circ b
+\xrightarrow{\xi_{top}} a \circ b \circ m_*
+$$
+est égal à $\xi_{rect}$ (via les identifications $a \circ b = c$
+et $a' \circ b' = c'$). C'est l'assertion duale de
+Cohomologie sur les sites, Remarque \ref{sites-cohomology-remark-compose-base-change},
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compose-base-change-maps-horizontal}
+Soit $S$ un schéma. Considérons un diagramme commutatif
+$$
+\xymatrix{
+X'' \ar[r]_{g'} \ar[d]_{f''} & X' \ar[r]_g \ar[d]_{f'} & X \ar[d]^f \\
+Y'' \ar[r]^{h'} & Y' \ar[r]^h & Y
+}
+$$
+d'espaces algébriques quasi-compacts et quasi-séparés sur $S$, dans lequel
+les deux carrés sont cartésiens, et où $f$ et $h$
+ainsi que $f'$ et $h'$ sont indépendants au sens de Tor.
+Alors les morphismes (\ref{equation-base-change-map})
+des deux carrés se composent pour donner le morphisme de
+changement de base du rectangle extérieur (voir la démonstration pour un énoncé précis).
+\end{lemma}
+
+\begin{proof}
+Il résulte des hypothèses que $f$ et $h \circ h'$ sont indépendants au sens de Tor
+(nous omettons les détails), de sorte que l'énoncé a un sens.
+Dans cette démonstration, nous écrivons $g^*$ à la place de $Lg^*$ et $f_*$ à la place
+de $Rf_*$. Soient $a$, $a'$ et $a''$ les adjoints à droite du
+Lemme \ref{lemma-twisted-inverse-image}
+pour $f$, $f'$ et $f''$. La flèche correspondant au carré de droite
+est le composé
+$$
+\gamma_{right} :
+g^* \circ a \to g^* \circ a \circ h_* \circ h^*
+\xleftarrow{\xi_{right}} g^* \circ g_* \circ a' \circ h^* \to a' \circ h^*
+$$
+où $\xi_{right} : g_* \circ a' \to a \circ h_*$
+est un isomorphisme (et peut donc être inversé)
+et est la flèche « duale » du morphisme de changement de base
+$h^* \circ f_* \to f'_* \circ g^*$. Les flèches extérieures proviennent
+des morphismes canoniques $1 \to h_* \circ h^*$ et $g^* \circ g_* \to 1$.
+De même, pour le carré de gauche, nous avons
+$$
+\gamma_{left} :
+(g')^* \circ a' \to (g')^* \circ a' \circ (h')_* \circ (h')^*
+\xleftarrow{\xi_{left}}
+(g')^* \circ (g')_* \circ a'' \circ (h')^* \to a'' \circ (h')^*
+$$
+Pour le rectangle extérieur, nous obtenons
+$$
+\gamma_{rect} :
+k^* \circ a \to
+k^* \circ a \circ m_* \circ m^* \xleftarrow{\xi_{rect}}
+k^* \circ k_* \circ a'' \circ m^* \to
+a'' \circ m^*
+$$
+où $k = g \circ g'$ et $m = h \circ h'$.
+Nous avons $k^* = (g')^* \circ g^*$ et $m^* = (h')^* \circ h^*$.
+L'assertion du lemme est que $\gamma_{rect}$
+est égal au composé
+$$
+k^* \circ a =
+(g')^* \circ g^* \circ a \xrightarrow{\gamma_{right}}
+(g')^* \circ a' \circ h^* \xrightarrow{\gamma_{left}}
+a'' \circ (h')^* \circ h^* = a'' \circ m^*
+$$
+Pour le voir, considérons le diagramme suivant :
+$$
+\xymatrix{
+& (g')^* \circ g^* \circ a \ar[d] \ar[ddl] \\
+& (g')^* \circ g^* \circ a \circ h_* \circ h^* \ar[ld] \\
+(g')^* \circ g^* \circ a \circ h_* \circ (h')_* \circ (h')^* \circ h^* &
+(g')^* \circ g^* \circ g_* \circ a' \circ h^*
+\ar[u]_{\xi_{right}} \ar[d] \ar[ld] \\
+(g')^* \circ g^* \circ g_* \circ a' \circ (h')_* \circ (h')^* \circ h^*
+\ar[u]_{\xi_{right}} \ar[dr] &
+(g')^* \circ a' \circ h^* \ar[d] \\
+(g')^* \circ g^* \circ g_* \circ (g')_* \circ a'' \circ (h')^* \circ h^*
+\ar[u]_{\xi_{left}} \ar[ddr] \ar[dr] &
+(g')^* \circ a' \circ (h')_* \circ (h')^* \circ h^* \\
+& (g')^*\circ (g')_* \circ a'' \circ (h')^* \circ h^*
+\ar[u]_{\xi_{left}} \ar[d] \\
+& a'' \circ (h')^* \circ h^*
+}
+$$
+En descendant du côté droit, nous obtenons le composé, et en descendant
+du côté gauche, nous obtenons $\gamma_{rect}$.
+Tous les quadrilatères du côté droit de ce diagramme sont commutatifs
+d'après Catégories, Lemme \ref{categories-lemma-properties-2-cat-cats},
+ou, plus simplement, d'après la discussion qui précède
+Catégories, Définition \ref{categories-definition-horizontal-composition}.
+Nous voyons donc qu'il suffit de montrer que
+$$
+g_* \circ (g')_* \circ a'' \xrightarrow{\xi_{left}}
+g_* \circ a' \circ (h')_* \xrightarrow{\xi_{right}}
+a \circ h_* \circ (h')_*
+$$
+est égal à $\xi_{rect}$. C'est l'assertion duale de
+Cohomologie, Remarque \ref{cohomology-remark-compose-base-change-horizontal},
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{remark}
+\label{remark-going-around}
+Soit $S$ un schéma. Considérons un diagramme commutatif
+$$
+\xymatrix{
+X'' \ar[r]_{k'} \ar[d]_{f''} & X' \ar[r]_k \ar[d]_{f'} & X \ar[d]^f \\
+Y'' \ar[r]^{l'} \ar[d]_{g''} & Y' \ar[r]^l \ar[d]_{g'} & Y \ar[d]^g \\
+Z'' \ar[r]^{m'} & Z' \ar[r]^m & Z
+}
+$$
+d'espaces algébriques quasi-compacts et quasi-séparés sur $S$, dans lequel
+tous les carrés sont cartésiens et où
+$(f, l)$, $(g, m)$, $(f', l')$, $(g', m')$ sont des
+paires de morphismes indépendants au sens de Tor.
+Soient $a$, $a'$, $a''$, $b$, $b'$ et $b''$ les
+adjoints à droite du Lemme \ref{lemma-twisted-inverse-image}
+pour $f$, $f'$, $f''$, $g$, $g'$ et $g''$.
+Étiquetons les carrés du diagramme $A$, $B$, $C$, $D$
+comme suit :
+$$
+\begin{matrix}
+A & B \\
+C & D
+\end{matrix}
+$$
+Les morphismes (\ref{equation-base-change-map})
+des carrés sont alors les suivants (où nous utilisons $k^* = Lk^*$, etc.) :
+$$
+\begin{matrix}
+\gamma_A : (k')^* \circ a' \to a'' \circ (l')^* &
+\gamma_B : k^* \circ a \to a' \circ l^* \\
+\gamma_C : (l')^* \circ b' \to b'' \circ (m')^* &
+\gamma_D : l^* \circ b \to b' \circ m^*
+\end{matrix}
+$$
+Pour les rectangles $2 \times 1$ et $1 \times 2$, nous avons quatre autres
+morphismes de changement de base :
+$$
+\begin{matrix}
+\gamma_{A + B} : (k \circ k')^* \circ a \to a'' \circ (l \circ l')^* \\
+\gamma_{C + D} : (l \circ l')^* \circ b \to b'' \circ (m \circ m')^* \\
+\gamma_{A + C} : (k')^* \circ (a' \circ b') \to (a'' \circ b'') \circ (m')^* \\
+\gamma_{A + C} : k^* \circ (a \circ b) \to (a' \circ b') \circ m^*
+\end{matrix}
+$$
+D'après le Lemme \ref{lemma-compose-base-change-maps-horizontal}, nous avons
+$$
+\gamma_{A + B} = \gamma_A \circ \gamma_B, \quad
+\gamma_{C + D} = \gamma_C \circ \gamma_D
+$$
+et d'après le Lemme \ref{lemma-compose-base-change-maps}, nous avons
+$$
+\gamma_{A + C} = \gamma_C \circ \gamma_A, \quad
+\gamma_{B + D} = \gamma_D \circ \gamma_B
+$$
+Il serait plus correct d'écrire ici
+$\gamma_{A + B} = (\gamma_A \star \text{id}_{l^*}) \circ
+(\text{id}_{(k')^*} \star \gamma_B)$ avec les notations de
+Catégories, Section \ref{categories-section-formal-cat-cat},
+et de même pour les autres. Nous continuons toutefois à employer
+l'abus de notation des démonstrations des
+Lemmes \ref{lemma-compose-base-change-maps} et
+\ref{lemma-compose-base-change-maps-horizontal},
+qui consiste à omettre les produits $\star$ avec les identités, car on peut déterminer
+ceux qu'il faut ajouter dès que la source et le but de la
+transformation sont connus.
+Cela étant dit, nous trouvons (a priori) deux transformations
+$$
+(k')^* \circ k^* \circ a \circ b
+\longrightarrow
+a'' \circ b'' \circ (m')^* \circ m^*
+$$
+à savoir
+$$
+\gamma_C \circ \gamma_A \circ \gamma_D \circ \gamma_B =
+\gamma_{A + C} \circ \gamma_{B + D}
+$$
+et
+$$
+\gamma_C \circ \gamma_D \circ \gamma_A \circ \gamma_B =
+\gamma_{C + D} \circ \gamma_{A + B}
+$$
+Le but de cette remarque est de signaler que ces transformations
+sont égales. Pour le voir, il suffit en effet de montrer que
+$$
+\xymatrix{
+(k')^* \circ a' \circ l^* \circ b \ar[r]_{\gamma_D} \ar[d]_{\gamma_A} &
+(k')^* \circ a' \circ b' \circ m^* \ar[d]^{\gamma_A} \\
+a'' \circ (l')^* \circ l^* \circ b \ar[r]^{\gamma_D} &
+a'' \circ (l')^* \circ b' \circ m^*
+}
+$$
+est commutatif. Cela résulte de
+Catégories, Lemme \ref{categories-lemma-properties-2-cat-cats},
+ou, plus simplement, de la discussion qui précède
+Catégories, Définition \ref{categories-definition-horizontal-composition}.
+\end{remark}
+
+
+
+
+
+
+
+ 
+\section{Adjoint à droite de l'image directe et changement de base, II}
+\label{section-base-change-II}
+
+\noindent
+Dans cette section, nous démontrons que le morphisme de changement de base de la
+Section \ref{section-base-change-map} est un isomorphisme
+dans certains cas.
+
+\begin{lemma}
+\label{lemma-more-base-change}
+Dans le diagramme (\ref{equation-base-change}), supposons en outre que
+$g : Y' \to Y$ soit un morphisme de schémas affines et que $f : X \to Y$ soit propre.
+Alors le morphisme de changement de base (\ref{equation-base-change-map}) induit un
+isomorphisme
+$$
+L(g')^*a(K) \longrightarrow a'(Lg^*K)
+$$
+dans les cas suivants :
+\begin{enumerate}
+\item pour tout $K \in D_\QCoh(\mathcal{O}_X)$ si $f$
+est plat et de présentation finie,
+\item pour tout $K \in D_\QCoh(\mathcal{O}_X)$ si $f$
+est parfait et $Y$ noethérien,
+\item pour $K \in D_\QCoh^+(\mathcal{O}_X)$ si $g$ est de dimension de Tor finie
+et $Y$ est noethérien.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Écrivons $Y = \Spec(A)$ et $Y' = \Spec(A')$. Comme changement de base d'un morphisme
+affine, le morphisme $g'$ est affine. Soit $M$ un générateur parfait
+de $D_\QCoh(\mathcal{O}_X)$, voir Catégories dérivées des espaces, Théorème
+\ref{spaces-perfect-theorem-bondal-van-den-Bergh}. Alors $L(g')^*M$ est un
+générateur de $D_\QCoh(\mathcal{O}_{X'})$, voir
+Catégories dérivées des espaces, Remarque
+\ref{spaces-perfect-remark-pullback-generator}.
+Il suffit donc de montrer que (\ref{equation-base-change-map})
+induit un isomorphisme
+\begin{equation}
+\label{equation-iso}
+R\Hom_{X'}(L(g')^*M, L(g')^*a(K))
+\longrightarrow
+R\Hom_{X'}(L(g')^*M, a'(Lg^*K))
+\end{equation}
+de complexes de Hom globaux, voir
+Cohomologie sur les sites, Section \ref{sites-cohomology-section-global-RHom},
+car cela impliquera que le cône de $L(g')^*a(K) \to a'(Lg^*K)$
+est nul.
+La démonstration est structurée comme suit : nous montrerons d'abord que
+ces complexes de Hom sont isomorphes et, dans sa dernière partie,
+que l'isomorphisme est induit par (\ref{equation-iso}).
+
+\medskip\noindent
+Le membre de gauche. Comme $M$ est parfait, le morphisme canonique
+$$
+R\Hom_X(M, a(K)) \otimes^\mathbf{L}_A A'
+\longrightarrow
+R\Hom_{X'}(L(g')^*M, L(g')^*a(K))
+$$
+est un isomorphisme d'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-affine-morphism-and-hom-out-of-perfect}.
+En le combinant avec l'isomorphisme
+$R\Hom_Y(Rf_*M, K) = R\Hom_X(M, a(K))$
+du Lemme \ref{lemma-iso-global-hom},
+nous obtenons que le membre de gauche est égal à
+$R\Hom_Y(Rf_*M, K) \otimes^\mathbf{L}_A A'$.
+
+\medskip\noindent
+Le membre de droite. Nous utilisons d'abord ici l'isomorphisme
+$$
+R\Hom_{X'}(L(g')^*M, a'(Lg^*K)) = R\Hom_{Y'}(Rf'_*L(g')^*M, Lg^*K)
+$$
+du Lemme \ref{lemma-iso-global-hom}. Comme $f$ et $g$ sont
+indépendants au sens de Tor, le morphisme de changement de base
+$Lg^*Rf_*M \to Rf'_*L(g')^*M$ est un isomorphisme d'après
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-compare-base-change}.
+Nous pouvons donc le réécrire sous la forme $R\Hom_{Y'}(Lg^*Rf_*M, Lg^*K)$.
+Comme $Y$, $Y'$ sont affines et que $K$, $Rf_*M$ appartiennent à $D_\QCoh(\mathcal{O}_Y)$
+(Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-quasi-coherence-direct-image}),
+nous avons un morphisme canonique
+$$
+\beta :
+R\Hom_Y(Rf_*M, K) \otimes^\mathbf{L}_A A'
+\longrightarrow
+R\Hom_{Y'}(Lg^*Rf_*M, Lg^*K)
+$$
+dans $D(A')$. C'est la flèche de
+Compléments d'algèbre, Équation (\ref{more-algebra-equation-base-change-RHom}),
+où nous avons utilisé Catégories dérivées des schémas, Lemmes
+\ref{perfect-lemma-affine-compare-bounded} et
+\ref{perfect-lemma-quasi-coherence-internal-hom},
+pour passer de la géométrie à l'algèbre et réciproquement.
+\begin{enumerate}
+\item Si $f$ est plat et de présentation finie, le complexe $Rf_*M$
+est parfait sur $Y$ d'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general},
+et $\beta$ est un isomorphisme d'après
+Compléments d'algèbre, Lemme \ref{more-algebra-lemma-base-change-RHom}, partie (1).
+\item Si $f$ est parfait et $Y$ noethérien, le complexe $Rf_*M$
+est parfait sur $Y$ d'après Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-perfect-proper-perfect-direct-image},
+et $\beta$ est un isomorphisme comme précédemment.
+\item Si $g$ est de dimension de Tor finie et $Y$ est noethérien,
+le complexe $Rf_*M$ est pseudo-cohérent sur $Y$
+(Catégories dérivées des espaces, Lemmes
+\ref{spaces-perfect-lemma-direct-image-coherent} et
+\ref{spaces-perfect-lemma-identify-pseudo-coherent-noetherian}),
+et $\beta$ est un isomorphisme d'après
+Compléments d'algèbre, Lemme \ref{more-algebra-lemma-base-change-RHom}, partie (4).
+\end{enumerate}
+Nous concluons que nous obtenons le même résultat que dans le paragraphe précédent.
+
+\medskip\noindent
+Dans la suite de la démonstration, nous montrons que les identifications des
+membres de gauche et de droite de (\ref{equation-iso})
+données dans les deuxième et troisième paragraphes sont effectivement données par
+(\ref{equation-iso}). Pour que nos formules restent maniables,
+nous noterons $(-, -)_X = R\Hom_X(-, -)$, écrirons $- \otimes A'$
+à la place de $- \otimes_A^\mathbf{L} A'$, et abrégerons
+$g^* = Lg^*$ et $f_* = Rf_*$. Considérons le diagramme
+commutatif suivant :
+$$
+\xymatrix{
+((g')^*M, (g')^*a(K))_{X'} \ar[d] &
+(M, a(K))_X \otimes A' \ar[l]^-\alpha \ar[d] &
+(f_*M, K)_Y \otimes A' \ar@{=}[l] \ar[d] \\
+((g')^*M, (g')^*a(g_*g^*K))_{X'} &
+(M, a(g_*g^*K))_X \otimes A' \ar[l]^-\alpha &
+(f_*M, g_*g^*K)_Y \otimes A' \ar@{=}[l] \ar@/_4pc/[dd]_{\mu'} \\
+((g')^*M, (g')^*g'_*a'(g^*K))_{X'} \ar[u] \ar[d] &
+(M, g'_*a'(g^*K))_X \otimes A' \ar[u] \ar[l]^-\alpha \ar[ld]^\mu &
+(f_*M, K) \otimes A' \ar[d]^\beta \\
+((g')^*M, a'(g^*K))_{X'} &
+(f'_*(g')^*M, g^*K)_{Y'} \ar@{=}[l] \ar[r] &
+(g^*f_*M, g^*K)_{Y'}
+}
+$$
+Les flèches étiquetées $\alpha$ sont les morphismes de
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-affine-morphism-and-hom-out-of-perfect},
+pour le diagramme de sommets $X', X, Y', Y$.
+La partie supérieure du diagramme est commutative, car les flèches horizontales sont
+fonctorielles en leurs arguments.
+Les flèches verticales du milieu proviennent de la transformation inversible
+$g'_* \circ a' \to a \circ g_*$ du Lemme \ref{lemma-flat-precompose-pus},
+et le carré médian est donc commutatif.
+Descendre le long du côté gauche donne (\ref{equation-iso}).
+Les flèches horizontales supérieures donnent les identifications utilisées dans le
+deuxième paragraphe de la démonstration.
+Les flèches horizontales inférieures, y compris $\beta$, donnent les identifications
+utilisées dans le troisième paragraphe de la démonstration. Étant donnés $E \in D(A)$,
+$E' \in D(A')$ et $c : E \to E'$ dans $D(A)$, nous noterons
+$\mu_c : E \otimes A' \to E'$ le morphisme induit par $c$
+et par l'adjonction entre restriction et changement de base ;
+si $c$ est clair, nous écrivons $\mu = \mu_c$, c'est-à-dire que nous
+omettons $c$ de la notation. Le morphisme $\mu$ du diagramme est de cette
+forme, avec $c$ donné par l'identification
+$(M, g'_*a(g^*K))_X = ((g')^*M, a'(g^*K))_{X'}$
+; le triangle contenant $\mu$ est commutatif d'après
+Catégories dérivées des espaces, Remarque
+\ref{spaces-perfect-remark-multiplication-map}.
+
+\medskip\noindent
+Observons que
+$$
+\xymatrix{
+(M, a(g_*g^*K))_X &
+(f_*M, g_* g^*K)_Y \ar@{=}[l] &
+(g^*f_*M, g^*K)_{Y'} \ar@{=}[l] \\
+(M, g'_* a'(g^*K))_X \ar[u] &
+((g')^*M, a'(g^*K))_{X'} \ar@{=}[l] &
+(f'_*(g')^*M, g^*K)_{Y'} \ar@{=}[l] \ar[u]
+}
+$$
+est commutatif par la définition même de la transformation
+$g'_* \circ a' \to a \circ g_*$. Si $\mu'$ désigne, comme ci-dessus, le morphisme
+correspondant à l'identification
+$(f_*M, g_*g^*K)_X = (g^*f_*M, g^*K)_{Y'}$, alors
+l'hexagone est lui aussi commutatif. Il suffit donc de montrer que
+$\beta$ est égal au composé de
+$(f_*M, K)_Y \otimes A' \to (f_*M, g_*g^*K)_X \otimes A'$
+et de $\mu'$. Pour cela, il suffit de démontrer que les deux morphismes induits
+$(f_*M, K)_Y \to (g^*f_*M, g^*K)_{Y'}$ sont égaux.
+Autrement dit, il suffit de montrer que le diagramme
+$$
+\xymatrix{
+R\Hom_A(E, K) \ar[rr]_{\text{induit par }\beta} \ar[rd] & &
+R\Hom_{A'}(E \otimes_A^\mathbf{L} A', K \otimes_A^\mathbf{L} A') \\
+& R\Hom_A(E, K \otimes_A^\mathbf{L} A') \ar[ru]
+}
+$$
+est commutatif pour tous $E, K \in D(A)$. Puisque c'est ainsi que $\beta$ est construit dans
+Compléments d'algèbre, Section \ref{more-algebra-section-base-change-RHom},
+la démonstration est achevée.
+\end{proof}
+
+
+
+
+
+ 
+\section{Adjoint à droite de l'image directe et morphismes trace}
+\label{section-trace}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques quasi-compacts et quasi-séparés
+sur $S$.
+Soit $a : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$
+l'adjoint à droite du Lemme \ref{lemma-twisted-inverse-image}. D'après
+Catégories, Section \ref{categories-section-adjoint}, nous obtenons une
+transformation de foncteurs
+$$
+\text{Tr}_f : Rf_* \circ a \longrightarrow \text{id}
+$$
+Le morphisme correspondant $\text{Tr}_{f, K} : Rf_*a(K) \longrightarrow K$
+pour $K \in D_\QCoh(\mathcal{O}_Y)$ est parfois appelé le {\it morphisme trace}.
+C'est le morphisme ayant la propriété que la bijection
+$$
+\Hom_X(L, a(K)) \longrightarrow \Hom_Y(Rf_*L, K)
+$$
+pour $L \in D_\QCoh(\mathcal{O}_X)$ qui caractérise l'adjoint à droite
+est donnée par
+$$
+\varphi \longmapsto \text{Tr}_{f, K} \circ Rf_*\varphi
+$$
+Le morphisme canonique (\ref{equation-sheafy-trace})
+$$
+Rf_*R\SheafHom_{\mathcal{O}_X}(L, a(K))
+\longrightarrow
+R\SheafHom_{\mathcal{O}_Y}(Rf_*L, K)
+$$
+est obtenu par composition avec $\text{Tr}_{f, K}$.
+Tout morphisme trace que nous considérerons dans cette section sera un
+cas particulier de celui-ci. Avant d'en étudier quelques cas particuliers,
+nous montrons que la formation du morphisme trace commute au changement de base.
+
+\begin{lemma}[Morphisme trace et changement de base]
+\label{lemma-trace-map-and-base-change}
+Supposons donné un diagramme (\ref{equation-base-change}).
+Alors les morphismes
+$1 \star \text{Tr}_f : Lg^* \circ Rf_* \circ a \to Lg^*$ et
+$\text{Tr}_{f'} \star 1 : Rf'_* \circ a' \circ Lg^* \to Lg^*$
+coïncident via les morphismes de changement de base
+$\beta : Lg^* \circ Rf_* \to Rf'_* \circ L(g')^*$
+(Cohomologie sur les sites, Remarque \ref{sites-cohomology-remark-base-change})
+et $\alpha : L(g')^* \circ a \to a' \circ Lg^*$
+(\ref{equation-base-change-map}).
+Plus précisément, le diagramme
+$$
+\xymatrix{
+Lg^* \circ Rf_* \circ a
+\ar[d]_{\beta \star 1} \ar[r]_-{1 \star \text{Tr}_f} &
+Lg^* \\
+Rf'_* \circ L(g')^* \circ a \ar[r]^{1 \star \alpha} &
+Rf'_* \circ a' \circ Lg^* \ar[u]_{\text{Tr}_{f'} \star 1}
+}
+$$
+de transformations de foncteurs est commutatif.
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, nous écrivons $f_*$ pour $Rf_*$ et $g^*$ pour $Lg^*$, et nous
+omettons les produits $\star$ avec les identités, puisqu'on peut déterminer ceux qu'il faut
+ajouter dès que la source et le but de la transformation sont connus.
+Rappelons que $\beta : g^* \circ f_* \to f'_* \circ (g')^*$ est un isomorphisme
+et que $\alpha$ est défini à l'aide de
+l'isomorphisme $\beta^\vee : g'_* \circ a' \to a \circ g_*$,
+qui est l'adjoint de $\beta$ ; voir le Lemme \ref{lemma-flat-precompose-pus}
+et sa démonstration. Remarquons d'abord que la flèche horizontale supérieure
+du diagramme du lemme est égale au composé
+$$
+g^* \circ f_* \circ a \to
+g^* \circ f_* \circ a \circ g_* \circ g^* \to
+g^* \circ g_* \circ g^* \to g^*
+$$
+où la première flèche est l'unité de $(g^*, g_*)$, la deuxième flèche
+est $\text{Tr}_f$, et la troisième est la co-unité de $(g^*, g_*)$.
+C'est une conséquence immédiate du fait que le composé
+$g^* \to g^* \circ g_* \circ g^* \to g^*$ de l'unité et de la co-unité est l'identité.
+Considérons le diagramme
+$$
+\xymatrix{
+& g^* \circ f_* \circ a \ar[ld]_\beta \ar[d] \ar[r]_{\text{Tr}_f} & g^* \\
+f'_* \circ (g')^* \circ a \ar[dr] &
+g^* \circ f_* \circ a \circ g_* \circ g^* \ar[d]_\beta \ar[ru] &
+g^* \circ f_* \circ g'_* \circ a' \circ g^* \ar[l]_{\beta^\vee} \ar[d]_\beta &
+f'_* \circ a' \circ g^* \ar[lu]_{\text{Tr}_{f'}} \\
+& f'_* \circ (g')^* \circ a \circ g_* \circ g^* &
+f'_* \circ (g')^* \circ g'_* \circ a' \circ g^* \ar[ru] \ar[l]_{\beta^\vee}
+}
+$$
+Dans ce diagramme, les deux carrés sont commutatifs d'après
+Catégories, Lemme \ref{categories-lemma-properties-2-cat-cats},
+ou, plus simplement, d'après la discussion qui précède
+Catégories, Définition \ref{categories-definition-horizontal-composition}.
+Le triangle est commutatif d'après la discussion ci-dessus. D'après
+Catégories, Lemme
+\ref{categories-lemma-transformation-between-functors-and-adjoints},
+le carré
+$$
+\xymatrix{
+g^* \circ f_* \circ g'_* \circ a' \ar[d]_{\beta^\vee} \ar[r]_-\beta &
+f'_* \circ (g')^* \circ g'_* \circ a' \ar[d] \\
+g^* \circ f_* \circ a \circ g_* \ar[r] &
+\text{id}
+}
+$$
+est commutatif, ce qui implique que le pentagone du grand diagramme est commutatif.
+Comme $\beta$ et $\beta^\vee$ sont des isomorphismes, et comme le parcours
+du bord extérieur du grand diagramme est égal à
+$\text{Tr}_f \circ \alpha \circ \beta$ par définition, cela démontre le lemme.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques quasi-compacts et quasi-séparés
+sur $S$.
+Soit $a : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$
+l'adjoint à droite de $Rf_*$ comme dans le
+Lemme \ref{lemma-twisted-inverse-image}. D'après
+Catégories, Section \ref{categories-section-adjoint}, nous obtenons une
+transformation de foncteurs
+$$
+\eta_f : \text{id} \to  a \circ Rf_*
+$$
+appelée l'unité de l'adjonction.
+
+\begin{lemma}
+\label{lemma-unit-and-base-change}
+Supposons donné un diagramme (\ref{equation-base-change}). Alors les morphismes
+$1 \star \eta_f : L(g')^* \to L(g')^* \circ a \circ Rf_*$ et
+$\eta_{f'} \star 1 : L(g')^* \to a' \circ Rf'_* \circ L(g')^*$
+coïncident via les morphismes de changement de base
+$\beta : Lg^* \circ Rf_* \to Rf'_* \circ L(g')^*$
+(Cohomologie sur les sites, Remarque \ref{sites-cohomology-remark-base-change})
+et $\alpha : L(g')^* \circ a \to a' \circ Lg^*$
+(\ref{equation-base-change-map}).
+Plus précisément, le diagramme
+$$
+\xymatrix{
+L(g')^* \ar[r]_-{1 \star \eta_f} \ar[d]_{\eta_{f'} \star 1} &
+L(g')^* \circ a \circ Rf_* \ar[d]^\alpha \\
+a' \circ Rf'_* \circ L(g')^* &
+a' \circ Lg^* \circ Rf_* \ar[l]_-\beta
+}
+$$
+de transformations de foncteurs est commutatif.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est duale de celle du Lemme \ref{lemma-trace-map-and-base-change}.
+Dans cette démonstration, nous écrivons $f_*$ pour $Rf_*$ et $g^*$ pour $Lg^*$, et nous
+omettons les produits $\star$ avec les identités, puisqu'on peut déterminer ceux qu'il faut
+ajouter dès que la source et le but de la transformation sont connus.
+Rappelons que $\beta : g^* \circ f_* \to f'_* \circ (g')^*$ est un isomorphisme
+et que $\alpha$ est défini à l'aide de
+l'isomorphisme $\beta^\vee : g'_* \circ a' \to a \circ g_*$,
+qui est l'adjoint de $\beta$ ; voir le Lemme \ref{lemma-flat-precompose-pus}
+et sa démonstration. Remarquons d'abord que la flèche verticale gauche
+du diagramme du lemme est égale au composé
+$$
+(g')^* \to (g')^* \circ g'_* \circ (g')^* \to
+(g')^* \circ g'_* \circ a' \circ f'_* \circ (g')^* \to
+a' \circ f'_* \circ (g')^*
+$$
+où la première flèche est l'unité de $((g')^*, g'_*)$, la deuxième flèche
+est $\eta_{f'}$, et la troisième est la co-unité de $((g')^*, g'_*)$.
+C'est une conséquence immédiate du fait que le composé
+$(g')^* \to (g')^* \circ (g')_* \circ (g')^* \to (g')^*$
+de l'unité et de la co-unité est l'identité. Considérons le diagramme
+$$
+\xymatrix{
+& (g')^* \circ a \circ f_* \ar[r] &
+(g')^* \circ a \circ g_* \circ g^* \circ f_*
+\ar[ld]_\beta \\
+(g')^* \ar[ru]^{\eta_f} \ar[dd]_{\eta_{f'}} \ar[rd] &
+(g')^* \circ a \circ g_* \circ f'_* \circ (g')^* &
+(g')^* \circ g'_* \circ a' \circ g^* \circ f_*
+\ar[u]_{\beta^\vee} \ar[ld]_\beta \ar[d] \\
+& (g')^* \circ g'_* \circ a' \circ f'_* \circ (g')^*
+\ar[ld] \ar[u]_{\beta^\vee} &
+a' \circ g^* \circ f_* \ar[lld]^\beta \\
+a' \circ f'_* \circ (g')^*
+}
+$$
+Dans ce diagramme, les deux carrés sont commutatifs d'après
+Catégories, Lemme \ref{categories-lemma-properties-2-cat-cats},
+ou, plus simplement, d'après la discussion qui précède
+Catégories, Définition \ref{categories-definition-horizontal-composition}.
+Le triangle est commutatif d'après la discussion ci-dessus. D'après le dual de
+Catégories, Lemme
+\ref{categories-lemma-transformation-between-functors-and-adjoints},
+le carré
+$$
+\xymatrix{
+\text{id} \ar[r] \ar[d] &
+g'_* \circ a' \circ g^* \circ f_* \ar[d]^\beta \\
+g'_* \circ a' \circ g^* \circ f_* \ar[r]^{\beta^\vee} &
+a \circ g_* \circ f'_* \circ (g')^*
+}
+$$
+est commutatif, ce qui implique que le pentagone du grand diagramme est commutatif.
+Comme $\beta$ et $\beta^\vee$ sont des isomorphismes, et comme le parcours
+du bord extérieur du grand diagramme est égal à
+$\beta \circ \alpha \circ \eta_f$ par définition, cela démontre le lemme.
+\end{proof}
+
+
+
+
+
+ 
+\section{Adjoint à droite de l'image directe et image réciproque}
+\label{section-compare-with-pullback}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques quasi-compacts et quasi-séparés
+sur $S$.
+Soit $a$ l'adjoint à droite de l'image directe, comme dans le
+Lemme \ref{lemma-twisted-inverse-image}. Pour $K, L \in D_\QCoh(\mathcal{O}_Y)$,
+il existe un morphisme canonique
+$$
+Lf^*K \otimes^\mathbf{L}_{\mathcal{O}_X} a(L)
+\longrightarrow
+a(K \otimes_{\mathcal{O}_Y}^\mathbf{L} L)
+$$
+Ce morphisme est en effet adjoint d'un morphisme
+$$
+Rf_*(Lf^*K \otimes^\mathbf{L}_{\mathcal{O}_X} a(L)) =
+K \otimes^\mathbf{L}_{\mathcal{O}_Y} Rf_*(a(L))
+\longrightarrow
+K \otimes^\mathbf{L}_{\mathcal{O}_Y} L
+$$
+(l'égalité résulte de Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-cohomology-base-change}),
+pour lequel nous utilisons le morphisme trace $Rf_*a(L) \to L$.
+Lorsque $L = \mathcal{O}_Y$, nous obtenons un morphisme
+\begin{equation}
+\label{equation-compare-with-pullback}
+Lf^*K \otimes^\mathbf{L}_{\mathcal{O}_X} a(\mathcal{O}_Y) \longrightarrow a(K)
+\end{equation}
+fonctoriel en $K$ et compatible aux triangles distingués.
+
+\begin{lemma}
+\label{lemma-compare-with-pullback-perfect}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques quasi-compacts et quasi-séparés
+sur $S$. Le morphisme
+$Lf^*K \otimes^\mathbf{L}_{\mathcal{O}_X} a(L) \to
+a(K \otimes_{\mathcal{O}_Y}^\mathbf{L} L)$
+défini ci-dessus pour $K, L \in D_\QCoh(\mathcal{O}_Y)$
+est un isomorphisme si $K$ est parfait. En particulier,
+(\ref{equation-compare-with-pullback}) est un isomorphisme si $K$ est parfait.
+\end{lemma}
+
+\begin{proof}
+Soit $K^\vee$ le « dual » de $K$, voir
+Cohomologie sur les sites, Lemme \ref{sites-cohomology-lemma-dual-perfect-complex}.
+Pour $M \in D_\QCoh(\mathcal{O}_X)$, nous avons
+\begin{align*}
+\Hom_{D(\mathcal{O}_Y)}(Rf_*M, K \otimes^\mathbf{L}_{\mathcal{O}_Y} L)
+& =
+\Hom_{D(\mathcal{O}_Y)}(
+Rf_*M \otimes^\mathbf{L}_{\mathcal{O}_Y} K^\vee, L) \\
+& =
+\Hom_{D(\mathcal{O}_X)}(
+M \otimes^\mathbf{L}_{\mathcal{O}_X} Lf^*K^\vee, a(L)) \\
+& =
+\Hom_{D(\mathcal{O}_X)}(M,
+Lf^*K \otimes^\mathbf{L}_{\mathcal{O}_X} a(L))
+\end{align*}
+La deuxième égalité résulte de la définition de $a$ et de la formule de projection
+(Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-projection-formula}),
+ou du résultat plus général Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-cohomology-base-change}.
+Le résultat découle donc du lemme de Yoneda.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restriction-compare-with-pullback}
+Supposons donné un diagramme (\ref{equation-base-change}).
+Soit $K \in D_\QCoh(\mathcal{O}_Y)$. Le diagramme
+$$
+\xymatrix{
+L(g')^*(Lf^*K \otimes^\mathbf{L}_{\mathcal{O}_X} a(\mathcal{O}_Y))
+\ar[r] \ar[d] & L(g')^*a(K) \ar[d] \\
+L(f')^*Lg^*K \otimes_{\mathcal{O}_{X'}}^\mathbf{L} a'(\mathcal{O}_{Y'})
+\ar[r] & a'(Lg^*K)
+}
+$$
+est commutatif, où les flèches horizontales sont les morphismes
+(\ref{equation-compare-with-pullback}) pour $K$ et $Lg^*K$,
+et où les flèches verticales sont construites à l'aide de
+Cohomologie sur les sites, Remarque \ref{sites-cohomology-remark-base-change}, et de
+(\ref{equation-base-change-map}).
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, nous écrirons $f_*$ pour $Rf_*$ et $f^*$ pour $Lf^*$, etc.,
+et nous écrirons $\otimes$ pour $\otimes^\mathbf{L}_{\mathcal{O}_X}$, etc.
+Écrivons (\ref{equation-compare-with-pullback}) comme le composé
+\begin{align*}
+f^*K \otimes a(\mathcal{O}_Y)
+& \to
+a(f_*(f^*K \otimes a(\mathcal{O}_Y))) \\
+& \leftarrow
+a(K \otimes f_*a(\mathcal{O}_K)) \\
+& \to
+a(K \otimes \mathcal{O}_Y) \\
+& \to
+a(K)
+\end{align*}
+Ici, la première flèche est l'unité $\eta_f$, la deuxième est l'image par $a$
+de Cohomologie sur les sites, Équation
+(\ref{sites-cohomology-equation-projection-formula-map}), qui est un
+isomorphisme d'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-cohomology-base-change} ; la troisième flèche est
+l'image par $a$ de $\text{id}_K \otimes \text{Tr}_f$, et la quatrième
+est l'image par $a$ de l'isomorphisme $K \otimes \mathcal{O}_Y = K$.
+La démonstration du lemme consiste à montrer que chacun de ces
+morphismes donne un carré commutatif comme dans l'énoncé du lemme.
+Pour $\eta_f$ et $\text{Tr}_f$, cela résulte des
+Lemmes \ref{lemma-unit-and-base-change} et
+\ref{lemma-trace-map-and-base-change}.
+Pour la flèche qui utilise Cohomologie sur les sites, Équation
+(\ref{sites-cohomology-equation-projection-formula-map}),
+cela résulte de Cohomologie sur les sites, Remarque
+\ref{sites-cohomology-remark-compatible-with-diagram}.
+Pour le morphisme de multiplication, c'est clair. Cela achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+
+ 
+\section{Adjoint à droite de l'image directe pour les morphismes propres et plats}
+\label{section-proper-flat}
+
+\noindent
+Pour les morphismes propres, plats et de présentation finie entre espaces algébriques
+quasi-compacts et quasi-séparés, l'adjoint à droite de l'image directe
+possède quelques propriétés remarquables.
+
+\begin{lemma}
+\label{lemma-proper-flat}
+Soit $S$ un schéma.
+Soit $Y$ un espace algébrique quasi-compact et quasi-séparé sur $S$.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques propre, plat et
+de présentation finie.
+Soit $a$ l'adjoint à droite de
+$Rf_* : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$ du
+Lemme \ref{lemma-twisted-inverse-image}. Alors $a$ commute aux sommes directes.
+\end{lemma}
+
+\begin{proof}
+Soit $P$ un objet parfait de $D(\mathcal{O}_X)$. D'après
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general},
+le complexe $Rf_*P$ est parfait sur $Y$.
+Soit $K_i$ une famille d'objets de $D_\QCoh(\mathcal{O}_Y)$.
+Alors
+\begin{align*}
+\Hom_{D(\mathcal{O}_X)}(P, a(\bigoplus K_i))
+& =
+\Hom_{D(\mathcal{O}_Y)}(Rf_*P, \bigoplus K_i) \\
+& =
+\bigoplus \Hom_{D(\mathcal{O}_Y)}(Rf_*P, K_i) \\
+& =
+\bigoplus \Hom_{D(\mathcal{O}_X)}(P, a(K_i))
+\end{align*}
+car un objet parfait est compact (Catégories dérivées des espaces,
+Proposition \ref{spaces-perfect-proposition-compact-is-perfect}).
+Comme $D_\QCoh(\mathcal{O}_X)$ possède un générateur parfait
+(Catégories dérivées des espaces, Théorème
+\ref{spaces-perfect-theorem-bondal-van-den-Bergh}),
+nous concluons que le morphisme $\bigoplus a(K_i) \to a(\bigoplus K_i)$
+est un isomorphisme, c'est-à-dire que $a$ commute aux sommes directes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-with-pullback-flat-proper}
+Soit $S$ un schéma.
+Soit $Y$ un espace algébrique quasi-compact et quasi-séparé sur $S$.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques propre, plat et
+de présentation finie.
+Le morphisme (\ref{equation-compare-with-pullback}) est un isomorphisme
+pour tout objet $K$ de $D_\QCoh(\mathcal{O}_Y)$.
+\end{lemma}
+
+\begin{proof}
+D'après le Lemme \ref{lemma-proper-flat}, nous savons que $a$ commute
+aux sommes directes. La collection des objets de
+$D_\QCoh(\mathcal{O}_Y)$ pour lesquels (\ref{equation-compare-with-pullback})
+est un isomorphisme est donc une sous-catégorie strictement pleine, saturée et triangulée
+de $D_\QCoh(\mathcal{O}_Y)$, qui est en outre
+stable par sommes directes. Comme $D_\QCoh(\mathcal{O}_Y)$
+est une catégorie de modules (Catégories dérivées des espaces, Théorème
+\ref{spaces-perfect-theorem-DQCoh-is-Ddga}) engendrée par un unique
+objet parfait (Catégories dérivées des espaces, Théorème
+\ref{spaces-perfect-theorem-bondal-van-den-Bergh}),
+nous pouvons raisonner comme dans
+Compléments d'algèbre, Remarque \ref{more-algebra-remark-P-resolution},
+pour voir qu'il suffit de démontrer que (\ref{equation-compare-with-pullback})
+est un isomorphisme pour un seul objet parfait.
+Or le résultat vaut pour les objets parfaits, voir
+Lemme \ref{lemma-compare-with-pullback-perfect}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-properties-relative-dualizing}
+Soit $Y$ un schéma affine. Soit $f : X \to Y$ un morphisme
+d'espaces algébriques propre, plat et de présentation finie.
+Soit $a$ l'adjoint à droite de
+$Rf_* : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$ du
+Lemme \ref{lemma-twisted-inverse-image}.
+Alors
+\begin{enumerate}
+\item $a(\mathcal{O}_Y)$ est un objet $Y$-parfait de $D(\mathcal{O}_X)$,
+\item les faisceaux de cohomologie de $Rf_*a(\mathcal{O}_Y)$
+sont nuls en degrés positifs,
+\item $\mathcal{O}_X \to
+R\SheafHom_{\mathcal{O}_X}(a(\mathcal{O}_Y), a(\mathcal{O}_Y))$
+est un isomorphisme.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour un objet parfait $E$ de $D(\mathcal{O}_X)$, nous avons
+\begin{align*}
+Rf_*(E \otimes_{\mathcal{O}_X}^\mathbf{L} \omega_{X/Y}^\bullet)
+& =
+Rf_*R\SheafHom_{\mathcal{O}_X}(E^\vee, \omega_{X/Y}^\bullet) \\
+& =
+R\SheafHom_{\mathcal{O}_Y}(Rf_*E^\vee, \mathcal{O}_Y) \\
+& =
+(Rf_*E^\vee)^\vee
+\end{align*}
+Pour la première égalité, voir
+Cohomologie sur les sites, Lemme \ref{sites-cohomology-lemma-dual-perfect-complex}.
+Pour la deuxième égalité, voir le Lemme \ref{lemma-iso-on-RSheafHom},
+la Remarque \ref{remark-iso-on-RSheafHom}, et
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}.
+La troisième égalité est la définition du dual. En particulier,
+ces références montrent aussi que le résultat est un objet parfait
+de $D(\mathcal{O}_Y)$. Nous concluons que $\omega_{X/Y}^\bullet$
+est $Y$-parfait d'après Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-characterize-relatively-perfect}.
+Cela démontre (1).
+
+\medskip\noindent
+Soit $M$ un objet de $D_\QCoh(\mathcal{O}_Y)$. Alors
+\begin{align*}
+\Hom_Y(M, Rf_*a(\mathcal{O}_Y)) & =
+\Hom_X(Lf^*M, a(\mathcal{O}_Y)) \\
+& =
+\Hom_Y(Rf_*Lf^*M, \mathcal{O}_Y) \\
+& =
+\Hom_Y(M \otimes_{\mathcal{O}_Y}^\mathbf{L} Rf_*\mathcal{O}_Y, \mathcal{O}_Y)
+\end{align*}
+La première égalité résulte de Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-adjoint}.
+La deuxième égalité résulte de la construction de $a$.
+La troisième égalité résulte de Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-cohomology-base-change}.
+Rappelons que $Rf_*\mathcal{O}_X$ est parfait, d'amplitude de Tor dans $[0, N]$
+pour un certain $N$, voir
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}.
+Nous pouvons donc représenter $Rf_*\mathcal{O}_X$ par un complexe de
+modules projectifs finis placé en degrés $[0, N]$
+(en utilisant Compléments d'algèbre, Lemme \ref{more-algebra-lemma-perfect},
+et le fait que $Y$ est affine).
+Ainsi, si $M = \mathcal{O}_Y[-i]$ pour un certain $i > 0$, le dernier
+groupe est nul. Comme $Y$ est affine, nous concluons que
+$H^i(Rf_*a(\mathcal{O}_Y)) = 0$ pour $i > 0$.
+Cela démontre (2).
+
+\medskip\noindent
+Soit $E$ un objet parfait de $D_\QCoh(\mathcal{O}_X)$. Alors
+nous avons
+\begin{align*}
+\Hom_X(E, R\SheafHom_{\mathcal{O}_X}(a(\mathcal{O}_Y), a(\mathcal{O}_Y))
+& =
+\Hom_X(E \otimes_{\mathcal{O}_X}^\mathbf{L} a(\mathcal{O}_Y),
+a(\mathcal{O}_Y)) \\
+& =
+\Hom_Y(Rf_*(E \otimes_{\mathcal{O}_X}^\mathbf{L} a(\mathcal{O}_Y)),
+\mathcal{O}_Y) \\
+& =
+\Hom_Y(Rf_*(R\SheafHom_{\mathcal{O}_X}(E^\vee, a(\mathcal{O}_Y))),
+\mathcal{O}_Y) \\
+& =
+\Hom_Y(R\SheafHom_{\mathcal{O}_Y}(Rf_*E^\vee, \mathcal{O}_Y),
+\mathcal{O}_Y) \\
+& =
+R\Gamma(Y, Rf_*E^\vee) \\
+& =
+\Hom_X(E, \mathcal{O}_X)
+\end{align*}
+La première égalité résulte de Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-internal-hom}.
+La deuxième égalité est la définition de $a$.
+La troisième égalité provient de la construction du complexe parfait dual
+$E^\vee$, voir Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-dual-perfect-complex}.
+La quatrième égalité résulte de l'égalité
+$Rf_*R\SheafHom_{\mathcal{O}_X}(E^\vee, \omega_{X/Y}^\bullet) =
+R\SheafHom_{\mathcal{O}_Y}(Rf_*E^\vee, \mathcal{O}_Y)$
+démontrée dans le premier paragraphe de la preuve.
+La cinquième égalité résulte de la bidualité pour les complexes parfaits
+(Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-dual-perfect-complex})
+et du fait que $Rf_*E$ est parfait d'après
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}.
+La dernière égalité est la suite spectrale de Leray pour $f$.
+Cette suite d'égalités montre essentiellement que (3)
+vaut d'après le lemme de Yoneda. En effet, l'objet
+$R\SheafHom(a(\mathcal{O}_Y), a(\mathcal{O}_Y))$
+appartient à $D_\QCoh(\mathcal{O}_X)$ d'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-quasi-coherence-internal-hom}.
+En prenant $E = \mathcal{O}_X$ ci-dessus, nous obtenons un morphisme
+$\alpha : \mathcal{O}_X \to
+R\SheafHom_{\mathcal{O}_X}(a(\mathcal{O}_Y), a(\mathcal{O}_Y))$
+correspondant à
+$\text{id}_{\mathcal{O}_X} \in \Hom_X(\mathcal{O}_X, \mathcal{O}_X)$.
+Comme tous les isomorphismes ci-dessus sont fonctoriels en $E$, nous
+voyons que le cône de $\alpha$ est un objet $C$ de $D_\QCoh(\mathcal{O}_X)$
+tel que $\Hom(E, C) = 0$ pour tout $E$ parfait.
+Comme les objets parfaits engendrent
+(Catégories dérivées des espaces, Théorème
+\ref{spaces-perfect-theorem-bondal-van-den-Bergh}),
+nous concluons que $\alpha$ est un isomorphisme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+ 
+\section{Complexes dualisants relatifs pour les morphismes propres et plats}
+\label{section-relative-dualizing-proper-flat}
+
+\noindent
+Motivés par Dualité pour les schémas, Sections
+\ref{duality-section-proper-flat} et
+\ref{duality-section-relative-dualizing-complexes},
+ainsi que par les résultats de la
+Section \ref{section-proper-flat},
+nous posons la définition suivante.
+
+\begin{definition}
+\label{definition-relative-dualizing-proper-flat}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme propre et plat
+d'espaces algébriques sur $S$, de présentation finie.
+Un {\it complexe dualisant relatif} pour $X/Y$ est un couple
+$(\omega_{X/Y}^\bullet, \tau)$ formé d'un
+objet $Y$-parfait $\omega_{X/Y}^\bullet$ de $D(\mathcal{O}_X)$
+et d'un morphisme
+$$
+\tau : Rf_*\omega_{X/Y}^\bullet \longrightarrow \mathcal{O}_Y
+$$
+tel que, pour tout carré cartésien
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+où $Y'$ est un schéma affine, le couple
+$(L(g')^*\omega_{X/Y}^\bullet, Lg^*\tau)$
+soit isomorphe au couple
+$(a'(\mathcal{O}_{Y'}), \text{Tr}_{f', \mathcal{O}_{Y'}})$
+étudié dans les Sections
+\ref{section-twisted-inverse-image},
+\ref{section-base-change-map},
+\ref{section-base-change-II},
+\ref{section-trace},
+\ref{section-compare-with-pullback} et
+\ref{section-proper-flat}.
+\end{definition}
+
+\noindent
+Il convient de faire ici plusieurs remarques.
+\begin{enumerate}
+\item Dans la Définition \ref{definition-relative-dualizing-proper-flat},
+on peut supprimer l'hypothèse que $\omega_{X/Y}^\bullet$ est $Y$-parfait.
+En effet, en faisant parcourir à $Y'$ les membres d'un recouvrement \'etale de $Y$
+par des affines, le Lemme \ref{lemma-properties-relative-dualizing} montre
+que les restrictions de $\omega_{X/Y}^\bullet$ aux membres d'un
+recouvrement \'etale de $X$ sont $Y$-parfaites, ce qui implique que
+$\omega_{X/Y}^\bullet$ est $Y$-parfait ; voir
+Compléments sur les morphismes d'espaces, Section
+\ref{spaces-more-morphisms-section-relatively-perfect}.
+\item Considérons un complexe dualisant relatif
+$(\omega_{X/Y}^\bullet, \tau)$ et un carré cartésien comme dans la
+Définition \ref{definition-relative-dualizing-proper-flat}.
+Nous interpréterons l'existence de l'isomorphisme
+$(L(g')^*\omega_{X/Y}^\bullet, Lg^*\tau) \cong
+(a'(\mathcal{O}_{Y'}), \text{Tr}_{f', \mathcal{O}_{Y'}})$
+comme suit : elle affirme que, pour tout $M' \in D_\QCoh(\mathcal{O}_{X'})$,
+le morphisme
+$$
+\Hom_{X'}(M', L(g')^*\omega_{X/Y}^\bullet)
+\longrightarrow
+\Hom_{Y'}(Rf'_*M', \mathcal{O}_{Y'}),\quad
+\varphi' \longmapsto Lg^*\tau \circ Rf'_*\varphi'
+$$
+est un isomorphisme. Cela résulte de la définition de $a'$
+et de la discussion de la Section \ref{section-trace}. En particulier,
+le lemme de Yoneda garantit l'unicité de l'isomorphisme.
+\item Si $Y$ est lui-même affine, alors un complexe dualisant relatif
+$(\omega_{X/Y}^\bullet, \tau)$ existe et est canoniquement isomorphe
+à $(a(\mathcal{O}_Y), \text{Tr}_{f, \mathcal{O}_Y})$, où
+$a$ est l'adjoint à droite de $Rf_*$ comme dans le
+Lemme \ref{lemma-twisted-inverse-image}
+et $\text{Tr}_f$ est comme dans la Section \ref{section-trace}.
+En effet, un diagramme comme dans la définition donne
+un isomorphisme $L(g')^*a(\mathcal{O}_Y) \to a'(\mathcal{O}_{Y'})$ d'après le
+Lemme \ref{lemma-more-base-change},
+compatible aux morphismes trace d'après le
+Lemme \ref{lemma-trace-map-and-base-change}.
+\end{enumerate}
+Cela fournit exactement les données nécessaires pour recoller les
+complexes dualisants relatifs donnés localement en un complexe global. Nous suggérons au lecteur
+de sauter les démonstrations des lemmes suivants.
+
+\begin{lemma}
+\label{lemma-relative-dualizing-RHom}
+Soit $S$ un schéma. Soit $X \to Y$ un morphisme propre et plat
+d'espaces algébriques, de présentation finie.
+Si $(\omega_{X/Y}^\bullet, \tau)$ est un complexe dualisant relatif,
+alors $\mathcal{O}_X \to
+R\SheafHom_{\mathcal{O}_X}(\omega_{X/Y}^\bullet, \omega_{X/Y}^\bullet)$
+est un isomorphisme et les faisceaux de cohomologie de $Rf_*\omega_{X/Y}^\bullet$
+sont nuls en degrés positifs.
+\end{lemma}
+
+\begin{proof}
+Il suffit de le démontrer après changement de base par un schéma affine \'etale
+sur $Y$ ; cela résulte alors du
+Lemme \ref{lemma-properties-relative-dualizing}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-uniqueness-relative-dualizing}
+Soit $S$ un schéma. Soit $X \to Y$ un morphisme propre et plat
+d'espaces algébriques, de présentation finie.
+Si $(\omega_j^\bullet, \tau_j)$, $j = 1, 2$,
+sont deux complexes dualisants relatifs sur $X/Y$,
+alors il existe un unique isomorphisme
+$(\omega_1^\bullet, \tau_1) \to (\omega_2^\bullet, \tau_2)$.
+\end{lemma}
+
+\begin{proof}
+Considérons $g : Y' \to Y$ \'etale, avec $Y'$ un schéma affine,
+et notons $X' = Y' \times_Y X$ le changement de base.
+D'après la Définition \ref{definition-relative-dualizing-proper-flat}
+et la discussion qui la suit, il existe un unique isomorphisme
+$\iota : (\omega_1^\bullet|_{X'}, \tau_1|_{Y'}) \to
+(\omega_2^\bullet|_{X'}, \tau_2|_{Y'})$. Si $Y'' \to Y'$
+est un autre morphisme \'etale d'affines et $X'' = Y'' \times_Y X$,
+alors $\iota|_{X''}$ est l'unique isomorphisme
+$(\omega_1^\bullet|_{X''}, \tau_1|_{Y''}) \to
+(\omega_2^\bullet|_{X''}, \tau_2|_{Y''})$ (par unicité).
+De plus, nous avons
+$$
+\text{Ext}^p_{X'}(\omega_1^\bullet|_{X'}, \omega_2^\bullet|_{X'}) = 0,
+\quad p < 0
+$$
+car
+$\mathcal{O}_{X'} \cong
+R\SheafHom_{\mathcal{O}_{X'}}(\omega_1^\bullet|_{X'}, \omega_1^\bullet|_{X'})
+\cong
+R\SheafHom_{\mathcal{O}_{X'}}(\omega_1^\bullet|_{X'}, \omega_2^\bullet|_{X'})$
+d'après le Lemme \ref{lemma-relative-dualizing-RHom}.
+
+\medskip\noindent
+Choisissons un hyperrecouvrement \'etale $b : V \to Y$ tel que chaque
+$V_n = \coprod_{i \in I_n} Y_{n, i}$, avec $Y_{n, i}$ affine.
+C'est possible d'après Hyperrecouvrements, Lemme
+\ref{hypercovering-lemma-hypercovering-object} et
+Remarque \ref{hypercovering-remark-take-unions-hypercovering-X}
+(pour remplacer l'hyperrecouvrement produit
+dans le lemme par celui qui possède des réunions disjointes en chaque degré).
+Notons $X_{n, i} = Y_{n, i} \times_Y X$ et $U_n = V_n \times_Y X$,
+de sorte que nous obtenons un hyperrecouvrement \'etale
+$a : U \to X$ (Hyperrecouvrements, Lemme
+\ref{hypercovering-lemma-hypercovering-morphism-sites})
+avec $U_n = \coprod X_{n, i}$.
+Les hypothèses d'Espaces simpliciaux, Lemme
+\ref{spaces-simplicial-lemma-fppf-neg-ext-zero-hom},
+sont satisfaites pour $a : U \to X$ et les complexes
+$\omega_1^\bullet$ et $\omega_2^\bullet$.
+Nous obtenons donc un unique morphisme
+$\iota : \omega_1^\bullet \to \omega_2^\bullet$
+dont la restriction à $X_{0, i}$ est l'unique
+isomorphisme $(\omega_1^\bullet|_{X_{0, i}}, \tau_1|_{Y_{0, i}}) \to
+(\omega_2^\bullet|_{X_{0, i}}, \tau_2|_{Y_{0, i}})$.
+Il reste à vérifier que le diagramme
+$$
+\xymatrix{
+Rf_*\omega_1^\bullet \ar[rd]_{\tau_1} \ar[rr]_{Rf_*\iota} & &
+Rf_*\omega_1^\bullet \ar[ld]^{\tau_2} \\
+& \mathcal{O}_Y
+}
+$$
+est commutatif. Or nous savons que $Rf_*\omega_1^\bullet$ et
+$Rf_*\omega_2^\bullet$ ont leurs faisceaux de cohomologie nuls en degrés
+positifs (Lemme \ref{lemma-relative-dualizing-RHom}) ;
+cette commutativité peut donc se vérifier après
+restriction aux affines $Y_{0, i}$, où elle vaut par construction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-covering-enough}
+Soit $S$ un schéma. Soit $X \to Y$ un morphisme propre et plat
+d'espaces algébriques, de présentation finie.
+Soit $(\omega^\bullet, \tau)$ un couple formé
+d'un objet $Y$-parfait de $D(\mathcal{O}_X)$ et d'un morphisme
+$\tau : Rf_*\omega^\bullet \to \mathcal{O}_Y$.
+Supposons donnés des diagrammes cartésiens
+$$
+\xymatrix{
+X_i \ar[r]_{g_i'} \ar[d]_{f_i} & X \ar[d]^f \\
+Y_i \ar[r]^{g_i} & Y
+}
+$$
+avec $Y_i$ affine, tels que $\{g_i : Y_i \to Y\}$ soit un recouvrement \'etale,
+et des isomorphismes de couples $(\omega^\bullet|_{X_i}, \tau|_{Y_i})
+\to (a_i(\mathcal{O}_{Y_i}), \text{Tr}_{f_i, \mathcal{O}_{Y_i}})$
+comme dans la Définition \ref{definition-relative-dualizing-proper-flat}.
+Alors $(\omega^\bullet, \tau)$ est un complexe dualisant relatif pour $X$ sur $Y$.
+\end{lemma}
+
+\begin{proof}
+Soient $g : Y' \to Y$ et $X', f', g', a'$ comme dans la
+Définition \ref{definition-relative-dualizing-proper-flat}.
+Posons $((\omega')^\bullet, \tau') = (L(g')^*\omega^\bullet, Lg^*\tau)$.
+Nous pouvons trouver un recouvrement \'etale fini
+$\{Y'_j \to Y'\}$ par des affines qui raffine $\{Y_i \times_Y Y' \to Y'\}$
+(Topologies, Lemme \ref{topologies-lemma-etale-affine}).
+Ainsi, pour chaque $j$, il existe un $i_j$ et un morphisme
+$k_j : Y'_j \to Y_{i_j}$ sur $Y$. Considérons les produits fibrés
+$$
+\xymatrix{
+X'_j \ar[r]_{h_j'} \ar[d]_{f'_j} &
+X' \ar[d]^{f'} \\
+Y'_j \ar[r]^{h_j} & Y'
+}
+$$
+Notons $k'_j : X'_j \to X_{i_j}$ le morphisme induit (changement de base
+de $k_j$ par $f_{i_j}$). En restreignant les isomorphismes donnés à $Y'_j$
+par le morphisme $k'_j$, nous obtenons des isomorphismes de couples
+$((\omega')^\bullet|_{X'_j}, \tau'|_{Y'_j})
+\to (a_j(\mathcal{O}_{Y'_j}), \text{Tr}_{f'_j, \mathcal{O}_{Y'_j}})$.
+Après avoir remplacé $f : X \to Y$ par $f' : X' \to Y'$, nous nous ramenons au
+problème résolu dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons $Y$ affine. Problème : montrer que $(\omega^\bullet, \tau)$ est
+isomorphe à $(\omega_{X/Y}^\bullet, \text{Tr}) =
+(a(\mathcal{O}_Y), \text{Tr}_{f, \mathcal{O}_Y})$.
+Nous pouvons supposer que notre recouvrement $\{Y_i \to Y\}$ est donné par un unique
+morphisme \'etale surjectif $\{g : Y' \to Y\}$ entre schémas affines.
+En effet, nous pouvons d'abord remplacer $\{g_i: Y_i \to Y\}$ par un sous-recouvrement
+fini, puis poser $g = \coprod g_i :  Y' = \coprod Y_i \to Y$ ;
+nous omettons quelques détails. Posons $X' = Y' \times_Y X$, avec les morphismes
+$f', g'$ de la Définition \ref{definition-relative-dualizing-proper-flat}.
+La seule donnée qui subsiste est alors un isomorphisme
+$$
+(\omega^\bullet|_{X'}, \tau|_{Y'}) \to
+(a'(\mathcal{O}_{Y'}), \text{Tr}_{f', \mathcal{O}_{Y'}})
+$$
+Puisque $(\omega_{X/Y}^\bullet, \text{Tr})$ est un complexe dualisant relatif
+(voir la discussion qui suit la
+Définition \ref{definition-relative-dualizing-proper-flat}),
+il existe un unique isomorphisme
+$$
+(\omega_{X/Y}^\bullet|_{X'}, \text{Tr}|_{Y'}) \to
+(a'(\mathcal{O}_{Y'}), \text{Tr}_{f', \mathcal{O}_{Y'}})
+$$
+L'unicité résulte par exemple du Lemme \ref{lemma-uniqueness-relative-dualizing}.
+En combinant les isomorphismes affichés, nous trouvons un isomorphisme
+$$
+\alpha :
+(\omega^\bullet|_{X'}, \tau|_{Y'}) \to
+(\omega_{X/Y}^\bullet|_{X'}, \text{Tr}|_{Y'})
+$$
+Posons $Y'' = Y' \times_Y Y'$ et $X'' = Y'' \times_Y X$ ; les deux
+images réciproques de $\alpha$ sur $X''$ doivent être égales, encore par unicité.
+Comme les auto-Ext négatifs de
+$\omega_{X'/Y'}^\bullet$ sur $X'$ sont nuls (Lemme \ref{lemma-relative-dualizing-RHom})
+et que cette propriété subsiste après image réciproque par toute projection
+$Y' \times_Y \ldots \times_Y Y' \to Y'$ (nous omettons un petit détail -- comparer
+avec la démonstration du Lemme \ref{lemma-uniqueness-relative-dualizing}),
+nous trouvons que $\alpha$ descend en un isomorphisme
+$\omega^\bullet \to \omega_{X/Y}^\bullet$
+sur $X$ d'après Espaces simpliciaux, Lemme
+\ref{spaces-simplicial-lemma-fppf-neg-ext-zero-hom}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-existence-relative-dualizing}
+Soit $S$ un schéma. Soit $X \to Y$ un morphisme propre et plat
+d'espaces algébriques, de présentation finie.
+Il existe un complexe dualisant relatif $(\omega_{X/Y}^\bullet, \tau)$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un hyperrecouvrement \'etale $b : V \to Y$ tel que chaque
+$V_n = \coprod_{i \in I_n} Y_{n, i}$, avec $Y_{n, i}$ affine.
+C'est possible d'après Hyperrecouvrements, Lemme
+\ref{hypercovering-lemma-hypercovering-object} et
+Remarque \ref{hypercovering-remark-take-unions-hypercovering-X}
+(pour remplacer l'hyperrecouvrement produit
+dans le lemme par celui qui possède des réunions disjointes en chaque degré).
+Notons $X_{n, i} = Y_{n, i} \times_Y X$ et $U_n = V_n \times_Y X$,
+de sorte que nous obtenons un hyperrecouvrement \'etale
+$a : U \to X$ (Hyperrecouvrements, Lemme
+\ref{hypercovering-lemma-hypercovering-morphism-sites})
+avec $U_n = \coprod X_{n, i}$.
+Pour chaque $n, i$, il existe un complexe dualisant relatif
+$(\omega_{n, i}^\bullet, \tau_{n, i})$ sur $X_{n, i}/Y_{n, i}$.
+Voir la discussion qui suit la
+Définition \ref{definition-relative-dualizing-proper-flat}.
+Pour $\varphi : [m] \to [n]$ et $i \in I_n$, considérons les morphismes
+$g_{\varphi, i} : Y_{n, i} \to Y_{m, \alpha(\varphi)}$ et
+$g'_{\varphi, i} : X_{n, i} \to X_{m, \alpha(\varphi)}$
+qui font partie de la structure des hyperrecouvrements donnés
+(Hyperrecouvrements, Section \ref{hypercovering-section-hypercovering-sites}).
+Nous avons alors un unique isomorphisme
+$$
+\iota_{n, i, \varphi} :
+(L(g'_{n, i})^*\omega_{n, i}^\bullet, Lg_{n, i}^*\tau_{n, i})
+\longrightarrow
+(\omega_{m, \alpha(\varphi)(i)}^\bullet, \tau_{m, \alpha(\varphi)(i)})
+$$
+de couples ; voir la discussion qui suit la
+Définition \ref{definition-relative-dualizing-proper-flat}.
+Observons que les auto-Ext négatifs de $\omega_{n, i}^\bullet$
+sur $X_{n, i}$ sont nuls d'après le Lemme \ref{lemma-relative-dualizing-RHom}.
+Notons $(\omega_n^\bullet, \tau_n)$ le couple sur $U_n/V_n$ construit à l'aide
+des couples $(\omega_{n, i}^\bullet, \tau_{n, i})$ pour $i \in I_n$.
+Pour $\varphi : [m] \to [n]$ et $i \in I_n$, considérons les morphismes
+$g_\varphi : V_n \to V_m$ et $g'_\varphi : U_n \to U_m$ qui font partie
+de la structure des espaces algébriques simpliciaux $V$ et $U$.
+Nous avons alors des isomorphismes uniques
+$$
+\iota_\varphi :
+(L(g'_\varphi)^*\omega_n^\bullet, Lg_\varphi^*\tau_n)
+\longrightarrow
+(\omega_m^\bullet, \tau_m)
+$$
+de couples, construits à partir des isomorphismes sur les morceaux.
+L'unicité garantit que ces isomorphismes satisfont
+à la condition de transitivité formulée dans
+Espaces simpliciaux, Définition
+\ref{spaces-simplicial-definition-cartesian-derived-modules}.
+Les hypothèses d'Espaces simpliciaux, Lemme
+\ref{spaces-simplicial-lemma-fppf-glue-neg-ext-zero},
+sont satisfaites pour $a : U \to X$, les complexes $\omega_n^\bullet$
+et les isomorphismes $\iota_\varphi$\footnote{Ce lemme utilise seulement
+$\omega_0^\bullet$ et les deux morphismes $\delta_1^1, \delta_0^1 : [1] \to [0]$.
+Le lecteur peut sauter les premières lignes de la démonstration du
+lemme cité,
+car nous disposons ici déjà d'un système simplicial de la
+catégorie dérivée des modules.}.
+Nous obtenons ainsi un objet $\omega^\bullet$ de $D_\QCoh(\mathcal{O}_X)$
+muni d'un isomorphisme
+$\iota_0 : \omega^\bullet|_{U_0} \to \omega_0^\bullet$
+compatible aux deux isomorphismes
+$\iota_{\delta^1_0}$ et $\iota_{\delta^1_1}$.
+Enfin, nous appliquons
+Espaces simpliciaux, Lemme
+\ref{spaces-simplicial-lemma-fppf-neg-ext-zero-hom},
+pour obtenir un unique morphisme
+$$
+\tau : Rf_*\omega^\bullet \longrightarrow \mathcal{O}_Y
+$$
+dont la restriction à $V_0$ coïncide avec $\tau_0$ ; nous omettons quelques détails --
+comparer par exemple avec la fin de la démonstration du
+Lemme \ref{lemma-uniqueness-relative-dualizing},
+pour voir pourquoi nous avons
+l'annulation requise des Ext négatifs.
+D'après le Lemme \ref{lemma-covering-enough},
+le couple $(\omega^\bullet, \tau)$ est un complexe dualisant relatif,
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-relative-dualizing}
+Soit $S$ un schéma. Considérons un carré cartésien
+$$
+\xymatrix{
+X' \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+d'espaces algébriques sur $S$. Supposons que $X \to Y$ soit propre, plat et
+de présentation finie. Soit $(\omega_{X/Y}^\bullet, \tau)$ un
+complexe dualisant relatif pour $f$. Alors
+$(L(g')^*\omega_{X/Y}^\bullet, Lg^*\tau)$ est un complexe dualisant
+relatif pour $f'$.
+\end{lemma}
+
+\begin{proof}
+Observons que $L(g')^*\omega_{X/Y}^\bullet$ est $Y'$-parfait d'après
+Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-base-change-relatively-perfect}.
+L'autre condition de la
+Définition \ref{definition-relative-dualizing-proper-flat}
+résulte de la transitivité des produits fibrés.
+\end{proof}
+
+
+
+
+
+
+ 
+\section{Comparaison avec le cas des schémas}
+\label{section-comparison}
+
+\noindent
+Il faudrait ajouter beaucoup plus de choses dans cette section.
+
+\begin{lemma}
+\label{lemma-compare}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+quasi-compacts et quasi-séparés sur $S$.
+Supposons $X$ et $Y$ représentables, et soit $f_0 : X_0 \to Y_0$ un
+morphisme de schémas représentant $f$ (notation peu élégante, mais temporaire).
+Soit $a : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$
+l'adjoint à droite de $Rf_*$ du Lemme \ref{lemma-twisted-inverse-image}.
+Soit $a_0 : D_\QCoh(\mathcal{O}_{Y_0}) \to D_\QCoh(\mathcal{O}_{X_0})$
+l'adjoint à droite de $Rf_*$ de
+Dualité pour les schémas, Lemme \ref{duality-lemma-twisted-inverse-image}.
+Alors
+$$
+\xymatrix{
+D_\QCoh(\mathcal{O}_{X_0})
+\ar@{=}[rrrrrr]_{\text{Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}}}
+& & & & & &
+D_\QCoh(\mathcal{O}_X) \\
+D_\QCoh(\mathcal{O}_{Y_0}) \ar[u]^{a_0}
+\ar@{=}[rrrrrr]^{\text{Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}}}
+& & & & & &
+D_\QCoh(\mathcal{O}_Y) \ar[u]_a
+}
+$$
+est commutatif.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de l'unicité des adjoints et des compatibilités de
+Catégories dérivées des espaces, Remarque
+\ref{spaces-perfect-remark-match-total-direct-images}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

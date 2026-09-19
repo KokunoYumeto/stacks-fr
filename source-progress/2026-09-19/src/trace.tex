@@ -1,0 +1,4082 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{La formule des traces}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Voici les notes de la seconde partie d'un cours de cohomologie \'etale
+donné par Johan de Jong à l'Université Columbia à l'automne 2009. Les
+auteurs des notes initiales étaient Thibaut Pugin, Zachary Maddock et Min Lee.
+Au fil du temps, nous ajouterons des références aux prérequis dans le reste du
+projet Stacks et donnerons des démonstrations rigoureuses de tous les énoncés.
+
+
+
+
+
+
+
+
+
+\section{La formule des traces}
+\label{section-trace-formula}
+
+\noindent
+Un cours classique de cohomologie \'etale énoncerait et démontrerait normalement
+les théorèmes de changement de base propre et lisse, la pureté et la dualité de
+Poincar\'e. Tout cela se trouve dans \cite[Arcata]{SGA4.5}. Nous allons plutôt
+étudier la formule des traces pour le Frobenius, en suivant l'exposé de Deligne
+dans \cite[Rapport]{SGA4.5}. Nous nous limiterons à la dimension 1, mais le
+changement de base propre suffit alors à traiter le cas général. Puisque tous
+les groupes de cohomologie considérés seront \'etales, nous omettons l'indice
+$_\etale$. Décrivons maintenant
+la formule que nous cherchons. Soient $X$ un schéma de type fini de dimension 1
+sur un corps fini $k$, $\ell$ un nombre premier et $\mathcal{F}$ un faisceau
+constructible et plat de $\mathbf{Z}/\ell^n\mathbf{Z}$-modules. Alors
+\begin{equation}
+\label{equation-trace-formula-initial}
+\sum\nolimits_{x \in X(k)}
+\text{Tr}(\text{Frob} | \mathcal{F}_{\bar x}) =
+\sum\nolimits_{i = 0}^2
+(-1)^i \text{Tr}(\pi_X^* | H^i_c(X \otimes_k \bar k, \mathcal{F}))
+\end{equation}
+comme éléments de $\mathbf{Z}/\ell^n\mathbf{Z}$. Comme nous le verrons, cette
+formulation est légèrement incorrecte telle quelle. Décrivons néanmoins les
+symboles qui y figurent.
+
+
+
+
+\section{Les Frobenius}
+\label{section-frobenii}
+
+\noindent
+Dans cette section, nous allons démontrer un théorème ``déroutant''.
+Un analogue topologique de ce théorème déroutant est le suivant.
+
+\begin{exercise}
+\label{exercise-baffling}
+Soient $X$ un espace topologique et $g : X \to X$ une application continue telle
+que $g^{-1}(U) = U$ pour tout ouvert $U$ de $X$. Alors $g$ induit l'identité sur
+la cohomologie de $X$ (à coefficients quelconques).
+\end{exercise}
+
+\noindent
+Passons maintenant à l'énoncé pour le site \'etale.
+
+\begin{lemma}
+\label{lemma-baffling}
+Soient $X$ un schéma et $g : X \to X$ un morphisme. Supposons que, pour tout
+morphisme \'etale $\varphi : U \to X$, il existe un isomorphisme
+$$
+\xymatrix{
+U \ar[rd]_\varphi \ar[rr]^-\sim & & {U
+\times_{\varphi, X, g} X} \ar[ld]^{\text{pr}_2} \\
+& X
+}
+$$
+fonctoriel en $U$. Alors $g$ induit l'identité en cohomologie (pour tout faisceau).
+\end{lemma}
+
+\begin{proof}
+La démonstration est formelle et ne présente aucune difficulté.
+\end{proof}
+
+\noindent
+Voir Variétés, section \ref{varieties-section-frobenius},
+pour une discussion des différentes variantes du morphisme de Frobenius.
+
+\begin{theorem}[Le théorème déroutant]
+\label{theorem-baffling}
+Soit $X$ un schéma de caractéristique $p > 0$. Alors le Frobenius absolu
+induit (par image réciproque) l'identité en cohomologie, c'est-à-dire que, pour
+tout entier $j\geq 0$,
+$$
+F_X^* : H^j (X, \underline{\mathbf{Z}/n\mathbf{Z}}) \longrightarrow H^j (X,
+\underline{\mathbf{Z}/n\mathbf{Z}})
+$$
+est l'identité.
+\end{theorem}
+
+\noindent
+Ce théorème est purement formel. Il est toutefois utile de revoir comment
+calculer l'image réciproque d'une classe de cohomologie. Disons simplement que,
+lorsque la cohomologie coïncide avec celle de {\v C}ech, il suffit de tirer en
+arrière les cocycles de {\v C}ech (au moyen des produits fibrés sur un site). Le
+cas général est assez technique ; voir
+Hyperrecouvrements, théorème \ref{hypercovering-theorem-cohomology-hypercoverings}.
+Pour démontrer le théorème, il nous suffit
+de vérifier que l'hypothèse du lemme \ref{lemma-baffling}
+est satisfaite par le Frobenius.
+
+\begin{proof}[Démonstration du théorème \ref{theorem-baffling}]
+Nous devons vérifier l'existence d'un isomorphisme fonctoriel comme ci-dessus.
+Pour un morphisme \'etale $\varphi : U \to X$, considérons le diagramme
+$$
+\xymatrix{
+U \ar@{-->}[rd] \ar@/^1pc/[rrd]^{F_U}
+\ar@/_1pc/[rdd]_\varphi \\
+& {U \times_{\varphi, X, F_X} X} \ar[r]_-{\text{pr}_1}
+\ar[d]^{\text{pr}_2} & U \ar[d]^\varphi \\
+& X \ar[r]^{F_X} & X.
+}
+$$
+La flèche en pointillés est un morphisme \'etale et un homéomorphisme
+universel ; c'est donc un isomorphisme. Voir
+Morphismes étales, lemme \ref{etale-lemma-relative-frobenius-etale}.
+\end{proof}
+
+%10.22.09
+
+\begin{definition}
+\label{definition-geometric-frobenius}
+Soit $k$ un corps fini à $q = p^f$ éléments. Soit $X$ un schéma
+sur $k$. Le {\it Frobenius géométrique} de $X$ est le morphisme
+$\pi_X : X \to X$ au-dessus de $\Spec(k)$ égal à $F_X^f$.
+\end{definition}
+
+\noindent
+Puisque $\pi_X$ est un morphisme sur $k$, nous pouvons le changer de base par
+n'importe quel schéma sur $k$. En particulier, le changement de base à la
+clôture algébrique $\bar k$ donne un morphisme $\pi_X : X_{\bar k} \to
+X_{\bar k}$. Employer aussi $\pi_X$ pour ce changement de base ne devrait pas
+prêter à confusion, car $X_{\bar k}$ n'a pas de Frobenius géométrique propre.
+
+\begin{lemma}
+\label{lemma-sheaf-over-finite-field-has-frobenius-descent}
+Soit $\mathcal{F}$ un faisceau sur $X_\etale$.
+Il existe alors des isomorphismes canoniques
+$\pi_X^{-1} \mathcal{F} \cong \mathcal{F}$ et
+$\mathcal{F} \cong {\pi_X}_*\mathcal{F}$.
+\end{lemma}
+
+\noindent
+Cela est faux pour le site fppf.
+
+\begin{proof}
+Soit $\varphi : U \to X$ un morphisme \'etale. Rappelons que
+${\pi_X}_* \mathcal{F} (U) = \mathcal{F} (U \times_{\varphi, X, \pi_X} X)$.
+Puisque $\pi_X = F_X^f$, la démonstration du
+théorème \ref{theorem-baffling} fournit un isomorphisme fonctoriel
+$$
+\xymatrix{
+U \ar[rd]_{\varphi} \ar[rr]_-{\gamma_U}
+& & U \times_{\varphi, X, \pi_X} X \ar[ld]^{\text{pr}_2} \\
+& X
+}
+$$
+où $\gamma_U = (\varphi, F_U^f)$. Nous définissons maintenant un
+isomorphisme
+$$
+\mathcal{F} (U) \longrightarrow {\pi_X}_* \mathcal{F} (U) =
+\mathcal{F} (U \times_{\varphi, X, \pi_X} X)
+$$
+comme l'application de restriction de $\mathcal{F}$ le long de $\gamma_U^{-1}$.
+L'autre isomorphisme se construit de manière analogue.
+\end{proof}
+
+\begin{remark}
+\label{remark-may-be-confusing}
+Il se peut, ou non, que $F^f_U$ soit égal à $\pi_U$.
+\end{remark}
+
+\noindent
+Poursuivons l'étude de la cohomologie des faisceaux sur notre schéma $X$ défini
+sur le corps fini $k$ à $q = p^f$ éléments.
+Fixons une clôture algébrique $\bar k$ de $k$ et notons $G_k =
+\text{Gal}(\bar k/k)$ le groupe de Galois absolu de $k$.
+Soit $\mathcal{F}$ un faisceau abélien sur $X_\etale$.
+Nous allons munir d'une structure de $G_k$-module à gauche le
+groupe de cohomologie $H^j (X_{\bar k}, \mathcal{F}|_{X_{\bar k}})$
+de la manière suivante : si $\sigma \in G_k$, le diagramme
+$$
+\xymatrix{
+X_{\bar k} \ar[rd] \ar[rr]^{\Spec(\sigma) \times \text{id}_X} & &
+X_{\bar k} \ar[ld] \\
+& X
+}
+$$
+est commutatif. Nous pouvons donc poser, pour $\xi \in H^j (X_{\bar k},
+\mathcal{F}|_{X_{\bar k}})$,
+$$
+\sigma \cdot \xi := (\Spec(\sigma) \times \text{id}_X)^*\xi \in
+H^j(X_{\bar k}, (\Spec(\sigma) \times \text{id}_X)^{-1}
+\mathcal{F}|_{X_{\bar k}})
+= H^j (X_{\bar k}, \mathcal{F}|_{X_{\bar k}}),
+$$
+où la dernière égalité résulte de la commutativité du diagramme précédent.
+Cela munit ce dernier groupe d'une structure de $G_k$-module.
+
+\begin{lemma}
+\label{lemma-two-actions-agree}
+Dans la situation ci-dessus, notons $\alpha : X \to \Spec(k)$ le morphisme
+structural. Considérons la fibre $(R^j\alpha_*\mathcal{F})_{\Spec(\bar k)}$
+munie de son action galoisienne naturelle comme dans
+Cohomologie étale, section \ref{etale-cohomology-section-galois-action-stalks}.
+Alors l'identification
+$$
+(R^j\alpha_*\mathcal{F})_{\Spec(\bar k)} \cong H^j (X_{\bar k},
+\mathcal{F}|_{X_{\bar k}})
+$$
+du
+théorème \ref{etale-cohomology-theorem-higher-direct-images} de Cohomologie étale
+est un isomorphisme de $G_k$-modules.
+\end{lemma}
+
+\noindent
+Un résultat analogue vaut lorsque l'on compare
+$(R^j\alpha_!\mathcal{F})_{\Spec(\bar k)}$ à
+$H^j_c (X_{\bar k}, \mathcal{F}|_{X_{\bar k}})$.
+
+\begin{proof}
+Omise.
+\end{proof}
+
+\begin{definition}
+\label{definition-arithmetic-frobenius}
+Le {\it Frobenius arithmétique} est l'application
+$\text{frob}_k : \bar k \to \bar k$, $x \mapsto x^q$ appartenant à $G_k$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-geometric-arithmetic-inverse}
+Soit $\mathcal{F}$ un faisceau abélien sur $X_\etale$. Alors, pour tout
+$j\geq 0$, $\text{frob}_k$ agit sur le groupe de cohomologie $H^j(X_{\bar k},
+\mathcal{F}|_{X_{\bar k}})$ comme l'inverse de l'application $\pi_X^*$.
+\end{theorem}
+
+\noindent
+L'application $\pi_X^*$ est définie par la composée
+$$
+H^j(X_{\bar k}, \mathcal{F}|_{X_{\bar k}}) \xrightarrow{{\pi_X}_{\bar k}^*}
+H^j(X_{\bar k}, (\pi_X^{-1} \mathcal{F})|_{X_{\bar k}}) \cong
+H^j(X_{\bar k}, \mathcal{F}|_{X_{\bar k}}).
+$$
+où le dernier isomorphisme provient de l'isomorphisme canonique
+$\pi_X^{-1} \mathcal{F} \cong \mathcal{F}$ du
+lemme \ref{lemma-sheaf-over-finite-field-has-frobenius-descent}.
+
+\begin{proof}
+La composée $X_{\bar k} \xrightarrow{\Spec(\text{frob}_k)} X_{\bar k}
+\xrightarrow{\pi_X} X_{\bar k}$ est égale à $F_{X_{\bar k}}^f$ ; le
+résultat découle donc du théorème déroutant convenablement généralisé à des
+coefficients non triviaux. Notons que la composée précédente commute au sens où
+$F_{X_{\bar k}}^f = \pi_X \circ \Spec(\text{frob}_k) =
+\Spec(\text{frob}_k) \circ \pi_X$.
+\end{proof}
+
+\begin{definition}
+\label{definition-geometric-frobenius-on-stalk}
+Si $x \in X(k)$ est un point rationnel et $\bar x : \Spec(\bar k) \to X$
+est le point géométrique au-dessus de $x$, nous notons $\pi_x : \mathcal{F}_{\bar x} \to
+\mathcal{F}_{\bar x}$ l'action de $\text{frob}_k^{-1}$ et l'appelons le
+{\it Frobenius géométrique}\footnote{Cette notation n'est pas standard.
+Cet opérateur est noté $F_x$ dans \cite{SGA4.5}. Nous changerons probablement
+cette notation à l'avenir.}
+\end{definition}
+
+\noindent
+Nous pouvons maintenant donner un énoncé plus précis (quoique faux) de la formule des
+traces (\ref{equation-trace-formula-initial}). Soit $X$ un schéma de
+type fini de dimension 1
+sur un corps fini $k$, $\ell$ un nombre premier et $\mathcal{F}$ un faisceau
+constructible et plat de $\mathbf{Z}/\ell^n\mathbf{Z}$-modules. Alors
+\begin{equation}
+\label{equation-trace-formula-second}
+\sum\nolimits_{x \in X(k)}
+\text{Tr}(\pi_x | \mathcal{F}_{\bar x})
+=
+\sum\nolimits_{i = 0}^2
+(-1)^i \text{Tr}(\pi_X^* | H^i_c(X_{\bar k}, \mathcal{F}))
+\end{equation}
+comme éléments de $\mathbf{Z}/\ell^n\mathbf{Z}$. Cette égalité est incorrecte
+parce que la trace du membre de droite n'a pas de sens pour le type de
+faisceaux considéré. Avant d'aborder ce problème, cherchons à motiver
+l'apparition du Frobenius géométrique (outre le fait qu'il s'agit d'un
+morphisme naturel !).
+
+\medskip\noindent
+Considérons le cas où $X = \mathbf{P}^1_k$ et $\mathcal{F} =
+\underline{\mathbf{Z}/\ell\mathbf{Z}}$. En tout point, le module galoisien
+$\mathcal{F}_{\bar x}$ est trivial ; ainsi, pour tout morphisme $\varphi$ agissant sur
+$\mathcal{F}_{\bar x}$, le membre de gauche vaut
+$$
+\sum\nolimits_{x \in X(k)} \text{Tr}(\varphi | \mathcal{F}_{\bar x}) =
+\#\mathbf{P}^1_k(k) = q+1.
+$$
+Or $\mathbf{P}^1_k$ est propre, donc la cohomologie à support propre coïncide avec la
+cohomologie usuelle ; ainsi, pour un morphisme $\pi : \mathbf{P}^1_k \to
+\mathbf{P}^1_k$, le membre de droite vaut
+$$
+\text{Tr}(\pi^* | H^0 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}})) + \text{Tr}(\pi^* | H^2
+(\mathbf{P}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}})).
+$$
+Le module galoisien $H^0 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}}) = \mathbf{Z}/\ell\mathbf{Z}$ est trivial,
+car l'image réciproque de l'identité est l'identité. La première trace vaut donc 1,
+quel que soit $\pi$. Pour la seconde trace, nous devons calculer l'image réciproque
+$\pi^* : H^2(\mathbf{P}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}}))$
+pour une application $\pi : \mathbf{P}^1_{\bar k} \to \mathbf{P}^1_{\bar k}$. C'est un
+bon exercice, et la réponse est la multiplication par le degré de $\pi$
+(pour une démonstration, voir
+Cohomologie étale, lemme \ref{etale-cohomology-lemma-pullback-on-h2-curve}).
+Autrement dit, le calcul est le même que dans le cadre familier de la cohomologie complexe.
+En particulier, si $\pi$ est le Frobenius géométrique, nous obtenons
+$$
+\text{Tr}(\pi_X^* | H^2 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}})) = q
+$$
+et si $\pi$ est le Frobenius arithmétique, nous obtenons
+$$
+\text{Tr}(\text{frob}_k^* | H^2 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}})) = q^{-1}.
+$$
+Cette dernière possibilité est manifestement incorrecte.
+
+\begin{remark}
+\label{remark-compute-degree-lifting}
+Le calcul des degrés peut s'effectuer en relevant (en un sens évident)
+en caractéristique 0 et en considérant la situation à coefficients complexes.
+Cette méthode ne fonctionne presque jamais, puisque le relèvement est en général impossible pour les
+schémas autres que l'espace projectif.
+\end{remark}
+
+\noindent
+Reste à comprendre pourquoi nous devons considérer la cohomologie à support
+propre. En fait, au vu de la dualité de Poincar\'e, elle n'est pas absolument
+nécessaire pour les variétés lisses, mais cela impose d'introduire certaines puissances
+de $q$. Par exemple, considérons le cas où
+$X = \mathbf{A}^1_k$ et
+$\mathcal{F} = \underline{\mathbf{Z}/\ell\mathbf{Z}}$.
+L'action sur les fibres est encore triviale ; nous n'avons donc qu'à examiner l'action
+sur la cohomologie. Mais alors $\pi_X^*$ agit comme l'identité sur
+$H^0(\mathbf{A}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}})$
+et comme la multiplication par $q$ sur
+$H^2_c(\mathbf{A}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}})$.
+
+
+
+
+\section{Traces}
+\label{section-traces}
+
+\noindent
+Nous expliquons maintenant comment prendre la trace d'un endomorphisme d'un module sur un
+anneau non commutatif. Fixons un anneau fini $\Lambda$ dont le cardinal est premier à $p$.
+En général, $\Lambda$ est l'anneau de groupe $(\mathbf{Z}/\ell^n\mathbf{Z})[G]$ d'un
+groupe fini $G$. Par convention, tous les $\Lambda$-modules considérés
+seront des $\Lambda$-modules à gauche.
+
+\medskip\noindent
+Introduisons la notation suivante :
+nous notons $\Lambda^\natural$ le quotient de $\Lambda$ par le sous-groupe additif
+engendré par les commutateurs (c'est-à-dire les éléments de la forme
+$ab-ba$, $a, b \in \Lambda$). Notons que $\Lambda^\natural$ n'est pas un anneau.
+
+\medskip\noindent
+Par exemple, le module $(\mathbf{Z}/\ell^n\mathbf{Z})[G]^\natural$ est le
+dual de l'espace des fonctions centrales, de sorte que
+$$
+(\mathbf{Z}/\ell^n\mathbf{Z})[G]^\natural
+=
+\bigoplus\nolimits_{\text{classes de conjugaison dans }G}
+\mathbf{Z}/\ell^n\mathbf{Z}.
+$$
+Pour un $\Lambda$-module libre, on a $\text{End}_\Lambda(\Lambda^{\oplus m}) =
+\text{Mat}_m(\Lambda)$. Puisque les modules sont à gauche,
+la représentation des endomorphismes par des matrices est une action à droite : si $a \in
+\text{End}(\Lambda^{\oplus m})$ a pour matrice $A$ et si $v \in \Lambda$, alors $a(v)
+= v A$.
+
+\begin{definition}
+\label{definition-trace}
+La {\it trace} de l'endomorphisme $a$ est la somme des termes diagonaux d'une
+matrice qui le représente. On obtient ainsi une application additive $\text{Tr} :
+\text{End}_\Lambda(\Lambda^{\oplus m}) \to \Lambda^\natural$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-trace-is-trace}
+Étant données des applications
+$$
+\Lambda^{\oplus m} \xrightarrow{a} \Lambda^{\oplus n}
+\quad\text{et}\quad
+\Lambda^{\oplus n} \xrightarrow{b} \Lambda^{\oplus m}
+$$
+montrer que $\text{Tr}(ab) = \text{Tr}(ba)$.
+\end{exercise}
+
+\noindent
+Étendons la définition de la trace à un $\Lambda$-module projectif de type fini
+$P$ et à un endomorphisme $\varphi$ de $P$. Écrivons $P$ comme facteur direct
+d'un $\Lambda$-module libre, c'est-à-dire considérons des applications $P \xrightarrow{a}
+\Lambda^{\oplus n} \xrightarrow{b} P$ telles que
+\begin{enumerate}
+\item
+$\Lambda^{\oplus n} = \Im(a) \oplus \Ker(b)$ ; et
+\item
+$b\circ a = \text{id}_P$.
+\end{enumerate}
+Nous posons alors $\text{Tr}(\varphi) = \text{Tr}(a\varphi b)$. Il est facile de vérifier
+que cette définition ne dépend pas des choix, au moyen de l'exercice précédent.
+
+
+
+
+
+
+
+
+\section{Pourquoi les catégories dérivées ?}
+\label{section-derived-categories-why}
+
+\noindent
+Avec cette définition de la trace, examinons un autre problème que pose la
+formule telle qu'elle est énoncée. Soit $C$ une courbe projective lisse sur $k$. Il existe
+une correspondance entre les faisceaux finis localement constants $\mathcal{F}$ sur
+$C_\etale$ dont les fibres sont isomorphes à
+${(\mathbf{Z}/\ell^n\mathbf{Z})}^{\oplus m}$ d'une part, et les représentations continues
+$\rho : \pi_1 (C, \bar c) \to
+\text{GL}_m(\mathbf{Z}/\ell^n\mathbf{Z}))$ (pour un choix fixé de $\bar c$)
+d'autre part. Nous notons $\mathcal{F}_\rho$ le faisceau correspondant à
+$\rho$. Alors $H^2 (C_{\bar k}, \mathcal{F}_\rho)$ est le groupe des coinvariants
+pour l'action de $\rho(\pi_1 (C, \bar c))$ sur
+${(\mathbf{Z}/\ell^n\mathbf{Z})}^{\oplus m}$, et l'on a la suite exacte courte
+suivante
+$$
+0 \longrightarrow \pi_1 (C_{\bar k}, \bar c) \longrightarrow \pi_1 (C, \bar c)
+\longrightarrow G_k \longrightarrow 0.
+$$
+Par exemple, faisons agir $\mathbf{Z} = \mathbf{Z} \sigma$ sur
+$\mathbf{Z}/\ell^2\mathbf{Z}$ par $\sigma(x) = (1+\ell) x$. Les coinvariants
+sont $(\mathbf{Z}/\ell^2\mathbf{Z})_{\sigma} = \mathbf{Z}/\ell\mathbf{Z}$, qui
+n'est pas un $\mathbf{Z}/\ell^2\mathbf{Z}$-module plat. Nous ne pouvons donc pas prendre la
+trace d'une action sur $H^2(C_{\bar k}, \mathcal{F}_\rho)$, du moins pas au
+sens de la section précédente.
+
+\medskip\noindent
+En fait, notre objectif est d'établir une formule des traces à coefficients $\ell$-adiques.
+Mais $\mathbf{Q}_\ell = \mathbf{Z}_\ell[1/\ell]$ et $\mathbf{Z}_\ell =
+\lim \mathbf{Z}/\ell^n\mathbf{Z}$, et même pour un faisceau plat de
+$\mathbf{Z}/\ell^n\mathbf{Z}$-modules, les groupes de cohomologie individuels peuvent ne pas
+être plats, de sorte que nous ne pouvons calculer les traces. Une solution possible consiste à considérer le complexe
+dérivé total $R\Gamma(C_{\bar k}, \mathcal{F}_\rho)$ dans la catégorie dérivée
+$D(\mathbf{Z}/\ell^n\mathbf{Z})$ et à montrer qu'il s'agit d'un objet parfait, c'est-à-dire
+qu'il est quasi-isomorphe à un complexe fini de modules libres de type fini.
+Pour de tels complexes, on peut définir la trace, mais cela exigera un exposé
+des catégories dérivées.
+
+
+
+
+
+
+\section{Catégories dérivées}
+\label{section-derived-categories}
+
+\noindent
+Pour fixer les notations, soit $\mathcal{A}$ une catégorie abélienne. Soit
+$\text{Comp}(\mathcal{A})$ la catégorie abélienne des complexes de
+$\mathcal{A}$. Soit $K(\mathcal{A})$ la catégorie des complexes à
+homotopie près, dont les objets sont les complexes de $\mathcal{A}$ et les morphismes
+des classes
+d'homotopie de morphismes de complexes. Ce n'est pas une catégorie abélienne.
+Grossièrement, $D(A)$ est définie comme la catégorie obtenue en inversant
+tous les quasi-isomorphismes de $\text{Comp}(\mathcal{A})$ ou, de manière équivalente, de
+$K(\mathcal{A})$. On peut en outre définir $\text{Comp}^+(\mathcal{A}),
+K^+(\mathcal{A}), D^+(\mathcal{A})$ de manière analogue en ne considérant que des complexes bornés inférieurement.
+De même, on peut définir $\text{Comp}^-(\mathcal{A}),
+K^-(\mathcal{A}), D^-(\mathcal{A})$ à l'aide des complexes bornés supérieurement, et l'on peut
+définir $\text{Comp}^b(\mathcal{A}), K^b(\mathcal{A}), D^b(\mathcal{A})$ à l'aide des
+complexes bornés.
+
+\begin{remark}
+\label{remarks-derived-categories}
+Quelques remarques sur les catégories dérivées.
+\begin{enumerate}
+\item
+Des problèmes ensemblistes se posent lorsque $\mathcal{A}$ est assez
+arbitraire ; nous les ignorerons allègrement.
+\item
+Les catégories $K(A)$ et $D(A)$ sont munies d'une structure de
+catégorie triangulée.
+\item
+Les catégories $\text{Comp}(\mathcal{A})$ et $K(\mathcal{A})$ peuvent aussi être
+définies lorsque $\mathcal{A}$ est une catégorie additive.
+\end{enumerate}
+\end{remark}
+
+\noindent
+Le foncteur d'homologie $H^i : \text{Comp}(\mathcal{A}) \to \mathcal{A}$ défini par
+$K^\bullet \mapsto H^i(K^\bullet)$ se prolonge en des foncteurs $H^i :
+K(\mathcal{A}) \to \mathcal{A}$ et $H^i : D(\mathcal{A}) \to \mathcal{A}$.
+
+\begin{lemma}
+\label{lemma-when-in-bounded}
+Un objet $E$ de $D(\mathcal{A})$ appartient à $D^+(\mathcal{A})$ si et seulement
+si $H^i(E) =0 $ pour tout $i \ll 0$. Des énoncés analogues valent pour $D^-$ et
+$D^b$.
+\end{lemma}
+
+\begin{proof}
+Indication : utiliser les foncteurs de troncation. Voir
+Catégories dérivées, lemme \ref{derived-lemma-complex-cohomology-bounded}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-derived-categories}
+Morphismes entre objets de la catégorie dérivée.
+\begin{enumerate}
+\item
+Soit $I^\bullet \in \text{Comp}^+(\mathcal{A})$ tel que $I^n$ soit injectif pour tout
+$n \in \mathbf{Z}$. Alors
+$$
+\Hom_{D(\mathcal{A})}(K^\bullet, I^\bullet)
+=
+\Hom_{K(\mathcal{A})}(K^\bullet, I^\bullet).
+$$
+\item
+Soit $P^\bullet \in \text{Comp}^-(\mathcal{A})$ tel que $P^n$ soit projectif pour tout
+$n \in \mathbf{Z}$. Alors
+$$
+\Hom_{D(\mathcal{A})}(P^\bullet, K^\bullet)
+=
+\Hom_{K(\mathcal{A})}(P^\bullet, K^\bullet).
+$$
+\item
+Si $\mathcal{A}$ possède assez d'injectifs et si $\mathcal{I} \subset \mathcal{A}$
+est la sous-catégorie additive des objets injectifs, alors
+$
+D^+(\mathcal{A})\cong K^+(\mathcal{I})
+$
+(en tant que catégories triangulées).
+\item
+Si $\mathcal{A}$ possède assez de projectifs et si $\mathcal{P} \subset \mathcal{A}$
+est la sous-catégorie additive des objets projectifs, alors
+$
+D^-(\mathcal{A}) \cong K^-(\mathcal{P}).
+$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{definition}
+\label{definition-derived-functor}
+Soit $F: \mathcal{A} \to \mathcal{B}$ un foncteur exact à gauche et supposons que
+$\mathcal{A}$ possède assez d'injectifs. Nous définissons le {\it foncteur dérivé total
+à droite de $F$} comme le foncteur $RF: D^+(\mathcal{A}) \to D^+(\mathcal{B})$
+s'insérant dans le diagramme
+$$
+\xymatrix{
+D^+(\mathcal{A}) \ar[r]^{RF} & D^+(\mathcal{B}) \\
+K^+(\mathcal I) \ar[u] \ar[r]^F & K^+(\mathcal{B}). \ar[u]
+}
+$$
+Cela est possible puisque la flèche verticale de gauche est inversible d'après le lemme
+précédent. De même, soit $G: \mathcal{A} \to \mathcal{B}$ un foncteur exact à droite
+et supposons que $\mathcal{A}$ possède assez de projectifs. Nous définissons le
+{\it foncteur dérivé total à gauche de $G$} comme le foncteur $LG: D^-(\mathcal{A})
+\to D^-(\mathcal{B})$ s'insérant dans le diagramme
+$$
+\xymatrix{
+D^-(\mathcal{A}) \ar[r]^{LG} & D^-(\mathcal{B}) \\
+K^-(\mathcal{P}) \ar[u] \ar[r]^G & K^-(\mathcal{B}). \ar[u]
+}
+$$
+Cela est possible puisque la flèche verticale de gauche est inversible d'après le lemme
+précédent.
+\end{definition}
+
+\begin{remark}
+\label{remark-cohomology-of-derived-functor}
+Dans ces cas, on a $R^iF(K^\bullet) = H^i(RF(K^\bullet))$, où
+le membre de gauche est défini comme la $i$-ième homologie du complexe
+$F(K^\bullet)$.
+\end{remark}
+
+
+
+
+\section{Catégorie dérivée filtrée}
+\label{section-filtered-derived-category}
+
+\noindent
+Il s'avère que nous devons tout recommencer et construire également la catégorie
+dérivée filtrée.
+
+\begin{definition}
+\label{definition-filtered}
+Soit $\mathcal{A}$ une catégorie abélienne.
+\begin{enumerate}
+\item Soit $\text{Fil}(\mathcal{A})$ la catégorie des objets filtrés
+$(A, F)$ de $\mathcal{A}$, où $F$ est une filtration de la forme
+$$
+A \supset \ldots \supset F^n A \supset F^{n+1}A \supset \ldots
+\supset 0.
+$$
+Il s'agit d'une catégorie additive.
+\item Nous notons $\text{Fil}^f(\mathcal{A})$ la sous-catégorie pleine
+de $\text{Fil}(\mathcal{A})$ dont les objets $(A, F)$ ont une filtration
+finie. C'est encore une catégorie additive.
+\item Un objet $I \in \text{Fil}^f(\mathcal{A})$ est dit
+{\it injectif filtré} (respectivement {\it projectif filtré}) si
+$\text{gr}^p(I) = \text{gr}_F^p(I) = F^pI/F^{p+1}I$ est injectif
+(respectivement projectif) dans $\mathcal{A}$ pour tout $p$.
+\item La catégorie des complexes
+$\text{Comp}(\text{Fil}^f(\mathcal{A})) \supset
+\text{Comp}^+(\text{Fil}^f(\mathcal{A}))$
+et sa catégorie homotopique
+$K(\text{Fil}^f(\mathcal{A})) \supset K^+(\text{Fil}^f(\mathcal A))$
+sont définies comme précédemment.
+\item Un morphisme $\alpha : K^\bullet \to L^\bullet$ de complexes de
+$\text{Comp}(\text{Fil}^f(\mathcal{A}))$ est appelé un
+{\it quasi-isomorphisme filtré} si
+$$
+\text{gr}^p(\alpha): \text{gr}^p(K^\bullet) \to \text{gr}^p(L^\bullet)
+$$
+est un quasi-isomorphisme pour tout $p \in \mathbf{Z}$.
+\item Nous définissons $DF(\mathcal{A})$ (respectivement $DF^+(\mathcal{A})$)
+en inversant les quasi-isomorphismes filtrés dans
+$K(\text{Fil}^f(\mathcal{A}))$ (respectivement $K^+(\text{Fil}^f(\mathcal{A}))$).
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-filtered-derived-category}
+Si $\mathcal{A}$ possède assez d'injectifs, alors $DF^+(\mathcal{A}) \cong
+K^+(\mathcal{I})$, où $\mathcal{I}$ est la sous-catégorie additive pleine de
+$\text{Fil}^f(\mathcal{A})$ formée des objets injectifs filtrés.
+De même, si $\mathcal{A}$ possède assez de projectifs, alors $DF^-(\mathcal{A})
+\cong K^-(\mathcal{P})$, où $\mathcal P$ est la sous-catégorie additive pleine de
+$\text{Fil}^f(\mathcal{A})$ formée des objets projectifs filtrés.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+
+
+
+
+\section{Foncteurs dérivés filtrés}
+\label{section-filtered-derived-functors}
+
+\noindent
+Il y a ensuite les foncteurs dérivés filtrés.
+
+\begin{definition}
+\label{definition-filtered-derived-functors}
+Soit $T: \mathcal{A} \to \mathcal{B}$ un foncteur exact à gauche et supposons que
+$\mathcal{A}$ possède assez d'injectifs. Définissons $RT: DF^+(\mathcal{A}) \to D
+F^+(\mathcal{B})$ de sorte qu'il s'insère dans le diagramme
+$$
+\xymatrix{
+DF^+(\mathcal{A}) \ar[r]^{RT} & DF^+(\mathcal{B}) \\
+K^+(\mathcal{I}) \ar[u] \ar[r]^{T \quad} & K^+(\text{Fil}^f(\mathcal{B})).
+\ar[u]}
+$$
+Ce foncteur est bien défini d'après le lemme précédent. Soit $G: \mathcal{A} \to
+\mathcal{B}$ un foncteur exact à droite et supposons que $\mathcal{A}$ possède assez de
+projectifs. Définissons $LG: DF^-(\mathcal{A}) \to DF^-(\mathcal{B})$ de sorte qu'il s'insère dans
+le diagramme
+$$
+\xymatrix{
+DF^-(\mathcal{A}) \ar[r]^{LG} & DF^-(\mathcal{B}) \\
+K^-(\mathcal{P}) \ar[u] \ar[r]^{G \quad} & K^-(\text{Fil}^f(\mathcal{B})).
+\ar[u]}
+$$
+Là encore, ce foncteur est bien défini d'après le lemme précédent.
+Les foncteurs $RT$, respectivement\ $LG$, sont appelés le {\it foncteur dérivé
+filtré} de $T$, respectivement de $G$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-compare-filtered-graded}
+Dans la situation ci-dessus, on a
+$$
+\text{gr}^p \circ RT = RT \circ \text{gr}^p
+$$
+où le $RT$ de gauche est le foncteur dérivé filtré, tandis que celui de
+droite est le foncteur dérivé total. Autrement dit, on a un diagramme commutatif
+$$
+\xymatrix{
+DF^+(\mathcal{A}) \ar[r]^{RT} \ar[d]_{\text{gr}^p} & DF^+(\mathcal{B})
+\ar[d]^{\text{gr}^p}\\
+D^+(\mathcal{A}) \ar[r]^{RT} & D^+(\mathcal{B}).}
+$$
+\end{proposition}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\noindent
+Pour $K^\bullet \in DF^+(\mathcal{B})$, on obtient une suite spectrale
+$$
+E_1^{p, q} = H^{p+q}(\text{gr}^p K^\bullet) \Rightarrow H^{p+q}(\text{oubli de la
+filtration}(K^\bullet)).
+$$
+
+
+
+
+
+
+\section{Application des complexes filtrés}
+\label{section-applications-filtered}
+
+\noindent
+Soit $\mathcal{A}$ une catégorie abélienne possédant assez d'injectifs, et soit
+$0 \to L \to M \to N \to 0$ une suite exacte courte dans $\mathcal{A}$.
+Considérons $\widetilde M \in \text{Fil}^f(\mathcal{A})$ obtenu en munissant $M$ de la
+filtration définie par
+$$
+F^1M = L, \ F^nM = M
+\text{ pour }n \leq 0\text{, et }F^nM = 0\text{ pour }n \geq 2.
+$$
+Par définition, on a
+$$
+\text{oubli de la filtration}(\widetilde M) = M, \quad
+\text{gr}^0(\widetilde M) = N, \quad
+\text{gr}^1(\widetilde M) = L
+$$
+et $\text{gr}^n(\widetilde M) = 0$ pour tout autre $n \neq 0, 1$. Soit $T:
+\mathcal{A} \to \mathcal{B}$ un foncteur exact à gauche. Supposons que $\mathcal{A}$
+possède assez d'injectifs. Alors $RT(\widetilde M) \in DF^+(\mathcal{B})$ est un
+complexe filtré vérifiant
+$$
+\text{gr}^p(RT(\widetilde M))
+\stackrel{\text{qis}}{=}
+\left\{
+\begin{matrix}
+0 & \text{si} & p \neq 0, 1, \\
+RT(N) & \text{si} & p = 0, \\
+RT(L) & \text{si} & p = 1.
+\end{matrix}
+\right.
+$$
+et $\text{oubli de la filtration}(RT(\widetilde M))\stackrel{\text{qis}}{ = } RT(M)$. La
+suite spectrale appliquée à $RT(\widetilde M)$ donne
+$$
+E_1^{p, q} = R^{p+q}T(\text{gr}^p(\widetilde M)) \Rightarrow
+R^{p+q}T(\text{oubli de la filtration}(\widetilde M)).
+$$
+En développant la suite spectrale, on obtient la suite exacte longue
+$$
+\xymatrix{
+0 \ar[r] & T(L) \ar[r] & T(M) \ar[r] & T(N) \ar@(rd, ul)[rdllllr] \\
+& R^1T(L) \ar[r] & R^1T(M) \ar[r] & \ldots
+}
+$$
+Nous l'utiliserons de la manière suivante. Soit $X/k$ un schéma de type fini. Soit
+$\mathcal{F}$ un $\mathbf{Z}/\ell^n \mathbf{Z}$-module constructible plat.
+Nous voulons alors montrer que la trace
+$$
+\text{Tr}( \pi_X^\ast | R\Gamma_c(X_{\bar k}, \mathcal{F})) \in
+\mathbf{Z}/\ell^n \mathbf{Z}
+$$
+est additive sur les suites exactes courtes. Pour le voir, il ne suffira pas de
+travailler avec $R\Gamma_c(X_{\bar k}, -) \in D^+(\mathbf{Z}/\ell^n \mathbf{Z})$, mais
+il faudra utiliser la catégorie dérivée filtrée.
+
+
+
+
+
+
+
+%10.29.09
+\section{Complexes parfaits}
+\label{section-perfect}
+
+\noindent
+Soit $\Lambda$ un anneau (éventuellement non commutatif), $\text{Mod}_{\Lambda}$ la
+catégorie des $\Lambda$-modules à gauche, $K(\Lambda) = K(\text{Mod}_\Lambda)$ sa
+catégorie homotopique, et $D(\Lambda)= D(\text{Mod}_\Lambda)$ la catégorie dérivée
+correspondante.
+
+\begin{definition}
+\label{definition-perfect}
+Nous notons $K_{perf}(\Lambda)$ la catégorie dont les objets sont les complexes bornés
+de $\Lambda$-modules projectifs de type fini, et dont les morphismes sont les
+morphismes de complexes à homotopie près. Le foncteur $K_{perf}(\Lambda)\to
+D(\Lambda)$ est pleinement fidèle (Catégories dérivées, lemme
+\ref{derived-lemma-morphisms-from-projective-complex}).
+Notons $D_{perf}(\Lambda)$ son image essentielle.
+Un objet de $D(\Lambda)$ est dit {\it parfait} s'il appartient à
+$D_{perf}(\Lambda)$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-trace-well-defined}
+Soient $K\in D_{perf}(\Lambda)$ et $f\in \text{End}_{D(\Lambda)}(K)$. Alors la
+trace $\text{Tr}(f)\in \Lambda^\natural$ est bien définie.
+\end{proposition}
+
+\begin{proof}
+Nous utiliserons le lemme de Catégories dérivées
+\ref{derived-lemma-morphisms-from-projective-complex}
+sans plus le mentionner dans cette démonstration.
+Soit $P^\bullet$ un complexe borné de $\Lambda$-modules projectifs de type fini
+et soit $\alpha : P^\bullet \to K$ un isomorphisme dans $D(\Lambda)$. Alors
+$\alpha^{-1}\circ f\circ \alpha$ correspond à un morphisme de complexes
+$f^\bullet : P^\bullet \to P^\bullet$ bien défini à homotopie près.
+Posons
+$$
+\text{Tr}(f) = \sum_i (-1)^i \text{Tr}(f^i : P^i \to P^i) \in \Lambda^\natural.
+$$
+Une fois $P^\bullet$ et $\alpha$ fixés, cette définition ne dépend pas du choix de
+$f^\bullet$. En effet, tout autre choix est de la forme
+$\tilde{f}^\bullet = f^\bullet + dh +hd$ pour un certain
+$h^i : P^i \to P^{i-1}(i\in \mathbf{Z})$. Mais
+\begin{eqnarray*}
+\text{Tr}(dh) & = & \sum_i (-1)^i \text{Tr}(P^i\xrightarrow{dh} P^i) \\
+& = & \sum_i (-1)^i \text{Tr}(P^{i-1}\xrightarrow{hd} P^{i-1}) \\
+& = & -\sum_i (-1)^{i-1}\text{Tr}(P^{i-1}\xrightarrow{hd} P^{i-1}) \\
+& = & - \text{Tr}(hd)
+\end{eqnarray*}
+donc $\sum_i (-1)^i \text{Tr} ((dh+hd)|_{P^i})=0$.
+En outre, cette définition ne dépend pas du choix de $(P^\bullet , \alpha)$ :
+supposons que $(Q^\bullet, \beta)$ soit un autre choix. Les composées
+$$
+Q^\bullet \xrightarrow{\beta} K \xrightarrow{\alpha^{-1}} P^\bullet
+\quad\text{et}\quad
+P^\bullet \xrightarrow{\alpha} K \xrightarrow{\beta^{-1}} Q^\bullet
+$$
+sont représentables par des morphismes de complexes $\gamma_1^\bullet$ et
+$\gamma_2^\bullet$ respectivement, tels que $\gamma_1^\bullet \circ
+\gamma_2^\bullet$ soit homotope à l'identité. Ainsi, le morphisme de complexes
+$\gamma_2^\bullet\circ f^\bullet\circ \gamma_1^\bullet : Q^\bullet\to Q^\bullet$
+représente le morphisme $\beta^{-1}\circ f\circ\beta$ dans $D(\Lambda)$. Or
+\begin{eqnarray*}
+\text{Tr}(\gamma_2^\bullet\circ f^\bullet\circ\gamma_1^\bullet|_{Q^\bullet}) &
+= & \text{Tr}(\gamma_1^\bullet \circ\gamma_2^\bullet \circ
+f^\bullet|_{P^\bullet})\\
+& = & \text{Tr}(f^\bullet|_{P^\bullet})
+\end{eqnarray*}
+car $\gamma_1^\bullet \circ \gamma_2^\bullet$ est homotope à
+l'identité et d'après l'indépendance du choix de $f^\bullet$ établie ci-dessus.
+\end{proof}
+
+
+
+
+\section{Filtrations et complexes parfaits}
+\label{section-filtrations-perfect}
+
+\noindent
+Présentons maintenant une version filtrée de la catégorie des complexes parfaits. Un
+objet $(M, F)$ de $\text{Fil}^f(\text{Mod}_\Lambda)$ est dit {\it projectif filtré
+de type fini} si, pour tout $p$, $\text{gr}^p_F (M)$ est de type fini et
+projectif. Nous considérons alors la catégorie homotopique
+$KF_{\text{perf}}(\Lambda)$ des complexes bornés d'objets projectifs filtrés
+de type fini de $\text{Fil}^f(\text{Mod}_\Lambda)$. On a un diagramme de
+catégories
+$$
+\begin{matrix}
+KF(\Lambda) & \supset & KF_{\text{perf}}(\Lambda)\\
+\downarrow & & \downarrow\\
+DF(\Lambda) & \supset & DF_{\text{perf}}(\Lambda)
+\end{matrix}
+$$
+où le foncteur vertical de droite est pleinement fidèle et où la catégorie
+$DF_{\text{perf}}(\Lambda)$ est son image essentielle, comme précédemment.
+
+\begin{lemma}[Additivité]
+\label{lemma-additivity}
+Soient $K\in DF_{\text{perf}}(\Lambda)$ et $f\in
+\text{End}_{DF}(K)$. Alors
+$$
+\text{Tr}(f|_K) =
+\sum\nolimits_{p\in \mathbf{Z}} \text{Tr}(f|_{\text{gr}^p K}).
+$$
+\end{lemma}
+
+\begin{proof}
+D'après la proposition \ref{proposition-trace-well-defined}, on peut supposer disposer
+d'un complexe borné
+$P^\bullet$ d'objets projectifs filtrés de type fini de
+$\text{Fil}^f(\text{Mod}_\Lambda)$ et d'un morphisme $f^\bullet : P^\bullet\to
+P^\bullet$ dans $\text{Comp}(\text{Fil}^f(\text{Mod}_\Lambda))$. Le lemme
+découle donc du résultat suivant, dont la démonstration est laissée au lecteur.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-additive-filtered-finite-projective}
+Soit $P \in \text{Fil}^f(\text{Mod}_\Lambda)$ un objet projectif filtré de type fini, et
+soit $f : P \to P$ un endomorphisme dans $\text{Fil}^f(\text{Mod}_\Lambda)$. Alors
+$$
+\text{Tr}(f|_P) =
+\sum\nolimits_p \text{Tr}(f|_{\text{gr}^p(P)}).
+$$
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+
+
+
+
+
+
+\section{Caractérisation des objets parfaits}
+\label{section-characterizing-perfect}
+
+\noindent
+Pour le cas commutatif, voir
+Compléments sur l'algèbre, sections
+\ref{more-algebra-section-pseudo-coherent},
+\ref{more-algebra-section-tor}, et
+\ref{more-algebra-section-perfect}.
+
+\begin{definition}
+\label{definition-finite-tor-dimension}
+Soit $\Lambda$ un anneau (éventuellement non commutatif).
+Un objet $K\in D(\Lambda)$ est de {\it dimension de $\text{Tor}$ finie}
+s'il existe $a, b \in \mathbf{Z}$ tels que, pour tout
+$\Lambda$-module à droite $N$, on ait
+$H^i(N \otimes_{\Lambda}^\mathbf{L} K) = 0$ pour tout
+$i \not \in [a, b]$.
+\end{definition}
+
+\noindent
+Cela signifie en particulier que $K \in D^b(\Lambda)$, comme on le voit en prenant
+$N = \Lambda$.
+
+\begin{lemma}
+\label{lemma-characterize-perfect}
+Soient $\Lambda$ un anneau noethérien à gauche et $K\in D(\Lambda)$. Alors $K$ est
+parfait si et seulement si les deux conditions suivantes sont satisfaites :
+\begin{enumerate}
+\item
+$K$ est de dimension de $\text{Tor}$ finie, et
+\item
+pour tout $i \in \mathbf{Z}$, $H^i(K)$ est un $\Lambda$-module de type fini.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Voir Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-perfect},
+pour la démonstration dans le cas commutatif.
+\end{proof}
+
+\noindent
+Le lecteur est vivement encouragé à essayer de démontrer cet énoncé. La démonstration repose sur le
+fait qu'un module à gauche de présentation finie sur un anneau est plat si et seulement
+s'il est projectif.
+
+\begin{remark}
+\label{remark-variant}
+Une variante de ce lemme consiste à considérer un schéma noethérien $X$
+et la catégorie $D_{perf}(\mathcal{O}_X)$ des complexes qui sont localement
+quasi-isomorphes à un complexe fini de modules localement libres de type fini sur
+$\mathcal{O}_X$. Les objets $K$ de $D_{perf}(\mathcal{O}_X)$
+se caractérisent par la cohérence de leurs faisceaux de cohomologie et par une
+dimension de Tor bornée.
+\end{remark}
+
+
+
+
+
+
+
+
+\section{Cohomologie des complexes raisonnables}
+\label{section-cohomology-ctf}
+
+\noindent
+Ce qui suit est un cas particulier d'un résultat plus général concernant la
+cohomologie à support propre des objets de $D_{ctf}(X, \Lambda)$.
+
+\begin{proposition}
+\label{proposition-projective-curve-constructible-cohomology}
+Soient $X$ une courbe projective sur un corps $k$, $\Lambda$ un anneau fini et
+$K\in D_{ctf}(X, \Lambda)$. Alors $R\Gamma(X_{\bar k}, K)\in
+D_{perf}(\Lambda)$.
+\end{proposition}
+
+\begin{proof}[Esquisse de démonstration.]
+La première étape consiste à montrer :
+\begin{enumerate}
+\item[(1)]
+{\it La cohomologie de $R\Gamma(X_{\bar k}, K)$ est bornée.}
+\end{enumerate}
+Considérons la suite spectrale
+$$
+H^i(X_{\bar k}, \underline H^j(K))
+\Rightarrow
+H^{i+j} (R\Gamma(X_{\bar k}, K)).
+$$
+Comme $K$ est borné et que $\Lambda$ est fini, les faisceaux $\underline H^j(K)$
+sont de torsion. De plus, $X_{\bar k}$ est de dimension cohomologique finie, donc le
+membre de gauche n'est non nul que pour un nombre fini de $i$ et de $j$. Il en va donc
+de même du membre de droite.
+\begin{enumerate}
+\item[(2)]
+{\it Les groupes de cohomologie $H^{i+j} (R\Gamma(X_{\bar k}, K))$ sont finis.}
+\end{enumerate}
+Comme les faisceaux $\underline H^j(K)$ sont constructibles, les groupes
+$H^i(X_{\bar k}, \underline H^j(K))$ sont finis
+(Cohomologie \'etale, section \ref{etale-cohomology-section-vanishing-torsion})
+et l'assertion découle de nouveau de la suite spectrale.
+\begin{enumerate}
+\item[(3)]
+{\it $R\Gamma(X_{\bar k}, K)$ est de dimension de $\text{Tor}$ finie.}
+\end{enumerate}
+Soit $N$ un $\Lambda$-module à droite (en fait, comme $\Lambda$ est fini, il
+suffit de supposer que $N$ est fini). Par la formule de projection (changement de
+module),
+$$
+N \otimes^\mathbf{L}_\Lambda R \Gamma(X_{\bar k}, K) = R\Gamma(X_{\bar k},
+N \otimes^\mathbf{L}_\Lambda K).
+$$
+Par conséquent,
+$$
+H^i (N \otimes^\mathbf{L}_\Lambda R\Gamma(X_{\bar k}, K)) = H^i(R\Gamma(X_{\bar
+k}, N \otimes_{\Lambda}^\mathbf{L} K)).
+$$
+Considérons maintenant la suite spectrale
+$$
+H^i (X_{\bar k}, \underline H^j (N \otimes_{\Lambda}^\mathbf{L} K))
+\Rightarrow
+H^{i+j}(R\Gamma(X_{\bar k}, N \otimes_{\Lambda}^\mathbf{L} K)).
+$$
+Comme $K$ est de dimension de $\text{Tor}$ finie, $\underline H^j
+(N \otimes_{\Lambda}^\mathbf{L} K)$ s'annule universellement pour $j$ assez petit,
+et le membre de gauche s'annule dès que $i < 0$. Par conséquent, $R\Gamma(X_{\bar
+k}, K)$ est de dimension de $\text{Tor}$ finie, comme annoncé. C'est donc un
+complexe parfait d'après le lemme \ref{lemma-characterize-perfect}.
+\end{proof}
+
+
+
+
+
+\section{Nombres de Lefschetz}
+\label{section-lefschetz-numbers}
+
+\noindent
+Le fait que la cohomologie totale d'un complexe constructible de dimension de Tor
+finie soit un complexe parfait est la raison technique essentielle pour laquelle la cohomologie
+se comporte bien et permet de définir rigoureusement les traces qui apparaissent dans la
+formule des traces.
+
+\begin{definition}
+\label{definition-global-lefschetz-number}
+Soient $\Lambda$ un anneau fini, $X$ une courbe projective sur un corps fini $k$
+et $K \in D_{ctf}(X, \Lambda)$ (par exemple $K = \underline\Lambda$).
+Il existe un morphisme canonique $c_K : \pi_X^{-1}K \to K$, et son changement de base
+$c_K|_{X_{\bar k}}$ induit une action, notée $\pi_X^*$, sur le complexe parfait
+$R\Gamma(X_{\bar k}, K|_{X_{\bar k}})$. Le
+{\it nombre global de Lefschetz} de $K$ est la trace
+$\text{Tr}(\pi_X^* |_{R\Gamma(X_{\bar k}, K)})$ de cette action.
+C'est un élément de $\Lambda^\natural$.
+\end{definition}
+
+\begin{definition}
+\label{definition-local-lefschetz-number}
+Soient $\Lambda, X, k, K$ comme dans la
+définition \ref{definition-global-lefschetz-number}.
+Comme $K\in D_{ctf}(X, \Lambda)$, pour tout point géométrique $\bar x$ de $X$,
+le complexe $K_{\bar x}$ est un complexe parfait (dans $D_{perf}(\Lambda)$). Comme nous
+l'avons vu à la section \ref{section-frobenii}, le Frobenius $\pi_X$ agit sur
+$K_{\bar x}$. Le {\it nombre local de Lefschetz} de $K$ est la somme
+$$
+\sum\nolimits_{x\in X(k)} \text{Tr}(\pi_x |_{K_{\overline{x}}})
+$$
+qui est encore un élément de $\Lambda^\natural$.
+\end{definition}
+
+\noindent
+Nous pouvons enfin formuler précisément la formule des traces.
+
+\begin{theorem}[Formule des traces de Lefschetz]
+\label{theorem-trace}
+Soient $X$ une courbe projective sur un corps fini $k$, $\Lambda$ un anneau fini
+et $K \in D_{ctf}(X, \Lambda)$. Alors les nombres de Lefschetz global et local
+de $K$ sont égaux, c'est-à-dire
+\begin{equation}
+\label{equation-trace-formula}
+\text{Tr}(\pi^*_X |_{R\Gamma(X_{\bar k}, K)})
+=
+\sum\nolimits_{x\in X(k)} \text{Tr}(\pi_X |_{K_{\bar x}})
+\end{equation}
+dans $\Lambda^\natural$.
+\end{theorem}
+
+\begin{proof}
+Voir la discussion ci-dessous.
+\end{proof}
+
+%11.5.09
+\noindent
+Nous utiliserons la formule des traces plutôt que de la démontrer. Néanmoins, nous
+donnerons de nombreux détails de la démonstration du théorème telle qu'elle est donnée dans
+\cite{SGA4.5} (certaines des choses qui n'y sont pas expliquées de manière satisfaisante
+sont énumérées à la section \ref{section-list-skipped}).
+
+\medskip\noindent
+Nous n'avons énoncé la formule que pour les courbes et, en un sens assez
+faible, elle est une conséquence du résultat suivant.
+
+\begin{theorem}[Weil]
+\label{theorem-weil-trace-formula}
+Soient $C$ une courbe projective non singulière sur un corps algébriquement clos
+$k$, et $\varphi : C \to C$ un $k$-endomorphisme de $C$ distinct de
+l'identité. Posons $V(\varphi) = \Delta_C \cdot \Gamma_\varphi$, où $\Delta_C$ est
+la diagonale, $\Gamma_\varphi$ est le graphe de $\varphi$, et où le nombre d'intersection
+est calculé sur $C \times C$. Soit $J = \underline{\Picardfunctor}^0_{C/k}$
+la jacobienne de $C$, et notons $\varphi^* : J \to J$ l'action induite par
+$\varphi$ par image réciproque. Alors
+$$
+V(\varphi) = 1 - \text{Tr}_J(\varphi^*) + \deg \varphi.
+$$
+\end{theorem}
+
+\begin{proof}
+Le nombre $V(\varphi)$ est le nombre de points fixes de $\varphi$ comptés avec multiplicité ; il est égal
+à
+$$
+V(\varphi) =
+\sum\nolimits_{c \in |C| : \varphi(c) = c} m_{\text{Fix}(\varphi)} (c)
+$$
+où $m_{\text{Fix}(\varphi)} (c)$ est la multiplicité de $c$ comme point fixe
+de $\varphi$, c'est-à-dire l'ordre d'annulation de l'image d'une uniformisante locale
+par $\varphi - \text{id}_C$. On trouvera des démonstrations de ce théorème dans
+\cite{Lang} et \cite{Weil}.
+\end{proof}
+
+\begin{example}
+\label{example-elliptic-curve}
+Soit $C = E$ une courbe elliptique et soit $\varphi = [n]$ la multiplication par $n$.
+Alors $\varphi^* = \varphi^t$ est la multiplication par $n$ sur la jacobienne, de sorte qu'elle
+a pour trace $2n$ et pour degré $n^2$. D'autre part, le schéma des points fixes de
+$\varphi$ est formé des points $p \in E$ tels que $n p = p$ ; c'est donc le schéma de
+$(n-1)$-torsion, qui est de degré $(n-1)^2$. Le théorème s'écrit donc
+$$
+(n-1)^2 = 1 - 2n + n^2.
+$$
+\end{example}
+
+\noindent
+{\bf Jacobiennes.}
+Nous examinons maintenant, sans démonstration, la correspondance entre une courbe et sa
+jacobienne qui intervient dans la démonstration de Weil. Soit $C$ une courbe projective non singulière
+sur un corps algébriquement clos $k$ et choisissons un point de base $c_0 \in
+C(k)$. Notons $A^1(C \times C)$ (ou $\Pic(C \times C)$, ou
+$\text{CaCl}(C \times C)$) le groupe abélien des diviseurs de codimension 1 de
+$C \times C$. Alors
+$$
+A^1(C \times C) = \text{pr}_1^* (A^1(C)) \oplus \text{pr}_2^* (A^1(C)) \oplus R
+$$
+où
+$$
+R = \{ Z \in A^1(C \times C) \ |
+\ Z|_{C \times \{c_0\}} \sim_\text{rat} 0
+\text{ et }
+Z|_{\{c_0\} \times C} \sim_\text{rat} 0 \}.
+$$
+Autrement dit,
+$R$ est le sous-groupe des fibrés en droites dont les restrictions aux
+deux sous-schémas indiqués sont triviales. Il existe alors un isomorphisme canonique de groupes abéliens $R
+\cong \text{End}(J)$ qui envoie un diviseur $Z$ de $R$ sur l'endomorphisme
+$$
+\begin{matrix}
+J & \to & J \\
+\left[ \mathcal{O}_C(D) \right] & \mapsto & (\text{pr}_1 |_Z)_* (\text{pr}_2
+|_Z)^* (D).
+\end{matrix}
+$$
+La correspondance susmentionnée est la suivante. Notons $\sigma$
+l'automorphisme de $C \times C$ qui permute les facteurs.
+$$
+\begin{matrix}
+\hline & \\
+\text{End}(J) & R \\
+& \\
+\hline & \\
+\text{composition de }\alpha, \beta &
+{\text{pr}_{13}}_* ({\text{pr}_{12}}^*(\alpha) \circ {\text{pr}_{23}}^*(\beta))
+\\
+& \\
+\text{id}_J &
+\Delta_C - \{c_0\} \times C - C \times \{c_0\} \\
+& \\
+\varphi^* &
+\Gamma_\varphi - C \times \{\varphi(c_0)\}
+- \sum_{\varphi(c) = c_0} \{c\} \times C \\
+& \\
+{
+\begin{matrix}
+\text{la forme trace} \\
+\alpha, \beta \mapsto \text{Tr}(\alpha \beta)
+\end{matrix}
+}
+&
+\alpha, \beta \mapsto - \int_{C \times C} \alpha . \sigma^*\beta
+\\
+& \\
+{
+\begin{matrix}
+\text{l'involution de Rosati} \\
+\alpha \mapsto \alpha^\dagger
+\end{matrix}
+}
+&
+\alpha \mapsto \sigma^*\alpha
+\\
+& \\
+{
+\begin{matrix}
+\text{positivité de Rosati} \\
+\text{Tr}(\alpha\alpha^\dagger) > 0
+\end{matrix}
+}
+&
+{
+\begin{matrix}
+\text{théorème de l'indice de Hodge sur }C \times C \\
+- \int_{C \times C} \alpha \sigma^*\alpha > 0.
+\end{matrix}
+}
+\\
+& \\
+\hline 
+\end{matrix}
+$$
+En fait, au vu de la formule de Künneth, le sous-groupe $R$ correspond aux classes de Hodge de type
+$1, 1$ dans $H^1(C)\otimes H^1(C)$.
+
+\medskip\noindent
+{\bf Démonstration de Weil.} Cette correspondance permet de démontrer la formule
+des traces. Nous avons
+\begin{eqnarray*}
+V(\varphi) & = & \int_{C \times C} \Gamma_\varphi.\Delta \\
+& = & \int_{C \times C} \Gamma_\varphi. \left(\Delta_C - \{c_0\} \times C - C
+\times \{c_0\}\right) + \int_{C \times C} \Gamma_\varphi. \left(\{c_0\} \times C
++ C \times \{c_0\}\right).
+\end{eqnarray*}
+D'une part,
+$$
+\int_{C \times C} \Gamma_\varphi. \left(\{c_0\} \times C + C \times
+\{c_0\}\right)
+=
+1 + \deg \varphi
+$$
+et, d'autre part, puisque $R$ est l'orthogonal du diviseur ample
+$\{c_0\} \times C + C \times \{c_0\}$,
+\begin{eqnarray*}
+& &
+\int_{C \times C} \Gamma_\varphi. \left(\Delta_C - \{c_0\} \times C - C \times
+\{c_0\}\right) \\
+& = &
+\int_{C \times C} \left(\Gamma_\varphi - C \times \{\varphi(c_0)\} -
+\sum_{\varphi(c) = c_0} \{c\} \times C \right). \left(\Delta_C - \{c_0\} \times
+C - C \times \{c_0\}\right) \\
+& = & - \text{Tr}_J (\varphi^* \circ \text{id}_J).
+\end{eqnarray*}
+En récapitulant, nous obtenons
+$$
+V(\varphi) = 1 - \text{Tr}_J (\varphi^*) + \deg \varphi
+$$
+ce qui donne la formule des traces.
+
+\begin{lemma}
+\label{lemma-weil-mod}
+Considérons la situation du
+théorème \ref{theorem-weil-trace-formula}
+et soit $\ell$ un nombre premier inversible dans $k$. Alors
+$$
+\sum\nolimits_{i = 0}^2
+(-1)^i
+\text{Tr}(\varphi^* |_{H^i (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})})
+=
+V(\varphi) \mod \ell^n.
+$$
+\end{lemma}
+
+\begin{proof}[Esquisse de démonstration]
+Remarquons d'abord que l'énoncé a un sens, car les groupes $H^i(C,
+\underline{\mathbf{Z}/\ell^n \mathbf{Z}})$ sont des modules libres sur $\mathbf{Z}/\ell^n
+\mathbf{Z}$ pour tout $i$. La trace de $\varphi^*$ sur la
+cohomologie de degré zéro vaut 1. Le choix d'une racine primitive $\ell^n$-ième de l'unité dans $k$
+fournit un isomorphisme
+$$
+H^i(C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}}) \cong H^i(C, \mu_{\ell^n})
+$$
+de manière compatible avec l'action induite par l'endomorphisme considéré. D'autre part,
+$H^1(C, \mu_{\ell^n}) = J[\ell^n]$. Par conséquent,
+\begin{eqnarray*}
+\text{Tr}(\varphi^* |_{H^1 (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})})) & =
+& \text{Tr}_J (\varphi^*) \mod \ell^n \\
+& = & \text{Tr}_{\mathbf{Z}/\ell^n \mathbf{Z}} (\varphi^* : J[\ell^n] \to
+J[\ell^n]).
+\end{eqnarray*}
+En outre, $H^2(C, \mu_{\ell^n}) = \Pic(C)/\ell^n\Pic(C) \cong
+\mathbf{Z}/\ell^n \mathbf{Z}$, où $\varphi^*$ agit par multiplication par $\deg
+\varphi$. Par suite,
+$$
+\text{Tr} (\varphi^*|_{H^2 (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})}) =
+\deg \varphi.
+$$
+Ainsi,
+$$
+\sum_{i = 0}^2 (-1)^i
+\text{Tr}(\varphi^* |_{H^i (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})}) =
+1 - \text{Tr}_J(\varphi^*) + \deg \varphi \mod \ell^n
+$$
+et le lemme découle du théorème \ref{theorem-weil-trace-formula}.
+\end{proof}
+
+\noindent
+Une autre manière de démontrer ce lemme consiste à montrer que
+$$
+X \mapsto H^* (X, \mathbf{Q}_\ell) =
+\mathbf{Q}_\ell \otimes
+\lim_n H^*(X, \mathbf{Z}/\ell^n\mathbf{Z})
+$$
+définit une théorie cohomologique de Weil sur les variétés projectives lisses sur $k$. Alors
+la formule des traces
+$$
+V(\varphi) = \sum_{i = 0}^2 (-1)^i
+\text{Tr}(\varphi^* |_{H^i(C, \mathbf{Q}_\ell)})
+$$
+est une conséquence formelle des axiomes (il s'agit d'un exercice d'algèbre linéaire, la
+démonstration étant la même que dans le cas topologique).
+
+
+
+
+%11.10.09
+\section{Préliminaires et sorites}
+\label{section-preliminaries}
+
+\noindent
+Notations :
+Fixons les notations de cette section. On note $A$ un anneau commutatif,
+et $\Lambda$ un anneau (éventuellement non commutatif) muni d'un morphisme d'anneaux $A\to \Lambda$ dont
+l'image est contenue dans le centre de $\Lambda$. Soient $G$ un groupe fini et $\Gamma$ une
+{\it extension de monoïdes de noyau $G$ et de quotient $\mathbf{N}$}, c'est-à-dire qu'il existe une
+suite exacte
+$$
+1\to G\to \tilde\Gamma\to \mathbf{Z}\to 1
+$$
+et $\Gamma$ est constitué des éléments de $\tilde\Gamma$ dont l'image est
+positive ou nulle. Enfin, soit $P$ un $A[\Gamma]$-module qui est de type fini et
+projectif en tant que $A[G]$-module, et soit $M$ un $\Lambda[\Gamma]$-module qui est
+de type fini et projectif en tant que $\Lambda$-module.
+
+\medskip\noindent
+Notre but est de calculer la trace de $1 \in \mathbf{N}$ agissant sur le $\Lambda$-module
+des coinvariants de $G$ dans $P \otimes_A M$, c'est-à-dire l'élément
+$$
+\text{Tr}_{\Lambda}\left(1; \left(P \otimes_A M\right)_G\right) \in
+\Lambda^\natural.
+$$
+L'élément $1\in \mathbf{N}$ correspondra au Frobenius.
+
+\begin{lemma}
+\label{lemma-epsilon}
+Soit $e\in G$ l'élément neutre. L'application
+$$
+\begin{matrix}
+\Lambda[G] & \longrightarrow & \Lambda^{\natural}\\
+\sum \lambda_g\cdot g & \longmapsto & \lambda_e
+\end{matrix}
+$$
+se factorise par $\Lambda[G]^\natural$. On note
+$\varepsilon : \Lambda[G]^\natural\to \Lambda^\natural$ l'application induite.
+\end{lemma}
+
+\begin{proof}
+Il faut montrer que l'application annule les commutateurs. On a
+$$
+\left(\sum\lambda_g g\right)\left(\sum\mu_g g\right)-\left(\sum \mu_g
+g\right)\left(\sum\lambda_g g\right)
+= \sum_g\left(\sum_{g_1g_2=g}
+\lambda_{g_1}\mu_{g_2}-\mu_{g_1}\lambda_{g_2}\right)g
+$$
+Le coefficient de $e$ est
+$$
+\sum_g\left(\lambda_g\mu_{g^{-1}}-\mu_g\lambda_{g^{-1}}\right) =
+\sum_g\left(\lambda_g\mu_{g^{-1}}-\mu_{g^{-1}}\lambda_g\right)
+$$
+qui est une somme de commutateurs et est donc nul dans $\Lambda^\natural$.
+\end{proof}
+
+\begin{definition}
+\label{definition-trace-G}
+Soit $f : P\to P$ un
+endomorphisme d'un $\Lambda[G]$-module projectif de type fini
+$P$. On pose
+$$
+\text{Tr}_{\Lambda}^G(f; P) := \varepsilon\left(\text{Tr}_{\Lambda[G]}(f;
+P)\right)
+$$
+et l'on appelle cet élément la {\it $G$-trace de $f$ sur $P$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-lambda-trace}
+Soit $f : P\to P$ un endomorphisme du
+$\Lambda[G]$-module projectif de type fini $P$. Alors
+$$
+\text{Tr}_{\Lambda}(f; P) = \# G \cdot \text{Tr}_\Lambda^G(f; P).
+$$
+\end{lemma}
+
+\begin{proof}
+Par additivité, il suffit de traiter le cas $P = \Lambda[G]$.
+Dans ce cas, $f$ est donné par
+la multiplication à droite par un élément $\sum\lambda_g\cdot g$ de $\Lambda[G]$. Dans
+la base $(g)_{g \in G}$, la matrice de $f$ a pour coefficient
+$\lambda_{g_2^{-1}g_1}$ à la position $(g_1, g_2)$. En particulier, tous les
+coefficients diagonaux sont égaux à $\lambda_e$, et il y en a $\# G$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-A-module-structure}
+Le morphisme $A\to \Lambda$ définit une structure de $A$-module sur $\Lambda^\natural$.
+\end{lemma}
+
+\begin{proof}
+C'est clair.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonal-action-projective-module}
+Soient $P$ un $A[G]$-module projectif de type fini et $M$ un $\Lambda[G]$-module,
+projectif de type fini en tant que $\Lambda$-module. Alors $P \otimes_A M$ est un
+$\Lambda[G]$-module projectif de type fini, pour la structure induite par l'action
+diagonale de $G$.
+\end{lemma}
+
+\noindent
+Notons que $P \otimes_A M$ est naturellement un $\Lambda$-module, puisque $M$ en est un.
+Explicitement, avec l'action diagonale, cela s'écrit
+$$
+\left(\sum\lambda_g g\right)\left(p \otimes m\right)
+=
+\sum g p \otimes \lambda_g g m.
+$$
+
+\begin{proof}
+Pour tout $\Lambda[G]$-module $N$, on a
+$$
+\Hom_{\Lambda[G]}\left(P \otimes_A M, N\right)= \Hom_{A[G]}\left(P,
+\Hom_{\Lambda}(M, N)\right)
+$$
+où l'action de $G$ sur $\Hom_{\Lambda}(M, N)$ est donnée par $(g\cdot
+\varphi)(m) = g \varphi (g^{-1} m) $. Il suffit alors de remarquer que le
+membre de droite est un composé de foncteurs exacts, grâce à la projectivité
+de $P$ et de $M$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-multiplicative-trace}
+Sous les hypothèses du
+lemme \ref{lemma-diagonal-action-projective-module},
+soient
+$u\in \text{End}_{A[G]}(P)$ et $v\in \text{End}_{\Lambda[G]}(M)$. Alors
+$$
+\text{Tr}_\Lambda^G \left(u \otimes v; P \otimes_A M\right) = \text{Tr}_A^G(u;
+P)\cdot \text{Tr}_\Lambda(v;M).
+$$
+\end{lemma}
+
+\begin{proof}[Esquisse de démonstration]
+On se ramène au cas $P=A[G]$. Dans ce cas, $u$ est la multiplication à droite par un
+élément $a = \sum a_gg$ de $A[G]$, et l'on écrit $u = R_a$. Il existe un
+isomorphisme de $\Lambda[G]$-modules
+$$
+\begin{matrix}
+\varphi : & A[G]\otimes_A M & \cong & \left(A[G]\otimes_A M\right)'\\
+& g \otimes m & \longmapsto & g \otimes g^{-1}m
+\end{matrix}
+$$
+où $\left(A[G]\otimes_A M\right)'$ est muni de la structure de module définie par
+l'action à gauche de $G$, ainsi que par la $\Lambda$-linéarité sur $M$. Ce transport
+de structure transforme $u \otimes v$ en $\sum_ga_gR_g \otimes g^{-1}v$. En d'autres
+termes,
+$$
+\varphi \circ (u \otimes v) \circ \varphi^{-1}
+=
+\sum_ga_gR_g \otimes g^{-1}v.
+$$
+En explicitant les deux membres de l'égalité, il suffit de montrer que
+$$
+\text{Tr}_\Lambda^G\left(\sum_g a_gR_g \otimes g^{-1}v\right) = a_e\cdot
+\text{Tr}_\Lambda(v; M).
+$$
+Pour cela, on montre que
+$$
+\text{Tr}_\Lambda^G\left(a_gR_g \otimes g^{-1}v\right) =
+\left\{
+\begin{matrix}
+0 & \text{ si } g\neq e\\
+a_e\text{Tr}_\Lambda\left(v; M\right) & \text{ si }g = e
+\end{matrix}
+\right.
+$$
+en se ramenant au cas $M=\Lambda$.
+\end{proof}
+
+\noindent
+Notation :
+Considérons l'extension de monoïdes $1 \to G\to \Gamma\to \mathbf{N} \to 1$ et soit
+$\gamma\in \Gamma$.
+On pose alors $Z_\gamma = \{g\in G | g\gamma = \gamma g\}$.
+
+\begin{lemma}
+\label{lemma-gamma-z-gamma-trace}
+Soit $P$ un $\Lambda[\Gamma]$-module, projectif de type fini en tant que
+$\Lambda[G]$-module, et soit $\gamma \in \Gamma$. Alors
+$$
+\text{Tr}_{\Lambda}(\gamma, P) =
+\# Z_\gamma \cdot \text{Tr}_\Lambda^{Z_\gamma}\left(\gamma, P\right).
+$$
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du lemme \ref{lemma-lambda-trace}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weak-trace}
+Soit $P$ un $A[\Gamma]$-module, projectif de type fini en tant que $A[G]$-module. Soit $M$
+un $\Lambda[\Gamma]$-module, projectif de type fini en tant que $\Lambda$-module. Alors
+$$
+\text{Tr}_{\Lambda}^{Z_\gamma}(\gamma, P \otimes_A M) =
+\text{Tr}_A^{Z_\gamma}(\gamma, P)\cdot \text{Tr}_\Lambda(\gamma, M).
+$$
+\end{lemma}
+
+\begin{proof}
+Cela résulte directement du lemme \ref{lemma-multiplicative-trace}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-trivial-trace}
+Soit $P$ un $\Lambda[\Gamma]$-module, projectif de type fini en tant que
+$\Lambda[G]$-module. Alors les coinvariants
+$P_G = \Lambda \otimes_{\Lambda[G]} P$
+forment un $\Lambda$-module projectif de type fini, muni d'une action de
+$\Gamma/G = \mathbf{N}$. De plus, on a
+$$
+\text{Tr}_\Lambda(1; P_G) =
+\sum\nolimits'_{\gamma \mapsto 1} \text{Tr}_\Lambda^{Z_\gamma}(\gamma, P)
+$$
+où $\sum_{\gamma\mapsto 1}'$ désigne la somme étendue aux classes de $G$-conjugaison
+dans $\Gamma$.
+\end{lemma}
+
+\begin{proof}[Esquisse de démonstration]
+Nous le démontrons d'abord après multiplication par $\# G$.
+$$
+\# G\cdot \text{Tr}_\Lambda(1; P_G)
+= \text{Tr}_\Lambda(\sum\nolimits_{\gamma\mapsto 1} \gamma, P_G)
+= \text{Tr}_\Lambda(\sum\nolimits_{\gamma\mapsto 1} \gamma, P)
+$$
+où la seconde égalité résulte du triangle commutatif
+$$
+\xymatrix{
+P^G \ar[rd]_a & & P_G \ar[ll]^c \\
+& P \ar[ur]_b
+}
+$$
+où $a$ est l'inclusion canonique, $b$ la surjection canonique et $c =
+\sum_{\gamma \mapsto 1} \gamma$. On a alors
+$$
+(\sum\nolimits_{\gamma \mapsto 1} \gamma) |_P = a \circ c \circ b
+\quad\text{et}\quad
+(\sum\nolimits_{\gamma \mapsto 1} \gamma) |_{P_G} = b \circ a \circ c
+$$
+ils ont donc même trace. On a alors
+$$
+\# G\cdot \text{Tr}_\Lambda(1; P_G)
+=
+{\sum_{\gamma\mapsto 1}}'
+\frac{\# G}{\# Z_\gamma}\text{Tr}_\Lambda(\gamma, P)
+= \# G{\sum_{\gamma\mapsto 1}}' \text{Tr}_\Lambda^{Z_\gamma}(\gamma, P).
+$$
+Pour achever la démonstration, on se ramène au cas où $\Lambda$ est sans torsion par un
+argument d'universalité. Voir \cite{SGA4.5} pour les détails.
+\end{proof}
+
+\begin{remark}
+\label{remark-content-trivial-trace}
+Illustrons le contenu de la formule du
+lemme \ref{lemma-weak-trace}.
+Supposons que $\Lambda$, vu comme $\Gamma$-module trivial, admette une
+résolution finie
+$
+0\to P_r\to \ldots \to P_1 \to P_0\to \Lambda\to 0
+$
+par des $\Lambda[\Gamma]$-modules $P_i$ qui sont projectifs de type fini en tant que
+$\Lambda[G]$-modules. Dans ce cas,
+$$
+H_*\left(\left(P_\bullet\right)_G\right) =
+\text{Tor}_*^{\Lambda[G]}\left(\Lambda, \Lambda\right) = H_*(G, \Lambda)
+$$
+et
+$$
+\text{Tr}_\Lambda^{Z_\gamma}\left(\gamma, P_\bullet\right) =\frac{1}{\#
+Z_\gamma}\text{Tr}_\Lambda(\gamma, P_\bullet)=\frac{1}{\#
+Z_\gamma}\text{Tr}(\gamma, \Lambda) = \frac{1}{\# Z_\gamma}.
+$$
+Par conséquent, le lemme \ref{lemma-weak-trace} donne
+$$
+\text{Tr}_\Lambda (1 , P_G)
+= \text{Tr}\left(1 |_{H_*(G, \Lambda)}\right)
+= {\sum_{\gamma\mapsto 1}}'\frac{1}{\# Z_\gamma}.
+$$
+On peut interpréter ceci comme un comptage de points sur le champ $BG$. Si
+$\Lambda = \mathbf{F}_\ell$ avec $\ell$ premier à $\# G$, alors
+$H_*(G, \Lambda)$ est égal à $\mathbf{F}_\ell$ en degré 0 (et à $0$ aux
+autres degrés) et la formule s'écrit
+$$
+1 =
+\sum\nolimits_{
+\frac{\sigma\text{-conjugaison}}{\text{classes}\langle\gamma\rangle}
+}
+\frac{1}{\# Z_\gamma} \mod \ell.
+$$
+C'est, en un certain sens, une formule des traces ``triviale'' pour $G$.
+Nous verrons plus loin que (\ref{equation-trace-formula}) peut, dans
+certains cas, être considérée comme une formule des traces hautement non triviale pour un
+certain type de groupe ; voir la
+section \ref{section-abstract-trace-formula}.
+\end{remark}
+
+
+
+
+
+%11.12.09
+\section{Démonstration de la formule des traces}
+\label{section-proof-trace-formula}
+
+\begin{theorem}
+\label{theorem-trace-formula-again}
+Soit $k$ un corps fini et soit $X$ un schéma séparé de type fini de dimension
+au plus 1 sur $k$. Soit $\Lambda$ un anneau fini dont le cardinal est premier
+à celui de $k$, et soit $K\in D_{ctf}(X, \Lambda)$. Alors
+\begin{equation}
+\label{equation-trace-formula-again}
+\text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, K)})
+=
+\sum\nolimits_{x\in X(k)}
+\text{Tr}(\pi_x |_{K_{\bar x}})
+\end{equation}
+dans $\Lambda^{\natural}$.
+\end{theorem}
+
+\noindent
+On trouvera dans la remarque \ref{remark-on-trace-formula-again} quelques remarques
+sur l'énoncé. Notation : pour abréger, nous écrivons
+$$
+T'(X, K) =
+\sum\nolimits_{x\in X(k)}
+\text{Tr}(\pi_x |_{K_{\bar x}})
+$$
+pour le membre de droite de (\ref{equation-trace-formula-again}) et
+$$
+T''(X, K)
+=\text{Tr}(\pi_x^* |_{R\Gamma_c(X_{\bar k}, K)})
+$$
+pour le membre de gauche.
+
+\begin{proof}[Démonstration du théorème \ref{theorem-trace-formula-again}]
+La démonstration se fait en plusieurs étapes.
+
+\medskip\noindent
+Étape 1. {\it Soit $j : \mathcal{U}\hookrightarrow X$ une immersion ouverte de
+complément $Y = X - \mathcal{U}$ et soit $i : Y \hookrightarrow X$. Alors
+$T''(X, K) = T''(\mathcal{U}, j^{-1} K)+ T''(Y, i^{-1}K)$ et
+$T'(X, K) = T'(\mathcal{U}, j^{-1} K)+ T'(Y, i^{-1}K)$.}
+
+\medskip\noindent
+C'est clair pour $T'$. Pour $T''$, utilisons la suite exacte
+$$
+0\to j_!j^{-1} K \to K \to i_* i^{-1} K \to 0
+$$
+pour munir $K$ d'une filtration. On obtient ainsi un objet
+$\widetilde K \in DF(X, \Lambda)$
+dont les gradués sont $j_!j^{-1}K$ et $i_*i^{-1}K$;
+tous deux appartiennent à $D_{ctf}(X, \Lambda)$. Par les généralités abstraites sur les catégories dérivées filtrées
+(INSÉRER UNE RÉFÉRENCE),
+$R\Gamma_c(X_{\bar k}, K)\in DF_{perf}(\Lambda)$,
+et cet objet est muni de $\pi_x^*$ dans
+$DF_{perf}(\Lambda)$.
+D'après l'analyse des traces sur les complexes filtrés (INSÉRER UNE RÉFÉRENCE), on obtient
+\begin{eqnarray*}
+\text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, K)})
+& = & \text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, j_!j^{-1}K)}) +
+\text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, i_*i^{-1}K)}) \\
+& = & T''(U, i^{-1}K) + T''(Y, i^{-1}K).
+\end{eqnarray*}
+
+\noindent
+Étape 2. {\it Le théorème est vrai si $\dim X\leq 0$. }
+
+\medskip\noindent
+En effet, dans ce cas
+$$
+R\Gamma_c(X_{\bar k}, K) = R\Gamma(X_{\bar k}, K) = \Gamma(X_{\bar k}, K) =
+\bigoplus\nolimits_{\bar x \in X_{\bar k}} K_{\bar x}
+$$
+qui est muni de l'endomorphisme $\pi_X^*$.
+Comme les points fixes de $\pi_X : X_{\bar k}\to X_{\bar k}$ sont exactement les
+points $\bar x \in X_{\bar k}$ situés au-dessus d'un point $k$-rationnel $x \in X(k)$
+nous obtenons
+$$
+\text{Tr}\big(\pi_X^*|_{R\Gamma_c(X_{\bar k}, K)}\big) =
+\sum\nolimits_{x \in X(k)} \text{Tr}(\pi_x|_{K_{\bar x}}).
+$$
+ce qui est le résultat voulu.
+
+\medskip\noindent
+Étape 3. {\it Il suffit de démontrer l'égalité
+$T'(\mathcal{U}, \mathcal{F}) = T''(\mathcal{U}, \mathcal{F})$
+dans le cas où
+\begin{itemize}
+\item $\mathcal{U}$ est une courbe affine irréductible lisse sur $k$,
+\item $\mathcal{U}(k) = \emptyset$,
+\item $K=\mathcal{F}$ est un faisceau fini localement constant de $\Lambda$-modules
+sur $\mathcal{U}$ dont les fibres sont des $\Lambda$-modules projectifs de type fini, et
+\item $\Lambda$ est annulé par une puissance d'un nombre premier $\ell$ et $\ell \in k^*$.
+\end{itemize}
+}
+
+\medskip\noindent
+En effet, d'après l'étape 2, nous pouvons retrancher tout ensemble fini de points. Mais nous
+n'avons qu'un nombre fini de points rationnels, de sorte que nous pouvons supposer qu'il n'y en a
+aucun\footnote{À ce stade, un rire maléfique devrait retentir à l'arrière-plan.}.
+Nous pouvons supposer que $\mathcal{U}$ est lisse, irréductible et affine en passant aux
+composantes irréductibles et en retranchant au besoin les mauvais points. Les
+hypothèses sur $\mathcal{F}$ s'obtiennent en explicitant la définition de
+$D_{ctf}(X, \Lambda)$ et celles sur $\Lambda$ de l'examen de sa décomposition
+primaire.
+
+\medskip\noindent
+Dans la suite de la démonstration, nous considérons la situation
+$$
+\xymatrix{
+\mathcal{V} \ar[d]_f \ar[r] & Y \ar[d]^{\bar f} \\
+\mathcal{U} \ar[r] & X
+}
+$$
+où $\mathcal{U}$ est comme ci-dessus, $f$ est un revêtement \'etale galoisien fini,
+$\mathcal{V}$ est connexe et les flèches horizontales sont des
+compactifications projectives. En posant $G=\text{Aut}(\mathcal{V}|\mathcal{U})$, nous supposons également
+(comme nous le pouvons) que $f^{-1}\mathcal{F} =\underline M$ est constant, où le
+module $M = \Gamma(\mathcal{V}, f^{-1}\mathcal{F})$ est un $\Lambda[G]$-module
+projectif de type fini sur $\Lambda$. Cela correspond à l'extension de
+monoïdes triviale
+$$
+1\to G\to \Gamma = G \times \mathbf{N}\to \mathbf{N}\to 1.
+$$
+Dans ce contexte, compte tenu des réductions ci-dessus, nous devons montrer que
+$T''(\mathcal{U}, \mathcal{F}) = 0$.
+
+\medskip\noindent
+Étape 4. {\it Il existe une action naturelle de $G$ sur $f_*f^{-1}\mathcal{F}$ et
+le morphisme trace $f_*f^{-1}\mathcal{F}\to \mathcal{F}$ définit un isomorphisme}
+$$
+(f_*f^{-1}\mathcal{F})\otimes_{\Lambda[G]} \Lambda =
+(f_*f^{-1}\mathcal{F})_G \cong \mathcal{F}.
+$$
+
+\medskip\noindent
+Pour le démontrer, il suffit de tout expliciter en un point géométrique.
+
+\medskip\noindent
+Étape 5. {\it Soit $A = \mathbf{Z}/\ell^n \mathbf{Z}$ avec $n\gg 0$. Alors
+$f_*f^{-1}\mathcal{F} \cong (f_*\underline A)
+\otimes_{\underline A} \underline M$ muni de l'action diagonale de $G$.}
+
+\medskip\noindent
+Étape 6. {\it Il existe un isomorphisme canonique
+$(f_*\underline A \otimes_{\underline A} \underline M)
+\otimes_{\Lambda[G]} \underline \Lambda \cong \mathcal{F}$.
+}
+
+\medskip\noindent
+En fait, il s'agit d'un produit tensoriel dérivé, grâce à l'hypothèse de projectivité
+faite sur $\mathcal{F}$.
+
+\medskip\noindent
+Étape 7. {\it Il existe un isomorphisme canonique
+$$
+R\Gamma_c(\mathcal{U}_{\bar k}, \mathcal{F})
+= (R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)\otimes_A^\mathbf{L}
+M)\otimes_{\Lambda[G]}^\mathbf{L} \Lambda,
+$$
+compatible avec l'action de $\pi^*_\mathcal{U}$.
+}
+
+\medskip\noindent
+Cela résulte du théorème des coefficients universels, c'est-à-dire du fait que
+$R\Gamma_c$ commute à $\otimes^\mathbf{L}$, et de la platitude de
+$\mathcal{F}$ comme $\Lambda$-module.
+
+\medskip\noindent
+Nous avons
+\begin{eqnarray*}
+\text{Tr}(
+\pi_\mathcal{U}^* |_{R\Gamma_c(\mathcal{U}_{\bar k}, \mathcal{F})})
+& = &
+{\sum_{g \in G}}'
+\text{Tr}_{\Lambda}^{Z_g}
+\left(
+(g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)\otimes_A^\mathbf{L} M}
+\right) \\
+& = &
+{\sum_{g\in G}}'
+\text{Tr}_A^{Z_g}
+(
+(g, \pi_\mathcal{U}^*) |_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)}
+)
+\cdot
+\text{Tr}_\Lambda(g|_M)
+\end{eqnarray*}
+où l'action de $\Gamma$ sur $R\Gamma_c(\mathcal{U}_{\bar k}, \mathcal{F})$ prolonge celle de $G$
+et $(e, 1)$ agit par $\pi_\mathcal{U}^*$. L'extension de monoïdes est donc donnée
+par $\Gamma = G \times \mathbf{N} \to \mathbf{N}$, $\gamma \mapsto 1$. La première
+égalité résulte du lemme \ref{lemma-trivial-trace} et la seconde du
+lemme \ref{lemma-weak-trace}.
+
+\medskip\noindent
+Étape 8. {\it Il suffit de montrer que
+$\text{Tr}_A^{Z_g}((g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)}) \in A$
+s'envoie sur zéro dans $\Lambda$.
+}
+
+\medskip\noindent
+Rappelons que
+\begin{eqnarray*}
+\# Z_g \cdot \text{Tr}_A^{Z_g}((g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)})
+& = & \text{Tr}_A((g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)})\\
+& = &
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}_{\bar k}, A)}).
+\end{eqnarray*}
+La première égalité découle du
+le lemme \ref{lemma-gamma-z-gamma-trace},
+la seconde de la suite spectrale de Leray,
+en utilisant la finitude de $f$ et le fait que nous ne prenons que
+des traces sur $A$. Or, comme $A=\mathbf{Z}/\ell^n\mathbf{Z}$ avec
+$n \gg 0$ et $\# Z_g = \ell^a$ pour un certain entier (fixé) $a$,
+il suffit de montrer le résultat suivant.
+
+\medskip\noindent
+Étape 9. {\it On a
+$\text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}, A)}) = 0$
+dans $A$.}
+
+\medskip\noindent
+À nouveau, par additivité, nous avons
+\begin{eqnarray*}
+& \text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}_{\bar k} A)})
++
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^*
+|_{R\Gamma_c(Y-\mathcal {V})_{\bar k}, A)}) \\
+& =
+\text{Tr}_A((g^{-1}\pi_Y)^* |_{R\Gamma(Y_{\bar k}, A)})
+\end{eqnarray*}
+Cette dernière trace est le nombre de points fixes de $g^{-1}\pi_Y$ sur $Y$, d'après
+la formule des traces de Weil,
+théorème \ref{theorem-weil-trace-formula}.
+De plus, d'après le cas de dimension 0 déjà démontré à l'étape 2,
+$$
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^*|_{R\Gamma_c(Y-\mathcal{V})_{\bar k}, A)})
+$$
+est le nombre de points fixes de $g^{-1}\pi_Y$ sur $(Y-\mathcal{V})_{\bar k}$.
+Par conséquent,
+$$
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}_{\bar k}, A)})
+$$
+est le nombre de points fixes de $g^{-1}\pi_Y$ sur $\mathcal{V}_{\bar k}$. Mais
+il n'y en a aucun : si $\bar y\in Y_{\bar k}$ est fixe par
+$g^{-1}\pi_Y$, alors $\bar f(\bar y) \in X_{\bar k}$ est fixe par $\pi_X$. Mais
+$\mathcal{U}$ n'a aucun point $k$-rationnel, donc on doit avoir $\bar f(\bar y)\in
+(X-\mathcal{U})_{\bar k}$ et ainsi $\bar y\notin \mathcal{V}_{\bar k}$, une
+contradiction.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{remark}
+\label{remark-on-trace-formula-again}
+Remarques sur le théorème \ref{theorem-trace-formula-again}.
+\begin{enumerate}
+\item
+Cette formule vaut en toute dimension. Par un lemme de d\'evissage (qui utilise le changement de
+base propre, etc.), elle se ramène, même dans cette généralité, à l'énoncé actuel.
+\item
+Le complexe $R\Gamma_c(X_{\bar k}, K)$ est défini en choisissant une immersion ouverte
+$j : X \hookrightarrow \bar X$ avec $\bar X$ projectif sur $k$ et de dimension au
+plus 1, et en posant
+$$
+R\Gamma_c(X_{\bar k}, K) := R\Gamma(\bar X_{\bar k}, j_!K).
+$$
+L'indépendance de ce choix de $\bar X$ résulte de
+(insérer ici une référence). Nous définissons $H^i_c(X_{\bar k}, K)$
+comme le $i$-ième groupe de cohomologie de $R\Gamma_c(X_{\bar k}, K)$.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}
+\label{remark-stronger}
+Bien que nous n'ayons fait que des réductions et surtout de l'algèbre, la formule des traces
+du théorème \ref{theorem-trace-formula-again} est bien plus forte que
+la formule géométrique des traces de Weil (théorème \ref{theorem-weil-trace-formula})
+car elle s'applique aux systèmes de coefficients
+(aux faisceaux), et pas seulement aux coefficients constants.
+\end{remark}
+
+
+%11.17.09
+\section{Applications}
+\label{section-applications}
+
+\noindent
+Bon, après avoir indiqué la démonstration de la formule des traces, essayons d'en tirer
+quelque chose.
+
+
+
+
+
+\section{Sur les faisceaux l-adiques}
+\label{section-l-adic-sheaves}
+
+\begin{definition}
+\label{definition-l-adic-sheaf}
+Soit $X$ un schéma noethérien. Un {\it faisceau de $\mathbf{Z}_\ell$-modules} sur $X$, ou
+simplement un {\it faisceau $\ell$-adique} $\mathcal{F}$, est un
+système projectif $\left\{\mathcal{F}_n\right\}_{n\geq 1}$ dans lequel
+\begin{enumerate}
+\item
+$\mathcal{F}_n$ est un faisceau constructible de $\mathbf{Z}/\ell^n\mathbf{Z}$-modules sur
+$X_\etale$, et
+\item
+les morphismes de transition $\mathcal{F}_{n+1}\to \mathcal{F}_n$ induisent des isomorphismes
+$\mathcal{F}_{n+1} \otimes_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z} \cong \mathcal{F}_n$.
+\end{enumerate}
+On dit que $\mathcal{F}$ est {\it lisse} si chaque $\mathcal{F}_n$ est localement
+constant. Un {\it morphisme} entre de tels faisceaux n'est autre qu'un morphisme de systèmes projectifs.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-eventually-constant}
+Soit $\{\mathcal{G}_n\}_{n\geq 1}$ un système projectif de faisceaux constructibles de
+$\mathbf{Z}/\ell^n\mathbf{Z}$-modules.
+Supposons que, pour tout $k\geq 1$, les morphismes
+$$
+\mathcal{G}_{n+1}/\ell^k \mathcal{G}_{n+1}\to \mathcal{G}_n /\ell^k
+\mathcal{G}_n
+$$
+soient des isomorphismes pour tout $n\gg 0$ (la borne pouvant dépendre de $k$).
+En d'autres termes, supposons que le système
+$\{\mathcal{G}_n/\ell^k\mathcal{G}_n\}_{n\geq 1}$
+soit essentiellement constant, et désignons par $\mathcal{F}_k$ le faisceau correspondant.
+Alors le système $\left\{\mathcal{F}_k\right\}_{k\geq 1}$ est un
+faisceau de $\mathbf{Z}_\ell$-modules sur $X$.
+\end{lemma}
+
+\begin{proof}
+La démonstration est immédiate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-l-adic-abelian}
+La catégorie des faisceaux de $\mathbf{Z}_\ell$-modules sur $X$ est abélienne.
+\end{lemma}
+
+\begin{proof}
+Soit
+$\Phi = \left\{\varphi_n\right\}_{n\geq 1} :
+\left\{\mathcal{F}_n\right\}
+\to
+\left\{\mathcal{G}_n\right\}$
+un morphisme de faisceaux de $\mathbf{Z}_\ell$-modules. Posons
+$$
+\Coker(\Phi) =
+\left\{
+\Coker\left(\mathcal{F}_n \xrightarrow{\varphi_n} \mathcal{G}_n\right)
+\right\}_{n\geq 1}
+$$
+et $\Ker(\Phi)$ s'obtient en appliquant le
+lemme \ref{lemma-eventually-constant}
+au système projectif
+$$
+\left\{
+\bigcap_{m\geq n}
+\Im\left(\Ker(\varphi_m) \to \Ker(\varphi_n)\right)
+\right\}_{n \geq 1}.
+$$
+On laisse au lecteur le soin de vérifier que ceci définit une catégorie abélienne.
+\end{proof}
+
+\begin{example}
+\label{example-kernel}
+Soit $X=\Spec(\mathbf{C})$ et soit $\Phi : \mathbf{Z}_\ell\to \mathbf{Z}_\ell$
+la multiplication par $\ell$. Plus précisément,
+$$
+\Phi = \left\{ \mathbf{Z}/\ell^n\mathbf{Z} \xrightarrow{\ell}
+\mathbf{Z}/\ell^n\mathbf{Z}\right\}_{n \geq 1}.
+$$
+Pour calculer le noyau, considérons le système projectif
+$$
+\ldots\to \mathbf{Z}/\ell\mathbf{Z}\xrightarrow{0}
+\mathbf{Z}/\ell\mathbf{Z}\xrightarrow{0}\mathbf{Z}/\ell\mathbf{Z}.
+$$
+Puisque les images sont toujours nulles, $\Ker(\Phi)$ est le système nul.
+\end{example}
+
+\begin{remark}
+\label{remark-stalk-l-adic-sheaf}
+Si $\mathcal{F} = \left\{\mathcal{F}_n\right\}_{n\geq 1}$ est un
+faisceau de $\mathbf{Z}_\ell$-modules sur $X$ et si $\bar x$ est un point géométrique, alors
+$M_n = \left\{\mathcal{F}_{n, \bar x}\right\}$ est un système projectif de
+$\mathbf{Z}/\ell^n\mathbf{Z}$-modules de type fini dont $M_{n+1}\to M_n$ est surjectif
+et $M_n = M_{n+1}/\ell^n M_{n+1}$. Il en résulte que
+$$
+M = \lim_n M_n = \lim \mathcal{F}_{n, \bar x}
+$$
+est un module de type fini sur $\mathbf{Z}_\ell$. Cela résulte des
+lemmes \ref{algebra-lemma-limit-complete} et
+\ref{algebra-lemma-finite-over-complete-ring} du chapitre Algèbre, ainsi que du fait que
+$M/\ell M = M_1$ est de dimension finie sur $\mathbf{F}_\ell$.
+On a donc $M\cong \mathbf{Z}_\ell^{\oplus r} \oplus \oplus_{i = 1}^t
+\mathbf{Z}_\ell/\ell^{e_i}\mathbf{Z}_\ell$ pour certains $r, t\geq 0$, $e_i\geq 1$.
+Le module $M = \mathcal{F}_{\bar x}$ est appelé la {\it fibre} de
+$\mathcal{F}$ en $\bar x$.
+\end{remark}
+
+\begin{definition}
+\label{definition-torsion-l-adic-sheaf}
+Un faisceau de $\mathbf{Z}_\ell$-modules $\mathcal{F}$ est {\it de torsion} si
+$\ell^n : \mathcal{F} \to \mathcal{F}$ est le morphisme nul pour un certain $n$.
+La catégorie abélienne
+des faisceaux de $\mathbf{Q}_\ell$-modules sur $X$ est le quotient de la catégorie abélienne des
+faisceaux de $\mathbf{Z}_\ell$-modules par la sous-catégorie de Serre des faisceaux de torsion. En
+d'autres termes, ses objets sont les faisceaux de $\mathbf{Z}_\ell$-modules sur $X$ et, si
+$\mathcal{F}, \mathcal{G}$ sont deux tels faisceaux, alors
+$$
+\Hom_{\mathbf{Q}_\ell} \left(\mathcal{F}, \mathcal{G} \right) =
+\Hom_{\mathbf{Z}_\ell} \left(\mathcal{F}, \mathcal{G}\right)
+\otimes_{\mathbf{Z}_\ell} \mathbf{Q}_\ell.
+$$
+On désigne par $\mathcal{F} \mapsto \mathcal{F} \otimes \mathbf{Q}_\ell$ le
+foncteur de passage au quotient (adjoint à droite du foncteur d'inclusion). Si $\mathcal{F} =
+\mathcal{F}' \otimes \mathbf{Q}_\ell$ où $\mathcal{F}'$ est un
+faisceau de $\mathbf{Z}_\ell$-modules et $\bar x$ un point géométrique, alors la
+{\it fibre} de $\mathcal{F}$ en $\bar x$ est $\mathcal{F}_{\bar x} =
+\mathcal{F}'_{\bar x} \otimes \mathbf{Q}_\ell$.
+\end{definition}
+
+\begin{remark}
+\label{remark-torsion-stalks}
+Puisqu'un faisceau de $\mathbf{Z}_\ell$-modules n'est défini que sur un schéma noethérien, il est
+de torsion si et seulement si ses fibres sont de torsion.
+\end{remark}
+
+\begin{definition}
+\label{definition-cohomology-l-adic}
+Si $X$ est un schéma séparé de type fini sur un corps algébriquement clos
+$k$ et si $\mathcal{F} = \left\{\mathcal{F}_n\right\}_{n\geq 1}$ est un
+faisceau de $\mathbf{Z}_\ell$-modules sur $X$, on définit
+$$
+H^i(X, \mathcal{F}) := \lim_n H^i(X, \mathcal{F}_n)
+\quad\text{et}\quad
+H_c^i(X, \mathcal{F}) := \lim_n H_c^i(X, \mathcal{F}_n).
+$$
+Si $\mathcal{F} = \mathcal{F}'\otimes \mathbf{Q}_\ell$ pour un
+faisceau de $\mathbf{Z}_\ell$-modules $\mathcal{F}'$, on pose
+$$
+H_c^i(X , \mathcal{F}) := H_c^i(X,
+\mathcal{F}')\otimes_{\mathbf{Z}_\ell}\mathbf{Q}_\ell.
+$$
+On appelle ces groupes la {\it cohomologie $\ell$-adique} de $X$ à coefficients dans
+$\mathcal{F}$.
+\end{definition}
+
+
+
+
+
+\section{Fonctions L}
+\label{section-L-function}
+
+\begin{definition}
+\label{definition-L-function-finite-ring}
+Soit $X$ un schéma de type fini sur un corps fini $k$. Soit $\Lambda$ un
+anneau fini d'ordre premier à la caractéristique de $k$ et $\mathcal{F}$ un
+faisceau constructible et plat de $\Lambda$-modules sur $X_\etale$. On pose alors
+$$
+L(X, \mathcal{F}) :=
+\prod\nolimits_{x\in |X|}
+\det(1 - \pi_x^*T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1} \in \Lambda [[ T ]]
+$$
+où $|X|$ est l'ensemble des points fermés de $X$, $\deg x = [\kappa(x): k]$ et
+$\bar x$ est un point géométrique au-dessus de $x$. Cette définition se
+généralise clairement au cas où l'on remplace $\mathcal{F}$ par
+$K \in D_{ctf}(X, \Lambda)$. On appelle cette expression la {\it fonction $L$ de
+$\mathcal{F}$}.
+\end{definition}
+
+\begin{remark}
+\label{remark-T}
+Intuitivement, il convient de considérer $T$ comme $T = t^f$, où $p^f = \# k$. Les
+définitions ne dépendent alors pas du cardinal du corps de base.
+\end{remark}
+
+\begin{definition}
+\label{definition-L-function-l-adic}
+Supposons maintenant que $\mathcal{F}$ soit un faisceau de $\mathbf{Q}_\ell$-modules sur $X$.
+Dans ce cas, on définit
+$$
+L(X, \mathcal{F}) :=
+\prod\nolimits_{x \in |X|}
+\det(1 - \pi_x^*T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1}
+\in \mathbf{Q}_\ell[[T]].
+$$
+Notons que ce produit converge puisqu'il n'y a qu'un nombre fini de points de
+degré donné. On appelle ce produit la {\it fonction $L$ de
+$\mathcal{F}$}.
+\end{definition}
+
+
+
+
+\section{Interprétation cohomologique}
+\label{section-L-cohomological}
+
+\noindent
+C'est ainsi que Grothendieck a interprété la fonction $L$.
+
+\begin{theorem}[Coefficients finis]
+\label{theorem-A}
+Soit $X$ un schéma de type fini sur un corps fini $k$. Soit $\Lambda$ un
+anneau fini d'ordre premier à la caractéristique de $k$ et $\mathcal{F}$ un
+faisceau constructible et plat de $\Lambda$-modules sur $X_\etale$. Alors
+$$
+L(X, \mathcal{F}) =
+\det(1 - \pi_X^*\ T |_{R\Gamma_c(X_{\bar k}, \mathcal{F})})^{-1}
+\in \Lambda[[T]].
+$$
+\end{theorem}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\noindent
+À ce stade, nous ne savons même pas si chacun des groupes de cohomologie
+$H^i_c(X_{\bar k}, \mathcal{F})$ est libre.
+
+\begin{theorem}[Faisceaux adiques]
+\label{theorem-B}
+Soit $X$ un schéma de type fini sur un corps fini $k$, et soit $\mathcal{F}$ un
+faisceau de $\mathbf{Q}_\ell$-modules sur $X$. Alors
+$$
+L(X, \mathcal{F}) =
+\prod\nolimits_i
+\det(1 - \pi_X^*T |_{H_c^i(X_{\bar k} , \mathcal{F})})^{(-1)^{i + 1}}
+\in \mathbf{Q}_\ell[[T]].
+$$
+\end{theorem}
+
+\begin{proof}
+La démonstration est esquissée ci-dessous.
+\end{proof}
+
+\begin{remark}
+\label{remark-which-is-harder}
+Comme nous n'avons développé qu'une partie de la théorie des traces, et non
+celle des déterminants, le théorème \ref{theorem-A}
+est plus difficile à démontrer que le
+théorème \ref{theorem-B}.
+Nous ne démontrerons que ce dernier; pour le premier, voir \cite{SGA4.5}.
+Remarquons aussi qu'il n'existe pas de version plus générale de ce théorème à
+coefficients dans $\mathbf{Z}_\ell$, puisqu'il n'y a pas de $\ell$-torsion.
+\end{remark}
+
+\noindent
+La démonstration du théorème \ref{theorem-B} se ramène à une formule des traces. Puisque
+$\mathbf{Q}_\ell$ est de caractéristique 0, il suffit de prouver l'égalité après
+avoir pris les dérivées logarithmiques. Plus précisément, nous appliquons $T\frac{d}{dT} \log$
+aux deux membres. Nous avons d'une part
+\begin{align*}
+T \frac{d}{dT} \log L(X, \mathcal{F})
+& =
+T\frac{d}{dT} \log
+\prod_{x \in |X|} \det(1 - \pi_x^* T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1} \\
+& =
+\sum_{x \in |X|} T \frac{d}{dT} \log
+( \det(1 - \pi_x^* T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1}) \\
+& =
+\sum_{x \in |X|} \deg x
+\sum_{n \geq 1} \text{Tr}((\pi_x^n)^* |_{\mathcal{F}_{\bar x}}) T^{n\deg x}
+\end{align*}
+où la dernière égalité résulte de la formule
+$$
+T\frac{d}{dT}\log\left(\det\left(1-fT|_M\right)^{-1}\right) = \sum_{n\geq 1}
+\text{Tr}(f^n|_M)T^n
+$$
+ce qui vaut pour tout anneau commutatif $\Lambda$ et tout endomorphisme $f$ d'un
+$\Lambda$-module projectif de type fini $M$. D'autre part, nous avons
+\begin{align*}
+& T\frac{d}{dT} \log\left(
+\prod\nolimits_i
+\det(1-\pi_X^*T |_{H_c^i\left(X_{\bar k} , \mathcal{F}\right)})^{(-1)^{i+1}}
+\right) \\
+& =
+\sum\nolimits_i (-1)^i \sum\nolimits_{n \geq 1}
+\text{Tr}\left((\pi_X^n)^* |_{H_c^i(X_{\bar k},\mathcal{F})}\right) T^n
+\end{align*}
+en appliquant encore une fois la même formule. Maintenant, en comparant les puissances de $T$ et en utilisant la
+formule d'inversion de Möbius, nous voyons que le théorème \ref{theorem-B} découle de
+l'égalité suivante
+$$
+\sum_{d | n} d \sum_{x \in |X| \atop \deg x = d}
+\text{Tr}((\pi_X^{n/d})^* |_{\mathcal{F}_{\bar x}}) =
+\sum_i (-1)^i \text{Tr}((\pi^n_X)^* |_{H^i_c(X_{\bar k}, \mathcal{F})}).
+$$
+Notons $k_n$ l'extension de degré $n$ de $k$,
+$X_n = X \times_{\Spec k} \Spec(k_n)$ et
+$_n\mathcal{F} = \mathcal{F}|_{X_n}$, cela se ramène
+à
+$$
+\sum_{x \in X_n(k_n)} \text{Tr}(\pi_X^* |_{_n\mathcal{F}_{\bar x}})
+=
+\sum_i (-1)^i \text{Tr}((\pi^n_X)^* |_{H^i_c({(X_n)}_{\bar k}, _n\mathcal{F})})
+$$
+ce qui découle du théorème \ref{theorem-C}.
+
+%11.19.09
+
+
+\begin{theorem}
+\label{theorem-D}
+Soit $X/k$ comme ci-dessus, soit $\Lambda$ un anneau fini tel que $\#\Lambda \in k^*$
+et soit $K\in D_{ctf}(X, \Lambda)$. Alors $R\Gamma_c(X_{\bar k}, K)\in
+D_{perf}(\Lambda)$ et
+$$
+\sum_{x\in X(k)}\text{Tr}\left(\pi_x |_{K_{\bar x}}\right) =
+\text{Tr}\left(\pi_X^* |_{R\Gamma_c(X_{\bar k}, K )}\right).
+$$
+\end{theorem}
+
+\begin{proof}
+Remarquons que nous avons déjà démontré ceci (RÉFÉRENCE) lorsque $\dim X \leq 1$. Le
+cas général découle aisément de ce cas et du théorème de changement de base
+propre.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-C}
+Soit $X$ un schéma séparé de type fini sur un corps fini $k$ et soit
+$\mathcal{F}$ un $\mathbf{Q}_\ell$-faisceau sur $X$. Alors
+$\dim_{\mathbf{Q}_\ell}H_c^i(X_{\bar k}, \mathcal{F})$ est finie pour tout $i$,
+et ne peut être non nulle que pour $0\leq i \leq 2 \dim X$. De plus, nous avons
+$$
+\sum_{x\in X(k)} \text{Tr}\left(\pi_x |_{\mathcal{F}_{\bar x}}\right) =
+\sum_i (-1)^i\text{Tr}\left(\pi_X^* |_{H_c^i(X_{\bar k}, \mathcal{F})}\right).
+$$
+\end{theorem}
+
+\begin{proof}
+Nous expliquons comment déduire ce résultat du théorème \ref{theorem-D}.
+Nous utilisons d'abord quelques arguments de cohomologie \'etale pour ramener la démonstration
+à un énoncé algébrique que nous démontrons ensuite.
+
+\medskip\noindent
+Soit $\mathcal{F}$ comme dans le théorème. Nous pouvons écrire
+$\mathcal{F}$ sous la forme
+$\mathcal{F}'\otimes \mathbf{Q}_\ell$ où $\mathcal{F}' =
+\left\{\mathcal{F}'_n\right\}$ est un $\mathbf{Z}_\ell$-faisceau sans torsion,
+c'est-à-dire que $\ell : \mathcal{F}'\to \mathcal{F}'$ a un noyau nul dans la
+catégorie des $\mathbf{Z}_\ell$-faisceaux. Alors chaque $\mathcal{F}_n'$ est un
+faisceau constructible et plat de $\mathbf{Z}/\ell^n\mathbf{Z}$-modules sur $X_\etale$, donc
+$\mathcal{F}'_n \in D_{ctf}(X, \mathbf{Z}/\ell^n\mathbf{Z})$ et
+$\mathcal{F}_{n+1}'
+\otimes^{\mathbf{L}}_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z} = \mathcal{F}_n'$.
+Remarquons que la dernière égalité est également valable
+pour le produit tensoriel usuel (non dérivé), puisque $\mathcal{F}'_n$ est plat
+(il s'agit de la même égalité). Par conséquent,
+\begin{enumerate}
+\item
+le complexe $K_n = R\Gamma_c\left(X_{\bar k}, \mathcal{F}_n'\right)$ est parfait,
+et il est muni d'un endomorphisme $\pi_n : K_n\to K_n$ dans
+$D(\mathbf{Z}/\ell^n\mathbf{Z})$,
+\item
+on dispose d'identifications
+$$
+K_{n+1}
+\otimes^{\mathbf{L}}_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z}
+=
+K_n
+$$
+dans $D_{perf}(\mathbf{Z}/\ell^n\mathbf{Z})$, compatibles avec les endomorphismes
+$\pi_{n+1}$ et $\pi_n$ (voir \cite[Rapport 4.12]{SGA4.5}),
+\item
+l'égalité $\text{Tr}\left(\pi_X^* |_{K_n}\right) =
+\sum_{x\in X(k)} \text{Tr}\left(\pi_x |_{(\mathcal{F}'_n)_{\bar x}}\right)$
+est vérifiée, et
+\item
+pour tout $x\in X(k)$, les éléments
+$\text{Tr}(\pi_x |_{\mathcal{F}'_{n, \bar x}}) \in \mathbf{Z}/\ell^n\mathbf{Z}$
+définissent un élément de
+$\mathbf{Z}_\ell$ qui est égal à
+$\text{Tr}(\pi_x |_{\mathcal{F}_{\bar x}}) \in \mathbf{Q}_\ell$.
+\end{enumerate}
+Il suffit donc de démontrer le lemme d'algèbre suivant.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-piece-together}
+Supposons donnés
+$K_n\in D_{perf}(\mathbf{Z}/\ell^n\mathbf{Z})$, $\pi_n : K_n\to K_n$
+et des isomorphismes
+$\varphi_n :
+K_{n+1} \otimes^\mathbf{L}_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z}
+\to K_n$
+compatibles avec $\pi_{n+1}$ et $\pi_n$. Alors
+\begin{enumerate}
+\item
+les éléments $t_n = \text{Tr}(\pi_n |_{K_n})\in \mathbf{Z}/\ell^n\mathbf{Z}$
+définissent un élément $t_\infty = \{t_n\}$ de $\mathbf{Z}_\ell$,
+\item
+le $\mathbf{Z}_\ell$-module $H_\infty^i = \lim_n H^i(k_n)$ est de type fini et
+est nul sauf pour un nombre fini d'indices $i$, et
+\item
+les opérateurs $H^i(\pi_n): H^i(K_n)\to H^i(K_n)$ sont compatibles et définissent
+$\pi_\infty^i : H_\infty^i\to H_\infty^i$ qui vérifie
+$$
+\sum (-1)^i \text{Tr}(
+\pi_\infty^i |_{H_\infty^i \otimes_{\mathbf{Z}_\ell}\mathbf{Q}_\ell}) =
+t_\infty.
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Puisque $\mathbf{Z}/\ell^n\mathbf{Z}$ est un anneau local et que $K_n$ est parfait, chaque
+$K_n$ peut être représenté par un complexe fini $K_n^\bullet$ de
+$\mathbf{Z}/\ell^n \mathbf{Z}$-modules libres de type fini tel que l'image du morphisme $K_n^p \to K_n^{p+1}$
+soit contenue dans $\ell K_n^{p+1}$. Un tel complexe est en fait
+unique à isomorphisme près. De plus, $\pi_n$ peut être représenté par un morphisme de
+complexes $\pi_n^\bullet : K_n^\bullet\to K_n^\bullet$ (qui est unique à
+homotopie près). De même, l'isomorphisme
+$\varphi_n : K_{n+1} \otimes_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}^{\mathbf{L}}
+\mathbf{Z}/\ell^n\mathbf{Z}\to K_n$ est représenté par un morphisme de complexes
+$$
+\varphi_n^\bullet :
+K_{n+1}^\bullet
+\otimes_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z} \to K_n^\bullet.
+$$
+En fait, $\varphi_n^\bullet$ est un isomorphisme de complexes ; nous voyons donc que
+\begin{itemize}
+\item
+il existe $a, b\in \mathbf{Z}$ indépendants de $n$ tels que $K_n^i = 0$
+pour tout $i\notin[a, b]$, et
+\item
+le rang de $K_n^i$ ne dépend pas de $n$.
+\end{itemize}
+Par conséquent, le module $K_\infty^i = \lim_n \{K_n^i, \varphi_n^i\}$ est un
+$\mathbf{Z}_\ell$-module libre de type fini et $K_\infty^\bullet$ est un complexe fini
+de $\mathbf{Z}_\ell$-modules libres de type fini. Par récurrence sur le nombre de termes non nuls,
+on peut démontrer que $H^i\left(K_\infty^\bullet\right) = \lim_n
+H^i\left(K_n^\bullet\right)$ (ceci est faux pour les complexes non bornés). Nous
+en concluons que $H_\infty^i = H^i\left(K_\infty^\bullet\right)$ est un
+$\mathbf{Z}_\ell$-module de type fini. Cela démontre {\it ii}. Pour démontrer le reste du
+lemme, nous devons remédier au défaut éventuel de commutativité des diagrammes
+$$
+\xymatrix{
+{K_{n+1}^\bullet} \ar[d]_{\pi_{n+1}^\bullet} \ar[r]^{\varphi_n^\bullet} &
+{K_n^\bullet} \ar[d]^{\pi_n^\bullet} \\
+{K_{n+1}^\bullet} \ar[r]_{\varphi_n^\bullet} & {K_n^\bullet.}
+}
+$$
+Cependant, ce diagramme commute bien dans la catégorie dérivée ; il commute donc
+à homotopie près. Nous remplaçons par récurrence $\pi_n^\bullet$ pour $n\geq 2$ par
+des morphismes de complexes homotopes rendant ces diagrammes commutatifs. Plus précisément, si $h^i :
+K_{n+1}^i \to K_n^{i-1}$ est une homotopie, c'est-à-dire
+$$
+\pi_n^\bullet \circ \varphi_n^\bullet -
+\varphi_n^\bullet \circ \pi_{n + 1}^\bullet = dh + hd,
+$$
+alors nous choisissons $\tilde h^i : K_{n+1}^i\to K_{n+1}^{i-1}$ relevant $h^i$. Cela est
+possible parce que $K_{n+1}^i$ est libre et que le morphisme $K_{n+1}^{i-1}\to K_n^{i-1}$ est
+surjectif. Nous remplaçons alors $\pi_n^\bullet$ par $\tilde\pi_n^\bullet$ défini par
+$$
+\tilde\pi_{n+1}^\bullet = \pi_{n+1}^\bullet + d\tilde h+\tilde hd.
+$$
+Avec ce choix de $\{\pi_n^\bullet\}$, les diagrammes ci-dessus commutent et les
+morphismes sont compatibles et définissent un endomorphisme $\pi_\infty^\bullet =
+\lim_n\pi_n^\bullet$ de $K_\infty^\bullet$. La partie {\it i} est alors claire :
+les éléments $t_n = \sum(-1)^i \text{Tr}\left(\pi_n^i |_{K_n^i}\right)$
+définissent un élément $t_\infty$ de $\mathbf{Z}_\ell$. De plus,
+\begin{align*}
+t_\infty
+& =
+\sum (-1)^i \text{Tr}_{\mathbf{Z}_\ell}(\pi_\infty^i |_{K_\infty^i}) \\
+& =
+\sum (-1)^i \text{Tr}_{\mathbf{Q}_\ell}(
+\pi_\infty^i |_{K_\infty^i \otimes_{\mathbf{Z}_\ell}\mathbf{Q}_\ell}) \\
+& =
+\sum (-1)^i \text{Tr}(
+\pi_\infty |_{H^i(K_\infty^\bullet \otimes \mathbf{Q}_\ell)})
+\end{align*}
+où la dernière égalité découle du fait que $\mathbf{Q}_\ell$ est un
+corps, de sorte que le complexe $K_\infty^\bullet \otimes \mathbf{Q}_\ell$ est
+quasi-isomorphe à sa cohomologie
+$H^i(K_\infty^\bullet \otimes \mathbf{Q}_\ell)$. Celle-ci est également égale à
+$H^i(K_\infty^\bullet)\otimes_{\mathbf{Z}}\mathbf{Q}_\ell = H_\infty^i \otimes
+\mathbf{Q}_\ell$, ce qui achève la démonstration du lemme ainsi que celle du
+théorème \ref{theorem-C}.
+\end{proof}
+
+
+
+
+\section{Liste des compléments à apporter ci-dessus}
+\label{section-list-skipped}
+
+\noindent
+Qu'avons-nous omis de démontrer jusqu'ici dans les cours ?
+\begin{enumerate}
+\item les courbes et leurs jacobiennes,
+\item le théorème de changement de base propre,
+\item une présentation insuffisante de $R\Gamma_c$,
+\item plus généralement, étant donné un morphisme séparé de type fini $f : X \to S$,
+avec $S$ quasi-projectif, une présentation de $Rf_!$ sur les faisceaux \'etales.
+\item une présentation de $\otimes^{\mathbf{L}}$
+\item une explication des raisons pour lesquelles $R\Gamma_c$ commute à $\otimes^{\mathbf{L}}$
+\end{enumerate}
+
+
+
+
+
+
+%11.24.09
+\section{Exemples de fonctions L}
+\label{section-examples-L-functions}
+
+\noindent
+Nous utilisons le théorème \ref{theorem-B} pour les courbes afin de donner des exemples de fonctions $L$.
+
+
+
+
+
+\section{Faisceaux constants}
+\label{section-L-function-constant-sheaf}
+
+\noindent
+Soit $k$ un corps fini, $X$ une courbe lisse géométriquement irréductible sur
+$k$ et $\mathcal{F} = \underline{\mathbf{Q}_\ell}$ le faisceau constant. Si
+$\bar x$ est un point géométrique de $X$, le module galoisien
+$\mathcal{F}_{\bar x} = \mathbf{Q}_\ell$ est trivial, donc
+$$
+\det(1-\pi_x^*\ T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1} =
+\frac{1}{1-T^{\deg x}}.
+$$
+En appliquant le théorème \ref{theorem-B}, nous obtenons
+\begin{align*}
+L(X, \mathcal{F})
+& =
+\prod_{i = 0}^2
+\det(1 - \pi_X^*T |_{H_c^i(X_{\bar k}, \mathbf{Q}_\ell)})^{(-1)^{i+1}} \\
+& =
+\frac{\det(1 - \pi_X^*T |_{H_c^1(X_{\bar k}, \mathbf{Q}_\ell)})}{
+\det(1 - \pi_X^*T |_{H_c^0(X_{\bar k}, \mathbf{Q}_\ell)})
+\cdot \det(1 - \pi_X^*T |_{H_c^2(X_{\bar k}, \mathbf{Q}_\ell)})}.
+\end{align*}
+Pour calculer ce dernier, distinguons deux cas.
+
+
+\medskip\noindent
+{\bf Cas projectif.}
+Supposons que $X$ soit projective, de sorte que $H_c^i(X_{\bar k}, \mathbf{Q}_\ell) =
+H^i(X_{\bar k}, \mathbf{Q}_\ell)$, et nous avons
+$$
+H^i(X_{\bar k}, \mathbf{Q}_\ell) =
+\left\{
+\begin{matrix}
+\mathbf{Q}_\ell & \pi_X^* = 1 & \text{si }i = 0, \\
+\mathbf{Q}_\ell^{2g} & \pi_X^* = ? & \text{si }i = 1, \\
+\mathbf{Q}_\ell & \pi_X^* = q & \text{si }i = 2.
+\end{matrix}
+\right.
+$$
+L'identification de l'action de $\pi_X^*$ sur $H^2$ résulte du
+Cohomologie \'etale, lemme \ref{etale-cohomology-lemma-pullback-on-h2-curve}
+et du fait que le degré
+de $\pi_X$ est $q = \#(k)$.
+Nous savons peu de choses sur l'action de $\pi_X^*$ sur la cohomologie de degré 1.
+Appelons $\alpha_1, \ldots, \alpha_{2g}$ ses valeurs propres dans
+$\bar{\mathbf{Q}}_\ell$. En rassemblant ces informations,
+le théorème \ref{theorem-B}
+donne l'égalité
+$$
+\prod\nolimits_{x \in |X|} \frac{1}{1 - T^{\deg x}} =
+\frac{\det(1- \pi_X^* T|_{H^1(X_{\bar k}, \mathbf{Q}_\ell)})}{(1-T)(1-qT)} =
+\frac{(1 - \alpha_1 T) \ldots (1 - \alpha_{2g}T)}{(1-T)(1-qT)}
+$$
+d'où nous déduisons le résultat suivant.
+
+\begin{lemma}
+\label{lemma-count-points-projective}
+Soit $X$ une courbe lisse, projective et géométriquement irréductible
+sur un corps fini $k$. Alors
+\begin{enumerate}
+\item la fonction $L$ notée $L(X, \mathbf{Q}_\ell)$ est rationnelle,
+\item les valeurs propres $\alpha_1, \ldots, \alpha_{2g}$ de $\pi_X^*$ sur
+$H^1(X_{\bar k}, \mathbf{Q}_\ell)$ sont des entiers algébriques
+indépendants de $\ell$,
+\item le nombre de points de $X$ rationnels sur $k_n$, où $[k_n : k] = n$, est
+$$
+\# X(k_n) = 1 - \sum\nolimits_{i = 1}^{2g}\alpha_i^n + q^n,
+$$
+\item pour tout $i$, $|\alpha_i| < q$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (3) est le théorème \ref{theorem-C} appliqué à $\mathcal{F} =
+\underline{\mathbf{Q}_\ell}$ sur $X \otimes k_n$. Pour la partie (4), utilisons le
+résultat suivant.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-powers}
+Soient $\alpha_1, \ldots, \alpha_n \in \mathbf{C}$. Alors, pour tout secteur angulaire
+contenant l'axe réel positif, de la forme $C_\varepsilon = \{ z \in
+\mathbf{C} \ | \ |\arg z| < \varepsilon \}$ avec $\varepsilon > 0$, il existe
+un entier $k \geq 1$ tel que $\alpha_1^k, \ldots, \alpha_n^k \in
+C_\varepsilon$.
+\end{exercise}
+
+\noindent
+Démontrer alors que $|\alpha_i| \leq q$ pour tout $i$. Puis utiliser des
+considérations élémentaires sur les nombres complexes pour démontrer (comme dans la preuve du théorème
+des nombres premiers) que $|\alpha_i| < q$. En fait, l'hypothèse de Riemann affirme que
+l'on a $|\alpha_i| = \sqrt{q}$ pour tout $i$. Nous y reviendrons plus loin.
+
+\medskip\noindent
+{\bf Cas affine.}
+Supposons maintenant que $X$ soit affine, disons $X= \bar X-\left\{x_1, \ldots, x_n\right\}$
+où $j : X \hookrightarrow \bar X$ est une compactification projective non singulière.
+Alors $H_c^0(X_{\bar k}, \mathbf{Q}_\ell) = 0$ et $H_c^2(X_{\bar k},
+\mathbf{Q}_\ell) = H^2(\bar X_{\bar k}, \mathbf{Q}_\ell)$, de sorte que
+le théorème \ref{theorem-B}
+s'écrit
+$$
+L(X, \mathbf{Q}_\ell) = \prod_{x \in |X|}\frac{1}{1 - T^{\deg x}} =
+\frac{\det(1-\pi_X^*T |_{H_c^1(X_{\bar k}, \mathbf{Q}_\ell)})}{1 - qT}.
+$$
+D'autre part, le cas précédent donne
+\begin{eqnarray*}
+L(X, \mathbf{Q}_\ell) & = & L(\bar X,
+\mathbf{Q}_\ell)\prod_{i = 1}^n\left(1-T^{\deg x_i}\right) \\
+& = & \frac{\prod_{i = 1}^n(1-T^{\deg
+x_i})\prod_{j = 1}^{2g}(1-\alpha_jT)}{(1-T)(1-qT)}.
+\end{eqnarray*}
+Par conséquent, nous voyons que $\dim H_c^1(X_{\bar k}, \mathbf{Q}_\ell) =
+2g+\sum_{i = 1}^n \deg(x_i)-1$, et que les valeurs propres $\alpha_1, \ldots,
+\alpha_{2g}$ de $\pi_{\bar X}^*$ agissant sur la cohomologie de degré 1 sont des racines de
+l'unité. Plus précisément, chaque $x_i$ fournit un système complet de racines $\deg(x_i)$-ièmes
+de l'unité, et l'on omet une occurrence de 1. Pour le voir directement à l'aide des
+faisceaux cohérents, considérons la suite exacte courte sur $\bar X$
+$$
+0\to j_!\mathbf{Q}_\ell\to \mathbf{Q}_\ell\to\bigoplus_{i = 1}^n
+\mathbf{Q}_{\ell, x_i}\to 0.
+$$
+La suite exacte longue de cohomologie s'écrit
+$$
+0\to \mathbf{Q}_\ell \to \bigoplus_{i = 1}^n \mathbf{Q}_\ell^{\oplus \deg x_i}
+\to H_c^1(X_{\bar k}, \mathbf{Q}_\ell) \to H_c^1(\bar X_{\bar k},
+\mathbf{Q}_\ell)\to 0
+$$
+où l'action du Frobenius sur $\bigoplus_{i = 1}^n \mathbf{Q}_\ell^{\oplus
+\deg x_i}$ est donnée par la permutation cyclique de chaque terme ; par ailleurs, $H_c^2(X_{\bar k},
+\mathbf{Q}_\ell) = H_c^2(\bar X_{\bar k}, \mathbf{Q}_\ell)$.
+
+
+
+
+
+
+\section{La famille de Legendre}
+\label{section-legendre-family}
+
+\noindent
+Soit $k$ un corps fini de caractéristique impaire,
+$X = \Spec(k[\lambda, \frac{1}{\lambda(\lambda - 1)}])$, et
+considérons la famille de courbes elliptiques
+$f : E \to X$ dans $\mathbf{P}^2_X$, dont l'équation affine est $y^2 =
+x(x - 1)(x - \lambda)$. Posons $\mathcal{F} = Rf_*^1\mathbf{Q}_\ell =
+\left\{R^1f_*\mathbf{Z}/\ell^n\mathbf{Z}\right\}_{n\geq 1} \otimes
+\mathbf{Q}_\ell$. Dans cette situation, on a les propriétés suivantes :
+\begin{itemize}
+\item pour tout $n \geq 1$, le faisceau $R^1f_*(\mathbf{Z}/\ell^n\mathbf{Z})$ est
+fini et localement constant -- en fait, il est libre de rang 2 sur
+$\mathbf{Z}/\ell^n\mathbf{Z}$,
+\item le système $\{R^1f_*\mathbf{Z}/\ell^n\mathbf{Z}\}_{n\geq 1}$ est un faisceau
+$\ell$-adique lisse, et
+\item pour tout $x\in |X|$,
+$\det(1 - \pi_x\ T^{\deg x} |_{\mathcal{F}_{\bar x}}) =
+(1 - \alpha_x T^{\deg x})(1 - \beta_x T^{\deg x})$
+où $\alpha_x, \beta_x$ sont les valeurs propres du Frobenius géométrique
+de $E_x$ agissant sur $H^1(E_{\bar x}, \mathbf{Q}_\ell)$.
+\end{itemize}
+Notons que $E_x$ n'est défini que sur $\kappa(x)$ et non sur $k$. La démonstration de
+ces faits utilise le théorème de changement de base propre et l'acyclicité locale des
+morphismes lisses. Pour plus de détails, voir \cite{SGA4.5}. Il en résulte que
+$$
+L(E/X) := L(X, \mathcal{F}) = \prod_{x\in |X|}
+\frac{1}{(1-\alpha_xT^{\deg x})(1-\beta_xT^{\deg x })} .
+$$
+En appliquant le théorème \ref{theorem-B}, nous obtenons
+$$
+L(E/X) =
+\prod_{i = 0}^2
+\det\left(1 - \pi_X^*T |_{H_c^i(X_{\bar k}, \mathcal{F})}\right)^{(-1)^{i+1}},
+$$
+et nous voyons en particulier qu'il s'agit d'une fonction rationnelle. De plus, il est
+assez facile de montrer que $H_c^0(X_{\bar k}, \mathcal{F}) = H_c^2(X_{\bar
+k}, \mathcal{F}) = 0$, de sorte que nous avons simplement
+$$
+L(E/X) = \det(1 - \pi_X^*T |_{H_c^1(X, \mathcal{F})}).
+$$
+Pour calculer explicitement ce déterminant, considérons la suite spectrale de Leray
+du morphisme propre $f : E \to X$ à coefficients dans $\mathbf{Q}_\ell$, à savoir
+$$
+H_c^i(X_{\bar k}, R^jf_*\mathbf{Q}_\ell) \Rightarrow H_c^{i+j}(E_{\bar
+k}, \mathbf{Q}_\ell)
+$$
+qui dégénère. Nous avons $f_*\mathbf{Q}_\ell = \mathbf{Q}_\ell$ et
+$R^1f_*\mathbf{Q}_\ell = \mathcal{F}$. Le faisceau $R^2f_*\mathbf{Q}_\ell =
+\mathbf{Q}_\ell(-1)$ est le {\it twist à la Tate} de $\mathbf{Q}_\ell$, c'est-à-dire
+qu'il s'agit du faisceau $\mathbf{Q}_\ell$ sur lequel l'action de Galois est donnée par
+la multiplication par $\#\kappa(x)$ dans la fibre en $\bar x$. Il s'ensuit que,
+pour tout $n\geq 1$,
+\begin{align*}
+\# E(k_n)
+& =
+\sum\nolimits_i (-1)^i
+\text{Tr}({\pi_E^n}^* |_{H_c^i(E_{\bar k}, \mathbf{Q}_\ell)}) \\
+& =
+\sum\nolimits_{i, j} (-1)^{i+j}
+\text{Tr}({\pi^n_X}^* |_{H_c^i(X_{\bar k}, R^jf_*\mathbf{Q}_\ell)}) \\
+& =
+(q^n - 2) +
+\text{Tr}({\pi_X^n}^* |_{H_c^1(X_{\bar k}, \mathcal{F})}) + q^n(q^n - 2) \\
+& =
+q^{2n} - q^n - 2 +
+\text{Tr}({\pi_X^n}^* |_{H_c^1(X_{\bar k}, \mathcal{F})})
+\end{align*}
+où la première égalité résulte du
+théorème \ref{theorem-C},
+la deuxième de
+la suite spectrale de Leray et la troisième du calcul explicite des images directes supérieures
+de $\mathbf{Q}_\ell$ par $f$. On pourrait aussi écrire
+$$
+\# E(k_n) = \sum_{x \in X(k_n)} \# E_x(k_n)
+$$
+et appliquer la formule des traces à chaque courbe. On peut aussi déterminer le nombre de
+points rationnels sur $k_n$ par un simple comptage. La section nulle fournit $q^n -2$ points
+(on omet les points où $\lambda = 0, 1$), d'où
+$$
+\# E(k_n) =
+q^n - 2 + \# \{y^2 = x(x - 1)(x - \lambda), \lambda\neq 0, 1\}.
+$$
+Nous avons maintenant
+$$
+\begin{matrix}
+\# \{y^2 = x(x - 1)(x - \lambda),\ \lambda\neq 0, 1\} \\
+\\
+\quad =
+\# \{y^2 = x(x - 1)(x - \lambda)\text{ dans }\mathbf{A}^3\}
+- \# \{y^2 = x^2(x - 1)\} - \# \{y^2 = x(x - 1)^2\}\\
+\\
+\quad = \# \{\lambda = \frac{-y^2}{x(x - 1)} + x,\ x\neq 0, 1\} +
+\# \{y^2 = x(x - 1)(x - \lambda), x = 0, 1\} - 2(q^n - \varepsilon_n) \\
+\\
+\quad = q^n(q^n - 2)+2q^n - 2(q^n - \varepsilon_n)\\
+\\
+\quad = q^{2n}-2q^n+2\varepsilon_n
+\end{matrix}
+$$
+où $\varepsilon_n = 1$ si $-1$ est un carré dans $k_n$, et 0 sinon,
+c'est-à-dire
+$$
+\varepsilon_n = \frac{1}{2}\left(1+\left(\frac{-1}{k_n}\right)\right) =
+\frac{1}{2}\left(1+(-1)^{\frac{q^n - 1}{2}}\right).
+$$
+Ainsi, $ \# E(k_n) = q^{2n} - q^n - 2+ 2\varepsilon_n$.
+En comparant avec la formule précédente, on obtient
+$$
+\text{Tr}({\pi_X^n}^* |_{H_c^1(X_{\bar k}, \mathcal{F})}) =
+2 \varepsilon_n = 1 + (-1)^{\frac{q^n - 1}{2}},
+$$
+ce qui implique, par un calcul élémentaire dans les nombres complexes, que si $-1$ est un
+carré dans $k_n^*$, alors $\dim H_c^1(X_{\bar k}, \mathcal{F}) = 2$ et les
+valeurs propres sont $1$ et $1$. Par conséquent, dans ce cas, nous avons
+$$
+L(E/X) = (1 - T)^2.
+$$
+
+
+
+
+\section{Sommes exponentielles}
+\label{section-exponential-sums}
+
+\noindent
+Un problème classique de théorie des nombres consiste à évaluer des sommes de la forme
+$$
+S_{a, b}(p) = \sum_{x\in \mathbf{F}_p - \left\{0, 1\right\}} e^{\frac{2\pi
+ix^a(x - 1)^b}{p}}.
+$$
+Dans notre contexte, on peut l'interpréter comme une somme cohomologique de la manière suivante.
+Considérons le schéma de base
+$S = \Spec(\mathbf{F}_p[x, \frac{1}{x(x - 1)}])$ et la courbe affine
+$f : X \to \mathbf{P}^1-\{0, 1, \infty\}$ sur $S$ donnée par l'équation
+$y^{p - 1} = x^a(x - 1)^b$. C'est un revêtement galoisien fini \'etale de groupe
+$\mathbf{F}_p^*$ et il existe une décomposition
+$$
+f_*(\bar{\mathbf{Q}}_\ell^*) =
+\bigoplus_{\chi : \mathbf{F}_p^*\to \bar{\mathbf{Q}}_\ell^*} \mathcal{F}_\chi
+$$
+où $\chi$ parcourt les caractères de $\mathbf{F}_p^*$ et
+$\mathcal{F}_\chi$ est un faisceau lisse de rang 1 de $\mathbf{Q}_\ell$-modules sur lequel
+$\mathbf{F}_p^*$ agit par $\chi$ sur les fibres. On obtient une décomposition correspondante
+$$
+H_c^1(X_{\bar k}, \mathbf{Q}_\ell) = \bigoplus_\chi H^1(\mathbf{P}_{\bar
+k}^1-\{0, 1, \infty\}, \mathcal{F}_\chi)
+$$
+et l'interprétation cohomologique de la somme exponentielle est donnée par la
+formule des traces appliquée à $\mathcal{F}_\chi$ sur $\mathbf{P}^1 - \{0, 1,
+\infty\}$ pour un $\chi$ convenable. Elle s'écrit
+$$
+S_{a, b}(p) =
+-\text{Tr}(\pi_X^*
+|_{H^1(\mathbf{P}_{\bar k}^1-\{0, 1, \infty\}, \mathcal{F}_\chi)}).
+$$
+Le yoga général de Weil suggère qu'il devrait y avoir une certaine compensation dans la
+somme. En appliquant (approximativement) la formule de Riemann--Hurwitz, nous voyons que
+$$
+2g_X-2 \approx -2 (p-1) + 3(p-2) \approx p
+$$
+donc $g_X\approx p/2$, ce qui suggère également que les composantes en $\chi$ sont petites.
+
+
+
+%12.01.09
+\section{Formule des traces en termes de groupes fondamentaux}
+\label{section-trace-formula-fundamental-group}
+
+\noindent
+Dans les sections suivantes, nous reformulons entièrement la formule des traces
+en termes du groupe fondamental d'une courbe, sauf lorsque la courbe
+se trouve être $\mathbf{P}^1$.
+
+
+
+
+\section{Groupes fondamentaux}
+\label{section-fundamental-groups}
+
+\noindent
+Ce matériau est présenté plus en détail dans le chapitre consacré aux
+groupes fondamentaux. Voir
+Groupes fondamentaux, section \ref{pione-section-introduction}.
+Soit $X$ un schéma connexe et soit $\overline{x}\to X$ un
+point géométrique. Considérons le foncteur
+$$
+\begin{matrix}
+F_{\overline{x}}: &
+\text{ schémas finis \'etales } \atop \text{ sur } X &
+\longrightarrow & \text{ ensembles finis} \\
+&
+Y/X &
+\longmapsto &
+F_{\overline{x}}(Y) =
+\left\{\text{ points géométriques }\overline y \atop \text{ de } Y
+\text{ au-dessus de }\overline{x}\right\} = Y_{\overline{x}}
+\end{matrix}
+$$
+Posons
+$$
+\pi_1(X, \overline{x})
+=
+Aut(F_{\overline{x}})
+=
+\text{ ensemble des automorphismes du foncteur }F_{\overline{x}}
+$$
+Notons que, pour tout morphisme fini \'etale $Y \to X$, il existe une action
+$$
+\pi_1(X, \overline{x}) \times F_{\overline{x}}(Y) \to F_{\overline{x}}(Y)
+$$
+
+\begin{definition}
+\label{definition-open}
+Un sous-groupe de la forme
+$\text{Stab}(\overline y\in F_{\overline{x}}(Y))\subset \pi_1(X, \overline{x})$
+est dit {\it ouvert}.
+\end{definition}
+
+\begin{theorem}[Grothendieck]
+\label{theorem-fundamental-group}
+Soit $X$ un schéma connexe.
+\begin{enumerate}
+\item Il existe une topologie sur $\pi_1(X, \overline{x})$ telle que les sous-groupes
+ouverts forment un système fondamental de voisinages ouverts de $e\in \pi_1(X, \overline
+x)$.
+\item Muni de la topologie de (1), le groupe
+$\pi_1(X, \overline{x})$ est un groupe profini.
+\item Le foncteur
+$$
+\begin{matrix}
+\text{ schémas finis } \atop \text{ \'etales sur }X & \to &
+\text{ ensembles finis discrets à action continue } \atop \pi_1(X, \overline{x})\text{-ensembles}\\
+Y / X& \mapsto & F_{\overline{x}}(Y) \text{ muni de son action naturelle}
+\end{matrix}
+$$
+est une équivalence de catégories.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Cf. \cite{SGA1}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-integral-normal-fundamental-group}
+Soit $X$ un schéma noethérien normal intègre. Soit
+$\overline y\to X$ un point géométrique algébrique situé
+au-dessus du point générique $\eta\in X$. Alors
+$$
+\pi_x(X, \overline \eta) = Gal(M/\kappa(\eta))
+$$
+($\kappa(\eta)$ est le corps des fonctions de $X$), où
+$$
+\kappa(\overline \eta)\supset M\supset \kappa(\eta) = k(X)
+$$
+est la sous-extension maximale telle que, pour toute sous-extension finie
+$M\supset L\supset \kappa(\eta)$, la normalisation de $X$ dans $L$ soit finie
+\'etale sur $X$.
+\end{proposition}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\noindent
+{\bf Changement de point base.} Pour tous points géométriques $\overline{x}_1, \overline{x}_2$
+de $X$, il existe un isomorphisme des foncteurs fibres
+$$
+\mathcal{F}_{\overline{x}_1} \cong \mathcal{F}_{\overline{x}_2}
+$$
+(C'est un chemin de $\overline{x}_1$ à $\overline{x}_2$.) La conjugaison
+par ce chemin donne un isomorphisme
+$$
+\pi_1(X, \overline{x}_1) \cong \pi_1(X, \overline{x}_2)
+$$
+bien défini à automorphisme intérieur près.
+
+\medskip\noindent
+{\bf Fonctorialité.} Pour tout morphisme $X_1\to X_2$ de schémas connexes
+et tout $\overline{x}\in X_1$, il existe un morphisme canonique
+$$
+\pi_1(X_1, \overline{x}) \to \pi_1(X_2, \overline{x})
+$$
+(Pourquoi ? Parce que le foncteur fibre ...)
+
+\medskip\noindent
+{\bf Corps de base.} Soit $X$ une variété sur un corps $k$. On obtient alors
+$$
+\pi_1(X, \overline{x}) \to
+\pi_1(Spec(k), \overline{x}) =^{\text{prop}} Gal(k^{\text{sep}}/k)
+$$
+Ce morphisme est surjectif si et seulement si $X$ est géométriquement connexe sur $k$.
+Dans le cas géométriquement connexe, nous obtenons donc une suite exacte courte de groupes
+profinis
+$$
+1 \to \pi_1(X_{\overline{k}}, \overline{x}) \to
+\pi_1(X, \overline{x}) \to
+Gal(k^{\text{sep}}/k) \to 1
+$$
+($\pi_1(X_{\overline{k}}, \overline{x})$ : groupe fondamental géométrique de
+$X$, $\pi_1(X, \overline{x})$ : groupe fondamental arithmétique de $X$)
+
+\medskip\noindent
+{\bf Comparaison.} Si $X$ est une variété sur $\mathbf{C}$, alors
+$$
+\pi_1(X, \overline{x}) =
+\text{ complété profini de }
+\pi_1(X(\mathbf{C})(\text{ topologie usuelle}), x)
+$$
+(où $x\in X(\mathbf{C})$)
+
+\medskip\noindent
+{\bf Frobenius.} Soit $X$ une variété sur $k$, avec $\# k < \infty$. Pour tout $x \in X$
+point fermé, soit
+$$
+F_x\in \pi_1(x, \overline{x}) =
+\text{Gal}(\kappa(x)^{\text{sep}}/\kappa(x))
+$$
+le Frobenius géométrique.
+Soit $\overline\eta$ un point géométrique algébrique au-dessus du point générique. Alors
+$$
+\pi_1(X, \overline\eta) \leftarrow^{\cong}
+\pi_1(X, \overline{x})
+{\text{fonctorialité} \atop \leftarrow} \pi_1(x, \overline{x})
+$$
+
+\noindent
+Fait élémentaire :
+$$
+\begin{matrix}
+\pi_1(X, \overline \eta) & \to^{\deg} \pi_1(\Spec(k), \overline \eta) * &
+= Gal(k^{sep}/k) \\
+& & || \\
+& & \widehat{\mathbf{Z}}\cdot F_{\Spec(k)} \\
+F_x & \mapsto & \deg(x)\cdot F_{\Spec(k)}
+\end{matrix}
+$$
+Rappelons que $\deg(x) = [\kappa(x):k]$.
+
+\medskip\noindent
+{\bf Groupes fondamentaux et faisceaux lisses.}
+Soit $X$ un schéma connexe et $\overline{x}$ un point géométrique. Il existe des
+équivalences de catégories
+$$
+\begin{matrix}
+(\Lambda\text{ anneau fini}) &
+\text{faisceaux de }
+\atop \Lambda\text{-modules localement constants constructibles sur }X_\etale & \leftrightarrow &
+\text{ modules finis (discrets) sur }\Lambda\text{ }
+\atop \text{ munis d'une action continue de }\pi_1(X, \overline{x})\text{ }\\
+\\
+(\ell\text{ premier}) & \text{ faisceaux }\ell\text{-adiques} \atop \text{ lisses} &
+\leftrightarrow &
+\text{un }\mathbf{Z}_\ell
+\text{-module }M\text{ de type fini muni d'une action continue}
+\atop \pi_1(X, \overline{x})\text{ ; on utilise la topologie }
+\ell\text{-adique sur }M
+\end{matrix}
+$$
+En particulier, les faisceaux lisses de $\mathbf{Q}_l$-modules correspondent aux
+homomorphismes continus
+$$
+\pi_1(X, \overline{x}) \to \text{GL}_r(\mathbf{Q}_l), \quad r\geq 0
+$$
+
+\noindent
+Notation : un module muni d'une action $(M, \rho)$ correspond au faisceau
+$\mathcal{F}_\rho$.
+
+\medskip\noindent
+{\bf Formules des traces.} Soit $X$ une variété sur $k$, avec $\# k < \infty$.
+\begin{enumerate}
+\item $\Lambda$ est un anneau fini tel que $(\# \Lambda, \# k)=1$
+$$
+\rho : \pi_1(X, \overline{x})\to \text{GL}_r(\Lambda)
+$$
+continue. Pour tout $n\geq 1$, on a
+$$
+\sum_{d|n}d\left(
+\sum_{x\in |X|, \atop \deg(x)=d}
+\text{Tr}(\rho(F_x^{n/d}))\right) =
+\text{Tr}\left(
+(\pi_x^n)^* |_{R\Gamma_c(X_{\overline{k}}, \mathcal{F}_\rho)}\right)
+$$
+\item Soit $l\neq char(k)$ un nombre premier et soit $\rho : \pi_1(X, \overline{x})\to
+\text{GL}_r(\mathbf{Q}_l)$. Pour tout $n\geq 1$,
+$$
+\sum_{d|n} d\left(
+\sum_{x\in |X| \atop \deg(x)=d}
+\text{Tr}
+\left(
+\rho(F_x^{n/d})
+\right)
+\right) =
+\sum_{i = 0}^{2\dim X}
+(-1)^i
+\text{Tr}\left(
+\pi_X^* |_{H_c^i(X_{\overline{k}}, \mathcal{F}_\rho)}\right)
+$$
+\end{enumerate}
+
+\noindent
+{\bf Conjectures de Weil.} (Deligne--Weil I, 1974) Si $X$ est lisse et projective sur $k$ et
+$\# k = q$, alors les valeurs propres de $\pi_X^*$ sur $H^i(X_{\overline{k}},
+\mathbf{Q}_l)$ sont des entiers algébriques $\alpha$ tels que $|\alpha|=q^{i/2}$.
+
+\medskip\noindent
+{\bf Conjectures de Deligne.} (presque entièrement démontrées par
+Lafforgue et d'autres, $\ldots$) Soit $X$ une variété normale sur le corps fini $k$ et soit
+$$
+\rho : \pi_1(X, \overline{x}) \longrightarrow \text{GL}_r(\mathbf{Q}_l)
+$$
+continue. Supposons $\rho$ irréductible et $\det(\rho)$ d'ordre fini. Alors :
+\begin{enumerate}
+\item il existe un corps de nombres $E$ tel que, pour tout $x\in
+|X|$ (point fermé), le polynôme caractéristique de $\rho(F_x)$ ait ses coefficients dans $E$ ;
+\item pour tout $x\in |X|$, les valeurs propres $\alpha_{x, i}$, $i = 1, \ldots,
+r$, de $\rho(F_x)$ ont toutes une valeur absolue complexe égale à $1$
+(ce sont des nombres algébriques, pas nécessairement des entiers) ;
+\item pour toute place finie $\lambda$ de $E$ ne divisant pas $p$
+(quitte à agrandir légèrement $E$), il existe
+$$
+\rho\lambda : \pi_1(X, \overline{x}) \to \text{GL}_r(E_\lambda)
+$$
+compatible avec $\rho$ (les polynômes caractéristiques des $F_x$ sont les mêmes).
+\end{enumerate}
+
+\begin{theorem}[Deligne, Weil II]
+\label{theorem-weil-II}
+Pour un faisceau
+$\mathcal{F}_\rho$ tel que $\rho$ satisfasse les conclusions de la conjecture
+ci-dessus, les valeurs propres de $\pi_X^*$ sur $H_c^i(X_{\overline{k}},
+\mathcal{F}_{\rho})$ sont des nombres algébriques $\alpha$ dont les valeurs absolues
+$$
+|\alpha|=q^{w/2}, \text{ pour }w\in \mathbf{Z},\ w\leq i
+$$
+De plus, si $X$ est lisse et projective, alors $w = i$.
+\end{theorem}
+
+\begin{proof}
+Voir \cite{WeilII}.
+\end{proof}
+
+
+
+
+%12.03.09
+\section{Groupes profinis, cohomologie et homologie}
+\label{section-profinite-cohomology}
+
+\noindent
+Soit $G$ un groupe profini.
+
+\medskip\noindent
+{\bf Cohomologie.}
+Considérons la catégorie des modules discrets munis d'une action continue de $G$.
+Cette catégorie possède assez d'injectifs, et l'on peut définir
+$$
+H^i(G, M) = R^iH^0(G, M) = R^i(M\mapsto M^G)
+$$
+Il existe aussi une version dérivée $RH^0(G, -)$.
+
+\medskip\noindent
+{\bf Homologie.}
+Considérons la catégorie des groupes abéliens compacts munis d'une action continue de $G$.
+Cette catégorie possède assez de projectifs, et l'on peut définir
+$$
+H_i(G, M) = L_iH_0(G, M)=L_i(M\mapsto M_G)
+$$
+et il existe également une version dérivée.
+
+\medskip\noindent
+{\bf Dualité élémentaire.}
+Le foncteur $M\mapsto M^\wedge = \Hom_{cont}(M, S^1)$
+échange les catégories précédentes, et
+$$
+H^i(G, M)^\wedge = H_i(G, M^\wedge)
+$$
+De plus, ce foncteur envoie les $G$-modules discrets de torsion sur les
+$G$-modules profinis continus, et réciproquement ; si $M$ est un module continu
+discret ou profini muni d'une action de $G$, alors
+$M^\wedge = \Hom(M, \mathbf{Q}/\mathbf{Z})$.
+
+\medskip\noindent
+{\bf Notes sur l'homologie.}
+\begin{enumerate}
+\item Si l'on considère les $\Lambda$-modules pour un anneau fini $\Lambda$,
+alors on peut identifier
+$$
+H_i(G, M)=Tor_i^{\Lambda[[G]]}(M, \Lambda)
+$$
+où $\Lambda[[G]]$ est la limite des algèbres de groupe des quotients finis
+de $G$.
+\item Si $G$ est un sous-groupe normal de $\Gamma$, et si $\Gamma$ est également
+profini, alors
+\begin{itemize}
+\item $H^0(G, -)$ : $\Gamma$-modules discrets$\to$ modules discrets
+munis d'une action de $\Gamma/G$
+\item $H_0(G, -)$ : $\Gamma$-modules compacts $\to$ modules compacts
+munis d'une action de $\Gamma/G$
+\end{itemize}
+et le groupe profini $\Gamma/G$ agit donc sur les groupes de cohomologie
+de $G$ à valeurs dans un $\Gamma$-module. Autrement dit, il existe des foncteurs
+dérivés
+$$
+RH^0(G, -) :
+D^{+}(\text{modules discrets }\Gamma\text{-équivariants})
+\longrightarrow
+D^{+}(\text{modules discrets }\Gamma/G\text{-équivariants})
+$$
+et de même pour $LH_0(G, -)$.
+\end{enumerate}
+
+
+
+
+
+
+
+
+\section{Cohomologie des courbes, revisitée}
+\label{section-cohomology-curves-revisited}
+
+\noindent
+Soit $k$ un corps et soit $X$ une courbe lisse, géométriquement connexe sur $k$.
+On dispose de la suite exacte fondamentale
+$$
+1 \to
+\pi_1(X_{\overline{k}}, \overline \eta) \to
+\pi_1(X, \overline\eta) \to
+\text{Gal}(k^{^{sep}}/k) \to 1
+$$
+Si $\Lambda$ est un anneau fini tel que $\#\Lambda\in k^*$, si $M$ est un
+$\Lambda$-module fini et si l'on se donne
+$$
+\rho : \pi_1(X, \overline\eta) \to \text{Aut}_{\Lambda}(M)
+$$
+continue, alors $\mathcal{F}_\rho$ désigne le faisceau associé sur
+$X_\etale$.
+
+\begin{lemma}
+\label{lemma-identify-h2c}
+Il existe un isomorphisme canonique
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)=(M)_{\pi_1(X_{\overline{k}},
+\overline\eta)}(-1)
+$$
+en tant que $\text{Gal}(k^{^{sep}}/k)$-modules.
+\end{lemma}
+
+\noindent
+Ici, l'indice ${}_{\pi_1(X_{\overline{k}}, \overline\eta)}$
+désigne les coinvariants, et $(-1)$ le twist à la Tate, c'est-à-dire que
+$\sigma\in \text{Gal}(k^{^{sep}}/k)$ agit par
+$$
+\chi_{cycl}(\sigma)^{-1}.\sigma\text{ sur le membre de droite}
+$$
+où
+$$
+\chi_{cycl} :
+\text{Gal}(k^{^{sep}}/k)
+\to
+\prod\nolimits_{l\neq char(k)}\mathbf{Z}_l^*
+$$
+est le caractère cyclotomique.
+
+\medskip\noindent
+Reformulation (Deligne, Weil II, page 338). Pour tout faisceau fini localement
+constant $\mathcal{F}$ sur $X$, il existe un quotient maximal $\mathcal{F}\to
+\mathcal{F}''$ tel que $\mathcal{F}''/X_{\overline{k}}$ soit un faisceau constant ; ainsi
+$$
+\mathcal{F}'' = (X\to \Spec(k))^{-1}F''
+$$
+où $F''$ est un faisceau sur $\Spec(k)$, c'est-à-dire un
+$\text{Gal}(k^{^{sep}}/k)$-module. Alors
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F})\to H_c^2(X_{\overline{k}},
+\mathcal{F}'')\to F''(-1)
+$$
+est un isomorphisme.
+
+\begin{proof}[Démonstration du lemme \ref{lemma-identify-h2c}]
+Soit $Y\to^{\varphi}X$ le revêtement galoisien étale fini
+correspondant à $\Ker(\rho) \subset \pi_1(X, \overline\eta)$. Ainsi
+$$
+\text{Aut}(Y/X)=Ind(\rho)
+$$
+est le groupe de Galois. Alors $\varphi^*\mathcal{F}_\rho =\underline M_Y$ et
+$$
+\varphi_*\varphi^*\mathcal{F}_\rho\to \mathcal{F}_\rho
+$$
+ce qui donne
+\begin{align*}
+& H_c^2(X_{\overline{k}}, \varphi_*\varphi^*\mathcal{F}_\rho) \to
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)\\
+& =H_c^2(Y_{\overline{k}}, \varphi^*\mathcal{F}_\rho)\\
+& =H_c^2(Y_{\overline{k}}, \underline M) = \oplus_{\text{composantes irréd.
+de } \atop Y_{\overline{k}}}M
+\end{align*}
+$$
+\Im(\rho) \to H_c^2(Y_{\overline{k}}, \underline M) =
+\oplus_{\text{composantes irréd. de } \atop Y_{\overline{k}}}
+M \to_{\Im(\rho) \text{équivariant}} H_c^2(X_{\overline{k}},
+\mathcal{F}_{\rho}) \to^{\text{action }
+\Im(\rho) \atop \text{triviale}}
+$$
+si $C/\overline{k}$ est une courbe irréductible, alors $H_c^2(C, \underline M)=M$.
+
+\medskip\noindent
+Puisque
+$$
+{\text{ensemble des composantes } \atop \text{irréductibles de }Y_k} =
+\frac{Im(\rho)}{Im(\rho|_{\pi_1(X_{\overline{k}}, \overline \eta)})}
+$$
+On en conclut que $H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)$ est un
+quotient de $M_{\pi_1(X_{\overline{k}}, \overline \eta)}$. D'autre part,
+il existe une surjection
+$$
+\mathcal{F}_\rho\to \mathcal{F}'' = {\text{ faisceau sur }
+X\text{ associé à } \atop (M)_{\pi_1(X_{\overline{k}}, \overline
+\eta)}\leftarrow\pi_1(X, \overline \eta)}
+$$
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)\to
+M_{\pi_1(X_{\overline{k}}, \overline\eta)}
+$$
+Le twist de l'action de Galois provient du fait que
+$H_c^2(X_{\overline{k}}, \mu_n)=^{\text{can}} \mathbf{Z}/n\mathbf{Z}$.
+\end{proof}
+
+\begin{remark}
+\label{remark-projective}
+On en conclut donc que, si $X$ est en outre projective,
+on dispose, fonctoriellement en la représentation $\rho$,
+des identifications
+$$
+H^0(X_{\overline{k}}, \mathcal{F}_\rho) =
+M^{\pi_1(X_{\overline{k}}, \overline\eta)}
+$$
+et
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho) =
+M_{\pi_1(X_{\overline{k}}, \overline \eta)}(-1)
+$$
+Bien entendu, si $X$ n'est pas projective, alors
+$H^0_c(X_{\overline{k}}, \mathcal{F}_\rho) = 0$.
+\end{remark}
+
+
+\begin{proposition}
+\label{proposition-curve-kpi1}
+Soit $X/k$ comme précédemment, mais avec $X_{\overline{k}}\neq \mathbf{P}^1_{\overline{k}}$.
+Les foncteurs
+$
+(M, \rho)\mapsto H_c^{2-i}(X_{\overline{k}}, \mathcal{F}_\rho)
+$
+sont les foncteurs dérivés à gauche de
+$(M, \rho)\mapsto H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)$
+donc
+$$
+H_c^{2-i}(X_{\overline{k}}, \mathcal{F}_\rho) =
+H_i(\pi_1(X_{\overline{k}}, \overline \eta), M)(-1)
+$$
+De plus, il existe une version dérivée, à savoir
+$$
+R\Gamma_c(X_{\overline{k}}, \mathcal{F}_\rho)
+=
+LH_0(\pi_1(X_{\overline{k}}, \overline \eta), M(-1))
+=
+M(-1)
+\otimes_{\Lambda[[\pi_1(X_{\overline{k}}, \overline \eta)]]}^\mathbf{L}
+\Lambda
+$$
+dans $D(\Lambda[[\widehat{\mathbf{Z}}]])$.
+De même, les foncteurs
+$(M, \rho)\mapsto H^i(X_{\overline{k}}, \mathcal{F}_\rho)$
+sont les foncteurs dérivés à droite de
+$(M, \rho)\mapsto M^{\pi_1(X_{\overline{k}}, \overline \eta)}$
+donc
+$$
+H^i(X_{\overline{k}}, \mathcal{F}_\rho) =
+H^i(\pi_1(X_{\overline{k}}, \overline \eta), M)
+$$
+De plus, il existe également une version dérivée dans ce cas.
+\end{proposition}
+
+\begin{proof}
+(Idée) Montrer que les deux membres sont des $\delta$-foncteurs universels.
+\end{proof}
+
+\begin{remark}
+\label{remark-poincare-groups}
+La proposition et la dualité élémentaire donnent alors
+$$
+H^{2-i}_c(X_{\overline{k}}, \mathcal{F}_\rho)
+\times
+H^i(X_{\overline{k}}, \mathcal{F}_\rho^\wedge(1))
+\to
+\mathbf{Q}/\mathbf{Z}
+$$
+un accouplement parfait. Si $X$ est projective, c'est la dualité de Poincaré.
+\end{remark}
+
+
+
+
+
+\section{Formule des traces abstraite}
+\label{section-abstract-trace-formula}
+
+\noindent
+Supposons donnée une extension de groupes profinis
+$$
+1 \to G \to \Gamma \xrightarrow{\deg} \widehat{\mathbf{Z}} \to 1
+$$
+On dit que $\Gamma$ {\it possède une formule des traces abstraite} si et seulement s'il
+existe
+\begin{enumerate}
+\item un entier $q\geq 1$, et
+\item pour tout $d\geq 1$, un ensemble fini $S_d$ et, pour chaque $x\in S_d$, une
+classe de conjugaison $F_x \in \Gamma$ telle que $\deg(F_x) = d$
+\end{enumerate}
+de sorte que les conditions suivantes soient satisfaites :
+\begin{enumerate}
+\item pour tout $\ell$ ne divisant pas $q$, on a $\text{cd}_\ell(G)<\infty$, et
+\item pour tout anneau fini $\Lambda$ tel que $q\in \Lambda^*$,
+pour tout $\Lambda$-module projectif fini $M$ muni d'une action continue de
+$\Gamma$, et pour tout $n > 0$, on a
+$$
+\sum\nolimits_{d|n}d \left(
+\sum\nolimits_{x \in S_d}
+\text{Tr}( F_x^{n/d} |_M)
+\right)
+=
+q^n \text{Tr}(F^n|_{M \otimes_{\Lambda[[G]]}^{\mathbf{L}}\Lambda})
+$$
+dans $\Lambda^\natural$.
+\end{enumerate}
+Ici, $M \otimes_{\Lambda[[G]]}^{\mathbf{L}}\Lambda = LH_0(G, M)$ désigne
+l'homologie dérivée, et $F=1$ dans $\Gamma/G = \widehat{\mathbf{Z}}$.
+
+\begin{remark}
+\label{remark-abstract-trace-formula}
+Voici quelques observations au sujet de cette notion.
+\begin{enumerate}
+\item Pour modéliser les courbes projectives, on peut utiliser la cohomologie et
+le facteur $q^n$ n'est pas nécessaire.
+\item Les seuls exemples que je connaisse sont $\Gamma = \pi_1(X, \overline \eta)$,
+où $X$ est lisse, géométriquement irréductible et un $K(\pi, 1)$ sur un corps
+fini. Dans ce cas, $q = (\# k)^{\dim X}$. Compte tenu de la proposition, nous avons démontré
+ce résultat pour les courbes dans ce cours.
+\item Une fois l'entier $q$ donné, les ensembles $S_d$ sont déterminés de manière
+unique. (On peut multiplier $q$ par un entier $m$, puis remplacer $S_d$ par
+$m^d$ copies de $S_d$ sans changer la formule.)
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+\label{example-commutative}
+Fixons un entier $q\geq 1$.
+$$
+\begin{matrix}
+1 &
+\to &
+G = \widehat{\mathbf{Z}}^{(q)} &
+\to &
+\Gamma &
+\to &
+\widehat{\mathbf{Z}} &
+\to &
+1 \\
+&
+&
+= \prod_{l\not \mid q} \mathbf{Z}_l &
+&
+F &
+\mapsto &
+1
+\end{matrix}
+$$
+avec $FxF^{-1} = ux$, où $u \in (\widehat{\mathbf{Z}}^{(q)})^*$.
+En utilisant seulement les modules triviaux
+$\mathbf{Z}/m\mathbf{Z}$, on voit que
+$$
+q^n - (qu)^n \equiv \sum\nolimits_{d|n} d\# S_d
+$$
+dans $\mathbf{Z}/m\mathbf{Z}$ pour tout $(m, q)=1$ (à
+$u \to u^{-1}$ près) ; cela entraîne $qu = a\in \mathbf{Z}$
+et $|a| < q$. Le cas particulier $a = 1$ se présente avec
+$$
+\Gamma = \pi_1^t(\mathbf{G}_{m, \mathbf{F}_p}, \overline \eta),
+\quad
+\# S_1 = q - 1,
+\quad\text{et}\quad
+\# S_2 = \frac{(q^2-1)-(q-1)}{2}
+$$
+\end{example}
+
+
+
+%12.08.09
+\section{Formes automorphes et faisceaux}
+\label{section-automorphic}
+
+\noindent
+Références : voir notamment les remarquables articles
+\cite{D1}, \cite{D2} et \cite{D0} de Drinfeld.
+
+\medskip\noindent
+{\bf Formes cuspidales non ramifiées.}
+Soit $k$ un corps fini de caractéristique $p$.
+Soit $X$ une courbe projective lisse géométriquement irréductible sur $k$.
+Posons $K = k(X)$, le corps des fonctions de $X$.
+Soit $v$ une place de $K$, ce qui revient à se donner un
+point fermé $x\in X$. Soit $K_v$ le complété de $K$ en $v$ ;
+c'est aussi le corps des fractions du complété de
+l'anneau local de $X$ en $x$.
+Notons $O_v\subset K_v$ l'anneau des entiers. Posons en outre
+$$
+O = \prod\nolimits_v O_v \subset \mathbf{A} = \prod_v' K_v
+$$
+et soit $\Lambda$ un anneau, avec $p$ inversible dans $\Lambda$.
+
+\begin{definition}
+\label{definition-unramified}
+Une {\it forme cuspidale non ramifiée sur $\text{GL}_2(\mathbf{A})$ à valeurs dans
+$\Lambda$}\footnote{Cette notation n'est probablement pas standard.}
+est une fonction
+$$
+f : \text{GL}_2(\mathbf{A}) \to \Lambda
+$$
+telle que
+\begin{enumerate}
+\item $f(x\gamma) = f(x)$ pour tout $x\in \text{GL}_2(\mathbf{A})$ et tout
+$\gamma\in \text{GL}_2(K)$
+\item $f(ux) = f(x)$ pour tout $x\in \text{GL}_2(\mathbf{A})$ et tout
+$u\in \text{GL}_2(O)$
+\item pour tout $x\in \text{GL}_2(\mathbf{A})$,
+$$
+\int_{\mathbf{A} \mod K} f
+\left(x
+\left(
+\begin{matrix}
+1 & z \\
+0 & 1
+\end{matrix}
+\right)
+\right) dz = 0
+$$
+voir \cite[Section 4.1]{dJ-conjecture}
+pour une explication de la manière de donner un sens à cette expression
+pour un anneau quelconque $\Lambda$ dans lequel $p$ est inversible.
+\end{enumerate}
+\end{definition}
+
+\noindent
+{\bf Opérateurs de Hecke.}
+Pour une place $v$ de $K$ et une forme cuspidale non ramifiée $f$, posons
+$$
+T_v(f)(x) =
+\int_{g\in M_v}f(g^{-1}x)dg,
+$$
+et
+$$
+U_v(f)(x) =
+f\left(
+\left(
+\begin{matrix}
+\pi_v^{-1} & 0 \\
+0 & \pi_v^{-1}
+\end{matrix}
+\right)x\right)
+$$
+Notations : ici, $\pi_v \in O_v$ est une uniformisante,
+$$
+M_v =
+\left\{
+h\in Mat(2\times 2, O_v) | \det h = \pi_vO_v^*\right\}
+$$
+et $dg$ désigne la mesure de Haar sur $\text{GL}_2(K_v)$ telle que
+$\int_{\text{GL}_2(O_v)} dg = 1$. Explicitement, on a
+$$
+T_v(f)(x) =
+f\left(
+\left(
+\begin{matrix}
+\pi_v^{-1}& 0 \\
+0 & 1
+\end{matrix}
+\right)
+x\right) +
+\sum_{i = 1}^{q_v}
+f\left(\left(
+\begin{matrix}
+1 & 0 \\
+-\pi_v^{-1}\lambda_i
+& \pi_v^{-1}
+\end{matrix}
+\right) x\right)
+$$
+où les $\lambda_i\in O_v$ forment un système de représentants de
+$O_v/(\pi_v)=\kappa_v$, $q_v = \#\kappa_v$.
+
+\medskip\noindent
+{\bf Formes propres.} Une {\it forme propre} $f$ est une forme cuspidale non ramifiée
+telle qu'une valeur de $f$ soit une unité, et telle que $T_vf = t_vf$ et
+$U_vf = u_vf$ pour certains $t_v, u_v \in \Lambda$ déterminés de manière unique.
+
+\begin{theorem}
+\label{theorem-drinfeld-make-rho}
+Étant donnée une forme propre $f$ à valeurs dans
+$\overline{\mathbf{Q}}_l$, dont les valeurs propres
+$u_v\in \overline{\mathbf{Z}}_l^*$, il existe une représentation
+$$
+\rho : \pi_1(X)\to \text{GL}_2(E)
+$$
+continue et absolument irréductible, où
+$E$ est une extension finie de $\mathbf{Q}_\ell$ contenue dans
+$\overline{\mathbf{Q}}_l$, et cette représentation vérifie
+$t_v = \text{Tr}(\rho(F_v))$, et
+$u_v = q_v^{-1}\det\left(\rho(F_v)\right)$ pour toute place $v$.
+\end{theorem}
+
+\begin{proof}
+Voir \cite{D0}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-drinfeld-make-f}
+Supposons finie l'extension $\mathbf{Q}_l \subset E$, et soit
+$$
+\rho : \pi_1(X)\to \text{GL}_2(E)
+$$
+une représentation absolument irréductible et continue. Il existe alors une forme propre $f$ à
+valeurs dans $\overline{\mathbf{Q}}_l$, dont les valeurs propres $t_v$, $u_v$
+satisfont les égalités
+$t_v = \text{Tr}(\rho(F_v))$ et $u_v = q_v^{-1}\det(\rho(F_v))$.
+\end{theorem}
+
+\begin{proof}
+Voir \cite{D1}.
+\end{proof}
+
+\begin{remark}
+\label{remark-lafforgue}
+Grâce à Lafforgue et à de nombreux autres mathématiciens, nous disposons désormais
+d'énoncés complets analogues aux deux théorèmes précédents pour $\text{GL}_n$,
+y compris avec ramification !
+Autrement dit, la correspondance de Langlands globale complète pour $\text{GL}_n$
+est connue pour les corps de fonctions de courbes sur des corps finis. Cela
+ne signifie toutefois pas qu'il ne reste pas de nombreuses questions intéressantes
+sur les groupes fondamentaux des courbes sur les corps finis, comme
+nous le verrons ci-dessous.
+\end{remark}
+
+\noindent
+{\bf Caractère central.} Si $f$ est une forme propre, alors
+$$
+\begin{matrix}
+\chi_f : &
+O^*\backslash \mathbf{A}^*/K^* &
+\to &
+\Lambda^* \\
+&
+(1, \ldots, \pi_v, 1, \ldots, 1) &
+\mapsto &
+u_v^{-1}
+\end{matrix}
+$$
+est appelé le {\it caractère central}. Il correspond, compte tenu des
+normalisations ci-dessus, au déterminant de $\rho$. Posons
+$$
+C(\Lambda) =
+\left\{
+{\text{formes cuspidales non ramifiées } f \text{ à coefficients dans }\Lambda}
+\atop {\text{ telles que } U_v f = \varphi_v^{-1}f\forall v}
+\right\}
+$$
+
+\begin{proposition}
+\label{proposition-cusp-forms-finite}
+Si $\Lambda$ est noethérien, alors $C(\Lambda)$ est un
+$\Lambda$-module de type fini. De plus, si $\Lambda$ est un corps et si
+$\mathbf{F} \subset \Lambda$ est son sous-corps premier, alors
+$$
+C(\Lambda)=(C(\mathbf{F}))\otimes_{\mathbf{F}}\Lambda
+$$
+de manière compatible avec l'action de $T_v$.
+\end{proposition}
+
+\begin{proof}
+Voir \cite[Proposition 4.7]{dJ-conjecture}.
+\end{proof}
+
+\noindent
+Cette proposition entraîne immédiatement le lemme suivant.
+
+\begin{lemma}
+\label{lemma-eigenvalues-algebraic}
+Algébricité des valeurs propres.
+Si $\Lambda$ est un corps, alors les valeurs propres $t_v$ de $f\in
+C(\Lambda)$ sont algébriques sur le sous-corps premier
+$\mathbf{F} \subset \Lambda$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la proposition \ref{proposition-cusp-forms-finite}.
+\end{proof}
+
+\noindent
+En combinant ce qui précède, on obtient l'astuce très utile suivante.
+
+\begin{lemma}
+\label{lemma-switch-l}
+Changement de $l$. Soit $E$ un corps de nombres.
+Partons d'une représentation
+$$
+\rho : \pi_1(X)\to SL_2(E_\lambda)
+$$
+absolument irréductible et continue, où $\lambda$ est une place de $E$
+ne divisant pas $p$. Pour toute autre place $\lambda'$ de $E$
+ne divisant pas $p$, il existe une extension finie $E'_{\lambda'}$
+et une représentation continue absolument irréductible
+$$
+\rho': \pi_1(X)\to SL_2(E'_{\lambda'})
+$$
+compatible avec $\rho$, au sens où les polynômes caractéristiques
+de tous les Frobenius sont les mêmes.
+\end{lemma}
+
+\noindent
+Notons qu'il s'agit d'un cas particulier de la conjecture de Deligne !
+
+\begin{proof}
+Pour démontrer le lemme de changement, on applique
+le théorème \ref{theorem-drinfeld-make-f}
+pour obtenir une forme propre $f\in C(\overline{\mathbf{Q}}_l)$ associée à $\rho$.
+On applique ensuite
+la proposition \ref{proposition-cusp-forms-finite}
+pour voir que l'on peut choisir $f\in C(E')$, où $E \subset E'$ est une extension finie.
+En complétant ensuite $E'$, on obtient
+une forme propre $f\in C(E'_{\lambda'})$, où
+$E'_{\lambda'}$ est une extension finie de $E_{\lambda'}$.
+Enfin, on applique
+le théorème \ref{theorem-drinfeld-make-rho}
+pour obtenir
+$\rho': \pi_1(X) \to SL_2(E_{\lambda'}')$ absolument irréductible et continue,
+quitte à agrandir encore légèrement $E'_{\lambda'}$.
+\end{proof}
+
+\noindent
+Spéculation : si, pour un anneau (topologique) $\Lambda$, on a
+$$
+\left(
+{\rho : \pi_1(X)\to SL_2(\Lambda) \atop \text{ absolument irréductible}}
+\right)
+\leftrightarrow
+\text{ formes propres dans } C(\Lambda)
+$$
+alors toutes les valeurs propres de $\rho(F_v)$ sont algébriques (cet argument ne fonctionne
+pas directement lorsque $\Lambda$ est un anneau fini). En partant de l'idée que la
+correspondance de Langlands vaut plus généralement que pour les seuls corps,
+on arrive à la conjecture suivante.
+
+\medskip\noindent
+{\bf Conjecture.}
+(Voir \cite{dJ-conjecture}.)
+Pour toute représentation continue
+$$
+\rho : \pi_1(X)\to \text{GL}_n(\mathbf{F}_l[[t]])
+$$
+on a $\# \rho(\pi_1(X_{\overline{k}}))<\infty$.
+
+\medskip\noindent
+Reformulation dans le langage des faisceaux :
+« Pour tout faisceau lisse de $\overline{\mathbf{F}_l((t))}$-modules, la monodromie
+géométrique est finie. »
+
+\begin{theorem}
+\label{theorem-conjecture-n-2}
+La conjecture est vraie si $n\leq 2$.
+\end{theorem}
+
+\begin{proof}
+Voir \cite{dJ-conjecture}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-conjecture-l-bigger-2n}
+La conjecture est vraie si $l > 2n$, sous réserve de certains résultats non démontrés.
+\end{theorem}
+
+\begin{proof}
+Voir \cite{Gaitsgory}.
+\end{proof}
+
+\noindent
+Il se trouve que la conjecture a une application.
+Voir les travaux de Drinfeld sur les conjectures de Kashiwara. Il existe aussi
+l'application beaucoup plus élémentaire suivante.
+
+\begin{theorem}
+\label{theorem-deformation-rings}
+(Voir \cite[Théorème 3.5]{dJ-conjecture}.)
+Supposons que
+$$
+\rho_0: \pi_1(X)\to \text{GL}_n(\mathbf{F}_l)
+$$
+soit continue, avec $l\neq p$. Supposons :
+\begin{enumerate}
+\item que la conjecture soit vraie pour $X$ ;
+\item que $\rho_0 |_{\pi_1(X_{\overline{k}})}$ soit absolument irréductible ; et
+\item que $l$ ne divise pas $n$.
+\end{enumerate}
+Alors l'anneau de déformation universel $R_{\text{univ}}$ de $\rho_0$ est
+fini et plat sur $\mathbf{Z}_l$.
+\end{theorem}
+
+\noindent
+Explication : il existe une représentation $\rho_{\text{univ}}:
+\pi_1(X)\to \text{GL}_n(R_{\text{univ}})$ (anneau de déformation universel),
+où $R_{\text{univ}}$ est local et
+complet, de corps résiduel $\mathbf{F}_l$, et $(R_{\text{univ}}\to
+\mathbf{F}_l)\circ\rho_{\text{univ}}\cong\rho_0$.
+Étant donnés $R\to \mathbf{F}_l$, avec $R$ local et complet, et
+$\rho : \pi_1(X)\to \text{GL}_n(R)$, il existe alors
+$\psi : R_{\text{univ}}\to R$ tel que
+$\psi\circ\rho_{\text{univ}}\cong \rho$. Le théorème affirme que le morphisme
+$$
+\Spec(R_{\text{univ}})
+\longrightarrow
+\Spec(\mathbf{Z}_l)
+$$
+est fini et plat. En particulier, une telle représentation $\rho_0$
+se relève en une représentation $\rho : \pi_1(X) \to \text{GL}_n(\overline{\mathbf{Q}}_l)$.
+
+\medskip\noindent
+Notes :
+\begin{enumerate}
+\item Le théorème sur les déformations est facile.
+\item Tout progrès vers la conjecture semble difficile.
+\item Il serait intéressant de disposer de davantage de conjectures sur $\pi_1(X)$ !
+\end{enumerate}
+
+
+
+
+%12.10.09
+\section{Comptage des points}
+\label{section-counting}
+
+\noindent
+Soit $X$ une courbe lisse, géométriquement irréductible et
+projective sur $k$, et posons $q = \# k$. La formule des traces donne ceci :
+il existe des entiers algébriques $w_1, \ldots, w_{2g}$ tels que
+$$
+\# X(k_n) = q^n - \sum\nolimits_{i = 1}^{2g_X} w_i^n + 1.
+$$
+Si $\sigma\in \text{Aut}(X)$, alors, pour tout $i$, il existe $j$ tel que
+$\sigma(w_i)=w_j$.
+
+\medskip\noindent
+{\bf Hypothèse de Riemann.} Pour tout $i$, on a $|\omega_i| = \sqrt{q}$.
+
+\medskip\noindent
+Cette hypothèse a été formulée par Emil Artin en 1924 pour les
+courbes hyperelliptiques, puis démontrée par Weil en 1940. Weil en a donné deux démonstrations :
+\begin{itemize}
+\item l'une utilisant la théorie de l'intersection sur $X \times X$ et le
+théorème de l'indice de Hodge ;
+\item l'autre utilisant la jacobienne de $X$.
+\end{itemize}
+Il existe une autre démonstration, dont l'idée initiale est due à Stepanov et
+que Bombieri a donnée : elle utilise le corps de fonctions $k(X)$ et
+son opérateur de Frobenius (1969). Le point de départ est que, pour
+$f\in k(X)$, la fonction rationnelle $f^q - f$
+s'annule en tous les points $\mathbf{F}_q$-rationnels de $X$, et que l'on
+peut essayer d'utiliser cette idée pour majorer le nombre de points.
+
+
+\section{Forme précise du théorème de Chebotarev}
+\label{section-chebotarev}
+
+\noindent
+Comme première application, démontrons une forme précise du théorème de Chebotarev
+pour un revêtement galoisien étale fini de courbes.
+Soit $\varphi : Y \to X$ un revêtement galoisien étale fini de
+groupe $G$. Il correspond à un homomorphisme
+$$
+\pi_1(X) \longrightarrow G = \text{Aut}(Y/X)
+$$
+Supposons $Y_{\overline{k}}$ irréductible. Si $C\subset G$ est une classe de conjugaison,
+alors, pour tout $n > 0$, on a
+$$
+| \# \{x \in X(k_n) \mid F_x \in C\} - \frac{\# C}{\# G} \cdot \# X(k_n) |
+\leq
+(\# C)(2g - 2) \sqrt{q^n}
+$$
+(Avertissement : vérifier soigneusement le coefficient $\# C$ au membre de droite
+avant d'utiliser cette estimation.)
+
+\begin{proof}[Esquisse]
+Écrivons
+$$
+\varphi_*(\overline{\mathbf{Q}_l}) =
+\oplus_{\pi \in \widehat{G}} \mathcal{F}_{\pi}
+$$
+où $\widehat{G}$ est l'ensemble des classes d'isomorphisme
+des représentations irréductibles de
+$G$ sur $\overline{\mathbf{Q}}_l$. Pour $\pi \in \widehat{G}$,
+soit $\chi_{\pi}: G \to \overline{\mathbf{Q}}_l$
+le caractère de $\pi$. Alors
+$$
+H^*(Y_{\overline{k}}, \overline{\mathbf{Q}}_l) =
+\oplus_{\pi\in \widehat{G}}
+H^*(Y_{\overline{k}}, \overline{\mathbf{Q}}_l)_\pi
+=_{(\varphi\text{ finie })}
+\oplus_{\pi\in \widehat{G}}
+H^*(X_{\overline{k}}, \mathcal{F}_\pi)
+$$
+Si $\pi\neq 1$, alors
+$$
+H^0(X_{\overline{k}}, \mathcal{F}_\pi) =
+H^2(X_{\overline{k}}, \mathcal{F}_\pi) = 0,\quad
+\dim H^1(X_{\overline{k}}, \mathcal{F}_\pi) = (2g_X - 2)d_\pi^2
+$$
+(cela peut se déduire de la formule des traces en faisant agir sur ...) et l'on voit que
+$$
+|\sum_{x \in X(k_n)} \chi_\pi(\mathcal{F}_x)| \leq
+(2g_X - 2) d_\pi^2\sqrt{q^n}
+$$
+Écrivons $1_C = \sum_\pi a_\pi \chi_\pi$ ; alors
+$a_\pi = \langle 1_C, \chi_\pi\rangle$, et
+$a_1 = \langle 1_C, \chi_1\rangle = \frac{\# C}{\# G}$, où
+$$
+\langle f, h\rangle = \frac{1}{\# G}\sum_{g \in G} f(g)\overline{h(g)}
+$$
+On a donc la relation
+$$
+\frac{\# C}{\# G} = ||1_C||^2 = \sum|a_\pi|^2
+$$
+Dernière étape :
+\begin{align*}
+\#\left\{x \in X(k_n) \mid F_x \in C\right\}
+& =
+\sum_{x \in X(k_n)} 1_C(x) \\
+& =
+\sum_{x \in X(k_n)} \sum_\pi a_\pi \chi_\pi(F_x) \\
+& =
+\underbrace{\frac{\# C}{\# G} \# X(k_n)}_{
+\text{terme pour }\pi = 1}
++
+\underbrace{\sum_{\pi\neq 1}a_\pi\sum_{x\in X(k_n)}\chi_\pi(F_x)}_{
+\text{ terme d'erreur (à majorer par }E)}
+\end{align*}
+On peut majorer le terme d'erreur par
+\begin{align*}
+|E|
+& \leq
+\sum_{\pi \in \widehat{G}, \atop \pi \neq 1}
+|a_\pi| (2g - 2) d_\pi^2 \sqrt{q^n} \\
+& \leq
+\sum_{\pi \neq 1} \frac{\# C}{\# G} (2g_X - 2) d_\pi^3 \sqrt{q^n}
+\end{align*}
+D'après la conjecture de Weil, $\# X(k_n)\sim q^n$.
+\end{proof}
+
+
+
+\section{Combien de nombres premiers se décomposent complètement ?}
+\label{section-how-many}
+
+\noindent
+Cette section donne une seconde application de l'hypothèse de Riemann pour les
+courbes sur un corps fini. Les théoriciens des nombres pourront consulter
+l'article d'Ihara intitulé
+« Combien de nombres premiers se décomposent complètement dans une extension de Galois
+non ramifiée infinie d'un corps global ? », voir \cite{Ihara}.
+Considérons la suite exacte fondamentale
+$$
+1 \to
+\pi_1(X_{\overline{k}}) \to
+\pi_1(X) \xrightarrow{\deg}
+\widehat{\mathbf{Z}} \to 1
+$$
+
+\begin{proposition}
+\label{proposition-finite-set-frobenii-generate-topologically}
+Il existe des points fermés $x_1, \ldots, x_n$ de $X$
+tels que l'ensemble de {\bf tous} les éléments de Frobenius correspondant à ces
+points engendre topologiquement $\pi_1(X)$.
+\end{proposition}
+
+\noindent
+On peut aussi formuler l'énoncé ainsi :
+il existe $x_1, \ldots, x_n\in |X|$ tels que
+le plus petit sous-groupe normal fermé $\Gamma$ de $\pi_1(X)$
+contenant exactement $1$ élément de Frobenius pour chaque $x_i$ soit égal à $\pi_1(X)$, c'est-à-dire
+$\Gamma = \pi_1(X)$.
+
+\begin{proof}
+Choisissons $N\gg 0$ et posons
+$$
+\{x_1, \ldots, x_n\} =
+{\text{ ensemble de tous les points fermés de}
+\atop X \text{ de degré} \leq N\text{ sur } k}
+$$
+Soit $\Gamma\subset \pi_1(X)$ comme dans la reformulation précédente pour ces
+points. Supposons $\Gamma \neq \pi_1(X)$. On peut alors choisir un sous-groupe ouvert normal
+$U$ de $\pi_1(X)$ contenant $\Gamma$ et tel que
+$U \neq \pi_1(X)$. Par l'hypothèse de Riemann pour $X$, notre ensemble de points contient un
+$x_{i_1}$ de degré $N$ et un $x_{i_2}$ de degré $N - 1$. Cela montre que
+$\deg : \Gamma \to \widehat{\mathbf{Z}}$ est surjective,
+et il en va donc de même pour $U$. Cela signifie exactement que, si
+$Y \to X$ est le revêtement galoisien étale fini
+correspondant à $U$, alors $Y_{\overline{k}}$ est irréductible.
+Posons $G = \text{Aut}(Y/X)$. On a
+$$
+Y \to^G X,\quad G = \pi_1(X)/U
+$$
+Par construction, tous les points de $X$ de degré $\leq N$ se décomposent
+complètement dans $Y$. En particulier,
+$$
+\# Y(k_N)\geq (\# G)\# X(k_N)
+$$
+Appliquons l'hypothèse de Riemann aux deux membres. On obtient
+$$
+q^N+1+2g_Yq^{N/2}\geq \# G\# X(k_N)\geq \#
+G(q^N+1-2g_Xq^{N/2})
+$$
+Comme $2g_Y-2 = (\# G)(2g_X-2)$, cela donne
+$$
+q^N + 1 + (\# G)(2g_X - 1) + 1)q^{N/2}\geq
+\# G (q^N + 1 - 2g_Xq^{N/2})
+$$
+On voit donc que $G$ est nécessairement trivial si $N$ est assez grand.
+\end{proof}
+
+\noindent
+{\bf Question curieuse.}
+Posons $W_X = \deg^{-1}(\mathbf{Z})\subset \pi_1(X)$.
+Existe-t-il un ensemble fini de points fermés $x_1, \ldots, x_n$ de $X$ tel que
+l'ensemble de tous les éléments de Frobenius correspondant à ces points
+engendre {\it algébriquement} $W_X$ ?
+
+\medskip\noindent
+Un argument de catégorie de Baire ramène cette question à la même question
+pour tous les éléments de Frobenius.
+
+
+
+
+
+\section{Combien y a-t-il réellement de points ?}
+\label{section-really}
+
+\noindent
+Si le genre de la courbe est grand par rapport à $q$, alors le terme
+principal de la formule $\# X(k) = q - \sum \omega_i + 1$ n'est pas le terme $q$,
+mais le deuxième terme $\sum \omega_i$, qui peut avoir a priori une
+taille de l'ordre de $2g_X\sqrt{q}$. Dans l'article \cite{Drinfeld-number},
+Drinfeld et Vlăduţ montrent que ce maximum est en fait au plus de l'ordre de
+$g\sqrt{q}$, comme Ihara l'avait prédit.
+
+\medskip\noindent
+Fixons $q$ et soit $k$ un corps à $q$ éléments. Posons
+$$
+A(q) = \limsup_{g_X \to \infty} \frac{\# X(k)}{g_X}
+$$
+où $X$ parcourt les courbes projectives lisses géométriquement irréductibles
+sur $k$. Avec cette définition, on a les résultats suivants :
+\begin{itemize}
+\item HR $\Rightarrow A(q)\leq 2\sqrt{q}$
+\item Ihara $\Rightarrow A(q)\leq \sqrt{2q}$
+\item DV $\Rightarrow A(q)\leq \sqrt{q}-1$ (en fait, cette borne est atteinte si $q$
+est un carré).
+\end{itemize}
+
+\begin{proof}
+Étant donné $X$, soient $w_1, \ldots, w_{2g}$ comme précédemment et posons $g = g_X$.
+Posons $\alpha_i = \frac{w_i}{\sqrt{q}}$ ; alors $|\alpha_i| = 1$. Si $\alpha_i$
+apparaît, alors $\overline{\alpha}_i = \alpha_i^{-1}$ apparaît également. On a
+$$
+N = \# X(k) \leq X(k_r) = q^r + 1 - (\sum_i \alpha_i^r) q^{r/2}
+$$
+En réécrivant, on voit que, pour tout $r \geq 1$,
+$$
+-\sum_i \alpha_i^r \geq Nq^{-r/2} - q^{r/2} - q^{-r/2}
+$$
+Observons que
+$$
+0 \leq |\alpha_i^n +\alpha_i^{n-1} +\ldots +\alpha_i +1|^2
+= (n + 1) + \sum_{j = 1}^n (n + 1 - j) (\alpha_i^j + \alpha_i^{-j})
+$$
+Ainsi,
+\begin{align*}
+2g(n+1) & \geq - \sum_i \left(\sum_{j = 1}^n (n+1-j)(\alpha_i^j
++\alpha_i^{-j})\right)\\
+& =-\sum_{j = 1}^n (n+1-j)\left(\sum_i\alpha_i^j
++\sum_i\alpha_i^{-j}\right)
+\end{align*}
+En prenant la moitié, on obtient
+\begin{align*}
+g(n+1)& \geq - \sum_{j = 1}^n (n+1-j)(\sum_i\alpha_i^j)\\
+& \geq N\sum_{j = 1}^n (n+1-j)q^{-j/2}-\sum_{j = 1}^n
+(n+1-j)(q^{j/2}+q^{-j/2})
+\end{align*}
+On en déduit
+$$
+\frac{N}{g}\leq \left(\sum_{j = 1}^n \frac{n+1-j}{n+1}q^{-j/2} \right)^{-1}
+\cdot
+\left(
+1 + \frac{1}{g} \sum_{j = 1}^n \frac{n + 1 - j}{n + 1}(q^{j/2} + q^{-j/2})
+\right)
+$$
+Fixons $n$ et faisons tendre $g\to \infty$.
+$$
+A(q)\leq \left(\sum_{j = 1}^n \frac{n+1-j}{n+1}q^{-j/2}\right)^{-1}
+$$
+Donc
+$$
+A(q)\leq \lim_{n\to\infty}(\ldots) = \left(\sum_{j = 1}^\infty
+q^{-j/2}\right)^{-1}=\sqrt{q}-1
+$$
+\end{proof}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

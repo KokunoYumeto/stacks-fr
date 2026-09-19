@@ -1,0 +1,4735 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Groupes de Chow des espaces}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+
+\tableofcontents
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions d'abord les groupes de Chow des espaces
+algébriques. Après les avoir définis, nous définissons les classes de Chern des
+fibrés vectoriels comme des opérateurs sur ces groupes de Chow. La stratégie
+est exactement la même que dans le cas des schémas. Nous invitons donc le
+lecteur à consulter l'introduction du chapitre correspondant pour les schémas
+(Homologie de Chow, section \ref{chow-section-introduction}).
+
+\medskip\noindent
+Quelques articles sur le sujet : \cite{edidin-graham} et \cite{kresch_cycle}.
+
+
+
+\section{Cadre}
+\label{section-setup}
+
+\noindent
+Nous fixons d'abord la catégorie des espaces algébriques que nous considérerons.
+Il faut garder à l'esprit, tout au long de ce chapitre, que
+« décent $+$ localement noethérien » équivaut à « quasi-séparé $+$ localement
+noethérien » d'après Espaces décents, lemme
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}.
+
+\begin{situation}
+\label{situation-setup}
+Ici, $S$ est un schéma et $B$ un espace algébrique sur $S$. Nous supposons
+que $B$ est quasi-séparé, localement noethérien et universellement caténaire
+(Espaces décents, définition
+\ref{decent-spaces-definition-universally-catenary}). De plus, nous supposons
+donnée une fonction de dimension $\delta : |B| \longrightarrow
+\mathbf{Z}$. On dit que $X/B$ est {\it bon} si $X$ est un espace algébrique
+sur $B$ dont le morphisme de structure $f : X \to B$ est quasi-séparé et
+localement de type fini. Dans ce cas, nous définissons
+$$
+\delta = \delta_{X/B} : |X| \longrightarrow \mathbf{Z}
+$$
+comme l'application qui à $x$ associe $\delta(f(x))$ plus le degré de
+transcendance de $x/f(x)$ (Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-dimension-fibre}). Il s'agit d'une fonction
+de dimension d'après Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-universally-catenary-dimension-function}.
+\end{situation}
+
+\noindent
+Un cas particulier est celui où $S = B$ est un schéma et $(S, \delta)$ vérifie
+les hypothèses d'Homologie de Chow, situation \ref{chow-situation-setup}.
+Ainsi, $B$ peut être le spectre d'un corps (Homologie de Chow, exemple
+\ref{chow-example-field}) ou $B = \Spec(\mathbf{Z})$ (Homologie de Chow, exemple
+\ref{chow-example-domain-dimension-1}).
+
+\medskip\noindent
+De nombreux lemmes, propositions, théorèmes et définitions concernant les
+espaces algébriques sont plus faciles à établir dans le cadre de la situation
+\ref{situation-setup} car les espaces algébriques avec lesquels nous
+travaillons sont quasi-séparés (et donc a fortiori décents) et localement
+noethériens. Nous le signalerons au fil du chapitre par des remarques comme
+les suivantes.
+
+\begin{remark}
+\label{remark-sober}
+Dans la situation \ref{situation-setup}, si $X/B$ est bon, alors $|X|$ est un
+espace topologique sobre. Voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-quasi-separated-sober} ou Espaces décents,
+proposition \ref{decent-spaces-proposition-reasonable-sober}. Nous
+l'utiliserons sans autre mention pour choisir des points génériques de
+sous-ensembles fermés irréductibles de $|X|$.
+\end{remark}
+
+\begin{remark}
+\label{remark-integral}
+Dans la situation \ref{situation-setup}, si $X/B$ est bon, alors $X$ est
+intègre (Espaces sur les corps, définition
+\ref{spaces-over-fields-definition-integral-algebraic-space}) si et seulement
+si $X$ est réduit et $|X|$ est irréductible. De plus, pour tout point $\xi \in
+|X|$, il existe un sous-espace fermé intègre unique $Z \subset X$ tel que
+$\xi$ soit le point générique du sous-ensemble fermé $|Z| \subset |X|$ ; voir
+Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-decent-irreducible-closed}.
+\end{remark}
+
+\noindent
+Si $B$ est jacobsonien et que $\delta$ envoie les points fermés sur zéro, alors
+$\delta$ est la fonction qui envoie un point à la dimension de sa fermeture.
+
+\begin{lemma}
+\label{lemma-delta-is-dimension}
+Dans la situation \ref{situation-setup}, supposons que $B$ soit jacobsonien et que
+$\delta(b) = 0$ pour chaque point fermé $b$ de $|B|$. Soit $X/B$ bon. Si
+$Z \subset X$ est un sous-espace fermé intègre de point générique $\xi \in
+|Z|$, alors les entiers suivants sont égaux :
+\begin{enumerate}
+\item $\delta(\xi) = \delta_{X/B}(\xi)$,
+\item $\dim(|Z|)$,
+\item $\text{codim}(\{z\}, |Z|)$ pour $z \in |Z|$ fermé,
+\item la dimension de l'anneau local de $Z$ à $z$ pour $z \in |Z|$ fermé, et
+\item $\dim(\mathcal{O}_{Z, \overline{z}})$ pour $z \in |Z|$ fermé.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soient $X$, $Z$, $\xi$ comme dans le lemme. Puisque $X$ est localement de type
+fini sur $B$, l'espace $X$ est jacobsonien ; voir Espaces décents, lemme
+\ref{decent-spaces-lemma-Jacobson-universally-Jacobson}. Ainsi
+$X_{\text{ft-pts}} \subset |X|$ est l'ensemble des points fermés d'après
+Espaces décents, lemme \ref{decent-spaces-lemma-decent-Jacobson-ft-pts}. Étant donné
+une chaîne $T_0 \supset \ldots \supset T_e$ de sous-ensembles fermés
+irréductibles de $|Z|$, l'ensemble $T_e \cap X_{\text{ft-pts}}$ est non vide
+d'après Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-enough-finite-type-points}. Ainsi on peut toujours
+supposer qu'une telle chaîne se termine par $T_e = \{z\}$ pour un point fermé
+$z \in |Z|$. Il s'ensuit que $\dim(Z) = \sup_z \text{codim}(\{z\}, |Z|)$, où
+$z$ court sur les points fermés de $|Z|$. Nous avons $\text{codim}(\{z\}, Z) =
+\delta(\xi) - \delta(z)$ d'après Topologie, lemme
+\ref{topology-lemma-dimension-function-catenary}. Par Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-finite-type-points-morphism}, l'image de $z$
+est un point de type fini de $B$, c'est-à-dire un point fermé de $|B|$. Par
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-jacobson-finite-type-points}, le degré de
+transcendance de $z/b$ est $0$. Par hypothèse, nous concluons que
+$\delta(z) = \delta(b) = 0$. On obtient donc l'égalité
+$$
+\dim(|Z|) = \text{codim}(\{z\}, Z) = \delta(\xi)
+$$
+pour tout point fermé $z \in |Z|$. Enfin, $\text{codim}(\{z\}, Z)$ est égal à
+la dimension de l'anneau local de $Z$ en $z$ d'après Espaces décents, lemme
+\ref{decent-spaces-lemma-codimension-local-ring}, laquelle est à son tour égale
+à $\dim(\mathcal{O}_{Z, \overline{z}})$ d'après Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-dimension-local-ring}.
+\end{proof}
+
+\noindent
+Dans la situation du lemme précédent, la valeur de $\delta$ au point
+générique d'un sous-ensemble fermé irréductible est la dimension de ce
+sous-ensemble. Cela motive la définition suivante.
+
+\begin{definition}
+\label{definition-delta-dimension}
+Dans la situation \ref{situation-setup}, pour tout $X/B$ bon et tout
+sous-ensemble fermé irréductible $T \subset |X|$, on définit
+$$
+\dim_\delta(T) = \delta(\xi)
+$$
+où $\xi \in T$ est le point générique de $T$. Nous appelons ce nombre la {\it
+$\delta$-dimension de $T$}. Si $T \subset |X|$ est un sous-ensemble fermé,
+alors nous définissons $\dim_\delta(T)$ comme la borne supérieure des
+$\delta$-dimensions des composantes irréductibles de $T$. Si $Z$ est un sous-espace fermé
+de $X$, alors nous définissons $\dim_\delta(Z) = \dim_\delta(|Z|)$.
+\end{definition}
+
+\noindent
+Bien sûr, cela signifie simplement que $\dim_\delta(T) = \sup \{\delta(t) \mid
+t \in T\}$.
+
+
+
+
+
+
+
+\section{Cycles}
+\label{section-cycles}
+
+\noindent
+Cette section est l'analogue d'Homologie de Chow, section
+\ref{chow-section-cycles}.
+
+\medskip\noindent
+Puisque nous ne supposons pas nos espaces quasi-compacts, il faut être un peu
+prudent dans la définition des cycles. Nous devons autoriser les sommes infinies,
+car une fonction rationnelle peut, par exemple, avoir une infinité de pôles.
+En revanche, si $X$ est quasi-compact, alors un cycle est
+une somme finie comme d'habitude.
+
+\begin{definition}
+\label{definition-cycles}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $k
+\in \mathbf{Z}$.
+\begin{enumerate}
+\item Un {\it cycle sur $X$} est une somme formelle
+$$
+\alpha = \sum n_Z [Z]
+$$
+où la somme s'étend sur les sous-espaces fermés intègres $Z \subset X$,
+chaque $n_Z \in \mathbf{Z}$ et $\{|Z|; n_Z \not = 0\}$ est une famille
+localement finie de sous-ensembles de $|X|$ (Topologie, définition
+\ref{topology-definition-locally-finite}).
+\item Un {\it $k$-cycle} sur $X$ est un cycle
+$$
+\alpha = \sum n_Z [Z]
+$$
+où $n_Z \not = 0 \Rightarrow \dim_\delta(Z) = k$.
+\item Le groupe abélien de tous les $k$-cycles sur $X$ est noté $Z_k(X)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+En d'autres termes, un $k$-cycle sur $X$ est une combinaison formelle
+$\mathbf{Z}$-linéaire localement finie de sous-espaces fermés intègres (remarque
+\ref{remark-integral}) de $\delta$-dimension $k$. L'addition des $k$-cycles
+$\alpha = \sum n_Z[Z]$ et $\beta = \sum m_Z[Z]$ est donné par
+$$
+\alpha + \beta = \sum (n_Z + m_Z)[Z],
+$$
+c'est-à-dire en additionnant les coefficients.
+
+
+
+
+\section{Multiplicités}
+\label{section-multiplicities}
+
+\noindent
+Cette section rassemble quelques résultats simples sur les longueurs et les
+multiplicités.
+
+\begin{lemma}
+\label{lemma-length}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$. Soit $\mathcal{F}$
+un $\mathcal{O}_X$-module quasi-cohérent. Soit $x \in |X|$. Soit $d \in
+\{0, 1, 2, \ldots, \infty\}$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item
+$\text{length}_{\mathcal{O}_{X, \overline{x}}} \mathcal{F}_{\overline{x}} = d$
+\item il existe un morphisme \'etale $U \to X$, avec $U$ un schéma, et un
+point $u \in U$ d'image $x$, tels que $\text{length}_{\mathcal{O}_{U, u}}
+(\mathcal{F}|_U)_u = d$
+\item pour tout morphisme \'etale $U \to X$, avec $U$ un schéma, et tout
+point $u \in U$ d'image $x$, on a $\text{length}_{\mathcal{O}_{U, u}}
+(\mathcal{F}|_U)_u = d$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soient $U \to X$ et $u \in U$ comme en (2) ou (3). On sait alors que
+$\mathcal{O}_{X, \overline{x}}$ est l'hensélisation stricte de
+$\mathcal{O}_{U, u}$ et que
+$$
+\mathcal{F}_{\overline{x}} =
+(\mathcal{F}|_U)_u \otimes_{\mathcal{O}_{U, u}} \mathcal{O}_{X, \overline{x}}
+$$
+Voir Propriétés des espaces, lemmes
+\ref{spaces-properties-lemma-describe-etale-local-ring} et
+\ref{spaces-properties-lemma-stalk-quasi-coherent}. Il s'ensuit, par Algèbre,
+lemme \ref{algebra-lemma-pullback-module}, par la platitude de
+$\mathcal{O}_{U, u} \to \mathcal{O}_{X, \overline{x}}$ et par le fait que
+$\mathcal{O}_{X, \overline{x}}/\mathfrak m_u\mathcal{O}_{X,
+\overline{x}}$ est le corps résiduel de $\mathcal{O}_{X, \overline{x}}$, que
+les longueurs sont égales. Ces propriétés des hensélisations strictes se
+trouvent dans Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-dumb-properties-henselization}.
+\end{proof}
+
+\begin{definition}
+\label{definition-length-at-x}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$. Soit $\mathcal{F}$
+un $\mathcal{O}_X$-module quasi-cohérent. Soit $x \in |X|$. Soit $d \in
+\{0, 1, 2, \ldots, \infty\}$. Nous disons que {\it $\mathcal{F}$ est de longueur
+$d$ en $x$} si les conditions équivalentes du lemme \ref{lemma-length} sont
+satisfaites.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-length-closed-immersion}
+Soit $S$ un schéma. Soit $i : Y \to X$ une immersion fermée d'espaces
+algébriques sur $S$. Soit $\mathcal{G}$ un $\mathcal{O}_Y$-module
+quasi-cohérent. Soit $y \in |Y|$ d'image $x \in |X|$. Soit $d \in \{0,
+1, 2, \ldots, \infty\}$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{G}$ a une longueur $d$ à $y$, et
+\item $i_*\mathcal{G}$ a une longueur $d$ à $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme \'etale $f : U \to X$, où $U$ est un schéma, et un
+point $u \in U$ d'image $x$. Posons $V = Y \times_X U$. Notons $g : V \to Y$
+et $j : V \to U$ les projections. Alors $j : V \to U$ est une immersion fermée
+et il existe un unique point $v \in V$ d'images $y \in |Y|$ et $u \in U$
+(voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-points-cartesian}, et Espaces, lemme
+\ref{spaces-lemma-base-change-immersions}). Nous avons $j_*(\mathcal{G}|_V) =
+(i_*\mathcal{G})|_U$ en tant que modules sur le schéma $V$, et $j_*$ est
+l'image directe « usuelle » des modules pour le morphisme de schémas $j$ ;
+voir la discussion qui entoure Cohomologie des espaces, équation
+(\ref{spaces-cohomology-equation-representable-higher-direct-image}). On se
+ramène ainsi au cas des schémas : si $i : Y \to X$ est une immersion fermée de
+schémas, alors
+$$
+(i_*\mathcal{G})_x = \mathcal{G}_y
+$$
+en tant que modules sur $\mathcal{O}_{X, x}$, la structure de module au membre
+de droite étant donnée par la surjection $i_y^\sharp : \mathcal{O}_{X, x} \to
+\mathcal{O}_{Y, y}$. L'égalité résulte donc d'Algèbre, lemme
+\ref{algebra-lemma-length-independent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-length-finite}
+Soit $S$ un schéma et soit $X$ un espace algébrique localement noethérien sur
+$S$. Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent. Soit $x \in |X|$.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un morphisme \'etale $U \to X$, avec $U$ un schéma, et un point
+$u \in U$ d'image $x$, tel que $u$ soit un point générique d'une composante
+irréductible de $\text{Supp}(\mathcal{F}|_U)$,
+\item pour tout morphisme \'etale $U \to X$, avec $U$ un schéma, et tout point
+$u \in U$ d'image $x$, le point $u$ est générique dans une composante irréductible
+de $\text{Supp}(\mathcal{F}|_U)$,
+\item la longueur de $\mathcal{F}$ à $x$ est finie et non nulle.
+\end{enumerate}
+Si $X$ est décent (de manière équivalente, quasi-séparé), ces assertions sont
+également équivalentes à
+\begin{enumerate}
+\item[(4)] $x$ est un point générique d'une composante irréductible de
+$\text{Supp}(\mathcal{F})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que $f : U \to X$ soit un morphisme \'etale, avec $U$ un schéma, et
+que $u \in U$ ait pour image $x$. Alors $\mathcal{F}|_U = f^*\mathcal{F}$ est
+un $\mathcal{O}_U$-module cohérent sur le schéma localement noethérien $U$ ; en
+particulier, $(\mathcal{F}|_U)_u$ est un $\mathcal{O}_{U, u}$-module fini ; voir
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-coherent-Noetherian} et Cohomologie des schémas,
+lemme \ref{coherent-lemma-coherent-Noetherian}. Rappelons que le support de
+$\mathcal{F}|_U$ est un sous-ensemble fermé de $U$ (Morphismes, lemme
+\ref{morphisms-lemma-support-finite-type}) et que le support de
+$(\mathcal{F}|_U)_u$ est l'image réciproque du support de $\mathcal{F}|_U$ par le
+morphisme $\Spec(\mathcal{O}_{U, u}) \to U$. Ainsi $u$ est un point générique
+d'une composante irréductible de $\text{Supp}(\mathcal{F}|_U)$ si et seulement
+si le support de $(\mathcal{F}|_U)_u$ est égal à l'idéal maximal de
+$\mathcal{O}_{U, u}$. L'équivalence de (1), (2) et (3) résulte alors d'Algèbre,
+lemme \ref{algebra-lemma-support-point}.
+
+\medskip\noindent
+Si $X$ est décent, choisissons un morphisme \'etale $f : U \to X$ et un point
+$u \in U$ d'image $x$. L'image réciproque du support de $\mathcal{F}$ est le
+support de $\mathcal{F}|_U$ ; voir Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-support-finite-type}. De plus, les spécialisations
+$x' \leadsto x$ dans $|X|$ se relèvent en des spécialisations $u' \leadsto u$
+dans $U$ et toute spécialisation non triviale $u' \leadsto u$ dans $U$
+correspond à une spécialisation non triviale $f(u') \leadsto f(u)$ dans $|X|$,
+voir Espaces décents, lemmes \ref{decent-spaces-lemma-decent-specialization}
+et \ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}. En
+utilisant le fait que $|X|$ et $U$ sont des espaces topologiques sobres
+(Espaces décents, proposition \ref{decent-spaces-proposition-reasonable-sober}
+et Schémas, lemme \ref{schemes-lemma-scheme-sober}), nous concluons que $x$
+est un point générique du support de $\mathcal{F}$ si et seulement si $u$ est
+un point générique du support de $\mathcal{F}|_U$. Nous concluons que (4) est
+équivalent à (1).
+
+\medskip\noindent
+L'assertion entre parenthèses résulte d'Espaces décents, lemme
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-point-of-max-dimension}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $T
+\subset |X|$ un sous-ensemble fermé et $t \in T$. Si $\dim_\delta(T) \leq k$
+et $\delta(t) = k$, alors $t$ est un point générique d'une composante
+irréductible de $T$.
+\end{lemma}
+
+\begin{proof}
+Nous savons que $t$ appartient à une composante irréductible $T' \subset T$.
+Soit $t' \in T'$ le point générique. Alors $k \geq \delta(t') \geq \delta(t)$.
+Puisque $\delta$ est une fonction de dimension, nous voyons que $t = t'$.
+\end{proof}
+
+
+
+\section{Cycle associé à un sous-espace fermé}
+\label{section-cycle-of-closed-subscheme}
+
+\noindent
+Cette section est l'analogue d'Homologie de Chow, section
+\ref{chow-section-cycle-of-closed-subscheme}.
+
+\begin{remark}
+\label{remark-irreducible-component}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $Y
+\subset X$ un sous-espace fermé. D'après les remarques \ref{remark-sober} et
+\ref{remark-integral}, il existe des bijections (c'est-à-dire des
+correspondances $1$-à-$1$) entre les ensembles suivants :
+\begin{enumerate}
+\item les composantes irréductibles $T$ de $|Y|$,
+\item les points génériques des composantes irréductibles de $|Y|$, et
+\item les sous-espaces fermés intègres $Z \subset Y$ tels que $|Z|$ soit une
+composante irréductible de $|Y|$.
+\end{enumerate}
+Dans ce chapitre, nous appelons tout $Z$ comme en (3) une {\it composante
+irréductible de $Y$}, et nous appelons $\xi \in |Z|$ son {\it point générique}.
+\end{remark}
+
+\begin{definition}
+\label{definition-cycle-associated-to-closed-subscheme}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $Y
+\subset X$ un sous-espace fermé.
+\begin{enumerate}
+\item Pour une composante irréductible $Z \subset Y$ de point générique $\xi$,
+la longueur de $\mathcal{O}_Y$ en $\xi$ (définition
+\ref{definition-length-at-x}) est appelée la {\it multiplicité de $Z$ dans
+$Y$}. Par le lemme \ref{lemma-length-finite} appliqué à $\mathcal{O}_Y$ sur
+$Y$, c'est un entier positif.
+\item Supposons $\dim_\delta(Y) \leq k$. Le {\it $k$-cycle associé à $Y$} est
+$$
+[Y]_k = \sum m_{Z, Y}[Z]
+$$
+où la somme porte sur les composantes irréductibles $Z$ de $Y$ de
+$\delta$-dimension $k$ et $m_{Z, Y}$ est la multiplicité de $Z$ dans $Y$. Il
+s'agit d'un $k$-cycle d'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-components-locally-finite}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il importe de noter que nous ne définissons $[Y]_k$ que si la
+$\delta$-dimension de $Y$ ne dépasse pas $k$. En d’autres termes, par
+convention, l'écriture $[Y]_k$ implique donc que $\dim_\delta(Y) \leq
+k$.
+
+
+
+
+
+
+
+\section{Cycle associé à un faisceau cohérent}
+\label{section-cycle-of-coherent-sheaf}
+
+\noindent
+Cette section est l'analogue d'Homologie de Chow, section
+\ref{chow-section-cycle-of-coherent-sheaf}.
+
+\begin{definition}
+\label{definition-cycle-associated-to-coherent-sheaf}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+\begin{enumerate}
+\item Pour un sous-espace fermé intègre $Z \subset X$ de point générique
+$\xi$ tel que $|Z|$ soit une composante irréductible de
+$\text{Supp}(\mathcal{F})$, la longueur de $\mathcal{F}$ en $\xi$ (définition
+\ref{definition-length-at-x}) est appelée la {\it multiplicité de $Z$ dans
+$\mathcal{F}$}. D'après le lemme \ref{lemma-length-finite}, il s'agit d'un
+entier positif.
+\item Supposons $\dim_\delta(\text{Supp}(\mathcal{F})) \leq k$. Le {\it
+$k$-cycle associé à $\mathcal{F}$} est
+$$
+[\mathcal{F}]_k = \sum m_{Z, \mathcal{F}}[Z]
+$$
+où la somme porte sur les sous-espaces fermés intègres $Z \subset X$
+correspondant aux composantes irréductibles de $\text{Supp}(\mathcal{F})$ de
+$\delta$-dimension $k$, et $m_{Z, \mathcal{F}}$ est la multiplicité de $Z$
+dans $\mathcal{F}$. Il s'agit d'un $k$-cycle d'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-components-locally-finite}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il importe de noter que nous ne définissons $[\mathcal{F}]_k$ que si
+$\mathcal{F}$ est cohérent et que la $\delta$-dimension de
+$\text{Supp}(\mathcal{F})$ ne dépasse pas $k$. En d’autres termes, par
+convention, l'écriture $[\mathcal{F}]_k$ implique donc que
+$\mathcal{F}$ est cohérent sur $X$ et $\dim_\delta(\text{Supp}(\mathcal{F}))
+\leq k$.
+
+\begin{lemma}
+\label{lemma-reformulate-coeff-coherent}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{F}$ un $\mathcal{O}_X$-module cohérent avec
+$\dim_\delta(\text{Supp}(\mathcal{F})) \leq k$. Soit $Z$ un sous-espace fermé
+intègre de $X$ tel que $\dim_\delta(Z) = k$. Soit $\xi \in |Z|$ son point
+générique. Alors le coefficient de $Z$ dans $[\mathcal{F}]_k$ est la
+longueur de $\mathcal{F}$ en $\xi$.
+\end{lemma}
+
+\begin{proof}
+Observons que $|Z|$ est une composante irréductible de
+$\text{Supp}(\mathcal{F})$ si et seulement si $\xi \in
+\text{Supp}(\mathcal{F})$ ; voir le lemme \ref{lemma-point-of-max-dimension}.
+De plus, la longueur de $\mathcal{F}$ en $\xi$ est nulle si $\xi \not \in
+\text{Supp}(\mathcal{F})$. Le résultat découle alors de la définition
+\ref{definition-cycle-associated-to-coherent-sheaf}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cycle-closed-coherent}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $Y
+\subset X$ un sous-espace fermé. Si $\dim_\delta(Y) \leq k$, alors $[Y]_k =
+[i_*\mathcal{O}_Y]_k$ où $i : Y \to X$ est le morphisme d'inclusion.
+\end{lemma}
+
+\begin{proof}
+Soit $Z$ un sous-espace fermé intègre de $X$ tel que $\dim_\delta(Z) = k$. Si $Z
+\not \subset Y$, le coefficient de $Z$ est nul dans $[Y]_k$ comme dans
+$[i_*\mathcal{O}_Y]_k$. Si $Z \subset Y$, alors le point générique de $Z$ peut
+être considéré comme un point $y \in |Y|$ d'image $x \in |X|$. Alors le
+coefficient de $Z$ dans $[Y]_k$ est la longueur de $\mathcal{O}_Y$ en $y$ et
+le coefficient de $Z$ dans $[i_*\mathcal{O}_Y]_k$ est la longueur de
+$i_*\mathcal{O}_Y$ en $x$. L'égalité des coefficients résulte donc du lemme
+\ref{lemma-length-closed-immersion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-additivity-sheaf-cycle}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $0 \to
+\mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$ une suite exacte courte
+de $\mathcal{O}_X$-modules cohérents. Supposons que la $\delta$-dimension de
+chacun des supports de $\mathcal{F}$, $\mathcal{G}$ et $\mathcal{H}$ soit
+$\leq k$. Alors
+$[\mathcal{G}]_k = [\mathcal{F}]_k + [\mathcal{H}]_k$.
+\end{lemma}
+
+\begin{proof}
+Soit $Z$ un sous-espace fermé intègre de $X$ tel que $\dim_\delta(Z) = k$. Il
+suffit de montrer que les coefficients de $Z$ dans $[\mathcal{G}]_k$,
+$[\mathcal{F}]_k$ et $[\mathcal{H}]_k$ satisfont l'additivité correspondante.
+Par le lemme \ref{lemma-reformulate-coeff-coherent}, il suffit de montrer
+$$
+\text{the length of }\mathcal{G}\text{ at }x =
+\text{the length of }\mathcal{F}\text{ at }x +
+\text{the length of }\mathcal{H}\text{ at }x
+$$
+pour tout $x \in |X|$. D'après la définition \ref{definition-length-at-x},
+cela résulte immédiatement de l'additivité des longueurs ; voir Algèbre, lemme
+\ref{algebra-lemma-length-additive}.
+\end{proof}
+
+
+
+
+
+\section{Préliminaires à l'image directe propre}
+\label{section-preparation-pushforward}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-preparation-pushforward}.
+
+\begin{lemma}
+\label{lemma-proper-image}
+Dans la situation \ref{situation-setup}, soient $X,Y/B$ bons et soit $f : X
+\to Y$ un morphisme au-dessus de $B$. Si $Z \subset X$ est un sous-espace fermé
+intègre, alors il existe un unique sous-espace fermé intègre $Z' \subset Y$
+tel qu'il existe un diagramme commutatif
+$$
+\xymatrix{
+Z \ar[r] \ar[d] & X \ar[d]^f \\
+Z' \ar[r] & Y
+}
+$$
+avec $Z \to Z'$ dominant. Si $f$ est propre, alors $Z \to Z'$ est propre et
+surjectif.
+\end{lemma}
+
+\begin{proof}
+Soit $\xi \in |Z|$ le point générique. Soit $Z' \subset Y$ le sous-espace
+fermé intègre dont le point générique est $\xi' = f(\xi)$ ; voir la remarque
+\ref{remark-integral}. Puisque $\xi \in |f^{-1}(Z')| = |f|^{-1}(|Z'|)$ d'après
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-points-cartesian},
+et puisque $Z$ est le sous-espace réduit tel que $|Z| =
+\overline{\{\xi\}}$, nous voyons que $Z \subset f^{-1}(Z')$ en tant que
+sous-espaces fermés de $X$ (voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-map-into-reduction}). On obtient ainsi notre
+morphisme $Z \to Z'$. Ce morphisme est dominant puisque le point générique de
+$Z$ s'envoie sur le point générique de $Z'$. L'unicité de $Z'$ est claire. Si
+$f$ est propre, alors $Z \to Y$ est propre en tant que
+composition de morphismes propres (Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-base-change-proper} et
+\ref{spaces-morphisms-lemma-closed-immersion-proper}). Il en résulte que $Z \to
+Z'$ est propre d'après Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-universally-closed-permanence}. La surjectivité en
+résulte, puisque l'image d'un morphisme propre est fermée.
+\end{proof}
+
+\begin{remark}
+\label{remark-residue-field}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Tout $x \in
+|X|$ peut être représenté par un monomorphisme (unique) $\Spec(k) \to X$, où
+$k$ est un corps ; voir Espaces décents, lemme
+\ref{decent-spaces-lemma-decent-points-monomorphism}. Alors $k$ est le {\it
+corps résiduel de} $x$ et se note $\kappa(x)$. Rappelons que $X$ possède un
+sous-schéma ouvert dense $U \subset X$ (Propriétés des espaces, proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}).
+Si $x \in U$, alors $\kappa(x)$ coïncide avec le corps résiduel de $x$
+dans le schéma $U$. Voir Espaces décents, section
+\ref{decent-spaces-section-residue-fields-henselian-local-rings}.
+\end{remark}
+
+\begin{remark}
+\label{remark-function-field}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons que
+$X$ soit intègre. Dans ce cas, le {\it corps des fonctions} $R(X)$ de $X$ est
+défini et est égal au corps résiduel de $X$ en son point générique. Voir
+Espaces sur les corps, définition
+\ref{spaces-over-fields-definition-function-field}. En combinant cela avec la
+remarque \ref{remark-integral}, nous voyons que, pour tout $x \in X$, le
+corps résiduel $\kappa(x)$ est le corps des fonctions de l'unique sous-espace fermé
+intègre unique $Z \subset X$ dont le point générique est $x$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-equal-dimension}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons et soit $f : X
+\to Y$ un morphisme au-dessus de $B$. Supposons $X$ et $Y$ intègres et
+$\dim_\delta(X) = \dim_\delta(Y)$. Alors, ou bien $f$ se factorise par un
+sous-espace fermé strict de $Y$, ou bien $f$ est dominant et l'extension de
+corps de fonctions $R(X) / R(Y)$ est finie.
+\end{lemma}
+
+\begin{proof}
+Par le lemme \ref{lemma-proper-image}, il existe un sous-espace fermé intègre
+unique $Z \subset Y$ tel que $f$ se factorise par un morphisme dominant $X
+\to Z$. Alors $Z = Y$ si et seulement si $\dim_\delta(Z) = \dim_\delta(Y)$.
+D'autre part, par notre construction des fonctions de dimension (voir la
+situation \ref{situation-setup}), nous avons $\dim_\delta(X) =
+\dim_\delta(Z) + r$, où $r$ est le degré de transcendance de l'extension
+$R(X)/R(Z)$. Le lemme résulte alors d'Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-finite-degree}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-locally-finite}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme sur $B$. Supposons que $f$ soit quasi-compact et que
+$\{T_i\}_{i \in I}$ soit une famille localement finie de parties fermées de
+$|X|$. Alors $\{\overline{|f|(T_i)}\}_{i \in I}$ est une famille localement
+finie de parties fermées de $|Y|$.
+\end{lemma}
+
+\begin{proof}
+Soit $V \subset |Y|$ une partie ouverte quasi-compacte. Alors $|f|^{-1}(V)
+\subset |X|$ est quasi-compact par Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-quasi-compact-is-quasi-compact}. L’ensemble $\{i
+\in I : T_i \cap |f|^{-1}(V) \not = \emptyset \}$ est donc fini par un simple
+argument topologique que nous omettons. Or cet ensemble est aussi égal à
+$$
+\{i \in I : |f|(T_i) \cap V \not = \emptyset \} =
+\{i \in I : \overline{|f|(T_i)} \cap V \not = \emptyset \}
+$$
+ce qui démontre le lemme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Image directe propre}
+\label{section-proper-pushforward}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-proper-pushforward}.
+
+\begin{definition}
+\label{definition-proper-pushforward}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f : X
+\to Y$ un morphisme au-dessus de $B$. Supposons $f$ propre.
+\begin{enumerate}
+\item Soit $Z \subset X$ un sous-espace fermé intègre avec $\dim_\delta(Z) =
+k$. Soit $Z' \subset Y$ l'image de $Z$ comme dans le lemme
+\ref{lemma-proper-image}. Nous définissons
+$$
+f_*[Z] =
+\left\{
+\begin{matrix}
+0 & \text{if} & \dim_\delta(Z')< k, \\
+\deg(Z/Z') [Z'] & \text{if} & \dim_\delta(Z') = k.
+\end{matrix}
+\right.
+$$
+Le degré de $Z$ sur $Z'$ est défini et fini si $\dim_\delta(Z') =
+\dim_\delta(Z)$ d'après le lemme \ref{lemma-equal-dimension} et Espaces sur
+les corps, définition \ref{spaces-over-fields-definition-degree}.
+\item Soit $\alpha = \sum n_Z [Z]$ un $k$-cycle sur $X$. L'{\it image directe}
+de $\alpha$ est la somme
+$$
+f_* \alpha = \sum n_Z f_*[Z]
+$$
+où chaque $f_*[Z]$ est défini comme ci-dessus. Cette somme est localement finie
+d'après le lemme \ref{lemma-quasi-compact-locally-finite} ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Par définition, l'image directe propre des cycles
+$$
+f_* : Z_k(X) \longrightarrow Z_k(Y)
+$$
+est un homomorphisme de groupes abéliens. Elle fait de $X \mapsto Z_k(X)$ un
+foncteur covariant sur la catégorie dont les objets sont les espaces
+algébriques bons au-dessus de $B$ et dont les morphismes sont les morphismes
+propres au-dessus de $B$.
+
+\begin{lemma}
+\label{lemma-compose-pushforward}
+Dans la situation \ref{situation-setup}, soient $X, Y, Z/B$ bons. Soient $f
+: X \to Y$ et $g : Y \to Z$ des morphismes propres au-dessus de $B$. Alors $g_* \circ
+f_* = (g \circ f)_*$ comme applications $Z_k(X) \to Z_k(Z)$.
+\end{lemma}
+
+\begin{proof}
+Soit $W \subset X$ un sous-espace fermé intègre de dimension $k$. Considérons
+les sous-espaces fermés intègres $W' \subset Y$ et $W'' \subset Z$ obtenus en
+appliquant le lemme \ref{lemma-proper-image} à $f$ et $W$, puis à $g$ et $W'$.
+Alors $W \to W'$ et $W' \to W''$ sont surjectifs et propres. Il faut montrer
+que $g_*(f_*[W]) = (f \circ g)_*[W]$. Si $\dim_\delta(W'') <
+k$, alors les deux côtés sont nuls. Si $\dim_\delta(W'') = k$, alors nous
+voyons que $W \to W'$ et $W' \to W''$ satisfont tous deux aux hypothèses du
+lemme \ref{lemma-equal-dimension}. Ainsi
+$$
+g_*(f_*[W]) = \deg(W/W')\deg(W'/W'')[W''],
+\quad
+(f \circ g)_*[W] = \deg(W/W'')[W''].
+$$
+La conclusion résulte alors d'Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-degree-composition}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cycle-push-sheaf}
+Dans la situation \ref{situation-setup}, soit $f : X \to Y$ un morphisme
+propre d'espaces algébriques bons au-dessus de $B$.
+\begin{enumerate}
+\item Soit $Z \subset X$ un sous-espace fermé avec $\dim_\delta(Z) \leq k$.
+Alors
+$$
+f_*[Z]_k = [f_*{\mathcal O}_Z]_k.
+$$
+\item Soit $\mathcal{F}$ un faisceau cohérent sur $X$ tel que
+$\dim_\delta(\text{Supp}(\mathcal{F})) \leq k$. Alors
+$$
+f_*[\mathcal{F}]_k = [f_*{\mathcal F}]_k.
+$$
+\end{enumerate}
+Remarquons que l'énoncé a un sens puisque $f_*\mathcal{F}$ et $f_*\mathcal{O}_Z$
+sont des $\mathcal{O}_Y$-modules cohérents d'après Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}.
+\end{lemma}
+
+\begin{proof}
+La partie (1) découle de (2) et du lemme \ref{lemma-cycle-closed-coherent}.
+Soit $\mathcal{F}$ un faisceau cohérent sur $X$. Supposons que
+$\dim_\delta(\text{Supp}(\mathcal{F})) \leq k$. D'après Cohomologie des espaces,
+lemme \ref{spaces-cohomology-lemma-coherent-support-closed}, il existe une
+immersion fermée $i : Z \to X$ et un $\mathcal{O}_Z$-module cohérent
+$\mathcal{G}$ tel que $i_*\mathcal{G} \cong \mathcal{F}$ et tel que le support
+de $\mathcal{F}$ soit $Z$. Soit $Z' \subset Y$ l'image schématique de
+$f|_Z : Z \to Y$ ; voir Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-scheme-theoretic-image}. Considérons le
+diagramme commutatif
+$$
+\xymatrix{
+Z \ar[r]_i \ar[d]_{f|_Z} &
+X \ar[d]^f \\
+Z' \ar[r]^{i'} & Y
+}
+$$
+d'espaces algébriques au-dessus de $B$. Remarquons que $f|_Z$ est surjectif
+(cela résulte de Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}, et du fait
+que $|f|$ est fermé) et propre (cela résulte de Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-base-change-proper},
+\ref{spaces-morphisms-lemma-closed-immersion-proper}, et
+\ref{spaces-morphisms-lemma-universally-closed-permanence}). En parcourant le
+diagramme par les deux chemins, nous obtenons $f_*\mathcal{F} =
+f_*i_*\mathcal{G} = i'_*(f|_Z)_*\mathcal{G}$. Supposons le résultat établi pour
+les immersions fermées et pour $f|_Z$. Alors
+$$
+f_*[\mathcal{F}]_k = f_*i_*[\mathcal{G}]_k
+= (i')_*(f|_Z)_*[\mathcal{G}]_k =
+(i')_*[(f|_Z)_*\mathcal{G}]_k =
+[(i')_*(f|_Z)_*\mathcal{G}]_k = [f_*\mathcal{F}]_k
+$$
+comme voulu. Le cas d'une immersion fermée découle du lemme
+\ref{lemma-length-closed-immersion} et des définitions. Nous nous sommes donc
+réduits au cas où $\dim_\delta(X) \leq k$ et $f : X \to Y$ est propre et
+surjectif.
+
+\medskip\noindent
+Supposons que $\dim_\delta(X) \leq k$ et que $f : X \to Y$ soit propre et
+surjectif. Pour toute composante irréductible $Z \subset Y$ de point
+générique $\eta$, il existe un point $\xi \in X$ tel que $f(\xi) = \eta$. Ainsi
+$\delta(\eta) \leq \delta(\xi) \leq k$. On voit donc que dans les expressions
+$$
+f_*[\mathcal{F}]_k = \sum n_Z[Z],
+\quad
+\text{and}
+\quad
+[f_*\mathcal{F}]_k = \sum m_Z[Z].
+$$
+dès que $n_Z \not = 0$, ou que $m_Z \not = 0$, le sous-espace fermé
+intègre $Z$ est en fait une composante irréductible de $Y$ de
+$\delta$-dimension $k$ (voir le lemme \ref{lemma-point-of-max-dimension}).
+Choisissons un tel sous-espace fermé intègre $Z \subset Y$ et notons $\eta$ son
+point générique. Remarquons que, pour tout $\xi \in X$ tel que $f(\xi) = \eta$,
+nous avons
+$\delta(\xi) \geq k$ et donc $\xi$ est également un point générique d'une
+composante irréductible de $X$ de $\delta$-dimension $k$ (voir le lemme
+\ref{lemma-point-of-max-dimension}). D'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-finite-in-codim-1}, il existe un sous-espace
+ouvert $\eta \in V \subset Y$ tel que $f^{-1}(V) \to V$ soit fini. Puisque
+$\eta$ est un point générique d'une composante irréductible de $|Y|$, nous
+pouvons supposer que $V$ est un schéma affine ; voir Propriétés des espaces,
+proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+En remplaçant $Y$ par $V$ et $X$ par $f^{-1}(V)$, nous nous réduisons au cas où
+$Y$ est affine et où $f$ est fini. En particulier, $X$ et $Y$ sont des schémas,
+et nous sommes ramenés au résultat correspondant pour les schémas ; voir
+Homologie de Chow, lemme \ref{chow-lemma-cycle-push-sheaf} (appliqué avec $S = Y$).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Préliminaires à l'image réciproque plate}
+\label{section-preparation-flat-pullback}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-preparation-flat-pullback}.
+
+\medskip\noindent
+Rappelons qu'un morphisme d'espaces algébriques est dit de dimension relative
+$r$ si, localement pour la topologie \'etale sur la source et sur le but, on
+obtient un morphisme de schémas de dimension relative $r$. La définition
+précise est équivalente, quoique légèrement différente en réalité ; voir
+Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-relative-dimension}.
+
+\begin{lemma}
+\label{lemma-flat-inverse-image-dimension}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme au-dessus de $B$. Supposons que $f$ soit plat de
+dimension relative $r$. Pour toute partie fermée $T \subset |Y|$, nous avons
+$$
+\dim_\delta(|f|^{-1}(T)) = \dim_\delta(T) + r.
+$$
+pourvu que $|f|^{-1}(T)$ ne soit pas vide. Si $Z \subset Y$ est un
+sous-schéma fermé intègre et que $Z' \subset f^{-1}(Z)$ est une composante
+irréductible, alors $Z'$ domine $Z$ et $\dim_\delta(Z') = \dim_\delta(Z) + r$.
+\end{lemma}
+
+\begin{proof}
+Puisque la $\delta$-dimension d'une partie fermée est la borne supérieure des
+$\delta$-dimensions de ses composantes irréductibles, il suffit de démontrer
+la dernière assertion. Nous pouvons remplacer $Y$ par le sous-schéma fermé intègre
+$Z$ et $X$ par $f^{-1}(Z) = Z \times_Y X$. Nous pouvons donc supposer que $Z =
+Y$ est intègre et que $f$ est un morphisme plat de dimension relative $r$.
+Puisque $Y$ est localement noethérien, le morphisme $f$, qui est localement de
+type fini, est en fait localement de présentation finie. Le lemme
+\ref{spaces-morphisms-lemma-fppf-open} de Morphismes d'espaces s'applique donc,
+et $f$ est ouvert. Soit $\xi \in X$ un point générique d'une composante
+irréductible de $X$. Comme $f$ est ouvert, $f(\xi)$ est le point
+générique $\eta$ de $Z = Y$. Ainsi $Z'$ domine $Z = Y$. Enfin, la proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}
+de Propriétés des espaces montre que $\xi$ et $\eta$ appartiennent aux lieux
+schématiques de $X$ et de $Y$.
+Puisque $\xi$ est un point générique de $X$, nous voyons que $\mathcal{O}_{X,
+\xi} = \mathcal{O}_{X_\eta, \xi}$ n'a qu'un seul idéal premier et a donc la
+dimension $0$ (on peut utiliser les anneaux locaux usuels, car $\xi$ et
+$\eta$ appartiennent aux lieux schématiques de $X$ et de $Y$). Le lemme
+\ref{spaces-morphisms-lemma-dimension-fibre-at-a-point} de Morphismes d'espaces
+(et la définition des morphismes d'une dimension relative donnée) montre alors que
+le degré de transcendance de $\kappa(\xi)$ sur $\kappa(\eta)$ est $r$. En
+d'autres termes, $\delta(\xi) = \delta(\eta) + r$, comme voulu.
+\end{proof}
+
+\noindent
+Voici le lemme que nous utiliserons pour montrer que l'image réciproque plate
+d'une famille localement finie de sous-schémas fermés est localement finie.
+
+\begin{lemma}
+\label{lemma-inverse-image-locally-finite}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme au-dessus de $B$. Supposons que $\{T_i\}_{i \in I}$ soit
+une famille localement finie de parties fermées de $|Y|$. Alors
+$\{|f|^{-1}(T_i)\}_{i \in I}$ est une famille localement finie de
+parties fermées de $X$.
+\end{lemma}
+
+\begin{proof}
+Soit $U \subset |X|$ une partie ouverte quasi-compacte. Puisque l'image
+$|f|(U) \subset |Y|$ est une partie quasi-compacte, il existe une partie $V
+\subset |Y|$ ouverte quasi-compacte telle que $|f|(U) \subset V$. Remarquons que
+$$
+\{i \in I : |f|^{-1}(T_i) \cap U \not = \emptyset \}
+\subset
+\{i \in I : T_i \cap V \not = \emptyset \}.
+$$
+Le membre de droite étant fini par hypothèse, on conclut.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Image réciproque plate}
+\label{section-flat-pullback}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-flat-pullback}.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $f : X \to Y$ un morphisme d'espaces algébriques
+au-dessus de $S$. Soit $Z \subset Y$ un sous-espace fermé. Dans ce chapitre, nous
+utiliserons parfois la terminologie {\it image réciproque schématique}
+pour l'image réciproque $f^{-1}(Z)$ de $Z$ construite dans Morphismes des
+espaces, définition
+\ref{spaces-morphisms-definition-inverse-image-closed-subspace}. L'image
+réciproque schématique est le produit fibré
+$$
+\xymatrix{
+f^{-1}(Z) \ar[r] \ar[d] & X \ar[d] \\
+Z \ar[r] & Y
+}
+$$
+Si $\mathcal{I} \subset \mathcal{O}_Y$ est le faisceau quasi-cohérent d'idéaux
+correspondant à $Z$ dans $Y$, alors $f^{-1}(\mathcal{I})\mathcal{O}_X$ est le
+faisceau quasi-cohérent d'idéaux correspondant à $f^{-1}(Z)$ dans $X$.
+
+\begin{definition}
+\label{definition-flat-pullback}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme au-dessus de $B$. Supposons que $f$ soit plat de dimension
+relative $r$.
+\begin{enumerate}
+\item Soit $Z \subset Y$ un sous-espace fermé intègre de $\delta$-dimension
+$k$. Nous définissons $f^*[Z]$ comme le $(k+r)$-cycle sur $X$ associé à
+l'image réciproque schématique
+$$
+f^*[Z] = [f^{-1}(Z)]_{k+r}.
+$$
+Cela a du sens puisque $\dim_\delta(f^{-1}(Z)) = k + r$ par le lemme
+\ref{lemma-flat-inverse-image-dimension}.
+\item Soit $\alpha = \sum n_i [Z_i]$ un $k$-cycle sur $Y$. L'{\it image
+réciproque plate de $\alpha$ par $f$} est la somme
+$$
+f^* \alpha = \sum n_i f^*[Z_i]
+$$
+où chaque $f^*[Z_i]$ est défini comme ci-dessus. La somme est localement finie
+par le lemme \ref{lemma-inverse-image-locally-finite}.
+\item On note $f^* : Z_k(Y) \to Z_{k + r}(X)$ l'homomorphisme de groupes abéliens
+ainsi obtenu.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Une immersion ouverte est plate. C'est un cas particulier important, quoique
+trivial, de morphisme plat. Si $U \subset X$ est ouvert, l'image réciproque par
+$j : U \to X$ d'un cycle est parfois appelée la {\it restriction} du cycle à
+$U$. Remarquons que, dans ce cas, les applications
+$$
+j^* : Z_k(X) \longrightarrow Z_k(U)
+$$
+sont toutes {\it surjectives}. En effet, étant donné un sous-espace fermé
+intègre $Z' \subset U$, nous pouvons prendre pour $Z$ l'adhérence de
+$Z'$ dans $X$ et la considérer comme un sous-espace fermé réduit de $X$ (voir
+Propriétés des espaces, définition
+\ref{spaces-properties-definition-reduced-induced-space}). On a alors clairement
+$Z \cap U = Z'$, autrement dit $j^*[Z] = [Z']$, d'où la surjectivité. En fait,
+on a un peu mieux.
+
+\begin{lemma}
+\label{lemma-exact-sequence-open}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $U
+\subset X$ un sous-espace ouvert. Soit $Y$ le sous-espace fermé réduit de $X$
+avec $|Y| = |X| \setminus |U|$ et notons $i : Y \to X$ le morphisme
+d'inclusion. Pour chaque $k \in \mathbf{Z}$, la séquence
+$$
+\xymatrix{
+Z_k(Y) \ar[r]^{i_*} & Z_k(X) \ar[r]^{j^*} & Z_k(U) \ar[r] & 0
+}
+$$
+est une suite exacte de groupes abéliens.
+\end{lemma}
+
+\begin{proof}
+Nous avons vu ci-dessus que $j^*$ est surjectif. Supposons d'abord que $X$
+soit quasi-compact. Alors $Z_k(X)$ est un $\mathbf{Z}$-module libre de base
+donnée par les éléments $[Z]$ où $Z \subset X$ est fermé intègre de
+$\delta$-dimension $k$. Un tel élément de base s'envoie soit sur l'élément de
+base $[Z \cap U]$ de $Z_k(U)$, soit sur zéro si $Z \subset Y$. Le lemme est donc
+clair dans ce cas. Le cas général est similaire et la preuve est omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-pullback}
+Dans la situation \ref{situation-setup}, soit $f : X \to Y$ un morphisme
+\'etale de bons espaces algébriques au-dessus de $B$. Si $Z \subset Y$ est un
+sous-espace fermé intègre, alors $f^*[Z] = \sum [Z']$ où la somme est sur les
+composantes irréductibles (remarque \ref{remark-irreducible-component}) de
+$f^{-1}(Z)$.
+\end{lemma}
+
+\begin{proof}
+La signification du lemme est que le coefficient de $[Z']$ est $1$. Cela
+découle du fait que $f^{-1}(Z)$ est un espace algébrique réduit car il est
+\'etale sur l'espace algébrique intègre $Z$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compose-flat-pullback}
+Dans la situation \ref{situation-setup}, soient $X, Y, Z/B$ bons. Soient $f
+: X \to Y$ et $g : Y \to Z$ des morphismes plats de dimensions relatives $r$
+et $s$ au-dessus de $B$. Alors $g \circ f$ est plat de dimension relative $r + s$ et
+$$
+f^* \circ g^* = (g \circ f)^*
+$$
+comme applications $Z_k(Z) \to Z_{k + r + s}(X)$.
+\end{lemma}
+
+\begin{proof}
+La composition est plate de dimension relative $r + s$ d'après Morphismes
+d'espaces, lemmes
+\ref{spaces-morphisms-lemma-dimension-fibre-at-a-point-additive} et
+\ref{spaces-morphisms-lemma-composition-flat}. Supposons que
+\begin{enumerate}
+\item $A \subset Z$ est un sous-espace fermé intègre de $\delta$-dimension
+$k$,
+\item $A' \subset Y$ est un sous-espace fermé intègre de $\delta$-dimension
+$k + s$ tel que $A' \subset g^{-1}(A)$, et
+\item $A'' \subset Y$ est un sous-espace fermé intègre de $\delta$-dimension
+$k + s + r$ tel que $A'' \subset f^{-1}(W')$.
+\end{enumerate}
+Nous devons montrer que le coefficient $n$ de $[A'']$ dans $(g \circ f)^*[A]$
+est égal au coefficient $m$ de $[A'']$ dans $f^*(g^*[A])$. On peut
+choisir un diagramme commutatif
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \ar[r] & W \ar[d] \\
+X \ar[r] & Y \ar[r] & Z
+}
+$$
+où $U, V, W$ sont des schémas, les flèches verticales sont \'etales, et il
+existe des points $u \in U$, $v \in V$, $w \in W$ tels que $u \mapsto v
+\mapsto w$ et tels que $u, v, w$ s'envoient sur les points génériques de $A'',
+A', A$. (Détails omis.) Nous avons alors des homomorphismes plats d'anneaux
+locaux $\mathcal{O}_{W, w} \to \mathcal{O}_{V, v}$, $\mathcal{O}_{V, v} \to
+\mathcal{O}_{U, u}$, et en utilisant à plusieurs reprises le lemme
+\ref{lemma-length}, nous trouvons
+$$
+n = \text{length}_{\mathcal{O}_{U, u}}(
+\mathcal{O}_{U, u}/\mathfrak m_w\mathcal{O}_{U, u})
+$$
+et
+$$
+m =
+\text{length}_{\mathcal{O}_{V, v}}(
+\mathcal{O}_{V, v}/\mathfrak m_w\mathcal{O}_{V, v})
+\text{length}_{\mathcal{O}_{U, u}}(
+\mathcal{O}_{U, u}/\mathfrak m_v\mathcal{O}_{U, u})
+$$
+L'égalité découle donc du lemme d'Algèbre
+\ref{algebra-lemma-pullback-transitive}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-coherent}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme plat de dimension relative $r$.
+\begin{enumerate}
+\item Soit $Z \subset Y$ un sous-espace fermé avec $\dim_\delta(Z) \leq k$.
+Alors $\dim_\delta(f^{-1}(Z)) \leq k + r$ et $[f^{-1}(Z)]_{k +
+r} = f^*[Z]_k$ dans $Z_{k + r}(X)$.
+\item Soit $\mathcal{F}$ un faisceau cohérent sur $Y$ avec
+$\dim_\delta(\text{Supp}(\mathcal{F})) \leq k$. Nous avons alors
+$\dim_\delta(\text{Supp}(f^*\mathcal{F})) \leq k + r$ et
+$$
+f^*[{\mathcal F}]_k = [f^*{\mathcal F}]_{k+r}
+$$
+dans $Z_{k + r}(X)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) découle de la partie (2) par le lemme
+\ref{lemma-cycle-closed-coherent} et le fait que $f^*\mathcal{O}_Z =
+\mathcal{O}_{f^{-1}(Z)}$.
+
+\medskip\noindent
+Preuve de (2). Comme $X$, $Y$ sont localement noethériens, nous pouvons
+appliquer le lemme
+\ref{spaces-cohomology-lemma-coherent-Noetherian} de Cohomologie des espaces :
+$\mathcal{F}$ est de type fini, donc $f^*\mathcal{F}$ est de type fini (Modules
+sur les sites, lemme \ref{sites-modules-lemma-local-pullback}), et par suite
+$f^*\mathcal{F}$ est cohérent (de nouveau Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-coherent-Noetherian}). Le lemme a donc un sens.
+Soit $W \subset Y$ un sous-espace fermé intègre de $\delta$-dimension $k$, et
+soit $W' \subset X$ un sous-espace fermé intègre de dimension $k + r$
+s'envoyant dans $W$ par $f$. Nous devons montrer que le
+coefficient $n$ de $[W']$ dans $f^*[{\mathcal F}]_k$ est égal au
+coefficient $m$ de $[W']$ dans $[f^*{\mathcal F}]_{k+r}$. On peut choisir un
+diagramme commutatif
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+où $U, V$ sont des schémas, les flèches verticales sont \'etales, et il existe
+des points $u \in U$, $v \in V$ tels que $u \mapsto v$ et tels que $u, v$
+s'envoient sur les points génériques de $W', W$. (Détails omis.) Considérons le
+germe $M = (\mathcal{F}|_V)_v$ comme un $\mathcal{O}_{V, v}$-module.
+(Remarquons que $M$ est de longueur finie d'après nos hypothèses de dimension,
+mais nous n'avons en fait pas besoin de le vérifier ; voir le lemme
+\ref{lemma-length-finite}.) Nous avons $(f^*\mathcal{F}|_U)_u =
+\mathcal{O}_{U, u} \otimes_{\mathcal{O}_{V, v}} M$. Ainsi on voit que
+$$
+n = \text{length}_{\mathcal{O}_{U, u}}
+(\mathcal{O}_{U, u} \otimes_{\mathcal{O}_{V, v}} M)
+\quad
+\text{and}
+\quad
+m = \text{length}_{\mathcal{O}_{V, v}}(M)
+\text{length}_{\mathcal{O}_{V, v}}(
+\mathcal{O}_{U, u}/\mathfrak m_v \mathcal{O}_{U, u})
+$$
+Ainsi, l'égalité découle du lemme d'Algèbre
+\ref{algebra-lemma-pullback-module}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Image directe et image réciproque}
+\label{section-push-pull}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-push-pull}.
+
+\medskip\noindent
+Dans cette section, nous vérifions que l'image directe propre et l'image
+réciproque plate sont compatibles lorsque cela a un sens. D'après le travail que
+nous avons effectué ci-dessus, cela est une conséquence de la cohomologie et
+du changement de base.
+
+\begin{lemma}
+\label{lemma-flat-pullback-proper-pushforward}
+Dans la situation \ref{situation-setup}, soit
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+un diagramme cartésien de bons espaces algébriques au-dessus de $B$.
+Supposons $f : X \to Y$ propre et $g : Y' \to Y$ plat de dimension
+relative $r$. Alors également $f'$ est propre et $g'$ est plat de dimension
+relative $r$. Pour tout $k$-cycle $\alpha$ sur $X$, nous avons
+$$
+g^*f_*\alpha = f'_*(g')^*\alpha
+$$
+dans $Z_{k + r}(Y')$.
+\end{lemma}
+
+\begin{proof}
+L'assertion selon laquelle $f'$ est propre découle de Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-base-change-proper}. Celle selon laquelle
+$g'$ est plat de dimension relative $r$ découle de Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change} et
+\ref{spaces-morphisms-lemma-base-change-flat}. Il suffit de prouver l'égalité
+des cycles lorsque $\alpha = [W]$ pour un sous-espace fermé intègre $W
+\subset X$ de $\delta$-dimension $k$. Remarquons que, dans ce cas, $\alpha
+= [\mathcal{O}_W]_k$ ; voir le lemme \ref{lemma-cycle-closed-coherent}. D'après les
+lemmes \ref{lemma-cycle-push-sheaf} et \ref{lemma-pullback-coherent} il suffit
+donc de montrer que $f'_*(g')^*\mathcal{O}_W$ est isomorphe à
+$g^*f_*\mathcal{O}_W$. Cela découle de la cohomologie et du changement de
+base ; voir Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-flat}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme fini localement libre de degré $d$ (voir Morphismes des
+espaces, définition \ref{spaces-morphisms-definition-finite-locally-free}).
+Alors $f$ est à la fois propre et plat de dimension relative $0$, et
+$$
+f_*f^*\alpha = d\alpha
+$$
+pour tout $\alpha \in Z_k(Y)$.
+\end{lemma}
+
+\begin{proof}
+Un morphisme fini localement libre est plat et fini d'après Morphismes
+d'espaces, lemme \ref{spaces-morphisms-lemma-finite-flat}, et un morphisme
+fini est propre d'après Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-finite-proper}. Nous omettons de vérifier qu'un
+morphisme fini est de dimension relative $0$. La formule a donc un sens. Pour
+la démontrer, soit $Z \subset Y$ un sous-schéma fermé intègre de
+$\delta$-dimension $k$. Il suffit de démontrer la formule pour
+$\alpha = [Z]$. Puisque le changement de base d'un morphisme fini localement
+libre est fini localement libre (Morphismes des espaces, lemme
+\ref{spaces-morphisms-lemma-base-change-finite-locally-free}), on voit que
+$f_*f^*\mathcal{O}_Z$ est un faisceau localement libre de rang fini $d$ sur
+$Z$. Il est donc clair que $f_*f^*\mathcal{O}_Z$ est de longueur $d$ au point
+générique de $Z$. Par conséquent,
+$$
+f_*f^*[Z] = f_*f^*[\mathcal{O}_Z]_k =
+[f_*f^*\mathcal{O}_Z]_k = d[Z]
+$$
+où nous avons utilisé les lemmes \ref{lemma-pullback-coherent} et
+\ref{lemma-cycle-push-sheaf}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Préliminaires aux diviseurs principaux}
+\label{section-preparation-principal-divisors}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-preparation-principal-divisors}. Certains éléments de cette
+section recoupent en partie la discussion d'Espaces sur les corps, section
+\ref{spaces-over-fields-section-Weil-divisors}.
+
+\begin{lemma}
+\label{lemma-divisor-delta-dimension}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons que
+$X$ soit intègre.
+\begin{enumerate}
+\item Si $Z \subset X$ est un sous-espace fermé intègre, alors les assertions
+suivantes sont équivalentes :
+\begin{enumerate}
+\item $Z$ est un diviseur premier,
+\item $|Z|$ est de codimension $1$ dans $|X|$, et
+\item $\dim_\delta(Z) = \dim_\delta(X) - 1$.
+\end{enumerate}
+\item Si $Z$ est une composante irréductible d'un diviseur de Cartier effectif
+sur $X$, alors $\dim_\delta(Z) = \dim_\delta(X) - 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) découle de la définition d'un diviseur premier (Espaces sur les
+corps, définition \ref{spaces-over-fields-definition-Weil-divisor}), d'Espaces
+décents, lemme \ref{decent-spaces-lemma-codimension-local-ring}, et de la
+définition d'une fonction de dimension (Topologie, définition
+\ref{topology-definition-dimension-function}).
+
+\medskip\noindent
+Soit $D \subset X$ un diviseur de Cartier effectif. Soit $Z \subset D$
+une composante irréductible et soit $\xi \in |Z|$ le point générique.
+Choisissons un voisinage \'etale $(U, u) \to (X, \xi)$ où $U = \Spec(A)$ et où
+$D \times_X U$ est défini par un non-diviseur de zéro $f \in A$ ; voir
+Diviseurs sur les espaces, lemme
+\ref{spaces-divisors-lemma-characterize-effective-Cartier-divisor}. Alors $u$
+est le point générique de $V(f)$ d'après Espaces décents, lemme
+\ref{decent-spaces-lemma-decent-generic-points}. Par conséquent,
+$\mathcal{O}_{U, u}$ est de dimension $1$ d'après le théorème de l'idéal
+principal de Krull (Algèbre, lemme \ref{algebra-lemma-minimal-over-1}). Ainsi,
+$\xi$ est un point de codimension $1$ sur $X$ et $Z$ est un diviseur premier,
+comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Diviseurs principaux}
+\label{section-principal-divisors}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-principal-divisors}. La définition suivante est l'analogue
+d'Espaces sur les corps, définition
+\ref{spaces-over-fields-definition-principal-divisor}, dans notre cadre.
+
+\begin{definition}
+\label{definition-principal-divisor}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons que
+$X$ soit intègre et que $\dim_\delta(X) = n$. Soit $f \in R(X)^*$. Le
+{\it diviseur principal associé à $f$} est le $(n - 1)$-cycle
+$$
+\text{div}(f) = \text{div}_X(f) = \sum \text{ord}_Z(f) [Z]
+$$
+défini dans Espaces sur les corps, définition
+\ref{spaces-over-fields-definition-principal-divisor}. Cela a un sens car
+les diviseurs premiers sont de $\delta$-dimension $n - 1$ par le lemme
+\ref{lemma-divisor-delta-dimension}.
+\end{definition}
+
+\noindent
+Dans la situation de la définition, pour $f, g \in R(X)^*$, nous avons
+$$
+\text{div}_X(fg) = \text{div}_X(f) + \text{div}_X(g)
+$$
+dans $Z_{n - 1}(X)$. Voir Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-div-additive}. Le lemme suivant nous permettra
+de ramener les assertions sur les diviseurs principaux au cas des schémas.
+
+\begin{lemma}
+\label{lemma-etale-pullback-principal-divisor}
+Dans la situation \ref{situation-setup}, soit $f : X \to Y$ un morphisme
+\'etale de bons espaces algébriques au-dessus de $B$. Supposons que $Y$ soit intègre.
+Soit $g \in R(Y)^*$. Comme cycles sur $X$ nous avons
+$$
+f^*(\text{div}_Y(g)) =
+\sum\nolimits_{X'} (X' \to X)_*\text{div}_{X'}(g \circ f|_{X'})
+$$
+où la somme s'étend sur les composantes irréductibles de $X$ (remarque
+\ref{remark-irreducible-component}).
+\end{lemma}
+
+\begin{proof}
+L'application $|X| \to |Y|$ est ouverte. L'ensemble des composantes irréductibles
+de $|X|$ est localement fini dans $|X|$. Nous concluons que $f|_{X'} : X' \to
+Y$ est dominant pour toute composante irréductible $X' \subset X$. Ainsi $g
+\circ f|_{X'}$ est défini (Morphismes des espaces, section
+\ref{spaces-morphisms-section-rational-maps}), donc $\text{div}_{X'}(g \circ
+f|_{X'})$ est défini. De plus, la somme est localement finie et on trouve que
+le membre de droite est bien un cycle sur $X$. Le membre de gauche est défini par
+la définition \ref{definition-flat-pullback} et le fait qu'un morphisme
+\'etale est plat de dimension relative $0$.
+
+\medskip\noindent
+Puisque $f$ est \'etale, nous voyons que $\delta_X(x) = \delta_y(f(x))$ pour
+tout $x \in |X|$. Ainsi, si $\dim_\delta(Y) = n$, alors $\dim_\delta(X') =
+n$ pour toute composante irréductible $X'$ de $X$ (puisque les points
+génériques de $X$ s'envoient sur le point générique de $Y$ ; voir ci-dessus).
+Les deux membres sont donc des $(n - 1)$-cycles.
+
+\medskip\noindent
+Soit $Z \subset X$ un sous-espace fermé intègre avec $\dim_\delta(Z) = n -
+1$. Pour démontrer l'égalité, il faut montrer que les coefficients de $Z$
+dans les deux membres sont égaux. Soit $Z' \subset Y$ le sous-espace fermé intègre construit
+dans le lemme \ref{lemma-proper-image}. Alors $\dim_\delta(Z') = n - 1$ aussi.
+Soit $\xi \in |Z|$ le point générique. Alors $\xi' = f(\xi) \in |Z'|$ est le
+point générique. Considérons le diagramme commutatif
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, \xi}^h) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(\mathcal{O}_{Y, \xi'}^h) \ar[r] & Y
+}
+$$
+d'Espaces décents, remarque
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}. Nous devons
+être légèrement prudents car les anneaux locaux noéthériens réduits
+$\mathcal{O}_{X, \xi}^h$ et $\mathcal{O}_{Y, \xi'}^h$ ne sont pas
+nécessairement intègres. Nous travaillons donc avec des anneaux totaux de
+fractions $Q(-)$ plutôt que des corps des fractions. Par définition, pour
+obtenir le coefficient de $Z'$ dans $\text{div}_Y(g)$ nous écrivons l'image de
+$g$ dans $Q(\mathcal{O}_{Y, \xi'}^h)$ comme $a/b$ avec $a, b \in
+\mathcal{O}_{Y, \xi'}^h$ non-diviseurs de zéro et nous prenons
+$$
+\text{ord}_{Z'}(g) =
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/a \mathcal{O}_{Y, \xi'}^h) -
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/b \mathcal{O}_{Y, \xi'}^h)
+$$
+Remarquons que le coefficient de $Z$ dans $f^*\text{div}_Y(G)$ est ce même
+entier ; voir le lemme \ref{lemma-etale-pullback}. Supposons que $\xi \in X'$.
+On peut alors considérer les applications
+$$
+\mathcal{O}_{Y, \xi'}^h \to
+\mathcal{O}_{X, \xi}^h \to
+\mathcal{O}_{X', \xi}^h
+$$
+La première flèche est plate et la seconde est un homomorphisme surjectif
+d'anneaux locaux noethériens réduits de dimension $1$. Par conséquent, ces
+deux homomorphismes envoient les non-diviseurs de zéro sur des non-diviseurs
+de zéro, et le coefficient de $Z'$ dans $\text{div}_{X'}(g \circ f|_{X'})$
+est
+$$
+\text{ord}_Z(g \circ f|_{X'}) =
+\text{length}_{\mathcal{O}_{X', \xi}^h}
+(\mathcal{O}_{X', \xi}^h/a \mathcal{O}_{X', \xi}^h) -
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{X', \xi}^h/b \mathcal{O}_{X', \xi}^h)
+$$
+par la même prescription que ci-dessus. Il suffit donc de montrer
+$$
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/a \mathcal{O}_{Y, \xi'}^h) =
+\sum\nolimits_{\xi \in |X'|}
+\text{length}_{\mathcal{O}_{X', \xi}^h}
+(\mathcal{O}_{X', \xi}^h/a \mathcal{O}_{X', \xi}^h)
+$$
+Tout d'abord, puisque l'homomorphisme d'anneaux $\mathcal{O}_{Y, \xi'}^h \to
+\mathcal{O}_{X, \xi}^h$ est plate et non ramifiée, nous avons
+$$
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/a \mathcal{O}_{Y, \xi'}^h) =
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h)
+$$
+par Algèbre, lemme \ref{algebra-lemma-pullback-module}. Soient $\mathfrak q_1,
+\ldots, \mathfrak q_t$ les idéaux premiers non maximaux de $\mathcal{O}_{X,
+\xi}^h$, et posons $R_j = \mathcal{O}_{X, \xi}^h/\mathfrak q_j$. Pour $X'$
+comme ci-dessus, notons $J(X') \subset \{1, \ldots, t\}$ l'ensemble des
+indices tels que $\mathfrak q_j$ corresponde à un point de $X'$, c'est-à-dire
+tels que, par l'homomorphisme surjectif $\mathcal{O}_{X, \xi}^h \to
+\mathcal{O}_{X', \xi}$, l'idéal premier $\mathfrak q_j$ corresponde à un idéal
+premier de $\mathcal{O}_{X', \xi}$. D'après Homologie de Chow, lemme
+\ref{chow-lemma-additivity-divisors-restricted}, on obtient
+$$
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h) =
+\sum\nolimits_j \text{length}_{R_j}(R_j/a R_j)
+$$
+et
+$$
+\text{length}_{\mathcal{O}_{X', \xi}^h}
+(\mathcal{O}_{X', \xi}^h/a \mathcal{O}_{X', \xi}^h) =
+\sum\nolimits_{j \in J(X')} \text{length}_{R_j}(R_j/a R_j)
+$$
+Le résultat du lemme en découle, car $\{1, \ldots, t\}$ est l'union
+disjointe des ensembles $J(X')$ : chaque point de codimension $0$ sur $X$
+appartient à un unique $X'$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Diviseurs principaux et image directe}
+\label{section-two-fun}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-two-fun}.
+
+\begin{lemma}
+\label{lemma-proper-pushforward-alteration}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Supposons
+que $X$, $Y$ soient intègres et que $n = \dim_\delta(X) = \dim_\delta(Y)$.
+Soit $p : X \to Y$ un morphisme propre dominant. Soit $f \in R(X)^*$.
+Posons
+$$
+g = \text{Nm}_{R(X)/R(Y)}(f).
+$$
+Nous avons alors $p_*\text{div}(f) = \text{div}(g)$.
+\end{lemma}
+
+\begin{proof}
+Nous allons le déduire du cas des schémas par localisation \'etale. Soit $Z
+\subset Y$ un sous-espace fermé intègre de $\delta$-dimension $n - 1$.
+Nous voulons montrer que les coefficients de $[Z]$ dans $p_*\text{div}(f)$ et
+$\text{div}(g)$ sont égaux. Appliquons le lemme
+\ref{spaces-over-fields-lemma-finite-in-codim-1} d'Espaces sur les corps au
+morphisme $p : X \to Y$ et au point générique $\xi \in |Z|$. Nous pouvons
+alors remplacer $Y$ par un sous-espace ouvert contenant $\xi$ et supposer que
+$p : X \to Y$ est fini. Choisissons un voisinage \'etale $(V, v) \to (Y, \xi)$
+où $V$ est un schéma affine. D'après le lemme \ref{lemma-etale-pullback}, il
+suffit de démontrer l'égalité des cycles après image réciproque sur $V$. Posons
+$U = V \times_Y X$ et
+considérez le diagramme commutatif
+$$
+\xymatrix{
+U \ar[r]_a \ar[d]_{p'} & X \ar[d]^p \\
+V \ar[r]^b & Y
+}
+$$
+Soient $V_j \subset V$, $j = 1, \ldots, m$, les composantes irréductibles de
+$V$. Pour chaque $i$, soient $U_{j, i}$, $i = 1, \ldots, n_j$, les composantes
+irréductibles de $U$ dominant $V_j$. Notons $p'_{j, i} : U_{j, i} \to V_j$ la
+restriction de $p' : U \to V$. D'après le cas des schémas (Homologie de Chow,
+lemme \ref{chow-lemma-proper-pushforward-alteration}), on a
+$$
+p'_{j, i, *}\text{div}_{U_{j, i}}(f_{j, i}) = \text{div}_{V_j}(g_{j, i})
+$$
+où $f_{j, i}$ est la restriction de $f$ à $U_{j, i}$ et $g_{j, i}$ est la
+norme de $f_{j, i}$ pour l'extension finie $R(U_{j, i})/R(V_j)$. Nous
+avons
+\begin{align*}
+b^* p_*\text{div}_X(f)
+& =
+p'_* a^* \text{div}_X(f) \\
+& =
+p'_*\left(\sum\nolimits_{j, i}
+(U_{j, i} \to U)_*\text{div}_{U_{j, i}}(f_{j, i})\right) \\
+& =
+\sum\nolimits_{j, i}
+(V_j \to V)_*p'_{j, i, *}\text{div}_{U_{j, i}}(f_{j, i}) \\
+& =
+\sum\nolimits_j
+(V_j \to V)_*\left(\sum\nolimits_i \text{div}_{V_j}(g_{j, i})\right) \\
+& =
+\sum\nolimits_j (V_j \to V)_*\text{div}_{V_j}(\prod\nolimits_i g_{j, i})
+\end{align*}
+par les lemmes \ref{lemma-flat-pullback-proper-pushforward},
+\ref{lemma-etale-pullback-principal-divisor} et
+\ref{lemma-compose-pushforward}. Pour terminer la preuve, en utilisant à
+nouveau le lemme \ref{lemma-etale-pullback-principal-divisor}, il suffit de
+montrer que
+$$
+g \circ b|_{V_j} = \prod\nolimits_i g_{j, i}
+$$
+comme éléments du corps des fonctions de $V_j$. En termes de corps, il s'agit
+de l'énoncé suivant : soit $L/K$ une extension finie. Soit $M/K$ une extension
+finie séparable. Écrivons $M \otimes_K L = \prod M_i$. Alors, pour $t \in L$
+dont les images sont $t_i \in M_i$, l'image de $\text{Norm}_{L/K}(t)$ dans $M$ est
+$\prod \text{Norm}_{M_i/M}(t_i)$. Nous omettons la preuve.
+\end{proof}
+
+
+
+
+
+
+
+\section{Équivalence rationnelle}
+\label{section-rational-equivalence}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-rational-equivalence}. Dans cette section, nous définissons
+l'{\it équivalence rationnelle} sur les $k$-cycles. Nous autoriserons des
+sommes localement finies d'images de diviseurs principaux (par immersions
+fermées). Cela conduit à des phénomènes assez étranges (voir les exemples du
+chapitre sur les schémas). Toutefois, sans les autoriser, nous ne savons pas
+montrer que l'intersection avec les classes de Chern de
+fibrés en droites passe au quotient par l'équivalence rationnelle.
+
+\begin{definition}
+\label{definition-rational-equivalence}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $k
+\in \mathbf{Z}$.
+\begin{enumerate}
+\item Étant donné une famille localement finie $\{W_j \subset X\}$ de
+sous-espaces fermés intègres telle que $\dim_\delta(W_j) = k + 1$, et un
+élément $f_j \in R(W_j)^*$ quelconque, nous pouvons considérer
+$$
+\sum (i_j)_*\text{div}(f_j) \in Z_k(X)
+$$
+où $i_j : W_j \to X$ est le morphisme d'inclusion. Cela a du sens puisque le
+morphisme $\coprod i_j : \coprod W_j \to X$ est propre.
+\item On dit que $\alpha \in Z_k(X)$ est {\it rationnellement équivalent à
+zéro} si $\alpha$ est un cycle de la forme affichée ci-dessus.
+\item On dit que $\alpha, \beta \in Z_k(X)$ sont {\it rationnellement
+équivalents} et on écrit $\alpha \sim_{rat} \beta$ si $\alpha - \beta$ est
+rationnellement équivalent à zéro.
+\item Nous définissons
+$$
+\CH_k(X) = Z_k(X) / \sim_{rat}
+$$
+comme le {\it groupe de Chow des $k$-cycles sur $X$}. On l'appelle parfois le
+{\it groupe de Chow des $k$-cycles modulo l'équivalence rationnelle sur $X$}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il existe de nombreuses autres relations d'équivalence intéressantes.
+L'équivalence rationnelle est la plus grossière de toutes. Un lemme très
+simple mais important est le suivant.
+
+\begin{lemma}
+\label{lemma-restrict-to-open}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $U
+\subset X$ un sous-espace ouvert. Soit $Y$ le sous-espace fermé réduit de $X$
+avec $|Y| = |X| \setminus |U|$ et notons $i : Y \to X$ le morphisme
+d'inclusion. Soit $k \in \mathbf{Z}$. Supposons que $\alpha, \beta \in
+Z_k(X)$. Si $\alpha|_U \sim_{rat} \beta|_U$ alors il existe un cycle $\gamma
+\in Z_k(Y)$ tel que
+$$
+\alpha \sim_{rat} \beta + i_*\gamma.
+$$
+Autrement dit, la séquence
+$$
+\xymatrix{
+\CH_k(Y) \ar[r]^{i_*} & \CH_k(X) \ar[r]^{j^*} & \CH_k(U) \ar[r] & 0
+}
+$$
+est une suite exacte de groupes abéliens.
+\end{lemma}
+
+\begin{proof}
+Soit $\{W_j\}_{j \in J}$ une famille localement finie de sous-espaces
+fermés intègres de $U$ de $\delta$-dimension $k + 1$, et soient $f_j \in
+R(W_j)^*$ des éléments tels que $(\alpha - \beta)|_U = \sum
+(i_j)_*\text{div}(f_j)$ comme dans la définition. Soit $W_j' \subset X$ le
+sous-espace fermé intègre correspondant de $X$, c'est-à-dire ayant le même
+point générique que $W_j$. Supposons que $V \subset X$ soit un ouvert
+quasi-compact. Alors $V \cap U$ est également un ouvert quasi-compact de $U$,
+car $V$ est noethérien. Ainsi, l'ensemble $\{j \in J \mid W_j \cap V \not =
+\emptyset\} = \{j \in J \mid W'_j \cap V \not = \emptyset\}$ est fini puisque
+$\{W_j\}$ est localement finie. Autrement dit, $\{W'_j\}$ est également
+localement finie. Puisque $R(W_j) = R(W'_j)$, on voit que
+$$
+\alpha - \beta - \sum (i'_j)_*\text{div}(f_j)
+$$
+est un cycle sur $X$ dont la restriction à $U$ est nulle. Le lemme découle
+alors du lemme \ref{lemma-exact-sequence-open}.
+\end{proof}
+
+\begin{remark}
+\label{remark-infinite-sums-rational-equivalences}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons que
+soient données des familles infinies $\alpha_i, \beta_i \in Z_k(X)$,
+$i \in I$, de $k$-cycles sur $X$. Supposons que les supports de $\alpha_i$ et
+$\beta_i$ forment des familles localement finies de parties fermées de $X$, de
+sorte que $\sum \alpha_i$ et $\sum \beta_i$ soient définies comme cycles. De
+plus, supposons que $\alpha_i \sim_{rat} \beta_i$ pour tout $i$. Il n'est alors
+pas clair que $\sum \alpha_i \sim_{rat} \sum \beta_i$. En effet, le problème
+est que les équivalences rationnelles peuvent être données
+par des familles localement finies $\{W_{i, j}, f_{i, j} \in R(W_{i,
+j})^*\}_{j \in J_i}$ mais que l'union $\{W_{i, j}\}_{i \in I, j\in J_i}$ peut
+ne pas être localement finie.
+
+\medskip\noindent
+En pratique, dans de nombreux cas, on dispose d'une famille localement finie de
+parties fermées $\{T_i\}_{i \in I}$ de $|X|$ telle que $\alpha_i,
+\beta_i$ soient supportés sur $T_i$ et que $\alpha_i \sim_{rat} \beta_i$ «
+sur » $T_i$. Plus précisément, les familles $\{W_{i, j}, f_{i, j} \in R(W_{i,
+j})^*\}_{j \in J_i}$ sont constituées de sous-espaces fermés intègres $W_{i,
+j}$ tels que $|W_{i, j}| \subset T_i$. Dans ce cas, on a bien $\sum \alpha_i
+\sim_{rat} \sum \beta_i$ sur $X$, simplement parce que la famille
+$\{W_{i, j}\}_{i \in I, j\in J_i}$ est alors automatiquement localement finie.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+\section{Équivalence rationnelle, image directe et image réciproque}
+\label{section-properties-rational-equivalence}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-properties-rational-equivalence}. Dans cette section, nous
+montrons que l'image réciproque plate et l'image directe propre sont
+compatibles avec l'équivalence rationnelle.
+
+\begin{lemma}
+\label{lemma-prepare-flat-pullback-rational-equivalence}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Supposons
+que $Y$ soit intègre et que $\dim_\delta(Y) = k$. Soit $f : X \to Y$ un morphisme
+plat de dimension relative $r$. Alors pour $g \in R(Y)^*$ nous avons
+$$
+f^*\text{div}_Y(g) =
+\sum m_{X', X} (X' \to X)_*\text{div}_{X'}(g \circ f|_{X'})
+$$
+comme $(k + r - 1)$-cycles sur $X$, où la somme est indexée par les composantes
+irréductibles $X'$ de $X$, et où $m_{X', X}$ est la multiplicité de $X'$ dans $X$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que toute composante irréductible de $X$ domine $Y$ (lemme
+\ref{lemma-flat-inverse-image-dimension}) et donc la composition $g \circ
+f|_{X'}$ est définie (Morphismes des espaces, section
+\ref{spaces-morphisms-section-rational-maps}). Nous réduirons cela au cas des
+schémas. Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to V \times_Y
+X$. Considérons le diagramme $$
+\xymatrix{
+U \ar[r]_a \ar[d]_h & X \ar[d]^f \\
+V \ar[r]^b & Y
+}
+$$
+Puisque $a$ est surjectif et \'etale, il découle du lemme
+\ref{lemma-etale-pullback} qu'il suffit de prouver l'égalité des cycles après
+image réciproque par $a$. On peut utiliser le lemme
+\ref{lemma-etale-pullback-principal-divisor} pour écrire
+$$
+b^*\text{div}_Y(g) = \sum (V' \to V)_*\text{div}_{V'}(g \circ b|_{V'})
+$$
+où la somme est indexée par les composantes irréductibles $V'$ de $V$. En utilisant le
+lemme \ref{lemma-flat-pullback-proper-pushforward}, on trouve
+$$
+h^*b^*\text{div}_Y(g) =
+\sum (V' \times_V U \to U)_*(h')^*\text{div}_{V'}(g \circ b|_{V'})
+$$
+où $h' : V' \times_V U \to V'$ est la projection. On peut appliquer le lemme
+dans le cas des schémas (Homologie de Chow, lemme
+\ref{chow-lemma-prepare-flat-pullback-rational-equivalence}) au morphisme $h'
+: V' \times_V U \to V'$ pour voir que l'on a
+$$
+(h')^*\text{div}_{V'}(g \circ b|_{V'}) =
+\sum
+m_{U', V' \times_V U}
+(U' \to V' \times_V U)_*\text{div}_{U'}(g \circ b|_{V'} \circ h'|_{U'})
+$$
+où la somme est indexée par les composantes irréductibles $U'$ de $V' \times_V U$.
+Chaque $U'$ apparaissant dans cette somme est une composante irréductible de
+$U$ et inversement chaque composante irréductible $U'$ de $U$ est une
+composante irréductible de $V' \times_V U$ pour une composante irréductible
+unique $V' \subset V$. Étant donné une composante irréductible $U' \subset U$,
+notons $\overline{a(U')} \subset X$ l'« image » dans $X$ (lemme
+\ref{lemma-proper-image}) ; c'est une composante irréductible de $X$ par
+exemple d'après le lemme \ref{lemma-flat-inverse-image-dimension}. La multiplicité
+$m_{U', V' \times_V U}$ est égale à la multiplicité $m_{\overline{a(U')}, X}$.
+Cela découle de l'égalité $h^*a^*[Y] = b^*f^*[Y]$ (lemme
+\ref{lemma-compose-flat-pullback}), des définitions et du lemme
+\ref{lemma-etale-pullback}. En combinant tout ce que nous venons de dire, nous
+obtenons
+$$
+a^*f^*\text{div}_Y(g) =
+h^*b^*\text{div}_Y(g) =
+\sum m_{\overline{a(U')}, X}
+(U' \to U)_*\text{div}_{U'}(g \circ (f \circ a)|_{U'})
+$$
+À présent, analysons ce que devient le membre de droite de la formule de
+l'énoncé après image réciproque par $a$. Tout d'abord, le lemme
+\ref{lemma-flat-pullback-proper-pushforward} donne
+$$
+a^*\sum m_{X', X} (X' \to X)_*\text{div}_{X'}(g \circ f|_{X'}) =
+\sum m_{X', X} (X' \times_X U \to U)_*(a')^*\text{div}_{X'}(g \circ f|_{X'})
+$$
+où $a' : X' \times_X U \to X'$ est la projection. Par le lemme
+\ref{lemma-etale-pullback-principal-divisor}, on obtient
+$$
+(a')^*\text{div}_{X'}(g \circ f|_{X'}) =
+\sum (U' \to X' \times_X U)_*\text{div}_{U'}(g \circ (f \circ a)|_{U'})
+$$
+où la somme est indexée par les composantes irréductibles $U'$ de $X' \times_X U$. Ces
+$U'$ sont des composantes irréductibles de $U$ et sont en fait exactement les
+composantes irréductibles de $U$ telles que $\overline{a(U')} = X'$. La comparaison
+avec ce qui précède permet de conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-pullback-rational-equivalence}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme plat de dimension relative $r$. Soit donnée une
+équivalence rationnelle $\alpha \sim_{rat} \beta$ entre deux $k$-cycles sur
+$Y$. Alors $f^*\alpha
+\sim_{rat} f^*\beta$ comme $(k + r)$-cycles sur $X$.
+\end{lemma}
+
+\begin{proof}
+Que faut-il montrer ? Supposons que l'on se donne une famille
+$$
+i_j : W_j \longrightarrow Y
+$$
+d'immersions fermées, chaque $W_j$ étant intègre de $\delta$-dimension $k +
+1$, ainsi que des fonctions rationnelles $g_j \in R(W_j)^*$. Supposons en outre que la
+famille $\{|i_j|(|W_j|)\}_{j \in J}$ soit localement finie dans $|Y|$. Il
+faut alors montrer que
+$$
+f^*(\sum i_{j, *}\text{div}(g_j)) = \sum f^*i_{j, *}\text{div}(g_j)
+$$
+est rationnellement équivalent à zéro sur $X$. La somme de droite a un sens
+d'après le lemme \ref{lemma-inverse-image-locally-finite}.
+
+\medskip\noindent
+Considérons les produits fibrés
+$$
+i'_j : W'_j = W_j \times_Y X \longrightarrow X.
+$$
+et notons $f_j : W'_j \to W_j$ la première projection. Par le lemme
+\ref{lemma-flat-pullback-proper-pushforward}, nous pouvons écrire la somme
+ci-dessus sous la forme
+$$
+\sum i'_{j, *}(f_j^*\text{div}(g_j))
+$$
+Par le lemme \ref{lemma-prepare-flat-pullback-rational-equivalence}, on voit
+que chaque $f_j^*\text{div}(g_j)$ est rationnellement équivalent à zéro sur
+$W'_j$. Par conséquent, chaque $i'_{j, *}(f_j^*\text{div}(g_j))$ est
+rationnellement équivalent à zéro. Il en va de même pour la somme affichée par
+la discussion dans la remarque
+\ref{remark-infinite-sums-rational-equivalences}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-pushforward-rational-equivalence}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $p :
+X \to Y$ un morphisme propre. Supposons que $\alpha, \beta \in Z_k(X)$ soient
+rationnellement équivalents. Alors $p_*\alpha$ est rationnellement équivalent
+à $p_*\beta$.
+\end{lemma}
+
+\begin{proof}
+Que faut-il montrer ? Supposons que l'on se donne une famille
+$$
+i_j : W_j \longrightarrow X
+$$
+d'immersions fermées, chaque $W_j$ étant intègre de $\delta$-dimension $k +
+1$, ainsi que des fonctions rationnelles $f_j \in R(W_j)^*$. Supposons en outre
+que la famille $\{i_j(W_j)\}_{j \in J}$ soit localement finie dans $X$. Il faut
+alors montrer que
+$$
+p_*\left(\sum i_{j, *}\text{div}(f_j)\right)
+$$
+est rationnellement équivalent à zéro sur $X$.
+
+\medskip\noindent
+Remarquons que la somme est égale à
+$$
+\sum p_*i_{j, *}\text{div}(f_j).
+$$
+Soit $W'_j \subset Y$ le sous-espace fermé intègre qui est l'image de $p
+\circ i_j$ ; voir le lemme \ref{lemma-proper-image}. La famille $\{W'_j\}$ est
+localement finie dans $Y$ par le lemme
+\ref{lemma-quasi-compact-locally-finite}. Il suffit donc de montrer, pour un
+$j$ donné, soit que $p_*i_{j, *}\text{div}(f_j) = 0$, soit que ce cycle soit égal à
+$i'_{j, *}\text{div}(g_j)$ pour un certain $g_j \in R(W'_j)^*$.
+
+\medskip\noindent
+Les arguments ci-dessus nous ramènent donc au cas d'un seul sous-espace fermé
+intègre $W \subset X$ de $\delta$-dimension $k + 1$. Soit $f \in
+R(W)^*$. Soit $W' = p(W)$ comme ci-dessus. On obtient un diagramme commutatif
+de morphismes
+$$
+\xymatrix{
+W \ar[r]_i \ar[d]_{p'} & X \ar[d]^p \\
+W' \ar[r]^{i'} & Y
+}
+$$
+Remarquons que $p_*i_*\text{div}(f) = i'_*(p')_*\text{div}(f)$ d'après le lemme
+\ref{lemma-compose-pushforward}. Comme expliqué ci-dessus, nous devons montrer
+que $(p')_*\text{div}(f)$ est le diviseur d'une fonction rationnelle sur $W'$
+ou zéro. Il y a trois cas à distinguer.
+
+\medskip\noindent
+Le cas $\dim_\delta(W') < k$. Dans ce cas automatiquement $(p')_*\text{div}(f)
+= 0$ et il n'y a rien à prouver.
+
+\medskip\noindent
+Le cas $\dim_\delta(W') = k$. Montrons que $(p')_*\text{div}(f) = 0$ dans ce
+cas. Puisque $(p')_*\text{div}(f)$ est un $k$-cycle, nous voyons que
+$(p')_*\text{div}(f) = n[W']$ pour un certain $n \in \mathbf{Z}$. Afin de
+prouver que $n = 0$, on peut remplacer $W'$ par un sous-espace ouvert non vide.
+En particulier, nous pouvons supposer, et supposons, que $W'$ est
+un schéma. Soit $\eta \in W'$ le point générique. Soit $K = \kappa(\eta) =
+R(W')$ le corps des fonctions. Considérons le diagramme de changement de base
+$$
+\xymatrix{
+W_\eta \ar[r] \ar[d]_c & W \ar[d]^{p'} \\
+\Spec(K) \ar[r]^\eta & W'
+}
+$$
+Remarquons que $c$ est propre. De plus, $|W_\eta|$ est de dimension $1$ : le
+lemme \ref{decent-spaces-lemma-topology-fibre} d'Espaces décents identifie
+$|W_\eta|$ à la partie de $|W|$ formée des points s'envoyant sur $\eta$ ; or,
+puisque $\dim_\delta(W) = k + 1$ et $\delta(\eta) = k$, les points de
+$W_\eta$ ont nécessairement une valeur $\delta$ égale à $k$ ou à $k + 1$.
+Ainsi, les anneaux locaux sont de dimension $\leq 1$ d'après Espaces décents, lemme
+\ref{decent-spaces-lemma-codimension-local-ring}. Par Espaces sur les corps,
+lemme \ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}, on voit
+que $W_\eta$ est un schéma. Puisque $\Spec(K)$ est la limite des
+sous-schémas ouverts affines non vides de $W'$, nous concluons que nous
+pouvons supposer que $W$ est un schéma d'après Limites d'espaces, lemme
+\ref{spaces-limits-lemma-limit-is-scheme}. Enfin, le cas des schémas
+(Homologie de Chow, lemme
+\ref{chow-lemma-proper-pushforward-rational-equivalence}) donne $n = 0$.
+
+\medskip\noindent
+Le cas $\dim_\delta(W') = k + 1$. Dans ce cas, le lemme
+\ref{lemma-proper-pushforward-alteration} s'applique, et on voit qu'en effet
+$p'_*\text{div}(f) = \text{div}(g)$ pour un certain $g \in R(W')^*$, comme
+voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Le diviseur associé à un faisceau inversible}
+\label{section-divisor-invertible-sheaf}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-divisor-invertible-sheaf}. La définition suivante est
+l'analogue d'Espaces sur les corps, définition
+\ref{spaces-over-fields-definition-divisor-invertible-sheaf}, dans notre cadre.
+
+\begin{definition}
+\label{definition-divisor-invertible-sheaf}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons que
+$X$ soit intègre et que $n = \dim_\delta(X)$. Soit $\mathcal{L}$ un
+$\mathcal{O}_X$-module inversible.
+\begin{enumerate}
+\item Pour toute section méromorphe non nulle $s$ de $\mathcal{L}$, nous
+définissons le {\it diviseur de Weil associé à $s$} comme le $(n - 1)$-cycle
+$$
+\text{div}_\mathcal{L}(s) =
+\sum \text{ord}_{Z, \mathcal{L}}(s) [Z]
+$$
+défini dans Espaces sur les corps, définition
+\ref{spaces-over-fields-definition-divisor-invertible-sheaf}. Cela a un sens
+car les diviseurs de Weil sont de $\delta$-dimension $n - 1$ par le lemme
+\ref{lemma-divisor-delta-dimension}.
+\item Nous définissons le {\it diviseur de Weil associé à $\mathcal{L}$} comme
+$$
+c_1(\mathcal{L}) \cap [X] =
+\text{class of }\text{div}_\mathcal{L}(s) \in \CH_{n - 1}(X)
+$$
+où $s$ est une section méromorphe non nulle quelconque de $\mathcal{L}$ sur
+$X$. Cette définition ne dépend pas du choix, d'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-divisor-meromorphic-well-defined}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Le schéma des zéros d'une section non nulle est un diviseur de Cartier effectif
+dont la classe de Weil donne le diviseur de Weil associé au module inversible.
+
+\begin{lemma}
+\label{lemma-compute-c1}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons que
+$X$ soit intègre et que $n = \dim_\delta(X)$. Soit $\mathcal{L}$ un
+$\mathcal{O}_X$-module inversible. Soit $s \in \Gamma(X, \mathcal{L})$ une
+section globale non nulle. Alors
+$$
+\text{div}_\mathcal{L}(s) = [Z(s)]_{n - 1}
+$$
+dans $Z_{n - 1}(X)$ et
+$$
+c_1(\mathcal{L}) \cap [X] = [Z(s)]_{n - 1}
+$$
+dans $\CH_{n - 1}(X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $Z \subset X$ un sous-espace fermé intègre de $\delta$-dimension $n -
+1$. Soit $\xi \in |Z|$ son point générique. Pour prouver la première égalité,
+comparons les coefficients de $Z$ dans les deux membres. Choisissons un
+voisinage \'etale élémentaire $(U, u) \to (X, \xi)$ ; voir Espaces décents, section
+\ref{decent-spaces-section-residue-fields-henselian-local-rings}, et rappelons
+que $\mathcal{O}_{X, \xi}^h = \mathcal{O}_{U, u}^h$ dans ce cas. Après avoir
+remplacé $U$ par un voisinage ouvert de $u$, nous pouvons supposer qu'il existe
+une section banalisante $s_U$ de $\mathcal{L}|_U$. Écrivons $s|_U = f s_U$ pour
+un certain $f \in \Gamma(U, \mathcal{O}_U)$. Alors $Z \times_X U$ est égal à
+$V(f)$ comme sous-schéma fermé de $U$ ; voir Diviseurs sur les espaces,
+définition \ref{spaces-divisors-definition-zero-scheme-s}. Comme dans Espaces
+sur les corps, section \ref{spaces-over-fields-section-c1}, notons
+$\mathcal{L}_\xi$ l'image réciproque de $\mathcal{L}$ par le morphisme canonique
+$c_\xi : \Spec(\mathcal{O}_{X, \xi}^h) \to X$. Notons $s_\xi$ l'image réciproque de
+$s_U$ ; c'est une banalisation de $\mathcal{L}_\xi$. Alors
+$c_\xi^*(s) = fs_\xi$. Le coefficient de $Z$ dans $[Z(s)]_{n - 1}$ est par
+définition
+$$
+\text{length}_{\mathcal{O}_{U, u}}(\mathcal{O}_{U, u}/f\mathcal{O}_{U, u})
+$$
+Puisque $\mathcal{O}_{U, u} \to \mathcal{O}_{X, \xi}^h$ est plat et identifie
+les corps résiduels, cela est égal à
+$$
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/f\mathcal{O}_{X, \xi}^h)
+$$
+par Algèbre, lemme \ref{algebra-lemma-pullback-module}. Cette dernière quantité
+est égale à $\text{ord}_{Z, \mathcal{L}}(s)$ par Espaces sur les corps,
+définition \ref{spaces-over-fields-definition-order-vanishing-meromorphic},
+c'est-à-dire au coefficient de $Z$ dans $\text{div}_\mathcal{L}(s)$ comme
+voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Gm-torsor}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_X$-module inversible. Le morphisme
+$$
+q :
+T = \underline{\Spec}\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}\right)
+\longrightarrow
+X
+$$
+a les propriétés suivantes :
+\begin{enumerate}
+\item $q$ est surjectif, lisse, affine, de dimension relative $1$,
+\item il existe un isomorphisme $\alpha : q^*\mathcal{L} \cong \mathcal{O}_T$,
+\item la formation de $(q : T \to X, \alpha)$ commute aux changements de
+base,
+\item $q^* : Z_k(X) \to Z_{k + 1}(T)$ est injectif,
+\item si $Z \subset X$ est un sous-espace fermé intègre, alors $q^{-1}(Z)
+\subset T$ est un sous-espace fermé intègre,
+\item si $Z \subset X$ est un sous-espace fermé de $X$ de $\delta$-dimension
+$\leq k$, alors $q^{-1}(Z)$ est un sous-espace fermé de $T$ de
+$\delta$-dimension $\leq k + 1$ et $q^*[Z]_k = [q^{-1}(Z)]_{k + 1}$,
+\item si $\xi' \in |T|$ est le point générique de la fibre de $|T| \to |X|$
+sur $\xi$, alors l'homomorphisme d'anneaux $\mathcal{O}_{X, \xi}^h \to
+\mathcal{O}_{T, \xi'}^h$ est plat, nous avons $\mathfrak m_{\xi'}^h =
+\mathfrak m_\xi^h \mathcal{O}_{T, \xi'}^h$, et l'extension de corps résiduels
+est purement transcendante, de degré de transcendance $1$, et
+\item ajouter ici d'autres propriétés au besoin.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $U \to X$ un morphisme \'etale tel que $\mathcal{L}|_U$ soit trivial.
+Alors $T \times_X U \to U$ est isomorphe au morphisme de projection
+$\mathbf{G}_m \times U \to U$, où $\mathbf{G}_m$ est le schéma en groupes
+multiplicatif ; voir Groupoïdes, exemple
+\ref{groupoids-example-multiplicative-group}. Ainsi (1) est clair.
+
+\medskip\noindent
+Pour (2), remarquons que $q_*q^*\mathcal{L} = \bigoplus_{n \in \mathbf{Z}}
+\mathcal{L}^{\otimes n + 1}$. Il existe donc un isomorphisme évident
+$q_*q^*\mathcal{L} \to q_*\mathcal{O}_T$ de $q_*\mathcal{O}_T$-modules. D'après
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-affine-equivalence-modules}, cela détermine un
+isomorphisme $q^*\mathcal{L} \to \mathcal{O}_T$.
+
+\medskip\noindent
+La partie (3) résulte du fait que la formation du spectre relatif commute à
+tout changement de base ; il en va clairement de même pour
+l'isomorphisme $\alpha$.
+
+\medskip\noindent
+La partie (4) découle immédiatement de (1) et des définitions.
+
+\medskip\noindent
+La partie (5) découle du fait que si $Z$ est un espace algébrique intègre,
+alors $\mathbf{G}_m \times Z$ est un espace algébrique intègre.
+
+\medskip\noindent
+La partie (6) découle de la conservation des longueurs : si $(A,
+\mathfrak m)$ est un anneau local, si $B = A[x]_{\mathfrak m A[x]}$ et si $M$
+est un $A$-module, alors $\text{length}_A(M) = \text{length}_B(M \otimes_A
+B)$. Cela implique que, si $\mathcal{F}$ est un $\mathcal{O}_X$-module cohérent,
+si $\xi \in |X|$ et si $\xi' \in |T|$ est le point générique de la fibre
+au-dessus de $\xi$, alors la longueur de $\mathcal{F}$ en $\xi$ est égale à celle de
+$q^*\mathcal{F}$ en $\xi'$. En remontant les définitions, on obtient (6), et
+même davantage.
+
+\medskip\noindent
+L'homomorphisme de la partie (7) provient d'Espaces décents, remarque
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}. Cependant, dans
+notre cas, nous avons
+$$
+\Spec(\mathcal{O}_{X, \xi}^h) \times_X T =
+\mathbf{G}_m \times \Spec(\mathcal{O}_{X, \xi}^h) =
+\Spec(\mathcal{O}_{X, \xi}^h[t, t^{-1}])
+$$
+et $\xi'$ correspond au point générique de la fibre spéciale de ce morphisme au-dessus de
+$\Spec(\mathcal{O}_{X, \xi}^h)$. Ainsi $\mathcal{O}_{T, \xi'}^h$ est
+l'hensélisation de la localisation de $\mathcal{O}_{X, \xi}^h[t, t^{-1}]$ en
+l'idéal premier correspondant. La partie (7) en découle par quelques résultats
+d'algèbre commutative ; détails omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Gm-torsor-divisor-meromorphic-section}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_X$-module inversible. Supposons que $X$ soit
+intègre. Soit $s$ une section méromorphe non nulle de $\mathcal{L}$. Soit $q
+: T \to X$ le morphisme du lemme \ref{lemma-Gm-torsor}. Alors
+$$
+q^*\text{div}_\mathcal{L}(s) = \text{div}_T(q^*(s))
+$$
+où nous considérons l'image réciproque $q^*(s)$ comme une fonction méromorphe non
+nulle sur $T$ au moyen de l'isomorphisme $q^*\mathcal{L} \to \mathcal{O}_T$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que $\text{div}_T(q^*(s)) = \text{div}_{\mathcal{O}_T}(q^*(s))$ par
+la compatibilité entre les constructions données dans Espaces sur les corps,
+sections \ref{spaces-over-fields-section-Weil-divisors} et
+\ref{spaces-over-fields-section-c1}. Dans cette preuve, nous établirons
+l'égalité avec $\text{div}_{\mathcal{O}_T}(q^*(s))$. Nous utiliserons
+toutes les propriétés de $q : T \to X$ indiquées dans le lemme
+\ref{lemma-Gm-torsor} sans autre mention. Soit $Z \subset T$ un diviseur
+premier. Ou bien $Z \to X$ est dominant, ou bien $Z = q^{-1}(Z')$ pour un
+diviseur premier $Z' \subset X$. Si $Z \to X$ est dominant, alors le
+coefficient de $Z$ dans chacun des deux membres de l'égalité du lemme est nul. On peut
+donc supposer $Z = q^{-1}(Z')$ où $Z' \subset X$ est un diviseur premier. Soit
+$\xi' \in |Z'|$ et $\xi \in |Z|$ les points génériques. On obtient alors un
+diagramme commutatif
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{T, \xi}^h) \ar[r]_-{c_\xi} \ar[d]_h & T \ar[d]^q \\
+\Spec(\mathcal{O}_{X, \xi'}^h) \ar[r]^-{c_{\xi'}} & X
+}
+$$
+voir Espaces décents, remarque
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}. Choisissons une
+banalisation $s_{\xi'}$ de $\mathcal{L}_{\xi'} = c_{\xi'}^*\mathcal{L}$.
+Nous pouvons alors utiliser l'image réciproque $s_\xi$ de $s_{\xi'}$ par $h$
+comme banalisation de $\mathcal{L}_\xi = c_\xi^* q^*\mathcal{L}$. Écrivons
+$s/s_{\xi'} = a/b$ avec $a, b \in \mathcal{O}_{X, \xi'}$ non-diviseurs de
+zéro. Par définition, le coefficient de $Z'$ dans $\text{div}_\mathcal{L}(s)$
+est
+$$
+\text{length}_{\mathcal{O}_{X, \xi'}^h}(
+\mathcal{O}_{X, \xi'}^h/a \mathcal{O}_{X, \xi'}^h)
+-
+\text{length}_{\mathcal{O}_{X, \xi'}^h}(
+\mathcal{O}_{X, \xi'}^h/b \mathcal{O}_{X, \xi'}^h)
+$$
+Puisque $Z = q^{-1}(Z')$, c'est aussi le coefficient de $Z$ dans
+$q^*\text{div}_\mathcal{L}(s)$. Étant donné que $\mathcal{O}_{X, \xi'}^h \to
+\mathcal{O}_{T, \xi}^h$ est plat, les éléments $a, b$ sont envoyés sur des
+non-diviseurs de zéro dans $\mathcal{O}_{T, \xi}^h$. Ainsi $q^*(s)/s_\xi = a/b$
+dans l'anneau total des fractions de $\mathcal{O}_{T, \xi}^h$. Par définition, le
+coefficient de $Z$ dans $\text{div}_T(q^*(s))$ est
+$$
+\text{length}_{\mathcal{O}_{T, \xi}^h}(
+\mathcal{O}_{T, \xi}^h/a \mathcal{O}_{T, \xi}^h)
+-
+\text{length}_{\mathcal{O}_{T, \xi}^h}(
+\mathcal{O}_{T, \xi}^h/b \mathcal{O}_{T, \xi}^h)
+$$
+La preuve est achevée, car ces longueurs sont les mêmes que précédemment
+d'après Algèbre, lemme \ref{algebra-lemma-pullback-module}, et l'égalité
+$\mathfrak m_\xi^h = \mathfrak m_{\xi'}^h\mathcal{O}_{T, \xi}^h$ établie dans
+le lemme \ref{lemma-Gm-torsor}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Intersection avec un faisceau inversible}
+\label{section-intersecting-with-divisors}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-intersecting-with-divisors}. Dans cette section, nous
+étudions la construction suivante.
+
+\begin{definition}
+\label{definition-cap-c1}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_X$-module inversible. On définit, pour tout
+entier $k$, une opération
+$$
+c_1(\mathcal{L}) \cap - :
+Z_{k + 1}(X) \to \CH_k(X)
+$$
+appelée {\it intersection avec la première classe de Chern de $\mathcal{L}$}.
+\begin{enumerate}
+\item Étant donné un sous-espace fermé intègre $i : W \to X$ avec
+$\dim_\delta(W) = k + 1$, nous définissons
+$$
+c_1(\mathcal{L}) \cap [W] = i_*(c_1({i^*\mathcal{L}}) \cap [W])
+$$
+où le membre de droite est défini dans la définition
+\ref{definition-divisor-invertible-sheaf}.
+\item Pour un $(k + 1)$-cycle général $\alpha = \sum n_i [W_i]$, nous
+définissons
+$$
+c_1(\mathcal{L}) \cap \alpha = \sum n_i c_1(\mathcal{L}) \cap [W_i]
+$$
+\end{enumerate}
+\end{definition}
+
+\noindent
+Écrivons chaque $c_1(\mathcal{L}) \cap W_i = \sum_j n_{i, j} [Z_{i, j}]$, où
+$\{Z_{i, j}\}_j$ est une famille localement finie de sous-espaces fermés intègres
+de $W_i$. Puisque $\{W_i\}$ est une famille localement finie de
+sous-espaces fermés intègres de $X$, il s'ensuit facilement que $\{Z_{i,
+j}\}_{i, j}$ est une famille localement finie de sous-espaces fermés de
+$X$. $c_1(\mathcal{L}) \cap \alpha = \sum n_in_{i, j}[Z_{i, j}]$ est donc un
+cycle. Une autre interprétation, souvent plus commode, consiste à observer
+que le morphisme $\coprod W_i \to X$ est propre. Par conséquent,
+$c_1(\mathcal{L}) \cap \alpha$ peut être considéré comme l’image directe d’une
+classe dans $\CH_k(\coprod W_i) = \prod \CH_k(W_i)$. Cela explique aussi
+pourquoi le résultat est bien défini modulo l'équivalence rationnelle sur $X$.
+
+\medskip\noindent
+L'objectif principal des prochaines sections est de montrer que l'intersection
+par $c_1(\mathcal{L})$ passe au quotient par l'équivalence rationnelle. Cela
+n'est pas immédiat.
+
+\begin{lemma}
+\label{lemma-c1-cap-additive}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{L}$, $\mathcal{N}$ des faisceaux inversibles sur $X$. Alors
+$$
+c_1(\mathcal{L}) \cap \alpha  + c_1(\mathcal{N}) \cap \alpha =
+c_1(\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N}) \cap \alpha
+$$
+dans $\CH_k(X)$ pour tout $\alpha \in Z_{k - 1}(X)$. De plus,
+$c_1(\mathcal{O}_X) \cap \alpha = 0$ pour tout $\alpha$.
+\end{lemma}
+
+\begin{proof}
+L'additivité découle directement d'Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-c1-additive} et des définitions. Pour voir que
+$c_1(\mathcal{O}_X) \cap \alpha = 0$, considérons la section $1 \in \Gamma(X,
+\mathcal{O}_X)$. Celle-ci se restreint en une section partout non nulle sur tout
+sous-espace fermé intègre $W \subset X$. D'où $c_1(\mathcal{O}_X) \cap [W] =
+0$, comme voulu.
+\end{proof}
+
+\noindent
+Rappelons que $Z(s) \subset X$ désigne le schéma des zéros d'une section globale $s$
+d'un faisceau inversible sur un espace algébrique $X$, voir Diviseurs sur les
+espaces, définition \ref{spaces-divisors-definition-zero-scheme-s}.
+
+\begin{lemma}
+\label{lemma-prepare-geometric-cap}
+Dans la situation \ref{situation-setup}, soit $Y/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_Y$-module inversible. Soit $s \in \Gamma(Y,
+\mathcal{L})$ une section régulière et supposons $\dim_\delta(Y) \leq k + 1$.
+Écrivons $[Y]_{k + 1} = \sum n_i[Y_i]$ où $Y_i \subset Y$ sont les composantes
+irréductibles de $Y$ de $\delta$-dimension $k + 1$. Posons $s_i = s|_{Y_i}
+\in \Gamma(Y_i, \mathcal{L}|_{Y_i})$. Alors
+\begin{equation}
+\label{equation-equal-as-cycles}
+[Z(s)]_k =  \sum n_i[Z(s_i)]_k
+\end{equation}
+comme $k$-cycles sur $Y$.
+\end{lemma}
+
+\begin{proof}
+Soit $\varphi : V \to Y$ un morphisme \'etale surjectif, où $V$ est un schéma.
+Il suffit de démontrer l'égalité après image réciproque par $\varphi$ ; voir le lemme
+\ref{lemma-etale-pullback}. Ce même lemme nous dit que $\varphi^*[Y_i] =
+[\varphi^{-1}(Y_i)] = \sum [V_{i, j}]$ où $V_{i, j}$ sont les composantes
+irréductibles de $V$ situées au-dessus de $Y_i$. Par conséquent, si nous
+appliquons d'abord le cas des schémas (Homologie de Chow, lemme
+\ref{chow-lemma-prepare-geometric-cap}) à $\varphi^*s_i$ sur $Y_i \times_Y V$,
+nous trouvons que $\varphi^*[Z(s_i)]_k = [Z(\varphi^*s_i)] = \sum [Z(s_{i,
+j})]_k$ où $s_{i, j}$ est l'image réciproque de $s$ sur $V_{i, j}$. En
+appliquant le cas des schémas à $\varphi^*s$, on obtient
+$$
+\varphi^*[Z(s)]_k =
+[Z(\varphi^*s)]_k =
+\sum n_i[Z(s_{i, j})]_k
+$$
+par notre remarque sur les multiplicités ci-dessus. En combinant tout ce qui
+précède, la preuve est complète.
+\end{proof}
+
+\noindent
+Le lemme suivant permet de calculer le produit d'intersection de la classe
+$c_1$ d'un faisceau inversible avec le cycle associé à un sous-schéma fermé.
+Rappelons que $Z(s) \subset X$ désigne le schéma des zéros d'une section globale $s$
+d'un faisceau inversible sur un schéma $X$ ; voir Diviseurs, définition
+\ref{divisors-definition-zero-scheme-s}.
+
+\begin{lemma}
+\label{lemma-geometric-cap}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_X$-module inversible. Soit $Y \subset X$ un
+sous-schéma fermé avec $\dim_\delta(Y) \leq k + 1$, et soit $s \in \Gamma(Y,
+\mathcal{L}|_Y)$ une section régulière. Alors
+$$
+c_1(\mathcal{L}) \cap [Y]_{k + 1} = [Z(s)]_k
+$$
+dans $\CH_k(X)$.
+\end{lemma}
+
+\begin{proof}
+Écrivons
+$$
+[Y]_{k + 1} = \sum n_i[Y_i]
+$$
+où $Y_i \subset Y$ sont les composantes irréductibles de $Y$ de $\delta$-dimension $k + 1$ et $n_i > 0$. Par hypothèse, la restriction $s_i = s|_{Y_i}
+\in \Gamma(Y_i, \mathcal{L}|_{Y_i})$ n'est pas nulle et constitue donc une
+section régulière. D'après le lemme \ref{lemma-compute-c1},
+$[Z(s_i)]_k$ représente $c_1(\mathcal{L}|_{Y_i})$. Par définition,
+$$
+c_1(\mathcal{L}) \cap [Y]_{k + 1} = \sum n_i[Z(s_i)]_k
+$$
+Le résultat découle donc du lemme \ref{lemma-prepare-geometric-cap}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Intersection avec un faisceau inversible, image directe et image réciproque}
+\label{section-intersecting-with-divisors-push-pull}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-intersecting-with-divisors-push-pull}. Dans cette section,
+nous prouvons que l'opération $c_1(\mathcal{L}) \cap -$ commute avec
+l'image réciproque plate et l'image directe propre.
+
+\begin{lemma}
+\label{lemma-prepare-flat-pullback-cap-c1}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme plat de dimension relative $r$. Soit $\mathcal{L}$ un
+faisceau inversible sur $Y$. Supposons $Y$ intègre et posons $n =
+\dim_\delta(Y)$. Soit $s$ une section méromorphe non nulle de $\mathcal{L}$.
+Alors
+$$
+f^*\text{div}_\mathcal{L}(s) = \sum n_i\text{div}_{f^*\mathcal{L}|_{X_i}}(s_i)
+$$
+dans $Z_{n + r - 1}(X)$. Ici, la somme porte sur les composantes irréductibles
+$X_i \subset X$ de $\delta$-dimension $n + r$, la section $s_i =
+f|_{X_i}^*(s)$ est l'image réciproque de $s$ et $n_i = m_{X_i, X}$ est la multiplicité
+de $X_i$ dans $X$.
+\end{lemma}
+
+\begin{proof}
+Par une astuce, nous allons déduire cet énoncé du lemme
+\ref{lemma-prepare-flat-pullback-rational-equivalence}. (Une alternative est
+de refaire la preuve de ce lemme dans le cadre de sections méromorphes de
+modules inversibles.) Plus précisément, soit $q : T \to Y$ le morphisme du lemme
+\ref{lemma-Gm-torsor} construit en utilisant $\mathcal{L}$ sur $Y$. Nous
+utiliserons toutes les propriétés de $T$ énoncées dans ce lemme. Considérons le
+diagramme cartésien
+$$
+\xymatrix{
+T' \ar[r]_{q'} \ar[d]_h & X \ar[d]^f \\
+T \ar[r]^q & Y
+}
+$$
+Alors $q' : T' \to X$ est le morphisme construit en utilisant $f^*\mathcal{L}$
+sur $X$. Il suffit alors de démontrer
+$$
+(q')^*f^*\text{div}_\mathcal{L}(s) =
+\sum n_i (q')^*\text{div}_{f^*\mathcal{L}|_{X_i}}(s_i)
+$$
+Remarquons que $T'_i = q^{-1}(X_i)$ sont les composantes irréductibles de $T'$
+et que $n_i$ est la multiplicité de $T'_i$ dans $T'$. Le membre de gauche est
+égal à
+$$
+h^*q^*\text{div}_\mathcal{L}(s) = h^*\text{div}_T(q^*(s))
+$$
+par le lemme \ref{lemma-Gm-torsor-divisor-meromorphic-section} (et le lemme
+\ref{lemma-compose-flat-pullback}). D'autre part, si $q'_i : T'_i \to
+X_i$ désigne la restriction de $q'$, nous constatons que le lemme
+\ref{lemma-Gm-torsor-divisor-meromorphic-section} nous dit également que le
+membre de droite est égal à
+$$
+\sum n_i \text{div}_{T_i}((q'_i)^*(s_i))
+$$
+Dans ces deux formules, les expressions $q^*(s)$ et $(q'_i)^*(s_i)$
+représentent les fonctions rationnelles correspondant aux sections méromorphes
+de $q^*\mathcal{L}$ et de $(q'_i)^*f^*\mathcal{L}|_{X_i}$ obtenues par image
+réciproque ; l'identification se fait au moyen de l'isomorphisme
+$\alpha : q^*\mathcal{L} \to \mathcal{O}_T$ et de ses images réciproques sur les
+espaces au-dessus de $T$. Avec cette convention, il est clair que
+$(q'_i)^*(s_i)$ est la composition de la fonction rationnelle $q^*(s)$ sur $T$
+et du morphisme $h|_{T'_i} : T'_i \to T$. Ainsi le lemme
+\ref{lemma-prepare-flat-pullback-rational-equivalence} dit exactement que
+$$
+h^*\text{div}_T(q^*(s)) = \sum n_i \text{div}_{T_i}((q'_i)^*(s_i))
+$$
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-pullback-cap-c1}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme plat de dimension relative $r$. Soit $\mathcal{L}$ un
+faisceau inversible sur $Y$. Soit $\alpha$ un $k$-cycle sur $Y$. Alors
+$$
+f^*(c_1(\mathcal{L}) \cap \alpha) = c_1(f^*\mathcal{L}) \cap f^*\alpha
+$$
+dans $\CH_{k + r - 1}(X)$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $\alpha = \sum n_i[W_i]$. Nous allons montrer que
+$$
+f^*(c_1(\mathcal{L}) \cap [W_i]) = c_1(f^*\mathcal{L}) \cap f^*[W_i]
+$$
+dans $\CH_{k + r - 1}(X)$ en produisant une équivalence rationnelle sur le
+sous-espace fermé $f^{-1}(W_i)$ de $X$. D'après la discussion de la remarque
+\ref{remark-infinite-sums-rational-equivalences}, cela prouvera que l'égalité
+du lemme est vraie.
+
+\medskip\noindent
+Soit $W \subset Y$ un sous-espace fermé intègre de $\delta$-dimension $k$.
+Considérons le sous-espace fermé $W' = f^{-1}(W) = W \times_Y X$, ce qui donne
+le diagramme cartésien
+$$
+\xymatrix{
+W' \ar[r] \ar[d]_h & X \ar[d]^f \\
+W \ar[r] & Y
+}
+$$
+Nous devons montrer que $f^*(c_1(\mathcal{L}) \cap [W]) = c_1(f^*\mathcal{L})
+\cap f^*[W]$. Choisissons une section méromorphe non nulle $s$ de
+$\mathcal{L}|_W$. Soient $W'_i \subset W'$ les composantes irréductibles de
+$\delta$-dimension $k + r$. Écrivons $[W']_{k + r} = \sum n_i[W'_i]$ avec $n_i$
+la multiplicité de $W'_i$ dans $W'$ selon la définition. Donc $f^*[W] = \sum
+n_i[W'_i]$ dans $Z_{k + r}(X)$. Puisque chaque $W'_i \to W$ est dominant, nous
+voyons que $s_i = s|_{W'_i}$ est une section méromorphe non nulle pour tout
+$i$. Par le lemme \ref{lemma-prepare-flat-pullback-cap-c1}, nous avons
+l'égalité de cycles suivante
+$$
+h^*\text{div}_{\mathcal{L}|_W}(s) =
+\sum n_i\text{div}_{f^*\mathcal{L}|_{W'_i}}(s_i)
+$$
+dans $Z_{k + r - 1}(W')$. Ceci achève la preuve, puisque le membre de gauche est un
+cycle sur $W'$ dont l'image directe est $f^*(c_1(\mathcal{L}) \cap [W])$ dans $\CH_{k +
+r - 1}(X)$ et le membre de droite est un cycle sur $W'$ dont l'image directe est
+$c_1(f^*\mathcal{L}) \cap f^*[W]$ dans $\CH_{k + r - 1}(X)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equal-c1-as-cycles}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme propre. Soit $\mathcal{L}$ un faisceau inversible sur $Y$.
+Supposons $X$, $Y$ intègres, $f$ dominant et $\dim_\delta(X) =
+\dim_\delta(Y)$. Soit $s$ une section méromorphe non nulle, la notation $s$ désignant une section de
+$\mathcal{L}$ sur $Y$. Alors
+$$
+f_*\left(\text{div}_{f^*\mathcal{L}}(f^*s)\right) =
+[R(X) : R(Y)]\text{div}_\mathcal{L}(s).
+$$
+Il s'agit d'une égalité de cycles sur $Y$. En particulier,
+$$
+f_*(c_1(f^*\mathcal{L}) \cap [X]) = c_1(\mathcal{L}) \cap f_*[Y].
+$$
+\end{lemma}
+
+\begin{proof}
+La dernière égalité découle de la première puisque $f_*[X] = [R(X) :
+R(Y)][Y]$ par définition. Démontrons la première égalité. Soit $q : T \to Y$ le
+morphisme du lemme \ref{lemma-Gm-torsor} construit en utilisant $\mathcal{L}$
+sur $Y$. Nous utiliserons toutes les propriétés de $T$ énoncées dans ce lemme.
+Considérons le diagramme cartésien
+$$
+\xymatrix{
+T' \ar[r]_{q'} \ar[d]_h & X \ar[d]^f \\
+T \ar[r]^q & Y
+}
+$$
+Alors $q' : T' \to X$ est le morphisme construit en utilisant $f^*\mathcal{L}$
+sur $X$. Il suffit de démontrer l'égalité après image réciproque sur $T'$. L'image
+réciproque du membre de gauche vaut
+\begin{align*}
+q^*f_*\left(\text{div}_{f^*\mathcal{L}}(f^*s)\right)
+& =
+h_*(q')^*\text{div}_{f^*\mathcal{L}}(f^*s) \\
+& =
+h_*\text{div}_{(q')^*f^*\mathcal{L}}((q')^*f^*s) \\
+& =
+h_*\text{div}_{h^*q^*\mathcal{L}}(h^*q^*s)
+\end{align*}
+La première égalité découle du lemme \ref{lemma-flat-pullback-proper-pushforward}.
+La deuxième découle du lemme \ref{lemma-prepare-flat-pullback-cap-c1}, puisque
+$T'$ est intègre. La troisième résulte de la commutativité du diagramme affiché.
+L'image réciproque du membre de droite est
+$$
+[R(X) : R(Y)]q^*\text{div}_\mathcal{L}(s) =
+[R(T') : R(T)]\text{div}_{q^*\mathcal{L}}(q^*s)
+$$
+Cela découle du lemme \ref{lemma-prepare-flat-pullback-cap-c1}, du fait que
+$T$ est intègre, et de l'égalité $[R(T') : R(T)] = [R(X) : R(Y)]$ dont nous
+omettons la preuve (cela découle du lemme
+\ref{lemma-flat-pullback-proper-pushforward}, mais ce serait une manière
+inutilement détournée de démontrer l'égalité). Il suffit donc de démontrer le lemme pour $h : T' \to T$,
+le module inversible $q^\mathcal{L}$ et la section $q^*s$. Puisque
+$q^*\mathcal{L} = \mathcal{O}_T$, nous nous ramenons au cas où $\mathcal{L} \cong
+\mathcal{O}$ discuté dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons que $\mathcal{L} = \mathcal{O}_Y$. Dans ce cas $s$ correspond à une
+fonction rationnelle $g \in R(Y)$. En utilisant le plongement $R(Y) \subset
+R(X)$, nous pouvons considérer $g$ comme une fonction rationnelle sur $X$ et il
+s'agit simplement de démontrer
+$$
+f_*\left(\text{div}_X(g)\right) = [R(X) : R(Y)]\text{div}_Y(g).
+$$
+En comparant avec le résultat du lemme
+\ref{lemma-proper-pushforward-alteration}, nous voyons que cela est vrai
+puisque $\text{Nm}_{R(X)/R(Y)}(g) = g^{[R(X) : R(Y)]}$ pour $g \in R(Y)^*$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward-cap-c1}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $p :
+X \to Y$ un morphisme propre. Soit $\alpha \in Z_{k + 1}(X)$. Soit
+$\mathcal{L}$ un faisceau inversible sur $Y$. Alors
+$$
+p_*(c_1(p^*\mathcal{L}) \cap \alpha) = c_1(\mathcal{L}) \cap p_*\alpha
+$$
+dans $\CH_k(Y)$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $p$ ait la propriété que, pour tout sous-espace fermé intègre
+$W \subset X$, l'application $p|_W : W \to Y$ est une immersion fermée.
+Alors, par définition de l'intersection avec $c_1(\mathcal{L})$, le lemme est
+valable.
+
+\medskip\noindent
+Nous allons utiliser cette remarque pour nous ramener à un cas particulier. Plus précisément,
+écrivons $\alpha = \sum n_i[W_i]$ avec $n_i \not = 0$ et $W_i$ distincts deux à
+deux. Soit $W'_i \subset Y$ l'« image » de $W_i$ comme dans le lemme
+\ref{lemma-proper-image}. Considérons le diagramme
+$$
+\xymatrix{
+X' = \coprod W_i \ar[r]_-q \ar[d]_{p'} & X \ar[d]^p \\
+Y' = \coprod W'_i \ar[r]^-{q'} & Y.
+}
+$$
+Puisque $\{W_i\}$ est localement fini sur $X$ et que $p$ est propre, on voit
+que $\{W'_i\}$ est localement fini sur $Y$ et que $q, q', p'$ sont eux aussi
+des morphismes propres. Nous pouvons également considérer $\sum n_i[W_i]$
+comme un $k$-cycle $\alpha' \in Z_k(X')$. Clairement, $q_*\alpha' = \alpha$.
+Nous avons $q_*(c_1(q^*p^*\mathcal{L}) \cap \alpha') = c_1(p^*\mathcal{L})
+\cap q_*\alpha'$ et $(q')_*(c_1((q')^*\mathcal{L}) \cap p'_*\alpha') =
+c_1(\mathcal{L}) \cap q'_*p'_*\alpha'$ par la remarque initiale de la preuve.
+Il suffit donc de démontrer le lemme pour le morphisme $p'$ et le cycle $\sum
+n_i[W_i]$. Cela signifie que nous pouvons supposer $X$, $Y$
+intègres, $f : X \to Y$ dominant et $\alpha = [X]$. Dans ce cas, le résultat
+découle du lemme \ref{lemma-equal-c1-as-cycles}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La formule clé}
+\label{section-key}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-key}. Nous recommandons vivement au lecteur de lire d'abord
+la preuve dans ce cas.
+
+\medskip\noindent
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons
+$X$ intègre et $\dim_\delta(X) = n$. Soient $\mathcal{L}$ et
+$\mathcal{N}$ des $\mathcal{O}_X$-modules inversibles. Soit $s$ une section
+méromorphe non nulle de $\mathcal{L}$ et soit $t$ une section méromorphe non
+nulle de $\mathcal{N}$. Soit $Z \subset X$ un diviseur premier ayant pour point
+générique $\xi \in |Z|$. Considérons le morphisme
+$$
+c_\xi : \Spec(\mathcal{O}_{X, \xi}^h) \longrightarrow X
+$$
+utilisé dans Espaces sur les corps, section \ref{spaces-over-fields-section-c1}.
+Nous notons $\mathcal{L}_\xi$ et $\mathcal{N}_\xi$ les images réciproques de
+$\mathcal{L}$ et $\mathcal{N}$ par $c_\xi$ ; nous considérons souvent
+$\mathcal{L}_\xi$ et $\mathcal{N}_\xi$ comme
+les modules libres de rang $1$ sur $\mathcal{O}_{X, \xi}^h$ qu'ils définissent.
+Notons que l'image réciproque de $s$, resp.\ $t$, est une section méromorphe régulière de $\mathcal{L}_\xi$,
+resp.\ $\mathcal{N}_\xi$.
+
+\medskip\noindent
+Soit $Z_i \subset X$, $i \in I$, une famille localement finie de diviseurs
+premiers ayant la propriété suivante : si $Z \not \in \{Z_i\}$, alors $s$ est
+un générateur de $\mathcal{L}_\xi$ et $t$ est un générateur de
+$\mathcal{N}_\xi$. Une telle famille existe d'après le lemme d'Espaces sur les corps
+\ref{spaces-over-fields-lemma-divisor-meromorphic-locally-finite}. Alors
+$$
+\text{div}_\mathcal{L}(s) = \sum \text{ord}_{Z_i, \mathcal{L}}(s) [Z_i]
+$$
+et de même
+$$
+\text{div}_\mathcal{N}(t) = \sum \text{ord}_{Z_i, \mathcal{N}}(t) [Z_i]
+$$
+En explicitant davantage les définitions, choisissons pour tout $i$ des générateurs
+$s_i \in \mathcal{L}_{\xi_i}$ et $t_i \in \mathcal{N}_{\xi_i}$,
+où $\xi_i$ est le point générique de $Z_i$. Nous pouvons alors écrire
+$$
+s = f_i s_i
+\quad\text{and}\quad
+t = g_i t_i
+$$
+où $f_i, g_i$ sont des éléments inversibles de l'anneau total des fractions
+$Q(\mathcal{O}_{X, \xi_i}^h)$. Posons, pour abréger, $B_i = \mathcal{O}_{X,
+\xi_i}^h$. Notons
+$$
+\text{ord}_{B_i} : Q(B_i)^* \longrightarrow \mathbf{Z},\quad
+a/b \longmapsto
+\text{length}_{B_i}(B_i/aB_i) - \text{length}_{B_i}(B_i/bB_i)
+$$
+Autrement dit, nous étendons provisoirement la définition
+\ref{algebra-definition-ord} d'Algèbre à ces anneaux locaux noethériens réduits
+de dimension $1$. Alors, par définition,
+$$
+\text{ord}_{Z_i, \mathcal{L}}(s) = \text{ord}_{B_i}(f_i)
+\quad\text{and}\quad
+\text{ord}_{Z_i, \mathcal{N}}(t) = \text{ord}_{B_i}(g_i)
+$$
+Puisque $\xi_i$ est le point générique de $Z_i$, nous voyons que le corps
+résiduel $\kappa(\xi_i)$ est le corps des fonctions de $Z_i$. De plus,
+$\kappa(\xi_i)$ est le corps résiduel de $B_i$ ; voir le lemme d'Espaces décents
+\ref{decent-spaces-lemma-residue-field-henselian-local-ring}. Puisque $t_i$
+est un générateur de $\mathcal{N}_{\xi_i}$, on voit que son image dans la fibre
+$\mathcal{N}_{\xi_i} \otimes_{B_i} \kappa(\xi_i)$ est une section méromorphe
+non nulle de $\mathcal{N}|_{Z_i}$. Nous noterons cette image $t_i|_{Z_i}$. Il
+résulte de nos définitions que
+$$
+c_1(\mathcal{N}) \cap \text{div}_\mathcal{L}(s) =
+\sum \text{ord}_{B_i}(f_i)
+(Z_i \to X)_*\text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i})
+$$
+et de même
+$$
+c_1(\mathcal{L}) \cap \text{div}_\mathcal{N}(t) =
+\sum \text{ord}_{B_i}(g_i)
+(Z_i \to X)_*\text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i})
+$$
+dans $\CH_{n - 2}(X)$. Nous allons construire une équivalence rationnelle entre
+ces deux cycles. Pour cela, considérons le symbole modéré
+$$
+\partial_{B_i}(f_i, g_i) \in \kappa(\xi_i)^* = R(Z_i)^*
+$$
+voir la section \ref{chow-section-tame-symbol} de l'Homologie de Chow.
+
+\begin{lemma}[Formule clé]
+\label{lemma-key-formula}
+Dans la situation ci-dessus, le cycle
+$$
+\sum
+(Z_i \to X)_*\left(
+\text{ord}_{B_i}(f_i) \text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i}) -
+\text{ord}_{B_i}(g_i) \text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) \right)
+$$
+est égal au cycle
+$$
+\sum (Z_i \to X)_*\text{div}(\partial_{B_i}(f_i, g_i))
+$$
+\end{lemma}
+
+\begin{proof}
+Voici la stratégie de la preuve : nous nous ramenons d'abord au cas où $\mathcal{L}$ et
+$\mathcal{N}$ sont des modules inversibles triviaux, puis nous modifions nos choix
+de banalisations locales et, enfin, nous utilisons la localisation \'etale pour
+nous ramener au cas des schémas\footnote{Il est possible qu'une preuve plus courte
+s'obtienne en appliquant immédiatement la localisation \'etale.}.
+
+\medskip\noindent
+Première étape. Soit $q : T \to X$ le morphisme construit dans le lemme
+\ref{lemma-Gm-torsor}. Nous utiliserons toutes les propriétés énoncées dans ce
+lemme sans plus ample mention. En particulier, il suffit de montrer que les cycles
+deviennent égaux après passage aux images réciproques par $q$. Désignons par $s'$ et $t'$ les images réciproques de $s$ et
+$t$, vues comme sections méromorphes de $q^*\mathcal{L}$ et $q^*\mathcal{N}$.
+Notons $Z'_i = q^{-1}(Z_i)$, notons $\xi'_i \in |Z'_i|$ le point générique,
+notons $B'_i = \mathcal{O}_{T, \xi'_i}^h$, notons $\mathcal{L}_{\xi'_i}$ et
+$\mathcal{N}_{\xi'_i}$ les images réciproques de $\mathcal{L}$ et $\mathcal{N}$ sur
+$\Spec(B'_i)$. Rappelons que nous avons des diagrammes commutatifs
+$$
+\xymatrix{
+\Spec(B'_i) \ar[r]_-{c_{\xi'_i}} \ar[d] & T \ar[d]^q \\
+\Spec(B_i) \ar[r]^-{c_{\xi_i}} & X
+}
+$$
+voir la remarque d'Espaces décents
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}. Notons $s'_i$
+et $t'_i$ les images réciproques de $s_i$ et $t_i$ ; ce sont des générateurs de
+$\mathcal{L}_{\xi'_i}$ et $\mathcal{N}_{\xi'_i}$. Alors
+$$
+s' = f'_i s'_i
+\quad\text{and}\quad
+t' = g'_i t'_i
+$$
+où $f'_i$ et $g'_i$ sont les images de $f_i, g_i$ par l'application $Q(B_i) \to
+Q(B'_i)$ induite par $B_i \to B'_i$. D'après le lemme d'Algèbre
+\ref{algebra-lemma-pullback-module}, nous avons
+$$
+\text{ord}_{B_i}(f_i) = \text{ord}_{B'_i}(f'_i)
+\quad\text{and}\quad
+\text{ord}_{B_i}(g_i) = \text{ord}_{B'_i}(g'_i)
+$$
+Par le lemme \ref{lemma-prepare-flat-pullback-cap-c1} appliqué au morphisme $q : Z'_i \to
+Z_i$, nous avons
+$$
+q^*\text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i}) =
+\text{div}_{q^*\mathcal{N}|_{Z'_i}}(t'_i|_{Z'_i})
+\quad\text{and}\quad
+q^*\text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) =
+\text{div}_{q^*\mathcal{L}|_{Z'_i}}(s'_i|_{Z'_i})
+$$
+Cela montre déjà que l'image réciproque du premier cycle de l'énoncé du lemme
+est le cycle correspondant aux données $s', t', Z'_i, s'_i, t'_i$. Pour établir
+la même assertion pour le second, remarquons que le lemme de l'Homologie de Chow
+\ref{chow-lemma-tame-symbol-formally-smooth} donne
+$$
+\partial_{B_i}(f_i, g_i) \mapsto
+\partial_{B'_i}(f'_i, g'_i)
+\quad\text{via}\quad
+\kappa(\xi_i) \to \kappa(\xi'_i)
+$$
+Le même lemme qu'auparavant montre donc que
+$$
+q^*\text{div}(\partial_{B_i}(f_i, g_i)) =
+\text{div}(\partial_{B'_i}(f'_i, g'_i))
+$$
+Puisque $q^*\mathcal{L} \cong \mathcal{O}_T$, nous constatons qu'il suffit de
+démontrer l'égalité dans le cas où $\mathcal{L}$ est trivial. En échangeant les
+rôles de $\mathcal{L}$ et $\mathcal{N}$, nous voyons que nous pouvons de même
+supposer que $\mathcal{N}$ est trivial. Ceci achève la preuve de la
+première étape.
+
+\medskip\noindent
+Deuxième étape. Supposons $\mathcal{L} = \mathcal{O}_X$ et $\mathcal{N} =
+\mathcal{O}_X$. Désignons par $1$ la section qui banalise $\mathcal{L}$. Alors
+$s_i = u \cdot 1$ pour une certaine unité $u \in B_i$. Examinons ce qui se passe
+si nous remplaçons $s_i$ par $1$. Alors, $f_i$ est remplacé par $u f_i$.
+Ainsi la première partie de la première expression du lemme est inchangée et
+au second terme nous ajoutons
+$$
+\text{ord}_{B_i}(g_i)\text{div}(u|_{Z_i})
+$$
+où $u|_{Z_i}$ est l'image de $u$ dans le corps résiduel, d'après le lemme d'Espaces sur les corps \ref{spaces-over-fields-lemma-divisor-meromorphic-well-defined},
+et à la deuxième expression nous ajoutons
+$$
+\text{div}(\partial_{B_i}(u, g_i))
+$$
+par bilinéarité du symbole modéré. Ces termes sont égaux en vertu de la
+propriété du symbole modéré donnée par l'équation de l'Homologie de Chow
+(\ref{chow-item-normalization}).
+
+\medskip\noindent
+Soit $Y \subset X$ un sous-espace fermé intègre avec $\dim_\delta(Y) = n -
+2$. Pour montrer que les coefficients de $Y$ dans les deux cycles du lemme sont
+égaux, nous pouvons remplacer $s_i$ par $1$ comme au paragraphe
+précédent. De même, nous pouvons remplacer $t_i$ par $1$. Puisqu'il n'y a qu'un nombre fini de $Z_i$ tels
+que $Y \subset Z_i$, nous pouvons supposer $s_i = 1$ et $t_i = 1$ pour tous
+ces $Z_i$.
+
+\medskip\noindent
+Troisième étape. Nous montrons ici que les coefficients de $Y$ dans les cycles
+du lemme coïncident pour un sous-espace fermé intègre $Y$ avec
+$\dim_\delta(Y) = n - 2$, dans la situation où, de plus, $\mathcal{L} = \mathcal{O}_X$ et
+$\mathcal{N} = \mathcal{O}_X$, et où $s_i = 1$ et $t_i = 1$ pour tous les $Z_i$ tels
+que $Y \subset Z_i$. Quitte à remplacer $X$ par un sous-espace ouvert plus
+petit, nous pouvons supposer que $s_i$ et $t_i$ sont égaux à $1$ pour
+tout $i$. Dans ce cas, le premier cycle est nul. Il reste à montrer
+que le coefficient de $Y$ dans le deuxième cycle est également nul.
+
+\medskip\noindent
+Tout d'abord, puisque $\mathcal{L} = \mathcal{O}_X$ et $\mathcal{N} =
+\mathcal{O}_X$, nous identifions $s, t$ à des
+fonctions rationnelles $f, g$ sur $X$. Puisque $s_i$ et $t_i$ sont égaux à
+$1$, nous voyons que $f_i$, resp.\ $g_i$, est l'image de $f$, resp.\ $g$, dans
+$Q(B_i)$ pour tous les $i$. Soit $\zeta \in |Y|$ le point générique.
+Choisissons un voisinage \'etale
+$$
+(U, u) \longrightarrow (X, \zeta)
+$$
+et notons $Y' = \overline{\{u\}} \subset U$. Puisqu'un morphisme \'etale
+est plat, nous pouvons prendre les images réciproques de $f$ et $g$, qui sont des fonctions méromorphes
+régulières sur $U$ que nous noterons encore $f$ et $g$. Pour tout
+diviseur premier $Y \subset Z \subset X$, le schéma $Z \times_X U$ est une
+réunion de diviseurs premiers de $U$. Réciproquement, étant donné un diviseur
+premier $Y' \subset Z' \subset U$, il existe un diviseur premier $Y \subset Z
+\subset X$ tel que $Z'$ soit une composante de $Z \times_X U$. Pour une
+telle paire $(Z, Z')$, l'homomorphisme d'anneaux
+$$
+\mathcal{O}_{X, \xi}^h \to \mathcal{O}_{U, \xi'}^h
+$$
+est \'etale (il est même fini \'etale). On obtient donc
+$$
+\partial_{\mathcal{O}_{X, \xi}^h}(f, g) \mapsto
+\partial_{\mathcal{O}_{U, \xi'}^h}(f, g)
+\quad\text{via}\quad
+\kappa(\xi) \to \kappa(\xi')
+$$
+en vertu du lemme de l'Homologie de Chow \ref{chow-lemma-tame-symbol-formally-smooth}. Ainsi
+le lemme \ref{lemma-etale-pullback-principal-divisor} s'applique et montre
+$$
+(Z \times_X U \to Z)^*\text{div}_Z(\partial_{\mathcal{O}_{X, \xi}^h}(f, g))
+=
+\sum\nolimits_{Z' \subset Z \times_X U}
+\text{div}_{Z'}(\partial_{\mathcal{O}_{U, \xi'}^h}(f, g))
+$$
+Puisque l'image réciproque plate commute à l'image directe par les immersions
+fermées (lemme \ref{lemma-flat-pullback-proper-pushforward}), nous voyons
+qu'il suffit de démontrer que le coefficient de $Y'$ dans
+$$
+\sum\nolimits_{Z' \subset U} 
+(Z' \to U)_*\text{div}_{Z'}(\partial_{\mathcal{O}_{U, \xi'}^h}(f, g))
+$$
+est nul.
+
+\medskip\noindent
+Soit $A = \mathcal{O}_{U, u}$. Alors $f, g \in Q(A)^*$. Écrivons
+$f = a/b$ et $g = c/d$, où $a, b, c, d \in A$ sont des non-diviseurs de zéro.
+Le coefficient de $Y'$ dans l'expression ci-dessus est
+$$
+\sum\nolimits_{\mathfrak q \subset A\text{ height }1}
+\text{ord}_{A/\mathfrak q}(\partial_{A_\mathfrak q}(f, g))
+$$
+Par bilinéarité de $\partial_A$, il suffit de démontrer que
+$$
+\sum\nolimits_{\mathfrak q \subset A\text{ height }1}
+\text{ord}_{A/\mathfrak q}(\partial_{A_\mathfrak q}(a, c))
+$$
+est nul. Il en est de même pour les autres paires $(a, d)$, $(b, c)$ et $(b, d)$. Cela
+résulte du lemme de l'Homologie de Chow \ref{chow-lemma-key-nonzerodivisors}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Intersection avec un faisceau inversible et équivalence rationnelle}
+\label{section-commutativity}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-commutativity}. En appliquant le lemme clé, nous obtenons
+les propriétés fondamentales de l'intersection avec des faisceaux inversibles.
+En particulier, nous verrons que $c_1(\mathcal{L}) \cap -$ passe au quotient par
+l'équivalence rationnelle et que les opérations associées à différents faisceaux inversibles
+commutent.
+
+\begin{lemma}
+\label{lemma-commutativity-on-integral}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons
+$X$ intègre et $\dim_\delta(X) = n$. Soient $\mathcal{L}$ et $\mathcal{N}$ des faisceaux
+inversibles sur $X$. Choisissons une section méromorphe non nulle $s$ de
+$\mathcal{L}$ et une section méromorphe non nulle $t$ de $\mathcal{N}$. Posons
+$\alpha = \text{div}_\mathcal{L}(s)$ et $\beta = \text{div}_\mathcal{N}(t)$.
+Alors
+$$
+c_1(\mathcal{N}) \cap \alpha
+=
+c_1(\mathcal{L}) \cap \beta
+$$
+dans $\CH_{n - 2}(X)$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du lemme clé \ref{lemma-key-formula} et de la discussion qui le
+précède.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-factors}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un faisceau inversible sur $X$. L'opération $\alpha \mapsto c_1(\mathcal{L})
+\cap \alpha$ passe au quotient par l'équivalence rationnelle pour donner une opération
+$$
+c_1(\mathcal{L}) \cap - : \CH_{k + 1}(X) \to \CH_k(X)
+$$
+\end{lemma}
+
+\begin{proof}
+Soit $\alpha \in Z_{k + 1}(X)$ et $\alpha \sim_{rat} 0$. Nous devons montrer
+que $c_1(\mathcal{L}) \cap \alpha$, tel qu'il est défini dans la définition
+\ref{definition-cap-c1}, est nul. D'après la définition
+\ref{definition-rational-equivalence}, il existe une famille localement finie
+$\{W_j\}$ de sous-espaces fermés intègres avec $\dim_\delta(W_j) = k + 2$ et
+des fonctions rationnelles $f_j \in R(W_j)^*$ telles que
+$$
+\alpha = \sum (i_j)_*\text{div}_{W_j}(f_j)
+$$
+Notons que $p : \coprod W_j \to X$ est un morphisme propre, et donc $\alpha =
+p_*\alpha'$ où $\alpha' \in Z_{k + 1}(\coprod W_j)$ est la somme des diviseurs
+principaux $\text{div}_{W_j}(f_j)$. Par le lemme
+\ref{lemma-pushforward-cap-c1}, nous avons $c_1(\mathcal{L}) \cap \alpha =
+p_*(c_1(p^*\mathcal{L}) \cap \alpha')$. Il suffit donc de montrer que chacun des cycles
+$c_1(\mathcal{L}|_{W_j}) \cap \text{div}_{W_j}(f_j)$ est nul. En d'autres
+termes, nous pouvons supposer que $X$ est intègre et $\alpha =
+\text{div}_X(f)$ pour un certain $f \in R(X)^*$.
+
+\medskip\noindent
+Supposons $X$ intègre et $\alpha = \text{div}_X(f)$ pour
+un certain $f \in R(X)^*$. Nous pouvons considérer $f$ comme une section
+méromorphe régulière du faisceau inversible $\mathcal{N} = \mathcal{O}_X$.
+Choisissons une section méromorphe $s$ de $\mathcal{L}$ et posons $\beta =
+\text{div}_\mathcal{L}(s)$. Par le lemme \ref{lemma-commutativity-on-integral}
+nous concluons que
+$$
+c_1(\mathcal{L}) \cap \alpha = c_1(\mathcal{O}_X) \cap \beta.
+$$
+Cependant, le lemme \ref{lemma-c1-cap-additive} montre que le membre
+de droite est nul dans $\CH_k(X)$, comme voulu.
+\end{proof}
+
+\noindent
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un faisceau inversible sur $X$. Nous noterons
+$$
+c_1(\mathcal{L})^s \cap - : \CH_{k + s}(X) \to \CH_k(X)
+$$
+l'opération $c_1(\mathcal{L}) \cap - $. Cette notation a un sens d'après le lemme
+\ref{lemma-factors}. Nous noterons $c_1(\mathcal{L}^s \cap -$ l'itérée
+$s$-ième de cette opération pour tout $s \geq 0$.
+
+\begin{lemma}
+\label{lemma-cap-commutative}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{L}$ et $\mathcal{N}$ des faisceaux inversibles sur $X$. Pour tout $\alpha \in \CH_{k
++ 2}(X)$, nous avons
+$$
+c_1(\mathcal{L}) \cap c_1(\mathcal{N}) \cap \alpha
+=
+c_1(\mathcal{N}) \cap c_1(\mathcal{L}) \cap \alpha
+$$
+comme éléments de $\CH_k(X)$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $\alpha = \sum m_j[Z_j]$ pour une famille localement finie de
+sous-espaces fermés intègres $Z_j \subset X$ avec $\dim_\delta(Z_j) = k + 2$.
+Considérons le morphisme propre $p : \coprod Z_j \to X$. Posons
+$\alpha' = \sum m_j[Z_j]$ comme un $(k + 2)$-cycle sur $\coprod Z_j$. Après
+plusieurs applications du lemme \ref{lemma-pushforward-cap-c1}, nous voyons que
+$c_1(\mathcal{L}) \cap c_1(\mathcal{N}) \cap \alpha = p_*(c_1(p^*\mathcal{L})
+\cap c_1(p^*\mathcal{N}) \cap \alpha')$ et $c_1(\mathcal{N}) \cap
+c_1(\mathcal{L}) \cap \alpha = p_*(c_1(p^*\mathcal{N}) \cap
+c_1(p^*\mathcal{L}) \cap \alpha')$. Il suffit donc de démontrer la formule dans
+le cas où $X$ est intègre et $\alpha = [X]$. Dans ce cas, le résultat
+découle du lemme \ref{lemma-commutativity-on-integral} et des définitions.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Intersection avec les diviseurs de Cartier effectifs}
+\label{section-intersecting-effective-Cartier}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-intersecting-effective-Cartier}. Nous renvoyons à
+l'introduction de cette section pour les motivations.
+
+\medskip\noindent
+Rappelons que les diviseurs de Cartier effectifs correspondent de façon $1$-à-$1$ aux
+classes d'isomorphisme de couples $(\mathcal{L}, s)$ où $\mathcal{L}$ est un
+faisceau inversible et $s$ une section globale ; voir le lemme de Diviseurs sur les
+espaces \ref{spaces-divisors-lemma-characterize-OD}. Si $D$ correspond
+à $(\mathcal{L}, s)$, alors $\mathcal{L} = \mathcal{O}_X(D)$. Gardons
+ce fait à l'esprit au cours de cette section.
+
+\begin{definition}
+\label{definition-gysin-homomorphism}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$(\mathcal{L}, s)$ un couple constitué d'un faisceau inversible et d'une section
+globale $s \in \Gamma(X, \mathcal{L})$. Soit $D = Z(s)$ le schéma des zéros
+de $s$, et notons $i : D \to X$ l'immersion fermée. Nous définissons, pour
+tout entier $k$, un {\it homomorphisme de Gysin raffiné}
+$$
+i^* : Z_{k + 1}(X) \to \CH_k(D).
+$$
+suivant les règles ci-dessous :
+\begin{enumerate}
+\item Étant donné un sous-espace fermé intègre $W \subset X$ avec
+$\dim_\delta(W) = k + 1$, nous posons
+\begin{enumerate}
+\item si $W \not \subset D$, alors $i^*[W] = [D \cap W]_k$ comme
+$k$-cycle sur $D$, et
+\item si $W \subset D$, alors $i^*[W] = i'_*(c_1(\mathcal{L}|_W) \cap [W])$,
+où $i' : W \to D$ est l'immersion fermée induite.
+\end{enumerate}
+\item Pour un $(k + 1)$-cycle général $\alpha = \sum n_j[W_j]$, nous
+posons
+$$
+i^*\alpha = \sum n_j i^*[W_j]
+$$
+\item Si $D$ est un diviseur de Cartier effectif, nous notons $D \cdot
+\alpha = i_*i^*\alpha$ l'image directe de la classe, considérée comme une classe sur $X$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+En fait, comme nous le verrons plus tard, cet homomorphisme de Gysin $i^*$
+peut être considéré comme un exemple d'image réciproque non plate. Ainsi, nous
+appellerons parfois de manière informelle la classe $i^*\alpha$ l'{\it
+image réciproque} de la classe $\alpha$.
+
+\begin{remark}
+\label{remark-on-cycles}
+Soient $S$, $B$, $X$, $\mathcal{L}$, $s$, $i : D \to X$ les données de la définition
+\ref{definition-gysin-homomorphism} et supposons que $\mathcal{L}|_D \cong
+\mathcal{O}_D$. Dans ce cas, nous pouvons définir une application canonique $i^* :
+Z_{k + 1}(X) \to Z_k(D)$ au niveau des cycles, en imposant $i^*[W] = 0$ lorsque
+$W \subset D$. Cette possibilité sera utile plus loin.
+\end{remark}
+
+\begin{remark}
+\label{remark-pullback-pairs}
+Soit $f : X' \to X$ un morphisme de bons espaces algébriques au-dessus de $B$ comme
+dans la situation \ref{situation-setup}. Soit $(\mathcal{L}, s, i : D \to X)$
+un triplet comme dans la définition \ref{definition-gysin-homomorphism}.
+Posons $\mathcal{L}' = f^*\mathcal{L}$, $s' = f^*s$ et
+$D' = X' \times_X D = Z(s')$. Nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+D' \ar[d]_g \ar[r]_{i'} & X' \ar[d]^f \\
+D \ar[r]^i & X
+}
+$$
+et nous pouvons demander diverses compatibilités entre $i^*$ et $(i')^*$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-support-cap-effective-Cartier}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$(\mathcal{L}, s, i : D \to X)$ comme dans la définition
+\ref{definition-gysin-homomorphism}. Soit $\alpha$ un $(k + 1)$-cycle sur $X$.
+Alors $i_*i^*\alpha = c_1(\mathcal{L}) \cap \alpha$ dans $\CH_k(X)$. En
+particulier, si $D$ est un diviseur de Cartier effectif, alors $D \cdot \alpha =
+c_1(\mathcal{O}_X(D)) \cap \alpha$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $\alpha = \sum n_j[W_j]$, où $i_j : W_j \to X$ sont les immersions de sous-espaces
+fermés intègres avec $\dim_\delta(W_j) = k$. Puisque $D$ est le schéma des zéros
+de $s$, nous voyons que $D \cap W_j$ est le schéma des zéros de
+la restriction $s|_{W_j}$. Par conséquent, pour tout $j$ tel que $W_j \not
+\subset D$, nous avons $c_1(\mathcal{L}) \cap [W_j] = [D \cap W_j]_k$ par le
+lemme \ref{lemma-geometric-cap}. Nous avons donc
+$$
+c_1(\mathcal{L}) \cap \alpha
+=
+\sum\nolimits_{W_j \not \subset D} n_j[D \cap W_j]_k
++
+\sum\nolimits_{W_j \subset D}
+n_j i_{j, *}(c_1(\mathcal{L})|_{W_j}) \cap [W_j])
+$$
+dans $\CH_k(X)$ d'après la définition \ref{definition-cap-c1}. Le membre de droite
+coïncide, terme à terme, avec l'image directe de la classe $i^*\alpha$ sur $D$
+définie dans la définition \ref{definition-gysin-homomorphism}. Le résultat en découle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-in-X-gysin}
+Dans la situation \ref{situation-setup}, soit $f : X' \to X$ un morphisme
+propre entre de bons espaces algébriques au-dessus de $B$. Soit $(\mathcal{L}, s, i : D \to
+X)$ comme dans la définition \ref{definition-gysin-homomorphism}. Formons le
+diagramme
+$$
+\xymatrix{
+D' \ar[d]_g \ar[r]_{i'} & X' \ar[d]^f \\
+D \ar[r]^i & X
+}
+$$
+comme dans la remarque \ref{remark-pullback-pairs}. Pour tout $(k + 1)$-cycle
+$\alpha'$ sur $X'$, nous avons $i^*f_*\alpha' = g_*(i')^*\alpha'$ dans
+$\CH_k(D)$ (ce qui a un sens puisque $f_*$ est défini au niveau des cycles).
+\end{lemma}
+
+\begin{proof}
+Supposons $\alpha = [W']$ pour un sous-espace fermé intègre $W' \subset X'$.
+Soit $W \subset X$ l'« image » de $W'$ comme dans le lemme
+\ref{lemma-proper-image}. Si $W' \not \subset D'$, alors $W \not
+\subset D$ et nous voyons que
+$$
+[W' \cap D']_k = \text{div}_{\mathcal{L}'|_{W'}}({s'|_{W'}})
+\quad\text{and}\quad
+[W \cap D]_k = \text{div}_{\mathcal{L}|_W}(s|_W)
+$$
+L'image par $f_*$ du premier cycle est donc égale au second, d'après le lemme
+\ref{lemma-equal-c1-as-cycles}.
+L'égalité vaut ainsi au niveau des cycles.
+Si $W' \subset D'$, alors $W \subset D$ et
+$f_*(c_1(\mathcal{L}|_{W'}) \cap [W'])$ est égal à $c_1(\mathcal{L}|_W) \cap
+[W]$ dans $\CH_k(W)$ par la deuxième assertion du lemme
+\ref{lemma-equal-c1-as-cycles}. Par la remarque
+\ref{remark-infinite-sums-rational-equivalences}, le résultat en découle pour
+$\alpha'$ quelconque.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gysin-flat-pullback}
+Dans la situation \ref{situation-setup}, soit $f : X' \to X$ un morphisme plat
+de dimension relative $r$ entre de bons espaces algébriques au-dessus de $B$. Soit
+$(\mathcal{L}, s, i : D \to X)$ comme dans la définition
+\ref{definition-gysin-homomorphism}. Considérons le diagramme
+$$
+\xymatrix{
+D' \ar[d]_g \ar[r]_{i'} & X' \ar[d]^f \\
+D \ar[r]^i & X
+}
+$$
+comme dans la remarque \ref{remark-pullback-pairs}. Pour tout $(k + 1)$-cycle
+$\alpha$ sur $X$, nous avons $(i')^*f^*\alpha = g^*i^*\alpha'$ dans $\CH_{k +
+r}(D)$ (ce qui a un sens puisque $f^*$ est défini au niveau des cycles).
+\end{lemma}
+
+\begin{proof}
+Supposons $\alpha = [W]$ pour un sous-espace fermé intègre $W \subset X$.
+Soit $W' = f^{-1}(W) \subset X'$. Si $W \not \subset D$, alors $W'
+\not \subset D'$ et nous voyons que
+$$
+W' \cap D' = g^{-1}(W \cap D)
+$$
+comme sous-espaces fermés de $D'$. L'égalité vaut donc au niveau des cycles ;
+voir le lemme \ref{lemma-pullback-coherent}. Si $W
+\subset D$, alors $W' \subset D'$ et $W' = g^{-1}(W)$, avec $[W']_{k + 1 + r} =
+g^*[W]$, et l'égalité vaut dans $\CH_{k + r}(D')$ par le lemme
+\ref{lemma-flat-pullback-cap-c1}. Par la remarque
+\ref{remark-infinite-sums-rational-equivalences}, le résultat en découle pour
+$\alpha'$ quelconque.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-easy-gysin}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$(\mathcal{L}, s, i : D \to X)$ comme dans la définition
+\ref{definition-gysin-homomorphism}. Soit $Z \subset X$ un sous-schéma fermé
+tel que $\dim_\delta(Z) \leq k + 1$ et tel que $D \cap Z$ soit un diviseur de
+Cartier effectif sur $Z$. Alors $i^*([Z]_{k + 1}) = [D \cap Z]_k$.
+\end{lemma}
+
+\begin{proof}
+L'hypothèse signifie que $s|_Z$ est une section régulière de $\mathcal{L}|_Z$.
+Ainsi, $D \cap Z = Z(s)$ et nous obtenons
+$$
+[D \cap Z]_k = \sum n_i [Z(s_i)]_k
+$$
+comme égalité de cycles, où $s_i = s|_{Z_i}$, les $Z_i$ sont les composantes irréductibles
+de $\delta$-dimension $k + 1$ et $[Z]_{k + 1} = \sum n_i[Z_i]$ ; voir le lemme
+\ref{lemma-prepare-geometric-cap}. Nous avons $D \cap Z_i = Z(s_i)$. La
+comparaison avec la définition de l'application de Gysin achève la preuve.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Homomorphismes de Gysin}
+\label{section-gysin}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-gysin}. Dans cette section, nous utilisons la formule clé
+pour montrer que l'homomorphisme de Gysin passe au quotient par l'équivalence rationnelle.
+
+\begin{lemma}
+\label{lemma-gysin-factors-general}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons
+$X$ intègre et $n = \dim_\delta(X)$. Soit $i : D \to X$ un
+diviseur de Cartier effectif. Soit $\mathcal{N}$ un $\mathcal{O}_X$-module
+inversible et soit $t$ une section méromorphe non nulle de $\mathcal{N}$. Alors
+$i^*\text{div}_\mathcal{N}(t) = c_1(\mathcal{N}) \cap [D]_{n - 1}$ dans
+$\CH_{n - 2}(D)$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $\text{div}_\mathcal{N}(t) = \sum \text{ord}_{Z_i,
+\mathcal{N}}(t)[Z_i]$ pour des sous-espaces fermés intègres $Z_i \subset
+X$ de $\delta$-dimension $n - 1$. Nous pouvons supposer que la famille $\{Z_i\}$
+est localement finie, que $t \in \Gamma(U, \mathcal{N}|_U)$ est un générateur
+où $U = X \setminus \bigcup Z_i$, et que chaque composante irréductible de $D$
+est l'un des $Z_i$ ; voir les lemmes d'Espaces sur les corps
+\ref{spaces-over-fields-lemma-components-locally-finite},
+\ref{spaces-over-fields-lemma-divisor-locally-finite} et
+\ref{spaces-over-fields-lemma-divisor-meromorphic-locally-finite}.
+
+\medskip\noindent
+Posons $\mathcal{L} = \mathcal{O}_X(D)$. Notons $s \in \Gamma(X,
+\mathcal{O}_X(D)) = \Gamma(X, \mathcal{L})$ la section canonique. Nous
+appliquerons la discussion de la section \ref{section-key} à notre situation
+actuelle. Pour tout $i$, soit $\xi_i \in |Z_i|$ son point générique. Soit
+$B_i = \mathcal{O}_{X, \xi_i}^h$. Pour tout $i$, choisissons des
+générateurs $s_i$ de $\mathcal{L}_{\xi_i}$ et $t_i$ de $\mathcal{N}_{\xi_i}$
+sur $B_i$, en imposant $s_i = s$ si
+$Z_i \not \subset D$. Écrivons $s = f_i s_i$ et $t = g_i t_i$ avec $f_i, g_i
+\in B_i$. Alors $\text{ord}_{Z_i, \mathcal{N}}(t) = \text{ord}_{B_i}(g_i)$.
+D'autre part, nous avons $f_i \in B_i$ et
+$$
+[D]_{n - 1} = \sum \text{ord}_{B_i}(f_i)[Z_i]
+$$
+grâce à notre choix des $s_i$. Nous affirmons que
+$$
+i^*\text{div}_\mathcal{N}(t) =
+\sum \text{ord}_{B_i}(g_i) \text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i})
+$$
+comme égalité de cycles. Plus précisément, le membre de droite est un cycle
+représentant le membre de gauche. En effet, cela résulte de notre formule
+pour $\text{div}_\mathcal{N}(t)$ et le fait que
+$\text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) = [Z(s_i|_{Z_i})]_{n - 2} = [Z_i
+\cap D]_{n - 2}$ lorsque $Z_i \not \subset D$ car dans ce cas $s_i|_{Z_i} =
+s|_{Z_i}$ est une section régulière ; voir le lemme \ref{lemma-compute-c1}. De
+même,
+$$
+c_1(\mathcal{N}) \cap [D]_{n - 1} =
+\sum \text{ord}_{B_i}(f_i) \text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i})
+$$
+La formule clé (lemme \ref{lemma-key-formula}) donne l'égalité
+$$
+\sum \left(
+\text{ord}_{B_i}(f_i) \text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i}) -
+\text{ord}_{B_i}(g_i) \text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) \right) =
+\sum \text{div}_{Z_i}(\partial_{B_i}(f_i, g_i))
+$$
+de cycles. Si $Z_i \not \subset D$, alors $f_i = 1$ et donc
+$\text{div}_{Z_i}(\partial_{B_i}(f_i, g_i)) = 0$. Nous obtenons ainsi une
+équivalence rationnelle entre nos cycles spécifiques représentant
+$i^*\text{div}_\mathcal{N}(t)$ et $c_1(\mathcal{N}) \cap [D]_{n - 1}$ sur $D$.
+Ceci achève la preuve.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gysin-factors}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$(\mathcal{L}, s, i : D \to X)$ comme dans la définition
+\ref{definition-gysin-homomorphism}. L'homomorphisme de Gysin passe au quotient par
+l'équivalence rationnelle et donne une application $i^* : \CH_{k + 1}(X) \to
+\CH_k(D)$.
+\end{lemma}
+
+\begin{proof}
+Soit $\alpha \in Z_{k + 1}(X)$ et supposons que $\alpha \sim_{rat} 0$. Cela
+signifie qu'il existe une famille localement finie de sous-espaces fermés
+intègres $W_j \subset X$ de $\delta$-dimension $k + 2$ et des fonctions
+$f_j \in R(W_j)^*$ telles que $\alpha = \sum i_{j, *}\text{div}_{W_j}(f_j)$. Posons $X' =
+\coprod W_i$ et considérons le diagramme
+$$
+\xymatrix{
+D' \ar[d]_q \ar[r]_{i'} & X' \ar[d]^p \\
+D \ar[r]^i & X
+}
+$$
+de la remarque \ref{remark-pullback-pairs}. Puisque $X' \to X$ est propre,
+nous voyons que $i^*p_* = q_*(i')^*$ par le lemme
+\ref{lemma-closed-in-X-gysin}. Comme nous savons que $q_*$ passe au quotient par
+l'équivalence rationnelle (lemme
+\ref{lemma-proper-pushforward-rational-equivalence}), il suffit de démontrer le
+résultat pour $\alpha' = \sum \text{div}_{W_j}(f_j)$ sur $X'$. Cela
+nous ramène au cas où $X$ est intègre et $\alpha = \text{div}(f)$ pour
+un certain $f \in R(X)^*$.
+
+\medskip\noindent
+Supposons $X$ intègre et $\alpha = \text{div}(f)$ pour
+un certain $f \in R(X)^*$. Si $X = D$, alors nous voyons que $i^*\alpha$ est
+égal à $c_1(\mathcal{L}) \cap \alpha$. Ceci est rationnellement équivalent à
+zéro par le lemme \ref{lemma-factors}. Si $D \not = X$, alors nous voyons que
+$i^*\text{div}_X(f)$ est égal à $c_1(\mathcal{O}_D) \cap [D]_{n - 1}$ dans
+$\CH_k(D)$ par le lemme \ref{lemma-gysin-factors-general}. Bien entendu,
+l'intersection avec $c_1(\mathcal{O}_D)$ est l'application nulle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gysin-commutes-cap-c1}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$(\mathcal{L}, s, i : D \to X)$ un triplet comme dans la définition
+\ref{definition-gysin-homomorphism}. Soit $\mathcal{N}$ un
+$\mathcal{O}_X$-module inversible. Alors $i^*(c_1(\mathcal{N}) \cap \alpha) =
+c_1(i^*\mathcal{N}) \cap i^*\alpha$ dans $\CH_{k - 2}(D)$ pour tout
+$\alpha \in \CH_k(Z)$.
+\end{lemma}
+
+\begin{proof}
+Avec exactement la même preuve que dans le lemme \ref{lemma-gysin-factors},
+cela découle des lemmes \ref{lemma-pushforward-cap-c1},
+\ref{lemma-cap-commutative} et \ref{lemma-gysin-factors-general}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gysin-commutes-gysin}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$(\mathcal{L}, s, i : D \to X)$ et $(\mathcal{L}', s', i' : D' \to X)$ deux
+triplets comme dans la définition \ref{definition-gysin-homomorphism}. Alors le
+diagramme
+$$
+\xymatrix{
+\CH_k(X) \ar[r]_{i^*} \ar[d]_{(i')^*} & \CH_{k - 1}(D) \ar[d] \\
+\CH_{k - 1}(D') \ar[r] & \CH_{k - 2}(D \cap D')
+}
+$$
+est commutatif, chaque flèche étant un homomorphisme de Gysin.
+\end{lemma}
+
+\begin{proof}
+Désignons par $j : D \cap D' \to D$ et $j' : D \cap D' \to D'$ les immersions fermées
+correspondant à $(\mathcal{L}|_{D'}, s|_{D'}$ et $(\mathcal{L}'_D, s|_D)$.
+Nous devons montrer que $(j')^*i^*\alpha = j^* (i')^*\alpha$ pour tout
+$\alpha \in \CH_k(X)$. Soit $W \subset X$ un sous-schéma fermé intègre de
+dimension $k$. Nous établirons l'égalité dans le cas $\alpha = [W]$. Le cas
+général découlera alors de l'observation de la remarque
+\ref{remark-infinite-sums-rational-equivalences} (et de la forme particulière de
+notre équivalence rationnelle produite ci-dessous). Nous déduirons l'égalité
+pour $\alpha = [W]$ de la formule clé.
+
+\medskip\noindent
+Prenons pour $\sigma$ une section méromorphe non nulle de
+$\mathcal{L}|_W$, égale à $s|_W$ si $W \not
+\subset D$. Prenons pour $\sigma'$ une section méromorphe non nulle de
+$\mathcal{L}'|_W$, égale à $s'|_W$ si $W \not
+\subset D'$. Écrivons
+$$
+\text{div}_{\mathcal{L}|_W}(\sigma) =
+\sum \text{ord}_{Z_i, \mathcal{L}|_W}(\sigma)[Z_i] = \sum n_i[Z_i]
+$$
+et de même
+$$
+\text{div}_{\mathcal{L}'|_W}(\sigma') =
+\sum \text{ord}_{Z_i, \mathcal{L}'|_W}(\sigma')[Z_i] = \sum n'_i[Z_i]
+$$
+comme dans la discussion de la section \ref{section-key}. Nous voyons alors
+que $Z_i \subset D$ si $n_i \not = 0$ et $Z'_i \subset D'$ si $n'_i \not = 0$.
+Pour tout $i$, soit $\xi_i \in |Z_i|$ le point générique. Comme dans la
+section \ref{section-key}, choisissons pour tout $i$ un élément $\sigma_i \in
+\mathcal{L}_{\xi_i}$, resp.\ $\sigma'_i \in \mathcal{L}'_{\xi_i}$, qui soit un générateur
+sur $B_i = \mathcal{O}_{W, \xi_i}^h$ et qui soit égal à l'image de $s$, resp.\
+$s'$, si $Z_i \not \subset D$, resp.\ $Z_i \not \subset D'$. Écrivons $\sigma =
+f_i \sigma_i$ et $\sigma' = f'_i\sigma'_i$ de sorte que $n_i =
+\text{ord}_{B_i}(f_i)$ et $n'_i = \text{ord}_{B_i}(f'_i)$. Il résulte de nos définitions que
+$$
+(j')^*i^*[W] =
+\sum \text{ord}_{B_i}(f_i) \text{div}_{\mathcal{L}'|_{Z_i}}(\sigma'_i|_{Z_i})
+$$
+comme égalité de cycles, et
+$$
+j^*(i')^*[W] =
+\sum \text{ord}_{B_i}(f'_i) \text{div}_{\mathcal{L}|_{Z_i}}(\sigma_i|_{Z_i})
+$$
+La formule clé (lemme \ref{lemma-key-formula}) donne alors l'égalité
+$$
+\sum \left(
+\text{ord}_{B_i}(f_i) \text{div}_{\mathcal{L}'|_{Z_i}}(\sigma'_i|_{Z_i}) -
+\text{ord}_{B_i}(f'_i) \text{div}_{\mathcal{L}|_{Z_i}}(\sigma_i|_{Z_i})
+\right) =
+\sum \text{div}_{Z_i}(\partial_{B_i}(f_i, f'_i))
+$$
+de cycles. Notons que $\text{div}_{Z_i}(\partial_{B_i}(f_i, f'_i)) = 0$ si
+$Z_i \not \subset D \cap D'$, car dans ce cas soit $f_i = 1$, soit $f'_i = 1$. Nous
+obtenons ainsi une équivalence rationnelle entre nos cycles spécifiques
+représentant $(j')^*i^*[W]$ et $j^*(i')^*[W]$ sur $D \cap D' \cap W$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Diviseurs de Cartier effectifs relatifs}
+\label{section-relative-effective-cartier}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-relative-effective-cartier}. Les diviseurs de Cartier effectifs
+relatifs sont définis dans la section de Diviseurs sur les espaces
+\ref{spaces-divisors-section-effective-Cartier-morphisms}. Pour développer les
+résultats de base sur les classes de Chern de fibrés vectoriels, nous n'avons
+besoin que du cas où le schéma ambiant et le diviseur de Cartier effectif sont
+plats sur la base.
+
+\begin{lemma}
+\label{lemma-relative-effective-cartier}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $p : X
+\to Y$ un morphisme plat de dimension relative $r$. Soit $i : D \to X$ un
+diviseur de Cartier effectif relatif (Diviseurs sur les espaces, définition
+\ref{spaces-divisors-definition-relative-effective-Cartier-divisor}). Soit
+$\mathcal{L} = \mathcal{O}_X(D)$. Pour tout $\alpha \in \CH_{k + 1}(Y)$, nous
+avons
+$$
+i^*p^*\alpha = (p|_D)^*\alpha
+$$
+dans $\CH_{k + r}(D)$ et
+$$
+c_1(\mathcal{L}) \cap p^*\alpha = i_* ((p|_D)^*\alpha)
+$$
+dans $\CH_{k + r}(X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $W \subset Y$ un sous-espace fermé intègre de $\delta$-dimension $k +
+1$. Le lemme de Diviseurs sur les espaces
+\ref{spaces-divisors-lemma-relative-Cartier} montre que $D \cap p^{-1}W$
+est un diviseur de Cartier effectif sur $p^{-1}W$. Par le lemme
+\ref{lemma-easy-gysin}, nous obtenons la première égalité dans
+$$
+i^*[p^{-1}W]_{k + r + 1} =
+[D \cap p^{-1}W]_{k + r} =
+[(p|_D)^{-1}(W)]_{k + r}.
+$$
+et la seconde vient de ce que $D \cap p^{-1}(W) = (p|_D)^{-1}(W)$ comme espaces
+algébriques. Puisque, par définition, $p^*[W] = [p^{-1}W]_{k + r + 1}$, nous
+voyons que $i^*p^*[W] = (p|_D)^*[W]$ comme égalité de cycles. Si $\alpha = \sum
+m_j[W_j]$ est un $k + 1$-cycle général, alors nous obtenons $i^*\alpha = \sum
+m_j i^*p^*[W_j] = \sum m_j(p|_D)^*[W_j]$ comme égalité de cycles. Cela démontre
+la première égalité. Pour déduire la seconde de la première, appliquons le lemme
+\ref{lemma-support-cap-effective-Cartier}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Fibrés affines}
+\label{section-affine-vector}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-affine-vector}. Pour un fibré affine, l'application d'image réciproque
+est surjective sur les groupes de Chow.
+
+\begin{lemma}
+\label{lemma-pullback-affine-fibres-surjective}
+Dans la situation \ref{situation-setup}, soient $X, Y/B$ bons. Soit $f :
+X \to Y$ un morphisme plat quasi-compact au-dessus de $B$, de dimension relative $r$.
+Supposons que, pour tout $y \in Y$, nous ayons $X_y \cong
+\mathbf{A}^r_{\kappa(y)}$. Alors $f^* : \CH_k(Y) \to \CH_{k + r}(X)$ est
+surjectif pour tout $k \in \mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+Soit $\alpha \in \CH_{k + r}(X)$. Écrivons $\alpha = \sum m_j[W_j]$ avec
+$m_j \not = 0$ et $W_j$ des sous-espaces fermés intègres distincts deux à deux
+de $\delta$-dimension $k + r$. Alors la famille $\{W_j\}$ est localement
+finie sur $X$. Soit $Z_j \subset Y$ le sous-espace fermé intègre tel que
+le morphisme obtenu $W_j \to Z_j$ soit dominant, comme dans le lemme
+\ref{lemma-proper-image}. Pour tout $V \subset Y$ ouvert quasi-compact, nous
+voyons que $f^{-1}(V) \cap W_j$ n'est non vide que pour un nombre fini de $j$.
+Par conséquent, les $Z_j$, fermetures des images, forment une famille
+localement finie de sous-espaces fermés intègres de $Y$.
+
+\medskip\noindent
+Considérons les diagrammes cartésiens
+$$
+\xymatrix{
+f^{-1}(Z_j) \ar[r] \ar[d]_{f_j} & X \ar[d]^f \\
+Z_j \ar[r] & Y
+}
+$$
+Supposons que $[W_j] \in Z_{k + r}(f^{-1}(Z_j))$ soit rationnellement
+équivalent à $f_j^*\beta_j$ pour un $k$-cycle $\beta_j \in \CH_k(Z_j)$.
+Alors $\beta = \sum m_j \beta_j$ sera un $k$-cycle sur $Y$ et $f^*\beta = \sum
+m_j f_j^*\beta_j$ sera rationnellement équivalent à $\alpha$ (voir la remarque
+\ref{remark-infinite-sums-rational-equivalences}). Cela nous ramène au cas où $Y$ est
+intègre et où $\alpha = [W]$ pour un sous-schéma fermé intègre de $X$ dominant
+$Y$. En particulier, nous pouvons supposer que $d = \dim_\delta(Y) < \infty$.
+
+\medskip\noindent
+Nous pouvons donc raisonner par récurrence sur $d = \dim_\delta(Y)$. Si $d < k$,
+alors $\CH_{k + r}(X) = 0$ et le lemme est valable ; c'est le cas initial de
+la récurrence. Soit $V \subset Y$ un ouvert non vide. Supposons que nous
+puissions montrer que $\alpha|_{f^{-1}(V)} = f^*\beta$ pour un certain $\beta
+\in Z_k(V)$. Le lemme \ref{lemma-exact-sequence-open} montre que
+$\beta = \beta'|_V$ pour un certain $\beta' \in Z_k(Y)$. La suite exacte
+$\CH_k(f^{-1}(Y \setminus V)) \to \CH_k(X) \to \CH_k(f^{-1}(V))$ du lemme
+\ref{lemma-restrict-to-open} montre que $\alpha - f^*\beta'$ provient d'un
+cycle $\alpha' \in \CH_{k + r}(f^{-1}(Y \setminus V))$. Puisque $\dim_\delta(Y
+\setminus V) < d$, nous concluons par récurrence sur $d$.
+
+\medskip\noindent
+En particulier, quitte à remplacer $Y$ par un ouvert convenable, nous pouvons
+supposer que $Y$ est un schéma ayant pour point générique $\eta$. L'isomorphisme
+$Y_\eta \cong \mathbf{A}^r_\eta$ s'étend à un isomorphisme sur un $V \subset
+Y$ ouvert non vide ; voir le lemme de Limites d'espaces
+\ref{spaces-limits-lemma-descend-finite-presentation}. Cela nous ramène au cas
+des schémas, traité dans le lemme de l'Homologie de Chow
+\ref{chow-lemma-pullback-affine-fibres-surjective}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-linebundle}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_X$-module inversible. Soit
+$$
+p :
+L = \underline{\Spec}(\text{Sym}^*(\mathcal{L}))
+\longrightarrow
+X
+$$
+le fibré vectoriel associé au-dessus de $X$. Alors $p^* : \CH_k(X) \to \CH_{k +
+1}(L)$ est un isomorphisme pour tout $k$.
+\end{lemma}
+
+\begin{proof}
+Pour la surjectivité, voir le lemme
+\ref{lemma-pullback-affine-fibres-surjective}. Soit $o : X \to L$ la section
+nulle de $L \to X$, c'est-à-dire le morphisme correspondant à la surjection
+$\text{Sym}^*(\mathcal{L}) \to \mathcal{O}_X$ qui envoie $\mathcal{L}^{\otimes
+n}$ sur zéro pour tout $n > 0$. Alors $p \circ o = \text{id}_X$ et $o(X)$
+est un diviseur de Cartier effectif sur $L$. Ainsi, d'après le lemme
+\ref{lemma-relative-effective-cartier}, nous avons $o^* \circ p^* =
+\text{id}$ et nous concluons que $p^*$ est également injectif.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Théorie bivariante de l'intersection}
+\label{section-bivariant}
+
+\noindent
+Cette section est l'analogue de l'Homologie de Chow, section
+\ref{chow-section-bivariant}. Afin de traiter convenablement les classes de Chern
+supérieures des fibrés vectoriels, nous introduisons la notion suivante, à la
+suite de \cite{FM}. Il résulte de \cite[Theorem 17.1]{F} que notre définition
+coïncide avec celle de \cite{F}, sous réserve de la différence entre les
+contextes considérés.
+
+\begin{definition}
+\label{definition-bivariant-class}
+\begin{reference}
+Comparer avec \cite[Definition 17.1]{F}
+\end{reference}
+Dans la situation \ref{situation-setup}, soit $f : X \to Y$ un morphisme de
+bons espaces algébriques au-dessus de $B$. Soit $p \in \mathbf{Z}$. Une
+{\it classe bivariante $c$ de degré $p$ pour $f$} est la donnée d'une règle qui
+associe à tout morphisme $Y' \to Y$ de bons espaces algébriques au-dessus de $B$ et à
+tout $k$ une application
+$$
+c \cap - : \CH_k(Y') \longrightarrow \CH_{k - p}(X')
+$$
+où $X' = Y' \times_Y X$, et qui satisfait aux conditions suivantes :
+\begin{enumerate}
+\item si $Y'' \to Y'$ est un morphisme propre, alors $c \cap (Y'' \to
+Y')_*\alpha'' = (X'' \to X')_*(c \cap \alpha'')$ pour tout $\alpha''$ sur
+$Y''$,
+\item si $Y'' \to Y'$ est un morphisme de bons espaces algébriques au-dessus de $B$ qui est
+plat de dimension relative $r$, alors $c \cap (Y'' \to Y')^*\alpha' = (X'' \to
+X')^*(c \cap \alpha')$ pour tout $\alpha'$ sur $Y'$,
+\item si $(\mathcal{L}', s', i' : D' \to Y')$ est comme dans la définition
+\ref{definition-gysin-homomorphism}, dont l'image réciproque est $(\mathcal{N}', t', j' : E'
+\to X')$ sur $X'$, alors nous avons $c \cap (i')^*\alpha' = (j')^*(c \cap
+\alpha')$ pour tout $\alpha'$ sur $Y'$.
+\end{enumerate}
+L'ensemble de toutes les classes bivariantes de degré $p$ pour $f$ est noté
+$A^p(X \to Y)$.
+\end{definition}
+
+\noindent
+Dans la situation \ref{situation-setup}, soient $X \to Y$ et $Y \to Z$ des
+morphismes de bons espaces algébriques au-dessus de $B$. Soit $p \in \mathbf{Z}$. Il
+est clair que $A^p(X \to Y)$ est un groupe abélien. De plus, il est clair que
+nous avons une composition bilinéaire
+$$
+A^p(X \to Y) \times A^q(Y \to Z) \to A^{p + q}(X \to Z)
+$$
+qui est associative. Nous nous intéresserons surtout à $A^p(X) = A^p(X \to X)$,
+notation qui désignera toujours les classes de cohomologie bivariantes pour
+$\text{id}_X$. C'est en effet là que vivront les classes de Chern.
+
+\begin{definition}
+\label{definition-chow-cohomology}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. La
+{\it cohomologie de Chow} de $X$ est la $\mathbf{Z}$-algèbre graduée $A^*(X)$ dont
+la composante de degré $p$ est $A^p(X \to X)$.
+\end{definition}
+
+\noindent
+Attention : il n'est pas clair que la structure de $\mathbf{Z}$-algèbre sur
+$A^*(X)$ soit commutative, mais nous verrons que les classes de Chern vivent
+en son centre.
+
+\begin{remark}
+\label{remark-pullback-cohomology}
+Dans la situation \ref{situation-setup}, soit $f : X \to Y$ un morphisme de
+bons espaces algébriques au-dessus de $B$. Il existe alors un homomorphisme canonique de
+$\mathbf{Z}$-algèbres $A^*(Y) \to A^*(X)$. Plus précisément, étant donné $c \in
+A^p(Y)$ et $X' \to X$, nous pouvons définir $f^*c$ par
+l'application $c \cap - : \CH_k(X') \to \CH_{k - p}(X')$ qui est donnée en
+considérant $X'$ comme un espace algébrique au-dessus de $Y$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-cap-c1-bivariant}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_X$-module inversible. Alors la règle qui
+associe à $f : X' \to X$ $c_1(f^*\mathcal{L}) \cap - : \CH_k(X') \to \CH_{k -
+1}(X')$ est une classe bivariante de degré $1$.
+\end{lemma}
+
+\begin{proof}
+Cela découle des lemmes \ref{lemma-factors}, \ref{lemma-pushforward-cap-c1},
+\ref{lemma-flat-pullback-cap-c1} et \ref{lemma-gysin-commutes-cap-c1}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-pullback-bivariant}
+Dans la situation \ref{situation-setup}, soit $f : X \to Y$ un morphisme de
+bons espaces algébriques au-dessus de $B$ qui est plat de dimension relative $r$.
+Alors la règle qui associe à $Y' \to Y$ $(f')^* : \CH_k(Y') \to \CH_{k +
+r}(X')$ où $X' = X \times_Y Y'$ est une classe bivariante de degré $-r$.
+\end{lemma}
+
+\begin{proof}
+Cela découle des lemmes \ref{lemma-flat-pullback-rational-equivalence},
+\ref{lemma-compose-flat-pullback},
+\ref{lemma-flat-pullback-proper-pushforward} et
+\ref{lemma-gysin-flat-pullback}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gysin-bivariant}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$(\mathcal{L}, s, i : D \to X)$ un triplet comme dans la définition
+\ref{definition-gysin-homomorphism}. Alors la règle qui associe à $f : X'
+\to X$ $(i')^* : \CH_k(X') \to \CH_{k - 1}(D')$ où $D' = D \times_X X'$ est
+une classe bivariante de degré $1$.
+\end{lemma}
+
+\begin{proof}
+Cela découle des lemmes \ref{lemma-gysin-factors},
+\ref{lemma-closed-in-X-gysin}, \ref{lemma-gysin-flat-pullback} et
+\ref{lemma-gysin-commutes-gysin}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-push-proper-bivariant}
+Dans la situation \ref{situation-setup}, soient $f : X \to Y$ et $g : Y \to Z$
+des morphismes de bons espaces algébriques au-dessus de $B$. Soit $c \in A^p(X \to Z)$
+et supposons $f$ propre. Alors la règle qui associe à $X' \to X$
+$\alpha \longmapsto f_*(c \cap \alpha)$ est une classe bivariante de degré
+$p$.
+\end{lemma}
+
+\begin{proof}
+Cela découle des lemmes \ref{lemma-compose-pushforward},
+\ref{lemma-flat-pullback-proper-pushforward} et \ref{lemma-closed-in-X-gysin}.
+\end{proof}
+
+\noindent
+Ici, nous voyons que $c_1(\mathcal{L})$ est au centre de $A^*(X)$.
+
+\begin{lemma}
+\label{lemma-c1-center}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit
+$\mathcal{L}$ un $\mathcal{O}_X$-module inversible. Alors $c_1(\mathcal{L})
+\in A^1(X)$ commute avec tout élément $c \in A^p(X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $p : L \to X$ comme dans le lemme \ref{lemma-linebundle} et soit $o : X
+\to L$ la section nulle. Remarquons que $p^*\mathcal{L}^{\otimes -1}$ possède une
+section canonique dont le schéma des zéros est exactement le diviseur de
+Cartier effectif $o(X)$. Soit $\alpha \in \CH_k(X)$. Nous avons alors
+$$
+p^*(c_1(\mathcal{L}^{\otimes -1}) \cap \alpha) =
+c_1(p^*\mathcal{L}^{\otimes -1}) \cap p^*\alpha =
+o_* o^* p^*\alpha
+$$
+par les lemmes \ref{lemma-flat-pullback-cap-c1} et
+\ref{lemma-relative-effective-cartier}. Puisque $c$ est une classe bivariante,
+nous avons
+\begin{align*}
+p^*(c \cap c_1(\mathcal{L}^{\otimes -1}) \cap \alpha)
+& =
+c \cap p^*(c_1(\mathcal{L}^{\otimes -1}) \cap \alpha) \\
+& =
+c \cap o_* o^* p^*\alpha \\
+& =
+o_* o^* p^*(c \cap \alpha) \\
+& =
+p^*(c_1(\mathcal{L}^{\otimes -1}) \cap c \cap \alpha)
+\end{align*}
+(la dernière égalité résulte de ce qui précède, appliqué à $c \cap \alpha$). Puisque
+$p^*$ est injectif d'après un lemme cité plus haut, nous obtenons que
+$c_1(\mathcal{L}^{\otimes -1})$ est au centre de $A^*(X)$. Cela prouve le
+lemme.
+\end{proof}
+
+\noindent
+Voici un critère pour savoir quand une classe bivariante est nulle.
+
+\begin{lemma}
+\label{lemma-bivariant-zero}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $c
+\in A^p(X)$. Alors $c$ est nul si et seulement si $c \cap [Y] = 0$ dans
+$\CH_*(Y)$ pour tout espace algébrique intègre $Y$ localement de type fini
+sur $X$.
+\end{lemma}
+
+\begin{proof}
+Le sens direct est clair. Réciproquement, supposons que $c \cap [Y] = 0$ dans
+$\CH_*(Y)$ pour tout espace algébrique intègre $Y$ localement de type fini
+sur $X$. Soit $X' \to X$ localement de type fini. Soit $\alpha \in
+\CH_k(X')$. Écrivons $\alpha = \sum n_i [Y_i]$, les $Y_i \subset X'$ formant une
+famille localement finie de sous-schémas fermés intègres de $\delta$-dimension $k$. Alors $\alpha$ est l'image directe du cycle
+$\alpha' = \sum n_i[Y_i]$ sur $X'' = \coprod Y_i$ par le morphisme propre
+$X'' \to X'$. Par les propriétés des classes bivariantes, il suffit de prouver
+que $c \cap \alpha' = 0$ dans $\CH_{k - p}(X'')$. Nous avons $\CH_{k - p}(X'')
+= \prod \CH_{k - p}(Y_i)$, comme il résulte immédiatement des définitions. Les applications
+de projection $\CH_{k - p}(X'') \to \CH_{k - p}(Y_i)$ sont données par image réciproque
+plate. Puisque l'intersection avec $c$ commute avec l'image réciproque plate,
+nous voyons qu'il suffit de montrer que $c \cap [Y_i]$ est nul dans $\CH_{k -
+p}(Y_i)$, ce qui est vrai par hypothèse.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Formule du fibré projectif}
+\label{section-projective-space-bundle-formula}
+
+\noindent
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Considérons un
+$\mathcal{O}_X$-module localement libre de type fini $\mathcal{E}$, de rang
+$r$. Par convention, le {\it fibré projectif associé à $\mathcal{E}$} est le
+morphisme
+$$
+\xymatrix{
+\mathbf{P}(\mathcal{E}) =
+\underline{\text{Proj}}_X(\text{Sym}^*(\mathcal{E}))
+\ar[r]^-\pi
+& X
+}
+$$
+au-dessus de $X$, muni de $\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$ normalisé
+par l'égalité $\pi_*(\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)) = \mathcal{E}$.
+En particulier, il existe une surjection $\pi^*\mathcal{E} \to
+\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$. Nous dirons informellement « soit
+$(\pi : P \to X, \mathcal{O}_P(1))$ le fibré projectif associé à
+$\mathcal{E}$ » pour désigner la situation où $P = \mathbf{P}(\mathcal{E})$ et
+$\mathcal{O}_P(1) = \mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$.
+
+\begin{lemma}
+\label{lemma-cap-projective-bundle}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+$\mathcal{O}_X$-module localement libre de type fini ; ce module
+$\mathcal{E}$ est de rang $r$. Soit $(\pi : P \to X, \mathcal{O}_P(1))$ le
+fibré projectif associé à $\mathcal{E}$. Pour tout $\alpha \in \CH_k(X)$,
+l'élément
+$$
+\pi_*\left(
+c_1(\mathcal{O}_P(1))^s \cap \pi^*\alpha
+\right)
+\in
+\CH_{k + r - 1 - s}(X)
+$$
+est $0$ si $s < r - 1$ et égal à $\alpha$ si $s = r - 1$.
+\end{lemma}
+
+\begin{proof}
+Soit $Z \subset X$ un sous-espace fermé intègre de $\delta$-dimension $k$.
+Nous démontrerons le lemme pour $\alpha = [Z]$. Nous omettons l'argument qui
+déduit le cas général de ce cas particulier ; indication : procéder comme dans
+la remarque \ref{remark-infinite-sums-rational-equivalences}.
+
+\medskip\noindent
+Soit $P_Z = P \times_X Z$ le changement de base ; bien entendu, $\pi_Z : P_Z
+\to Z$ est le fibré projectif associé à $\mathcal{E}|_Z$, et l'image réciproque
+de $\mathcal{O}_P(1)$ est le module inversible correspondant sur $P_Z$. Puisque
+$c_1(\mathcal{O}_P(1) \cap -$ et $\pi^*$ sont des classes bivariantes par les
+lemmes \ref{lemma-cap-c1-bivariant} et \ref{lemma-flat-pullback-bivariant},
+il vient
+$$
+\pi_*\left(
+c_1(\mathcal{O}_P(1))^s \cap \pi^*[Z]
+\right)
+=
+(Z \to X)_*\pi_{Z, *}\left(
+c_1(\mathcal{O}_{P_Z}(1))^s \cap \pi_Z^*[Z]
+\right)
+$$
+Il suffit donc de prouver le lemme dans le cas où $X$ est intègre et $\alpha
+= [X]$.
+
+\medskip\noindent
+Supposons $X$ intègre, $\dim_\delta(X) = k$ et $\alpha = [X]$. Remarquons que
+$\pi^*[X] = [P]$, puisque $P$ est intègre de $\delta$-dimension $r - 1$. Si
+$s < r - 1$, alors, par construction, $c_1(\mathcal{O}_P(1))^s \cap [P]$ est
+un $(k + r - 1 - s)$-cycle. Son image directe est donc nulle pour des raisons
+de dimension.
+
+\medskip\noindent
+Soit $s = r - 1$. L'argument précédent donne
+$\pi_*(c_1(\mathcal{O}_P(1))^s \cap [P]) = n [X]$ pour un certain $n \in
+\mathbf{Z}$. Nous voulons montrer que $n = 1$. Pour les mêmes raisons de
+dimension, il suffit de le faire après remplacement de $X$ par un ouvert
+dense. Nous pouvons donc supposer que $X$ est un schéma, et le résultat découle
+alors du lemme \ref{chow-lemma-cap-projective-bundle} de l'Homologie de Chow.
+\end{proof}
+
+\begin{lemma}[Formule du fibré projectif]
+\label{lemma-chow-ring-projective-bundle}
+Soit $(S, \delta)$ comme dans la situation \ref{situation-setup}. Soit $X$
+localement de type fini sur $S$. Soit $\mathcal{E}$ un $\mathcal{O}_X$-module
+localement libre de type fini ; ce module $\mathcal{E}$ est de rang $r$. Soit
+$(\pi : P \to X, \mathcal{O}_P(1))$ le fibré projectif associé à
+$\mathcal{E}$. L'application
+$$
+\bigoplus\nolimits_{i = 0}^{r - 1}
+\CH_{k + i}(X)
+\longrightarrow
+\CH_{k + r - 1}(P),
+$$
+$$
+(\alpha_0, \ldots, \alpha_{r-1})
+\longmapsto
+\pi^*\alpha_0 +
+c_1(\mathcal{O}_P(1)) \cap \pi^*\alpha_1
++ \ldots +
+c_1(\mathcal{O}_P(1))^{r - 1} \cap \pi^*\alpha_{r-1}
+$$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Fixons $k \in \mathbf{Z}$. Montrons d'abord que l'application est injective.
+Supposons que $(\alpha_0, \ldots, \alpha_{r - 1})$ soit un élément du membre de
+gauche dont l'image est nulle. Le lemme \ref{lemma-cap-projective-bundle} donne
+$$
+0 = \pi_*(\pi^*\alpha_0 +
+c_1(\mathcal{O}_P(1)) \cap \pi^*\alpha_1
++ \ldots +
+c_1(\mathcal{O}_P(1))^{r - 1} \cap \pi^*\alpha_{r-1})
+= \alpha_{r - 1}
+$$
+Ensuite,
+$$
+0 = \pi_*(c_1(\mathcal{O}_P(1)) \cap (\pi^*\alpha_0 +
+c_1(\mathcal{O}_P(1)) \cap \pi^*\alpha_1
++ \ldots +
+c_1(\mathcal{O}_P(1))^{r - 2} \cap \pi^*\alpha_{r - 2}))
+= \alpha_{r - 2}
+$$
+et ainsi de suite. L'application est donc injective.
+
+\medskip\noindent
+Pour démontrer la surjectivité, nous raisonnerons exactement comme dans la
+preuve du lemme \ref{lemma-pullback-affine-fibres-surjective}, afin de nous
+ramener au cas des schémas. Le lecteur est invité à omettre cette preuve.
+
+\medskip\noindent
+Soit $\beta \in \CH_{k + r - 1}(P)$. Écrivons $\beta = \sum m_j[W_j]$ avec
+$m_j \not = 0$ et $W_j$ des sous-espaces fermés intègres distincts par paires
+et de $\delta$-dimension $k + r$. La famille $\{W_j\}$ est alors localement
+finie dans $P$. Soit $Z_j \subset X$ l'« image » de $W_j$ comme dans le lemme
+\ref{lemma-proper-image}. Pour toute partie ouverte quasi-compacte $U \subset
+X$, l'intersection $\pi^{-1}(U) \cap W_j$ n'est non vide que pour un nombre
+fini de $j$. Par conséquent, les images $Z_j$ forment une famille localement
+finie de sous-espaces fermés intègres de $X$.
+
+\medskip\noindent
+Considérons les diagrammes cartésiens
+$$
+\xymatrix{
+P_j \ar[r] \ar[d]_{\pi_j} & P \ar[d]^\pi \\
+Z_j \ar[r] & X
+}
+$$
+Supposons que $[W_j] \in Z_{k + r - 1}(P_j)$ soit rationnellement équivalent à
+$$
+\pi_j^*\alpha_{j, 0} +
+c_1(\mathcal{O}(1)) \cap \pi_j^*\alpha_{j, 1} +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi_j^*\alpha_{j, r - 1}
+$$
+pour certains $(k + i)$-cycles $\alpha_{j, i} \in \CH_{k + i}(Z_j)$. Alors
+$\alpha_i = \sum m_j \beta_{j, i}$ sera un $(k + i)$-cycle sur $X$, et
+$$
+\pi^*\alpha_0 +
+c_1(\mathcal{O}(1)) \cap \pi^*\alpha_1 +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi^*\alpha_{r - 1}
+$$
+sera rationnellement équivalent à $\beta$ (voir la remarque
+\ref{remark-infinite-sums-rational-equivalences}). Cela nous réduit au cas $X$
+intègre et $\alpha = [W]$ pour un sous-schéma fermé intègre de $P$ dominant
+$X$. En particulier, nous pouvons supposer que $d = \dim_\delta(X) < \infty$.
+
+\medskip\noindent
+Nous pouvons donc raisonner par récurrence sur $d = \dim_\delta(X)$. Si $d <
+k$, alors $\CH_{k + r - 1}(X) = 0$ et le lemme est établi ; c'est le cas
+initial de la récurrence. Considérons une partie ouverte non vide $U \subset
+X$. Supposons que
+l'on puisse montrer que
+$$
+\beta|_{\pi^{-1}(U)} =
+\pi^*\alpha_0 +
+c_1(\mathcal{O}(1)) \cap \pi^*\alpha_1 +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi^*\alpha_{r - 1}
+$$
+pour certains $\alpha_i \in Z_{k + i}(U)$. Le lemme
+\ref{lemma-exact-sequence-open} donne $\alpha_i = \alpha'_i|_U$ pour certains
+$\alpha'_i \in Z_{k + i}(X)$. Par les suites exactes $\CH_{k +
+i}(\pi^{-1}(X \setminus U)) \to \CH_{k + i}(P) \to \CH_{k + i}(\pi^{-1}(U))$
+du lemme \ref{lemma-restrict-to-open}, il vient que
+$$
+\beta -
+\left(\pi^*\alpha'_0 +
+c_1(\mathcal{O}(1)) \cap \pi^*\alpha'_1 +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi^*\alpha'_{r - 1}\right)
+$$
+provient d'un cycle $\beta' \in \CH_{k + r}(\pi^{-1}(X \setminus U))$. Puisque
+$\dim_\delta(X \setminus U) < d$, on conclut par récurrence sur $d$.
+
+\medskip\noindent
+En particulier, après remplacement de $X$ par un ouvert convenable, nous
+pouvons supposer que $X$ est un schéma ; le problème est alors ramené au lemme
+\ref{chow-lemma-chow-ring-projective-bundle} de l'Homologie de Chow.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-vectorbundle}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+faisceau localement libre de type fini et de rang $r$ sur $X$. Soit
+$$
+p :
+E = \underline{\Spec}(\text{Sym}^*(\mathcal{E}))
+\longrightarrow
+X
+$$
+le fibré vectoriel associé au-dessus de $X$. Alors $p^* : \CH_k(X) \to
+\CH_{k + r}(E)$ est un isomorphisme pour tout $k$.
+\end{lemma}
+
+\begin{proof}
+(Pour le cas des fibrés en droites, voir le lemme \ref{lemma-linebundle}.) La
+surjectivité résulte du lemme \ref{lemma-pullback-affine-fibres-surjective}.
+Soit $(\pi  : P \to X, \mathcal{O}_P(1))$ le fibré en espaces projectifs
+associé au faisceau localement libre de type fini $\mathcal{E} \oplus
+\mathcal{O}_X$. Soit $s \in \Gamma(P, \mathcal{O}_P(1))$ la section globale
+correspondant à $(0, 1) \in \Gamma(X, \mathcal{E} \oplus \mathcal{O}_X)$.
+Soit $D = Z(s) \subset P$. Remarquons que $(\pi|_D : D \to X ,
+\mathcal{O}_P(1)|_D)$ est le fibré en espaces projectifs associé à
+$\mathcal{E}$. Posons $\pi_D = \pi|_D$ et $\mathcal{O}_D(1) =
+\mathcal{O}_P(1)|_D$. De plus, $D$ est un diviseur de Cartier effectif sur $P$.
+Ainsi, $\mathcal{O}_P(D) = \mathcal{O}_P(1)$ (voir Diviseurs sur les espaces,
+lemme \ref{spaces-divisors-lemma-characterize-OD}). Il existe aussi un
+isomorphisme $E \cong P \setminus D$. Notons $j : E \to P$ l'immersion ouverte
+correspondante. Pour l'injectivité, utilisons le fait que les éléments du noyau
+de
+$$
+j^* :
+\CH_{k + r}(P)
+\longrightarrow
+\CH_{k + r}(E)
+$$
+sont les cycles à support dans le diviseur de Cartier effectif $D$ ; voir le
+lemme \ref{lemma-restrict-to-open}. Ainsi, si $p^*\alpha = 0$, alors
+$\pi^*\alpha = i_*\beta$ pour un certain $\beta \in \CH_{k + r}(D)$. Le lemme
+\ref{lemma-chow-ring-projective-bundle} permet d'écrire
+$$
+\beta = \pi_D^*\beta_0 +
+\ldots + c_1(\mathcal{O}_D(1))^{r - 1} \cap \pi_D^* \beta_{r - 1}.
+$$
+pour certains $\beta_i \in \CH_{k + i}(X)$. Les lemmes
+\ref{lemma-relative-effective-cartier} et \ref{lemma-pushforward-cap-c1}
+donnent alors
+$$
+\pi^*\alpha = i_*\beta =
+c_1(\mathcal{O}_P(1)) \cap \pi^*\beta_0 +
+\ldots +
+c_1(\mathcal{O}_D(1))^r \cap \pi^*\beta_{r - 1}.
+$$
+Puisque le rang de $\mathcal{E} \oplus \mathcal{O}_X$ est $r + 1$, cela
+contredit le lemme \ref{lemma-pushforward-cap-c1}, à moins que tous les
+$\alpha$ et tous les $\beta_i$ ne soient nuls.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Les classes de Chern d'un fibré vectoriel}
+\label{section-chern-classes-vector-bundles}
+
+\noindent
+Cette section est l'analogue des sections
+\ref{chow-section-chern-classes-vector-bundles} et
+\ref{chow-section-intersecting-chern-classes} de l'Homologie de Chow.
+Cependant, contrairement à ce qui y est fait, nous définissons directement les
+classes de Chern d'un fibré vectoriel comme des classes bivariantes. Cela
+économise un travail considérable.
+
+\begin{lemma}
+\label{lemma-segre-classes}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+faisceau localement libre de type fini et de rang $r$ sur $X$. Soit
+$(\pi : P \to X, \mathcal{O}_P(1))$ le fibré en espaces projectifs associé à
+$\mathcal{E}$. Pour tout morphisme $X' \to X$ de bons espaces algébriques
+au-dessus de $B$, il existe des applications uniques
+$$
+c_i(\mathcal{E}) \cap - : \CH_k(X') \longrightarrow \CH_{k - i}(X'),\quad
+i = 0, \ldots, r
+$$
+telles que, pour $\alpha \in \CH_k(X')$, nous ayons $c_0(\mathcal{E}) \cap
+\alpha = \alpha$ et
+$$
+\sum\nolimits_{i = 0, \ldots, r}
+(-1)^i c_1(\mathcal{O}_{P'}(1))^i \cap
+(\pi')^*\left(c_{r - i}(\mathcal{E}) \cap \alpha\right) = 0
+$$
+où $\pi' : P' \to X'$ est le changement de base de $\pi$. De plus, ces applications
+définissent une classe bivariante $c_i(\mathcal{E})$ de degré $i$ sur $X$.
+\end{lemma}
+
+\begin{proof}
+L'existence et l'unicité des applications $c_i(\mathcal{E}) \cap -$ résultent
+immédiatement du lemme \ref{lemma-chow-ring-projective-bundle} et de la
+description donnée de $c_0(\mathcal{E})$. Pour tout $i \in \mathbf{Z}$, la
+règle qui associe à tout morphisme $X' \to X$ de bons espaces algébriques
+au-dessus de $B$ l'application
+$$
+t_i(\mathcal{E}) \cap - :
+\CH_k(X') \longrightarrow \CH_{k - i}(X'),\quad
+\alpha \longmapsto
+\pi'_*(c_1(\mathcal{O}_{P'}(1))^{r - 1 + i} \cap (\pi')^*\alpha)
+$$
+est une classe bivariante\footnote{À des signes près, ce sont les classes de
+Segre de $\mathcal{E}$.}, par les lemmes \ref{lemma-cap-c1-bivariant},
+\ref{lemma-flat-pullback-bivariant} et \ref{lemma-push-proper-bivariant}. Par le
+lemme \ref{lemma-cap-projective-bundle}, nous avons $t_i(\mathcal{E}) = 0$ pour
+$i < 0$ et $t_0(\mathcal{E}) = 1$. En appliquant l'image directe à l'équation
+de l'énoncé du lemme, le lemme \ref{lemma-cap-projective-bundle} donne
+$$
+(-1)^r t_1(\mathcal{E}) + (-1)^{r - 1}c_1(\mathcal{E}) = 0
+$$
+En particulier, $c_1(\mathcal{E})$ est une classe bivariante. Si nous
+multiplions l'équation de l'énoncé du lemme par
+$c_1(\mathcal{O}_{P'}(1))$ et prenons l'image directe du résultat sur $X'$, il
+vient
+$$
+(-1)^r t_2(\mathcal{E}) +
+(-1)^{r - 1} t_1(\mathcal{E}) \cap c_1(\mathcal{E}) +
+(-1)^{r - 2} c_2(\mathcal{E}) = 0
+$$
+Comme précédemment, nous concluons que $c_2(\mathcal{E})$ est une classe
+bivariante. Et ainsi de suite.
+\end{proof}
+
+\begin{definition}
+\label{definition-chern-classes}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+faisceau localement libre de type fini et de rang $r$ sur $X$. Pour $i = 0,
+\ldots, r$, la {\it $i$-ième classe de Chern de $\mathcal{E}$} est la classe
+bivariante $c_i(\mathcal{E}) \in A^i(X)$ de degré $i$ construite dans le lemme
+\ref{lemma-segre-classes}. La {\it classe totale de Chern de $\mathcal{E}$} est
+la somme formelle
+$$
+c(\mathcal{E}) =
+c_0(\mathcal{E}) + c_1(\mathcal{E}) + \ldots + c_r(\mathcal{E})
+$$
+qui est considérée comme une classe bivariante non homogène sur $X$.
+\end{definition}
+
+\noindent
+Par commodité, nous posons souvent $c_i(\mathcal{E}) = 0$ pour
+$i > r$ et $i < 0$. Par définition, nous avons $c_0(\mathcal{E}) = 1 \in
+A^0(X)$. Voici une vérification élémentaire.
+
+\begin{lemma}
+\label{lemma-first-chern-class}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{L}$ un
+$\mathcal{O}_X$-module inversible. La première classe de Chern de
+$\mathcal{L}$ sur $X$, définie dans la définition
+\ref{definition-chern-classes}, est égale à la classe bivariante du lemme
+\ref{lemma-cap-c1-bivariant}.
+\end{lemma}
+
+\begin{proof}
+En effet, dans ce cas $P = \mathbf{P}(\mathcal{L}) = X$ et $\mathcal{O}_P(1) =
+\mathcal{L}$ par notre normalisation du fibré projectif ; voir la section
+\ref{section-projective-space-bundle-formula}. L'équation du lemme
+\ref{lemma-segre-classes} s'écrit donc
+$$
+(-1)^0 c_1(\mathcal{L})^0 \cap c^{new}_1(\mathcal{L}) \cap \alpha +
+(-1)^1 c_1(\mathcal{L})^1 \cap c^{new}_0(\mathcal{L}) \cap \alpha = 0
+$$
+où $c_i^{new}(\mathcal{L})$ est défini comme dans la définition
+\ref{definition-chern-classes}. Puisque $c_0^{new}(\mathcal{L}) = 1$ et
+$c_1(\mathcal{L})^0 = 1$, la conclusion suit.
+\end{proof}
+
+\noindent
+Nous voyons ensuite que les classes de Chern appartiennent au centre de
+l'anneau de cohomologie de Chow bivariante $A^*(X)$.
+
+\begin{lemma}
+\label{lemma-cap-commutative-chern}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+$\mathcal{O}_X$-module localement libre de rang $r$. Alors
+$c_j(\mathcal{L}) \in A^j(X)$ commute avec tout élément $c \in A^p(X)$. En
+particulier, si $\mathcal{F}$ est un second $\mathcal{O}_X$-module localement
+libre sur $X$, de rang $s$, alors
+$$
+c_i(\mathcal{E}) \cap c_j(\mathcal{F}) \cap \alpha
+=
+c_j(\mathcal{F}) \cap c_i(\mathcal{E}) \cap \alpha
+$$
+comme éléments de $\CH_{k - i - j}(X)$ pour tout $\alpha \in \CH_k(X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $X' \to X$ un morphisme de bons espaces algébriques au-dessus de $B$.
+Soit $\alpha \in \CH_k(X')$. Écrivons $\alpha_j = c_j(\mathcal{E}) \cap
+\alpha$, de sorte que $\alpha_0 = \alpha$. Le lemme
+\ref{lemma-segre-classes} donne
+$$
+\sum\nolimits_{i = 0}^r
+(-1)^i c_1(\mathcal{O}_{P'}(1))^i \cap
+(\pi')^*(\alpha_{r - i}) = 0
+$$
+dans le groupe de Chow du fibré projectif $(\pi' : P' \to X',
+\mathcal{O}_{P'}(1))$ associé à $(X' \to X)^*\mathcal{E}$. En appliquant $c
+\cap -$, puis en utilisant le lemme \ref{lemma-c1-center} et les propriétés des
+classes bivariantes, nous obtenons
+$$
+\sum\nolimits_{i = 0}^r
+(-1)^i c_1(\mathcal{O}_{P'}(1))^i \cap
+\pi^*(c \cap \alpha_{r - i}) = 0
+$$
+dans le groupe de Chow de $P'$. L'unicité affirmée dans le lemme
+\ref{lemma-segre-classes} montre donc que $c \cap \alpha_j$ est égal à
+$c_j(\mathcal{E}) \cap (c \cap \alpha)$. Cela prouve le lemme.
+\end{proof}
+
+\begin{remark}
+\label{remark-extend-to-finite-locally-free}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+$\mathcal{O}_X$-module localement libre de type fini. Si le rang de
+$\mathcal{E}$ n'est pas constant, nous pouvons encore définir les classes de
+Chern de $\mathcal{E}$. En effet, dans ce cas, on peut écrire
+$$
+X = X_0 \amalg X_1 \amalg X_2 \amalg \ldots
+$$
+où $X_r \subset X$ est le sous-espace ouvert et fermé sur lequel le rang de
+$\mathcal{E}$ est $r$. Si $X' \to X$ est un morphisme de bons espaces
+algébriques au-dessus de $B$, l'image réciproque fournit une décomposition
+correspondante de $X'$, et les définitions donnent
+$$
+\CH_*(X') = \prod\nolimits_{r \geq 0} \CH_*(X'_r)
+$$
+Nous définissons alors $c_i(\mathcal{E})$ comme la classe bivariante qui
+préserve ces décompositions en produits directs et agit sur les facteurs par
+les opérations déjà définies $c_i(\mathcal{E}|_{X_r}) \cap -$. Remarquons que,
+dans ce cadre, $c_i(\mathcal{E})$ peut être non nul pour une infinité de $i$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Relations polynomiales entre les classes de Chern}
+\label{section-relations-chern-classes}
+
+\noindent
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{E}_i$ les membres d'une famille finie de $\mathcal{O}_X$-modules
+localement libres de type fini. Le lemme \ref{lemma-cap-commutative-chern}
+montre que les classes de Chern
+$$
+c_j(\mathcal{E}_i) \in A^*(X)
+$$
+engendrent une sous-$\mathbf{Z}$-algèbre commutative, et même centrale, de la
+cohomologie de Chow $A^*(X)$. Il est donc bien défini qu'un polynôme en ces
+classes de Chern soit nul, ou que deux tels polynômes soient égaux. À titre
+d'exemple, dire que $c_1(\mathcal{E}_1)^5 +
+c_2(\mathcal{E}_2)c_3(\mathcal{E}_3) = 0$ signifie que les opérations
+$$
+\CH_k(Y) \longrightarrow \CH_{k - 5}(Y), \quad
+\alpha \longmapsto
+c_1(\mathcal{E}_1)^5 \cap \alpha +
+c_2(\mathcal{E}_2) \cap c_3(\mathcal{E}_3) \cap \alpha
+$$
+sont nulles pour tout morphisme $f : Y \to X$ de bons espaces algébriques
+au-dessus de $B$. Par le lemme \ref{lemma-bivariant-zero}, cette condition
+équivaut à demander que, pour tout morphisme $f : Y \to X$, où $Y$ est un
+espace algébrique intègre localement de type fini sur $X$, le cycle
+$$
+c_1(\mathcal{E}_1)^5 \cap [Y] +
+c_2(\mathcal{E}_2) \cap c_3(\mathcal{E}_3) \cap [Y]
+$$
+est nul dans $\CH_{\dim(Y) - 5}(Y)$.
+
+\medskip\noindent
+Un exemple concret est la relation
+$$
+c_1(\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N})
+=
+c_1(\mathcal{L}) + c_1(\mathcal{N})
+$$
+établie dans le lemme \ref{lemma-c1-cap-additive}. Plus généralement, voici ce
+qui se passe lorsqu'on tensorise un faisceau localement libre quelconque par un
+faisceau inversible.
+
+\begin{lemma}
+\label{lemma-chern-classes-E-tensor-L}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+faisceau localement libre de type fini et de rang $r$ sur $X$. Soit
+$\mathcal{L}$ un faisceau inversible sur $X$. Alors
+\begin{equation}
+\label{equation-twist}
+c_i({\mathcal E} \otimes {\mathcal L})
+=
+\sum\nolimits_{j = 0}^i
+\binom{r - i + j}{j} c_{i - j}({\mathcal E}) c_1({\mathcal L})^j
+\end{equation}
+dans $A^*(X)$.
+\end{lemma}
+
+\begin{proof}
+La preuve est identique à celle du lemme
+\ref{chow-lemma-chern-classes-E-tensor-L} de l'Homologie de Chow, les lemmes
+\ref{lemma-bivariant-zero} et \ref{lemma-segre-classes} remplaçant ceux qui y
+sont utilisés.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Additivité des classes de Chern}
+\label{section-additivity-chern-classes}
+
+\noindent
+Cette section est l'analogue de la section
+\ref{chow-section-additivity-chern-classes} de l'Homologie de Chow.
+
+\begin{lemma}
+\label{lemma-get-rid-of-trivial-subbundle}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{E}$, $\mathcal{F}$ des faisceaux localement libres de type fini sur
+$X$, de rangs respectifs $r$, $r - 1$, qui s'insèrent dans une suite exacte
+courte
+$$
+0 \to \mathcal{O}_X \to \mathcal{E} \to \mathcal{F} \to 0
+$$
+Alors
+$$
+c_r(\mathcal{E}) = 0, \quad
+c_j(\mathcal{E}) = c_j(\mathcal{F}), \quad j = 0, \ldots, r - 1
+$$
+dans $A^*(X)$.
+\end{lemma}
+
+\begin{proof}
+La preuve est identique à celle du lemme
+\ref{chow-lemma-get-rid-of-trivial-subbundle} de l'Homologie de Chow, les
+lemmes \ref{lemma-bivariant-zero},
+\ref{lemma-relative-effective-cartier}, \ref{lemma-pushforward-cap-c1} et
+\ref{lemma-segre-classes} remplaçant ceux qui y sont utilisés.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-additivity-invertible-subsheaf}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{E}$, $\mathcal{F}$ des faisceaux localement libres de type fini sur
+$X$, de rangs respectifs $r$, $r - 1$, qui s'insèrent dans une suite exacte
+courte
+$$
+0 \to \mathcal{L} \to \mathcal{E} \to \mathcal{F} \to 0
+$$
+où $\mathcal{L}$ est un faisceau inversible. Alors
+$$
+c(\mathcal{E}) = c(\mathcal{L}) c(\mathcal{F})
+$$
+dans $A^*(X)$.
+\end{lemma}
+
+\begin{proof}
+La preuve est identique à celle du lemme
+\ref{chow-lemma-additivity-invertible-subsheaf} de l'Homologie de Chow, les
+lemmes \ref{lemma-get-rid-of-trivial-subbundle} et
+\ref{lemma-chern-classes-E-tensor-L} remplaçant ceux qui y sont utilisés.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-additivity-chern-classes}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Supposons que
+$\mathcal{E}$ s'insère dans une suite exacte
+$$
+0
+\to
+\mathcal{E}_1
+\to
+\mathcal{E}
+\to
+\mathcal{E}_2
+\to
+0
+$$
+de faisceaux localement libres de type fini $\mathcal{E}_i$, de rang $r_i$.
+Les classes totales de Chern vérifient
+$$
+c(\mathcal{E}) = c(\mathcal{E}_1) c(\mathcal{E}_2)
+$$
+dans $A^*(X)$.
+\end{lemma}
+
+\begin{proof}
+La preuve est identique à celle du lemme
+\ref{chow-lemma-additivity-chern-classes} de l'Homologie de Chow, les lemmes
+\ref{lemma-bivariant-zero}, \ref{lemma-additivity-invertible-subsheaf} et
+\ref{lemma-segre-classes} remplaçant ceux qui y sont utilisés.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-chern-filter-by-linebundles}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+${\mathcal L}_i$, $i = 1, \ldots, r$, des $\mathcal{O}_X$-modules inversibles.
+Soit $\mathcal{E}$ un $\mathcal{O}_X$-module localement libre, muni d'une
+filtration
+$$
+0 = \mathcal{E}_0 \subset \mathcal{E}_1 \subset \mathcal{E}_2
+\subset \ldots \subset \mathcal{E}_r = \mathcal{E}
+$$
+tel que $\mathcal{E}_i/\mathcal{E}_{i - 1} \cong \mathcal{L}_i$. Posons
+$c_1({\mathcal L}_i) = x_i$. Alors
+$$
+c(\mathcal{E})
+=
+\prod\nolimits_{i = 1}^r (1 + x_i)
+$$
+dans $A^*(X)$.
+\end{lemma}
+
+\begin{proof}
+Appliquons le lemme \ref{lemma-additivity-invertible-subsheaf} et raisonnons
+par récurrence.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Le principe de scindage}
+\label{section-splitting-principle}
+
+\noindent
+Cette section est l'analogue de la section
+\ref{chow-section-additivity-chern-classes} de l'Homologie de Chow.
+
+\begin{lemma}
+\label{lemma-splitting-principle}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{E}_i$ les membres d'une famille finie de $\mathcal{O}_X$-modules
+localement libres, de rang $r_i$. Il existe un morphisme projectif et plat
+$\pi : P \to X$, de dimension relative $d$, tel que
+\begin{enumerate}
+\item pour tout morphisme $f : Y \to X$ de bons espaces algébriques au-dessus de $B$,
+l'application $\pi_Y^* : \CH_*(Y) \to \CH_{* + d}(Y \times_X P)$ est
+injective, et
+\item chaque $\pi^*\mathcal{E}_i$ possède une filtration dont les quotients
+successifs $\mathcal{L}_{i, 1}, \ldots, \mathcal{L}_{i, r_i}$ sont des
+${\mathcal O}_P$-modules inversibles.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Raisonnons par récurrence sur l'entier $r = \sum r_i$. Si $r = 0$, nous
+pouvons prendre $\pi = \text{id}_X$. Si $r_i = 1$ pour tout $i$, nous pouvons
+encore prendre $\pi = \text{id}_X$. Supposons que $r_{i_0} > 1$ pour un certain
+$i_0$. Soit $(\pi : P \to X, \mathcal{O}_P(1))$ le fibré projectif associé à
+$\mathcal{E}_{i_0}$. L'homomorphisme canonique $\pi^*\mathcal{E}_{i_0} \to
+\mathcal{O}_P(1)$ est surjectif ; son noyau $\mathcal{E}'_{i_0}$ est donc
+localement libre de type fini et de rang $r_{i_0} - 1$. Remarquons que
+$\pi_Y^*$ est injectif pour tout morphisme $f : Y \to X$ de bons espaces
+algébriques au-dessus de $B$ ; voir le lemme
+\ref{lemma-chow-ring-projective-bundle}. Il suffit donc de démontrer le lemme
+pour $P$ et les faisceaux localement libres $\pi^*\mathcal{E}_i$. Cependant,
+puisque nous disposons du sous-fibré $\mathcal{E}_{i_0} \subset
+\pi^*\mathcal{E}_{i_0}$ à quotient inversible, il suffit maintenant de traiter
+la famille $\{\mathcal{E}_i\}_{i \not = i_0} \cup
+\{\mathcal{E}'_{i_0}\}$. Cela diminue $r$ de $1$, et l'hypothèse de récurrence
+permet de conclure.
+\end{proof}
+
+\noindent
+Plutôt que d'expliquer ce qu'affirme le principe de scindage, utilisons-le
+dans la preuve de quelques lemmes.
+
+\begin{lemma}
+\label{lemma-chern-classes-dual}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soit $\mathcal{E}$ un
+$\mathcal{O}_X$-module localement libre de type fini, dont le dual est
+$\mathcal{E}^\vee$. Alors
+$$
+c_i(\mathcal{E}^\vee) = (-1)^i c_i(\mathcal{E})
+$$
+dans $A^i(X)$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme $\pi : P \to X$ comme dans le lemme
+\ref{lemma-splitting-principle}. Puisque $\pi^*$ est injectif après tout
+changement de base, il suffit d'établir la relation entre les classes de Chern
+de $\mathcal{E}$ et de $\mathcal{E}^\vee$ après image réciproque sur $P$. Nous
+pouvons donc supposer qu'il existe des $\mathcal{O}_X$-modules inversibles
+${\mathcal L}_i$, $i = 1, \ldots, r$, et une filtration
+$$
+0 = \mathcal{E}_0 \subset \mathcal{E}_1 \subset \mathcal{E}_2
+\subset \ldots \subset \mathcal{E}_r = \mathcal{E}
+$$
+telle que $\mathcal{E}_i/\mathcal{E}_{i - 1} \cong \mathcal{L}_i$. On obtient
+alors la filtration duale
+$$
+0 = \mathcal{E}_r^\perp \subset \mathcal{E}_1^\perp \subset \mathcal{E}_2^\perp
+\subset \ldots \subset \mathcal{E}_0^\perp = \mathcal{E}^\vee
+$$
+telle que $\mathcal{E}_{i - 1}^\perp/\mathcal{E}_i^\perp \cong
+\mathcal{L}_i^{\otimes -1}$. Posons $x_i = c_1(\mathcal{L}_i)$. Alors
+$c_1(\mathcal{L}_i^{\otimes -1}) = - x_i$ par le lemme
+\ref{lemma-c1-cap-additive}. Par le lemme
+\ref{lemma-chern-filter-by-linebundles}, nous avons
+$$
+c(\mathcal{E}) = \prod\nolimits_{i = 1}^r (1 + x_i)
+\quad\text{and}\quad
+c(\mathcal{E}^\vee) = \prod\nolimits_{i = 1}^r (1 - x_i)
+$$
+dans $A^*(X)$. Le résultat découle d'un calcul formel que nous omettons.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-chern-classes-tensor-product}
+Dans la situation \ref{situation-setup}, soit $X/B$ bon. Soient
+$\mathcal{E}$ et $\mathcal{F}$ des $\mathcal{O}_X$-modules localement libres de
+type fini, de rangs respectifs $r$ et $s$. Alors
+$$
+c_1(\mathcal{E} \otimes \mathcal{F})
+=
+r c_1(\mathcal{F}) + s c_1(\mathcal{E})
+$$
+$$
+c_2(\mathcal{E} \otimes \mathcal{F})
+=
+r^2 c_2(\mathcal{F}) +
+rs c_1(\mathcal{F})c_1(\mathcal{E}) +
+s^2 c_2(\mathcal{E})
+$$
+et ainsi de suite (voir preuve).
+\end{lemma}
+
+\begin{proof}
+En raisonnant exactement comme dans la preuve du lemme
+\ref{lemma-chern-classes-dual}, nous pouvons supposer donnés des
+$\mathcal{O}_X$-modules inversibles ${\mathcal L}_i$, $i = 1, \ldots, r$, des
+${\mathcal N}_i$, $i = 1, \ldots, s$, et des filtrations
+$$
+0 = \mathcal{E}_0 \subset \mathcal{E}_1 \subset \mathcal{E}_2
+\subset \ldots \subset \mathcal{E}_r = \mathcal{E}
+\quad\text{and}\quad
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2
+\subset \ldots \subset \mathcal{F}_s = \mathcal{F}
+$$
+telles que $\mathcal{E}_i/\mathcal{E}_{i - 1} \cong \mathcal{L}_i$ et que
+$\mathcal{F}_j/\mathcal{F}_{j - 1} \cong \mathcal{N}_j$. En ordonnant
+lexicographiquement les couples $(i, j)$, on obtient une filtration
+$$
+0 \subset \ldots \subset
+\mathcal{E}_i \otimes \mathcal{F}_j
++
+\mathcal{E}_{i - 1} \otimes \mathcal{F}
+\subset \ldots \subset \mathcal{E} \otimes \mathcal{F}
+$$
+dont les quotients successifs sont
+$$
+\mathcal{L}_1 \otimes \mathcal{N}_1,
+\mathcal{L}_1 \otimes \mathcal{N}_2,
+\ldots,
+\mathcal{L}_1 \otimes \mathcal{N}_s,
+\mathcal{L}_2 \otimes \mathcal{N}_1,
+\ldots,
+\mathcal{L}_r \otimes \mathcal{N}_s
+$$
+Par le lemme \ref{lemma-chern-filter-by-linebundles}, nous avons
+$$
+c(\mathcal{E}) = \prod (1 + x_i),
+\quad
+c(\mathcal{F}) = \prod (1 + y_j),
+\quad\text{and}\quad
+c(\mathcal{F}) = \prod (1 + x_i + y_j),
+$$
+dans $A^*(X)$. Le résultat découle d'un calcul formel que nous omettons.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Degrés des zéro-cycles}
+\label{section-degree-zero-cycles}
+
+\noindent
+Cette section est l'analogue de la section
+\ref{chow-section-degree-zero-cycles} de l'Homologie de Chow. Commençons par
+définir le degré d'un zéro-cycle sur un espace algébrique propre au-dessus d'un
+corps.
+
+\begin{definition}
+\label{definition-degree-zero-cycle}
+Soit $k$ un corps. Soit $p : X \to \Spec(k)$ un morphisme propre d'espaces
+algébriques. Le {\it degré d'un zéro-cycle} sur $X$ est donné par l'image
+directe propre
+$$
+p_* : \CH_0(X) \longrightarrow \CH_0(\Spec(k)) \longrightarrow \mathbf{Z}
+$$
+(lemme \ref{lemma-proper-pushforward-rational-equivalence}), composée avec
+l'isomorphisme naturel $\CH_0(\Spec(k)) \to \mathbf{Z}$ qui envoie $[\Spec(k)]$
+à $1$. Notation : $\deg(\alpha)$.
+\end{definition}
+
+\noindent
+Expliquons cela plus en détail.
+
+\begin{lemma}
+\label{lemma-spell-out-degree-zero-cycle}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$. Soit $\alpha
+= \sum n_i[Z_i]$ dans $Z_0(X)$. Alors
+$$
+\deg(\alpha) = \sum n_i\deg(Z_i)
+$$
+où $\deg(Z_i)$ est le degré de $Z_i \to \Spec(k)$, c'est-à-dire $\deg(Z_i) =
+\dim_k \Gamma(Z_i, \mathcal{O}_{Z_i})$.
+\end{lemma}
+
+\begin{proof}
+C'est la définition de l'image directe propre (définition
+\ref{definition-proper-pushforward}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-degrees-and-numerical-intersections}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$. Soit $Z
+\subset X$ un sous-espace fermé de dimension $d$. Soient $\mathcal{L}_1,
+\ldots, \mathcal{L}_d$ des $\mathcal{O}_X$-modules inversibles. Alors
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z) =
+\deg(
+c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_1) \cap [Z]_d)
+$$
+où le membre de gauche est défini dans Espaces sur les corps, définition
+\ref{spaces-over-fields-definition-intersection-number}.
+\end{lemma}
+
+\begin{proof}
+Soient $Z_i \subset Z$, $i = 1, \ldots, t$, les composantes irréductibles de
+dimension $d$. Soit $m_i$ la multiplicité de $Z_i$ dans $Z$. Alors $[Z]_d =
+\sum m_i[Z_i]$, et $c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_d)
+\cap [Z]_d$ est la somme des cycles $m_i c_1(\mathcal{L}_1) \cap \ldots \cap
+c_1(\mathcal{L}_d) \cap [Z_i]$. Comme on dispose d'une décomposition analogue
+pour $(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z)$ d'après le lemme
+\ref{spaces-over-fields-lemma-numerical-polynomial-leading-term} d'Espaces sur
+les corps, il suffit de démontrer le lemme lorsque $Z = X$ est un espace
+algébrique intègre propre sur $k$.
+
+\medskip\noindent
+D'après le lemme de Chow, il existe un morphisme propre $f : X' \to X$ qui est
+un isomorphisme au-dessus d'une partie ouverte dense $U \subset X$ et tel que
+$X'$ soit un schéma ; voir le lemme
+\ref{spaces-more-morphisms-lemma-chow-noetherian-separated} de Compléments sur
+les morphismes d'espaces. Alors $X'$ est un schéma propre sur $k$. Après avoir
+remplacé $X'$ par l'adhérence schématique de $f^{-1}(U)$, nous pouvons supposer
+que $X'$ est intègre. Alors
+$$
+(f^*\mathcal{L}_1 \cdots f^*\mathcal{L}_d \cdot X') =
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot X)
+$$
+par le lemme \ref{spaces-over-fields-lemma-intersection-number-and-pullback}
+d'Espaces sur les corps, et nous avons
+$$
+f_*(c_1(f^*\mathcal{L}_1) \cap \ldots \cap c_1(f^*\mathcal{L}_d) \cap [Y]) =
+c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_d) \cap [X]
+$$
+par le lemme \ref{lemma-pushforward-cap-c1}. Nous pouvons donc remplacer $X$
+par $X'$ et supposer que $X$ est un schéma propre sur $k$. Ce cas est établi
+dans le lemme \ref{chow-lemma-degrees-and-numerical-intersections} de
+l'Homologie de Chow.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,3047 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Hyperrecouvrements}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Soit $\mathcal{C}$ un site, voir Sites, définition \ref{sites-definition-site}.
+Soit $X$ un objet de $\mathcal{C}$.
+Étant donné un faisceau abélien $\mathcal{F}$
+sur $\mathcal{C}$, nous voudrions calculer
+ses groupes de cohomologie
+$$
+H^i(X, \mathcal{F}).
+$$
+Selon nos définitions générales (Cohomologie sur les sites, section
+\ref{sites-cohomology-section-cohomology-sheaves})
+ce groupe de cohomologie se calcule en
+choisissant une résolution injective
+$
+0 \to \mathcal{F} \to \mathcal{I}^0 \to \mathcal{I}^1 \to \ldots
+$
+et en posant
+$$
+H^i(X, \mathcal{F})
+=
+H^i(
+\Gamma(X, \mathcal{I}^0) \to
+\Gamma(X, \mathcal{I}^1) \to
+\Gamma(X, \mathcal{I}^2)\to \ldots)
+$$
+Le but de ce chapitre est de montrer que nous pouvons aussi calculer ces
+groupes de cohomologie sans choisir de résolution injective
+(dans le cas où $\mathcal{C}$ admet des produits fibrés). Pour ce faire,
+nous utiliserons des hyperrecouvrements.
+
+\medskip\noindent
+Un hyperrecouvrement dans un site est une généralisation d'un recouvrement, voir
+\cite[Expos\'e V, Sec. 7]{SGA4}. Étant donné un hyperrecouvrement $K$ d'un objet
+$X$, il existe une suite spectrale de {\v C}ech vers la cohomologie
+qui exprime la cohomologie d'un faisceau abélien $\mathcal{F}$
+sur $X$ en fonction de la cohomologie du faisceau sur les
+composantes $K_n$ de $K$. Il s'avère qu'il existe toujours
+assez d'hyperrecouvrements pour que, en prenant la limite inductive sur tous les hyperrecouvrements,
+la suite spectrale dégénère et que la cohomologie de $\mathcal{F}$
+sur $X$ soit calculée par la limite inductive des groupes de cohomologie de {\v C}ech.
+
+\medskip\noindent
+Un objet plus général que l'on peut considérer est une augmentation simpliciale pour laquelle
+on a la descente cohomologique, voir \cite[Expos\'e Vbis]{SGA4}. Un excellent
+manuscrit sur la descente cohomologique est le texte de Brian Conrad, voir
+\url{https://math.stanford.edu/~conrad/papers/hypercover.pdf}.
+Nous reviendrons sur ces questions dans le chapitre sur les espaces simpliciaux,
+où nous montrerons, par exemple, que les hyperrecouvrements propres d'espaces
+topologiques « localement compacts » sont de descente
+cohomologique (Espaces simpliciaux, section
+\ref{spaces-simplicial-section-proper-hypercovering}).
+Notre méthode consistera à ramener cet énoncé à la suite spectrale de {\v C}ech vers
+la cohomologie construite dans ce chapitre.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Objets semi-représentables}
+\label{section-semi-representable}
+
+\noindent
+Pour commencer, nous posons la définition suivante.
+Les lettres « SR » signifient semi-représentable.
+
+\begin{definition}
+\label{definition-SR}
+Soit $\mathcal{C}$ une catégorie. Nous notons $\text{SR}(\mathcal{C})$
+la catégorie des {\it objets semi-représentables} définie comme suit :
+\begin{enumerate}
+\item les objets sont les familles d'objets $\{U_i\}_{i \in I}$ ;
+\item les morphismes $\{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$ sont donnés par
+une application $\alpha : I \to J$ et, pour chaque $i \in I$,
+un morphisme $f_i : U_i \to V_{\alpha(i)}$ de $\mathcal{C}$.
+\end{enumerate}
+Soit $X \in \Ob(\mathcal{C})$ un objet de $\mathcal{C}$.
+La catégorie des {\it objets semi-représentables au-dessus de $X$}
+est la catégorie
+$\text{SR}(\mathcal{C}, X) = \text{SR}(\mathcal{C}/X)$.
+\end{definition}
+
+\noindent
+Cette définition est essentiellement équivalente à
+\cite[Expos\'e V, Subsection 7.3.0]{SGA4}. Notons qu'il
+s'agit d'une « grande » catégorie. Nous bornerons plus loin la taille des ensembles
+d'indices $I$ dont nous avons besoin pour les hyperrecouvrements de $X$. Nous pourrons alors redéfinir
+$\text{SR}(\mathcal{C}, X)$ de façon à en faire une catégorie. Explicitons
+les objets et les morphismes de $\text{SR}(\mathcal{C}, X)$ :
+\begin{enumerate}
+\item les objets sont les familles de morphismes
+$\{U_i \to X\}_{i \in I}$ ;
+\item les morphismes $\{U_i \to X\}_{i \in I} \to
+\{V_j \to X\}_{j \in J}$ sont donnés par
+une application $\alpha : I \to J$ et, pour chaque $i \in I$,
+un morphisme $f_i : U_i \to V_{\alpha(i)}$ au-dessus de $X$.
+\end{enumerate}
+Il existe un foncteur d'oubli
+$\text{SR}(\mathcal{C}, X) \to \text{SR}(\mathcal{C})$.
+
+\begin{definition}
+\label{definition-SR-F}
+Soit $\mathcal{C}$ une catégorie.
+Nous notons $F$ le foncteur {\it qui associe un préfaisceau à un
+objet semi-représentable}. En formule,
+\begin{eqnarray*}
+F : \text{SR}(\mathcal{C}) & \longrightarrow & \textit{PSh}(\mathcal{C}) \\
+\{U_i\}_{i \in I} & \longmapsto & \amalg_{i\in I} h_{U_i}
+\end{eqnarray*}
+où $h_U$ désigne le préfaisceau représentable associé à
+l'objet $U$.
+\end{definition}
+
+\noindent
+Étant donné un morphisme $U \to X$, nous obtenons un morphisme $h_U \to h_X$ de préfaisceaux
+représentables. Ainsi, nous considérons souvent la restriction de $F$ à $\text{SR}(\mathcal{C}, X)$
+comme un foncteur à valeurs dans la catégorie des préfaisceaux d'ensembles au-dessus de $h_X$,
+à savoir $\textit{PSh}(\mathcal{C})/h_X$. Voici un diagramme :
+$$
+\xymatrix{
+\text{SR}(\mathcal{C}, X) \ar[r]_F \ar[d] &
+\textit{PSh}(\mathcal{C})/h_X \ar[d] \\
+\text{SR}(\mathcal{C}) \ar[r]^F &
+\textit{PSh}(\mathcal{C})
+}
+$$
+Examinons maintenant l'existence de limites dans la catégorie des objets
+semi-représentables.
+
+\begin{lemma}
+\label{lemma-coprod-prod-SR}
+Soit $\mathcal{C}$ une catégorie.
+\begin{enumerate}
+\item la catégorie $\text{SR}(\mathcal{C})$ admet des coproduits
+et $F$ commute à ceux-ci ;
+\item le foncteur $F : \text{SR}(\mathcal{C}) \to \textit{PSh}(\mathcal{C})$
+commute aux limites ;
+\item si $\mathcal{C}$ admet des produits fibrés, alors $\text{SR}(\mathcal{C})$
+admet des produits fibrés ;
+\item si $\mathcal{C}$ admet les produits de deux objets, alors
+$\text{SR}(\mathcal{C})$ admet les produits de deux objets ;
+\item si $\mathcal{C}$ admet des égalisateurs, il en va de même de $\text{SR}(\mathcal{C})$ ;
+\item si $\mathcal{C}$ admet un objet final, il en va de même de $\text{SR}(\mathcal{C})$.
+\end{enumerate}
+Soit $X \in \Ob(\mathcal{C})$.
+\begin{enumerate}
+\item la catégorie $\text{SR}(\mathcal{C}, X)$ admet des coproduits
+et $F$ commute à ceux-ci ;
+\item si $\mathcal{C}$ admet des produits fibrés, alors $\text{SR}(\mathcal{C}, X)$
+admet des limites finies et
+$F : \text{SR}(\mathcal{C}, X) \to \textit{PSh}(\mathcal{C})/h_X$
+commute à celles-ci.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration des résultats sur $\text{SR}(\mathcal{C})$.
+Démonstration de (1). Le coproduit de $\{U_i\}_{i \in I}$ et $\{V_j\}_{j \in J}$ est
+$\{U_i\}_{i \in I} \amalg \{V_j\}_{j \in J}$, autrement dit la famille
+d'objets dont l'ensemble d'indices est $I \amalg J$ et qui, à un élément
+$k \in I \amalg J$, associe $U_i$ si $k = i \in I$ et $V_j$ si
+$k = j \in J$. Il en va de même pour les coproduits
+de familles d'objets. Il est clair que $F$ commute à ceux-ci.
+
+\medskip\noindent
+Démonstration de (2). Pour $U$ dans $\Ob(\mathcal{C})$, considérons l'objet $\{U\}$ de
+$\text{SR}(\mathcal{C})$. Il est clair que
+$\Mor_{\text{SR}(\mathcal{C})}(\{U\}, K)) = F(K)(U)$
+pour $K \in \Ob(\text{SR}(\mathcal{C}))$. Puisque les limites de préfaisceaux
+se calculent au niveau des sections
+(Sites, section \ref{sites-section-limits-colimits-PSh}),
+nous concluons que $F$ commute aux limites.
+
+\medskip\noindent
+Démonstration de (3). Supposons donnés un morphisme
+$(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+et un morphisme
+$(\beta, g_k) : \{W_k\}_{k \in K} \to \{V_j\}_{j \in J}$.
+Le produit fibré de ces morphismes est donné par
+$$
+\{ U_i \times_{f_i, V_j, g_k} W_k\}_{(i, j, k) \in I \times J \times K
+\text{ tels que } j = \alpha(i) = \beta(k)}
+$$
+Les produits fibrés existent si $\mathcal{C}$ admet des produits fibrés.
+
+\medskip\noindent
+Démonstration de (4). Le produit de $\{U_i\}_{i \in I}$ et $\{V_j\}_{j \in J}$ est
+$\{U_i \times V_j\}_{i \in I, j \in J}$. Les produits existent si
+$\mathcal{C}$ admet des produits.
+
+\medskip\noindent
+Démonstration de (5). L'égalisateur de deux applications
+$(\alpha, f_i), (\alpha', f'_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+est
+$$
+\{
+\text{Eq}(f_i, f'_i : U_i \to V_{\alpha(i)})
+\}_{i \in I,\ \alpha(i) = \alpha'(i)}
+$$
+Les égalisateurs existent si $\mathcal{C}$ admet des égalisateurs.
+
+\medskip\noindent
+Démonstration de (6). Si $X$ est un objet final de $\mathcal{C}$, alors
+$\{X\}$ est un objet final de $\text{SR}(\mathcal{C})$.
+
+\medskip\noindent
+Démonstration des énoncés concernant $\text{SR}(\mathcal{C}, X)$.
+Ils résultent des résultats précédents appliqués à la catégorie
+$\mathcal{C}/X$, compte tenu de
+$\text{SR}(\mathcal{C}/X) = \text{SR}(\mathcal{C}, X)$ et de
+$\textit{PSh}(\mathcal{C}/X) = \textit{PSh}(\mathcal{C})/h_X$
+(Sites, lemme \ref{sites-lemma-essential-image-j-shriek}, appliqué
+à $\mathcal{C}$ munie de la topologie chaotique). Toutefois,
+nous pouvons aussi raisonner directement comme suit.
+Il est clair que le coproduit de
+$\{U_i \to X\}_{i \in I}$ et $\{V_j \to X\}_{j \in J}$
+est $\{U_i \to X\}_{i \in I} \amalg \{V_j \to X\}_{j \in J}$,
+et il en va de même pour les coproduits de
+familles de familles de morphismes de but $X$.
+L'objet $\{X \to X\}$ est un objet
+final de $\text{SR}(\mathcal{C}, X)$.
+Supposons donnés un morphisme
+$(\alpha, f_i) : \{U_i \to X\}_{i \in I} \to \{V_j \to X\}_{j \in J}$
+et un morphisme
+$(\beta, g_k) : \{W_k \to X\}_{k \in K} \to \{V_j \to X\}_{j \in J}$.
+Le produit fibré de ces morphismes est donné par
+$$
+\{ U_i \times_{f_i, V_j, g_k} W_k \to X \}_{(i, j, k) \in I \times J \times K
+\text{ tels que } j = \alpha(i) = \beta(k)}
+$$
+Les produits fibrés existent par hypothèse, puisque
+$\mathcal{C}$ admet des produits fibrés.
+Ainsi, $\text{SR}(\mathcal{C}, X)$ admet des limites finies,
+voir Catégories, lemme \ref{categories-lemma-finite-limits-exist}.
+Nous omettons dans ce cas la vérification des énoncés sur le foncteur $F$.
+\end{proof}
+
+
+
+
+
+\section{Hyperrecouvrements}
+\label{section-hypercoverings}
+
+\noindent
+Si nous supposons que notre catégorie est un site, nous pouvons poser la
+définition suivante.
+
+\begin{definition}
+\label{definition-covering-SR}
+Soit $\mathcal{C}$ un site. Soit
+$f = (\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+un morphisme de la catégorie $\text{SR}(\mathcal{C})$.
+Nous disons que $f$ est un {\it recouvrement} si, pour tout $j \in J$, la
+famille de morphismes $\{U_i \to V_j\}_{i \in I, \alpha(i) = j}$
+est un recouvrement du site $\mathcal{C}$.
+Soit $X$ un objet de $\mathcal{C}$.
+Un morphisme $K \to L$ dans $\text{SR}(\mathcal{C}, X)$ est
+un {\it recouvrement} si son image dans $\text{SR}(\mathcal{C})$ est
+un recouvrement.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-covering-permanence}
+Soit $\mathcal{C}$ un site.
+\begin{enumerate}
+\item Un composé de recouvrements dans $\text{SR}(\mathcal{C})$
+est un recouvrement.
+\item Si $K \to L$ est un recouvrement dans $\text{SR}(\mathcal{C})$
+et si $L' \to L$ est un morphisme, alors $L' \times_L K$ existe
+et $L' \times_L K \to L'$ est un recouvrement.
+\item Si $\mathcal{C}$ admet les produits de deux objets et si
+$A \to B$ et $K \to L$ sont des recouvrements dans $\text{SR}(\mathcal{C})$,
+alors $A \times K \to B \times L$ est un recouvrement.
+\end{enumerate}
+Soit $X \in \Ob(\mathcal{C})$. Alors (1) et (2) valent pour
+$\text{SR}(\mathcal{C}, X)$, et (3) vaut si $\mathcal{C}$
+admet des produits fibrés.
+\end{lemma}
+
+\begin{proof}
+La partie (1) découle immédiatement des axiomes d'un site.
+La partie (2) résulte de la construction des produits fibrés
+dans $\text{SR}(\mathcal{C})$ donnée dans la démonstration du
+lemme \ref{lemma-coprod-prod-SR}
+et de l'exigence que les morphismes d'un recouvrement
+de $\mathcal{C}$ soient représentables.
+La partie (3) résulte de la décomposition de $A \times K \to B \times L$
+en le composé $A \times K \to B \times K \to B \times L$
+et donc en un composé de changements de base de recouvrements.
+Le dernier énoncé découle de l'égalité $\text{SR}(\mathcal{C}, X) =
+\text{SR}(\mathcal{C}/X)$.
+\end{proof}
+
+\noindent
+D'après le lemme \ref{lemma-coprod-prod-SR} et
+Simplicial, lemme \ref{simplicial-lemma-existence-cosk},
+le cosquelette d'un objet simplicial tronqué de
+$\text{SR}(\mathcal{C}, X)$ existe si $\mathcal{C}$ admet des produits fibrés.
+La définition suivante a donc un sens.
+
+\begin{definition}
+\label{definition-hypercovering}
+Soit $\mathcal{C}$ un site. Supposons que $\mathcal{C}$ admette des produits fibrés.
+Soit $X \in \Ob(\mathcal{C})$ un objet de $\mathcal{C}$.
+Un {\it hyperrecouvrement de $X$} est un objet simplicial
+$K$ de $\text{SR}(\mathcal{C}, X)$ tel que
+\begin{enumerate}
+\item l'objet $K_0$ soit un recouvrement de $X$ pour le site $\mathcal{C}$ ;
+\item pour tout $n \geq 0$, le morphisme canonique
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+soit un recouvrement au sens défini ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+La condition (1) a un sens puisque tout objet de
+$\text{SR}(\mathcal{C}, X)$ est, après tout, une famille
+de morphismes de but $X$. On pourrait aussi
+la formuler en disant que le morphisme de $K_0$ vers
+l'objet final de $\text{SR}(\mathcal{C}, X)$
+est un recouvrement.
+
+\begin{example}[Hyperrecouvrements de {\v C}ech]
+\label{example-cech}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $\{U_i \to X\}_{i \in I}$ un recouvrement de $\mathcal{C}$.
+Posons $K_0 = \{U_i \to X\}_{i \in I}$.
+Alors $K_0$ est un objet simplicial $0$-tronqué de
+$\text{SR}(\mathcal{C}, X)$. Nous pouvons donc former
+$$
+K = \text{cosk}_0 K_0.
+$$
+Il est clair que $K$ satisfait la condition (1) de la définition \ref{definition-hypercovering}.
+Puisque tous les morphismes $K_{n + 1} \to (\text{cosk}_n \text{sk}_n K)_{n + 1}$
+sont des isomorphismes d'après
+Simplicial, lemme \ref{simplicial-lemma-cosk-up},
+il satisfait aussi la condition (2). Notons que
+les termes $K_n$ sont les termes usuels
+$$
+K_n = \{
+U_{i_0} \times_X U_{i_1} \times_X \ldots \times_X U_{i_n} \to X
+\}_{(i_0, i_1, \ldots, i_n) \in I^{n + 1}}
+$$
+Un hyperrecouvrement de $X$ de cette forme est appelé un
+{\it hyperrecouvrement de {\v C}ech} de $X$.
+\end{example}
+
+\begin{example}[Hyperrecouvrement par un objet simplicial du site]
+\label{example-hypercovering-in-C}
+Soit $\mathcal{C}$ un site admettant des produits fibrés. Soit
+$X \in \Ob(\mathcal{C})$. Soit $U$ un objet simplicial de $\mathcal{C}$.
+Comme d'habitude, nous notons $U_n = U([n])$. Supposons enfin donnée une augmentation
+$$
+a : U \to X
+$$
+Dans cette situation, nous pouvons considérer l'objet simplicial $K$
+de $\text{SR}(\mathcal{C}, X)$ dont les termes sont $K_n = \{U_n \to X\}$.
+Alors $K$ est un hyperrecouvrement de $X$ au sens de la
+définition \ref{definition-hypercovering}
+si et seulement si les trois
+conditions suivantes\footnote{Comme $\mathcal{C}$ admet des produits fibrés, la
+catégorie $\mathcal{C}/X$ admet toutes les limites finies.
+Les cosquelettes requis existent donc d'après
+Simplicial, lemme \ref{simplicial-lemma-existence-cosk}.} sont satisfaites :
+\begin{enumerate}
+\item $\{U_0 \to X\}$ est un recouvrement de $\mathcal{C}$ ;
+\item $\{U_1 \to U_0 \times_X U_0\}$ est un recouvrement de $\mathcal{C}$ ;
+\item $\{U_{n + 1} \to (\text{cosk}_n\text{sk}_n U)_{n + 1}\}$
+est un recouvrement de $\mathcal{C}$ pour $n \geq 1$.
+\end{enumerate}
+Nous omettons la vérification immédiate.
+\end{example}
+
+\begin{example}[Hyperrecouvrement de {\v C}ech associé à un recouvrement]
+\label{example-cech-cover}
+Soit $\mathcal{C}$ un site admettant des produits fibrés. Soit $U \to X$ un
+morphisme de $\mathcal{C}$ tel que $\{U \to X\}$ soit un recouvrement de
+$\mathcal{C}$\footnote{Un morphisme de $\mathcal{C}$ ayant cette propriété
+est parfois appelé un « recouvrement ».}. Considérons l'objet simplicial $K$ de
+$\text{SR}(\mathcal{C}, X)$ dont les termes sont
+$$
+K_n = \{U \times_X U \times_X \ldots \times_X U \to X\}
+\quad (n + 1 \text{ facteurs})
+$$
+Alors $K$ est un hyperrecouvrement de $X$. Cet exemple est un cas particulier à la fois de
+l'exemple \ref{example-cech} et de
+l'exemple \ref{example-hypercovering-in-C}.
+\end{example}
+
+\begin{lemma}
+\label{lemma-hypercoverings-set}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X \in \Ob(\mathcal{C})$ un objet de $\mathcal{C}$.
+La collection de tous les hyperrecouvrements de $X$ forme un ensemble.
+\end{lemma}
+
+\begin{proof}
+Puisque $\mathcal{C}$ est un site, l'ensemble de tous les recouvrements de
+$X$ est un ensemble. Nous voyons donc que la collection
+des $K_0$ possibles forme un ensemble. Supposons avoir montré que
+la collection de tous les $K_0, \ldots, K_n$ possibles forme
+un ensemble. Il suffit alors de montrer que, étant donnés
+$K_0, \ldots, K_n$, la collection de tous les
+$K_{n + 1}$ possibles forme un ensemble. Cela est clair puisque
+nous devons choisir $K_{n + 1}$ parmi tous les recouvrements possibles
+de $(\text{cosk}_n \text{sk}_n K)_{n + 1}$.
+\end{proof}
+
+\begin{remark}
+\label{remark-hypercoverings-really-set}
+Le lemme ne dit pas seulement qu'il existe un système cofinal
+de choix d'hyperrecouvrements qui soit un ensemble,
+mais bien que les hyperrecouvrements eux-mêmes forment un ensemble.
+\end{remark}
+
+\noindent
+La catégorie des préfaisceaux sur $\mathcal{C}$ admet des
+(co)limites finies. Les foncteurs $\text{cosk}_n$
+existent donc pour les préfaisceaux d'ensembles.
+
+\begin{lemma}
+\label{lemma-hypercovering-F}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X \in \Ob(\mathcal{C})$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Considérons l'objet simplicial $F(K)$ de $\textit{PSh}(\mathcal{C})$,
+muni de son augmentation vers le préfaisceau simplicial constant $h_X$.
+\begin{enumerate}
+\item Le morphisme de préfaisceaux $F(K)_0 \to h_X$ devient
+une surjection après faisceautisation.
+\item Le morphisme
+$$
+(d^1_0, d^1_1) :
+F(K)_1
+\longrightarrow
+F(K)_0 \times_{h_X} F(K)_0
+$$
+devient une surjection après faisceautisation.
+\item Pour tout $n \geq 1$, le morphisme
+$$
+F(K)_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n F(K))_{n + 1}
+$$
+devient une surjection après faisceautisation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons le fait que, si
+$\{U_i \to U\}_{i \in I}$ est un recouvrement du site
+$\mathcal{C}$, alors le morphisme
+$$
+\amalg_{i \in I} h_{U_i} \to h_U
+$$
+devient surjectif après faisceautisation, voir
+Sites, lemme \ref{sites-lemma-covering-surjective-after-sheafification}.
+La première assertion en résulte immédiatement.
+
+\medskip\noindent
+Pour la deuxième assertion, notons que, d'après
+Simplicial, exemple \ref{simplicial-example-cosk0},
+l'objet simplicial $\text{cosk}_0 \text{sk}_0 K$
+a pour termes $K_0 \times \ldots \times K_0$. Ainsi,
+d'après la définition d'un hyperrecouvrement, nous
+voyons que $(d^1_0, d^1_1) : K_1 \to K_0 \times K_0$ est un
+recouvrement. Par conséquent, (2) résulte de l'assertion précédente
+et du fait que $F$ transforme les produits en produits
+fibrés au-dessus de $h_X$.
+
+\medskip\noindent
+Pour la troisième, nous affirmons que
+$\text{cosk}_n \text{sk}_n F(K) =
+F(\text{cosk}_n \text{sk}_n K)$ pour $n \geq 1$.
+Pour le démontrer, notons provisoirement $F'$ le foncteur
+$\text{SR}(\mathcal{C}, X) \to \textit{PSh}(\mathcal{C})/h_X$.
+Par le lemme \ref{lemma-coprod-prod-SR}, le foncteur
+$F'$ commute aux limites finies.
+D'après notre description du foncteur $\text{cosk}_n$ dans
+Simplicial, section \ref{simplicial-section-skeleton},
+nous voyons que $\text{cosk}_n \text{sk}_n F'(K) =
+F'(\text{cosk}_n \text{sk}_n K)$.
+Rappelons que la catégorie utilisée dans la description de
+$(\text{cosk}_n U)_m$ dans
+Simplicial, lemme \ref{simplicial-lemma-existence-cosk},
+est la catégorie $(\Delta/[m])^{opp}_{\leq n}$. Un exercice
+amusant consiste à montrer que $(\Delta/[m])_{\leq n}$ est
+une catégorie connexe (voir
+Catégories, définition \ref{categories-definition-category-connected})
+dès que $n \geq 1$. Par conséquent,
+Catégories, lemme \ref{categories-lemma-connected-limit-over-X},
+montre que $\text{cosk}_n \text{sk}_n F'(K) =
+\text{cosk}_n \text{sk}_n F(K)$. D'où l'assertion.
+La propriété (3) en résulte, car nous voyons maintenant que
+le morphisme de (3) s'obtient en appliquant le
+foncteur $F$ à un recouvrement comme dans la définition \ref{definition-covering-SR},
+et le résultat découle du premier fait mentionné
+dans cette démonstration.
+\end{proof}
+
+
+
+\section{Acyclicité}
+\label{section-acyclicity}
+
+\noindent
+Soit $\mathcal{C}$ un site.
+Pour un préfaisceau d'ensembles $\mathcal{F}$, nous notons $\mathbf{Z}_\mathcal{F}$
+le préfaisceau de groupes abéliens défini par la règle
+$$
+\mathbf{Z}_\mathcal{F}(U) = \text{groupe abélien libre sur }\mathcal{F}(U).
+$$
+Nous l'appellerons parfois le {\it préfaisceau abélien libre sur $\mathcal{F}$}.
+Bien entendu, la construction $\mathcal{F} \mapsto \mathbf{Z}_\mathcal{F}$
+est un foncteur, adjoint à gauche du foncteur d'oubli
+$\textit{PAb}(\mathcal{C}) \to \textit{PSh}(\mathcal{C})$.
+Bien entendu, le faisceau associé $\mathbf{Z}_\mathcal{F}^\#$ est
+un faisceau de groupes abéliens, et le foncteur
+$\mathcal{F} \mapsto \mathbf{Z}_\mathcal{F}^\#$ est lui aussi
+un adjoint à gauche. Nous appelons parfois $\mathbf{Z}_\mathcal{F}^\#$
+le {\it faisceau abélien libre sur $\mathcal{F}$}.
+
+\medskip\noindent
+Pour un objet $X$ du site $\mathcal{C}$, nous notons
+$\mathbf{Z}_X$ le préfaisceau abélien libre sur $h_X$, et
+nous notons $\mathbf{Z}_X^\#$ son faisceau associé.
+
+\begin{definition}
+\label{definition-homology}
+Soit $\mathcal{C}$ un site.
+Soit $K$ un objet simplicial de $\textit{PSh}(\mathcal{C})$.
+D'après ce qui précède, nous obtenons un objet simplicial $\mathbf{Z}_K^\#$ de
+$\textit{Ab}(\mathcal{C})$. Nous pouvons prendre son
+complexe associé de faisceaux abéliens $s(\mathbf{Z}_K^\#)$, voir
+Simplicial, section \ref{simplicial-section-complexes}.
+L'{\it homologie de $K$} est l'homologie du
+complexe de faisceaux abéliens $s(\mathbf{Z}_K^\#)$.
+\end{definition}
+
+\noindent
+Autrement dit, la {\it $i$-ième homologie $H_i(K)$ de $K$}
+est le faisceau de groupes abéliens $H_i(K) = H_i(s(\mathbf{Z}_K^\#))$.
+Dans cette section, nous étudions l'homologie lorsque $K$
+est un hyperrecouvrement d'un objet $X$ de $\mathcal{C}$.
+
+\begin{lemma}
+\label{lemma-compare-cosk0}
+Soit $\mathcal{C}$ un site.
+Soit $\mathcal{F} \to \mathcal{G}$ un morphisme
+de préfaisceaux d'ensembles. Notons $K$ l'objet
+simplicial de $\textit{PSh}(\mathcal{C})$ dont le $n$-ième
+terme est le produit fibré à $(n + 1)$ facteurs de $\mathcal{F}$
+au-dessus de $\mathcal{G}$, voir
+Simplicial, exemple \ref{simplicial-example-fibre-products-simplicial-object}.
+Alors, si $\mathcal{F} \to \mathcal{G}$ est surjectif après
+faisceautisation, nous avons
+$$
+H_i(K) =
+\left\{
+\begin{matrix}
+0 & \text{si} & i > 0\\
+\mathbf{Z}_\mathcal{G}^\# & \text{si} & i = 0
+\end{matrix}
+\right.
+$$
+L'isomorphisme en degré $0$ est donné par le
+morphisme $H_0(K) \to \mathbf{Z}_\mathcal{G}^\#$
+provenant de l'application $(\mathbf{Z}_K^\#)_0 =
+\mathbf{Z}_\mathcal{F}^\# \to \mathbf{Z}_\mathcal{G}^\#$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{G}' \subset \mathcal{G}$ l'image du
+morphisme $\mathcal{F} \to \mathcal{G}$.
+Soit $U \in \Ob(\mathcal{C})$. Posons
+$A = \mathcal{F}(U)$ et $B = \mathcal{G}'(U)$.
+Alors l'ensemble simplicial $K(U)$ est égal à l'ensemble
+simplicial dont les $n$-simplexes sont donnés par
+$$
+A \times_B A \times_B \ldots \times_B A\ (n + 1 \text{ facteurs)}.
+$$
+D'après Simplicial, lemme \ref{simplicial-lemma-cosk-minus-one-equivalence},
+le morphisme $K(U) \to B$ est une fibration de Kan triviale.
+C'est donc une équivalence d'homotopie
+(Simplicial, lemme \ref{simplicial-lemma-trivial-kan-homotopy}).
+En appliquant à celle-ci le foncteur « groupe abélien libre sur »,
+nous en déduisons que
+$$
+\mathbf{Z}_K(U) \longrightarrow \mathbf{Z}_B
+$$
+est une équivalence d'homotopie. Notons que $s(\mathbf{Z}_B)$ est
+le complexe
+$$
+\ldots \to
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{0}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{1}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{0}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \to 0
+$$
+voir Simplicial, lemme \ref{simplicial-lemma-homology-eilenberg-maclane}.
+Nous voyons ainsi que
+$H_i(s(\mathbf{Z}_K(U))) = 0$ pour $i > 0$, et
+$H_0(s(\mathbf{Z}_K(U))) = \bigoplus_{b \in B}\mathbf{Z}
+= \bigoplus_{s \in \mathcal{G}'(U)} \mathbf{Z}$.
+Ces identifications sont compatibles aux applications de
+restriction.
+
+\medskip\noindent
+Nous concluons que $H_i(s(\mathbf{Z}_K)) = 0$ pour $i > 0$ et
+$H_0(s(\mathbf{Z}_K)) = \mathbf{Z}_{\mathcal{G}'}$, où nous
+calculons ici les groupes d'homologie dans $\textit{PAb}(\mathcal{C})$. Comme
+la faisceautisation est un foncteur exact, nous en déduisons le résultat
+du lemme. En effet, l'exactitude implique
+que $H_0(s(\mathbf{Z}_K))^\# = H_0(s(\mathbf{Z}_K^\#))$,
+et de même pour les autres indices.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-acyclicity}
+Soit $\mathcal{C}$ un site.
+Soit $f : L \to K$ un morphisme d'objets
+simpliciaux de $\textit{PSh}(\mathcal{C})$.
+Soit $n \geq 0$ un entier.
+Supposons que
+\begin{enumerate}
+\item pour $i < n$, le morphisme $L_i \to K_i$ soit un isomorphisme ;
+\item le morphisme $L_n \to K_n$ soit surjectif après faisceautisation ;
+\item l'application canonique $L \to \text{cosk}_n \text{sk}_n L$ soit un isomorphisme ;
+\item l'application canonique $K \to \text{cosk}_n \text{sk}_n K$ soit un isomorphisme.
+\end{enumerate}
+Alors $H_i(f) : H_i(L) \to H_i(K)$ est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est exactement la même que celle du
+lemme \ref{lemma-compare-cosk0} ci-dessus. Plus précisément,
+soit d'abord $K_n' \subset K_n$ le sous-préfaisceau
+image de l'application $L_n \to K_n$. L'hypothèse
+(2) signifie que le faisceau associé à $K_n'$ est égal au
+faisceau associé à $K_n$. En outre, puisque $L_i = K_i$
+pour tout $i < n$, nous obtenons un préfaisceau simplicial
+$n$-tronqué $U$ en posant
+$U_0 = L_0 = K_0, \ldots, U_{n - 1} = L_{n - 1} = K_{n - 1}, U_n = K'_n$.
+Notons $K' = \text{cosk}_n U$, qui est un préfaisceau simplicial.
+Comme nous pouvons construire $K'_m$ comme une limite finie et
+que la faisceautisation est exacte, nous voyons que
+$(K'_m)^\# = K_m$. Autrement dit, $(K')^\# = K^\#$.
+Nous concluons, de nouveau par exactitude de la faisceautisation,
+que $H_i(K) = H_i(K')$. Il suffit donc de démontrer le lemme
+pour le morphisme $L \to K'$ ; autrement dit, nous pouvons
+supposer que $L_n \to K_n$ est un morphisme surjectif
+de {\it préfaisceaux} !
+
+\medskip\noindent
+Dans ce cas, pour tout objet $U$ de $\mathcal{C}$, nous
+voyons que le morphisme d'ensembles simpliciaux
+$$
+L(U) \longrightarrow K(U)
+$$
+satisfait toutes les hypothèses de
+Simplicial, lemme \ref{simplicial-lemma-section}.
+C'est donc une fibration de Kan triviale. En particulier, c'est
+une équivalence d'homotopie
+(Simplicial, lemme \ref{simplicial-lemma-trivial-kan-homotopy}).
+Ainsi,
+$$
+\mathbf{Z}_L(U) \longrightarrow \mathbf{Z}_K(U)
+$$
+est aussi une équivalence d'homotopie. Cela vaut pour tout $U$.
+Le résultat en découle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-acyclic-hypercover-sheaves}
+Soit $\mathcal{C}$ un site.
+Soit $K$ un préfaisceau simplicial.
+Soit $\mathcal{G}$ un préfaisceau.
+Soit $K \to \mathcal{G}$ une augmentation de $K$
+vers $\mathcal{G}$. Supposons que
+\begin{enumerate}
+\item le morphisme de préfaisceaux $K_0 \to \mathcal{G}$ devienne
+une surjection après faisceautisation ;
+\item le morphisme
+$$
+(d^1_0, d^1_1) :
+K_1
+\longrightarrow
+K_0 \times_\mathcal{G} K_0
+$$
+devienne une surjection après faisceautisation ;
+\item pour tout $n \geq 1$, le morphisme
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+devienne une surjection après faisceautisation.
+\end{enumerate}
+Alors $H_i(K) = 0$ pour $i > 0$ et
+$H_0(K) = \mathbf{Z}_\mathcal{G}^\#$.
+\end{lemma}
+
+\begin{proof}
+Notons $K^n = \text{cosk}_n \text{sk}_n K$ pour $n \geq 1$.
+Définissons $K^0$ comme l'objet simplicial dont les termes
+$(K^0)_n$ sont égaux au produit fibré à $(n + 1)$ facteurs
+$K_0 \times_\mathcal{G} \ldots \times_\mathcal{G} K_0$,
+voir Simplicial,
+exemple \ref{simplicial-example-fibre-products-simplicial-object}.
+Nous avons des morphismes
+$$
+K \longrightarrow \ldots \to K^n \to K^{n - 1} \to \ldots \to K^1 \to K^0.
+$$
+Les morphismes $K \to K^i$, $K^j \to K^i$ pour $j \geq i \geq 1$ proviennent
+des propriétés universelles des foncteurs $\text{cosk}_n$.
+Le morphisme $K^1 \to K^0$ est le morphisme canonique
+de
+Simplicial, remarque \ref{simplicial-remark-augmentation}.
+Rappelons aussi que $K^0 \to \text{cosk}_1 \text{sk}_1 K^0$
+est un isomorphisme, voir
+Simplicial, lemme \ref{simplicial-lemma-cosk-minus-one}.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-compare-cosk0}, nous voyons que
+$H_i(K^0) = 0$ pour $i > 0$ et $H_0(K^0) = \mathbf{Z}_\mathcal{G}^\#$.
+
+\medskip\noindent
+Fixons $n \geq 1$. Considérons le morphisme $K^n \to K^{n - 1}$.
+C'est un isomorphisme sur les termes de degré $< n$.
+Notons que $K^n \to \text{cosk}_n \text{sk}_n K^n$ et
+$K^{n - 1} \to \text{cosk}_n \text{sk}_n K^{n - 1}$
+sont des isomorphismes. Notons que $(K^n)_n = K_n$ et
+que $(K^{n - 1})_n = (\text{cosk}_{n - 1} \text{sk}_{n - 1} K)_n$.
+Par hypothèse, $(K^n)_n \to (K^{n - 1})_n$
+est donc un morphisme de préfaisceaux qui devient surjectif après
+faisceautisation. Par le lemme \ref{lemma-acyclicity}, nous concluons que
+$H_i(K^n) = H_i(K^{n - 1})$.
+Combiné à ce qui précède, cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-acyclic}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+L'homologie du préfaisceau simplicial $F(K)$ est
+$0$ dans les degrés $> 0$ et égale à $\mathbf{Z}_X^\#$
+en degré $0$.
+\end{lemma}
+
+\begin{proof}
+Combiner les lemmes \ref{lemma-acyclic-hypercover-sheaves}
+et \ref{lemma-hypercovering-F}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Cohomologie de {\v C}ech et hyperrecouvrements}
+\label{section-hyper-cech}
+
+\noindent
+Soit $\mathcal{C}$ un site. Considérons un préfaisceau de
+groupes abéliens $\mathcal{F}$ sur le site $\mathcal{C}$.
+Il définit un foncteur
+\begin{eqnarray*}
+\mathcal{F} : \text{SR}(\mathcal{C})^{opp}
+& \longrightarrow &
+\textit{Ab} \\
+\{U_i\}_{i \in I} &
+\longmapsto &
+\prod\nolimits_{i \in I} \mathcal{F}(U_i)
+\end{eqnarray*}
+Ainsi, un objet simplicial $K$ de $\text{SR}(\mathcal{C})$
+est transformé en un objet cosimplicial $\mathcal{F}(K)$ de $\textit{Ab}$.
+Le complexe de cochaînes $s(\mathcal{F}(K))$ associé à $\mathcal{F}(K)$
+(Simplicial, section
+\ref{simplicial-section-dold-kan-cosimplicial})
+est appelé le complexe de {\v C}ech de $\mathcal{F}$ relativement
+à l'objet simplicial $K$. Nous posons
+$$
+\check{H}^i(K, \mathcal{F})
+=
+H^i(s(\mathcal{F}(K))).
+$$
+et nous l'appelons le $i$-ième groupe de cohomologie de {\v C}ech
+de $\mathcal{F}$ relativement à $K$.
+Dans cette section, nous démontrons des analogues de certains résultats sur
+la cohomologie de {\v C}ech des recouvrements ouverts établis dans
+Cohomologie, sections \ref{cohomology-section-cech},
+\ref{cohomology-section-cech-functor} et
+\ref{cohomology-section-cech-cohomology-cohomology}.
+
+\begin{lemma}
+\label{lemma-h0-cech}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Soit $\mathcal{F}$ un faisceau de groupes abéliens sur $\mathcal{C}$.
+Alors $\check{H}^0(K, \mathcal{F}) = \mathcal{F}(X)$.
+\end{lemma}
+
+\begin{proof}
+Nous avons
+$$
+\check{H}^0(K, \mathcal{F})
+=
+\Ker(\mathcal{F}(K_0) \longrightarrow \mathcal{F}(K_1))
+$$
+Écrivons $K_0 = \{U_i \to X\}$. C'est un recouvrement du site
+$\mathcal{C}$. De plus, $K_1 \to K_0 \times K_0$
+est un recouvrement dans $\text{SR}(\mathcal{C}, X)$. Nous pouvons donc
+écrire $K_1 = \amalg_{i_0, i_1 \in I} \{V_{i_0i_1j} \to X\}$
+de telle sorte que le morphisme $K_1 \to K_0 \times K_0$ soit donné
+par les recouvrements $\{V_{i_0i_1j} \to U_{i_0} \times_X U_{i_1}\}$
+du site $\mathcal{C}$. On obtient donc l’identification suivante :
+$$
+\check{H}^0(K, \mathcal{F})
+=
+\Ker(
+\prod\nolimits_i \mathcal{F}(U_i)
+\longrightarrow
+\prod\nolimits_{i_0i_1 j} \mathcal{F}(V_{i_0i_1j})
+)
+$$
+au moyen de l'application évidente. La propriété de faisceau de $\mathcal{F}$
+implique que $\check{H}^0(K, \mathcal{F}) = H^0(X, \mathcal{F})$.
+\end{proof}
+
+\noindent
+En fait, cette propriété caractérise bien entendu les faisceaux abéliens parmi tous
+les préfaisceaux abéliens sur $\mathcal{C}$.
+L'analogue de Cohomologie, lemme \ref{lemma-injective-trivial-cech},
+est dans ce cas le suivant.
+
+\begin{lemma}
+\label{lemma-injective-trivial-cech}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Soit $\mathcal{I}$ un faisceau injectif de groupes abéliens sur $\mathcal{C}$.
+Alors
+$$
+\check{H}^p(K, \mathcal{I}) =
+\left\{
+\begin{matrix}
+\mathcal{I}(X) & \text{si} & p = 0 \\
+0 & \text{si} & p > 0
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+Observons que, pour tout objet $Z = \{U_i \to X\}$ de
+$\text{SR}(\mathcal{C}, X)$ et tout faisceau abélien
+$\mathcal{F}$ sur $\mathcal{C}$, nous avons
+\begin{eqnarray*}
+\mathcal{F}(Z)
+& = &
+\prod \mathcal{F}(U_i) \\
+& = &
+\prod \Mor_{\textit{PSh}(\mathcal{C})}(h_{U_i}, \mathcal{F})\\
+& = &
+\Mor_{\textit{PSh}(\mathcal{C})}(F(Z), \mathcal{F})\\
+& = &
+\Mor_{\textit{PAb}(\mathcal{C})}(\mathbf{Z}_{F(Z)}, \mathcal{F}) \\
+& = &
+\Mor_{\textit{Ab}(\mathcal{C})}(\mathbf{Z}_{F(Z)}^\#, \mathcal{F})
+\end{eqnarray*}
+Ainsi, nous voyons que, pour tout objet simplicial $K$ de
+$\text{SR}(\mathcal{C}, X)$, nous avons
+\begin{equation}
+\label{equation-identify-cech}
+s(\mathcal{F}(K))
+=
+\Hom_{\textit{Ab}(\mathcal{C})}(s(\mathbf{Z}_{F(K)}^\#), \mathcal{F})
+\end{equation}
+voir la définition \ref{definition-homology} pour les notations.
+Le complexe de faisceaux $s(\mathbf{Z}_{F(K)}^\#)$ est quasi-isomorphe
+à $\mathbf{Z}_X^\#$ si $K$ est un hyperrecouvrement, voir le
+lemme \ref{lemma-hypercovering-acyclic}. Nous concluons
+que, si $\mathcal{I}$ est un faisceau abélien injectif et
+$K$ un hyperrecouvrement, alors le complexe $s(\mathcal{I}(K))$
+est acyclique, sauf peut-être en degré $0$.
+Autrement dit, nous avons
+$$
+\check{H}^i(K, \mathcal{I}) = 0
+$$
+pour $i > 0$. Combiné au lemme \ref{lemma-h0-cech}, cela démontre le lemme.
+\end{proof}
+
+\noindent
+Passons maintenant à l'analogue de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-cech-spectral-sequence}.
+Soit $\mathcal{C}$ un site.
+Soit $\mathcal{F}$ un faisceau de groupes abéliens sur $\mathcal{C}$.
+Rappelons que $\underline{H}^i(\mathcal{F})$ désigne le préfaisceau
+de groupes abéliens sur $\mathcal{C}$ défini par la
+règle $\underline{H}^i(\mathcal{F}) : U \longmapsto H^i(U, \mathcal{F})$.
+Nous l'étendons à $\text{SR}(\mathcal{C})$ comme dans l'introduction
+de cette section.
+
+\begin{lemma}
+\label{lemma-cech-spectral-sequence}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Soit $\mathcal{F}$ un faisceau de groupes abéliens sur $\mathcal{C}$.
+Il existe une application
+$$
+s(\mathcal{F}(K))
+\longrightarrow
+R\Gamma(X, \mathcal{F})
+$$
+dans $D^{+}(\textit{Ab})$, fonctorielle en $\mathcal{F}$, qui induit des
+transformations naturelles
+$$
+\check{H}^i(K, -) \longrightarrow H^i(X, -)
+$$
+de foncteurs $\textit{Ab}(\mathcal{C}) \to \textit{Ab}$. En outre,
+il existe une suite spectrale $(E_r, d_r)_{r \geq 0}$ avec
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+qui converge vers $H^{p + q}(X, \mathcal{F})$.
+Cette suite spectrale est fonctorielle en $\mathcal{F}$ et
+en l'hyperrecouvrement $K$.
+\end{lemma}
+
+\begin{proof}
+Nous pourrions démontrer ceci par la même méthode que celle employée dans le lemme
+correspondant du chapitre sur la cohomologie. Donnons plutôt un argument
+par complexe double.
+
+\medskip\noindent
+Choisissons une résolution injective $\mathcal{F} \to \mathcal{I}^\bullet$
+dans la catégorie des faisceaux abéliens sur $\mathcal{C}$. Considérons le
+complexe double $A^{\bullet, \bullet}$ de termes
+$$
+A^{p, q} = \mathcal{I}^q(K_p)
+$$
+où la différentielle $d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$ provient
+de la différentielle du complexe $s(\mathcal{I}^q(K))$
+associé au groupe abélien cosimplicial $\mathcal{I}^p(K)$,
+et où la différentielle $d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ provient
+de la différentielle $\mathcal{I}^q \to \mathcal{I}^{q + 1}$.
+Notons $\text{Tot}(A^{\bullet, \bullet})$ le complexe total associé au
+complexe double $A^{\bullet, \bullet}$, voir
+Homologie, section \ref{homology-section-double-complexes}.
+Nous utiliserons les deux suites
+spectrales $({}'E_r, {}'d_r)$ et $({}''E_r, {}''d_r)$
+associées à ce complexe double, voir
+Homologie, section \ref{homology-section-double-complex}.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-injective-trivial-cech},
+les complexes $s(\mathcal{I}^q(K))$ sont acycliques en
+degrés positifs et ont leur $H^0$ égal à $\mathcal{I}^q(X)$.
+Par conséquent, d'après
+Homologie, lemme \ref{homology-lemma-double-complex-gives-resolution},
+l'application naturelle
+$$
+\mathcal{I}^\bullet(X) \longrightarrow \text{Tot}(A^{\bullet, \bullet})
+$$
+est un quasi-isomorphisme de complexes de groupes abéliens. En particulier,
+nous concluons que $H^n(\text{Tot}(A^{\bullet, \bullet})) = H^n(X, \mathcal{F})$.
+
+\medskip\noindent
+L'application $s(\mathcal{F}(K)) \longrightarrow R\Gamma(X, \mathcal{F})$ du
+lemme est le composé de l'application
+$s(\mathcal{F}(K)) \to \text{Tot}(A^{\bullet, \bullet})$
+et de l'inverse
+du quasi-isomorphisme affiché ci-dessus. Cela convient car
+$\mathcal{I}^\bullet(X)$ est un représentant de $R\Gamma(X, \mathcal{F})$.
+
+\medskip\noindent
+Considérons la suite spectrale $({}'E_r, {}'d_r)_{r \geq 0}$. D'après
+Homologie, lemme \ref{homology-lemma-ss-double-complex},
+nous voyons que
+$$
+{}'E_2^{p, q} = H^p_I(H^q_{II}(A^{\bullet, \bullet}))
+$$
+Autrement dit, nous prenons d'abord la cohomologie relativement à
+$d_2$, ce qui donne les groupes
+${}'E_1^{p, q} = \underline{H}^q(\mathcal{F})(K_p)$.
+Ainsi, nous avons bien (d'après la description de la différentielle
+${}'d_1$)
+${}'E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))$.
+D'après ce qui précède et Homologie, lemme \ref{homology-lemma-first-quadrant-ss},
+nous voyons que cette suite converge vers $H^n(X, \mathcal{F})$, comme souhaité.
+
+\medskip\noindent
+Nous omettons la démonstration des énoncés concernant la fonctorialité des
+constructions précédentes par rapport au faisceau abélien $\mathcal{F}$ et à
+l'hyperrecouvrement $K$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Hyperrecouvrements à la Verdier}
+\label{section-hypercoverings-verdier}
+
+\noindent
+Le lecteur attentif aura remarqué que, pour obtenir la suite spectrale
+de {\v C}ech vers la cohomologie associée à un hyperrecouvrement d'un objet $X$,
+nous n'avons besoin que de la
+conclusion du lemme \ref{lemma-hypercovering-F}.
+La définition suivante a donc un sens.
+
+\begin{definition}
+\label{definition-hypercovering-variant}
+Soit $\mathcal{C}$ un site. Supposons que $\mathcal{C}$ admette des égalisateurs
+et des produits fibrés. Soit $\mathcal{G}$ un préfaisceau d'ensembles.
+Un {\it hyperrecouvrement de $\mathcal{G}$} est un objet simplicial
+$K$ de $\text{SR}(\mathcal{C})$ muni d'une augmentation
+$F(K) \to \mathcal{G}$ telle que
+\begin{enumerate}
+\item $F(K_0) \to \mathcal{G}$ devienne surjectif
+après faisceautisation ;
+\item $F(K_1) \to F(K_0) \times_\mathcal{G} F(K_0)$
+devienne surjectif après faisceautisation ;
+\item $F(K_{n + 1}) \longrightarrow F((\text{cosk}_n \text{sk}_n K)_{n + 1})$
+devienne surjectif après faisceautisation pour $n \geq 1$.
+\end{enumerate}
+Nous disons qu'un objet simplicial $K$ de $\text{SR}(\mathcal{C})$
+est un {\it hyperrecouvrement} si $K$ est un hyperrecouvrement de l'objet
+final $*$ de $\textit{PSh}(\mathcal{C})$.
+\end{definition}
+
+\noindent
+L'hypothèse selon laquelle $\mathcal{C}$ admet des produits fibrés et des égalisateurs
+garantit que $\text{SR}(\mathcal{C})$ admet des produits fibrés
+et des égalisateurs, et que $F$ commute à ceux-ci
+(lemme \ref{lemma-coprod-prod-SR}), ce qui suffit
+à définir les foncteurs cosquelette utilisés (voir
+Simplicial, remarque \ref{simplicial-remark-existence-cosk} et
+Catégories, lemme \ref{categories-lemma-fibre-products-equalizers-exist}).
+Si $\mathcal{C}$ est quelconque, nous pouvons remplacer la condition (3) par la
+condition selon laquelle
+$F(K_{n + 1}) \longrightarrow ((\text{cosk}_n \text{sk}_n F(K))_{n + 1})$
+devient surjectif après faisceautisation pour $n \geq 1$ ; les
+résultats de cette section restent alors valables.
+
+\medskip\noindent
+Soit $\mathcal{F}$ un faisceau abélien sur $\mathcal{C}$.
+Dans la section précédente, nous avons défini le complexe de {\v C}ech de $\mathcal{F}$
+relativement à un objet simplicial $K$ de $\text{SR}(\mathcal{C})$.
+Ensuite, étant donné un préfaisceau $\mathcal{G}$, nous posons
+$$
+H^0(\mathcal{G}, \mathcal{F}) =
+\Mor_{\textit{PSh}(\mathcal{C})}(\mathcal{G}, \mathcal{F}) =
+\Mor_{\Sh(\mathcal{C})}(\mathcal{G}^\#, \mathcal{F}) =
+H^0(\mathcal{G}^\#, \mathcal{F})
+$$
+avec les notations de
+Cohomologie sur les sites, section \ref{sites-cohomology-section-limp}.
+C'est un foncteur exact à gauche, et ses foncteurs dérivés supérieurs
+(brièvement étudiés dans
+Cohomologie sur les sites, section \ref{sites-cohomology-section-limp})
+sont notés $H^i(\mathcal{G}, \mathcal{F})$.
+Nous montrerons que, étant donné un hyperrecouvrement $K$ de $\mathcal{G}$,
+il existe une suite spectrale de {\v C}ech vers la cohomologie qui converge vers la
+cohomologie $H^i(\mathcal{G}, \mathcal{F})$.
+Notons que, si $\mathcal{G} = *$, alors
+$H^i(*, \mathcal{F}) = H^i(\mathcal{C}, \mathcal{F})$ redonne
+la cohomologie de $\mathcal{F}$ sur le site $\mathcal{C}$.
+
+\begin{lemma}
+\label{lemma-h0-cech-variant}
+Soit $\mathcal{C}$ un site admettant des égalisateurs et des produits fibrés.
+Soit $\mathcal{G}$ un préfaisceau sur $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $\mathcal{G}$.
+Soit $\mathcal{F}$ un faisceau de groupes abéliens sur $\mathcal{C}$.
+Alors $\check{H}^0(K, \mathcal{F}) = H^0(\mathcal{G}, \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Cela découle de la définition de $H^0(\mathcal{G}, \mathcal{F})$
+et du fait que
+$$
+\xymatrix{
+F(K_1) \ar@<1ex>[r] \ar@<-1ex>[r] &
+F(K_0) \ar[r] & \mathcal{G}
+}
+$$
+devient un diagramme de coégalisateur après faisceautisation.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-injective-trivial-cech-variant}
+Soit $\mathcal{C}$ un site admettant des égalisateurs et des produits fibrés.
+Soit $\mathcal{G}$ un préfaisceau sur $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $\mathcal{G}$.
+Soit $\mathcal{I}$ un faisceau injectif de groupes abéliens sur $\mathcal{C}$.
+Alors
+$$
+\check{H}^p(K, \mathcal{I}) =
+\left\{
+\begin{matrix}
+H^0(\mathcal{G}, \mathcal{I}) & \text{si} & p = 0 \\
+0 & \text{si} & p > 0
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+D'après (\ref{equation-identify-cech}), nous avons
+$$
+s(\mathcal{F}(K))
+=
+\Hom_{\textit{Ab}(\mathcal{C})}(s(\mathbf{Z}_{F(K)}^\#), \mathcal{F})
+$$
+Le complexe $s(\mathbf{Z}_{F(K)}^\#)$ est quasi-isomorphe
+à $\mathbf{Z}_\mathcal{G}^\#$, voir le
+lemme \ref{lemma-acyclic-hypercover-sheaves}. Nous concluons
+que, si $\mathcal{I}$ est un faisceau abélien injectif, alors
+le complexe $s(\mathcal{I}(K))$ est acyclique, sauf peut-être en degré $0$.
+Autrement dit, nous avons $\check{H}^i(K, \mathcal{I}) = 0$
+pour $i > 0$. Combiné au lemme \ref{lemma-h0-cech-variant},
+cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cech-spectral-sequence-variant}
+Soit $\mathcal{C}$ un site admettant des égalisateurs et des produits fibrés.
+Soit $\mathcal{G}$ un préfaisceau sur $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $\mathcal{G}$.
+Soit $\mathcal{F}$ un faisceau de groupes abéliens sur $\mathcal{C}$.
+Il existe une application
+$$
+s(\mathcal{F}(K)) \longrightarrow R\Gamma(\mathcal{G}, \mathcal{F})
+$$
+dans $D^{+}(\textit{Ab})$, fonctorielle en $\mathcal{F}$, qui induit
+une transformation naturelle
+$$
+\check{H}^i(K, -) \longrightarrow H^i(\mathcal{G}, -)
+$$
+de foncteurs $\textit{Ab}(\mathcal{C}) \to \textit{Ab}$. En outre,
+il existe une suite spectrale $(E_r, d_r)_{r \geq 0}$ avec
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+qui converge vers $H^{p + q}(\mathcal{G}, \mathcal{F})$.
+Cette suite spectrale est fonctorielle en $\mathcal{F}$ et
+en l'hyperrecouvrement $K$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une résolution injective $\mathcal{F} \to \mathcal{I}^\bullet$
+dans la catégorie des faisceaux abéliens sur $\mathcal{C}$. Considérons le
+complexe double $A^{\bullet, \bullet}$ de termes
+$$
+A^{p, q} = \mathcal{I}^q(K_p)
+$$
+où la différentielle $d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$
+est celle provenant de la différentielle $\mathcal{I}^p \to \mathcal{I}^{p + 1}$,
+et où la différentielle $d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ est
+celle provenant de la différentielle du complexe
+$s(\mathcal{I}^p(K))$ associé au groupe abélien cosimplicial
+$\mathcal{I}^p(K)$ comme expliqué ci-dessus.
+Nous utiliserons les deux suites
+spectrales $({}'E_r, {}'d_r)$ et $({}''E_r, {}''d_r)$
+associées à ce complexe double, voir
+Homologie, section \ref{homology-section-double-complex}.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-injective-trivial-cech-variant}, les complexes
+$s(\mathcal{I}^p(K))$ sont acycliques en degrés positifs et ont
+leur $H^0$ égal à $H^0(\mathcal{G}, \mathcal{I}^p)$. Par conséquent, d'après
+Homologie, lemme \ref{homology-lemma-double-complex-gives-resolution}
+et sa démonstration, la suite spectrale $({}'E_r, {}'d_r)$ dégénère,
+et l'application naturelle
+$$
+H^0(\mathcal{G}, \mathcal{I}^\bullet) \longrightarrow
+\text{Tot}(A^{\bullet, \bullet})
+$$
+est un quasi-isomorphisme de complexes de groupes abéliens. L'application
+$s(\mathcal{F}(K)) \longrightarrow R\Gamma(\mathcal{G}, \mathcal{F})$
+du lemme est le composé de l'application naturelle
+$s(\mathcal{F}(K)) \to \text{Tot}(A^{\bullet, \bullet})$
+et de l'inverse du quasi-isomorphisme affiché ci-dessus.
+Cela convient car $H^0(\mathcal{G}, \mathcal{I}^\bullet)$
+est un représentant de $R\Gamma(\mathcal{G}, \mathcal{F})$.
+
+\medskip\noindent
+Considérons la suite spectrale $({}''E_r, {}''d_r)_{r \geq 0}$. D'après
+Homologie, lemme \ref{homology-lemma-ss-double-complex},
+nous voyons que
+$$
+{}''E_2^{p, q} = H^p_{II}(H^q_I(A^{\bullet, \bullet}))
+$$
+Autrement dit, nous prenons d'abord la cohomologie relativement à
+$d_1$, ce qui donne les groupes
+${}''E_1^{p, q} = \underline{H}^p(\mathcal{F})(K_q)$.
+Ainsi, nous avons bien (d'après la description de la différentielle
+${}''d_1$)
+${}''E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))$.
+Puisque cette suite spectrale converge vers la cohomologie de
+$\text{Tot}(A^{\bullet, \bullet})$, la démonstration est terminée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cech-spectral-sequence-verdier}
+Soit $\mathcal{C}$ un site admettant des égalisateurs et des produits fibrés.
+Soit $K$ un hyperrecouvrement.
+Soit $\mathcal{F}$ un faisceau abélien. Il existe une
+suite spectrale $(E_r, d_r)_{r \geq 0}$ avec
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+qui converge vers les groupes de cohomologie globale $H^{p + q}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-cech-spectral-sequence-variant}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Recouvrements d'hyperrecouvrements}
+\label{section-covering}
+
+\noindent
+Voici quelques façons de construire des hyperrecouvrements.
+Notons que, puisque la catégorie
+$\text{SR}(\mathcal{C}, X)$ admet des produits fibrés,
+la catégorie des objets simpliciaux
+de $\text{SR}(\mathcal{C}, X)$ admet elle aussi des produits fibrés,
+voir Simplicial, lemme \ref{simplicial-lemma-fibre-product}.
+
+\begin{lemma}
+\label{lemma-funny-gamma}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soient $K, L, M$ des objets simpliciaux de $\text{SR}(\mathcal{C}, X)$.
+Soient $a : K \to L$, $b : M \to L$ des morphismes.
+Supposons que
+\begin{enumerate}
+\item $K$ soit un hyperrecouvrement de $X$ ;
+\item le morphisme $M_0 \to L_0$ soit un recouvrement ;
+\item pour tout $n \geq 0$, dans le diagramme
+$$
+\xymatrix{
+M_{n + 1} \ar[dd] \ar[rr] \ar[rd]^\gamma &
+&
+(\text{cosk}_n \text{sk}_n M)_{n + 1} \ar[dd] \\
+&
+L_{n + 1}
+\times_{(\text{cosk}_n \text{sk}_n L)_{n + 1}}
+(\text{cosk}_n \text{sk}_n M)_{n + 1}
+\ar[ld] \ar[ru]
+& \\
+L_{n + 1} \ar[rr] & & (\text{cosk}_n \text{sk}_n L)_{n + 1}
+}
+$$
+la flèche $\gamma$ soit un recouvrement.
+\end{enumerate}
+Alors le produit fibré $K \times_L M$ est un hyperrecouvrement de $X$.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $(K \times_L M)_0 = K_0 \times_{L_0} M_0 \to K_0$
+est un changement de base d'un recouvrement par (2), donc un recouvrement, voir le
+lemme \ref{lemma-covering-permanence}. Et $K_0 \to \{X \to X\}$
+est un recouvrement par (1). Ainsi, $(K \times_L M)_0 \to \{X \to X\}$
+est un recouvrement par le lemme \ref{lemma-covering-permanence}. Par conséquent,
+$K \times_L M$ satisfait la première condition de la définition
+\ref{definition-hypercovering}.
+
+\medskip\noindent
+Il reste à vérifier que
+$$
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1} = (K \times_L M)_{n + 1}
+\longrightarrow
+(\text{cosk}_n \text{sk}_n (K \times_L M))_{n + 1}
+$$
+est un recouvrement pour tout $n \geq 0$. Abrégeons comme suit :
+$A = (\text{cosk}_n \text{sk}_n K)_{n + 1}$,
+$B = (\text{cosk}_n \text{sk}_n L)_{n + 1}$, et
+$C = (\text{cosk}_n \text{sk}_n M)_{n + 1}$.
+Le foncteur $\text{cosk}_n \text{sk}_n$ commute aux produits fibrés,
+voir Simplicial, lemme \ref{simplicial-lemma-cosk-fibre-product}.
+Ainsi, le membre de droite ci-dessus est égal à $A \times_B C$.
+Considérons le diagramme commutatif suivant
+$$
+\xymatrix{
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1} \ar[r] \ar[d] &
+M_{n + 1} \ar[d] \ar[rd]_\gamma \ar[rrd] &
+& \\
+K_{n + 1} \ar[r] \ar[rd] &
+L_{n + 1} \ar[rrd] &
+L_{n + 1} \times_B C \ar[l] \ar[r] &
+C \ar[d] \\
+&
+A \ar[rr] &
+&
+B
+}
+$$
+Ce diagramme montre que
+$$
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1}
+=
+(K_{n + 1} \times_B C)
+\times_{(L_{n + 1} \times_B C), \gamma}
+M_{n + 1}
+$$
+Or, $K_{n + 1} \times_B C \to A \times_B C$
+est un changement de base du recouvrement $K_{n + 1} \to A$
+par le morphisme $A \times_B C \to A$ ; c'est donc un
+recouvrement. Par l'hypothèse (3), le morphisme $\gamma$ est un recouvrement.
+Par conséquent, le morphisme
+$$
+(K_{n + 1} \times_B C)
+\times_{(L_{n + 1} \times_B C), \gamma}
+M_{n + 1}
+\longrightarrow
+K_{n + 1} \times_B C
+$$
+est un recouvrement, en tant que changement de base d'un recouvrement.
+Le lemme en résulte, puisqu'un composé de recouvrements
+est un recouvrement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-hypercoverings}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Si $K, L$ sont des hyperrecouvrements de $X$, alors
+$K \times L$ est un hyperrecouvrement de $X$.
+\end{lemma}
+
+\begin{proof}
+On peut soit le vérifier directement, soit utiliser le
+lemme \ref{lemma-funny-gamma} ci-dessus et vérifier que $L \to \{X \to X\}$
+possède la propriété (3).
+\end{proof}
+
+
+\noindent
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Puisque la catégorie $\text{SR}(\mathcal{C}, X)$ admet des coproduits et des
+limites finies, il est licite de parler des objets
+$U \times K$ et $\Hom(U, K)$ pour certains ensembles simpliciaux $U$
+(par exemple ceux qui n'ont qu'un nombre fini de simplexes non dégénérés)
+et tout objet simplicial $K$ de $\text{SR}(\mathcal{C}, X)$.
+Voir Simplicial, sections
+\ref{simplicial-section-product-with-simplicial-sets} et
+\ref{simplicial-section-hom-from-simplicial-sets}.
+
+\begin{lemma}
+\label{lemma-covering}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Soit $k \geq 0$ un entier.
+Soit $u : Z \to K_k$ un recouvrement
+dans $\text{SR}(\mathcal{C}, X)$.
+Alors il existe un morphisme d'hyperrecouvrements
+$f: L \to K$ tel que $L_k \to K_k$
+se factorise par $u$.
+\end{lemma}
+
+\begin{proof}
+Notons $Y = K_k$. Soit $C[k]$ l'ensemble cosimplicial défini dans
+Simplicial, exemple \ref{simplicial-example-simplex-cosimplicial-set}.
+Nous utiliserons la description de $\Hom(C[k], Y)$ et $\Hom(C[k], Z)$
+donnée dans
+Simplicial, lemme \ref{simplicial-lemma-morphism-into-product}.
+Il existe un morphisme canonique
+$K \to \Hom(C[k], Y)$ correspondant à $\text{id} : K_k = Y \to Y$.
+Considérons le morphisme $\Hom(C[k], Z) \to \Hom(C[k], Y)$
+qui, sur les termes de degré $n$, est le morphisme
+$$
+\prod\nolimits_{\alpha : [k] \to [n]} Z
+\longrightarrow
+\prod\nolimits_{\alpha : [k] \to [n]} Y
+$$
+obtenu en utilisant le morphisme donné $Z \to Y$ sur chaque facteur. Posons
+$$
+L = K \times_{\Hom(C[k], Y)} \Hom(C[k], Z).
+$$
+Le morphisme $L_k \to K_k$ s'insère dans un diagramme commutatif
+$$
+\xymatrix{
+L_k \ar[r] \ar[d] &
+\prod_{\alpha : [k] \to [k]} Z \ar[r]^-{\text{pr}_{\text{id}_{[k]}}} \ar[d] &
+Z \ar[d] \\
+K_k \ar[r] &
+\prod_{\alpha : [k] \to [k]} Y \ar[r]^-{\text{pr}_{\text{id}_{[k]}}} &
+Y
+}
+$$
+Puisque le composé des deux flèches du bas est l'identité,
+nous concluons que nous avons la factorisation voulue.
+
+\medskip\noindent
+Il reste à montrer que $L$ est un hyperrecouvrement de $X$.
+Pour ce faire, nous utiliserons le lemme \ref{lemma-funny-gamma}.
+La condition (1) est satisfaite par hypothèse.
+Pour (2), le morphisme
+$$
+\Hom(C[k], Z)_0 \to \Hom(C[k], Y)_0
+$$
+est un recouvrement, car il est isomorphe à $Z \to Y$ puisqu'il
+n'existe qu'un seul morphisme $[k] \to [0]$.
+
+\medskip\noindent
+Considérons la condition (3) pour $n = 0$. Puisque
+$(\text{cosk}_0 T)_1 = T \times T$
+(Simplicial, exemple \ref{simplicial-example-cosk0})
+et puisque $\Hom(C[k], Z)_1 = \prod_{\alpha : [k] \to [1]} Z$,
+nous obtenons le diagramme
+$$
+\xymatrix{
+\prod\nolimits_{\alpha : [k] \to [1]} Z \ar[r] \ar[d] &
+Z \times Z \ar[d] \\
+\prod\nolimits_{\alpha : [k] \to [1]} Y \ar[r] &
+Y \times Y
+}
+$$
+où les flèches horizontales correspondent à la projection sur les facteurs
+associés aux deux $\alpha$ non surjectifs. Ainsi, la flèche $\gamma$
+est le morphisme
+$$
+\prod\nolimits_{\alpha : [k] \to [1]} Z
+\longrightarrow
+\prod\nolimits_{\alpha : [k] \to [1]\text{ non surjectif}} Z
+\times
+\prod\nolimits_{\alpha : [k] \to [1]\text{ surjectif}} Y
+$$
+qui est un produit de recouvrements, donc un recouvrement d'après le
+lemme \ref{lemma-covering-permanence}.
+
+\medskip\noindent
+Considérons la condition (3) pour $n > 0$. Nous affirmons qu'il existe une
+application injective $\tau : S' \to S$ d'ensembles finis telle que, pour tout
+objet $T$ de $\text{SR}(\mathcal{C}, X)$, le morphisme
+\begin{equation}
+\label{equation-map}
+\Hom(C[k], T)_{n + 1} \to
+(\text{cosk}_n \text{sk}_n \Hom(C[k], T))_{n + 1}
+\end{equation}
+soit isomorphe à la projection $\prod_{s \in S} T \to \prod_{s' \in S'} T$
+fonctoriellement en $T$. Si cela est vrai, nous voyons, en raisonnant comme au paragraphe
+précédent, que la flèche $\gamma$ est le morphisme
+$$
+\prod\nolimits_{s \in S} Z
+\longrightarrow
+\prod\nolimits_{s \in S'} Z
+\times
+\prod\nolimits_{s \not\in \tau(S')} Y
+$$
+qui est un produit de recouvrements, donc un recouvrement d'après le
+lemme \ref{lemma-covering-permanence}. Par construction, nous avons
+$\Hom(C[k], T)_{n + 1} = \prod_{\alpha : [k] \to [n + 1]} T$
+(voir Simplicial, lemme \ref{simplicial-lemma-morphism-into-product}).
+Nous prenons donc $S = \text{Map}([k], [n + 1])$.
+D'autre part, Simplicial, lemme \ref{simplicial-lemma-formula-limit},
+fournit une description des points de
+$(\text{cosk}_n \text{sk}_n \Hom(C[k], T))_{n + 1}$
+comme suites $(f_0, \ldots, f_{n + 1})$ de points de $\Hom(C[k], T)_n$
+satisfaisant $d^n_{j - 1} f_i = d^n_i f_j$ pour $0 \leq i < j \leq n + 1$.
+Nous pouvons écrire $f_i = (f_{i, \alpha})$, où $f_{i, \alpha}$ est un point de $T$
+et $\alpha \in \text{Map}([k], [n])$. Les conditions se traduisent par
+$$
+f_{i, \delta^n_{j - 1} \circ \beta} = f_{j, \delta_i^n \circ \beta}
+$$
+pour tous $0 \leq i < j \leq n + 1$ et $\beta : [k] \to [n - 1]$. Ainsi, nous
+voyons que
+$$
+S' = \{0, \ldots, n + 1\} \times \text{Map}([k], [n]) / \sim
+$$
+où la relation d'équivalence est engendrée par les équivalences
+$$
+(i, \delta^n_{j - 1} \circ \beta) \sim (j, \delta_i^n \circ \beta)
+$$
+pour $0 \leq i < j \leq n + 1$ et $\beta : [k] \to [n - 1]$.
+Un calcul (omis) montre que le morphisme (\ref{equation-map})
+correspond à l'application $S' \to S$ qui envoie $(i, \alpha)$ sur
+$\delta^{n + 1}_i \circ \alpha \in S$. (Le lecteur trouvera peut-être rassurant
+de constater que cette application est bien définie par la partie (1) de
+Simplicial, lemme \ref{simplicial-lemma-relations-face-degeneracy}.)
+Pour terminer la démonstration, il suffit de montrer que, si
+$\alpha, \alpha' : [k] \to [n]$ et $0 \leq i < j \leq n + 1$
+sont tels que
+$$
+\delta^{n + 1}_i \circ \alpha = \delta^{n + 1}_j \circ \alpha'
+$$
+alors nous avons $\alpha = \delta^n_{j - 1} \circ \beta$
+et $\alpha' = \delta_i^n \circ \beta$ pour un certain $\beta : [k] \to [n - 1]$.
+C'est immédiat, et nous l'omettons.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-covering-sheaf}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Soit $n \geq 0$ un entier.
+Soit $u : \mathcal{F} \to F(K_n)$ un morphisme
+de préfaisceaux qui devient surjectif
+après faisceautisation.
+Alors il existe un morphisme d'hyperrecouvrements
+$f: L \to K$ tel que $F(f_n) : F(L_n) \to F(K_n)$
+se factorise par $u$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $K_n = \{U_i \to X\}_{i \in I}$.
+Ainsi, l'application $u$ est un morphisme de préfaisceaux d'ensembles
+$u : \mathcal{F} \to \amalg h_{u_i}$.
+L'hypothèse sur $u$ signifie que, pour tout
+$i \in I$, il existe un recouvrement $\{U_{ij} \to U_i\}_{j \in I_i}$
+du site $\mathcal{C}$ et un morphisme de préfaisceaux
+$t_{ij} : h_{U_{ij}} \to \mathcal{F}$ tels que
+$u \circ t_{ij}$ soit l'application $h_{U_{ij}} \to h_{U_i}$
+provenant du morphisme $U_{ij} \to U_i$.
+Posons $J = \amalg_{i \in I} I_i$, et soit
+$\alpha : J \to I$ l'application évidente.
+Pour $j \in J$, notons $V_j = U_{\alpha(j)j}$. Posons
+$Z = \{V_j \to X\}_{j \in J}$.
+Enfin, considérons le morphisme
+$u' : Z \to K_n$ donné par $\alpha : J \to I$
+et par les morphismes $V_j = U_{\alpha(j)j} \to U_{\alpha(j)}$
+ci-dessus. Il s'agit clairement d'un recouvrement dans la
+catégorie $\text{SR}(\mathcal{C}, X)$ et, par
+construction, $F(u') : F(Z) \to F(K_n)$ se factorise par $u$.
+Le résultat découle donc du lemme \ref{lemma-covering} ci-dessus.
+\end{proof}
+
+
+\section{Ajout de simplexes}
+\label{section-adding-simplices}
+
+\noindent
+Dans cette section, nous démontrons quelques lemmes techniques dont nous aurons besoin plus loin.
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Comme nous l'avons indiqué dans la section \ref{section-covering} ci-dessus,
+les objets $U \times K$ et $\Hom(U, K)$
+sont définis pour certains ensembles simpliciaux $U$
+et tout objet simplicial $K$ de $\text{SR}(\mathcal{C}, X)$.
+Voir Simplicial, sections
+\ref{simplicial-section-product-with-simplicial-sets} et
+\ref{simplicial-section-hom-from-simplicial-sets}.
+
+\begin{lemma}
+\label{lemma-one-more-simplex}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Soient $U \subset V$ des ensembles simpliciaux tels que $U_n, V_n$
+soient finis et non vides pour tout $n$.
+Supposons que $U$ n'ait qu'un nombre fini de simplexes non dégénérés.
+Supposons que $n \geq 0$ et $x \in V_n$,
+$x \not \in U_n$, soient tels que
+\begin{enumerate}
+\item $V_i = U_i$ pour $i < n$ ;
+\item $V_n = U_n \cup \{x\}$,
+\item tout $z \in V_j$, $z \not \in U_j$, pour $j > n$,
+soit dégénéré.
+\end{enumerate}
+Alors le morphisme
+$$
+\Hom(V, K)_0
+\longrightarrow
+\Hom(U, K)_0
+$$
+de $\text{SR}(\mathcal{C}, X)$ est un recouvrement.
+\end{lemma}
+
+\begin{proof}
+Si $n = 0$, il s'ensuit aisément que $V = U \amalg \Delta[0]$
+(voir ci-dessous). Dans ce cas, $\Hom(V, K)_0 =
+\Hom(U, K)_0 \times K_0$. Le résultat découle alors
+du lemme \ref{lemma-covering-permanence}.
+
+\medskip\noindent
+Soit $a : \Delta[n] \to V$ le morphisme associé à $x$
+comme dans Simplicial, lemme \ref{simplicial-lemma-simplex-map}.
+Écrivons $\partial \Delta[n] = i_{(n-1)!} \text{sk}_{n - 1} \Delta[n]$
+pour le $(n - 1)$-squelette de $\Delta[n]$.
+Soit $b : \partial \Delta[n] \to U$ la restriction
+de $a$ au $(n - 1)$-squelette de $\Delta[n]$. D'après
+Simplicial, lemme \ref{simplicial-lemma-glue-simplex},
+nous avons $V = U \amalg_{\partial \Delta[n]} \Delta[n]$. D'après
+Simplicial, lemme
+\ref{simplicial-lemma-hom-from-coprod}
+nous obtenons que
+$$
+\xymatrix{
+\Hom(V, K)_0 \ar[r] \ar[d] &
+\Hom(U, K)_0 \ar[d] \\
+\Hom(\Delta[n], K)_0 \ar[r] &
+\Hom(\partial \Delta[n], K)_0
+}
+$$
+est un carré cartésien. Il suffit donc de montrer que
+la flèche horizontale du bas est un recouvrement. D'après
+Simplicial, lemme \ref{simplicial-lemma-cosk-shriek},
+cette flèche s'identifie à
+$$
+K_n \to (\text{cosk}_{n - 1} \text{sk}_{n - 1} K)_n
+$$
+et est donc un recouvrement par définition d'un hyperrecouvrement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-add-simplices}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $K$ un hyperrecouvrement de $X$.
+Soient $U \subset V$ des ensembles simpliciaux tels que $U_n, V_n$
+soient finis et non vides pour tout $n$.
+Supposons que $U$ et $V$ n'aient qu'un nombre fini de simplexes non dégénérés.
+Alors le morphisme
+$$
+\Hom(V, K)_0
+\longrightarrow
+\Hom(U, K)_0
+$$
+de $\text{SR}(\mathcal{C}, X)$ est un recouvrement.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-one-more-simplex}
+ci-dessus, il suffit de démontrer un lemme élémentaire
+sur les inclusions d'ensembles simpliciaux $U \subset V$ comme dans le
+lemme. C'est exactement le résultat de
+Simplicial, lemme \ref{simplicial-lemma-add-simplices}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-degeneracy-maps-coverings}
+Soit $\mathcal{C}$ un site admettant des produits fibrés. Soit $X$ un objet de
+$\mathcal{C}$. Soit $K$ un hyperrecouvrement de $X$. Alors
+\begin{enumerate}
+\item $K_n$ est un recouvrement de $X$ pour tout $n \geq 0$ ;
+\item $d^n_i : K_n \to K_{n - 1}$ est un recouvrement pour tous $n \geq 1$
+et $0 \leq i \leq n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Rappelons que $K_0$ est un recouvrement de $X$ par la
+définition \ref{definition-hypercovering}
+et que cela revient à dire que
+$K_0 \to \{X \to X\}$ est un recouvrement au sens
+de la définition \ref{definition-covering-SR}.
+Ainsi, (1) découle de (2), car celui-ci montrera que le
+composé
+$K_n \to K_{n - 1} \to \ldots \to K_0 \to \{X \to X\}$
+est un recouvrement par le lemme \ref{lemma-covering-permanence}.
+
+\medskip\noindent
+Démonstration de (2). Observons que
+$\Mor(\Delta[n], K)_0 = K_n$ d'après
+Simplicial, lemme \ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}.
+Par conséquent, (2) découle du lemme \ref{lemma-add-simplices}
+appliqué aux $n + 1$ inclusions distinctes $\Delta[n - 1] \to \Delta[n]$.
+\end{proof}
+
+\begin{remark}
+\label{remark-P-covering}
+Un cas particulier utile des lemmes \ref{lemma-add-simplices} et
+\ref{lemma-degeneracy-maps-coverings} est le suivant.
+Supposons que nous ayons une catégorie $\mathcal{C}$ admettant des produits fibrés.
+Soit $P \subset \text{Arrows}(\mathcal{C})$ une partie
+stable par changement de base, stable par composition
+et contenant tous les isomorphismes. On appelle alors
+{\it $P$-hyperrecouvrement} une augmentation $a : U \to X$
+issue d'un objet simplicial de $\mathcal{C}$ telle que
+\begin{enumerate}
+\item $U_0 \to X$ appartienne à $P$ ;
+\item $U_1 \to U_0 \times_X U_0$ appartienne à $P$ ;
+\item $U_{n + 1} \to (\text{cosk}_n\text{sk}_n U)_{n + 1}$
+appartienne à $P$ pour $n \geq 1$.
+\end{enumerate}
+La catégorie $\mathcal{C}/X$ admet toutes les limites finies ; les
+cosquelettes utilisés dans la formulation ci-dessus existent donc
+(voir Catégories, lemme \ref{categories-lemma-finite-limits-exist}).
+Nous affirmons alors que les morphismes $U_n \to X$ et $d^n_i : U_n \to U_{n - 1}$
+appartiennent à $P$. Cela découle des lemmes
+précédents en faisant de $\mathcal{C}$ un site dont les recouvrements
+sont les $\{f : V \to U\}$ tels que $f \in P$, et en prenant $K$ donné par
+$K_n = \{U_n \to X\}$.
+\end{remark}
+
+
+\section{Homotopies}
+\label{section-homotopies}
+
+\noindent
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $L$ un objet simplicial de $\text{SR}(\mathcal{C}, X)$.
+D'après
+Simplicial, lemme \ref{simplicial-lemma-exists-hom-from-simplicial-set-finite},
+il existe un objet $\Hom(\Delta[1], L)$
+de la catégorie $\text{Simp}(\text{SR}(\mathcal{C}, X))$ qui représente le
+foncteur
+$$
+T
+\longmapsto
+\Mor_{\text{Simp}(\text{SR}(\mathcal{C}, X))}(\Delta[1] \times T, L)
+$$
+Il existe un morphisme canonique
+$$
+\Hom(\Delta[1], L) \to L \times L
+$$
+provenant de $e_i : \Delta[0] \to \Delta[1]$ et de l'identification
+$\Hom(\Delta[0], L) = L$.
+
+\begin{lemma}
+\label{lemma-hom-hypercovering}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $L$ un objet simplicial de $\text{SR}(\mathcal{C}, X)$.
+Soit $n \geq 0$. Considérons le diagramme commutatif
+\begin{equation}
+\label{equation-diagram}
+\xymatrix{
+\Hom(\Delta[1], L)_{n + 1} \ar[r] \ar[d] &
+(\text{cosk}_n \text{sk}_n \Hom(\Delta[1], L))_{n + 1} \ar[d] \\
+(L \times L)_{n + 1} \ar[r] &
+(\text{cosk}_n \text{sk}_n (L \times L))_{n + 1}
+}
+\end{equation}
+provenant du morphisme défini ci-dessus.
+Nous pouvons identifier les termes de ce diagramme comme suit,
+où
+$\partial \Delta[n + 1] = i_{n!}\text{sk}_n \Delta[n + 1]$
+est le $n$-squelette du $(n + 1)$-simplexe :
+\begin{eqnarray*}
+\Hom(\Delta[1], L)_{n + 1}
+& = &
+\Hom(\Delta[1] \times \Delta[n + 1], L)_0 \\
+(\text{cosk}_n \text{sk}_n \Hom(\Delta[1], L))_{n + 1}
+& = &
+\Hom(\Delta[1] \times \partial \Delta[n + 1], L)_0 \\
+(L \times L)_{n + 1}
+& = &
+\Hom(
+(\Delta[n + 1] \amalg \Delta[n + 1], L)_0 \\
+(\text{cosk}_n \text{sk}_n (L \times L))_{n + 1}
+& = &
+\Hom(
+\partial \Delta[n + 1]
+\amalg
+\partial \Delta[n + 1], L)_0
+\end{eqnarray*}
+et les morphismes entre ces objets de $\text{SR}(\mathcal{C}, X)$
+proviennent du diagramme commutatif d'ensembles simpliciaux
+\begin{equation}
+\label{equation-dual-diagram}
+\xymatrix{
+\Delta[1] \times \Delta[n + 1] &
+\Delta[1] \times \partial\Delta[n + 1] \ar[l] \\
+\Delta[n + 1] \amalg \Delta[n + 1] \ar[u] &
+\partial\Delta[n + 1] \amalg \partial\Delta[n + 1]
+\ar[l] \ar[u]
+}
+\end{equation}
+En outre, le produit fibré de la flèche du bas et de la
+flèche de droite dans (\ref{equation-diagram}) est égal à
+$$
+\Hom(U, L)_0
+$$
+où $U \subset \Delta[1] \times \Delta[n + 1]$
+est le plus petit sous-ensemble simplicial contenant les images de
+$\Delta[n + 1] \amalg \Delta[n + 1]$ et de
+$\Delta[1] \times \partial\Delta[n + 1]$.
+\end{lemma}
+
+\begin{proof}
+La première et la troisième égalité sont données par
+Simplicial, lemme \ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}.
+La deuxième et la quatrième résultent de ce lemme combiné à
+Simplicial, lemme \ref{simplicial-lemma-cosk-shriek}.
+La dernière assertion découle du fait que
+$U$ est la somme amalgamée des flèches du bas et de droite du
+diagramme (\ref{equation-dual-diagram}), par
+Simplicial, lemme \ref{simplicial-lemma-hom-from-coprod}.
+Pour voir que $U$ est égal à cette somme amalgamée, il suffit
+de constater que l'intersection de
+$\Delta[n + 1] \amalg \Delta[n + 1]$ et de
+$\Delta[1] \times \partial\Delta[n + 1]$
+dans $\Delta[1] \times \Delta[n + 1]$ est égale à
+$\partial\Delta[n + 1] \amalg \partial\Delta[n + 1]$.
+Nous laissons cela au lecteur.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-homotopy}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soient $K, L$ des hyperrecouvrements de $X$.
+Soient $a, b : K \to L$ des morphismes d'hyperrecouvrements.
+Il existe un morphisme d'hyperrecouvrements
+$c : K' \to K$ tel que $a \circ c$ soit homotope
+à $b \circ c$.
+\end{lemma}
+
+\begin{proof}
+Considérons le diagramme commutatif suivant
+$$
+\xymatrix{
+K' \ar@{=}[r]^-{def} \ar[rd]_c &
+K \times_{(L \times L)} \Hom(\Delta[1], L)
+\ar[r] \ar[d] & \Hom(\Delta[1], L) \ar[d] \\
+& K \ar[r]^{(a, b)} & L \times L
+}
+$$
+Par la propriété fonctorielle de $\Hom(\Delta[1], L)$,
+le composé des morphismes horizontaux
+correspond à un morphisme $K' \times \Delta[1] \to L$ qui
+définit une homotopie entre $c \circ a$ et $c \circ b$.
+Ainsi, si nous pouvons montrer que $K'$ est un
+hyperrecouvrement de $X$, nous obtenons le lemme.
+Pour ce faire, nous appliquerons le lemme \ref{lemma-funny-gamma}
+à la paire de morphismes $K \to L \times L$
+et $\Hom(\Delta[1], L) \to L \times L$.
+La condition (1) du lemme \ref{lemma-funny-gamma} est satisfaite.
+La condition (2) du lemme \ref{lemma-funny-gamma} est vérifiée car
+$\Hom(\Delta[1], L)_0 = L_1$, et le morphisme
+$(d^1_0, d^1_1) : L_1 \to L_0 \times L_0$ est un
+recouvrement de $\text{SR}(\mathcal{C}, X)$ par notre
+hypothèse selon laquelle $L$ est un hyperrecouvrement.
+Pour démontrer la condition (3) du lemme \ref{lemma-funny-gamma},
+nous utilisons le lemme \ref{lemma-hom-hypercovering} ci-dessus. D'après
+ce lemme, le morphisme $\gamma$ de la condition (3) du lemme
+\ref{lemma-funny-gamma} est le morphisme
+$$
+\Hom(\Delta[1] \times \Delta[n + 1], L)_0
+\longrightarrow
+\Hom(U, L)_0
+$$
+où $U \subset \Delta[1] \times \Delta[n + 1]$.
+D'après le lemme \ref{lemma-add-simplices},
+c'est un recouvrement ; l'assertion est donc démontrée.
+\end{proof}
+
+\begin{remark}
+\label{remark-contractible-category}
+Notons que le point essentiel de la démonstration est l'emploi du
+lemme \ref{lemma-add-simplices}. Ce lemme
+est tout à fait général et ne dépend pas de la
+forme exacte des ensembles simpliciaux (pourvu qu'ils
+n'aient qu'un nombre fini de simplexes non dégénérés).
+Il paraît tout à fait raisonnable de s'attendre à un résultat
+du type suivant :
+étant donné un morphisme quelconque $a : K \times \partial \Delta[k]
+\to L$, où $K$ et $L$ sont des hyperrecouvrements, il
+existe un morphisme d'hyperrecouvrements $c : K' \to K$
+et un morphisme $g : K' \times \Delta[k] \to L$
+tels que
+$g|_{K' \times \partial \Delta[k]} =
+a \circ (c \times \text{id}_{\partial \Delta[k]})$.
+Autrement dit, la catégorie des hyperrecouvrements est, en un
+sens convenable, contractile.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Cohomologie et hyperrecouvrements}
+\label{section-cohomology}
+
+\noindent
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$.
+Soit $\mathcal{F}$ un faisceau de groupes abéliens sur $\mathcal{C}$.
+Soient $K, L$ des hyperrecouvrements de $X$.
+Si $a, b : K \to L$ sont des applications homotopes,
+alors $\mathcal{F}(a), \mathcal{F}(b) : \mathcal{F}(K) \to \mathcal{F}(L)$
+sont des applications homotopes, voir
+Simplicial, lemme \ref{simplicial-lemma-functorial-homotopy}.
+Elles ont donc le même effet sur les groupes de cohomologie des
+complexes de cochaînes associés, voir
+Simplicial, lemme \ref{simplicial-lemma-homotopy-s-Q}.
+Nous allons utiliser ce fait pour définir la limite inductive sur tous les
+hyperrecouvrements.
+
+\medskip\noindent
+Notons provisoirement $\text{HC}(\mathcal{C}, X)$
+la catégorie dont les objets sont les hyperrecouvrements de $X$
+et dont les morphismes sont les applications entre hyperrecouvrements de $X$
+à homotopie près. Nous avons vu qu'il
+s'agit d'une catégorie et non d'une « grande » catégorie,
+voir le lemme \ref{lemma-hypercoverings-set}.
+La catégorie opposée à $\text{HC}(\mathcal{C}, X)$
+sera la catégorie d'indices de notre diagramme, voir
+Catégories, section \ref{categories-section-limits} pour la terminologie.
+Considérons le diagramme
+$$
+\check{H}^i(-, \mathcal{F}) :
+\text{HC}(\mathcal{C}, X)^{opp}
+\longrightarrow
+\textit{Ab}.
+$$
+D'après les lemmes \ref{lemma-product-hypercoverings} et \ref{lemma-homotopy}
+et la remarque sur les homotopies ci-dessus, ce diagramme est filtrant, voir
+Catégories, définition \ref{categories-definition-directed}.
+Ainsi, la limite inductive
+$$
+\check{H}^i_{\text{HC}}(X, \mathcal{F}) =
+\colim_{K \in \text{HC}(\mathcal{C}, X)} \check{H}^i(K, \mathcal{F})
+$$
+admet une description particulièrement simple (voir la référence citée).
+
+\begin{theorem}
+\label{theorem-cohomology-hypercoverings}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $X$ un objet de $\mathcal{C}$. Soit $i \geq 0$.
+Les foncteurs
+\begin{eqnarray*}
+\textit{Ab}(\mathcal{C}) & \longrightarrow & \textit{Ab} \\
+\mathcal{F} & \longmapsto & H^i(X, \mathcal{F}) \\
+\mathcal{F} & \longmapsto & \check{H}^i_{\text{HC}}(X, \mathcal{F})
+\end{eqnarray*}
+sont canoniquement isomorphes.
+\end{theorem}
+
+\begin{proof}[Démonstration utilisant les suites spectrales.]
+Supposons que $\xi \in H^p(X, \mathcal{F})$ pour un certain $p \geq 0$.
+Montrons que $\xi$ appartient à l'image de l'application
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$ du
+lemme \ref{lemma-cech-spectral-sequence}
+pour un certain hyperrecouvrement $K$ de $X$.
+
+\medskip\noindent
+Cela est vrai si $p = 0$ par le lemme \ref{lemma-h0-cech}.
+Si $p = 1$, choisissons un hyperrecouvrement de {\v C}ech $K$ de $X$ comme dans
+l'exemple \ref{example-cech}, en partant d'un recouvrement
+$K_0 = \{U_i \to X\}$ du site $\mathcal{C}$ tel que
+$\xi|_{U_i} = 0$, voir
+Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}.
+Il résulte immédiatement de la suite spectrale
+du lemme \ref{lemma-cech-spectral-sequence} que, dans ce cas, $\xi$ provient
+d'un élément de $\check{H}^1(K, \mathcal{F})$.
+En général, choisissons un hyperrecouvrement quelconque $K$ de $X$ tel
+que $\xi$ s'envoie sur zéro dans $\underline{H}^p(\mathcal{F})(K_0)$
+(en utilisant l'exemple \ref{example-cech} et
+Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-kill-cohomology-class-on-covering},
+une fois encore).
+D'après la suite spectrale du lemme \ref{lemma-cech-spectral-sequence},
+l'obstruction à ce que $\xi$ provienne d'un élément de
+$\check{H}^p(K, \mathcal{F})$ est une suite d'éléments
+$\xi_1, \ldots, \xi_{p - 1}$ tels que
+$\xi_q \in \check{H}^{p - q}(K, \underline{H}^q(\mathcal{F}))$
+(plus précisément, les images des $\xi_q$ dans certains sous-quotients
+de ces groupes).
+
+\medskip\noindent
+Nous pouvons remplacer par récurrence l'hyperrecouvrement $K$ par des raffinements
+sur lesquels les obstructions $\xi_1, \ldots, \xi_{p - 1}$ se restreignent à zéro
+(et non seulement leurs images
+dans les sous-quotients : il n'y a donc ici aucune subtilité). Supposons en effet être
+déjà parvenus à la situation où
+$\xi_{q + 1}, \ldots, \xi_{p - 1}$ sont nuls.
+Notons que $\xi_q \in \check{H}^{p - q}(K, \underline{H}^q(\mathcal{F}))$
+est la classe d'un certain élément
+$$
+\tilde \xi_q \in
+\underline{H}^q(\mathcal{F})(K_{p - q}) =
+\prod H^q(U_i, \mathcal{F})
+$$
+si $K_{p - q} = \{U_i \to X\}_{i \in I}$. Soit $\xi_{q, i}$
+la composante de $\tilde \xi_q$ dans $H^q(U_i, \mathcal{F})$.
+Comme $q \geq 1$, nous pouvons utiliser
+Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-kill-cohomology-class-on-covering},
+une fois encore, pour choisir des recouvrements $\{U_{i, j} \to U_i\}$
+du site tels que chaque restriction $\xi_{q, i}|_{U_{i, j}} = 0$.
+Considérons l'objet $Z = \{U_{i, j} \to X\}$ de la catégorie
+$\text{SR}(\mathcal{C}, X)$ et son morphisme évident
+$u : Z \to K_{p - q}$. Il est clair que $u$ est un recouvrement, voir la
+définition \ref{definition-covering-SR}. D'après le
+lemme \ref{lemma-covering}, il
+existe un morphisme $L \to K$ d'hyperrecouvrements de $X$ tel que
+$L_{p - q} \to K_{p - q}$ se factorise par $u$. Alors, clairement,
+l'image de $\xi_q$ dans $\underline{H}^q(\mathcal{F})(L_{p - q})$
+est nulle. Puisque la suite spectrale du
+lemme \ref{lemma-cech-spectral-sequence}
+est fonctorielle, cela signifie qu'après avoir remplacé $K$ par $L$, nous atteignons la
+situation où $\xi_q, \ldots, \xi_{p - 1}$ sont tous nuls.
+En poursuivant ainsi, nous aboutissons à un hyperrecouvrement où ils sont tous
+nuls ; par conséquent, $\xi$ appartient à l'image de l'application
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$.
+
+\medskip\noindent
+Supposons que $K$ soit un hyperrecouvrement de $X$, que
+$\xi \in \check{H}^p(K, \mathcal{F})$ et que l'image de
+$\xi$ par l'application
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$ du
+lemme \ref{lemma-cech-spectral-sequence}
+soit nulle. Pour terminer la démonstration du théorème, nous devons montrer
+qu'il existe un morphisme d'hyperrecouvrements $L \to K$ tel que
+$\xi$ se restreigne à zéro dans $\check{H}^p(L, \mathcal{F})$.
+D'après la suite spectrale du lemme \ref{lemma-cech-spectral-sequence},
+l'annulation de l'image de $\xi$ dans $H^p(X, \mathcal{F})$
+signifie qu'il existe des éléments $\xi_1, \ldots, \xi_{p - 2}$
+tels que $\xi_q \in \check{H}^{p - 1 - q}(K, \underline{H}^q(\mathcal{F}))$
+(plus précisément, leurs images dans certains sous-quotients)
+et tels que la somme des images $d_{q + 1}^{p - 1 - q, q}\xi_q$ (dans la suite
+spectrale) soit égale à $\xi$. Par exactement le même mécanisme que ci-dessus,
+nous pouvons donc trouver un morphisme d'hyperrecouvrements $L \to K$ tel que
+les restrictions des éléments $\xi_q$, $q = 1, \ldots, p - 2$,
+dans $\check{H}^{p - 1 - q}(L, \underline{H}^q(\mathcal{F}))$ soient nulles.
+Il s'ensuit que $\xi$ est nul puisque le morphisme $L \to K$
+induit un morphisme de suites spectrales d'après le
+lemme \ref{lemma-cech-spectral-sequence}.
+\end{proof}
+
+\begin{proof}[Démonstration sans utiliser les suites spectrales.]
+Nous avons vu le résultat pour $i = 0$, voir le lemme \ref{lemma-h0-cech}.
+Nous savons que les foncteurs $H^i(X, -)$ forment un $\delta$-foncteur universel, voir
+Catégories dérivées, lemme \ref{derived-lemma-higher-derived-functors}.
+Pour démontrer le théorème, il suffit de montrer que
+la suite de foncteurs $\check{H}^i_{HC}(X, -)$ forme un
+$\delta$-foncteur. En effet, nous savons que la cohomologie de {\v C}ech
+est nulle en degrés strictement positifs sur les faisceaux injectifs (lemme \ref{lemma-injective-trivial-cech}),
+et nous pouvons alors appliquer
+Homologie, lemme \ref{homology-lemma-efface-implies-universal}.
+
+\medskip\noindent
+Soit
+$$
+0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0
+$$
+une suite exacte courte de faisceaux abéliens sur $\mathcal{C}$.
+Soit $\xi \in \check{H}^p_{HC}(X, \mathcal{H})$. Choisissons un hyperrecouvrement
+$K$ de $X$ et un élément $\sigma \in \mathcal{H}(K_p)$ représentant
+$\xi$ en cohomologie. Il lui correspond une suite exacte de
+complexes
+$$
+0 \to s(\mathcal{F}(K)) \to s(\mathcal{G}(K)) \to s(\mathcal{H}(K))
+$$
+mais rien ne garantit qu'il y ait aussi un zéro à droite, et c'est
+la seule chose qui
+nous empêche de définir $\delta(\xi)$ par une simple application du
+lemme du serpent. Rappelons que
+$$
+\mathcal{H}(K_p) = \prod \mathcal{H}(U_i)
+$$
+si $K_p = \{U_i \to X\}$. Soit $\sigma =\prod \sigma_i$ avec
+$\sigma_i \in \mathcal{H}(U_i)$. Puisque $\mathcal{G} \to \mathcal{H}$ est
+une surjection de faisceaux, nous voyons qu'il existe des recouvrements
+$\{U_{i, j} \to U_i\}$ tels que $\sigma_i|_{U_{i, j}}$ soit
+l'image d'un certain élément $\tau_{i, j} \in \mathcal{G}(U_{i, j})$.
+Considérons l'objet $Z = \{U_{i, j} \to X\}$ de la catégorie
+$\text{SR}(\mathcal{C}, X)$ et son morphisme évident
+$u : Z \to K_p$. Il est clair que $u$ est un recouvrement, voir la
+définition \ref{definition-covering-SR}. D'après le
+lemme \ref{lemma-covering}, il
+existe un morphisme $L \to K$ d'hyperrecouvrements de $X$ tel que
+$L_p \to K_p$ se factorise par $u$. Après avoir remplacé $K$ par $L$,
+nous pouvons donc supposer que $\sigma$ est l'image d'un
+élément $\tau \in \mathcal{G}(K_p)$. Notons que $d(\sigma) = 0$,
+mais pas nécessairement $d(\tau) = 0$. Ainsi, $d(\tau) \in \mathcal{F}(K_{p + 1})$
+est un cocycle. Dans cette situation, nous définissons
+$\delta(\xi)$ comme la classe du cocycle $d(\tau)$ dans
+$\check{H}^{p + 1}_{HC}(X, \mathcal{F})$.
+
+\medskip\noindent
+À ce stade, plusieurs points sont à vérifier :
+(a) $\delta(\xi)$ ne dépend pas du choix de $\tau$ ;
+(b) $\delta(\xi)$ ne dépend pas du choix de l'hyperrecouvrement
+$L \to K$ sur lequel $\sigma$ se relève ;
+(c) $\delta(\xi)$ ne dépend ni de l'hyperrecouvrement initial ni de
+$\sigma$ choisi pour représenter $\xi$. Nous omettons la vérification de
+(a), (b) et (c) ; l'indépendance du choix des hyperrecouvrements
+se ramène en fait aux lemmes \ref{lemma-product-hypercoverings}
+et \ref{lemma-homotopy}. Nous omettons aussi de vérifier que
+$\delta$ est fonctoriel relativement aux morphismes de suites exactes
+courtes de faisceaux abéliens sur $\mathcal{C}$.
+
+\medskip\noindent
+Enfin, nous devons vérifier qu'avec cette définition de $\delta$,
+notre suite exacte courte de faisceaux abéliens ci-dessus donne une
+suite exacte longue de groupes de cohomologie de {\v C}ech.
+Montrons d'abord que, si $\delta(\xi) = 0$ (avec $\xi$ comme ci-dessus), alors
+$\xi$ est l'image d'un certain élément
+$\xi' \in \check{H}^p_{HC}(X, \mathcal{G})$.
+En effet, si $\delta(\xi) = 0$, alors, avec les notations ci-dessus, nous
+voyons que la classe de $d(\tau)$ est nulle dans
+$\check{H}^{p + 1}_{HC}(X, \mathcal{F})$. Il existe donc
+un morphisme d'hyperrecouvrements $L \to K$ tel que la restriction
+de $d(\tau)$ à un élément de $\mathcal{F}(L_{p + 1})$ soit
+égale à $d(\upsilon)$ pour un certain $\upsilon \in \mathcal{F}(L_p)$.
+Cela implique que $\tau|_{L_p} + \upsilon$ forme un
+cocycle et détermine une classe $\xi' \in \check{H}^p(L, \mathcal{G})$
+qui s'envoie sur $\xi$, comme voulu.
+
+\medskip\noindent
+Nous omettons la démonstration du fait que, si $\xi' \in \check{H}^{p + 1}_{HC}(X, \mathcal{F})$
+s'envoie sur zéro dans $\check{H}^{p + 1}_{HC}(X, \mathcal{G})$, alors il est
+égal à $\delta(\xi)$ pour un certain $\xi \in \check{H}^p_{HC}(X, \mathcal{H})$.
+\end{proof}
+
+\noindent
+Nous déduisons maintenant le cas de Verdier du
+théorème \ref{theorem-cohomology-hypercoverings}
+par un artifice.
+
+\begin{proposition}
+\label{proposition-cohomology-hypercoverings}
+Soit $\mathcal{C}$ un site admettant des produits fibrés et les produits de deux objets.
+Soit $\mathcal{F}$ un faisceau abélien sur $\mathcal{C}$.
+Soit $i \geq 0$. Alors
+\begin{enumerate}
+\item pour tout $\xi \in H^i(\mathcal{F})$, il existe un hyperrecouvrement
+$K$ tel que $\xi$ appartienne à l'image de l'application canonique
+$\check{H}^i(K, \mathcal{F}) \to H^i(\mathcal{F})$ ;
+\item si $K, L$ sont des hyperrecouvrements et si $\xi_K \in \check{H}^i(K, \mathcal{F})$,
+$\xi_L \in \check{H}^i(L, \mathcal{F})$ sont des éléments qui s'envoient
+sur le même élément de $H^i(\mathcal{F})$, alors il existe
+un hyperrecouvrement $M$ et des morphismes $M \to K$ et $M \to L$ tels
+que $\xi_K$ et $\xi_L$ s'envoient sur le même élément de
+$\check{H}^i(M, \mathcal{F})$.
+\end{enumerate}
+Autrement dit, modulo les questions ensemblistes, les groupes de
+cohomologie de $\mathcal{F}$ sur $\mathcal{C}$ sont la limite inductive des
+groupes de cohomologie de {\v C}ech de $\mathcal{F}$ sur tous les hyperrecouvrements.
+\end{proposition}
+
+\begin{proof}
+Ce résultat est une conséquence immédiate du
+théorème \ref{theorem-cohomology-hypercoverings}.
+En effet, nous pouvons remplacer artificiellement $\mathcal{C}$ par un site
+légèrement plus grand $\mathcal{C}'$ tel que
+(I) $\mathcal{C}'$ admette un objet final $X$ et (II)
+les hyperrecouvrements dans $\mathcal{C}$ soient plus ou moins la
+même chose que les hyperrecouvrements de $X$ dans $\mathcal{C}'$.
+Mais cette construction exige un travail assez important de
+vérification des détails.
+
+\medskip\noindent
+Appelons une famille de morphismes $\{U_i \to U\}$ de $\mathcal{C}$
+de but fixé un {\it recouvrement faible} si le morphisme de faisceaux associé à
+l'application $\coprod_{i \in I} h_{U_i} \to h_U$ est surjectif.
+Construisons un nouveau site $\mathcal{C}'$ comme suit :
+\begin{enumerate}
+\item comme catégorie, posons $\Ob(\mathcal{C}') = \Ob(\mathcal{C}) \amalg \{X\}$
+et ajoutons un unique morphisme vers $X$ depuis tout objet de $\mathcal{C}'$ ;
+\item $\mathcal{C}'$ admet des produits fibrés puisque les produits fibrés et les produits
+de deux objets existent dans $\mathcal{C}$ ;
+\item les recouvrements de $\mathcal{C}'$ sont les recouvrements faibles de $\mathcal{C}$,
+ainsi que les $\{U_i \to X\}_{i \in I}$ tels que soit $U_i = X$
+pour un certain $i$, soit $U_i \not = X$ pour tout $i$ et l'application
+$\coprod h_{U_i} \to *$ de préfaisceaux sur $\mathcal{C}$ devienne
+surjective après faisceautisation sur $\mathcal{C}$ ;
+\item nous appliquons Ensembles, lemme \ref{sets-lemma-coverings-site},
+pour restreindre les recouvrements et obtenir notre site $\mathcal{C}'$.
+\end{enumerate}
+Alors $\Sh(\mathcal{C}') = \Sh(\mathcal{C})$, car le foncteur d'inclusion
+$\mathcal{C} \to \mathcal{C}'$ est un foncteur cocontinu spécial
+(voir Sites, définition \ref{sites-definition-special-cocontinuous-functor}).
+Nous omettons les vérifications immédiates.
+
+\medskip\noindent
+Choisissons un recouvrement $\{U_i \to X\}$ de $\mathcal{C}'$ tel que $U_i$ soit un
+objet de $\mathcal{C}$ pour tout $i$ (c'est possible car
+$\mathcal{C} \to \mathcal{C}'$ est cocontinu spécial).
+Alors $K_0 = \{U_i \to X\}$ est un recouvrement du
+site $\mathcal{C}'$ construit ci-dessus. Considérons $K_0$ comme un objet de
+$\text{SR}(\mathcal{C}', X)$ et posons $K_{init} = \text{cosk}_0(K_0)$.
+Alors $K_{init}$ est un hyperrecouvrement de $X$, voir
+l'exemple \ref{example-cech}. Notons que tout $K_{init, n}$ est de la forme
+$\{W_j \to X\}$ avec $W_j \in \Ob(\mathcal{C})$.
+
+\medskip\noindent
+Démonstration de (1). Choisissons $\xi \in H^i(\mathcal{F}) = H^i(X, \mathcal{F}')$,
+où $\mathcal{F}'$ est le faisceau abélien sur $\mathcal{C}'$ correspondant
+à $\mathcal{F}$ sur $\mathcal{C}$. D'après le
+théorème \ref{theorem-cohomology-hypercoverings},
+il existe un morphisme d'hyperrecouvrements $K' \to K_{init}$
+de $X$ dans $\mathcal{C}'$ tel que $\xi$ provienne d'un élément
+de $\check{H}^i(K', \mathcal{F})$.
+Écrivons $K'_n = \{U_{n, j} \to X\}$. Puisque $K'_n$ s'envoie dans
+$K_{init, n}$, nous voyons que $U_{n, j}$ est un objet de $\mathcal{C}$.
+Nous pouvons donc définir un objet simplicial $K$ de $\text{SR}(\mathcal{C})$
+en posant $K_n = \{U_{n, j}\}$. Puisque les recouvrements de
+$\mathcal{C}'$ constitués de familles de morphismes de $\mathcal{C}$
+sont des recouvrements faibles, nous voyons que $K$ est un hyperrecouvrement au sens
+de la définition \ref{definition-hypercovering-variant}.
+Enfin, puisque $\mathcal{F}'$ est l'unique faisceau sur $\mathcal{C}'$
+dont la restriction à $\mathcal{C}$ est égale à $\mathcal{F}$,
+nous voyons que les complexes de {\v C}ech $s(\mathcal{F}(K))$
+et $s(\mathcal{F}'(K'))$ sont identiques, d'où (1).
+(Compatibilité avec l'application vers les groupes de cohomologie omise.)
+
+\medskip\noindent
+Démonstration de (2). Soient $K$ et $L$ des hyperrecouvrements dans $\mathcal{C}$.
+Soient $K'$ et $L'$ les objets simpliciaux de $\text{SR}(\mathcal{C}', X)$
+obtenus à partir de $K$ et $L$ par le foncteur
+$\text{SR}(\mathcal{C}) \to \text{SR}(\mathcal{C}', X)$,
+$\{U_i\} \mapsto \{U_i \to X\}$. Comme précédemment, les complexes de
+{\v C}ech sont égaux ; nous obtenons donc $\xi_{K'}$ et
+$\xi_{L'}$ qui s'envoient sur la même classe de cohomologie de $\mathcal{F}'$
+sur $\mathcal{C}'$. Après avoir éventuellement élargi notre choix
+de recouvrements dans $\mathcal{C}'$ (en raison d'une question ensembliste),
+nous pouvons supposer que $K'$ et $L'$ sont des hyperrecouvrements de $X$ dans
+$\mathcal{C}'$ ; cela résulte de notre définition des hyperrecouvrements dans la
+définition \ref{definition-hypercovering-variant} et
+du fait que les recouvrements faibles dans $\mathcal{C}$ donnent des recouvrements dans
+$\mathcal{C}'$. D'après le
+théorème \ref{theorem-cohomology-hypercoverings},
+il existe un hyperrecouvrement $M'$ de $X$ dans $\mathcal{C}'$
+et des morphismes $M' \to K'$, $M' \to L'$ et $M' \to K_{init}$
+tels que $\xi_{K'}$ et $\xi_{L'}$ se restreignent au même élément de
+$\check{H}^i(M', \mathcal{F})$. En explicitant cet énoncé comme ci-dessus,
+nous trouvons que (2) est vrai.
+\end{proof}
+
+
+
+
+
+\section{Hyperrecouvrements d'espaces}
+\label{section-hypercoverings-spaces}
+
+\noindent
+La théorie précédente présente un certain intérêt même dans le cas des espaces
+topologiques. Dans ce cas, nous pouvons expliciter ce qu'est un hyperrecouvrement et voir
+ce que dit réellement le résultat.
+
+\medskip\noindent
+Soit $X$ un espace topologique. Considérons le site $X_{Zar}$ de
+Sites, exemple \ref{sites-example-site-topological}. Rappelons
+qu'un objet de $X_{Zar}$ est simplement un ouvert de $X$ et que les morphismes
+de $X_{Zar}$ correspondent simplement aux inclusions. Qu'est donc un
+hyperrecouvrement de $X$ pour le site $X_{Zar}$ ?
+
+\medskip\noindent
+Explicitons d'abord la définition \ref{definition-SR}.
+Un objet de $\text{SR}(X_{Zar}, X)$ est simplement donné par un ensemble
+$I$ et, pour chaque $i \in I$, un ouvert $U_i \subset X$.
+Notons-le $\{U_i\}_{i \in I}$, puisqu'il ne peut y avoir de
+confusion sur le morphisme $U_i \to X$.
+Un morphisme $\{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+entre deux tels objets est donné par une application d'ensembles
+$\alpha : I \to J$ telle que $U_i \subset V_{\alpha(i)}$ pour tout
+$i \in I$. Quand un tel morphisme est-il un recouvrement ? C'est le cas
+si et seulement si, pour tout $j \in J$, nous avons
+$V_j = \bigcup_{i\in I, \ \alpha(i) = j} U_i$ (et c'est
+un recouvrement du site $X_{Zar}$).
+
+\medskip\noindent
+À l'aide de ce qui précède, nous obtenons la description suivante d'un hyperrecouvrement
+dans le site $X_{Zar}$. Un hyperrecouvrement de $X$ dans $X_{Zar}$
+est donné par les données suivantes :
+\begin{enumerate}
+\item un ensemble simplicial $I$ (voir
+Simplicial, section \ref{simplicial-section-simplicial-set}) ;
+\item pour chaque $n \geq 0$ et tout $i \in I_n$, un ouvert $U_i \subset X$.
+\end{enumerate}
+Nous noterons une telle collection de données $(I, \{U_i\})$.
+Pour qu'il s'agisse d'un hyperrecouvrement de $X$, nous exigeons
+les propriétés suivantes :
+\begin{itemize}
+\item pour $i \in I_n$ et $0 \leq a \leq n$,
+nous avons $U_i \subset U_{d^n_a(i)}$ ;
+\item pour $i \in I_n$ et $0 \leq a \leq n$, nous avons $U_i = U_{s^n_a(i)}$ ;
+\item nous avons
+\begin{equation}
+\label{equation-covering-X}
+X = \bigcup\nolimits_{i \in I_0} U_i,
+\end{equation}
+\item pour tous $i_0, i_1 \in I_0$, nous avons
+\begin{equation}
+\label{equation-covering-two}
+U_{i_0} \cap U_{i_1} =
+\bigcup\nolimits_{i \in I_1, \ d^1_0(i) = i_0, \ d^1_1(i) = i_1} U_i,
+\end{equation}
+\item pour tout $n \geq 1$ et tout
+$(i_0, \ldots, i_{n + 1}) \in (I_n)^{n + 2}$ tel que
+$d^n_{b - 1}(i_a) = d^n_a(i_b)$ pour tous $0\leq a < b\leq n + 1$,
+nous avons
+\begin{equation}
+\label{equation-covering-general}
+U_{i_0} \cap \ldots \cap U_{i_{n + 1}} =
+\bigcup\nolimits_{i \in I_{n + 1},
+\ d^{n + 1}_a(i) = i_a, \ a = 0, \ldots, n + 1} U_i,
+\end{equation}
+\item chacun des recouvrements ouverts (\ref{equation-covering-X}),
+(\ref{equation-covering-two}) et (\ref{equation-covering-general})
+est un élément de $\text{Cov}(X_{Zar})$
+(il s'agit d'une condition ensembliste qui borne
+la taille des ensembles d'indices des recouvrements).
+\end{itemize}
+Les conditions (\ref{equation-covering-X}) et
+(\ref{equation-covering-two}) devraient être familières, par exemple à la lecture du
+chapitre sur les faisceaux sur les espaces, et la condition
+(\ref{equation-covering-general}) en est la généralisation naturelle.
+
+\begin{remark}
+\label{remark-not-covering-set}
+Une particularité de cette description est que, si l'une des intersections multiples
+$U_{i_0} \cap \ldots \cap U_{i_{n + 1}}$ est vide, alors
+le recouvrement du membre de droite peut être le recouvrement vide.
+Ainsi, les applications
+$I_{n + 1} \to (\text{cosk}_n\text{sk}_n I)_{n + 1}$ ne sont pas nécessairement surjectives.
+Cela signifie que la réalisation géométrique de $I$ peut être un espace
+intéressant (non contractile).
+
+\medskip\noindent
+En fait, soit $I'_n \subset I_n$ la partie
+constituée des simplexes $i \in I_n$ tels que
+$U_i \not = \emptyset$. Il est facile de voir que $I' \subset I$
+est un sous-ensemble simplicial et que $(I', \{U_i\})$ est un hyperrecouvrement.
+Nous pouvons donc toujours raffiner un hyperrecouvrement en un hyperrecouvrement dans lequel
+aucun des ouverts $U_i$ n'est vide.
+\end{remark}
+
+\begin{remark}
+\label{remark-repackage-into-simplicial-space}
+Reformulons ces informations d'une autre manière encore.
+Supposons que $(I, \{U_i\})$ soit un hyperrecouvrement de
+l'espace topologique $X$. À partir de ces données, nous pouvons construire
+un espace topologique simplicial $U_\bullet$ en posant
+$$
+U_n = \coprod\nolimits_{i \in I_n} U_i,
+$$
+et, pour $\varphi : [n] \to [m]$ donné, en prenant pour
+morphisme $U(\varphi) : U_n \to U_m$ celui
+provenant des inclusions $U_i \subset U_{\varphi(i)}$
+pour $i \in I_n$. Cet espace topologique simplicial est muni
+d'une augmentation $\epsilon : U_\bullet \to X$.
+Avec ce morphisme, l'espace simplicial $U_\bullet$ devient
+un hyperrecouvrement de $X$ le long duquel on a la descente cohomologique
+au sens de \cite[Expos\'e Vbis]{SGA4}.
+Autrement dit, $H^n(U_\bullet, \epsilon^*\mathcal{F}) = H^n(X, \mathcal{F})$.
+(Insérer ici une référence ultérieure à la cohomologie sur les espaces
+simpliciaux et à la descente cohomologique formulée en ces termes.)
+Supposons que $\mathcal{F}$ soit un faisceau abélien sur $X$.
+Dans ce cas, la suite spectrale du lemme \ref{lemma-cech-spectral-sequence}
+devient la suite spectrale de terme $E_1$
+$$
+E_1^{p, q} = H^q(U_p, \epsilon_q^*\mathcal{F})
+\Rightarrow
+H^{p + q}(U_\bullet, \epsilon^*\mathcal{F}) = H^{p + q}(X, \mathcal{F})
+$$
+qui compare la cohomologie totale de $\epsilon^*\mathcal{F}$
+aux groupes de cohomologie de $\mathcal{F}$ sur les morceaux
+de $U_\bullet$. (Insérer ici une référence ultérieure à cette suite
+spectrale.)
+\end{remark}
+
+\noindent
+En topologie, nous voulons souvent trouver des hyperrecouvrements de $X$ tels
+que tous les $U_i$ proviennent d'une base donnée de la topologie
+de $X$ et que tous les recouvrements
+(\ref{equation-covering-two}) et (\ref{equation-covering-general})
+appartiennent à une collection cofinale donnée de recouvrements.
+Voici deux lemmes illustrant cela.
+
+\begin{lemma}
+\label{lemma-basis-hypercovering}
+Soit $X$ un espace topologique.
+Soit $\mathcal{B}$ une base de la topologie de $X$.
+Il existe un hyperrecouvrement $(I, \{U_i\})$ de $X$
+tel que chaque $U_i$ appartienne à $\mathcal{B}$.
+\end{lemma}
+
+\begin{proof}
+Soit $n \geq 0$.
+Appelons {\it hyperrecouvrement $n$-tronqué} de $X$ une donnée
+constituée d'un ensemble simplicial $n$-tronqué $I$ et, pour chaque
+$i \in I_a$, $0 \leq a \leq n$, d'un ouvert $U_i$ de $X$, telle que
+les conditions définissant un hyperrecouvrement soient satisfaites chaque fois qu'elles ont un sens.
+Autrement dit, nous n'imposons les relations d'inclusion et les conditions de
+recouvrement que lorsque tous les simplexes qui y interviennent
+sont des $a$-simplexes avec $a \leq n$. Le lemme en découlera si nous pouvons montrer
+que, étant donné un hyperrecouvrement $n$-tronqué $(I, \{U_i\})$ avec
+tous les $U_i \in \mathcal{B}$, nous pouvons l'étendre en un hyperrecouvrement
+$(n + 1)$-tronqué sans ajouter de $a$-simplexe pour $a \leq n$.
+Procédons comme suit. Considérons d'abord l'ensemble simplicial
+$(n + 1)$-tronqué $I'$ défini par
+$I' = \text{sk}_{n + 1}(\text{cosk}_n I)$.
+Rappelons que
+$$
+I'_{n + 1} =
+\left\{
+\begin{matrix}
+(i_0, \ldots, i_{n + 1}) \in (I_n)^{n + 2} \text{ tels que}\\
+d^n_{b - 1}(i_a) = d^n_a(i_b) \text{ pour tous }0\leq a < b\leq n + 1
+\end{matrix}
+\right\}
+$$
+Si $i' \in I'_{n + 1}$ est dégénéré, disons $i' = s^n_a(i)$, nous posons
+$U_{i'} = U_i$ (cela nous est de toute façon imposé par la deuxième condition).
+Nous posons aussi $J_{i'} = \{i'\}$ dans ce cas.
+Si $i' \in I'_{n + 1}$ est non dégénéré, disons
+$i' = (i_0, \ldots, i_{n + 1})$, nous choisissons un ensemble
+$J_{i'}$ et un recouvrement ouvert
+\begin{equation}
+\label{equation-choose-covering}
+U_{i_0} \cap \ldots \cap U_{i_{n + 1}} =
+\bigcup\nolimits_{i \in J_{i'}} U_i,
+\end{equation}
+avec $U_i \in \mathcal{B}$ pour $i \in J_{i'}$.
+Posons
+$$
+I_{n + 1} = \coprod\nolimits_{i' \in I'_{n + 1}} J_{i'}
+$$
+Il existe une application canonique $\pi : I_{n + 1} \to I'_{n + 1}$ qui est
+une bijection au-dessus de l'ensemble des simplexes dégénérés de $I'_{n + 1}$, par
+construction.
+Pour $i \in I_{n + 1}$, nous définissons $d^{n + 1}_a(i) = d^{n + 1}_a(\pi(i))$.
+Pour $i \in I_n$, nous définissons $s^n_a(i) \in I_{n + 1}$ comme l'unique
+simplexe situé au-dessus du simplexe dégénéré $s^n_a(i) \in I'_{n + 1}$.
+Nous omettons de vérifier que cela définit un hyperrecouvrement
+$(n + 1)$-tronqué de $X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-separated-quasi-compact-hypercovering}
+Soit $X$ un espace topologique.
+Soit $\mathcal{B}$ une base de la topologie de $X$.
+Supposons que
+\begin{enumerate}
+\item $X$ soit quasi-compact ;
+\item tout $U \in \mathcal{B}$ soit un ouvert quasi-compact ;
+\item l'intersection de deux ouverts quasi-compacts quelconques de
+$X$ soit quasi-compacte.
+\end{enumerate}
+Alors il existe un hyperrecouvrement $(I, \{U_i\})$ de $X$ ayant les
+propriétés suivantes :
+\begin{enumerate}
+\item chaque $U_i$ appartient à la base $\mathcal{B}$ ;
+\item chacun des $I_n$ est un ensemble fini ; en particulier,
+\item chacun des recouvrements (\ref{equation-covering-X}),
+(\ref{equation-covering-two}) et (\ref{equation-covering-general})
+est fini.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela découle directement de la construction donnée dans la démonstration du
+lemme \ref{lemma-basis-hypercovering} si nous choisissons des recouvrements finis
+par des éléments de $\mathcal{B}$ dans (\ref{equation-choose-covering}).
+Détails omis.
+\end{proof}
+
+
+
+
+
+
+
+\section{Construction d'hyperrecouvrements}
+\label{section-hypercovering-sites}
+
+\noindent
+Soit $\mathcal{C}$ un site. Dans cette section, nous considérerons un
+objet simplicial de $\text{SR}(\mathcal{C})$ comme suit.
+Comme d'habitude, nous posons $K_n = K([n])$ et notons $K(\varphi) : K_n \to K_m$
+le morphisme associé à $\varphi : [m] \to [n]$.
+Nous pouvons écrire $K_n = \{U_{n, i}\}_{i \in I_n}$. Pour
+$\varphi : [m] \to [n]$, le morphisme $K(\varphi) : K_n \to K_m$
+est donné par une application $\alpha(\varphi) : I_n \to I_m$ et des morphismes
+$f_{\varphi, i} : U_{n, i} \to U_{m, \alpha(\varphi)(i)}$
+pour $i \in I_n$. Le fait que $K$ soit un objet simplicial de
+$\text{SR}(\mathcal{C})$ implique que $(I_n, \alpha(\varphi))$
+est un ensemble simplicial
+et que $f_{\psi, \alpha(\varphi)(i)} \circ f_{\varphi, i} =
+f_{\varphi \circ \psi, i}$ lorsque $\psi : [l] \to [m]$.
+
+\begin{lemma}
+\label{lemma-split}
+Soit $\mathcal{C}$ un site. Soit $K$ un objet simplicial $r$-tronqué
+de $\text{SR}(\mathcal{C})$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $K$ est scindé (Simplicial, définition \ref{simplicial-definition-split}) ;
+\item $f_{\varphi, i} : U_{n, i} \to U_{m, \alpha(\varphi)(i)}$
+est un isomorphisme pour $r \geq n \geq 0$,
+$\varphi : [m] \to [n]$ surjective et $i \in I_n$ ;
+\item $f_{\sigma^n_j, i} : U_{n, i} \to U_{n + 1, \alpha(\sigma^n_j)(i)}$
+est un isomorphisme pour $0 \leq j \leq n < r$, $i \in I_n$.
+\end{enumerate}
+Il en va de même pour les objets simpliciaux si, dans (2) et (3),
+nous posons $r = \infty$.
+\end{lemma}
+
+\begin{proof}
+La scission d'un ensemble simplicial est unique et est donnée par
+les indices non dégénérés $N(I_n)$ en chaque degré $n$, voir
+Simplicial, lemme \ref{simplicial-lemma-splitting-simplicial-sets}.
+Le coproduit de deux objets $\{U_i\}_{i \in I}$ et $\{U_j\}_{j \in J}$
+de $\text{SR}(\mathcal{C})$ est donné par $\{U_l\}_{l \in I \amalg J}$
+avec les notations évidentes. Une scission de $K$ doit donc être donnée par
+$N(K_n) = \{U_i\}_{i \in N(I_n)}$. L'équivalence de (1) et (2)
+résulte alors de l'explicitation des définitions. L'équivalence de (2)
+et (3) découle du fait que toute surjection
+$\varphi : [m] \to [n]$ est un composé de morphismes
+$\sigma^k_j$ avec $k = n, n + 1, \ldots, m - 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-object}
+Soit $\mathcal{C}$ un site admettant des produits fibrés.
+Soit $\mathcal{B} \subset \Ob(\mathcal{C})$ une partie.
+Supposons que
+\begin{enumerate}
+\item tout objet $U$ de $\mathcal{C}$ admette un recouvrement
+$\{U_j \to U\}_{j \in J}$ avec $U_j \in \mathcal{B}$ ;
+\item si $\{U_j \to U\}_{j \in J}$ est un recouvrement
+avec $U_j \in \mathcal{B}$ et si $\{U' \to U\}$ est un morphisme avec
+$U' \in \mathcal{B}$, alors $\{U_j \to U\}_{j \in J} \amalg \{U' \to U\}$
+soit un recouvrement.
+\end{enumerate}
+Alors, pour tout $X$ dans $\mathcal{C}$, il existe un hyperrecouvrement $K$
+de $X$ tel que $K_n = \{U_{n, i}\}_{i \in I_n}$
+avec $U_{n, i} \in \mathcal{B}$ pour tout $i \in I_n$.
+\end{lemma}
+
+\begin{proof}
+La démonstration du lemme \ref{lemma-basis-hypercovering}
+constitue une préparation à celle-ci, et
+nous invitons le lecteur à la lire d'abord.
+
+\medskip\noindent
+Remplaçons d'abord $\mathcal{C}$ par le site $\mathcal{C}/X$.
+Nous pouvons alors supposer que $X$ est l'objet final
+de $\mathcal{C}$ et que $\mathcal{C}$ admet toutes les limites finies
+(Catégories, lemme \ref{categories-lemma-finite-limits-exist}).
+
+\medskip\noindent
+Soit $n \geq 0$. Appelons
+{\it hyperrecouvrement $n$-tronqué de type $\mathcal{B}$ de $X$}
+une donnée constituée d'un objet simplicial $n$-tronqué $K$
+de $\text{SR}(\mathcal{C})$
+tel que, pour $i \in I_a$, $0 \leq a \leq n$,
+nous ayons $U_{a, i} \in \mathcal{B}$, que
+$K_0$ soit un recouvrement de $X$ et que
+$K_{a + 1} \to (\text{cosk}_a \text{sk}_a K)_{a + 1}$
+pour $a = 0, \ldots, n - 1$
+soit un recouvrement comme dans la définition \ref{definition-covering-SR}.
+
+\medskip\noindent
+Puisque $X$ admet un recouvrement $\{U_{0, i} \to X\}_{i \in I_0}$
+avec $U_i \in \mathcal{B}$ par hypothèse, nous obtenons un hyperrecouvrement
+$0$-tronqué de type $\mathcal{B}$ de $X$. Observons que tout hyperrecouvrement
+$0$-tronqué de type $\mathcal{B}$ de $X$ est scindé, voir le
+lemme \ref{lemma-split}.
+
+\medskip\noindent
+Le lemme en découlera si nous pouvons montrer, pour $n \geq 0$, que, étant donné un
+hyperrecouvrement scindé $n$-tronqué de type $\mathcal{B}$, noté $K$, de $X$,
+nous pouvons l'étendre en un
+hyperrecouvrement scindé $(n + 1)$-tronqué de type $\mathcal{B}$ de $X$.
+
+\medskip\noindent
+Construction de l'extension. Considérons l'objet simplicial $(n + 1)$-tronqué
+$K' = \text{sk}_{n + 1}(\text{cosk}_n K)$ de $\text{SR}(\mathcal{C})$.
+Écrivons
+$$
+K'_{n + 1} = \{U'_{n + 1, i}\}_{i \in I'_{n + 1}}
+$$
+Puisque $K = \text{sk}_n K'$, nous avons $K_a = K'_a$ pour $0 \leq a \leq n$.
+Pour tout $i' \in I'_{n + 1}$, nous choisissons un recouvrement
+\begin{equation}
+\label{equation-choose-covering-B}
+\{g_{n + 1, j} : U_{n + 1, j} \to U'_{n + 1, i'}\}_{j \in J_{i'}}
+\end{equation}
+avec $U_{n + 1, j} \in \mathcal{B}$ pour $j \in J_{i'}$.
+C'est possible par notre hypothèse sur $\mathcal{B}$ dans le lemme.
+Pour $0 \leq m \leq n$, notons $N_m \subset I_m$ la partie des
+indices non dégénérés. Nous posons
+$$
+I_{n + 1} =
+\coprod\nolimits_{\varphi : [n + 1] \to [m]\text{ surjective, }0\leq m \leq n}
+N_m \amalg
+\coprod\nolimits_{i' \in I'_{n + 1}} J_{i'}
+$$
+Pour $j \in I_{n + 1}$, nous posons
+$$
+U_{n + 1, j} =
+\left\{
+\begin{matrix}
+U_{m, i} & \text{si} &
+j = (\varphi, i) & \text{où} & \varphi : [n + 1] \to [m], i \in N_m \\
+U_{n + 1, j} & \text{si} &
+j \in J_{i'} & \text{où} & i' \in I'_{n + 1}
+\end{matrix}
+\right.
+$$
+avec les notations évidentes. Posons $K_{n + 1} = \{U_{n + 1, j}\}_{j \in I_{n + 1}}$.
+Par construction, $U_{n + 1, j}$ appartient
+à $\mathcal{B}$ pour tout $j \in I_{n + 1}$. Définissons des applications
+compatibles
+$$
+I_{n + 1} \to I'_{n + 1}
+\quad\text{et}\quad
+K_{n + 1} \to K'_{n + 1}
+$$
+Plus précisément, la première application est donnée par
+$(\varphi, i) \mapsto \alpha'(\varphi)(i)$ et
+$(j \in J_{i'}) \mapsto i'$.
+Pour la seconde application, nous utilisons les morphismes
+$$
+f'_{\varphi, i} : U_{m, i} \to U'_{n + 1, \alpha'(\varphi)(i)}
+\quad\text{et}\quad
+g_{n + 1, j} : U_{n + 1, j} \to U'_{n + 1, i'}
+$$
+Nous affirmons que le morphisme
+$$
+K_{n + 1} \to K'_{n + 1} =
+(\text{cosk}_n \text{sk}_n K')_{n + 1} =
+(\text{cosk}_n K)_{n + 1}
+$$
+est un recouvrement comme dans la définition \ref{definition-covering-SR}.
+En effet, si $i' \in I'_{n + 1}$, alors soit $i'$ est non dégénéré
+et l'image réciproque de $i'$ dans $I_{n + 1}$ est égale à $J_{i'}$,
+auquel cas nous obtenons un recouvrement de $U'_{n + 1, i'}$ par notre choix
+(\ref{equation-choose-covering-B}), soit $i'$ est dégénéré et
+l'image réciproque de $i'$ dans $I_{n + 1}$ est
+$J_{i'} \amalg \{(\varphi, i)\}$ pour une unique paire $(\varphi, i)$,
+auquel cas nous obtenons un recouvrement par notre choix (\ref{equation-choose-covering-B})
+et l'hypothèse (2) du lemme.
+
+\medskip\noindent
+Pour terminer la démonstration, nous devons définir les morphismes
+$K(\varphi) : K_{n + 1} \to K_m$ correspondant aux morphismes
+$\varphi : [m] \to [n + 1]$, $0 \leq m \leq n$, et les morphismes
+$K(\varphi) : K_m \to K_{n + 1}$ correspondant aux morphismes
+$\varphi : [n + 1] \to [m]$, $0 \leq m \leq n$,
+de sorte que les relations de composition convenables soient satisfaites.
+Pour ceux du premier type, nous utilisons le composé
+$$
+K_{n + 1} \to K'_{n + 1} \xrightarrow{K'(\varphi)} K'_m = K_m
+$$
+pour définir $K(\varphi) : K_{n + 1} \to K_m$.
+Pour ceux du second type, supposons donné $\varphi : [n + 1] \to [m]$,
+$0 \leq m \leq n$. Nous définissons le morphisme correspondant
+$K(\varphi) : K_m \to K_{n + 1}$ comme suit :
+\begin{enumerate}
+\item pour $i \in I_m$, il existe une unique application surjective
+$\psi : [m] \to [m_0]$ et un unique $i_0 \in I_{m_0}$ non dégénéré
+tels que $\alpha(\psi)(i_0) = i$\footnote{Par exemple, si $i$ est
+non dégénéré, alors $m = m_0$ et $\psi = \text{id}_{[m]}$.} ;
+\item nous posons $\varphi_0 = \psi_0 \circ \varphi : [n + 1] \to [m_0]$
+et envoyons
+$i \in I_m$ sur $(\varphi_0, i_0) \in I_{n + 1}$ ; autrement dit,
+$\alpha(\varphi)(i) = (\varphi_0, i_0)$ ;
+\item le morphisme
+$f_{\varphi, i} : U_{m, i} \to U_{n + 1, \alpha(\varphi)(i)} = U_{m_0, i_0}$
+est l'inverse de l'isomorphisme $f_{\psi, i_0} : U_{m_0, i_0} \to U_{m, i}$
+(voir le lemme \ref{lemma-split}).
+\end{enumerate}
+Nous omettons la vérification immédiate mais fastidieuse que cela définit
+un hyperrecouvrement scindé $(n + 1)$-tronqué de type $\mathcal{B}$ de $X$
+qui prolonge l'hyperrecouvrement $n$-tronqué donné. En fait, tout est clair
+d'après ce qui précède, sauf la vérification que les morphismes
+$K(\varphi)$ se composent correctement pour tout $\varphi : [a] \to [b]$
+avec $0 \leq a, b \leq n + 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-site}
+Soit $\mathcal{C}$ un site admettant des égalisateurs et des produits fibrés.
+Soit $\mathcal{B} \subset \Ob(\mathcal{C})$ une partie. Supposons
+que tout objet de $\mathcal{C}$ admette un recouvrement
+dont les membres appartiennent à $\mathcal{B}$.
+Alors il existe un hyperrecouvrement $K$ tel que
+$K_n = \{U_i\}_{i \in I_n}$ avec $U_i \in \mathcal{B}$
+pour tout $i \in I_n$.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est presque identique à celle du
+lemme \ref{lemma-hypercovering-object}. Nous
+n'expliquerons que les différences.
+
+\medskip\noindent
+Soit $n \geq 1$. Appelons
+{\it hyperrecouvrement $n$-tronqué de type $\mathcal{B}$}
+une donnée constituée d'un objet simplicial
+$n$-tronqué $K$ de $\text{SR}(\mathcal{C})$
+tel que, pour $i \in I_a$, $0 \leq a \leq n$,
+nous ayons $U_{a, i} \in \mathcal{B}$ et que
+\begin{enumerate}
+\item $F(K_0)^\# \to *$ soit surjectif ;
+\item $F(K_1)^\# \to F(K_0)^\# \times F(K_0)^\#$ soit surjectif ;
+\item $F(K_{a + 1})^\# \to F((\text{cosk}_a \text{sk}_a K)_{a + 1})^\#$
+soit surjectif pour $a = 1, \ldots, n - 1$.
+\end{enumerate}
+Construisons d'abord explicitement un hyperrecouvrement scindé $1$-tronqué de type $\mathcal{B}$.
+
+\medskip\noindent
+Prenons $I_0 = \mathcal{B}$ et $K_0 = \{U\}_{U \in \mathcal{B}}$.
+Alors (1) vaut par notre hypothèse sur $\mathcal{B}$. Posons
+$$
+\Omega =
+\{(U, V, W, a, b) \mid U, V, W \in \mathcal{B}, a : U \to V, b : U \to W\}
+$$
+Posons ensuite $I_1 = I_0 \amalg \Omega$. Pour $i \in I_1$, posons
+$U_{1, i} = U_{0, i}$ si $i \in I_0$ et $U_{1, i} = U$
+si $i = (U, V, W, a, b) \in \Omega$. L'application
+$K(\sigma^0_0) : K_0 \to K_1$ correspond à
+l'inclusion $\alpha(\sigma^0_0) : I_0 \to I_1$
+et à l'identité $f_{\sigma^0_0, i} : U_{0, i} \to U_{1, i}$
+sur les objets. Les applications $K(\delta^1_0), K(\delta^1_1) : K_1 \to K_0$
+correspondent aux deux applications $I_1 \to I_0$ qui sont
+l'identité sur $I_0 \subset I_1$ et envoient $(U, V, W, a, b) \in \Omega \subset I_1$
+sur $V$, respectivement sur $W$. Les morphismes correspondants
+$f_{\delta^1_0, i}, f_{\delta^1_1, i} : U_{1, i} \to U_{0, i}$ sont
+l'identité si $i \in I_0$ et $a, b$ si $i = (U, V, W, a, b) \in \Omega$.
+La raison pour laquelle (2) vaut est que toute section de
+$F(K_0)^\# \times F(K_0)^\#$ au-dessus d'un objet $U$ de $\mathcal{C}$
+provient, après avoir remplacé $U$ par les membres d'un recouvrement,
+d'une application $U \to F(K_0) \times F(K_0)$.
+Cela signifie à son tour que nous avons $V, W \in \mathcal{B}$
+et deux morphismes $U \to V$ et $U \to W$. En remplaçant encore
+$U$ par les membres d'un recouvrement, nous pouvons supposer $U \in \mathcal{B}$,
+comme voulu.
+
+\medskip\noindent
+Le lemme en découlera si nous pouvons montrer que, étant donné un
+hyperrecouvrement scindé $n$-tronqué de type $\mathcal{B}$, noté $K$, pour $n \geq 1$,
+nous pouvons l'étendre en un hyperrecouvrement scindé $(n + 1)$-tronqué de type $\mathcal{B}$.
+Ici, l'argument suit exactement la démonstration du
+lemme \ref{lemma-hypercovering-object}.
+Nous omettons les détails précis, à l'exception des remarques suivantes.
+Premièrement, nous n'avons pas besoin de l'hypothèse (2) dans la démonstration du présent
+lemme, car il n'est pas nécessaire que le morphisme
+$K_{n + 1} \to (\text{cosk}_n K)_{n + 1}$ soit un recouvrement ;
+il suffit qu'il induise une surjection sur les faisceaux d'ensembles associés,
+ce qui découle de
+Sites, lemme \ref{sites-lemma-covering-surjective-after-sheafification}.
+Deuxièmement, l'hypothèse selon laquelle $\mathcal{C}$ admet des produits fibrés et des égalisateurs
+garantit que $\text{SR}(\mathcal{C})$ admet des produits fibrés
+et des égalisateurs, et que $F$ commute à ceux-ci
+(lemme \ref{lemma-coprod-prod-SR}). Cela suffit à
+garantir l'existence des foncteurs cosquelette utilisés (voir
+Simplicial, remarque \ref{simplicial-remark-existence-cosk} et
+Catégories, lemme \ref{categories-lemma-fibre-products-equalizers-exist}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-morphism-sites}
+Soit $f : \mathcal{C} \to \mathcal{D}$ un morphisme de sites
+défini par le foncteur $u : \mathcal{D} \to \mathcal{C}$.
+Supposons que $\mathcal{D}$ et $\mathcal{C}$ admettent des égalisateurs et
+des produits fibrés, et que $u$ commute à ceux-ci.
+Si un objet simplicial $K$ de $\text{SR}(\mathcal{D})$
+est un hyperrecouvrement, alors $u(K)$ est un hyperrecouvrement.
+\end{lemma}
+
+\begin{proof}
+Si nous écrivons $K_n = \{U_{n, i}\}_{i \in I_n}$ comme dans l'introduction
+de cette section, alors $u(K)$ est l'objet de $\text{SR}(\mathcal{C})$
+défini par $u(K_n) = \{u(U_i)\}_{i \in I_n}$.
+D'après Sites, lemme \ref{sites-lemma-pullback-representable-sheaf},
+nous avons $f^{-1}h_U^\# = h_{u(U)}^\#$ pour $U \in \Ob(\mathcal{D})$.
+Cela signifie que $f^{-1}F(K_n)^\# = F(u(K_n))^\#$ pour tout $n$.
+Vérifions les conditions (1), (2), (3) pour que $u(K)$ soit un
+hyperrecouvrement suivant la définition \ref{definition-hypercovering-variant}.
+Puisque $f^{-1}$ est un foncteur exact, nous obtenons le morphisme
+$$
+F(u(K_0))^\# = f^{-1}F(K_0)^\# \to f^{-1}* = *
+$$
+qui est surjectif comme image inverse d'un morphisme surjectif, d'où (1).
+De même,
+$$
+F(u(K_1))^\# = f^{-1}F(K_1)^\# \to
+f^{-1} (F(K_0) \times F(K_0))^\# = F(u(K_0))^\# \times F(u(K_0))^\#
+$$
+est surjectif comme image inverse, d'où (2). Pour la condition (3),
+afin de conclure par la même méthode, il suffit d'avoir
+$$
+F((\text{cosk}_n \text{sk}_n u(K))_{n + 1})^\# =
+f^{-1}F((\text{cosk}_n \text{sk}_n K)_{n + 1})^\#
+$$
+Ce qui précède montre que $f^{-1}F(-) = F(u(-))$. Il suffit donc de montrer
+que $u$ commute aux limites utilisées pour définir
+$(\text{cosk}_n \text{sk}_n K)_{n + 1}$ pour $n \geq 1$.
+D'après Simplicial, remarque \ref{simplicial-remark-existence-cosk},
+ces limites sont des limites finies connexes auxquelles $u$ commute
+par hypothèse.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-continuous-functor}
+Soient $\mathcal{C}$ et $\mathcal{D}$ des sites. Soit
+$u : \mathcal{D} \to \mathcal{C}$ un foncteur continu.
+Supposons que $\mathcal{D}$ et $\mathcal{C}$ admettent des produits fibrés
+et que $u$ commute à ceux-ci. Soient $Y \in \mathcal{D}$ et
+$K \in \text{SR}(\mathcal{D}, Y)$ un hyperrecouvrement de $Y$.
+Alors $u(K)$ est un hyperrecouvrement de $u(Y)$.
+\end{lemma}
+
+\begin{proof}
+Cela est plus facile que la démonstration du lemme \ref{lemma-hypercovering-morphism-sites},
+car la notion d'hyperrecouvrement d'un objet est plus forte, voir les
+définitions \ref{definition-hypercovering} et \ref{definition-covering-SR}.
+En effet, $u$ envoie les recouvrements sur des recouvrements par définition
+d'un morphisme de sites. Il suffit de vérifier que $u$ commute aux
+limites utilisées pour définir
+$(\text{cosk}_n \text{sk}_n K)_{n + 1}$ pour $n \geq 1$.
+C'est clair, car le foncteur induit
+$\mathcal{D}/Y \to \mathcal{C}/X$ commute à toutes les limites finies
+(et les catégories source et but admettent toutes les limites finies d'après
+Catégories, lemme \ref{categories-lemma-finite-limits-exist}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-w-contractible}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{B} \subset \Ob(\mathcal{C})$
+une partie. Supposons que
+\begin{enumerate}
+\item $\mathcal{C}$ admette des produits fibrés ;
+\item pour tout $X \in \Ob(\mathcal{C})$, il existe un recouvrement fini
+$\{U_i \to X\}_{i \in I}$ avec $U_i \in \mathcal{B}$ ;
+\item si $\{U_i \to X\}_{i \in I}$ est un recouvrement fini avec
+$U_i \in \mathcal{B}$ et si $U \to X$ est un morphisme avec $U \in \mathcal{B}$,
+alors $\{U_i \to X\}_{i \in I} \amalg \{U \to X\}$ soit un recouvrement.
+\end{enumerate}
+Alors, pour tout $X$, il existe un hyperrecouvrement $K$ de $X$
+tel que chaque $K_n = \{U_{n, i} \to X\}_{i \in I_n}$ vérifie
+que $I_n$ est fini et $U_{n, i} \in \mathcal{B}$.
+\end{lemma}
+
+\begin{proof}
+Ce lemme est l'analogue du
+lemme \ref{lemma-quasi-separated-quasi-compact-hypercovering}
+pour les sites. Pour le démontrer, nous suivons exactement la démonstration du
+lemme \ref{lemma-hypercovering-object}
+en prêtant attention aux deux points suivants :
+\begin{enumerate}
+\item[(a)] nous choisissons notre recouvrement initial $\{U_{0, i} \to X\}_{i \in I_0}$
+avec $U_{0, i} \in \mathcal{B}$ de sorte que l'ensemble d'indices $I_0$ soit fini ;
+\item[(b)] lors du choix des recouvrements
+(\ref{equation-choose-covering-B})
+nous choisissons $J_{i'}$ fini.
+\end{enumerate}
+Le lecteur voit aisément qu'avec ces modifications nous obtenons
+des ensembles d'indices $I_n$ finis pour tout $n$.
+\end{proof}
+
+\begin{remark}
+\label{remark-taking-disjoint-unions}
+Soit $\mathcal{C}$ un site. Soient
+$K$ et $L$ des objets de $\text{SR}(\mathcal{C})$.
+Écrivons $K = \{U_i\}_{i \in I}$ et $L = \{V_j\}_{j \in J}$.
+Supposons que $U = \coprod_{i \in I} U_i$ et $V = \coprod_{j \in J} V_j$
+existent. Nous obtenons alors
+$$
+\Mor_{\text{SR}(\mathcal{C})}(K, L) \longrightarrow \Mor_\mathcal{C}(U, V)
+$$
+comme suit. Étant donné $f : K \to L$ défini par $\alpha : I \to J$
+et $f_i : U_i \to V_{\alpha(i)}$, nous obtenons une transformation de foncteurs
+$$
+\Mor_\mathcal{C}(V, -) =
+\prod\nolimits_{j \in J} \Mor_\mathcal{C}(V_j, -)
+\to
+\prod\nolimits_{i \in I} \Mor_\mathcal{C}(U_i, -) =
+\Mor_\mathcal{C}(U, -)
+$$
+qui envoie $(g_j)_{j \in J}$ sur
+$(g_{\alpha(i)} \circ f_i)_{i \in I}$. Le lemme de Yoneda
+produit donc l'application correspondante $U \to V$. Bien sûr, $U \to V$
+envoie la composante $U_i$ dans la composante $V_{\alpha(i)}$ par
+le morphisme $f_i$.
+\end{remark}
+
+\begin{remark}
+\label{remark-take-unions-hypercovering}
+Soit $\mathcal{C}$ un site. Supposons que $\mathcal{C}$ admette
+des produits fibrés et des égalisateurs, et soit $K$ un hyperrecouvrement.
+Écrivons $K_n = \{U_{n, i}\}_{i \in I_n}$. Supposons que
+\begin{enumerate}
+\item[(a)] $U_n = \coprod_{i \in I_n} U_{n, i}$ existe ;
+\item[(b)] $\coprod_{i \in I_n} h_{U_{n, i}} \to h_{U_n}$ induise
+un isomorphisme après faisceautisation.
+\end{enumerate}
+Nous obtenons alors un autre objet simplicial $L$ de $\text{SR}(\mathcal{C})$
+avec $L_n = \{U_n\}$, voir la
+remarque \ref{remark-taking-disjoint-unions}.
+Nous affirmons que $L$ est un hyperrecouvrement.
+Pour le voir, vérifions les conditions (1), (2), (3) de la
+définition \ref{definition-hypercovering-variant}.
+La condition (1) résulte de (b) et de la condition (1) pour $K$.
+La condition (2) s'en déduit exactement de la même manière.
+La condition (3) résulte de
+\begin{align*}
+F((\text{cosk}_n \text{sk}_n L)_{n + 1})^\#
+& =
+((\text{cosk}_n \text{sk}_n F(L)^\#)_{n + 1}) \\
+& =
+((\text{cosk}_n \text{sk}_n F(K)^\#)_{n + 1}) \\
+& =
+F((\text{cosk}_n \text{sk}_n K)_{n + 1})^\#
+\end{align*}
+pour $n \geq 1$ ; la condition pour $K$ implique donc celle pour
+$L$, exactement comme en (1) et (2).
+Notons que $F$ commute aux limites connexes et que la faisceautisation est exacte,
+ce qui prouve les première et dernière égalités ; l'égalité intermédiaire résulte de
+$F(K)^\# = F(L)^\#$ par (b).
+\end{remark}
+
+\begin{remark}
+\label{remark-take-unions-hypercovering-X}
+Soit $\mathcal{C}$ un site. Soit $X \in \Ob(\mathcal{C})$.
+Supposons que $\mathcal{C}$ admette des produits fibrés et soit $K$ un hyperrecouvrement de $X$.
+Écrivons $K_n = \{U_{n, i}\}_{i \in I_n}$. Faisons les hypothèses suivantes :
+\begin{enumerate}
+\item[(a)] $U_n = \coprod_{i \in I_n} U_{n, i}$ existe ;
+\item[(b)] étant donnés des morphismes
+$(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$ et
+$(\beta, g_k) : \{W_k\}_{k \in K} \to \{V_j\}_{j \in J}$
+dans $\text{SR}(\mathcal{C})$ tels que
+$U = \coprod U_i$, $V = \coprod V_j$ et $W = \coprod W_j$
+existent, nous avons $U \times_V W =
+\coprod_{(i, j, k), \alpha(i) = j = \beta(k)} U_i \times_{V_j} W_k$,
+\item[(c)] si $(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+est un recouvrement au sens de la
+définition \ref{definition-covering-SR}
+et si $U = \coprod U_i$ et $V = \coprod V_j$ existent,
+alors le morphisme correspondant $U \to V$
+de la remarque \ref{remark-taking-disjoint-unions}
+est un recouvrement de $\mathcal{C}$.
+\end{enumerate}
+Nous obtenons alors un autre objet simplicial $L$ de $\text{SR}(\mathcal{C})$
+avec $L_n = \{U_n\}$, voir la
+remarque \ref{remark-taking-disjoint-unions}.
+Nous affirmons que $L$ est un hyperrecouvrement de $X$.
+Pour le voir, vérifions les conditions (1), (2) de la
+définition \ref{definition-hypercovering}.
+La condition (1) résulte de (c) et de la condition (1) pour $K$,
+car la condition (1) pour $K$ dit que $K_0 = \{U_{0, i}\}_{i \in I_0}$
+est un recouvrement de $\{X\}$ au sens de la
+définition \ref{definition-covering-SR}.
+La condition (2) résulte du fait que $\mathcal{C}/X$ admet
+toutes les limites finies, donc que $\text{SR}(\mathcal{C}/X)$
+les admet aussi, tandis que la condition (b) dit que la
+construction consistant à « prendre les sommes disjointes » commute
+à ces limites finies. Ainsi, le morphisme
+$$
+L_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n L)_{n + 1}
+$$
+est un recouvrement, puisqu'il résulte de l'application de notre foncteur
+« prendre les sommes disjointes » au morphisme
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+qui est supposé être un recouvrement au sens de la
+définition \ref{definition-covering-SR} par la condition (2) pour $K$.
+Cela a un sens, car la propriété (b) nous assure en particulier
+que, si nous partons d'un diagramme fini d'objets
+semi-représentables au-dessus de $X$
+pour lesquels nous pouvons prendre les sommes disjointes, alors
+la limite du diagramme dans $\text{SR}(\mathcal{C}/X)$
+reste un objet semi-représentable au-dessus de $X$ pour lequel
+nous pouvons prendre les sommes disjointes.
+\end{remark}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

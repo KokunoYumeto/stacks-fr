@@ -1,0 +1,1058 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Limites de champs algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous rassemblons des résultats relatifs aux limites de
+champs algébriques. De nombreux résultats sur les limites de champs
+algébriques et d'espaces algébriques ont été obtenus par David Rydh dans
+\cite{rydh_approx}.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Nous continuons d'employer les conventions et l'abus de langage introduits
+dans Propriétés des champs, section
+\ref{stacks-properties-section-conventions}.
+
+
+
+
+
+
+
+\section{Morphismes de présentation finie}
+\label{section-finite-presentation}
+
+\noindent
+Cette section est l'analogue de Limites d'espaces, section
+\ref{spaces-limits-section-finite-presentation}. Nous y avons défini ce que
+signifie, pour une transformation de foncteurs sur $\Sch$, le fait de commuter
+aux limites (nous suggérons de consulter la caractérisation de Limites
+d'espaces, lemme
+\ref{spaces-limits-lemma-characterize-relative-limit-preserving}). Dans
+Critères de représentabilité, section \ref{criteria-section-limit-preserving},
+nous avons défini la notion de « commutation aux limites sur les objets ».
+Rappelons enfin que, dans Axiomes d'Artin, section \ref{artin-section-limits},
+nous avons défini ce que signifie, pour une catégorie fibrée en groupoïdes sur
+$\Sch$, le fait de commuter aux limites. En combinant ces notions, nous
+obtenons la définition suivante.
+
+\begin{definition}
+\label{definition-limit-preserving}
+Soit $S$ un schéma. Soit $f : \mathcal{X} \to \mathcal{Y}$ un
+$1$-morphisme de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Nous disons que $f$ {\it commute aux limites} si, pour toute limite projective
+filtrante $U = \lim U_i$ de schémas affines sur $S$, le diagramme
+$$
+\xymatrix{
+\colim \mathcal{X}_{U_i} \ar[r] \ar[d]_f & \mathcal{X}_U \ar[d]^f \\
+\colim \mathcal{Y}_{U_i} \ar[r] & \mathcal{Y}_U
+}
+$$
+de catégories fibres est $2$-cartésien.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-limit-preserving-objects}
+Soit $S$ un schéma. Soit $f : \mathcal{X} \to \mathcal{Y}$ un
+$1$-morphisme de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $f$ commute aux limites (définition \ref{definition-limit-preserving}),
+alors $f$ commute aux limites sur les objets (Critères de représentabilité,
+section \ref{criteria-section-limit-preserving}).
+\end{lemma}
+
+\begin{proof}
+Si, pour toute limite projective filtrante $U = \lim U_i$ de schémas affines
+sur $U$, le foncteur
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+(\colim \mathcal{Y}_{U_i}) \times_{\mathcal{Y}_U} \mathcal{X}_U
+$$
+est essentiellement surjectif, alors $f$ commute aux limites sur les objets.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-limit-preserving}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et
+$q : \mathcal{Z} \to \mathcal{Y}$ des $1$-morphismes de catégories fibrées
+en groupoïdes sur $(\Sch/S)_{fppf}$. Si
+$p : \mathcal{X} \to \mathcal{Y}$ commute aux limites, il en va de même de
+son changement de base
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+suivant $q$.
+\end{lemma}
+
+\begin{proof}
+C'est formel. Soit $U = \lim_{i \in I} U_i$ la limite projective filtrante
+de schémas affines $U_i$ sur $S$. Pour tout $i$, nous avons
+$$
+(\mathcal{X} \times_\mathcal{Y} \mathcal{Z})_{U_i} =
+\mathcal{X}_{U_i} \times_{\mathcal{Y}_{U_i}} \mathcal{Z}_{U_i}
+$$
+Les colimites filtrantes commutent aux $2$-produits fibrés de catégories
+(nous omettons les détails). Puisque $p$ commute aux limites, il vient
+\begin{align*}
+\colim (\mathcal{X} \times_\mathcal{Y} \mathcal{Z})_{U_i}
+& =
+\colim \mathcal{X}_{U_i} \times_{\colim \mathcal{Y}_{U_i}}
+\colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+\times_{\colim \mathcal{Y}_{U_i}}
+\colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \mathcal{Z}_U \times_{\mathcal{Z}_U}
+\colim \mathcal{Z}_{U_i} \\
+& =
+(\mathcal{X} \times_\mathcal{Y} \mathcal{Z})_U \times_{\mathcal{Z}_U}
+\colim \mathcal{Z}_{U_i}
+\end{align*}
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-limit-preserving}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et
+$q : \mathcal{Y} \to \mathcal{Z}$ des $1$-morphismes de catégories fibrées
+en groupoïdes sur $(\Sch/S)_{fppf}$. Si $p$ et $q$ commutent aux limites,
+leur composé $q \circ p$ y commute également.
+\end{lemma}
+
+\begin{proof}
+C'est formel. Soit $U = \lim_{i \in I} U_i$ la limite projective filtrante
+de schémas affines $U_i$ sur $S$. Puisque $p$ et $q$ commutent aux limites,
+nous obtenons
+\begin{align*}
+\colim \mathcal{X}_{U_i}
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \mathcal{Y}_U
+\times_{\mathcal{Z}_U} \colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Z}_U} \colim \mathcal{Z}_{U_i}
+\end{align*}
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-limit-preserving}
+Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Si $p$ est représentable par
+des espaces algébriques, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $p$ commute aux limites,
+\item $p$ commute aux limites sur les objets, et
+\item $p$ est localement de présentation finie (voir Champs algébriques,
+définition \ref{algebraic-definition-relative-representable-property}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans Critères de représentabilité, lemme
+\ref{criteria-lemma-representable-by-spaces-limit-preserving}, nous avons vu
+que (2) et (3) sont équivalentes. Il suffit donc de montrer l'équivalence de
+(1) et (2). Un sens a été établi dans le lemme
+\ref{lemma-limit-preserving-objects}. Pour l'autre, soit
+$U = \lim_{i \in I} U_i$ la limite projective filtrante de schémas affines
+$U_i$ sur $S$. Nous devons montrer que
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+$$
+est une équivalence. L'hypothèse (2) assure qu'il est essentiellement
+surjectif ; il reste donc à prouver qu'il est pleinement fidèle. Comme $p$
+est fidèle sur les catégories fibres (Champs algébriques, lemme
+\ref{algebraic-lemma-criterion-map-representable-spaces-fibred-in-groupoids}),
+ce foncteur est fidèle. Soient $x_i$ et $x'_i$ des objets de la catégorie
+fibre de $\mathcal{X}$ sur $U_i$. Le foncteur ci-dessus envoie $x_i$ sur
+$(x_i|_U, p(x_i), can)$, où $can$ est l'isomorphisme canonique
+$p(x_i|_U) \to p(x_i)|_U$. Supposons donc donné un morphisme
+$$
+(\alpha, \beta_i) : (x_i|_U, p(x_i), can) \longrightarrow
+(x'_i|_U, p(x'_i), can)
+$$
+dans la catégorie qui figure au membre de droite de la première flèche
+affichée de cette démonstration. Il s'agit de construire un $i' \geq i$ et un
+morphisme $x_i|_{U_{i'}} \to x'_i|_{U_{i'}}$ dont l'image soit
+$(\alpha, \beta_i|_{U_{i'}})$.
+
+\medskip\noindent
+Posons $y_i = p(x_i)$ et $y'_i = p(x'_i)$. D'après Champs algébriques,
+lemme
+\ref{algebraic-lemma-criterion-map-representable-spaces-fibred-in-groupoids},
+le foncteur
+$$
+X_{y_i} : (\Sch/U_i)^{opp} \to \textit{Sets},\quad
+V/U_i \mapsto
+\{(x, \phi) \mid x \in \Ob(\mathcal{X}_V), \phi : f(x) \to y_i|V\}/\cong
+$$
+est un espace algébrique sur $U_i$, et il en va de même du foncteur
+$X_{y'_i}$ défini de façon analogue. Puisque (2) équivaut à (3), nous voyons
+que $X_{y'_i}$ est localement de présentation finie sur $U_i$. Remarquons que
+$(x_i, \text{id})$ et $(x'_i, \text{id})$ définissent des points à valeurs
+dans $U_i$ de $X_{y_i}$ et de $X_{y'_i}$. Il existe une transformation de
+foncteurs
+$$
+\beta_i : X_{y_i} \to X_{y'_i},\quad
+(x/V, \phi) \mapsto (x/V, \beta_i|_V \circ \phi)
+$$
+autrement dit, un morphisme d'espaces algébriques sur $U_i$. Nous affirmons
+que le diagramme
+$$
+\xymatrix{
+U \ar[d] \ar[rr] & & U_i \ar[d]^{(x'_i, \text{id})} \\
+U_i \ar[r]^{(x_i, \text{id})} & X_{y_i} \ar[r]^{\beta_i} & X_{y'_i}
+}
+$$
+est commutatif. En effet, cela équivaut à dire que les couples
+$(x_i|_U, \beta_i|_U)$ et $(x'_i|_U, \text{id})$ intervenant dans la
+définition du foncteur $X_{y'_i}$ sont isomorphes. Or le morphisme
+$\alpha : x_i|_U \to x'_i|_U$ fournit précisément un tel isomorphisme. En
+remontant cet argument, on voit qu'il suffit de trouver un $i' \geq i$ pour
+lequel le diagramme
+$$
+\xymatrix{
+U_{i'} \ar[d] \ar[rr] & & U_i \ar[d]^{(x'_i, \text{id})} \\
+U_i \ar[r]^{(x_i, \text{id})} & X_{y_i} \ar[r]^{\beta_i} & X_{y'_i}
+}
+$$
+soit commutatif : on obtient alors un isomorphisme
+$x_i|_{U_{i'}} \to x'_i|_{U_{i'}}$ qui résout le problème posé au paragraphe
+précédent. Or le morphisme diagonal
+$$
+\Delta : X_{y'_i} \to X_{y'_i} \times_{U_i} X_{y'_i}
+$$
+est localement de présentation finie (Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-diagonal-morphism-finite-type}). Puisque
+$U \to U_i$ égalise les deux morphismes vers $X_{y'_i}$, il existe donc un
+$i' \geq i$ tel que $U_{i'} \to U_i$ les égalise également ; voir Limites
+d'espaces, proposition
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-limit-preserving-diagonal}
+Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Les conditions suivantes sont
+équivalentes :
+\begin{enumerate}
+\item la diagonale
+$\Delta : \mathcal{X} \to \mathcal{X} \times_\mathcal{Y} \mathcal{X}$
+commute aux limites, et
+\item pour toute limite projective filtrante $U = \lim U_i$ de schémas
+affines sur $S$, le foncteur
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+$$
+est pleinement fidèle.
+\end{enumerate}
+En particulier, si $p$ commute aux limites, il en va de même de $\Delta$.
+\end{lemma}
+
+\begin{proof}
+Soit $U = \lim U_i$ une limite projective filtrante de schémas affines sur
+$S$. Nous affirmons que le foncteur
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+$$
+est pleinement fidèle si et seulement si le foncteur
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{(\mathcal{X} \times_\mathcal{Y} \mathcal{X})_U}
+\colim (\mathcal{X} \times_\mathcal{Y} \mathcal{X})_{U_i}
+$$
+est une équivalence. Cela démontrera le lemme. Comme
+$(\mathcal{X} \times_\mathcal{Y} \mathcal{X})_U =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \mathcal{X}_U$
+and
+$(\mathcal{X} \times_\mathcal{Y} \mathcal{X})_{U_i} =
+\mathcal{X}_{U_i} \times_{\mathcal{Y}_{U_i}} \mathcal{X}_{U_i}$
+il s'agit d'une assertion purement catégorique, que nous examinons au
+paragraphe suivant.
+
+\medskip\noindent
+Soit $\mathcal{I}$ une catégorie filtrante d'indices. Soient
+$(\mathcal{C}_i)$ et $(\mathcal{D}_i)$ des systèmes de groupoïdes sur
+$\mathcal{I}$. Soit
+$p : (\mathcal{C}_i) \to (\mathcal{D}_i)$ un morphisme de systèmes de
+groupoïdes sur $\mathcal{I}$. Supposons donnés un foncteur de groupoïdes
+$p : \mathcal{C} \to \mathcal{D}$ et des foncteurs
+$f : \colim \mathcal{C}_i \to \mathcal{C}$ et
+$g : \colim \mathcal{D}_i \to \mathcal{D}$
+qui s'insèrent dans un diagramme commutatif
+$$
+\xymatrix{
+\colim \mathcal{C}_i \ar[d]_p \ar[r]_f & \mathcal{C} \ar[d]^p \\
+\colim \mathcal{D}_i \ar[r]^g & \mathcal{D}
+}
+$$
+Nous affirmons alors que
+$$
+A : \colim \mathcal{C}_i \longrightarrow
+\mathcal{C} \times_\mathcal{D} \colim \mathcal{D}_i
+$$
+est pleinement fidèle si et seulement si le foncteur
+$$
+B : \colim \mathcal{C}_i \longrightarrow
+\mathcal{C}
+\times_{\Delta, \mathcal{C} \times_\mathcal{D} \mathcal{C}, f \times_g f}
+\colim (\mathcal{C}_i \times_{\mathcal{D}_i} \mathcal{C}_i)
+$$
+est une équivalence. Posons $\mathcal{C}' = \colim \mathcal{C}_i$ et
+$\mathcal{D}' = \colim \mathcal{D}_i$. Puisque les $2$-produits fibrés
+commutent aux colimites filtrantes, $A$ et $B$ deviennent les foncteurs
+$$
+A' : \mathcal{C}' \to \mathcal{C} \times_\mathcal{D} \mathcal{D}'
+\quad\text{and}\quad
+B' : \mathcal{C}' \longrightarrow
+\mathcal{C}
+\times_{\Delta, \mathcal{C} \times_\mathcal{D} \mathcal{C}, f \times_g f}
+(\mathcal{C}' \times_{\mathcal{D}'} \mathcal{C}')
+$$
+Il suffit donc de prouver que, si
+$$
+\xymatrix{
+\mathcal{C}' \ar[d]_p \ar[r]_f & \mathcal{C} \ar[d]^p \\
+\mathcal{D}' \ar[r]^g & \mathcal{D}
+}
+$$
+est un diagramme commutatif de groupoïdes, alors $A'$ est pleinement fidèle
+si et seulement si $B'$ est une équivalence. Cela résulte de Catégories,
+lemme \ref{categories-lemma-fully-faithful-diagonal-equivalence} (avec une
+catégorie de base triviale, c'est-à-dire ponctuelle), car
+$$
+\mathcal{C}
+\times_{\Delta, \mathcal{C} \times_\mathcal{D} \mathcal{C}, f \times_g f}
+(\mathcal{C}' \times_{\mathcal{D}'} \mathcal{C}') =
+\mathcal{C}'
+\times_{A', \mathcal{C} \times_\mathcal{D} \mathcal{D}', A'}
+\mathcal{C}'
+$$
+La démonstration est achevée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-finite-presentation-limit-preserving}
+Soit $S$ un schéma. Soit $\mathcal{X}$ un champ algébrique sur $S$. Si
+$\mathcal{X} \to S$ est localement de présentation finie, alors
+$\mathcal{X}$ commute aux limites au sens de Axiomes d'Artin, définition
+\ref{artin-definition-limit-preserving} (de manière équivalente, le morphisme
+$\mathcal{X} \to S$ commute aux limites).
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme lisse surjectif $U \to \mathcal{X}$, où $U$ est un
+schéma. Alors $U \to S$ est localement de présentation finie ; voir Morphismes
+de champs, section \ref{stacks-morphisms-section-finite-presentation}. Nous
+pouvons écrire $\mathcal{X} = [U/R]$ pour un groupoïde lisse en espaces
+algébriques $(U, R, s, t, c)$ ; voir Champs algébriques, lemme
+\ref{algebraic-lemma-stack-presentation}. Puisque $U$ est localement de présentation
+finie sur $S$, l'espace algébrique $R$ l'est lui aussi sur $S$. Rappelons que
+$[U/R]$ est le champ en groupoïdes sur $(\Sch/S)_{fppf}$ obtenu en passant au
+champ associé à la catégorie fibrée en groupoïdes dont la catégorie fibre sur
+$T$ est le groupoïde $(U(T), R(T), s, t, c)$. Comme les foncteurs $U$ et $R$
+commutent aux limites (Limites d'espaces, proposition
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}),
+cette catégorie fibrée en groupoïdes commute aux limites. Il suffit donc de
+montrer que le passage au champ fppf associé conserve cette propriété. C'est
+bien le cas (indication : utiliser Topologies, lemme
+\ref{topologies-lemma-limit-fppf-topology}). Nous donnons néanmoins ci-dessous
+une démonstration directe, en utilisant que nous connaissons ici explicitement
+le passage au champ associé.
+
+\medskip\noindent
+Soit $T = \lim T_\lambda$ une limite projective filtrante de schémas affines
+sur $S$. Nous devons montrer que le foncteur
+$$
+\colim [U/R]_{T_\lambda} \longrightarrow [U/R]_T
+$$
+est une équivalence de catégories. Montrons d'abord qu'il est essentiellement
+surjectif. Soit $x \in \Ob([U/R]_T)$. Groupoïdes en espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-stack-objects}, décrit la catégorie
+$[U/R]_T$. En particulier, $x$ correspond à un recouvrement fppf
+$\{T_i \to T\}_{i \in I}$ et à une donnée de descente $[U/R]$
+$(u_i, r_{ij})$ relative à ce recouvrement. Après avoir raffiné celui-ci, nous
+pouvons supposer qu'il s'agit d'un recouvrement fppf standard du schéma affine
+$T$. Par Topologies, lemme \ref{topologies-lemma-limit-fppf-topology}, nous
+pouvons choisir un $\lambda$ et un recouvrement fppf standard
+$\{T_{\lambda, i} \to T_\lambda\}_{i \in I}$ dont le changement de base à
+$T$ soit égal à $\{T_i \to T\}_{i \in I}$. Pour tout $i$, quitte à augmenter
+$\lambda$, il existe un morphisme $u_{\lambda, i} : T_{\lambda, i} \to U$
+dont le composé avec $T_i \to T_{\lambda, i}$ est le morphisme donné $u_i$
+(c'est ici que nous utilisons la commutation de $U$ aux limites). De même,
+pour tous $i, j$, quitte à augmenter $\lambda$, il existe un morphisme
+$r_{\lambda, ij} : T_{\lambda, i} \times_{T_\lambda} T_{\lambda, j} \to R$
+dont le composé avec $T_{ij} \to T_{\lambda, ij}$ est le morphisme donné
+$r_{ij}$ (c'est ici que nous utilisons la commutation de $R$ aux limites).
+Quitte à augmenter encore $\lambda$, nous pouvons supposer que
+$$
+s \circ r_{\lambda, ij} = u_{\lambda, i} \circ \text{pr}_0
+\quad\text{and}\quad
+t \circ r_{\lambda, ij} = u_{\lambda, j} \circ \text{pr}_1,
+$$
+and
+$$
+c \circ (r_{\lambda, jk} \circ \text{pr}_{12}, r_{\lambda, ij}
+\circ \text{pr}_{01}) = r_{\lambda, ik} \circ \text{pr}_{02}.
+$$
+Autrement dit, nous pouvons supposer que
+$(u_{\lambda, i}, r_{\lambda, ij})$ est une donnée de descente $[U/R]$
+relative au recouvrement
+$\{T_{\lambda, i} \to T_\lambda\}_{i \in I}$. Nous obtenons alors un objet
+correspondant de $[U/R]$ sur $T_\lambda$ dont l'image réciproque sur $T$ est
+isomorphe à $x$, comme voulu. La pleine fidélité se démontre exactement de la
+même façon, à l'aide de la description des morphismes dans les catégories
+fibres de $[U/T]$ donnée dans Groupoïdes en espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-stack-objects}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-characterize-locally-finite-presentation}
+\begin{reference}
+C'est un cas particulier de \cite[Lemma 2.3.15]{Emerton-Gee}.
+\end{reference}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ commute aux limites,
+\item $f$ commute aux limites sur les objets, et
+\item $f$ est localement de présentation finie.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Supposons (3). Soit $T = \lim T_i$ une limite projective filtrante de schémas
+affines. Considérons le foncteur
+$$
+\colim \mathcal{X}_{T_i} \longrightarrow
+\mathcal{X}_T \times_{\mathcal{Y}_T} \colim \mathcal{Y}_{T_i}
+$$
+Soit $(x, y_i, \beta)$ un objet du membre de droite, c'est-à-dire que
+$x \in \Ob(\mathcal{X}_T)$, $y_i \in \Ob(\mathcal{Y}_{T_i})$ et que
+$\beta : f(x) \to y_i|_T$ est un morphisme de $\mathcal{Y}_T$. Nous pouvons
+alors considérer $(x, y_i, \beta)$ comme un objet du champ algébrique
+$\mathcal{X}_{y_i} = \mathcal{X} \times_{\mathcal{Y}, y_i} T_i$ au-dessus de
+$T$. Comme
+$\mathcal{X}_{y_i} \to T_i$ est localement de présentation finie (c'est un
+changement de base de $f$), il commute aux limites par le lemme
+\ref{lemma-locally-finite-presentation-limit-preserving}. Ainsi,
+$(x, y_i, \beta)$ provient d'un objet sur $T_{i'}$ pour un certain
+$i' \geq i$. En explicitant les définitions, nous voyons que
+$(x, y_i, \beta)$ appartient à l'image essentielle du foncteur affiché.
+Celui-ci est donc essentiellement surjectif. Autrement dit, $f$ commute aux
+limites sur les objets. Appliquons maintenant ce résultat à la diagonale
+$\Delta$ de $f$. D'après Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-diagonal-morphism-finite-type}, le morphisme
+$\Delta$ est localement de présentation finie. L'argument précédent montre
+donc que $\Delta$ commute aux limites sur les objets. Par le lemme
+\ref{lemma-representable-by-spaces-limit-preserving}, $\Delta$ commute aux limites.
+Le lemme \ref{lemma-limit-preserving-diagonal} entraîne alors que le foncteur
+affiché ci-dessus est pleinement fidèle. C'est donc une équivalence, puisque
+nous avons déjà prouvé sa surjectivité essentielle, et (1) est établi.
+
+\medskip\noindent
+L'implication (1) $\Rightarrow$ (2) est immédiate. Supposons (2). Choisissons
+un schéma $V$ et un morphisme lisse surjectif $V \to \mathcal{Y}$. Par
+Critères de représentabilité, lemme
+\ref{criteria-lemma-base-change-limit-preserving}, le changement de base
+$\mathcal{X} \times_\mathcal{Y} V \to V$ commute aux limites sur les objets.
+Choisissons un schéma $U$ et un morphisme lisse surjectif
+$U \to \mathcal{X} \times_\mathcal{Y} V$. Un morphisme lisse étant localement
+de présentation finie, $U \to \mathcal{X} \times_\mathcal{Y} V$ commute aux
+limites, d'après la première partie de la démonstration. Par Critères de
+représentabilité, lemme \ref{criteria-lemma-composition-limit-preserving}, le
+composé $U \to V$ commute aux limites sur les objets. Nous en concluons que
+$U \to V$ est localement de présentation finie ; voir Critères de
+représentabilité, lemme
+\ref{criteria-lemma-representable-by-spaces-limit-preserving}. C'est exactement
+la condition disant que $f$ est localement de présentation finie ; voir
+Morphismes de champs, définition
+\ref{stacks-morphisms-definition-locally-finite-presentation}.
+\end{proof}
+
+
+
+
+\section{Descente de propriétés}
+\label{section-descent}
+
+\noindent
+Cette section est l'analogue de Limites, section \ref{limits-section-descent}.
+
+\begin{situation}
+\label{situation-descent}
+Soit $Y = \lim_{i \in I} Y_i$ la limite projective d'un système filtrant
+d'espaces algébriques dont les morphismes de transition sont affines. Nous
+supposons que $X_i$ est quasi-compact et quasi-séparé pour tout $i \in I$.
+Nous choisissons en outre un élément $0 \in I$.
+\end{situation}
+
+\begin{lemma}
+\label{lemma-eventually-separated}
+Dans la situation \ref{situation-descent}, supposons que
+$\mathcal{X}_0 \to Y_0$ soit un morphisme d'un champ algébrique vers $Y_0$.
+Supposons $\mathcal{X}_0$ quasi-compact et quasi-séparé. Si
+$Y \times_{Y_0} \mathcal{X}_0 \to Y$ est séparé, alors
+$Y_i \times_{Y_0} \mathcal{X}_0 \to Y_i$ est séparé pour tout $i \in I$
+suffisamment grand.
+\end{lemma}
+
+\begin{proof}
+Écrivons $\mathcal{X} = Y \times_{Y_0} \mathcal{X}_0$ et
+$\mathcal{X}_i = Y_i \times_{Y_0} \mathcal{X}_0$. Choisissons un schéma
+affine $U_0$ et un morphisme lisse surjectif
+$U_0 \to \mathcal{X}_0$. Posons $U = Y \times_{Y_0} U_0$ et
+$U_i = Y_i \times_{Y_0} U_0$. Alors $U$ et $U_i$ sont affines, tandis que
+$U \to \mathcal{X}$ et $U_i \to \mathcal{X}_i$ sont lisses et surjectifs.
+Posons $R_0 = U_0 \times_{\mathcal{X}_0} U_0$, puis
+$R = Y \times_{Y_0} R_0$ et $R_i = Y_i \times_{Y_0} R_0$. Nous avons alors
+$R = U \times_\mathcal{X} U$ et
+$R_i = U_i \times_{\mathcal{X}_i} U_i$.
+
+\medskip\noindent
+Avec ces notations, remarquons que, si $\mathcal{X} \to Y$ est séparé, alors
+$R \to U \times_Y U$ est propre : c'est le changement de base de
+$\mathcal{X} \to \mathcal{X} \times_Y \mathcal{X}$ suivant
+$U \times_Y U \to \mathcal{X} \times_Y \mathcal{X}$. Réciproquement,
+$\mathcal{X}_i \to Y_i$ est séparé dès que
+$R_i \to U_i \times_{Y_i} U_i$ est propre, car
+$U_i \times_{Y_i} U_i \to \mathcal{X}_i \times_{Y_i} \mathcal{X}_i$ est
+lisse et surjectif ; voir Propriétés des champs, lemme
+\ref{stacks-properties-lemma-check-property-covering}. Remarquons que
+$R_0 \to U_0 \times_{Y_0} U_0$ est localement de type fini et que $R_0$ est
+quasi-compact et quasi-séparé. Par Limites d'espaces, lemme
+\ref{spaces-limits-lemma-eventually-proper}, le morphisme
+$R_i \to U_i \times_{Y_i} U_i$ est propre pour $i$ assez grand, ce qui achève
+la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+\section{Descente d'objets relatifs}
+\label{section-descending-relative}
+
+\noindent
+Cette section est l'analogue de Limites d'espaces, section
+\ref{spaces-limits-section-descending-relative}.
+
+\begin{lemma}
+\label{lemma-descend-a-stack-down}
+Soit $I$ un ensemble filtrant. Soit $(X_i, f_{ii'})$ un système projectif
+d'espaces algébriques indexé par $I$. Supposons que
+\begin{enumerate}
+\item les morphismes $f_{ii'} : X_i \to X_{i'}$ sont affines,
+\item les espaces $X_i$ sont quasi-compacts et quasi-séparés.
+\end{enumerate}
+Soit $X = \lim X_i$. Si $\mathcal{X}$ est un champ algébrique de présentation
+finie sur $X$, il existe un $i \in I$ et un champ algébrique $\mathcal{X}_i$
+de présentation finie sur $X_i$ tels que
+$\mathcal{X} \cong \mathcal{X}_i \times_{X_i} X$ comme champs algébriques sur
+$X$.
+\end{lemma}
+
+\begin{proof}
+Par Morphismes de champs, définition
+\ref{stacks-morphisms-definition-locally-finite-presentation}, le morphisme
+$\mathcal{X} \to X$ est quasi-compact, localement de présentation finie et
+quasi-séparé. Comme $X$ et $\mathcal{X} \to X$ sont quasi-compacts, le champ
+$\mathcal{X}$ est quasi-compact (Morphismes de champs, définition
+\ref{stacks-morphisms-definition-quasi-compact}). Il existe donc un schéma
+affine $U$ et un morphisme lisse surjectif $U \to \mathcal{X}$ (Propriétés
+des champs, lemme \ref{stacks-properties-lemma-quasi-compact-stack}). Posons
+$R = U \times_\mathcal{X} U$. Nous obtenons un groupoïde lisse en espaces
+algébriques $(U, R, s, t, c)$ sur $X$ tel que $\mathcal{X} = [U/R]$ ; voir
+Champs algébriques, lemme \ref{algebraic-lemma-stack-presentation}. Puisque
+$\mathcal{X} \to X$ et $X$ sont quasi-séparés, $\mathcal{X}$ est
+quasi-séparé (Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-composition-separated}). Ainsi,
+$R \to U \times U$ est quasi-compact et quasi-séparé (Morphismes de champs,
+lemme \ref{stacks-morphisms-lemma-fibre-product-after-map}) ; par conséquent,
+$R$ est un espace algébrique quasi-compact et quasi-séparé. D'autre part,
+$U \to X$ est localement de présentation finie, et il en va donc de même de
+$R \to X$ (car $s : R \to U$ est lisse, donc localement de présentation
+finie). Le quintuplet $(U, R, s, t, c)$ est ainsi un objet groupoïde dans la
+catégorie des espaces algébriques de présentation finie sur $X$. Par Limites
+d'espaces, lemme \ref{spaces-limits-lemma-descend-finite-presentation}, il
+existe un $i$ et un groupoïde en espaces algébriques
+$(U_i, R_i, s_i, t_i, c_i)$ sur $X_i$ dont le changement de base à $X$ est
+isomorphe à $(U, R, s, t, c)$. Quitte à augmenter $i$, nous pouvons supposer
+$s_i$ et $t_i$ lisses ; voir Limites d'espaces, lemme
+\ref{spaces-limits-lemma-descend-smooth}. Le champ quotient
+$\mathcal{X}_i = [U_i/R_i]$ est algébrique (Champs algébriques, théorème
+\ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}).
+
+\medskip\noindent
+Il existe un morphisme $[U/R] \to [U_i/R_i]$ ; voir Groupoïdes en espaces,
+lemme \ref{spaces-groupoids-lemma-quotient-stack-functorial}. Nous affirmons
+que, joint aux morphismes $[U/R] \to X$ et $[U_i/R_i] \to X_i$ (Groupoïdes
+en espaces, lemme \ref{spaces-groupoids-lemma-quotient-stack-arrows}), il
+fournit un isomorphisme, c'est-à-dire une équivalence,
+$$
+[U/R] \longrightarrow [U_i/R_i] \times_{X_i} X
+$$
+Le morphisme correspondant
+$$
+[U/_{\!p}R] \longrightarrow [U_i/_{\!p}R_i] \times_{X_i} X
+$$
+au niveau des « préfaisceaux de groupoïdes » de Groupoïdes en espaces,
+équation (\ref{spaces-groupoids-equation-quotient-stack}), est un
+isomorphisme. L'affirmation résulte donc du fait que le passage au champ
+associé commute aux produits fibrés ; voir Champs, lemme
+\ref{stacks-lemma-stackification-fibre-product-fibred-categories}.
+\end{proof}
+
+
+
+
+\section{Immersion fermée du type fini dans la présentation finie}
+\label{section-finite-type-closed-in-finite-presentation}
+
+\noindent
+Cette section est l'analogue de Limites d'espaces, section
+\ref{spaces-limits-section-finite-type-closed-in-finite-presentation}.
+
+\begin{lemma}
+\label{lemma-finite-type-closed-in-finite-presentation}
+Soit $f : \mathcal{X} \to Y$ un morphisme d'un champ algébrique vers un espace
+algébrique. Supposons que :
+\begin{enumerate}
+\item $f$ est de type fini et quasi-séparé ;
+\item $Y$ est quasi-compact et quasi-séparé.
+\end{enumerate}
+Il existe alors un morphisme de présentation finie
+$f' : \mathcal{X}' \to Y$ et une immersion fermée
+$\mathcal{X} \to \mathcal{X}'$ de champs algébriques sur $Y$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $Y = \lim_{i \in I} Y_i$ comme limite projective d'espaces algébriques
+indexés par un ensemble filtrant $I$, dont les morphismes de transition sont
+affines et les $Y_i$ noethériens ; voir Limites d'espaces, proposition
+\ref{spaces-limits-proposition-approximate}. Nous utiliserons les résultats de
+Limites d'espaces, section
+\ref{spaces-limits-section-finite-type-quasi-separated}.
+
+\medskip\noindent
+Choisissons une présentation $\mathcal{X} = [U/R]$. Notons
+$(U, R, s, t, c, e, i)$ le groupoïde correspondant en espaces algébriques sur
+$Y$. Nous pouvons et allons supposer $U$ affine. Alors $U$, $R$ et
+$R \times_{s, U, t} R$ sont des espaces algébriques quasi-séparés et de type
+fini sur $Y$. Nous avons deux morphismes $s, t : R \to U$, trois morphismes
+$c : R \times_{s, U, t} R \to R$,
+$\text{pr}_1 : R \times_{s, U, t} R \to R$,
+$\text{pr}_2 : R \times_{s, U, t} R \to R$,
+un morphisme $e : U \to R$ et, enfin, un morphisme $i : R \to R$. Ces
+morphismes satisfont une liste d'axiomes explicitée dans Groupoïdes, section
+\ref{groupoids-section-groupoids}.
+
+\medskip\noindent
+D'après Limites d'espaces, remarque
+\ref{spaces-limits-remark-finite-type-gives-well-defined-system}
+nous pouvons trouver un $i_0 \in I$ et des systèmes projectifs
+\begin{enumerate}
+\item $(U_i)_{i \geq i_0}$,
+\item $(R_i)_{i \geq i_0}$,
+\item $(T_i)_{i \geq i_0}$
+\end{enumerate}
+sur $(Y_i)_{i \geq i_0}$ tels que
+$U = \lim_{i \geq i_0} U_i$,
+$R = \lim_{i \geq i_0} R_i$ et
+$R \times_{s, U, t} R = \lim_{i \geq i_0} T_i$
+et tels qu'il existe des morphismes de systèmes projectifs
+\begin{enumerate}
+\item $(s_i)_{i \geq i_0} : (R_i)_{i \geq i_0} \to (U_i)_{i \geq i_0}$,
+\item $(t_i)_{i \geq i_0} : (R_i)_{i \geq i_0} \to (U_i)_{i \geq i_0}$,
+\item $(c_i)_{i \geq i_0} : (T_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(p_i)_{i \geq i_0} : (T_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(q_i)_{i \geq i_0} : (T_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(e_i)_{i \geq i_0} : (U_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(i_i)_{i \geq i_0} : (R_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$
+\end{enumerate}
+vérifiant
+$s = \lim_{i \geq i_0} s_i$,
+$t = \lim_{i \geq i_0} t_i$,
+$c = \lim_{i \geq i_0} c_i$,
+$\text{pr}_1 = \lim_{i \geq i_0} p_i$,
+$\text{pr}_2 = \lim_{i \geq i_0} q_i$,
+$e = \lim_{i \geq i_0} e_i$ et
+$i = \lim_{i \geq i_0} i_i$.
+Par Limites d'espaces, lemme
+\ref{spaces-limits-lemma-morphism-good-diagram-smooth}
+nous pouvons supposer $s_i$ et $t_i$ lisses, quitte à augmenter $i_0$.
+Par Limites d'espaces, lemme
+\ref{spaces-limits-lemma-morphism-good-diagram-flat}
+nous pouvons supposer que les applications
+$R \to U \times_{U_i, s_i} R_i$ données par $s$ et $R \to R_i$, ainsi que
+$R \to U \times_{U_i, t_i} R_i$ données par $t$ et $R \to R_i$, sont des
+isomorphismes pour tout $i \geq i_0$. Par Limites d'espaces, lemme
+\ref{spaces-limits-lemma-good-diagram-fibre-product}, nous pouvons supposer les
+diagrammes
+$$
+\xymatrix{
+T_i \ar[r]_{q_i} \ar[d]_{p_i} & R_i \ar[d]^{t_i} \\
+R_i \ar[r]^{s_i} & U_i
+}
+$$
+cartésiens. L'assertion d'unicité de Limites d'espaces, lemme
+\ref{spaces-limits-lemma-morphism-good-diagram}, garantit alors que, pour un
+$i$ assez grand, les relations mentionnées plus haut entre les morphismes
+$s, t, c, e, i$ sont satisfaites par $s_i, t_i, c_i, e_i, i_i$. Fixons un tel
+$i$.
+
+\medskip\noindent
+Il s'ensuit que $(U_i, R_i, s_i, t_i, c_i, e_i, i_i)$ est un groupoïde lisse en
+espaces algébriques sur $Y_i$. Ainsi, $\mathcal{X}_i = [U_i/R_i]$ est un champ
+algébrique (Champs algébriques, théorème
+\ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}).
+Le morphisme de groupoïdes
+$$
+(U, R, s, t, c, e, i) \to (U_i, R_i, s_i, t_i, c_i, e_i, i_i)
+$$
+au-dessus de $Y \to Y_i$ détermine un diagramme commutatif
+$$
+\xymatrix{
+\mathcal{X} \ar[d] \ar[r] & \mathcal{X}_i \ar[d] \\
+Y \ar[r] & Y_i
+}
+$$
+(Groupoïdes en espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-stack-functorial}).
+Nous affirmons que le morphisme $\mathcal{X} \to Y \times_{Y_i} \mathcal{X}_i$
+est une immersion fermée. Cette affirmation achève la démonstration, car le
+champ algébrique $\mathcal{X}_i \to Y_i$ est de présentation finie par
+construction. Pour la prouver, remarquons que le diagramme de gauche
+$$
+\xymatrix{
+U \ar[d] \ar[r] & U_i \ar[d] \\
+\mathcal{X} \ar[r] & \mathcal{X}_i
+}
+\quad\quad
+\xymatrix{
+U \ar[d] \ar[r] & Y \times_{Y_i} U_i \ar[d] \\
+\mathcal{X} \ar[r] & Y \times_{Y_i} \mathcal{X}_i
+}
+$$
+est cartésien par Groupoïdes en espaces, lemme
+\ref{spaces-groupoids-lemma-criterion-fibre-product}
+et les résultats rappelés ci-dessus. Le diagramme commutatif de droite est donc
+lui aussi cartésien. Le résultat voulu découle alors du fait que
+$U \to Y \times_{Y_i} U_i$ est une immersion fermée, par construction du
+système projectif $(U_i)$ dans Limites d'espaces, lemme
+\ref{spaces-limits-lemma-limit-from-good-diagram}, du fait que
+$Y \times_{Y_i} U_i \to Y \times_{Y_i} \mathcal{X}_i$ est lisse et surjectif,
+et de Propriétés des champs, lemme
+\ref{stacks-properties-lemma-check-immersion-covering}.
+\end{proof}
+
+\noindent
+Il existe une variante pour les champs algébriques séparés.
+
+\begin{lemma}
+\label{lemma-separated-closed-in-finite-presentation}
+Soit $f : \mathcal{X} \to Y$ un morphisme d'un champ algébrique vers un espace
+algébrique. Supposons que :
+\begin{enumerate}
+\item $f$ est de type fini et séparé ;
+\item $Y$ est quasi-compact et quasi-séparé.
+\end{enumerate}
+Il existe alors un morphisme séparé de présentation finie
+$f' : \mathcal{X}' \to Y$ et une immersion fermée
+$\mathcal{X} \to \mathcal{X}'$ de champs algébriques sur $Y$.
+\end{lemma}
+
+\begin{proof}
+Nous appliquons d'abord exactement le même procédé que dans la démonstration du
+lemme \ref{lemma-finite-type-closed-in-finite-presentation}, dont nous reprenons
+les notations, pour construire l'immersion $\mathcal{X} \to \mathcal{X}'$ sous
+la forme d'un morphisme
+$\mathcal{X} \to \mathcal{X}' = Y \times_{Y_i} \mathcal{X}_i$, où
+$\mathcal{X}_i = [U_i/R_i]$. Il suffit donc de montrer que
+$\mathcal{X}_i \to Y_i$ est séparé pour $i$ assez grand. Autrement dit, il
+suffit de montrer que
+$\mathcal{X}_i \to \mathcal{X}_i \times_{Y_i} \mathcal{X}_i$ est propre pour
+$i$ assez grand. Puisque le morphisme
+$U_i \times_{Y_i} U_i \to \mathcal{X}_i \times_{Y_i} \mathcal{X}_i$ est
+surjectif et lisse, et puisque
+$R_i = \mathcal{X}_i
+\times_{\mathcal{X}_i \times_{Y_i} \mathcal{X}_i} U_i \times_{Y_i} U_i$
+il suffit de montrer que le morphisme
+$(s_i, t_i) : R_i \to U_i \times_{Y_i} U_i$
+est propre pour $i$ assez grand ; voir Propriétés des champs, lemme
+\ref{stacks-properties-lemma-check-property-covering}.
+Nous le démontrons au paragraphe suivant.
+
+\medskip\noindent
+Observons que $U \times_Y U \to Y$ est quasi-séparé et de type fini. Nous
+pouvons donc appliquer la construction de Limites d'espaces, remarque
+\ref{spaces-limits-remark-finite-type-gives-well-defined-system}
+pour trouver un $i_1 \in I$ et un système projectif $(V_i)_{i \geq i_1}$ tels
+que $U \times_Y U = \lim_{i \geq i_1} V_i$. Par Limites d'espaces, lemme
+\ref{spaces-limits-lemma-good-diagram-fibre-product}, pour $i$ assez grand, la
+fonctorialité de la construction appliquée aux projections
+$U \times_Y U \to U$ donne des immersions fermées
+$$
+V_i \to U_i \times_{Y_i} U_i
+$$
+(Il existe ici un léger décalage : il faudrait en réalité remplacer $Y_i$ par
+l'image schématique de $Y \to Y_i$, mais cela ne change manifestement pas le
+produit fibré.) D'autre part, par Limites d'espaces, lemme
+\ref{spaces-limits-lemma-morphism-good-diagram-proper}
+la fonctorialité appliquée au morphisme propre
+$(s, t) : R \to U \times_Y U$ (nous utilisons ici que $\mathcal{X}$ est séparé)
+fournit des morphismes $R_i \to V_i$ propres pour $i$ assez grand. En les
+composant, nous obtenons un morphisme propre
+$R_i \to U_i \times_{Y_i} U_i$ pour tout $i$ assez grand. La fonctorialité de
+la construction de Limites d'espaces, remarque
+\ref{spaces-limits-remark-finite-type-gives-well-defined-system}
+montre que ce morphisme coïncide avec $(s_i, t_i)$ pour $i$ assez grand, ce qui
+achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+\section{Morphismes universellement fermés}
+\label{section-universally-closed}
+
+\noindent
+Cette section est l'analogue de Limites d'espaces, section
+\ref{spaces-limits-section-universally-closed}.
+
+\begin{lemma}
+\label{lemma-separate}
+Soit $g : Z \to Y$ un morphisme de schémas affines. Soit
+$f : \mathcal{X} \to Y$ un morphisme quasi-compact de champs algébriques. Soit
+$z \in Z$, et soit $T \subset |\mathcal{X} \times_Y Z|$ une partie fermée telle
+que $z \not \in \Im(T \to |Z|)$. Si $\mathcal{X}$ est quasi-compact, il existe
+un voisinage ouvert $V \subset Z$ de $z$, un diagramme commutatif
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+et une partie fermée $T' \subset |X \times_Y Z'|$ tels que :
+\begin{enumerate}
+\item $Z'$ est un schéma affine de présentation finie sur $Y$ ;
+\item en posant $z' = a(z)$, on a $z' \not \in \Im(T' \to |Z'|)$ ;
+\item l'image réciproque de $T$ dans $|\mathcal{X} \times_Y V|$ s'envoie dans
+$T'$ par $|\mathcal{X} \times_Y V| \to |\mathcal{X} \times_Y Z'|$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous allons déduire l'assertion du résultat correspondant pour les morphismes
+de schémas. Comme $\mathcal{X}$ est quasi-compact, choisissons un schéma affine
+$W$ et un morphisme lisse surjectif $W \to \mathcal{X}$. Soit
+$T_W \subset |W \times_Y Z|$ l'image réciproque de $T$. Alors $z$ n'appartient
+pas à l'image de $T_W$. Le cas des schémas (Limites, lemme
+\ref{limits-lemma-separate}) fournit un voisinage ouvert $V \subset Z$ de $z$,
+un diagramme commutatif de schémas
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+et une partie fermée $T' \subset |W \times_Y Z'|$ tels que :
+\begin{enumerate}
+\item $Z'$ est un schéma affine de présentation finie sur $Y$ ;
+\item en posant $z' = a(z)$, on a $z' \not \in \Im(T' \to |Z'|)$ ;
+\item $T_1 = T_W \cap |W \times_Y V|$ s'envoie dans $T'$ par
+$|W \times_Y V| \to |W \times_Y Z'|$.
+\end{enumerate}
+Le diagramme commutatif
+$$
+\xymatrix{
+W \times_Y Z \ar[d] &
+W \times_Y V \ar[l] \ar[rr]_{a_1} \ar[d]_c & &
+W \times_Y Z' \ar[d]^q \\
+\mathcal{X} \times_Y Z &
+\mathcal{X} \times_Y V \ar[l] \ar[rr]^{a_2} & &
+\mathcal{X} \times_Y Z'
+}
+$$
+est formé de carrés cartésiens, et ses flèches verticales sont surjectives,
+lisses et, a fortiori, ouvertes. Le carré de gauche montre que
+$T_1 = T_W \cap |W \times_Y V|$ est l'image réciproque de
+$T_2 = T \cap |\mathcal{X} \times_Y V|$ par $c$. Par Propriétés des champs, lemme
+\ref{stacks-properties-lemma-points-cartesian}, on obtient
+$a_1(T_1) = q^{-1}(a_2(T_2))$.
+Par Topologie, lemme \ref{topology-lemma-open-morphism-quotient-topology}, on a
+$$
+q^{-1}\left(\overline{a_2(T_2)}\right) =
+\overline{q^{-1}(a_2(T_2))} =
+\overline{a_1(T_1)} \subset T'
+$$
+Comme $q$ est surjectif, l'image de $\overline{a_2(T_2)} \to |Z'|$ ne contient
+pas $z'$, puisque cela vaut pour $T'$. Le diagramme ci-dessus, avec
+$Z', V, a, b$, et la partie fermée
+$\overline{a_2(T_2)} \subset |\mathcal{X} \times_Y Z'|$ répondent donc au
+problème posé dans le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-test-universally-closed}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact de champs
+algébriques. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est universellement fermé ;
+\item pour tout morphisme $Z \to \mathcal{Y}$ localement de présentation finie,
+où $Z$ est un schéma affine, l'application
+$|\mathcal{X} \times_Y Z| \to |Z|$ est fermée ;
+\item il existe un schéma $V$ et un morphisme lisse surjectif
+$V \to \mathcal{Y}$ tels que l'application
+$|\mathbf{A}^n \times (\mathcal{X} \times_\mathcal{Y} V)|
+\to |\mathbf{A}^n \times V|$ soit fermée pour tout $n \geq 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il est clair que (1) implique (2).
+
+\medskip\noindent
+Supposons (2). Choisissons un schéma $V$ qui soit réunion disjointe de schémas
+affines, ainsi qu'un morphisme lisse surjectif $V \to \mathcal{Y}$. Pour montrer
+que $f$ est universellement fermé, il suffit de montrer que le changement de
+base $\mathcal{X} \times_\mathcal{Y} V \to V$ de $f$ est universellement fermé ;
+voir Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-universally-closed-local}.
+Remarquons que la condition (2) vaut pour ce changement de base. Afin de prouver
+que (2) implique (1), nous pouvons donc supposer que $Y = \mathcal{Y}$ est un
+schéma affine.
+
+\medskip\noindent
+Supposons (2), et supposons que $\mathcal{Y} = Y$ est un schéma affine. Si $f$
+n'est pas universellement fermé, il existe un schéma affine $Z$ sur $Y$ tel que
+$|\mathcal{X} \times_Y Z| \to |Z|$ ne soit pas fermé ; voir Morphismes de
+champs, lemme
+\ref{stacks-morphisms-lemma-universally-closed-local}.
+Il existe donc une partie fermée $T \subset |\mathcal{X} \times_Y Z|$ telle que
+$\Im(T \to |Z|)$ ne soit pas fermée. Choisissons $z \in |Z|$ dans l'adhérence
+de l'image de $T$, mais non dans cette image. Appliquons le lemme
+\ref{lemma-separate}. Nous obtenons un voisinage ouvert $V \subset Z$, un
+diagramme commutatif
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+et une partie fermée $T' \subset |\mathcal{X} \times_Y Z'|$ tels que :
+\begin{enumerate}
+\item $Z'$ est un schéma affine de présentation finie sur $Y$ ;
+\item en posant $z' = a(z)$, on a $z' \not \in \Im(T' \to |Z'|)$ ;
+\item l'image réciproque de $T$ dans $|\mathcal{X} \times_Y V|$ s'envoie dans
+$T'$ par
+$|\mathcal{X} \times_Y V| \to |\mathcal{X} \times_Y Z'|$.
+\end{enumerate}
+Nous affirmons que $z'$ appartient à l'adhérence de $\Im(T' \to |Z'|)$. Il en
+résulte que $|\mathcal{X} \times_Y Z'| \to |Z'|$ n'est pas fermée, contrairement
+à (2). Autrement dit, cette affirmation montre que (2) implique (1). Pour la
+vérifier, considérons le diagramme commutatif suivant :
+$$
+\xymatrix{
+\mathcal{X} \times_Y Z \ar[d] &
+\mathcal{X} \times_Y V \ar[l] \ar[d] \ar[r] &
+\mathcal{X} \times_Y Z' \ar[d] \\
+Z & V \ar[l] \ar[r]^a & Z'
+}
+$$
+Soit $T_V \subset |\mathcal{X} \times_Y V|$ l'image réciproque de $T$. Par
+Propriétés des champs, lemme \ref{stacks-properties-lemma-points-cartesian},
+l'image de $T_V$ dans $|V|$ est l'image réciproque de l'image de $T$ dans
+$|Z|$. Puisque $z$ appartient à l'adhérence de l'image de $T \to |Z|$ et que
+$|V| \to |Z|$ est ouverte, $z$ appartient donc à l'adhérence de l'image de
+$T_V \to |V|$. Comme l'image de $T_V$ dans
+$|\mathcal{X} \times_Y Z'|$ est contenue dans $|T'|$, il s'ensuit immédiatement
+que $z' = a(z)$ appartient à l'adhérence de l'image de $T'$.
+
+\medskip\noindent
+Il est clair que (1) implique (3). Soit $V \to \mathcal{Y}$ comme dans (3). Si
+nous montrons que $\mathcal{X} \times_Y V \to V$ est universellement fermé,
+alors $f$ est universellement fermé par Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-universally-closed-local}.
+Il suffit donc de montrer que $f : \mathcal{X} \to \mathcal{Y}$ satisfait (2)
+lorsque $f$ est un morphisme quasi-compact de champs algébriques, que
+$\mathcal{Y} = Y$ est un schéma et que
+$|\mathbf{A}^n \times \mathcal{X}| \to |\mathbf{A}^n \times Y|$
+soit fermée pour tout $n$. Soit $Z \to Y$ localement de présentation finie,
+où $Z$ est un schéma affine. Nous devons montrer que l'application
+$|\mathcal{X} \times_Y Z| \to |Z|$ est fermée. Comme $Y$ est un schéma, que
+$Z$ est affine et que $Z \to Y$ est localement de présentation finie, il
+existe une immersion $Z \to \mathbf{A}^n \times Y$ ; voir Morphismes, lemme
+\ref{morphisms-lemma-quasi-affine-finite-type-over-S}. Considérons le diagramme
+cartésien
+$$
+\vcenter{
+\xymatrix{
+\mathcal{X} \times_Y Z \ar[d] \ar[r] &
+\mathbf{A}^n \times \mathcal{X} \ar[d] \\
+Z \ar[r] & \mathbf{A}^n \times Y
+}
+}
+\quad
+\begin{matrix}
+\text{qui induit le} \\
+\text{carré cartésien}
+\end{matrix}
+\quad
+\vcenter{
+\xymatrix{
+|\mathcal{X} \times_Y Z| \ar[d] \ar[r] &
+|\mathbf{A}^n \times \mathcal{X}| \ar[d] \\
+|Z| \ar[r] & |\mathbf{A}^n \times Y|
+}
+}
+$$
+des espaces topologiques, dont les flèches horizontales sont des
+homéomorphismes sur des parties localement fermées (Propriétés des champs, lemme
+\ref{stacks-properties-lemma-subspace-induced-topology}).
+Toute partie fermée $T$ de $|X \times_Y Z|$ est donc l'image réciproque d'une
+partie fermée $T'$ de $|\mathbf{A}^n \times Y|$. Comme, par hypothèse, l'image
+de $T'$ dans $|\mathbf{A}^n \times X|$ est fermée, nous en concluons que l'image
+de $T$ dans $|Z|$ est fermée, comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,2767 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Morphismes \'etales de schémas}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions les morphismes \'etales de schémas. Nous illustrons
+certains des concepts les plus importants en travaillant dans le cas noethérien.
+Notre objectif principal est de réunir pour le lecteur suffisamment de résultats
+d'algèbre commutative pour commencer la lecture d'un traité de cohomologie \'etale. Un
+objectif auxiliaire est de fournir assez d'éléments pour que le lecteur puisse
+cesser de qualifier l'expression « la topologie \'etale des schémas »
+d'exercice de pur formalisme abstrait, s'il se livre à un tel blasphème.
+
+\medskip\noindent
+Nous renverrons aux autres
+chapitres du projet Stacks pour les résultats classiques de géométrie algébrique
+(sur les schémas et l'algèbre commutative). Nous donnerons des démonstrations
+détaillées des nouveaux résultats que nous énonçons ici.
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Dans ce chapitre, les schémas seront souvent supposés localement noethériens
+et les anneaux seront souvent supposés noethériens. Mais, dans tous les énoncés,
+nous le répéterons chaque fois que cela sera nécessaire et veillerons à énumérer
+toutes les hypothèses ! Voici par ailleurs quelques faits généraux que nous utiliserons
+souvent et qu'il est utile de garder à l'esprit :
+\begin{enumerate}
+\item Un homomorphisme d'anneaux $A \to B$ de type fini, avec $A$ noethérien,
+est de présentation finie. Voir Algèbre,
+Lemme \ref{algebra-lemma-Noetherian-finite-type-is-finite-presentation}.
+\item Un morphisme (localement) de type fini entre schémas localement noethériens
+est automatiquement (localement) de présentation finie.
+Voir Morphismes,
+Lemme \ref{morphisms-lemma-noetherian-finite-type-finite-presentation}.
+\item Ajouter ici d'autres faits de ce genre.
+\end{enumerate}
+
+
+
+
+\section{Morphismes non ramifiés}
+\label{section-unramified-definition}
+
+\noindent
+Nous définissons d'abord les « homomorphismes non ramifiés d'anneaux locaux » pour les anneaux
+locaux noethériens. Nous ne pouvons employer simplement le terme « non ramifié », car il existe déjà
+une notion
+d'homomorphisme d'anneaux non ramifié (Algèbre, Section \ref{algebra-section-unramified})
+et elle est différente. Après avoir quelque peu étudié cette notion, nous
+la globaliserons pour décrire les morphismes non ramifiés de schémas localement noethériens.
+
+\begin{definition}
+\label{definition-unramified-rings}
+Soient $A$ et $B$ des anneaux locaux noethériens. Un homomorphisme local $A \to B$
+est appelé un {\it homomorphisme non ramifié d'anneaux locaux} si
+\begin{enumerate}
+\item $\mathfrak m_AB = \mathfrak m_B$,
+\item $\kappa(\mathfrak m_B)$ est une extension finie séparable de
+$\kappa(\mathfrak m_A)$, et
+\item $B$ est essentiellement de type fini sur $A$ (cela signifie
+que $B$ est le localisé d'une $A$-algèbre de type fini en un idéal premier).
+\end{enumerate}
+\end{definition}
+
+\noindent
+C'est la version locale de la
+définition donnée dans Algèbre, Section \ref{algebra-section-unramified}.
+Dans cette section, un homomorphisme d'anneaux $R \to S$ est dit non ramifié si et
+seulement s'il est de type fini et si $\Omega_{S/R} = 0$.
+Nous disons que $R \to S$ est non ramifié en un idéal premier $\mathfrak q \subset S$
+s'il existe $g \in S$, $g \not \in \mathfrak q$, tel que
+$R \to S_g$ soit un homomorphisme d'anneaux non ramifié. Il est démontré dans
+Algèbre, Lemmes \ref{algebra-lemma-unramified-at-prime} et
+\ref{algebra-lemma-characterize-unramified}, qu'étant donnés un homomorphisme
+d'anneaux $R \to S$ de type fini et un idéal premier $\mathfrak q$ de $S$
+au-dessus de $\mathfrak p \subset R$, on a
+$$
+R \to S\text{ est non ramifié en }\mathfrak q
+\Leftrightarrow
+\mathfrak pS_{\mathfrak q} = \mathfrak q S_{\mathfrak q}
+\text{ et }
+\kappa(\mathfrak p) \subset \kappa(\mathfrak q)\text{ est finie séparable}
+$$
+Nous voyons donc que, pour un homomorphisme local d'anneaux locaux, les propriétés
+de notre définition ci-dessus sont étroitement liées au fait
+d'être non ramifié. Nous avons en fait démontré le lemme suivant.
+
+\begin{lemma}
+\label{lemma-characterize-unramified-Noetherian}
+\begin{slogan}
+La non-ramification est une condition locale sur les germes.
+\end{slogan}
+Soit $A \to B$ un homomorphisme de type fini, avec $A$ noethérien.
+Soit $\mathfrak q$ un idéal premier de $B$ au-dessus de $\mathfrak p \subset A$.
+Alors $A \to B$ est non ramifié en $\mathfrak q$ si et seulement si
+$A_{\mathfrak p} \to B_{\mathfrak q}$ est un homomorphisme non ramifié
+d'anneaux locaux.
+\end{lemma}
+
+\begin{proof}
+Voir la discussion précédente.
+\end{proof}
+
+\noindent
+Nous allons caractériser la propriété d'être non ramifié au moyen
+des complétés. Pour un anneau local noethérien $A$,
+nous notons $A^\wedge$ le complété de $A$ pour
+l'idéal maximal. C'est encore un anneau local noethérien ; voir
+Algèbre, Lemme \ref{algebra-lemma-completion-Noetherian-Noetherian}.
+
+\begin{lemma}
+\label{lemma-unramified-completions}
+Soient $A$ et $B$ des anneaux locaux noethériens.
+Soit $A \to B$ un homomorphisme local.
+\begin{enumerate}
+\item si $A \to B$ est un homomorphisme non ramifié d'anneaux locaux,
+alors $B^\wedge$ est un $A^\wedge$-module de type fini,
+\item si $A \to B$ est un homomorphisme non ramifié d'anneaux locaux et si
+$\kappa(\mathfrak m_A) = \kappa(\mathfrak m_B)$,
+alors $A^\wedge \to B^\wedge$ est surjectif,
+\item si $A \to B$ est un homomorphisme non ramifié d'anneaux locaux
+et si $\kappa(\mathfrak m_A)$
+est séparablement clos, alors $A^\wedge \to B^\wedge$ est surjectif,
+\item si $A$ et $B$ sont des anneaux de valuation discrète complets, alors
+$A \to B$ est un homomorphisme non ramifié d'anneaux locaux
+si et seulement si une uniformisante de $A$ s'envoie sur une uniformisante de $B$,
+et si l'extension des corps résiduels est finie séparable (et si $B$ est
+essentiellement de type fini sur $A$).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) est un cas particulier du résultat
+Algèbre, Lemme \ref{algebra-lemma-finite-after-completion}.
+Pour l'assertion (2), remarquons que l'espace vectoriel sur $\kappa(\mathfrak m_A)$
+$B^\wedge/\mathfrak m_{A^\wedge}B^\wedge$
+est engendré par $1$. Le lemme de Nakayama
+(Algèbre, Lemme \ref{algebra-lemma-NAK}) montre donc que l'application
+$A^\wedge \to B^\wedge$ est surjective.
+L'assertion (3) est un cas particulier de l'assertion (2).
+L'assertion (4) découle immédiatement des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-unramified-completions}
+Soient $A$ et $B$ des anneaux locaux noethériens.
+Soit $A \to B$ un homomorphisme local tel que $B$ soit
+essentiellement de type fini sur $A$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $A \to B$ est un homomorphisme non ramifié d'anneaux locaux,
+\item $A^\wedge \to B^\wedge$ est un homomorphisme non ramifié d'anneaux locaux, et
+\item $A^\wedge \to B^\wedge$ est non ramifié.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) résulte du fait que
+$\mathfrak m_AA^\wedge$ est l'idéal maximal de $A^\wedge$
+(et de même pour $B$), ainsi que de la fidèle platitude de $B \to B^\wedge$.
+Par exemple, si $A^\wedge \to B^\wedge$ est non ramifié, alors
+$\mathfrak m_AB^\wedge = (\mathfrak m_AB)B^\wedge = \mathfrak m_BB^\wedge$
+et donc $\mathfrak m_AB = \mathfrak m_B$.
+
+\medskip\noindent
+Supposons satisfaites les conditions équivalentes (1) et (2).
+Le Lemme \ref{lemma-unramified-completions}
+montre que $A^\wedge \to B^\wedge$ est
+fini. Ainsi, $A^\wedge \to B^\wedge$ est de présentation finie et, par
+Algèbre, Lemme \ref{algebra-lemma-characterize-unramified},
+nous concluons que $A^\wedge \to B^\wedge$ est non ramifié en
+$\mathfrak m_{B^\wedge}$. Comme $B^\wedge$ est local, nous concluons
+que $A^\wedge \to B^\wedge$ est non ramifié.
+
+\medskip\noindent
+Supposons (3). Par Algèbre, Lemme \ref{algebra-lemma-unramified-at-prime},
+nous concluons que $A^\wedge \to B^\wedge$ est un homomorphisme non ramifié
+d'anneaux locaux, c'est-à-dire que (2) est satisfaite.
+\end{proof}
+
+\begin{definition}
+\label{definition-unramified-schemes}
+(Voir Morphismes, Définition \ref{morphisms-definition-unramified},
+pour la définition dans le cas général.)
+Soit $Y$ un schéma localement noethérien.
+Soit $f : X \to Y$ un morphisme localement de type fini.
+Soit $x \in X$.
+\begin{enumerate}
+\item Nous disons que $f$ est {\it non ramifié en $x$} si
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$
+est un homomorphisme non ramifié d'anneaux locaux.
+\item Le morphisme $f : X \to Y$ est dit {\it non ramifié}
+s'il est non ramifié en tout point de $X$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Montrons que cette définition coïncide avec celle du
+chapitre sur les morphismes de schémas. Cela garantit en particulier que
+l'ensemble des points où un morphisme est non ramifié est ouvert.
+
+\begin{lemma}
+\label{lemma-unramified-definition}
+Soit $Y$ un schéma localement noethérien.
+Soit $f : X \to Y$ un morphisme localement de type fini.
+Soit $x \in X$. Le morphisme $f$ est non ramifié en $x$ au
+sens de la Définition \ref{definition-unramified-schemes}
+si et seulement s'il est non ramifié au
+sens de Morphismes, Définition \ref{morphisms-definition-unramified}.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du Lemme \ref{lemma-characterize-unramified-Noetherian}
+et des définitions.
+\end{proof}
+
+\noindent
+Voici quelques résultats sur les morphismes non ramifiés.
+Sous la forme donnée dans cette liste, ils ne s'appliquent qu'aux
+morphismes localement de type fini entre schémas localement noethériens.
+Dans chaque cas, nous renvoyons au résultat général
+démontré plus tôt dans le projet, même si, dans certains cas, on peut
+démontrer le résultat plus facilement dans le cas noethérien.
+En voici la liste :
+\begin{enumerate}
+\item La non-ramification est locale sur la source et sur le but pour la
+topologie de Zariski.
+\item Les morphismes non ramifiés sont stables par changement de base et par composition.
+Voir Morphismes, Lemmes \ref{morphisms-lemma-base-change-unramified}
+et \ref{morphisms-lemma-composition-unramified}.
+\item Les morphismes non ramifiés de schémas sont localement quasi-finis,
+et les morphismes non ramifiés quasi-compacts sont quasi-finis.
+Voir Morphismes, Lemme \ref{morphisms-lemma-unramified-quasi-finite}.
+\item Les morphismes non ramifiés sont de dimension relative $0$. Voir
+Morphismes, Définition \ref{morphisms-definition-relative-dimension-d}
+et
+Morphismes, Lemme \ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+\item Un morphisme est non ramifié si et seulement si toutes ses fibres sont non ramifiées.
+Autrement dit, la non-ramification se vérifie sur les fibres schématiques. Voir
+Morphismes, Lemme \ref{morphisms-lemma-unramified-etale-fibres}.
+\item Soient $X$ et $Y$ non ramifiés sur un schéma de base $S$.
+Tout $S$-morphisme de $X$ vers $Y$ est non ramifié.
+Voir Morphismes, Lemme \ref{morphisms-lemma-unramified-permanence}.
+\end{enumerate}
+
+\section{Trois autres caractérisations des morphismes non ramifiés}
+\label{section-three-other}
+
+\noindent
+Le théorème suivant donne trois notions équivalentes de
+non-ramification en un point. Voir
+Morphismes, Lemme \ref{morphisms-lemma-unramified-at-point},
+pour une partie de l'énoncé concernant les schémas généraux.
+
+\begin{theorem}
+\label{theorem-unramified-equivalence}
+Soit $Y$ un schéma localement noethérien.
+Soit $f : X \to Y$ un morphisme de schémas localement de type fini.
+Soit $x$ un point de $X$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est non ramifié en $x$,
+\item le germe $\Omega_{X/Y, x}$ du module des différentielles relatives
+en $x$ est nul,
+\item il existe des voisinages ouverts $U$ de $x$ et $V$ de $f(x)$, ainsi qu'un
+diagramme commutatif
+$$
+\xymatrix{
+U \ar[rr]_i \ar[rd] & & \mathbf{A}^n_V \ar[ld] \\
+& V
+}
+$$
+où $i$ est une immersion fermée définie par un
+faisceau quasi-cohérent d'idéaux $\mathcal{I}$ tel que les différentielles
+$\text{d}g$, pour $g \in \mathcal{I}_{i(x)}$, engendrent
+$\Omega_{\mathbf{A}^n_V/V, i(x)}$, et
+\item la diagonale $\Delta_{X/Y} : X \to X \times_Y X$
+est un isomorphisme local en $x$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+L'équivalence de (1) et (2) est démontrée dans
+Morphismes, Lemme \ref{morphisms-lemma-unramified-at-point}.
+
+\medskip\noindent
+Si $f$ est non ramifié en $x$, alors $f$ est non ramifié sur un voisinage
+ouvert de $x$ ; cela ne résulte pas immédiatement
+de la Définition \ref{definition-unramified-schemes} de ce chapitre,
+mais cela découle de
+Morphismes, Définition \ref{morphisms-definition-unramified}, dont nous
+avons démontré l'équivalence au
+Lemme \ref{lemma-unramified-definition}.
+Choisissons des ouverts affines $V \subset Y$ et $U \subset X$
+tels que $f(U) \subset V$ et $x \in U$, et tels que $f$ soit
+non ramifié sur $U$, c'est-à-dire que $f|_U : U \to V$ soit non ramifié.
+Par Morphismes, Lemme \ref{morphisms-lemma-diagonal-unramified-morphism},
+le morphisme $U \to U \times_V U$
+est une immersion ouverte. Cela démontre que (1) implique (4).
+
+\medskip\noindent
+Si $\Delta_{X/Y}$ est un isomorphisme local en $x$, alors
+$\Omega_{X/Y, x} = 0$ par
+Morphismes, Lemme \ref{morphisms-lemma-differentials-diagonal}.
+Nous voyons donc que (4) implique (2).
+À ce stade, nous savons que (1), (2) et (4) sont toutes équivalentes.
+
+\medskip\noindent
+Supposons (3). L'hypothèse sur le diagramme, combinée au résultat
+Morphismes, Lemme \ref{morphisms-lemma-differentials-relative-immersion},
+montre que $\Omega_{U/V, x} = 0$. Comme $\Omega_{U/V, x} = \Omega_{X/Y, x}$,
+nous concluons que (2) est satisfaite.
+
+\medskip\noindent
+Supposons enfin que (2) soit satisfaite. Pour démontrer (3), nous pouvons localiser sur
+$X$ et $Y$ et supposer que $X$ et $Y$ sont affines.
+Écrivons $X = \Spec(B)$ et $Y = \Spec(A)$.
+Le point $x \in X$ correspond à un idéal premier $\mathfrak q \subset B$.
+Notre hypothèse est que $\Omega_{B/A, \mathfrak q} = 0$
+(voir Morphismes, Lemme \ref{morphisms-lemma-differentials-affine}, pour le
+lien entre les différentielles sur les schémas et les modules
+de différentielles en algèbre commutative).
+Comme $Y$ est localement noethérien et $f$ localement de type fini,
+nous voyons que $A$ est noethérien et que
+$B \cong A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ ; voir
+Propriétés, Lemme \ref{properties-lemma-locally-Noetherian}, et
+Morphismes, Lemme \ref{morphisms-lemma-locally-finite-type-characterize}.
+En particulier, $\Omega_{B/A}$ est un $B$-module de type fini. Nous
+pouvons donc trouver un seul $g \in B$, $g \not \in \mathfrak q$, tel que
+le localisé principal $(\Omega_{B/A})_g$ soit nul. Ainsi, après
+avoir remplacé $B$ par $B_g$, nous voyons que $\Omega_{B/A} = 0$ (la formation
+des modules de différentielles commute à la localisation ; voir
+Algèbre, Lemme \ref{algebra-lemma-differentials-localize}). Cela signifie que
+les $\text{d}(f_j)$ engendrent le noyau de l'application canonique
+$\Omega_{A[x_1, \ldots, x_n]/A} \otimes_A B \to \Omega_{B/A}$.
+Ainsi, la surjection $A[x_1, \ldots, x_n] \to B$ de $A$-algèbres fournit le
+diagramme commutatif de (3), et le théorème est démontré.
+\end{proof}
+
+\noindent
+Comment utiliser ce théorème ? Voici quelques remarques :
+\begin{enumerate}
+\item Supposons que
+$f : X \to Y$ et $g : Y \to Z$ soient deux morphismes localement de type
+fini entre schémas localement noethériens. Il existe une suite
+suite exacte courte canonique
+$$
+f^*(\Omega_{Y/Z}) \to \Omega_{X/Z} \to \Omega_{X/Y} \to 0
+$$
+voir Morphismes, Lemme \ref{morphisms-lemma-triangle-differentials}.
+Le théorème implique donc que, si $g \circ f$ est non ramifié,
+alors $f$ l'est aussi. C'est
+Morphismes, Lemme \ref{morphisms-lemma-unramified-permanence}.
+\item Puisque $\Omega_{X/Y}$ est isomorphe au faisceau conormal
+du morphisme diagonal
+(Morphismes, Lemme \ref{morphisms-lemma-differentials-diagonal}),
+nous voyons que, si $X \to Y$ est un monomorphisme de
+schémas localement noethériens et est localement de type fini,
+alors $X \to Y$ est non ramifié.
+En particulier, les immersions ouvertes et fermées de schémas localement noethériens
+sont non ramifiées. Voir
+Morphismes, Lemmes
+\ref{morphisms-lemma-open-immersion-unramified} et
+\ref{morphisms-lemma-closed-immersion-unramified}.
+\item Le théorème implique aussi que l'ensemble des points
+où un morphisme $f : X \to Y$ (localement de type fini entre schémas localement
+noethériens) n'est pas non ramifié est
+le support du faisceau cohérent $\Omega_{X/Y}$.
+Cela permet de donner une définition schématique du
+« lieu de ramification ».
+\end{enumerate}
+
+\section{La caractérisation fonctorielle des morphismes non ramifiés}
+\label{section-functorial-unramified}
+
+\noindent
+En géométrie algébrique élémentaire, on apprend que certaines classes de morphismes peuvent être
+caractérisées fonctoriellement et que de telles descriptions sont fort utiles.
+Les morphismes non ramifiés admettent eux aussi une telle caractérisation.
+
+\begin{theorem}
+\label{theorem-formally-unramified}
+Soit $f : X \to S$ un morphisme de schémas.
+Supposons que $S$ soit un schéma localement noethérien et que $f$ soit localement de type fini.
+Les conditions suivantes sont alors équivalentes :
+\begin{enumerate}
+\item $f$ est non ramifié,
+\item le morphisme $f$ est formellement non ramifié :
+pour tout $S$-schéma affine $T$ et tout sous-schéma $T_0$ de $T$
+défini par un idéal de carré nul,
+l'application naturelle
+$$
+\Hom_S(T, X) \longrightarrow \Hom_S(T_0, X)
+$$
+est injective.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Voir Compléments sur les morphismes,
+Lemme \ref{more-morphisms-lemma-unramified-formally-unramified},
+pour un énoncé et une démonstration plus généraux.
+Voici une esquisse de la démonstration dans le cas présent.
+
+\medskip\noindent
+On vérifie d'abord que les deux propriétés sont locales sur la source et sur le but.
+Nous pouvons donc supposer que $S$ et $X$ sont affines.
+Écrivons $X = \Spec(B)$ et $S = \Spec(R)$.
+Écrivons $T = \Spec(C)$. Soit $J$ l'idéal de carré nul de $C$
+tel que $T_0 = \Spec(C/J)$. Supposons donné le diagramme
+$$
+\xymatrix{
+& B \ar[d]^\phi \ar[rd]^{\bar{\phi}}
+& \\
+R \ar[r] \ar[ur] & C \ar[r]
+& C/J
+}
+$$
+On vérifie ensuite que l'association $\phi' \mapsto \phi' - \phi$
+définit une bijection entre l'ensemble des relèvements de $\bar{\phi}$ et le module
+$\text{Der}_R(B, J)$. Ainsi, nous obtenons l'implication (1) $\Rightarrow$ (2)
+par la description des morphismes non ramifiés dont le module
+de différentielles est nul ; voir le Théorème \ref{theorem-unramified-equivalence}.
+
+\medskip\noindent
+Pour obtenir l'implication réciproque, considérons la surjection
+$q : C = (B \otimes_R B)/I^2 \to B = C/J$ définie par l'idéal de carré nul
+$J = I/I^2$, où $I$ est le noyau de l'application de multiplication
+$B \otimes_R B \to B$. Nous disposons déjà d'un relèvement $B \to C$ défini, par exemple,
+par $b \mapsto b \otimes 1$. Ainsi, par le même raisonnement que ci-dessus, nous obtenons une
+correspondance bijective entre les relèvements de $\text{id} : B \to C/J$ et
+$\text{Der}_R(B, J)$. L'hypothèse implique donc que ce dernier module est
+nul. Or nous savons que $J \cong \Omega_{B/R}$. Ainsi, $B/R$ est non ramifié.
+\end{proof}
+
+
+
+\section{Propriétés topologiques des morphismes non ramifiés}
+\label{section-topological-unramified}
+
+\noindent
+Le premier résultat topologique qui nous sera utile affirme
+que les morphismes non ramifiés et séparés ont de « bonnes » sections.
+Les résultats de cette section ne nécessitent aucune hypothèse noethérienne.
+
+\begin{proposition}
+\label{proposition-properties-sections}
+Sections des morphismes non ramifiés.
+\begin{enumerate}
+\item Toute section d'un morphisme non ramifié est une immersion ouverte.
+\item Toute section d'un morphisme séparé est une immersion fermée.
+\item Toute section d'un morphisme non ramifié et séparé est ouverte et fermée.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Fixons un schéma de base $S$.
+Si $f : X' \to X$ est un $S$-morphisme quelconque, alors le graphe
+$\Gamma_f : X' \to X' \times_S X$
+s'obtient par changement de base de la diagonale
+$\Delta_{X/S} : X \to X \times_S X$ le long de la projection
+$X' \times_S X \to X \times_S X$.
+Si $g : X \to S$ est séparé (resp. non ramifié),
+alors la diagonale est une immersion fermée (resp. une immersion ouverte)
+par Schémas, Définition \ref{schemes-definition-separated}
+(resp.\ Morphismes, Lemme \ref{morphisms-lemma-diagonal-unramified-morphism}).
+Il en va donc de même du graphe par changement de base (voir
+Schémas, Lemme \ref{schemes-lemma-base-change-immersion}).
+Dans le cas particulier $X' = S$, nous obtenons (1), resp.\ (2).
+L'assertion (3) résulte de la combinaison de (1) et (2).
+\end{proof}
+
+\noindent
+Nous pouvons maintenant décrire explicitement les sections des morphismes non ramifiés.
+
+\begin{theorem}
+\label{theorem-sections-unramified-maps}
+Soit $Y$ un schéma connexe.
+Soit $f : X \to Y$ un morphisme non ramifié et séparé.
+Toute section de $f$ est un isomorphisme sur une composante connexe.
+Il existe une correspondance bijective
+$$
+\text{sections de }f
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{composantes connexes }X'\text{ de }X\text{ telles que}\\
+\text{l'application induite }X' \to Y\text{ soit un isomorphisme}
+\end{matrix}
+\right\}
+$$
+En particulier, pour $x \in X$, il existe au plus une
+section passant par $x$.
+\end{theorem}
+
+\begin{proof}
+Cela découle directement de la Proposition \ref{proposition-properties-sections}, assertion (3).
+\end{proof}
+
+\noindent
+Le théorème précédent donne une idée de la « rigidité » des morphismes non ramifiés.
+La proposition suivante en donne une autre manifestation ;
+outre son intérêt propre, elle est également utile dans la
+théorie du groupe fondamental algébrique (voir \cite[Expos\'e V]{SGA1}).
+Voir aussi le résultat plus général
+Morphismes, Lemme \ref{morphisms-lemma-value-at-one-point}.
+
+\begin{proposition}
+\label{proposition-equality}
+Soit $S$ un schéma.
+Soit $\pi : X \to S$ un morphisme non ramifié et séparé.
+Soit $Y$ un $S$-schéma et soit $y \in Y$ un point.
+Soient $f, g : Y \to X$ deux $S$-morphismes. Supposons que
+\begin{enumerate}
+\item $Y$ soit connexe,
+\item $x = f(y) = g(y)$, et
+\item les applications induites $f^\sharp, g^\sharp : \kappa(x) \to \kappa(y)$
+sur les corps résiduels soient égales.
+\end{enumerate}
+Alors $f = g$.
+\end{proposition}
+
+\begin{proof}
+Les applications $f, g : Y \to X$ définissent des applications $f', g' : Y \to X_Y = Y \times_S X$
+qui sont des sections du morphisme structural $X_Y \to Y$.
+Remarquons que $f = g$ si et seulement si $f' = g'$.
+Le morphisme structural $X_Y \to Y$ est le changement de base de $\pi$ et est donc
+lui aussi non ramifié et séparé (voir
+Morphismes, Lemmes \ref{morphisms-lemma-base-change-unramified} et
+Schémas, Lemme \ref{schemes-lemma-separated-permanence}).
+Ainsi, d'après le Théorème \ref{theorem-sections-unramified-maps},
+il suffit de démontrer que $f'$ et $g'$ passent par le même
+point de $X_Y$. C'est précisément ce que les hypothèses (2) et (3)
+garantissent, à savoir $f'(y) = g'(y) \in X_Y$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finitely-many-maps-to-unramified}
+Soit $S$ un schéma noethérien. Soit $X \to S$ un morphisme non ramifié quasi-compact.
+Soit $Y \to S$ un morphisme avec $Y$ noethérien. Alors
+$\Mor_S(Y, X)$ est un ensemble fini.
+\end{lemma}
+
+\begin{proof}
+Supposons d'abord que $X \to S$ soit séparé (ce qui est souvent le cas en pratique).
+Puisque $Y$ est noethérien, il possède un nombre fini de composantes connexes. Nous
+pouvons donc supposer $Y$ connexe. Choisissons un point $y \in Y$, d'image $s \in S$.
+Comme $X \to S$ est non ramifié et quasi-compact,
+la fibre $X_s$ est finie, disons $X_s = \{x_1, \ldots, x_n\}$,
+et $\kappa(x_i)/\kappa(s)$ est une extension finie de corps.
+Voir Morphismes, Lemmes \ref{morphisms-lemma-unramified-quasi-finite},
+\ref{morphisms-lemma-residue-field-quasi-finite} et
+\ref{morphisms-lemma-quasi-finite}.
+Pour chaque $i$, il n'existe qu'un nombre fini d'homomorphismes de $\kappa(s)$-algèbres
+$\kappa(x_i) \to \kappa(y)$ (par la théorie élémentaire des corps).
+Ainsi, $\Mor_S(Y, X)$ est fini par
+la Proposition \ref{proposition-equality}.
+
+\medskip\noindent
+Cas général. Il existe un ouvert non vide $U \subset S$ tel
+que $X_U \to U$ soit fini (donc, en particulier, séparé) ; voir
+Morphismes, Lemme \ref{morphisms-lemma-generically-finite}
+(ce lemme s'applique puisque nous avons déjà vu ci-dessus qu'un morphisme non ramifié
+quasi-compact est quasi-fini et puisque $X \to S$ est quasi-séparé par
+Morphismes, Lemme \ref{morphisms-lemma-finite-type-Noetherian-quasi-separated}).
+Soit $Z \subset S$ le sous-schéma fermé réduit dont le support est
+le complément de $U$. Par récurrence noethérienne, nous voyons que
+$\Mor_Z(Y_Z, X_Z)$ est fini (détails omis).
+D'après le résultat du premier paragraphe, l'ensemble
+$\Mor_U(Y_U, X_U)$ est fini. Il suffit donc de montrer que
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_Z(Y_Z, X_Z) \times \Mor_U(Y_U, X_U)
+$$
+est injective. Cela résulte du fait que le lieu où
+deux morphismes $a, b : Y \to X$ coïncident est ouvert dans $Y$, puisque
+la diagonale $\Delta : X \to X \times_S X$ est ouverte ; voir
+Morphismes, Lemme \ref{morphisms-lemma-diagonal-unramified-morphism}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Morphismes universellement injectifs et non ramifiés}
+\label{section-universally-injective-unramified}
+
+\noindent
+Rappelons qu'un morphisme de schémas $f : X \to Y$ est universellement
+injectif si tout changement de base de $f$ est injectif (sur les espaces
+topologiques sous-jacents) ; voir
+Morphismes, Définition \ref{morphisms-definition-universally-injective}.
+Les morphismes universellement injectifs et non ramifiés peuvent être
+caractérisés comme suit.
+
+\begin{lemma}
+\label{lemma-universally-injective-unramified}
+Soit $f : X \to S$ un morphisme de schémas.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est non ramifié et est un monomorphisme,
+\item $f$ est non ramifié et universellement injectif,
+\item $f$ est localement de type fini et est un monomorphisme,
+\item $f$ est universellement injectif, localement de type fini et
+formellement non ramifié,
+\item $f$ est localement de type fini et $X_s$ est vide
+ou bien $X_s \to s$ est un isomorphisme, pour tout $s \in S$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous avons vu dans
+Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-unramified-formally-unramified},
+qu'être formellement non ramifié et localement de type fini équivaut
+à être non ramifié. Ainsi, (4) équivaut à (2).
+Un monomorphisme est certainement universellement injectif et
+formellement non ramifié ; (3) implique donc (4).
+Il est clair que (1) implique (3). Enfin, si (2) est satisfaite, alors
+$\Delta : X \to X \times_S X$ est à la fois une immersion ouverte
+(Morphismes, Lemme \ref{morphisms-lemma-diagonal-unramified-morphism})
+et surjective
+(Morphismes, Lemme \ref{morphisms-lemma-universally-injective}) ;
+c'est donc un isomorphisme, autrement dit $f$ est un monomorphisme. Ainsi,
+(2) implique (1).
+
+\medskip\noindent
+La condition (3) implique (5), car les monomorphismes sont préservés par
+changement de base
+(Schémas, Lemme \ref{schemes-lemma-base-change-monomorphism})
+et en vertu de la description des monomorphismes à valeurs dans les spectres de corps
+donnée dans
+Schémas, Lemme \ref{schemes-lemma-mono-towards-spec-field}.
+La condition (5) implique (4) par
+Morphismes, Lemmes \ref{morphisms-lemma-universally-injective} et
+\ref{morphisms-lemma-unramified-etale-fibres}.
+\end{proof}
+
+\noindent
+On en déduit la caractérisation utile suivante des immersions fermées.
+
+\begin{lemma}
+\label{lemma-characterize-closed-immersion}
+Soit $f : X \to S$ un morphisme de schémas.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est une immersion fermée,
+\item $f$ est un monomorphisme propre,
+\item $f$ est propre, non ramifié et universellement injectif,
+\item $f$ est universellement fermé, non ramifié et est un monomorphisme,
+\item $f$ est universellement fermé, non ramifié et universellement injectif,
+\item $f$ est universellement fermé, localement de type fini et est un monomorphisme,
+\item $f$ est universellement fermé, universellement injectif, localement de
+type fini et formellement non ramifié.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence des conditions (4) à (7) résulte immédiatement du
+Lemme \ref{lemma-universally-injective-unramified}.
+
+\medskip\noindent
+Soit $f : X \to S$ un morphisme qui satisfait à (6). Alors $f$ est séparé ; voir
+Schémas, Lemme \ref{schemes-lemma-monomorphism-separated},
+et ses fibres sont finies. Ainsi,
+Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-characterize-finite},
+montre que $f$ est fini. Puis
+Morphismes, Lemme \ref{morphisms-lemma-finite-monomorphism-closed},
+implique que $f$ est une immersion fermée, c'est-à-dire que (1) est satisfaite.
+
+\medskip\noindent
+Remarquons que (1) $\Rightarrow$ (2), car une immersion fermée est
+propre et est un monomorphisme
+(Morphismes, Lemme \ref{morphisms-lemma-closed-immersion-proper},
+et
+Schémas, Lemme \ref{schemes-lemma-immersions-monomorphisms}).
+Par le
+Lemme \ref{lemma-universally-injective-unramified},
+nous voyons que (2) implique (3). Il est clair que (3) implique (5).
+\end{proof}
+
+\noindent
+Voici un autre résultat du même genre.
+
+\begin{lemma}
+\label{lemma-finite-unramified-one-point}
+Soit $\pi : X \to S$ un morphisme de schémas. Soit $s \in S$.
+Supposons que
+\begin{enumerate}
+\item $\pi$ soit fini,
+\item $\pi$ soit non ramifié,
+\item $\pi^{-1}(\{s\}) = \{x\}$, et
+\item $\kappa(s) \subset \kappa(x)$ soit purement
+inséparable\footnote{Compte tenu de la condition (2),
+cela équivaut à $\kappa(s) = \kappa(x)$.}.
+\end{enumerate}
+Alors il existe un voisinage ouvert $U$ de $s$ tel que
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ soit une immersion fermée.
+\end{lemma}
+
+\begin{proof}
+La question est locale sur $S$. Nous pouvons donc supposer que $S = \Spec(A)$.
+Par définition d'un morphisme fini, cela implique que $X = \Spec(B)$.
+Notons que l'homomorphisme d'anneaux $\varphi : A \to B$ définissant $\pi$
+est un homomorphisme d'anneaux fini non ramifié.
+Soit $\mathfrak p \subset A$ l'idéal premier correspondant à $s$.
+Soit $\mathfrak q \subset B$ l'idéal premier correspondant à $x$.
+Les conditions (2), (3) et (4) impliquent que
+$B_{\mathfrak q}/\mathfrak pB_{\mathfrak q} = \kappa(\mathfrak p)$.
+D'après Algèbre, Lemme \ref{algebra-lemma-unique-prime-over-localize-below},
+nous avons $B_{\mathfrak q} = B_{\mathfrak p}$
+(notons qu'un homomorphisme d'anneaux fini vérifie la propriété de montée, voir
+Algèbre, Section \ref{algebra-section-going-up}.)
+Nous voyons donc que
+$B_{\mathfrak p}/\mathfrak pB_{\mathfrak p} = \kappa(\mathfrak p)$.
+Comme $B$ est un $A$-module fini, le lemme de Nakayama (voir
+Algèbre, Lemme \ref{algebra-lemma-NAK})
+montre que $B_{\mathfrak p} = \varphi(A_{\mathfrak p})$. Ainsi (en utilisant de
+nouveau la finitude de $B$ comme $A$-module), il existe
+$f \in A$, $f \not \in \mathfrak p$ tel que $B_f = \varphi(A_f)$,
+comme voulu.
+\end{proof}
+
+\noindent
+Les résultats topologiques présentés ci-dessus serviront à donner une
+caractérisation fonctorielle des morphismes \'etales analogue au Théorème
+\ref{theorem-formally-unramified}.
+
+
+
+
+\section{Exemples de morphismes non ramifiés}
+\label{section-examples}
+
+\noindent
+Voici quelques exemples.
+
+\begin{example}
+\label{example-etale-field-extensions}
+Soit $k$ un corps.
+Les morphismes quasi-compacts non ramifiés $X \to \Spec(k)$ sont affines.
+En effet, $X$ est de dimension $0$ et noethérien,
+donc c'est un ensemble discret fini, et chaque point fournit un ouvert affine ;
+ainsi $X$ est une réunion disjointe finie de schémas affines, donc est affine.
+Le lemme de normalisation de Noether entraîne que $X$ est le spectre d'une
+$k$-algèbre finie $A$.
+Cette algèbre est un produit d'extensions finies séparables de $k$.
+Ainsi, un morphisme quasi-compact non ramifié vers $\Spec(k)$
+correspond à un nombre fini d'extensions finies séparables de $k$.
+En particulier, un morphisme non ramifié dont la source est connexe et la cible
+réduite à un point correspond nécessairement à une extension finie séparable de corps.
+Comme nous le verrons plus loin, $X \to \Spec(k)$ est \'etale si et
+seulement s'il est non ramifié. Ainsi, dans ce cas au moins, nous obtenons une
+description très simple de la topologie \'etale d'un schéma. Bien entendu, la
+cohomologie de cette topologie est une autre affaire.
+\end{example}
+
+\begin{example}
+\label{example-standard-etale}
+La propriété (3) du
+Théorème \ref{theorem-unramified-equivalence}
+nous fournit une source canonique d'exemples de morphismes non ramifiés.
+Fixons un anneau $R$ et un entier $n$. Soit $I = (g_1, \ldots, g_m)$ un
+idéal de $R[x_1, \ldots, x_n]$. Soit $\mathfrak q \subset R[x_1, \ldots, x_n]$
+un idéal premier. Supposons $I \subset \mathfrak q$ et que la matrice
+$$
+\left(\frac{\partial g_i}{\partial x_j}\right) \bmod \mathfrak q
+\quad\in\quad
+\text{Mat}(n \times m, \kappa(\mathfrak q))
+$$
+soit de rang $n$. Alors le morphisme
+$f : Z = \Spec(R[x_1, \ldots, x_n]/I) \to \Spec(R)$
+est non ramifié au point $x \in Z \subset \mathbf{A}^n_R$ correspondant
+à $\mathfrak q$. Il est clair que nous devons avoir $m \geq n$.
+Dans le cas extrême $m = n$, c'est-à-dire lorsque la différentielle de l'application
+$\mathbf{A}^n_R \to \mathbf{A}^n_R$ définie par les $g_i$
+est un isomorphisme des espaces tangents, alors $f$ est aussi plat
+$x$ et est, par conséquent, une application \'etale (voir Algèbre,
+Définition \ref{algebra-definition-standard-smooth},
+Lemme \ref{algebra-lemma-standard-smooth} et
+Exemple \ref{algebra-example-make-standard-smooth}).
+\end{example}
+
+\begin{example}
+\label{example-number-theory-etale}
+Fixons une extension de corps de nombres $L/K$, dont les anneaux d'entiers sont
+$\mathcal{O}_L$ et $\mathcal{O}_K$. L'injection $K \to L$ définit un
+morphisme $f : \Spec(\mathcal{O}_L) \to \Spec(\mathcal{O}_K)$.
+Comme expliqué ci-dessus, les points où $f$ est non ramifié en notre sens
+sont exactement ceux où $f$ est non ramifié au sens
+usuel. Au sens usuel, le lieu de ramification dans
+$\Spec(\mathcal{O}_L)$ est le lieu des zéros de la
+différente, qui est un idéal de $\mathcal{O}_L$. En fait, la différente
+n'est autre que l'annulateur du module
+$\Omega_{\mathcal{O}_L/\mathcal{O}_K}$. De même, le
+discriminant est un idéal de $\mathcal{O}_K$, à savoir la
+norme de la différente.
+Le lieu des zéros du discriminant est précisément l'ensemble
+des points de $K$ qui se ramifient dans $L$.
+Ainsi, en désignant par $X$ le complémentaire du sous-ensemble fermé
+défini par la différente dans $\Spec(\mathcal{O}_L)$,
+nous obtenons un morphisme $X \to \Spec(\mathcal{O}_K)$ qui est non ramifié.
+De plus, ce morphisme est aussi plat, puisque tout homomorphisme local
+d'anneaux de valuation discrète est plat, et ce morphisme est donc
+en fait \'etale. Si $L/K$ est une extension galoisienne finie, en désignant par
+$Y$ le complémentaire du sous-ensemble fermé défini par le discriminant dans
+$\Spec(\mathcal{O}_K)$, nous voyons que nous obtenons même un
+morphisme fini \'etale $X \to Y$.
+C'est donc un exemple de revêtement \'etale fini.
+\end{example}
+
+
+
+
+
+\section{Morphismes plats}
+\label{section-flat-morphisms}
+
+\noindent
+Cette section a simplement pour objet de résumer les propriétés de la platitude qui
+nous seront utiles. Nous nous contenterons donc d'énoncer précisément les théorèmes
+et de donner des références pour leurs démonstrations.
+
+\medskip\noindent
+Après avoir brièvement rappelé les faits nécessaires concernant les modules plats sur les anneaux
+noethériens, nous énonçons un théorème de Grothendieck qui donne des conditions suffisantes
+pour que les « sections hyperplanes » de certains modules soient plates.
+
+\begin{definition}
+\label{definition-flat-rings}
+Platitude des modules et des anneaux.
+\begin{enumerate}
+\item Un module $N$ sur un anneau $A$ est dit {\it plat}
+si le foncteur $M \mapsto M \otimes_A N$ est exact.
+\item Si ce foncteur est également fidèle, nous disons que
+$N$ est {\it fidèlement plat} sur $A$.
+\item Un morphisme d'anneaux $f : A \to B$ est dit
+{\it plat (resp. fidèlement plat)}
+si le foncteur $M \mapsto M \otimes_A B$ est exact
+(resp. fidèle et exact).
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voici une liste de faits, accompagnés de références au chapitre d'algèbre.
+\begin{enumerate}
+\item Les modules libres et projectifs sont plats. Cela est clair pour les modules libres
+et s'en déduit pour les modules projectifs, car ceux-ci sont facteurs directs de modules
+libres et $\otimes$ commute aux sommes directes.
+\item La platitude est une propriété locale, c'est-à-dire que $M$ est plat sur $A$
+si et seulement si $M_{\mathfrak p}$ est plat sur $A_{\mathfrak p}$ pour tout
+$\mathfrak p \in \Spec(A)$.
+Voir Algèbre, Lemme \ref{algebra-lemma-flat-localization}.
+\item Si $M$ est un $A$-module plat et $A \to B$ un homomorphisme d'anneaux,
+alors $M \otimes_A B$ est un $B$-module plat. Voir
+Algèbre, Lemme \ref{algebra-lemma-flat-base-change}.
+\item Les modules finis et plats sur les anneaux locaux sont libres.
+Voir Algèbre, Lemme \ref{algebra-lemma-finite-flat-local}.
+\item Si $f : A \to B$ est un morphisme d'anneaux quelconques,
+$f$ est plat si et seulement si les homomorphismes induits
+$A_{f^{-1}(\mathfrak q)} \to B_{\mathfrak q}$ sont plats pour tout
+$\mathfrak q \in \Spec(B)$.
+Voir Algèbre, Lemme \ref{algebra-lemma-flat-localization}.
+\item Si $f : A \to B$ est un homomorphisme local d'anneaux locaux,
+$f$ est plat si et seulement s'il est fidèlement plat.
+Voir Algèbre, Lemme \ref{algebra-lemma-local-flat-ff}.
+\item Un homomorphisme d'anneaux $A \to B$ est fidèlement plat si et seulement s'il est
+plat et si l'application induite sur les spectres est surjective.
+Voir Algèbre, Lemme \ref{algebra-lemma-ff-rings}.
+\item Si $A$ est un anneau local noethérien, le complété
+$A^\wedge$ est fidèlement plat sur $A$.
+Voir Algèbre, Lemme \ref{algebra-lemma-completion-faithfully-flat}.
+\item Soient $A$ un anneau local noethérien et $M$ un $A$-module.
+Alors $M$ est plat sur $A$ si et seulement si $M \otimes_A A^\wedge$
+est plat sur $A^\wedge$. (Combiner l'assertion précédente avec
+Algèbre, Lemme \ref{algebra-lemma-flatness-descends}.)
+\end{enumerate}
+Avant de passer à la catégorie géométrique, nous présentons le théorème de
+Grothendieck, qui fournit un procédé commode pour construire des modules
+plats.
+
+\begin{theorem}
+\label{theorem-flatness-grothendieck}
+Soient $A$, $B$ des anneaux locaux noethériens.
+Soit $f : A \to B$ un homomorphisme local.
+Si $M$ est un $B$-module fini qui est plat comme $A$-module,
+et si $t \in \mathfrak m_B$ est un élément tel que la multiplication
+par $t$ soit injective sur $M/\mathfrak m_AM$, alors $M/tM$ est également plat sur $A$.
+\end{theorem}
+
+\begin{proof}
+Voir Algèbre, Lemme \ref{algebra-lemma-mod-injective}.
+Voir aussi \cite[Section 20]{MatCA}.
+\end{proof}
+
+\begin{definition}
+\label{definition-flat-schemes}
+(Voir Morphismes, Définition \ref{morphisms-definition-flat}.)
+Soit $f : X \to Y$ un morphisme de schémas.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+\begin{enumerate}
+\item Soit $x \in X$. Nous disons que $\mathcal{F}$ est
+{\it plat sur $Y$ en $x \in X$} si $\mathcal{F}_x$
+est un $\mathcal{O}_{Y, f(x)}$-module plat.
+On utilise l'homomorphisme $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ pour
+considérer $\mathcal{F}_x$ comme un $\mathcal{O}_{Y, f(x)}$-module.
+\item Soit $x \in X$. Nous disons que $f$ est {\it plat en $x \in X$}
+si $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ est plat.
+\item Nous disons que $f$ est {\it plat} s'il est plat en tout point de $X$.
+\item Un morphisme $f : X \to Y$ plat et surjectif est parfois
+dit {\it fidèlement plat}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voici, une fois encore, une liste de résultats :
+\begin{enumerate}
+\item La propriété (pour un morphisme) d'être plat est, par définition,
+locale pour la topologie de Zariski sur la source et la cible.
+\item Les immersions ouvertes sont plates. (C'est clair, puisqu'elles induisent des isomorphismes
+sur les anneaux locaux.)
+\item Les morphismes plats sont stables par changement de base et par composition.
+Morphismes, Lemmes \ref{morphisms-lemma-base-change-flat} et
+\ref{morphisms-lemma-composition-flat}.
+\item Si $f : X \to Y$ est plat, alors le foncteur image inverse
+$\QCoh(\mathcal{O}_Y) \to \QCoh(\mathcal{O}_X)$ est exact.
+Cela résulte immédiatement de l'examen des fibres.
+\item Soit $f : X \to Y$ un morphisme de schémas, et supposons $Y$
+quasi-compact et quasi-séparé. Dans ce cas,
+si le foncteur $f^*$ est exact, alors $f$ est plat.
+(Démonstration omise. Indication : utiliser
+Propriétés, Lemme \ref{properties-lemma-extend-trivial} pour voir que
+$Y$ possède « assez » de faisceaux d'idéaux et utiliser la caractérisation de la
+platitude dans Algèbre, Lemme \ref{algebra-lemma-flat}.)
+\end{enumerate}
+
+
+
+\section{Propriétés topologiques des morphismes plats}
+\label{section-topological-flat}
+
+\noindent
+Nous « rappelons » ci-dessous quelques propriétés d'ouverture dont jouissent les morphismes plats.
+
+\begin{theorem}
+\label{theorem-flat-open}
+Soit $Y$ un schéma localement noethérien.
+Soit $f : X \to Y$ un morphisme localement de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+L'ensemble des points de $X$ où $\mathcal{F}$ est plat sur $Y$ est ouvert.
+En particulier, l'ensemble des points où $f$ est plat est ouvert dans $X$.
+\end{theorem}
+
+\begin{proof}
+Voir Compléments sur les morphismes, Théorème \ref{more-morphisms-theorem-openness-flatness}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-flat-map-open}
+Soit $Y$ un schéma localement noethérien.
+Soit $f : X \to Y$ un morphisme plat et localement de type fini.
+Alors $f$ est (universellement) ouvert.
+\end{theorem}
+
+\begin{proof}
+Voir Morphismes, Lemme \ref{morphisms-lemma-fppf-open}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-flat-is-quotient}
+Un morphisme fidèlement plat quasi-compact est une application quotient pour
+la topologie de Zariski.
+\end{theorem}
+
+\begin{proof}
+Voir Morphismes, Lemme \ref{morphisms-lemma-fpqc-quotient-topology}.
+\end{proof}
+
+\noindent
+Une raison importante d'étudier les morphismes plats est qu'ils fournissent le cadre
+adéquat pour saisir la notion de famille de schémas paramétrée par les
+points d'un autre schéma. Naïvement, on pourrait penser que tout morphisme $f : X \to S$
+doit être considéré comme une famille paramétrée par les points de $S$. Cependant,
+sans hypothèse de platitude sur $f$, des phénomènes véritablement bizarres peuvent se produire dans
+cette prétendue famille. Par exemple, rien ne garantit que la dimension relative
+(la dimension des fibres) soit constante dans une famille. D'autres invariants numériques,
+comme le polynôme de Hilbert, peuvent eux aussi varier d'une fibre à
+l'autre. La platitude empêche de tels phénomènes et confère donc
+une certaine « continuité » aux fibres.
+
+
+\section{Morphismes \'etales}
+\label{section-etale-morphisms}
+
+\noindent
+Dans cette section, nous allons définir les morphismes \'etales et démontrer plusieurs
+propriétés importantes à leur sujet. La plus importante est sans aucun doute la
+caractérisation fonctorielle présentée dans le Théorème \ref{theorem-formally-etale}.
+Ensuite, nous examinerons aussi quelques propriétés des anneaux qui sont
+insensibles à une extension \'etale (propriétés qui valent pour un anneau
+si et seulement si elles valent pour toutes ses extensions \'etales), afin de motiver le
+principe fondamental de la cohomologie \'etale --- les morphismes \'etales sont l'analogue algébrique des
+isomorphismes locaux.
+
+\medskip\noindent
+Comme le titre le suggère, nous allons définir la classe des morphismes \'etales --- la
+classe des morphismes (dont nous considérerons les familles surjectives comme des recouvrements)
+dans la catégorie des schémas au-dessus d'un schéma de base $S$, afin de définir le
+site \'etale $S_\etale$. Intuitivement, un morphisme \'etale est censé
+exprimer l'idée d'un espace de revêtement et devrait donc être proche d'un
+isomorphisme local. Si nous travaillons avec des variétés sur des corps algébriquement clos,
+cette dernière assertion peut servir de définition, à condition de remplacer
+« isomorphisme local » par « isomorphisme local formel » (isomorphisme après
+complétion). On peut alors donner une définition sur un corps de base quelconque en demandant
+que le changement de base à la clôture algébrique soit \'etale (au
+sens précité). Mais, plutôt que de procéder par de telles constructions peu
+esthétiques, nous adopterons une approche algébrique plus nette, quoique légèrement plus
+abstraite.
+
+\medskip\noindent
+Nous définissons d'abord les « homomorphismes \'etales d'anneaux locaux » pour les anneaux
+locaux noethériens. Nous ne pouvons pas employer simplement le terme « \'etale », puisqu'il
+existe déjà une notion d'homomorphisme d'anneaux \'etale
+(Algèbre, Section \ref{algebra-section-etale})
+et qu'elle est différente.
+
+\begin{definition}
+\label{definition-etale-ring}
+Soient $A$, $B$ des anneaux locaux noethériens.
+Un homomorphisme local $f : A \to B$ est appelé
+{\it homomorphisme \'etale d'anneaux locaux}
+s'il est plat et non ramifié en tant qu'homomorphisme d'anneaux locaux
+(voir Définition \ref{definition-unramified-rings}).
+\end{definition}
+
+\noindent
+Il s'agit de la version locale de la définition d'un homomorphisme d'anneaux \'etale dans
+Algèbre, Section \ref{algebra-section-etale}.
+La définition précise
+donnée dans cette section est celle d'un homomorphisme d'anneaux lisse de dimension
+relative $0$. Il est démontré (dans
+Algèbre, Lemme \ref{algebra-lemma-etale-standard-smooth})
+qu'une $R$-algèbre \'etale $S$ possède toujours une présentation
+$$
+S = R[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+telle que
+$$
+g =
+\det
+\left(
+\begin{matrix}
+\partial f_1/\partial x_1 &
+\partial f_2/\partial x_1 &
+\ldots &
+\partial f_n/\partial x_1 \\
+\partial f_1/\partial x_2 &
+\partial f_2/\partial x_2 &
+\ldots &
+\partial f_n/\partial x_2 \\
+\ldots & \ldots & \ldots & \ldots \\
+\partial f_1/\partial x_n &
+\partial f_2/\partial x_n &
+\ldots &
+\partial f_n/\partial x_n
+\end{matrix}
+\right)
+$$
+ait pour image un élément inversible de $S$. Les deux lemmes suivants relient les deux
+notions.
+
+\begin{lemma}
+\label{lemma-characterize-etale-Noetherian}
+Soit $A \to B$ un homomorphisme de type fini, où $A$ est un anneau noethérien.
+Soit $\mathfrak q$ un idéal premier de $B$ au-dessus de $\mathfrak p \subset A$.
+Alors $A \to B$ est \'etale en $\mathfrak q$ si et seulement si
+$A_{\mathfrak p} \to B_{\mathfrak q}$ est un homomorphisme \'etale
+d'anneaux locaux.
+\end{lemma}
+
+\begin{proof}
+Voir Algèbre, Lemmes \ref{algebra-lemma-etale} (platitude des homomorphismes \'etales),
+\ref{algebra-lemma-etale-at-prime} (les homomorphismes \'etales sont non ramifiés)
+et \ref{algebra-lemma-characterize-etale} (les homomorphismes plats et non ramifiés
+sont \'etales).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-etale-completions}
+Soient $A$, $B$ des anneaux locaux noethériens.
+Soit $A \to B$ un homomorphisme local tel que $B$ soit essentiellement de
+type fini sur $A$.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $A \to B$ est un homomorphisme \'etale d'anneaux locaux
+\item $A^\wedge \to B^\wedge$ est un homomorphisme \'etale d'anneaux locaux, et
+\item $A^\wedge \to B^\wedge$ est \'etale.
+\end{enumerate}
+De plus, dans ce cas $B^\wedge \cong (A^\wedge)^{\oplus n}$ comme
+$A^\wedge$-modules pour un certain $n \geq 1$.
+\end{lemma}
+
+\begin{proof}
+Pour établir les équivalences de (1), (2) et (3), puisque nous disposons des résultats
+correspondants pour les homomorphismes d'anneaux non ramifiés
+(Lemme \ref{lemma-characterize-unramified-completions}),
+il suffit de démontrer que
+$A \to B$ est plat si et seulement si $A^\wedge \to B^\wedge$ est plat.
+Cela ressort de nos listes de propriétés des homomorphismes plats, puisque
+les homomorphismes d'anneaux $A \to A^\wedge$ et $B \to B^\wedge$ sont fidèlement plats.
+Pour la dernière assertion, Lemme \ref{lemma-unramified-completions}
+montre que $B^\wedge$ est un $A^\wedge$-module fini et plat.
+Il est donc fini et libre d'après notre liste
+des propriétés des modules plats de la Section \ref{section-flat-morphisms}.
+\end{proof}
+
+\noindent
+L'entier $n$ qui intervient dans le lemme ci-dessus
+n'est autre que le degré
+$[\kappa(\mathfrak m_B) : \kappa(\mathfrak m_A)]$ de l'extension des corps
+résiduels. En particulier, si $\kappa(\mathfrak m_A)$
+est séparablement clos, nous voyons que $A^\wedge \to B^\wedge$
+est un isomorphisme, ce qui confirme nos assertions précédentes.
+
+\begin{definition}
+\label{definition-etale-schemes-1}
+(Voir Morphismes, Définition \ref{morphisms-definition-etale}.)
+Soit $Y$ un schéma localement noethérien.
+Soit $f : X \to Y$ un morphisme de schémas localement de type fini.
+\begin{enumerate}
+\item Soit $x \in X$. Nous disons que $f$ est {\it \'etale en $x \in X$} si
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ est un
+homomorphisme \'etale d'anneaux locaux.
+\item Le morphisme est dit {\it \'etale} s'il est \'etale en chacun de ses
+points.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Démontrons que cette définition coïncide avec celle du
+chapitre sur les morphismes de schémas. Cela garantit en particulier que
+l'ensemble des points où un morphisme est \'etale est ouvert.
+
+\begin{lemma}
+\label{lemma-etale-definition}
+Soit $Y$ un schéma localement noethérien.
+Soit $f : X \to Y$ localement de type fini.
+Soit $x \in X$. Le morphisme $f$ est \'etale en $x$ au
+sens de la Définition \ref{definition-etale-schemes-1}
+si et seulement s'il est \'etale en $x$ au
+sens de Morphismes, Définition \ref{morphisms-definition-etale}.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du Lemme \ref{lemma-characterize-etale-Noetherian}
+et des définitions.
+\end{proof}
+
+\noindent
+Voici quelques résultats sur les morphismes \'etales.
+Les formulations données dans cette liste ne s'appliquent qu'aux
+morphismes localement de type fini entre schémas localement noethériens.
+Dans chaque cas, nous donnons une référence au résultat général tel qu'il a été
+démontré plus tôt dans le projet, mais on peut, dans certains cas,
+démontrer plus facilement le résultat dans le cas noethérien.
+Voici la liste :
+\begin{enumerate}
+\item Un morphisme \'etale est non ramifié. (Cela ressort de nos définitions.)
+\item La propriété d'être \'etale est locale sur la source et la cible pour la
+topologie de Zariski.
+\item Les morphismes \'etales sont stables par changement de base et par composition.
+Voir Morphismes, Lemmes \ref{morphisms-lemma-base-change-etale}
+et \ref{morphisms-lemma-composition-etale}.
+\item Les morphismes \'etales de schémas sont localement quasi-finis,
+et les morphismes \'etales quasi-compacts sont quasi-finis. (Cela est
+vrai parce que c'est le cas pour les morphismes non ramifiés, comme vu précédemment.)
+\item Les morphismes \'etales sont de dimension relative $0$. Voir
+Morphismes, Définition \ref{morphisms-definition-relative-dimension-d}
+et
+Morphismes, Lemme \ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+\item Un morphisme est \'etale si et seulement s'il est plat et si
+toutes ses fibres sont \'etales. Voir
+Morphismes, Lemme \ref{morphisms-lemma-etale-flat-etale-fibres}.
+\item Les morphismes \'etales sont ouverts. C'est vrai parce qu'un morphisme \'etale
+est plat, d'après le Théorème \ref{theorem-flat-map-open}.
+\item Soient $X$ et $Y$ \'etales sur un schéma de base $S$.
+Tout $S$-morphisme de $X$ vers $Y$ est \'etale.
+Voir Morphismes, Lemme \ref{morphisms-lemma-etale-permanence}.
+\end{enumerate}
+
+
+
+
+
+
+\section{Le théorème de structure}
+\label{section-structure-etale-map}
+
+\noindent
+Nous présentons un théorème qui décrit la structure locale des morphismes \'etales
+et non ramifiés. Outre son importance propre évidente,
+ce théorème nous permet aussi de passer à une autre
+définition des morphismes \'etales qui rend mieux compte de l'intuition géométrique
+que celle que nous avons employée jusqu'ici.
+
+\medskip\noindent
+Pour l'énoncer, nous avons besoin de la notion d'{\it homomorphisme d'anneaux \'etale standard}, voir
+Algèbre, Définition \ref{algebra-definition-standard-etale}.
+Plus précisément, supposons que $R$ soit un anneau et que $f, g \in R[t]$ soient des polynômes
+tels que
+\begin{enumerate}
+\item[(a)] $f$ soit un polynôme unitaire, et
+\item[(b)] $f' = \text{d}f/\text{d}t$ soit inversible dans le localisé
+$R[t]_g/(f)$.
+\end{enumerate}
+Alors l'application
+$$
+R \longrightarrow R[t]_g/(f) = R[t, 1/g]/(f)
+$$
+est une algèbre \'etale standard, et toute algèbre \'etale standard est isomorphe
+à l'une d'elles. C'est un exercice agréable de démontrer qu'un tel homomorphisme d'anneaux
+est plat et non ramifié, donc \'etale (comme prévu, bien entendu).
+Un cas particulier d'homomorphisme d'anneaux \'etale standard est tout homomorphisme d'anneaux
+$$
+R \longrightarrow R[t]_{f'}/(f) = R[t, 1/f']/(f)
+$$
+où $f$ est un polynôme unitaire, et toute algèbre \'etale standard est (isomorphe à)
+un localisé principal de l'une d'elles.
+
+\begin{theorem}
+\label{theorem-structure-etale}
+Soit $f : A \to B$ un homomorphisme \'etale d'anneaux locaux.
+Alors il existe $f, g \in A[t]$ tels que
+\begin{enumerate}
+\item $B' = A[t]_g/(f)$ soit une algèbre \'etale standard --- voir (a) et (b) ci-dessus, et
+\item $B$ soit isomorphe au localisé de $B'$ en un idéal premier.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Écrivons $B = B'_{\mathfrak q}$ pour une certaine $A$-algèbre de type fini $B'$
+(ce qui est possible puisque $B$ est essentiellement de type fini sur $A$).
+D'après le Lemme \ref{lemma-characterize-etale-Noetherian},
+nous voyons que $A \to B'$ est \'etale en $\mathfrak q$.
+Nous pouvons donc appliquer
+Algèbre, Proposition \ref{algebra-proposition-etale-locally-standard}
+pour voir qu'un localisé principal de $B'$ est \'etale standard.
+\end{proof}
+
+\noindent
+Voici la version pour les homomorphismes non ramifiés d'anneaux locaux.
+
+\begin{theorem}
+\label{theorem-structure-unramified}
+Soit $f : A \to B$ un homomorphisme non ramifié d'anneaux locaux.
+Alors il existe $f, g \in A[t]$ tels que
+\begin{enumerate}
+\item $B' = A[t]_g/(f)$ soit une algèbre \'etale standard --- voir (a) et (b) ci-dessus, et
+\item $B$ soit isomorphe à un quotient d'un localisé de $B'$ en un idéal premier.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Écrivons $B = B'_{\mathfrak q}$ pour une certaine $A$-algèbre de type fini $B'$
+(ce qui est possible puisque $B$ est essentiellement de type fini sur $A$).
+D'après le Lemme \ref{lemma-characterize-unramified-Noetherian},
+nous voyons que $A \to B'$ est non ramifié en $\mathfrak q$.
+Nous pouvons donc appliquer
+Algèbre, Proposition \ref{algebra-proposition-unramified-locally-standard}
+pour voir qu'un localisé principal de $B'$ est un quotient d'une
+$A$-algèbre \'etale standard.
+\end{proof}
+
+\noindent
+Des arguments usuels de relèvement donnent alors l'énoncé géométrique
+suivant, qui nous sera d'une utilité essentielle.
+
+\begin{theorem}
+\label{theorem-geometric-structure}
+Soit $\varphi : X \to Y$ un morphisme de schémas. Soit $x \in X$.
+Soit $V \subset Y$ un voisinage ouvert affine de $\varphi(x)$.
+Si $\varphi$ est \'etale en $x$, alors il existe un ouvert affine
+$U \subset X$ avec $x \in U$ et $\varphi(U) \subset V$
+tel que l'on ait le diagramme suivant :
+$$
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \ar[r]_-j & \Spec(R[t]_{f'}/(f)) \ar[d] \\
+Y & V \ar[l] \ar@{=}[r] & \Spec(R)
+}
+$$
+où $j$ est une immersion ouverte et $f \in R[t]$ est un polynôme unitaire.
+\end{theorem}
+
+\begin{proof}
+Cet énoncé équivaut à celui de
+Morphismes, Lemme \ref{morphisms-lemma-etale-locally-standard-etale},
+bien que les énoncés diffèrent légèrement.
+Voir aussi Variétés, Lemme \ref{varieties-lemma-geometric-structure-unramified}
+pour une variante relative aux morphismes non ramifiés.
+\end{proof}
+
+
+\section{Morphismes \'etales et lisses}
+\label{section-etale-smooth}
+
+\noindent
+Un morphisme \'etale est lisse de dimension relative zéro.
+La projection $\mathbf{A}^n_S \to S$ est un exemple standard
+de morphisme lisse de dimension relative $n$.
+Il se trouve que, localement pour la topologie \'etale, tout morphisme lisse
+est de cette forme. Voici l'énoncé précis.
+
+\begin{theorem}
+\label{theorem-smooth-etale-over-n-space}
+Soit $\varphi : X \to Y$ un morphisme de schémas.
+Soit $x \in X$.
+Si $\varphi$ est lisse en $x$, alors
+il existe un entier $n \geq 0$ et des ouverts affines
+$V \subset Y$ et $U \subset X$ avec $x \in U$ et $\varphi(U) \subset V$
+de sorte qu'il existe un diagramme commutatif
+$$
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \ar[r]_-\pi &
+\mathbf{A}^n_R \ar[d] \ar@{=}[r] &  \Spec(R[x_1, \ldots, x_n]) \ar[dl] \\
+Y & V \ar[l] \ar@{=}[r] & \Spec(R)
+}
+$$
+où $\pi$ est \'etale.
+\end{theorem}
+
+\begin{proof}
+Voir
+Morphismes, Lemme \ref{morphisms-lemma-smooth-etale-over-affine-space}.
+\end{proof}
+
+
+
+
+\section{Propriétés topologiques des morphismes \'etales}
+\label{section-topological-etale}
+
+\noindent
+Nous présentons quelques propriétés topologiques des morphismes \'etales et
+non ramifiés. Tout d'abord, nous donnons ce que Grothendieck
+appelle la {\it propriété fondamentale des morphismes \'etales}, voir
+\cite[Expos\'e I.5]{SGA1}.
+
+\begin{theorem}
+\label{theorem-etale-radicial-open}
+Soit $f : X \to Y$ un morphisme de schémas.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est une immersion ouverte,
+\item $f$ est universellement injectif et \'etale, et
+\item $f$ est un monomorphisme plat, localement de présentation finie.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Une immersion ouverte est universellement injective,
+car tout changement de base d'une immersion ouverte
+est une immersion ouverte. De plus, elle est \'etale d'après
+Morphismes, Lemme \ref{morphisms-lemma-open-immersion-etale}.
+Ainsi (1) implique (2).
+
+\medskip\noindent
+Supposons que $f$ soit universellement injectif et \'etale.
+Comme $f$ est \'etale, il est plat et localement de présentation finie, voir
+Morphismes, Lemmes \ref{morphisms-lemma-etale-flat} et
+\ref{morphisms-lemma-etale-locally-finite-presentation}.
+D'après
+Lemme \ref{lemma-universally-injective-unramified},
+nous voyons que $f$ est un monomorphisme. Ainsi (2) implique (3).
+
+\medskip\noindent
+Supposons que $f$ soit plat, localement de présentation finie et un monomorphisme.
+Alors $f$ est ouvert, voir
+Morphismes, Lemme \ref{morphisms-lemma-fppf-open}.
+Nous pouvons donc remplacer $Y$ par $f(X)$ et supposer que $f$ est
+surjectif. Alors $f$ est ouvert et bijectif, donc c'est un homéomorphisme.
+Par conséquent, $f$ est quasi-compact. Dès lors,
+Descente, lemme
+\ref{descent-lemma-flat-surjective-quasi-compact-monomorphism-isomorphism}
+montre que $f$ est un isomorphisme, ce qui conclut.
+\end{proof}
+
+\noindent
+Voici un autre résultat de même nature.
+
+\begin{lemma}
+\label{lemma-finite-etale-one-point}
+Soit $\pi : X \to S$ un morphisme de schémas. Soit $s \in S$.
+Supposons que
+\begin{enumerate}
+\item $\pi$ soit fini ;
+\item $\pi$ soit \'etale ;
+\item $\pi^{-1}(\{s\}) = \{x\}$ ; et
+\item $\kappa(s) \subset \kappa(x)$ soit purement
+inséparable\footnote{Compte tenu de la condition (2)
+cela équivaut à $\kappa(s) = \kappa(x)$.}.
+\end{enumerate}
+Alors il existe un voisinage ouvert $U$ de $s$ tel que
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ soit un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-finite-unramified-one-point},
+il existe un voisinage ouvert $U$ de $s$ tel que
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ soit une immersion fermée.
+Mais un morphisme qui est à la fois \'etale et une immersion fermée est une
+immersion ouverte (par exemple d'après le
+théorème \ref{theorem-etale-radicial-open}).
+En rétrécissant $U$, on obtient donc un isomorphisme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-frobenius-etale}
+Soit $U \to X$ un morphisme \'etale de schémas
+où $X$ est un schéma de caractéristique $p$.
+Alors le Frobenius relatif $F_{U/X} : U \to U \times_{X, F_X} X$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $F_{U/X}$ est un homéomorphisme universel d'après
+Variétés, lemme \ref{varieties-lemma-relative-frobenius}.
+Le morphisme $F_{U/X}$ est \'etale en tant que
+morphisme entre des schémas \'etales sur $X$
+(Morphismes, lemme \ref{morphisms-lemma-etale-permanence}).
+Par conséquent, $F_{U/X}$ est un isomorphisme d'après le
+théorème \ref{theorem-etale-radicial-open}.
+\end{proof}
+
+
+
+
+
+
+\section{Invariance topologique de la topologie \'etale}
+\label{section-topological-invariance}
+
+\noindent
+Nous présentons maintenant un théorème absolument crucial qui affirme, en gros,
+que le caractère \'etale est une propriété topologique.
+
+\begin{theorem}
+\label{theorem-etale-topological}
+Soient $X$ et $Y$ deux schémas sur un schéma de base $S$. Soit $S_0$ un sous-schéma fermé
+de $S$ ayant le même espace topologique sous-jacent
+(par exemple si le faisceau d'idéaux de $S_0$ dans $S$ est de carré nul).
+Notons $X_0$ (resp.\ $Y_0$) le changement de base $S_0 \times_S X$
+(resp.\ $S_0 \times_S Y$).
+Si $X$ est \'etale sur $S$, alors l'application
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_{S_0}(Y_0, X_0)
+$$
+est bijective.
+\end{theorem}
+
+\begin{proof}
+Après le changement de base par $Y \to S$, nous pouvons supposer que $Y = S$.
+Dans ce cas, le théorème affirme que tout $S$-morphisme $\sigma_0 : S_0 \to X$
+se factorise en fait de manière unique par une section $S \to X$ du
+morphisme structural \'etale $f : X \to S$.
+
+\medskip\noindent
+Unicité. Supposons que nous ayons deux sections $\sigma, \sigma'$
+par lesquelles $\sigma_0$ se factorise. Comme $X \to S$ est \'etale,
+nous voyons que $\Delta : X \to X \times_S X$ est une immersion ouverte
+(Morphismes, lemme \ref{morphisms-lemma-diagonal-unramified-morphism}).
+Le morphisme $(\sigma, \sigma') : S \to X \times_S X$ se factorise
+par cet ouvert, car, pour tout $s \in S$, nous avons
+$(\sigma, \sigma')(s) = (\sigma_0(s), \sigma_0(s))$. Ainsi,
+$\sigma = \sigma'$.
+
+\medskip\noindent
+Pour démontrer l'existence, nous nous ramenons d'abord au cas affine
+(nous suggérons au lecteur de sauter cette étape).
+Soit $X = \bigcup X_i$ un recouvrement par des ouverts affines tel
+que chaque $X_i$ s'envoie dans un ouvert affine $S_i$ de $S$.
+Pour tout $s \in S$, nous pouvons choisir $i$ tel que
+$\sigma_0(s) \in X_i$.
+Choisissons un voisinage ouvert affine $U \subset S_i$ de $s$
+tel que $\sigma_0(U_0) \subset X_{i, 0}$. Remarquons que
+$X' = X_i \times_S U = X_i \times_{S_i} U$ est affine.
+Si l'on peut relever $\sigma_0|_{U_0} : U_0 \to X'_0$ en
+un morphisme $U \to X'$, alors, par unicité, ces relèvements locaux se recollent
+en un morphisme global $S \to X$. Nous pouvons donc supposer $S$ et
+$X$ affines.
+
+\medskip\noindent
+Existence lorsque $S$ et $X$ sont affines. Écrivons $S = \Spec(A)$
+et $X = \Spec(B)$. Alors $A \to B$ est \'etale et, en particulier,
+lisse (de dimension relative $0$). Puisque $|S_0| = |S|$, nous voyons
+que $S_0 = \Spec(A/I)$, où $I \subset A$ est localement nilpotent.
+L'existence résulte donc de
+Algèbre, lemme \ref{algebra-lemma-smooth-strong-lift}.
+\end{proof}
+
+\noindent
+La démonstration du théorème précédent nous donne aussi une implication de la
+caractérisation fonctorielle promise des morphismes \'etales. Le
+théorème suivant sera renforcé dans
+Cohomologie \'etale,
+théorème \ref{etale-cohomology-theorem-topological-invariance}.
+
+\begin{theorem}[Une équivalence remarquable de cat\'egories]
+\label{theorem-remarkable-equivalence}
+\begin{reference}
+\cite[IV, Theorem 18.1.2]{EGA}
+\end{reference}
+Soit $S$ un schéma.
+Soit $S_0 \subset S$ un sous-schéma fermé ayant le même espace
+topologique sous-jacent (par exemple si le faisceau d'idéaux de $S_0$ dans $S$
+est de carré nul). Le foncteur
+$$
+X \longmapsto X_0 = S_0 \times_S X
+$$
+définit une équivalence de catégories
+$$
+\{
+\text{schémas }X\text{ \'etales sur }S
+\}
+\leftrightarrow
+\{
+\text{schémas }X_0\text{ \'etales sur }S_0
+\}
+$$
+\end{theorem}
+
+\begin{proof}
+Le théorème \ref{theorem-etale-topological}
+montre que ce foncteur est pleinement fidèle.
+Il reste à démontrer qu'il est essentiellement surjectif.
+Soit $Y \to S_0$ un morphisme \'etale de schémas.
+
+\medskip\noindent
+Supposons le résultat vrai lorsque $S$ et $Y$ sont affines.
+Dans ce cas, choisissons un recouvrement par des ouverts affines
+$Y = \bigcup V_j$ tel que chaque $V_j$ s'envoie
+dans un ouvert affine de $S$. Par hypothèse (cas affine), nous pouvons
+trouver des morphismes \'etales $W_j \to S$ tels que $W_{j, 0} \cong V_j$
+(comme schémas sur $S_0$). Soit $W_{j, j'} \subset W_j$
+le sous-schéma ouvert dont l'espace topologique sous-jacent
+correspond à $V_j \cap V_{j'}$. Puisque nous avons des isomorphismes
+$$
+W_{j, j', 0} \cong V_j \cap V_{j'} \cong W_{j', j, 0}
+$$
+de schémas sur $S_0$, la pleine fidélité montre que nous
+obtenons des isomorphismes
+$\theta_{j, j'} : W_{j, j'} \to W_{j', j}$ de schémas sur $S$.
+Nous omettons de vérifier que ces isomorphismes satisfont à la
+condition de cocycle de Schémas, section \ref{schemes-section-glueing-schemes}.
+En appliquant Schémas, lemme \ref{schemes-lemma-glue-schemes}
+nous obtenons un schéma $X \to S$ en
+recollant les schémas $W_j$ au moyen des identifications $\theta_{j, j'}$.
+Il est clair, par construction, que $X \to S$ est \'etale et que $X_0 \cong Y$.
+
+\medskip\noindent
+Il suffit donc de démontrer le lemme lorsque $S$ et $Y$ sont affines.
+Écrivons $S = \Spec(R)$ et $S_0 = \Spec(R/I)$, où $I$ est localement nilpotent.
+D'après Algèbre, lemme \ref{algebra-lemma-etale-standard-smooth}, nous savons que
+$Y$ est le spectre d'un anneau $\overline{A}$ avec
+$$
+\overline{A} = (R/I)[x_1, \ldots, x_n]/(\overline{f}_1, \ldots, \overline{f}_n)
+$$
+tel que
+$$
+\overline{g} =
+\det
+\left(
+\begin{matrix}
+\partial \overline{f}_1/\partial x_1 &
+\partial \overline{f}_2/\partial x_1 &
+\ldots &
+\partial \overline{f}_n/\partial x_1 \\
+\partial \overline{f}_1/\partial x_2 &
+\partial \overline{f}_2/\partial x_2 &
+\ldots &
+\partial \overline{f}_n/\partial x_2 \\
+\ldots & \ldots & \ldots & \ldots \\
+\partial \overline{f}_1/\partial x_n &
+\partial \overline{f}_2/\partial x_n &
+\ldots &
+\partial \overline{f}_n/\partial x_n
+\end{matrix}
+\right)
+$$
+a pour image un élément inversible dans $\overline{A}$. Choisissons des relèvements quelconques
+$f_i \in R[x_1, \ldots, x_n]$. Posons
+$$
+A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+Puisque $I$ est localement nilpotent, l'idéal $IA$ est localement nilpotent
+(Algèbre, lemme \ref{algebra-lemma-locally-nilpotent}).
+Remarquons que $\overline{A} = A/IA$.
+Il s'ensuit que le déterminant de la matrice des dérivées partielles des
+$f_i$ est inversible dans l'algèbre $A$, d'après
+Algèbre, lemme \ref{algebra-lemma-locally-nilpotent-unit}.
+Par conséquent, $R \to A$ est \'etale, ce qui achève la démonstration.
+\end{proof}
+
+
+
+\section{La caractérisation fonctorielle}
+\label{section-functorial-etale}
+
+\noindent
+Nous présentons enfin la caractérisation fonctorielle annoncée.
+Il y a donc quatre façons d'envisager les morphismes \'etales de schémas :
+\begin{enumerate}
+\item comme des morphismes lisses de dimension relative $0$,
+\item comme des morphismes localement de présentation finie, plats et non ramifiés,
+\item au moyen du théorème de structure, et
+\item au moyen de la caractérisation fonctorielle.
+\end{enumerate}
+
+\begin{theorem}
+\label{theorem-formally-etale}
+Soit $f : X \to S$ un morphisme localement de présentation finie.
+Les assertions suivantes sont équivalentes
+\begin{enumerate}
+\item $f$ est \'etale,
+\item pour tout $S$-schéma affine $Y$ et tout sous-schéma fermé $Y_0 \subset Y$
+défini par un idéal de carré nul, l'application naturelle
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_S(Y_0, X)
+$$
+est bijective.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+C'est
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-etale-formally-etale}.
+\end{proof}
+
+\noindent
+Cette caractérisation affirme que les solutions des équations définissant $X$ se
+relèvent de façon unique à travers les épaississements nilpotents.
+
+
+
+\section{Structure locale \'etale des morphismes non ramifiés}
+\label{section-unramified-etale-local}
+
+\noindent
+Au chapitre
+Compléments sur les morphismes, section \ref{more-morphisms-section-etale-localization},
+le lecteur trouvera quelques résultats sur la structure locale \'etale des
+morphismes quasi-finis. Dans cette section, nous voulons les combiner
+avec les propriétés topologiques des morphismes non ramifiés rencontrées
+dans ce chapitre. La configuration générale à garder à l'esprit est
+$$
+\xymatrix{
+V \ar[r] \ar[dr] & X_U \ar[d] \ar[r] & X \ar[d]^f \\
+& U \ar[r] & S
+}
+$$
+voir
+Compléments sur les morphismes, équation (\ref{more-morphisms-equation-basic-diagram}).
+Commençons par un cas très général.
+
+\begin{lemma}
+\label{lemma-unramified-etale-local}
+Soit $f : X \to S$ un morphisme de schémas.
+Soient $x_1, \ldots, x_n \in X$ des points ayant même image $s$ dans $S$.
+Supposons que $f$ soit non ramifié en chacun des $x_i$.
+Il existe alors un voisinage \'etale $(U, u) \to (S, s)$
+et des ouverts $V_{i, j} \subset X_U$, $i = 1, \ldots, n$, $j = 1, \ldots, m_i$,
+tels que
+\begin{enumerate}
+\item $V_{i, j} \to U$ est une immersion fermée dont l'image contient $u$,
+\item $u$ n'appartient pas à l'image de $V_{i, j} \cap V_{i', j'}$, sauf si
+$i = i'$ et $j = j'$, et
+\item tout point de $(X_U)_u$ s'envoyant sur $x_i$ appartient à l'un des $V_{i, j}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après
+Morphismes, définition \ref{morphisms-definition-unramified},
+il existe, pour chaque $x_i$, un voisinage ouvert qui est localement de type
+fini sur $S$. En remplaçant $X$ par un voisinage ouvert de $\{x_1, \ldots, x_n\}$,
+nous pouvons supposer que $f$ est localement de type fini. Appliquons
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-etale-makes-quasi-finite-finite-multiple-points-var}
+pour obtenir le voisinage \'etale $(U, u)$ et les ouverts $V_{i, j}$ finis sur
+$U$. D'après
+le lemme \ref{lemma-finite-unramified-one-point},
+quitte à rétrécir $U$, le morphisme $V_{i, j} \to U$ est une immersion
+fermée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-unramified-etale-local-technical}
+Soit $f : X \to S$ un morphisme de schémas.
+Soient $x_1, \ldots, x_n \in X$ des points ayant même image $s$ dans $S$.
+Supposons que $f$ soit séparé et que $f$ soit non ramifié en chacun des $x_i$.
+Il existe alors un voisinage \'etale $(U, u) \to (S, s)$
+et une décomposition en somme disjointe
+$$
+X_U =
+W \amalg \coprod\nolimits_{i, j} V_{i, j}
+$$
+telle que
+\begin{enumerate}
+\item $V_{i, j} \to U$ est une immersion fermée dont l'image contient $u$,
+\item la fibre $W_u$ ne contient aucun point s'envoyant sur l'un des $x_i$.
+\end{enumerate}
+En particulier, si $f^{-1}(\{s\}) = \{x_1, \ldots, x_n\}$, alors
+la fibre $W_u$ est vide.
+\end{lemma}
+
+\begin{proof}
+Appliquons
+le lemme \ref{lemma-unramified-etale-local}.
+Nous pouvons supposer que $U$ est affine, de sorte que $X_U$ est séparé.
+Alors $V_{i, j} \to X_U$ est une application fermée ; voir
+Morphismes, lemme \ref{morphisms-lemma-image-proper-scheme-closed}.
+Supposons que $(i, j) \not = (i', j')$.
+Alors $V_{i, j} \cap V_{i', j'}$ est fermé dans $V_{i, j}$ et
+son image dans $U$ ne contient pas $u$.
+Par conséquent, quitte à rétrécir $U$, nous pouvons supposer que
+$V_{i, j} \cap V_{i', j'} = \emptyset$. De plus, $\bigcup V_{i, j}$ est
+un sous-schéma ouvert et fermé de $X_U$ et admet donc un
+complémentaire ouvert et fermé $W$. Cela achève la démonstration.
+\end{proof}
+
+\noindent
+Le lemme suivant est en un certain sens beaucoup plus faible que le précédent,
+mais il peut être utile de l'énoncer explicitement ici. Il affirme qu'un morphisme fini
+non ramifié est, localement pour la topologie \'etale sur la base, une immersion fermée.
+
+\begin{lemma}
+\label{lemma-finite-unramified-etale-local}
+Soit $f : X \to S$ un morphisme fini non ramifié de schémas.
+Soit $s \in S$.
+Il existe un voisinage \'etale $(U, u) \to (S, s)$
+et une décomposition en somme disjointe finie
+$$
+X_U = \coprod\nolimits_j V_j
+$$
+telle que chaque $V_j \to U$ soit une immersion fermée.
+\end{lemma}
+
+\begin{proof}
+Puisque $X \to S$ est fini, la fibre au-dessus de $s$ est un ensemble fini
+$\{x_1, \ldots, x_n\}$ de points de $X$. Appliquons le
+lemme \ref{lemma-unramified-etale-local-technical}
+à cet ensemble (un morphisme fini est séparé ; voir
+Morphismes, section \ref{morphisms-section-integral}).
+L'image de $W$ dans $U$ est un sous-ensemble fermé
+(car $X_U \to U$ est fini, donc propre) qui ne
+contient pas $u$. Après l'avoir retiré de $U$, nous voyons que $W = \emptyset$
+comme voulu.
+\end{proof}
+
+
+
+
+\section{Structure locale \'etale des morphismes \'etales}
+\label{section-etale-local-etale}
+
+\noindent
+C'est un peu naïf, mais peut-être utile pour se forger une intuition des morphismes \'etales.
+Nous recopions simplement les résultats de la
+section \ref{section-unramified-etale-local}
+et remplaçons ``immersion fermée'' par ``isomorphisme''.
+
+\begin{lemma}
+\label{lemma-etale-etale-local}
+Soit $f : X \to S$ un morphisme de schémas.
+Soient $x_1, \ldots, x_n \in X$ des points ayant la même image $s$ dans $S$.
+Supposons que $f$ soit \'etale en chacun des $x_i$.
+Alors il existe un voisinage \'etale $(U, u) \to (S, s)$
+et des ouverts $V_{i, j} \subset X_U$, $i = 1, \ldots, n$, $j = 1, \ldots, m_i$
+tels que
+\begin{enumerate}
+\item $V_{i, j} \to U$ soit un isomorphisme ;
+\item $u$ n'appartienne pas à l'image de $V_{i, j} \cap V_{i', j'}$, sauf si
+$i = i'$ et $j = j'$ ; et
+\item tout point de $(X_U)_u$ qui s'envoie sur $x_i$ appartienne à un certain $V_{i, j}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Un morphisme \'etale est non ramifié ; nous pouvons donc appliquer le
+lemme \ref{lemma-unramified-etale-local}.
+Or $V_{i, j} \to U$ est une immersion fermée et est \'etale.
+C'est donc une immersion ouverte, par exemple d'après le
+théorème \ref{theorem-etale-radicial-open}.
+Remplaçons $U$ par l'intersection des images des morphismes $V_{i, j} \to U$
+pour obtenir le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-etale-local-technical}
+Soit $f : X \to S$ un morphisme de schémas.
+Soient $x_1, \ldots, x_n \in X$ des points ayant la même image $s$ dans $S$.
+Supposons $f$ séparé et $f$ \'etale en chacun des $x_i$.
+Alors il existe un voisinage \'etale $(U, u) \to (S, s)$
+et une décomposition en somme disjointe finie
+$$
+X_U =
+W \amalg \coprod\nolimits_{i, j} V_{i, j}
+$$
+de schémas tels que
+\begin{enumerate}
+\item $V_{i, j} \to U$ soit un isomorphisme ;
+\item la fibre $W_u$ ne contienne aucun point s'envoyant sur l'un des $x_i$.
+\end{enumerate}
+En particulier, si $f^{-1}(\{s\}) = \{x_1, \ldots, x_n\}$, alors
+la fibre $W_u$ est vide.
+\end{lemma}
+
+\begin{proof}
+Un morphisme \'etale est non ramifié ; nous pouvons donc appliquer le
+lemme \ref{lemma-unramified-etale-local-technical}.
+Comme dans la démonstration du
+lemme \ref{lemma-etale-etale-local},
+les morphismes $V_{i, j} \to U$ sont des immersions ouvertes et
+l'on conclut en remplaçant $U$ par l'intersection de leurs
+images.
+\end{proof}
+
+\noindent
+Le lemme suivant est en un certain sens beaucoup plus faible que le précédent,
+mais il peut être utile de l'énoncer explicitement ici. Il affirme qu'un morphisme fini
+\'etale est, localement pour la topologie \'etale sur la base, un
+``espace de revêtement topologique'', c'est-à-dire un produit fini de copies de la base.
+
+\begin{lemma}
+\label{lemma-finite-etale-etale-local}
+Soit $f : X \to S$ un morphisme fini \'etale de schémas.
+Soit $s \in S$. Il existe un voisinage \'etale $(U, u) \to (S, s)$
+et une décomposition en somme disjointe finie
+$$
+X_U = \coprod\nolimits_j V_j
+$$
+de schémas telle que chaque $V_j \to U$ soit un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Un morphisme \'etale est non ramifié ; nous pouvons donc appliquer le
+lemme \ref{lemma-finite-unramified-etale-local}.
+Comme dans la démonstration du
+lemme \ref{lemma-etale-etale-local},
+nous voyons que $V_{i, j} \to U$ est une immersion ouverte et l'on conclut
+en remplaçant $U$ par l'intersection de leurs images.
+\end{proof}
+
+
+
+
+\section{Propriétés de permanence}
+\label{section-properties-permanence}
+
+\noindent
+Dans ce qui suit, nous présentons quelques propriétés de ``permanence''
+des homomorphismes \'etales d'anneaux locaux noethériens
+(au sens de la définition \ref{definition-etale-ring}). Voir
+Compléments d'algèbre, sections \ref{more-algebra-section-permanence-completion} et
+\ref{more-algebra-section-permanence-henselization}
+pour les résultats analogues concernant la complétion et
+l'hensélisation d'un anneau local noethérien.
+
+\begin{lemma}
+\label{lemma-etale-dimension}
+Soient $A$ et $B$ des anneaux locaux noethériens.
+Soit $A \to B$ un homomorphisme local \'etale.
+Alors $\dim(A) = \dim(B)$.
+\end{lemma}
+
+\begin{proof}
+Voir par exemple
+Algèbre, lemme \ref{algebra-lemma-dimension-base-fibre-equals-total}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-etale-depth}
+Soient $A$ et $B$ des anneaux locaux noethériens.
+Soit $f : A \to B$ un homomorphisme local \'etale.
+Alors $\text{profondeur}(A) = \text{profondeur}(B)$
+\end{proposition}
+
+\begin{proof}
+Voir Algèbre, lemme \ref{algebra-lemma-apply-grothendieck}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-etale-CM}
+\begin{slogan}
+La propriété d'être de Cohen-Macaulay monte et descend le long des homomorphismes \'etales.
+\end{slogan}
+Soient $A$ et $B$ des anneaux locaux noethériens.
+Soit $f : A \to B$ un homomorphisme local \'etale.
+Alors $A$ est de Cohen-Macaulay si et seulement si $B$ l'est.
+\end{proposition}
+
+\begin{proof}
+Un anneau local $A$ est de Cohen-Macaulay si et seulement si $\dim(A) = \text{profondeur}(A)$.
+Puisque ces deux invariants sont préservés par une extension \'etale,
+l'assertion en résulte.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-etale-regular}
+Soient $A$, $B$ des anneaux locaux noethériens.
+Soit $f : A \to B$ un homomorphisme local \'etale.
+Alors $A$ est régulier si et seulement si $B$ l'est.
+\end{proposition}
+
+\begin{proof}
+Si $B$ est régulier, alors $A$ est régulier d'après
+Algèbre, lemme \ref{algebra-lemma-flat-under-regular}.
+Supposons $A$ régulier. Soit $\mathfrak m$ l'idéal maximal
+de $A$. Alors $\dim_{\kappa(\mathfrak m)} \mathfrak m/\mathfrak m^2 =
+\dim(A) = \dim(B)$ (voir le lemme \ref{lemma-etale-dimension}).
+D'autre part, $\mathfrak mB$ est l'idéal maximal de
+$B$ et par conséquent $\mathfrak m_B/\mathfrak m_B = \mathfrak mB/\mathfrak m^2B$
+est engendré par au plus $\dim(B)$ éléments. Ainsi $B$ est régulier.
+(On peut aussi utiliser le résultat légèrement plus général
+Algèbre, lemme \ref{algebra-lemma-flat-over-regular-with-regular-fibre}.)
+\end{proof}
+
+
+\begin{proposition}
+\label{proposition-etale-reduced}
+Soient $A$, $B$ des anneaux locaux noethériens.
+Soit $f : A \to B$ un homomorphisme local \'etale.
+Alors $A$ est réduit si et seulement si $B$ l'est.
+\end{proposition}
+
+\begin{proof}
+La fidèle platitude de $A \to B$ montre clairement que, si $B$ est réduit,
+$A$ l'est aussi. Voir également Algèbre, lemme \ref{algebra-lemma-descent-reduced}.
+Réciproquement, supposons $A$ réduit. Par hypothèse, $B$ est un localisé
+d'une $A$-algèbre de type fini $B'$ en un idéal premier $\mathfrak q$.
+Quitte à remplacer $B'$ par un localisé, nous pouvons supposer que $B'$
+est \'etale sur $A$, voir le lemme \ref{lemma-characterize-etale-Noetherian}.
+Alors Algèbre, lemme \ref{algebra-lemma-reduced-goes-up}, s'applique à
+$A \to B'$ et $B'$ est réduit. Par conséquent, $B$ est réduit.
+\end{proof}
+
+\begin{remark}
+\label{remark-technicality-needed}
+Le résultat sur la ``propriété d'être réduit'' ne vaut pas avec une définition plus
+faible des homomorphismes locaux \'etales $A \to B$, dans laquelle on
+supprime l'hypothèse que $B$ est essentiellement de type fini sur $A$.
+En effet, il peut arriver qu'un anneau local noethérien intègre $A$ ait un
+complété non réduit $A^\wedge$, voir
+Exemples, section \ref{examples-section-local-completion-nonreduced}.
+Mais l'homomorphisme d'anneaux $A \to A^\wedge$ est plat, et $\mathfrak m_AA^\wedge$
+est l'idéal maximal de $A^\wedge$ et, bien sûr, $A$ et $A^\wedge$ ont
+le même corps résiduel. C'est pourquoi il importe de ne considérer
+cette notion que pour des extensions d'anneaux essentiellement de type fini
+(ou essentiellement de présentation finie si $A$ n'est pas noethérien).
+\end{remark}
+
+\begin{proposition}
+\label{proposition-etale-normal}
+\begin{reference}
+\cite[Expose I, Theorem 9.5 part (i)]{SGA1}
+\end{reference}
+Soient $A$, $B$ des anneaux locaux noethériens.
+Soit $f : A \to B$ un homomorphisme local \'etale.
+Alors $A$ est un anneau intègre normal si et seulement si $B$ l'est.
+\end{proposition}
+
+\begin{proof}
+Voir
+Algèbre, lemme \ref{algebra-lemma-descent-normal},
+pour la descente de la normalité. Réciproquement, supposons $A$ normal.
+Par hypothèse, $B$ est un localisé d'une $A$-algèbre de type fini
+$B'$ en un idéal premier $\mathfrak q$. Après avoir remplacé $B'$ par un localisé,
+nous pouvons supposer que $B'$ est \'etale sur $A$, voir
+le lemme \ref{lemma-characterize-etale-Noetherian}.
+Alors
+Algèbre, lemme \ref{algebra-lemma-normal-goes-up},
+s'applique à $A \to B'$ et nous concluons que $B'$ est normal.
+Par conséquent, $B$ est un anneau intègre normal.
+\end{proof}
+
+\noindent
+Les propositions précédentes donnent une idée de la raison pour laquelle nous voulons considérer
+les morphismes \'etales comme des ``isomorphismes locaux''. Une autre propriété qui indique
+très clairement que nous avons la ``bonne'' définition est le fait que,
+pour les $\mathbf{C}$-schémas de type fini, un morphisme est \'etale si et seulement si
+le morphisme associé entre espaces analytiques (les points à valeurs dans $\mathbf{C}$ munis
+de la topologie complexe) est un isomorphisme local au sens analytique (une immersion
+ouverte localement sur la source). Ce fait peut être démontré à l'aide du
+théorème de structure et du fait que l'analytification commute à la
+formation des anneaux locaux complétés -- les détails sont laissés au lecteur.
+
+
+
+
+
+
+
+
+\section{Descente des morphismes \'etales}
+\label{section-descending-etale}
+
+\noindent
+Pour comprendre le langage employé dans cette section, nous invitons
+le lecteur à consulter
+Descente, section \ref{descent-section-descent-datum}.
+Soit $f : X \to S$ un morphisme de schémas. Considérons le
+foncteur de changement de base
+\begin{equation}
+\label{equation-descent-etale}
+\text{schémas }U\text{ \'etales sur }S \longrightarrow
+\begin{matrix}
+\text{données de descente }(V, \varphi)\text{ relativement à }X/S \\
+\text{ avec }V\text{ \'etale sur }X
+\end{matrix}
+\end{equation}
+qui envoie $U$ sur la donnée de descente canonique $(X \times_S U, can)$.
+
+\begin{lemma}
+\label{lemma-faithful}
+Si $f : X \to S$ est surjectif, alors le foncteur
+(\ref{equation-descent-etale}) est fidèle.
+\end{lemma}
+
+\begin{proof}
+Soient $a, b : U_1 \to U_2$ deux morphismes entre des schémas \'etales sur $S$.
+Supposons que les changements de base de $a$ et $b$ par $X$ coïncident.
+Nous devons montrer que $a = b$.
+D'après la proposition \ref{proposition-equality}, il suffit de
+montrer que $a$ et $b$ coïncident sur les points et les corps résiduels.
+C'est clair, car, pour tout $u \in U_1$, nous pouvons trouver un point
+$v \in X \times_S U_1$ s'envoyant sur $u$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fully-faithful}
+Supposons que $f : X \to S$ soit submersif et que tout changement de base \'etale
+de $f$ soit submersif. Alors le foncteur
+(\ref{equation-descent-etale}) est pleinement fidèle.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-faithful}, le foncteur est fidèle.
+Soient $U_1 \to S$ et $U_2 \to S$ des morphismes \'etales
+et soit $a : X \times_S U_1 \to X \times_S U_2$ un
+morphisme compatible avec les données de descente canoniques.
+Nous allons montrer que $a$ est le changement de base d'un morphisme $U_1 \to U_2$.
+
+\medskip\noindent
+Soit $U'_2 \subset U_2$ un sous-schéma ouvert. Considérons
+$W = a^{-1}(X \times_S U'_2)$. C'est un sous-schéma ouvert
+de $X \times_S U_1$ compatible avec la donnée de descente
+canonique sur $V_1 = X \times_S U_1$. Cela signifie que les
+deux images réciproques de $W$ par les projections
+$V_1 \times_{U_1} V_1 \to V_1$ coïncident. Puisque $V_1 \to U_1$
+est surjectif (étant le changement de base de $X \to S$), nous en déduisons
+que $W$ est l'image réciproque d'une partie $U'_1 \subset U_1$.
+Puisque $W$ est ouvert, notre hypothèse sur $f$ implique que $U'_1 \subset U_1$
+est ouvert.
+
+\medskip\noindent
+Soit $U_2 = \bigcup U_{2, i}$ un recouvrement par des ouverts affines.
+D'après le résultat du paragraphe précédent, nous obtenons un recouvrement ouvert
+$U_1 = \bigcup U_{1, i}$ tel que
+$X \times_S U_{1, i} = a^{-1}(X \times_S U_{2, i})$.
+Si nous pouvons montrer qu'il existe un morphisme $U_{1, i} \to U_{2, i}$
+dont le changement de base est le morphisme
+$a_i : X \times_S U_{1, i} \to X \times_S U_{2, i}$,
+alors nous pouvons recoller ces morphismes en un morphisme $U_1 \to U_2$
+(en utilisant la fidélité). Nous nous ramenons ainsi au cas où
+$U_2$ est affine. En particulier, $U_2 \to S$ est séparé
+(Schémas, lemme \ref{schemes-lemma-compose-after-separated}).
+
+\medskip\noindent
+Supposons que $U_2 \to S$ soit séparé. Alors le graphe $\Gamma_a$ de $a$
+est un sous-schéma fermé de
+$$
+V = (X \times_S U_1) \times_X (X \times_S U_2) = X \times_S U_1 \times_S U_2
+$$
+d'après Schémas, lemme \ref{schemes-lemma-semi-diagonal}.
+D'autre part, le graphe est ouvert, par exemple
+parce que c'est une section d'un morphisme \'etale
+(proposition \ref{proposition-properties-sections}).
+Comme $a$ est un morphisme de données de descente, les deux images inverses de
+$\Gamma_a \subset V$ par les projections
+$V \times_{U_1 \times_S U_2} V \to V$ sont les mêmes.
+Ainsi, en raisonnant comme au deuxième alinéa de la démonstration, nous
+trouvons un sous-schéma ouvert et fermé $\Gamma \subset U_1 \times_S U_2$
+dont le changement de base à $X$ donne $\Gamma_a$. Alors
+$\Gamma \to U_1$ est un morphisme \'etale dont le changement de base
+à $X$ est un isomorphisme. Cela signifie que $\Gamma \to U_1$
+est universellement bijectif, donc est un isomorphisme
+d'après le théorème \ref{theorem-etale-radicial-open}.
+Ainsi, $\Gamma$ est le graphe d'un morphisme $U_1 \to U_2$
+et le changement de base de ce morphisme est $a$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fully-faithful-cases}
+Soit $f : X \to S$ un morphisme de schémas. Dans les cas suivants,
+le foncteur (\ref{equation-descent-etale}) est pleinement fidèle :
+\begin{enumerate}
+\item $f$ est surjectif et universellement fermé
+(par exemple fini, entier ou propre),
+\item $f$ est surjectif et universellement ouvert
+(par exemple localement de présentation finie et plat, lisse ou étale),
+\item $f$ est surjectif, quasi-compact et plat.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte du lemme \ref{lemma-fully-faithful}.
+Par exemple, une application fermée surjective d'espaces topologiques
+est submersive (Topologie, lemme
+\ref{topology-lemma-closed-morphism-quotient-topology}).
+Les morphismes finis, entiers et propres sont universellement fermés, voir
+Morphismes, lemmes \ref{morphisms-lemma-integral-universally-closed} et
+\ref{morphisms-lemma-finite-proper}, et
+la définition \ref{morphisms-definition-proper}.
+D'autre part, une application ouverte surjective d'espaces topologiques
+est submersive (Topologie, lemme
+\ref{topology-lemma-open-morphism-quotient-topology}).
+Les morphismes plats localement de présentation finie, lisses et \'etales sont
+universellement ouverts, voir
+Morphismes, lemmes \ref{morphisms-lemma-fppf-open},
+\ref{morphisms-lemma-smooth-open} et
+\ref{morphisms-lemma-etale-open}.
+Le cas des morphismes surjectifs, quasi-compacts et plats résulte
+de Morphismes, lemme \ref{morphisms-lemma-fpqc-quotient-topology}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduce-to-affine}
+Soit $f : X \to S$ un morphisme de schémas.
+Soit $(V, \varphi)$ une donnée de descente relativement à $X/S$
+avec $V \to X$ \'etale. Soit $S = \bigcup S_i$ un
+recouvrement ouvert. Supposons que
+\begin{enumerate}
+\item la donnée de descente $(V, \varphi)$ obtenue par changement de base
+à $X \times_S S_i/S_i$ soit effective,
+\item le foncteur (\ref{equation-descent-etale})
+pour $X \times_S (S_i \cap S_j) \to (S_i \cap S_j)$ soit pleinement fidèle, et
+\item le foncteur (\ref{equation-descent-etale})
+pour $X \times_S (S_i \cap S_j \cap S_k) \to (S_i \cap S_j \cap S_k)$
+soit fidèle.
+\end{enumerate}
+Alors $(V, \varphi)$ est effective.
+\end{lemma}
+
+\begin{proof}
+(Rappelons que les changements de base des données de descente sont définis dans
+Descente, définition \ref{descent-definition-pullback-functor}.)
+Posons $X_i = X \times_S S_i$. Notons $(V_i, \varphi_i)$ la donnée obtenue
+par changement de base à partir de $(V, \varphi)$ sur $X_i/S_i$.
+D'après l'hypothèse (1), nous pouvons trouver un morphisme \'etale $U_i \to S_i$
+muni d'un isomorphisme $X_i \times_{S_i} U_i \to V_i$ compatible avec
+$can$ et $\varphi_i$. D'après l'hypothèse (2), nous obtenons des isomorphismes
+$\psi_{ij} : U_i \times_{S_i} (S_i \cap S_j) \to
+U_j \times_{S_j} (S_i \cap S_j)$.
+D'après l'hypothèse (3), ces isomorphismes satisfont à la condition de cocycle,
+de sorte que $(U_i, \psi_{ij})$ est une donnée de descente pour le
+recouvrement de Zariski $\{S_i \to S\}$. Alors Descente, lemme
+\ref{descent-lemma-Zariski-refinement-coverings-equivalence}
+(qui n'est essentiellement qu'une reformulation de
+Schémas, section \ref{schemes-section-glueing-schemes})
+affirme qu'il existe un morphisme de schémas $U \to S$
+et des isomorphismes $U \times_S S_i \to U_i$ compatibles
+avec $\psi_{ij}$. Les isomorphismes $U \times_S S_i \to U_i$
+déterminent des isomorphismes correspondants $X_i \times_S U \to V_i$
+qui se recollent en un morphisme $X \times_S U \to V$ compatible
+avec la donnée de descente canonique et $\varphi$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-split-henselian}
+Soit $(A, I)$ un couple hensélien. Soit $U \to \Spec(A)$ un morphisme
+quasi-compact, séparé et \'etale tel que
+$U \times_{\Spec(A)} \Spec(A/I) \to \Spec(A/I)$ soit fini.
+Alors
+$$
+U = U_{fin} \amalg U_{away}
+$$
+où $U_{fin} \to \Spec(A)$ est fini et $U_{away}$ ne possède
+aucun point au-dessus de $Z$.
+\end{lemma}
+
+\begin{proof}
+D'après le théorème principal de Zariski, le schéma $U$ est quasi-affine.
+En fait, nous pouvons trouver une immersion ouverte $U \to T$, avec $T$ affine et
+$T \to \Spec(A)$ fini, voir Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}.
+Écrivons $Z = \Spec(A/I)$ et notons $U_Z \to T_Z$ le changement de base.
+Comme $U_Z \to Z$ est fini, nous voyons que $U_Z \to T_Z$ est fermé
+aussi bien qu'ouvert. Par conséquent, d'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-characterize-henselian-pair},
+nous obtenons une unique décomposition $T = T' \amalg T''$ telle que $T'_Z = U_Z$.
+Posons $U_{fin} = U \cap T'$ et $U_{away} = U \cap T''$. Puisque
+$T'_Z \subset U_Z$, nous voyons que tous les points fermés de $T'$ sont dans $U$,
+donc que $T' \subset U$, puis que $U_{fin} = T'$, et donc que $U_{fin} \to \Spec(A)$
+est fini. Nous omettons la démonstration
+de l'unicité de la décomposition.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-effective}
+Soit $f : X \to S$ un morphisme entier surjectif.
+Le foncteur (\ref{equation-descent-etale}) induit une équivalence
+$$
+\begin{matrix}
+\text{schémas quasi-compacts,}\\
+\text{séparés et \'etales sur }S
+\end{matrix}
+\longrightarrow
+\begin{matrix}
+\text{données de descente }(V, \varphi)\text{ relativement à }X/S\text{ avec}\\
+V\text{ quasi-compact, séparé et \'etale sur }X
+\end{matrix}
+$$
+\end{proposition}
+
+\begin{proof}
+D'après le lemme \ref{lemma-fully-faithful-cases}, le
+foncteur (\ref{equation-descent-etale})
+est pleinement fidèle, et cela reste vrai après tout
+changement de base $S \to S'$. Soit $(V, \varphi)$ une donnée de descente
+relativement à $X/S$, avec $V \to X$ quasi-compact, séparé et \'etale.
+Nous pouvons utiliser le lemme \ref{lemma-reduce-to-affine}
+pour voir qu'il suffit de prouver l'effectivité
+localement pour la topologie de Zariski sur $S$. En particulier, nous pouvons et allons
+supposer que $S$ est affine.
+
+\medskip\noindent
+Si $S$ est affine, nous pouvons trouver un ensemble ordonné filtrant $\Lambda$ et
+un système projectif $X_\lambda \to S_\lambda$
+de morphismes finis de schémas affines de type fini sur
+$\Spec(\mathbf{Z})$ tel que $(X \to S) = \lim (X_\lambda \to S_\lambda)$.
+Voir Algèbre, lemme \ref{algebra-lemma-limit-integral}.
+Puisque les limites commutent entre elles, nous en déduisons que
+$X \times_S X = \lim X_\lambda \times_{S_\lambda} X_\lambda$
+et que
+$X \times_S X \times_S X = \lim
+X_\lambda \times_{S_\lambda} X_\lambda \times_{S_\lambda} X_\lambda$.
+Remarquons que $V \to X$ est un morphisme de présentation finie.
+En utilisant Limites, lemme \ref{limits-lemma-descend-finite-presentation},
+nous pouvons trouver un $\lambda$ et une donnée de descente $(V_\lambda, \varphi_\lambda)$
+relativement à $X_\lambda/S_\lambda$ dont le changement de base à $X/S$ est
+$(V, \varphi)$. Il suffit bien sûr de montrer que
+$(V_\lambda, \varphi_\lambda)$ est effective. Notons que $V_\lambda$
+est quasi-compact par construction.
+Quitte à augmenter $\lambda$, nous pouvons supposer
+que $V_\lambda \to X_\lambda$ est séparé et \'etale, voir
+Limites, lemme \ref{limits-lemma-descend-separated-finite-presentation} et
+\ref{limits-lemma-descend-etale}.
+Ainsi, nous pouvons supposer que $f$ est fini surjectif et que
+$S$ est affine de type fini sur $\mathbf{Z}$.
+
+\medskip\noindent
+Considérons un ouvert $S' \subset S$ tel que la donnée $(V', \varphi')$ obtenue
+par changement de base à partir de $(V, \varphi)$ sur $X' = X \times_S S'$ soit effective. Nous prouverons ci-dessous
+que $S' \not = S$ implique l'existence d'un ouvert strictement plus grand sur
+lequel la donnée de descente est effective. Comme $S$ est noethérien (et que son
+espace topologique sous-jacent est donc noethérien), cela achèvera la démonstration.
+Soit $\xi \in S$ un point générique d'une composante irréductible du
+fermé $Z = S \setminus S'$.
+Si $\xi \in S'' \subset S$ est un ouvert sur lequel la donnée de descente est
+effective, alors celle-ci est effective sur
+$S' \cup S''$ par l'argument de recollement du premier alinéa. Ainsi,
+dans la suite de la démonstration, nous pouvons remplacer $S$ par un voisinage ouvert affine
+de $\xi$.
+
+\medskip\noindent
+Après un premier remplacement de ce type, nous pouvons supposer que $Z$ est irréductible
+de point générique $Z$. Munissons $Z$ de la structure réduite induite
+de sous-schéma fermé. Après une nouvelle restriction, nous pouvons supposer que
+$X_Z = X \times_S Z = f^{-1}(Z) \to Z$ est plat, voir
+Morphismes, proposition \ref{morphisms-proposition-generic-flatness}.
+Soit $(V_Z, \varphi_Z)$ la donnée de descente obtenue par changement de base à $X_Z/Z$.
+D'après Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend},
+cette donnée de descente est effective, et nous obtenons un morphisme \'etale
+$U_Z \to Z$ dont le changement de base est isomorphe à $V_Z$ d'une manière
+compatible avec les données de descente.
+Bien sûr, $U_Z \to Z$ est quasi-compact et séparé
+(Descente, lemmes \ref{descent-lemma-descending-property-quasi-compact} et
+\ref{descent-lemma-descending-property-separated}).
+Ainsi, après une nouvelle restriction, nous pouvons supposer
+que $U_Z \to Z$ est fini, voir
+Morphismes, lemme \ref{morphisms-lemma-generically-finite}.
+
+{\emergencystretch=.5em\medskip\noindent
+Soit $S = \Spec(A)$ et soit $I \subset A$ l'idéal premier correspondant
+à $Z \subset S$. Soit $(A^h, IA^h)$ l'hensélisation du couple
+$(A, I)$.\linebreak Notons $S^h = \Spec(A^h)$ et $Z^h = V(IA^h) \cong Z$.
+Nous affirmons qu'il suffit de montrer l'effectivité après changement de base à
+$S^h$. En effet, $\{S^h \to S, S' \to S\}$ est un recouvrement fpqc
+($A \to A^h$ est plat d'après Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-henselization-flat}) et,
+d'après Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend},
+nous disposons de la descente fpqc pour les morphismes \'etales séparés.
+En effet, si $U^h \to S^h$ et $U' \to S'$ sont les objets
+correspondant aux images inverses $(V^h, \varphi^h)$ et
+$(V', \varphi')$, alors les isomorphismes requis\par}
+$$
+U^h \times_S S^h \to S^h \times_S V^h
+\quad\text{et}\quad
+U^h \times_S S' \to S^h \times_S U'
+$$
+sont obtenus grâce à la pleine fidélité signalée au premier
+alinéa. Nous nous ramenons ainsi à la situation décrite dans
+l'alinéa suivant.
+
+\medskip\noindent
+Ici, $S = \Spec(A)$, $Z = V(I)$, $S' = S \setminus Z$, où
+$(A, I)$ est un couple hensélien ; nous avons $U' \to S'$ correspondant
+à la donnée de descente $(V', \varphi')$ et un morphisme \'etale fini
+$U_Z \to Z$ correspondant à la donnée de descente
+$(V_Z, \varphi_Z)$. Nous ne disposons plus de l'hypothèse que $A$ est de type fini
+sur $\mathbf{Z}$, mais le reste de l'argument n'utilisera même pas
+que $A$ est noethérien.
+D'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-finite-etale-equivalence},
+nous pouvons trouver un morphisme \'etale fini $U_{fin} \to S$ dont la
+restriction à $Z$ est isomorphe à $U_Z \to Z$.
+Écrivons $X = \Spec(B)$ et $Y = V(IB)$. Comme $(B, IB)$ est un couple hensélien
+(Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-integral-over-henselian-pair})
+et comme la restriction de $V \to X$ à $Y$
+est finie (car elle est le changement de base de $U_Z \to Z$), nous voyons
+qu'il existe une décomposition canonique en union disjointe
+$$
+V = V_{fin} \amalg V_{away}
+$$
+où $V_{fin} \to X$ est fini et où $V_{away}$ ne possède aucun
+point au-dessus de $Y$. Voir le lemme \ref{lemma-split-henselian}.
+En utilisant l'unicité de cette décomposition sur $X \times_S X$,
+nous voyons que $\varphi$ la respecte, et nous obtenons
+$$
+(V, \varphi) = (V_{fin}, \varphi_{fin}) \amalg (V_{away}, \varphi_{away})
+$$
+dans la catégorie des données de descente.
+D'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-finite-etale-equivalence},
+il existe un unique isomorphisme
+$$
+X \times_S U_{fin} \longrightarrow V_{fin}
+$$
+compatible avec l'isomorphisme donné $Y \times_Z U_Z \to V \times_X Y$
+sur $Y$.
+Par unicité, nous voyons que cet isomorphisme est compatible
+avec les données de descente, c'est-à-dire que
+$(X \times_S U_{fin}, can) \cong (V_{fin}, \varphi_{fin})$.
+Notons $U'_{fin} = U_{fin} \times_S S'$. Par pleine fidélité,
+nous obtenons un morphisme $U'_{fin} \to U'$ qui est
+l'inclusion d'un sous-schéma ouvert (et fermé).
+Posons alors $U = U_{fin} \amalg_{U'_{fin}} U'$ (recollement de schémas comme
+dans Schémas, section \ref{schemes-section-glueing-schemes}).
+Les morphismes $X \times_S U_{fin} \to V$ et
+$X \times_S U' \to V$ se recollent en un morphisme $X \times_S U \to V$
+qui est l'isomorphisme recherché.
+\end{proof}
+
+
+
+
+
+\section{Diviseurs à croisements normaux}
+\label{section-normal-crossings}
+
+\noindent
+Voici la définition.
+
+\begin{definition}
+\label{definition-strict-normal-crossings}
+Soit $X$ un schéma localement noethérien. Un
+{\it diviseur à croisements strictement normaux}
+sur $X$ est un diviseur de Cartier effectif $D \subset X$ tel que,
+pour tout $p \in D$, l'anneau local $\mathcal{O}_{X, p}$ soit régulier
+et qu'il existe un système régulier de paramètres
+$x_1, \ldots, x_d \in \mathfrak m_p$ et $1 \leq r \leq d$
+tel que $D$ soit défini par $x_1 \ldots x_r$ dans $\mathcal{O}_{X, p}$.
+\end{definition}
+
+\noindent
+Nous rencontrons souvent des diviseurs de Cartier effectifs $E$ sur des schémas
+localement noethériens $X$ tels qu'il existe un diviseur à croisements strictement normaux $D$
+avec $E \subset D$ ensemblistement.
+Dans ce cas, nous avons
+$E = \sum a_i D_i$, avec $a_i \geq 0$, où $D = \bigcup_{i \in I} D_i$
+est la décomposition de $D$ en ses composantes irréductibles.
+Remarquons que $D' = \bigcup_{a_i > 0} D_i$ est un diviseur à croisements
+normaux stricts tel que $E = D'$ ensemblistement.
+Lorsque ce qui précède se produit, nous dirons que
+$E$ est {\it à support contenu dans un diviseur à croisements strictement normaux}.
+
+\begin{lemma}
+\label{lemma-strict-normal-crossings}
+Soit $X$ un schéma localement noethérien. Soit $D \subset X$ un
+diviseur de Cartier effectif. Soient $D_i \subset D$, $i \in I$, ses
+composantes irréductibles considérées comme des sous-schémas fermés réduits de $X$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $D$ est un diviseur à croisements strictement normaux, et
+\item $D$ est réduit, chaque $D_i$ est un diviseur de Cartier effectif, et,
+pour $J \subset I$ fini, l'intersection schématique
+$D_J = \bigcap_{j \in J} D_j$ est un schéma
+régulier dont chaque composante irréductible est de
+codimension $|J|$ dans $X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que $D$ soit un diviseur à croisements strictement normaux. Choisissons $p \in D$
+et un système régulier de paramètres $x_1, \ldots, x_d \in \mathfrak m_p$
+ainsi que $1 \leq r \leq d$ comme dans la
+définition \ref{definition-strict-normal-crossings}.
+Comme $\mathcal{O}_{X, p}/(x_i)$ est un anneau local régulier
+(et en particulier un anneau intègre), nous voyons que les composantes irréductibles
+$D_1, \ldots, D_r$ de $D$ passant par $p$ correspondent $1$ à $1$
+aux idéaux premiers de hauteur un $(x_1), \ldots, (x_r)$ de $\mathcal{O}_{X, p}$.
+D'après Algèbre, lemme \ref{algebra-lemma-regular-ring-CM},
+nous trouvons que l'intersection $D_{i_1} \cap \ldots \cap D_{i_s}$
+est de codimension $s$ dans un voisinage ouvert de $p$
+et que son anneau local en $p$ est régulier.
+Comme cela vaut pour tout $p \in D$, nous concluons que (2) est satisfaite.
+
+\medskip\noindent
+Supposons (2). Soit $p \in D$. Comme $\mathcal{O}_{X, p}$ est de dimension
+finie, nous voyons que $p$ peut appartenir à au plus
+$\dim(\mathcal{O}_{X, p})$ des composantes $D_i$.
+Disons que $p \in D_1, \ldots, D_r$ pour un certain $r \geq 1$.
+Soient $x_1, \ldots, x_r \in \mathfrak m_p$ des équations locales
+de $D_1, \ldots, D_r$. Alors $x_1$ est un non diviseur de zéro dans $\mathcal{O}_{X, p}$
+et $\mathcal{O}_{X, p}/(x_1) = \mathcal{O}_{D_1, p}$ est régulier.
+Ainsi, $\mathcal{O}_{X, p}$ est régulier, voir
+Algèbre, lemme \ref{algebra-lemma-regular-mod-x}.
+Comme $D_1 \cap \ldots \cap D_r$ est un schéma régulier (donc normal),
+c'est une union disjointe de ses composantes irréductibles
+(Propriétés, lemme \ref{properties-lemma-normal-Noetherian}).
+Soit $Z \subset D_1 \cap \ldots \cap D_r$
+la composante irréductible contenant $p$.
+Alors $\mathcal{O}_{Z, p} = \mathcal{O}_{X, p}/(x_1, \ldots, x_r)$
+est régulier de codimension $r$ (notons que, puisque nous savons déjà
+que $\mathcal{O}_{X, p}$ est régulier et donc de Cohen-Macaulay,
+il n'y a aucune ambiguïté sur la codimension, car l'anneau est caténaire, voir
+Algèbre, lemmes \ref{algebra-lemma-regular-ring-CM} et
+\ref{algebra-lemma-CM-dim-formula}).
+Ainsi, $\dim(\mathcal{O}_{Z, p}) = \dim(\mathcal{O}_{X, p}) - r$.
+Choisissons des éléments supplémentaires $x_{r + 1}, \ldots, x_n \in \mathfrak m_p$
+dont les images forment un système minimal de générateurs de $\mathfrak m_{Z, p}$.
+Alors $\mathfrak m_p = (x_1, \ldots, x_n)$ d'après le lemme de Nakayama,
+et nous voyons que $D$ est un diviseur à croisements normaux.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-pullback-strict-normal-crossings}
+\begin{slogan}
+Le tiré en arrière d'un diviseur à croisements strictement normaux par un morphisme
+lisse est un diviseur à croisements strictement normaux.
+\end{slogan}
+Soit $X$ un schéma localement noethérien. Soit $D \subset X$ un
+diviseur à croisements strictement normaux. Si $f : Y \to X$ est un morphisme
+lisse de schémas, alors le tiré en arrière $f^*D$ est un
+diviseur à croisements strictement normaux sur $Y$.
+\end{lemma}
+
+\begin{proof}
+Comme $f$ est plat, le tiré en arrière est défini par
+Diviseurs, lemme \ref{divisors-lemma-pullback-effective-Cartier-defined},
+donc l'énoncé a un sens.
+Soit $q \in f^*D$ d'image $p \in D$. Choisissons un système régulier
+de paramètres $x_1, \ldots, x_d \in \mathfrak m_p$
+et $1 \leq r \leq d$ comme dans la
+définition \ref{definition-strict-normal-crossings}.
+Comme $f$ est lisse, l'homomorphisme d'anneaux locaux
+$\mathcal{O}_{X, p} \to \mathcal{O}_{Y, q}$ est plat
+et l'anneau de la fibre
+$$
+\mathcal{O}_{Y, q}/\mathfrak m_p \mathcal{O}_{Y, q} =
+\mathcal{O}_{Y_p, q}
+$$
+est un anneau local régulier (voir par exemple
+Algèbre, lemme \ref{algebra-lemma-characterize-smooth-over-field}).
+Choisissons $y_1, \ldots, y_n \in \mathfrak m_q$ dont les images forment un système
+régulier de paramètres dans $\mathcal{O}_{Y_p, q}$.
+Alors $x_1, \ldots, x_d, y_1, \ldots, y_n$ engendrent l'idéal
+maximal $\mathfrak m_q$. Ainsi, $\mathcal{O}_{Y, q}$
+est un anneau local régulier de dimension
+$d + n$ d'après Algèbre, lemme \ref{algebra-lemma-dimension-base-fibre-equals-total},
+et $x_1, \ldots, x_d, y_1, \ldots, y_n$
+est un système régulier de paramètres. Comme $f^*D$ est défini
+par $x_1 \ldots x_r$ dans $\mathcal{O}_{Y, q}$, nous concluons
+que le lemme est démontré.
+\end{proof}
+
+\noindent
+Voici la définition d'un diviseur à croisements normaux.
+
+\begin{definition}
+\label{definition-normal-crossings}
+Soit $X$ un schéma localement noethérien. Un {\it diviseur à croisements normaux}
+sur $X$ est un diviseur de Cartier effectif $D \subset X$ tel que, pour
+tout $p \in D$, il existe un morphisme \'etale $U \to X$ dont l'image
+contient $p$ et tel que $D \times_X U$ soit un
+diviseur à croisements strictement normaux sur $U$.
+\end{definition}
+
+\noindent
+Par exemple, $D = V(x^2 + y^2)$ est un diviseur à croisements normaux
+(mais non strict) sur
+$\Spec(\mathbf{R}[x, y])$, car, après changement de base au
+recouvrement \'etale $\Spec(\mathbf{C}[x, y])$, nous obtenons $(x - iy)(x + iy) = 0$.
+
+\begin{lemma}
+\label{lemma-smooth-pullback-normal-crossings}
+\begin{slogan}
+Le tiré en arrière d'un diviseur à croisements normaux par un morphisme
+lisse est un diviseur à croisements normaux.
+\end{slogan}
+Soit $X$ un schéma localement noethérien. Soit $D \subset X$ un
+diviseur à croisements normaux. Si $f : Y \to X$ est un morphisme
+lisse de schémas, alors le tiré en arrière $f^*D$ est un
+diviseur à croisements normaux sur $Y$.
+\end{lemma}
+
+\begin{proof}
+Comme $f$ est plat, le tiré en arrière est défini par
+Diviseurs, lemme \ref{divisors-lemma-pullback-effective-Cartier-defined},
+donc l'énoncé a un sens.
+Soit $q \in f^*D$ d'image $p \in D$.
+Choisissons un morphisme \'etale $U \to X$ dont l'image contient $p$
+tel que $D \times_X U \subset U$ soit un diviseur à croisements normaux
+stricts, comme dans la définition \ref{definition-normal-crossings}.
+Posons $V = Y \times_X U$. Alors $V \to Y$ est \'etale comme changement
+de base de $U \to X$
+(Morphismes, lemme \ref{morphisms-lemma-base-change-etale}),
+et le tiré en arrière $D \times_X V$ est un diviseur à croisements normaux
+stricts sur $V$ d'après le lemme \ref{lemma-smooth-pullback-strict-normal-crossings}.
+Nous avons donc vérifié la condition de la
+définition \ref{definition-normal-crossings}
+pour $q \in f^*D$, ce qui permet de conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-normal-crossings-normalization}
+Soit $X$ un schéma localement noethérien. Soit $D \subset X$ un sous-schéma
+fermé. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $D$ est un diviseur à croisements normaux dans $X$,
+\item $D$ est réduit, la normalisation $\nu : D^\nu \to D$ est non ramifiée,
+et, pour tout $n \geq 1$, le schéma
+$$
+Z_n = D^\nu \times_D \ldots \times_D D^\nu
+\setminus \{(p_1, \ldots, p_n) \mid p_i = p_j\text{ pour certains }i\not = j\}
+$$
+est régulier ; le morphisme $Z_n \to X$ est d'intersection complète locale
+et son faisceau conormal est localement libre de rang $n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Expliquons d'abord comment interpréter la condition (2).
+La diagonale d'un morphisme non ramifié est ouverte
+(Morphismes, lemme \ref{morphisms-lemma-diagonal-unramified-morphism}).
+D'autre part, $D^\nu \to D$ est séparé, donc la
+diagonale $D^\nu \to D^\nu \times_D D^\nu$ est fermée.
+Ainsi, $Z_n$ est un sous-schéma ouvert et fermé de
+$D^\nu \times_D \ldots \times_D D^\nu$. D'autre part,
+$Z_n \to X$ est non ramifié, car c'est la composée
+$$
+Z_n \to D^\nu \times_D \ldots \times_D D^\nu \to \ldots \to
+D^\nu \times_D D^\nu \to D^\nu \to D \to X
+$$
+et chacune des flèches est non ramifiée.
+Comme un morphisme non ramifié est formellement non ramifié
+(Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-unramified-formally-unramified}),
+nous avons un faisceau conormal
+$\mathcal{C}_n = \mathcal{C}_{Z_n/X}$ du morphisme $Z_n \to X$, voir
+Compléments sur les morphismes, définition
+\ref{more-morphisms-definition-universal-thickening}.
+
+\medskip\noindent
+La formation de la normalisation commute à la localisation \'etale d'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-normalization-and-smooth}.
+La régularité des anneaux locaux, le fait
+qu'un morphisme soit non ramifié ou localement
+d'intersection complète, ou le fait qu'un morphisme soit
+non ramifié et possède un faisceau conormal qui soit
+localement libre d'un rang donné, se vérifient localement pour la topologie \'etale (voir
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-regular-etale-extension},
+Descente, lemme \ref{descent-lemma-descending-property-unramified},
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-descending-property-lci}
+et
+Descente, lemme \ref{descent-lemma-finite-locally-free-descends}).
+
+\medskip\noindent
+D'après la remarque de l'alinéa précédent et la définition
+des diviseurs à croisements normaux, il suffit de prouver qu'un
+diviseur à croisements strictement normaux $D = \bigcup_{i \in I} D_i$
+satisfait à (2). Dans ce cas, $D^\nu = \coprod D_i$
+et $D^\nu \to D$ est non ramifié (la propriété d'être non ramifié
+est locale sur la source, et $D_i \to D$ est une immersion
+fermée qui est non ramifiée). De même, $Z_1 = D^\nu \to X$
+est un morphisme d'intersection complète locale, car nous pouvons
+le vérifier localement sur la source et chaque morphisme $D_i \to X$
+est une immersion régulière, puisque c'est l'inclusion d'un diviseur de Cartier
+(voir le lemme \ref{lemma-strict-normal-crossings} et
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-regular-immersion-lci}).
+Comme un diviseur de Cartier effectif possède un faisceau
+conormal inversible, nous concluons que la condition portant sur le
+faisceau conormal est satisfaite.
+De même, le schéma $Z_n$, pour $n \geq 2$, est l'union disjointe
+des schémas $D_J = \bigcap_{j \in J} D_j$, où $J \subset I$
+parcourt les sous-ensembles de cardinal $n$. Comme $D_J \to X$ est
+une immersion régulière de codimension $n$
+(par la définition des croisements normaux stricts et le
+fait que nous pouvons le vérifier sur les germes d'après
+Diviseurs, lemme \ref{divisors-lemma-Noetherian-scheme-regular-ideal}),
+il s'ensuit de la même manière que $Z_n \to X$ possède les propriétés
+requises. Nous omettons quelques détails.
+
+\medskip\noindent
+Supposons (2). Soit $p \in D$. Comme $D^\nu \to D$ est non ramifié, il est
+fini (d'après Morphismes, lemme \ref{morphisms-lemma-finite-integral}).
+Ainsi, $D^\nu \to X$ est fini non ramifié.
+D'après le lemme \ref{lemma-finite-unramified-etale-local}
+et par localisation \'etale (permise par la discussion
+du deuxième alinéa et par la définition des diviseurs à
+croisements normaux), nous nous ramenons au cas où
+$D^\nu = \coprod_{i \in I} D_i$,
+avec $I$ fini et $D_i \to U$ une immersion fermée.
+Quitte à restreindre $X$, nous pouvons supposer
+que $p \in D_i$ pour tout $i \in I$. La condition selon laquelle $Z_1 =  D^\nu \to X$ est un
+morphisme non ramifié d'intersection complète locale
+dont le faisceau conormal est localement libre de rang $1$
+implique que $D_i \subset X$ est un diviseur de Cartier effectif, voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-lci} et
+Diviseurs, lemme \ref{divisors-lemma-regular-immersion-noetherian}.
+Pour achever la démonstration, nous pouvons supposer que $X = \Spec(A)$ est affine
+et que $D_i = V(f_i)$, avec $f_i \in A$ un non diviseur de zéro.
+Si $I = \{1, \ldots, r\}$, alors $p \in Z_r = V(f_1, \ldots, f_r)$.
+La même référence que ci-dessus implique que
+$(f_1, \ldots, f_r)$ est un idéal Koszul-régulier dans $A$.
+Comme le faisceau conormal est de rang $r$, nous voyons que
+$f_1, \ldots, f_r$ est un système minimal de générateurs de
+l'idéal définissant $Z_r$ dans $\mathcal{O}_{X, p}$.
+Cela implique que $f_1, \ldots, f_r$ est une suite régulière
+dans $\mathcal{O}_{X, p}$ telle que $\mathcal{O}_{X, p}/(f_1, \ldots, f_r)$
+soit régulier. Nous concluons ainsi du
+lemme \ref{algebra-lemma-regular-mod-x} d'Algèbre
+que la suite $f_1, \ldots, f_r$ peut être complétée en un système régulier de paramètres
+dans $\mathcal{O}_{X, p}$, ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-normal-crossings}
+Soit $X$ un schéma localement noethérien. Soit $D \subset X$ un sous-schéma
+fermé. Si $X$ est J-2 ou de Nagata, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $D$ est un diviseur à croisements normaux dans $X$,
+\item pour tout $p \in D$, le tiré en arrière de $D$ sur le spectre de
+l'hensélisé strict $\mathcal{O}_{X, p}^{sh}$
+est un diviseur à croisements strictement normaux.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (1) $\Rightarrow$ (2) est immédiate et
+ne nécessite pas l'hypothèse que $X$ est J-2 ou de Nagata.
+En effet, soit $p \in D$ et choisissons un voisinage \'etale
+$(U, u) \to (X, p)$ tel que le tiré en arrière de $D$ soit
+un diviseur à croisements strictement normaux sur $U$.
+Alors $\mathcal{O}_{X, p}^{sh} = \mathcal{O}_{U, u}^{sh}$,
+et nous voyons que la trace de $D$ sur $\Spec(\mathcal{O}_{U, u}^{sh})$
+est définie par une partie d'un système régulier de paramètres,
+puisque c'est déjà le cas dans $\mathcal{O}_{U, u}$.
+
+\medskip\noindent
+Pour prouver l'implication dans l'autre sens,
+nous utiliserons le critère du
+lemme \ref{lemma-characterize-normal-crossings-normalization}.
+Remarquons que la formation de la normalisation $D^\nu \to D$
+commute à l'hensélisation stricte, voir
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-normalization-and-henselization}.
+Si nous pouvons montrer que $D^\nu \to D$ est fini,
+alors nous voyons que $D^\nu \to D$ et les schémas
+$Z_n$ satisfont à toutes les propriétés voulues, car celles-ci
+peuvent toutes se vérifier au niveau des anneaux locaux
+(mais la finitude du morphisme $D^\nu \to D$
+ne peut pas se vérifier sur les anneaux locaux).
+Nous omettons les vérifications détaillées.
+
+\medskip\noindent
+Si $X$ est de Nagata, alors $D^\nu \to D$ est fini d'après
+Morphismes, lemme \ref{morphisms-lemma-nagata-normalization}.
+
+\medskip\noindent
+Supposons que $X$ soit J-2. Choisissons un point $p \in D$. Nous montrerons
+que $D^\nu \to D$ est fini au-dessus d'un voisinage de $p$.
+Par hypothèse, il existe un système régulier de
+paramètres $f_1, \ldots, f_d$ de $\mathcal{O}_{X, p}^{sh}$
+et $1 \leq r \leq d$ tels que la trace de $D$ sur
+$\Spec(\mathcal{O}_{X, p}^{sh})$ soit définie par $f_1 \ldots f_r$.
+Alors
+$$
+D^\nu \times_X \Spec(\mathcal{O}_{X, p}^{sh}) = 
+\coprod\nolimits_{i = 1, \ldots, r} V(f_i)
+$$
+Choisissons un voisinage \'etale affine
+$(U, u) \to (X, p)$ tel que $f_i$ provienne d'un élément
+$f_i \in \mathcal{O}_U(U)$. Posons $D_i = V(f_i) \subset U$.
+L'hensélisé strict de $\mathcal{O}_{D_i, u}$
+est $\mathcal{O}_{X, p}^{sh}/(f_i)$, qui est régulier.
+Ainsi, $\mathcal{O}_{D_i, u}$ est régulier (par exemple d'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-henselization-regular}).
+Comme $X$ est J-2, le lieu régulier est ouvert dans $D_i$.
+Ainsi, quitte à remplacer $U$ par un ouvert de Zariski, nous pouvons supposer
+que $D_i$ est régulier pour tout $i$. Il s'ensuit que
+$$
+\coprod\nolimits_{i = 1, \ldots, r} D_i = D^\nu \times_X U
+\longrightarrow D \times_X U
+$$
+est le morphisme de normalisation, et il est clairement fini.
+Autrement dit, nous avons trouvé
+un voisinage \'etale $(U, u)$ de $(X, p)$ tel que
+le changement de base de $D^\nu \to D$ à ce voisinage soit fini.
+Cela implique que $D^\nu \to D$ est fini par descente
+(Descente, lemme \ref{descent-lemma-descending-property-finite}),
+et la démonstration est achevée.
+\end{proof}
+
+
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

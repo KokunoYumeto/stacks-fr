@@ -1,0 +1,2635 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Compléments sur les groupoïdes en espaces algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Ce chapitre est consacré à des questions avancées sur les groupoïdes
+en espaces algébriques.
+Bien que les résultats soient énoncés en termes de groupoïdes en
+espaces algébriques, le
+lecteur doit garder à l'esprit le diagramme $2$-cartésien
+\begin{equation}
+\label{equation-quotient-stack}
+\vcenter{
+\xymatrix{
+R \ar[r] \ar[d] & U \ar[d] \\
+U \ar[r] & [U/R]
+}
+}
+\end{equation}
+où $[U/R]$ est le champ quotient; voir
+Groupoïdes dans les espaces, remarque \ref{spaces-groupoids-remark-fundamental-square}.
+Nombre des résultats sont motivés par l'étude de ce diagramme.
+Voir par exemple le bel article \cite{K-M} de Keel et Mori.
+
+
+
+
+
+\section{Notations}
+\label{section-notation}
+
+\noindent
+Nous continuons à suivre les conventions et notations introduites dans
+Groupoïdes dans les espaces, section \ref{spaces-groupoids-section-notation}.
+
+
+
+
+
+\section{Diagrammes utiles}
+\label{section-diagrams}
+
+\noindent
+Rappelons brièvement les résultats de
+Groupoïdes dans les espaces, lemmes \ref{spaces-groupoids-lemma-diagram} et
+\ref{spaces-groupoids-lemma-diagram-pull}
+afin de pouvoir nous y référer aisément dans ce chapitre.
+Soit $S$ un schéma. Soit $B$ un espace algébrique au-dessus de $S$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Dans le diagramme commutatif
+\begin{equation}
+\label{equation-diagram}
+\vcenter{
+\xymatrix{
+& U & \\
+R \ar[d]_s \ar[ru]^t &
+R \times_{s, U, t} R
+\ar[l]^-{\text{pr}_0} \ar[d]^{\text{pr}_1} \ar[r]_-c &
+R \ar[d]^s \ar[lu]_t \\
+U & R \ar[l]_t \ar[r]^s & U
+}
+}
+\end{equation}
+les deux carrés inférieurs sont des carrés de produits fibrés.
+De plus, le triangle supérieur (qui est en réalité un carré)
+est lui aussi cartésien.
+
+\medskip\noindent
+Le diagramme
+\begin{equation}
+\label{equation-pull}
+\vcenter{
+\xymatrix{
+R \times_{t, U, t} R
+\ar@<1ex>[r]^-{\text{pr}_1} \ar@<-1ex>[r]_-{\text{pr}_0}
+\ar[d]_{\text{pr}_0 \times c \circ (i, 1)} &
+R \ar[r]^t \ar[d]^{\text{id}_R} &
+U \ar[d]^{\text{id}_U} \\
+R \times_{s, U, t} R
+\ar@<1ex>[r]^-c \ar@<-1ex>[r]_-{\text{pr}_0} \ar[d]_{\text{pr}_1} &
+R \ar[r]^t \ar[d]^s &
+U \\
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U
+}
+}
+\end{equation}
+est commutatif. Les deux lignes supérieures sont isomorphes par les flèches
+verticales indiquées. Les deux carrés inférieurs de gauche sont cartésiens.
+
+
+
+
+
+
+\section{Structure locale}
+\label{section-local}
+
+\noindent
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c, e, i)$ un groupoïde en espaces algébriques au-dessus de $S$.
+Soit $\overline{u}$ un point géométrique de $U$. Dans cette section, nous
+décrivons la structure obtenue sur les anneaux locaux
+(Propriétés des espaces, définition
+\ref{spaces-properties-definition-etale-local-rings})
+$$
+A = \mathcal{O}_{U, \overline{u}}
+\quad\text{et}\quad
+B = \mathcal{O}_{R, e(\overline{u})}
+$$
+Nous convenons de désigner par les lettres correspondantes les homomorphismes
+d'anneaux locaux induits par les morphismes $s, t, c, e, i$.
+En particulier, nous avons un diagramme commutatif
+$$
+\xymatrix{
+A \ar[rd]_t \ar[rrd]^1 \\
+& B \ar[r]^e & A \\
+A \ar[ru]^s \ar[rru]_1
+}
+$$
+d'anneaux locaux. Ainsi, si $I \subset B$ désigne le noyau de $e : B \to A$,
+alors $B = s(A) \oplus I = t(A) \oplus I$. Posons
+$$
+C = \mathcal{O}_{R \times_{s, U, t} R, (e, e)(\overline{u})}
+$$
+Alors
+$$
+C =
+(B \otimes_{s, A, t} B)_{\mathfrak m_B \otimes B + B \otimes \mathfrak m_B}^h
+$$
+car le localisé
+$(B \otimes_{s, A, t} B)_{\mathfrak m_B \otimes B + B \otimes \mathfrak m_B}$
+a un corps résiduel séparablement clos.
+Soit $J \subset C$ l'idéal de $C$ engendré par $I \otimes B + B \otimes I$.
+Alors $J$ est aussi le noyau de l'homomorphisme d'anneaux locaux
+$$
+(e, e) : C \longrightarrow A
+$$
+La loi de composition $c : R \times_{s, U, t} R \to R$ correspond à un
+homomorphisme d'anneaux
+$$
+c : B \longrightarrow C
+$$
+qui envoie $I$ dans $J$.
+
+\begin{lemma}
+\label{lemma-first-order-structure-c}
+L'application $I/I^2 \to J/J^2$ induite par $c$ est la composée
+$$
+I/I^2 \xrightarrow{(1, 1)} I/I^2 \oplus I/I^2 \to J/J^2
+$$
+où la seconde flèche provient de l'égalité
+$J = (I \otimes B + B \otimes I)C$.
+L'application $i : B \to B$ induit l'application $-1 : I/I^2 \to I/I^2$.
+\end{lemma}
+
+\begin{proof}
+Pour décrire un homomorphisme local de $C$ vers un autre
+anneau local hensélien, il suffit de préciser l'image
+des éléments de la forme $b_1 \otimes b_2$, par exemple d'après
+Algèbre, lemme \ref{algebra-lemma-henselian-functorial}.
+Compte tenu de cela, nous avons les deux applications canoniques
+$$
+e_2 : C \to B,\ b_1 \otimes b_2 \mapsto b_1s(e(b_2)),\quad
+e_1 : C \to B,\ b_1 \otimes b_2 \mapsto t(e(b_1))b_2
+$$
+correspondant aux immersions
+$R \to R \times_{s, U, t} R$ données par
+$r \mapsto (r, e(s(r)))$ et $r \mapsto (e(t(r)), r)$.
+Ces applications définissent des applications $J/J^2 \to I/I^2$ qui,
+prises ensemble, fournissent un inverse de l'application
+$I/I^2 \oplus I/I^2 \to J/J^2$ du lemme. Pour démontrer l'assertion, il suffit
+donc de montrer que $e_1 \circ c : B \to B$ et $e_2 \circ c : B \to B$
+sont les applications identiques. Cela résulte du fait que les deux
+composées $R \to R \times_{s, U, t} R \to R$ sont des identités.
+
+\medskip\noindent
+L'assertion concernant $i$ résulte de celle concernant $c$ et du
+fait que $c \circ (1, i) = e \circ t$. Certains détails sont omis.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Groupoïde des sections}
+\label{section-groupoid-sections}
+
+\noindent
+Supposons donné un groupoïde $(\text{Ob}, \text{Arrows}, s, t, c, e, i)$.
+On peut alors construire un monoïde $\Gamma$ dont les éléments sont les
+applications $\delta : \text{Ob} \to \text{Arrows}$ telles que
+$s \circ \delta = \text{id}_{\text{Ob}}$, la composition étant donnée par
+$$
+\delta_1 \circ \delta_2 = c(\delta_1 \circ t \circ \delta_2, \delta_2)
+$$
+Autrement dit, un élément de $\Gamma$ est une règle $\delta$ qui
+prescrit une flèche issue de chaque objet, et la composition
+est celle que l'on attend naturellement. Par exemple,
+$$
+\vcenter{
+\xymatrix{
+& \bullet \ar[dl] \\
+\bullet \ar@(ul, dl)[] & \bullet \ar[d] \\
+& \bullet \ar[lu]
+}
+}
+\quad\circ\quad
+\vcenter{
+\xymatrix{
+& \bullet \ar[d] \\
+\bullet \ar[ru] & \bullet \ar[d] \\
+& \bullet \ar[lu]
+}
+}
+\quad = \quad\quad
+\vcenter{
+\xymatrix{
+& \bullet \ar@/^/[dd] \\
+\bullet \ar@(ul, dl)[] & \bullet \ar[l] \\
+& \bullet \ar[lu]
+}
+}
+$$
+avec des notations évidentes.
+
+\medskip\noindent
+Le même procédé s'applique à un groupoïde en espaces
+algébriques $(U, R, s, t, c, e, i)$ au-dessus d'un schéma $S$.
+Plus précisément, on prend pour éléments de $\Gamma$ l'ensemble
+$$
+\Gamma = \{\delta : U \to R \mid s \circ \delta = \text{id}_U\}
+$$
+et la composition $\circ : \Gamma \times \Gamma \to \Gamma$
+est donnée par la règle ci-dessus :
+\begin{equation}
+\label{equation-composition}
+\delta_1 \circ \delta_2 = c(\delta_1 \circ t \circ \delta_2, \delta_2)
+\end{equation}
+L'élément neutre est $e \in \Gamma$. En général, le monoïde $\Gamma$ n'est pas
+un groupe, car certains éléments $\delta \in \Gamma$ peuvent ne pas
+avoir d'inverse. En effet, il est clair que $\delta \in \Gamma$
+a un inverse si et seulement si $t \circ \delta$ est un automorphisme
+de $U$; dans ce cas,
+$\delta^{-1} = i \circ \delta \circ (t \circ \delta)^{-1}$.
+
+\medskip\noindent
+Pour un usage ultérieur, examinons le sous-groupe
+$\Gamma_0$ de $\Gamma$ formé des sections infinitésimalement
+proches de l'identité $e$. Plus précisément, supposons donné un
+sous-espace fermé $R$-invariant $U_0 \subset U$ tel que $U$
+soit un épaississement du premier ordre de $U_0$. Notons
+$R_0 = s^{-1}(U_0) = t^{-1}(U_0)$ et soit
+$(U_0, R_0, s_0, t_0, c_0, e_0, i_0)$ le groupoïde
+en espaces algébriques correspondant. Posons
+$$
+\Gamma_0 = \{\delta \in \Gamma \mid \delta|_{U_0} = e_0\}
+$$
+Si $s$ et $t$ sont plats, tout élément de $\Gamma_0$
+est inversible. En effet, $t \circ \delta$ est alors un
+morphisme $U \to U$ qui induit l'identité sur
+$\mathcal{O}_{U_0}$ et sur $\mathcal{C}_{U_0/U}$
+(lemme \ref{lemma-idenity-on-conormal});
+on conclut grâce à la suite exacte
+courte
+$0 \to \mathcal{C}_{U_0/U} \to \mathcal{O}_U \to \mathcal{O}_{U_0} \to 0$.
+
+\begin{lemma}
+\label{lemma-idenity-on-conormal}
+Dans la situation étudiée dans cette section, soient $\delta \in \Gamma_0$
+et $f = t \circ \delta : U \to U$. Si $s, t$ sont plats, alors l'application
+canonique $\mathcal{C}_{U_0/U} \to \mathcal{C}_{U_0/U}$ induite par $f$
+(Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-conormal-functorial})
+est l'application identique.
+\end{lemma}
+
+\begin{proof}
+Pour le voir, prolongeons comme suit la partie inférieure du diagramme
+(\ref{equation-pull}) :
+$$
+\xymatrix{
+Y \ar[r] \ar[d] &
+R \times_{s, U, t} R
+\ar@<1ex>[r]^-c \ar@<-1ex>[r]_-{\text{pr}_0} \ar[d]_{\text{pr}_1} &
+R \ar[r]^t \ar[d]^s &
+U \\
+U \ar[r]_\delta &
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U
+}
+$$
+où le carré de gauche est cartésien; ceci constitue notre définition
+de $Y$; nous n'aurons pas besoin d'en savoir davantage sur $Y$.
+Un changement de base partout à $U_0$ donne un diagramme analogue
+ayant les mêmes propriétés.
+Nous voulons montrer que $\text{id}_U = s \circ \delta$
+et $f = t \circ \delta$ induisent les mêmes applications sur les faisceaux
+conormaux. Comme $s$ est plat et surjectif, il suffit de démontrer la même
+chose pour les deux composées $a, b : Y \to R$ de la ligne supérieure.
+Observons que $a_0 = b_0$ et que l'un de $a$ et $b$ est un isomorphisme,
+puisque nous savons que $s \circ \delta$ est un isomorphisme. Par conséquent,
+les deux morphismes $a, b : Y \to R$ sont des morphismes entre espaces
+algébriques plats au-dessus de $U$ (par le morphisme $t : R \to U$
+et le morphisme $t \circ a = t \circ b : Y \to U$).
+Cela donne le résultat voulu. En effet, par compatibilité aux compositions dans
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-conormal-functorial-more}
+on conclut que les deux applications
+$a_0^*\mathcal{C}_{R_0/R} \to \mathcal{C}_{Y_0/Y}$
+s'insèrent dans un diagramme commutatif
+$$
+\xymatrix{
+a_0^*\mathcal{C}_{R_0/R} \ar[rr] & & \mathcal{C}_{Y_0/Y} \\
+a_0^*t_0^*\mathcal{C}_{U_0/U} \ar[u] \ar@{=}[rr] & &
+(t_0 \circ a_0)^*\mathcal{C}_{U_0/U} \ar[u]
+}
+$$
+dont les flèches verticales sont des isomorphismes d'après
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-deform}.
+Le lemme en résulte.
+\end{proof}
+
+\noindent
+Identifions maintenant le groupe $\Gamma_0$.
+Appliquons la discussion de Compléments sur les morphismes d'espaces, remarques
+\ref{spaces-more-morphisms-remark-action-by-derivations} et
+\ref{spaces-more-morphisms-remark-another-special-case}
+au diagramme
+$$
+\xymatrix{
+(U_0 \subset U) \ar@{..>}[rr]_{(e_0, \delta)}
+\ar[rd]_{(\text{id}_{U_0}, \text{id}_U)} & &
+(R_0 \subset R) \ar[ld]^{(s_0, s)} \\
+& (U_0 \subset U)
+}
+$$
+On voit que $\delta = \theta \cdot e$ pour une unique application
+$\mathcal{O}_{U_0}$-linéaire
+$\theta : e_0^*\Omega_{R_0/U_0} \to \mathcal{C}_{U_0/U}$.
+On obtient ainsi une bijection
+\begin{equation}
+\label{equation-isomorphism}
+\Hom_{\mathcal{O}_{U_0}}(e_0^*\Omega_{R_0/U_0}, \mathcal{C}_{U_0/U})
+\longrightarrow
+\Gamma_0
+\end{equation}
+en appliquant Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-action-sheaf}.
+
+\begin{lemma}
+\label{lemma-composition-is-addition}
+La bijection (\ref{equation-isomorphism}) est un isomorphisme
+de groupes.
+\end{lemma}
+
+\begin{proof}
+Soient $\delta_1, \delta_2 \in \Gamma_0$ correspondant à $\theta_1, \theta_2$
+comme ci-dessus, et la composée $\delta = \delta_1 \circ \delta_2$
+dans $\Gamma_0$ correspondant à $\theta$. Il faut montrer que
+$\theta = \theta_1 + \theta_2$. Rappelons
+(Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-action-by-derivations})
+que $\theta_1, \theta_2, \theta$ correspondent aux dérivations
+$D_1, D_2, D : e_0^{-1}\mathcal{O}_{R_0} \to \mathcal{C}_{U_0/U}$
+données par $D_1 = \theta_1 \circ \text{d}_{R_0/U_0}$, et ainsi de suite.
+Il suffit de vérifier que $D = D_1 + D_2$.
+
+\medskip\noindent
+On peut vérifier l'égalité sur les fibres.
+Soit $\overline{u}$ un point géométrique de $U$ et utilisons les anneaux
+locaux $A, B, C$ introduits dans la section \ref{section-local}.
+Aux morphismes $\delta_i$ correspondent des homomorphismes d'anneaux
+$\delta_i : B \to A$. Soit $K \subset A$ l'idéal de carré nul tel que
+$A/K = \mathcal{O}_{U_0, \overline{u}}$.
+Autrement dit, $K$ est la fibre de $\mathcal{C}_{U_0/U}$ en $\overline{u}$.
+La condition $\delta_i \in \Gamma_0$
+signifie exactement que $\delta_i(I) \subset K$.
+La dérivation $D_i$ est simplement l'application $\delta_i - e : B \to A$.
+Comme $B = s(A) \oplus I$, la dérivation $D_i$ est déterminée par
+sa restriction à $I$, laquelle est précisément donnée par
+$\delta_i|_I$. De plus, $D_i$, et donc $\delta_i$, annule $I^2$
+puisque $\delta_i(I) \subset K$ et $K^2 = 0$.
+
+\medskip\noindent
+Pour achever la démonstration, observons que $\delta$ correspond à la
+composée
+$$
+B \to C =
+(B \otimes_{s, A, t} B)^h_{\mathfrak m_B \otimes B + B \otimes \mathfrak m_B}
+\to A
+$$
+où la première flèche est $c$ et la seconde est déterminée
+par la règle
+$b_1 \otimes b_2 \mapsto \delta_2(t(\delta_1(b_1))) \delta_2(b_2)$
+comme il résulte de (\ref{equation-composition}).
+D'après le lemme \ref{lemma-first-order-structure-c},
+on voit qu'un élément $\zeta$ de $I$ est envoyé sur
+$\zeta \otimes 1 + 1 \otimes \zeta$, à des termes d'ordre supérieur près.
+On en conclut que
+$$
+D(\zeta) = (\delta_2 \circ t)\left(D_1(\zeta)\right) + D_2(\zeta)
+$$
+Or, d'après le lemme \ref{lemma-idenity-on-conormal},
+l'action de $\delta_2 \circ t$ sur
+$K = \mathcal{C}_{U_0/U, \overline{u}}$ est l'identité, ce qui
+achève la preuve.
+\end{proof}
+
+
+
+
+
+
+\section{Propriétés des groupoïdes}
+\label{section-technical-lemma}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur les groupoïdes, section \ref{more-groupoids-section-technical-lemma}.
+Il est vivement conseillé au lecteur de commencer par lire cette section.
+
+\medskip\noindent
+Le lemme suivant est l'analogue de
+Compléments sur les groupoïdes, lemme \ref{more-groupoids-lemma-property-invariant}.
+
+\begin{lemma}
+\label{lemma-property-invariant}
+Soit $B \to S$ comme dans la section \ref{section-notation}.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Soit
+$\tau \in \{fppf, \linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic\}$.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques
+qui est $\tau$-locale sur le but
+(Descente sur les espaces,
+définition \ref{spaces-descent-definition-property-morphisms-local}).
+Supposons que $\{s : R \to U\}$ et $\{t : R \to U\}$ soient des recouvrements
+pour la topologie $\tau$. Soit $W \subset U$ le plus grand sous-espace ouvert
+tel que $s^{-1}(W) \to W$ possède la propriété $\mathcal{P}$.
+Alors $W$ est $R$-invariant
+(Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-invariant-open}).
+\end{lemma}
+
+\begin{proof}
+L'existence et les propriétés de l'ouvert $W \subset U$ sont décrites dans
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-largest-open-of-the-base}.
+Dans le
+diagramme (\ref{equation-diagram}),
+soit $W_1 \subset R$ le plus grand sous-schéma ouvert sur lequel le morphisme
+$\text{pr}_1 : R \times_{s, U, t} R \to R$ possède la propriété $\mathcal{P}$.
+Il résulte du lemme précité de
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-largest-open-of-the-base},
+et de l'hypothèse que $\{s : R \to U\}$ et $\{t : R \to U\}$ sont des
+recouvrements pour la topologie $\tau$, que $t^{-1}(W)=W_1=s^{-1}(W)$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-property-G-invariant}
+Soit $B \to S$ comme dans la section \ref{section-notation}.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Soit $G \to U$ son espace algébrique en groupes stabilisateur.
+Soit
+$\tau \in \{fppf, \linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic\}$.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques
+qui est $\tau$-locale sur le but.
+Supposons que $\{s : R \to U\}$ et $\{t : R \to U\}$ soient des recouvrements
+pour la topologie $\tau$. Soit $W \subset U$ le plus grand sous-espace ouvert
+tel que $G_W \to W$ possède la propriété $\mathcal{P}$.
+Alors $W$ est $R$-invariant (voir
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-invariant-open}).
+\end{lemma}
+
+\begin{proof}
+L'existence et les propriétés de l'ouvert $W \subset U$ sont décrites dans
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-largest-open-of-the-base}.
+Le morphisme
+$$
+G \times_{U, t} R \longrightarrow R \times_{s, U} G, \quad
+(g, r) \longmapsto (r, r^{-1} \circ g \circ r)
+$$
+est un isomorphisme d'espaces algébriques au-dessus de $R$ (où $\circ$ désigne
+la composition dans le groupoïde). Ainsi $s^{-1}(W)=t^{-1}(W)$ d'après les
+propriétés de $W$ démontrées dans le lemme précité de
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-largest-open-of-the-base}.
+\end{proof}
+
+
+
+
+\section{Comparaison des fibres}
+\label{section-fibres}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur les groupoïdes, section \ref{more-groupoids-section-fibres}.
+Il est vivement conseillé au lecteur de commencer par lire cette section.
+
+\begin{lemma}
+\label{lemma-two-fibres}
+Soit $B \to S$ comme dans la section \ref{section-notation}.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Soit $K$ un corps et soient $r, r' : \Spec(K) \to R$
+des morphismes tels que $t \circ r = t \circ r' : \Spec(K) \to U$.
+Posons $u = s \circ r$, $u' = s \circ r'$ et notons
+$F_u = \Spec(K) \times_{u, U, s} R$ et
+$F_{u'} = \Spec(K) \times_{u', U, s} R$ les produits fibrés.
+Alors $F_u \cong F_{u'}$ comme espaces algébriques au-dessus de $K$.
+\end{lemma}
+
+\begin{proof}
+Nous utilisons l'existence et les propriétés du
+diagramme (\ref{equation-diagram}).
+Il existe un morphisme $\xi : \Spec(K) \to R \times_{s, U, t} R$
+tel que $\text{pr}_0 \circ \xi = r$ et $c \circ \xi = r'$.
+Soit $\tilde r = \text{pr}_1 \circ \xi : \Spec(K) \to R$.
+En examinant alors les deux carrés inférieurs du
+diagramme (\ref{equation-diagram}),
+on voit que $F_u$ et $F_{u'}$ s'identifient tous deux à l'espace algébrique
+$\Spec(K) \times_{\tilde r, R, \text{pr}_1} (R \times_{s, U, t} R)$.
+\end{proof}
+
+\noindent
+En fait, dans la situation du lemme, les morphismes de paires
+$s : (R, r) \to (U, u)$ et $s : (R, r') \to (U, u')$ sont
+localement isomorphes pour la topologie $\tau$, pourvu que $\{s: R \to U\}$
+soit un recouvrement $\tau$. Nous insérerons ici un énoncé précis au besoin.
+
+
+
+
+
+
+
+
+\section{Restriction des groupoïdes}
+\label{section-restricting-groupoids}
+
+\noindent
+Dans cette section, nous rassemblons plusieurs lemmes sur les
+propriétés des groupoïdes qui se transmettent aux restrictions.
+La plupart se démontrent en considérant le diagramme
+définissant la restriction :
+\begin{equation}
+\label{equation-restriction}
+\vcenter{
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'}&
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d]^g \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r]^g &
+U
+}
+}
+\end{equation}
+Voir
+Groupoïdes dans les espaces, lemme \ref{spaces-groupoids-lemma-restrict-groupoid}.
+
+\begin{lemma}
+\label{lemma-restrict-preserves-type}
+Soit $S$ un schéma. Soit $B$ un espace algébrique au-dessus de $S$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Soit $g : U' \to U$ un morphisme d'espaces algébriques au-dessus de $B$.
+Soit $(U', R', s', t', c')$ la restriction de
+$(U, R, s, t, c)$ par $g$.
+\begin{enumerate}
+\item Si $s, t$ sont localement de type fini et $g$ est localement de type
+fini, alors $s', t'$ sont localement de type fini.
+\item Si $s, t$ sont localement de présentation finie et $g$ est localement de
+présentation finie, alors $s', t'$ sont localement de présentation finie.
+\item Si $s, t$ sont plats et $g$ est plat, alors $s', t'$ sont plats.
+\item Ajouter d'autres cas ici.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La propriété d'être localement de type fini est stable par composition
+et par changement de base arbitraire; voir
+Morphismes d'espaces,
+lemmes \ref{spaces-morphisms-lemma-composition-finite-type} et
+\ref{spaces-morphisms-lemma-base-change-finite-type}.
+Le point (1) résulte donc du diagramme (\ref{equation-restriction}).
+Pour les autres cas, voir
+Morphismes d'espaces,
+lemmes \ref{spaces-morphisms-lemma-composition-finite-presentation},
+\ref{spaces-morphisms-lemma-base-change-finite-presentation},
+\ref{spaces-morphisms-lemma-composition-flat} et
+\ref{spaces-morphisms-lemma-base-change-flat}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Propriétés des groupes sur les corps et des groupoïdes sur les corps}
+\label{section-properties-groupoids-on-fields}
+
+\noindent
+Il est conseillé au lecteur de consulter d'abord les sections correspondantes
+pour les schémas en groupoïdes; voir
+Groupoïdes, section \ref{groupoids-section-properties-group-schemes-field}
+et
+Compléments sur les groupoïdes,
+section \ref{more-groupoids-section-properties-groupoids-on-fields}.
+
+\begin{situation}
+\label{situation-group-over-field}
+Ici, $S$ est un schéma, $k$ est un corps au-dessus de $S$, et
+$(G, m)$ est un espace algébrique en groupes au-dessus de $\Spec(k)$.
+\end{situation}
+
+\begin{situation}
+\label{situation-groupoid-on-field}
+Ici, $S$ est un schéma, $B$ est un espace algébrique, et
+$(U, R, s, t, c)$ est un groupoïde en espaces algébriques au-dessus de $B$
+avec $U = \Spec(k)$ pour un certain corps $k$.
+\end{situation}
+
+\noindent
+Remarquons que, dans la
+situation \ref{situation-group-over-field},
+on obtient un groupoïde en espaces algébriques
+\begin{equation}
+\label{equation-groupoid-from-group}
+(\Spec(k), G, p, p, m)
+\end{equation}
+où $p : G \to \Spec(k)$ est le morphisme structural de $G$; voir
+Groupoïdes dans les espaces, lemme \ref{spaces-groupoids-lemma-groupoid-from-action}.
+On se trouve alors dans la
+situation \ref{situation-groupoid-on-field}.
+Nous l'utiliserons sans autre mention dans la suite de cette section.
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-open-multiplication}
+Dans la
+situation \ref{situation-groupoid-on-field},
+le morphisme de composition $c : R \times_{s, U, t} R \to R$ est plat et
+universellement ouvert.
+Dans la
+situation \ref{situation-group-over-field},
+la loi de groupe $m : G \times_k G \to G$ est plate et
+universellement ouverte.
+\end{lemma}
+
+\begin{proof}
+La composition est isomorphe à la projection
+$\text{pr}_1 : R \times_{t, U, t} R \to R$ d'après le
+diagramme (\ref{equation-pull}).
+La projection est plate, comme changement de base du morphisme plat $t$,
+et ouverte d'après
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-space-over-field-universally-open}.
+La seconde assertion résulte aussitôt de la première, puisque
+$m$ correspond à $c$ dans (\ref{equation-groupoid-from-group}).
+\end{proof}
+
+\noindent
+Remarquons que le lemme suivant s'applique notamment lorsqu'on travaille
+avec des espaces algébriques quasi-séparés ou localement séparés
+(Espaces décents, lemme \ref{decent-spaces-lemma-locally-separated-decent}).
+
+\begin{lemma}
+\label{lemma-group-scheme-over-field-separated}
+Dans la situation \ref{situation-groupoid-on-field},
+supposons que $R$ soit un espace décent. Alors $R$ est un espace algébrique séparé.
+Dans la situation \ref{situation-group-over-field}, supposons que
+$G$ soit un espace algébrique décent. Alors $G$ est un espace algébrique séparé.
+\end{lemma}
+
+\begin{proof}
+Commençons par démontrer la seconde assertion. D'après Groupoïdes dans les espaces,
+lemme \ref{spaces-groupoids-lemma-group-scheme-separated},
+il faut montrer que $e : S \to G$ est une immersion fermée.
+Cela résulte d'Espaces décents, lemme
+\ref{decent-spaces-lemma-finite-residue-field-extension-finite}.
+
+\medskip\noindent
+Démontrons ensuite la première assertion. On peut pour cela remplacer $B$ par $S$.
+D'après le paragraphe précédent, le schéma en groupes stabilisateur $G \to U$ est séparé. D'après
+Groupoïdes dans les espaces, lemme \ref{spaces-groupoids-lemma-diagonal},
+le morphisme $j = (t, s) : R \to U \times_S U$ est séparé.
+Comme $U$ est le spectre d'un corps, le schéma
+$U \times_S U$ est affine (par la construction des produits fibrés dans
+Schémas, section \ref{schemes-section-fibre-products}).
+Par conséquent, $R$ est séparé; voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-separated-over-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restrict-groupoid-on-field}
+Dans la
+situation \ref{situation-groupoid-on-field}.
+Soit $k'/k$ une extension de corps, $U' = \Spec(k')$,
+et soit $(U', R', s', t', c')$ la restriction de
+$(U, R, s, t, c)$ par $U' \to U$. Dans le diagramme de définition
+$$
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'} \ar@{..>}[rd] &
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d] \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r] &
+U
+}
+$$
+tous les morphismes sont surjectifs, plats et universellement ouverts.
+La flèche pointillée $R' \to R$ est de plus affine.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $U' \to U$ est $\Spec(k') \to \Spec(k)$;
+il est donc affine, surjectif et plat. Les morphismes $s, t : R \to U$
+et le morphisme $U' \to U$ sont universellement ouverts d'après
+Morphismes, lemme \ref{morphisms-lemma-scheme-over-field-universally-open}.
+Comme $R$ est non vide et $U$ est le spectre d'un corps, les morphismes
+$s, t : R \to U$ sont surjectifs et plats. On conclut alors en utilisant
+Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-base-change-surjective},
+\ref{spaces-morphisms-lemma-composition-surjective},
+\ref{spaces-morphisms-lemma-composition-open},
+\ref{spaces-morphisms-lemma-base-change-affine},
+\ref{spaces-morphisms-lemma-composition-affine},
+\ref{spaces-morphisms-lemma-base-change-flat} et
+\ref{spaces-morphisms-lemma-composition-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-explain-points}
+Dans la
+situation \ref{situation-groupoid-on-field}.
+Pour tout point $r \in |R|$, il existe
+\begin{enumerate}
+\item une extension de corps $k'/k$ avec $k'$ algébriquement clos,
+\item un point $r' : \Spec(k') \to R'$, où
+$(U', R', s', t', c')$ est la restriction de $(U, R, s, t, c)$
+par $\Spec(k') \to \Spec(k)$,
+\end{enumerate}
+tels que
+\begin{enumerate}
+\item le point $r'$ s'envoie sur $r$ par le morphisme $R' \to R$, et
+\item les applications
+$s' \circ r', t' \circ r' : \Spec(k') \to \Spec(k')$
+sont des automorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Représentons $r$ par un morphisme $r : \Spec(K) \to R$ pour un certain
+corps $K$. Pour démontrer le lemme, il faut trouver un corps
+algébriquement clos $k'$ et un diagramme commutatif
+$$
+\xymatrix{
+k' & k' \ar[l]^1 & \\
+k' \ar[u]^\tau & K \ar[lu]^\sigma & k \ar[l]^-s \ar[lu]_i \\
+& k \ar[lu]^i \ar[u]_t
+}
+$$
+où $s, t : k \to K$ sont les homomorphismes de corps provenant de
+$s \circ r$ et $t \circ r$. La démonstration de
+Compléments sur les groupoïdes,
+lemme \ref{more-groupoids-lemma-groupoid-on-field-explain-points},
+explique comment construire un tel diagramme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-move-point}
+Dans la
+situation \ref{situation-groupoid-on-field}.
+Si $r : \Spec(k) \to R$ est un morphisme tel que
+$s \circ r, t \circ r$ soient des automorphismes de $\Spec(k)$, alors l'application
+$$
+R \longrightarrow R, \quad
+x \longmapsto c(r, x)
+$$
+est un automorphisme $R \to R$ qui envoie $e$ sur $r$.
+\end{lemma}
+
+\begin{proof}
+La démonstration est identique à celle de
+Compléments sur les groupoïdes,
+lemme \ref{more-groupoids-lemma-groupoid-on-field-move-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-geometrically-irreducible}
+Dans la
+situation \ref{situation-groupoid-on-field},
+l'espace algébrique $R$ est géométriquement unibranche. Dans la
+situation \ref{situation-group-over-field},
+l'espace algébrique $G$ est géométriquement unibranche.
+\end{lemma}
+
+\begin{proof}
+Soit $r \in |R|$. Il faut montrer que $R$ est géométriquement unibranche
+en $r$. En combinant le
+lemme \ref{lemma-restrict-groupoid-on-field}
+avec
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-descend-unibranch},
+on voit qu'il suffit de le démontrer lorsque $k$ est algébriquement clos
+et que $r$ provient d'un morphisme $r : \Spec(k) \to R$ tel que
+$s \circ r$ et $t \circ r$
+soient des automorphismes de $\Spec(k)$. D'après le
+lemme \ref{lemma-groupoid-on-field-move-point},
+on se ramène au cas où $r = e$ est l'identité de $R$ et où $k$ est
+algébriquement clos.
+
+\medskip\noindent
+Supposons que $r = e$ et que $k$ soit algébriquement clos. Soit
+$A = \mathcal{O}_{R, e}$ l'anneau local étale de
+$R$ en $e$, et soit
+$C = \mathcal{O}_{R \times_{s, U, t} R, (e, e)}$
+l'anneau local étale de $R \times_{s, U, t} R$ en $(e, e)$.
+D'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-minimal-primes-tensor-strictly-henselian}
+les idéaux premiers minimaux $\mathfrak q$ de $C$ correspondent $1$ à $1$
+aux couples de premiers minimaux $\mathfrak p, \mathfrak p' \subset A$.
+D'autre part, la loi de composition induit un homomorphisme plat d'anneaux
+$$
+\xymatrix{
+A \ar[r]_{c^\sharp} & C & \mathfrak q \\
+& A \otimes_{s^\sharp, k, t^\sharp} A \ar[u] &
+\mathfrak p \otimes A + A \otimes \mathfrak p' \ar@{|}[u]
+}
+$$
+Remarquons que $(c^\sharp)^{-1}(\mathfrak q)$ contient à la fois $\mathfrak p$ et
+$\mathfrak p'$, puisque les diagrammes
+$$
+\xymatrix{
+A \ar[r]_{c^\sharp} & C \\
+A \otimes_{s^\sharp, k} k \ar[u] &
+A \otimes_{s^\sharp, k, t^\sharp} A \ar[l]_{1 \otimes e^\sharp} \ar[u]
+}
+\quad\quad
+\xymatrix{
+A \ar[r]_{c^\sharp} & C \\
+k \otimes_{k, t^\sharp} A \ar[u] &
+A \otimes_{s^\sharp, k, t^\sharp} A \ar[l]_{e^\sharp \otimes 1} \ar[u]
+}
+$$
+sont commutatifs d'après (\ref{equation-diagram}).
+Comme $c^\sharp$ est plat (puisque $c$ est un morphisme plat d'après le
+lemme \ref{lemma-groupoid-on-field-open-multiplication}),
+on voit que $(c^\sharp)^{-1}(\mathfrak q)$ est un idéal premier minimal
+de $A$. Ainsi $\mathfrak p = (c^\sharp)^{-1}(\mathfrak q) = \mathfrak p'$.
+\end{proof}
+
+\noindent
+Dans le lemme suivant, nous utilisons la dimension des espaces algébriques
+(en un point), telle qu'elle est définie dans
+Propriétés des espaces, section \ref{spaces-properties-section-dimension}.
+Nous utilisons aussi la dimension de l'anneau local définie dans
+Propriétés des espaces, section
+\ref{spaces-properties-section-dimension-local-ring},
+ainsi que le degré de transcendance des points; voir
+Morphismes d'espaces, section \ref{spaces-morphisms-section-relative-dimension}.
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-locally-finite-type-dimension}
+Dans la
+situation \ref{situation-groupoid-on-field},
+supposons $s, t$ localement de type fini.
+Pour tout $r \in |R|$,
+\begin{enumerate}
+\item $\dim(R) = \dim_r(R)$,
+\item le degré de transcendance de $r$ sur $\Spec(k)$
+par $s$ est égal au degré de transcendance de $r$ sur $\Spec(k)$
+par $t$, et
+\item si le degré de transcendance mentionné en (2) est $0$, alors
+$\dim(R) = \dim(\mathcal{O}_{R, \overline{r}})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $r \in |R|$. Notons $\text{trdeg}(r/_{\!\! s}k)$ le degré de
+transcendance de $r$ sur $\Spec(k)$ par $s$. Choisissons un morphisme étale
+$\varphi : V \to R$, où $V$ est un schéma et $v \in V$ s'envoie sur $r$.
+Les définitions rappelées avant le lemme donnent
+$$
+\dim_r(R) = \dim_v(V) =
+\dim(\mathcal{O}_{V, v}) + \text{trdeg}_{s(k)}(\kappa(v)) =
+\dim(\mathcal{O}_{R, \overline{r}}) + \text{trdeg}(r/_{\!\! s}k)
+$$
+et de même pour $t$ (la deuxième égalité provenant de
+Morphismes, lemme \ref{morphisms-lemma-dimension-fibre-at-a-point}).
+On voit donc que $\text{trdeg}(r/_{\!\! s}k) = \text{trdeg}(r/_{\!\! t}k)$,
+c'est-à-dire que (2) est vérifié.
+
+\medskip\noindent
+Soit $k'/k$ une extension de corps. Remarquons que la restriction $R'$
+de $R$ à $\Spec(k')$ (voir le
+lemme \ref{lemma-restrict-groupoid-on-field})
+s'obtient à partir de $R$ par deux changements de base par des morphismes de corps. Ainsi,
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-dimension-fibre-after-base-change},
+montre que la dimension de $R$ en un point reste inchangée par cette opération.
+Pour démontrer (1), on peut donc supposer, d'après le
+lemme \ref{lemma-groupoid-on-field-explain-points},
+que $r$ est représenté par un morphisme $r : \Spec(k) \to R$ tel
+que $s \circ r$ et $t \circ r$ soient tous deux des automorphismes de $\Spec(k)$.
+Il existe alors un automorphisme $R \to R$ qui envoie $r$ sur $e$
+(lemme \ref{lemma-groupoid-on-field-move-point}).
+On voit donc que $\dim_r(R) = \dim_e(R)$ pour tout $r$. Par définition, cela
+signifie que $\dim_r(R) = \dim(R)$.
+
+\medskip\noindent
+Le point (3) est une conséquence formelle des résultats obtenus dans la
+discussion précédente.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-over-field-locally-finite-type-dimension}
+Dans la
+situation \ref{situation-group-over-field},
+supposons $G$ localement de type fini.
+Pour tout $g \in |G|$,
+\begin{enumerate}
+\item $\dim(G) = \dim_g(G)$,
+\item si le degré de transcendance de $g$ sur $k$ est $0$, alors
+$\dim(G) = \dim(\mathcal{O}_{G, \overline{g}})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du
+lemme \ref{lemma-groupoid-on-field-locally-finite-type-dimension}
+par (\ref{equation-groupoid-from-group}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-dimension-equal-stabilizer}
+Dans la
+situation \ref{situation-groupoid-on-field},
+supposons $s, t$ localement de type fini.
+Soit
+$G = \Spec(k)
+\times_{\Delta, \Spec(k) \times_B \Spec(k), t \times s} R$
+l'espace algébrique en groupes stabilisateur.
+Alors $\dim(R) = \dim(G)$.
+\end{lemma}
+
+\begin{proof}
+Comme $G$ et $R$ sont équidimensionnels (voir les
+lemmes \ref{lemma-groupoid-on-field-locally-finite-type-dimension} et
+\ref{lemma-group-over-field-locally-finite-type-dimension})
+il suffit de montrer que $\dim_e(R) = \dim_e(G)$. Soit $V$ un schéma affine,
+soit $v \in V$, et soit $\varphi : V \to R$ un morphisme étale de schémas
+tel que $\varphi(v) = e$. Remarquons que $V$ est noethérien, car
+$s \circ \varphi$ est localement de type fini comme composée de morphismes
+localement de type fini et parce que $V$ est quasi-compact (utiliser
+Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-composition-finite-type},
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation}, et
+\ref{spaces-morphisms-lemma-finite-presentation-finite-type}
+et
+Morphismes, lemme \ref{morphisms-lemma-finite-type-noetherian}).
+Ainsi, $V$ est localement connexe (voir
+Propriétés, lemme \ref{properties-lemma-Noetherian-topology},
+et
+Topologie, lemme \ref{topology-lemma-locally-Noetherian-locally-connected}).
+On peut donc remplacer $V$ par la composante connexe contenant $v$ (elle
+reste affine, étant un sous-schéma ouvert et fermé de $V$).
+Posons $T = V_{red}$, la réduction de $V$. Considérons les deux
+morphismes $a, b : T \to \Spec(k)$ donnés par
+$a = s \circ \varphi|_T$ et $b = t \circ \varphi|_T$. Remarquons que
+$a, b$ induisent le même homomorphisme de corps $k \to \kappa(v)$, car $\varphi(v) = e$ !
+Soit $k_a \subset \Gamma(T, \mathcal{O}_T)$ la clôture intégrale de
+$a^\sharp(k) \subset \Gamma(T, \mathcal{O}_T)$. De même, soit
+$k_b \subset \Gamma(T, \mathcal{O}_T)$ la clôture intégrale de
+$b^\sharp(k) \subset \Gamma(T, \mathcal{O}_T)$. D'après
+Variétés, proposition \ref{varieties-proposition-unique-base-field},
+on a $k_a = k_b$. On obtient ainsi le diagramme commutatif suivant :
+$$
+\xymatrix{
+k \ar[rd]^a \ar[rrrd] \\
+& k_a = k_b \ar[r] & \Gamma(T, \mathcal{O}_T) \ar[r] & \kappa(v) \\
+k \ar[ru]_b \ar[rrru]
+}
+$$
+Comme on l'a vu ci-dessus, les longues flèches sont égales.
+Puisque $k_a = k_b \to \kappa(v)$ est injectif, on en conclut que
+les deux morphismes $a$ et $b$ sont égaux. Ainsi $T \to R$ se factorise par $G$.
+Il s'ensuit que $R_{red} = G_{red}$ dans un voisinage ouvert de $e$,
+ce qui implique bien que $\dim_e(R) = \dim_e(G)$.
+\end{proof}
+
+
+
+
+
+
+\section{Espaces algébriques en groupes sur les corps}
+\label{section-group-algebraic-spaces-over-fields}
+
+\noindent
+Il existe un espace algébrique en groupes non séparé sur un corps,
+à savoir $\mathbf{G}_a/\mathbf{Z}$ sur un corps de caractéristique zéro; voir
+Exemples, section \ref{examples-section-non-separated-group-space}.
+En fait, tout schéma en groupes sur un corps est séparé
+(lemme \ref{lemma-group-scheme-over-field-separated});
+ainsi, tout espace algébrique en groupes non séparé sur un corps
+n'est pas représentable. D'autre part, un espace algébrique en
+groupes sur un corps est séparé dès qu'il est décent; voir le
+lemme \ref{lemma-group-scheme-over-field-separated}.
+Dans cette section, nous allons montrer qu'un
+espace algébrique en groupes séparé sur un corps
+est représentable, c'est-à-dire qu'il est un schéma.
+
+\begin{lemma}
+\label{lemma-group-space-scheme-over-kbar}
+Soit $k$ un corps de clôture algébrique $\overline{k}$.
+Soit $G$ un espace algébrique en groupes sur $k$
+qui est séparé\footnote{Il suffit de supposer $G$ décent,
+par exemple localement séparé ou quasi-séparé d'après le
+lemme \ref{lemma-group-scheme-over-field-separated}.}.
+Alors $G_{\overline{k}}$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+D'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-when-scheme-after-base-change}
+il suffit de montrer que $G_K$ est un schéma pour une certaine extension de corps
+$K/k$. Notons $G_K' \subset G_K$ le lieu schématique
+de $G_K$, comme dans Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-subscheme}.
+D'après Propriétés des espaces, proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}
+on voit que $G_K' \subset G_K$ est un ouvert dense, en particulier non vide.
+Choisissons un schéma $U$ et un morphisme étale surjectif $U \to G$. D'après
+Variétés, lemme \ref{varieties-lemma-make-Jacobson},
+si $K$ est un corps algébriquement clos de degré de transcendance assez
+grand, alors $U_K$ est un schéma de Jacobson et
+tout point fermé de $U_K$ est $K$-rationnel.
+Ainsi $G_K'$ possède un point $K$-rationnel et il suffit
+de montrer que tout point $K$-rationnel de $G_K$ appartient à $G_K'$.
+Si $g \in G_K(K)$ est un point $K$-rationnel et $g' \in G_K'(K)$
+un point $K$-rationnel du lieu schématique, alors on voit que
+$g$ appartient à l'image de $G_K'$ par l'automorphisme
+$$
+G_K \longrightarrow G_K,\quad
+h \longmapsto g(g')^{-1}h
+$$
+de $G_K$. Comme les automorphismes de l'espace algébrique $G_K$ préservent
+$G_K'$, on conclut que $g \in G_K'$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-space-scheme-locally-finite-type-over-k}
+Soit $k$ un corps. Soit $G$ un espace algébrique en groupes sur $k$.
+Si $G$ est séparé et localement de type fini sur $k$,
+alors $G$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du
+lemme \ref{lemma-group-space-scheme-over-kbar},
+de Groupoïdes, lemme \ref{groupoids-lemma-points-in-affine}, et
+d'Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-scheme-over-algebraic-closure-enough-affines}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-group-space-scheme-over-field}
+Soit $k$ un corps. Soit $G$ un espace algébrique en groupes sur $k$.
+Si $G$ est séparé, alors $G$ est un schéma.
+\end{proposition}
+
+\begin{proof}
+Ce lemme généralise le
+lemme \ref{lemma-group-space-scheme-locally-finite-type-over-k}
+(qui couvre tous les cas utiles en pratique).
+La démonstration est très semblable à celle d'
+Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-scheme-over-algebraic-closure-enough-affines}
+utilisé dans la démonstration du
+lemme \ref{lemma-group-space-scheme-locally-finite-type-over-k};
+nous invitons le lecteur à commencer par lire cette démonstration.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-group-space-scheme-over-kbar}, le changement
+de base $G_{\overline{k}}$ est un schéma.
+Soit $K/k$ une extension purement transcendante de très grand
+degré de transcendance. D'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-scheme-after-purely-transcendental-base-change}
+il suffit de montrer que $G_K$ est un schéma.
+Soit $K^{perf}$ la clôture parfaite de $K$. D'après
+Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-scheme-after-purely-inseparable-base-change}
+il suffit de montrer que $G_{K^{perf}}$ est un schéma.
+Soit $K \subset K^{perf} \subset \overline{K}$, cette dernière étant la clôture algébrique
+de $K$. On peut choisir un plongement
+$\overline{k} \to \overline{K}$ au-dessus de $k$, de sorte que $G_{\overline{K}}$
+soit le changement de base du schéma $G_{\overline{k}}$ par $\overline{k} \to \overline{K}$. D'après
+Variétés, lemme \ref{varieties-lemma-make-Jacobson},
+on voit que $G_{\overline{K}}$ est un schéma de Jacobson dont tous les
+points fermés ont pour corps résiduel $\overline{K}$.
+
+\medskip\noindent
+Comme $G_{\overline{K}} \to G_{K^{perf}}$ est surjectif, il suffit de
+montrer que l'image $g \in |G_{K^{perf}}|$ d'un point fermé arbitraire de
+$G_{\overline{K}}$ appartient au lieu schématique de $G_K$.
+En particulier, on peut représenter $g$ par un morphisme
+$g : \Spec(L) \to G_{K^{perf}}$, où $L/K^{perf}$ est algébrique séparable
+(on peut par exemple prendre $L = \overline{K}$). Le schéma
+\begin{align*}
+T & = \Spec(L) \times_{G_{K^{perf}}} G_{\overline{K}} \\
+& =
+\Spec(L) \times_{\Spec(K^{perf})} \Spec(\overline{K}) \\
+& =
+\Spec(L \otimes_{K^{perf}} \overline{K})
+\end{align*}
+est donc le spectre d'une $\overline{K}$-algèbre qui est une limite inductive
+filtrante d'algèbres, produits finis de copies de $\overline{K}$.
+Ainsi, d'après Groupoïdes, lemme \ref{groupoids-lemma-compact-set-in-affine},
+on peut trouver un ouvert affine $W \subset G_{\overline{K}}$ contenant
+l'image de $g_{\overline{K}} : T \to G_{\overline{K}}$.
+
+\medskip\noindent
+Choisissons un ouvert quasi-compact $V \subset G_{K^{perf}}$ contenant
+l'image de $W$. D'après Espaces sur les corps,
+lemme \ref{spaces-over-fields-lemma-when-scheme-after-base-change},
+on voit que $V_{K'}$ est un schéma pour une certaine extension finie $K'/K^{perf}$.
+En agrandissant $K'$, on peut supposer qu'il existe un ouvert affine
+$U' \subset V_{K'} \subset G_{K'}$ dont le changement de base à $\overline{K}$
+redonne $W$ (utiliser que $V_{\overline{K}}$ est la limite des schémas
+$V_{K''}$ pour $K' \subset K'' \subset \overline{K}$ fini, ainsi que
+Limites, lemmes \ref{limits-lemma-descend-opens} et
+\ref{limits-lemma-limit-affine}). On peut supposer
+que $K'/K^{perf}$ est une extension galoisienne (prendre la clôture normale,
+Corps, lemme \ref{fields-lemma-normal-closure}, et utiliser
+que $K^{perf}$ est parfait). Posons $H = \text{Gal}(K'/K^{perf})$.
+Par construction, le sous-schéma fermé $H$-invariant
+$\Spec(L) \times_{G_{K^{perf}}} G_{K'}$ est contenu dans $U'$.
+D'après
+Espaces sur les corps, lemmes
+\ref{spaces-over-fields-lemma-base-change-by-Galois} et
+\ref{spaces-over-fields-lemma-when-quotient-scheme-at-point}, on conclut.
+\end{proof}
+
+
+
+
+
+\section{Absence de courbes rationnelles sur les groupes}
+\label{section-no-rational-curves}
+
+\noindent
+Dans cette section, nous montrons qu'il n'existe pas de morphisme non constant
+de $\mathbf{P}^1$ vers un espace algébrique en groupes localement de type
+fini sur un corps.
+
+\begin{lemma}
+\label{lemma-factor-through-over-open}
+Soit $S$ un schéma. Soit $B$ un espace algébrique au-dessus de $S$.
+Soient $f : X \to Y$ et $g : X \to Z$ des morphismes d'espaces
+algébriques au-dessus de $B$. Supposons que
+\begin{enumerate}
+\item $Y \to B$ soit séparé,
+\item $g$ soit surjectif, plat et localement de présentation finie,
+\item il existe un ouvert schématiquement dense $V \subset Z$
+tel que $f|_{g^{-1}(V)} : g^{-1}(V) \to Y$ se factorise par $V$.
+\end{enumerate}
+Alors $f$ se factorise par $g$.
+\end{lemma}
+
+\begin{proof}
+Posons $R = X \times_Z X$. D'après (2), on a $Z = X/R$ comme faisceaux.
+De plus, (2) implique que l'image inverse de $V$ dans $R$ est
+schématiquement dense dans $R$ (Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-flat-morphism-scheme-theoretically-dense-open}).
+On voit alors que les deux composées
+$R \to X \to Y$ sont égales d'après Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-equality-of-morphisms}.
+Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-power-P1}
+\begin{slogan}
+Un morphisme d'un produit non vide de droites projectives sur un corps vers
+un espace algébrique séparé de type fini sur un corps se factorise en un
+morphisme fini après projection sur un produit de droites projectives.
+\end{slogan}
+Soit $k$ un corps. Soit $n \geq 1$ et soit $(\mathbf{P}^1_k)^n$
+le produit de $n$ copies au-dessus de $\Spec(k)$. Soit
+$f : (\mathbf{P}^1_k)^n \to Z$ un morphisme d'espaces algébriques sur $k$.
+Si $Z$ est séparé et de type fini sur $k$, alors $f$ se factorise sous la forme
+$$
+(\mathbf{P}^1_k)^n \xrightarrow{projection}
+(\mathbf{P}^1_k)^m \xrightarrow{finite} Z.
+$$
+\end{lemma}
+
+\begin{proof}
+On peut supposer $k$ algébriquement clos (détails omis); nous ne le faisons
+que pour pouvoir raisonner avec des points rationnels, mais le lecteur peut
+contourner cet artifice s'il le souhaite. Dans la preuve, les produits sont pris sur $k$.
+L'espace algébrique en groupes des automorphismes de $(\mathbf{P}^1_k)^n$ contient
+$G = (\text{GL}_{2, k})^n$. Si $C \subset (\mathbf{P}^1_k)^n$ est une
+sous-variété fermée (donc en particulier irréductible sur $k$) envoyée
+sur un point, on peut appliquer
+Compléments sur les morphismes d'espaces,
+lemme \ref{spaces-more-morphisms-lemma-flat-proper-family-cannot-collapse-fibre}
+au morphisme
+$$
+G \times C \to G \times Z,\quad (g, c) \mapsto (g, f(g \cdot c))
+$$
+au-dessus de $G$. Ainsi, $g(C)$ est envoyé sur un point pour $g \in G(k)$
+appartenant à un ouvert de Zariski $U \subset G$. Supposons que
+$x = (x_1, \ldots, x_n)$, $y = (y_1, \ldots, y_n)$
+soient des points à valeurs dans $k$ de $(\mathbf{P}^1_k)^n$. Soit
+$I \subset \{1, \ldots, n\}$ l'ensemble des indices $i$
+tels que $x_i = y_i$. Alors
+$$
+\{g(x) \mid g(y) = y,\ g \in U(k)\}
+$$
+est dense pour la topologie de Zariski dans la fibre de la projection
+$\pi_I : (\mathbf{P}^1_k)^n \to \prod_{i \in I} \mathbf{P}^1_k$
+(exercice). Ainsi, si $x, y \in C(k)$ sont distincts, on conclut
+que $f$ envoie sur un seul point toute la fibre de $\pi_I$ contenant $x, y$.
+De plus, l'orbite de $C$ sous $U(k)$ rencontre un ensemble ouvert de Zariski
+de fibres de $\pi_I$. D'après le lemme \ref{lemma-factor-through-over-open},
+le morphisme $f$ se factorise par $\pi_I$.
+Après avoir répété ce procédé un nombre fini de fois, on atteint
+le stade où toutes les fibres de $f$ au-dessus des points de $k$ sont finies.
+Dans ce cas, $f$ est fini d'après
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-proper-finite-fibre-finite-in-neighbourhood}
+et le fait que les points de $k$ sont denses dans $Z$
+(Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-smooth-separable-closed-points-dense}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-no-nonconstant-morphism-from-P1-to-group}
+\begin{slogan}
+Pas de courbes rationnelles complètes sur les groupes.
+\end{slogan}
+Soit $k$ un corps. Soit $G$ un espace algébrique en groupes séparé,
+localement de type fini sur $k$. Il n'existe aucun
+morphisme non constant $f : \mathbf{P}^1_k \to G$ au-dessus de $\Spec(k)$.
+\end{lemma}
+
+\begin{proof}
+Supposons $f$ non constant. Considérons les morphismes
+$$
+\mathbf{P}^1_k \times_{\Spec(k)} \ldots \times_{\Spec(k)} \mathbf{P}^1_k
+\longrightarrow G,
+\quad (t_1, \ldots, t_n) \longmapsto f(t_1) \ldots f(t_n)
+$$
+où l'on utilise au membre de droite la multiplication du groupe.
+D'après le lemme \ref{lemma-quotient-power-P1} et l'hypothèse que $f$
+est non constant, ce morphisme est fini sur son image.
+Ainsi $\dim(G) \geq n$ pour tout $n$, ce qui est impossible d'après le
+lemme \ref{lemma-group-over-field-locally-finite-type-dimension}
+et le fait que $G$ est localement de type fini sur $k$.
+\end{proof}
+
+
+
+
+\section{La partie finie d'un morphisme}
+\label{section-finite}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Pour un espace algébrique ou un schéma $T$ au-dessus de $S$, considérons les couples
+$(a, Z)$ où
+\begin{equation}
+\label{equation-finite-conditions}
+\begin{matrix}
+a : T \to Y\text{ est un morphisme au-dessus de }S, \\
+Z \subset T \times_Y X\text{ est un sous-espace ouvert} \\
+\text{tel que }\text{pr}_0|_Z : Z \to T\text{ soit fini.}
+\end{matrix}
+\end{equation}
+Supposons que $h : T' \to T$ soit un morphisme d'espaces algébriques au-dessus de $S$
+et que $(a, Z)$ soit un couple comme dans (\ref{equation-finite-conditions}) au-dessus de $T$. Posons
+$a' = a \circ h$ et $Z' = (h \times \text{id}_X)^{-1}(Z) = T' \times_T Z$.
+Alors $(a', Z')$ est un couple comme dans (\ref{equation-finite-conditions}) au-dessus de $T'$.
+Cela résulte de ce que les morphismes finis sont préservés par changement de base; voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-integral}.
+On obtient ainsi un foncteur
+\begin{equation}
+\label{equation-finite}
+\begin{matrix}
+(X/Y)_{fin} : &
+(\Sch/S)^{opp} &
+\longrightarrow &
+\textit{Sets} \\
+& T & \longmapsto &
+\{(a, Z)\text{ comme ci-dessus}\}
+\end{matrix}
+\end{equation}
+Pour les applications, nous nous intéressons surtout à ce foncteur $(X/Y)_{fin}$
+lorsque $f$ est séparé et localement de type fini. Pour se faire une idée
+de la construction, consulter la
+remarque \ref{remark-finite-quasi-finite-separated-morphism-schemes}.
+
+\begin{lemma}
+\label{lemma-finite-sheaf}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Alors
+\begin{enumerate}
+\item Le préfaisceau $(X/Y)_{fin}$ satisfait la condition de faisceau pour
+la topologie fppf.
+\item Si $T$ est un espace algébrique au-dessus de $S$, il existe une
+bijection canonique
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, (X/Y)_{fin})
+=
+\{(a, Z)\text{ satisfaisant \ref{equation-finite-conditions}}\}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un espace algébrique au-dessus de $S$.
+Soit $\{T_i \to T\}$ un recouvrement fppf (par des espaces algébriques).
+Soient $s_i = (a_i, Z_i)$ des couples au-dessus de $T_i$
+satisfaisant \ref{equation-finite-conditions}
+tels que $s_i|_{T_i \times_T T_j} = s_j|_{T_i \times_T T_j}$.
+Premièrement, cela implique notamment que $a_i$ et $a_j$ définissent le même
+morphisme $T_i \times_T T_j \to Y$. D'après
+Descente sur les espaces,
+lemme \ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms},
+on en déduit qu'il existe un unique morphisme $a : T \to Y$
+tel que $a_i$ soit la composée $T_i \to T \to Y$.
+Deuxièmement, cela implique que les $Z_i \subset T_i \times_Y X$ sont des sous-espaces
+ouverts dont les images inverses dans $(T_i \times_T T_j) \times_Y X$ sont égales.
+Comme $\{T_i \times_Y X \to T \times_Y X\}$ est un recouvrement fppf,
+on en déduit qu'il existe un unique sous-espace ouvert $Z \subset T \times_Y X$
+dont la restriction à $T_i$ est $Z_i$; voir
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-open-fpqc-covering}.
+Nous affirmons que la projection $Z \to T$ est finie.
+Cela résulte de ce que la finitude est locale pour la topologie fpqc; voir
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-descending-property-finite}.
+
+\medskip\noindent
+Remarquons que le résultat du paragraphe précédent implique notamment (1).
+
+\medskip\noindent
+Soit $T$ un espace algébrique au-dessus de $S$. Pour démontrer (2), nous allons
+construire des applications réciproques entre les ensembles affichés. Dans la
+suite, le mot « couple » désigne un couple satisfaisant les
+conditions \ref{equation-finite-conditions}.
+
+\medskip\noindent
+Soit $v : T \to (X/Y)_{fin}$ une transformation naturelle.
+Choisissons un schéma $U$ et un morphisme étale surjectif $p : U \to T$.
+Alors $v(p) \in (X/Y)_{fin}(U)$ correspond à un couple $(a_U, Z_U)$
+au-dessus de $U$. Soit $R = U \times_T U$, de projections $t, s : R \to U$.
+Comme $v$ est une transformation de foncteurs, les images inverses de
+$(a_U, Z_U)$ par $s$ et $t$ sont égales. Puisque $\{U \to T\}$ est un
+recouvrement fppf, on peut donc appliquer le résultat du premier paragraphe et
+en déduire qu'il existe un unique couple $(a, Z)$ au-dessus de $T$.
+
+\medskip\noindent
+Réciproquement, soit $(a, Z)$ un couple au-dessus de $T$.
+Soient $U \to T$, $R = U \times_T U$ et $t, s : R \to U$ comme
+ci-dessus. La restriction $(a, Z)|_U$ donne alors naissance à une
+transformation de foncteurs $v : h_U \to (X/Y)_{fin}$ par le
+lemme de Yoneda
+(Catégories, lemme \ref{categories-lemma-yoneda}).
+Comme les deux images inverses $s^*(a, Z)|_U$ et $t^*(a, Z)|_U$
+sont égales, on voit que $v$ coégalise les deux applications
+$h_t, h_s : h_R \to h_U$. Puisque $T = U/R$ est le faisceau quotient fppf d'après
+Espaces, lemme \ref{spaces-lemma-space-presentation},
+et que $(X/Y)_{fin}$ est un faisceau fppf d'après (1), on conclut
+que $v$ se factorise par une application $T \to (X/Y)_{fin}$.
+
+\medskip\noindent
+Nous omettons la vérification que les deux constructions ci-dessus sont
+réciproques.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-open}
+Soit $S$ un schéma. Considérons un diagramme commutatif
+$$
+\xymatrix{
+X' \ar[rr]_j \ar[rd] & & X \ar[ld] \\
+& Y
+}
+$$
+d'espaces algébriques au-dessus de $S$. Si $j$ est une immersion ouverte, alors
+il existe une application injective canonique de faisceaux
+$j : (X'/Y)_{fin} \to (X/Y)_{fin}$.
+\end{lemma}
+
+\begin{proof}
+Si $(a, Z)$ est un couple au-dessus de $T$ pour $X'/Y$, alors
+$(a, j(Z))$ est un couple au-dessus de $T$ pour $X/Y$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-lives-on-locally-quasi-finite-part}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$ qui est
+localement de type fini.
+Soit $X' \subset X$ le plus grand sous-espace ouvert sur lequel $f$ est
+localement quasi-fini; voir
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part}.
+Alors $(X/Y)_{fin} = (X'/Y)_{fin}$.
+\end{lemma}
+
+\begin{proof}
+Le lemme \ref{lemma-finite-open}
+fournit une application injective $(X'/Y)_{fin} \to (X/Y)_{fin}$.
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part},
+assure que la formation de $X'$ commute au changement de base.
+Il suffit donc de montrer que, si
+$Z \subset X$ est un sous-espace ouvert tel que $f|_Z : Z \to Y$ soit fini,
+alors $Z \subset X'$. Cela est vrai puisqu'un morphisme fini
+est localement quasi-fini; voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-finite-quasi-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-separated}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Soit $T$ un espace algébrique au-dessus de $S$, et soit $(a, Z)$
+un couple comme dans \ref{equation-finite-conditions}.
+Si $f$ est séparé, alors $Z$ est fermé dans $T \times_Y X$.
+\end{lemma}
+
+\begin{proof}
+Un morphisme fini d'espaces algébriques est universellement fermé d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-finite-proper}.
+Comme $f$ est séparé, le morphisme $T \times_Y X \to T$ l'est aussi; voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-separated}.
+Le caractère fermé de $Z$ résulte donc de
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-universally-closed-permanence}.
+\end{proof}
+
+\begin{remark}
+\label{remark-finite-monoid}
+Soit $f : X \to Y$ un morphisme séparé d'espaces algébriques.
+Le faisceau $(X/Y)_{fin}$ est muni d'une application naturelle
+$(X/Y)_{fin} \to Y$ qui envoie le couple $(a, Z) \in (X/Y)_{fin}(T)$
+sur l'élément $a \in Y(T)$. On peut utiliser le
+lemme \ref{lemma-finite-separated}
+pour définir les opérations
+$$
+\star_i : (X/Y)_{fin} \times_Y (X/Y)_{fin} \longrightarrow (X/Y)_{fin}
+$$
+par les règles
+\begin{align*}
+\star_1 : ((a, Z_1), (a, Z_2)) & \longmapsto (a, Z_1 \cup Z_2) \\
+\star_2 : ((a, Z_1), (a, Z_2)) & \longmapsto (a, Z_1 \cap Z_2) \\
+\star_3 : ((a, Z_1), (a, Z_2)) & \longmapsto (a, Z_1 \setminus Z_2) \\
+\star_4 : ((a, Z_1), (a, Z_2)) & \longmapsto (a, Z_2 \setminus Z_1).
+\end{align*}
+Cette construction fonctionne parce que $Z_1 \cap Z_2$ est à la fois ouvert et fermé
+dans $Z_1$ et $Z_2$ (ce qui implique aussi que $Z_1 \cup Z_2$ est
+la réunion disjointe des trois autres morceaux).
+On peut donc considérer $(X/Y)_{fin}$ comme une $\mathbf{F}_2$-algèbre
+(sans unité) au-dessus de $Y$, dont la multiplication est donnée par
+$ss' = \star_2(s, s')$ et l'addition par
+$$
+s + s' = \star_1(\star_3(s, s'), \star_4(s, s'))
+$$
+ce qui revient à prendre la différence symétrique.
+Remarquons que, dans ce faisceau d'algèbres, $0 = (1_Y, \emptyset)$
+et que l'on a bien $s + s = 0$ pour toute section locale $s$.
+Si $f : X \to Y$ est fini, cette algèbre possède une unité, à savoir
+$1 = (1_Y, X)$, et $\star_3(s, s') = s(1 + s')$, tandis que
+$\star_4(s, s') = (1 + s)s'$.
+\end{remark}
+
+\begin{remark}
+\label{remark-finite-quasi-finite-separated-morphism-schemes}
+Soit $f : X \to Y$ un morphisme de schémas séparé et localement
+quasi-fini. Dans ce cas, le faisceau $(X/Y)_{fin}$
+est étroitement lié au faisceau $f_!\mathbf{F}_2$
+(insérer ici une référence future) sur $Y_\etale$.
+En effet, si $V \to Y$ est étale et $s \in \Gamma(V, f_!\mathbf{F}_2)$,
+alors $s \in \Gamma(V \times_Y X, \mathbf{F}_2)$ est une section
+de support propre $Z = \text{Supp}(s)$ sur $V$. Comme $f$ est
+aussi localement quasi-fini, la projection $Z \to V$ est en fait
+finie. Comme le support d'une section d'un faisceau abélien constant est ouvert,
+on voit que le couple $(V \to Y, \text{Supp}(s))$ satisfait
+\ref{equation-finite-conditions}.
+En fait, $f_!\mathbf{F}_2 \cong (X/Y)_{fin}|_{Y_\etale}$
+dans ce cas, ce qui explique aussi la structure de $\mathbf{F}_2$-algèbre
+introduite dans la remarque \ref{remark-finite-monoid}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-finite-diagonal}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+La diagonale de $(X/Y)_{fin} \to Y$
+$$
+(X/Y)_{fin} \longrightarrow (X/Y)_{fin} \times_Y (X/Y)_{fin}
+$$
+est représentable (par des schémas) et est une immersion ouverte; la diagonale
+« absolue »
+$$
+(X/Y)_{fin} \longrightarrow (X/Y)_{fin} \times (X/Y)_{fin}
+$$
+est représentable (par des schémas).
+\end{lemma}
+
+\begin{proof}
+La seconde assertion résulte de la première, car la diagonale absolue
+est la composée de la diagonale relative et d'un changement de base
+de la diagonale de $Y$ (qui est représentable par des schémas); voir
+Espaces, section \ref{spaces-section-representable}.
+Pour démontrer la première assertion, il faut établir ce qui suit.
+Étant donnés un schéma $T$ et deux couples $(a, Z_1)$ et $(a, Z_2)$ au-dessus de $T$
+ayant la même première composante et
+satisfaisant \ref{equation-finite-conditions},
+il existe un sous-schéma ouvert $V \subset T$ possédant la propriété suivante :
+pour tout morphisme de schémas $h : T' \to T$, on a
+$$
+h(T') \subset V \Leftrightarrow
+\Big(T' \times_T Z_1 = T' \times_T Z_2
+\text{ comme sous-espaces de }T' \times_Y X\Big)
+$$
+Construisons $V$. Remarquons que $Z_1 \cap Z_2$ est ouvert dans $Z_1$
+et dans $Z_2$. Comme $\text{pr}_0|_{Z_i} : Z_i \to T$ est fini,
+donc propre (voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-finite-proper}),
+on voit que
+$$
+E =
+\text{pr}_0|_{Z_1}\left(Z_1 \setminus Z_1 \cap Z_2)\right)
+\cup
+\text{pr}_0|_{Z_2}\left(Z_2 \setminus Z_1 \cap Z_2)\right)
+$$
+est fermé dans $T$. Il est alors clair que $V = T \setminus E$ convient.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-criterion-etale}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Supposons que $U$ soit un schéma, que $U \to Y$ soit un morphisme étale et que
+$Z \subset U \times_Y X$ soit un sous-espace ouvert fini sur $U$.
+Alors le morphisme induit $U \to (X/Y)_{fin}$ est étale.
+\end{lemma}
+
+\begin{proof}
+Cela résulte formellement de la description de la diagonale dans le
+lemme \ref{lemma-finite-diagonal},
+mais nous en donnons les détails, car il s'agit d'une étape importante dans le
+développement de la théorie. Il faut vérifier que, pour tout schéma $T$ au-dessus de $S$ et tout morphisme
+$T \to (X/Y)_{fin}$, la projection
+$$
+T \times_{(X/Y)_{fin}} U \longrightarrow T
+$$
+est étale. Remarquons que
+$$
+T \times_{(X/Y)_{fin}} U
+=
+(X/Y)_{fin} \times_{((X/Y)_{fin} \times_Y (X/Y)_{fin})} (T \times_Y U)
+$$
+En appliquant le résultat du
+lemme \ref{lemma-finite-diagonal},
+on voit que $T \times_{(X/Y)_{fin}} U$ est représenté par un sous-schéma ouvert de
+$T \times_Y U$. Comme la projection $T \times_Y U \to T$ est étale d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-etale},
+on conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-pullback}
+Soit $S$ un schéma.
+Soit
+$$
+\xymatrix{
+X' \ar[d] \ar[r] & X \ar[d] \\
+Y' \ar[r] & Y
+}
+$$
+un carré de produits fibrés d'espaces algébriques au-dessus de $S$. Alors
+$$
+\xymatrix{
+(X'/Y')_{fin} \ar[d] \ar[r] & (X/Y)_{fin} \ar[d] \\
+Y' \ar[r] & Y
+}
+$$
+est un carré de produits fibrés de faisceaux sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Il résulte immédiatement des définitions que
+le faisceau $(X'/Y')_{fin}$ est égal au faisceau
+$Y' \times_Y (X/Y)_{fin}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-surjective-etale-cover}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Si $f$ est séparé et localement quasi-fini, il existe un
+schéma $U$ étale sur $Y$ et un morphisme étale surjectif
+$U \to (X/Y)_{fin}$ au-dessus de $Y$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que l'assertion a un sens d'après le résultat du
+lemme \ref{lemma-finite-diagonal}
+sur la diagonale de $(X/Y)_{fin}$; voir
+Espaces, lemme \ref{spaces-lemma-representable-diagonal}.
+Soit $V$ un schéma et soit $V \to Y$ un morphisme étale surjectif. D'après le
+lemme \ref{lemma-finite-pullback},
+le morphisme $(V \times_Y X/V)_{fin} \to (X/Y)_{fin}$ est
+un changement de base de l'application $V \to Y$ et est donc surjectif et étale; voir
+Espaces,
+lemme \ref{spaces-lemma-base-change-representable-transformations-property}.
+Il suffit donc de démontrer le lemme pour $(V \times_Y X/V)_{fin}$.
+(On utilise ici implicitement que la composée de transformations de foncteurs
+représentables, surjectives et étales est encore représentable, surjective et
+étale; voir
+Espaces, lemmes \ref{spaces-lemma-composition-representable-transformations} et
+\ref{spaces-lemma-composition-representable-transformations-property}, ainsi que
+Morphismes, lemmes \ref{morphisms-lemma-composition-surjective} et
+\ref{morphisms-lemma-composition-etale}.)
+Remarquons que les propriétés d'être séparé et localement quasi-fini
+sont préservées par changement de base; voir
+Morphismes d'espaces,
+lemmes \ref{spaces-morphisms-lemma-base-change-separated} et
+\ref{spaces-morphisms-lemma-base-change-quasi-finite}.
+Ainsi $V \times_Y X \to V$ est lui aussi séparé et localement quasi-fini,
+et, d'après
+Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}
+on voit que $V \times_Y X$ est également un schéma.
+On peut donc supposer que $f : X \to Y$ est un morphisme de schémas
+séparé et localement quasi-fini.
+
+\medskip\noindent
+Choisissons un point $y \in Y$. Choisissons des points $x_1, \ldots, x_n \in X$
+au-dessus de $y$. Choisissons un voisinage étale $a : (U, u) \to (Y, y)$ et une
+décomposition
+$$
+U \times_S X =
+W \amalg
+\ \coprod\nolimits_{i = 1, \ldots, n}
+\ \coprod\nolimits_{j = 1, \ldots, m_j}
+V_{i, j}
+$$
+comme dans
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-etale-splits-off-quasi-finite-part-technical-variant}.
+Choisissons un sous-ensemble quelconque
+$$
+I \subset \{(i, j) \mid 1 \leq i \leq n, \ 1 \leq j \leq m_i\}.
+$$
+Ces choix donnent un couple $(a, Z)$ avec
+$Z = \bigcup_{(i, j) \in I} V_{i, j}$
+qui satisfait les conditions \ref{equation-finite-conditions}. Autrement dit,
+on obtient un morphisme $U \to (X/Y)_{fin}$. La construction de ce morphisme
+dépend de tous les choix effectués ci-dessus, de sorte qu'il faudrait écrire
+$$
+U(y, n, x_1, \ldots, x_n, a, I) \longrightarrow (X/Y)_{fin}
+$$
+Ce morphisme est étale d'après le lemme \ref{lemma-finite-criterion-etale}.
+
+\medskip\noindent
+Affirmation : leur réunion disjointe est surjective sur $(X/Y)_{fin}$.
+Il est clair que, si l'affirmation est vraie, le lemme en résulte.
+
+\medskip\noindent
+Pour établir la surjectivité, il faut montrer ce qui suit (voir
+Espaces, remarque \ref{spaces-remark-warning}) : étant donnés un schéma $T$ au-dessus de
+$S$, un point $t \in T$ et une application $T \to (X/Y)_{fin}$, on peut trouver une donnée
+$(y, n, x_1, \ldots, x_n, a, I)$ comme ci-dessus telle que
+$t$ appartienne à l'image de la projection
+$$
+U(y, n, x_1, \ldots, x_n, a, I) \times_{(X/Y)_{fin}} T \longrightarrow T.
+$$
+Pour le démontrer, on peut clairement remplacer $T$ par
+$\Spec(\overline{\kappa(t)})$ et
+$T \to (X/Y)_{fin}$ par la composée
+$\Spec(\overline{\kappa(t)}) \to T \to (X/Y)_{fin}$.
+Autrement dit, on peut supposer que $T$ est
+le spectre d'un corps algébriquement clos.
+
+\medskip\noindent
+Soit $T = \Spec(k)$ le spectre d'un corps
+algébriquement clos $k$. Le morphisme $T \to (X/Y)_{fin}$ est donné par un couple
+$(T \to Y, Z)$ satisfaisant les conditions \ref{equation-finite-conditions}.
+Voici un diagramme :
+$$
+\xymatrix{
+& Z \ar[d] \ar[r] & X \ar[d] \\
+\Spec(k) \ar@{=}[r] & T \ar[r] & Y
+}
+$$
+Soit $y \in Y$ le point image de $T \to Y$.
+Comme $Z$ est fini sur $k$, il possède un nombre fini de points.
+Il existe donc des points $x_1, \ldots, x_n \in X$ en nombre fini
+tels que l'image de $Z$ dans $X$ soit contenue dans $\{x_1, \ldots, x_n\}$.
+Choisissons $a : (U, u) \to (Y, y)$ adapté à $y$ et $x_1, \ldots, x_n$ comme
+ci-dessus; on obtient le diagramme
+$$
+\xymatrix{
+W \amalg
+\ \coprod\nolimits_{i = 1, \ldots, n}
+\ \coprod\nolimits_{j = 1, \ldots, m_j}
+V_{i, j} \ar[d] \ar[r] &
+X \ar[d] \\
+U \ar[r] & Y.
+}
+$$
+Comme $k$ est algébriquement clos et que
+$\kappa(y) \subset \kappa(u)$ est une extension finie séparable,
+on peut factoriser le morphisme
+$T = \Spec(k) \to Y$ par le morphisme
+$u = \Spec(\kappa(u)) \to \Spec(\kappa(y)) = y \subset Y$.
+Avec ce choix, on obtient le diagramme commutatif :
+$$
+\xymatrix{
+Z \ar[d] \ar[r] &
+W \amalg
+\ \coprod\nolimits_{i = 1, \ldots, n}
+\ \coprod\nolimits_{j = 1, \ldots, m_j}
+V_{i, j} \ar[d] \ar[r] &
+X \ar[d] \\
+\Spec(k) \ar[r] &
+U \ar[r] & Y
+}
+$$
+Nous savons que l'image de la flèche supérieure gauche est contenue dans
+$\coprod V_{i, j}$. Rappelons aussi que $Z$ est un sous-schéma ouvert
+de $\Spec(k) \times_Y X$ par définition de $(X/Y)_{fin}$
+et que le carré de droite est un carré de produits fibrés.
+On voit donc que
+$$
+Z \subset
+\coprod\nolimits_{i = 1, \ldots, n}\ \coprod\nolimits_{j = 1, \ldots, m_j}
+\Spec(k) \times_U V_{i, j}
+$$
+est un sous-schéma ouvert. Par construction (voir
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-etale-splits-off-quasi-finite-part-technical-variant})
+chaque $V_{i, j}$ possède un unique point $v_{i, j}$ au-dessus de $u$
+dont l'extension de corps résiduels
+$\kappa(v_{i, j})/\kappa(u)$ est purement inséparable. Ainsi, chaque
+schéma $\Spec(k) \times_U V_{i, j}$ possède exactement un
+point. On voit donc que
+$$
+Z = \coprod\nolimits_{(i, j) \in I} \Spec(k) \times_U V_{i, j}
+$$
+pour un unique sous-ensemble
+$I \subset \{(i, j) \mid 1 \leq i \leq n, \ 1 \leq j \leq m_i\}$.
+En explicitant les définitions, cela montre que
+$$
+U(y, n, x_1, \ldots, x_n, a, I) \times_{(X/Y)_{fin}} T
+$$
+avec le $I$ trouvé ci-dessus est non vide, comme voulu.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-finite-algebraic-space}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$ qui
+est séparé et localement de type fini. Alors $(X/Y)_{fin}$
+est un espace algébrique. De plus, le morphisme
+$(X/Y)_{fin} \to Y$ est étale.
+\end{proposition}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-finite-lives-on-locally-quasi-finite-part},
+on peut remplacer $X$ par le sous-schéma ouvert localement quasi-fini
+sur $Y$. On peut donc supposer $f$ séparé et localement quasi-fini.
+Vérifions les trois conditions de
+Espaces, définition \ref{spaces-definition-algebraic-space}.
+La condition (1) résulte du
+lemme \ref{lemma-finite-sheaf}.
+La condition (2) résulte du
+lemme \ref{lemma-finite-diagonal}.
+Enfin, la condition (3) résulte du
+lemme \ref{lemma-finite-surjective-etale-cover}.
+Ainsi $(X/Y)_{fin}$ est un espace algébrique.
+De plus, ce lemme montre qu'il existe un
+diagramme commutatif
+$$
+\xymatrix{
+U \ar[rr] \ar[rd] & & (X/Y)_{fin} \ar[ld] \\
+& Y
+}
+$$
+dont la flèche horizontale est surjective et étale et la flèche sud-est
+est étale. D'après
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-etale-local},
+cela implique que la flèche sud-ouest est elle aussi étale.
+\end{proof}
+
+\begin{remark}
+\label{remark-warning}
+L'hypothèse que $f$ soit séparé ne peut être supprimée dans la
+proposition \ref{proposition-finite-algebraic-space}.
+Un exemple consiste à prendre pour $X$ la droite affine à origine dédoublée; voir
+Schémas, exemple \ref{schemes-example-affine-space-zero-doubled},
+pour $Y = \mathbf{A}^1_k$ la droite affine, et pour $X \to Y$ l'application évidente.
+Rappelons qu'au-dessus de $0 \in Y$, il y a deux points $0_1$ et $0_2$
+dans $X$. Ainsi, $(X/Y)_{fin}$ possède quatre points au-dessus de $0$, à savoir
+$\emptyset, \{0_1\}, \{0_2\}, \{0_1, 0_2\}$.
+De ces quatre points, seuls trois peuvent se relever en un sous-schéma ouvert
+de $U \times_Y X$ fini sur $U$ lorsque $U \to Y$ est étale,
+à savoir $\emptyset, \{0_1\}, \{0_2\}$. Cela montre que $(X/Y)_{fin}$,
+s'il est représentable par un espace algébrique, n'est pas étale sur $Y$.
+Des arguments analogues montrent que $(X/Y)_{fin}$ n'est réellement pas un espace
+algébrique. Les détails sont omis.
+\end{remark}
+
+\begin{remark}
+\label{remark-not-scheme}
+Soit $Y = \mathbf{A}^1_{\mathbf{R}}$ la droite affine sur le corps des nombres
+réels, et soit $X = \Spec(\mathbf{C})$ envoyé sur le point
+$\mathbf{R}$-rationnel $0$ de $Y$. Dans ce cas, le morphisme
+$f : X \to Y$ est fini, mais $(X/Y)_{fin}$ n'est pas
+un schéma. En effet, on peut montrer que, dans ce cas, l'espace
+algébrique $(X/Y)_{fin}$ est isomorphe à l'espace algébrique d'
+Espaces, exemple \ref{spaces-example-non-representable-descent},
+associé à l'extension $\mathbf{R} \subset \mathbf{C}$.
+Il est donc réellement nécessaire de sortir de la catégorie des schémas
+pour représenter le faisceau $(X/Y)_{fin}$, même lorsque $f$
+est un morphisme fini.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-finite-separated-flat-locally-finite-presentation}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$ qui
+est séparé, plat et localement de présentation finie.
+Dans ce cas,
+\begin{enumerate}
+\item $(X/Y)_{fin} \to Y$ est séparé, représentable et étale, et
+\item si $Y$ est un schéma, alors $(X/Y)_{fin}$ est (représenté par) un schéma.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Comme $f$ est en particulier séparé et localement de type fini (voir
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-finite-presentation-finite-type}),
+on voit que $(X/Y)_{fin}$ est un espace algébrique d'après la
+proposition \ref{proposition-finite-algebraic-space}.
+Pour montrer que $(X/Y)_{fin} \to Y$ est séparé, il faut établir
+ce qui suit : étant donnés un schéma $T$ et deux couples $(a, Z_1)$ et $(a, Z_2)$
+au-dessus de $T$
+ayant la même première composante et satisfaisant \ref{equation-finite-conditions},
+il existe un sous-schéma fermé $V \subset T$ possédant la propriété suivante :
+pour tout morphisme de schémas $h : T' \to T$, on a
+$$
+h \text{ se factorise par } V \Leftrightarrow
+\Big(T' \times_T Z_1 = T' \times_T Z_2
+\text{ comme sous-espaces de }T' \times_Y X\Big)
+$$
+Dans la démonstration du
+lemme \ref{lemma-finite-diagonal},
+on a vu que $V = T \setminus E$ est un sous-schéma ouvert de $T$
+de complémentaire fermé
+$$
+E =
+\text{pr}_0|_{Z_1}\left(Z_1 \setminus Z_1 \cap Z_2)\right)
+\cup
+\text{pr}_0|_{Z_2}\left(Z_2 \setminus Z_1 \cap Z_2)\right).
+$$
+Il suffit donc de montrer que $E$ est aussi ouvert. D'après le
+lemme \ref{lemma-finite-separated},
+on voit que $Z_1$ et $Z_2$ sont fermés dans $T \times_Y X$. Ainsi,
+$Z_1 \setminus Z_1 \cap Z_2$ est ouvert dans $Z_1$. Comme $f$ est plat et
+localement de présentation finie, $\text{pr}_0|_{Z_1}$ l'est aussi.
+Cela est vrai parce que $Z_1$ est un sous-espace ouvert du changement de base
+$T \times_Y X$, et d'après
+Morphismes d'espaces,
+lemmes \ref{spaces-morphisms-lemma-base-change-finite-presentation} et
+lemme \ref{spaces-morphisms-lemma-base-change-flat}.
+Ainsi $\text{pr}_0|_{Z_1}$ est ouvert; voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-fppf-open}.
+Par conséquent, $\text{pr}_0|_{Z_1}\left(Z_1 \setminus Z_1 \cap Z_2)\right)$ est
+ouvert et il s'ensuit que $E$ est ouvert, comme voulu.
+
+\medskip\noindent
+Nous avons déjà vu que $(X/Y)_{fin} \to Y$ est étale; voir la
+proposition \ref{proposition-finite-algebraic-space}.
+Nous savons donc qu'il est localement quasi-fini (voir
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-etale-locally-quasi-finite})
+et séparé, donc représentable d'après
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}.
+La dernière assertion est claire (on peut, si l'on veut, utiliser
+Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}).
+\end{proof}
+
+\noindent
+Variante : soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Soit $\sigma : Y \to X$ une section de $f$.
+Pour un espace algébrique ou un schéma $T$ au-dessus de $S$, considérons les couples
+$(a, Z)$ où
+\begin{equation}
+\label{equation-finite-conditions-variant}
+\begin{matrix}
+a : T \to Y\text{ est un morphisme au-dessus de }S, \\
+Z \subset T \times_Y X\text{ est un sous-espace ouvert} \\
+\text{tel que }\text{pr}_0|_Z : Z \to T\text{ soit fini et} \\
+(1_T, \sigma \circ a) : T \to T \times_Y X\text{ se factorise par }Z.
+\end{matrix}
+\end{equation}
+Nous noterons $(X/Y, \sigma)_{fin}$ le sous-foncteur de $(X/Y)_{fin}$
+qui paramètre ces couples.
+
+\begin{lemma}
+\label{lemma-finite-plus-section}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Soit $\sigma : Y \to X$ une section de $f$. Considérons la
+transformation de foncteurs
+$$
+t : (X/Y, \sigma)_{fin} \longrightarrow (X/Y)_{fin}.
+$$
+définie ci-dessus. Alors
+\begin{enumerate}
+\item $t$ est représentable par des immersions ouvertes,
+\item si $f$ est séparé, alors $t$ est représentable par des immersions
+ouvertes et fermées,
+\item si $(X/Y)_{fin}$ est un espace algébrique, alors
+$(X/Y, \sigma)_{fin}$ est un espace algébrique et
+un sous-espace ouvert de $(X/Y)_{fin}$, et
+\item si $(X/Y)_{fin}$ est un schéma, alors $(X/Y, \sigma)_{fin}$ en est un
+sous-schéma ouvert.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : étant donné un couple $(a, Z)$ au-dessus de $T$ comme dans
+(\ref{equation-finite-conditions}), l'image inverse de
+$Z$ par $(1_T, \sigma \circ a) : T \to T \times_Y X$ est le sous-schéma ouvert
+de $T$ recherché.
+\end{proof}
+
+
+
+
+
+\section{Collections finies de flèches}
+\label{section-finite-set-arrows}
+
+\noindent
+Soit $\mathcal{C}$ un groupoïde, voir
+Catégories, définition \ref{categories-definition-groupoid}.
+Comme expliqué dans
+Groupoïdes, section \ref{groupoids-section-groupoids},
+cela correspond à un septuple $(\text{Ob}, \text{Arrows}, s, t, c, e, i)$.
+
+\medskip\noindent
+À partir de ces données, nous pouvons construire un autre groupoïde
+$\mathcal{C}_{fin}$ comme suit :
+\begin{enumerate}
+\item Un objet de $\mathcal{C}_{fin}$ consiste en une partie finie
+$Z \subset \text{Arrows}$ possédant les propriétés suivantes :
+\begin{enumerate}
+\item $s(Z) = \{u\}$ est un singleton, et
+\item $e(u) \in Z$.
+\end{enumerate}
+\item Un morphisme de $\mathcal{C}_{fin}$ consiste en un couple
+$(Z, z)$, où $Z$ est un objet de $\mathcal{C}_{fin}$ et
+$z \in Z$.
+\item La source de $(Z, z)$ est $Z$.
+\item Le but de $(Z, z)$ est $t(Z, z) = \{z' \circ z^{-1}; z' \in Z\}$.
+\item Étant donnés $(Z_1, z_1)$ et $(Z_2, z_2)$ tels que
+$s(Z_1, z_1) = t(Z_2, z_2)$, la composée $(Z_1, z_1) \circ (Z_2, z_2)$ est $(Z_2, z_1 \circ z_2)$.
+\end{enumerate}
+Nous omettons la vérification que ceci définit un groupoïde.
+Graphiquement, un objet de $\mathcal{C}_{fin}$ peut se représenter
+par un diagramme
+$$
+\xymatrix{
+& \bullet \\
+\bullet \ar@(ul, dl)[]_e \ar[ru] \ar[r] \ar[rd] & \bullet \\
+& \bullet
+}
+$$
+Pour construire un morphisme de $\mathcal{C}_{fin}$, on choisit l'une des
+flèches et l'on précompose les autres flèches par son inverse. Par exemple,
+si l'on choisit la flèche horizontale du milieu, le but est représenté par
+$$
+\xymatrix{
+& \bullet \\
+\bullet & \bullet \ar[l] \ar[u] \ar@(dr, ur)[]_e \ar[d] \\
+& \bullet
+}
+$$
+Notons que les cardinalités de $s(Z, z)$ et de $t(Z, z)$ sont égales.
+Ainsi, $\mathcal{C}_{fin}$ est en fait une réunion disjointe dénombrable
+de groupoïdes.
+
+
+
+
+\section{La partie finie d'un groupoïde}
+\label{section-finite-part-groupoid}
+
+\noindent
+Dans cette section, nous allons utiliser l'idée expliquée dans
+la section \ref{section-finite-set-arrows}
+pour prendre la partie finie d'un groupoïde en espaces algébriques.
+
+\medskip\noindent
+Soit $S$ un schéma.
+Soit $B$ un espace algébrique au-dessus de $S$.
+Soit $(U, R, s, t, c, e, i)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Hypothèse : les morphismes $s, t$ sont séparés et localement de type fini.
+Cette notation et cette hypothèse resteront fixées dans toute la section.
+
+\medskip\noindent
+Notons $R_s$ l'espace algébrique $R$ considéré comme un
+espace algébrique au-dessus de $U$ par l'intermédiaire de $s$. Posons
+$U' = (R_s/U, e)_{fin}$. Puisque $s$ est séparé et localement
+de type fini, la
+proposition \ref{proposition-finite-algebraic-space} et le
+lemme \ref{lemma-finite-plus-section}
+montrent que $U'$ est un espace algébrique muni d'un morphisme \'etale
+$g : U' \to U$. De plus, d'après le
+lemme \ref{lemma-finite-sheaf},
+il existe un sous-espace ouvert universel
+$Z_{univ} \subset R \times_{s, U, g} U'$, fini au-dessus de $U'$,
+tel que $(1_{U'}, e \circ g) : U' \to R \times_{s, U, g} U'$
+se factorise par $Z_{univ}$. En outre, d'après le
+lemme \ref{lemma-finite-separated},
+le sous-espace ouvert $Z_{univ}$ est aussi fermé dans
+$R \times_{s, U, g} U'$. Voici la situation obtenue :
+$$
+\xymatrix{
+Z_{univ} \ar[d] \ar[rd] & \\
+R \times_{s, U, g} U' \ar[d] \ar[r] & U' \ar[d]^g \\
+R \ar[r]^s & U
+}
+$$
+Soit $T$ un schéma au-dessus de $B$. On voit qu'un point de
+$Z_{univ}$ à valeurs dans $T$ peut être considéré comme un triplet
+$(u, Z, z)$ où
+\begin{enumerate}
+\item $u : T \to U$ est un point de $U$ à valeurs dans $T$,
+\item $Z \subset R \times_{s, U, u} T$ est un sous-espace ouvert et fermé,
+fini au-dessus de $T$, par lequel $(e \circ u, 1_T)$ se factorise, et
+\item $z : T \to R$ est un point de $R$ à valeurs dans $T$ tel que
+$s \circ z = u$ et tel que $(z, 1_T)$ se factorise par $Z$.
+\end{enumerate}
+Cela étant dit, la discussion de la
+section \ref{section-finite-set-arrows}
+montre moralement que l'on peut munir $(Z_{univ}, U')$ d'une structure de
+groupoïde en espaces algébriques au-dessus de $B$. Pour nous en assurer,
+définissons un à un les morphismes $s', t', c', e', i'$ du point de vue
+fonctoriel. (Nous invitons le lecteur à ne pas lire ce qui suit avant d'avoir
+lu et compris la construction simple de la
+section \ref{section-finite-set-arrows}.)
+
+\medskip\noindent
+Le morphisme $s' : Z_{univ} \to U'$ correspond à la règle
+$$
+s' : (u, Z, z) \mapsto (u, Z).
+$$
+Le morphisme $t' : Z_{univ} \to U'$ est donné par la règle
+$$
+t' : (u, Z, z) \mapsto (t \circ z, c(Z, i \circ z)).
+$$
+Le terme $c(Z, i \circ z)$
+a un sens, car l'application
+$c(-, i \circ z) : R \times_{s, U, u} T \to R \times_{s, U, t \circ z} T$
+est un isomorphisme d'inverse $c(-, z)$.
+Le morphisme $e' : U' \to Z_{univ}$ est donné par la règle
+$$
+e' : (u, Z) \mapsto (u, Z, (e \circ u, 1_T)).
+$$
+Notons que ceci a un sens en vertu de la condition imposant que
+$(e \circ u, 1_T)$ se factorise par $Z$.
+Le morphisme $i' : Z_{univ} \to Z_{univ}$ est donné par la règle
+$$
+i' : (u, Z, z) \mapsto (t \circ z, c(Z, i \circ z), i \circ z).
+$$
+Enfin, la composition est définie par la règle
+$$
+c' : ((u_1, Z_1, z_1), (u_2, Z_2, z_2)) \mapsto (u_2, Z_2, z_1 \circ z_2).
+$$
+Nous omettons la vérification que les axiomes d'un groupoïde en espaces
+algébriques sont satisfaits par $(U', Z_{univ}, s', t', c', e', i')$.
+
+\medskip\noindent
+Enfin, il existe un morphisme canonique de groupoïdes
+$$
+(U', Z_{univ}, s', t', c', e', i')
+\longrightarrow
+(U, R, s, t, c, e, i)
+$$
+En effet, le morphisme $U' \to U$ est le morphisme $g : U' \to U$,
+qui est défini par la règle $(u, Z) \mapsto u$. Le morphisme
+$Z_{univ} \to R$ est défini par la règle $(u, Z, z) \mapsto z$.
+Ceci achève la construction. Résumons les résultats obtenus.
+
+\begin{lemma}
+\label{lemma-finite-part-groupoid}
+Soit $S$ un schéma.
+Soit $B$ un espace algébrique au-dessus de $S$.
+Soit $(U, R, s, t, c, e, i)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Supposons que les morphismes $s, t$ soient séparés et localement de type fini.
+Il existe un morphisme canonique
+$$
+(U', Z_{univ}, s', t', c', e', i')
+\longrightarrow
+(U, R, s, t, c, e, i)
+$$
+de groupoïdes en espaces algébriques au-dessus de $B$, où
+\begin{enumerate}
+\item $g : U' \to U$ s'identifie à $(R_s/U, e)_{fin} \to U$, et
+\item $Z_{univ} \subset R \times_{s, U, g} U'$ est le sous-espace
+ouvert (et fermé) universel, fini au-dessus de $U'$, qui contient le
+changement de base de l'unité $e$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Voir la discussion ci-dessus.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Localisation \'etale des schémas en groupoïdes}
+\label{section-etale-localize}
+
+\noindent
+Dans cette section, nous démontrons des résultats analogues à
+\cite[Proposition 4.2]{K-M}. Nous cherchons à être un peu plus généraux et
+à éviter l'emploi des schémas de Hilbert en utilisant plutôt la partie finie
+d'un morphisme. Le but est de « scinder » un groupoïde en espaces algébriques
+au-dessus d'un point après localisation \'etale. Voici la définition
+(très proche de \cite[définition 4.1]{K-M}).
+
+\begin{definition}
+\label{definition-split-at-point}
+Soit $S$ un schéma. Soit $B$ un espace algébrique au-dessus de $S$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $B$.
+Soit $u \in |U|$ un point.
+\begin{enumerate}
+\item On dit que $R$ est {\it fortement scindé au-dessus de $u$} s'il existe
+un sous-espace ouvert $P \subset R$ tel que
+\begin{enumerate}
+\item $(U, P, s|_P, t|_P, c|_{P \times_{s, U, t} P})$ est un
+groupoïde en espaces algébriques au-dessus de $B$,
+\item $s|_P$, $t|_P$ sont finis, et
+\item $\{r \in |R| : s(r) = u, t(r) = u\} \subset |P|$.
+\end{enumerate}
+Le choix d'un tel $P$ sera appelé un
+{\it scindage fort de $R$ au-dessus de $u$}.
+\item On dit que $R$ est {\it scindé au-dessus de $u$} s'il existe un
+sous-espace ouvert $P \subset R$ tel que
+\begin{enumerate}
+\item $(U, P, s|_P, t|_P, c|_{P \times_{s, U, t} P})$ est un
+groupoïde en espaces algébriques au-dessus de $B$,
+\item $s|_P$, $t|_P$ sont finis, et
+\item $\{g \in |G| : g\text{ est au-dessus de }u\} \subset |P|$, où
+$G \to U$ est le stabilisateur.
+\end{enumerate}
+Le choix d'un tel $P$ sera appelé un
+{\it scindage de $R$ au-dessus de $u$}.
+\item On dit que $R$ est {\it quasi-scindé au-dessus de $u$} s'il existe
+un sous-espace ouvert $P \subset R$ tel que
+\begin{enumerate}
+\item $(U, P, s|_P, t|_P, c|_{P \times_{s, U, t} P})$ est un
+groupoïde en espaces algébriques au-dessus de $B$,
+\item $s|_P$, $t|_P$ sont finis, et
+\item $e(u) \in |P|$\footnote{Cette condition découle de (a).}.
+\end{enumerate}
+Le choix d'un tel $P$ sera appelé un {\it quasi-scindage de $R$ au-dessus de $u$}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Notons la similitude entre les conditions imposées à $P$ et celles imposées
+aux couples dans (\ref{equation-finite-conditions}). En particulier, si
+$s, t$ sont séparés, alors $P$ est aussi fermé dans $R$ (voir le
+lemme \ref{lemma-finite-separated}).
+
+\medskip\noindent
+Supposons donné un groupoïde en espaces algébriques
+$(U, R, s, t, c)$ au-dessus de $B$ et un point $u \in |U|$.
+Puisque le but est de scinder le groupoïde après localisation \'etale,
+on peut tout aussi bien remplacer $U$ par un schéma affine (nous voulons dire
+que cela est sans conséquence pour toute application éventuelle).
+En outre, les hypothèses supplémentaires que nous devrons
+imposer feront de $R$ un schéma, au moins dans un voisinage
+de $\{r \in |R| : s(r) = u, t(r) = u\}$ ou de $e(u)$. C'est pourquoi
+nous partons d'un schéma en groupoïdes comme décrit ci-dessous.
+Cependant, notre méthode de démonstration nous fait sortir de la catégorie
+des schémas, raison pour laquelle nous avons formulé ci-dessus le scindage
+pour les groupoïdes en espaces algébriques.
+D'autre part, nous ne connaissons d'applications que
+dans le cas où les morphismes $s$, $t$
+sont aussi plats et de présentation finie ; dans ce cas,
+nous revenons finalement dans la catégorie des schémas.
+
+\begin{situation}[Scindage fort]
+\label{situation-strong-splitting}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes au-dessus de $S$.
+Soit $u \in U$ un point. Supposons que
+\begin{enumerate}
+\item $s, t : R \to U$ soient séparés,
+\item $s$, $t$ soient localement de type fini,
+\item l'ensemble $\{r \in R : s(r) = u, t(r) = u\}$ soit fini, et
+\item $s$ soit quasi-fini en chaque point de l'ensemble de (3).
+\end{enumerate}
+Notons que les hypothèses (3) et (4) découlent de l'hypothèse
+que la fibre $s^{-1}(\{u\})$ est finie, voir
+Morphismes, lemme \ref{morphisms-lemma-finite-fibre}.
+\end{situation}
+
+\begin{situation}[Scindage]
+\label{situation-splitting}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes au-dessus de $S$.
+Soit $u \in U$ un point. Supposons que
+\begin{enumerate}
+\item $s, t : R \to U$ soient séparés,
+\item $s$, $t$ soient localement de type fini,
+\item l'ensemble $\{g \in G : g\text{ est au-dessus de }u\}$ soit fini, où $G \to U$
+est le stabilisateur, et
+\item $s$ soit quasi-fini en chaque point de l'ensemble de (3).
+\end{enumerate}
+\end{situation}
+
+\begin{situation}[Quasi-scindage]
+\label{situation-quasi-splitting}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes au-dessus de $S$.
+Soit $u \in U$ un point. Supposons que
+\begin{enumerate}
+\item $s, t : R \to U$ soient séparés,
+\item $s$, $t$ soient localement de type fini, et
+\item $s$ soit quasi-fini en $e(u)$.
+\end{enumerate}
+\end{situation}
+
+\noindent
+Pour notre application aux théorèmes d'existence des espaces algébriques,
+le cas des quasi-scindages suffit. En outre, le cas du quasi-scindage
+nous permettra de démontrer, pour les champs quasi-DM, un théorème de
+structure locale pour la topologie \'etale. Le cas du scindage servira à démontrer une version
+du théorème de Keel--Mori. Le cas du scindage fort fournit
+un théorème de structure locale pour la topologie \'etale des champs
+algébriques quasi-DM à diagonale quasi-compacte.
+
+\begin{lemma}[Existence d'un scindage fort]
+\label{lemma-strong-splitting}
+Dans la situation \ref{situation-strong-splitting},
+il existe un espace algébrique $U'$, un morphisme \'etale
+$U' \to U$ et un point $u' : \Spec(\kappa(u)) \to U'$
+au-dessus de $u : \Spec(\kappa(u)) \to U$,
+tels que la restriction $R' = R|_{U'}$ de $R$ à $U'$
+soit fortement scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+Soit $f : (U', Z_{univ}, s', t', c') \to (U, R, s, t, c)$ construit dans le
+lemme \ref{lemma-finite-part-groupoid}.
+Rappelons que $R' = R \times_{(U \times_S U)} (U' \times_S U')$.
+On obtient ainsi un morphisme $(f, t', s') : Z_{univ} \to R'$ de groupoïdes
+en espaces algébriques
+$$
+(U', Z_{univ}, s', t', c') \to (U', R', s', t', c')
+$$
+(par abus de notation, nous désignons les morphismes des deux groupoïdes
+par les mêmes symboles). Or $Z_{univ} \subset R \times_{s, U, g} U'$ est ouvert,
+et $R' \to R \times_{s, U, g} U'$ est \'etale (comme changement de base
+de $U' \to U$) ; ainsi, $Z_{univ} \to R'$ est une immersion ouverte.
+Par construction, les morphismes $s', t' : Z_{univ} \to U'$ sont finis.
+Il reste à trouver le point $u'$ de $U'$.
+
+\medskip\noindent
+Considérons $u$ comme un morphisme $\Spec(\kappa(u)) \to U$, comme dans
+l'énoncé du lemme. Posons $F_u = R \times_{s, U} \Spec(\kappa(u))$.
+L'ensemble $\{r \in R : s(r) = u, t(r) = u\}$ est fini par hypothèse
+et $F_u \to \Spec(\kappa(u))$ est quasi-fini en chacun
+de ses éléments par hypothèse. On peut donc trouver une décomposition en
+sous-schémas ouverts et fermés
+$$
+F_u = Z_u \amalg Rest
+$$
+où $Z_u$ est un schéma fini au-dessus de $\kappa(u)$ dont le support est
+$\{r \in R : s(r) = u, t(r) = u\}$. Notons que $e(u) \in Z_u$.
+Par conséquent, d'après la construction de $U'$ dans la
+section \ref{section-finite-part-groupoid},
+$(u, Z_u)$ définit un point de $U'$ à valeurs dans
+$\Spec(\kappa(u))$, que nous notons $u'$.
+
+\medskip\noindent
+Il nous reste à montrer que l'ensemble
+$\{r' \in |R'| : s'(r') = u', t'(r') = u'\}$
+est contenu dans $|Z_{univ}|$.
+Choisissons un point quelconque $r'$ de cet ensemble et représentons-le par
+un morphisme $z' : \Spec(k) \to R'$. Notons $z : \Spec(k) \to R$
+la composée de $z'$ et de l'application $R' \to R$.
+Il est clair que $z$ définit un élément de l'ensemble
+$\{r \in R : s(r) = u, t(r) = u\}$.
+De plus, les composées $s \circ z, t \circ z : \Spec(k) \to U$
+se factorisent par $u$ ; nous pouvons donc considérer $s \circ z, t \circ z$
+comme des morphismes $\Spec(k) \to \Spec(\kappa(u))$. Alors
+$z' = (z, u' \circ t \circ z, u'\circ s \circ z)$ comme morphismes vers
+$R' = R \times_{(U \times_S U)} (U' \times_S U')$.
+Considérons le triplet
+$$
+(s \circ z, Z_u \times_{\Spec(\kappa(u)), s \circ z} \Spec(k), z)
+$$
+où $Z_u$ est défini comme ci-dessus. Ceci définit un point de $Z_{univ}$
+à valeurs dans $\Spec(k)$, dont l'image dans $U'$ par $s', t'$ est $u'$ et
+dont l'image par
+$Z_{univ} \to R'$ est le point $r'$, en vertu de la relation entre
+$z$ et $z'$ mentionnée ci-dessus.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}[Existence d'un scindage]
+\label{lemma-splitting}
+Dans la situation \ref{situation-splitting},
+il existe un espace algébrique $U'$, un morphisme \'etale
+$U' \to U$ et un point $u' : \Spec(\kappa(u)) \to U'$
+au-dessus de $u : \Spec(\kappa(u)) \to U$,
+tels que la restriction $R' = R|_{U'}$ de $R$ à $U'$
+soit scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+Soit $f : (U', Z_{univ}, s', t', c') \to (U, R, s, t, c)$ construit dans le
+lemme \ref{lemma-finite-part-groupoid}.
+Rappelons que $R' = R \times_{(U \times_S U)} (U' \times_S U')$.
+On obtient ainsi un morphisme $(f, t', s') : Z_{univ} \to R'$ de groupoïdes
+en espaces algébriques
+$$
+(U', Z_{univ}, s', t', c') \to (U', R', s', t', c')
+$$
+(par abus de notation, nous désignons les morphismes des deux groupoïdes
+par les mêmes symboles). Or $Z_{univ} \subset R \times_{s, U, g} U'$ est ouvert,
+et $R' \to R \times_{s, U, g} U'$ est \'etale (comme changement de base
+de $U' \to U$) ; ainsi, $Z_{univ} \to R'$ est une immersion ouverte.
+Par construction, les morphismes $s', t' : Z_{univ} \to U'$ sont finis.
+Il reste à trouver le point $u'$ de $U'$.
+
+\medskip\noindent
+Considérons $u$ comme un morphisme $\Spec(\kappa(u)) \to U$, comme dans
+l'énoncé du lemme. Posons $F_u = R \times_{s, U} \Spec(\kappa(u))$.
+Soit $G_u \subset F_u$ la fibre schématique de $G \to U$ au-dessus de $u$.
+Par hypothèse, $G_u$ est fini et $F_u \to \Spec(\kappa(u))$
+est quasi-fini en chaque point de $G_u$.
+On peut donc trouver une décomposition en sous-schémas ouverts et fermés
+$$
+F_u = Z_u \amalg Rest
+$$
+où $Z_u$ est un schéma fini au-dessus de $\kappa(u)$ dont le support est $G_u$.
+Notons que $e(u) \in Z_u$. Par conséquent, d'après la construction de $U'$ dans la
+section \ref{section-finite-part-groupoid},
+$(u, Z_u)$ définit un point de $U'$ à valeurs dans
+$\Spec(\kappa(u))$, que nous notons $u'$.
+
+\medskip\noindent
+Il nous reste à montrer que l'ensemble $\{g' \in |G'| : g'\text{ est au-dessus de }u'\}$
+est contenu dans $|Z_{univ}|$. Choisissons un point $g'$ de cet ensemble et
+représentons-le par un morphisme $z' : \Spec(k) \to G'$. Notons
+$z : \Spec(k) \to G$ la composée de $z'$ et de l'application $G' \to G$.
+Il est clair que $z$ définit un point de $G_u$. Écrivons plus précisément
+$\tilde u : \Spec(k) \to u \to U$ pour l'application correspondante vers $u$ ou $U$.
+Considérons le triplet
+$$
+(\tilde u, Z_u \times_{u, \tilde u} \Spec(k), z)
+$$
+où $Z_u$ est défini comme ci-dessus. Ceci définit un point de $Z_{univ}$
+à valeurs dans $\Spec(k)$, dont l'image dans $U'$ par $s', t'$ est $u'$ et
+dont l'image par $Z_{univ} \to R'$ est le point $z'$
+(car son image dans $R$ est $z$).
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}[Existence d'un quasi-scindage]
+\label{lemma-quasi-splitting}
+Dans la situation \ref{situation-quasi-splitting},
+il existe un espace algébrique $U'$, un morphisme \'etale
+$U' \to U$ et un point $u' : \Spec(\kappa(u)) \to U'$
+au-dessus de $u : \Spec(\kappa(u)) \to U$,
+tels que la restriction $R' = R|_{U'}$ de $R$ à $U'$
+soit quasi-scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+Soit $f : (U', Z_{univ}, s', t', c') \to (U, R, s, t, c)$ construit dans le
+lemme \ref{lemma-finite-part-groupoid}.
+Rappelons que $R' = R \times_{(U \times_S U)} (U' \times_S U')$.
+On obtient ainsi un morphisme $(f, t', s') : Z_{univ} \to R'$ de groupoïdes
+en espaces algébriques
+$$
+(U', Z_{univ}, s', t', c') \to (U', R', s', t', c')
+$$
+(par abus de notation, nous désignons les morphismes des deux groupoïdes
+par les mêmes symboles). Or $Z_{univ} \subset R \times_{s, U, g} U'$ est ouvert,
+et $R' \to R \times_{s, U, g} U'$ est \'etale (comme changement de base
+de $U' \to U$) ; ainsi, $Z_{univ} \to R'$ est une immersion ouverte.
+Par construction, les morphismes $s', t' : Z_{univ} \to U'$ sont finis.
+Il reste à trouver le point $u'$ de $U'$.
+
+\medskip\noindent
+Considérons $u$ comme un morphisme $\Spec(\kappa(u)) \to U$, comme dans
+l'énoncé du lemme. Posons $F_u = R \times_{s, U} \Spec(\kappa(u))$.
+Le morphisme $F_u \to \Spec(\kappa(u))$ est quasi-fini en $e(u)$
+par hypothèse. On peut donc trouver une décomposition en sous-schémas
+ouverts et fermés
+$$
+F_u = Z_u \amalg Rest
+$$
+où $Z_u$ est un schéma fini au-dessus de $\kappa(u)$ dont le support est $e(u)$.
+Par conséquent, d'après la construction de $U'$ dans la
+section \ref{section-finite-part-groupoid},
+$(u, Z_u)$ définit un point de $U'$ à valeurs dans
+$\Spec(\kappa(u))$, que nous notons $u'$. Pour achever la démonstration,
+il suffit de montrer que $e'(u') \in Z_{univ}$, ce qui est clair.
+\end{proof}
+
+\noindent
+Enfin, sous des hypothèses supplémentaires, nous obtenons des schémas.
+
+\begin{lemma}
+\label{lemma-strong-splitting-scheme}
+Dans la situation \ref{situation-strong-splitting}, supposons en outre que
+$s, t$ soient plats et localement de présentation finie.
+Alors il existe un schéma $U'$, un morphisme \'etale séparé
+$U' \to U$ et un point $u' \in U'$
+au-dessus de $u$, avec $\kappa(u) = \kappa(u')$,
+tels que la restriction $R' = R|_{U'}$ de $R$ à $U'$
+soit fortement scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+Ceci résulte de la construction de $U'$ dans la démonstration du
+lemme \ref{lemma-strong-splitting},
+car, dans ce cas, $U' = (R_s/U, e)_{fin}$ est un schéma séparé au-dessus
+de $U$ d'après les
+lemmes \ref{lemma-finite-separated-flat-locally-finite-presentation} et
+\ref{lemma-finite-plus-section}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-splitting-scheme}
+Dans la situation \ref{situation-splitting}, supposons en outre que
+$s, t$ soient plats et localement de présentation finie.
+Alors il existe un schéma $U'$, un morphisme \'etale séparé
+$U' \to U$ et un point $u' \in U'$
+au-dessus de $u$, avec $\kappa(u) = \kappa(u')$,
+tels que la restriction $R' = R|_{U'}$ de $R$ à $U'$
+soit scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+Ceci résulte de la construction de $U'$ dans la démonstration du
+lemme \ref{lemma-splitting},
+car, dans ce cas, $U' = (R_s/U, e)_{fin}$ est un schéma séparé au-dessus
+de $U$ d'après les
+lemmes \ref{lemma-finite-separated-flat-locally-finite-presentation} et
+\ref{lemma-finite-plus-section}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-splitting-scheme}
+Dans la situation \ref{situation-quasi-splitting}, supposons en outre que
+$s, t$ soient plats et localement de présentation finie.
+Alors il existe un schéma $U'$, un morphisme \'etale séparé
+$U' \to U$ et un point $u' \in U'$ au-dessus de $u$, avec
+$\kappa(u) = \kappa(u')$, tels que la restriction $R' = R|_{U'}$ de
+$R$ à $U'$ soit quasi-scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+Ceci résulte de la construction de $U'$ dans la démonstration du
+lemme \ref{lemma-quasi-splitting},
+car, dans ce cas, $U' = (R_s/U, e)_{fin}$ est un schéma séparé
+au-dessus de $U$ d'après les
+lemmes \ref{lemma-finite-separated-flat-locally-finite-presentation} et
+\ref{lemma-finite-plus-section}.
+\end{proof}
+
+\noindent
+En fait, nous pouvons obtenir des schémas affines en appliquant un résultat
+antérieur sur les groupoïdes finis localement libres.
+
+\begin{lemma}
+\label{lemma-strong-splitting-affine-scheme}
+Dans la situation \ref{situation-strong-splitting}, supposons en outre que
+$s, t$ soient plats et localement de présentation finie et que $U$ soit affine.
+Alors il existe un schéma affine $U'$, un morphisme \'etale
+$U' \to U$ et un point $u' \in U'$ au-dessus de $u$, avec
+$\kappa(u) = \kappa(u')$, tels que la restriction $R' = R|_{U'}$ de
+$R$ à $U'$ soit fortement scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+Soient $U' \to U$ le morphisme \'etale séparé de schémas et $u' \in U'$ le point
+obtenus dans le lemme \ref{lemma-strong-splitting-scheme}.
+Soit $P \subset R'$ le scindage fort de $R'$ au-dessus de $u'$. D'après
+Compléments sur les groupoïdes, lemme \ref{more-groupoids-lemma-restrict-preserves-type},
+les morphismes $s'|_P, t'|_P : P \to U'$ sont plats et localement de présentation finie.
+Ils sont finis par définition du scindage. Ainsi, $s'|_P, t'|_P$ sont finis
+localement libres, voir
+Morphismes, lemme \ref{morphisms-lemma-finite-flat}.
+En particulier, $(t'|_P)((s'|_P)^{-1}(u'))$ est un ensemble fini de points
+$\{u'_1, u'_2, \ldots, u'_n\}$ de $U'$. Choisissons un ouvert quasi-compact
+$W \subset U'$ contenant chaque $u'_i$. Puisque $U$ est affine, le morphisme
+$W \to U$ est quasi-compact (voir
+Schémas, lemme \ref{schemes-lemma-quasi-compact-affine}).
+Le morphisme $W \to U$ est aussi localement quasi-fini (voir
+Morphismes, lemme \ref{morphisms-lemma-etale-locally-quasi-finite})
+et séparé. Par conséquent, d'après
+Compléments sur les morphismes,
+lemme \ref{more-morphisms-lemma-quasi-finite-separated-quasi-affine}
+(une version du théorème principal de Zariski),
+nous concluons que $W$ est quasi-affine. D'après
+Propriétés, lemme \ref{properties-lemma-ample-finite-set-in-affine},
+l'ensemble $\{u'_1, \ldots, u'_n\}$ est contenu dans un ouvert affine
+de $U'$. Nous pouvons donc appliquer
+Groupoïdes, lemme \ref{groupoids-lemma-find-invariant-affine}
+pour conclure qu'il existe un ouvert affine $U'' \subset U'$, invariant par
+$P$, qui contient $u'$.
+
+\medskip\noindent
+Pour achever la démonstration, notons $R'' = R|_{U''}$ la restriction de $R$
+à $U''$. C'est aussi la restriction de $R'$ à $U''$.
+Puisque $P \subset R'$ est un sous-schéma ouvert et fermé, il en va de même de
+$P|_{U''} \subset R''$. Par construction, le sous-schéma ouvert $U'' \subset U'$
+est invariant par $P$, ce qui signifie que
+$P|_{U''} = (s'|_P)^{-1}(U'') = (t'|_P)^{-1}(U'')$
+(voir la discussion dans
+Groupoïdes, section \ref{groupoids-section-invariant}) ;
+les restrictions de $s''$ et de $t''$ à $P|_{U''}$ sont donc encore finies.
+Le sous-schéma en groupoïdes $P|_{U''}$ est encore un scindage fort de
+$R''$ au-dessus de $u'$ : les conditions (a) et (b) ont été vérifiées ci-dessus,
+et (c) résulte immédiatement de $\{r' \in R': t'(r') = u', s'(r') = u'\} =
+\{r'' \in R'': t''(r'') = u', s''(r'') = u'\}$.
+Le lemme est démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-splitting-affine-scheme}
+Dans la situation \ref{situation-splitting}, supposons en outre que
+$s, t$ soient plats et localement de présentation finie et que $U$ soit affine.
+Alors il existe un schéma affine $U'$, un morphisme \'etale
+$U' \to U$ et un point $u' \in U'$ au-dessus de $u$, avec
+$\kappa(u) = \kappa(u')$, tels que la restriction $R' = R|_{U'}$ de
+$R$ à $U'$ soit scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+La démonstration de ce lemme est littéralement la même que celle du
+lemme \ref{lemma-strong-splitting-affine-scheme},
+si ce n'est que « scindage fort » doit être remplacé par « scindage »
+(deux fois) et que le renvoi au
+lemme \ref{lemma-strong-splitting-scheme}
+doit être remplacé par un renvoi au
+lemme \ref{lemma-splitting-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-splitting-affine-scheme}
+Dans la situation \ref{situation-quasi-splitting}, supposons en outre que
+$s, t$ soient plats et localement de présentation finie et que $U$ soit affine.
+Alors il existe un schéma affine $U'$, un morphisme \'etale
+$U' \to U$ et un point $u' \in U'$ au-dessus de $u$, avec
+$\kappa(u) = \kappa(u')$, tels que la restriction $R' = R|_{U'}$ de
+$R$ à $U'$ soit quasi-scindée au-dessus de $u'$.
+\end{lemma}
+
+\begin{proof}
+La démonstration de ce lemme est littéralement la même que celle du
+lemme \ref{lemma-strong-splitting-affine-scheme},
+si ce n'est que « scindage fort » doit être remplacé par « quasi-scindage »
+(deux fois) et que le renvoi au
+lemme \ref{lemma-strong-splitting-scheme}
+doit être remplacé par un renvoi au
+lemme \ref{lemma-quasi-splitting-scheme}.
+\end{proof}
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

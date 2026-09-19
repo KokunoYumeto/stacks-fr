@@ -1,0 +1,816 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Groupes de Brauer}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+On pourra consulter les exposés de Serre au Séminaire Cartan, voir
+\cite{Serre-Cartan}. Serre renvoie lui-même à
+\cite{Deuring} et \cite{ANT}. Nous avons modifié certaines démonstrations ; en particulier,
+nous avons utilisé un élégant argument de Rieffel pour démontrer le théorème de Wedderburn.
+Il est très probable que cette modification ne constitue pas une amélioration, et nous
+encourageons vivement le lecteur à lire l'exposé original de Serre.
+
+
+\section{Algèbres non commutatives}
+\label{section-algebras}
+
+\noindent
+Soit $k$ un corps. Dans ce chapitre, une {\it algèbre} $A$ sur $k$ est
+un anneau $A$, éventuellement non commutatif, muni d'un homomorphisme d'anneaux
+$k \to A$ tel que l'image de $k$ soit contenue dans le centre de $A$ et qui
+envoie $1$ sur l'élément unité de $A$. Un {\it $A$-module} est un
+$A$-module à droite sur lequel l'élément unité de $A$ agit comme l'identité.
+
+\begin{definition}
+\label{definition-finite}
+Soit $A$ une $k$-algèbre. Nous disons que $A$ est {\it finie} si $\dim_k(A) < \infty$.
+Dans ce cas, nous écrivons $[A : k] = \dim_k(A)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-skew-field}
+Un {\it corps gauche} est un anneau éventuellement non commutatif, muni d'un élément unité
+$1$, avec $1 \not = 0$, dans lequel tout élément non nul
+possède un inverse multiplicatif.
+\end{definition}
+
+\noindent
+Un corps gauche est une $k$-algèbre pour un certain $k$ (par exemple pour le sous-corps premier
+qu'il contient). Nous utiliserons ci-dessous que tout module sur un corps gauche
+est libre : une famille maximale de vecteurs linéairement indépendants constitue une
+base, et une telle famille existe d'après le lemme de Zorn.
+
+\begin{definition}
+\label{definition-simple}
+Soit $A$ une $k$-algèbre.
+Nous disons qu'un $A$-module $M$ est {\it simple} s'il est non nul et si
+ses seuls sous-$A$-modules sont $0$ et $M$.
+Nous disons que $A$ est {\it simple} si elle est non nulle et si les seuls
+idéaux bilatères de $A$ sont
+$0$ et $A$.
+\end{definition}
+
+\begin{definition}
+\label{definition-central}
+Une $k$-algèbre $A$ est {\it centrale} si le centre de $A$ est l'image de
+$k \to A$.
+\end{definition}
+
+\begin{definition}
+\label{definition-opposite}
+Étant donnée une $k$-algèbre $A$, nous notons $A^{op}$ la $k$-algèbre obtenue
+en renversant l'ordre de la multiplication dans $A$. On l'appelle
+l'{\it algèbre opposée}.
+\end{definition}
+
+
+
+
+\section{Théorème de Wedderburn}
+\label{section-wedderburn}
+
+\noindent
+L'élégant argument qui suit se trouve dans un article de Rieffel, voir
+\cite{Rieffel}. La démonstration pourrait difficilement être plus simple (pour reprendre
+les mots du compte rendu de Carl Faith).
+
+\begin{lemma}
+\label{lemma-rieffel}
+Soit $A$ un anneau éventuellement non commutatif, muni de $1$, qui ne possède aucun
+idéal bilatère non trivial. Soit $M$ un idéal à droite non nul de $A$,
+et considérons $M$ comme un $A$-module à droite. Alors $A$ coïncide avec le
+bicommutant de $M$.
+\end{lemma}
+
+\begin{proof}
+Soit $A' = \text{End}_A(M)$, de sorte que $M$ est un $A'$-module à gauche.
+Posons $A'' = \text{End}_{A'}(M)$ (le bicommutant de $M$).
+Considérons $M$ comme un $A''$-module à droite\footnote{Cela
+signifie que, pour $a'' \in A''$ et $m \in M$, nous avons un produit
+$m a'' \in M$. En particulier, la multiplication dans $A''$
+est l'opposée de celle que l'on obtiendrait en écrivant les éléments de $A''$
+comme des endomorphismes agissant à gauche.}.
+Soit $R : A \to A''$ l'homomorphisme naturel défini par
+$mR(a) = ma$. Alors $R$ est injectif, puisque $R(1) = \text{id}_M$
+et que $A$ ne possède aucun idéal bilatère non trivial. Nous affirmons que $R(M)$
+est un idéal à droite de $A''$. En effet, $R(m)a'' = R(ma'')$ pour $a'' \in A''$
+et $m$ dans $M$, car la multiplication {\it à gauche} sur $M$ par tout élément $n$
+de $M$ définit un élément de $A'$, de sorte que
+$(nm)a'' = n(ma'')$ pour tout $n$ dans $M$.
+Enfin, l'idéal produit $AM$ est un idéal bilatère, et donc
+$A = AM$. Ainsi $R(A) = R(A)R(M)$, si bien que $R(A)$ est un idéal à droite de $A''$.
+Mais $R(A)$ contient l'élément unité de $A''$, donc $R(A) = A''$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-simple-module}
+Soit $A$ une $k$-algèbre. Si $A$ est finie, alors
+\begin{enumerate}
+\item $A$ possède un module simple,
+\item tout module non nul contient un sous-module simple,
+\item tout module simple sur $A$ est de dimension finie sur $k$, et
+\item si $M$ est un $A$-module simple, alors $\text{End}_A(M)$ est un
+corps gauche.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Bien sûr, (1) résulte de (2), puisque $A$ est un $A$-module non nul.
+Pour (2), tout sous-module de dimension (finie) minimale comme espace vectoriel sur $k$
+est simple. Il en existe un de dimension finie,
+car un sous-module cyclique est de dimension finie. Si $M$ est simple, alors
+$mA \subset M$ est un sous-module, ce qui donne (3). Tout élément non nul
+de $\text{End}_A(M)$ est un isomorphisme, d'où (4).
+\end{proof}
+
+\begin{theorem}
+\label{theorem-wedderburn}
+\begin{slogan}
+Les algèbres simples de dimension finie sur un corps sont des algèbres de matrices sur un corps gauche.
+\end{slogan}
+Soit $A$ une $k$-algèbre simple et finie. Alors $A$ est une algèbre de matrices sur
+une $k$-algèbre finie $K$ qui est un corps gauche.
+\end{theorem}
+
+\begin{proof}
+Nous pouvons choisir un sous-module simple $M \subset A$ ; alors
+la $k$-algèbre $K = \text{End}_A(M)$ est un corps gauche, voir
+le lemme \ref{lemma-simple-module}.
+D'après le
+lemme \ref{lemma-rieffel},
+nous avons $A = \text{End}_K(M)$. Comme $K$ est un corps gauche et que
+$M$ est de type fini (puisque $\dim_k(M) < \infty$), nous voyons que
+$M$ est libre de rang fini comme $K$-module à gauche. Il en résulte immédiatement que
+$A \cong \text{Mat}(n \times n, K^{op})$.
+\end{proof}
+
+
+
+\section{Lemmes sur les algèbres}
+\label{section-lemmas}
+
+\noindent
+Soit $A$ une $k$-algèbre. Soit $B \subset A$ une sous-algèbre.
+Le {\it centralisateur de $B$ dans $A$} est la sous-algèbre
+$$
+C  = \{y \in A \mid xy = yx \text{ pour tout }x \in B\}.
+$$
+C'est une $k$-algèbre.
+
+\begin{lemma}
+\label{lemma-centralizer}
+Soient $A$, $A'$ des $k$-algèbres. Soient $B \subset A$, $B' \subset A'$ des
+sous-algèbres de centralisateurs respectifs $C$, $C'$. Alors le centralisateur de
+$B \otimes_k B'$ dans $A \otimes_k A'$ est $C \otimes_k C'$.
+\end{lemma}
+
+\begin{proof}
+Notons $C'' \subset A \otimes_k A'$ le centralisateur de $B \otimes_k B'$.
+Il est clair que $C \otimes_k C' \subset C''$. Réciproquement, tout élément
+de $C''$ commute à $B \otimes 1$ et appartient donc à $C \otimes_k A'$.
+De même, $C'' \subset A \otimes_k C'$. Ainsi
+$C'' \subset C \otimes_k A' \cap A \otimes_k C' = C \otimes_k C'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-center-csa}
+Soit $A$ une $k$-algèbre simple de dimension finie. Alors le centre $k'$ de
+$A$ est une extension finie de $k$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $A = \text{Mat}(n \times n, K)$ pour un corps gauche $K$ de
+dimension finie sur $k$ ; voir le
+théorème \ref{theorem-wedderburn}.
+D'après le
+lemme \ref{lemma-centralizer},
+le centre de $A$ est $k \otimes_k k'$, où $k' \subset K$ est le centre de
+$K$. Puisque le centre d'un corps gauche est un corps, le résultat en découle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-generate-two-sided-sub}
+Soit $V$ un espace vectoriel sur $k$. Soit $K$ une $k$-algèbre centrale qui
+est un corps gauche. Soit $W \subset V \otimes_k K$ un sous-espace vectoriel
+à gauche et à droite sur $K$. Alors $W$ est engendré, comme espace vectoriel
+à gauche sur $K$, par $W \cap (V \otimes 1)$.
+\end{lemma}
+
+\begin{proof}
+Soit $V' \subset V$ le sous-espace vectoriel sur $k$ engendré par les
+$v \in V$ tels que $v \otimes 1 \in W$. Alors $V' \otimes_k K \subset W$ et
+nous avons
+$$
+W/(V' \otimes_k K)  \subset  (V/V') \otimes_k K.
+$$
+S'il existe un vecteur non nul $\overline{v} \in V/V'$ tel que
+$\overline{v} \otimes 1$ appartienne à $W/(V' \otimes_k K)$,
+alors $v \otimes 1 \in W$, où $v \in V$ est un relèvement de $\overline{v}$.
+Cela contredit la construction de $V'$. Nous pouvons donc remplacer
+$V$ par $V/V'$ et $W$ par $W/(V' \otimes_k K)$ ; il suffit alors de montrer
+que $W \cap (V \otimes 1)$ est non nul si $W$ est non nul.
+
+\medskip\noindent
+Pour le voir, choisissons un élément non nul $w \in W$ qui puisse s'écrire
+$w = \sum_{i = 1, \ldots, n} v_i \otimes k_i$, avec $n$ minimal.
+En multipliant à droite par $k_1^{-1}$, nous pouvons supposer $k_1 = 1$.
+Si $n = 1$, la conclusion est acquise puisque $v_1 \otimes 1 \in W$.
+Si $n > 1$, alors, pour tout $c \in K$,
+$$
+c w - w c = \sum\nolimits_{i = 2, \ldots, n} v_i \otimes (c k_i - k_i c) \in W
+$$
+et donc $c k_i - k_i c = 0$ par minimalité de $n$.
+Il s'ensuit que $k_i$ appartient au centre de $K$, qui est $k$ par
+hypothèse. Ainsi $w = (v_1 + \sum k_i v_i) \otimes 1$, ce qui contredit
+la minimalité de $n$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-generate-two-sided-ideal}
+Soit $A$ une $k$-algèbre. Soit $K$ une $k$-algèbre centrale qui est un corps
+gauche. Alors tout idéal bilatère $I \subset A \otimes_k K$ est de la forme
+$J \otimes_k K$ pour un idéal bilatère $J \subset A$.
+En particulier, si $A$ est simple, alors $A \otimes_k K$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Posons $J = \{a \in A \mid a \otimes 1 \in I\}$. C'est un idéal bilatère
+de $A$. En outre, $I = J \otimes_k K$ d'après le
+lemme \ref{lemma-generate-two-sided-sub}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-matrix-algebras}
+Soit $R$ un anneau, éventuellement non commutatif. Soit $n \geq 1$ un entier.
+Posons $R_n = \text{Mat}(n \times n, R)$.
+\begin{enumerate}
+\item Les foncteurs $M \mapsto M^{\oplus n}$ et
+$N \mapsto Ne_{11}$ définissent des équivalences de catégories quasi inverses
+$\text{Mod}_R \leftrightarrow \text{Mod}_{R_n}$.
+\item Tout idéal bilatère de $R_n$ est de la forme $IR_n$ pour un certain
+idéal bilatère $I$ de $R$.
+\item Le centre de $R_n$ est égal au centre de $R$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Le point (1) est immédiat. Si $J \subset R_n$ est un idéal bilatère, alors
+$J = \bigoplus_{i,j} e_{ii}Je_{jj}$, et les ensembles de coefficients de tous les
+termes $e_{ii}Je_{jj}$ coïncident et constituent un idéal bilatère $I$ de $R$.
+Cela prouve (2).
+Le point (3) est clair.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-simple-module-unique}
+Soit $A$ une $k$-algèbre simple de dimension finie.
+\begin{enumerate}
+\item Il existe, à isomorphisme près, un unique $A$-module simple $M$.
+\item Tout $A$-module de dimension finie est somme directe de copies
+d'un module simple.
+\item Deux $A$-modules de dimension finie sont isomorphes si et
+seulement s'ils ont même dimension sur $k$.
+\item Si $A = \text{Mat}(n \times n, K)$, où $K$ est un corps gauche de
+dimension finie sur $k$, alors $M = K^{\oplus n}$ est un $A$-module simple et
+$\text{End}_A(M) = K^{op}$.
+\item Si $M$ est un $A$-module simple, alors $L = \text{End}_A(M)$ est un
+corps gauche de dimension finie sur $k$ qui agit à gauche sur $M$, nous avons
+$A = \text{End}_L(M)$, et les centres de $A$ et de $L$ coïncident.
+En outre, $[A : k] [L : k] = \dim_k(M)^2$.
+\item Pour tout $A$-module non nul $N$ de dimension finie, l'algèbre
+$B = \text{End}_A(N)$ est une algèbre de matrices sur le corps gauche $L$ du
+point (5). De plus, $\text{End}_B(N) = A$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après le
+théorème \ref{theorem-wedderburn},
+nous pouvons écrire $A = \text{Mat}(n \times n, K)$ pour un corps gauche $K$
+de dimension finie sur $k$. D'après le
+lemme \ref{lemma-matrix-algebras},
+la catégorie des modules sur $A$ est équivalente à celle des modules sur
+$K$. Les points (1), (2) et (3) en résultent, puisque tout module sur $K$ est
+libre. Le point (4) résulte de ce que cette équivalence transforme le $K$-module
+$K$ en $M = K^{\oplus n}$. En prenant $M = K^{\oplus n}$ dans (5),
+nous voyons que $L = K^{op}$. L'assertion sur le centre de $L = K^{op}$
+résulte du
+lemme \ref{lemma-matrix-algebras}.
+L'assertion sur $\text{End}_L(M)$ résulte de la forme explicite de $M$.
+La formule des dimensions est claire.
+Le point (6) résulte du fait que $N$ est isomorphe à une somme directe de
+copies d'un module simple.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-tensor-simple}
+Soient $A$ et $A'$ deux $k$-algèbres simples, dont l'une est centrale et de
+dimension finie sur $k$. Alors $A \otimes_k A'$ est simple.
+\end{lemma}
+
+\begin{proof}
+Supposons que $A'$ soit centrale et de dimension finie sur $k$.
+Écrivons $A' = \text{Mat}(n \times n, K')$ ; voir le
+théorème \ref{theorem-wedderburn}.
+Le centre de $K'$ est alors $k$, et nous concluons que
+$A \otimes_k K'$ est simple d'après le
+lemme \ref{lemma-generate-two-sided-ideal}.
+Par conséquent, $A \otimes_k A' = \text{Mat}(n \times n, A \otimes_k K')$
+est simple d'après le lemme \ref{lemma-matrix-algebras}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-tensor-central-simple}
+Le produit tensoriel de deux algèbres centrales simples sur $k$ et de
+dimension finie est une algèbre centrale simple de dimension finie.
+\end{lemma}
+
+\begin{proof}
+Combiner les lemmes \ref{lemma-centralizer} et \ref{lemma-tensor-simple}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change}
+Soit $A$ une $k$-algèbre centrale simple de dimension finie.
+Soit $k'/k$ une extension de corps. Alors $A' = A \otimes_k k'$ est une
+$k'$-algèbre centrale simple de dimension finie.
+\end{lemma}
+
+\begin{proof}
+Combiner les lemmes \ref{lemma-centralizer} et \ref{lemma-tensor-simple}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inverse}
+Soit $A$ une $k$-algèbre centrale simple de dimension finie.
+Alors $A \otimes_k A^{op} \cong \text{Mat}(n \times n, k)$,
+où $n = [A : k]$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-tensor-central-simple}, l'algèbre
+$A \otimes_k A^{op}$ est simple. L'application
+$$
+A \otimes_k A^{op} \longrightarrow \text{End}_k(A),\quad
+a \otimes a' \longmapsto (x \mapsto axa')
+$$
+est donc injective. Comme la source et le but de la flèche ont même dimension,
+on conclut.
+\end{proof}
+
+
+
+
+
+\section{Le groupe de Brauer d'un corps}
+\label{section-brauer}
+
+\noindent
+Soit $k$ un corps. Considérons deux algèbres centrales simples $A$ et $B$,
+de dimension finie sur $k$. Nous disons que $A$ et $B$ sont {\it semblables}
+s'il existe $n, m > 0$ tels que
+$\text{Mat}(n \times n, A) \cong \text{Mat}(m \times m, B)$
+comme $k$-algèbres.
+
+\begin{lemma}
+\label{lemma-similar}
+Similitude.
+\begin{enumerate}
+\item La similitude définit une relation d'équivalence sur l'ensemble des
+classes d'isomorphisme de $k$-algèbres centrales simples de dimension finie.
+\item Chaque classe de similitude contient, à isomorphisme près, un unique
+corps gauche central de dimension finie sur $k$.
+\item Si $A = \text{Mat}(n \times n, K)$ et
+$B = \text{Mat}(m \times m, K')$ pour des corps gauches centraux $K$, $K'$
+de dimension finie sur $k$, alors $A$ et $B$ sont semblables si et seulement
+si $K \cong K'$ comme $k$-algèbres.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Remarquons que, d'après le théorème de Wedderburn
+(théorème \ref{theorem-wedderburn}), toute algèbre centrale simple de
+dimension finie s'écrit comme une algèbre de matrices sur un corps gauche
+central de dimension finie. Il suffit donc de prouver la troisième assertion.
+Pour cela, il suffit de montrer que, si
+$A = \text{Mat}(n \times n, K) \cong \text{Mat}(m \times m, K') = B$,
+alors $K \cong K'$. En effet, si $M$ est un module simple sur $A$, nous avons
+$\text{End}_A(M) = K^{op}$ ; voir le
+lemme \ref{lemma-simple-module-unique}.
+Par conséquent, $A \cong B$ implique $K^{op} \cong (K')^{op}$, d'où le
+résultat.
+\end{proof}
+
+\noindent
+Étant données deux $k$-algèbres centrales simples de dimension finie $A$ et
+$B$, le produit tensoriel $A \otimes_k B$ en est encore une ; voir le
+lemme \ref{lemma-tensor-central-simple}.
+De plus, si $A$ est semblable à $A'$, alors $A \otimes_k B$ est semblable à
+$A' \otimes_k B$, car le produit tensoriel commute à la formation des
+algèbres de matrices. Le produit tensoriel définit donc une loi sur les
+classes d'équivalence des algèbres centrales simples de dimension finie,
+manifestement associative et commutative. Enfin, le
+lemme \ref{lemma-inverse}
+montre que $A \otimes_k A^{op}$ est isomorphe à une algèbre de matrices,
+autrement dit que $A \otimes_k A^{op}$ appartient à la classe de similitude
+de $k$. Nous obtenons ainsi un groupe abélien.
+
+\begin{definition}
+\label{definition-brauer-group}
+Soit $k$ un corps. Le {\it groupe de Brauer} de $k$ est le groupe abélien des
+classes de similitude des $k$-algèbres centrales simples de dimension finie
+défini ci-dessus. On le note $\text{Br}(k)$.
+\end{definition}
+
+\noindent
+Tout homomorphisme de corps $k \to k'$ fournit un homomorphisme de groupes
+$$
+\text{Br}(k) \longrightarrow \text{Br}(k'),\quad
+A \longmapsto A \otimes_k k'
+$$
+par le lemme \ref{lemma-base-change}. Autrement dit, $\text{Br}(-)$ est un
+foncteur de la catégorie des corps vers celle des groupes abéliens.
+Remarquons que le groupe de Brauer d'un corps est nul si et seulement si toute
+extension $k \subset K$, finie et centrale, par un corps gauche est triviale.
+
+\begin{lemma}
+\label{lemma-brauer-algebraically-closed}
+Le groupe de Brauer d'un corps algébriquement clos est nul.
+\end{lemma}
+
+\begin{proof}
+Soit $k \subset K$ une extension, finie et centrale, par un corps gauche.
+Pour tout élément $x \in K$, le sous-anneau $k[x] \subset K$ est une
+sous-$k$-algèbre commutative, intègre et de dimension finie ; c'est donc un
+corps, voir Algèbre, lemme \ref{algebra-lemma-integral-over-field}.
+Puisque $k$ est algébriquement clos, nous en déduisons que
+$k[x] = k$. Comme $x$ était arbitraire, nous concluons que $k = K$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-square}
+Soit $A$ une algèbre centrale simple de dimension finie sur un corps $k$.
+Alors $[A : k]$ est un carré.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que $A \otimes_k \overline{k}$ est une algèbre de matrices
+sur $\overline{k}$ d'après le
+lemme \ref{lemma-brauer-algebraically-closed}.
+\end{proof}
+\section{Skolem-Noether}
+\label{section-skolem-noether}
+
+
+
+\begin{theorem}
+\label{theorem-skolem-noether}
+Soit $A$ une $k$-algèbre centrale simple de dimension finie. Soit $B$ une
+$k$-algèbre simple. Soient $f, g : B \to A$ deux homomorphismes de $k$-algèbres.
+Alors il existe un élément inversible $x \in A$ tel que
+$f(b) = xg(b)x^{-1}$ pour tout $b \in B$.
+\end{theorem}
+
+\begin{proof}
+Choisissons un $A$-module simple $M$. Posons $L = \text{End}_A(M)$.
+Alors $L$ est un corps gauche de centre $k$ qui agit à gauche sur $M$; voir les
+lemmes \ref{lemma-simple-module} et \ref{lemma-simple-module-unique}.
+Alors $M$ possède deux structures de $B \otimes_k L^{op}$-module définies par
+$m \cdot_1 (b \otimes l) = lmf(b)$ et $m \cdot_2 (b \otimes l) = lmg(b)$.
+La $k$-algèbre $B \otimes_k L^{op}$ est simple d'après le
+lemme \ref{lemma-tensor-simple}. Comme $B$ est simple, l'existence d'un
+homomorphisme de $k$-algèbres $B \to A$ implique que $B$ est de dimension finie. Ainsi
+$B \otimes_k L^{op}$ est simple de dimension finie, et les deux structures de
+$B \otimes_k L^{op}$-module sur $M$
+sont isomorphes d'après le lemme \ref{lemma-simple-module-unique}.
+Il existe donc $\varphi : M \to M$ entrelaçant ces actions.
+En particulier, $\varphi$ appartient au centralisateur de $L$, ce qui implique que
+$\varphi$ est la multiplication par un certain $x \in A$; voir le
+lemme \ref{lemma-simple-module-unique}. En explicitant les définitions, on voit
+que $x$ résout notre problème.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-automorphism-inner}
+Soit $A$ une $k$-algèbre centrale simple de dimension finie. Tout automorphisme de la
+$k$-algèbre $A$ est intérieur. En particulier, tout automorphisme de la
+$k$-algèbre $\text{Mat}(n \times n, k)$
+est intérieur.
+\end{lemma}
+
+\begin{proof}
+Le théorème de Skolem-Noether (théorème \ref{theorem-skolem-noether})
+s'applique.
+\end{proof}
+
+
+
+\section{Le théorème du centralisateur}
+\label{section-centralizer}
+
+
+\begin{theorem}
+\label{theorem-centralizer}
+Soit $A$ une algèbre centrale simple de dimension finie sur $k$, et soit
+$B$ une sous-algèbre simple de $A$. Alors
+\begin{enumerate}
+\item le centralisateur $C$ de $B$ dans $A$ est simple,
+\item $[A : k] = [B : k][C : k]$, et
+\item le centralisateur de $C$ dans $A$ est $B$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Dans toute cette démonstration, nous utilisons librement les résultats du
+lemme \ref{lemma-simple-module-unique}.
+Choisissons un $A$-module simple $M$. Posons $L = \text{End}_A(M)$.
+Alors $L$ est un corps gauche de centre $k$ qui agit à gauche sur $M$
+et $A = \text{End}_L(M)$.
+Alors $M$ est un $B \otimes_k L^{op}$-module à droite et
+$C = \text{End}_{B \otimes_k L^{op}}(M)$.
+Comme l'algèbre $B \otimes_k L^{op}$ est simple d'après le
+lemme \ref{lemma-tensor-simple}, on voit que $C$ est simple (encore d'après le
+lemme \ref{lemma-simple-module-unique}).
+
+\medskip\noindent
+Écrivons $B \otimes_k L^{op} = \text{Mat}(m \times m, K)$ pour un certain
+corps gauche $K$ de dimension finie sur $k$. Alors $C = \text{Mat}(n \times n, K^{op})$
+si $M$ est isomorphe à une somme directe de $n$ copies du
+$B \otimes_k L^{op}$-module simple $K^{\oplus m}$ (encore d'après le lemme). Ainsi,
+$\dim_k(M) = nm [K : k]$, $[B : k] [L : k] = m^2 [K : k]$,
+$[C : k] = n^2 [K : k]$, et $[A : k] [L : k] = \dim_k(M)^2$ (encore d'après
+le lemme). On en déduit (2).
+
+\medskip\noindent
+L'assertion (3) découle de (2) appliquée à $C \subset A$, qui montre
+que $[B : k] = [C' : k]$, où $C'$ est le centralisateur de $C$ dans $A$
+(ainsi que du fait évident que $B \subset C')$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-tensor-is-equal}
+Soit $A$ une algèbre centrale simple de dimension finie sur $k$, et soit
+$B$ une sous-algèbre simple de $A$. Si $B$ est une
+$k$-algèbre centrale, alors $A \cong B \otimes_k C$, où $C$ est le centralisateur
+de $B$ dans $A$, et ce centralisateur est central simple.
+\end{lemma}
+
+\begin{proof}
+Nous avons $\dim_k(A) = \dim_k(B \otimes_k C)$ d'après le
+théorème \ref{theorem-centralizer}. D'après le
+lemme \ref{lemma-tensor-simple},
+le produit tensoriel est simple. L'application naturelle
+$B \otimes_k C \to A$ est donc injective, et par conséquent un isomorphisme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-self-centralizing-subfield}
+Soit $A$ une algèbre centrale simple de dimension finie sur $k$.
+Si $K \subset A$ est un sous-corps, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $[A : k] = [K : k]^2$,
+\item $K$ est son propre centralisateur, et
+\item $K$ est un sous-anneau commutatif maximal.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Le théorème \ref{theorem-centralizer}
+montre que (1) et (2) sont équivalentes.
+Il est clair que (3) et (2) sont équivalentes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-maximal-subfield}
+\begin{slogan}
+La dimension d'un corps gauche central de dimension finie est le carré de celle
+de tout sous-corps commutatif maximal.
+\end{slogan}
+Soit $A$ un corps gauche central de dimension finie sur $k$.
+Alors tout sous-corps commutatif maximal $K \subset A$ satisfait
+$[A : k] = [K : k]^2$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-self-centralizing-subfield}.
+\end{proof}
+
+
+
+
+
+\section{Corps neutralisants}
+\label{section-splitting}
+
+
+\begin{definition}
+\label{definition-splitting}
+Soit $A$ une $k$-algèbre centrale simple de dimension finie.
+On dit qu'une extension $k'/k$ {\it neutralise} $A$, ou que
+$k'$ est un {\it corps neutralisant} de $A$, si $A \otimes_k k'$ est
+une algèbre de matrices sur $k'$.
+\end{definition}
+
+\noindent
+Autrement dit, la classe de $A$ a pour image zéro
+par l'application $\text{Br}(k) \to \text{Br}(k')$.
+
+\begin{theorem}
+\label{theorem-splitting}
+Soit $A$ une $k$-algèbre centrale simple de dimension finie.
+Soit $k'/k$ une extension de corps finie.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $k'$ neutralise $A$, et
+\item il existe une algèbre $B$ centrale simple de dimension finie, semblable à $A$,
+telle que $k' \subset B$ et $[B : k] = [k' : k]^2$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Supposons (2). Il suffit de montrer que $B \otimes_k k'$ est une algèbre de
+matrices. Nous savons que $B \otimes_k B^{op} \cong \text{End}_k(B)$.
+Comme $k'$ est le centralisateur de $k'$ dans $B^{op}$ d'après le
+lemme \ref{lemma-self-centralizing-subfield},
+on voit que $B \otimes_k k'$ est le centralisateur de $k \otimes k'$
+dans $B \otimes_k B^{op} = \text{End}_k(B)$. Bien entendu, ce centralisateur
+n'est autre que $\text{End}_{k'}(B)$, où l'on considère $B$ comme un espace vectoriel sur $k'$
+au moyen du plongement $k' \to B$. D'où le résultat.
+
+\medskip\noindent
+Supposons (1). Cela signifie qu'il existe un isomorphisme
+$A \otimes_k k' \cong \text{End}_{k'}(V)$ pour un certain espace vectoriel sur $k'$, noté $V$.
+Soit $B$ le centralisateur de $A$ dans $\text{End}_k(V)$. Remarquons que
+$k'$ est contenu dans $B$. D'après le
+lemme \ref{lemma-when-tensor-is-equal},
+la somme des classes de $A$ et de $B$ est nulle dans $\text{Br}(k)$.
+La formule des dimensions du
+théorème \ref{theorem-centralizer}
+donne
+$$
+[B : k] [A : k] =
+\dim_k(V)^2 =
+[k' : k]^2 \dim_{k'}(V)^2 =
+[k' : k]^2 [A : k].
+$$
+Ainsi, $[B : k] = [k' : k]^2$. Nous avons donc démontré le résultat pour la
+classe opposée à la classe de Brauer de $A$. Cependant, $k'$ neutralise la classe de Brauer
+de $A$ si et seulement s'il neutralise
+la classe de Brauer de l'algèbre opposée, ce qui conclut dans tous les cas.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-maximal-subfield-splits}
+Tout sous-corps commutatif maximal d'un corps gauche central $K$ de dimension finie sur $k$ est
+un corps neutralisant de $K$.
+\end{lemma}
+
+\begin{proof}
+Combiner le lemme \ref{lemma-maximal-subfield} avec le
+théorème \ref{theorem-splitting}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-splitting-field-degree}
+Considérons un corps gauche central $K$ de dimension finie sur $k$. Soit $d^2 = [K : k]$.
+Pour tout corps neutralisant fini $k'$ de $K$, le degré $[k' : k]$ est
+divisible par $d$.
+\end{lemma}
+
+\begin{proof}
+D'après le théorème \ref{theorem-splitting}, il existe une algèbre centrale
+simple de dimension finie, notée $B$, dans la classe de Brauer de $K$, telle que
+$[B : k] = [k' : k]^2$. D'après le
+lemme \ref{lemma-similar},
+on a $B = \text{Mat}(n \times n, K)$ pour un certain $n$.
+Alors $[k' : k]^2 = n^2d^2$, d'où le résultat.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-separable-splitting-field}
+Considérons un corps gauche central $K$ de dimension finie sur $k$.
+Il existe un sous-corps commutatif maximal $k \subset k' \subset K$ qui
+est séparable sur $k$.
+En particulier, toute classe de Brauer possède un corps neutralisant
+fini et séparable.
+\end{proposition}
+
+\begin{proof}
+Comme toute classe de Brauer est représentée par un corps gauche central de dimension
+finie sur $k$, la seconde assertion découle de la
+première et du
+lemme \ref{lemma-maximal-subfield-splits}.
+
+\medskip\noindent
+Pour démontrer la première assertion, supposons donné un sous-corps séparable
+$k' \subset K$. Alors le centralisateur $K'$ de $k'$ dans $K$
+a pour centre $k'$, et le problème se ramène à trouver un sous-corps commutatif
+maximal de $K'$ qui soit séparable sur $k'$. Il suffit donc de montrer que, si
+$k \not = K$, on peut trouver un élément $x \in K$, $x \not \in k$,
+qui soit séparable sur $k$. Cette assertion est claire en caractéristique
+zéro. Nous pouvons donc supposer que $k$ est de caractéristique $p > 0$. Si le
+corps de base $k$ est fini, le résultat est également clair (car les
+extensions de corps finis sont toujours séparables). Nous pouvons donc supposer
+que $k$ est un corps infini de caractéristique positive.
+
+\medskip\noindent
+Pour obtenir une contradiction, supposons qu'aucun élément de $K \setminus k$ ne soit séparable sur $k$.
+D'après la discussion de
+Corps, section \ref{fields-section-algebraic},
+cela signifie que le polynôme minimal de tout $x \in K$ est de la forme
+$T^q - a$, où $q$ est une puissance de $p$ et $a \in k$. Comme il est
+clair que tout élément de $K$ a un polynôme minimal de degré
+$\leq \dim_k(K)$, on en conclut qu'il existe une puissance fixée de $p$, notée
+$q$, telle que $x^q \in k$ pour tout $x \in K$.
+
+\medskip\noindent
+Considérons l'application
+$$
+(-)^q : K \longrightarrow K
+$$
+et exprimons-la dans une $k$-base $\{a_1, \ldots, a_n\}$ de $K$
+avec $a_1 = 1$. Ainsi,
+$$
+(\sum x_i a_i)^q = \sum f_i(x_1, \ldots, x_n)a_i.
+$$
+Comme la multiplication dans $K$ est $k$-bilinéaire, chaque $f_i$
+est un polynôme en $x_1, \ldots, x_n$ (nous omettons les détails).
+Le choix de $q$ ci-dessus et le fait que $k$ soit infini montrent que
+$f_i$ est identiquement nul pour $i \geq 2$. Cette annulation subsiste donc
+après extension de $k$ à sa clôture algébrique $\overline{k}$. Mais
+l'algèbre $K \otimes_k \overline{k}$ est une algèbre de matrices (par exemple d'après les
+lemmes \ref{lemma-base-change} et \ref{lemma-brauer-algebraically-closed}),
+ce qui implique qu'il existe des éléments dont la puissance $q$-ième n'est pas centrale
+(par exemple $e_{11}$). C'est la contradiction cherchée.
+\end{proof}
+
+\noindent
+Les résultats précédents permettent de caractériser les algèbres centrales simples de dimension
+finie comme suit.
+
+\begin{lemma}
+\label{lemma-finite-central-simple-algebra}
+Soit $k$ un corps. Pour une $k$-algèbre $A$, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $A$ est une $k$-algèbre centrale simple de dimension finie,
+\item $A$ est un espace vectoriel de dimension finie sur $k$, $k$ est le centre de $A$,
+et $A$ n'a aucun idéal bilatère non trivial,
+\item il existe $d \geq 1$ tel que
+$A \otimes_k \bar k \cong \text{Mat}(d \times d, \bar k)$,
+\item il existe $d \geq 1$ tel que
+$A \otimes_k k^{sep} \cong \text{Mat}(d \times d, k^{sep})$,
+\item il existe $d \geq 1$ et une extension galoisienne finie $k'/k$
+tels que
+$A \otimes_k k' \cong \text{Mat}(d \times d, k')$,
+\item il existe $n \geq 1$ et un corps gauche central $K$ de dimension finie
+sur $k$ tels que $A \cong \text{Mat}(n \times n, K)$.
+\end{enumerate}
+L'entier $d$ est appelé le {\it degré} de $A$.
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) résulte des définitions; voir la
+section \ref{section-algebras}.
+Supposons (1). D'après la
+proposition \ref{proposition-separable-splitting-field},
+il existe un corps neutralisant séparable $k \subset k'$ de $A$.
+Bien entendu, une clôture galoisienne de $k'/k$ est encore un corps neutralisant.
+Ainsi, (1) implique (5). Il est clair que (5) $\Rightarrow$ (4)
+$\Rightarrow$ (3). Supposons (3). Alors $A \otimes_k \overline{k}$
+est une $\overline{k}$-algèbre centrale simple de dimension finie, par exemple d'après le
+lemme \ref{lemma-matrix-algebras}.
+Cela implique immédiatement que $A$ est une $k$-algèbre centrale simple de dimension finie.
+Enfin, l'équivalence de (1) et (6) est le théorème de Wedderburn; voir le
+théorème \ref{theorem-wedderburn}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

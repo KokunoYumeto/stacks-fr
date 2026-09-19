@@ -1,0 +1,558 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Introduction aux champs algébriques}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Pourquoi lire ce chapitre ?}
+\label{section-introduction}
+
+\noindent
+Nous donnons une introduction informelle aux champs algébriques. Le but est
+d'introduire rapidement un langage simple qui permette de penser les
+propriétés locales et globales de votre problème de modules favori.
+Une fois cela fait, vous devriez pouvoir formuler des questions bien posées
+sur les problèmes de modules et commencer à les résoudre, en admettant
+l'existence d'une théorie générale. Si vous aboutissez à un résultat
+intéressant, vous pourrez revenir à la théorie générale développée dans les
+autres parties du projet Stacks et combler les lacunes selon les besoins.
+
+\medskip\noindent
+Le point de vue adopté ici est proche de celui de
+\cite{KatzMazur} et \cite{mumford_picard}.
+
+
+
+
+
+
+\section{Préliminaires}
+\label{section-preliminary}
+
+\noindent
+Soit $S$ un schéma. Une {\it courbe elliptique} sur $S$ est un triplet
+$(E, f, 0)$, où $E$ est un schéma et où $f : E \to S$ et $0 : S \to E$
+sont des morphismes de schémas tels que
+\begin{enumerate}
+\item $f : E \to S$ soit propre et lisse de dimension relative $1$ ;
+\item pour tout $s \in S$, la fibre $E_s$ soit une courbe connexe
+de genre $1$, c'est-à-dire que $H^0(E_s, \mathcal{O})$ et
+$H^1(E_s, \mathcal{O})$ soient tous deux des espaces vectoriels de dimension
+$1$ sur $\kappa(s)$ ;
+\item $0$ soit une section de $f$.
+\end{enumerate}
+Étant données des courbes elliptiques $(E, f, 0)/S$ et $(E', f', 0')/S'$, un
+{\it morphisme de courbes elliptiques au-dessus de $a : S \to S'$}
+est un morphisme $\alpha : E \to E'$ tel que le diagramme
+$$
+\xymatrix{
+E \ar[rr]_\alpha \ar[d]^f & & E' \ar[d]_{f'}  \\
+S \ar@/^5ex/[u]^0 \ar[rr]^a & & S' \ar@/_5ex/[u]_{0'}
+}
+$$
+soit commutatif et que le carré intérieur soit cartésien ; autrement dit, le
+morphisme $\alpha$ induit un isomorphisme $E \to S \times_{S'} E'$.
+Nous allons définir le champ des courbes elliptiques $\mathcal{M}_{1, 1}$.
+Dans le reste du projet Stacks, nous développons la méthode introduite dans
+l'article de Deligne et Mumford \cite{DM}, qui consiste à présenter
+$\mathcal{M}_{1, 1}$ comme une catégorie munie d'un foncteur
+$$
+p : \mathcal{M}_{1, 1} \longrightarrow \Sch, \quad
+(E, f, 0)/S \longmapsto S
+$$
+Cela conduit à travailler avec les catégories fibrées sur la catégorie des
+schémas, les topologies, les champs fibrés en groupoïdes, les recouvrements,
+etc. Dans ce chapitre, nous laissons tout cet appareil de côté et envisageons
+les choses un peu autrement, probablement d'une manière plus proche de celle
+dont les fondateurs de la théorie ont commencé à les concevoir.
+
+
+\section{Le champ de modules des courbes elliptiques}
+\label{section-moduli-elliptic-curves}
+
+\noindent
+Voici la démarche que nous allons suivre :
+\begin{enumerate}
+\item Partons de votre catégorie de schémas favorite $\Sch$.
+\item Ajoutons un nouveau symbole $\mathcal{M}_{1, 1}$.
+\item Un morphisme $S \to \mathcal{M}_{1, 1}$ {\bf est} une courbe elliptique
+$(E, f, 0)$ sur $S$.
+\item Un diagramme
+$$
+\xymatrix{
+S \ar[rr]_a \ar[rd]_{(E, f, 0)} & & S' \ar[ld]^{(E', F', 0')} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+{\bf est} commutatif si et seulement s'il existe un morphisme
+$\alpha : E \to E'$ de courbes elliptiques au-dessus de $a : S \to S'$.
+Nous disons que $\alpha$ {\it atteste} la commutativité du diagramme.
+\item Remarquons que les diagrammes commutatifs se composent comme suit :
+$$
+\xymatrix{
+S \ar[rrr]_a \ar[rrrd]_{(E, f, 0)} & & &
+S' \ar[d]_{(E', F', 0')} \ar[rrr]_{a'} & & &
+S'' \ar[llld]^{(E'', F'', 0'')}
+\\
+& & & \mathcal{M}_{1, 1}
+}
+$$
+en effet, $\alpha' \circ \alpha$ atteste la commutativité du triangle extérieur
+si $\alpha$ et $\alpha'$ attestent respectivement la commutativité des triangles
+de gauche et de droite.
+\item La composée
+$$
+S \xrightarrow{a} S' \xrightarrow{(E', f', 0')} \mathcal{M}_{1, 1}
+$$
+est donnée par $(E' \times_{S'} S, f' \times_{S'} S, 0' \times_{S'} S)$.
+\end{enumerate}
+Au terme de cette procédure, nous avons agrandi la catégorie $\Sch$ des
+schémas en lui adjoignant exactement un objet...
+
+\medskip\noindent
+À ceci près que nous n'avons pas défini ce qu'est un morphisme de
+$\mathcal{M}_{1, 1}$ vers un schéma $T$. La réponse consiste à retenir la
+notion la plus faible possible pour laquelle les compositions aient un sens.
+Ainsi, un morphisme $F : \mathcal{M}_{1, 1} \to T$ est une règle qui associe à
+toute courbe elliptique $(E, f, 0)/S$ un morphisme
+$F(E, f, 0) : S \to T$, de telle sorte que, pour tout diagramme commutatif
+$$
+\xymatrix{
+S \ar[rr]_a \ar[rd]_{(E, f, 0)} & & S' \ar[ld]^{(E', F', 0')} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+le diagramme
+$$
+\xymatrix{
+S \ar[rr]_a \ar[rd]_{F(E, f, 0)} & & S' \ar[ld]^{F(E', F', 0')} \\
+& T
+}
+$$
+soit lui aussi commutatif. Le $j$-invariant, dont vous avez peut-être entendu
+parler, en fournit un exemple :
+$$
+j : \mathcal{M}_{1, 1} \longrightarrow \mathbf{A}^1_{\mathbf{Z}}
+$$
+Bien, nous avons donc terminé...
+
+\medskip\noindent
+Eh bien non ! Il nous faut encore définir une notion de morphisme
+$\mathcal{M}_{1, 1} \to \mathcal{M}_{1, 1}$. Nous procédons exactement comme
+précédemment : un morphisme
+$F : \mathcal{M}_{1, 1} \to \mathcal{M}_{1, 1}$
+est une règle qui associe à toute courbe elliptique $(E, f, 0)/S$ une autre
+courbe elliptique $F(E, f, 0)$, tout en préservant la commutativité des
+diagrammes précédents. Toutefois, comme je ne connais aucun exemple non
+trivial d'un tel foncteur, je définirai pour l'instant l'ensemble des
+morphismes de $\mathcal{M}_{1, 1}$ vers lui-même comme réduit à l'identité.
+
+\medskip\noindent
+J'espère que vous voyez comment ajouter d'autres objets à cette catégorie
+agrandie. Il semble intuitivement clair que, pour tout problème de modules
+« bien sage », nous pouvons effectuer la construction précédente et ajouter
+un objet à notre catégorie. En fait, une grande partie de la géométrie
+algébrique contemporaine se déroule dans un tel univers, où $\Sch$ est
+agrandie par une infinité dénombrable de champs de modules construits
+explicitement.
+
+\medskip\noindent
+Vous pourriez objecter que la structure obtenue n'est pas une catégorie,
+car il subsiste un certain « flou » quant aux diagrammes qui commutent et aux
+combinaisons de diagrammes qui continuent de commuter : il faut en effet
+produire une attestation de la commutativité. Or il se trouve que cette idée,
+qui consiste à munir la commutativité d'attestations, constitue une approche
+valable des $2$-catégories ! Nous nous y tiendrons donc.
+
+
+
+
+
+
+\section{Produits fibrés}
+\label{section-fibre-products}
+
+\noindent
+La question posée ici est de déterminer ce que doit être le produit fibré
+$$
+\xymatrix{
+& ? \ar@{..>}[rd] \ar@{..>}[ld] \\
+S \ar[rd]_{(E, f, 0)} & & S' \ar[ld]^{(E', f', 0')} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+La réponse est la suivante : un morphisme d'un schéma $T$ vers $?$
+doit être un triplet $(a, a', \alpha)$, où
+$a : T \to S$ et $a' : T \to S'$ sont des morphismes de schémas et où
+$\alpha : E \times_{S, a} T \to E' \times_{S', a'} T$ est un isomorphisme de
+courbes elliptiques sur $T$. Cela a un sens en vertu de notre définition
+antérieure de la composition et des diagrammes commutatifs.
+
+\begin{lemma}[Fait clé]
+\label{lemma-key-fact}
+Le foncteur $\Sch^{opp} \to \textit{Sets}$,
+$T \mapsto \{(a, a', \alpha)\text{ comme ci-dessus}\}$
+est représentable par un schéma $S \times_{\mathcal{M}_{1, 1}} S'$.
+\end{lemma}
+
+\begin{proof}
+Idée de la démonstration. Relier ce foncteur à
+$$
+\mathit{Isom}_{S \times S'}(E \times S', S \times E')
+$$
+et utiliser la théorie de Grothendieck des schémas de Hilbert.
+\end{proof}
+
+\begin{remark}
+\label{remark-diagonal}
+Nous avons la formule
+$S \times_{\mathcal{M}_{1, 1}} S' =
+(S \times S')
+\times_{\mathcal{M}_{1, 1} \times \mathcal{M}_{1, 1}}
+\mathcal{M}_{1, 1}$.
+Le fait clé est donc une propriété de la diagonale
+$\Delta_{\mathcal{M}_{1, 1}}$ de $\mathcal{M}_{1, 1}$.
+\end{remark}
+
+\noindent
+Quoi qu'il en soit, le fait clé nous permet de poser la définition suivante.
+
+\begin{definition}
+\label{definition-smooth}
+Nous disons qu'un morphisme $S \to \mathcal{M}_{1, 1}$ est {\it lisse} si,
+pour tout morphisme $S' \to \mathcal{M}_{1, 1}$, le morphisme de projection
+$$
+S \times_{\mathcal{M}_{1, 1}} S' \longrightarrow S'
+$$
+est lisse.
+\end{definition}
+
+\noindent
+Remarquons que cette définition est compatible avec la notion de morphisme
+lisse de schémas, puisque tout changement de base d'un morphisme lisse est
+lisse. Il est en outre clair comment étendre cette définition à d'autres
+propriétés des morphismes vers $\mathcal{M}_{1, 1}$ (ou vers votre champ de
+modules favori). Nous l'utiliserons notamment ci-dessous pour les morphismes
+{\it surjectifs}.
+
+
+
+
+
+\section{La définition}
+\label{section-definition}
+
+\noindent
+Nous allons la formuler comme une définition plutôt que comme un résultat,
+car nous attendons du lecteur qu'il essaie d'autres cas, et pas seulement le
+champ $\mathcal{M}_{1, 1}$ ni la seule catégorie $\Sch$ de tous les schémas.
+
+\begin{definition}
+\label{definition-algebraic-stack}
+Nous disons que $\mathcal{M}_{1, 1}$ est un {\it champ algébrique} si et
+seulement si
+\begin{enumerate}
+\item les objets vérifient la descente pour la topologie \'etale sur $\Sch$ ;
+\item le fait clé est vérifié ;
+\item il existe un morphisme surjectif et lisse
+$S \to \mathcal{M}_{1, 1}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+La première condition est une « propriété de faisceau ». Nous allons
+l'expliciter, car elle recèle un point technique. Supposons donnés un schéma
+$S$, un recouvrement \'etale $\{S_i \to S\}$ et des morphismes
+$e_i : S_i \to \mathcal{M}_{1, 1}$ tels que les diagrammes
+$$
+\xymatrix{
+S_i \times_S S_j \ar[rd]_{e_i \circ \text{pr}_1} \ar[rr]_{\text{id}} & &
+S_i \times_S S_j \ar[ld]^{e_j \circ \text{pr}_2} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+soient commutatifs. La condition de faisceau ne garantit {\it pas}, à elle
+seule, l'existence d'un morphisme $e : S \to \mathcal{M}_{1, 1}$ dans cette
+situation. En effet, il faut choisir des attestations $\alpha_{ij}$ pour les
+diagrammes précédents et imposer que
+$$
+\text{pr}_{02}^*\alpha_{ik} =
+\text{pr}_{12}^*\alpha_{jk} \circ \text{pr}_{01}^*\alpha_{ij}
+$$
+comme attestations sur $S_i \times_S S_j \times_S S_k$. Le sens de cette
+condition devrait être clair... Sinon, je crains qu'il ne vous faille lire
+une partie des développements sur les catégories fibrées en groupoïdes, etc.
+Quoi qu'il en soit, l'égalité affichée est souvent appelée la
+{\it condition de cocycle}. Voici une formulation plus précise de la
+« propriété de faisceau » : étant donnés $\{S_i \to S\}$,
+$e_i : S_i \to \mathcal{M}_{1, 1}$ et des attestations $\alpha_{ij}$
+satisfaisant la condition de cocycle, il existe un unique morphisme
+$e : S \to \mathcal{M}_{1, 1}$, à isomorphisme unique près, tel que
+$e_i \cong e|_{S_i}$ et qui redonne les $\alpha_{ij}$.
+
+\medskip\noindent
+Comme vous le voyez, la formulation même d'un énoncé précis demande déjà un
+peu de travail. La démonstration de cette « propriété de faisceau » repose sur
+une technique fondamentale de la géométrie algébrique : la théorie de la
+descente. Je suggère, dans un premier temps, d'admettre simplement cette
+« propriété de faisceau » et d'examiner ce qu'elle implique en pratique.
+Une certaine agilité d'esprit est en effet nécessaire pour condenser cette
+« propriété de faisceau » en un énoncé maniable tenant sur un coin de table.
+La variante la plus simple qui présente déjà quelque intérêt est peut-être la
+suivante. Supposons donnée une extension galoisienne finie $L/K$ de corps, de
+groupe de Galois $G = \text{Gal}(L/K)$. Posons $T = \Spec(L)$ et
+$S = \Spec(K)$. Alors $\{T \to S\}$ est un recouvrement \'etale.
+Soit $(E, f, 0)$ une courbe elliptique sur $L$. (Cela signifie simplement que
+$E \subset \mathbf{P}^2_L$ est donnée par une équation de Weierstrass et que
+$0$ est le point à l'infini usuel.) Notons
+$E_\sigma = E \times_{T, \Spec(\sigma)} T$ le changement de base.
+(Cela revient à appliquer $\sigma$ aux coefficients de l'équation de
+Weierstrass, à moins que ce ne soit $\sigma^{-1}$.) Supposons en outre que,
+pour tout $\sigma \in G$, nous soit donné un isomorphisme
+$$
+\alpha_\sigma : E \longrightarrow E_\sigma
+$$
+sur $T$. Dans cette situation, la condition de cocycle signifie que
+$$
+(\alpha_\tau)^\sigma \circ \alpha_\sigma = \alpha_{\tau\sigma}
+$$
+pour $\sigma, \tau \in G$. Si vous avez déjà pratiqué la cohomologie des
+groupes, cette formule vous sera familière. La condition de « recollement »
+sur $\mathcal{M}_{1, 1}$ affirme donc que, si ce système d'équations admet une
+solution, il existe une courbe elliptique $E'$ sur $S$ telle que
+$E \cong E' \times_S T$ (elle en dit un peu plus, puisqu'elle indique aussi
+comment retrouver les $\alpha_\sigma$).
+
+\medskip\noindent
+Défi : pouvez-vous le démontrer en n'utilisant que des courbes elliptiques
+définies par des équations de Weierstrass ?
+
+
+
+
+\section{Un recouvrement lisse}
+\label{section-smooth}
+
+\noindent
+Il nous reste à trouver un recouvrement lisse de $\mathcal{M}_{1, 1}$.
+En un certain sens, l'existence d'un recouvrement lisse
+{\it implique}\footnote{Il y a là une légère tricherie : pour vérifier la
+lissité, il faut démontrer un résultat proche du fait clé, puisque la lissité
+est définie au moyen de produits fibrés. L'avantage est qu'il suffit de
+démontrer l'existence de ces produits fibrés lorsque, d'un côté, figure le
+morphisme dont on cherche précisément à montrer qu'il fournit le recouvrement
+lisse.} le fait clé ! Dans le cas des courbes elliptiques, nous en construisons
+un au moyen de l'équation de Weierstrass.
+
+\medskip\noindent
+Posons
+$$
+W = \Spec(\mathbf{Z}[a_1, a_2, a_3, a_4, a_6, 1/\Delta])
+$$
+où $\Delta \in \mathbf{Z}[a_1, a_2, a_3, a_4, a_6]$ est un certain polynôme
+(voir ci-dessous). Posons
+$$
+\mathbf{P}_W^2 \supset E_W :
+zy^2 + a_1 xyz + a_3 yz^2 = x^3 + a_2x^2z + a_4xz^2 + a_6z^3.
+$$
+Notons $f_W : E_W \to W$ la projection. Enfin, notons $0_W : W \to E_W$ la
+section de $f_W$ donnée par $(0 : 1 : 0)$. Il existe alors un polynôme homogène
+de degré $12$, noté $\Delta$, en les $a_i$, où $\deg(a_i) = i$, tel que
+$E_W \to W$ soit lisse. On peut l'obtenir explicitement en calculant les
+dérivées partielles de l'équation de Weierstrass ; on peut bien sûr aussi le
+chercher dans la littérature. On peut encore demander à pari/gp de le
+calculer. Le voici :
+\begin{align*}
+\Delta & = -a_6a_1^6 + a_4a_3a_1^5 + ((-a_3^2 - 12a_6)a_2 + a_4^2)a_1^4 + \\
+& (8a_4a_3a_2 + (a_3^3 + 36a_6a_3))a_1^3 + \\
+& ((-8a_3^2 - 48a_6)a_2^2 + 8a_4^2a_2 + (-30a_4a_3^2 + 72a_6a_4))a_1^2 + \\
+& (16a_4a_3a_2^2 + (36a_3^3 + 144a_6a_3)a_2 - 96a_4^2a_3)a_1 + \\
+& (-16a_3^2 - 64a_6)a_2^3 + 16a_4^2a_2^2 + (72a_4a_3^2 + 288a_6a_4)a_2 + \\
+& -27a_3^4 - 216a_6a_3^2  -64a_4^3 - 432a_6^2
+\end{align*}
+Vous reconnaîtrez peut-être les deux derniers termes du cas
+$y^2 = x^3 + Ax + B$, où le discriminant vaut
+$-64A^3 - 432B^2 = -16(4A^3 + 27B^2)$.
+
+\begin{lemma}
+\label{lemma-Weierstrass-smooth-cover}
+Le morphisme $W \xrightarrow{(E_W, f_W, 0_W)} \mathcal{M}_{1, 1}$ est lisse
+et surjectif.
+\end{lemma}
+
+\begin{proof}
+La surjectivité résulte du fait que toute courbe elliptique sur un corps admet
+une équation de Weierstrass. Esquissons une manière de démontrer la lissité.
+Considérons le sous-schéma en groupes
+$$
+H =
+\left\{
+\left(
+\begin{matrix}
+u^2 & s & 0 \\
+0 & u^3 & 0 \\
+r & t & 1
+\end{matrix}
+\right)
+\middle|
+\begin{matrix}
+u\text{ inversible} \\
+s, r, t\text{ arbitraires}
+\end{matrix}
+\right\}
+\subset
+\text{GL}_{3, \mathbf{Z}}
+$$
+Il existe une action $H \times W \to W$ de $H$ sur le schéma de Weierstrass
+$W$. Pour en trouver les équations, il suffit d'expliciter l'effet, sur
+l'équation générale de Weierstrass, d'un changement de coordonnées donné par
+une matrice de $H$. On constate alors que les assertions suivantes sont vraies :
+\begin{enumerate}
+\item toute courbe elliptique $(E, f, 0)/S$ admet, localement pour la topologie
+de Zariski sur $S$, une équation de Weierstrass ;
+\item deux équations de Weierstrass quelconques de $(E, f, 0)$ diffèrent,
+localement pour la topologie de Zariski, par un élément de $H$.
+\end{enumerate}
+En considérant le produit fibré
+$S \times_{\mathcal{M}_{1, 1}} W =
+\mathit{Isom}_{S \times W}(E \times W, S \times E_W)$,
+nous en concluons que le morphisme $W \to \mathcal{M}_{1, 1}$ est un
+$H$-torseur. Puisque $H \to \Spec(\mathbf{Z})$ est lisse et que les torseurs
+sous des schémas en groupes lisses sont lisses, le résultat s'ensuit.
+\end{proof}
+
+\begin{remark}
+\label{remark-quotient-stack}
+L'argument esquissé ci-dessus montre en fait que
+$\mathcal{M}_{1, 1} = [W/H]$ est un champ quotient global.
+Dans environ 50\% des cas, un argument établissant qu'un champ de modules est
+algébrique montre aussi qu'il s'agit d'un champ quotient global.
+\end{remark}
+
+
+
+\section{Propriétés des champs algébriques}
+\label{section-properties}
+
+\noindent
+Nous savons maintenant que $\mathcal{M}_{1, 1}$ est un champ algébrique.
+Que pouvons-nous en faire ? Ce n'est pas tant le fait qu'il soit algébrique
+qui nous aide ici que le point de vue selon lequel les propriétés de
+$\mathcal{M}_{1, 1}$ doivent être encodées dans celles des morphismes
+$S \to \mathcal{M}_{1, 1}$, c'est-à-dire dans les familles de courbes
+elliptiques. En voici quelques exemples.
+
+\medskip\noindent
+{\bf Propriétés locales :}
+$$
+\mathcal{M}_{1, 1} \to \Spec(\mathbf{Z})\text{ est lisse}
+\Leftrightarrow
+W \to \Spec(\mathbf{Z})\text{ est lisse}
+$$
+{\bf Idée}. Les propriétés locales d'un champ algébrique sont encodées dans
+les propriétés locales de son recouvrement lisse.
+
+\medskip\noindent
+{\bf Propriétés globales :}
+$$
+\begin{matrix}
+\mathcal{M}_{1, 1}\text{ est quasi-compact} \Leftarrow W\text{ est quasi-compact}
+\\
+\mathcal{M}_{1, 1}\text{ est irréductible} \Leftarrow W\text{ est irréductible}
+\end{matrix}
+$$
+{\bf Idée}. Certaines propriétés globales d'un champ algébrique se lisent sur
+la propriété correspondante d'un recouvrement lisse
+{\it convenable}\footnote{Je suppose qu'il peut exister un champ algébrique
+irréductible dépourvu de recouvrement lisse irréductible ; mais, si tel est le
+cas, il doit être assez pathologique !}.
+
+\medskip\noindent
+{\bf Faisceaux quasi-cohérents :}
+$$
+\QCoh(\mathcal{O}_{\mathcal{M}_{1, 1}}) =
+H\text{-modules quasi-cohérents équivariants sur }W
+$$
+{\bf Idée}. D'une part, un module quasi-cohérent sur
+$\mathcal{M}_{1, 1}$ devrait correspondre à un faisceau quasi-cohérent
+$\mathcal{F}_{S, e}$ sur $S$ pour chaque morphisme
+$e : S \to \mathcal{M}_{1, 1}$. Cela vaut en particulier pour le morphisme
+$(E_W, f_W, 0_W) :  W \to \mathcal{M}_{1, 1}$. Comme ce morphisme est
+$H$-équivariant, le module quasi-cohérent $\mathcal{F}_W$ ainsi obtenu est
+$H$-équivariant. Réciproquement, à partir d'un module $H$-équivariant, on peut
+retrouver les faisceaux $\mathcal{F}_{S, e}$ par la théorie de la descente, en
+partant de l'observation que $S \times_{e, \mathcal{M}_{1, 1}} W$ est un
+$H$-torseur.
+
+\medskip\noindent
+{\bf Groupe de Picard :}
+$$
+\Pic(\mathcal{M}_{1, 1}) = \Pic_H(W) = \mathbf{Z}/12\mathbf{Z}
+$$
+{\bf Idée}. Nous avons vu ci-dessus la première égalité. Remarquons que
+$\Pic(W) = 0$, car l'anneau
+$\mathbf{Z}[a_1, a_2, a_3, a_4, a_6, 1/\Delta]$
+a un groupe des classes trivial. Il existe une suite exacte
+$$
+\mathbf{Z}\Delta \to
+\Pic_H(\mathbf{A}^5_{\mathbf{Z}}) \to
+\Pic_H(W) \to 0
+$$
+Le groupe du milieu est égal à $\Hom(H, \mathbf{G}_m) = \mathbf{Z}$.
+L'image de $\Delta$ est $12$, car $\Delta$ est de degré $12$.
+Cet argument est essentiellement correct ; voir \cite{PicM11}.
+
+\medskip\noindent
+{\bf Cohomologie \'etale :} soit $\Lambda$ un anneau.
+Il existe une suite spectrale du premier quadrant convergeant vers
+$H^{p + q}_\etale(\mathcal{M}_{1, 1}, \Lambda)$, dont la page $E_2$ est
+$$
+E_2^{p, q} = H_\etale^q(W \times H \times \ldots \times H, \Lambda)
+\quad(p\text{ facteurs }H)
+$$
+{\bf Idée}. Remarquons que
+$$
+W \times_{\mathcal{M}_{1, 1}} W \times_{\mathcal{M}_{1, 1}}
+\ldots \times_{\mathcal{M}_{1, 1}} W
+= W \times H \times \ldots \times H
+$$
+parce que $W \to \mathcal{M}_{1, 1}$ est un $H$-torseur. Cette suite
+spectrale est la suite spectrale de {\v C}ech vers la cohomologie associée au
+recouvrement lisse $\{W \to \mathcal{M}_{1, 1}\}$. Par exemple,
+$H^0_\etale(\mathcal{M}_{1, 1}, \Lambda) = \Lambda$ parce que
+$W$ est connexe, et $H^1_\etale(\mathcal{M}_{1, 1}, \Lambda) = 0$ parce que
+$H^1_\etale(W, \Lambda) = 0$ (cela exige évidemment une démonstration).
+Bien entendu, le recouvrement lisse $W \to \mathcal{M}_{1, 1}$ n'est
+peut-être pas « optimal » pour calculer la cohomologie \'etale.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

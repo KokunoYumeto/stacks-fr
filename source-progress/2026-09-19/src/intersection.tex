@@ -1,0 +1,3229 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Théorie de l'intersection}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous construisons le produit d'intersection sur les groupes de Chow
+modulo l'équivalence rationnelle d'une variété projective non singulière sur un
+corps algébriquement clos. Nos outils sont la formule des Tor de Serre
+(voir \cite[chapitre V]{Serre_algebre_locale}), la réduction à la diagonale
+et le lemme de déplacement.
+
+\medskip\noindent
+Nous rappelons d'abord les cycles et la construction de l'image directe propre et de
+l'image inverse plate des cycles. Ensuite, nous introduisons l'équivalence rationnelle des cycles,
+qui nous donne les groupes de Chow $\CH_*(X)$. L'image directe propre et l'image inverse plate
+se factorisent par l'équivalence rationnelle et donnent des opérations sur les groupes de Chow.
+Cela occupe les sections
+\ref{section-cycles},
+\ref{section-cycle-of-closed},
+\ref{section-cycle-of-coherent-sheaf},
+\ref{section-pushforward},
+\ref{section-flat-pullback},
+\ref{section-rational-equivalence},
+\ref{section-alternative},
+\ref{section-pushforward-and-rational-equivalence}, et
+\ref{section-flat-pullback-and-rational-equivalence}.
+Pour les démonstrations, nous renvoyons principalement au chapitre sur l'homologie de Chow,
+où ces résultats ont été démontrés dans le cadre des
+schémas localement de type fini sur une base noethérienne universellement caténaire ; voir
+Homologie de Chow, section \ref{chow-section-setup} et suivantes.
+
+\medskip\noindent
+Puisque nous travaillons sur une variété projective non singulière $X$, toute composante irréductible
+de l'intersection $V \cap W$ de deux sous-variétés fermées irréductibles
+est de dimension au moins $\dim(V) + \dim(W) - \dim(X)$. Nous disons que $V$ et $W$
+se coupent proprement si l'égalité vaut pour toute composante irréductible $Z$.
+Dans ce cas, nous définissons la multiplicité d'intersection
+$e_Z = e(X, V \cdot W, Z)$ par la formule
+$$
+e_Z = \sum\nolimits_i
+(-1)^i
+\text{length}_{\mathcal{O}_{X, Z}}
+\text{Tor}_i^{\mathcal{O}_{X, Z}}(\mathcal{O}_{W, Z}, \mathcal{O}_{V, Z})
+$$
+Nous devons faire un peu d'algèbre commutative pour montrer que ces
+multiplicités d'intersection concordent avec l'intuition dans les cas simples,
+c'est-à-dire que, parfois,
+$$
+e_Z = \text{length}_{\mathcal{O}_{X, Z}} \mathcal{O}_{V \cap W, Z},
+$$
+autrement dit, seul $\text{Tor}_0$ contribue. Cela se produit lorsque
+$V$ et $W$ sont de Cohen-Macaulay au point générique de $Z$, ou lorsque
+$W$ est défini par une suite régulière dans $\mathcal{O}_{X, Z}$ qui
+définit aussi une suite régulière sur $\mathcal{O}_{V, Z}$. Toutefois,
+l'exemple \ref{example-naive-multiplicity-wrong} montre que les Tor supérieurs
+sont nécessaires en général. De plus, il existe un lien
+avec la multiplicité de Samuel. Ces questions sont étudiées dans les
+sections
+\ref{section-intersect-properly},
+\ref{section-tor-formula},
+\ref{section-multiplicities},
+\ref{section-computing-intersection-multiplicities}, et
+\ref{section-intersection-product}.
+
+\medskip\noindent
+La réduction à la diagonale affirme que nous pouvons couper
+$V$ et $W$ en coupant $V \times W$ avec la diagonale dans $X \times X$.
+Cet énoncé anodin, évident au niveau des intersections
+schématiques, ramène l'intersection d'une paire quelconque
+de sous-schémas fermés au cas où l'un des deux est localement défini
+par une suite régulière. À la suite de Serre, nous l'utilisons pour obtenir la positivité
+des multiplicités d'intersection. De plus, la réduction à la diagonale
+conduit à l'additivité des multiplicités d'intersection, à l'associativité et à une
+formule de projection. On trouvera cela dans les sections
+\ref{section-exterior-product},
+\ref{section-reduction-diagonal},
+\ref{section-associative},
+\ref{section-flat-pullback-and-intersection-products}, et
+\ref{section-projection-formula-flat}.
+
+\medskip\noindent
+Enfin, nous abordons les lemmes de déplacement et leurs applications. Le lemme de
+déplacement comporte deux parties. La première affirme qu'étant données des sous-variétés fermées
+$$
+Z \subset X \subset \mathbf{P}^N
+$$
+avec $X$ non singulière, nous pouvons trouver une sous-variété $C \subset \mathbf{P}^N$
+qui coupe $X$ proprement et telle que
+$$
+C \cdot X = [Z] + \sum m_j [Z_j]
+$$
+et telle que les autres composantes $Z_j$ soient « plus générales » que $Z$.
+La seconde partie affirme que l'on peut déplacer $C \subset \mathbf{P}^N$, le long
+d'une courbe rationnelle, vers une sous-variété en position générale par rapport à
+toute liste donnée de sous-variétés. Ensemble, ces résultats impliquent qu'il suffit
+de définir le produit d'intersection des cycles sur $X$ qui se coupent
+proprement, ce qui a été fait ci-dessus. Bien entendu, cela ne conduit à un produit d'intersection
+sur $\CH_*(X)$ que si l'on montre, comme nous le faisons dans le texte, que ces produits
+passent au quotient par l'équivalence rationnelle. Cette question et quelques applications sont étudiées
+dans les sections
+\ref{section-projection},
+\ref{section-moving-lemma},
+\ref{section-intersections-and-rational-equivalence},
+\ref{section-chow-rings},
+\ref{section-general-pullback}, et
+\ref{section-pullback-cycles}.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Nous fixons un corps de base algébriquement clos $\mathbf{C}$, de caractéristique
+quelconque. Tous les schémas et toutes les variétés sont définis sur $\mathbf{C}$, et tous les
+morphismes sont des $\mathbf{C}$-morphismes. Une variété $X$ est
+{\it non singulière} si $X$ est un schéma régulier (voir
+Propriétés, définition \ref{properties-definition-regular}).
+Dans notre cas, cela signifie que le morphisme $X \to \Spec(\mathbf{C})$
+est lisse (voir
+Variétés, lemme \ref{varieties-lemma-geometrically-regular-smooth}).
+
+
+\section{Cycles}
+\label{section-cycles}
+
+\noindent
+Soit $X$ une variété. Une {\it sous-variété fermée} de $X$ est un sous-schéma
+fermé intègre $Z \subset X$. Un {\it $k$-cycle} sur $X$ est une somme formelle
+finie $\sum n_i [Z_i]$, où chaque $Z_i$ est une sous-variété fermée
+de dimension $k$. Chaque fois que nous employons la notation $\alpha = \sum n_i[Z_i]$
+pour un $k$-cycle, nous supposons toujours que les sous-variétés $Z_i$ sont deux à deux
+distinctes et que $n_i \not = 0$ pour tout $i$. Dans ce cas, le
+{\it support} de $\alpha$ est le sous-ensemble fermé
+$$
+\text{Supp}(\alpha) = \bigcup Z_i \subset X
+$$
+de dimension $k$. Le groupe des $k$-cycles est noté $Z_k(X)$.
+Voir Homologie de Chow, section \ref{chow-section-cycles}.
+
+
+\section{Cycle associé à un sous-schéma fermé}
+\label{section-cycle-of-closed}
+
+\noindent
+Supposons que $X$ soit une variété et que $Z \subset X$ soit un sous-schéma fermé
+avec $\dim(Z) \leq k$. Soient $Z_i$ les composantes irréductibles de $Z$ de
+dimension $k$, et soit $n_i$ la {\it multiplicité de $Z_i$ dans $Z$},
+définie par
+$$
+n_i = \text{length}_{\mathcal{O}_{X, Z_i}} \mathcal{O}_{Z, Z_i}
+$$
+où $\mathcal{O}_{X, Z_i}$, resp.\ $\mathcal{O}_{Z, Z_i}$, est l'anneau
+local de $X$, resp.\ de $Z$, au point générique de $Z_i$.
+Nous définissons le $k$-cycle associé à $Z$ comme le $k$-cycle
+$$
+[Z]_k = \sum n_i [Z_i].
+$$
+Voir Homologie de Chow, section \ref{chow-section-cycle-of-closed-subscheme}.
+
+
+\section{Cycle associé à un faisceau cohérent}
+\label{section-cycle-of-coherent-sheaf}
+
+\noindent
+Supposons que $X$ soit une variété et que
+$\mathcal{F}$ soit un $\mathcal{O}_X$-module cohérent tel que
+$\dim(\text{Supp}(\mathcal{F})) \leq k$.
+Soient $Z_i$ les composantes irréductibles de $\text{Supp}(\mathcal{F})$
+de dimension $k$, et soit $n_i$ la
+{\it multiplicité de $Z_i$ dans $\mathcal{F}$}, définie par
+$$
+n_i = \text{length}_{\mathcal{O}_{X, Z_i}} \mathcal{F}_{\xi_i}
+$$
+où $\mathcal{O}_{X, Z_i}$ est l'anneau
+local de $X$ au point générique $\xi_i$ de $Z_i$,
+et où $\mathcal{F}_{\xi_i}$ est le germe de $\mathcal{F}$ en ce point.
+Nous définissons le $k$-cycle associé à $\mathcal{F}$ comme le $k$-cycle
+$$
+[\mathcal{F}]_k = \sum n_i [Z_i].
+$$
+Voir Homologie de Chow, section \ref{chow-section-cycle-of-coherent-sheaf}.
+Notons que, si $Z \subset X$ est un sous-schéma fermé avec $\dim(Z) \leq k$, alors
+$[Z]_k = [\mathcal{O}_Z]_k$ par définition.
+
+
+\section{Image directe propre}
+\label{section-pushforward}
+
+\noindent
+Supposons que $f : X \to Y$ soit un morphisme propre de variétés.
+Soit $Z \subset X$ une sous-variété fermée de dimension $k$.
+Nous définissons $f_*[Z]$ comme $0$ si $\dim(f(Z)) < k$,
+et comme $d \cdot [f(Z)]$ si $\dim(f(Z)) = k$, où
+$$
+d = [\mathbf{C}(Z) : \mathbf{C}(f(Z))] = \deg(Z/f(Z))
+$$
+est le degré du morphisme dominant $Z \to f(Z)$ ; voir
+Morphismes, définition \ref{morphisms-definition-degree}.
+Soit $\alpha = \sum n_i [Z_i]$ un $k$-cycle sur $X$. L'
+{\it image directe} de $\alpha$ est la somme $f_* \alpha = \sum n_i f_*[Z_i]$,
+où chaque $f_*[Z_i]$ est défini comme ci-dessus. Cela définit un homomorphisme
+$$
+f_* : Z_k(X) \longrightarrow Z_k(Y)
+$$
+Voir Homologie de Chow, section \ref{chow-section-proper-pushforward}.
+
+\begin{lemma}
+\label{lemma-push-coherent}
+\begin{reference}
+Voir \cite[chapitre V]{Serre_algebre_locale}.
+\end{reference}
+Supposons que $f : X \to Y$ soit un morphisme propre de variétés.
+Soit $\mathcal{F}$ un faisceau cohérent tel que
+$\dim(\text{Supp}(\mathcal{F})) \leq k$ ; alors
+$f_*[\mathcal{F}]_k = [f_*\mathcal{F}]_k$. En particulier, si
+$Z \subset X$ est un sous-schéma fermé de dimension $\leq k$, alors
+$f_*[Z]_k = [f_*\mathcal{O}_Z]_k$.
+\end{lemma}
+
+\begin{proof}
+Voir Homologie de Chow, lemme \ref{chow-lemma-cycle-push-sheaf}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compose-pushforward}
+Soient $f : X \to Y$ et $g : Y \to Z$ des morphismes propres de
+variétés. Alors $g_* \circ f_* = (g \circ f)_*$ comme applications $Z_k(X) \to Z_k(Z)$.
+\end{lemma}
+
+\begin{proof}
+Cas particulier de Homologie de Chow, lemme \ref{chow-lemma-compose-pushforward}.
+\end{proof}
+
+
+
+\section{Image inverse plate}
+\label{section-flat-pullback}
+
+\noindent
+Supposons que $f : X \to Y$ soit un morphisme plat de variétés.
+D'après Morphismes, lemme
+\ref{morphisms-lemma-dimension-fibre-at-a-point-additive} 
+toute fibre de $f$ est de dimension $r = \dim(X) - \dim(Y)$\footnote{Réciproquement,
+si $f : X \to Y$ est un morphisme dominant de variétés, si
+$X$ est de Cohen-Macaulay, si $Y$ est non singulière et si toutes les fibres ont
+la même dimension $r$, alors $f$ est plat. Cela résulte de
+Algèbre, lemme \ref{algebra-lemma-CM-over-regular-flat}, et de
+Variétés, lemme \ref{varieties-lemma-dimension-fibres-locally-algebraic},
+qui montre que $\dim(X) = \dim(Y) + r$.}.
+Soit $Z \subset Y$ une sous-variété fermée de dimension $k$. Nous définissons
+$f^*[Z]$ comme le $(k + r)$-cycle associé à l'image inverse
+schématique : $f^*[Z] = [f^{-1}(Z)]_{k + r}$. Soit
+$\alpha = \sum n_i [Z_i]$ un $k$-cycle sur $Y$. L'{\it image inverse} de
+$\alpha$ est la somme $f^* \alpha = \sum n_i f^*[Z_i]$, où chaque $f^*[Z_i]$
+est défini comme ci-dessus. Cela définit un homomorphisme
+$$
+f^* : Z_k(Y) \longrightarrow Z_{k + r}(X)
+$$
+Voir Homologie de Chow, section \ref{chow-section-flat-pullback}.
+
+\begin{lemma}
+\label{lemma-pullback}
+Soit $f : X \to Y$ un morphisme plat de variétés. Posons $r = \dim(X) - \dim(Y)$.
+Alors $f^*[\mathcal{F}]_k = [f^*\mathcal{F}]_{k + r}$
+si $\mathcal{F}$ est un faisceau cohérent sur $Y$ et si la dimension du
+support de $\mathcal{F}$ est au plus $k$.
+\end{lemma}
+
+\begin{proof}
+Voir Homologie de Chow, lemme \ref{chow-lemma-pullback-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compose-flat-pullback}
+Soient $f : X \to Y$ et $g : Y \to Z$ des morphismes plats de
+variétés. Alors $g \circ f$ est plat et $f^* \circ g^* = (g \circ f)^*$
+comme applications $Z_k(Z) \to Z_{k + \dim(X) - \dim(Z)}(X)$.
+\end{lemma}
+
+\begin{proof}
+Cas particulier de Homologie de Chow, lemme \ref{chow-lemma-compose-flat-pullback}.
+\end{proof}
+
+
+\section{Équivalence rationnelle}
+\label{section-rational-equivalence}
+
+\noindent
+Nous allons définir l'équivalence rationnelle d'une manière qui peut, au premier
+abord, sembler différente de celle qui vous est familière ou de celle
+de \cite[chapitre I]{F} ou de
+Homologie de Chow, section \ref{chow-section-rational-equivalence}.
+Cependant, nous montrerons dans la section \ref{section-alternative} que
+les deux notions coïncident.
+
+\medskip\noindent
+Soit $X$ une variété. Soit $W \subset X \times \mathbf{P}^1$
+une sous-variété fermée de dimension $k + 1$. Soient $a, b$ deux points fermés distincts
+de $\mathbf{P}^1$. Supposons que $X \times a$, $X \times b$ et $W$
+se coupent proprement :
+$$
+\dim (W \cap X \times a) \leq k,\quad
+\dim (W \cap X \times b) \leq k.
+$$
+C'est le cas dès que $W \to \mathbf{P}^1$ est dominant, ou si $W$ est
+contenu dans une fibre de la projection au-dessus d'un point fermé distinct de
+$a$ et de $b$ (cas sans intérêt que nous écarterons). Dans cette
+situation, la fibre schématique $W_a$ du morphisme
+$W \to \mathbf{P}^1$ est égale à l'intersection schématique
+$W \cap X \times a$ dans $X \times \mathbf{P}^1$. En identifiant $X \times a$
+et $X \times b$ à $X$, nous pouvons considérer les fibres $W_a$ et $W_b$
+comme des sous-schémas fermés de $X$ de dimension $\leq k$\footnote{Nous considérerons parfois
+$W_a$ comme un sous-schéma fermé de $X \times \mathbf{P}^1$, et parfois
+comme un sous-schéma fermé de $X$. Le contexte indiquera toujours clairement quel
+point de vue est adopté.}. Un exemple fondamental d'
+équivalence rationnelle est
+$$
+[W_a]_k \sim_{rat} [W_b]_k
+$$
+Les cycles $[W_a]_k$ et $[W_b]_k$ se calculent facilement en pratique
+(une fois $W$ donné), car ils s'obtiennent par intersection propre avec
+un diviseur de Cartier (nous le verrons dans la
+section \ref{section-intersection-product}).
+Comme le groupe des automorphismes de $\mathbf{P}^1$ est $2$-transitif, nous pouvons
+envoyer la paire de points fermés $a, b$ sur toute paire de notre choix. Un choix
+traditionnel consiste à prendre $a = 0$ et $b = \infty$.
+
+\medskip\noindent
+Plus généralement, soit $\alpha = \sum n_i [W_i]$ un $(k + 1)$-cycle sur
+$X \times \mathbf{P}^1$. Soient $a_i, b_i$ des paires de points fermés distincts de
+$\mathbf{P}^1$. Supposons que $X \times a_i$, $X \times b_i$ et $W_i$ se coupent
+proprement ; autrement dit, chaque triplet $W_i, a_i, b_i$ vérifie la condition
+étudiée ci-dessus. Un {\it cycle rationnellement équivalent à zéro} est tout cycle
+de la forme
+$$
+\sum n_i([W_{i, a_i}]_k - [W_{i, b_i}]_k).
+$$
+Il s'agit bien d'un $k$-cycle. L'ensemble des $k$-cycles rationnellement
+équivalents à zéro est un sous-groupe additif du groupe des $k$-cycles.
+Nous disons que deux $k$-cycles sont {\it rationnellement équivalents}, et nous écrivons
+$\alpha \sim_{rat} \alpha'$, si $\alpha - \alpha'$ est un cycle rationnellement
+équivalent à zéro.
+
+\medskip\noindent
+Nous définissons
+$$
+\CH_k(X) = Z_k(X)/ \sim_{rat}
+$$
+comme le {\it groupe de Chow des $k$-cycles sur $X$}. Nous verrons dans le
+lemme \ref{lemma-rational-equivalence}
+que cela coïncide avec le groupe de Chow défini dans
+Homologie de Chow, définition \ref{chow-definition-rational-equivalence}.
+
+
+\section{Équivalence rationnelle et fonctions rationnelles}
+\label{section-alternative}
+
+\noindent
+Soit $X$ une variété. Soit $W \subset X$ une sous-variété
+de dimension $k + 1$. Soit $f \in \mathbf{C}(W)^*$ une fonction rationnelle non nulle
+sur $W$. Pour toute sous-variété $Z \subset W$ de dimension $k$,
+on peut définir l'ordre d'annulation $\text{ord}_{W, Z}(f)$ de $f$ le long de
+$Z$. Si $f$ appartient à l'anneau local $\mathcal{O}_{W, Z}$,
+on a alors
+$$
+\text{ord}_{W, Z}(f) =
+\text{length}_{\mathcal{O}_{X, Z}} \mathcal{O}_{W, Z}/f\mathcal{O}_{W, Z}
+$$
+où $\mathcal{O}_{X, Z}$, resp.\ $\mathcal{O}_{W, Z}$, est l'anneau
+local de $X$, resp.\ de $W$, au point générique de $Z$. En général, on
+étend la définition par multiplicativité. Le {\it diviseur principal
+associé à $f$} est
+$$
+\text{div}_W(f) = \sum \text{ord}_{W, Z}(f)[Z]
+$$
+dans $Z_k(W)$. Comme $W \subset X$ est une sous-variété fermée, nous pouvons considérer
+$\text{div}_W(f)$ comme un cycle sur $X$.
+Voir Homologie de Chow, section \ref{chow-section-principal-divisors}.
+
+\begin{lemma}
+\label{lemma-rational-equivalence}
+Soit $X$ une variété. Soit $W \subset X$ une sous-variété
+de dimension $k + 1$. Soit $f \in \mathbf{C}(W)^*$ une fonction rationnelle non nulle
+sur $W$. Alors $\text{div}_W(f)$ est rationnellement équivalent à zéro sur
+$X$. Réciproquement, ces diviseurs principaux engendrent le groupe abélien des
+cycles rationnellement équivalents à zéro sur $X$.
+\end{lemma}
+
+\begin{proof}
+La première assertion résulte de
+Homologie de Chow, lemme \ref{chow-lemma-rational-function}.
+Plus précisément, soit $W' \subset X \times \mathbf{P}^1$ l'adhérence
+du graphe de $f$. Alors $\text{div}_W(f) = [W'_0]_k - [W'_\infty]$
+dans $Z_k(W) \subset Z_k(X)$ ; voir la partie (6) de
+Homologie de Chow, lemme \ref{chow-lemma-rational-function}.
+
+\medskip\noindent
+Pour la seconde assertion, soit $W' \subset X \times \mathbf{P}^1$ une sous-variété
+fermée de dimension $k + 1$ qui domine $\mathbf{P}^1$.
+Nous allons montrer que $[W'_0]_k - [W'_\infty]_k$ est un diviseur principal,
+ce qui achèvera la démonstration. Soit $W \subset X$ l'image de $W'$
+par la projection sur $X$. Alors $W \subset X$ est une sous-variété fermée
+et $W' \to W$ est propre et dominant, à fibres de dimension $0$
+ou $1$. Si $\dim(W) = k$, alors $W' = W \times \mathbf{P}^1$ et nous
+voyons que $[W'_0]_k - [W'_\infty]_k = [W] - [W] = 0$.
+Si $\dim(W) = k + 1$, alors
+$W' \to W$ est génériquement fini\footnote{Si $W' \to W$ est birationnel,
+le résultat résulte de
+Homologie de Chow, lemme \ref{chow-lemma-rational-function}.
+Notre tâche est de montrer que, même si $W' \to W$
+est de degré $> 1$, l'équivalence rationnelle fondamentale
+$[W'_0]_k \sim_{rat} [W'_\infty]_k$ provient d'un diviseur principal
+sur une sous-variété de $X$.}. Notons $f$ la projection $W' \to \mathbf{P}^1$,
+considérée comme un élément de $\mathbf{C}(W')^*$. Soit
+$g = \text{Nm}(f) \in \mathbf{C}(W)^*$ la norme. D'après
+Homologie de Chow, lemme \ref{chow-lemma-proper-pushforward-alteration},
+nous avons
+$$
+\text{div}_W(g) = \text{pr}_{X, *}\text{div}_{W'}(f)
+$$
+Comme $\text{div}_{W'}(f) = [W'_0]_k - [W'_\infty]_k$
+d'après Homologie de Chow, lemme \ref{chow-lemma-rational-function},
+la démonstration est achevée.
+\end{proof}
+
+
+\section{Image directe propre et équivalence rationnelle}
+\label{section-pushforward-and-rational-equivalence}
+
+\noindent
+Supposons que $f : X \to Y$ soit un morphisme propre de variétés.
+Soit $\alpha \sim_{rat} 0$ un $k$-cycle sur
+$X$ rationnellement équivalent à $0$. Alors l'{image directe}
+de $\alpha$ est rationnellement équivalente à zéro :
+$f_* \alpha \sim_{rat} 0$. Voir le chapitre I de \cite{F} ou
+Homologie de Chow, lemme \ref{chow-lemma-proper-pushforward-rational-equivalence}.
+
+\medskip\noindent
+Nous obtenons donc un diagramme commutatif
+$$
+\xymatrix{
+Z_k(X) \ar[r] \ar[d]_{f_*} & \CH_k(X) \ar[d]^{f_*} \\
+Z_k(Y) \ar[r] & \CH_k(Y)
+}
+$$
+de groupes de $k$-cycles.
+
+
+\section{Image inverse plate et équivalence rationnelle}
+\label{section-flat-pullback-and-rational-equivalence}
+
+\noindent
+Supposons que $f : X \to Y$ soit un morphisme plat de variétés.
+Posons $r = \dim(X) - \dim(Y)$.
+Soit $\alpha \sim_{rat} 0$ un $k$-cycle sur
+$Y$ rationnellement équivalent à $0$. Alors l'image inverse
+de $\alpha$ est rationnellement équivalente à zéro :
+$f^* \alpha \sim_{rat} 0$. Voir le chapitre I de \cite{F} ou
+Homologie de Chow, lemme \ref{chow-lemma-flat-pullback-rational-equivalence}.
+
+\medskip\noindent
+Nous obtenons donc un diagramme commutatif
+$$
+\xymatrix{
+Z_{k + r}(X) \ar[r] & \CH_{k + r}(X) \\
+Z_k(Y) \ar[r] \ar[u]^{f^*} & \CH_k(Y) \ar[u]_{f^*}
+}
+$$
+de groupes de $k$-cycles.
+
+
+\section{La suite exacte courte associée à un ouvert}
+\label{section-ses}
+
+\noindent
+Soit $X$ une variété et soit $U \subset X$ une sous-variété ouverte.
+Soit $X \setminus U = \bigcup Z_i$ sa décomposition en composantes
+irréductibles\footnote{Comme, dans ce chapitre, nous ne considérons que les groupes de Chow
+de variétés, nous ne pouvons pas prendre $Z_k(X \setminus U)$
+et $\CH_k(X \setminus U)$ ; d'où l'approche qui emploie les variétés $Z_i$.}.
+Alors, pour tout $k \geq 0$, il existe un diagramme commutatif
+$$
+\xymatrix{
+\bigoplus Z_k(Z_i) \ar[r] \ar[d] &
+Z_k(X) \ar[r] \ar[d] &
+Z_k(U) \ar[d] \ar[r] &
+0 \\
+\bigoplus \CH_k(Z_i) \ar[r] &
+\CH_k(X) \ar[r] &
+\CH_k(U) \ar[r] &
+0
+}
+$$
+à lignes exactes. Les flèches verticales sont ici les applications canoniques de passage au quotient.
+Les flèches horizontales de gauche sont données par l'image directe propre le long des
+immersions fermées $Z_i \to X$. Les flèches horizontales de droite sont données par l'image
+inverse plate le long de l'immersion ouverte $j : U \to X$. Comme nous avons vu que
+ces applications se factorisent par l'équivalence rationnelle, les carrés
+sont commutatifs. La ligne du haut est exacte simplement parce que toute sous-variété
+de $X$ est soit contenue dans un des $Z_i$, soit a une intersection irréductible
+avec $U$. La ligne du bas est exacte parce que tout diviseur principal
+$\text{div}_W(f)$ sur $U$ est la restriction d'un diviseur principal sur $X$.
+Plus précisément, si $W \subset U$ est une sous-variété fermée de dimension $(k + 1)$
+et si $f \in \mathbf{C}(W)^*$, notons $\overline{W}$ l'adhérence de $W$
+dans $X$. Alors $W \subset \overline{W}$ est une immersion ouverte, donc
+$\mathbf{C}(W) = \mathbf{C}(\overline{W})$, et nous pouvons considérer $f$
+comme une fonction rationnelle non constante sur $\overline{W}$. Alors, clairement,
+$$
+j^*\text{div}_{\overline{W}}(f) = \text{div}_W(f)
+$$
+dans $Z_k(X)$. L'exactitude de la ligne inférieure s'en déduit aisément.
+Pour les détails, voir Homologie de Chow, lemme \ref{chow-lemma-restrict-to-open}.
+
+
+\section{Intersections propres}
+\label{section-intersect-properly}
+
+\noindent
+Commençons par quelques lemmes donnant des estimations de dimension.
+
+\begin{lemma}
+\label{lemma-dimension-product-varieties}
+Soient $X$ et $Y$ des variétés. Alors $X \times Y$ est une variété et
+$\dim(X \times Y) = \dim(X) + \dim(Y)$.
+\end{lemma}
+
+\begin{proof}
+Le schéma $X \times Y = X \times_{\Spec(\mathbf{C})} Y$ est une variété d'après
+Variétés, lemme \ref{varieties-lemma-product-varieties}.
+L'assertion sur la dimension est
+Variétés, lemme \ref{varieties-lemma-dimension-product-locally-algebraic}.
+\end{proof}
+
+\noindent
+Rappelons qu'une immersion régulière $i : X \to Y$ de schémas
+est une immersion fermée dont le
+faisceau d'idéaux correspondant est localement engendré par une suite régulière ; voir
+Diviseurs, section \ref{divisors-section-regular-immersions}.
+De plus, le faisceau conormal $\mathcal{C}_{X/Y}$ est localement libre de type fini, de
+rang égal à la longueur de la suite régulière. Nous dirons que $i$ est une
+{\it immersion régulière de codimension $c$}
+si $\mathcal{C}_{X/Y}$ est localement libre de rang $c$.
+
+\medskip\noindent
+Plus généralement, rappelons
+(Morphismes, compléments, section \ref{more-morphisms-section-lci})
+que $f : X \to Y$ est un morphisme d'intersection complète locale
+si l'on peut recouvrir $X$ par des ouverts $U$ tels que $f|_U$ se factorise
+comme suit :
+$$
+\xymatrix{
+U \ar[rr]_i \ar[rd] & & \mathbf{A}^n_Y \ar[ld] \\
+& Y
+}
+$$
+où $i$ est une immersion Koszul-régulière (si $Y$ est localement noethérien,
+cela revient à demander que $i$ soit une immersion régulière ; voir
+Diviseurs, lemme \ref{divisors-lemma-regular-immersion-noetherian}).
+Nous dirons que $f$ est un {\it morphisme d'intersection complète locale
+de dimension relative $r$} si, pour toute factorisation comme ci-dessus,
+l'immersion fermée $i$ a un faisceau conormal de rang $n - r$ (autrement
+dit, si $i$ est une immersion Koszul-régulière de codimension $n - r$,
+ce qui, dans le cas noethérien, signifie simplement qu'elle est une immersion régulière de
+codimension $n - r$).
+
+\begin{lemma}
+\label{lemma-pullback-by-regular-immersion}
+Soit $f : X \to Y$ un morphisme de variétés.
+\begin{enumerate}
+\item Si $Z \subset Y$ est une sous-variété de dimension $d$ et si $f$ est une
+immersion régulière de codimension $c$, alors toute composante irréductible
+de $f^{-1}(Z)$ est de dimension $\geq d - c$.
+\item Si $Z \subset Y$ est une sous-variété de dimension $d$ et si
+$f$ est un morphisme d'intersection complète locale de dimension relative $r$,
+alors toute composante irréductible de $f^{-1}(Z)$ est de dimension $\geq d + r$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Nous pouvons travailler localement ; nous pouvons donc supposer que
+$Y = \Spec(A)$ et $X = V(f_1, \ldots, f_c)$, où $f_1, \ldots, f_c$
+est une suite régulière dans $A$. Si $Z = \Spec(A/\mathfrak p)$, alors
+nous voyons que $f^{-1}(Z) = \Spec(A/\mathfrak p + (f_1, \ldots, f_c))$.
+Si $V$ est une composante irréductible de $f^{-1}(Z)$, nous pouvons
+choisir un point fermé $v \in V$ qui n'appartient à aucune autre composante irréductible
+de $f^{-1}(Z)$. Alors
+$$
+\dim(Z) = \dim \mathcal{O}_{Z, v}
+\quad\text{et}\quad
+\dim(V) = \dim \mathcal{O}_{V, v} = \dim \mathcal{O}_{Z, v}/(f_1, \ldots, f_c)
+$$
+La première égalité résulte par exemple de
+Algèbre, lemme \ref{algebra-lemma-dimension-prime-polynomial-ring},
+et la seconde de notre choix du point fermé.
+Le résultat découle alors du fait que le quotient par un élément
+de l'idéal maximal diminue la dimension d'au plus $1$ ; voir
+Algèbre, lemme \ref{algebra-lemma-one-equation}.
+
+\medskip\noindent
+Démonstration de (2). Choisissons une factorisation comme dans la définition d'une
+intersection complète locale et appliquons (1). Certains détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonal-regular-immersion}
+Soit $X$ une variété non singulière. Alors la diagonale
+$\Delta : X \to X \times X$ est une immersion régulière de codimension $\dim(X)$.
+\end{lemma}
+
+\begin{proof}
+En fait, toute immersion fermée entre variétés projectives non singulières
+est une immersion régulière ; voir Diviseurs,
+lemme \ref{divisors-lemma-immersion-smooth-into-smooth-regular-immersion}.
+\end{proof}
+
+\noindent
+Le lemme suivant illustre le fonctionnement de la réduction à la diagonale.
+
+\begin{lemma}
+\label{lemma-intersect-in-smooth}
+Soit $X$ une variété non singulière et soient $W,V \subset X$
+des sous-variétés fermées telles que $\dim(W) = s$ et $\dim(V) = r$. Alors toute
+composante irréductible $Z$ de $V \cap W$ est de dimension $\geq r + s - \dim(X)$.
+\end{lemma}
+
+\begin{proof}
+Comme $V \cap W = \Delta^{-1}(V \times W)$ (au sens schématique),
+nous concluons par les lemmes \ref{lemma-diagonal-regular-immersion} et
+\ref{lemma-pullback-by-regular-immersion}.
+\end{proof}
+
+\noindent
+Ce lemme suggère la définition suivante.
+
+\begin{definition}
+\label{definition-proper-intersection}
+Soit $X$ une variété non singulière.
+\begin{enumerate}
+\item {\emergencystretch=1em Soient $W,V \subset X$ des sous-variétés fermées telles que
+$\dim(W) = s$ et $\dim(V) = r$. Nous disons que $W$ et $V$
+{\it se coupent proprement} si $\dim(V \cap W) \leq r + s - \dim(X)$.\par}
+\item Soient $\alpha = \sum n_i [W_i]$ un $s$-cycle
+et $\beta = \sum_j m_j [V_j]$ un $r$-cycle sur $X$. Nous disons
+que $\alpha$ et $\beta$ {\it se coupent proprement} si
+$W_i$ et $V_j$ se coupent proprement quels que soient $i$ et $j$.
+\end{enumerate}
+\end{definition}
+
+
+\section{Multiplicités d'intersection au moyen de la formule des Tor}
+\label{section-tor-formula}
+
+\noindent
+Un fait fondamental que nous utiliserons souvent est que, pour des faisceaux de
+modules $\mathcal{F}$, $\mathcal{G}$ sur un espace annelé $(X, \mathcal{O}_X)$
+et un point $x \in X$, on a
+$$
+\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})_x =
+\text{Tor}_p^{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)
+$$
+comme $\mathcal{O}_{X, x}$-modules. Cela se voit de plusieurs façons
+à partir de notre construction des produits tensoriels dérivés dans
+Cohomologie, section \ref{cohomology-section-flat}; cela résulte par exemple de
+Cohomologie, lemme \ref{cohomology-lemma-check-K-flat-stalks}.
+De plus, si $X$ est un schéma et si $\mathcal{F}$ et $\mathcal{G}$
+sont quasi-cohérents, alors les modules
+$\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ sont eux aussi
+quasi-cohérents, voir
+Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-quasi-coherence-tensor-product}.
+Le résultat suivant importe davantage pour ce qui nous occupe.
+
+\begin{lemma}
+\label{lemma-tensor-coherent}
+Soit $X$ un schéma localement noethérien.
+\begin{enumerate}
+\item Si $\mathcal{F}$ et $\mathcal{G}$ sont des $\mathcal{O}_X$-modules cohérents,
+alors $\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ l'est aussi.
+\item Si $L$ et $K$ appartiennent à $D^-_{\textit{Coh}}(\mathcal{O}_X)$, alors
+il en est de même de $L \otimes_{\mathcal{O}_X}^\mathbf{L} K$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Expliquons comment démontrer (1) de manière plus élémentaire, et la partie (2)
+à l'aide de la théorie générale développée précédemment.
+
+\medskip\noindent
+Démonstration de (1). Comme la formation de $\text{Tor}$ commute à la localisation,
+nous pouvons supposer $X$ affine. Ainsi $X = \Spec(A)$ pour un anneau noethérien
+$A$, et $\mathcal{F}$, $\mathcal{G}$ correspondent à des $A$-modules de type fini
+$M$ et $N$ (Cohomologie des schémas, lemme
+\ref{coherent-lemma-coherent-Noetherian}).
+D'après Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-quasi-coherence-tensor-product}, nous pouvons
+calculer les $\text{Tor}$ en calculant d'abord les $\text{Tor}$
+de $M$ et $N$ sur $A$, puis en prenant le $\mathcal{O}_X$-module associé.
+Comme les modules $\text{Tor}_p^A(M, N)$ sont de type fini d'après
+Algèbre, lemme \ref{algebra-lemma-tor-noetherian},
+nous concluons.
+
+\medskip\noindent
+D'après Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-identify-pseudo-coherent-noetherian},
+l'hypothèse équivaut à demander que $L$ et $K$ soient
+(localement) pseudo-cohérents. Alors $L \otimes_{\mathcal{O}_X}^\mathbf{L} K$
+est pseudo-cohérent d'après
+Cohomologie, lemme \ref{cohomology-lemma-tensor-pseudo-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-tor-nonsingular}
+{\emergencystretch=2em Soit $X$ une variété non singulière.
+Soient $\mathcal{F}$, $\mathcal{G}$ des $\mathcal{O}_X$-modules cohérents.
+Le $\mathcal{O}_X$-module
+$\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$
+est cohérent, a pour fibre en $x$
+$\text{Tor}_p^{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)$,
+a son support contenu dans
+$\text{Supp}(\mathcal{F}) \cap \text{Supp}(\mathcal{G})$, et
+n'est non nul que pour $p \in \{0, \ldots, \dim(X)\}$.\par}
+\end{lemma}
+
+\begin{proof}
+Le résultat sur les fibres a été discuté ci-dessus et implique la condition
+sur le support. Les $\text{Tor}$ sont cohérents d'après
+le lemme \ref{lemma-tensor-coherent}. L'annulation des $\text{Tor}$
+en degrés négatifs résulte immédiatement de la construction. L'annulation
+de $\text{Tor}_p$ pour $p > \dim(X)$ se voit comme suit :
+les anneaux locaux $\mathcal{O}_{X, x}$ sont réguliers
+(puisque $X$ est non singulière) et de dimension $\leq \dim(X)$
+(Algèbre, lemme \ref{algebra-lemma-dimension-prime-polynomial-ring});
+ainsi $\mathcal{O}_{X, x}$ est de dimension globale finie $\leq \dim(X)$
+(Algèbre, lemme \ref{algebra-lemma-finite-gl-dim-finite-dim-regular}),
+ce qui implique que les groupes $\text{Tor}$ de modules s'annulent au-delà de la dimension
+(Compléments d'algèbre, lemme \ref{more-algebra-lemma-finite-gl-dim-tor-dimension}).
+\end{proof}
+
+\noindent
+Soit $X$ une variété non singulière, et soient $W, V \subset X$
+des sous-variétés fermées telles que $\dim(W) = s$ et $\dim(V) = r$.
+Supposons que $V$ et $W$ se coupent proprement.
+Dans ce cas, le lemme \ref{lemma-intersect-in-smooth} nous dit que toutes les composantes
+irréductibles de $V \cap W$ ont une dimension égale à $r + s - \dim(X)$.
+Les faisceaux $\text{Tor}_j^{\mathcal{O}_X}(\mathcal{O}_W, \mathcal{O}_V)$ sont
+cohérents, à support dans $V \cap W$, et nuls si $j < 0$ ou $j > \dim(X)$
+(lemme \ref{lemma-compute-tor-nonsingular}).
+Nous définissons le {\it produit d'intersection} par
+$$
+W \cdot V = \sum\nolimits_i (-1)^i
+[\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_W, \mathcal{O}_V)]_{r + s - \dim(X)}.
+$$
+Soulignons que ceci n'a de sens qu'en vertu de notre hypothèse que
+$V$ et $W$ se coupent proprement. Ce fait rendra nécessaire un lemme de
+déplacement afin de définir le produit d'intersection en général.
+
+\medskip\noindent
+Avec cette notation, le cycle $V \cdot W$ est une combinaison linéaire
+formelle $\sum e_Z Z$ des composantes irréductibles $Z$
+de l'intersection $V \cap W$. Les entiers $e_Z$ sont appelés
+les {\it multiplicités d'intersection}
+$$
+e_Z = e(X, V \cdot W, Z) =
+\sum\nolimits_i
+(-1)^i
+\text{length}_{\mathcal{O}_{X, Z}}
+\text{Tor}_i^{\mathcal{O}_{X, Z}}(\mathcal{O}_{W, Z}, \mathcal{O}_{V, Z})
+$$
+où $\mathcal{O}_{X, Z}$, resp.\ $\mathcal{O}_{W, Z}$,
+resp.\ $\mathcal{O}_{V, Z}$ désigne l'anneau local de $X$, resp.\ $W$,
+resp.\ $V$ au point générique de $Z$.
+Ces sommes alternées des longueurs des $\text{Tor}$ satisfont à de nombreuses bonnes
+propriétés, comme nous le verrons plus loin.
+
+\medskip\noindent
+Dans le cas d'intersections transversales, le nombre d'intersection vaut $1$.
+
+\begin{lemma}
+\label{lemma-transversal}
+Soit $X$ une variété non singulière. Soient $V, W \subset X$ des
+sous-variétés fermées qui se coupent proprement. Soit $Z$ une composante irréductible
+de $V \cap W$, et supposons que la multiplicité
+(au sens de la section \ref{section-cycle-of-closed}) de $Z$
+dans le sous-schéma fermé $V \cap W$ vaille $1$.
+Alors $e(X, V \cdot W, Z) = 1$, et $V$ et $W$ sont lisses
+en un point général de $Z$.
+\end{lemma}
+
+\begin{proof}
+Soit $(A, \mathfrak m, \kappa) =
+(\mathcal{O}_{X, \xi}, \mathfrak m_\xi, \kappa(\xi))$, où $\xi \in Z$
+est le point générique. Alors $\dim(A) = \dim(X) - \dim(Z)$, voir
+Variétés, lemme \ref{varieties-lemma-dimension-locally-algebraic}.
+Soient $I, J \subset A$ les idéaux définissant les traces de $V$ et $W$
+dans $\Spec(A)$. Posons $\overline{I} = I + \mathfrak m^2/\mathfrak m^2$.
+Alors $\dim_\kappa \overline{I} \leq \dim(X) - \dim(V)$, avec égalité
+si et seulement si $A/I$ est régulier (cela résulte du lemme cité
+ci-dessus et de la définition des anneaux réguliers, voir
+Algèbre, définition \ref{algebra-definition-regular-local}
+et la discussion qui la précède). De même pour $\overline{J}$.
+Si la multiplicité vaut $1$, alors
+$\text{length}_A(A/I + J) = 1$, donc $I + J = \mathfrak m$, et donc
+$\overline{I} + \overline{J} = \mathfrak m/\mathfrak m^2$.
+On a alors égalité partout (puisque l'intersection est
+propre). Nous trouvons donc $f_1, \ldots, f_a \in I$ et $g_1, \ldots g_b \in J$
+tels que $\overline{f}_1, \ldots, \overline{g}_b$ soit une base
+de $\mathfrak m/\mathfrak m^2$. Alors $f_1, \ldots, g_b$ est un
+système régulier de paramètres et une suite régulière
+(Algèbre, lemme \ref{algebra-lemma-regular-ring-CM}).
+Le même lemme montre que $A/(f_1, \ldots, f_a)$ est un anneau local régulier
+de dimension $\dim(X) - \dim(V)$; ainsi $A/(f_1, \ldots, f_a) \to A/I$
+est un isomorphisme (si le noyau est non nul, alors la dimension
+de $A/I$ est strictement plus petite, voir
+Algèbre, lemmes \ref{algebra-lemma-regular-domain} et
+\ref{algebra-lemma-one-equation}).
+Nous concluons que $I = (f_1, \ldots, f_a)$ et $J = (g_1, \ldots, g_b)$
+par symétrie. Ainsi, le complexe de Koszul $K_\bullet(A, f_1, \ldots, f_a)$
+sur $f_1, \ldots, f_a$ est une résolution de $A/I$, voir
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-regular-koszul-regular}.
+Par conséquent,
+\begin{align*}
+\text{Tor}_p^A(A/I, A/J)
+& =
+H_p(K_\bullet(A, f_1, \ldots, f_a) \otimes_A A/J) \\
+& =
+H_p(K_\bullet(A/J, f_1 \bmod J, \ldots, f_a \bmod J))
+\end{align*}
+Puisque nous avons vu ci-dessus que $f_1 \bmod J, \ldots, f_a \bmod J$ est
+un système régulier de paramètres de l'anneau local régulier $A/J$,
+nous concluons qu'il n'y a qu'un seul groupe de cohomologie, à savoir
+$H_0 = A/(I + J) = \kappa$. Ceci achève la démonstration.
+\end{proof}
+
+\begin{example}
+\label{example-naive-multiplicity-wrong}
+Dans cet exemple, nous montrons qu'il est nécessaire d'utiliser les
+Tor supérieurs dans la formule des multiplicités d'intersection ci-dessus.
+Soit $X$ une variété non singulière de dimension $4$.
+Soit $p \in X$ un point fermé. Soient $V, W \subset X$
+des sous-variétés fermées de $X$. Supposons qu'il existe un
+isomorphisme
+$$
+\mathcal{O}_{X, p}^\wedge \cong \mathbf{C}[[x, y, z, w]]
+$$
+tel que l'idéal de $V$ soit $(xz, xw, yz, yw)$ et l'idéal
+de $W$ soit $(x - z, y - w)$. Un calcul montre alors que
+$$
+\text{length}\ \mathbf{C}[[x, y, z, w]]/
+(xz, xw, yz, yw, x - z, y - w) = 3
+$$
+D'autre part, la multiplicité $e(X, V \cdot W, p) = 2$,
+comme on le voit du fait qu'au niveau formel local, $V$ est la
+réunion de deux plans lisses $x = y = 0$ et $z = w = 0$ en $p$,
+dont chacun a une multiplicité d'intersection $1$ avec le plan
+$x - z = y - w = 0$ (lemme \ref{lemma-transversal}). Pour obtenir un
+véritable exemple, prenons
+un morphisme général $f : \mathbf{P}^2 \to \mathbf{P}^4$ donné par
+$5$ polynômes homogènes de degré $> 1$. L'image
+$V \subset \mathbf{P}^4 = X$ aura des singularités du type
+décrit ci-dessus, car il existera $p_1, p_2 \in \mathbf{P}^2$
+tels que $f(p_1) = f(p_2)$. Pour trouver $W$, prenons un plan général passant
+par un tel point.
+\end{example}
+
+
+
+
+
+
+\section{Multiplicités algébriques}
+\label{section-multiplicities}
+
+\noindent
+Soit $(A, \mathfrak m, \kappa)$ un anneau local noethérien.
+Soit $M$ un $A$-module de type fini, et soit $I \subset A$ un idéal
+de définition (Algèbre, définition \ref{algebra-definition-ideal-definition}).
+Rappelons que la fonction
+$$
+\chi_{I, M}(n) = \text{length}_A(M/I^nM) =
+\sum\nolimits_{p = 0, \ldots, n - 1} \text{length}_A(I^pM/I^{p + 1}M)
+$$
+est un polynôme numérique
+(Algèbre, proposition \ref{algebra-proposition-hilbert-function-polynomial}).
+Le degré de ce polynôme est égal à $\dim(\text{Supp}(M))$ d'après
+Algèbre, lemme \ref{algebra-lemma-support-dimension-d}.
+
+\begin{definition}
+\label{definition-multiplicity}
+Dans la situation ci-dessus, supposons $d \geq \dim(\text{Supp}(M))$.
+Dans ce cas, si $d > \dim(\text{Supp}(M))$, nous posons $e_I(M, d) = 0$,
+et si $d = \dim(\text{Supp}(M))$, nous posons $e_I(M, d)$ égal à $d!$
+fois le coefficient dominant du polynôme numérique $\chi_{I, M}$.
+Ainsi, dans les deux cas, nous avons
+$$
+\chi_{I, M}(n) \sim e_I(M, d) \frac{n^d}{d!} + \text{lower order terms}
+$$
+La {\it multiplicité de $M$ pour l'idéal de définition $I$}
+est $e_I(M) = e_I(M, \dim(\text{Supp}(M)))$.
+\end{definition}
+
+\noindent
+Nous avons les propriétés suivantes pour ces multiplicités.
+
+\begin{lemma}
+\label{lemma-multiplicity-ses}
+Soit $A$ un anneau local noethérien. Soit $I \subset A$ un idéal de
+définition. Soit $0 \to M' \to M \to M'' \to 0$ une suite exacte courte
+de $A$-modules de type fini. Soit $d \geq \dim(\text{Supp}(M))$. Alors
+$$
+e_I(M, d) = e_I(M', d) + e_I(M'', d)
+$$
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des définitions et de
+Algèbre, lemme \ref{algebra-lemma-hilbert-ses-chi}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-multiplicity-as-a-sum}
+Soit $A$ un anneau local noethérien. Soit $I \subset A$ un idéal de
+définition. Soit $M$ un $A$-module de type fini. Soit $d \geq \dim(\text{Supp}(M))$.
+Alors
+$$
+e_I(M, d) =
+\sum \text{length}_{A_\mathfrak p}(M_\mathfrak p) e_I(A/\mathfrak p, d)
+$$
+où la somme porte sur les idéaux premiers $\mathfrak p \subset A$ tels que
+$\dim(A/\mathfrak p) = d$.
+\end{lemma}
+
+\begin{proof}
+Le membre de gauche et le membre de droite sont tous deux additifs dans les suites
+exactes courtes de modules de dimension $\leq d$, voir
+le lemme \ref{lemma-multiplicity-ses} et
+Algèbre, lemme \ref{algebra-lemma-length-additive}.
+Ainsi, d'après Algèbre, lemme \ref{algebra-lemma-filter-Noetherian-module},
+il suffit de démontrer ceci lorsque $M = A/\mathfrak q$ pour un
+idéal premier $\mathfrak q$ de $A$ tel que $\dim(A/\mathfrak q) \leq d$.
+Ce cas est évident.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-leading-coefficient}
+Soit $P$ un polynôme de degré $r$ et de coefficient dominant $a$.
+Alors
+$$
+r! a = \sum\nolimits_{i = 0, \ldots, r} (-1)^i{r \choose i} P(t - i)
+$$
+pour tout $t$.
+\end{lemma}
+
+\begin{proof}
+Notons $\Delta$ l'opérateur qui, à un polynôme $P$, associe
+le polynôme $\Delta(P) = P(t) - P(t - 1)$. Nous affirmons que
+$$
+\Delta^r(P) = \sum\nolimits_{i = 0, \ldots, r} (-1)^i {r \choose i} P(t - i)
+$$
+C'est vrai pour $r = 0, 1$ par inspection. Supposons que ce soit vrai pour $r$.
+Alors nous calculons
+\begin{align*}
+\Delta^{r + 1}(P)
+& =
+\sum\nolimits_{i = 0, \ldots, r} (-1)^i {r \choose i} \Delta(P)(t - i) \\
+& =
+\sum\nolimits_{n = -r, \ldots, 0} (-1)^i {r \choose i}
+(P(t - i) - P(t - i - 1))
+\end{align*}
+L'affirmation résulte donc de l'égalité
+$$
+{r + 1 \choose i} = {r \choose i} + {r \choose i - 1}
+$$
+Le lemme résulte du fait que $\Delta(P)$ est de degré $r - 1$
+et de coefficient dominant $ra$ si le degré de $P$ est $r$.
+\end{proof}
+
+\noindent
+Un fait important est que l'on peut calculer la multiplicité à l'aide
+du complexe de Koszul. Rappelons que, si $R$ est un anneau et si
+$f_1, \ldots, f_r \in R$, alors $K_\bullet(f_1, \ldots, f_r)$
+désigne le complexe de Koszul, voir
+Compléments d'algèbre, section \ref{more-algebra-section-koszul}.
+
+\begin{theorem}
+\label{theorem-multiplicity-with-koszul}
+\begin{reference}
+\cite[Theorem 1 in part B of Chapter IV]{Serre_algebre_locale}
+\end{reference}
+Soit $A$ un anneau local noethérien. Soit $I = (f_1, \ldots, f_r) \subset A$
+un idéal de définition. Soit $M$ un $A$-module de type fini. Alors
+$$
+e_I(M, r) = \sum
+(-1)^i\text{length}_A H_i(K_\bullet(f_1, \ldots, f_r) \otimes_A M)
+$$
+\end{theorem}
+
+\begin{proof}
+Transformons le complexe de Koszul $K_\bullet(f_1, \ldots, f_r)$ en un complexe de
+cochaînes $K^\bullet$ en posant $K^n = K_{-n}(f_1, \ldots, f_r)$.
+Alors $K^\bullet$ est placé en degrés $-r, \ldots, 0$ et
+$H^i(K^\bullet \otimes_A M) = H_{-i}(K_\bullet(f_1, \ldots, f_r) \otimes_A M)$.
+L'énoncé du théorème a un sens, car les modules
+$H^i(K^\bullet \otimes M)$ sont annulés par $f_1, \ldots, f_r$
+(Compléments d'algèbre, lemme \ref{more-algebra-lemma-homotopy-koszul})
+et sont donc de longueur finie.
+Définissons une filtration du complexe $K^\bullet$ en posant
+$$
+F^p(K^n \otimes_A M) =
+I^{\max(0, p + n)}(K^n \otimes_A M),\quad p \in \mathbf{Z}
+$$
+Comme $f_i I^p \subset I^{p + 1}$, c'est une filtration par sous-complexes.
+Nous avons ainsi un complexe filtré et obtenons une suite spectrale, voir
+Homologie, section \ref{homology-section-filtered-complex}.
+Nous avons
+$$
+E_0 = \bigoplus\nolimits_{p, q} E_0^{p, q} =
+\bigoplus\nolimits_{p, q} \text{gr}^p(K^{p + q} \otimes_A M) =
+\text{Gr}_I(K^\bullet \otimes_A M)
+$$
+Comme $K^n$ est libre de type fini, nous avons
+$$
+\text{Gr}_I(K^\bullet \otimes_A M) =
+\text{Gr}_I(K^\bullet) \otimes_{\text{Gr}_I(A)} \text{Gr}_I(M)
+$$
+Remarquons que $\text{Gr}_I(K^\bullet)$ est le complexe de Koszul
+sur $\text{Gr}_I(A)$ associé aux éléments
+$\overline{f}_1, \ldots, \overline{f}_r \in I/I^2$.
+Un calcul simple (omis)
+montre que la différentielle $d_0$ sur $E_0$
+coïncide avec la différentielle provenant du complexe de Koszul.
+Comme $\text{Gr}_I(M)$ est un $\text{Gr}_I(A)$-module de type fini
+et comme $\text{Gr}_I(A)$ est noethérien (en tant que quotient
+de $A/I[x_1, \ldots, x_r]$ par $x_i \mapsto \overline{f}_i$), le
+module de cohomologie $E_1 = \bigoplus E_1^{p, q}$
+est un $\text{Gr}_I(A)$-module de type fini. Toutefois, comme ci-dessus,
+$E_1$ est annulé par $\overline{f}_1, \ldots, \overline{f}_r$.
+Nous concluons que $E_1$ est de longueur finie.
+En particulier, nous trouvons que $\text{Gr}^p_F(K^\bullet \otimes M)$ est
+acyclique pour $p \gg 0$.
+
+\medskip\noindent
+Vérifions ensuite que la suite spectrale ci-dessus converge
+en utilisant Homologie, lemme \ref{homology-lemma-filtered-complex-ss-converges}.
+Les égalités requises résultent aisément du lemme d'Artin-Rees
+sous la forme énoncée dans Algèbre, lemme \ref{algebra-lemma-map-AR}.
+Nous voyons ainsi que
+\begin{align*}
+\sum (-1)^i\text{length}_A(H^i(K^\bullet \otimes_A M))
+& =
+\sum (-1)^{p + q} \text{length}_A(E_\infty^{p, q}) \\
+& =
+\sum (-1)^{p + q} \text{length}_A(E_1^{p, q})
+\end{align*}
+car, comme nous l'avons vu ci-dessus, la longueur de $E_1$ est finie
+(cela utilise bien sûr l'additivité des longueurs). Choisissons $t$ assez
+grand pour que $\text{Gr}^p_F(K^\bullet \otimes M)$
+soit acyclique pour $p \geq t$ (voir ci-dessus). En utilisant
+de nouveau l'additivité, nous voyons que
+$$
+\sum (-1)^{p + q} \text{length}_A(E_1^{p, q}) =
+\sum\nolimits_n \sum\nolimits_{p \leq t}
+(-1)^n \text{length}_A(\text{gr}^p(K^n \otimes_A M))
+$$
+Ceci est égal à
+$$
+\sum\nolimits_{n = -r, \ldots, 0} (-1)^n{r \choose |n|} \chi_{I, M}(t + n)
+$$
+par le choix de la filtration ci-dessus et la définition de $\chi_{I, M}$ dans
+Algèbre, section \ref{algebra-section-Noetherian-local}.
+Le lemme résulte du lemme \ref{lemma-leading-coefficient}
+et de la définition de $e_I(M, r)$.
+\end{proof}
+
+\begin{remark}[Généralisation triviale]
+\label{remark-trivial-generalization}
+Soit $(A, \mathfrak m, \kappa)$ un anneau local noethérien.
+Soit $M$ un $A$-module de type fini. Soit $I \subset A$ un idéal.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $I' = I + \text{Ann}(M)$ est un idéal de définition
+(Algèbre, définition \ref{algebra-definition-ideal-definition}),
+\item l'image $\overline{I}$ de $I$ dans $\overline{A} = A/\text{Ann}(M)$
+est un idéal de définition,
+\item $\text{Supp}(M/IM) \subset \{\mathfrak m\}$,
+\item $\dim(\text{Supp}(M/IM)) \leq 0$, et
+\item $\text{length}_A(M/IM) < \infty$.
+\end{enumerate}
+Ceci résulte d'Algèbre, lemme \ref{algebra-lemma-support-point}
+(détails omis). Si ces conditions sont satisfaites, on a $M/I^nM = M/(I')^nM$
+pour tout $n$, et $M/I^nM = M/\overline{I}^nM$ pour tout $n$
+si l'on considère $M$ comme un $\overline{A}$-module.
+Nous pouvons donc définir
+$$
+\chi_{I, M}(n) = \text{length}_A(M/I^nM) =
+\sum\nolimits_{p = 0, \ldots, n - 1} \text{length}_A(I^pM/I^{p + 1}M)
+$$
+et nous obtenons
+$$
+\chi_{I, M}(n) = \chi_{I', M}(n) = \chi_{\overline{I}, M}(n)
+$$
+pour tout $n$ par les égalités ci-dessus.
+Tous les résultats d'Algèbre, section \ref{algebra-section-Noetherian-local},
+ainsi que tous les résultats de la présente section, ont des analogues dans ce cadre.
+En particulier, nous pouvons définir les multiplicités $e_I(M, d)$ pour
+$d \geq \dim(\text{Supp}(M))$, et nous avons
+$$
+\chi_{I, M}(n) \sim e_I(M, d) \frac{n^d}{d!} + \text{lower order terms}
+$$
+comme dans le cas où $I$ est un idéal de définition.
+\end{remark}
+
+
+
+\section{Calcul des multiplicités d'intersection}
+\label{section-computing-intersection-multiplicities}
+
+\noindent
+Dans cette section, nous étudions certains cas où les multiplicités d'intersection
+peuvent se calculer par d'autres moyens. Voici un premier exemple.
+
+\begin{lemma}
+\label{lemma-intersection-multiplicity-CM}
+Soit $X$ une variété non singulière, et soient $W, V \subset X$ des
+sous-variétés fermées qui se coupent proprement. Soit $Z$ une composante irréductible
+de $V \cap W$, de point générique $\xi$. Supposons que $\mathcal{O}_{W, \xi}$
+et $\mathcal{O}_{V, \xi}$ soient de Cohen-Macaulay. Alors
+$$
+e(X, V \cdot W, Z) =
+\text{length}_{\mathcal{O}_{X, \xi}}(\mathcal{O}_{V \cap W, \xi})
+$$
+où $V \cap W$ est l'intersection schématique.
+En particulier, si $V$ et $W$ sont toutes deux de Cohen-Macaulay, alors
+$V \cdot W = [V \cap W]_{\dim(V) + \dim(W) - \dim(X)}$.
+\end{lemma}
+
+\begin{proof}
+Posons $A = \mathcal{O}_{X, \xi}$, $B = \mathcal{O}_{V, \xi}$, et
+$C = \mathcal{O}_{W, \xi}$. D'après Auslander-Buchsbaum
+(Algèbre, proposition \ref{algebra-proposition-Auslander-Buchsbaum}),
+nous pouvons trouver une résolution finie $F_\bullet \to B$ par des modules libres
+de type fini, de longueur
+$$
+\text{depth}(A) - \text{depth}(B) =
+\dim(A) - \dim(B) = \dim(C)
+$$
+La première égalité vient de ce que $A$ et $B$ sont de Cohen-Macaulay, et la seconde
+de ce que $V$ et $W$ se coupent proprement. Alors $F_\bullet \otimes_A C$ est un
+complexe de modules libres de type fini représentant $B \otimes_A^\mathbf{L} C$;
+ses modules de cohomologie ont donc leur support dans $\{\mathfrak m_A\}$.
+D'après le lemme d'acyclicité (Algèbre, lemme \ref{algebra-lemma-acyclic}),
+qui s'applique puisque $C$ est de Cohen-Macaulay,
+nous concluons que $F_\bullet \otimes_A C$ n'a de
+cohomologie non nulle qu'en degré $0$. Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-one-ideal-ci}
+Soit $A$ un anneau local noethérien. Soit $I = (f_1, \ldots, f_r)$ un idéal
+engendré par une suite régulière. Soit $M$ un $A$-module de type fini. Supposons que
+$\dim(\text{Supp}(M/IM)) = 0$. Alors
+$$
+e_I(M, r) = \sum (-1)^i\text{length}_A(\text{Tor}_i^A(A/I, M))
+$$
+Ici, $e_I(M, r)$ est défini comme dans la remarque \ref{remark-trivial-generalization}.
+\end{lemma}
+
+\begin{proof}
+Puisque $f_1, \ldots, f_r$ est une suite régulière, le complexe de Koszul
+$K_\bullet(f_1, \ldots, f_r)$ est une résolution de $A/I$ sur $A$, voir
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent}.
+Ainsi, le membre de droite est égal à
+$$
+\sum (-1)^i\text{length}_A H_i(K_\bullet(f_1, \ldots, f_r) \otimes_A M)
+$$
+Le résultat découle alors immédiatement du
+théorème \ref{theorem-multiplicity-with-koszul} si $I$ est un idéal
+de définition. En général, nous remplaçons $A$ par $\overline{A} = A/\text{Ann}(M)$
+et $f_1, \ldots, f_r$ par $\overline{f}_1, \ldots, \overline{f}_r$,
+ce qui est permis parce que
+$$
+K_\bullet(f_1, \ldots, f_r) \otimes_A M =
+K_\bullet(\overline{f}_1, \ldots, \overline{f}_r) \otimes_{\overline{A}} M
+$$
+Puisque $e_I(M, r) = e_{\overline{I}}(M, r)$, où
+$\overline{I} = (\overline{f}_1, \ldots, \overline{f}_r) \subset \overline{A}$
+est un idéal de définition, le résultat découle aussi dans ce cas du
+théorème \ref{theorem-multiplicity-with-koszul}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-multiplicity-with-lci}
+Soit $X$ une variété non singulière. Soient $W,V \subset X$ des
+sous-variétés fermées qui se coupent proprement. Soit $Z$ une composante irréductible
+de $V \cap W$, de point générique $\xi$.
+Supposons que l'idéal de $V$ dans $\mathcal{O}_{X, \xi}$ soit défini par
+une suite régulière $f_1, \ldots, f_c \in \mathcal{O}_{X, \xi}$.
+Alors $e(X, V\cdot W, Z)$ est égal à $c!$ fois le coefficient dominant du
+polynôme de Hilbert
+$$
+t \mapsto \text{length}_{\mathcal{O}_{X, \xi}}
+\mathcal{O}_{W, \xi}/(f_1, \ldots, f_c)^t,\quad t \gg 0.
+$$
+En particulier, ce coefficient est $> 0$.
+\end{lemma}
+
+\begin{proof}
+L'égalité
+$$
+e(X, V\cdot W, Z) = e_{(f_1, \ldots, f_c)}(\mathcal{O}_{W, \xi}, c)
+$$
+résulte du lemme plus général \ref{lemma-one-ideal-ci}.
+Pour voir que $e_{(f_1, \ldots, f_c)}(\mathcal{O}_{W, \xi}, c)$ est
+$> 0$, ou, de manière équivalente, que $e_{(f_1, \ldots, f_c)}(\mathcal{O}_{W, \xi}, c)$
+est le coefficient dominant du polynôme de Hilbert,
+il suffit de montrer que la
+dimension de $\mathcal{O}_{W, \xi}$ vaut $c$, car le degré du
+polynôme de Hilbert est égal à la dimension d'après
+Algèbre, proposition \ref{algebra-proposition-dimension}.
+Écrivons $\dim(V) = r$, $\dim(W) = s$ et $\dim(X) = n$. Alors
+$\dim(Z) = r + s - n$ puisque l'intersection est propre. Ainsi,
+le degré de transcendance de $\kappa(\xi)$ sur $\mathbf{C}$ est
+$r + s - n$, voir Algèbre, lemme
+\ref{algebra-lemma-dimension-prime-polynomial-ring}.
+Nous avons $r + c = n$ parce que $V$ est défini par une suite régulière
+dans un voisinage de $\xi$, voir
+Diviseurs, lemme \ref{divisors-lemma-Noetherian-scheme-regular-ideal},
+et alors le lemme \ref{lemma-pullback-by-regular-immersion}
+s'applique (par exemple). Ainsi,
+$$
+\dim(\mathcal{O}_{W, \xi}) = s - (r + s - n) = s - ((n - c) + s - n) = c
+$$
+la première égalité résultant d'Algèbre, lemme
+\ref{algebra-lemma-dimension-at-a-point-finite-type-field}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-multiplicity-with-effective-Cartier-divisor}
+Dans le lemme \ref{lemma-multiplicity-with-lci}, supposons que $c = 1$, c'est-à-dire que $V$
+est un diviseur de Cartier effectif. Alors
+$$
+e(X, V \cdot W, Z) =
+\text{length}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{W, \xi}/f_1\mathcal{O}_{W, \xi}).
+$$
+\end{lemma}
+
+\begin{proof}
+Dans ce cas, l'image de $f_1$ dans $\mathcal{O}_{W, \xi}$ est non nulle par
+propreté de l'intersection, donc est un non-diviseur de zéro. De plus,
+$\mathcal{O}_{W, \xi}$ est un anneau local noethérien intègre de dimension $1$.
+Ainsi,
+$$
+\text{length}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{W, \xi}/f_1^t\mathcal{O}_{W, \xi}) =
+t \text{length}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{W, \xi}/f_1\mathcal{O}_{W, \xi})
+$$
+pour tout $t \geq 1$, voir Algèbre, lemme \ref{algebra-lemma-ord-additive}.
+Ceci démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-multiplicity-lci-CM}
+Dans le lemme \ref{lemma-multiplicity-with-lci}, supposons que
+l'anneau local $\mathcal{O}_{W, \xi}$ soit de Cohen-Macaulay. Alors nous
+avons
+$$
+e(X, V \cdot W, Z) =
+\text{length}_{\mathcal{O}_{X, \xi}} (\mathcal{O}_{W, \xi}/
+f_1\mathcal{O}_{W, \xi} + \ldots + f_c\mathcal{O}_{W, \xi}).
+$$
+\end{lemma}
+
+\begin{proof}
+Ceci résulte immédiatement du lemme \ref{lemma-intersection-multiplicity-CM}.
+On peut aussi le déduire du lemme \ref{lemma-multiplicity-with-lci}.
+En effet, d'après Algèbre, lemme \ref{algebra-lemma-reformulate-CM},
+nous voyons que $f_1, \ldots, f_c$ est une suite régulière dans
+$\mathcal{O}_{W, \xi}$. Alors
+Algèbre, lemme \ref{algebra-lemma-regular-quasi-regular} montre que
+$f_1, \ldots, f_c$ est une suite quasi-régulière.
+Ceci implique facilement que la longueur de
+$\mathcal{O}_{W, \xi}/(f_1, \ldots, f_c)^t$ vaut
+$$
+{c + t \choose c}
+\text{longueur}_{\mathcal{O}_{X, \xi}} (\mathcal{O}_{W, \xi}/
+f_1\mathcal{O}_{W, \xi} + \ldots + f_c\mathcal{O}_{W, \xi}).
+$$
+L'examen du coefficient dominant permet de conclure.
+\end{proof}
+
+
+\section{Produit d'intersection à l'aide de la formule des Tor}
+\label{section-intersection-product}
+
+\noindent
+Soit $X$ une variété non singulière. Soit
+$\alpha = \sum n_i [W_i]$ un $r$-cycle et
+$\beta = \sum_j m_j [V_j]$ un $s$-cycle sur $X$.
+Supposons que $\alpha$ et $\beta$ se coupent proprement, voir
+la définition \ref{definition-proper-intersection}.
+Dans ce cas, nous posons
+$$
+\alpha \cdot \beta = \sum\nolimits_{i,j} n_i m_j W_i \cdot V_j.
+$$
+où $W_i \cdot V_j$ est défini comme à la section \ref{section-tor-formula}.
+Si $\beta = [V]$, où $V$ est une sous-variété fermée de dimension $s$,
+nous écrivons parfois $\alpha \cdot \beta = \alpha \cdot V$.
+
+\begin{lemma}
+\label{lemma-rational-equivalence-and-intersection}
+Soit $X$ une variété non singulière. Soient $a, b \in \mathbf{P}^1$
+deux points fermés distincts. Soit $k \geq 0$.
+\begin{enumerate}
+\item Si $W \subset X \times \mathbf{P}^1$ est une sous-variété fermée
+de dimension $k + 1$ qui coupe $X \times a$ proprement, alors
+\begin{enumerate}
+\item $[W_a]_k = W \cdot X \times a$ comme cycles sur $X \times \mathbf{P}^1$, et
+\item $[W_a]_k = \text{pr}_{X, *}(W \cdot X \times a)$ comme cycles sur $X$.
+\end{enumerate}
+\item Soit $\alpha$ un $(k + 1)$-cycle sur $X \times \mathbf{P}^1$
+qui coupe $X \times a$ et $X \times b$ proprement. Alors
+$pr_{X,*}( \alpha \cdot X \times a - \alpha \cdot X \times b)$
+est rationnellement équivalent à zéro.
+\item {\emergencystretch=1em Réciproquement, tout $k$-cycle rationnellement
+équivalent à $0$ est de cette forme.\par}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Observons d'abord que $X \times a$ est un diviseur de Cartier effectif de
+$X \times \mathbf{P}^1$ et que $W_a$ est l'intersection schématique
+de $W$ avec $X \times a$. Par conséquent, l'égalité de (1)(a) résulte
+immédiatement des définitions et du calcul de la multiplicité d'intersection
+dans le cas d'un diviseur de Cartier donné dans le
+lemme \ref{lemma-multiplicity-with-effective-Cartier-divisor}.
+L'assertion (1)(b) est vraie parce que $W_a \to X \times \mathbf{P}^1 \to X$ envoie
+isomorphiquement sur son image, ce qui est la manière dont nous avons considéré $W_a$
+comme sous-schéma fermé de $X$ à la section \ref{section-rational-equivalence}.
+Les assertions (2) et (3) sont des conséquences formelles de (1) et des définitions.
+\end{proof}
+
+\noindent
+Pour des intersections transverses de sous-schémas fermés, la multiplicité
+d'intersection vaut $1$.
+
+\begin{lemma}
+\label{lemma-transversal-subschemes}
+Soit $X$ une variété non singulière. Soient $r, s \geq 0$ et
+$Y, Z \subset X$ des sous-schémas fermés tels que $\dim(Y) \leq r$ et
+$\dim(Z) \leq s$. Supposons que $[Y]_r = \sum n_i[Y_i]$ et
+$[Z]_s = \sum m_j[Z_j]$ se coupent proprement.
+Soit $T$ une composante irréductible de $Y_{i_0} \cap Z_{j_0}$
+pour certains $i_0$ et $j_0$, et supposons que la multiplicité
+(au sens de la section \ref{section-cycle-of-closed}) de $T$
+dans le sous-schéma fermé $Y \cap Z$ soit $1$.
+Alors
+\begin{enumerate}
+\item le coefficient de $T$ dans $[Y]_r \cdot [Z]_s$ est $1$,
+\item $Y$ et $Z$ sont non singuliers au point générique de $T$,
+\item $n_{i_0} = 1$, $m_{j_0} = 1$, et
+\item $T$ n'est contenu dans aucun $Y_i$ ni aucun $Z_j$ pour $i \not = i_0$ et
+$j \not = j_0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Posons $n = \dim(X)$, $a = n - r$, $b = n - s$. Remarquons que
+$\dim(T) = r + s - n = n - a - b$ puisque, par hypothèse, les
+intersections sont propres. Posons $(A, \mathfrak m, \kappa) =
+(\mathcal{O}_{X, \xi}, \mathfrak m_\xi, \kappa(\xi))$, où $\xi \in T$
+est le point générique. Alors $\dim(A) = a + b$, voir
+Variétés, lemme \ref{varieties-lemma-dimension-locally-algebraic}.
+Soient $I_0, I, J_0, J \subset A$ les idéaux qui définissent les traces de
+$Y_{i_0}$, $Y$, $Z_{j_0}$, $Z$ dans $\Spec(A)$.
+Alors $\dim(A/I) = \dim(A/I_0) = b$ et $\dim(A/J) = \dim(A/J_0) = a$
+d'après la même référence. Posons $\overline{I} = I + \mathfrak m^2/\mathfrak m^2$.
+Alors $I \subset I_0 \subset \mathfrak m$ et
+$J \subset J_0 \subset \mathfrak m$, et $I + J = \mathfrak m$.
+Le lemme \ref{lemma-transversal} et sa démonstration montrent que
+$I_0 = (f_1, \ldots, f_a)$ et $J_0 = (g_1, \ldots, g_b)$
+où $f_1, \ldots, g_b$ est un système régulier de paramètres
+de l'anneau local régulier $A$. Comme $I + J = \mathfrak m$, l'application
+$$
+I \oplus J \to
+\mathfrak m/\mathfrak m^2 =
+\kappa f_1
+\oplus \ldots \oplus
+\kappa f_a
+\oplus
+\kappa g_1
+\oplus \ldots \oplus
+\kappa g_b
+$$
+est surjective. Nous en déduisons que l'on peut trouver
+$f_1', \ldots, f_a' \in I$ et $g'_1, \ldots, g_b' \in J$
+dont les classes résiduelles dans $\mathfrak m/\mathfrak m^2$ sont égales aux
+classes résiduelles de $f_1, \ldots, f_a$ et de $g_1, \ldots, g_b$.
+Alors $f'_1, \ldots, g'_b$ est un système régulier de paramètres de $A$.
+Le lemme d'algèbre \ref{algebra-lemma-regular-ring-CM} montre que
+$A/(f'_1, \ldots, f'_a)$ est un anneau local régulier de dimension $b$.
+Ainsi, tout quotient non trivial de $A/(f'_1, \ldots, f'_a)$
+est de dimension strictement inférieure
+(Algèbre, lemmes \ref{algebra-lemma-regular-domain} et
+\ref{algebra-lemma-one-equation}). Par conséquent, $I = (f'_1, \ldots, f'_a) = I_0$.
+Par symétrie, $J = J_0$. Cela démontre (2), (3) et (4).
+Enfin, le coefficient de $T$ dans $[Y]_r \cdot [Z]_s$
+est le coefficient de $T$ dans $Y_{i_0} \cdot Z_{j_0}$, qui vaut
+$1$ d'après le lemme \ref{lemma-transversal}.
+\end{proof}
+
+
+
+\section{Produit extérieur}
+\label{section-exterior-product}
+
+\noindent
+Soient $X$ et $Y$ des variétés.
+Soit $V$, resp.\ $W$, une sous-variété fermée de $X$, resp.\ de $Y$.
+Le produit $V\times W$ est une sous-variété fermée de $X\times Y$
+(lemme \ref{lemma-dimension-product-varieties}).
+Pour un $k$-cycle $\alpha = \sum n_i [V_i]$ et un $l$-cycle
+$\beta = \sum m_j [V_j]$ sur $Y$, nous définissons le
+{\it produit extérieur} de $\alpha$ et $\beta$ comme le cycle
+$\alpha \times \beta = \sum n_i m_j [V_i \times W_j]$.
+Le produit extérieur définit une application $\mathbf{Z}$-linéaire
+$$
+Z_r(X) \otimes_\mathbf{Z} Z_s(Y) \longrightarrow Z_{r + s}(X \times Y)
+$$
+Montrons que le produit extérieur passe au quotient par l'équivalence rationnelle.
+
+\begin{lemma}
+\label{lemma-exterior-product-rational-equivalence}
+Soient $X$ et $Y$ des variétés.
+Soient $\alpha \in Z_r(X)$ et $\beta \in Z_s(Y)$.
+Si $\alpha \sim_{rat} 0$ ou $\beta \sim_{rat} 0$, alors
+$\alpha \times \beta \sim_{rat} 0$.
+\end{lemma}
+
+\begin{proof}
+Par linéarité et symétrie en $X$ et $Y$, il suffit de le démontrer lorsque
+$\alpha = [V]$ pour une sous-variété $V \subset X$ de dimension $r$, et
+$\beta = [W_a]_s - [W_b]_s$ pour une sous-variété fermée
+$W \subset Y \times \mathbf{P}^1$ de dimension $s + 1$ qui
+coupe $Y \times a$ et $Y \times b$ proprement. Dans ce cas,
+le lemme résulte de l'égalité
+$$
+[(V \times W)_a]_{r + s} = [V] \times [W_a]_s
+$$
+et de même en remplaçant $a$ par $b$. En effet, nous voyons alors que
+$\alpha \times \beta = [(V \times W)_a]_{r + s} - [(V \times W)_b]_{r + s}$
+comme voulu. Pour établir l'égalité affichée, remarquons l'égalité
+$$
+V \times W_a = (V \times W)_a
+$$
+de schémas. La projection $V \times W_a \to W_a$ induit une bijection
+entre les composantes irréductibles (voir par exemple
+Variétés, lemme \ref{varieties-lemma-bijection-irreducible-components}).
+Soit $W' \subset W_a$ une composante irréductible de point générique $\zeta$.
+Alors $V \times W'$ est la composante irréductible correspondante de
+$V \times W_a$ (voir le lemme \ref{lemma-dimension-product-varieties}).
+Soit $\xi$ le point générique de $V \times W'$. Nous devons montrer que
+$$
+\text{longueur}_{\mathcal{O}_{Y, \zeta}}(\mathcal{O}_{W_a, \zeta}) =
+\text{longueur}_{\mathcal{O}_{X \times Y, \xi}}(
+\mathcal{O}_{V \times W_a, \xi})
+$$
+Dans cette formule, nous pouvons remplacer
+$\mathcal{O}_{Y, \zeta}$ par $\mathcal{O}_{W_a, \zeta}$ et
+nous pouvons remplacer
+$\mathcal{O}_{X \times Y, \zeta}$ par $\mathcal{O}_{V \times W_a, \zeta}$
+(voir Algèbre, lemme \ref{algebra-lemma-length-independent}).
+Puisque $\mathcal{O}_{W_a, \zeta} \to \mathcal{O}_{V \times W_a, \xi}$ est plat,
+le lemme d'algèbre \ref{algebra-lemma-pullback-module} montre qu'il suffit
+de vérifier que
+$$
+\text{longueur}_{\mathcal{O}_{V \times W_a, \xi}}(
+\mathcal{O}_{V \times W_a, \xi}/
+\mathfrak m_\zeta\mathcal{O}_{V \times W_a, \xi}) = 1
+$$
+C'est vrai, car le quotient de droite est l'anneau local
+$\mathcal{O}_{V \times W', \xi}$ d'une variété en un point générique,
+et est donc égal à $\kappa(\xi)$.
+\end{proof}
+
+\noindent
+Nous en concluons que le produit extérieur définit un diagramme commutatif
+$$
+\xymatrix{
+Z_r(X) \otimes_\mathbf{Z} Z_s(Y) \ar[r] \ar[d] &
+Z_{r + s}(X \times Y) \ar[d] \\
+\CH_r(X) \otimes_\mathbf{Z} \CH_s(Y) \ar[r] &
+\CH_{r + s}(X \times Y)
+}
+$$
+pour toute paire de variétés $X$ et $Y$. Pour les variétés non singulières,
+nous pouvons considérer le produit extérieur comme un produit d'intersection
+d'images réciproques.
+
+\begin{lemma}
+\label{lemma-exterior-product}
+Soient $X$ et $Y$ des variétés non singulières.
+Soient $\alpha \in Z_r(X)$ et $\beta \in Z_s(Y)$.
+Alors
+\begin{enumerate}
+\item $\text{pr}_Y^*(\beta) = [X] \times \beta$ et
+$\text{pr}_X^*(\alpha) = \alpha \times [Y]$,
+\item $\alpha \times [Y]$ et $[X]\times \beta$
+se coupent proprement sur $X\times Y$, et
+\item on a
+$\alpha \times \beta =
+(\alpha \times [Y])\cdot ([X]\times\beta) =
+pr_Y^*(\alpha) \cdot pr_X^*(\beta)$
+dans $Z_{r + s}(X \times Y)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Par linéarité, nous pouvons supposer que $\alpha = [V]$ et $\beta = [W]$.
+Alors (1) affirme que $\text{pr}_Y^{-1}(W) = X \times W$ et
+$\text{pr}_X^{-1}(V) = V \times Y$. Cela est clair.
+L'assertion (2) est vraie parce que $X \times W \cap V \times Y = V \times W$ et
+$\dim(V \times W) = r + s$ d'après le lemme \ref{lemma-dimension-product-varieties}.
+
+\medskip\noindent
+Démonstration de (3).
+Soit $\xi$ le point générique de $V \times W$.
+Puisque la projection $X \times W \to W$ est lisse comme changement de base du morphisme
+$X \to \Spec(\mathbf{C})$, nous voyons que $X \times W$ est non singulier
+en tout point situé au-dessus du point générique de $W$, en particulier en $\xi$.
+Il en va de même pour $V \times Y$. Ainsi, $\mathcal{O}_{X \times W, \xi}$
+et $\mathcal{O}_{V \times Y, \xi}$ sont des anneaux locaux de Cohen-Macaulay,
+et le lemme \ref{lemma-intersection-multiplicity-CM} s'applique.
+Comme $V \times Y \cap X \times W = V \times W$ schématiquement,
+cela achève la démonstration.
+\end{proof}
+
+
+
+\section{Réduction à la diagonale}
+\label{section-reduction-diagonal}
+
+\noindent
+Soit $X$ une variété non singulière. Nous utiliserons $\Delta$
+pour désigner soit le morphisme diagonal $\Delta : X \to X \times X$,
+soit l'image $\Delta \subset X \times X$.
+La réduction à la diagonale est l'énoncé selon lequel
+les produits d'intersection sur $X$ se ramènent aux produits d'intersection
+des produits extérieurs avec la diagonale dans $X \times X$.
+
+\begin{lemma}
+\label{lemma-tor-and-diagonal}
+Soit $X$ une variété non singulière.
+\begin{enumerate}
+\item Si $\mathcal{F}$ et $\mathcal{G}$ sont des $\mathcal{O}_X$-modules cohérents,
+alors il existe des isomorphismes canoniques
+$$
+\text{Tor}_i^{\mathcal{O}_{X \times X}}(\mathcal{O}_\Delta,
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times X}}
+\text{pr}_2^*\mathcal{G})
+=
+\Delta_*\text{Tor}_i^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+$$
+\item Si $K$ et $M$ appartiennent à $D_\QCoh(\mathcal{O}_X)$, alors
+il existe un isomorphisme canonique
+$$
+L\Delta^* \left(
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} L\text{pr}_2^*M
+\right)
+= K \otimes_{\mathcal{O}_X}^\mathbf{L} M
+$$
+dans $D_\QCoh(\mathcal{O}_X)$ et un isomorphisme canonique
+$$
+\mathcal{O}_\Delta \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} L\text{pr}_2^*M
+= \Delta_*(K \otimes_{\mathcal{O}_X}^\mathbf{L} M)
+$$
+dans $D_\QCoh(X \times X)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Expliquons comment démontrer (1) de manière plus élémentaire et (2) à l'aide
+d'une théorie plus générale. Comme (2) implique (1), le lecteur peut omettre la démonstration
+de (1).
+
+\medskip\noindent
+Démonstration de (1). Choisissons un ouvert affine $\Spec(A) \subset X$.
+Alors $A$ est une $\mathbf{C}$-algèbre noethérienne et
+$\mathcal{F}$, $\mathcal{G}$ correspondent aux $A$-modules finis
+$M$ et $N$ (Cohomologie des schémas, lemme
+\ref{coherent-lemma-coherent-Noetherian}).
+D'après Catégories dérivées de schémas, lemme
+\ref{perfect-lemma-quasi-coherence-tensor-product}, nous pouvons
+calculer $\text{Tor}_i$ sur $\mathcal{O}_X$
+en calculant d'abord les $\text{Tor}$
+de $M$ et $N$ sur $A$, puis en prenant le $\mathcal{O}_X$-module associé.
+Pour les $\text{Tor}_i$ sur $\mathcal{O}_{X \times X}$, nous calculons
+les Tor de $A$ et $M \otimes_\mathbf{C} N$ sur $A \otimes_\mathbf{C} A$
+puis prenons le $\mathcal{O}_{X \times X}$-module associé.
+Ainsi, sur cet ouvert affine, nous devons démontrer que
+$$
+\text{Tor}_i^{A \otimes_\mathbf{C} A}(A, M \otimes_\mathbf{C} N) =
+\text{Tor}_i^A(M, N)
+$$
+Pour le voir, choisissons des résolutions $F_\bullet \to M$ et $G_\bullet \to M$
+par des $A$-modules libres de type fini
+(Algèbre, lemme \ref{algebra-lemma-resolution-by-finite-free}).
+Remarquons que $\text{Tot}(F_\bullet \otimes_\mathbf{C} G_\bullet)$
+est une résolution de $M \otimes_\mathbf{C} N$ puisqu'il calcule les
+groupes de Tor sur $\mathbf{C}$ ! Bien entendu, les termes de
+$F_\bullet \otimes_\mathbf{C} G_\bullet$ sont des
+$A \otimes_\mathbf{C} A$-modules libres de type fini. Ainsi, le membre de gauche
+de l'égalité affichée est le module
+$$
+H_i(A \otimes_{A \otimes_\mathbf{C} A}
+\text{Tot}(F_\bullet \otimes_\mathbf{C} G_\bullet))
+$$
+et le membre de droite est le module
+$$
+H_i(\text{Tot}(F_\bullet \otimes_A G_\bullet))
+$$
+Comme $A \otimes_{A \otimes_\mathbf{C} A} (F_p \otimes_\mathbf{C} G_q)
+= F_p \otimes_A G_q$, nous voyons que ces modules sont égaux.
+Cela définit un isomorphisme sur l'ouvert affine $\Spec(A) \times \Spec(A)$
+(ce qui suffit pour l'application à l'égalité des nombres d'intersection).
+Nous omettons la démonstration du recollement de ces isomorphismes.
+
+\medskip\noindent
+Démonstration de (2). La seconde assertion résulte de la première par la
+formule de projection telle qu'énoncée dans
+Catégories dérivées de schémas, lemme \ref{perfect-lemma-cohomology-base-change}.
+Pour établir la première, représentons $K$ et $M$ par des complexes K-plats
+$\mathcal{K}^\bullet$ et $\mathcal{M}^\bullet$.
+Comme l'image réciproque et le produit tensoriel préservent les complexes K-plats
+(Cohomologie, lemmes \ref{cohomology-lemma-tensor-product-K-flat} et
+\ref{cohomology-lemma-pullback-K-flat})
+nous voyons qu'il suffit de montrer
+$$
+\Delta^*\text{Tot}(
+\text{pr}_1^*\mathcal{K}^\bullet
+\otimes_{\mathcal{O}_{X \times X}} \text{pr}_2^*\mathcal{M}^\bullet)
+=
+\text{Tot}(
+\mathcal{K}^\bullet \otimes_{\mathcal{O}_X} \mathcal{M}^\bullet)
+$$
+Il suffit donc de voir qu'il existe des isomorphismes canoniques
+$$
+\Delta^*(\text{pr}_1^*\mathcal{K}
+\otimes_{\mathcal{O}_{X \times X}} \text{pr}_2^*\mathcal{M})
+\longrightarrow
+\mathcal{K} \otimes_{\mathcal{O}_X} \mathcal{M}
+$$
+lorsque $\mathcal{K}$ et $\mathcal{M}$ sont des $\mathcal{O}_X$-modules
+(pas nécessairement quasi-cohérents ni plats).
+Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduction-diagonal}
+Soit $X$ une variété non singulière. Soient $\alpha$, resp.\ $\beta$,
+un $r$-cycle, resp.\ un $s$-cycle sur $X$. Supposons que $\alpha$ et $\beta$
+se coupent proprement. Alors
+\begin{enumerate}
+\item $\alpha \times \beta$ et $[\Delta]$ se coupent proprement,
+\item on a $\Delta_*(\alpha \cdot \beta) = [\Delta] \cdot \alpha\times\beta$
+comme cycles sur $X \times X$,
+\item si $X$ est propre, alors
+$\text{pr}_{1, *}([\Delta] \cdot \alpha\times\beta) = \alpha\cdot\beta$,
+où $pr_1 : X\times X \to X$ est la projection.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Par linéarité, il suffit de le démontrer lorsque $\alpha = [V]$ et $\beta = [W]$
+pour des sous-variétés fermées $V \subset X$ et $W \subset Y$ qui se coupent
+proprement. Rappelons que $V \times W$ est une sous-variété fermée de dimension $r + s$.
+Remarquons que, schématiquement, on a
+$V \cap W = \Delta^{-1}(V \times W)$ ainsi que
+$\Delta(V \cap W) = \Delta \cap V \times W$.
+Cela démontre (1).
+
+\medskip\noindent
+Démonstration de (2). Soit $Z \subset V \cap W$ une composante irréductible
+de point générique $\xi$. Nous devons montrer que le coefficient de
+$Z$ dans $\alpha \cdot \beta$ est égal au coefficient de
+$\Delta(Z)$ dans $[\Delta] \cdot \alpha \times \beta$. Le premier est donné
+par l'entier
+$$
+\sum (-1)^i
+\text{longueur}_{\mathcal{O}_{X, \xi}}
+\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V, \mathcal{O}_W)_\xi
+$$
+et le second par l'entier
+$$
+\sum (-1)^i
+\text{longueur}_{\mathcal{O}_{X \times Y, \Delta(\xi)}}
+\text{Tor}_i^{\mathcal{O}_{X \times Y}}(
+\mathcal{O}_\Delta, \mathcal{O}_{V \times W})_{\Delta(\xi)}
+$$
+Cependant, d'après le lemme \ref{lemma-tor-and-diagonal}, on a
+$$
+\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V, \mathcal{O}_W)_\xi \cong
+\text{Tor}_i^{\mathcal{O}_{X \times Y}}(
+\mathcal{O}_\Delta, \mathcal{O}_{V \times W})_{\Delta(\xi)}
+$$
+comme $\mathcal{O}_{X \times X, \Delta(\xi)}$-modules. On a donc égalité
+des longueurs (précisément, d'après Algèbre, lemme \ref{algebra-lemma-length-independent}
+pour être précis).
+
+\medskip\noindent
+L'assertion (2) implique (3), car
+$\text{pr}_{1, *} \circ \Delta_* = \text{id}$ d'après
+le lemme \ref{lemma-compose-pushforward}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-positivity}
+\begin{reference}
+C'est l'un des résultats principaux de \cite{Serre_algebre_locale}.
+\end{reference}
+Soit $X$ une variété non singulière. Soient $V \subset X$ et
+$W \subset Y$ des sous-variétés fermées qui se coupent proprement.
+Soit $Z \subset V \cap W$ une composante irréductible.
+Alors $e(X, V \cdot W, Z) > 0$.
+\end{proposition}
+
+\begin{proof}
+D'après le lemme \ref{lemma-reduction-diagonal}, on a
+$$
+e(X, V \cdot W, Z) = e(X \times X, \Delta \cdot V \times W, \Delta(Z))
+$$
+Puisque $\Delta : X \to X \times X$ est une immersion régulière
+(voir le lemme \ref{lemma-diagonal-regular-immersion}), nous voyons que
+$e(X \times X, \Delta \cdot V \times W, \Delta(Z))$ est un entier strictement
+positif d'après le lemme \ref{lemma-multiplicity-with-lci}.
+\end{proof}
+
+\noindent
+Le lemme suivant est un lemme clé du développement de la théorie
+présenté dans ce chapitre. Essentiellement, ce lemme affirme que
+les nombres d'intersection vérifient une propriété d'additivité convenable.
+
+\begin{lemma}
+\label{lemma-tor-sheaf}
+\begin{reference}
+\cite[Chapter V]{Serre_algebre_locale}
+\end{reference}
+Soit $X$ une variété non singulière. Soient $\mathcal{F}$ et
+$\mathcal{G}$ des faisceaux cohérents sur $X$ tels que
+$\dim(\text{Supp}(\mathcal{F})) \leq r$,
+$\dim(\text{Supp}(\mathcal{G})) \leq s$, et
+$\dim(\text{Supp}(\mathcal{F}) \cap \text{Supp}(\mathcal{G}) )
+\leq r + s - \dim X$. Dans ce cas, $[\mathcal{F}]_r$ et $[\mathcal{G}]_s$
+se coupent proprement et
+$$
+[\mathcal{F}]_r \cdot [\mathcal{G}]_s =
+\sum (-1)^p
+[\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})]_{r + s - \dim(X)}.
+$$
+\end{lemma}
+
+\begin{proof}
+L'assertion selon laquelle $[\mathcal{F}]_r$ et $[\mathcal{G}]_s$ se coupent proprement
+est immédiate. Comme nous démontrons une égalité de cycles, nous pouvons travailler
+localement sur $X$. (Remarquons que la formation du produit d'intersection
+des cycles, celle des faisceaux de $\text{Tor}$ et
+celle du cycle associé à un faisceau cohérent commutent chacune à la
+restriction aux sous-schémas ouverts.) Nous pouvons donc supposer, et supposons, $X$ affine.
+
+\medskip\noindent
+Posons
+$$
+RHS(\mathcal{F}, \mathcal{G}) = [\mathcal{F}]_r \cdot [\mathcal{G}]_s
+\quad\text{et}\quad
+LHS(\mathcal{F}, \mathcal{G}) = \sum (-1)^p
+[\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})]_{r + s - \dim(X)}
+$$
+Considérons une suite exacte
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+de faisceaux cohérents sur $X$ telle que
+$\text{Supp}(\mathcal{F}_i) \subset \text{Supp}(\mathcal{F})$ ;
+alors $LHS(\mathcal{F}_i, \mathcal{G})$ et
+$RHS(\mathcal{F}_i, \mathcal{G})$ sont définis pour $i = 1, 2, 3$,
+et l'on a
+$$
+RHS(\mathcal{F}_2, \mathcal{G}) =
+RHS(\mathcal{F}_1, \mathcal{G}) + RHS(\mathcal{F}_3, \mathcal{G})
+$$
+et de même pour LHS. En effet, la condition sur les supports garantit que
+tout est défini, et la suite exacte ainsi que l'additivité des longueurs
+donnent
+$$
+[\mathcal{F}_2]_r = [\mathcal{F}_1]_r  + [\mathcal{F}_3]_r
+$$
+(Homologie de Chow, lemme \ref{chow-lemma-additivity-sheaf-cycle}),
+ce qui entraîne l'additivité pour RHS. La suite exacte longue des $\text{Tor}$
+$$
+\ldots \to \text{Tor}_1(\mathcal{F}_3, \mathcal{G}) \to
+\text{Tor}_0(\mathcal{F}_1, \mathcal{G}) \to
+\text{Tor}_0(\mathcal{F}_2, \mathcal{G}) \to
+\text{Tor}_0(\mathcal{F}_3, \mathcal{G}) \to 0
+$$
+et l'additivité des longueurs, comme précédemment, entraînent l'additivité pour LHS.
+
+\medskip\noindent
+{\emergencystretch=1em D'après Algèbre, lemme \ref{algebra-lemma-filter-Noetherian-module},
+et puisque $X$ est affine, nous pouvons trouver une filtration de $\mathcal{F}$
+dont les quotients gradués sont des faisceaux structuraux de sous-variétés fermées de
+$\text{Supp}(\mathcal{F})$. L'additivité démontrée au paragraphe précédent
+montre qu'il suffit de démontrer $LHS = RHS$ avec
+$\mathcal{F}$ remplacé par $\mathcal{O}_V$, où
+$V \subset \text{Supp}(\mathcal{F})$.
+Par symétrie, nous pouvons faire de même pour $\mathcal{G}$.
+Nous sommes ainsi ramenés à démontrer que\par}
+$$
+LHS(\mathcal{O}_V, \mathcal{O}_W) = RHS(\mathcal{O}_V, \mathcal{O}_W)
+$$
+où $W \subset \text{Supp}(\mathcal{G})$ est une sous-variété fermée.
+Si $\dim(V) = r$ et $\dim(W) = s$, alors cette égalité est la
+{\bf définition} de $V \cdot W$. En revanche, si
+$\dim(V) < r$ ou $\dim(W) < s$, c'est-à-dire si $[V]_r = 0$ ou $[W]_s = 0$,
+alors nous devons démontrer que $RHS(\mathcal{O}_V, \mathcal{O}_W) = 0$
+\footnote{Le lecteur peut voir que ce n'est pas trivial en
+prenant $r = s = 1$, $X$ une surface non singulière et $V = W$
+un point fermé $x$ de $X$. Dans ce cas, il y a $3$
+$\text{Tor}$ non nuls, de longueurs $1, 2, 1$ en $x$.}.
+
+\medskip\noindent
+Soit $Z \subset V \cap W$ une composante irréductible de dimension
+$r + s - \dim(X)$. C'est la dimension maximale d'une composante,
+et il suffit de montrer que le coefficient de $Z$ dans $RHS$ est nul.
+Soit $\xi \in Z$ le point générique. Posons $A = \mathcal{O}_{X, \xi}$,
+$B = \mathcal{O}_{X \times X, \Delta(\xi)}$, et
+$C = \mathcal{O}_{V \times W, \Delta(\xi)}$.
+D'après le lemme \ref{lemma-tor-and-diagonal}, on a
+$$
+\text{coefficient de }Z\text{ dans }
+RHS(\mathcal{O}_V, \mathcal{O}_W) = 
+\sum (-1)^i
+\text{longueur}_B \text{Tor}_i^B(A, C)
+$$
+Comme $\dim(V) < r$ ou $\dim(W) < s$, on a $\dim(V \times W) < r + s$,
+ce qui entraîne $\dim(C) < \dim(X)$ (on omet un petit détail). De plus, le
+noyau $I$ de $B \to A$ est engendré par une suite régulière de
+longueur $\dim(X)$ (lemme \ref{lemma-diagonal-regular-immersion}).
+Il y a donc annulation d'après le lemme \ref{lemma-one-ideal-ci}, car
+la fonction de Hilbert de $C$ relativement à $I$ est de degré $\dim(C) < n$
+d'après Algèbre, proposition \ref{algebra-proposition-dimension}.
+\end{proof}
+
+\begin{remark}
+\label{remark-Serre-conjectures}
+Soit $(A, \mathfrak m, \kappa)$ un anneau local régulier.
+Soient $M$ et $N$ des $A$-modules finis non nuls tels que $M \otimes_A N$
+soit supporté par $\{\mathfrak m\}$. Alors
+$$
+\chi(M, N) = \sum (-1)^i \text{longueur}_A \text{Tor}_i^A(M, N)
+$$
+est fini. Posons $r = \dim(\text{Supp}(M))$ et $s = \dim(\text{Supp}(N))$.
+Dans \cite{Serre_algebre_locale}, on démontre que $r + s \leq \dim(A)$
+et les conjectures suivantes y sont formulées :
+\begin{enumerate}
+\item si $r + s < \dim(A)$, alors $\chi(M, N) = 0$, et
+\item si $r + s = \dim(A)$, alors $\chi(M, N) > 0$.
+\end{enumerate}
+Les arguments qui démontrent le lemme \ref{lemma-tor-sheaf} et
+la proposition \ref{proposition-positivity} peuvent être exploités
+(comme dans le texte de Serre) pour montrer que (1) et (2) sont
+vraies si $A$ contient un corps. À l'heure actuelle, la conjecture (1) est démontrée
+en général, et l'on sait que $\chi(M, N) \geq 0$ en général (Gabber).
+À notre connaissance, la positivité reste un problème ouvert.
+\end{remark}
+
+
+
+\section{Associativité des intersections}
+\label{section-associative}
+
+\noindent
+Il est clair que les intersections propres définies ci-dessus sont commutatives.
+À l'aide du lemme clé \ref{lemma-tor-sheaf}, nous pouvons démontrer que les produits
+d'intersection (propres) sont associatifs.
+
+\begin{lemma}
+\label{lemma-associative}
+Soit $X$ une variété non singulière. Soient $U, V, W$ des sous-variétés
+fermées. Supposons que $U, V, W$ se coupent proprement deux à deux
+et que $\dim(U \cap V \cap W) \leq \dim(U) + \dim(V) + \dim(W) - 2\dim(X)$.
+Alors
+$$
+U \cdot (V \cdot W) = (U \cdot V) \cdot W
+$$
+comme cycles sur $X$.
+\end{lemma}
+
+\begin{proof}
+Nous allons utiliser le lemme \ref{lemma-tor-sheaf} sans plus le mentionner.
+Cela implique que
+\begin{align*}
+V \cdot W
+& =
+\sum (-1)^i [\text{Tor}_i(\mathcal{O}_V, \mathcal{O}_W)]_{b + c - n} \\
+U \cdot (V \cdot W)
+& =
+\sum (-1)^{i + j}
+[
+\text{Tor}_j(\mathcal{O}_U, \text{Tor}_i(\mathcal{O}_V, \mathcal{O}_W))
+]_{a + b + c - 2n} \\
+U \cdot V
+& =
+\sum (-1)^i [\text{Tor}_i(\mathcal{O}_U, \mathcal{O}_V)]_{a + b - n} \\
+(U \cdot V) \cdot W
+& =
+\sum (-1)^{i + j}
+[
+\text{Tor}_j(\text{Tor}_i(\mathcal{O}_U, \mathcal{O}_V), \mathcal{O}_W))
+]_{a + b + c - 2n}
+\end{align*}
+où $\dim(U) = a$, $\dim(V) = b$, $\dim(W) = c$, $\dim(X) = n$.
+Les hypothèses du lemme garantissent que les faisceaux cohérents
+des formules ci-dessus vérifient les majorations requises pour les dimensions
+des supports, de sorte que ces formules ont un sens. Considérons maintenant l'objet
+$$
+K =
+\mathcal{O}_U \otimes^\mathbf{L}_{\mathcal{O}_X} \mathcal{O}_V
+\otimes^\mathbf{L}_{\mathcal{O}_X} \mathcal{O}_W
+$$
+de la catégorie dérivée $D_{\textit{Coh}}(\mathcal{O}_X)$.
+Nous affirmons que les expressions obtenues ci-dessus pour
+$U \cdot (V \cdot W)$ et $(U \cdot V) \cdot W$
+sont égaux à
+$$
+\sum (-1)^k [H^k(K)]_{a + b + c - 2n}
+$$
+Cela démontrera le lemme. Par symétrie, il suffit de démontrer l'une
+de ces égalités. Pour cela, représentons $\mathcal{O}_U$
+et $\mathcal{O}_V \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_W$
+par des complexes K-plats $M^\bullet$ et $L^\bullet$ et utilisons la
+suite spectrale associée au complexe double
+$M^\bullet \otimes_{\mathcal{O}_X} L^\bullet$ dans
+Homologie, section \ref{homology-section-double-complex}.
+Il s'agit d'une suite spectrale dont la page $E_2$ est
+$$
+E_2^{p, q} =
+\text{Tor}_{-p}(\mathcal{O}_U, \text{Tor}_{-q}(\mathcal{O}_V, \mathcal{O}_W))
+$$
+et qui converge vers $H^{p + q}(K)$ (détails omis ; comparer à
+Compléments d'algèbre, exemple \ref{more-algebra-example-tor}).
+Puisque les longueurs sont additives dans les suites
+exactes courtes, le résultat en découle.
+\end{proof}
+
+
+
+
+\section{Image réciproque plate et produits d'intersection}
+\label{section-flat-pullback-and-intersection-products}
+
+\noindent
+Brève discussion de l'interaction entre les intersections et
+l'image réciproque plate.
+
+\begin{lemma}
+\label{lemma-flat-pull-back-and-intersections-sheaves}
+Soit $f : X \to Y$ un morphisme plat de variétés non singulières. Posons
+$e = \dim(X) - \dim(Y)$. Soient $\mathcal{F}$ et $\mathcal{G}$ des faisceaux
+cohérents sur $Y$ tels que $\dim(\text{Supp}(\mathcal{F})) \leq r$,
+$\dim(\text{Supp}(\mathcal{G})) \leq s$ et
+$\dim(\text{Supp}(\mathcal{F}) \cap \text{Supp}(\mathcal{G}) )
+\leq r + s - \dim(Y)$. Alors les cycles
+$[f^*\mathcal{F}]_{r + e}$ et $[f^*\mathcal{G}]_{s + e}$
+se coupent proprement et
+$$
+f^*([\mathcal{F}]_r \cdot [\mathcal{G}]_s) =
+[f^*\mathcal{F}]_{r + e} \cdot [f^*\mathcal{G}]_{s + e}
+$$
+\end{lemma}
+
+\begin{proof}
+Le fait que $[f^*\mathcal{F}]_{r + e}$ et $[f^*\mathcal{G}]_{s + e}$
+se coupent proprement résulte immédiatement de l'hypothèse que $f$ est de
+dimension relative $e$. D'après les
+lemmes \ref{lemma-tor-sheaf} et \ref{lemma-pullback},
+il suffit de montrer que
+$$
+f^*\text{Tor}_i^{\mathcal{O}_Y}(\mathcal{F}, \mathcal{G}) =
+\text{Tor}_i^{\mathcal{O}_X}(f^*\mathcal{F}, f^*\mathcal{G})
+$$
+comme $\mathcal{O}_X$-modules. Cela résulte de
+Cohomologie, lemme \ref{cohomology-lemma-pullback-tensor-product},
+et du fait que $f^*$ est exact, donc $Lf^*\mathcal{F} = f^*\mathcal{F}$,
+et de même pour $\mathcal{G}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-pullback-and-intersections}
+Soit $f : X \to Y$ un morphisme plat de variétés non singulières.
+Soit $\alpha$ un $r$-cycle sur $Y$ et $\beta$ un $s$-cycle sur $Y$.
+Supposons que $\alpha$ et $\beta$ se coupent proprement. Alors $f^*\alpha$
+et $f^*\beta$ se coupent proprement et
+$f^*( \alpha \cdot \beta ) = f^*\alpha \cdot f^*\beta$.
+\end{lemma}
+
+\begin{proof}
+Par linéarité, nous pouvons supposer que $\alpha = [V]$ et $\beta = [W]$
+pour des sous-variétés fermées $V, W \subset Y$ de dimensions $r, s$.
+Disons que $f$ est de dimension relative $e$. Le lemme est alors un cas particulier du
+lemme \ref{lemma-flat-pull-back-and-intersections-sheaves},
+car $[V] = [\mathcal{O}_V]_r$, $[W] = [\mathcal{O}_W]_r$,
+$f^*[V] = [f^{-1}(V)]_{r + e} = [f^*\mathcal{O}_V]_{r + e}$ et
+$f^*[W] = [f^{-1}(W)]_{s + e} = [f^*\mathcal{O}_W]_{s + e}$.
+\end{proof}
+
+
+\section{Formule de projection pour les morphismes plats propres}
+\label{section-projection-formula-flat}
+
+\noindent
+Brève discussion de la formule de projection pour les morphismes plats propres.
+
+\begin{lemma}
+\label{lemma-projection-formula-flat}
+\begin{reference}
+Voir \cite[Chapter V, C), Section 7, formula (10)]{Serre_algebre_locale}
+pour une formule plus générale.
+\end{reference}
+Soit $f : X \to Y$ un morphisme plat propre de variétés non singulières.
+Posons $e = \dim(X) - \dim(Y)$. Soit $\alpha$ un $r$-cycle sur $X$ et soit
+$\beta$ un $s$-cycle sur $Y$. Supposons que $\alpha$ et $f^*(\beta)$ se coupent
+proprement. Alors $f_*(\alpha)$ et $\beta$ se coupent proprement et
+$$
+f_*(\alpha) \cdot \beta = f_*( \alpha \cdot f^*\beta)
+$$
+\end{lemma}
+
+\begin{proof}
+Par linéarité, on se ramène au cas où $\alpha = [V]$ et
+$\beta = [W]$ pour des sous-variétés fermées $V \subset X$ et
+$W \subset Y$ de dimensions $r$ et $s$. Alors $f^{-1}(W)$ est de
+dimension pure $s + e$. Nous supposons que les cycles
+$[V]$ et $f^*[W]$ se coupent proprement. Nous utiliserons sans
+autre mention le fait que $V \cap f^{-1}(W) \to f(V) \cap W$
+est surjectif.
+
+\medskip\noindent
+Soit $a$ la dimension de la fibre générique de $V \to f(V)$.
+Si $a > 0$, alors $f_*[V] = 0$. En particulier, $f_*\alpha$ et $\beta$
+se coupent proprement. Pour achever ce cas, il faut montrer que
+$f_*([V] \cdot f^*[W]) = 0$. Cependant, puisque toute fibre de
+$V \to f(V)$ est de dimension $\geq a$ (voir
+Morphismes, lemme \ref{morphisms-lemma-openness-bounded-dimension-fibres}),
+nous concluons que toute composante irréductible $Z$ de $V \cap f^{-1}(W)$
+a des fibres de dimension $\geq a$ au-dessus de $f(Z)$. Cela implique
+assurément l'assertion voulue.
+
+\medskip\noindent
+Supposons que $V \to f(V)$ soit génériquement fini. Soit $Z \subset f(V) \cap W$
+une composante irréductible. Soient $Z_i \subset V \cap f^{-1}(W)$,
+$i = 1, \ldots, t$, les composantes irréductibles de $V \cap f^{-1}(W)$
+qui dominent $Z$. Par hypothèse, chaque $Z_i$ est de dimension
+$r + s + e - \dim(X) = r + s - \dim(Y)$. Par conséquent,
+$\dim(Z) \leq r + s - \dim(Y)$. On voit donc que $f(V)$ et $W$
+se coupent proprement, que $\dim(Z) = r + s - \dim(Y)$ et que chaque
+$Z_i \to Z$ est génériquement fini. Il s'ensuit notamment que
+$V \to f(V)$ a une fibre finie au point générique $\xi$ de $Z$.
+Ainsi, $V \to Y$ est fini au-dessus d'un voisinage ouvert de $\xi$, voir
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-proper-finite-fibre-finite-in-neighbourhood}.
+En utilisant une formule de projection très générale pour les produits tensoriels dérivés, on obtient
+$$
+Rf_*(\mathcal{O}_V \otimes_{\mathcal{O}_X}^\mathbf{L} Lf^*\mathcal{O}_W) =
+Rf_*\mathcal{O}_V \otimes_{\mathcal{O}_Y}^\mathbf{L} \mathcal{O}_W
+$$
+{\emergencystretch=1em voir Catégories dérivées de schémas, lemme
+\ref{perfect-lemma-cohomology-base-change}.
+Comme $f$ est plat, on a $Lf^*\mathcal{O}_W = f^*\mathcal{O}_W$.
+Puisque $f|_V$ est fini au-dessus d'un voisinage ouvert de $\xi$, on a\par}
+$$
+(Rf_*\mathcal{F})_\xi = (f_*\mathcal{F})_\xi
+$$
+pour tout faisceau cohérent sur $X$ dont le support est contenu dans $V$
+(voir Cohomologie des schémas, lemme
+\ref{coherent-lemma-higher-direct-images-zero-finite-fibre}). Nous
+en concluons que
+\begin{equation}
+\label{equation-stalks}
+\left(
+f_*\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V, f^*\mathcal{O}_W)
+\right)_\xi =
+\left(\text{Tor}_i^{\mathcal{O}_Y}(f_*\mathcal{O}_V, \mathcal{O}_W)\right)_\xi
+\end{equation}
+pour tout $i$. Puisque $f^*[W] = [f^*\mathcal{O}_W]_{s + e}$ d'après le
+lemme \ref{lemma-pullback}, on a
+$$
+[V] \cdot f^*[W] =
+\sum (-1)^i
+[\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V,
+f^*\mathcal{O}_W)]_{r + s - \dim(Y)}
+$$
+d'après le lemme \ref{lemma-tor-sheaf}. En appliquant le
+lemme \ref{lemma-push-coherent},
+on trouve
+$$
+f_*([V] \cdot f^*[W]) =
+\sum (-1)^i
+[f_*\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V,
+f^*\mathcal{O}_W)]_{r + s - \dim(Y)}
+$$
+Comme $f_*[V] = [f_*\mathcal{O}_V]_r$ d'après le
+lemme \ref{lemma-push-coherent}, on a
+$$
+[f_*V] \cdot [W] =
+\sum (-1)^i
+[\text{Tor}_i^{\mathcal{O}_X}(f_*\mathcal{O}_V,
+\mathcal{O}_W)]_{r + s - \dim(Y)}
+$$
+à nouveau d'après le lemme \ref{lemma-tor-sheaf}.
+En comparant la formule pour $f_*([V] \cdot f^*[W])$ à
+la formule pour $f_*[V] \cdot [W]$ et en considérant le
+coefficient de $Z$ par les longueurs des germes en $\xi$, on voit que
+(\ref{equation-stalks}) achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-transfer}
+Soit $X \to P$ une immersion fermée de variétés non singulières.
+Soit $C' \subset P \times \mathbf{P}^1$ une sous-variété fermée de dimension
+$r + 1$. Supposons que
+\begin{enumerate}
+\item la fibre $C = C'_0$ soit de dimension $r$, c'est-à-dire que $C' \to \mathbf{P}^1$
+soit dominant,
+\item $C'$ coupe $X \times \mathbf{P}^1$ proprement,
+\item $[C]_r$ coupe $X$ proprement.
+\end{enumerate}
+Alors, en posant $\alpha = [C]_r \cdot X$, considéré comme cycle sur $X$, et
+$\beta = C' \cdot X \times \mathbf{P}^1$, considéré comme cycle sur
+$X \times \mathbf{P}^1$, on a
+$$
+\alpha = \text{pr}_{X, *}(\beta \cdot X \times 0)
+$$
+comme cycles sur $X$, où $\text{pr}_X : X \times \mathbf{P}^1 \to X$ est la
+projection.
+\end{lemma}
+
+\begin{proof}
+Soit $\text{pr} : P \times \mathbf{P}^1 \to P$ la projection.
+Puisque nous démontrons une égalité de cycles, il suffit de considérer
+$\alpha$, resp.\ $\beta$, comme un cycle sur $P$, resp.\ $P \times \mathbf{P}^1$,
+et de démontrer le résultat après image directe par $\text{pr}$.
+Comme $\text{pr}^*X = X \times \mathbf{P}^1$ et que
+$\text{pr}$ induit un isomorphisme de $C'_0$ sur $C$,
+la formule de projection (lemme \ref{lemma-projection-formula-flat})
+donne
+$$
+\text{pr}_*([C'_0]_r \cdot X \times \mathbf{P}^1) = [C]_r \cdot X = \alpha
+$$
+D'autre part, on a $[C'_0]_r = C' \cdot P \times 0$
+comme cycles sur $P \times \mathbf{P}^1$,
+d'après le lemme \ref{lemma-rational-equivalence-and-intersection}.
+Par conséquent,
+$$
+[C'_0]_r \cdot X \times \mathbf{P}^1 =
+(C' \cdot P \times 0) \cdot X \times \mathbf{P}^1 =
+(C' \cdot X \times \mathbf{P}^1) \cdot P \times 0
+$$
+par associativité (lemme \ref{lemma-associative}) et commutativité du
+produit d'intersection. Il reste à montrer que le produit d'intersection de
+$C' \cdot X \times \mathbf{P}^1$ avec $P \times 0$ sur
+$P \times \mathbf{P}^1$ est égal, en tant que cycle, au produit d'intersection de
+$\beta$ avec $X \times 0$ sur $X \times \mathbf{P}^1$. Écrivons
+$C' \cdot X \times \mathbf{P}^1 = \sum n_k[E_k]$, et donc
+$\beta = \sum n_k[E_k]$, pour certaines sous-variétés
+$E_k \subset X \times \mathbf{P}^1 \subset P \times \mathbf{P}^1$.
+Les deux intersections sont alors égales à $\sum m_k[E_{k, 0}]$ d'après le
+lemme \ref{lemma-rational-equivalence-and-intersection}, appliqué deux fois.
+Cela achève la démonstration.
+\end{proof}
+
+
+
+
+\section{Projections}
+\label{section-projection}
+
+\noindent
+Rappelons que nous travaillons sur un corps de base algébriquement clos fixé
+$\mathbf{C}$. Si $V$ est un espace vectoriel de dimension finie sur $\mathbf{C}$,
+nous posons
+$$
+\mathbf{P}(V) = \text{Proj}(\text{Sym}(V))
+$$
+où $\text{Sym}(V)$ est l'algèbre symétrique de $V$ sur $\mathbf{C}$.
+Voir Constructions, exemple \ref{constructions-example-projective-space}.
+La convention est choisie de telle sorte que
+$V = \Gamma(\mathbf{P}(V), \mathcal{O}_{\mathbf{P}(V)}(1))$.
+Bien entendu, on a $\mathbf{P}(V) \cong \mathbf{P}^n_{\mathbf{C}}$ si
+$\dim(V) = n + 1$. Notons que $\mathbf{P}(V)$ est une variété projective
+non singulière.
+
+\medskip\noindent
+Soit $p \in \mathbf{P}(V)$ un point fermé. Le point $p$ correspond à une
+surjection $V \to L_p$ d'espaces vectoriels avec $\dim(L_p) = 1$, voir
+Constructions, lemme \ref{constructions-lemma-apply}.
+Notons $W_p = \Ker(V \to L_p)$.
+La {\it projection de centre $p$} est le morphisme
+$$
+r_p : \mathbf{P}(V) \setminus \{p\} \longrightarrow \mathbf{P}(W_p)
+$$
+de Constructions, lemme \ref{constructions-lemma-morphism-proj}.
+Voici un lemme préliminaire.
+
+\begin{lemma}
+\label{lemma-projection-generically-finite}
+Soit $V$ un espace vectoriel de dimension $n + 1$.
+Soit $X \subset \mathbf{P}(V)$ un sous-schéma fermé.
+Si $X \not = \mathbf{P}(V)$, il existe un ouvert de Zariski non vide
+$U \subset \mathbf{P}(V)$
+tel que, pour tout point fermé $p \in U$, la restriction
+de la projection $r_p$ définisse un morphisme fini
+$r_p|_X : X \to \mathbf{P}(W_p)$.
+\end{lemma}
+
+\begin{proof}
+Le lemme vaut, affirmons-nous, avec $U = \mathbf{P}(V) \setminus X$. Pour tout point
+fermé $p$ de $U$, on obtient en effet un morphisme $r_p|_X : X \to \mathbf{P}(W_p)$.
+Ce morphisme est propre, car $X$ est un schéma propre
+(Morphismes, lemmes \ref{morphisms-lemma-locally-projective-proper} et
+\ref{morphisms-lemma-image-proper-scheme-closed}). D'autre part, les
+fibres de $r_p$ sont des droites affines, comme le montre un calcul direct.
+Ainsi, les fibres de $r_p|X$ sont propres et affines, donc finies
+(Morphismes, lemme \ref{morphisms-lemma-finite-proper}).
+Enfin, un morphisme propre à fibres finies est fini
+(Cohomologie des schémas, lemme \ref{coherent-lemma-characterize-finite}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-projection-generically-immersion}
+Soit $V$ un espace vectoriel de dimension $n + 1$.
+Soit $X \subset \mathbf{P}(V)$ une sous-variété fermée.
+Soit $x \in X$ un point non singulier.
+\begin{enumerate}
+\item Si $\dim(X) < n - 1$, il existe un ouvert de Zariski non vide
+$U \subset \mathbf{P}(V)$ tel que, pour tout point fermé $p \in U$, le
+morphisme $r_p|_X : X \to r_p(X)$ soit un
+isomorphisme au-dessus d'un voisinage ouvert de $r_p(x)$.
+\item Si $\dim(X) = n - 1$, il existe un ouvert de Zariski non vide
+$U \subset \mathbf{P}(V)$ tel que, pour tout point fermé $p \in U$, le
+morphisme $r_p|_X : X \to \mathbf{P}(W_p)$ soit \'etale en $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Notons que si $x, y \in X$ ont la même image par
+$r_p$, alors $p$ appartient à la droite $\overline{xy}$.
+Considérons le schéma de type fini
+$$
+T = \{(y, p) \mid
+y \in X \setminus \{x\},\ p \in \mathbf{P}(V),\ p \in \overline{xy}\}
+$$
+et les morphismes $T \to X$ et $T \to \mathbf{P}(V)$ donnés par
+$(y, p) \mapsto y$ et $(y, p) \mapsto p$.
+Puisque toute fibre de $T \to X$ est une droite, on voit que
+la dimension de $T$ est $\dim(X) + 1 < \dim(\mathbf{P}(V))$.
+Ainsi, $T \to \mathbf{P}(V)$ n'est pas surjectif. D'autre part,
+considérons le schéma de type fini
+$$
+T' = \{p \mid
+p \in \mathbf{P}(V) \setminus \{x\},
+\ \overline{xp}\text{ tangent to }X\text{ at }x\}
+$$
+La dimension de $T'$ est alors $\dim(X) < \dim(\mathbf{P}(V))$.
+Ainsi, le morphisme $T' \to \mathbf{P}(V)$ n'est pas non plus surjectif.
+Soit $U \subset \mathbf{P}(V) \setminus X$ un ouvert non vide disjoint
+de ces images ; un tel $U$ existe, car les images de $T$ et de $T'$
+dans $\mathbf{P}(V)$ sont constructibles d'après
+Morphismes, lemme \ref{morphisms-lemma-chevalley}.
+Alors, pour $p \in U$ fermé, la projection
+$r_p|_X : X \to \mathbf{P}(W_p)$ induit une application injective sur
+l'espace tangent en $x$ et $r_p^{-1}(\{r_p(x)\}) = \{x\}$.
+Cela signifie que $r_p$ est non ramifié en $x$
+(Variétés, lemme \ref{varieties-lemma-injective-tangent-spaces-unramified}),
+fini d'après le lemme \ref{lemma-projection-generically-finite},
+et que $r_p^{-1}(\{r_p(x)\}) = \{x\}$ ; le lemme de Morphismes \'etales
+\ref{etale-lemma-finite-unramified-one-point} s'applique donc, et
+il existe un voisinage ouvert $R$ de $r_p(x)$
+dans $\mathbf{P}(W_p)$ tel que $(r_p|_X)^{-1}(R) \to R$ soit une
+immersion fermée, ce qui démontre (1).
+
+\medskip\noindent
+Démonstration de (2). Dans ce cas, on conclut encore que le morphisme
+$T' \to \mathbf{P}(V)$ n'est pas surjectif.
+En raisonnant comme ci-dessus, on conclut que, pour $U \subset \mathbf{P}(V)$
+évitant $X$ et l'image de $T'$, la projection
+$r_p|_X : X \to \mathbf{P}(W_p)$ est \'etale en $x$ et finie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-projection-generically-immersion-refined}
+Soit $V$ un espace vectoriel. Soient $Z \subset X \subset \mathbf{P}(V)$ des
+sous-variétés fermées avec $Z \not = X \not = \mathbf{P}(V)$. Soit $x \in Z$ un point
+non singulier sur $X$. Il existe alors un ouvert de Zariski non vide
+$U \subset \mathbf{P}(V)$ tel que, pour tout point fermé $p \in U$, le
+morphisme $r_p|_Z : Z \to r_p(Z)$ soit un isomorphisme au-dessus d'un voisinage ouvert
+de $r_p(x)$.
+\end{lemma}
+
+\begin{proof}
+En raisonnant comme dans la démonstration du lemme \ref{lemma-projection-generically-immersion},
+on trouve un ouvert de Zariski non vide $U$ tel que, pour $p \in U$, l'application
+$r_p|_X : X \to r_p(X)$ soit \'etale en $x$ et que
+$r_p^{-1}(r_p(\{x\})) \cap Z = \{x\}$. Détails omis.
+Posons $Z' = r_p(Z)$, considéré comme sous-variété fermée de $\mathbf{P}(W_p)$.
+Alors le morphisme $\pi : Z \to Z'$ est fini
+(lemme \ref{lemma-projection-generically-finite}), non ramifié en $x$
+(petit détail omis) et $\pi^{-1}(\pi(\{x\})) = \{x\}$. Le résultat découle
+du lemme de Morphismes \'etales \ref{etale-lemma-finite-unramified-one-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-projection-injective}
+Soit $V$ un espace vectoriel de dimension $n + 1$.
+Soient $Y, Z \subset \mathbf{P}(V)$ des sous-variétés fermées.
+Il existe un ouvert de Zariski non vide $U \subset \mathbf{P}(V)$
+tel que, pour tout point fermé $p \in U$, on ait
+$$
+Y \cap r_p^{-1}(r_p(Z)) = (Y \cap Z) \cup E
+$$
+où $E \subset Y$ est fermé et
+$\dim(E) \leq \dim(Y) + \dim(Z) + 1 - n$.
+\end{lemma}
+
+\begin{proof}
+Posons $Y' = Y \setminus Y \cap Z$.
+Soient $y \in Y'$, $z \in Z$ des points fermés tels que $r_p(y) = r_p(z)$.
+Alors $p$ appartient à la droite $\overline{yz}$ passant par $y$ et $z$.
+Considérons le schéma de type fini
+$$
+T = \{(y, z, p) \mid y \in Y', z \in Z, p \in \overline{yz}\}
+$$
+et le morphisme $T \to \mathbf{P}(V)$ donné par $(y, z, p) \mapsto p$.
+Observons que $T$ est irréductible et que $\dim(T) = \dim(Y) + \dim(Z) + 1$.
+La fibre générale de $T \to \mathbf{P}(V)$ est donc de dimension au plus
+$\dim(Y) + \dim(Z) + 1 - n$ ; plus précisément, il existe un ouvert non vide
+$U \subset \mathbf{P}(V) \setminus (Y \cup Z)$ au-dessus
+duquel la fibre est de dimension au plus $\dim(Y) + \dim(Z) + 1 - n$
+(Variétés, lemme \ref{varieties-lemma-dimension-fibres-locally-algebraic}).
+Soit $p \in U$ un point fermé et soit $F \subset T$ la fibre
+de $T \to \mathbf{P}(V)$ au-dessus de $p$. Alors
+$$
+(Y \cap r_p^{-1}(r_p(Z))) \setminus (Y \cap Z)
+$$
+est l'image de $F \to Y$, $(y, z, p) \mapsto y$. À nouveau d'après
+Variétés, lemme \ref{varieties-lemma-dimension-fibres-locally-algebraic},
+l'adhérence de l'image de $F \to Y$ est de dimension au plus
+$\dim(Y) + \dim(Z) + 1 - n$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-find-lines}
+Soit $V$ un espace vectoriel. Soit $B \subset \mathbf{P}(V)$
+une sous-variété fermée de codimension $\geq 2$.
+Soit $p \in \mathbf{P}(V)$ un point fermé, $p \not \in B$.
+Il existe alors une droite $\ell \subset \mathbf{P}(V)$
+avec $p \in \ell$ et $\ell \cap B = \emptyset$. De plus, ces droites
+recouvrent un ouvert de $\mathbf{P}(V)$.
+\end{lemma}
+
+\begin{proof}
+Considérons l'image de $B$ par la projection
+$r_p : \mathbf{P}(V) \to \mathbf{P}(W_p)$.
+Puisque $\dim(W_p) = \dim(V) - 1$, on voit que $r_p(B)$
+est de codimension $\geq 1$ dans $\mathbf{P}(W_p)$.
+Pour tout $q \in \mathbf{P}(V)$ tel que $r_p(q) \not \in r_p(B)$,
+on voit que la droite $\ell = \overline{pq}$ joignant $p$ et $q$ convient.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-doubly-transitive}
+Soit $V$ un espace vectoriel. Soit $G = \text{PGL}(V)$.
+Alors $G \times \mathbf{P}(V) \to \mathbf{P}(V)$ est
+doublement transitif.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : cela résulte du fait que $\text{GL}(V)$ agit de façon
+doublement transitive sur les couples de vecteurs linéairement indépendants.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-determinant}
+Soit $k$ un corps. Soit $n \geq 1$ un entier et soient
+$x_{ij}, 1 \leq i, j \leq n$ des indéterminées. Alors
+$$
+\det
+\left(
+\begin{matrix}
+x_{11} & x_{12} & \ldots & x_{1n} \\
+x_{21} & \ldots & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots \\
+x_{n1} & \ldots & \ldots & x_{nn}
+\end{matrix}
+\right)
+$$
+est un élément irréductible de l'anneau de polynômes $k[x_{ij}]$.
+\end{lemma}
+
+\begin{proof}
+Soit $V$ un espace vectoriel de dimension $n$. Géométriquement,
+le lemme signifie que le lieu $C$ des applications linéaires non inversibles
+$V \to V$ est irréductible (notons que, comme le déterminant est de degré
+$1$ en chaque indéterminée, il est sans facteur carré). Soit $W$ un espace vectoriel de
+dimension $n - 1$. Par algèbre linéaire élémentaire, le morphisme
+$$
+\Hom(W, V) \times \Hom(V, W) \longrightarrow \Hom(V, V),\quad
+(\psi, \varphi) \longmapsto \psi \circ \varphi
+$$
+a pour image $C$. Puisque la source est irréductible, l'image l'est aussi.
+Détails omis.
+\end{proof}
+
+\noindent
+Soit $V$ un espace vectoriel de dimension $n + 1$. Posons $E = \text{End}(V)$.
+Soit $E^\vee = \Hom(E, \mathbf{C})$ l'espace vectoriel dual.
+Écrivons $\mathbf{P} = \mathbf{P}(E^\vee)$.
+Il existe une application linéaire canonique
+$$
+V \longrightarrow V \otimes_\mathbf{C} E^\vee = \Hom(E, V)
+$$
+qui envoie $v \in V$ sur l'application $g \mapsto g(v)$ de $\Hom(E, V)$.
+Rappelons que nous avons une application canonique
+$E^\vee \to \Gamma(\mathbf{P}, \mathcal{O}_\mathbf{P}(1))$
+qui est un isomorphisme. On obtient donc une application canonique
+$$
+\psi : V \otimes \mathcal{O}_\mathbf{P} \to V \otimes \mathcal{O}_\mathbf{P}(1)
+$$
+de faisceaux de modules sur $\mathbf{P}$ qui, sur les sections globales, redonne
+l'application donnée. Rappelons qu'un fibré projectif $\mathbf{P}(\mathcal{E})$
+est défini comme le Proj relatif de l'algèbre symétrique de $\mathcal{E}$, voir
+Constructions, définition \ref{constructions-definition-projective-bundle}.
+Nous allons étudier l'application rationnelle
+entre $\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}(1))$ et
+$\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P})$ associée à $\psi$. D'après
+Constructions, lemme \ref{constructions-lemma-relative-proj-base-change},
+nous avons un isomorphisme canonique
+$$
+\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}) = \mathbf{P} \times \mathbf{P}(V)
+$$
+D'après Constructions, lemme \ref{constructions-lemma-twisting-and-proj},
+on voit que
+$$
+\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}(1)) =
+\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}) = \mathbf{P} \times \mathbf{P}(V)
+$$
+En combinant ceci avec
+Constructions, lemme \ref{constructions-lemma-morphism-relative-proj},
+on obtient
+\begin{equation}
+\label{equation-r-psi}
+\mathbf{P} \times \mathbf{P}(V) \supset
+U(\psi) \xrightarrow{r_\psi} \mathbf{P} \times \mathbf{P}(V)
+\end{equation}
+Pour mieux comprendre ceci, étudions ce qui se passe sur les fibres au-dessus de
+$\mathbf{P}$. Soit $g \in E$ non nul. Il définit une application non nulle
+$E^\vee \to \mathbf{C}$, donc un point $[g] \in \mathbf{P}$.
+D'autre part, $g$ définit une application $\mathbf{C}$-linéaire $g : V \to V$.
+Ainsi, d'après
+Constructions, lemme \ref{constructions-lemma-morphism-proj},
+on obtient une application
+$$
+\mathbf{P}(V) \supset U(g) \xrightarrow{r_g} \mathbf{P}(V)
+$$
+Nous utiliserons ci-dessous le fait que $U(g)$ est la fibre $U(\psi)_{[g]}$ et
+que $r_g$ est la fibre de $r_\psi$ au-dessus du point $[g]$. Une autre observation
+que nous utiliserons est que le complémentaire de $U(g)$ dans $\mathbf{P}(V)$ est
+l'image de l'immersion fermée
+$$
+\mathbf{P}(\Coker(g)) \longrightarrow \mathbf{P}(V)
+$$
+et que l'image de $r_g$ est l'image de l'immersion fermée
+$$
+\mathbf{P}(\Im(g)) \longrightarrow \mathbf{P}(V)
+$$
+
+\begin{lemma}
+\label{lemma-make-family}
+Avec les notations ci-dessus. Soient $X, Y$ des sous-variétés fermées de $\mathbf{P}(V)$
+qui se coupent proprement, telles que $X \not = \mathbf{P}(V)$ et
+$X \cap Y \not = \emptyset$. Pour une droite générale $\ell \subset \mathbf{P}$
+avec $[\text{id}_V] \in \ell$, on a
+\begin{enumerate}
+\item $X \subset U_g$ pour tout $[g] \in \ell$,
+\item $g(X)$ coupe $Y$ proprement pour tout $[g] \in \ell$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $B \subset \mathbf{P}$ l'ensemble des points «~mauvais~», c'est-à-dire des
+points $[g]$ qui ne vérifient pas (1) ou (2). Notons que
+$[\text{id}_V] \not \in B$ par hypothèse. De plus, $B$ est fermé.
+Il suffit donc de montrer que $\dim(B) \leq \dim(\mathbf{P}) - 2$
+(lemme \ref{lemma-find-lines}).
+
+\medskip\noindent
+Considérons d'abord l'ouvert $G = \text{PGL}(V) \subset \mathbf{P}$
+formé des points $[g]$ tels que $g : V \to V$ soit inversible.
+Puisque $G$ agit doublement transitivement sur $\mathbf{P}(V)$
+(lemme \ref{lemma-doubly-transitive}),
+on voit que
+$$
+T = \{(x, y, [g]) \mid x \in X, y \in Y, [g] \in G, r_g(x) = y\}
+$$
+est une fibration localement triviale sur $X \times Y$ dont la fibre est égale
+au stabilisateur d'un point dans $G$. Ainsi, $T$ est une variété.
+Observons que la fibre de $T \to G$ au-dessus de $[g]$ est $r_g(X) \cap Y$.
+Le morphisme $T \to G$ est surjectif, car toute transformée de $X$
+rencontre $Y$ (notons que l'hypothèse selon laquelle $X$ et $Y$ se coupent
+proprement et que $X \cap Y \not = \emptyset$ entraîne
+$\dim(X) + \dim(Y) \geq \dim(\mathbf{P}(V))$, puis le
+lemme de Variétés \ref{varieties-lemma-intersection-in-projective-space}
+implique que toute transformée de $X$ rencontre $Y$).
+Puisque les dimensions des fibres d'un morphisme dominant ne
+sautent pas en codimension $1$
+(Variétés, lemme \ref{varieties-lemma-dimension-fibres-locally-algebraic}),
+on conclut que $B \cap G$ est de codimension $\geq 2$.
+
+\medskip\noindent
+Considérons ensuite le complémentaire $Z = \mathbf{P} \setminus G$.
+C'est une variété irréductible, car le déterminant est un
+polynôme irréductible (lemme \ref{lemma-determinant}).
+Il suffit donc de montrer que $B$ ne contient pas le
+point générique de $Z$. Pour un point général $[g] \in Z$,
+le conoyau $V \to \Coker(g)$ est de dimension $1$, donc
+$U(g)$ est le complémentaire d'un point. Comme $X \not = \mathbf{P}(V)$,
+on voit que, pour $[g] \in Z$ général, on a $X \subset U(g)$.
+De plus, le morphisme $r_g|_X : X \to r_g(X)$ est fini, donc
+$\dim(r_g(X)) = \dim(X)$.
+D'autre part, pour un tel $g$, l'image de $r_g$ est le
+sous-espace fermé $H = \mathbf{P}(\Im(g)) \subset \mathbf{P}(V)$
+qui est de codimension $1$.
+Pour un point général de $Z$, on voit que $H \cap Y$ est de dimension $1$
+de moins que $Y$ (comparer à
+Variétés, lemme \ref{varieties-lemma-exact-sequence-induction}).
+On voit ainsi qu'il faut montrer que $r_g(X)$ et $H \cap Y$
+se coupent proprement dans $H$. Pour un choix fixé de $H$, on peut,
+en composant $g$ à gauche avec un automorphisme, déplacer $r_g(X)$ par
+un automorphisme arbitraire de $H = \mathbf{P}(\Im(g))$.
+On peut donc raisonner comme ci-dessus pour conclure que l'intersection
+de $H \cap Y$ avec $r_g(X)$ est propre pour $g$ général ayant
+$H = \mathbf{P}(\Im(g))$. Certains détails sont omis.
+\end{proof}
+
+
+
+
+
+
+
+\section{Lemme de déplacement}
+\label{section-moving-lemma}
+
+\noindent
+Le lemme de déplacement affirme qu'étant donnés un $r$-cycle $\alpha$ et un $s$-cycle
+$\beta$, il existe $\alpha'$, $\alpha' \sim_{rat} \alpha$, tel que
+$\alpha'$ et $\beta$ se coupent proprement (lemme \ref{lemma-moving-move}).
+Voir \cite{Samuel}, \cite{ChevalleyI}, \cite{ChevalleyII}.
+Le point clé est le lemme \ref{lemma-moving} ; le lecteur pourra trouver
+ce lemme sous la forme énoncée dans
+\cite[Example 11.4.1]{F} et une démonstration dans \cite{Roberts}.
+
+\begin{lemma}
+\label{lemma-moving}
+\begin{reference}
+Voir \cite{Roberts}.
+\end{reference}
+Soit $X \subset \mathbf{P}^N$ une sous-variété fermée non singulière.
+Posons $n = \dim(X)$ et $0 \leq d, d' < n$. Soit $Z \subset X$ une sous-variété
+fermée de dimension $d$ et soient $T_i \subset X$, $i \in I$, une famille finie
+de sous-variétés fermées de dimension $d'$. Il existe alors
+une sous-variété $C \subset \mathbf{P}^N$ telle que $C$ coupe $X$
+proprement et tel que
+$$
+C \cdot X = Z + \sum\nolimits_{j \in J} m_j Z_j
+$$
+où les $Z_j \subset X$ sont irréductibles de dimension $d$, distinctes de $Z$, et
+$$
+\dim(Z_j \cap T_i) \leq \dim(Z \cap T_i)
+$$
+avec inégalité stricte si $Z$ ne rencontre pas $T_i$ proprement dans $X$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $\mathbf{P}^N = \mathbf{P}(V_N)$, de sorte que $\dim(V_N) = N + 1$.
+Nous allons choisir une suite de projections depuis des points
+\begin{align*}
+& r_N : 
+\mathbf{P}(V_N) \setminus \{p_N\} \to \mathbf{P}(V_{N - 1}), \\
+& r_{N - 1} :
+\mathbf{P}(V_{N - 1}) \setminus \{p_{N - 1}\} \to \mathbf{P}(V_{N - 2}), \\
+& \ldots,\\
+& r_{n + 1} :
+\mathbf{P}(V_{n + 1}) \setminus \{p_{n + 1}\} \to \mathbf{P}(V_n)
+\end{align*}
+comme à la Section \ref{section-projection}. À chaque étape, nous choisirons
+$p_N, p_{N - 1}, \ldots, p_{n + 1}$ dans un ouvert de Zariski convenable.
+Choisissons un point fermé $x \in Z \subset X$. Pour tout $i$, choisissons des
+points fermés $x_{it} \in T_i \cap Z$, au moins un dans chaque composante irréductible
+de $T_i \cap Z$. En prenant la composée, nous obtenons
+un morphisme
+$$
+\pi = (r_{n + 1} \circ \ldots \circ r_N)|_X :
+X \longrightarrow \mathbf{P}(V_n)
+$$
+qui possède les propriétés suivantes :
+\begin{enumerate}
+\item $\pi$ est fini,
+\item $\pi$ est \'etale en $x$ et en tous les $x_{it}$,
+\item $\pi|_Z : Z \to \pi(Z)$ est un isomorphisme
+au-dessus d'un voisinage ouvert de $\pi(x_{it})$,
+\item $T_i \cap \pi^{-1}(\pi(Z)) = (T_i \cap Z) \cup E_i$, où
+$E_i \subset T_i$ est fermé et
+$\dim(E_i) \leq d + d' + 1 - (n + 1) = d + d' - n$.
+\end{enumerate}
+Il résulte immédiatement des
+Lemmes \ref{lemma-projection-generically-finite},
+\ref{lemma-projection-generically-immersion},
+\ref{lemma-projection-generically-immersion-refined} et
+\ref{lemma-projection-injective}, ainsi que d'une récurrence, que ce choix est possible ;
+observons que la dernière projection part de $\mathbf{P}(V_{n + 1})$ et que
+$\dim(V_{n + 1}) = n + 2$, ce qui explique l'inégalité de (4). Plus
+précisément, soient $X_j, Z_j, T_{i, j} \subset \mathbf{P}(V_j)$ les images
+de $X$, $Z$, $T_i$ pour $j = N, \ldots, n$. Alors
+$T_{i, j + 1} \cap r_{j + 1}^{-1}(Z_j) = (T_{i, j + 1} \cap Z_{j + 1})
+\cup E_{i, j + 1}$, où nous disposons d'une borne sur la dimension de $E_{i, j + 1}$
+d'après le Lemme \ref{lemma-projection-injective}. Notons alors que
+$T_i \cap \pi^{-1}(\pi(Z))$ est la réunion de $T_i \cap Z$
+et des images réciproques des $E_{i, j}$. Comme les morphismes de transition
+entre les $X_j$ sont finis, on obtient la borne de dimension voulue.
+
+\medskip\noindent
+Soit $C \subset \mathbf{P}(V_N)$ l'adhérence schématique de
+$(r_{n + 1} \circ \ldots \circ r_N)^{-1}(\pi(Z))$. Puisque $\pi$
+est \'etale au point $x$ de $Z$, le sous-schéma fermé
+$C \cap X = \pi^{-1}(\pi(Z))$
+contient $Z$ avec multiplicité $1$ (le calcul local est omis).
+Le Lemme \ref{lemma-transversal-subschemes} donne donc
+$$
+C \cdot X = [Z] + \sum m_j[Z_j]
+$$
+pour certaines sous-variétés $Z_j \subset X$ de dimension $d$. Notons que
+$$
+C \cap X = \pi^{-1}(\pi(Z))
+$$
+ensemblistement. Par conséquent,
+$T_i \cap Z_j \subset T_i \cap \pi^{-1}(\pi(Z)) \subset (T_i \cap Z) \cup E_i$.
+Pour toute composante irréductible de $T_i \cap Z_j$ contenue dans $E_i$, nous
+avons la borne de dimension voulue. Enfin, soit $V$ une composante irréductible
+de $T_i \cap Z_j$ contenue dans $T_i \cap Z$. Pour achever
+la démonstration, il suffit de montrer que $V$ ne contient aucun des
+points $x_{it}$, car alors $\dim(V) < \dim(Z \cap T_i)$.
+Pour cela, il suffit de montrer que $x_{it} \not \in Z_j$
+pour tous $i, t, j$.
+
+\medskip\noindent
+Posons $Z' = \pi(Z)$ et $Z'' = \pi^{-1}(Z')$, schématiquement. D'après
+la condition (3), il existe un ouvert $U \subset \mathbf{P}(V_n)$ contenant
+$\pi(x_{it})$ tel que $\pi^{-1}(U) \cap Z \to U \cap Z'$ soit un isomorphisme.
+En particulier, $Z \to Z'$ est un isomorphisme local en $x_{it}$.
+D'autre part, $Z'' \to Z'$ est \'etale en $x_{it}$ d'après la condition (2).
+L'immersion fermée $Z \to Z''$ est donc \'etale en $x_{it}$
+(Morphismes, Lemme \ref{morphisms-lemma-etale-permanence}).
+Ainsi $Z = Z''$ dans un voisinage de Zariski de $x_{it}$, ce qui démontre
+l'assertion.
+\end{proof}
+
+\noindent
+Le déplacement proprement dit s'effectue à l'aide du lemme suivant.
+
+\begin{lemma}
+\label{lemma-move}
+Soit $C \subset \mathbf{P}^N$ une sous-variété fermée.
+Soit $X \subset \mathbf{P}^N$ une sous-variété et soient $T_i \subset X$
+une collection finie de sous-variétés fermées.
+Supposons que $C$ et $X$ se rencontrent proprement.
+Alors il existe une sous-variété fermée
+$C' \subset \mathbf{P}^N \times \mathbf{P}^1$ telle que
+\begin{enumerate}
+\item $C' \to \mathbf{P}^1$ soit dominant,
+\item $C'_0 = C$ schématiquement,
+\item $C'$ et $X \times \mathbf{P}^1$ se rencontrent proprement,
+\item $C'_\infty$ rencontre proprement chacun des $T_i$ donnés.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Si $C \cap X = \emptyset$, prenons la famille constante
+$C' = C \times \mathbf{P}^1$. Nous pouvons donc supposer
+$C \cap X \not = \emptyset$.
+
+\medskip\noindent
+Écrivons $\mathbf{P}^N = \mathbf{P}(V)$, de sorte que $\dim(V) = N + 1$. Soit
+$E = \text{End}(V)$. Soit $E^\vee = \Hom(E, \mathbf{C})$. Posons
+$\mathbf{P} = \mathbf{P}(E^\vee)$ comme dans le Lemme \ref{lemma-make-family}.
+Choisissons une droite générale $\ell \subset \mathbf{P}$ passant par $\text{id}_V$.
+Définissons $C' \subset \ell \times \mathbf{P}(V)$ comme le
+sous-schéma fermé de fibre $r_g(C)$ au-dessus de $[g] \in \ell$.
+Plus précisément, $C'$ est l'image de
+$$
+\ell \times C \subset \mathbf{P} \times \mathbf{P}(V)
+$$
+par le morphisme (\ref{equation-r-psi}). D'après le Lemme \ref{lemma-make-family},
+cela a un sens, c'est-à-dire que $\ell \times C \subset U(\psi)$. Le morphisme
+$\ell \times C \to C'$ est fini et $C'_{[g]} = r_g(C)$ ensemblistement
+pour tout $[g] \in \ell$. Les parties (1) et (2) sont claires avec
+$0 = [\text{id}_V] \in \ell$. La partie (3) résulte du fait
+que $r_g(C)$ et $X$ se rencontrent proprement pour tout $[g] \in \ell$.
+La partie (4) résulte du fait qu'un point général $\infty = [g] \in \ell$
+est un point général de $\mathbf{P}$ et que, pour un tel point,
+$r_g(C) \cap T$ est propre pour toute sous-variété fermée $T$ de $\mathbf{P}(V)$.
+Les détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-moving-move}
+Soit $X$ une variété projective non singulière. Soient $\alpha$ un
+$r$-cycle et $\beta$ un $s$-cycle sur $X$. Alors il existe
+un $r$-cycle $\alpha'$ tel que $\alpha' \sim_{rat} \alpha$ et
+tel que $\alpha'$ et $\beta$ se rencontrent proprement.
+\end{lemma}
+
+\begin{proof}
+Écrivons $\beta = \sum n_i[T_i]$ pour certaines sous-variétés $T_i \subset X$
+de dimension $s$. Par linéarité, nous pouvons supposer que $\alpha = [Z]$ pour
+une sous-variété fermée irréductible $Z \subset X$ de dimension $r$.
+Nous démontrerons le lemme par récurrence sur le maximum $e$ des entiers
+$$
+\dim(Z \cap T_i)
+$$
+Le cas initial est $e = r + s - \dim(X)$. Dans ce cas, $Z$ rencontre
+$\beta$ proprement et le lemme est trivial.
+
+\medskip\noindent
+Étape de récurrence. Supposons $e > r + s - \dim(X)$. Choisissons un plongement
+$X \subset \mathbf{P}^N$ et appliquons le Lemme \ref{lemma-moving} afin de trouver une
+sous-variété fermée $C \subset \mathbf{P}^N$ telle que
+$C \cdot X = [Z] + \sum m_j[Z_j]$ et telle que l'hypothèse de
+récurrence s'applique à chaque $Z_j$. Appliquons ensuite le Lemme \ref{lemma-move}
+à $C$, $X$, $T_i$ pour trouver $C' \subset \mathbf{P}^N \times \mathbf{P}^1$.
+Soit $\gamma = C' \cdot X \times \mathbf{P}^1$, considéré comme un cycle
+sur $X \times \mathbf{P}^1$. D'après le Lemme \ref{lemma-transfer}, nous avons
+$$
+[Z] + \sum m_j[Z_j] = \text{pr}_{X, *}(\gamma \cdot X \times 0)
+$$
+D'autre part, le cycle
+$\gamma_\infty = \text{pr}_{X, *}(\gamma \cdot X \times \infty)$
+est supporté sur $C'_\infty \cap X$ et rencontre donc $\beta$ proprement.
+Ainsi $[Z] \sim_{rat} - \sum m_j[Z_j] + \gamma_\infty$
+d'après le Lemme \ref{lemma-rational-equivalence-and-intersection}. Comme, par
+récurrence, chaque $[Z_j]$ est rationnellement équivalent à un cycle qui rencontre
+$\beta$ proprement, cela achève la démonstration.
+\end{proof}
+
+
+
+\section{Produits d'intersection et équivalence rationnelle}
+\label{section-intersections-and-rational-equivalence}
+
+\noindent
+Avec les définitions précédentes, montrons que le produit d'intersection
+est bien défini modulo équivalence rationnelle. Traitons d'abord un
+cas particulier.
+
+\begin{lemma}
+\label{lemma-well-defined-special-case}
+Soit $X$ une variété non singulière. Soit
+$W \subset X \times \mathbf{P}^1$ une sous-variété de dimension $(s + 1)$
+dominant $\mathbf{P}^1$. Soient $W_a$, resp.\ $W_b$, les fibres de
+$W \to \mathbf{P}^1$ au-dessus de $a$, resp.\ de $b$. Soit $V$ une sous-variété de dimension $r$
+de $X$ telle que $V$ rencontre proprement $W_a$ et
+$W_b$. Alors $[V] \cdot [W_a]_r \sim_{rat} [V] \cdot [W_b]_r$.
+\end{lemma}
+
+\begin{proof}
+Nous avons $[W_a]_r = \text{pr}_{X,*}(W \cdot X \times a)$ et de même pour
+$[W_b]_r$, voir le Lemme \ref{lemma-rational-equivalence-and-intersection}.
+Nous nous ramenons donc à démontrer
+$$
+V \cdot \text{pr}_{X,*}( W \cdot X \times a) \sim_{rat} V \cdot
+\text{pr}_{X,*}( W \cdot X\times b).
+$$
+En appliquant la formule de projection du
+Lemme \ref{lemma-projection-formula-flat}, on obtient
+$$
+V \cdot \text{pr}_{X,*}( W \cdot X\times a) =
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times a))
+$$
+et de même pour $b$. Nous nous ramenons donc à démontrer
+$$
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times a))
+\sim_{rat}
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times b))
+$$
+Si $V \times \mathbf{P}^1$ et $W$ se rencontrent proprement, alors
+l'associativité des multiplicités d'intersection
+(Lemme \ref{lemma-associative})
+donne $V \times \mathbf{P}^1 \cdot (W \cdot X\times a) =
+(V \times \mathbf{P}^1 \cdot W) \cdot X \times a$,
+et de même pour $b$. Nous nous ramenons donc à démontrer
+$$
+\text{pr}_{X,*}((V \times \mathbf{P}^1 \cdot W) \cdot X\times a)
+\sim_{rat}
+\text{pr}_{X,*}((V \times \mathbf{P}^1 \cdot W) \cdot X\times b)
+$$
+ce qui est vrai d'après le Lemme \ref{lemma-rational-equivalence-and-intersection}.
+
+\medskip\noindent
+Le raisonnement précédent ne fonctionne pas tout à fait. L'obstacle est que
+nous ne savons pas si $V \times \mathbf{P}^1$ et $W$ se rencontrent proprement.
+Nous savons seulement que $V$ et $W_a$, ainsi que $V$ et $W_b$, se rencontrent proprement.
+Soient $Z_i$, $i \in I$, les composantes irréductibles de
+$V \times \mathbf{P}^1 \cap W$. Nous savons alors que
+$\dim(Z_i) \geq r + 1 + s + 1 - n - 1 = r + s + 1 - n$, où $n = \dim(X)$, voir
+le Lemme \ref{lemma-intersect-in-smooth}. Comme nous avons supposé
+que $V$ et $W_a$ se rencontrent proprement, on voit que
+$\dim(Z_{i, a}) = r + s - n$ ou $Z_{i, a} = \emptyset$.
+D'autre part, si $Z_{i, a} \not = \emptyset$, alors
+$\dim(Z_{i, a}) \geq \dim(Z_i) - 1 = r + s - n$.
+Il s'ensuit que $\dim(Z_i) = r + s + 1 - n$ si $Z_i$ rencontre $X \times a$
+et, dans ce cas, $Z_i \to \mathbf{P}^1$ est surjectif.
+Nous pouvons donc écrire $I = I' \amalg I''$, où $I'$ est l'ensemble des $i \in I$
+tels que $Z_i \to \mathbf{P}^1$ soit surjectif, et $I''$ l'ensemble des
+$i \in I$ tels que $Z_i$ soit au-dessus d'un point fermé $t_i \in \mathbf{P}^1$
+avec $t_i \not = a$ et $t_i \not = b$. Considérons le cycle
+$$
+\gamma = \sum\nolimits_{i \in I'} e_i [Z_i]
+$$
+où nous posons
+$$
+e_i = \sum\nolimits_p (-1)^p
+\text{long}_{\mathcal{O}_{X \times \mathbf{P}^1, Z_i}}
+\text{Tor}_p^{\mathcal{O}_{X \times \mathbf{P}^1, Z_i}}(
+\mathcal{O}_{V \times \mathbf{P}^1, Z_i}, \mathcal{O}_{W, Z_i})
+$$
+Nous montrerons que $\gamma$ peut remplacer
+le produit d'intersection de $V \times \mathbf{P}^1$ et $W$.
+
+\medskip\noindent
+Nous le démontrerons à l'aide de l'associativité des produits d'intersection, exactement
+comme ci-dessus. Soit $U = \mathbf{P}^1 \setminus \{t_i, i \in I''\}$.
+Notons que $X \times a$ et $X \times b$ sont contenus dans $X \times U$.
+Les sous-variétés
+$$
+V \times U,\quad W_U,\quad X \times a\quad\text{de}\quad X \times U
+$$
+se rencontrent deux à deux transversalement par notre choix de $U$ et, de plus,
+$\dim(V \times U \cap W_U \cap X \times a) = \dim(V \cap W_a)$ a
+la dimension attendue. On voit donc que
+$$
+V \times U \cdot (W_U \cdot X \times a) =
+(V \times U \cdot W_U) \cdot X \times a
+$$
+comme cycles sur $X \times U$, d'après le Lemme \ref{lemma-associative}.
+Par construction, $\gamma$ se restreint au cycle $V \times U \cdot W_U$
+sur $X \times U$. Trivialement,
+$V \times \mathbf{P}^1 \cdot (W \times X \times a)$ se restreint
+à $V \times U \cdot (W_U \cdot X \times a)$ sur $X \times U$.
+Par conséquent,
+$$
+V \times \mathbf{P}^1 \cdot (W \cdot X \times a) =
+\gamma \cdot X \times a
+$$
+comme cycles sur $X \times \mathbf{P}^1$ (car les deux membres
+sont contenus dans $X \times U$ et sont égaux après restriction
+à $X \times U$ d'après ce qui précède). Comme on a le même résultat pour $b$,
+on conclut que
+\begin{align*}
+V \cdot [W_a]
+& =
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times a)) \\
+& =
+\text{pr}_{X, *}(\gamma \cdot X \times a) \\
+& \sim_{rat} 
+\text{pr}_{X, *}(\gamma \cdot X \times b) \\
+& =
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times b)) \\
+& =
+V \cdot [W_b]
+\end{align*}
+La première et la dernière égalité résultent du premier paragraphe de la démonstration,
+la deuxième et l'avant-dernière ont été démontrées dans le présent paragraphe, et
+l'équivalence centrale est donnée par le
+Lemme \ref{lemma-rational-equivalence-and-intersection}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-well-defined}
+Soit $X$ une variété projective non singulière. Soient $\alpha$, resp.\ $\beta$,
+un $r$-cycle, resp.\ un $s$-cycle, sur $X$. Supposons que $\alpha$ et $\beta$
+se rencontrent proprement, de sorte que $\alpha \cdot \beta$ soit défini. Enfin,
+supposons que $\alpha \sim_{rat} 0$. Alors $\alpha \cdot \beta \sim_{rat} 0$.
+\end{theorem}
+
+\begin{proof}
+Choisissons une immersion fermée $X \subset \mathbf{P}^N$.
+Par linéarité, il suffit de démontrer le résultat lorsque $\beta = [Z]$ pour une
+sous-variété fermée de dimension $s$, notée $Z \subset X$, qui rencontre $\alpha$
+proprement. La condition $\alpha \sim_{rat} 0$ signifie qu'il
+existe un nombre fini de sous-variétés fermées de dimension $(r + 1)$,
+$W_i \subset X \times \mathbf{P}^1$, telles que
+$$
+\alpha = \sum [W_{i, a_i}]_r - [W_{i, b_i}]_r
+$$
+pour certains couples de points $a_i, b_i$ de $\mathbf{P}^1$.
+Soient $W_{i, a_i}^t$ et $W_{i, b_i}^t$ les composantes irréductibles
+de $W_{i, a_i}$ et $W_{i, b_i}$.
+Nous raisonnons par récurrence sur le maximum $d$ des entiers
+$$
+\dim(Z \cap W_{i, a_i}^t),\quad \dim(Z \cap W_{i, b_i}^t)
+$$
+La principale difficulté dans la suite de la démonstration est que, bien que $Z$
+rencontre $\alpha$ proprement, il se peut que $Z$ ne rencontre pas les
+variétés « intermédiaires » $W_{i, a_i}^t$
+et $W_{i, b_i}^t$ proprement, c'est-à-dire que l'on peut avoir $d >  r + s - \dim(X)$.
+
+\medskip\noindent
+Cas initial : $d = r + s - \dim(X)$. Dans ce cas, toutes les intersections de
+$Z$ avec les $W_{i, a_i}^t$ et les $W_{i, b_i}^t$ sont propres et le
+résultat voulu découle du Lemme \ref{lemma-well-defined-special-case},
+car celui-ci montre que
+$[Z] \cdot [W_{i, a_i}]_r \sim_{rat} [Z] \cdot [W_{i, b_i}]_r$ pour
+tout $i$.
+
+\medskip\noindent
+Étape de récurrence : $d >  r + s - \dim(X)$. Appliquons le
+Lemme \ref{lemma-moving} à $Z \subset X$ et à
+la famille de sous-variétés $\{W_{i, a_i}^t, W_{i, b_i}^t\}$. On obtient alors une
+sous-variété fermée $C \subset \mathbf{P}^N$ qui rencontre $X$
+proprement et telle que
+$$
+C \cdot X = [Z] + \sum m_j [Z_j]
+$$
+et telle que
+$$
+\dim(Z_j \cap W_{i, a_i}^t) \leq \dim(Z \cap W_{i, a_i}^t),\quad
+\dim(Z_j \cap W_{i, b_i}^t) \leq \dim(Z \cap W_{i, b_i}^t)
+$$
+avec inégalité stricte si le membre de droite est $> r + s - \dim(X)$.
+Cela implique deux choses : (a) l'hypothèse de récurrence s'applique à
+chaque $Z_j$, et (b) $C \cdot X$ et $\alpha$ se rencontrent proprement (car
+$\alpha$ est une combinaison linéaire des $[W_{i, a_i}^t]$ et
+$[W_{i, a_i}^t]$ qui rencontrent $Z$ proprement).
+Choisissons ensuite $C' \subset \mathbf{P}^N \times \mathbf{P}^1$
+comme dans le Lemme \ref{lemma-move}, relativement à $C$, $X$ et
+$W_{i, a_i}^t$, $W_{i, b_i}^t$.
+Écrivons $C' \cdot X \times \mathbf{P}^1 = \sum n_k [E_k]$ pour
+certaines sous-variétés $E_k \subset X \times \mathbf{P}^1$ de
+dimension $s + 1$. Notons que $n_k > 0$ pour tout $k$, d'après la
+Proposition \ref{proposition-positivity}.
+D'après le Lemme \ref{lemma-transfer}, nous avons
+$$
+[Z] + \sum m_j [Z_j] = \sum n_k[E_{k, 0}]_s
+$$
+Comme $E_{k, 0} \subset C \cap X$, on voit que $[E_{k, 0}]_s$ et $\alpha$
+se rencontrent proprement. D'autre part, le cycle
+$$
+\gamma = \sum n_k[E_{k, \infty}]_s
+$$
+est supporté sur $C'_\infty \cap X$ et
+rencontre donc proprement chaque $W_{i, a_i}^t$, $W_{i, b_i}^t$.
+Par le cas initial et la linéarité, on voit donc que
+$$
+\gamma \cdot \alpha \sim_{rat} 0
+$$
+Comme nous avons vu que $E_{k, 0}$ et $E_{k, \infty}$
+rencontrent $\alpha$ proprement, le Lemme \ref{lemma-well-defined-special-case},
+appliqué à $E_k \subset X \times \mathbf{P}^1$ et $\alpha$, donne
+$$
+[E_{k, 0}] \cdot \alpha \sim_{rat} [E_{k, \infty}] \cdot \alpha
+$$
+En regroupant le tout, nous avons
+\begin{align*}
+[Z] \cdot \alpha
+& =
+(\sum n_k[E_{k, 0}]_r - \sum m_j[Z_j]) \cdot \alpha \\
+& \sim_{rat}
+\sum n_k [E_{k, 0}] \cdot \alpha \quad (\text{par l'hypothèse de récurrence})\\
+& \sim_{rat}
+\sum n_k [E_{k, \infty}] \cdot \alpha \quad (\text{par le lemme})\\
+& =
+\gamma \cdot \alpha \\
+& \sim_{rat}
+0 \quad (\text{par le cas initial})
+\end{align*}
+Cela achève la démonstration.
+\end{proof}
+
+\begin{remark}
+\label{remark-quasi-projective}
+Le Lemme \ref{lemma-moving-move} et le
+Théorème \ref{theorem-well-defined}
+valent aussi pour les variétés quasi-projectives non singulières, avec
+la même démonstration. La seule modification consiste à démontrer la version suivante
+du Lemme de déplacement \ref{lemma-moving} : Soit  $X \subset \mathbf{P}^N$
+une sous-variété fermée. Soient $n = \dim(X)$ et $0 \leq d, d' < n$. Soit
+$X^{reg} \subset X$ l'ouvert des points non singuliers. Soit
+$Z \subset X^{reg}$ une sous-variété fermée de dimension $d$ et soient
+$T_i \subset X^{reg}$, $i \in I$, une collection finie de sous-variétés fermées
+de dimension $d'$. Alors il existe une sous-variété $C \subset \mathbf{P}^N$
+telle que $C$ rencontre $X$ proprement et que
+$$
+(C \cdot X)|_{X^{reg}} = Z + \sum\nolimits_{j \in J} m_j Z_j
+$$
+où les $Z_j \subset X^{reg}$ sont irréductibles de dimension $d$, distinctes
+de $Z$, et
+$$
+\dim(Z_j \cap T_i) \leq \dim(Z \cap T_i)
+$$
+avec inégalité stricte si $Z$ ne rencontre pas $T_i$ proprement dans $X^{reg}$.
+\end{remark}
+
+
+
+\section{Anneaux de Chow}
+\label{section-chow-rings}
+
+\noindent
+Soit $X$ une variété projective non singulière. Nous définissons le produit
+d'intersection
+$$
+\CH_r(X) \times \CH_s(X) \longrightarrow \CH_{r + s - \dim(X)}(X),\quad
+(\alpha, \beta) \longmapsto \alpha \cdot \beta
+$$
+comme suit. Soient $\alpha \in Z_r(X)$ et $\beta \in Z_s(X)$.
+Si $\alpha$ et $\beta$ se rencontrent proprement, nous utilisons la
+définition donnée à la Section \ref{section-intersection-product}.
+Sinon, choisissons $\alpha \sim_{rat} \alpha'$ comme dans le
+Lemme \ref{lemma-moving-move} et posons
+$$
+\alpha \cdot \beta =
+\text{classe de }\alpha' \cdot \beta \in \CH_{r + s - \dim(X)}(X)
+$$
+Ceci est bien défini et passe au quotient par l'équivalence rationnelle d'après le
+Théorème \ref{theorem-well-defined}. Le produit d'intersection
+sur $\CH_*(X)$ est commutatif (c'est clair), associatif
+(Lemme \ref{lemma-associative}) et possède une unité $[X] \in \CH_{\dim(X)}(X)$.
+
+\medskip\noindent
+Nous employons souvent $\CH^c(X) = \CH_{\dim X - c}(X)$ pour désigner le groupe de Chow des
+cycles de codimension $c$, voir
+Homologie de Chow, Section \ref{chow-section-cycles-codimension}.
+Le produit d'intersection définit un produit
+$$
+\CH^k(X) \times \CH^l(X) \longrightarrow \CH^{k + l}(X)
+$$
+qui est commutatif, associatif et possède une unité $1 = [X] \in \CH^0(X)$.
+
+
+\section{Image réciproque par un morphisme quelconque}
+\label{section-general-pullback}
+
+\noindent
+Soit $f : X \to Y$ un morphisme de variétés projectives non singulières.
+Nous définissons
+$$
+f^* : \CH_k(Y) \to \CH_{k+\dim X - \dim Y}(X)
+$$
+par la règle
+$$
+f^*(\alpha) = pr_{X, *}(\Gamma_f \cdot pr_Y^*(\alpha))
+$$
+où $\Gamma_f \subset X\times Y$ est le graphe de $f$. Notons qu'à ce
+degré de généralité, cette application n'est définie que sur les classes de cycles, et non sur les cycles. Avec la
+notation $\CH^*$ introduite à la Section \ref{section-chow-rings},
+on peut considérer l'image réciproque comme une application
+$$
+f^* : \CH^*(Y) \to \CH^*(X)
+$$
+autrement dit, comme une application de groupes abéliens gradués.
+
+\begin{lemma}
+\label{lemma-pullback-and-intersection-product}
+Soit $f : X \to Y$ un morphisme de variétés projectives non singulières.
+L'application d'image réciproque sur les groupes de Chow vérifie les propriétés suivantes :
+\begin{enumerate}
+\item $f^* : \CH^*(Y) \to \CH^*(X)$ est un morphisme d'anneaux,
+\item $(g \circ f)^* = f^* \circ g^*$ pour un couple composable $f, g$,
+\item la formule de projection vaut : $f_*(\alpha) \cdot \beta =
+f_*( \alpha \cdot f^*\beta)$, et
+\item si $f$ est plat, elle coïncide avec la définition précédente.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Toutes ces assertions résultent immédiatement des résultats précédents.
+
+\medskip\noindent
+Pour (1), il suffit de montrer que
+$\text{pr}_{X,*}( \Gamma_f \cdot \alpha \cdot \beta) =
+\text{pr}_{X,*}(\Gamma_f \cdot \alpha) \cdot
+\text{pr}_{X,*}(\Gamma_f \cdot \beta)$
+pour des cycles $\alpha$, $\beta$ sur $X \times Y$. Si $\alpha$ est un cycle sur
+$X \times Y$ qui rencontre $\Gamma_f$ proprement, alors il est facile
+de voir que
+$$
+\Gamma_f \cdot \alpha =
+\Gamma_f \cdot \text{pr}_X^*(\text{pr}_{X,*}(\Gamma_f \cdot \alpha))
+$$
+comme cycles, puisque $\Gamma_f$ est un graphe. On obtient ainsi la première
+égalité dans
+\begin{align*}
+\text{pr}_{X,*}(\Gamma_f \cdot \alpha \cdot \beta)
+& =
+\text{pr}_{X,*}(
+\Gamma_f \cdot
+\text{pr}_X^*(\text{pr}_{X,*}(\Gamma_f \cdot \alpha)) \cdot \beta) \\
+& =
+\text{pr}_{X,*}(\text{pr}_X^*(\text{pr}_{X,*}(\Gamma_f \cdot \alpha))
+\cdot (\Gamma_f \cdot \beta)) \\
+& =
+\text{pr}_{X,*}(\Gamma_f \cdot \alpha) \cdot
+\text{pr}_{X,*}(\Gamma_f \cdot \beta)
+\end{align*}
+la dernière étape résultant de la formule de projection dans le cas plat
+(Lemme \ref{lemma-projection-formula-flat}).
+
+\medskip\noindent
+Si $g : Y \to Z$, la propriété (2) résulte formellement de l'observation suivante :
+$$
+\Gamma =
+\text{pr}_{X \times Y}^*\Gamma_f \cdot
+\text{pr}_{Y \times Z}^*\Gamma_g
+$$
+dans $Z_*(X \times Y \times Z)$, où $\Gamma = \{(x, f(x), g(f(x))\}$,
+et s'envoie isomorphiquement sur $\Gamma_{g \circ f}$ dans $X \times Z$.
+L'égalité résulte de l'égalité schématique et du
+Lemme \ref{lemma-transversal}.
+
+\medskip\noindent
+Pour (3), nous appliquons deux fois la formule de projection pour les applications plates :
+\begin{align*}
+f_*(\alpha \cdot pr_{X, *}(\Gamma_f \cdot pr_Y^*(\beta)))
+& =
+f_*(pr_{X, *}(pr_X^*\alpha \cdot \Gamma_f \cdot pr_Y^*(\beta))) \\
+& =
+pr_{Y, *}(pr_X^*\alpha \cdot \Gamma_f \cdot pr_Y^*(\beta))) \\
+& =
+pt_{Y, *}(pr_X^*\alpha \cdot \Gamma_f) \cdot \beta \\
+& =
+f_*(\alpha) \cdot \beta
+\end{align*}
+où, dans la dernière égalité, nous utilisons la remarque précédente sur les graphes.
+Cela démontre (3).
+
+\medskip\noindent
+La propriété (4) repose sur l'identification du produit d'intersection
+$\Gamma_f \cdot pr_Y^*\alpha$ lorsque $f$ est plat. Plus précisément, dans ce
+cas, si $V \subset Y$ est une sous-variété fermée, tout point générique
+$\xi$ du schéma $f^{-1}(V) \cong \Gamma_f \cap pr_Y^{-1}(V)$
+est au-dessus du point générique de $V$. L'anneau local de
+$pr_Y^{-1}(V) = X \times V$ en $\xi$ est donc de Cohen--Macaulay. Comme
+$\Gamma_f \subset X \times Y$ est une immersion régulière (en tant que morphisme de
+variétés projectives lisses), on obtient
+$$
+\Gamma_f \cdot pr_Y^*[V] = [\Gamma_f \cap pr_Y^{-1}(V)]_d
+$$
+où $d$ est la dimension de $\Gamma_f \cap pr_Y^{-1}(V)$, voir le
+Lemme \ref{lemma-multiplicity-lci-CM}. Comme $\Gamma_f \cap pr_Y^{-1}(V)$
+s'envoie isomorphiquement sur $f^{-1}(V)$, on conclut.
+\end{proof}
+
+
+\section{Image réciproque des cycles}
+\label{section-pullback-cycles}
+
+\noindent
+Supposons que $X$ et $Y$ soient des variétés
+projectives non singulières, et soit $f : X \to Y$ un morphisme.
+Supposons que $Z \subset Y$ soit une sous-variété fermée. Soit $f^{-1}(Z)$
+l'image réciproque schématique :
+$$
+\xymatrix{
+f^{-1}(Z) \ar[r] \ar[d] & Z \ar[d] \\
+X \ar[r] & Y
+}
+$$
+est un diagramme cartésien de schémas. En particulier, $f^{-1}(Z) \subset X$
+est un sous-schéma fermé de $X$. Dans ce cas, on a toujours
+$$
+\dim f^{-1}(Z) \geq \dim Z + \dim X - \dim Y.
+$$
+Si l'égalité a lieu dans la formule précédente, alors
+\[f^*[Z] = [f^{-1}(Z)]_{\dim Z + \dim X - \dim Y}\]
+pourvu que le schéma $Z$ soit de Cohen--Macaulay aux images
+des points génériques de $f^{-1}(Z)$. Cela résulte de l'identification de
+$f^{-1}(Z)$ avec l'intersection schématique de $\Gamma_f$
+et $X \times Z$, puis du Lemme \ref{lemma-multiplicity-lci-CM}.
+Les détails sont analogues à la démonstration de la partie (4) du
+Lemme \ref{lemma-pullback-and-intersection-product} ci-dessus.
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

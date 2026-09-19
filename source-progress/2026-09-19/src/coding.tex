@@ -1,0 +1,176 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Conventions de codage}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Liste des conventions de style}
+\label{section-style}
+
+\noindent
+Ces conventions évolueront avec le temps, mais le fait d'en fixer dès
+maintenant quelques-unes devrait favoriser un style LaTeX uniforme.
+Nous appellerons « code\footnote{Tout est la faute de Knuth. Voir
+\cite{Knuth}.} » le contenu des fichiers sources.
+
+\begin{enumerate}
+\item Dans tous les fichiers tex, limitez chaque ligne à 80 caractères.
+\item N'indentez pas les fichiers tex. Servez-vous plutôt de la coloration
+syntaxique de votre éditeur pour repérer les environnements, entre autres.
+\item Utilisez
+\begin{verbatim}
+\medskip\noindent
+\end{verbatim}
+pour commencer un nouveau paragraphe, et
+\begin{verbatim}
+\noindent
+\end{verbatim}
+pour commencer un nouveau paragraphe juste après un environnement.
+\item Évitez, si possible, de répartir le code des formules mathématiques sur
+plusieurs lignes. Si le code complet, signes dollar englobants compris, ne
+tient pas sur une ligne, placez le premier signe dollar au tout début de la
+ligne suivante. S'il ne tient toujours pas, coupez le code à un endroit
+mathématiquement naturel.
+\item Codez comme suit les formules mathématiques hors texte :
+\begin{verbatim}
+$$
+...
+...
+$$
+\end{verbatim}
+Autrement dit, ouvrez par deux signes dollar seuls sur une ligne, et fermez
+de la même manière.
+\item {\it N'utilisez aucune macro}. En voici la raison : le fichier tex est
+ainsi plus facile à lire, et l'on peut commencer à en modifier n'importe
+quelle partie sans devoir apprendre d'innombrables macros.
+Cela ne rend pas non plus la saisie plus difficile ni plus longue.
+L'inconvénient est bien sûr qu'un même objet mathématique peut être composé
+différemment en TeX à différents endroits du texte, mais cela devrait se
+repérer facilement.
+\item Les environnements d'énoncés que nous utilisons sont :
+« theorem », « proposition », « lemma » (style plain),
+« definition », « example », « exercise », « situation »
+(style definition), « remark », « remarks » (style remark).
+Il existe bien sûr aussi un environnement « proof ».
+\item Codez comme suit un environnement « foo » :
+\begin{verbatim}
+\begin{foo}
+...
+...
+\end{foo}
+\end{verbatim}
+de même que pour les formules mathématiques hors texte.
+\item Au lieu d'un environnement « corollary », employez simplement
+l'environnement « lemma », puisque le résultat servira vraisemblablement de
+toute façon à démontrer le théorème plus important qui suit.
+\item Chaque lemme, proposition ou théorème doit être immédiatement suivi de
+sa démonstration. Évitez les démonstrations imbriquées.
+\item Les fichiers preamble.tex, chapters.tex et fdl.tex sont des fichiers tex
+particuliers. Mis à part ceux-ci, chaque fichier tex a la structure suivante :
+\begin{verbatim}
+\input{preamble}
+\begin{document}
+\title{Title}
+\maketitle
+\tableofcontents
+...
+...
+\input{chapters}
+\bibliography{my}
+\bibliographystyle{amsalpha}
+\end{document}
+\end{verbatim}
+\item Essayez d'ajouter des étiquettes aux lemmes, propositions et théorèmes,
+ainsi qu'aux remarques, exercices et autres environnements. Pour étiqueter un
+lemme, utilisez par exemple
+\begin{verbatim}
+\begin{lemma}
+\label{lemma-bar}
+...
+\end{lemma}
+\end{verbatim}
+et procédez de même pour tous les autres environnements. Autrement dit,
+l'étiquette d'un environnement nommé « foo » commence par « foo- ».
+En outre, toutes les étiquettes doivent être constituées uniquement de lettres
+minuscules, de chiffres et du symbole « - ».
+\item Ne renvoyez jamais au « lemme ci-dessus » (ni à la proposition
+ci-dessus, etc.). Utilisez plutôt :
+\begin{verbatim}
+Lemma \ref{lemma-bar} above
+\end{verbatim}
+Ainsi, déplacer ultérieurement des lemmes ne pose pour ainsi dire aucun
+problème.
+\item Renvois entre fichiers. Pour renvoyer à un lemme d'étiquette
+« lemma-bar » dans le fichier foo.tex, dont le titre est « Foo », utilisez le
+code suivant :
+\begin{verbatim}
+Foo, Lemma \ref{foo-lemma-bar}
+\end{verbatim}
+Si cela ne fonctionne pas, consultez le fichier preamble.tex afin d'y trouver
+la syntaxe correcte. Le fichier de sortie contiendra alors
+« Foo, Lemma $<$link$>$ » : il sera donc clair que le lien pointe vers un autre
+fichier.
+\item Dans les environnements de démonstration, évitez autant que possible les
+renvois à des résultats ultérieurs. (On devrait pouvoir écrire un test
+automatique à cette fin.)
+\item Ne commencez aucune phrase par un symbole mathématique.
+\item N'écrivez pas une phrase du type « Cela résulte de ce qui suit » juste
+avant un lemme, une proposition ou un théorème. Chaque phrase se termine par
+un point.
+\item Énoncez toutes les hypothèses dans chaque lemme, proposition et théorème.
+Le lecteur peut ainsi déterminer plus facilement si un lemme, une proposition
+ou un théorème donné s'applique à son problème particulier.
+\item Faites des démonstrations courtes : moins d'une page dans le PDF ou le
+DVI. On peut toujours y parvenir en scindant la démonstration en lemmes, entre
+autres.
+\item Pour une propriété définie appelée foobar, utilisez
+\begin{verbatim}
+{\it foobar}
+\end{verbatim}
+dans le code à l'intérieur de l'environnement de définition.
+Procédez de même si la définition figure dans le corps du document.
+Le lecteur repérera ainsi plus facilement ce qui est défini.
+\item Placez dans son propre environnement de définition toute définition qui
+sera utilisée hors de la section où elle apparaît. Les définitions temporaires
+peuvent être données dans le texte. Les constructions mathématiques constituent
+un cas délicat : elles tiennent souvent lieu de définitions faisant intervenir
+plusieurs lemmes liés. Une bonne solution consiste peut-être à leur consacrer
+une courte section, afin que les utilisateurs puissent renvoyer à celle-ci
+plutôt qu'à une définition.
+\item Ne numérotez les équations que si elles font effectivement l'objet d'un
+renvoi dans le texte. Nous pourrons toujours ajouter des étiquettes plus tard.
+\item Dans les énoncés des lemmes, propositions et théorèmes, ainsi que dans les
+démonstrations, faites des phrases courtes. Par exemple, au lieu d'écrire
+« Soit $R$ un anneau et soit $M$ un $R$-module. », écrivez « Soit $R$ un
+anneau. Soit $M$ un $R$-module. ». En voici la raison : les parties plus
+délicates des démonstrations et des énoncés sont ainsi plus faciles à analyser.
+\item Utilisez la commande
+\begin{verbatim}
+\section
+\end{verbatim}
+pour créer des sections, mais essayez d'éviter les sous-sections et les
+sous-sous-sections.
+\item Évitez les constructions LaTeX complexes.
+\end{enumerate}
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

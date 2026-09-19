@@ -1,0 +1,2679 @@
+\input{preamble}
+
+% D'accord, commençons ici.
+%
+\begin{document}
+
+\title{Platitude sur les espaces algébriques}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions quelques résultats avancés sur les modules plats et
+les morphismes plats dans le cadre des espaces algébriques. Nous recommandons vivement
+au lecteur de consulter d'abord le chapitre correspondant
+dans le cadre des schémas, voir
+Compléments sur la platitude, Section \ref{flat-section-introduction}.
+L'article \cite{GruRay} de Raynaud et Gruson constitue une référence.
+
+
+
+
+
+
+
+\section{Impuretés}
+\label{section-impure}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur la platitude, Section \ref{flat-section-impure}.
+
+\begin{situation}
+\label{situation-pre-pure}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme
+de type fini et décent\footnote{Les morphismes quasi-séparés sont décents, voir
+Espaces décents, Lemme
+\ref{decent-spaces-lemma-properties-trivial-implications}.
+Pour tout morphisme $\Spec(k) \to Y$, où $k$ est un corps,
+l'espace algébrique $X_k$ est de présentation finie sur $k$
+car il est de type fini sur $k$ et quasi-séparé d'après
+Espaces décents, Lemme
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}.}
+entre espaces algébriques sur $S$. De plus, $\mathcal{F}$ est un $\mathcal{O}_X$-module
+quasi-cohérent de type fini. Enfin, $y \in |Y|$ est un point de $Y$.
+\end{situation}
+
+\noindent
+Dans cette situation, considérons un schéma $T$, un morphisme $g : T \to Y$,
+un point $t \in T$ tel que $g(t) = y$, une spécialisation $t' \leadsto t$ dans
+$T$, et un point $\xi \in |X_T|$ au-dessus de $t'$. Ici $X_T = T \times_Y X$.
+On a le diagramme
+\begin{equation}
+\label{equation-impurity}
+\vcenter{
+\xymatrix{
+\xi \ar@{|->}[d] & \\
+t' \ar@{~>}[r] & t \ar@{|->}[r] \ar[r] & y
+}
+}
+\quad\quad
+\vcenter{
+\xymatrix{
+X_T \ar[d]_{f_T} \ar[r] & X \ar[d]^f \\
+T \ar[r]^g & Y
+}
+}
+\end{equation}
+De plus, notons $\mathcal{F}_T$ l'image réciproque de $\mathcal{F}$ sur $X_T$.
+
+\begin{definition}
+\label{definition-impurity}
+Dans la
+Situation \ref{situation-pre-pure},
+nous disons qu'un diagramme (\ref{equation-impurity}) définit une
+{\it impureté de $\mathcal{F}$ au-dessus de $y$}
+si $\xi \in \text{Ass}_{X_T/T}(\mathcal{F}_T)$ et
+$t \not \in f_T(\overline{\{\xi\}})$. Nous l'indiquerons
+en disant : « soit $(g : T \to Y, t' \leadsto t, \xi)$
+une impureté de $\mathcal{F}$ au-dessus de $y$ ».
+\end{definition}
+
+\noindent
+Autrement dit, $(g : T \to Y, t' \leadsto t, \xi)$ est
+une impureté de $\mathcal{F}$ au-dessus de $y$ s'il n'existe aucune spécialisation
+$\xi \leadsto \theta$ dans l'espace topologique $|X_T|$ telle que
+$f_T(\theta) = t$. Les spécialisations se comportent mal dans les espaces algébriques
+non décents. Si le morphisme $f$ est décent, alors $X_T$
+est un espace algébrique décent pour tout morphisme $g : T \to Y$ comme ci-dessus, voir
+Espaces décents, Définition \ref{decent-spaces-definition-relative-conditions}.
+
+\begin{lemma}
+\label{lemma-impure-limit}
+Dans la Situation \ref{situation-pre-pure}.
+Soit $(g : T \to S, t' \leadsto t, \xi)$ une impureté de
+$\mathcal{F}$ au-dessus de $y$. Supposons que $T = \lim_{i \in I} T_i$ soit une limite dirigée
+de schémas affines sur $Y$. Alors, pour un certain $i$, le triplet
+$(T_i \to Y, t'_i \leadsto t_i, \xi_i)$ est une impureté de
+$\mathcal{F}$ au-dessus de $y$.
+\end{lemma}
+
+\begin{proof}
+Les notations de l'énoncé signifient ceci : soient $p_i : T \to T_i$
+les morphismes de projection, et posons $t_i = p_i(t)$ et $t'_i = p_i(t')$.
+Enfin, $\xi_i \in |X_{T_i}|$ est l'image de $\xi$. D'après
+Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-base-change-relative-assassin}
+nous avons $\xi_i \in \text{Ass}_{X_{T_i}/T_i}(\mathcal{F}_{T_i})$.
+Il reste donc seulement à montrer que
+$t_i \not \in f_{T_i}(\overline{\{\xi_i\}})$ pour un certain $i$.
+
+\medskip\noindent
+Soit $Z_i \subset X_{T_i}$ la structure de schéma réduite induite
+sur $\overline{\{\xi_i\}} \subset |X_{T_i}|$,
+et soit $Z \subset X_T$ la structure de schéma réduite induite sur
+$\overline{\{\xi\}} \subset |X_T|$.
+Alors $Z = \lim Z_i$ d'après
+Limites d'espaces, Lemme \ref{spaces-limits-lemma-inverse-limit-irreducibles}
+(le lemme s'applique car chaque $X_{T_i}$ est décent).
+Choisissons un corps $k$ et un morphisme $\Spec(k) \to T$ dont l'image est $t$.
+Alors
+$$
+\emptyset =
+Z \times_T \Spec(k) = (\lim Z_i) \times_{(\lim T_i)} \Spec(k)
+= \lim Z_i \times_{T_i} \Spec(k)
+$$
+car les limites commutent aux produits fibrés (les limites commutent aux limites).
+Chaque $Z_i \times_{T_i} \Spec(k)$ est quasi-compact, car $X_{T_i} \to T_i$
+est de type fini, et donc $Z_i \to T_i$ est de type fini.
+Ainsi $Z_i \times_{T_i} \Spec(k)$ est vide pour un certain $i$ d'après
+Limites d'espaces, Lemme \ref{spaces-limits-lemma-limit-nonempty}.
+Puisque l'image du composé $\Spec(k) \to T \to T_i$ est $t_i$,
+nous obtenons le résultat voulu.
+\end{proof}
+
+\noindent
+Les impuretés remontent par changement de base plat.
+
+\begin{lemma}
+\label{lemma-flat-ascent-impurity}
+Dans la Situation \ref{situation-pre-pure}.
+Soit $(Y_1, y_1) \to (Y, y)$ un morphisme d'espaces algébriques
+pointés sur $S$. Supposons que $Y_1 \to Y$ soit plat en $y_1$.
+Si $(T \to Y, t' \leadsto t, \xi)$ est une impureté de
+$\mathcal{F}$ au-dessus de $y$, alors il existe une impureté
+$(T_1 \to Y_1, t_1' \leadsto t_1, \xi_1)$ de l'image réciproque
+$\mathcal{F}_1$ de $\mathcal{F}$ sur $X_1 = Y_1 \times_Y X$
+au-dessus de $y_1$, telle que $T_1$ soit \'etale sur $Y_1 \times_Y T$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme \'etale $T_1 \to Y_1 \times_Y T$, où $T_1$
+est un schéma, et un point $t_1 \in T_1$ s'envoyant sur $y_1$ et $t$.
+L'existence d'un tel couple $(T_1, t_1)$ résulte de
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-points-cartesian}.
+Le morphisme de schémas $T_1 \to T$ est plat en $t_1$
+(utiliser Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-base-change-flat}
+et la définition des morphismes plats d'espaces algébriques) ;
+il existe donc une spécialisation $t'_1 \leadsto t_1$ au-dessus de
+$t' \leadsto t$, voir
+Morphismes, Lemme \ref{morphisms-lemma-generalizations-lift-flat}.
+Choisissons un point $\xi_1 \in |X_{T_1}|$ s'envoyant sur $t'_1$
+et sur $\xi$, avec $\xi_1 \in \text{Ass}_{X_{T_1}/T_1}(\mathcal{F}_{T_1})$.
+Autrement dit, un point de $\Spec(\kappa(t'_1) \otimes_{\kappa(t')} \kappa(\xi))$.
+C'est possible d'après
+Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-base-change-relative-assassin}.
+Comme l'adhérence $Z_1$ de $\{\xi_1\}$ dans $|X_{T_1}|$ s'envoie dans
+l'adhérence de $\{\xi\}$ dans $|X_T|$, nous en concluons que
+l'image de $Z_1$ dans $|T_1|$ ne peut contenir $t_1$.
+Ainsi $(T_1 \to Y_1, t'_1 \leadsto t_1, \xi_1)$
+est une impureté de $\mathcal{F}_1$ au-dessus de $Y_1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pure-along-X-y}
+Dans la Situation \ref{situation-pre-pure}. Soit $\overline{y}$ un point
+géométrique au-dessus de $y$. Soit $\mathcal{O} = \mathcal{O}_{Y, \overline{y}}$
+l'anneau local étale de $Y$ en $\overline{y}$. Notons
+$Y^{sh} = \Spec(\mathcal{O})$, $X^{sh} = X \times_Y Y^{sh}$, et
+$\mathcal{F}^{sh}$ l'image réciproque de $\mathcal{F}$ sur $X^{sh}$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe une impureté
+$(Y^{sh} \to Y, y' \leadsto \overline{y}, \xi)$
+de $\mathcal{F}$ au-dessus de $y$,
+\item tout point de $\text{Ass}_{X^{sh}/Y^{sh}}(\mathcal{F}^{sh})$
+se spécialise en un point de la fibre fermée $X_{\overline{y}}$,
+\item il existe une impureté $(T \to Y, t' \leadsto t, \xi)$
+de $\mathcal{F}$ au-dessus de $y$ telle que $(T, t) \to (Y, y)$ soit un
+voisinage \'etale, et
+\item il existe une impureté $(T \to Y, t' \leadsto t, \xi)$
+de $\mathcal{F}$ au-dessus de $y$ telle que $T \to Y$ soit quasi-fini en $t$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) résulte immédiatement de la définition.
+
+\medskip\noindent
+Rappelons que $\mathcal{O} = \mathcal{O}_{Y, \overline{y}}$
+est la colimite filtrante des $\mathcal{O}(V)$ sur la catégorie
+des voisinages \'etales $(V, \overline{v}) \to (Y, \overline{y})$
+(Propriétés des espaces, Lemme \ref{spaces-properties-lemma-cofinal-etale}).
+De plus, il suffit de considérer les voisinages \'etales affines $V$.
+Par conséquent, $Y^{sh} = \Spec(\mathcal{O}) = \lim \Spec(\mathcal{O}(V)) = \lim V$.
+Le Lemme \ref{lemma-impure-limit} montre donc que (1) implique (3).
+
+\medskip\noindent
+Puisqu'un morphisme \'etale est localement quasi-fini
+(Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-etale-locally-quasi-finite})
+nous voyons que (3) implique (4).
+
+\medskip\noindent
+Enfin, supposons (4). Après avoir remplacé $T$ par un voisinage ouvert de $t$,
+nous pouvons supposer que $T \to Y$ est localement quasi-fini.
+Le Lemme \ref{lemma-flat-ascent-impurity}
+fournit une impureté
+$(T_1 \to Y^{sh}, t_1' \leadsto t_1, \xi_1)$
+pour laquelle $T_1 \to T \times_Y Y^{sh}$ est
+\'etale. Puisqu'un morphisme \'etale est localement quasi-fini,
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-base-change-quasi-finite}, et
+Morphismes, Lemme \ref{morphisms-lemma-composition-quasi-finite},
+montrent que $T_1 \to Y^{sh}$ est localement quasi-fini.
+Comme $\mathcal{O}$ est strictement hensélien, nous pouvons appliquer Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-etale-makes-quasi-finite-finite-at-point}
+pour voir qu'après avoir remplacé $T_1$ par un voisinage ouvert et fermé
+de $t_1$, nous pouvons supposer que $T_1 \to Y^{sh} = \Spec(\mathcal{O})$
+est fini. Soit $\theta \in |X^{sh}|$ l'image de
+$\xi_1$, et soit $y' \in \Spec(\mathcal{O})$ l'image
+de $t_1'$. D'après Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-base-change-relative-assassin}
+nous voyons que $\theta \in \text{Ass}_{X^{sh}/Y^{sh}}(\mathcal{F}^{sh})$.
+Comme $\pi : X_{T_1} \to X^{sh}$
+est fini, il induit une application fermée $|X_{T_1}| \to |X^{sh}|$.
+L'image de $\overline{\{\xi_1\}}$ est donc $\overline{\{\theta\}}$.
+Il s'ensuit que $(Y^{sh} \to Y, y' \leadsto \overline{y}, \theta)$
+est une impureté de $\mathcal{F}$ au-dessus de $y$, ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Modules relativement purs}
+\label{section-pure}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur la platitude, Section \ref{flat-section-pure}.
+
+\begin{definition}
+\label{definition-pure}
+Dans la Situation \ref{situation-pre-pure}.
+\begin{enumerate}
+\item Nous disons que $\mathcal{F}$ est {\it pur au-dessus de $y$} si {\bf aucune} des
+conditions équivalentes du Lemme \ref{lemma-pure-along-X-y} n'est satisfaite.
+\item Nous disons que $\mathcal{F}$ est {\it universellement pur au-dessus de $y$}
+s'il n'existe aucune impureté de $\mathcal{F}$ au-dessus de $y$.
+\item Nous disons que $X$ est {\it pur au-dessus de $y$} si $\mathcal{O}_X$
+est pur au-dessus de $y$.
+\item Nous disons que $\mathcal{F}$ est {\it universellement $Y$-pur}, ou
+{\it universellement pur relativement à $Y$}, si $\mathcal{F}$ est universellement
+pur au-dessus de $y$ pour tout $y \in |Y|$.
+\item Nous disons que $\mathcal{F}$ est {\it $Y$-pur}, ou
+{\it pur relativement à $Y$}, si $\mathcal{F}$ est pur au-dessus de $y$
+pour tout $y \in |Y|$.
+\item Nous disons que $X$ est {\it $Y$-pur} ou {\it pur relativement à $Y$}
+si $\mathcal{O}_X$ est pur relativement à $Y$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voici les lemmes obligés.
+
+\begin{lemma}
+\label{lemma-base-change-universally}
+Dans la Situation \ref{situation-pre-pure}.
+\begin{enumerate}
+\item $\mathcal{F}$ est universellement pur au-dessus de $y$, et
+\item pour tout morphisme $(Y', y') \to (Y, y)$ d'espaces algébriques pointés,
+l'image réciproque $\mathcal{F}_{Y'}$ est pure au-dessus de $y'$.
+\end{enumerate}
+En particulier, $\mathcal{F}$ est universellement pur relativement à $Y$ si et
+seulement si tout changement de base $\mathcal{F}_{Y'}$ de $\mathcal{F}$ est
+pur relativement à $Y'$.
+\end{lemma}
+
+\begin{proof}
+C'est formel.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-finite-base-change}
+Dans la Situation \ref{situation-pre-pure}.
+Soit $(Y', y') \to (Y, y)$ un morphisme d'espaces algébriques pointés.
+Si $Y' \to Y$ est quasi-fini en $y'$ et si $\mathcal{F}$ est pur au-dessus de $y$,
+alors $\mathcal{F}_{Y'}$ est pur au-dessus de $y'$.
+\end{lemma}
+
+\begin{proof}
+Si $(T \to Y', t' \leadsto t, \xi)$ est une impureté de
+$\mathcal{F}_{Y'}$ au-dessus de $y'$, avec $T \to Y'$ quasi-fini en $t$,
+alors $(T \to Y, t' \to t, \xi)$ est une impureté de $\mathcal{F}$
+au-dessus de $y$, avec $T \to Y$ quasi-fini en $t$ ; voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-composition-quasi-finite}.
+Le lemme résulte donc immédiatement de la définition de la pureté.
+\end{proof}
+
+\noindent
+La pureté satisfait la descente plate.
+
+\begin{lemma}
+\label{lemma-flat-descend-pure}
+Dans la Situation \ref{situation-pre-pure}.
+Soit $(Y_1, y_1) \to (Y, y)$ un morphisme d'espaces algébriques pointés.
+Supposons que $Y_1 \to Y$ soit plat en $y_1$.
+\begin{enumerate}
+\item Si $\mathcal{F}_{Y_1}$ est pur au-dessus de $y_1$,
+alors $\mathcal{F}$ est pur au-dessus de $y$.
+\item Si $\mathcal{F}_{Y_1}$ est universellement pur au-dessus de $y_1$,
+alors $\mathcal{F}$ est universellement pur au-dessus de $y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela vient de ce que les impuretés remontent par changement de base plat, voir
+Lemme \ref{lemma-flat-ascent-impurity}. Par exemple,
+pour (1), toute impureté $(T \to Y, t' \leadsto t, \xi)$
+de $\mathcal{F}$ au-dessus de $y$, avec $T \to Y$ quasi-fini en $t$,
+conduit par ce lemme à une impureté
+$(T_1 \to Y_1, t_1' \leadsto t_1, \xi_1)$ de l'image réciproque
+$\mathcal{F}_1$ de $\mathcal{F}$ sur $X_1 = Y_1 \times_Y X$
+au-dessus de $y_1$, telle que $T_1$ soit \'etale sur $Y_1 \times_Y T$.
+Ainsi $T_1 \to Y_1$ est quasi-fini en $t_1$, car
+les morphismes \'etales sont localement quasi-finis et les composés
+de morphismes localement quasi-finis sont localement quasi-finis
+(Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-etale-locally-quasi-finite} et
+\ref{spaces-morphisms-lemma-composition-quasi-finite}).
+Le raisonnement est analogue pour (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-supported-on-closed}
+Dans la Situation \ref{situation-pre-pure}. Soit $i : Z \to X$ une immersion fermée,
+et supposons que $\mathcal{F} = i_*\mathcal{G}$ pour un faisceau
+quasi-cohérent de type fini $\mathcal{G}$ sur $Z$.
+Alors $\mathcal{G}$ est (universellement) pur au-dessus de $y$
+si et seulement si $\mathcal{F}$ est (universellement) pur au-dessus de $y$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-relative-weak-assassin-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-pure}
+Dans la Situation \ref{situation-pre-pure}.
+\begin{enumerate}
+\item Si le support de $\mathcal{F}$ est propre sur $Y$, alors
+$\mathcal{F}$ est universellement pur relativement à $Y$.
+\item Si $f$ est propre, alors
+$\mathcal{F}$ est universellement pur relativement à $Y$.
+\item Si $f$ est propre, alors $X$ est universellement pur relativement à $Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Réduisons d'abord (1) à (2). Soit en effet $Z \subset X$ le
+support schématique de $\mathcal{F}$
+(Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-scheme-theoretic-support}). Soit $i : Z \to X$
+l'immersion fermée correspondante, et écrivons
+$\mathcal{F} = i_*\mathcal{G}$ pour un $\mathcal{O}_Z$-module $\mathcal{G}$
+quasi-cohérent de type fini.
+Dans le cas (1), $Z \to Y$ est propre par hypothèse.
+Le Lemme \ref{lemma-supported-on-closed} réduit donc le cas (1) au cas (2).
+
+\medskip\noindent
+Supposons $f$ propre.
+Soit $(g : T \to Y, t' \leadsto t, \xi)$ une impureté de $\mathcal{F}$
+au-dessus de $y$. Puisque $f$ est propre, il est universellement fermé. Par conséquent,
+$f_T : X_T \to T$ est fermé. Comme $f_T(\xi) = t'$, cela implique que
+$t \in f(\overline{\{\xi\}})$, contradiction.
+\end{proof}
+
+
+
+
+
+
+
+\section{Modules plats de type fini}
+\label{section-finite-type-flat}
+
+\noindent
+Comparer avec
+Compléments sur la platitude, Sections
+\ref{flat-section-finite-type-flat-I},
+\ref{flat-section-finite-type-flat-II}, et
+\ref{flat-section-finite-type-flat-III}.
+La plupart de ces résultats ont des conséquences immédiates
+pour les espaces algébriques par localisation \'etale.
+
+\begin{lemma}
+\label{lemma-existence-complete}
+Soit $S$ un schéma.
+Soit $X \to Y$ un morphisme de type fini d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $y \in |Y|$ un point. Il existe un morphisme \'etale
+$(Y', y') \to (Y, y)$, avec $Y'$ schéma affine, et des morphismes \'etales
+$h_i : W_i \to X_{Y'}$, $i = 1, \ldots, n$, tels que, pour tout
+$i$, il existe un dévissage complet de $\mathcal{F}_i/W_i/Y'$ au-dessus de $y'$,
+où $\mathcal{F}_i$ est l'image réciproque de $\mathcal{F}$ sur $W_i$,
+et tels que $|(X_{Y'})_{y'}| \subset \bigcup h_i(W_i)$.
+\end{lemma}
+
+\begin{proof}
+La question est locale pour la topologie \'etale sur $Y$ ; nous pouvons donc supposer que $Y$
+est un schéma affine. Alors $X$ est quasi-compact, de sorte que nous pouvons
+choisir un schéma affine $X'$ et un morphisme \'etale surjectif
+$X' \to X$. Nous pouvons alors appliquer
+Compléments sur la platitude, Lemme \ref{flat-lemma-existence-complete}
+à $X' \to Y$, $(X' \to Y)^*\mathcal{F}$ et $y$ pour
+obtenir le résultat voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-in-fibre-where-flat}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$
+qui est localement de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $y \in |Y|$ et $F = f^{-1}(\{y\}) \subset |X|$. Alors l'ensemble
+$$
+\{x \in F \mid \mathcal{F} \text{ est plat sur }Y\text{ en }x\}
+$$
+est ouvert dans $F$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$, un point $v \in V$ et un morphisme \'etale $V \to Y$
+envoyant $v$ sur $y$. Choisissons un schéma $U$ et un morphisme \'etale surjectif
+$U \to V \times_Y X$. Alors $|U_v| \to F$ est une application continue ouverte
+d'espaces topologiques, puisque $|U| \to |X|$ est continue et ouverte.
+Le résultat découle donc du cas des schémas, à savoir
+Compléments sur la platitude, Lemme \ref{flat-lemma-open-in-fibre-where-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bourbaki-finite-type-general-base-at-point}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$ qui est
+localement de type fini. Soit $x \in |X|$, d'image $y \in |Y|$.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent de type fini sur $X$.
+Soit $\mathcal{G}$ un faisceau quasi-cohérent sur $Y$.
+Si $\mathcal{F}$ est plat en $x$ sur $Y$, alors
+$$
+x \in \text{WeakAss}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G})
+\Leftrightarrow
+y \in \text{WeakAss}_Y(\mathcal{G})
+\text{ et }
+x \in \text{Ass}_{X/Y}(\mathcal{F}).
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un diagramme commutatif
+$$
+\xymatrix{
+U \ar[d] \ar[r]_g & V \ar[d] \\
+X \ar[r]^f & Y
+}
+$$
+où $U$ et $V$ sont des schémas et les flèches verticales sont \'etales surjectives.
+Choisissons $u \in U$ s'envoyant sur $x$. Posons $\mathcal{E} = \mathcal{F}|_U$
+et $\mathcal{H} = \mathcal{G}|_V$.
+Soit $v \in V$ l'image de $u$. Alors
+$x \in \text{WeakAss}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G})$
+si et seulement si
+$u \in \text{WeakAss}_X(\mathcal{E} \otimes_{\mathcal{O}_X} g^*\mathcal{H})$
+d'après Diviseurs sur les espaces, Définition
+\ref{spaces-divisors-definition-weakly-associated}.
+De même, $y \in \text{WeakAss}_Y(\mathcal{G})$ si et seulement si
+$v \in \text{WeakAss}_V(\mathcal{H})$.
+Enfin, $x \in \text{Ass}_{X/Y}(\mathcal{F})$ si et seulement si
+$u \in \text{Ass}_{U_v}(\mathcal{E}|_{U_v})$ d'après
+Diviseurs sur les espaces, Définition
+\ref{spaces-divisors-definition-relative-weak-assassin}.
+Observons que la platitude de $\mathcal{F}$ en $x$ est
+équivalente à celle de $\mathcal{E}$ en $u$, voir
+Morphismes d'espaces, Définition \ref{spaces-morphisms-definition-flat-module}.
+L'équivalence pour $g : U \to V$, $\mathcal{E}$, $\mathcal{H}$, $u$ et $v$
+est Compléments sur la platitude, Lemme
+\ref{flat-lemma-bourbaki-finite-type-general-base-at-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bourbaki-finite-type-general-base}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$ qui est localement de type fini.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent de type fini sur $X$
+qui est plat sur $Y$. Soit $\mathcal{G}$ un faisceau quasi-cohérent sur $Y$.
+Alors
+$$
+\text{WeakAss}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G}) =
+\text{Ass}_{X/Y}(\mathcal{F}) \cap
+|f|^{-1}(\text{WeakAss}_Y(\mathcal{G}))
+$$
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence immédiate du
+Lemme \ref{lemma-bourbaki-finite-type-general-base-at-point}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-finite-type-flat}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Supposons que
+\begin{enumerate}
+\item $X \to Y$ soit localement de présentation finie,
+\item $\mathcal{F}$ soit un $\mathcal{O}_X$-module de type fini, et
+\item l'ensemble des points faiblement associés de $Y$ soit localement fini dans $Y$.
+\end{enumerate}
+Alors $U = \{x \in |X| : \mathcal{F}\text{ est plat en }x\text{ sur }Y\}$
+est ouvert dans $X$ et $\mathcal{F}|_U$ est un $\mathcal{O}_U$-module
+de présentation finie et plat sur $Y$.
+\end{theorem}
+
+\begin{proof}
+La condition (3) signifie que, si $V \to Y$ est un morphisme \'etale surjectif,
+où $V$ est un schéma, alors les points faiblement associés de $V$
+sont localement en nombre fini sur le schéma $V$. (Rappelons que les points faiblement
+associés de $V$ sont exactement l'image réciproque des points faiblement associés
+de $Y$ d'après Diviseurs sur les espaces, Définition
+\ref{spaces-divisors-definition-weakly-associated}.)
+Cela étant, la question
+est locale pour la topologie \'etale sur $X$ et $Y$ ; nous pouvons donc supposer que $X$ et $Y$
+sont des schémas. Le résultat découle alors de
+Compléments sur la platitude, Théorème \ref{flat-theorem-finite-type-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type-flat-along-fibre-free-variant}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $X$.
+Soit $y \in |Y|$. Posons $F = f^{-1}(\{y\}) \subset |X|$. Supposons que
+\begin{enumerate}
+\item $f$ soit de type fini,
+\item $\mathcal{F}$ soit de type fini, et
+\item $\mathcal{F}$ soit plat sur $Y$ en tout $x \in F$.
+\end{enumerate}
+Alors il existe un morphisme \'etale $(Y', y') \to (Y, y)$,
+où $Y'$ est un schéma, et un diagramme commutatif d'espaces algébriques
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+Y & \Spec(\mathcal{O}_{Y', y'}) \ar[l]
+}
+$$
+tels que $X' \to X \times_Y \Spec(\mathcal{O}_{Y', y'})$
+soit \'etale, que $|X'_{y'}| \to F$ soit surjectif, que $X'$ soit affine,
+et que $\Gamma(X', g^*\mathcal{F})$ soit un $\mathcal{O}_{Y', y'}$-module libre.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme \'etale $(Y', y') \to (Y, y)$, où $Y'$ est un
+schéma affine. Alors $X \times_Y Y'$ est quasi-compact.
+Choisissons un schéma affine $X'$ et un morphisme \'etale surjectif
+$X' \to X \times_Y Y'$. On a le diagramme
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+Y & Y' \ar[l]
+}
+$$
+Alors $\mathcal{F}' = g^*\mathcal{F}$ est plat sur $Y'$ en tout
+point de $X'_{y'}$, voir Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-base-change-module-flat}.
+Nous pouvons donc appliquer le lemme dans le cas des schémas
+(Compléments sur la platitude, Lemme
+\ref{flat-lemma-finite-type-flat-along-fibre-free-variant})
+au morphisme
+$X' \to Y'$, au faisceau quasi-cohérent $g^*\mathcal{F}$ et au point $y'$.
+On obtient un morphisme \'etale $(Y'', y'') \to (Y', y')$ et un
+diagramme commutatif
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] & X'' \ar[l]^{g'} \ar[d] \\
+Y & Y' \ar[l] & \Spec(\mathcal{O}_{Y'', y''}) \ar[l]
+}
+$$
+Pour obtenir le résultat voulu, on prend $(Y'', y'') \to (Y, y)$
+et $g \circ g' : X'' \to X$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-check-flatness-at-associated-points}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$
+qui est localement de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $x \in |X|$, d'image $y \in |Y|$.
+Posons $F = f^{-1}(\{y\}) \subset |X|$.
+Considérons les conditions suivantes :
+\begin{enumerate}
+\item $\mathcal{F}$ est plat en $x$ sur $Y$, et
+\item pour tout $x' \in F \cap \text{Ass}_{X/Y}(\mathcal{F})$ qui
+se spécialise en $x$, le module $\mathcal{F}$ est plat en $x'$ sur $Y$.
+\end{enumerate}
+On a toujours (2) $\Rightarrow$ (1). Si $X$ et $Y$ sont
+décents, alors (1) $\Rightarrow$ (2).
+\end{theorem}
+
+\begin{proof}
+Supposons (2).
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to V \times_Y X$.
+Choisissons un point $u \in U$ s'envoyant sur $x$. Soit $v \in V$ l'image de $u$.
+Nous déduirons le résultat du résultat correspondant pour
+$\mathcal{F}|_U = (U \to X)^*\mathcal{F}$ et le point $u$.
+$U_v$. Cela fonctionne car $\text{Ass}_{U/V}(\mathcal{F}|_U) \cap |U_v|$
+est égal à $\text{Ass}_{U_v}(\mathcal{F}|_{U_v})$, ainsi qu'à l'image
+réciproque de $F \cap \text{Ass}_{X/Y}(\mathcal{F})$.
+Comme l'application $|U_v| \to F$ est continue, nous voyons que
+les spécialisations dans $|U_v|$ s'envoient sur des spécialisations dans $F$ ;
+la condition (2) est donc héritée par $U \to V$,
+$\mathcal{F}|_U$ et le point $u$.
+Ainsi Compléments sur la platitude, Théorème
+\ref{flat-theorem-check-flatness-at-associated-points} s'applique
+et nous concluons que (1) est satisfaite.
+
+\medskip\noindent
+Si $Y$ est décent, nous pouvons représenter
+$y$ par un monomorphisme quasi-compact $\Spec(k) \to Y$
+(par définition des espaces décents, voir
+Espaces décents, Définition \ref{decent-spaces-definition-very-reasonable}).
+Alors $F = |X_k|$, voir
+Espaces décents, Lemme \ref{decent-spaces-lemma-topology-fibre}.
+Si, de plus, $X$ est décent (ou, plus généralement, si $f$ est décent, voir
+Espaces décents, Définition \ref{decent-spaces-definition-relative-conditions}
+et Espaces décents, Lemme
+\ref{decent-spaces-lemma-property-for-morphism-out-of-property}),
+alors $X_y$ est lui aussi un espace décent. De plus, les spécialisations dans
+$F$ se relèvent en spécialisations
+dans $U_v \to X_y$, voir
+Espaces décents, Lemme \ref{decent-spaces-lemma-decent-specialization}.
+Cela étant, il est clair que l'implication réciproque
+est vraie, puisqu'elle l'est dans le cas des schémas.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-along-closed-fibre}
+Soit $S$ un schéma local de point fermé $s$.
+Soit $f : X \to S$ un morphisme d'un espace algébrique $X$ vers $S$
+qui est localement de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Supposons que
+\begin{enumerate}
+\item tout point de $\text{Ass}_{X/S}(\mathcal{F})$ se spécialise
+en un point de la fibre fermée $X_s$\footnote{C'est par exemple le cas si
+$f$ est de type fini et $\mathcal{F}$ est pur le long de $X_s$, ou
+si $f$ est propre.},
+\item $\mathcal{F}$ est plat sur $S$ en tout point de $X_s$.
+\end{enumerate}
+Alors $\mathcal{F}$ est plat sur $S$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du fait qu'il suffit de vérifier la
+platitude aux points de l'assassin relatif de $\mathcal{F}$
+sur $S$, d'après le
+Théorème \ref{theorem-check-flatness-at-associated-points}.
+\end{proof}
+
+
+
+
+\section{Modules plats de présentation finie}
+\label{section-finitely-presented-flat}
+
+\noindent
+Cette section est l'analogue de Compléments sur la platitude, Section
+\ref{flat-section-finitely-presented-flat}.
+
+\begin{proposition}
+\label{proposition-finite-presentation-flat-at-point}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $X$.
+Soit $x \in |X|$, d'image $y \in |Y|$.
+Supposons que
+\begin{enumerate}
+\item $f$ soit localement de présentation finie,
+\item $\mathcal{F}$ soit de présentation finie, et
+\item $\mathcal{F}$ soit plat en $x$ sur $Y$.
+\end{enumerate}
+Alors il existe un diagramme commutatif de schémas pointés
+$$
+\xymatrix{
+(X, x) \ar[d] & (X', x') \ar[l]^g \ar[d] \\
+(Y, y) & (Y', y') \ar[l]
+}
+$$
+dont les flèches horizontales sont \'etales, tel que $X'$ et $Y'$
+soient affines et que
+$\Gamma(X', g^*\mathcal{F})$ soit un
+$\Gamma(Y', \mathcal{O}_{Y'})$-module projectif.
+\end{proposition}
+
+\begin{proof}
+Sous cette forme, la proposition se réduit immédiatement
+au cas des schémas, qui est
+Compléments sur la platitude, Proposition
+\ref{flat-proposition-finite-presentation-flat-at-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-presentation-flat-along-fibre}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $X$.
+Soit $y \in |Y|$. Posons $F = f^{-1}(\{y\}) \subset |X|$. Supposons que
+\begin{enumerate}
+\item $f$ soit de présentation finie,
+\item $\mathcal{F}$ soit de présentation finie, et
+\item $\mathcal{F}$ soit plat sur $Y$ en tout $x \in F$.
+\end{enumerate}
+Alors il existe un diagramme commutatif d'espaces algébriques
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+Y & Y' \ar[l]_h
+}
+$$
+tel que $h$ et $g$ soient \'etales, qu'il existe un point
+$y' \in |Y'|$ s'envoyant sur $y$, que $F \subset g(|X'|)$,
+que les espaces algébriques $X'$ et $Y'$ soient affines, et que
+$\Gamma(X', g^*\mathcal{F})$ soit un
+$\Gamma(Y', \mathcal{O}_{Y'})$-module projectif.
+\end{lemma}
+
+\begin{proof}
+Sous cette forme, le lemme se réduit immédiatement
+au cas des schémas, qui est
+Compléments sur la platitude, Lemme
+\ref{flat-lemma-finite-presentation-flat-along-fibre}.
+\end{proof}
+
+
+
+
+\section{Un critère de pureté}
+\label{section-criterion-purity}
+
+\noindent
+Cette section est l'analogue de Compléments sur la platitude, Section
+\ref{flat-section-criterion-purity}.
+
+\begin{lemma}
+\label{lemma-associated-point-specializes}
+Soit $S$ un schéma. Soit $X$ un espace algébrique décent
+localement de type fini sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $s \in S$ tel que $\mathcal{F}$ soit plat sur $S$ en tout point de $X_s$.
+Soit $x' \in \text{Ass}_{X/S}(\mathcal{F})$. Si
+l'adhérence de $\{x'\}$ dans $|X|$ rencontre $|X_s|$, alors elle
+rencontre $\text{Ass}_{X/S}(\mathcal{F}) \cap |X_s|$.
+\end{lemma}
+
+\begin{proof}
+Observons que $|X_s| \subset |X|$ est l'ensemble des points de $|X|$
+au-dessus de $s \in S$, voir
+Espaces décents, Lemme \ref{decent-spaces-lemma-topology-fibre}.
+Soit $t \in |X_s|$ une spécialisation de $x'$ dans $|X|$.
+Choisissons un schéma affine $U$, un point $u \in U$ et
+un morphisme \'etale $\varphi : U \to X$ envoyant $u$ sur $t$.
+D'après Espaces décents, Lemme \ref{decent-spaces-lemma-decent-specialization},
+nous pouvons choisir une spécialisation $u' \leadsto u$
+telle que $u'$ s'envoie sur $x'$. Posons $g = f \circ \varphi$.
+Observons que $s' = g(u') = f(x')$ se spécialise en $s$.
+Par notre définition de $\text{Ass}_{X/S}(\mathcal{F})$,
+nous avons $u' \in \text{Ass}_{U/S}(\varphi^*\mathcal{F})$.
+La version pour les schémas de ce lemme
+(Compléments sur la platitude, Lemme \ref{flat-lemma-associated-point-specializes})
+montre qu'il existe une spécialisation $u' \leadsto u$ avec
+$u \in \text{Ass}_{U_s}(\varphi^*\mathcal{F}_s) =
+\text{Ass}_{U/S}(\varphi^*\mathcal{F}) \cap U_s$.
+Ainsi $x = \varphi(u) \in \text{Ass}_{X/S}(\mathcal{F})$
+est au-dessus de $s$, ce qui démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-contains-relative-ass-after-base-change}
+Soit $Y$ un espace algébrique sur un schéma $S$. Soit $g : X' \to X$ un
+morphisme d'espaces algébriques sur $Y$, où $X$ est localement de type fini sur $Y$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Si $\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$, alors, pour tout morphisme
+$Z \to Y$, on a $\text{Ass}_{X_Z/Z}(\mathcal{F}_Z) \subset g_Z(|X'_Z|)$.
+\end{lemma}
+
+\begin{proof}
+D'après Propriétés des espaces, Lemme \ref{spaces-properties-lemma-points-cartesian},
+l'application $|X'_Z| \to |X_Z| \times_{|X|} |X'|$ est surjective puisque
+$X'_Z$ est égal à $X_Z \times_X X'$.
+D'après Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-base-change-relative-assassin}
+l'application $|X_Z| \to |X|$ envoie $\text{Ass}_{X_Z/Z}(\mathcal{F}_Z)$
+dans $\text{Ass}_{X/Y}(\mathcal{F})$. Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pure-on-top}
+Soit $Y$ un espace algébrique sur un schéma $S$. Soit $g : X' \to X$ un
+morphisme \'etale d'espaces algébriques sur $Y$. Supposons que les morphismes
+structuraux $X' \to Y$ et $X \to Y$ soient décents et de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $y \in |Y|$. Posons $F = f^{-1}(\{y\}) \subset |X|$.
+\begin{enumerate}
+\item Si $\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$
+et si $g^*\mathcal{F}$ est (universellement) pur au-dessus de $y$, alors
+$\mathcal{F}$ est (universellement) pur au-dessus de $y$.
+\item Si $\mathcal{F}$ est pur au-dessus de $y$, si $g(|X'|)$ contient $F$, et si
+$Y$ est affine local de point fermé $y$, alors
+$\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$.
+\item Si $\mathcal{F}$ est pur au-dessus de $y$, si $\mathcal{F}$ est plat
+en tout point de $F$, si $g(|X'|)$ contient
+$\text{Ass}_{X/Y}(\mathcal{F}) \cap F$, et si $Y$ est affine local
+de point fermé $y$, alors
+$\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$.
+\item Ajouter d'autres assertions ici.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les hypothèses sur $X \to Y$ et $X' \to Y$ garantissent que
+nous pouvons appliquer les résultats des Sections \ref{section-impure} et
+\ref{section-pure}
+à ces morphismes et aux faisceaux $\mathcal{F}$ et $g^*\mathcal{F}$.
+Comme $g$ est \'etale, nous voyons que
+$\text{Ass}_{X'/Y}(g^*\mathcal{F})$
+est l'image réciproque de $\text{Ass}_{X/Y}(\mathcal{F})$,
+et cela reste vrai après tout changement de base.
+
+\medskip\noindent
+Preuve de (1). Supposons $\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$.
+Supposons que $(T \to Y, t' \leadsto t, \xi)$
+soit une impureté de $\mathcal{F}$ au-dessus de $y$. Comme
+$\text{Ass}_{X_T/T}(\mathcal{F}_T) \subset g_T(|X'_T|)$ d'après
+le Lemme \ref{lemma-contains-relative-ass-after-base-change}, nous pouvons
+choisir
+un point $\xi' \in |X'_T|$ s'envoyant sur $\xi$. D'après ce qui précède,
+$(T \to Y, t' \leadsto t, \xi')$ est une impureté de
+$g^*\mathcal{F}$ au-dessus de $y'$. Cela prouve (1).
+
+\medskip\noindent
+Preuve de (2). Cela résulte de ce que $g(|X'|)$ est ouvert
+dans $|X|$ et de ce que, par pureté, tout point de
+$\text{Ass}_{X/Y}(\mathcal{F})$ se spécialise en un point de $F$.
+
+\medskip\noindent
+Preuve de (3). Cela résulte de ce que $g(|X'|)$ est ouvert
+dans $|X|$ et de ce que la pureté, combinée au
+Lemme \ref{lemma-associated-point-specializes}, assure que tout point de
+$\text{Ass}_{X/Y}(\mathcal{F})$ se spécialise en un point de
+$\text{Ass}_{X/Y}(\mathcal{F}) \cap F$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type-flat-pure-along-fibre-is-universal}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces
+algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $y \in |Y|$.
+Supposons que
+\begin{enumerate}
+\item $f$ soit décent et de type fini,
+\item $\mathcal{F}$ soit de type fini,
+\item $\mathcal{F}$ soit plat sur $Y$ en tout point au-dessus de $y$, et
+\item $\mathcal{F}$ soit pur au-dessus de $y$.
+\end{enumerate}
+Alors $\mathcal{F}$ est universellement pur au-dessus de $y$.
+\end{lemma}
+
+\begin{proof}
+Considérons le morphisme $\Spec(\mathcal{O}_{Y, \overline{y}}) \to Y$.
+C'est un morphisme plat partant du spectre d'un anneau local
+strictement hensélien et envoyant le point fermé sur $y$.
+Le Lemme \ref{lemma-flat-descend-pure} nous ramène au cas
+décrit dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons que $Y$ soit le spectre d'un anneau local strictement hensélien $R$
+de point fermé $y$.
+D'après le Lemme \ref{lemma-finite-type-flat-along-fibre-free-variant},
+il existe un morphisme \'etale $g : X' \to X$ tel que
+$g(|X'|) \supset |X_y|$, avec $X'$ affine et
+$\Gamma(X', g^*\mathcal{F})$ est un module libre sur $R$.
+Alors $g^*\mathcal{F}$ est universellement pur relativement à $Y$, voir
+Compléments sur la platitude, Lemme \ref{flat-lemma-affine-locally-projective-pure}.
+Il suffit donc de démontrer que
+$g(|X'|)$ contient $\text{Ass}_{X/Y}(\mathcal{F})$,
+d'après le Lemme \ref{lemma-pure-on-top}, partie (1).
+Cela résulte à son tour du
+Lemme \ref{lemma-pure-on-top}, partie (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type-flat-pure-is-universal}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme décent et de type fini d'espaces
+algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Supposons $\mathcal{F}$ plat sur $Y$. Dans ce cas,
+$\mathcal{F}$ est pur relativement à $Y$ si et seulement si $\mathcal{F}$
+est universellement pur relativement à $Y$.
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence immédiate du
+Lemme \ref{lemma-finite-type-flat-pure-along-fibre-is-universal}
+et des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universally-separating}
+Soit $Y$ un espace algébrique sur un schéma $S$.
+Soit $g : X' \to X$ un morphisme plat d'espaces algébriques sur $Y$,
+où $X$ est localement de type fini sur $Y$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini
+qui est plat sur $Y$. Si $\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$,
+alors l'application canonique
+$$
+\mathcal{F} \longrightarrow g_*g^*\mathcal{F}
+$$
+est injective, et le reste après tout changement de base.
+\end{lemma}
+
+\begin{proof}
+La dernière assertion signifie que $\mathcal{F}_Z \to (g_Z)_*g_Z^*\mathcal{F}_Z$
+est injective pour tout morphisme $Z \to Y$. Comme l'hypothèse sur
+l'assassin relatif est préservée par changement de base
+(Lemme \ref{lemma-contains-relative-ass-after-base-change}),
+il suffit de démontrer l'injectivité de la flèche affichée.
+
+\medskip\noindent
+Soit $\mathcal{K} = \Ker(\mathcal{F} \to g_*g^*\mathcal{F})$.
+Notre but est de démontrer que $\mathcal{K} = 0$.
+Pour cela, il suffit de démontrer que
+$\text{WeakAss}_X(\mathcal{K}) = \emptyset$, voir
+Diviseurs sur les espaces, Lemme \ref{spaces-divisors-lemma-weakly-ass-zero}.
+Nous avons
+$\text{WeakAss}_X(\mathcal{K}) \subset \text{WeakAss}_X(\mathcal{F})$, voir
+Diviseurs sur les espaces, Lemme \ref{spaces-divisors-lemma-ses-weakly-ass}.
+Comme $\mathcal{F}$ est plat, le
+Lemme \ref{lemma-bourbaki-finite-type-general-base}
+donne $\text{WeakAss}_X(\mathcal{F}) \subset \text{Ass}_{X/Y}(\mathcal{F})$.
+Par hypothèse, tout point $x$ de $\text{Ass}_{X/Y}(\mathcal{F})$
+est l'image d'un certain $x' \in |X'|$. Puisque $g$ est plat, l'homomorphisme
+d'anneaux locaux
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{X', \overline{x}'}$
+est fidèlement plat ; par conséquent, l'application
+$$
+\mathcal{F}_{\overline{x}}
+\longrightarrow
+(g^*\mathcal{F})_{\overline{x}'} =
+\mathcal{F}_{\overline{x}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{X', \overline{x}'}
+$$
+est injective (voir
+Algèbre, Lemme \ref{algebra-lemma-faithfully-flat-universally-injective}).
+Puisque la flèche affichée se factorise par
+$\mathcal{F}_{\overline{x}} \to (g_*g^*\mathcal{F})_{\overline{x}}$,
+nous en concluons que
+$\mathcal{K}_{\overline{x}} = 0$. Ainsi $x$ ne peut être un point faiblement
+associé de $\mathcal{K}$, ce qui donne le résultat.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Foncteurs d'aplatissement}
+\label{section-F-zero}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur la platitude, Section \ref{flat-section-flattening-functors}.
+Nous conseillons au lecteur de l'omettre en première lecture.
+
+\begin{situation}
+\label{situation-iso}
+Soit $S$ un schéma.
+Soit $f : X \to B$ un morphisme d'espaces algébriques sur $S$.
+Soit $u : \mathcal{F} \to \mathcal{G}$ un homomorphisme de
+$\mathcal{O}_X$-modules quasi-cohérents. Pour tout schéma $T$ sur
+$B$, nous noterons $u_T : \mathcal{F}_T \to \mathcal{G}_T$ le
+changement de base de $u$ à $T$ ; autrement dit, $u_T$ est l'image réciproque
+de $u$ par le morphisme de projection $X_T = X \times_B T \to X$.
+Dans cette situation, nous pouvons considérer le foncteur
+\begin{equation}
+\label{equation-iso}
+F_{iso} : (\Sch/B)^{opp} \longrightarrow \textit{Sets}, \quad
+T \longrightarrow \left\{
+\begin{matrix}
+\{*\} & \text{si }u_T\text{ est un isomorphisme}, \\
+\emptyset & \text{sinon.}
+\end{matrix}
+\right.
+\end{equation}
+Il existe des variantes $F_{inj}$, $F_{surj}$, $F_{zero}$ pour lesquelles on exige que
+$u_T$ soit injectif, surjectif ou nul.
+\end{situation}
+
+\noindent
+Dans la Situation \ref{situation-iso}, nous considérons parfois les foncteurs
+$F_{iso}$, $F_{inj}$, $F_{surj}$ et $F_{zero}$ comme des foncteurs
+$(\Sch/S)^{opp} \to \textit{Sets}$ munis d'un morphisme
+$F_{iso} \to B$, $F_{inj} \to B$, $F_{surj} \to B$ et $F_{zero} \to B$.
+En effet, si $T$ est un schéma sur $S$, un élément $h \in F_{iso}(T)$
+est un morphisme $h : T \to B$
+tel que le changement de base de $u$ par $h$ soit un isomorphisme.
+En particulier, lorsque nous disons
+que $F_{iso}$ est un espace algébrique, nous entendons que le foncteur
+correspondant $(\Sch/S)^{opp} \to \textit{Sets}$ est un espace algébrique.
+
+\begin{lemma}
+\label{lemma-iso-sheaf}
+Dans la Situation \ref{situation-iso}.
+Chacun des foncteurs $F_{iso}$, $F_{inj}$, $F_{surj}$, $F_{zero}$
+vérifie la propriété de faisceau pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement fpqc de schémas sur $B$.
+Posons $X_i = X_{T_i} = X \times_S T_i$ et $u_i = u_{T_i}$.
+Remarquons que $\{X_i \to X_T\}_{i \in I}$ est un recouvrement fpqc de $X_T$, voir
+Topologies sur les espaces, Lemme \ref{spaces-topologies-lemma-fpqc}.
+En particulier, pour tout $x \in |X_T|$, il existe $i \in I$
+et $x_i \in |X_i|$ s'envoyant sur $x$. Comme
+$\mathcal{O}_{X_T, \overline{x}} \to \mathcal{O}_{X_i, \overline{x_i}}$
+est plat, donc fidèlement plat (voir
+Morphismes d'espaces, Section \ref{spaces-morphisms-section-flat}),
+nous concluons que $(u_i)_{x_i}$ est injectif, surjectif, bijectif ou nul
+si et seulement si $(u_T)_x$ est injectif, surjectif, bijectif ou nul.
+Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-iso-go-up}
+Dans la Situation \ref{situation-iso}, soit $X' \to X$ un morphisme plat
+d'espaces algébriques. Notons $u' : \mathcal{F}' \to \mathcal{G}'$
+l'image réciproque de $u$ sur $X'$. Notons $F'_{iso}$, $F'_{inj}$, $F'_{surj}$,
+$F'_{zero}$ les foncteurs sur $\Sch/B$ associés à $u'$.
+\begin{enumerate}
+\item Si $\mathcal{G}$ est de type fini et si l'image de $|X'| \to |X|$
+contient le support de $\mathcal{G}$, alors $F_{surj} = F'_{surj}$
+et $F_{zero} = F'_{zero}$.
+\item Si $\mathcal{F}$ est de type fini et si l'image de $|X'| \to |X|$
+contient le support de $\mathcal{F}$, alors $F_{inj} = F'_{inj}$
+et $F_{zero} = F'_{zero}$.
+\item Si $\mathcal{F}$ et $\mathcal{G}$ sont de type fini et si l'image de
+$|X'| \to |X|$ contient les supports de $\mathcal{F}$ et de $\mathcal{G}$,
+alors $F_{iso} = F'_{iso}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $v : \mathcal{H} \to \mathcal{E}$ une application de modules
+quasi-cohérents sur un espace algébrique $Y$, et soit $\varphi : Y' \to Y$ un
+morphisme plat surjectif d'espaces algébriques. Alors $v$ est
+un isomorphisme, injectif, surjectif ou nul si et seulement si $\varphi^*v$ l'est.
+En effet,
+pour tout $y \in |Y|$, il existe $y' \in |Y'|$, et l'homomorphisme
+d'anneaux locaux
+$\mathcal{O}_{Y, \overline{y}} \to \mathcal{O}_{Y', \overline{y'}}$
+est fidèlement plat (voir
+Morphismes d'espaces, Section \ref{spaces-morphisms-section-flat}).
+Bien entendu, pour vérifier l'injectivité ou la nullité, il suffit de considérer
+les points du support de $\mathcal{H}$ ; pour vérifier la
+surjectivité, il suffit de considérer les points du support de $\mathcal{E}$.
+De plus, sous les hypothèses de type fini de l'énoncé du
+lemme, la formation des supports commute au changement de base, voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-support-finite-type}.
+Le lemme est donc clair.
+\end{proof}
+
+\noindent
+Rappelons que nous avons défini le support schématique d'un module
+quasi-cohérent de type fini dans Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-scheme-theoretic-support}.
+
+\begin{lemma}
+\label{lemma-iso-limits}
+Dans la Situation \ref{situation-iso}.
+\begin{enumerate}
+\item Si $\mathcal{G}$ est de type fini et si le support schématique
+de $\mathcal{G}$ est quasi-compact sur $B$, alors $F_{surj}$ commute aux
+limites.
+\item Si $\mathcal{F}$ est de type fini et si le support schématique
+de $\mathcal{F}$ est quasi-compact sur $B$, alors
+$F_{zero}$ commute aux limites.
+\item Si $\mathcal{F}$ est de type fini,
+si $\mathcal{G}$ est de présentation finie et si les
+supports schématiques de $\mathcal{F}$ et de $\mathcal{G}$ sont
+quasi-compacts sur $B$, alors $F_{iso}$ commute aux limites.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). Soit $i : Z \to X$ le support schématique de
+$\mathcal{G}$, et considérons $\mathcal{G}$ comme un module quasi-cohérent
+de type fini sur $Z$. Nous pouvons remplacer $X$ par $Z$ et $u$ par l'application
+$i^*\mathcal{F} \to \mathcal{G}$ (détails omis). Nous pouvons donc supposer que
+$f$ est quasi-compact et $\mathcal{G}$ de type fini.
+Soit $T = \lim_{i \in I} T_i$ une limite dirigée de $B$-schémas affines,
+et supposons $u_T$ surjectif.
+Posons $X_i = X_{T_i} = X \times_S T_i$ et
+$u_i = u_{T_i} : \mathcal{F}_i = \mathcal{F}_{T_i}
+\to \mathcal{G}_i = \mathcal{G}_{T_i}$.
+Pour démontrer (1), il faut montrer que $u_i$ est surjectif pour un certain $i$.
+Choisissons $0 \in I$ et remplaçons $I$ par $\{i \mid i \geq 0\}$.
+Puisque $f$ est quasi-compact, $X_0$ est quasi-compact.
+Nous pouvons donc choisir un morphisme \'etale surjectif $\varphi_0 : W_0 \to X_0$,
+où $W_0$ est un schéma affine. Posons $W = W_0 \times_{T_0} T$
+et $W_i = W_0 \times_{T_0} T_i$ pour $i \geq 0$. Ce
+sont des schémas affines munis
+de morphismes \'etales surjectifs $\varphi : W \to X_T$ et
+$\varphi_i : W_i \to X_i$. Remarquons que $W = \lim W_i$.
+Ainsi $\varphi^*u_T$ est surjectif, et il suffit de démontrer que
+$\varphi_i^*u_i$ est surjectif pour un certain $i$. Nous avons donc ramené
+le problème au cas affine, qui est
+Algèbre, Lemme \ref{algebra-lemma-module-map-property-in-colimit}, partie (2).
+
+\medskip\noindent
+Preuve de (2). Supposons que $\mathcal{F}$ soit de type fini, de support
+schématique $Z \subset B$ quasi-compact sur $B$. Soit $T = \lim_{i \in I} T_i$
+une limite dirigée de $B$-schémas affines, et supposons $u_T$ nul.
+Posons $X_i = T_i \times_B X$ et notons $u_i : \mathcal{F}_i \to \mathcal{G}_i$
+l'image réciproque. Choisissons $0 \in I$ et remplaçons $I$ par
+$\{i \mid i \geq 0\}$. Posons $Z_0 = Z \times_X X_0$. D'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-support-finite-type},
+le support de $\mathcal{F}_i$ est $|Z_0|$. Puisque $|Z_0|$ est quasi-compact,
+on peut trouver un schéma affine $W_0$ et un morphisme \'etale $W_0 \to X_0$
+tels que $|Z_0| \subset \Im(|W_0| \to |X_0|)$.
+Posons $W = W_0 \times_{T_0} T$ et $W_i = W_0 \times_{T_0} T_i$ pour $i \geq 0$.
+Ce sont des schémas affines munis
+de morphismes \'etales $\varphi : W \to X_T$ et
+$\varphi_i : W_i \to X_i$. Remarquons que $W = \lim W_i$
+et que les supports de $\mathcal{F}_T$ et de $\mathcal{F}_i$
+sont contenus respectivement dans les images de $|W| \to |X_T|$ et $|W_i| \to |X_i|$.
+Alors $\varphi^*u_T$ est injectif, et il suffit de démontrer que
+$\varphi_i^*u_i$ est injectif pour un certain $i$.
+Nous avons ainsi ramené le problème au cas affine, qui est
+Algèbre, Lemme \ref{algebra-lemma-module-map-property-in-colimit}, partie (1).
+
+\medskip\noindent
+Preuve de (3). On peut la démontrer exactement comme dans les
+deux paragraphes précédents, en utilisant
+Algèbre, Lemme \ref{algebra-lemma-module-map-property-in-colimit}, partie (3).
+On peut aussi la déduire de (1) et (2) comme suit.
+Soit $T = \lim_{i \in I} T_i$ une limite dirigée de $B$-schémas affines,
+et supposons que $u_T$ soit un isomorphisme. D'après (1), il existe
+un indice $0 \in I$ tel que $u_{T_0}$ soit surjectif. Posons
+$\mathcal{K} = \Ker(u_{T_0})$ et considérons l'application de modules quasi-cohérents
+$v : \mathcal{K} \to \mathcal{F}_{T_0}$. Pour $i \geq 0$, le changement de
+base $v_{T_i}$ est nul si et seulement si $u_i$ est un isomorphisme. De plus,
+$v_T$ est nul. Puisque $\mathcal{G}_{T_0}$
+est de présentation finie, que $\mathcal{F}_{T_0}$ est de type fini et que
+$u_{T_0}$ est surjectif, nous concluons que $\mathcal{K}$ est de type fini
+(Modules sur les sites, Lemme
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation}).
+Il est clair que le support de $\mathcal{K}$ est contenu dans celui
+de $\mathcal{F}_{T_0}$, qui est quasi-compact sur $T_0$.
+On peut donc appliquer (2) pour voir que $v_{T_i}$ est nul pour un certain $i$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relate-zero-iso}
+Dans la Situation \ref{situation-iso}, supposons donnée une suite exacte
+$$
+\mathcal{F} \xrightarrow{u} \mathcal{G} \xrightarrow{v} \mathcal{H} \to 0
+$$
+Alors $F_{v, iso} = F_{u, zero}$, avec les notations évidentes.
+\end{lemma}
+
+\begin{proof}
+Puisque l'image réciproque est exacte à droite, nous voyons que
+$\mathcal{F}_T \to \mathcal{G}_T \to \mathcal{H}_T \to 0$
+est exacte pour tout schéma $T$ sur $B$. Ainsi $u_T$ est
+surjectif si et seulement si $v_T$ est un isomorphisme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relate-zero-affine}
+Dans la Situation \ref{situation-iso}, supposons donnés un morphisme affine
+$i : Z \to X$ et un $\mathcal{O}_Z$-module quasi-cohérent $\mathcal{H}$
+tels que $\mathcal{G} = i_*\mathcal{H}$. Soit
+$v : i^*\mathcal{F} \to \mathcal{H}$ l'application adjointe de $u$.
+Alors
+\begin{enumerate}
+\item $F_{v, zero} = F_{u, zero}$, et
+\item si $i$ est une immersion fermée, alors $F_{v, surj} = F_{u, surj}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma sur $B$. Notons $i_T : Z_T \to X_T$
+le changement de base de $i$, et $\mathcal{H}_T$ l'image réciproque de $\mathcal{H}$
+sur $Z_T$. Observons que $(i^*\mathcal{F})_T = i_T^*\mathcal{F}_T$
+et $i_{T, *}\mathcal{H}_T = (i_*\mathcal{H})_T$.
+La première assertion résulte de la commutativité des images réciproques,
+et la seconde de Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-affine-base-change}.
+Nous voyons donc que $u_T$ et $v_T$ sont eux aussi des applications adjointes.
+Ainsi $u_T = 0$ si et seulement si $v_T = 0$. Cela démontre (1).
+Dans le cas (2), nous voyons que $u_T$ est surjectif si et seulement si
+$v_T$ est surjectif, car $u_T$ se factorise sous la forme
+$$
+\mathcal{F}_T \to
+i_{T, *}i_T^*\mathcal{F}_T \xrightarrow{i_{T, *}v_T} i_{T, *}\mathcal{H}_T
+$$
+et parce que $i_{T, *}$ est un foncteur exact
+qui plonge pleinement fidèlement la catégorie des modules quasi-cohérents sur
+$Z_T$ dans la catégorie des $\mathcal{O}_{X_T}$-modules quasi-cohérents.
+Voir Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-i-star-equivalence}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relate-zero-affine-push}
+Dans la Situation \ref{situation-iso}, supposons donné un morphisme affine
+$g : X \to X'$. Posons $u' = f_*u : f_*\mathcal{F} \to f_*\mathcal{G}$.
+Alors $F_{u, iso} = F_{u', iso}$, $F_{u, inj} = F_{u', inj}$,
+$F_{u, surj} = F_{u', surj}$ et $F_{u, zero} = F_{u', zero}$.
+\end{lemma}
+
+\begin{proof}
+D'après Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-affine-base-change}
+nous avons $g_{T, *}u_T = u'_T$.
+De plus, $g_{T, *} : \QCoh(\mathcal{O}_{X_T}) \to \QCoh(\mathcal{O}_X)$
+est un foncteur fidèle et exact qui reflète les isomorphismes, les applications
+injectives et les applications surjectives.
+\end{proof}
+
+\begin{situation}
+\label{situation-flat}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Pour tout schéma $T$ sur $Y$, nous noterons $\mathcal{F}_T$ le
+changement de base de $\mathcal{F}$ à $T$ ; autrement dit, $\mathcal{F}_T$
+est l'image réciproque de $\mathcal{F}$ par le morphisme de projection
+$X_T = X \times_Y T \to X$. Puisque tout changement de base d'un module plat
+est plat, nous obtenons un foncteur
+\begin{equation}
+\label{equation-flat}
+F_{flat} : (\Sch/Y)^{opp} \longrightarrow \textit{Sets}, \quad
+T \longrightarrow \left\{
+\begin{matrix}
+\{*\} & \text{si } \mathcal{F}_T \text{ est plat sur }T, \\
+\emptyset & \text{sinon.}
+\end{matrix}
+\right.
+\end{equation}
+\end{situation}
+
+\noindent
+Dans la Situation \ref{situation-flat}, nous considérons parfois $F_{flat}$ comme un foncteur
+$(\Sch/S)^{opp} \to \textit{Sets}$ muni d'un morphisme
+$F_{flat} \to Y$. En effet, si $T$ est un schéma sur $S$,
+un élément $h \in F_{flat}(T)$ est un morphisme $h : T \to Y$
+tel que le changement de base de $\mathcal{F}$ par $h$ soit plat sur $T$.
+En particulier, lorsque nous disons
+que $F_{flat}$ est un espace algébrique, nous entendons que le foncteur
+correspondant $(\Sch/S)^{opp} \to \textit{Sets}$ est un espace algébrique.
+
+\begin{lemma}
+\label{lemma-flat}
+Dans la Situation \ref{situation-flat}.
+\begin{enumerate}
+\item Le foncteur $F_{flat}$ vérifie la propriété de faisceau pour la topologie fpqc.
+\item Si $f$ est quasi-compact et localement de présentation finie
+et si $\mathcal{F}$ est de présentation finie, alors le foncteur
+$F_{flat}$ commute aux limites.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) résulte de l'assertion suivante : si $T' \to T$ est un morphisme
+plat surjectif d'espaces algébriques sur $Y$, alors
+$\mathcal{F}_{T'}$ est plat sur $T'$ si et seulement si
+$\mathcal{F}_T$ est plat sur $T$, voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-base-change-module-flat}.
+La partie (2) résulte de
+Limites d'espaces, Lemme \ref{spaces-limits-lemma-descend-flat},
+si $f$ est en outre quasi-séparé (c'est-à-dire si $f$ est de présentation finie).
+Dans le cas général, on se ramène d'abord au cas où la
+base est affine, puis on recouvre $X$ par un nombre fini d'ouverts affines
+pour se ramener au cas quasi-séparé. Détails omis.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Annulation d'une application}
+\label{section-zero-map}
+
+\noindent
+Cette section n'a pas d'analogue dans le chapitre correspondant sur les schémas.
+
+\begin{situation}
+\label{situation-somewhat-closed}
+Soit $S = \Spec(R)$ un schéma affine. Soit $X$ un espace algébrique sur
+$S$. Soit $u : \mathcal{F} \to \mathcal{G}$ une application de
+$\mathcal{O}_X$-modules quasi-cohérents. Supposons $\mathcal{G}$ plat sur $S$.
+\end{situation}
+
+\begin{lemma}
+\label{lemma-F-zero-somewhat-closed}
+Dans la Situation \ref{situation-somewhat-closed}. Soit $T \to S$
+un morphisme quasi-compact de schémas tel que le changement de base $u_T$ soit
+nul. Alors il existe un sous-schéma fermé $Z \subset S$ tel que
+(a) $T \to S$ se factorise par $Z$ et (b) le changement de base $u_Z$ soit nul.
+Si $\mathcal{F}$ est un $\mathcal{O}_X$-module de type fini et si
+le support schématique de $\mathcal{F}$ est quasi-compact,
+on peut prendre $Z \to S$ de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Soit $U \to X$ un morphisme \'etale surjectif d'espaces algébriques,
+où $U = \coprod U_i$ est une réunion disjointe de schémas affines (voir
+Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-cover-by-union-affines}).
+D'après le Lemme \ref{lemma-iso-go-up}, nous pouvons
+remplacer $X$ par $U$. Autrement dit, nous pouvons supposer que $X = \coprod X_i$
+est une réunion disjointe de schémas affines $X_i$. Supposons que nous sachions démontrer
+le lemme pour $u_i = u|_{X_i}$. Nous obtenons alors un sous-schéma fermé
+$Z_i \subset S$ tel que $T \to S$ se factorise par $Z_i$ et que
+$u_{i, Z_i}$ soit nul. Si
+$Z_i = \Spec(R/I_i) \subset \Spec(R) = S$, alors prendre
+$Z = \Spec(R/\sum I_i)$ convient. Nous pouvons donc supposer que
+$X = \Spec(A)$ est affine.
+
+\medskip\noindent
+Choisissons un recouvrement ouvert affine fini $T = T_1 \cup \ldots \cup T_m$.
+Il est clair que nous pouvons remplacer $T$ par $\coprod_{j = 1, \ldots, m} T_j$.
+Nous pouvons donc supposer $T$ affine. Écrivons $T = \Spec(R')$.
+Soit $u : M \to N$ l'homomorphisme de $A$-modules
+correspondant à $u : \mathcal{F} \to \mathcal{G}$.
+Alors $N$ est un $R$-module plat puisque $\mathcal{G}$ est plat sur $S$.
+L'hypothèse du lemme signifie que le composé
+$$
+M \otimes_R R' \to N \otimes_R R'
+$$
+est nul. Soit $z \in M$. D'après le théorème de Lazard
+(Algèbre, Théorème \ref{algebra-theorem-lazard}) et puisque
+$\otimes$ commute aux colimites, on peut trouver un $R$-module libre
+$F_z$, un élément $\tilde z \in F_z$ et une application $F_z \to N$ tels que
+$u(z)$ soit l'image de $\tilde z$ et que $\tilde z$ s'envoie sur zéro dans
+$F_z \otimes_R R'$. Choisissons une base $\{e_{z, \alpha}\}$ de $F_z$ et écrivons
+$\tilde z = \sum f_{z, \alpha} e_{z, \alpha}$ avec $f_{z, \alpha} \in R$.
+Soit $I \subset R$ l'idéal engendré par les éléments $f_{z, \alpha}$,
+où $z$ parcourt tous les éléments de $M$.
+Par construction, $I$ s'envoie sur zéro dans $R'$ et les éléments $\tilde z$
+s'envoient sur zéro dans $F_z/IF_z$, donc dans $N/IN$. Ainsi $Z = \Spec(R/I)$
+résout le problème dans ce cas.
+
+\medskip\noindent
+Supposons que $\mathcal{F}$ soit de type fini, de support schématique
+quasi-compact. Écrivons $Z = \Spec(R/I)$.
+Écrivons $I = \bigcup I_\lambda$ comme réunion filtrante d'idéaux de type fini.
+Posons $Z_\lambda = \Spec(R/I_\lambda)$, de sorte que $Z = \colim Z_\lambda$.
+Puisque $u_Z$ est nul, nous voyons que $u_{Z_\lambda}$ est nul
+pour un certain $\lambda$, d'après le Lemme \ref{lemma-iso-limits}.
+Cela achève la démonstration du lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-F-zero-module-map}
+Soit $A$ un anneau. Soit $u : M \to N$ une application de $A$-modules.
+Si $N$ est projectif comme $A$-module, alors il existe un idéal
+$I \subset A$ tel que, pour tout homomorphisme d'anneaux $\varphi : A \to B$,
+les conditions suivantes soient équivalentes :
+\begin{enumerate}
+\item $u \otimes 1 : M \otimes_A B \to N \otimes_A B$ est nul, et
+\item $\varphi(I) = 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Puisque $N$ est projectif, on peut trouver un $A$-module projectif $C$
+tel que $F = N \oplus C$ soit un $R$-module libre.
+En remplaçant $u$ par $u \oplus 1 : F = M \oplus C \to N \oplus C$,
+nous voyons que nous pouvons supposer $N$ libre. Dans ce cas, soit $I$
+l'idéal de $A$ engendré par les coefficients de tous les éléments de
+$\Im(u)$ relativement à une base (fixée) de $N$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-F-zero-somewhat-closed-points}
+Dans la Situation \ref{situation-somewhat-closed}.
+Soit $T \subset S$ une partie. Soit $s \in S$ dans l'adhérence de $T$.
+Pour $t \in T$, soit $u_t$ l'image réciproque de $u$ sur $X_t$,
+et soit $u_s$ l'image réciproque de $u$ sur $X_s$.
+Si $X$ est localement de présentation finie sur $S$,
+si $\mathcal{G}$ est de présentation finie\footnote{Il suffirait
+que $X$ soit localement de type fini sur $S$
+et que $\mathcal{G}$ soit de présentation finie relativement à $S$,
+mais cette notion n'a pas encore été définie dans le cadre
+des espaces algébriques. La définition pour les schémas est
+donnée dans Compléments sur les morphismes, Section
+\ref{more-morphisms-section-finite-type-finite-presentation}.}, et si
+$u_t = 0$ pour tout $t \in T$, alors $u_s = 0$.
+\end{lemma}
+
+\begin{proof}
+Vérifier si $u_s$ est nul est une question locale pour la topologie \'etale sur la fibre $X_s$.
+Nous pouvons donc choisir un point $x \in |X_s| \subset |X|$ et effectuer la vérification
+dans un voisinage \'etale. Choisissons
+$$
+\xymatrix{
+(X, x) \ar[d] & (X', x') \ar[l]^g \ar[d] \\
+(S, s) & (S', s') \ar[l]
+}
+$$
+comme dans la Proposition \ref{proposition-finite-presentation-flat-at-point}.
+Soit $T' \subset S'$ l'image réciproque de $T$. Observons que
+$s'$ appartient à l'adhérence de $T'$, car $S' \to S$ est ouvert.
+Nous sommes donc ramenés au problème d'algèbre décrit dans le
+paragraphe suivant.
+
+\medskip\noindent
+Nous avons une application de $R$-modules $u : M \to N$ telle que $N$ soit projectif
+comme $R$-module et telle que
+$u_t : M \otimes_R \kappa(t) \to N \otimes_R \kappa(t)$
+soit nulle pour tout $t \in T$. Il s'agit de montrer que $u_s = 0$.
+Soit $I \subset R$ l'idéal défini dans le Lemme \ref{lemma-F-zero-module-map}.
+Alors $I$ s'envoie sur zéro dans $\kappa(t)$ pour tout $t \in T$.
+Ainsi $T \subset V(I)$. Puisque $s$ appartient à l'adhérence de $T$,
+nous avons $s \in V(I)$. Par conséquent, $u_s = 0$.
+\end{proof}
+
+\noindent
+Il serait intéressant de trouver une démonstration directe « simple » de l'un des
+Lemmes \ref{lemma-F-zero-closed-pure} ou
+\ref{lemma-F-zero-closed-proper},
+en utilisant des arguments analogues à ceux des
+Lemmes \ref{lemma-F-zero-somewhat-closed} et
+\ref{lemma-F-zero-somewhat-closed-points}.
+Une démonstration « classique » de ce lemme lorsque $f : X \to B$ est un morphisme
+projectif et $B$ un schéma noethérien serait la suivante : (a) choisir un faisceau inversible
+relativement ample $\mathcal{O}_X(1)$, (b) poser
+$u_n : f_*\mathcal{F}(n) \to f_*\mathcal{G}(n)$,
+(c) observer que $f_*\mathcal{G}(n)$ est un faisceau localement libre de rang fini
+pour tout $n \gg 0$, et (d) que $F_{zero}$ est représenté par le lieu des zéros
+de $u_n$ pour un certain $n \gg 0$.
+
+\begin{lemma}
+\label{lemma-F-zero-closed-pure}
+Dans la Situation \ref{situation-iso}. Supposons que
+\begin{enumerate}
+\item $f$ soit de présentation finie, et
+\item $\mathcal{G}$ soit de présentation finie,
+plat sur $B$ et pur relativement à $B$.
+\end{enumerate}
+Alors $F_{zero}$ est un espace algébrique et $F_{zero} \to B$
+est une immersion fermée. Si $\mathcal{F}$ est de type fini, alors
+$F_{zero} \to B$ est de présentation finie.
+\end{lemma}
+
+\begin{proof}
+D'après le Lemme \ref{lemma-finite-type-flat-pure-is-universal},
+le module $\mathcal{G}$ est universellement pur relativement à $B$.
+Pour démontrer que $F_{zero}$ est un espace algébrique,
+il suffit de montrer que $F_{zero} \to B$ est représentable, voir
+Espaces, Lemme \ref{spaces-lemma-representable-over-space}.
+Soit $B' \to B$ un morphisme, où $B'$ est un schéma, et soit
+$u' : \mathcal{F}' \to \mathcal{G}'$ l'image réciproque de $u$ sur $X' = X_{B'}$.
+Alors le foncteur associé $F'_{zero}$ est égal à $F_{zero} \times_B B'$.
+Cela nous ramène au cas où $B$ est un schéma.
+
+\medskip\noindent
+Supposons que $B$ soit un schéma. Nous allons montrer que $F_{zero}$ est représentable
+par un sous-schéma fermé de $B$. D'après le Lemme \ref{lemma-iso-sheaf} et
+Descente, Lemmes \ref{descent-lemma-closed-immersion} et
+\ref{descent-lemma-descent-data-sheaves}
+la question est locale pour la topologie \'etale sur $B$. Soit $b \in B$.
+Remplaçons d'abord $B$ par un voisinage affine de $b$.
+Choisissons un diagramme
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+B & B' \ar[l]
+}
+$$
+et un point $b' \in B'$ s'envoyant sur $b \in B$,
+comme dans le Lemme \ref{lemma-finite-presentation-flat-along-fibre}.
+Puisque nous travaillons localement pour la topologie \'etale, nous pouvons remplacer
+$B$ par $B'$ et supposer que nous disposons d'un diagramme
+$$
+\xymatrix{
+X \ar[rd] & & X' \ar[ll]^g \ar[ld] \\
+& B
+}
+$$
+où $B$ et $X'$ sont affines, tel que $\Gamma(X', g^*\mathcal{G})$
+soit un $\Gamma(B, \mathcal{O}_B)$-module projectif et que
+$g(|X'|) \supset |X_b|$. Soit $U \subset X$ le sous-espace ouvert
+tel que $|U| = g(|X'|)$. D'après
+Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-relative-assassin-constructible}, l'ensemble
+$$
+E = \{t \in B : \text{Ass}_{X_t}(\mathcal{G}_t) \subset |U_t|\} =
+\{t \in B : \text{Ass}_{X/B}(\mathcal{G}) \cap |X_t| \subset |U_t|\}
+$$
+est constructible dans $B$. D'après le Lemme \ref{lemma-pure-on-top}, partie (2),
+nous voyons que $E$ contient $\Spec(\mathcal{O}_{B, b})$. D'après
+Morphismes, Lemme \ref{morphisms-lemma-constructible-containing-open},
+nous voyons que $E$ contient un voisinage ouvert de $b$. Ainsi, après avoir
+remplacé $B$ par un voisinage affine plus petit de $b$, nous pouvons supposer que
+$\text{Ass}_{X/B}(\mathcal{G}) \subset g(|X'|)$.
+
+\medskip\noindent
+Il résulte du Lemme \ref{lemma-universally-separating}
+que $u : \mathcal{F} \to \mathcal{G}$ est injectif si et seulement si
+$g^*u : g^*\mathcal{F} \to g^*\mathcal{G}$ est injectif, et cela reste
+vrai après tout changement de base. Nous nous sommes donc ramenés au cas où,
+outre les hypothèses du théorème, $X \to B$ est un morphisme de
+schémas affines et $\Gamma(X, \mathcal{G})$ est un
+$\Gamma(B, \mathcal{O}_B)$-module projectif. Ce cas résulte immédiatement du
+Lemme \ref{lemma-F-zero-module-map}.
+
+\medskip\noindent
+Il reste à montrer que $F_{zero} \to B$ est de présentation finie si
+$\mathcal{F}$ est de type fini. Cela résulte du
+Lemme \ref{lemma-iso-limits}, combiné à
+Limites d'espaces, Proposition
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-F-zero-closed-proper}
+Dans la Situation \ref{situation-iso}. Supposons que
+\begin{enumerate}
+\item $f$ soit localement de présentation finie,
+\item $\mathcal{G}$ soit un $\mathcal{O}_X$-module de présentation finie
+plat sur $B$,
+\item le support de $\mathcal{G}$ soit propre sur $B$.
+\end{enumerate}
+Alors le foncteur $F_{zero}$ est un espace algébrique et $F_{zero} \to B$
+est une immersion fermée. Si $\mathcal{F}$ est de type fini, alors
+$F_{zero} \to B$ est de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Si $f$ est de présentation finie, cela résulte immédiatement des
+Lemmes \ref{lemma-F-zero-closed-pure} et \ref{lemma-proper-pure}.
+C'est le seul cas intéressant, et nous conseillons au lecteur d'omettre
+la suite de la démonstration, qui traite de la possibilité (autorisée
+par les hypothèses du présent lemme)
+que $f$ ne soit ni quasi-séparé ni quasi-compact.
+
+\medskip\noindent
+Soit $i : Z \to X$ le sous-espace fermé défini par l'idéal de Fitting
+d'indice zéro de $\mathcal{G}$
+(Diviseurs sur les espaces, Section
+\ref{spaces-divisors-section-fitting-ideals}).
+Alors $Z \to B$ est propre par hypothèse (voir
+Catégories dérivées des espaces, Section
+\ref{spaces-perfect-section-proper-over-base}).
+D'autre part, $i$ est de présentation finie
+(Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-fitting-ideal-of-finitely-presented}, et
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}).
+Il existe un $\mathcal{O}_Z$-module quasi-cohérent
+$\mathcal{H}$ de type fini tel que $i_*\mathcal{H} = \mathcal{G}$
+(Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-on-subscheme-cut-out-by-Fit-0}).
+En fait, $\mathcal{H}$ est de présentation finie comme $\mathcal{O}_Z$-module
+d'après Algèbre, Lemme \ref{algebra-lemma-finitely-presented-over-subring}
+(détails omis).
+Alors $F_{zero}$ est le même que le foncteur $F_{zero}$
+pour l'application $i^*\mathcal{F} \to \mathcal{H}$ adjointe de $u$, voir
+Lemme \ref{lemma-relate-zero-affine}.
+Le faisceau $\mathcal{H}$ est plat sur $B$, car
+il en est de même de $\mathcal{G}$ (vérifier sur les germes ; détails omis).
+De plus, remarquons que si $\mathcal{F}$ est de type fini,
+alors $i^*\mathcal{F}$ est de type fini.
+Nous avons donc ramené le lemme au cas
+étudié dans le premier paragraphe de la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Aplatissement d'une application}
+\label{section-flattening-map}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur la platitude, Section \ref{flat-section-flattening-map}.
+En particulier, le résultat suivant est une variante de
+Compléments sur la platitude, Théorème \ref{flat-theorem-flattening-map}.
+
+\begin{theorem}
+\label{theorem-flattening-map}
+Dans la Situation \ref{situation-iso}, supposons que
+\begin{enumerate}
+\item $f$ soit de présentation finie,
+\item $\mathcal{F}$ soit de présentation finie, plat sur $B$ et
+pur relativement à $B$, et
+\item $u$ soit surjectif.
+\end{enumerate}
+Alors $F_{iso}$ est représentable par une immersion fermée $Z \to B$.
+De plus, $Z \to S$ est de présentation finie si $\mathcal{G}$ est
+de présentation finie.
+\end{theorem}
+
+\begin{proof}
+Soit $\mathcal{K} = \Ker(u)$ et notons $v : \mathcal{K} \to \mathcal{F}$
+l'inclusion. Le Lemme \ref{lemma-relate-zero-iso} donne
+$F_{u, iso} = F_{v, zero}$. En appliquant le Lemme \ref{lemma-F-zero-closed-pure}
+à $v$, nous voyons que $F_{u, iso} = F_{v, zero}$ est représentable
+par un sous-espace fermé de $B$. Remarquons que $\mathcal{K}$ est de type fini
+si $\mathcal{G}$ est de présentation finie, voir
+Modules sur les sites, Lemme
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation}.
+Nous obtenons donc également la dernière assertion du théorème.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-F-iso-closed}
+Dans la Situation \ref{situation-iso}. Supposons que
+\begin{enumerate}
+\item $f$ soit localement de présentation finie,
+\item $\mathcal{F}$ soit localement de présentation finie et plat sur $B$,
+\item le support de $\mathcal{F}$ soit propre sur $B$, et
+\item $u$ soit surjectif.
+\end{enumerate}
+Alors le foncteur $F_{iso}$ est un espace algébrique et $F_{iso} \to B$
+est une immersion fermée. Si $\mathcal{G}$ est de présentation finie, alors
+$F_{iso} \to B$ est de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{K} = \Ker(u)$ et notons $v : \mathcal{K} \to \mathcal{F}$
+l'inclusion. Le Lemme \ref{lemma-relate-zero-iso} donne
+$F_{u, iso} = F_{v, zero}$. En appliquant le Lemme \ref{lemma-F-zero-closed-proper}
+à $v$, nous voyons que $F_{u, iso} = F_{v, zero}$ est représentable
+par un sous-espace fermé de $B$. Remarquons que $\mathcal{K}$ est de type fini
+si $\mathcal{G}$ est de présentation finie, voir
+Modules sur les sites, Lemme
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation}.
+Nous obtenons donc également la dernière assertion du lemme.
+\end{proof}
+
+\noindent
+Nous utiliserons le résultat (facile) suivant dans l'étude du foncteur Quot.
+
+\begin{lemma}
+\label{lemma-F-surj-open}
+Dans la Situation \ref{situation-iso}. Supposons que
+\begin{enumerate}
+\item $f$ soit localement de présentation finie,
+\item $\mathcal{G}$ soit de type fini,
+\item le support de $\mathcal{G}$ soit propre sur $B$.
+\end{enumerate}
+Alors $F_{surj}$ est un espace algébrique et $F_{surj} \to B$
+est une immersion ouverte.
+\end{lemma}
+
+\begin{proof}
+Considérons $\Coker(u)$. Observons que
+$\Coker(u_T) = \Coker(u)_T$ pour tout $T/B$.
+Remarquons que la formation du support d'un module
+quasi-cohérent de type fini commute à l'image réciproque
+(Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-support-covering}).
+Ainsi $F_{surj}$ est représentable par le sous-espace ouvert de $B$
+correspondant à l'ouvert
+$$
+|B| \setminus |f|(\text{Supp}(\Coker(u)))
+$$
+voir Propriétés des espaces, Lemme \ref{spaces-properties-lemma-open-subspaces}.
+C'est un ouvert, car $|f|$ est fermé sur $\text{Supp}(\mathcal{G})$
+et $\text{Supp}(\Coker(u))$ est une partie fermée de
+$\text{Supp}(\mathcal{G})$.
+\end{proof}
+
+
+
+
+
+
+\section{Aplatissement dans le cas local}
+\label{section-flattening-local}
+
+\noindent
+Cette section est l'analogue de Compléments sur la platitude, Section
+\ref{flat-section-flattening-local}.
+
+\begin{lemma}
+\label{lemma-freebie}
+Soit $S$ le spectre d'un anneau local hensélien de point fermé $s$.
+Soit $X \to S$ un morphisme d'espaces algébriques
+localement de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $E \subset |X_s|$ une partie. Il existe un sous-schéma fermé
+$Z \subset S$ ayant la propriété suivante : pour tout morphisme de schémas
+pointés $(T, t) \to (S, s)$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{F}_T$ est plat sur $T$ en tout point de
+$|X_t|$ qui s'envoie sur un point de $E \subset |X_s|$, et
+\item $\Spec(\mathcal{O}_{T, t}) \to S$ se factorise par $Z$.
+\end{enumerate}
+De plus, si $X \to S$ est localement de présentation finie,
+si $\mathcal{F}$ est de présentation finie et si $E \subset |X_s|$ est
+fermé et quasi-compact, alors $Z \to S$ est de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme \'etale $\varphi : U \to X$.
+Soit $E' \subset |U_s|$ l'image réciproque de $E$. Si
+$E' \to E$ est surjectif, alors la condition (1) équivaut à ceci :
+$(\varphi^*\mathcal{F})_T$ est plat sur $T$ en tout point de
+$|U_t|$ qui s'envoie sur un point de $E' \subset |U_t|$.
+En choisissant $\varphi$ surjectif, nous sommes ramenés au cas des schémas, à savoir
+Compléments sur la platitude, Lemme \ref{flat-lemma-freebie}.
+Si $E$ est fermé et quasi-compact, nous pouvons choisir $U$
+affine de telle sorte que $E' \to E$ soit surjectif. Alors $E'$ est fermé
+et quasi-compact, et la dernière assertion résulte de la
+dernière assertion de
+Compléments sur la platitude, Lemme \ref{flat-lemma-freebie}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Aplatissement universel}
+\label{section-flattening-final}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur la platitude, Section \ref{flat-section-flattening-final}.
+Notre but principal est de démontrer le
+Lemme \ref{lemma-when-universal-flattening}.
+Cependant, nous ne voyons pas comment déduire directement ce résultat
+du résultat correspondant pour les schémas.
+Nous devons donc reprendre ici une partie du développement.
+Commençons toutefois par une définition.
+
+\begin{definition}
+\label{definition-flattening}
+Soit $S$ un schéma.
+Soit $X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Nous disons que {\it l'aplatissement universel de $\mathcal{F}$ existe}
+si le foncteur $F_{flat}$ défini dans la Situation \ref{situation-flat}
+est un espace algébrique.
+Nous disons que {\it l'aplatissement universel de $X$ existe}
+si l'aplatissement universel de $\mathcal{O}_X$ existe.
+\end{definition}
+
+\noindent
+Cette définition est quelque peu insatisfaisante, car la définition de
+l'aplatissement universel ne coïncide pas ici avec celle utilisée dans le
+cas des schémas, puisque nous ignorons si tout monomorphisme d'espaces
+algébriques est représentable (Compléments sur les morphismes d'espaces,
+Section \ref{spaces-more-morphisms-section-monomorphisms}).
+Espérons qu'il n'en résultera jamais de confusion.
+
+\begin{lemma}
+\label{lemma-pre-flat-dimension-n}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques
+localement de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de
+type fini. Soit $n \geq 0$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item pour un certain diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_\varphi \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+dont les flèches verticales sont \'etales et surjectives, où $U$ et $V$ sont
+des schémas, le faisceau $\varphi^*\mathcal{F}$ est plat sur $V$
+en dimensions $\geq n$ (Compléments sur la platitude, Définition
+\ref{flat-definition-flat-dimension-n}),
+\item pour tout diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_\varphi \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+dont les flèches verticales sont \'etales, où $U$ et $V$ sont des schémas,
+le faisceau $\varphi^*\mathcal{F}$ est plat sur $V$ en dimensions $\geq n$, et
+\item pour $x \in |X|$ tel que $\mathcal{F}$ ne soit pas plat en $x$
+sur $Y$, le degré de transcendance de $x/f(x)$ est $< n$ (Morphismes d'espaces,
+Définition \ref{spaces-morphisms-definition-dimension-fibre}).
+\end{enumerate}
+Si ces conditions sont satisfaites, elles le restent après tout changement de base $Y' \to Y$.
+\end{lemma}
+
+\begin{proof}
+Supposons disposer d'un diagramme comme en (1). L'équivalence des
+conditions dans Compléments sur la platitude, Lemme \ref{flat-lemma-pre-flat-dimension-n},
+montre alors que (1) et (3) sont équivalentes. Mais la condition (3) est héritée
+par $\varphi^*\mathcal{F}$ pour tout $U \to V$ comme en (2).
+Le résultat pour les schémas montre donc à nouveau que (3) implique (2).
+Il implique également l'assertion relative au changement de base.
+\end{proof}
+
+\begin{definition}
+\label{definition-flat-dimension-n}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$ qui est localement de type fini.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $n \geq 0$.
+Nous disons que {\it $\mathcal{F}$ est plat sur $Y$ en dimensions $\geq n$}
+si les conditions équivalentes du Lemme \ref{lemma-pre-flat-dimension-n}
+sont satisfaites.
+\end{definition}
+
+\begin{situation}
+\label{situation-flat-dimension-n}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$ qui est localement de type fini. Soit $\mathcal{F}$ un
+$\mathcal{O}_X$-module quasi-cohérent de type fini. Pour tout schéma $T$ sur $Y$, nous
+noterons $\mathcal{F}_T$ le changement de base de $\mathcal{F}$ à $T$ ; autrement dit,
+$\mathcal{F}_T$ est l'image réciproque de $\mathcal{F}$ par le morphisme de projection
+$X_T = X \times_Y T \to X$. Remarquons que $f_T : X_T \to T$ est de type fini
+et que $\mathcal{F}_T$ est un $\mathcal{O}_{X_T}$-module de type fini
+(Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-base-change-finite-type}
+et
+Modules sur les sites, Lemme \ref{sites-modules-lemma-local-pullback}).
+Soit $n \geq 0$. La Définition \ref{definition-flat-dimension-n} et le
+Lemme \ref{lemma-pre-flat-dimension-n} fournissent un foncteur
+\begin{equation}
+\label{equation-flat-dimension-n}
+F_n : (\Sch/Y)^{opp} \longrightarrow \textit{Sets}, \quad
+T \longrightarrow \left\{
+\begin{matrix}
+\{*\} & \text{si }\mathcal{F}_T\text{ est plat sur }T\text{ en }\dim \geq n, \\
+\emptyset & \text{sinon.}
+\end{matrix}
+\right.
+\end{equation}
+\end{situation}
+
+\noindent
+Dans la Situation \ref{situation-flat-dimension-n}, nous considérons parfois
+$F_n$ comme un foncteur $(\Sch/S)^{opp} \to \textit{Sets}$ muni d'un morphisme
+$F_n \to Y$. En effet, si $T$ est un schéma sur $S$,
+un élément $h \in F_n(T)$ est un morphisme $h : T \to Y$
+tel que le changement de base de $\mathcal{F}$ par $h$ soit plat sur $T$
+en $\dim \geq n$. En particulier, lorsque nous disons
+que $F_n$ est un espace algébrique, nous entendons que le foncteur
+correspondant $(\Sch/S)^{opp} \to \textit{Sets}$ est un espace algébrique.
+
+\begin{lemma}
+\label{lemma-flat-dimension-n}
+Dans la Situation \ref{situation-flat-dimension-n}.
+\begin{enumerate}
+\item Le foncteur $F_n$ vérifie la propriété de faisceau pour la topologie fpqc.
+\item Si $f$ est quasi-compact et localement de présentation finie
+et si $\mathcal{F}$ est de présentation finie, alors le foncteur $F_n$
+commute aux limites.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). Supposons que $\{T_i \to T\}$ soit un recouvrement fpqc
+d'un schéma $T$ sur $Y$. Nous devons montrer que, si $F_n(T_i)$ est non vide
+pour tout $i$, alors $F_n(T)$ est non vide.
+Choisissons un diagramme comme dans la partie (1) du Lemme \ref{lemma-pre-flat-dimension-n}.
+Notons $F'_n$ le foncteur correspondant pour
+$\varphi^*\mathcal{F}$ et le morphisme $U \to V$.
+D'après Compléments sur la platitude, Lemme \ref{flat-lemma-flat-dimension-n},
+$F'_n$ vérifie la propriété de faisceau.
+Il en est donc de même de $F_n$, car
+pour $T \to Y$, on a $F_n(T) = F'_n(V \times_Y T)$
+d'après le Lemme \ref{lemma-pre-flat-dimension-n},
+et parce que $\{V \times_Y T_i \to V \times_Y T\}$
+est un recouvrement fpqc.
+
+\medskip\noindent
+Preuve de (2). Supposons que $T = \lim_{i \in I} T_i$ soit une limite filtrante
+de schémas affines $T_i$ sur $Y$, et supposons que $F_n(T)$ soit non vide.
+Nous devons montrer que $F_n(T_i)$ est non vide pour un certain $i$.
+Choisissons un diagramme comme dans la
+partie (1) du Lemme \ref{lemma-pre-flat-dimension-n}.
+Fixons $i \in I$ et choisissons un ouvert affine $W_i \subset V \times_Y T_i$
+s'envoyant surjectivement sur $T_i$. Pour $i' \geq i$, soit $W_{i'}$
+l'image réciproque de $W_i$ dans $V \times_Y T_{i'}$, et
+soit $W \subset V \times_Y T$ l'image réciproque de $W_i$.
+Alors $W = \lim_{i' \geq i} W_i$ est une limite filtrante de schémas
+affines sur $V$. À nouveau, d'après le
+Lemme \ref{lemma-pre-flat-dimension-n},
+il suffit de montrer que $F'_n(W_{i'})$ est non vide pour un certain
+$i' \geq i$. Or nous savons que $F'_n(W)$ est non vide,
+car, par hypothèse, $F_n(T) = F'_n(V \times_Y T)$
+est non vide. Nous pouvons donc appliquer
+Compléments sur la platitude, Lemme \ref{flat-lemma-flat-dimension-n},
+et conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localize-flat-dimension-n}
+Dans la Situation \ref{situation-flat-dimension-n}.
+Soit $h : X' \to X$ un morphisme \'etale.
+Posons $\mathcal{F}' = h^*\mathcal{F}$ et $f' = f \circ h$.
+Soit $F_n'$ le foncteur (\ref{equation-flat-dimension-n})
+associé à $(f' : X' \to Y, \mathcal{F}')$.
+Alors $F_n$ est un sous-foncteur de $F_n'$ et, si
+$h(X') \supset \text{Ass}_{X/Y}(\mathcal{F})$, alors $F_n = F'_n$.
+\end{lemma}
+
+\begin{proof}
+Choisissons $U \to X$, $V \to Y$, $U \to V$ comme dans la partie (1) du
+Lemme \ref{lemma-pre-flat-dimension-n}. Choisissons un morphisme \'etale
+surjectif $U' \to U \times_X X'$, où $U'$ est un schéma.
+Nous disposons alors du lemme pour les deux foncteurs
+$F_{U, n}$ et $F_{U', n}$ déterminés par $U' \to U$ et $\mathcal{F}|_U$
+sur $V$, voir
+Compléments sur la platitude, Lemme \ref{flat-lemma-localize-flat-dimension-n}.
+D'autre part, le Lemme \ref{lemma-pre-flat-dimension-n}
+nous dit que, pour tout $T \to Y$, on a
+$F_n(T) = F_{U, n}(V \times_Y T)$
+et
+$F'_n(T) = F_{U', n}(V \times_Y T)$.
+Cela démontre le lemme.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-flat-dimension-n-representable}
+Dans la Situation \ref{situation-flat-dimension-n}.
+Supposons en outre que $f$ soit de présentation finie, que
+$\mathcal{F}$ soit un $\mathcal{O}_X$-module de présentation finie
+et que $\mathcal{F}$ soit pur relativement à $Y$.
+Alors $F_n$ est un espace algébrique et
+$F_n \to Y$ est un monomorphisme de présentation finie.
+\end{theorem}
+
+\begin{proof}
+Le foncteur $F_n$ est un faisceau pour la topologie fppf d'après le
+Lemme \ref{lemma-flat-dimension-n}.
+Puisque $F_n \to Y$ est un monomorphisme de faisceaux sur
+$(\Sch/S)_{fppf}$, nous voyons que $\Delta : F_n \to F_n \times F_n$
+est l'image réciproque de la diagonale $\Delta_Y : Y \to Y \times_S Y$.
+La représentabilité de $\Delta_Y$ implique donc celle
+de la diagonale de $F_n$. Il suffit par conséquent de démontrer
+qu'il existe un schéma $W$ sur $S$ et un morphisme \'etale surjectif
+$W \to F_n$.
+
+\medskip\noindent
+Pour construire $W \to F_n$, choisissons un recouvrement \'etale $\{Y_i \to Y\}$
+où $Y_i$ est un schéma. Soit $X_i = X \times_Y Y_i$ et soit
+$\mathcal{F}_i$ l'image réciproque de $\mathcal{F}$ sur $X_i$.
+Alors $\mathcal{F}_i$ est pur relativement à $Y_i$, soit par définition,
+soit d'après le Lemme \ref{lemma-quasi-finite-base-change}.
+Les autres hypothèses du théorème sont également préservées.
+Enfin, la restriction de $F_n$ à $Y_i$ est
+le foncteur $F_n$ correspondant à $X_i \to Y_i$ et $\mathcal{F}_i$.
+Il suffit donc de montrer ceci : étant donnés $\mathcal{F}$ et $f : X \to Y$
+comme dans l'énoncé du théorème, avec $Y$ schéma, le
+foncteur $F_n$ est représentable par un schéma $Z_n$ et
+$Z_n \to Y$ est un monomorphisme de présentation finie.
+
+\medskip\noindent
+Observons qu'un monomorphisme de présentation finie est
+séparé et quasi-fini (Morphismes, Lemme
+\ref{morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite}).
+Ainsi, en combinant
+Descente, Lemme \ref{descent-lemma-descent-data-sheaves},
+Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+et
+Descente, Lemmes \ref{descent-lemma-descending-property-monomorphism} et
+\ref{descent-lemma-descending-property-finite-presentation}
+nous voyons que la question est locale pour la topologie \'etale sur $Y$.
+
+\medskip\noindent
+En particulier, la situation est locale pour la topologie de Zariski sur $Y$,
+et nous pouvons supposer $Y$ affine. Dans ce cas, la dimension des
+fibres de $f$ est majorée ; $F_n$ est donc représentable
+pour $n$ assez grand. Nous pouvons ainsi raisonner par récurrence descendante sur $n$.
+Supposons que nous sachions $F_{n + 1}$ représentable par un monomorphisme
+$Z_{n + 1} \to Y$ de présentation finie. Considérons le changement de base
+$X_{n + 1} = Z_{n + 1} \times_Y X$ et l'image réciproque $\mathcal{F}_{n + 1}$
+de $\mathcal{F}$ sur $X_{n + 1}$. Le morphisme $Z_{n + 1} \to Y$ est
+quasi-fini, car c'est un monomorphisme de présentation finie ; le
+Lemme \ref{lemma-quasi-finite-base-change}
+implique donc que $\mathcal{F}_{n + 1}$ est pur relativement à $Z_{n + 1}$.
+Puisque $F_n$ est un sous-foncteur de $F_{n + 1}$, nous concluons que, pour
+démontrer le résultat pour $F_n$, il suffit de le démontrer pour le
+foncteur correspondant à la situation
+$\mathcal{F}_{n + 1}/X_{n + 1}/Z_{n + 1}$.
+Nous sommes ainsi ramenés à démontrer le résultat pour $F_n$ dans le cas
+$Y_{n + 1} = Y$, c'est-à-dire que nous pouvons supposer $\mathcal{F}$ plat
+en dimensions $\geq n + 1$ sur $Y$.
+
+\medskip\noindent
+Fixons $n$ et supposons que $\mathcal{F}$ soit plat en dimensions $\geq n + 1$
+sur le schéma affine $Y$.
+Pour achever la démonstration, nous devons montrer que $F_n$ est représentable
+par un monomorphisme $Z_n \to S$ de présentation finie.
+Puisque la question est locale pour la topologie \'etale sur $Y$, il suffit de
+montrer que, pour tout $y \in Y$, il existe un voisinage \'etale
+$(Y', y') \to (Y, y)$ tel que le résultat soit vrai après changement de base à $Y'$.
+Ainsi, d'après le
+Lemme \ref{lemma-existence-complete},
+nous pouvons supposer qu'il existe des morphismes \'etales $h_j : W_j \to X$,
+$j = 1, \ldots, m$, tels que, pour chaque $j$, il existe un dévissage
+complet de $\mathcal{F}_j/W_j/Y$ au-dessus de $y$,
+où $\mathcal{F}_j$ est l'image réciproque de $\mathcal{F}$ sur $W_j$,
+et tels que $|X_y| \subset \bigcup h_j(W_j)$. Puisque
+$h_j$ est \'etale, le
+Lemme \ref{lemma-pre-flat-dimension-n}
+montre que les faisceaux $\mathcal{F}_j$ sont encore plats
+en dimensions $\geq n + 1$ sur $Y$.
+Posons $W = \bigcup h_j(W_j)$, qui est un ouvert quasi-compact de $X$.
+Comme $\mathcal{F}$ est pur le long de $X_y$, nous voyons que
+$$
+E = \{t \in |Y| : \text{Ass}_{X_t}(\mathcal{F}_t) \subset W \}.
+$$
+contient toutes les générisations de $y$. D'après
+Diviseurs sur les espaces,
+Lemme \ref{spaces-divisors-lemma-relative-assassin-constructible},
+$E$ est une partie constructible de $Y$. Nous avons vu que
+$\Spec(\mathcal{O}_{Y, y}) \subset E$. D'après
+Morphismes, Lemme \ref{morphisms-lemma-constructible-containing-open},
+nous voyons que $E$ contient un voisinage ouvert de $y$.
+Ainsi, après avoir restreint $Y$, nous pouvons supposer que $E = Y$.
+Il résulte du
+Lemme \ref{lemma-localize-flat-dimension-n}
+qu'il suffit de démontrer le théorème pour le foncteur $F_n$ associé à
+$X = \coprod W_j$ et $\mathcal{F} = \coprod \mathcal{F}_j$.
+Si $F_{j, n}$ désigne le foncteur associé à $W_j \to Y$ et au faisceau
+$\mathcal{F}_j$, alors $F_n = \prod F_{j, n}$. Il suffit donc
+de démontrer que chaque $F_{j, n}$ est représentable par un monomorphisme
+$Z_{j, n} \to Y$ de présentation finie, puisque alors
+$$
+Z_n = Z_{1, n} \times_Y \ldots \times_Y Z_{m, n}
+$$
+Nous avons ainsi ramené le théorème au cas particulier traité dans
+Compléments sur la platitude, Lemme \ref{flat-lemma-flat-dimension-n-representable}.
+\end{proof}
+
+\noindent
+Nous obtenons enfin le résultat souhaité.
+
+\begin{lemma}
+\label{lemma-when-universal-flattening}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+\begin{enumerate}
+\item Si $f$ est de présentation finie, si $\mathcal{F}$ est un
+$\mathcal{O}_X$-module de présentation finie et si $\mathcal{F}$ est
+pur relativement à $Y$, alors il existe un aplatissement universel
+$Y' \to Y$ de $\mathcal{F}$. De plus, $Y' \to Y$ est un monomorphisme
+de présentation finie.
+\item Si $f$ est de présentation finie et si $X$ est pur relativement à $Y$,
+alors il existe un aplatissement universel $Y' \to Y$ de $X$.
+De plus, $Y' \to Y$ est un monomorphisme de présentation finie.
+\item Si $f$ est propre et de présentation finie et si $\mathcal{F}$ est un
+$\mathcal{O}_X$-module de présentation finie, alors il existe un
+aplatissement universel $Y' \to Y$ de $\mathcal{F}$. De plus, $Y' \to Y$ est
+un monomorphisme de présentation finie.
+\item Si $f$ est propre et de présentation finie,
+alors il existe un aplatissement universel $Y' \to Y$ de $X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Ces assertions résultent immédiatement du
+Théorème \ref{theorem-flat-dimension-n-representable}
+appliqué à $F_0 = F_{flat}$,
+et du fait que, si $f$ est propre, alors $\mathcal{F}$ est automatiquement
+pur sur la base, voir
+Lemme \ref{lemma-proper-pure}.
+\end{proof}
+
+
+
+
+
+
+\section{Théorème d'existence de Grothendieck}
+\label{section-existence}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur la platitude, Section \ref{flat-section-existence},
+et poursuit l'étude menée dans
+Compléments sur les morphismes d'espaces, Section
+\ref{spaces-more-morphisms-section-existence-proper}.
+Nous travaillerons dans la situation suivante.
+
+\begin{situation}
+\label{situation-existence}
+Nous avons ici un système projectif d'anneaux $(A_n)$ dont les applications
+de transition sont surjectives et ont des noyaux localement nilpotents. Posons $A = \lim A_n$. Soit
+$X$ un espace algébrique séparé et de présentation finie sur $A$.
+Posons $X_n = X \times_{\Spec(A)} \Spec(A_n)$ et considérons-le
+comme un sous-espace fermé de $X$. Supposons en outre donné un système
+$(\mathcal{F}_n, \varphi_n)$, où $\mathcal{F}_n$ est un
+$\mathcal{O}_{X_n}$-module de présentation finie, plat sur $A_n$, de support propre sur $A_n$,
+et où
+$$
+\varphi_n :
+\mathcal{F}_n \otimes_{\mathcal{O}_{X_n}} \mathcal{O}_{X_{n - 1}}
+\longrightarrow
+\mathcal{F}_{n - 1}
+$$
+est un isomorphisme (notation utilisant l'équivalence de
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-i-star-equivalence}).
+\end{situation}
+
+\noindent
+Notre but est de déterminer si l'on peut trouver un faisceau quasi-cohérent $\mathcal{F}$
+sur $X$ tel que
+$\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_{X_n}$
+pour tout $n$.
+
+\begin{lemma}
+\label{lemma-compute-what-it-should-be}
+Dans la Situation \ref{situation-existence}, considérons
+$$
+K = R\lim_{D_\QCoh(\mathcal{O}_X)}(\mathcal{F}_n) =
+DQ_X(R\lim_{D(\mathcal{O}_X)}\mathcal{F}_n)
+$$
+Alors $K$ appartient à $D^b_{\QCoh}(\mathcal{O}_X)$ et, en fait,
+$K$ n'a de faisceaux de cohomologie non nuls qu'en degrés $\geq 0$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier de
+Catégories dérivées des espaces, Exemple
+\ref{spaces-perfect-example-inverse-limit-quasi-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-against-perfect}
+Dans la Situation \ref{situation-existence}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be}. Pour tout objet parfait
+$E$ de $D(\mathcal{O}_X)$, on a :
+\begin{enumerate}
+\item $M = R\Gamma(X, K \otimes^\mathbf{L} E)$ est un objet parfait de $D(A)$,
+et il existe un isomorphisme canonique
+$R\Gamma(X_n, \mathcal{F}_n \otimes^\mathbf{L} E|_{X_n}) =
+M \otimes_A^\mathbf{L} A_n$
+dans $D(A_n)$,
+\item $N = R\Hom_X(E, K)$ est un objet parfait de $D(A)$,
+et il existe un isomorphisme canonique
+$R\Hom_{X_n}(E|_{X_n}, \mathcal{F}_n) = N \otimes_A^\mathbf{L} A_n$
+dans $D(A_n)$.
+\end{enumerate}
+Dans les deux assertions, $E|_{X_n}$ désigne l'image réciproque dérivée
+de $E$ sur $X_n$.
+\end{lemma}
+
+\begin{proof}
+Preuve de (2). Écrivons $E_n = E|_{X_n}$ et
+$N_n = R\Hom_{X_n}(E_n, \mathcal{F}_n)$.
+Rappelons que $R\Hom_{X_n}(-, -)$ est égal à
+$R\Gamma(X_n, R\SheafHom(-, -))$, voir
+Cohomologie sur les sites, Section \ref{sites-cohomology-section-global-RHom}.
+Ainsi, d'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-base-change-RHom-perfect}
+le complexe $N_n$ est un objet parfait de $D(A_n)$
+dont la formation commute au changement de base. Ainsi, les applications
+$N_n \otimes_{A_n}^\mathbf{L} A_{n - 1} \to N_{n - 1}$
+provenant de $\varphi_n$ sont des isomorphismes.
+D'après Compléments d'algèbre, Lemme \ref{more-algebra-lemma-Rlim-perfect-gives-perfect},
+$R\lim N_n$ est parfait et
+son changement de base à $A_n$ redonne $N_n$.
+D'autre part, le foncteur exact
+$R\Hom_X(E, -) : D_\QCoh(\mathcal{O}_X) \to D(A)$
+de catégories triangulées commute aux produits,
+donc aux limites dérivées ; par conséquent,
+$$
+R\Hom_X(E, K) =
+R\lim R\Hom_X(E, \mathcal{F}_n) =
+R\lim R\Hom_X(E_n, \mathcal{F}_n) =
+R\lim N_n
+$$
+Cela démontre (2). Pour obtenir (1), on le reformule sous la forme (2)
+à l'aide de Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-dual-perfect-complex}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-pseudo-coherence}
+Dans la Situation \ref{situation-existence}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be}. Alors $K$
+est pseudo-cohérent relativement à $A$.
+\end{lemma}
+
+\begin{proof}
+En combinant le Lemme \ref{lemma-compute-against-perfect} et
+Catégories dérivées des espaces, Lemme \ref{spaces-perfect-lemma-perfect-enough},
+nous voyons que $R\Gamma(X, K \otimes^\mathbf{L} E)$
+est pseudo-cohérent dans $D(A)$ pour tout objet pseudo-cohérent
+$E$ de $D(\mathcal{O}_X)$. Le lemme résulte donc de
+Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-characterize-pseudo-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-over-affine}
+Dans la Situation \ref{situation-existence}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be}. Pour tout
+morphisme \'etale $U \to X$, avec $U$ quasi-compact et quasi-séparé, on a
+$$
+R\Gamma(U, K) \otimes_A^\mathbf{L} A_n =
+R\Gamma(U_n, \mathcal{F}_n)
+$$
+dans $D(A_n)$, où $U_n = U \times_X X_n$.
+\end{lemma}
+
+\begin{proof}
+Fixons $n$. D'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-computing-sections-as-colim}
+il existe un système de complexes parfaits $E_m$
+sur $X$ tel que
+$R\Gamma(U, K) = \text{hocolim} R\Gamma(X, K \otimes^\mathbf{L} E_m)$.
+En fait, cette formule vaut non seulement pour $K$, mais pour tout objet de
+$D_\QCoh(\mathcal{O}_X)$.
+En l'appliquant à $\mathcal{F}_n$,
+nous obtenons
+\begin{align*}
+R\Gamma(U_n, \mathcal{F}_n)
+& =
+R\Gamma(U, \mathcal{F}_n) \\
+& =
+\text{hocolim}_m R\Gamma(X, \mathcal{F}_n \otimes^\mathbf{L} E_m) \\
+& =
+\text{hocolim}_m R\Gamma(X_n, \mathcal{F}_n \otimes^\mathbf{L} E_m|_{X_n})
+\end{align*}
+En utilisant le Lemme \ref{lemma-compute-against-perfect}
+et le fait que $- \otimes_A^\mathbf{L} A_n$
+commute aux colimites homotopiques, nous obtenons le résultat.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finitely-presented}
+Dans la Situation \ref{situation-existence}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be}.
+Notons $X_0 \subset |X|$ la partie fermée
+formée des points situés au-dessus de la partie fermée
+$\Spec(A_1) = \Spec(A_2) = \ldots$ de $\Spec(A)$.
+Il existe un sous-espace ouvert $W \subset X$ contenant $X_0$
+tel que
+\begin{enumerate}
+\item $H^i(K)|_W$ soit nul sauf si $i = 0$,
+\item $\mathcal{F} = H^0(K)|_W$ soit de présentation finie, et
+\item $\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_{X_n}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Fixons $n \geq 1$. Par construction, il existe une application canonique
+$K \to \mathcal{F}_n$ dans $D_\QCoh(\mathcal{O}_X)$,
+et donc une application canonique $H^0(K) \to \mathcal{F}_n$
+de faisceaux quasi-cohérents. Cela précise le sens de la partie (3).
+
+\medskip\noindent
+Soit $x \in X_0$ un point. Nous allons trouver un voisinage ouvert $W$
+de $x$ où (1), (2) et (3) sont vraies. Puisque $X_0$ est quasi-compact,
+cela démontrera le lemme. Soit $U \to X$ un morphisme \'etale,
+avec $U$ affine, et soit $u \in U$ un point s'envoyant sur $x$. Puisque $|U| \to |X|$
+est ouvert, il suffit de trouver un voisinage ouvert de $u$ dans $U$
+où (1), (2) et (3) sont vraies. Écrivons $U = \Spec(B)$.
+Choisissons une surjection $P \to B$, avec $P$ lisse sur $A$.
+D'après le Lemme \ref{lemma-relative-pseudo-coherence}
+et la définition de la pseudo-cohérence relative,
+il existe un complexe borné supérieurement $F^\bullet$
+de $P$-modules libres de rang fini représentant
+$Ri_*K$, où $i : U \to \Spec(P)$ est l'immersion
+fermée induite par la présentation.
+Soit $M_n$ le $B$-module correspondant à $\mathcal{F}_n|_U$.
+D'après le Lemme \ref{lemma-compute-over-affine},
+$$
+H^i(F^\bullet \otimes_A A_n) =
+\left\{
+\begin{matrix}
+0 & \text{si} & i \not = 0 \\
+M_n & \text{si} & i = 0
+\end{matrix}
+\right.
+$$
+Soit $i$ l'indice maximal tel que $F^i$ soit non nul.
+Si $i \leq 0$, alors (1), (2) et (3) sont vraies.
+Sinon, $i > 0$, et nous voyons que le rang de l'application
+$$
+F^{i - 1} \to F^i
+$$
+au point $u$ est maximal. Il est donc maximal dans un voisinage ouvert
+de $u$ dans $\Spec(P)$. Ainsi, après avoir remplacé
+$P$ par une localisation principale, nous pouvons supposer que l'application affichée
+est surjective. Puisque $F^i$ est libre de rang fini, nous pouvons choisir
+une décomposition $F^{i - 1} = F' \oplus F^i$. Nous pouvons alors
+remplacer $F^\bullet$ par le complexe
+$$
+\ldots \to F^{i - 2} \to F' \to 0 \to \ldots
+$$
+et conclure par récurrence sur $i$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-support}
+Dans la Situation \ref{situation-existence}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be}. Soit $W \subset X$
+comme dans le Lemme \ref{lemma-finitely-presented}.
+Posons $\mathcal{F} = H^0(K)|_W$. Alors, quitte à restreindre l'ouvert $W$,
+le support de $\mathcal{F}$ est propre sur $A$.
+\end{lemma}
+
+\begin{proof}
+Fixons $n \geq 1$. Soit $I_n = \Ker(A \to A_n)$.
+D'après Compléments d'algèbre, Lemme \ref{more-algebra-lemma-limit-henselian},
+la paire $(A, I_n)$ est hensélienne.
+Soit $Z \subset W$ le support schématique de $\mathcal{F}$.
+C'est un sous-espace fermé, puisque $\mathcal{F}$ est de présentation finie.
+D'après la partie (3) du Lemme \ref{lemma-finitely-presented},
+$Z \times_{\Spec(A)} \Spec(A_n)$
+est égal au support de $\mathcal{F}_n$, et est donc
+propre sur $\Spec(A/I)$.
+D'après Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-split-off-proper-part-henselian}
+nous pouvons écrire $Z = Z_1 \amalg Z_2$, avec $Z_1, Z_2$ ouverts et
+fermés dans $Z$, avec $Z_1$ propre
+sur $A$, et avec $Z_1 \times_{\Spec(A)} \Spec(A/I_n)$
+égal au support de $\mathcal{F}_n$.
+Autrement dit, $|Z_2|$ ne rencontre pas $X_0$.
+Ainsi, en remplaçant $W$ par $W \setminus Z_2$, nous obtenons le lemme.
+\end{proof}
+
+\begin{theorem}[Théorème d'existence de Grothendieck]
+\label{theorem-existence}
+Dans la Situation \ref{situation-existence},
+il existe un $\mathcal{O}_X$-module de présentation finie
+$\mathcal{F}$, plat sur $A$, de support propre sur $A$,
+tel que
+$\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_{X_n}$
+pour tout $n$, de manière compatible avec les applications $\varphi_n$.
+\end{theorem}
+
+\begin{proof}
+Appliquons les Lemmes \ref{lemma-compute-what-it-should-be},
+\ref{lemma-compute-against-perfect},
+\ref{lemma-relative-pseudo-coherence},
+\ref{lemma-compute-over-affine},
+\ref{lemma-finitely-presented} et
+\ref{lemma-proper-support}
+pour obtenir un sous-espace ouvert $W \subset X$ contenant tous les points
+au-dessus de $\Spec(A_n)$
+et un $\mathcal{O}_W$-module $\mathcal{F}$ de présentation finie,
+dont le support est propre sur $A$ et tel que
+$\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_W} \mathcal{O}_{X_n}$
+pour tout $n \geq 1$. (Cela a un sens puisque $X_n \subset W$.)
+D'après le Lemme \ref{lemma-proper-pure}, $\mathcal{F}$
+est universellement pur relativement à $\Spec(A)$.
+D'après le Théorème \ref{theorem-flat-dimension-n-representable}
+(pour des explications, voir le Lemme \ref{lemma-when-universal-flattening}),
+il existe un aplatissement universel $S' \to \Spec(A)$
+de $\mathcal{F}$ et, de plus, le morphisme $S' \to \Spec(A)$
+est un monomorphisme de présentation finie.
+En particulier, $S'$ est un schéma (cela résulte de la démonstration
+du théorème, mais aussi a posteriori de
+Morphismes d'espaces, Proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}).
+Puisque le changement de base de $\mathcal{F}$ à $\Spec(A_n)$
+est $\mathcal{F}_n$, nous voyons que $\Spec(A_n) \to \Spec(A)$
+se factorise (uniquement) par $S'$ pour tout $n$.
+D'après Compléments sur la platitude, Lemme \ref{flat-lemma-monomorphism-isomorphism},
+nous avons $S' = \Spec(A)$.
+Cela signifie que $\mathcal{F}$ est plat sur $A$.
+Enfin, puisque le support schématique $Z$ de $\mathcal{F}$
+est propre sur $\Spec(A)$, le morphisme $Z \to X$ est fermé.
+Par conséquent, l'image directe $(W \to X)_*\mathcal{F}$ est supportée
+sur $W$ et possède toutes les propriétés voulues.
+\end{proof}
+
+
+
+
+
+
+
+\section{Théorème d'existence de Grothendieck, bis}
+\label{section-existence-derived}
+
+\noindent
+Dans cette section, nous démontrons un analogue du théorème d'existence de Grothendieck
+dans la catégorie dérivée, en suivant la méthode utilisée à la
+Section \ref{section-existence} pour les modules quasi-cohérents.
+Cette section est l'analogue, pour les espaces algébriques, de
+Compléments sur la platitude, Section \ref{flat-section-existence-derived}.
+Le cas classique (pour les espaces algébriques)
+est étudié dans Compléments sur les morphismes d'espaces, Section
+\ref{spaces-more-morphisms-section-existence-proper}.
+Nous travaillerons dans la situation suivante.
+
+\begin{situation}
+\label{situation-existence-derived}
+Nous avons ici un système projectif d'anneaux $(A_n)$ dont les applications
+de transition sont surjectives et ont des noyaux localement nilpotents. Posons $A = \lim A_n$. Soit
+$X$ un espace algébrique propre, plat et de présentation finie sur $A$.
+Posons $X_n = X \times_{\Spec(A)} \Spec(A_n)$ et considérons-le
+comme un sous-espace fermé de $X$. Supposons en outre donné un système
+$(K_n, \varphi_n)$, où $K_n$ est un objet pseudo-cohérent de
+$D(\mathcal{O}_{X_n})$ et
+$$
+\varphi_n : K_n \longrightarrow K_{n - 1}
+$$
+est une application dans $D(\mathcal{O}_{X_n})$ qui induit un isomorphisme
+$K_n \otimes_{\mathcal{O}_{X_n}}^\mathbf{L} \mathcal{O}_{X_{n - 1}}
+\to K_{n - 1}$ dans $D(\mathcal{O}_{X_{n - 1}})$.
+\end{situation}
+
+\noindent
+Plus précisément, il faudrait écrire
+$\varphi_n : K_n \to Ri_{n - 1, *}K_{n - 1}$
+où $i_{n - 1} : X_{n - 1} \to X_n$ est le morphisme d'inclusion ;
+avec cette notation, la condition est que l'application adjointe
+$Li_{n - 1}^*K_n \to K_{n - 1}$ soit un isomorphisme.
+Notre but est de trouver un $K \in D(\mathcal{O}_X)$ pseudo-cohérent
+tel que $K_n = K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_{X_n}$
+pour tout $n$ (avec le même abus de notation).
+
+\begin{lemma}
+\label{lemma-compute-what-it-should-be-derived}
+Dans la Situation \ref{situation-existence-derived}, considérons
+$$
+K = R\lim_{D_\QCoh(\mathcal{O}_X)}(K_n) =
+DQ_X(R\lim_{D(\mathcal{O}_X)} K_n)
+$$
+Alors $K$ appartient à $D^-_{\QCoh}(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $DQ_X$ existe car $X$ est quasi-compact et
+quasi-séparé, voir Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-better-coherator}.
+Puisque $DQ_X$ est un adjoint à droite, il commute aux produits,
+et donc aux limites dérivées. On obtient ainsi l'égalité
+de l'énoncé du lemme.
+
+\medskip\noindent
+D'après Catégories dérivées des espaces,
+Lemme \ref{spaces-perfect-lemma-boundedness-better-coherator},
+le foncteur $DQ_X$ est de dimension cohomologique bornée.
+Il suffit donc de montrer que $R\lim K_n \in D^-(\mathcal{O}_X)$.
+Pour cela, soit $U \to X$ un morphisme \'etale, avec $U$ affine.
+Il existe alors une suite exacte canonique
+$$
+0 \to
+R^1\lim H^{m - 1}(U, K_n) \to H^m(U, R\lim K_n) \to
+\lim H^m(U, K_n) \to 0
+$$
+d'après Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-RGamma-commutes-with-Rlim}.
+Puisque $U$ est affine et $K_n$ pseudo-cohérent (et possède donc des
+faisceaux de cohomologie quasi-cohérents d'après
+Catégories dérivées des espaces, Lemme \ref{spaces-perfect-lemma-pseudo-coherent}),
+nous avons $H^m(U, K_n) = H^m(K_n)(U)$ d'après
+Catégories dérivées des schémas, Lemme \ref{perfect-lemma-affine-compare-bounded}.
+Il suffit donc de montrer que les $K_n$ sont
+bornés supérieurement indépendamment de $n$.
+
+\medskip\noindent
+Puisque $K_n$ est pseudo-cohérent, on a $K_n \in D^-(\mathcal{O}_{X_n})$.
+Supposons que $a_n$ soit maximal tel que $H^{a_n}(K_n)$ soit non nul.
+Bien entendu, $a_1 \leq a_2 \leq a_3 \leq \ldots$.
+Remarquons que $H^{a_n}(K_n)$ est un
+$\mathcal{O}_{X_n}$-module de présentation finie
+(Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-finite-cohomology}).
+Nous avons $H^{a_n}(K_{n - 1}) =
+H^{a_n}(K_n) \otimes_{\mathcal{O}_{X_n}} \mathcal{O}_{X_{n - 1}}$.
+Puisque $X_{n - 1} \to X_n$ est un épaississement, le
+lemme de Nakayama (Algèbre, Lemme \ref{algebra-lemma-NAK}) montre que, si
+$H^{a_n}(K_n) \otimes_{\mathcal{O}_{X_n}} \mathcal{O}_{X_{n - 1}}$
+est nul, alors $H^{a_n}(K_n)$ l'est aussi (on peut par exemple vérifier
+sur les germes ; ce petit détail est omis).
+Ainsi $a_{n - 1} = a_n$ pour tout $n$, ce qui permet de conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-against-perfect-derived}
+Dans la Situation \ref{situation-existence-derived}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be-derived}. Pour tout objet parfait
+$E$ de $D(\mathcal{O}_X)$, la cohomologie
+$$
+M = R\Gamma(X, K \otimes^\mathbf{L} E)
+$$
+est un objet pseudo-cohérent de $D(A)$ et il existe un isomorphisme canonique
+$$
+R\Gamma(X_n, K_n \otimes^\mathbf{L} E|_{X_n}) = M \otimes_A^\mathbf{L} A_n
+$$
+dans $D(A_n)$. Ici, $E|_{X_n}$ désigne l'image réciproque dérivée de $E$ sur $X_n$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $E_n = E|_{X_n}$ et
+$M_n = R\Gamma(X_n, K_n \otimes^\mathbf{L} E|_{X_n})$.
+D'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-flat-proper-pseudo-coherent-direct-image-general}
+nous voyons que $M_n$ est un objet pseudo-cohérent de $D(A_n)$
+dont la formation commute au changement de base. Ainsi, les applications
+$M_n \otimes_{A_n}^\mathbf{L} A_{n - 1} \to M_{n - 1}$
+provenant de $\varphi_n$ sont des isomorphismes. D'après
+Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-Rlim-pseudo-coherent-gives-pseudo-coherent}
+$R\lim M_n$ est pseudo-cohérent et
+son changement de base à $A_n$ redonne $M_n$.
+D'autre part, le foncteur exact
+$R\Gamma(X, -) : D_\QCoh(\mathcal{O}_X) \to D(A)$
+de catégories triangulées commute aux produits,
+donc aux limites dérivées ; par conséquent,
+$$
+R\Gamma(X, E \otimes^\mathbf{L} K) =
+R\lim R\Gamma(X,  E \otimes^\mathbf{L} K_n) =
+R\lim R\Gamma(X_n, E_n \otimes^\mathbf{L} K_n) =
+R\lim M_n
+$$
+comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-pseudo-coherence-derived}
+Dans la Situation \ref{situation-existence-derived}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be-derived}. Alors $K$
+est pseudo-cohérent sur $X$.
+\end{lemma}
+
+\begin{proof}
+En combinant le Lemme \ref{lemma-compute-against-perfect-derived} et
+Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-perfect-enough}
+nous voyons que $R\Gamma(X, K \otimes^\mathbf{L} E)$
+est pseudo-cohérent dans $D(A)$ pour tout objet pseudo-cohérent
+$E$ de $D(\mathcal{O}_X)$. Il résulte donc de
+Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-characterize-pseudo-coherent}
+que $K$ est pseudo-cohérent relativement à $A$.
+Puisque $X$ est plat et de présentation finie
+sur $A$, cela équivaut à être pseudo-cohérent sur $X$, voir
+Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-relative-pseudo-coherent-is-moot}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-over-affine-derived}
+Dans la Situation \ref{situation-existence-derived}, soit $K$ comme dans le
+Lemme \ref{lemma-compute-what-it-should-be-derived}. Pour tout
+morphisme \'etale $U \to X$, avec $U$ quasi-compact et quasi-séparé, on a
+$$
+R\Gamma(U, K) \otimes_A^\mathbf{L} A_n =
+R\Gamma(U_n, K_n)
+$$
+dans $D(A_n)$, où $U_n = U \times_X X_n$.
+\end{lemma}
+
+\begin{proof}
+Fixons $n$. D'après Catégories dérivées des espaces, Lemme
+\ref{spaces-perfect-lemma-computing-sections-as-colim}
+il existe un système de complexes parfaits $E_m$
+sur $X$ tel que
+$R\Gamma(U, K) = \text{hocolim} R\Gamma(X, K \otimes^\mathbf{L} E_m)$.
+En fait, cette formule vaut non seulement pour $K$, mais pour tout objet de
+$D_\QCoh(\mathcal{O}_X)$.
+En l'appliquant à $K_n$,
+nous obtenons
+\begin{align*}
+R\Gamma(U_n, K_n)
+& =
+R\Gamma(U, K_n) \\
+& =
+\text{hocolim}_m R\Gamma(X, K_n \otimes^\mathbf{L} E_m) \\
+& =
+\text{hocolim}_m R\Gamma(X_n, K_n \otimes^\mathbf{L} E_m|_{X_n})
+\end{align*}
+En utilisant le Lemme \ref{lemma-compute-against-perfect-derived}
+et le fait que $- \otimes_A^\mathbf{L} A_n$
+commute aux colimites homotopiques, nous obtenons le résultat.
+\end{proof}
+
+\begin{theorem}[Théorème d'existence de Grothendieck dérivé]
+\label{theorem-existence-derived}
+Dans la Situation \ref{situation-existence-derived},
+il existe un $K$ pseudo-cohérent dans $D(\mathcal{O}_X)$
+tel que $K_n = K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_{X_n}$
+pour tout $n$, de manière compatible avec les applications $\varphi_n$.
+\end{theorem}
+
+\begin{proof}
+Appliquons les Lemmes \ref{lemma-compute-what-it-should-be-derived},
+\ref{lemma-compute-against-perfect-derived},
+\ref{lemma-relative-pseudo-coherence-derived}
+pour obtenir un objet pseudo-cohérent $K$ de $D(\mathcal{O}_X)$.
+En choisissant $U$ affine dans le Lemme
+\ref{lemma-compute-over-affine-derived}
+on voit immédiatement que $K$ se restreint en $K_n$ sur $X_n$.
+\end{proof}
+
+\begin{remark}
+\label{remark-correct-generality}
+Le résultat de cette section peut être généralisé. Il est probablement vrai
+si l'on suppose seulement que $X \to \Spec(A)$ est séparé et de présentation finie,
+et que $K_n$ est pseudo-cohérent relativement à $A_n$ et supporté par une partie
+fermée de $X_n$ propre sur $A_n$. On obtiendra alors un $K$
+pseudo-cohérent relativement à $A$ et supporté par une partie fermée
+propre sur $A$. Si cela nous est un jour nécessaire, nous
+formulerons ici un énoncé précis et le démontrerons.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

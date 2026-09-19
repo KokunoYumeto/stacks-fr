@@ -1,0 +1,3205 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Compléments sur les schémas en groupoïdes}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Ce chapitre est consacré à des sujets avancés sur les schémas en groupoïdes.
+Bien que les résultats soient énoncés en termes de schémas en groupoïdes, le
+lecteur doit garder à l'esprit le diagramme $2$-cartésien
+\begin{equation}
+\label{equation-quotient-stack}
+\vcenter{
+\xymatrix{
+R \ar[r] \ar[d] & U \ar[d] \\
+U \ar[r] & [U/R]
+}
+}
+\end{equation}
+où $[U/R]$ est le champ quotient, voir
+Groupoïdes dans les espaces, Remarque \ref{spaces-groupoids-remark-fundamental-square}.
+Nombre de résultats sont motivés par la considération de ce diagramme.
+Voir par exemple le très bel article \cite{K-M} de Keel et Mori.
+
+
+
+
+
+\section{Notations}
+\label{section-notation}
+
+\noindent
+Nous continuons à suivre les conventions et les notations introduites dans
+Groupoïdes, Section \ref{groupoids-section-notation}.
+
+
+
+
+
+
+\section{Diagrammes utiles}
+\label{section-diagrams}
+
+\noindent
+Nous rappelons brièvement les résultats des
+Lemmes \ref{groupoids-lemma-diagram} et
+\ref{groupoids-lemma-diagram-pull} de Groupoïdes,
+afin de pouvoir nous y référer aisément dans ce chapitre.
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur $S$.
+Dans le diagramme commutatif
+\begin{equation}
+\label{equation-diagram}
+\vcenter{
+\xymatrix{
+& U & \\
+R \ar[d]_s \ar[ru]^t &
+R \times_{s, U, t} R
+\ar[l]^-{\text{pr}_0} \ar[d]^{\text{pr}_1} \ar[r]_-c &
+R \ar[d]^s \ar[lu]_t \\
+U & R \ar[l]_t \ar[r]^s & U
+}
+}
+\end{equation}
+les deux carrés inférieurs sont des carrés de produit fibré.
+De plus, le triangle supérieur (qui est en réalité un carré)
+est lui aussi cartésien.
+
+\medskip\noindent
+Le diagramme
+\begin{equation}
+\label{equation-pull}
+\vcenter{
+\xymatrix{
+R \times_{t, U, t} R
+\ar@<1ex>[r]^-{\text{pr}_1} \ar@<-1ex>[r]_-{\text{pr}_0}
+\ar[d]_{\text{pr}_0 \times c \circ (i, 1)} &
+R \ar[r]^t \ar[d]^{\text{id}_R} &
+U \ar[d]^{\text{id}_U} \\
+R \times_{s, U, t} R
+\ar@<1ex>[r]^-c \ar@<-1ex>[r]_-{\text{pr}_0} \ar[d]_{\text{pr}_1} &
+R \ar[r]^t \ar[d]^s &
+U \\
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U
+}
+}
+\end{equation}
+est commutatif. Les deux lignes supérieures sont isomorphes par les applications verticales indiquées.
+Les deux carrés inférieurs de gauche sont cartésiens.
+
+
+
+
+
+\section{Faisceau des différentielles}
+\label{section-differentials}
+
+\noindent
+Le lemme suivant est l'analogue du
+Lemme \ref{groupoids-lemma-group-scheme-module-differentials} de Groupoïdes.
+
+\begin{lemma}
+\label{lemma-sheaf-differentials}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur $S$.
+Le faisceau des différentielles de $R$, considéré comme un schéma sur
+$U$ par $t$, est un quotient de l'image réciproque par $t$ du faisceau conormal de
+l'immersion $e : U \to R$. En formule : il existe une surjection canonique
+$t^*\mathcal{C}_{U/R} \to \Omega_{R/U}$. Si $s$ est plat, alors
+cette application est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Notons que $e : U \to R$ est une immersion, puisqu'il s'agit d'une section
+du morphisme $s$, voir
+Schémas, Lemme \ref{schemes-lemma-section-immersion}.
+Considérons le diagramme suivant
+$$
+\xymatrix{
+R \ar[r]_-{(1, i)} \ar[d]_t &
+R \times_{s, U, t} R \ar[d]^c \ar[rr]_{(\text{pr}_0, i \circ \text{pr}_1)} & &
+R \times_{t, U, t} R \\
+U \ar[r]^e &
+R
+}
+$$
+Le carré de gauche est cartésien, car si $a \circ b = e$, alors
+$b = i(a)$. La composée des applications horizontales est le
+morphisme diagonal de $t : R \to U$. La flèche horizontale supérieure droite est un
+isomorphisme. Puisque $\Omega_{R/U}$ est le faisceau conormal de la
+composée, il est isomorphe au faisceau conormal de
+$(1, i)$. Par le
+Lemme \ref{morphisms-lemma-conormal-functorial-flat} de Morphismes,
+nous obtenons la surjection $t^*\mathcal{C}_{U/R} \to \Omega_{R/U}$,
+et, si $c$ est plat, il s'agit d'un isomorphisme. Puisque $c$ est un changement de base
+de $s$ d'après les propriétés du Diagramme (\ref{equation-pull}),
+nous concluons que, si $s$ est plat, alors $c$ est plat, voir
+Morphismes, Lemme \ref{morphisms-lemma-base-change-flat}.
+\end{proof}
+
+
+
+
+
+
+\section{Structure locale}
+\label{section-local}
+
+\noindent
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c, e, i)$ un schéma en groupoïdes sur $S$.
+Soit $u \in U$ un point. Dans cette section, nous expliquons quelle
+structure nous obtenons sur les anneaux locaux
+$$
+A = \mathcal{O}_{U, u}
+\quad\text{et}\quad
+B = \mathcal{O}_{R, e(u)}
+$$
+Nous conviendrons de désigner les homomorphismes d'anneaux locaux
+induits par les morphismes $s, t, c, e, i$ par les lettres correspondantes.
+En particulier, nous avons un diagramme commutatif
+$$
+\xymatrix{
+A \ar[rd]_t \ar[rrd]^1 \\
+& B \ar[r]^e & A \\
+A \ar[ru]^s \ar[rru]_1
+}
+$$
+d'anneaux locaux. Ainsi, si $I \subset B$ désigne le noyau de $e : B \to A$,
+alors $B = s(A) \oplus I = t(A) \oplus I$. Notons
+$$
+C = \mathcal{O}_{R \times_{s, U, t} R, (e(u), e(u))}
+$$
+Nous avons alors
+$$
+C = (B \otimes_{s, A, t} B)_{\mathfrak m_B \otimes B + B \otimes \mathfrak m_B}
+$$
+Soit $J \subset C$ l'idéal de $C$ engendré par $I \otimes B + B \otimes I$.
+Alors $J$ est également le noyau de l'homomorphisme d'anneaux locaux
+$$
+(e, e) : C \longrightarrow A
+$$
+La loi de composition $c : R \times_{s, U, t} R \to R$ correspond à un
+homomorphisme d'anneaux
+$$
+c : B \longrightarrow C
+$$
+envoyant $I$ dans $J$.
+
+\begin{lemma}
+\label{lemma-first-order-structure-c}
+L'application $I/I^2 \to J/J^2$ induite par $c$ est la composée
+$$
+I/I^2 \xrightarrow{(1, 1)} I/I^2 \oplus I/I^2 \to J/J^2
+$$
+où la seconde flèche provient de l'égalité
+$J = (I \otimes B + B \otimes I)C$.
+L'application $i : B \to B$ induit l'application $-1 : I/I^2 \to I/I^2$.
+\end{lemma}
+
+\begin{proof}
+Pour décrire un homomorphisme local de $C$ vers un autre anneau local,
+il suffit d'indiquer ce qu'il advient des éléments de la forme
+$b_1 \otimes b_2$. En gardant cela à l'esprit, nous avons les deux applications canoniques
+$$
+e_2 : C \to B,\ b_1 \otimes b_2 \mapsto b_1s(e(b_2)),\quad
+e_1 : C \to B,\ b_1 \otimes b_2 \mapsto t(e(b_1))b_2
+$$
+correspondant aux applications
+$R \to R \times_{s, U, t} R$ données par
+$r \mapsto (r, e(s(r)))$ et $r \mapsto (e(t(r)), r)$.
+Ces applications définissent des applications $J/J^2 \to I/I^2$ qui, ensemble,
+donnent un inverse de l'application $I/I^2 \oplus I/I^2 \to J/J^2$
+du lemme. Ainsi, pour démontrer l'assertion, il nous suffit de montrer
+que $e_1 \circ c : B \to B$ et $e_2 \circ c : B \to B$
+sont les applications identiques. Cela résulte du fait que les deux
+composées $R \to R \times_{s, U, t} R \to R$ sont des identités.
+
+\medskip\noindent
+L'assertion concernant $i$ résulte de celle concernant $c$ et du
+fait que $c \circ (1, i) = e \circ t$. Nous omettons quelques détails.
+\end{proof}
+
+
+
+
+
+
+\section{Propriétés des groupoïdes}
+\label{section-technical-lemma}
+
+\noindent
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes.
+L'idée qui sous-tend les résultats de cette section est que $s: R \to U$
+est un changement de base du morphisme $U \to [U/R]$ (voir
+le Diagramme (\ref{equation-quotient-stack})).
+Les propriétés locales de $s : R \to U$ devraient donc refléter les
+propriétés locales du morphisme $U \to [U/R]$.
+Cela ne fonctionne pas, car $[U/R]$ n'est pas toujours un champ algébrique et
+nous ne pouvons donc pas parler des propriétés géométriques ou algébriques de
+$U \to [U/R]$.
+Il s'avère toutefois que nous pouvons en récupérer une partie sans même
+faire référence au champ quotient.
+
+\medskip\noindent
+Voici un premier exemple d'un tel résultat. Grosso modo, l'ouvert $W \subset U'$
+trouvé dans le lemme est le lieu où le morphisme
+$U' \to [U/R]$ possède la propriété $\mathcal{P}$.
+
+\begin{lemma}
+\label{lemma-local-source}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c, e, i)$ un groupoïde sur $S$.
+Soit $g : U' \to U$ un morphisme de schémas.
+Notons $h$ la composée
+$$
+\xymatrix{
+h : U' \times_{g, U, t} R \ar[r]_-{\text{pr}_1} & R \ar[r]_s & U.
+}
+$$
+Soient $\mathcal{P}, \mathcal{Q}, \mathcal{R}$ des propriétés de morphismes
+de schémas. Supposons que
+\begin{enumerate}
+\item $\mathcal{R} \Rightarrow \mathcal{Q}$,
+\item $\mathcal{Q}$ est préservée par changement de base et par composition,
+\item pour tout morphisme $f : X \to Y$ qui possède $\mathcal{Q}$, il existe un
+plus grand ouvert $W(\mathcal{P}, f) \subset X$ tel que $f|_{W(\mathcal{P}, f)}$
+possède $\mathcal{P}$, et
+\item pour tout morphisme $f : X \to Y$ qui possède $\mathcal{Q}$,
+et tout morphisme $Y' \to Y$ qui possède $\mathcal{R}$, nous avons
+$Y' \times_Y W(\mathcal{P}, f) = W(\mathcal{P}, f')$, où
+$f' : X_{Y'} \to Y'$ est le changement de base de $f$.
+\end{enumerate}
+Si $s, t$ possèdent $\mathcal{R}$ et si $g$ possède $\mathcal{Q}$, alors
+il existe un sous-schéma ouvert $W \subset U'$ tel que
+$W \times_{g, U, t} R = W(\mathcal{P}, h)$.
+\end{lemma}
+
+\begin{proof}
+Notons que le diagramme suivant est commutatif
+$$
+\xymatrix{
+U' \times_{g, U, t} R \times_{t, U, t} R
+\ar[rr]_-{\text{pr}_{12}}
+\ar@<1ex>[d]^-{\text{pr}_{02}} \ar@<-1ex>[d]_-{\text{pr}_{01}} & &
+R \times_{t, U, t} R
+\ar@<1ex>[d]^-{\text{pr}_1} \ar@<-1ex>[d]_-{\text{pr}_0}
+\\
+U' \times_{g, U, t} R \ar[rr]^{\text{pr}_1} & & R
+}
+$$
+dont les deux carrés sont cartésiens (on utilise ici que les deux applications
+$t \circ \text{pr}_i : R \times_{t, U, t} R \to U$ sont égales).
+En combinant ceci avec les propriétés du diagramme (\ref{equation-pull}),
+nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+U' \times_{g, U, t} R \times_{t, U, t} R
+\ar[rr]_-{c \circ (i, 1)}
+\ar@<1ex>[d]^-{\text{pr}_{02}} \ar@<-1ex>[d]_-{\text{pr}_{01}} & &
+R
+\ar@<1ex>[d]^-{s} \ar@<-1ex>[d]_-{t}
+\\
+U' \times_{g, U, t} R \ar[rr]^h & & U
+}
+$$
+dont les deux carrés sont cartésiens.
+
+\medskip\noindent
+Supposons que $s, t$ possèdent $\mathcal{R}$ et que $g$ possède $\mathcal{Q}$.
+Alors $h$ possède $\mathcal{Q}$, car il est la composée de $s$ (qui possède
+$\mathcal{R}$, donc $\mathcal{Q}$) et d'un changement de base de $g$ (qui
+possède $\mathcal{Q}$). Ainsi, $W(\mathcal{P}, h) \subset U' \times_{g, U, t} R$
+existe. D'après nos hypothèses, nous avons
+$\text{pr}_{01}^{-1}(W(\mathcal{P}, h)) =
+\text{pr}_{02}^{-1}(W(\mathcal{P}, h))$
+car ce sont tous deux le plus grand ouvert sur lequel $c \circ (i, 1)$ possède $\mathcal{P}$.
+Notons que la projection $U' \times_{g, U, t} R \to U'$ possède une section, à savoir
+$\sigma : U' \to U' \times_{g, U, t} R$, $u' \mapsto (u', e(g(u')))$.
+De plus, par l'isomorphisme
+$$
+(U' \times_{g, U, t} R) \times_{U'} (U' \times_{g, U, t} R)
+=
+U' \times_{g, U, t} R \times_{t, U, t} R
+$$
+les deux projections du membre de gauche
+vers $U' \times_{g, U, t} R$ coïncident avec les morphismes $\text{pr}_{01}$
+et $\text{pr}_{02}$ du membre de droite. Puisque
+$\text{pr}_{01}^{-1}(W(\mathcal{P}, h)) =
+\text{pr}_{02}^{-1}(W(\mathcal{P}, h))$
+nous concluons que $W(\mathcal{P}, h)$ est l'image réciproque d'un sous-ensemble de $U$,
+qui est nécessairement l'ouvert
+$W = \sigma^{-1}(W(\mathcal{P}, h))$.
+\end{proof}
+
+\begin{remark}
+\label{remark-local-source-warning}
+Avertissement :
+le Lemme \ref{lemma-local-source}
+doit être utilisé avec précaution.
+Il s'applique par exemple à $\mathcal{P}=$``plat'', $\mathcal{Q}=$``sans condition'',
+et $\mathcal{R}=$``plat et localement de présentation finie''. Toutefois, pour un
+morphisme de schémas $f : X \to Y$, le plus grand ouvert $W \subset X$ tel que
+$f|_W$ soit plat n'est {\it pas} l'ensemble des points où $f$ est plat !
+\end{remark}
+
+\begin{remark}
+\label{remark-local-source-apply}
+Malgré l'avertissement de la
+Remarque \ref{remark-local-source-warning},
+il existe certains cas où le
+Lemme \ref{lemma-local-source}
+peut être utilisé sans introduire trop d'ambiguïté.
+Nous en donnons une liste. Dans chaque cas, nous omettons la vérification des
+hypothèses (1) et (2) et donnons des références qui impliquent
+(3) et (4). Voici la liste :
+\begin{enumerate}
+\item $\mathcal{Q} = \mathcal{R} =$``localement de type fini'', et
+$\mathcal{P} =$``de dimension relative $\leq d$''.
+Voir
+Morphismes, Définition \ref{morphisms-definition-relative-dimension-d}
+et
+Morphismes, Lemmes \ref{morphisms-lemma-openness-bounded-dimension-fibres} et
+\ref{morphisms-lemma-dimension-fibre-after-base-change}.
+\item $\mathcal{Q} = \mathcal{R} =$``localement de type fini'', et
+$\mathcal{P} =$``localement quasi-fini''.
+C'est le cas $d = 0$ du point précédent, voir
+Morphismes, Lemme \ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+\item $\mathcal{Q} = \mathcal{R} =$``localement de type fini'', et
+$\mathcal{P} =$``non ramifié''.
+Voir
+Morphismes, Lemmes \ref{morphisms-lemma-unramified-characterize} et
+\ref{morphisms-lemma-set-points-where-fibres-unramified}.
+\end{enumerate}
+L'intérêt des cas énumérés ci-dessus est qu'il n'est pas nécessaire de
+supposer que $s, t$ sont plats pour obtenir une conclusion sur le lieu
+où le morphisme $h$ possède la propriété $\mathcal{P}$. Poursuivons la
+liste :
+\begin{enumerate}
+\item[(4)] $\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P} =$``plat''. Voir
+Compléments sur les morphismes, Théorème
+\ref{more-morphisms-theorem-openness-flatness} et
+Lemme \ref{more-morphisms-lemma-flat-locus-base-change}.
+\item[(5)] $\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P}=$``de Cohen-Macaulay''. Voir
+Compléments sur les morphismes, Définition \ref{more-morphisms-definition-CM}
+et
+Compléments sur les morphismes, Lemmes \ref{more-morphisms-lemma-base-change-CM} et
+\ref{more-morphisms-lemma-flat-finite-presentation-CM-open}.
+\item[(6)] $\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P}=$``syntomique'' ; voir
+Morphismes, Lemme \ref{morphisms-lemma-set-points-where-fibres-lci}
+(le lieu est automatiquement ouvert).
+\item[(7)] $\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P}=$``lisse''. Voir
+Morphismes, Lemme \ref{morphisms-lemma-set-points-where-fibres-smooth}
+(le lieu est automatiquement ouvert).
+\item[(8)] $\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P}=$``\'etale''. Voir
+Morphismes, Lemme \ref{morphisms-lemma-set-points-where-fibres-etale}
+(le lieu est automatiquement ouvert).
+\end{enumerate}
+\end{remark}
+
+\noindent
+Voici le second résultat. Il faut penser à l'ouvert $R$-invariant $W \subset U$ comme à
+l'image réciproque du plus grand ouvert de $[U/R]$ au-dessus duquel
+le morphisme $U \to [U/R]$ possède la propriété $\mathcal{P}$.
+
+\begin{lemma}
+\label{lemma-property-invariant}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un groupoïde sur $S$.
+Soit $\tau \in \{Zariski, \linebreak[0] fppf,
+\linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic\}$\footnote{Le fait que $fpqc$ soit absent
+n'est pas une coquille.}. Soit $\mathcal{P}$ une propriété de morphismes de schémas
+qui est $\tau$-locale sur la base
+(Descente, Définition \ref{descent-definition-property-morphisms-local}).
+Supposons que $\{s : R \to U\}$ et $\{t : R \to U\}$ soient des recouvrements pour la
+topologie $\tau$. Soit $W \subset U$ le sous-schéma ouvert maximal tel que
+$s|_{s^{-1}(W)} : s^{-1}(W) \to W$ possède la propriété $\mathcal{P}$.
+Alors $W$ est $R$-invariant, voir
+Groupoïdes, Définition \ref{groupoids-definition-invariant-open}.
+\end{lemma}
+
+\begin{proof}
+L'existence et les propriétés de l'ouvert $W \subset U$ sont décrites dans
+Descente, Lemme \ref{descent-lemma-largest-open-of-the-base}.
+Dans le
+Diagramme (\ref{equation-diagram}),
+soit $W_1 \subset R$ le sous-schéma ouvert maximal au-dessus duquel le morphisme
+$\text{pr}_1 : R \times_{s, U, t} R \to R$ possède la propriété $\mathcal{P}$.
+Il résulte du
+Lemme \ref{descent-lemma-largest-open-of-the-base} de Descente déjà cité
+et de l'hypothèse que $\{s : R \to U\}$ et $\{t : R \to U\}$ sont des recouvrements
+pour la topologie $\tau$ que $t^{-1}(W) = W_1 = s^{-1}(W)$, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-property-G-invariant}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un groupoïde sur $S$.
+Soit $G \to U$ son schéma en groupes stabilisateur.
+Soit $\tau \in \{fppf, \linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic\}$.
+Soit $\mathcal{P}$ une propriété de morphismes qui est $\tau$-locale
+sur la base. Supposons que $\{s : R \to U\}$ et $\{t : R \to U\}$ soient des recouvrements
+pour la topologie $\tau$. Soit $W \subset U$ le sous-schéma ouvert maximal
+tel que $G_W \to W$ possède la propriété $\mathcal{P}$. Alors $W$ est $R$-invariant
+(voir
+Groupoïdes, Définition
+\ref{groupoids-definition-invariant-open}).
+\end{lemma}
+
+\begin{proof}
+L'existence et les propriétés de l'ouvert $W \subset U$ sont décrites dans
+Descente, Lemme \ref{descent-lemma-largest-open-of-the-base}.
+Le morphisme
+$$
+G \times_{U, t} R \longrightarrow R \times_{s, U} G, \quad
+(g, r) \longmapsto (r, r^{-1} \circ g \circ r)
+$$
+est un isomorphisme au-dessus de $R$ (où $\circ$ désigne
+la composition dans le groupoïde). Ainsi, $s^{-1}(W) = t^{-1}(W)$ par les
+propriétés de $W$ démontrées dans le
+Lemme \ref{descent-lemma-largest-open-of-the-base} de Descente déjà cité.
+\end{proof}
+
+
+
+\section{Comparaison des fibres}
+\label{section-fibres}
+
+\noindent
+Soit $(U, R, s, t, c, e, i)$ un schéma en groupoïdes sur $S$.
+Le Diagramme (\ref{equation-diagram})
+nous fournit un moyen de comparer les fibres de l'application $s : R \to U$ dans un groupoïde.
+Pour un point $u \in U$, nous noterons $F_u = s^{-1}(u)$ la fibre
+schématique de $s : R \to U$ au-dessus de $u$. Par exemple, le diagramme
+implique que, si $u, u' \in U$ sont des points tels
+que $s(r) = u$ et $t(r) = u'$, alors
+$(F_u)_{\kappa(r)} \cong (F_{u'})_{\kappa(r)}$.
+C'est un cas particulier du résultat plus général et plus précis du
+Lemme \ref{lemma-two-fibres}
+ci-dessous. Pour le voir, prenons $r' = i(r)$.
+
+\medskip\noindent
+Un couple $(X, x)$ formé d'un schéma $X$ et d'un point $x \in X$ est parfois
+appelé le {\it germe de $X$ en $x$}.
+Un {\it morphisme de germes} $f : (X, x) \to (S, s)$
+est un morphisme $f : U \to S$ défini sur un voisinage ouvert
+de $x$ et tel que $f(x) = s$. Deux tels
+$f$, $f'$ sont dits définir le même morphisme de germes
+si et seulement si $f$ et $f'$ coïncident sur un voisinage ouvert de $x$.
+Soit $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+Introduisons provisoirement la notion suivante : nous disons que deux morphismes
+de germes $f : (X, x) \to (S, s)$ et $f' : (X', x') \to (S', s')$
+sont {\it localement isomorphes sur la base pour la topologie $\tau$},
+s'il existe un schéma pointé $(S'', s'')$ et des morphismes de germes
+$g : (S'', s'') \to (S, s)$ et $g' : (S'', s'') \to (S', s')$
+tels que
+\begin{enumerate}
+\item $g$ et $g'$ sont des immersions ouvertes (resp.\ \'etales, lisses, syntomiques,
+plates et localement de présentation finie) en $s''$,
+\item il existe un isomorphisme
+$$
+(S'' \times_{g, S, f} X, \tilde x)
+\cong
+(S'' \times_{g', S', f'} X', \tilde  x')
+$$
+de germes au-dessus du germe $(S'', s'')$, pour un certain choix de points
+$\tilde x$ et $\tilde x'$ situés au-dessus de $(s'', x)$ et $(s'', x')$.
+\end{enumerate}
+Enfin, nous disons simplement que les morphismes de germes
+$f : (X, x) \to (S, s)$ et $f' : (X', x') \to (S', s')$
+sont {\it isomorphes après des changements de base plats} s'il existe
+$S'', s'', g, g'$ comme ci-dessus, mais en remplaçant (1) par
+la condition que $g$ et $g'$ soient plats en $s''$ (celle-ci est
+bien plus faible que toutes les conditions $\tau$ ci-dessus,
+car un morphisme plat n'est pas nécessairement ouvert).
+
+\begin{lemma}
+\label{lemma-two-fibres}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un groupoïde sur $S$.
+Soient $r, r' \in R$ tels que $t(r) = t(r')$ dans $U$.
+Posons $u = s(r)$, $u' = s(r')$.
+Notons $F_u = s^{-1}(u)$ et $F_{u'} = s^{-1}(u')$ les fibres
+schématiques.
+\begin{enumerate}
+\item Il existe une extension de corps commune
+$\kappa(u) \subset k$, $\kappa(u') \subset k$ et
+un isomorphisme $(F_u)_k \cong (F_{u'})_k$.
+\item On peut choisir l'isomorphisme de (1) de telle sorte qu'un point
+situé au-dessus de $r$ s'envoie sur un point situé au-dessus de $r'$.
+\item Si les morphismes $s$, $t$ sont plats, alors les morphismes de germes
+$s : (R, r) \to (U, u)$ et $s : (R, r') \to (U, u')$ sont
+localement isomorphes sur la base pour la topologie plate.
+\item Si les morphismes $s$, $t$ sont \'etales
+(resp.\ lisses, syntomiques, ou plats et localement de présentation finie),
+alors les morphismes de germes $s : (R, r) \to (U, u)$ et
+$s : (R, r') \to (U, u')$ sont localement isomorphes sur la base
+pour la topologie \'etale (resp.\ lisse, syntomique, ou fppf).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous utilisons à plusieurs reprises les propriétés et l'existence du
+diagramme (\ref{equation-diagram}).
+D'après les propriétés du diagramme (et
+Schémas, lemme \ref{schemes-lemma-points-fibre-product}),
+il existe un point $\xi$ de $R \times_{s, U, t} R$
+tel que $\text{pr}_0(\xi) = r$ et $c(\xi) = r'$.
+Posons $\tilde r = \text{pr}_1(\xi) \in R$.
+
+\medskip\noindent
+Démonstration de (1). Posons $k = \kappa(\tilde r)$. Puisque $t(\tilde r) = u$
+et $s(\tilde r) = u'$, nous voyons que $k$ est une extension commune
+de $\kappa(u)$ et de $\kappa(u')$ et, en fait, que
+$(F_u)_k$ et $(F_{u'})_k$ sont tous deux isomorphes à la fibre de
+$\text{pr}_1 : R \times_{s, U, t} R \to R$ au-dessus de $\tilde r$.
+Ainsi, (1) est démontré.
+
+\medskip\noindent
+L'assertion (2) en résulte, puisque le point $\xi$ s'envoie sur $r$, resp.\ $r'$.
+
+\medskip\noindent
+L'assertion (3) découle clairement de ce qui précède (en utilisant le point $\xi$ pour
+$\tilde u$ et $\tilde u'$) et des définitions.
+
+\medskip\noindent
+Si $s$ et $t$ sont plats et de présentation finie, alors
+ce sont des morphismes ouverts (Morphismes, lemme \ref{morphisms-lemma-fppf-open}).
+L'image d'un certain voisinage ouvert affine $V''$ de $\tilde r$ recouvrira donc
+un voisinage ouvert $V$ de $u$, resp.\ $V'$ de $u'$.
+On peut les utiliser pour montrer que les propriétés (1) et (2) de la
+définition de ``localement isomorphes sur la base pour la
+topologie $\tau$''.
+\end{proof}
+
+
+
+
+
+
+
+\section{Présentations de Cohen-Macaulay}
+\label{section-CM}
+
+\noindent
+Étant donné un groupoïde $(U, R, s, t, c)$ avec $s, t$ plats et
+localement de présentation finie, il existe un groupoïde ``équivalent''
+$(U', R', s', t', c')$ tel que $s'$ et $t'$ soient des morphismes
+de Cohen-Macaulay (et localement de présentation finie). Voir
+Compléments sur les morphismes, section \ref{more-morphisms-section-CM},
+pour plus de renseignements sur les morphismes de Cohen-Macaulay.
+Ici, ``équivalent'' peut signifier que les champs quotients
+$[U/R]$ et $[U'/R']$ sont des champs équivalents, voir
+Groupoïdes dans les espaces, section \ref{spaces-groupoids-section-stacks}
+et la section \ref{spaces-groupoids-section-quotient-stack-restrict}.
+
+\begin{lemma}
+\label{lemma-make-CM}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un groupoïde au-dessus de $S$.
+Supposons $s$ et $t$ plats et localement de présentation finie.
+Alors il existe un ouvert $U' \subset U$ tel que
+\begin{enumerate}
+\item $t^{-1}(U') \subset R$ est le plus grand sous-schéma ouvert de
+$R$ sur lequel le morphisme $s$ est de Cohen-Macaulay,
+\item $s^{-1}(U') \subset R$ est le plus grand sous-schéma ouvert de
+$R$ sur lequel le morphisme $t$ est de Cohen-Macaulay,
+\item le morphisme $t|_{s^{-1}(U')} : s^{-1}(U') \to U$ est
+surjectif,
+\item le morphisme $s|_{t^{-1}(U')} : t^{-1}(U') \to U$ est
+surjectif, et
+\item la restriction $R' = s^{-1}(U') \cap t^{-1}(U')$
+de $R$ à $U'$ définit un groupoïde $(U', R', s', t', c')$ qui a la propriété
+que les morphismes $s'$ et $t'$ sont de Cohen-Macaulay et localement de
+présentation finie.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Appliquons le
+lemme \ref{lemma-local-source}
+avec
+$g = \text{id}$ et
+$\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P}=$``de Cohen-Macaulay'', voir
+la remarque \ref{remark-local-source-apply}.
+Cela nous donne un ouvert $U' \subset U$ tel que
+Soit $t^{-1}(U') \subset R$ est le plus grand sous-schéma ouvert de $R$
+sur lequel le morphisme $s$ est de Cohen-Macaulay.
+Ceci prouve (1).
+Soit $i : R \to R$ l'inverse du groupoïde.
+Puisque $i$ est un isomorphisme, et $s \circ i = t$ et $t \circ i = s$,
+nous voyons que $s^{-1}(U')$ est aussi le plus grand ouvert de $R$ sur lequel $t$ est
+de Cohen-Macaulay. Ceci prouve (2).
+D'après
+Compléments sur les morphismes,
+lemme \ref{more-morphisms-lemma-flat-finite-presentation-CM-open},
+l'ouvert $t^{-1}(U')$ est dense dans chaque fibre de $s : R \to U$.
+Ceci prouve (3). Même argument pour (4).
+L'assertion (5) est une conséquence formelle de (1) et (2) et de la discussion
+sur les restrictions dans
+Groupoïdes, section \ref{groupoids-section-restrict-groupoid}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Restriction des groupoïdes}
+\label{section-restricting-groupoids}
+
+\noindent
+Dans cette section, nous rassemblons plusieurs lemmes sur les
+propriétés des groupoïdes qui se transmettent aux restrictions.
+La plupart de ces lemmes se démontrent en considérant le
+diagramme qui définit
+\begin{equation}
+\label{equation-restriction}
+\vcenter{
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'}&
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d]^g \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r]^g &
+U
+}
+}
+\end{equation}
+une restriction. Voir
+Groupoïdes, lemme \ref{groupoids-lemma-restrict-groupoid}.
+
+\begin{lemma}
+\label{lemma-restrict-preserves-type}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes au-dessus de $S$.
+Soit $g : U' \to U$ un morphisme de schémas.
+Soit $(U', R', s', t', c')$ la restriction de
+$(U, R, s, t, c)$ par $g$.
+\begin{enumerate}
+\item Si $s, t$ sont localement de type fini et $g$ est localement de
+type fini, alors $s', t'$ sont localement de type fini.
+\item Si $s, t$ sont localement de présentation finie et $g$ est localement de
+présentation finie, alors $s', t'$ sont localement de présentation finie.
+\item Si $s, t$ sont plats et $g$ est plat, alors $s', t'$ sont plats.
+\item Ajouter ici.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La propriété d'être localement de type fini est stable par composition
+et par changement de base arbitraire, voir
+Morphismes, lemmes \ref{morphisms-lemma-composition-finite-type} et
+\ref{morphisms-lemma-base-change-finite-type}.
+Par conséquent, (1) résulte clairement du diagramme (\ref{equation-restriction}).
+Pour les autres cas, voir
+Morphismes, lemmes \ref{morphisms-lemma-composition-finite-presentation},
+\ref{morphisms-lemma-base-change-finite-presentation},
+\ref{morphisms-lemma-composition-flat}, et
+\ref{morphisms-lemma-base-change-flat}.
+\end{proof}
+
+\noindent
+Le lemme suivant aurait pu servir à démontrer les résultats du lemme
+précédent de manière plus uniforme.
+
+\begin{lemma}
+\label{lemma-restrict-property}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes au-dessus de $S$.
+Soit $g : U' \to U$ un morphisme de schémas.
+Soit $(U', R', s', t', c')$ la restriction de
+$(U, R, s, t, c)$ par $g$, et soit
+$h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \to U$. Si
+$\mathcal{P}$ est une propriété des morphismes de schémas telle que
+\begin{enumerate}
+\item $h$ possède la propriété $\mathcal{P}$, et
+\item $\mathcal{P}$ est préservée par changement de base,
+\end{enumerate}
+alors $s', t'$ possèdent la propriété $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Cela est clair, puisque $s'$ est le changement de base de $h$ d'après le
+diagramme (\ref{equation-restriction})
+et que $t'$ est isomorphe à $s'$ en tant que morphisme de schémas.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-double-restrict}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes au-dessus de $S$.
+Soient $g : U' \to U$ et $g' : U'' \to U'$ des morphismes de schémas.
+Posons $g'' = g \circ g'$.
+Soit $(U', R', s', t', c')$ la restriction de $R$ à $U'$.
+Soit $h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \to U$,
+soit $h' = s' \circ \text{pr}_1 : U'' \times_{g', U', t} R \to U'$, et
+soit $h'' = s \circ \text{pr}_1 : U'' \times_{g'', U, t} R \to U$.
+Le diagramme suivant est commutatif
+$$
+\xymatrix{
+U'' \times_{g', U', t} R' \ar[d]^{h'} &
+(U' \times_{g, U, t} R) \times_U (U'' \times_{g'', U, t} R)
+\ar[l] \ar[r] \ar[d] &
+U'' \times_{g'', U, t} R \ar[d]_{h''} \\
+U' &
+U' \times_{g, U, t} R \ar[l]_{\text{pr}_0} \ar[r]^h &
+U
+}
+$$
+ses deux carrés étant cartésiens, et la flèche horizontale supérieure gauche
+étant donnée par la règle
+$$
+\begin{matrix}
+(U' \times_{g, U, t} R) \times_U (U'' \times_{g'', U, t} R) &
+\longrightarrow &
+U'' \times_{g', U', t} R' \\
+((u', r_0), (u'', r_1)) &
+\longmapsto &
+(u'', (c(r_1, i(r_0)), (g'(u''), u')))
+\end{matrix}
+$$
+avec les notations expliquées dans la démonstration.
+\end{lemma}
+
+\begin{proof}
+Nous allons expliciter ceci en exploitant le point de vue fonctoriel
+et en ramenant le lemme à un énoncé sur les flèches dans les restrictions
+d'une catégorie groupoïde. Dans la dernière formule du lemme, la
+notation $((u', r_0), (u'', r_1))$ désigne un point à valeurs dans $T$ de
+$(U' \times_{g, U, t} R) \times_U (U'' \times_{g'', U, t} R)$.
+Cela signifie que $u', u'', r_0, r_1$ sont des points à valeurs dans $T$ de $U', U'', R, R$
+et que $g(u') = t(r_0)$, $g(g'(u'')) = g''(u'') = t(r_1)$, et
+$s(r_0) = s(r_1)$. Il serait plus correct d'écrire ici
+$g \circ u' = t \circ r_0$ et ainsi de suite, mais cela rend la notation
+encore plus illisible. Si nous considérons $r_1$ et $r_0$ comme des flèches dans
+une catégorie groupoïde, nous pouvons représenter ceci par le diagramme
+$$
+\xymatrix{
+t(r_0) = g(u') &
+s(r_0) = s(r_1) \ar[l]_{r_0} \ar[r]^-{r_1} &
+t(r_1) = g(g'(u''))
+}
+$$
+Ce diagramme montre notamment que la composition
+$c(r_1, i(r_0))$ a un sens. Rappelons que
+$$
+R' = R \times_{(t, s), U \times_S U, g \times g} U' \times_S U'
+$$
+ainsi, un point à valeurs dans $T$ de $R'$ s'écrit $(r, (u'_0, u'_1))$
+avec $t(r) = g(u'_0)$ et $s(r) = g(u'_1)$. En particulier, étant donné
+$((u', r_0), (u'', r_1))$ comme ci-dessus, on obtient le point à valeurs dans $T$
+$(c(r_1, i(r_0)), (g'(u''), u'))$ de $R'$, car
+$t(c(r_1, i(r_0))) = t(r_1) = g(g'(u''))$ et
+$s(c(r_1, i(r_0))) = s(i(r_0)) = t(r_0) = g(u')$.
+Nous laissons au lecteur le soin de montrer que le carré gauche commute
+avec cette définition.
+
+\medskip\noindent
+Pour montrer que le carré gauche est cartésien,
+supposons donnés $(v'', p')$ et $(v', p)$ qui sont des points à valeurs dans $T$ de
+$U'' \times_{g', U', t} R'$ et $U' \times_{g, U, t} R$ avec
+$v' = s'(p')$. Cela signifie aussi que $g'(v'') = t'(p')$ et
+$g(v') = t(p)$. D'après la discussion ci-dessus, nous savons que nous pouvons écrire
+$p' = (r, (u_0', u_1'))$ avec $t(r) = g(u'_0)$ et
+$s(r) = g(u'_1)$. Avec cette notation, nous voyons que
+$v' = s'(p') = u_1'$ et
+$g'(v'') = t'(p') = u_0'$. Voici un diagramme
+$$
+\xymatrix{
+s(p) \ar[r]^-p &
+g(v') = g(u'_1) \ar[r]^-r &
+g(u'_0) = g(g'(v''))
+}
+$$
+Il s'agit de montrer qu'il existe un unique point à valeurs dans $T$
+$((u', r_0), (u'', r_1))$ comme ci-dessus tel que
+$v' = u'$, $p = r_0$, $v'' = u''$ et $p' = (c(r_1, i(r_0)), (g'(u''), u'))$.
+En comparant les deux diagrammes ci-dessus, il est clair que nous n'avons pas d'autre choix
+que de poser
+$$
+((u', r_0), (u'', r_1)) = ((v', p), (v'', c(r, p))
+$$
+Quelques détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-double-restrict-property}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes au-dessus de $S$.
+Soient $g : U' \to U$ et $g' : U'' \to U'$ des morphismes de schémas.
+Posons $g'' = g \circ g'$.
+Soit $(U', R', s', t', c')$ la restriction de $R$ à $U'$.
+Soit $h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \to U$,
+soit $h' = s' \circ \text{pr}_1 : U'' \times_{g', U', t} R \to U'$, et
+soit $h'' = s \circ \text{pr}_1 : U'' \times_{g'', U, t} R \to U$.
+Soit $\tau \in \{Zariski, \linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic, \linebreak[0] fppf, \linebreak[0] fpqc\}$. Soit
+$\mathcal{P}$ une propriété des morphismes de schémas
+qui est préservée par changement de base et qui
+est locale sur le but pour la topologie $\tau$. Si
+\begin{enumerate}
+\item $h(U' \times_U R)$ est ouvert dans $U$,
+\item $\{h : U' \times_U R \to h(U' \times_U R)\}$ est un $\tau$-recouvrement,
+\item $h'$ possède la propriété $\mathcal{P}$,
+\end{enumerate}
+alors $h''$ possède la propriété $\mathcal{P}$. Réciproquement, si
+\begin{enumerate}
+\item[(a)] $\{t : R \to U\}$ est un $\tau$-recouvrement,
+\item[(d)] $h''$ possède la propriété $\mathcal{P}$,
+\end{enumerate}
+alors $h'$ possède la propriété $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte formellement des propriétés du diagramme du
+lemme \ref{lemma-double-restrict}.
+Dans le premier cas, remarquons que l'image du morphisme
+$h''$ est contenue dans l'image de $h$, puisque $g'' = g \circ g'$.
+On peut donc remplacer le $U$ situé dans le coin inférieur droit du
+diagramme par $h(U' \times_U R)$. Cela explique l'importance des
+conditions (1) et (2) du lemme. Dans le second cas, remarquons que
+$\{\text{pr}_0 : U' \times_{g, U, t} R \to U'\}$ est un $\tau$-recouvrement
+en tant que changement de base de $\tau$ et de la condition (a).
+\end{proof}
+
+
+
+
+
+
+\section{Propriétés des groupoïdes sur les corps}
+\label{section-properties-groupoids-on-fields}
+
+\noindent
+Un ``groupoïde sur un corps'' désigne un schéma en groupoïdes $(U, R, s, t, c)$
+où $U$ est le spectre d'un corps. Cela ne signifie {\bf pas} que
+$(U, R, s, t, c)$ est défini sur un corps; plus précisément, cela ne
+signifie {\bf pas} que les morphismes $s, t : R \to U$ sont égaux.
+Étant donné un corps $k$, un groupe abstrait $G$ et un homomorphisme de groupes
+$\varphi : G \to \text{Aut}(k)$, on obtient un schéma en groupoïdes
+$(U, R, s, t, c)$ au-dessus de $\mathbf{Z}$ en posant
+\begin{align*}
+U & = \Spec(k) \\
+R & = \coprod\nolimits_{g \in G} \Spec(k) \\
+s & = \coprod\nolimits_{g \in G} \Spec(\text{id}_k) \\
+t & = \coprod\nolimits_{g \in G} \Spec(\varphi(g)) \\
+c & = \text{composition dans }G
+\end{align*}
+Cet exemple est encore un schéma en groupoïdes au-dessus de $\Spec(k^G)$.
+Par conséquent, si $G$ est fini, alors $U = \Spec(k)$ est fini sur
+$\Spec(k^G)$.
+En un certain sens, notre but dans cette section est de montrer que des
+conditions de finitude convenables sur $s, t$ imposent à tout groupoïde sur un corps
+d'être défini sur un sous-corps d'indice fini $k' \subset k$.
+
+\medskip\noindent
+Si $k$ est un corps et $(G, m)$ un schéma en groupes sur $k$, de morphisme
+structural $p : G \to \Spec(k)$, alors $(\Spec(k), G, p, p, m)$
+est un exemple de groupoïde sur un corps (et, dans ce cas, bien entendu, toute la
+structure est définie sur un corps). Ainsi, cette section peut être considérée comme
+l'analogue de
+Groupoïdes, section \ref{groupoids-section-properties-group-schemes-field}.
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-open-multiplication}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+au-dessus de $S$. Si $U$ est le spectre d'un corps, alors le morphisme de composition
+$c : R \times_{s, U, t} R \to R$ est ouvert.
+\end{lemma}
+
+\begin{proof}
+La composition est isomorphe à la projection
+$\text{pr}_1 : R \times_{t, U, t} R \to R$ d'après le
+diagramme (\ref{equation-pull}).
+La projection est ouverte d'après
+Morphismes, lemme \ref{morphisms-lemma-scheme-over-field-universally-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-separated}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+au-dessus de $S$. Si $U$ est le spectre d'un corps,
+alors $R$ est un schéma séparé.
+\end{lemma}
+
+\begin{proof}
+D'après
+Groupoïdes, lemme \ref{groupoids-lemma-group-scheme-over-field-separated},
+le schéma en groupes stabilisateur $G \to U$ est séparé. D'après
+Groupoïdes, lemme \ref{groupoids-lemma-diagonal},
+le morphisme $j = (t, s) : R \to U \times_S U$ est séparé.
+Comme $U$ est le spectre d'un corps, le schéma
+$U \times_S U$ est affine (par la construction des produits fibrés dans
+Schémas, section \ref{schemes-section-fibre-products}).
+Par conséquent, $R$ est un schéma séparé, voir
+Schémas, lemme \ref{schemes-lemma-separated-permanence}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-homogeneous}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+au-dessus de $S$. Supposons $U = \Spec(k)$, où $k$ est un corps.
+Pour tous points $r, r' \in R$, il existe une extension de corps
+$k'/k$ et des points
+$r_1, r_2 \in R \times_{s, \Spec(k)} \Spec(k')$
+et un diagramme
+$$
+\xymatrix{
+R &
+R \times_{s, \Spec(k)} \Spec(k')
+\ar[l]_-{\text{pr}_0} \ar[r]^\varphi &
+R \times_{s, \Spec(k)} \Spec(k')
+\ar[r]^-{\text{pr}_0} &
+R
+}
+$$
+tel que $\varphi$ soit un isomorphisme de schémas au-dessus de $\Spec(k')$, et que
+l'on ait $\varphi(r_1) = r_2$, $\text{pr}_0(r_1) = r$, et
+$\text{pr}_0(r_2) = r'$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du
+lemme \ref{lemma-two-fibres},
+parties (1) et (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restrict-groupoid-on-field}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+au-dessus de $S$. Supposons $U = \Spec(k)$, où $k$ est un corps.
+Soit $k'/k$ une extension de corps, $U' = \Spec(k')$,
+et soit $(U', R', s', t', c')$ la restriction de
+$(U, R, s, t, c)$ par $U' \to U$. Dans le diagramme qui la définit
+$$
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'} \ar@{..>}[rd] &
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d] \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r] &
+U
+}
+$$
+tous les morphismes sont surjectifs, plats et universellement ouverts.
+La flèche pointillée $R' \to R$ est en outre affine.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $U' \to U$ est égal à $\Spec(k') \to \Spec(k)$;
+il est donc affine, surjectif et plat. Les morphismes $s, t : R \to U$
+ainsi que le morphisme $U' \to U$ sont universellement ouverts d'après
+Morphismes, lemme \ref{morphisms-lemma-scheme-over-field-universally-open}.
+Comme $R$ n'est pas vide et que $U$ est le spectre d'un corps, les morphismes
+$s, t : R \to U$ sont surjectifs et plats. On conclut alors à l'aide de
+Morphismes, lemmes \ref{morphisms-lemma-base-change-surjective},
+\ref{morphisms-lemma-composition-surjective},
+\ref{morphisms-lemma-composition-open},
+\ref{morphisms-lemma-base-change-affine},
+\ref{morphisms-lemma-composition-affine},
+\ref{morphisms-lemma-base-change-flat}, et
+\ref{morphisms-lemma-composition-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-explain-points}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+au-dessus de $S$. Supposons $U = \Spec(k)$, où $k$ est un corps.
+Pour tout point $r \in R$, il existe
+\begin{enumerate}
+\item une extension de corps $k'/k$ avec $k'$ algébriquement clos,
+\item un point $r' \in R'$ où $(U', R', s', t', c')$ est la
+restriction de $(U, R, s, t, c)$ par $\Spec(k') \to \Spec(k)$
+\end{enumerate}
+de telle sorte que
+\begin{enumerate}
+\item le point $r'$ a pour image $r$ par le morphisme $R' \to R$, et
+\item les applications $s', t' : R' \to \Spec(k')$ induisent des isomorphismes
+$k' \to \kappa(r')$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+En traduisant l'énoncé géométrique en un énoncé sur les corps,
+cela signifie que nous pouvons trouver un diagramme
+$$
+\xymatrix{
+k' & k' \ar[l]^1 & \\
+k' \ar[u]^\tau & \kappa(r) \ar[lu]^\sigma & k \ar[l]^-s \ar[lu]_i \\
+& k \ar[lu]^i \ar[u]_t
+}
+$$
+où $i : k \to k'$ est le plongement de $k$ dans $k'$,
+les applications $s, t : k \to \kappa(r)$ sont induites par $s, t : R \to U$, et
+l'application $\tau : k' \to k'$ est un automorphisme. Pour construire un tel
+diagramme, on peut procéder comme suit :
+\begin{enumerate}
+\item Choisir un homomorphisme de corps $i : k \to k'$, avec $k'$ algébriquement clos et de
+très grand degré de transcendance sur $k$.
+\item Choisir un plongement $\sigma : \kappa(r) \to k'$ tel que
+$\sigma \circ s = i$. Un tel $\sigma$ existe, car il suffit de
+choisir une base de transcendance $\{x_\alpha\}_{\alpha \in A}$ de $\kappa(r)$
+sur $k$ et des $y_\alpha \in k'$, $\alpha \in A$, qui soient algébriquement
+indépendants sur $i(k)$, puis d'envoyer $s(k)(\{x_\alpha\})$ dans $k'$
+selon les règles $s(\lambda) \mapsto i(\lambda)$ pour $\lambda \in k$
+et $x_\alpha \mapsto y_\alpha$ pour $\alpha \in A$.
+Prolonger ensuite en $\tau : \kappa(\alpha) \to k'$ en utilisant le fait que $k'$ est
+algébriquement clos.
+\item Choisir un automorphisme $\tau : k' \to k'$ tel que
+$\tau \circ i = \sigma \circ t$. Pour cela, choisir une base de transcendance
+$\{x_\alpha\}_{\alpha \in A}$ de $k$ sur son sous-corps premier.
+D'une part, compléter $\{i(x_\alpha)\}$ en une base de transcendance de
+$k'$ en ajoutant $\{y_\beta\}_{\beta \in B}$, et compléter
+$\{\sigma(t(x_\alpha))\}$ en une base de transcendance de $k'$ en ajoutant
+$\{z_\gamma\}_{\gamma \in C}$.
+Comme $k'$ est algébriquement clos, nous pouvons prolonger l'isomorphisme
+$\sigma \circ t \circ i^{-1} : i(k) \to \sigma(t(k))$
+en un isomorphisme $\tau' : \overline{i(k)} \to \overline{\sigma(t(k))}$
+entre leurs clôtures algébriques dans $k'$.
+Comme $k'$ a un grand degré de transcendance,
+nous voyons que les ensembles $B$ et $C$ ont le même cardinal.
+Ainsi, nous pouvons utiliser une bijection
+$B \to C$ pour prolonger $\tau'$ en un isomorphisme
+$$
+\overline{i(k)}(\{y_\beta\})
+\longrightarrow
+\overline{\sigma(t(k))}(\{z_\gamma\})
+$$
+et alors, puisque $k'$ est la clôture algébrique des deux membres, nous
+voyons que cela se prolonge en un automorphisme $\tau : k' \to k'$
+comme souhaité.
+\end{enumerate}
+Cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-move-point}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons $U = \Spec(k)$, où $k$ est un corps.
+Si $r \in R$ est un point tel que $s, t$ induisent des
+isomorphismes $k \to \kappa(r)$, alors l'application
+$$
+R \longrightarrow R, \quad
+x \longmapsto c(r, x)
+$$
+(voir la démonstration pour une notation précise) est un automorphisme $R \to R$
+qui envoie $e$ sur $r$.
+\end{lemma}
+
+\begin{proof}
+Cela est tout à fait évident si l'on envisage les groupoïdes de manière
+fonctorielle. Mais nous allons aussi l'expliciter entièrement.
+Notons $a : U \to R$ le morphisme d'image $r$ tel que
+$s \circ a = \text{id}_U$, qui existe par l'hypothèse
+selon laquelle $s : k \to \kappa(r)$ est un isomorphisme. De même, notons
+$b : U \to R$ le morphisme d'image $r$ tel que
+$t \circ b = \text{id}_U$. Remarquons que
+$b = a \circ (t \circ a)^{-1}$, et, en particulier,
+$a \circ s \circ b = b$.
+
+\medskip\noindent
+Considérons le morphisme $\Psi : R \to R$ défini sur les points à valeurs dans $T$
+par
+$$
+(f : T \to R) \longmapsto (c(a \circ t \circ f, f) : T \to R)
+$$
+Pour voir qu'il est défini, nous devons vérifier que
+$s \circ a \circ t \circ f = t \circ f$, ce qui est évident puisque $s \circ a = 1$.
+Remarquons que $\Phi(e) = a$ ; ainsi, pour démontrer le lemme, il
+suffit de montrer que $\Phi$ est un automorphisme de $R$.
+Soit $\Phi : R \to R$ le morphisme défini sur les points à valeurs dans $T$ par
+$$
+(g : T \to R) \longmapsto (c(i \circ b \circ t \circ g, g) : T \to R).
+$$
+Il est défini car
+$s \circ i \circ b \circ t \circ g = t \circ b \circ t \circ g =
+t \circ g$. Nous affirmons que $\Phi$ et $\Psi$ sont inverses
+l'un de l'autre. Pour le voir, calculons
+\begin{align*}
+& c(a \circ t \circ c(i \circ b \circ t \circ g, g),
+c(i \circ b \circ t \circ g, g)) \\
+& =
+c(a \circ t \circ i \circ b \circ t \circ g,
+c(i \circ b \circ t \circ g, g)) \\
+& =
+c(a \circ s \circ b \circ t \circ g,
+c(i \circ b \circ t \circ g, g)) \\
+& =
+c(b \circ t \circ g, c(i \circ b \circ t \circ g, g)) \\
+& =
+c(c(b \circ t \circ g, i \circ b \circ t \circ g), g)) \\
+& =
+c(e, g) \\
+& = g
+\end{align*}
+où nous avons utilisé la relation $a \circ s \circ b = b$ établie ci-dessus.
+Dans l'autre sens, nous avons
+\begin{align*}
+& c(i \circ b \circ t \circ c(a \circ t \circ f, f), c(a \circ t \circ f, f)) \\
+& =
+c(i \circ b \circ t \circ a \circ t \circ f, c(a \circ t \circ f, f)) \\
+& =
+c(i \circ a \circ (t \circ a)^{-1} \circ t \circ a \circ t \circ f,
+c(a \circ t \circ f, f)) \\
+& =
+c(i \circ a \circ t \circ f, c(a \circ t \circ f, f)) \\
+& =
+c(c(i \circ a \circ t \circ f, a \circ t \circ f), f) \\
+& =
+c(e, f) \\
+& = f
+\end{align*}
+Le lemme est démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-translate-open}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Si $U$ est le spectre d'un corps, si $W \subset R$ est ouvert
+et si $Z \to R$ est un morphisme de schémas, alors l'image de la
+composée $Z \times_{s, U, t} W \to R \times_{s, U, t} R \to R$ est ouverte.
+\end{lemma}
+
+\begin{proof}
+Écrivons $U = \Spec(k)$. Considérons une extension de corps $k'/k$. Notons
+$U' = \Spec(k')$. Soit $R'$ la restriction de $R$ par $U' \to U$.
+Posons $Z' = Z \times_R R'$ et $W' = R' \times_R W$.
+Considérons un point $\xi = (z, w)$ de $Z \times_{s, U, t} W$.
+Soit $r \in R$ l'image de $z$ par $Z \to R$.
+Choisissons $k' \supset k$ et $r' \in R'$ comme dans le
+lemme \ref{lemma-groupoid-on-field-explain-points}.
+Nous pouvons choisir $z' \in Z'$ se projetant sur $z$ et sur $r'$.
+Nous pouvons alors trouver $\xi' \in Z' \times_{s', U', t'} W'$
+se projetant sur $z'$ et sur $\xi$. L'ouvert $c(r', W')$
+(lemme \ref{lemma-groupoid-on-field-move-point}) est
+contenu dans l'image de $Z' \times_{s', U', t'} W' \to R'$.
+Observons que $Z' \times_{s', U', t'} W' = (Z \times_{s, U, t} W)
+\times_{R \times_{s, U, t} R} (R' \times_{s', U', t'} R')$.
+Par conséquent, l'image de $Z' \times_{s', U', t'} W' \to R' \to R$
+est contenue dans l'image de $Z \times_{s, U, t} W \to R$.
+Comme le morphisme $R' \to R$ est ouvert (lemme \ref{lemma-restrict-groupoid-on-field}),
+nous concluons que l'image contient un voisinage ouvert de
+l'image de $\xi$, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-geometrically-irreducible}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons $U = \Spec(k)$, où $k$ est un corps.
+Par abus de notation, notons $e \in R$ l'image du morphisme identité
+$e : U \to R$. Alors :
+\begin{enumerate}
+\item tout anneau local $\mathcal{O}_{R, r}$ de $R$ possède un unique
+idéal premier minimal ;
+\item il existe exactement une composante irréductible $Z$ de $R$
+passant par $e$ ;
+\item $Z$ est géométriquement irréductible sur $k$ pour l'un ou l'autre
+des morphismes $s$ et $t$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $r \in R$ un point.
+Dans cette démonstration, nous utiliserons sans autre mention la correspondance entre les composantes irréductibles
+de $R$ passant par un point $r$ et les idéaux premiers minimaux de l'anneau
+local $\mathcal{O}_{R, r}$.
+Choisissons $k \subset k'$ et $r' \in R'$ comme dans le
+lemme \ref{lemma-groupoid-on-field-explain-points}.
+Remarquons que $\mathcal{O}_{R, r} \to \mathcal{O}_{R', r'}$
+est fidèlement plat et local, voir le
+lemme \ref{lemma-restrict-groupoid-on-field}.
+Ainsi, le résultat pour $r' \in R'$ entraîne le résultat pour $r \in R$.
+Autrement dit, nous pouvons supposer que $s, t : k \to \kappa(r)$
+sont des isomorphismes. D'après le
+lemme \ref{lemma-groupoid-on-field-move-point},
+il existe un automorphisme envoyant $e$ sur $r$.
+Nous pouvons donc supposer $r = e$, c'est-à-dire que (1) découle de (2).
+
+\medskip\noindent
+Démontrons d'abord (2) dans le cas où $k$ est séparablement clos.
+Soient en effet $X, Y \subset R$ des composantes irréductibles
+passant par $e$. Alors, d'après
+Variétés, lemme \ref{varieties-lemma-bijection-irreducible-components} et
+\ref{varieties-lemma-separably-closed-irreducible},
+le schéma $X \times_{s, U, t} Y$ est lui aussi irréductible.
+Ainsi, $c(X \times_{s, U, t} Y) \subset R$ est un sous-ensemble irréductible.
+Nous affirmons qu'il contient à la fois $X$ et $Y$ (comme sous-ensembles de $R$).
+En effet, soit $T$ le spectre d'un corps. Si $x : T \to X$ est un $T$-point
+de $X$, alors $c(x, e \circ s \circ x) = x$ et $e \circ s \circ x$
+se factorise par $Y$ puisque $e \in Y$. Il en va de même pour les points de $Y$.
+Cela implique manifestement que $X = Y$, c'est-à-dire qu'il existe une unique composante irréductible
+de $R$ passant par $e$.
+
+\medskip\noindent
+Démonstration de (2) et (3) dans le cas général.
+Soit $k \subset k'$ une clôture séparable, et
+soit $(U', R', s', t', c')$ la restriction de
+$(U, R, s, t, c)$ par $\Spec(k') \to \Spec(k)$.
+D'après le paragraphe précédent, il existe exactement une composante irréductible
+$Z'$ de $R'$ passant par $e'$.
+Notons $e'' \in R \times_{s, U} U'$ le changement de base de $e$.
+Comme $R' \to R \times_{s, U} U'$ est fidèlement plat, voir le
+lemme \ref{lemma-restrict-groupoid-on-field},
+et que $e' \mapsto e''$, il existe exactement une composante
+irréductible $Z''$ de $R \times_{s, k} k'$ passant
+par $e''$. Comme $R \times_k k' \to R$ est fidèlement
+plat, cela implique qu'il existe exactement une composante irréductible $Z$ de $R$
+passant par $e$. Cela démontre (2).
+
+\medskip\noindent
+Pour démontrer (3), soit $Z''' \subset R \times_k k'$ une composante irréductible quelconque
+de $Z \times_k k'$. D'après
+Variétés, lemme \ref{varieties-lemma-orbit-irreducible-components},
+nous avons $Z''' = \sigma(Z'')$ pour un certain $\sigma \in \text{Gal}(k'/k)$.
+Comme $\sigma(e'') = e''$, nous avons $e'' \in Z'''$, et donc
+$Z''' = Z''$. Cela signifie que $Z$ est géométriquement irréductible
+sur $\Spec(k)$ pour le morphisme $s$.
+Le même argument montre que $Z$ est géométriquement irréductible
+sur $\Spec(k)$ pour le morphisme $t$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-locally-finite-type-dimension}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons $U = \Spec(k)$, où $k$ est un corps.
+Supposons que $s, t$ soient localement de type fini.
+Alors :
+\begin{enumerate}
+\item $R$ est équidimensionnel ;
+\item $\dim(R) = \dim_r(R)$ pour tout $r \in R$ ;
+\item pour tout $r \in R$, nous avons
+$\text{trdeg}_{s(k)}(\kappa(r)) = \text{trdeg}_{t(k)}(\kappa(r))$ ; et
+\item pour tout point fermé $r \in R$, nous avons
+$\dim(R) = \dim(\mathcal{O}_{R, r})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soient $r, r' \in R$.
+Alors $\dim_r(R) = \dim_{r'}(R)$ d'après le
+lemme \ref{lemma-groupoid-on-field-homogeneous}
+et
+Morphismes, lemme \ref{morphisms-lemma-dimension-fibre-after-base-change}.
+D'après
+Morphismes, lemme \ref{morphisms-lemma-dimension-fibre-at-a-point},
+nous avons
+$$
+\dim_r(R) =
+\dim(\mathcal{O}_{R, r}) + \text{trdeg}_{s(k)}(\kappa(r)) =
+\dim(\mathcal{O}_{R, r}) + \text{trdeg}_{t(k)}(\kappa(r)).
+$$
+D'autre part, la dimension de $R$ (ou de tout ouvert de $R$)
+est la borne supérieure des dimensions des anneaux locaux de $R$, voir
+Propriétés, lemme \ref{properties-lemma-codimension-local-ring}.
+La dimension de l'anneau local est manifestement maximale aux points fermés $r$, auquel cas
+$\text{trdeg}_k(\kappa(r)) = 0$ (par le théorème des zéros de Hilbert, voir
+Morphismes, section \ref{morphisms-section-points-finite-type}).
+Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-dimension-equal-stabilizer}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons $U = \Spec(k)$, où $k$ est un corps.
+Supposons que $s, t$ soient localement de type fini.
+Alors $\dim(R) = \dim(G)$, où $G$ est le schéma en groupes stabilisateur de $R$.
+\end{lemma}
+
+\begin{proof}
+Soit $Z \subset R$ la composante irréductible passant par $e$ (voir le
+lemme \ref{lemma-groupoid-on-field-geometrically-irreducible}),
+considérée comme un sous-schéma fermé intègre de $R$.
+Soit $k'_s$, resp.\ $k'_t$, la clôture intégrale de
+$s(k)$, resp.\ $t(k)$, dans $\Gamma(Z, \mathcal{O}_Z)$.
+Rappelons que $k'_s$ et $k'_t$ sont des corps, voir
+Variétés, lemme \ref{varieties-lemma-integral-closure-ground-field}.
+D'après
+Variétés, proposition \ref{varieties-proposition-unique-base-field},
+nous avons $k'_s = k'_t$ comme sous-anneaux de $\Gamma(Z, \mathcal{O}_Z)$.
+Comme $e$ se factorise par $Z$, nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+k \ar[rd]_t \ar[rrd]^1 \\
+& \Gamma(Z, \mathcal{O}_Z) \ar[r]^e & k \\
+k \ar[ru]^s \ar[rru]_1
+}
+$$
+Cela montre d'une part que $k'_s = s(k)$ et $k'_t = t(k)$, donc que
+$s(k) = t(k)$, ce qui, combiné au diagramme ci-dessus, implique
+que $s = t$ ! Autrement dit, nous concluons que $Z$ est un sous-schéma fermé
+de $G = R \times_{(t, s), U \times_S U, \Delta} U$.
+Le lemme en résulte, car $G$ et $R$ sont tous deux équidimensionnels, voir
+lemme \ref{lemma-groupoid-on-field-locally-finite-type-dimension} et
+Groupoïdes, lemme \ref{groupoids-lemma-group-scheme-finite-type-field}.
+\end{proof}
+
+\begin{remark}
+\label{remark-warn-dimension-groupoid-on-field}
+Avertissement :
+Le lemme \ref{lemma-groupoid-on-field-dimension-equal-stabilizer}
+est faux sans la condition que $s$ et $t$ soient localement de
+type fini.
+Un exemple simple consiste à partir de l'action
+$$
+\mathbf{G}_{m, \mathbf{Q}} \times_{\mathbf{Q}} \mathbf{A}^1_{\mathbf{Q}}
+\to \mathbf{A}^1_{\mathbf{Q}}
+$$
+et à restreindre le schéma en groupoïdes correspondant au point générique de
+$\mathbf{A}^1_{\mathbf{Q}}$. Autrement dit, effectuons la restriction suivant le morphisme
+$\Spec(\mathbf{Q}(x)) \to
+\Spec(\mathbf{Q}[x]) = \mathbf{A}^1_{\mathbf{Q}}$.
+On obtient alors un schéma en groupoïdes
+$(U, R, s, t, c)$ avec
+$U = \Spec(\mathbf{Q}(x))$
+et
+$$
+R = \Spec\left(
+\mathbf{Q}(x)[y]\left[
+\frac{1}{P(xy)}, P \in \mathbf{Q}[T], P \not = 0
+\right]
+\right)
+$$
+Dans ce cas, $\dim(R) = 1$ et $\dim(G) = 0$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-groupoid-characteristic-zero-smooth}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons que les conditions suivantes soient satisfaites :
+\begin{enumerate}
+\item $U = \Spec(k)$, où $k$ est un corps ;
+\item $s, t$ sont localement de type fini ; et
+\item la caractéristique de $k$ est nulle.
+\end{enumerate}
+Alors $s, t : R \to U$ sont lisses.
+\end{lemma}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-sheaf-differentials},
+le faisceau des différentielles de $R \to U$ est libre.
+La lissité résulte donc de
+Variétés, lemme \ref{varieties-lemma-char-zero-differentials-free-smooth}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduced-group-scheme-perfect-field-characteristic-p-smooth}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons que les conditions suivantes soient satisfaites :
+\begin{enumerate}
+\item $U = \Spec(k)$, où $k$ est un corps ;
+\item $s, t$ sont localement de type fini ;
+\item $R$ est réduit ; et
+\item $k$ est parfait.
+\end{enumerate}
+Alors $s, t : R \to U$ sont lisses.
+\end{lemma}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-sheaf-differentials},
+le faisceau $\Omega_{R/U}$ est libre. Le lemme résulte donc de
+Variétés, lemme \ref{varieties-lemma-char-p-differentials-free-smooth}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Morphismes de groupoïdes sur des corps}
+\label{section-morphisms-groupoids-on-fields}
+
+\noindent
+Cette section étudie les morphismes entre groupoïdes sur des corps.
+C'est légèrement plus général, mais très proche de l'étude des
+morphismes de schémas en groupes sur un corps.
+
+\begin{situation}
+\label{situation-morphism-groupoids-on-field}
+Soit $S$ un schéma.
+Soit $U = \Spec(k)$ un schéma sur $S$, où $k$ est un corps.
+Soient $(U, R_1, s_1, t_1, c_1)$ et $(U, R_2, s_2, t_2, c_2)$ des schémas en groupoïdes
+sur $S$ ayant la même première composante. Soit $a : R_1 \to R_2$ un morphisme
+tel que $(\text{id}_U, a)$ définisse un morphisme de schémas en
+groupoïdes sur $S$, voir
+Groupoïdes, définition \ref{groupoids-definition-groupoid}.
+En particulier, les diagrammes suivants sont commutatifs
+$$
+\vcenter{
+\xymatrix{
+R_1 \ar[rrd]^{t_1} \ar[rdd]_{s_1} \ar[rd]_a \\
+& R_2 \ar[d]^{t_2} \ar[r]_{s_2} & U \\
+& U
+}
+}
+\quad\quad
+\vcenter{
+\xymatrix{
+R_1 \times_{s_1, U, t_1} R_1 \ar[r]_-{c_1} \ar[d]_{a \times a} &
+R_1 \ar[d]^a \\
+R_2 \times_{s_2, U, t_2} R_2 \ar[r]^-{c_2} &
+R_2
+}
+}
+$$
+\end{situation}
+
+\noindent
+Le lemme suivant généralise
+Groupoïdes, lemme \ref{groupoids-lemma-open-subgroup-closed-over-field}.
+
+\begin{lemma}
+\label{lemma-open-image-is-closed}
+Notations et hypothèses comme dans la
+situation \ref{situation-morphism-groupoids-on-field}.
+Si $a(R_1)$ est ouvert dans $R_2$, alors $a(R_1)$ est fermé dans $R_2$.
+\end{lemma}
+
+\begin{proof}
+Soit $r_2 \in R_2$ un point appartenant à l'adhérence de $a(R_1)$.
+Nous voulons montrer que $r_2 \in a(R_1)$. Choisissons $k \subset k'$ et
+$r_2' \in R'_2$ adapté à $(U, R_2, s_2, t_2, c_2)$ et à $r_2$ comme dans le
+lemme \ref{lemma-groupoid-on-field-explain-points}.
+Soit $R_i'$ la restriction de $R_i$ par le morphisme
+$U' = \Spec(k') \to U = \Spec(k)$.
+Soit $a' : R'_1 \to R_2'$ le changement de base de $a$. Le diagramme
+$$
+\xymatrix{
+R'_1 \ar[r]_{a'} \ar[d]_{p_1} & R'_2 \ar[d]^{p_2} \\
+R_1 \ar[r]^a & R_2
+}
+$$
+est un carré cartésien. L'image de $a'$ est donc l'image réciproque de
+l'image de $a$ par le morphisme $p_2 : R'_2 \to R_2$. D'après le
+lemme \ref{lemma-restrict-groupoid-on-field},
+l'application $p_2$ est surjective et ouverte. Ainsi, d'après
+Topologie, lemme \ref{topology-lemma-open-morphism-quotient-topology},
+nous voyons que $r_2'$ appartient à l'adhérence de $a'(R'_1)$.
+Cela signifie que nous pouvons supposer que $r_2 \in R_2$ vérifie
+que les applications $k \to \kappa(r_2)$ induites
+par $s_2$ et $t_2$ sont des isomorphismes.
+
+\medskip\noindent
+Dans ce cas, nous pouvons utiliser le
+lemme \ref{lemma-groupoid-on-field-move-point}.
+Ce lemme implique que $c(r_2, a(R_1))$ est un voisinage ouvert de $r_2$.
+Ainsi, $a(R_1) \cap c(r_2, a(R_1)) \not = \emptyset$, puisque nous avons supposé
+que $r_2$ appartenait à l'adhérence de $a(R_1)$.
+En utilisant les morphismes d'inversion de $R_2$ et de $R_1$, nous voyons que cela signifie que
+$c_2(a(R_1), a(R_1))$ contient $r_2$.
+Comme $c_2(a(R_1), a(R_1)) \subset a(c_1(R_1, R_1)) = a(R_1)$,
+nous concluons que $r_2 \in a(R_1)$, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-groupoids-on-field-image}
+Notations et hypothèses comme dans la
+situation \ref{situation-morphism-groupoids-on-field}.
+Soit $Z \subset R_2$ le sous-schéma fermé réduit (voir
+Schémas, définition \ref{schemes-definition-reduced-induced-scheme})
+dont l'espace topologique sous-jacent est l'adhérence de l'image de
+$a : R_1 \to R_2$. Alors
+$c_2(Z \times_{s_2, U, t_2} Z) \subset Z$
+ensemblistement.
+\end{lemma}
+
+\begin{proof}
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+R_1 \times_{s_1, U, t_1} R_1 \ar[r] \ar[d] & R_1 \ar[d] \\
+R_2 \times_{s_2, U, t_2} R_2 \ar[r] & R_2
+}
+$$
+D'après
+Variétés, lemme \ref{varieties-lemma-closure-image-product-map},
+l'adhérence de l'image de la flèche verticale de gauche est (ensemblistement)
+$Z \times_{s_2, U, t_2} Z$.
+Le résultat en découle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-groupoids-on-perfect-field-image}
+Notations et hypothèses comme dans la
+situation \ref{situation-morphism-groupoids-on-field}.
+Supposons que $k$ soit parfait.
+Soit $Z \subset R_2$ le sous-schéma fermé réduit (voir
+Schémas, définition \ref{schemes-definition-reduced-induced-scheme})
+dont l'espace topologique sous-jacent est l'adhérence de l'image de
+$a : R_1 \to R_2$. Alors
+$$
+(U, Z, s_2|_Z, t_2|_Z, c_2|_Z)
+$$
+est un schéma en groupoïdes sur $S$.
+\end{lemma}
+
+\begin{proof}
+Expliquons d'abord pourquoi l'énoncé a un sens. Puisque $U$ est le spectre
+d'un corps parfait $k$, le schéma $Z$ est géométriquement réduit
+sur $k$ (pour l'une ou l'autre projection), voir
+Variétés, lemme \ref{varieties-lemma-perfect-reduced}.
+Ainsi, le schéma $Z \times_{s_2, U, t_2} Z \subset Z$
+est réduit, voir
+Variétés, lemme \ref{varieties-lemma-geometrically-reduced-any-base-change}.
+Par conséquent, d'après le
+lemme \ref{lemma-map-groupoids-on-field-image},
+nous voyons que $c$ induit un morphisme
+$Z \times_{s_2, U, t_2} Z \to Z$.
+Enfin, il est clair que $e_2$ se factorise par $Z$
+et que le morphisme $i_2 : R_2 \to R_2$ préserve $Z$. Puisque les morphismes
+du septuple
+$(U, R_2, s_2, t_2, c_2, e_2, i_2)$
+satisfont aux axiomes d'un groupoïde, il s'ensuit qu'après restriction
+à $Z$, ils satisfont encore à ces axiomes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-closed-image-is-closed}
+Notations et hypothèses comme dans la
+situation \ref{situation-morphism-groupoids-on-field}.
+Si l'image $a(R_1)$ est un sous-ensemble localement fermé de $R_2$,
+alors c'est un sous-ensemble fermé.
+\end{lemma}
+
+\begin{proof}
+Soit $k \subset k'$ une clôture parfaite du corps $k$.
+Soit $R_i'$ la restriction de $R_i$ par le morphisme
+$U' = \Spec(k') \to \Spec(k)$. Remarquons que les
+morphismes $R_i' \to R_i$ sont des homéomorphismes universels, car ce sont des
+composés de changements de base de l'homéomorphisme universel
+$U' \to U$ (voir le diagramme dans l'énoncé du
+lemme \ref{lemma-restrict-groupoid-on-field}).
+Il suffit donc de démontrer que l'image $a'(R_1')$ est fermée
+dans $R_2'$. Autrement dit, nous pouvons supposer que $k$ est parfait.
+
+\medskip\noindent
+Si $k$ est parfait, l'adhérence de l'image est
+un schéma en groupoïdes $Z \subset R_2$, d'après le
+lemme \ref{lemma-map-groupoids-on-perfect-field-image}.
+En appliquant le même lemme à
+$\text{id}_{R_1} : R_1 \to R_1$,
+nous voyons que $(R_2)_{red}$ est un schéma en groupoïdes.
+Nous pouvons donc appliquer le
+lemme \ref{lemma-open-image-is-closed}
+au morphisme
+$a|_{(R_2)_{red}} : (R_2)_{red} \to Z$
+pour conclure que $Z$ est égal à l'image de $a$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-map-groupoids-on-field-image}
+Notations et hypothèses comme dans la
+situation \ref{situation-morphism-groupoids-on-field}.
+Supposons que $a : R_1 \to R_2$ soit un morphisme quasi-compact.
+Soit $Z \subset R_2$ l'image schématique (voir
+Morphismes, définition \ref{morphisms-definition-scheme-theoretic-image})
+de $a : R_1 \to R_2$. Alors
+$$
+(U, Z, s_2|_Z, t_2|_Z, c_2|_Z)
+$$
+est un schéma en groupoïdes sur $S$.
+\end{lemma}
+
+\begin{proof}
+La principale difficulté consiste à montrer que $c_2|_{Z \times_{s_2, U, t_2} Z}$
+a son image dans $Z$. Considérons le diagramme commutatif
+$$
+\xymatrix{
+R_1 \times_{s_1, U, t_1} R_1 \ar[r] \ar[d]^{a \times a} & R_1 \ar[d] \\
+R_2 \times_{s_2, U, t_2} R_2 \ar[r] & R_2
+}
+$$
+D'après le
+lemme \ref{varieties-lemma-scheme-theoretic-image-product-map} du chapitre Variétés,
+nous voyons que l'image schématique de $a \times a$ est
+$Z \times_{s_2, U, t_2} Z$. Par commutativité du diagramme, nous
+concluons que $Z \times_{s_2, U, t_2} Z$ a son image dans $Z$ par la flèche
+horizontale inférieure. Comme dans la démonstration du
+lemme \ref{lemma-map-groupoids-on-perfect-field-image},
+on a aussi $i_2(Z) \subset Z$ et
+$e_2$ se factorise par $Z$. Nous concluons donc comme dans la
+démonstration de ce lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-field-image}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons que $U$ soit le spectre d'un corps.
+Soit $Z \subset U \times_S U$ le sous-schéma fermé réduit (voir
+Schémas, définition \ref{schemes-definition-reduced-induced-scheme})
+dont l'espace topologique sous-jacent est l'adhérence de l'image de
+$j = (t, s) : R \to U \times_S U$. Alors
+$\text{pr}_{02}(Z \times_{\text{pr}_1, U, \text{pr}_0} Z) \subset Z$
+ensemblistement.
+\end{lemma}
+
+\begin{proof}
+Puisque $(U, U \times_S U, \text{pr}_1, \text{pr}_0, \text{pr}_{02})$
+est un schéma en groupoïdes sur $S$, c'est un cas particulier du
+lemme \ref{lemma-map-groupoids-on-field-image}.
+Mais nous pouvons aussi le démontrer directement comme suit.
+
+\medskip\noindent
+Écrivons $U = \Spec(k)$. Notons
+$R_s$ (resp.\ $Z_s$, resp.\ $U^2_s$) le schéma
+$R$ (resp.\ $Z$, resp.\ $U \times_S U$) considéré comme un schéma sur $k$ au moyen de
+$s$ (resp.\ $\text{pr}_1|_Z$, resp.\ $\text{pr}_1$).
+De même, notons
+${}_tR$ (resp.\ ${}_tZ$, resp.\ ${}_tU^2$) le schéma
+$R$ (resp.\ $Z$, resp.\ $U \times_S U$) considéré comme un schéma sur $k$ au moyen de
+$t$ (resp.\ $\text{pr}_0|_Z$, resp.\ $\text{pr}_0$).
+Le morphisme $j$ induit des morphismes de schémas
+$j_s : R_s \to U^2_s$ et ${}_tj : {}_tR \to {}_tU^2$ sur $k$.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+R_s \times_k {}_tR \ar[r]^c \ar[d]_{j_s \times {}_tj} &  R \ar[d]^j \\
+U^2_s \times_k {}_tU^2 \ar[r] & U \times_S U
+}
+$$
+D'après le
+lemme \ref{varieties-lemma-closure-image-product-map} du chapitre Variétés,
+nous voyons que l'adhérence de l'image de $j_s \times {}_tj$ est
+$Z_s \times_k {}_tZ$. Par commutativité du diagramme, nous
+concluons que $Z_s \times_k {}_tZ$ a son image dans $Z$ par la flèche
+horizontale inférieure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-on-perfect-field-image}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons que $U$ soit le spectre d'un corps parfait.
+Soit $Z \subset U \times_S U$ le sous-schéma fermé réduit (voir
+Schémas, définition \ref{schemes-definition-reduced-induced-scheme})
+dont l'espace topologique sous-jacent est l'adhérence de l'image de
+$j = (t, s) : R \to U \times_S U$.
+Alors
+$$
+(U, Z, \text{pr}_0|_Z, \text{pr}_1|_Z,
+\text{pr}_{02}|_{Z \times_{\text{pr}_1, U, \text{pr}_0} Z})
+$$
+est un schéma en groupoïdes sur $S$.
+\end{lemma}
+
+\begin{proof}
+Puisque $(U, U \times_S U, \text{pr}_1, \text{pr}_0, \text{pr}_{02})$
+est un schéma en groupoïdes sur $S$, c'est un cas particulier du
+lemme \ref{lemma-map-groupoids-on-perfect-field-image}.
+Mais nous pouvons aussi le démontrer directement comme suit.
+
+\medskip\noindent
+Expliquons d'abord pourquoi l'énoncé a un sens. Puisque $U$ est le spectre
+d'un corps parfait $k$, le schéma $Z$ est géométriquement réduit
+sur $k$ (au moyen de l'une ou l'autre projection), voir
+Variétés, lemme \ref{varieties-lemma-perfect-reduced}.
+Le schéma $Z \times_{\text{pr}_1, U, \text{pr}_0} Z \subset Z$ est donc
+réduit, voir
+Variétés, lemme \ref{varieties-lemma-geometrically-reduced-any-base-change}.
+Ainsi, d'après le
+lemme \ref{lemma-groupoid-on-field-image},
+nous voyons que $\text{pr}_{02}$ induit un morphisme
+$Z \times_{\text{pr}_1, U, \text{pr}_0} Z \to Z$.
+Enfin, il est clair que $\Delta_{U/S}$ se factorise par $Z$
+et que l'application
+$\sigma : U \times_S U \to U \times_S U$, $(x, y) \mapsto (y, x)$
+préserve $Z$. Puisque
+$(U, U \times_S U, \text{pr}_0, \text{pr}_1, \text{pr}_{02},
+\Delta_{U/S}, \sigma)$
+satisfait aux axiomes d'un groupoïde, il s'ensuit qu'après restriction
+à $Z$, ces morphismes satisfont aux axiomes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-groupoid-on-field-image}
+Soit $S$ un schéma. Soit $(U, R, s, t, c)$ un schéma en groupoïdes
+sur $S$. Supposons que $U$ soit le spectre d'un corps et
+supposons que $R$ soit quasi-compact (de manière équivalente, $s, t$ sont quasi-compacts).
+Soit $Z \subset U \times_S U$ l'image schématique (voir
+Morphismes, définition \ref{morphisms-definition-scheme-theoretic-image})
+de $j = (t, s) : R \to U \times_S U$.
+Alors
+$$
+(U, Z, \text{pr}_0|_Z, \text{pr}_1|_Z,
+\text{pr}_{02}|_{Z \times_{\text{pr}_1, U, \text{pr}_0} Z})
+$$
+est un schéma en groupoïdes sur $S$.
+\end{lemma}
+
+\begin{proof}
+Puisque $(U, U \times_S U, \text{pr}_1, \text{pr}_0, \text{pr}_{02})$
+est un schéma en groupoïdes sur $S$, c'est un cas particulier du
+lemme \ref{lemma-quasi-compact-map-groupoids-on-field-image}.
+Mais nous pouvons aussi le démontrer directement comme suit.
+
+\medskip\noindent
+La difficulté principale consiste à montrer que
+$\text{pr}_{02}|_{Z \times_{\text{pr}_1, U, \text{pr}_0} Z}$
+a son image dans $Z$.
+Écrivons $U = \Spec(k)$. Notons
+$R_s$ (resp.\ $Z_s$, resp.\ $U^2_s$) le schéma
+$R$ (resp.\ $Z$, resp.\ $U \times_S U$) considéré comme un schéma sur $k$ au moyen de
+$s$ (resp.\ $\text{pr}_1|_Z$, resp.\ $\text{pr}_1$).
+De même, notons
+${}_tR$ (resp.\ ${}_tZ$, resp.\ ${}_tU^2$) le schéma
+$R$ (resp.\ $Z$, resp.\ $U \times_S U$) considéré comme un schéma sur $k$ au moyen de
+$t$ (resp.\ $\text{pr}_0|_Z$, resp.\ $\text{pr}_0$).
+Le morphisme $j$ induit des morphismes de schémas
+$j_s : R_s \to U^2_s$ et ${}_tj : {}_tR \to {}_tU^2$ sur $k$.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+R_s \times_k {}_tR \ar[r]^c \ar[d]_{j_s \times {}_tj} &  R \ar[d]^j \\
+U^2_s \times_k {}_tU^2 \ar[r] & U \times_S U
+}
+$$
+D'après le
+lemme \ref{varieties-lemma-scheme-theoretic-image-product-map} du chapitre Variétés,
+nous voyons que l'image schématique de $j_s \times {}_tj$ est
+$Z_s \times_k {}_tZ$. Par commutativité du diagramme, nous
+concluons que $Z_s \times_k {}_tZ$ a son image dans $Z$ par la flèche
+horizontale inférieure. Comme dans la démonstration du
+lemme \ref{lemma-groupoid-on-perfect-field-image},
+on a aussi $\sigma(Z) \subset Z$ et
+$\Delta_{U/S}$ se factorise par $Z$. Nous concluons donc comme dans la
+démonstration de ce lemme.
+\end{proof}
+
+
+
+
+
+
+
+\section{Tranches de schémas en groupoïdes}
+\label{section-slicing}
+
+\noindent
+Le lemme suivant montre que nous pouvons prendre une tranche d'un schéma en groupoïdes de Cohen-Macaulay
+afin de réduire la dimension des fibres, pourvu que la
+dimension du stabilisateur soit petite. C'est une étape essentielle du
+processus d'amélioration d'une présentation donnée d'un champ quotient.
+
+\begin{situation}
+\label{situation-slice}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur $S$.
+Soit $g : U' \to U$ un morphisme de schémas.
+Soit $u \in U$ un point, et soit $u' \in U'$ un point tel que
+$g(u') = u$. Ces données étant fixées, notons $(U', R', s', t', c')$
+la restriction de $(U, R, s, t, c)$ par le morphisme $g$.
+Notons $G \to U$ le schéma en groupes stabilisateur de $R$, qui
+est un sous-schéma localement fermé de $R$.
+Notons $h$ la composée
+$$
+h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \longrightarrow U.
+$$
+Notons $F_u = s^{-1}(u)$ (fibre schématique), et $G_u$ la
+fibre schématique de $G$ au-dessus de $u$.
+De même, pour $R'$, notons $F'_{u'} = (s')^{-1}(u')$.
+Comme $g(u') = u$, on a
+$$
+F'_{u'} = h^{-1}(u) \times_{\Spec(\kappa(u))} \Spec(\kappa(u')).
+$$
+Le point $e(u) \in R$ peut être considéré comme un point de $G_u$ et de $F_u$, et
+$e'(u')$ est un point de $R'$ (resp.\ $G'_{u'}$, resp.\ $F'_{u'}$) qui s'envoie
+sur $e(u)$ dans $R$ (resp.\ $G_u$, resp.\ $F_u$).
+\end{situation}
+
+\begin{lemma}
+\label{lemma-slice}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c, e, i)$ un schéma en groupoïdes sur $S$.
+Soit $G \to U$ le schéma en groupes stabilisateur.
+Supposons que $s$ et $t$ soient de Cohen-Macaulay et localement de présentation finie.
+Soit $u \in U$ un point de type fini du schéma $U$, voir
+Morphismes, définition \ref{morphisms-definition-finite-type-point}.
+Avec les notations de la
+situation \ref{situation-slice},
+posons
+$$
+d_1 = \dim(G_u), \quad
+d_2 = \dim_{e(u)}(F_u).
+$$
+Si $d_2 > d_1$, alors il existe un schéma affine $U'$
+et un morphisme $g : U' \to U$ tels que (avec les notations de la
+situation \ref{situation-slice})
+\begin{enumerate}
+\item $g$ est une immersion,
+\item $u \in U'$,
+\item $g$ est localement de présentation finie,
+\item le morphisme $h : U' \times_{g, U, t} R \longrightarrow U$
+est de Cohen-Macaulay au point $(u, e(u))$, et
+\item on a $\dim_{e'(u)}(F'_u) = d_2 - 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $\Spec(A) \subset U$ un voisinage affine de $u$
+tel que $u$ corresponde à un point fermé de $U$, voir
+Morphismes, lemme \ref{morphisms-lemma-identify-finite-type-points}.
+Soit $\Spec(B) \subset R$ un voisinage affine de $e(u)$
+dont l'image par $j$ est contenue dans l'ouvert
+$\Spec(A) \times_S \Spec(A) \subset U \times_S U$.
+Soit $\mathfrak m \subset A$ l'idéal maximal correspondant à $u$.
+Soit $\mathfrak q \subset B$ l'idéal premier correspondant à $e(u)$.
+Diagrammes :
+$$
+\vcenter{
+\xymatrix{
+B & A \ar[l]^s \\
+A \ar[u]^t
+}
+}
+\quad\text{et}\quad
+\vcenter{
+\xymatrix{
+B_{\mathfrak q} & A_{\mathfrak m} \ar[l]^s \\
+A_{\mathfrak m} \ar[u]^t
+}
+}
+$$
+Notons que les deux applications induites
+$s, t : \kappa(\mathfrak m) \to \kappa(\mathfrak q)$
+sont égales et sont des isomorphismes puisque $s \circ e = t \circ e = \text{id}_U$.
+En particulier, nous voyons que $\mathfrak q$
+est aussi un idéal maximal. Les homomorphismes d'anneaux $s, t : A \to B$ sont
+de présentation finie et plats. Par hypothèse, l'anneau
+$$
+\mathcal{O}_{F_u, e(u)} = B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q}
+$$
+est de Cohen-Macaulay de dimension $d_2$. L'égalité des dimensions résulte de
+Morphismes, lemme \ref{morphisms-lemma-dimension-fibre-at-a-point}.
+
+\medskip\noindent
+Soit $R''$ la restriction de $R$ à $u = \Spec(\kappa(u))$
+par le morphisme $\Spec(\kappa(u)) \to U$.
+Comme $u \to U$ est localement de type fini,
+nous voyons que $(\Spec(\kappa(u)), R'', s'', t'', c'')$
+est un schéma en groupoïdes avec $s'', t''$ localement de type fini, voir
+le lemme \ref{lemma-restrict-preserves-type}.
+D'après le
+lemme \ref{lemma-groupoid-on-field-dimension-equal-stabilizer},
+cela implique que $\dim(G'') = \dim(R'')$. On a aussi
+$\dim(R'') = \dim_{e''}(R'') = \dim(\mathcal{O}_{R'', e''})$, voir
+le lemme \ref{lemma-groupoid-on-field-locally-finite-type-dimension}.
+D'après
+Groupoïdes, lemme \ref{groupoids-lemma-restrict-stabilizer},
+on a $G'' = G_u$. Nous concluons donc que
+$\dim(\mathcal{O}_{R'', e''}) = d_1$.
+
+\medskip\noindent
+En tant que schéma, $R''$ est
+$$
+R'' =
+R \times_{(U \times_S U)}
+\Big(
+\Spec(\kappa(\mathfrak m)) \times_S \Spec(\kappa(\mathfrak m))
+\Big)
+$$
+Par conséquent, un voisinage ouvert affine de $e''$ est le spectre de l'anneau
+$$
+B \otimes_{(A \otimes A)} (\kappa(\mathfrak m) \otimes \kappa(\mathfrak m))
+=
+B/s(\mathfrak m)B + t(\mathfrak m)B
+$$
+Nous en concluons que
+$$
+\mathcal{O}_{R'', e''} =
+B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q} + t(\mathfrak m)B_{\mathfrak q}
+$$
+et nous savons donc maintenant que cet anneau est de dimension $d_1$.
+
+\medskip\noindent
+Nous affirmons que cela implique que l'on peut trouver
+un élément $f \in \mathfrak m$ tel que
+$$
+\dim(B_{\mathfrak q}/(s(\mathfrak m)B_{\mathfrak q} + fB_{\mathfrak q}) < d_2
+$$
+En effet, supposons que $\mathfrak n_j \supset s(\mathfrak m)B_{\mathfrak q}$,
+$j = 1, \ldots, m$, correspondent aux idéaux premiers minimaux de l'anneau local
+$B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q}$.
+Ils sont en nombre fini puisque cet anneau est noethérien (car il est essentiellement
+de type fini sur un corps -- mais aussi parce qu'un anneau de Cohen-Macaulay est
+noethérien). Par la propriété de Cohen-Macaulay, on a
+$\dim(B_{\mathfrak q}/\mathfrak n_j) = d_2$, par exemple d'après
+Algèbre, lemme \ref{algebra-lemma-CM-dim-formula}.
+Notons que
+$\dim(B_{\mathfrak q}/(\mathfrak n_j + t(\mathfrak m)B_{\mathfrak q}))
+\leq d_1$
+car c'est un quotient de l'anneau
+$\mathcal{O}_{R'', e''} =
+B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q} + t(\mathfrak m)B_{\mathfrak q}$
+qui est de dimension $d_1$. Comme $d_1 < d_2$, cela implique que
+$\mathfrak m \not \subset t^{-1}(\mathfrak n_i)$.
+Par le lemme d'évitement des idéaux premiers, voir
+Algèbre, lemme \ref{algebra-lemma-silly},
+nous pouvons trouver $f \in \mathfrak m$ tel que $t(f) \not \in \mathfrak n_j$ pour
+$j = 1, \ldots, m$. Pour ce choix de $f$, on a
+l'inégalité affichée ci-dessus, voir
+Algèbre, lemme \ref{algebra-lemma-one-equation}.
+
+\medskip\noindent
+Posons $A' = A/fA$ et $U' = \Spec(A')$. Il est alors clair que
+$U' \to U$ est une immersion, localement de présentation finie,
+et que $u \in U'$. Ainsi, les assertions (1), (2) et (3) du lemme sont vérifiées.
+Le morphisme
+$$
+U' \times_{g, U, t} R \longrightarrow U
+$$
+se factorise par $\Spec(A)$ et correspond à l'homomorphisme d'anneaux
+$$
+\xymatrix{
+B/t(f)B \ar@{=}[r] & A/(f) \otimes_{A, t} B & A \ar[l]_-s
+}
+$$
+Nous voyons maintenant que $t(f)$ n'est pas un diviseur de zéro dans
+$B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q}$, car c'est un anneau de
+Cohen-Macaulay de dimension positive et $f$ n'appartient à
+aucun idéal premier minimal, voir par exemple
+Algèbre, lemme \ref{algebra-lemma-reformulate-CM}.
+Par conséquent, d'après
+Algèbre, lemme \ref{algebra-lemma-grothendieck-general},
+nous concluons que $s : A_{\mathfrak m} \to B_{\mathfrak q}/t(f)B_{\mathfrak q}$
+est plat et a pour anneau de la fibre
+$B_{\mathfrak q}/(s(\mathfrak m)B_{\mathfrak q} + t(f)B_{\mathfrak q})$,
+qui est de Cohen-Macaulay, encore d'après
+Algèbre, lemme \ref{algebra-lemma-reformulate-CM}.
+Cela implique l'assertion (4) du lemme.
+Pour voir l'assertion (5), notons que, d'après le diagramme (\ref{equation-restriction}),
+la fibre $F'_u$ est égale à la fibre de $h$ au-dessus de $u$.
+Par conséquent,
+$\dim_{e'(u)}(F'_u) =
+\dim(B_{\mathfrak q}/(s(\mathfrak m)B_{\mathfrak q} + t(f)B_{\mathfrak q}))$
+d'après
+Morphismes, lemme \ref{morphisms-lemma-dimension-fibre-at-a-point},
+et la dimension de cet anneau est $d_2 - 1$ d'après
+Algèbre, lemme \ref{algebra-lemma-reformulate-CM},
+une fois encore. Cela démontre la dernière assertion du lemme et achève la démonstration.
+\end{proof}
+
+\noindent
+Maintenant que nous savons prendre une tranche, nous pouvons combiner ce résultat avec ce qui précède
+pour obtenir le résultat ``optimal'' suivant. Il est optimal au sens où,
+puisque $G_u$ est un sous-schéma localement fermé de $F_u$, on a toujours
+l'inégalité $\dim(G_u) = \dim_{e(u)}(G_u) \leq \dim_{e(u)}(F_u)$ ; il
+n'est donc pas possible de pousser plus loin la prise d'une tranche que dans le lemme.
+
+\begin{lemma}
+\label{lemma-max-slice}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c, e, i)$ un schéma en groupoïdes sur $S$.
+Soit $G \to U$ le schéma en groupes stabilisateur.
+Supposons que $s$ et $t$ soient de Cohen-Macaulay et localement de présentation finie.
+Soit $u \in U$ un point de type fini du schéma $U$, voir
+Morphismes, définition \ref{morphisms-definition-finite-type-point}.
+Avec les notations de la
+situation \ref{situation-slice},
+il existe un schéma affine $U'$ et un morphisme $g : U' \to U$ tels que
+\begin{enumerate}
+\item $g$ est une immersion,
+\item $u \in U'$,
+\item $g$ est localement de présentation finie,
+\item le morphisme $h : U' \times_{g, U, t} R \longrightarrow U$
+est de Cohen-Macaulay et localement de présentation finie,
+\item les morphismes $s', t' : R' \to U'$ sont de Cohen-Macaulay et
+localement de présentation finie, et
+\item $\dim_{e(u)}(F'_u) = \dim(G'_u)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Comme $s$ est localement de présentation finie, le schéma $F_u$ est
+localement de type fini sur $\kappa(u)$. Par conséquent,
+$\dim_{e(u)}(F_u) < \infty$ et nous pouvons raisonner par récurrence sur
+$\dim_{e(u)}(F_u)$.
+
+\medskip\noindent
+Si $\dim_{e(u)}(F_u) = \dim(G_u)$, il n'y a rien à démontrer.
+Supposons $\dim_{e(u)}(F_u) > \dim(G_u)$. Cela signifie que le
+lemme \ref{lemma-slice}
+s'applique, et nous trouvons un morphisme $g : U' \to U$ qui possède
+les propriétés (1), (2), (3), tandis qu'au lieu de (6), nous avons
+$\dim_{e(u)}(F'_u) < \dim_{e(u)}(F_u)$,
+et qu'au lieu de (4) et (5), nous savons que la composée
+$$
+h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \longrightarrow U
+$$
+est de Cohen-Macaulay au point $(u, e(u))$. Nous appliquons la
+remarque \ref{remark-local-source-apply}
+et obtenons un sous-schéma ouvert $U'' \subset U'$ tel que
+$U'' \times_{g, U, t} R \subset U' \times_{g, U, t} R$
+soit le plus grand sous-schéma ouvert sur lequel $h$ est de Cohen-Macaulay.
+Puisque $(u, e(u)) \in U'' \times_{g, U, t} R$, nous voyons que $u \in U''$.
+Nous pouvons donc remplacer $U'$ par $U''$ et supposer qu'en fait $h$ est
+de Cohen-Macaulay partout ! D'après le
+lemme \ref{lemma-restrict-property},
+nous concluons que $s', t'$ sont localement de
+présentation finie et de Cohen-Macaulay (utiliser
+Morphismes, lemme \ref{morphisms-lemma-base-change-finite-presentation},
+et
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-base-change-CM}).
+
+\medskip\noindent
+Par construction, $\dim_{e'(u)}(F'_u) < \dim_{e(u)}(F_u)$,
+de sorte que nous pouvons appliquer l'hypothèse de récurrence à $(U', R', s', t', c')$
+et au point $u \in U'$. Notons que $u$ est également un point de type fini
+de $U'$ (on peut par exemple le voir en utilisant la caractérisation des
+points de type fini donnée dans
+Morphismes, lemme \ref{morphisms-lemma-identify-finite-type-points}).
+Soient $g' : U'' \to U'$ et $(U'', R'', s'', t'', c'')$ la solution
+du problème correspondant partant de $(U', R', s', t', c')$
+et du point $u \in U'$. Nous affirmons que la composée
+$$
+g'' = g \circ g' : U'' \longrightarrow U
+$$
+est une solution du problème initial. Les propriétés (1), (2), (3), (5)
+et (6) sont immédiates. Pour voir (4), notons que le morphisme
+$$
+h'' = s \circ \text{pr}_1 : U'' \times_{g'', U, t} R \longrightarrow U
+$$
+est localement de présentation finie et de Cohen-Macaulay par application du
+lemme \ref{lemma-double-restrict-property}
+(utiliser
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-CM-local-source-and-target},
+pour voir que la propriété d'être de Cohen-Macaulay est locale pour la topologie fppf sur la cible).
+\end{proof}
+
+\noindent
+Lorsque les fibres du schéma en groupes stabilisateur sont de dimension 0,
+cela donne le lemme de tranche suivant.
+
+\begin{lemma}
+\label{lemma-max-slice-quasi-finite}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c, e, i)$ un schéma en groupoïdes sur $S$.
+Soit $G \to U$ le schéma en groupes stabilisateur.
+Supposons que $s$ et $t$ soient de Cohen-Macaulay et localement de présentation finie.
+Soit $u \in U$ un point de type fini du schéma $U$, voir
+Morphismes, définition \ref{morphisms-definition-finite-type-point}.
+Supposons que $G \to U$ soit localement quasi-fini.
+Avec les notations de la
+situation \ref{situation-slice},
+il existe un schéma affine $U'$ et un morphisme $g : U' \to U$ tels que
+\begin{enumerate}
+\item $g$ est une immersion,
+\item $u \in U'$,
+\item $g$ est localement de présentation finie,
+\item le morphisme $h : U' \times_{g, U, t} R \longrightarrow U$
+est plat, localement de présentation finie et localement quasi-fini, et
+\item les morphismes $s', t' : R' \to U'$ sont plats,
+localement de présentation finie et localement quasi-finis.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Prenons $g : U' \to U$ comme dans le
+lemme \ref{lemma-max-slice}.
+Puisque $h^{-1}(u) = F'_u$, nous voyons que $h$ est de dimension relative
+$\leq 0$ en $(u, e(u))$. Par conséquent, d'après la
+remarque \ref{remark-local-source-apply},
+nous obtenons un sous-schéma ouvert $U'' \subset U'$ tel que
+$u \in U''$ et que $U'' \times_{g, U, t} R$ soit le plus grand sous-schéma ouvert
+de $U' \times_{g, U, t} R$ sur lequel $h$ est de dimension relative $\leq 0$.
+Après avoir remplacé $U'$ par $U''$, nous voyons que $h$ est de dimension relative $\leq 0$.
+Cela implique que $h$ est localement quasi-fini d'après
+Morphismes, lemme \ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+Comme il est encore localement de présentation finie et de Cohen-Macaulay, nous voyons
+qu'il est plat, localement de présentation finie et localement quasi-fini,
+c'est-à-dire que (4) ci-dessus est vérifiée. Cela implique que $s'$ est plat, localement de
+présentation finie et localement quasi-fini en tant que changement de base de $h$, voir
+le lemme \ref{lemma-restrict-property}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Localisation \'etale des schémas en groupoïdes}
+\label{section-etale-localize}
+
+\noindent
+Dans cette section, nous commençons à appliquer aux schémas en groupoïdes les techniques de localisation \'etale de
+Compléments sur les morphismes, section \ref{more-morphisms-section-etale-localization}.
+On trouvera des résultats plus avancés de ce type dans
+Compléments sur les groupoïdes dans les espaces,
+section \ref{spaces-more-groupoids-section-etale-localize}.
+Le lemme \ref{lemma-quasi-finite-over-base-j-proper}
+sera utilisé pour démontrer des résultats sur les espaces algébriques
+séparés et quasi-finis sur un schéma, à savoir
+Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}
+et son corollaire
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}.
+
+\begin{lemma}
+\label{lemma-quasi-finite-over-base}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur $S$.
+Soit $p \in S$ un point, et soit $u \in U$ un point situé au-dessus de $p$.
+Supposons que
+\begin{enumerate}
+\item $U \to S$ soit localement de type fini,
+\item $U \to S$ soit quasi-fini en $u$,
+\item $U \to S$ soit séparé,
+\item $R \to S$ soit séparé,
+\item $s$, $t$ soient plats et localement de présentation finie, et
+\item $s^{-1}(\{u\})$ soit fini.
+\end{enumerate}
+Alors il existe un voisinage \'etale $(S', p') \to (S, p)$ tel que
+$\kappa(p) = \kappa(p')$ et un diagramme de changement de base
+$$
+\xymatrix{
+R' \amalg W'
+\ar@{=}[r] &
+S' \times_S R
+\ar[r] \ar@<2ex>[d]^{s'} \ar@<-2ex>[d]_{t'} &
+R \ar@<1ex>[d]^s \ar@<-1ex>[d]_t \\
+U' \amalg W
+\ar@{=}[r] &
+S' \times_S U
+\ar[r] \ar[d] &
+U \ar[d] \\
+ &
+S' \ar[r] &
+S
+}
+$$
+où les signes d'égalité sont des décompositions en sous-schémas ouverts et
+fermés telles que
+\begin{enumerate}
+\item[(a)] il existe un point $u'$ de $U'$ qui s'envoie sur $u$ dans $U$,
+\item[(b)] la fibre $(U')_{p'}$ est égale à $t'\big((s')^{-1}(\{u'\})\big)$
+ensemblistement,
+\item[(c)] la fibre $(R')_{p'}$ est égale à $(s')^{-1}\big((U')_{p'}\big)$
+ensemblistement,
+\item[(d)] les schémas $U'$ et $R'$ sont finis sur $S'$,
+\item[(e)] on a $s'(R') \subset U'$ et $t'(R') \subset U'$,
+\item[(f)] on a
+$c'(R' \times_{s', U', t'} R') \subset R'$
+où $c'$ est le changement de base de $c$, et
+\item[(g)] les morphismes $s', t', c'$ déterminent une structure de groupoïde
+en prenant le système
+$(U', R', s'|_{R'}, t'|_{R'}, c'|_{R' \times_{s', U', t'} R'})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Notons $f : U \to S$ le morphisme structural de $U$.
+D'après l'hypothèse (6), on peut écrire $s^{-1}(\{u\}) = \{r_1, \ldots, r_n\}$.
+Comme cet ensemble est fini, on voit que $s$ est quasi-fini en chacun de
+ces antécédents, en nombre fini, voir
+Morphismes, Lemme \ref{morphisms-lemma-finite-fibre}.
+On voit donc que $f \circ s : R \to S$ est quasi-fini en chaque $r_i$
+(Morphismes, Lemme \ref{morphisms-lemma-composition-quasi-finite}).
+Ainsi, $r_i$ est isolé dans la fibre $R_p$, voir
+Morphismes, Lemme \ref{morphisms-lemma-quasi-finite-at-point-characterize}.
+Écrivons $t(\{r_1, \ldots, r_n\}) = \{u_1, \ldots, u_m\}$.
+Notons qu'il peut arriver que $m < n$ et que
+$u \in \{u_1, \ldots, u_m\}$.
+Comme $t$ est plat et localement de présentation finie,
+le morphisme de fibres $t_p : R_p \to U_p$ est plat et localement de
+présentation finie (Morphismes,
+Lemmes \ref{morphisms-lemma-base-change-flat} et
+\ref{morphisms-lemma-base-change-finite-presentation}),
+donc ouvert (Morphismes,
+Lemme \ref{morphisms-lemma-fppf-open}).
+Le fait que chaque $r_i$ soit isolé dans $R_p$ implique que
+chaque $u_j = t(r_i)$ est isolé dans $U_p$. En utilisant de nouveau
+Morphismes, Lemme \ref{morphisms-lemma-quasi-finite-at-point-characterize},
+on voit que $f$ est quasi-fini en $u_1, \ldots, u_m$.
+
+\medskip\noindent
+Notons $F_u = s^{-1}(u)$ et $F_{u_j} = s^{-1}(u_j)$ les fibres schématiques.
+Notons que $F_u$ est fini sur $\kappa(u)$, car il est localement de type fini
+sur $\kappa(u)$ et possède un nombre fini de points (cela résulte par exemple
+du résultat beaucoup plus général
+Morphismes, Lemme
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}).
+D'après
+le Lemme \ref{lemma-two-fibres},
+on voit que $F_u$ et $F_{u_j}$ deviennent isomorphes après extension à un corps
+qui est une extension commune de $\kappa(u)$ et $\kappa(u_j)$. On voit donc
+que $F_{u_j}$ est fini sur $\kappa(u_j)$. En particulier, on voit que
+$s^{-1}(\{u_j\})$ est un ensemble fini pour chaque $j = 1, \ldots, m$.
+Ainsi, les hypothèses (2) et (6) sont aussi vérifiées pour chaque $u_j$
+(on a vu plus haut que $U \to S$ est quasi-fini en $u_j$).
+L'argument du premier paragraphe s'applique donc à chaque $u_j$,
+et l'on voit que $R \to U$ est quasi-fini en chacun des points de
+$$
+\{r_1, \ldots, r_N\} = s^{-1}(\{u_1, \ldots, u_m\})
+$$
+Notons que $t(\{r_1, \ldots, r_N\}) = \{u_1, \ldots, u_m\}$ et
+$t^{-1}(\{u_1, \ldots, u_m\}) = \{r_1, \ldots, r_N\}$
+car $R$ est un groupoïde\footnote{Explication dans le langage des groupoïdes :
+L'ensemble initial $\{r_1, \ldots, r_n\}$ était l'ensemble des flèches de
+source $u$. L'ensemble $\{u_1, \ldots, u_m\}$ était l'ensemble des objets
+isomorphes à $u$. Et $\{r_1, \ldots, r_N\}$ est l'ensemble de toutes les flèches
+entre tous les objets équivalents à $u$.}. De plus, on a
+$\text{pr}_0(c^{-1}(\{r_1, \ldots, r_N\})) = \{r_1, \ldots, r_N\}$
+et
+$\text{pr}_1(c^{-1}(\{r_1, \ldots, r_N\})) = \{r_1, \ldots, r_N\}$.
+De même, on obtient $e(\{u_1, \ldots, u_m\}) \subset \{r_1, \ldots, r_N\}$
+et $i(\{r_1, \ldots, r_N\}) = \{r_1, \ldots, r_N\}$.
+
+\medskip\noindent
+On peut appliquer
+Compléments sur les morphismes,
+Lemme \ref{more-morphisms-lemma-etale-splits-off-quasi-finite-part-technical}
+aux couples
+$(U \to S, \{u_1, \ldots, u_m\})$ et
+$(R \to S, \{r_1, \ldots, r_N\})$
+pour obtenir un voisinage \'etale $(S', p') \to (S, p)$
+qui induit une identification $\kappa(p) = \kappa(p')$
+tel que $S' \times_S U$ et $S' \times_S R$ se décomposent sous la forme
+$$
+S' \times_S U = U' \amalg W, \quad
+S' \times_S R = R' \amalg W'
+$$
+où $U' \to S'$ est fini et $(U')_{p'}$ s'envoie bijectivement sur
+$\{u_1, \ldots, u_m\}$, et où $R' \to S'$ est fini et
+$(R')_{p'}$ s'envoie bijectivement sur $\{r_1, \ldots, r_N\}$.
+De plus, aucun point de $W_{p'}$ (resp.\ de $(W')_{p'}$) n'a pour image
+aucun des points $u_j$ (resp.\ $r_i$). À ce stade, (a), (b), (c) et (d)
+du lemme sont satisfaites. En outre, les inclusions de (e) et (f) valent
+sur les fibres au-dessus de $p'$, c'est-à-dire $s'((R')_{p'}) \subset (U')_{p'}$,
+$t'((R')_{p'}) \subset (U')_{p'}$, et
+$c'((R' \times_{s', U', t'} R')_{p'}) \subset (R')_{p'}$.
+
+\medskip\noindent
+Nous affirmons que l'on peut remplacer $S'$ par un voisinage ouvert de Zariski
+de $p'$ de sorte que les inclusions de (e) et (f) soient vérifiées.
+Considérons par exemple l'ensemble $E = (s'|_{R'})^{-1}(W)$.
+Il est ouvert et fermé dans $R'$ et ne contient aucun point
+de $R'$ situé au-dessus de $p'$. Comme $R' \to S'$ est fermé,
+après avoir remplacé $S'$ par $S' \setminus (R' \to S')(E)$, on arrive à une
+situation où $E$ est vide. Autrement dit, $s'$ envoie $R'$ dans $U'$.
+Notons que cette propriété est conservée lorsque l'on rétrécit encore $S'$.
+De même, on peut faire en sorte que $t'$ envoie $R'$ dans $U'$.
+À ce stade, (e) est vérifiée. De la même manière, considérons l'ensemble
+$E = (c'|_{R' \times_{s', U', t'} R'})^{-1}(W')$.
+Il est ouvert et fermé dans le schéma $R' \times_{s', U', t'} R'$,
+qui est fini sur $S'$, et ne contient aucun point situé
+au-dessus de $p'$. Après avoir remplacé $S'$ par
+$S' \setminus (R' \times_{s', U', t'} R' \to S')(E)$,
+on arrive donc à une situation où $E$ est vide. Autrement dit, on obtient
+l'inclusion de (f). On peut répéter l'argument avec l'identité
+$e' : S' \times_S U \to S' \times_S R$ et l'inverse
+$i' : S' \times_S R \to S' \times_S R$, afin de pouvoir supposer
+(après avoir encore rétréci $S'$) que $(e'|_{U'})^{-1}(W') = \emptyset$
+et $(i'|_{R'})^{-1}(W') = \emptyset$.
+
+\medskip\noindent
+À ce stade, on voit que l'on peut considérer la structure
+$$
+(U', R', s'|_{R'}, t'|_{R'}, c'|_{R' \times_{t', U', s'} R'},
+e'|_{U'}, i'|_{R'}).
+$$
+Les axiomes d'un schéma en groupoïdes sur $S'$ sont vérifiés
+parce qu'ils le sont pour le schéma en groupoïdes
+$(S' \times_S U, S' \times_S R, s', t', c', e', i')$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-finite-over-base-j-proper}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur $S$.
+Soient $p \in S$ un point et $u \in U$ un point situé au-dessus de $p$.
+Supposons que les hypothèses (1) -- (6) du
+Lemme \ref{lemma-quasi-finite-over-base}
+soient vérifiées, ainsi que
+\begin{enumerate}
+\item[(7)] $j : R \to U \times_S U$ est universellement fermé\footnote{Compte tenu
+des autres conditions, cela équivaut à demander que $j$ soit propre.}.
+\end{enumerate}
+Alors on peut choisir $(S', p') \to (S, p)$, des décompositions
+$S' \times_S U = U' \amalg W$ et $S' \times_S R = R' \amalg W'$
+et $u' \in U'$ tels que (a) -- (g) du
+Lemme \ref{lemma-quasi-finite-over-base}
+soient vérifiées, ainsi que
+\begin{enumerate}
+\item[(h)] $R'$ est la restriction de $S' \times_S R$ à $U'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+On applique le Lemme \ref{lemma-quasi-finite-over-base} au
+groupoïde $(U, R, s, t, c)$ sur le schéma $S$, avec les points $p$ et $u$.
+On obtient donc un voisinage \'etale
+$(S', p') \to (S, p)$ et des décompositions en unions disjointes
+$$
+S' \times_S U = U' \amalg W, \quad
+S' \times_S R = R' \amalg W'
+$$
+ainsi que $u' \in U'$ satisfaisant les conclusions (a), (b), (c), (d), (e), (f) et (g).
+On peut rétrécir $S'$ à un voisinage plus petit de $p'$ sans
+affecter les conclusions (a) -- (g). Nous allons montrer que, pour un
+rétrécissement convenable, la conclusion (h) est également vérifiée.
+Notons $j'$ le changement de base de $j$ à $S'$.
+D'après la conclusion (e), il est clair que
+$$
+j'^{-1}(U' \times_{S'} U') = R' \amalg Rest
+$$
+pour une certaine partie $Rest$ ouverte et fermée. Comme $U' \to S'$ est fini
+d'après la conclusion (d), on voit que $U' \times_{S'} U'$ est fini sur $S'$.
+Comme $j$ est universellement fermé, $j'$ l'est aussi, et
+donc $j'|_{Rest}$ est lui aussi universellement fermé. D'après les conclusions
+(b) et (c), on voit que la fibre de
+$$
+(U' \times_{S'} U' \to S') \circ j'|_{Rest} :
+Rest
+\longrightarrow
+S'
+$$
+au-dessus de $p'$ est vide. Ainsi, puisque $Rest \to S'$ est fermé comme composé
+de morphismes fermés, après avoir remplacé $S'$ par
+$S' \setminus \Im(Rest \to S')$, on peut supposer que
+$Rest = \emptyset$. C'est exactement la condition disant que $R'$ est
+la restriction de $S' \times_S R$ au sous-schéma ouvert
+$U' \subset S' \times_S U$, voir
+Groupoïdes, Lemme \ref{groupoids-lemma-restrict-groupoid-relation}
+et sa démonstration.
+\end{proof}
+
+
+
+
+
+
+\section{Groupoïdes finis}
+\label{section-finite-groupoids}
+
+\noindent
+Un schéma en groupoïdes $(U, R, s, t, c)$ est parfois dit {\it fini} si les
+morphismes $s$ et $t$ sont finis. Cette terminologie peut prêter à confusion, car elle
+n'implique pas que $U$, $R$ ou le faisceau quotient $U/R$ soient finis sur quoi que ce soit.
+
+\begin{lemma}
+\label{lemma-finite-stratify}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur un schéma $S$. Supposons $s, t$
+finis. Il existe une suite de sous-schémas fermés $R$-invariants
+$$
+U = Z_0 \supset Z_1 \supset Z_2 \supset \ldots
+$$
+telle que $\bigcap Z_r = \emptyset$ et que
+$s^{-1}(Z_{r - 1}) \setminus s^{-1}(Z_r) \to Z_{r - 1} \setminus Z_r$
+soit fini localement libre de rang $r$.
+\end{lemma}
+
+\begin{proof}
+Soit $\{Z_r\}$ la stratification de $U$ donnée par les idéaux de Fitting
+du module quasi-cohérent de type fini $s_*\mathcal{O}_R$. Voir
+Diviseurs, Lemme \ref{divisors-lemma-locally-free-rank-r-pullback}.
+Comme l'identité $e : U \to R$ est une section de $s$, on voit que
+$s_*\mathcal{O}_R$ contient $\mathcal{O}_S$ comme facteur direct.
+Ainsi $U = Z_{-1} = Z_0$ (détails omis).
+Comme la formation des idéaux de Fitting commute au changement de base
+(Compléments sur l'algèbre, Lemme \ref{more-algebra-lemma-fitting-ideal-basics}),
+on trouve que $s^{-1}(Z_r)$ correspond au $r$-ième idéal de Fitting
+de $\text{pr}_{1, *}\mathcal{O}_{R \times_{s, U, t} R}$, car
+le carré inférieur droit du diagramme (\ref{equation-diagram}) est cartésien.
+En utilisant le fait que le carré inférieur gauche est lui aussi cartésien, on conclut
+que $s^{-1}(Z_r) = t^{-1}(Z_r)$ ; autrement dit, $Z_r$ est $R$-invariant.
+Le morphisme
+$s^{-1}(Z_{r - 1}) \setminus s^{-1}(Z_r) \to Z_{r - 1} \setminus Z_r$
+est fini localement libre de rang $r$, car le module
+$s_*\mathcal{O}_R$ se restreint en un module fini localement libre de rang $r$
+sur $Z_{r - 1} \setminus Z_r$, d'après
+Diviseurs, Lemme \ref{divisors-lemma-locally-free-rank-r-pullback}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-flat-over-almost-dense-subscheme}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur un schéma $S$. Supposons $s, t$
+finis. Il existe un sous-schéma ouvert $W \subset U$ et un sous-schéma fermé
+$W' \subset W$ tels que
+\begin{enumerate}
+\item $W$ et $W'$ soient $R$-invariants,
+\item $U = t(s^{-1}(\overline{W}))$ ensemblistement,
+\item $W$ soit un épaississement de $W'$, et
+\item les morphismes $s'$, $t'$ de la restriction $(W', R', s', t', c')$
+soient finies localement libres.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Considérons la stratification $U = Z_0 \supset Z_1 \supset Z_2 \supset \ldots$
+du Lemme \ref{lemma-finite-stratify}.
+
+\medskip\noindent
+Nous allons construire des unions disjointes $W = \coprod_{r \geq 1} W_r$ et
+$W' = \coprod_{r \geq 1} W'_r$, chaque $W'_r \to W_r$ étant un épaississement
+entre des sous-schémas $R$-invariants de $U$, de sorte que les morphismes
+$s_r', t_r'$ des restrictions $(W_r', R_r', s_r', t_r', c_r')$
+soient finis localement libres de rang $r$. Pour commencer, posons
+$W_1 = W'_1 = U \setminus Z_1$. C'est un sous-schéma ouvert $R$-invariant
+de $U$ ; il est vrai que $W_0$ est un épaississement de $W'_0$,
+et les morphismes $s_1'$, $t_1'$ de la
+restriction $(W_1', R_1', s_1', t_1', c_1')$ sont des isomorphismes, c'est-à-dire
+finies localement libres de rang $1$.
+De plus, tout point de $U \setminus Z_1$ appartient à $t(s^{-1}(\overline{W_1}))$.
+
+\medskip\noindent
+Supposons avoir trouvé des sous-schémas $W'_r \subset W_r \subset U$ pour $r \leq n$
+tels que
+\begin{enumerate}
+\item $W_1, \ldots, W_n$ soient disjoints,
+\item $W_r$ et $W_r'$ soient $R$-invariants,
+\item $U \setminus Z_n \subset \bigcup_{r \leq n} t(s^{-1}(\overline{W_r}))$
+ensemblistement,
+\item $W_r$ soit un épaississement de $W'_r$,
+\item les morphismes $s_r'$, $t_r'$ de la restriction
+$(W_r', R_r', s_r', t_r', c_r')$ soient finies localement libres de rang $r$.
+\end{enumerate}
+Posons alors
+$$
+W_{n + 1} = Z_n \setminus
+\left(
+Z_{n + 1} \cup \bigcup\nolimits_{r \leq n} t(s^{-1}(\overline{W_r}))
+\right)
+$$
+ensemblistement et
+$$
+W'_{n + 1} = Z_n \setminus
+\left(
+Z_{n + 1} \cup \bigcup\nolimits_{r \leq n} t(s^{-1}(\overline{W_r}))
+\right)
+$$
+schématiquement. Alors $W_{n + 1}$ est un sous-schéma ouvert $R$-invariant
+de $U$, car $Z_{n + 1} \setminus \overline{U \setminus Z_{n + 1}}$
+est ouvert dans $U$ et $\overline{U \setminus Z_{n + 1}}$ est contenu
+dans le fermé $\bigcup\nolimits_{r \leq n} t(s^{-1}(\overline{W_r}))$
+que l'on retire, par la propriété (3) et le fait que $t$ est un morphisme fermé.
+Il est clair que $W'_{n + 1}$ est un sous-schéma fermé
+de $W_{n + 1}$ ayant le même espace topologique sous-jacent.
+Enfin, les propriétés (1), (2) et (3) sont claires, et la propriété (5) résulte du
+Lemme \ref{lemma-finite-stratify}.
+
+\medskip\noindent
+D'après le Lemme \ref{lemma-finite-stratify}, on a $\bigcap Z_r = \emptyset$.
+Tout point de $U$ est donc contenu dans $U \setminus Z_n$
+pour un certain $n$. On voit ainsi que
+$U = \bigcup_{r \geq 1} t(s^{-1}(\overline{W_r}))$
+ensemblistement, et l'on voit que (2) est vérifiée.
+Ainsi, $W' \subset W$ vérifie (1), (2), (3) et (4).
+\end{proof}
+
+\noindent
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes. Étant donné un point $u \in U$,
+l'{\it orbite sous $R$} de $u$ est le sous-ensemble $t(s^{-1}(\{u\}))$ de $U$.
+
+\begin{lemma}
+\label{lemma-finite-flat-over-almost-dense-subscheme-addendum}
+Dans le Lemme \ref{lemma-finite-flat-over-almost-dense-subscheme},
+supposons en outre que $s$ et $t$ soient de présentation finie.
+Alors
+\begin{enumerate}
+\item le morphisme $W' \to W$ est de présentation finie, et
+\item si $u \in U$ est un point dont l'orbite sous $R$ est constituée de
+points génériques de composantes irréductibles de $U$, alors $u \in W$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans ce cas, la stratification
+$U = Z_0 \supset Z_1 \supset Z_2 \supset \ldots$ du
+Lemme \ref{lemma-finite-stratify} est donnée par des immersions fermées $Z_k \to U$
+de présentation finie, voir
+Diviseurs, Lemme \ref{divisors-lemma-locally-free-rank-r-pullback}.
+La partie (1) en résulte immédiatement, puisque $W' \to W$ est localement obtenu
+par l'intersection de l'ouvert $W$ avec $Z_r$. Pour voir la partie (2),
+soit $\{u_1, \ldots, u_n\}$ l'orbite de $u$.
+Comme les sous-schémas fermés $Z_k$ sont $R$-invariants et que
+$\bigcap Z_k = \emptyset$, on trouve un $k$ tel que $u_i \in Z_k$
+et $u_i \not \in Z_{k + 1}$ pour tout $i$.
+L'image de $Z_k \to U$ et celle de $Z_{k + 1} \to U$ sont localement constructibles
+(Morphismes, Théorème \ref{morphisms-theorem-chevalley}).
+Comme $u_i \in U$ est un point générique d'une composante irréductible
+de $U$, il existe un voisinage ouvert $U_i$ de $u_i$ qui
+est contenu dans $Z_k \setminus Z_{k + 1}$ ensemblistement
+(Propriétés, Lemme \ref{properties-lemma-generic-point-in-constructible}).
+Dans la démonstration du Lemme \ref{lemma-finite-flat-over-almost-dense-subscheme},
+nous avons construit $W$ comme une union disjointe $\coprod W_r$,
+avec $W_r \subset Z_{r - 1} \setminus Z_r$, de sorte que
+$U = \bigcup t(s^{-1}(\overline{W_r}))$. Comme $\{u_1, \ldots, u_n\}$
+est une orbite sous $R$, on voit que $u \in t(s^{-1}(\overline{W_r}))$
+implique $u_i \in \overline{W_r}$ pour un certain $i$, ce qui implique
+$U_i \cap W_r \not = \emptyset$, et donc $r = k$.
+On en conclut que $u$ appartient à
+$$
+W_{k + 1} = Z_k \setminus
+\left(
+Z_{k + 1} \cup \bigcup\nolimits_{r \leq k} t(s^{-1}(\overline{W_r}))
+\right)
+$$
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-invariant-affine-open-around-generic-point}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur un schéma $S$. Supposons $s, t$
+finis et de présentation finie, et $U$ quasi-séparé. Soient
+$u_1, \ldots, u_m \in U$ des points dont les orbites sont constituées de points génériques
+de composantes irréductibles de $U$. Il existe alors des sous-schémas $R$-invariants
+$V' \subset V \subset U$ tels que
+\begin{enumerate}
+\item $u_1, \ldots, u_m \in V'$,
+\item $V$ soit ouvert dans $U$,
+\item $V'$ et $V$ soient affines,
+\item $V' \subset V$ soit un épaississement de présentation finie,
+\item les morphismes $s', t'$ de la restriction $(V', R', s', t', c')$
+soient finis localement libres.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soient $W' \subset W \subset U$ comme dans le
+Lemme \ref{lemma-finite-flat-over-almost-dense-subscheme}.
+D'après le Lemme \ref{lemma-finite-flat-over-almost-dense-subscheme-addendum},
+on a $u_j \in W$ et $W' \to W$ est un épaississement de présentation finie.
+D'après Limites, Lemme \ref{limits-lemma-affines-glued-in-closed-affine},
+il suffit de trouver un sous-schéma ouvert affine $R$-invariant
+$V'$ de $W'$ contenant $u_j$ (car on peut alors prendre pour $V \subset W$
+le sous-schéma ouvert correspondant, qui sera affine).
+On peut donc remplacer $(U, R, s, t, c)$ par la restriction
+$(W', R', s', t', c')$ à $W'$.
+Autrement dit, on peut supposer que l'on a un schéma en groupoïdes $(U, R, s, t, c)$
+dont les morphismes $s$ et $t$ sont finis localement libres.
+D'après Propriétés, Lemme \ref{properties-lemma-maximal-points-affine},
+on peut trouver un ouvert affine contenant la réunion des orbites de
+$u_1, \ldots, u_m$. Enfin, on peut appliquer
+Groupoïdes, Lemme \ref{groupoids-lemma-find-invariant-affine}
+pour conclure.
+\end{proof}
+
+\noindent
+Le lemme suivant est un cas particulier du
+Lemme \ref{lemma-invariant-affine-open-around-generic-point},
+mais nous reprenons l'argument, car il est légèrement plus simple dans ce cas
+(il évite d'utiliser le
+Lemme \ref{lemma-finite-flat-over-almost-dense-subscheme-addendum}).
+
+\begin{lemma}
+\label{lemma-invariant-affine-open-around-generic-point-Noetherian}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur un schéma $S$.
+Supposons $s, t$ finis et $U$ localement noethérien, et soient $u_1, \ldots, u_m \in U$
+des points dont les orbites sont constituées de points génériques de
+composantes irréductibles de $U$. Il existe alors des sous-schémas $R$-invariants
+$V' \subset V \subset U$ tels que
+\begin{enumerate}
+\item $u_1, \ldots, u_m \in V'$,
+\item $V$ soit ouvert dans $U$,
+\item $V'$ et $V$ soient affines,
+\item $V' \subset V$ soit un épaississement,
+\item les morphismes $s', t'$ de la restriction $(V', R', s', t', c')$
+soient finis localement libres.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $\{u_{j1}, \ldots, u_{jn_j}\}$ l'orbite de $u_j$.
+Soient $W' \subset W \subset U$ comme dans le
+Lemme \ref{lemma-finite-flat-over-almost-dense-subscheme}.
+Comme $U = t(s^{-1}(\overline{W}))$, on voit qu'il existe au moins
+un $u_{ji} \in \overline{W}$. Comme $u_{ji}$ est un point générique
+d'une composante irréductible et que $U$ est localement noethérien,
+cela implique que $u_{ji} \in W$. Comme $W$ est $R$-invariant, on
+conclut que $u_j \in W$ et, en fait, que l'orbite entière est contenue dans $W$.
+D'après Cohomologie des schémas, Lemme
+\ref{coherent-lemma-image-affine-finite-morphism-affine-Noetherian},
+il suffit de trouver un sous-schéma ouvert affine $R$-invariant $V'$
+de $W'$ contenant $u_1, \ldots, u_m$ (car on peut alors prendre pour $V \subset W$
+le sous-schéma ouvert correspondant, qui sera affine).
+On peut donc remplacer $(U, R, s, t, c)$
+par la restriction $(W', R', s', t', c')$ à $W'$.
+Autrement dit, on peut supposer que l'on a un schéma en groupoïdes $(U, R, s, t, c)$
+dont les morphismes $s$ et $t$ sont finis localement libres.
+D'après Propriétés, Lemme \ref{properties-lemma-maximal-points-affine},
+on peut trouver un ouvert affine contenant $\{u_{ij}\}$
+(un schéma localement noethérien est quasi-séparé d'après
+Propriétés, Lemme \ref{properties-lemma-locally-Noetherian-quasi-separated}).
+Enfin, on peut appliquer
+Groupoïdes, Lemme \ref{groupoids-lemma-find-invariant-affine}
+pour conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-find-affine-integral}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur un schéma $S$
+avec $s, t$ intégraux. Soit $g : U' \to U$ un morphisme intégral
+tel que toute orbite sous $R$ dans $U$ rencontre $g(U')$. Soit $(U', R', s', t', c')$
+la restriction de $R$ à $U'$. Si $u' \in U'$ appartient à un
+ouvert affine $R'$-invariant, alors l'image $u \in U$ appartient
+dans un ouvert affine $R$-invariant de $U$.
+\end{lemma}
+
+\begin{proof}
+Soit $W' \subset U'$ un ouvert affine $R'$-invariant.
+Posons $\tilde R = U' \times_{g, U, t} R$, muni des applications
+$\text{pr}_0 : \tilde R \to U'$ et $h = s \circ \text{pr}_1 : \tilde R \to U$.
+Observons que $\text{pr}_0$ et $h$ sont intégraux.
+Il s'ensuit que $\tilde W = \text{pr}_0^{-1}(W')$ est affine.
+Comme $W'$ est $R'$-invariant, l'image
+$W = h(\tilde W)$ est ensemblistement $R$-invariante et
+$\tilde W = h^{-1}(W)$ ensemblistement (détails omis).
+Ainsi, si l'on peut montrer que $W$ est ouvert, alors $W$ est un schéma
+et le morphisme $\tilde W \to W$ est intégral surjectif,
+ce qui implique que $W$ est affine d'après
+Limites, Proposition \ref{limits-proposition-affine}.
+Cependant, l'hypothèse selon laquelle les orbites rencontrent $U'$ implique
+que $h : \tilde R \to U$ est surjectif. Comme un
+morphisme intégral surjectif est submersif
+(Topologie, Lemme \ref{topology-lemma-closed-morphism-quotient-topology}
+et Morphismes, Lemme \ref{morphisms-lemma-integral-universally-closed}),
+il s'ensuit que $W$ est ouvert.
+\end{proof}
+
+\noindent
+Le lemme technique suivant produit des fonctions « presque » invariantes
+dans la situation d'un groupoïde fini sur un
+schéma quasi-affine.
+
+\begin{lemma}
+\label{lemma-find-almost-invariant-function}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes avec $s, t$ finis et de
+présentation finie. Soient $u_1, \ldots, u_m \in U$ des points dont les orbites sous $R$
+sont constituées de points génériques de composantes irréductibles de $U$.
+Soit $j : U \to \Spec(A)$ une immersion.
+Soit $I \subset A$ un idéal tel que $j(U) \cap V(I) = \emptyset$
+et que $V(I) \cup j(U)$ soit fermé dans $\Spec(A)$.
+Il existe alors un élément $h \in I$ tel que $j^{-1}D(h)$
+soit un sous-schéma ouvert affine $R$-invariant de $U$ contenant
+$u_1, \ldots, u_m$.
+\end{lemma}
+
+\begin{proof}
+Soient $u_1, \ldots, u_m \in V' \subset V \subset U$ comme dans le
+Lemme \ref{lemma-invariant-affine-open-around-generic-point}.
+Comme $U \setminus V$ est fermé dans $U$, que $j$ est une immersion et que $V(I) \cup j(U)$
+est fermé dans $\Spec(A)$, on peut trouver un idéal
+$J \subset I$ tel que $V(J) = V(I) \cup j(U \setminus V)$.
+On peut par exemple prendre l'idéal des éléments de $I$ qui
+s'annulent sur $j(U \setminus V)$. On peut donc remplacer
+$(U, R, s, t, c)$, $j : U \to \Spec(A)$ et $I$ par
+$(V', R', s', t', c')$, $j|_{V'} : V' \to \Spec(A)$ et $J$.
+Autrement dit, on peut supposer que $U$ est affine et que
+$s$ et $t$ sont finis localement libres.
+Prenons un quelconque $f \in I$ qui ne s'annule en aucun des
+points des orbites sous $R$ de $u_1, \ldots, u_m$
+(Algèbre, Lemme \ref{algebra-lemma-silly}). Considérons
+$$
+g = \text{Norm}_s(t^\sharp(j^\sharp(f))) \in \Gamma(U, \mathcal{O}_U)
+$$
+Comme $f \in I$ et que $V(I) \cup j(U)$ est fermé, on voit que
+$U \cap D(f) \to D(f)$ est une immersion fermée. Ainsi, $f^ng$ est
+l'image d'un élément $h \in I$ pour un certain $n > 0$. Nous affirmons que $h$ convient.
+En effet, nous avons vu dans
+Groupoïdes, Lemme \ref{groupoids-lemma-determinant-trick},
+que $g$ est une fonction $R$-invariante ; ainsi, $D(g) \subset U$
+est $R$-invariant. Comme $f$ ne s'annule pas sur l'orbite de $u_j$,
+la fonction $g$ ne s'annule pas en $u_j$. De plus, on a
+$V(g) \supset V(j^\sharp(f))$ et donc $j^{-1}D(h) = D(g)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-no-specializations-map-to-same-point}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes. Si $s, t$ sont finis,
+et si $u, u' \in R$ sont des points distincts de la même orbite,
+alors $u'$ n'est pas une spécialisation de $u$.
+\end{lemma}
+
+\begin{proof}
+Soit $r \in R$ tel que $s(r) = u$ et $t(r) = u'$. Si $u \leadsto u'$
+alors nous pouvons trouver une spécialisation non triviale $r \leadsto r'$ telle que
+$s(r') = u'$, voir 
+Schémas, lemme \ref{schemes-lemma-quasi-compact-closed}.
+Posons $u'' = t(r')$. Remarquons que $u'' \not = u'$ puisqu'il n'existe pas de
+spécialisations dans les fibres d'un morphisme fini.
+Nous pouvons donc continuer et trouver une spécialisation non triviale
+$r' \leadsto r''$ telle que $s(r'') = u''$, et ainsi de suite. Cela montre que
+l'orbite de $u$ contient une suite infinie
+$u \leadsto u' \leadsto u'' \leadsto \ldots$
+de spécialisations, ce qui est absurde puisque l'orbite
+$t(s^{-1}(\{u\}))$ est finie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-get-affine}
+Soit $j : V \to \Spec(A)$ une immersion quasi-compacte de schémas.
+Soit $f \in A$ tel que $j^{-1}D(f)$ soit affine et que $j(V) \cap V(f)$
+soit fermé. Alors $V$ est affine.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de Morphismes, lemme \ref{morphisms-lemma-get-affine},
+mais nous allons aussi en donner une démonstration directe.
+Posons $A' = \Gamma(V, \mathcal{O}_V)$. Alors $j' : V \to \Spec(A')$ est une
+immersion ouverte quasi-compacte, voir
+Propriétés, lemme \ref{properties-lemma-quasi-affine}.
+Soit $f' \in A'$ l'image de $f$. Alors $(j')^{-1}D(f') = j^{-1}D(f)$
+est affine. D'autre part, $j'(V) \cap V(f')$ est un sous-schéma de
+$\Spec(A')$ qui s'envoie isomorphiquement sur le sous-schéma fermé
+$j(V) \cap V(f)$ de $\Spec(A)$. Il est donc fermé dans $\Spec(A')$,
+par exemple d'après Schémas, lemme \ref{schemes-lemma-section-immersion}.
+Ainsi, nous pouvons remplacer $A$ par $A'$ et supposer que $j$ est une immersion ouverte
+et que $A = \Gamma(V, \mathcal{O}_V)$.
+
+\medskip\noindent
+Dans ce cas, nous affirmons que $j(V) = \Spec(A)$, ce qui achève la démonstration.
+Sinon, nous pouvons trouver un ouvert affine principal $D(g) \subset \Spec(A)$
+qui rencontre le complémentaire et évite la partie fermée $j(V) \cap V(f)$.
+Remarquons que $j$ envoie $j^{-1}D(f)$ isomorphiquement sur $D(f)$, voir
+Propriétés, lemme \ref{properties-lemma-invert-f-affine}.
+Ainsi $D(g)$ rencontre $V(f)$. D'autre part, $j^{-1}D(g)$
+est un ouvert principal de l'ouvert affine $j^{-1}D(f)$, donc est affine.
+Par conséquent, en appliquant de nouveau
+Propriétés, lemme \ref{properties-lemma-invert-f-affine},
+nous voyons que $D(g)$ est isomorphe à $j^{-1}D(g) \subset j^{-1}D(f)$,
+ce qui implique que $D(g) \subset D(f)$. Cette contradiction achève
+la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-find-affine-codimension-1}
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes. Soit $u \in U$. Supposons que
+\begin{enumerate}
+\item $s, t$ soient des morphismes finis,
+\item $U$ soit séparé et localement noethérien,
+\item $\dim(\mathcal{O}_{U, u'}) \leq 1$ pour tout point $u'$
+de l'orbite de $u$.
+\end{enumerate}
+Alors $u$ est contenu dans un ouvert affine $R$-invariant de $U$.
+\end{lemma}
+
+\begin{proof}
+L'orbite sous $R$ de $u$ est finie. D'après les conditions (2) et (3), elle est contenue
+dans un ouvert affine $U'$ de $U$, voir
+Variétés, proposition
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}.
+Alors $t(s^{-1}(U \setminus U'))$ est une partie fermée et $R$-invariante
+de $U$ qui ne contient pas $u$. Ainsi
+$U \setminus t(s^{-1}(U \setminus U'))$ est un ouvert $R$-invariant
+de $U'$ contenant $u$.
+En remplaçant $U$ par cet ouvert, nous pouvons supposer que $U$ est quasi-affine.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-find-affine-integral}, nous pouvons remplacer $U$ par son réduit
+et supposer que $U$ est réduit. Cela signifie que les sous-schémas $R$-invariants
+$W' \subset W \subset U$ du
+lemme \ref{lemma-finite-flat-over-almost-dense-subscheme}
+sont égaux : $W' = W$. Comme $U = t(s^{-1}(\overline{W}))$, un point
+$u'$ appartenant à l'orbite sous $R$ de $u$ est contenu dans $\overline{W}$
+et, d'après le lemme \ref{lemma-find-affine-integral},
+nous pouvons remplacer $U$ par $\overline{W}$ et $u$ par $u'$.
+Nous pouvons donc supposer qu'il existe
+un sous-schéma ouvert dense $R$-invariant $W \subset U$ tel que
+les morphismes $s_W, t_W$ de la restriction $(W, R_W, s_W, t_W, c_W)$ soient
+finis localement libres.
+
+\medskip\noindent
+Si $u \in W$, nous avons terminé d'après
+Groupoïdes, lemme \ref{groupoids-lemma-find-invariant-affine}
+(car $W$ est quasi-affine, donc tout ensemble fini de points
+de $W$ est contenu dans un ouvert affine, voir
+Propriétés, lemme \ref{properties-lemma-ample-finite-set-in-affine}).
+Nous supposons donc que $u \not \in W$ et, par suite, qu'aucun des points de
+l'orbite de $u$ n'appartient à $W$. Soit $\xi \in U$
+un point qui se spécialise non trivialement en un point $u'$ de l'orbite
+de $u$. Puisqu'il n'y a pas de spécialisations entre les points de
+l'orbite de $u$ (lemme \ref{lemma-no-specializations-map-to-same-point}),
+nous voyons que $\xi$ n'appartient pas à l'orbite.
+D'après l'hypothèse (3), nous voyons que $\xi$ est un point générique de $U$
+et donc que $\xi \in W$.
+Comme $U$ est noethérien, il n'y a qu'un nombre fini de ces
+points $\xi_1, \ldots, \xi_m \in W$. Puisque $s_W, t_W$ sont plats, l'orbite
+de chaque $\xi_j$ est formée de points génériques de composantes irréductibles
+de $W$ (et donc de $U$).
+
+\medskip\noindent
+Soit $j : U \to \Spec(A)$ une immersion de $U$ dans un schéma affine
+(cela est possible puisque $U$ est quasi-affine). Soit $J \subset A$
+un idéal tel que $V(J) \cap j(W) = \emptyset$ et que $V(J) \cup j(W)$
+soit fermé. Appliquons le lemme \ref{lemma-find-almost-invariant-function}
+au schéma en groupoïdes $(W, R_W, s_W, t_W, c_W)$, au morphisme
+$j|_W : W \to \Spec(A)$, aux points $\xi_j$ et à l'idéal $J$
+pour trouver $f \in J$ tel que $(j|_W)^{-1}D(f)$ soit un ouvert $R_W$-invariant
+affine contenant $\xi_j$ pour tout $j$. Puisque $f \in J$,
+nous voyons que $j^{-1}D(f) \subset W$, c'est-à-dire que $j^{-1}D(f)$ est
+un ouvert affine $R$-invariant de $U$ contenu dans $W$
+et contenant tous les $\xi_j$.
+
+\medskip\noindent
+Soit $Z$ le sous-schéma fermé réduit induit sur
+$$
+U \setminus j^{-1}D(f) = j^{-1}V(f).
+$$
+Alors $Z$ est, du point de vue ensembliste,
+$R$-invariant (mais il peut ne pas être $R$-invariant au sens schématique).
+Soit $(Z, R_Z, s_Z, t_Z, c_Z)$ la restriction de $R$ à $Z$.
+Puisque $Z \to U$ est fini, il s'ensuit que $s_Z$ et $t_Z$ sont finis.
+Puisque $u \in Z$, l'orbite de $u$ est contenue dans $Z$ et coïncide avec
+l'orbite sous $R_Z$ de $u$, considéré comme un point de $Z$. Puisque
+$\dim(\mathcal{O}_{U, u'}) \leq 1$ et puisque $\xi_j \not \in Z$
+pour tout $j$, nous voyons que $\dim(\mathcal{O}_{Z, u'}) \leq 0$ pour
+tout $u'$ de l'orbite de $u$. Autrement dit, l'orbite sous $R_Z$ de $u$
+est formée de points génériques de composantes irréductibles de $Z$.
+
+\medskip\noindent
+Soit $I \subset A$ un idéal tel que $V(I) \cap j(U) =\emptyset$
+et que $V(I) \cup j(U)$ soit fermé. Appliquons
+le lemme \ref{lemma-find-almost-invariant-function} au
+schéma en groupoïdes $(Z, R_Z, s_Z, t_Z, c_Z)$, à la restriction $j|_Z$,
+à l'idéal $I$ et au point $u \in Z$, pour obtenir $h \in I$ tel que
+$j^{-1}D(h) \cap Z$ soit un ouvert affine $R_Z$-invariant contenant $u$.
+
+\medskip\noindent
+Considérons la fonction $R_W$-invariante (Groupoïdes, lemme
+\ref{groupoids-lemma-determinant-trick})
+$$
+g = 
+\text{Norme}_{s_W}(t_W^\sharp(j^\sharp(h)|_W)) \in \Gamma(W, \mathcal{O}_W)
+$$
+(Dans ce qui suit, nous n'avons besoin que de la restriction de $g$ à $j^{-1}D(f)$ et,
+dans ce cas, la norme est prise le long d'un morphisme fini localement libre entre schémas affines.)
+Nous affirmons que
+$$
+V = (W_g \cap j^{-1}D(f)) \cup (j^{-1}D(h) \cap Z)
+$$
+est un ouvert affine $R$-invariant de $U$, ce qui achève la démonstration du lemme.
+Il est $R$-invariant du point de vue ensembliste par construction. Comme $V$ est une
+partie constructible, pour voir qu'il est ouvert il suffit de montrer qu'il est
+stable par générisation dans $U$ (Topologie, lemme
+\ref{topology-lemma-characterize-closed-Noetherian}
+ou, plus généralement,
+Topologie, lemme
+\ref{topology-lemma-constructible-stable-specialization-closed}).
+Puisque $W_g \cap j^{-1}D(f)$ est ouvert dans $U$, il suffit de considérer
+une spécialisation $u_1 \leadsto u_2$ de $U$ telle que
+$u_2 \in j^{-1}D(h) \cap Z$.
+Cela signifie que $h$ est non nul en $j(u_2)$ et que $u_2 \in Z$.
+Si $u_1 \in Z$, alors $j(u_1) \leadsto j(u_2)$ et, puisque
+$h$ est non nul en $j(u_2)$, il est non nul en $j(u_1)$, ce qui
+implique que $u_1 \in V$. Si $u_1 \not \in Z$ et n'appartient pas non plus
+à $W_g \cap j^{-1}D(f)$, alors $u_1 \in W$, $u_1 \not \in W_g$
+car le complémentaire de $Z = j^{-1}V(f)$ est contenu dans $W \cap j^{-1}D(f)$.
+Il existe donc un point $r_1 \in R$ tel que $s(r_1) = u_1$
+et tel que $h$ soit nul en $t(r_1)$. Puisque $s$ est fini, nous
+pouvons trouver une spécialisation $r_1 \leadsto r_2$ telle que $s(r_2) = u_2$.
+Mais nous en déduisons alors que $h$ est nul en $u'_2 = t(r_2)$,
+ce qui contredit le fait que $j^{-1}D(h) \cap Z$ est
+$R$-invariant et que $u_2$ lui appartient. Ainsi $V$ est ouvert.
+
+\medskip\noindent
+Observons que $V \subset j^{-1}D(h)$ pour notre fonction $h \in I$.
+Nous obtenons donc une immersion
+$$
+j' : V \longrightarrow \Spec(A_h)
+$$
+Soit $f' \in A_h$ l'image de $f$. Alors $(j')^{-1}D(f')$
+est l'ouvert principal déterminé par $g$ dans l'ouvert
+affine $j^{-1}D(f)$ de $U$.
+Ainsi $(j')^{-1}D(f)$ est affine. Enfin,
+$j'(V) \cap V(f') = j'(j^{-1}D(h) \cap Z)$
+est fermé dans $\Spec(A_h/(f')) = \Spec((A/f)_h) = D(h) \cap V(f)$
+en vertu du choix de $h \in I$ et de l'idéal $I$. Nous pouvons donc appliquer le
+lemme \ref{lemma-get-affine}
+pour conclure que $V$ est affine, comme affirmé ci-dessus.
+\end{proof}
+
+
+
+
+
+
+
+\section{Descente des morphismes ind-quasi-affines}
+\label{section-ind-quasi-affine}
+
+\noindent
+Les morphismes ind-quasi-affines ont été définis dans
+Compléments sur les morphismes, section \ref{more-morphisms-section-ind-quasi-affine}.
+Cette section est l'analogue de
+Descente, section \ref{descent-section-quasi-affine},
+pour les morphismes ind-quasi-affines.
+
+\medskip\noindent
+Soit $X$ un schéma quasi-séparé. Soit $E \subset X$ une partie
+qui est l'intersection d'une famille non vide d'ouverts quasi-compacts de $X$.
+Écrivons $E = \bigcap_{i \in I} U_i$, où $U_i \subset X$ est un ouvert quasi-compact
+et où $I$ est non vide.
+En ajoutant les intersections finies, nous pouvons supposer que, pour $i, j \in I$,
+il existe $k \in I$ tel que $U_k \subset U_i \cap U_j$.
+Dans cette situation, nous avons
+\begin{equation}
+\label{equation-sections-of-intersection}
+\Gamma(E, \mathcal{F}|_E) = \colim \Gamma(U_i, \mathcal{F}|_{U_i})
+\end{equation}
+pour tout faisceau $\mathcal{F}$ défini sur $X$. En effet, fixons $i_0 \in I$
+et remplaçons $X$ par $U_{i_0}$ et $I$ par
+$\{i \in I \mid U_i \subset U_{i_0}\}$. Alors $X$ est quasi-compact
+et quasi-séparé, donc est un espace spectral, voir
+Propriétés, lemme
+\ref{properties-lemma-quasi-compact-quasi-separated-spectral}.
+Nous voyons alors que l'égalité résulte de
+Topologie, lemme \ref{topology-lemma-make-spectral-space}, et de
+Faisceaux, lemme \ref{sheaves-lemma-descend-opens}.
+(En fait, la formule vaut aussi pour les groupes de cohomologie supérieurs
+lorsque $\mathcal{F}$ est abélien, voir
+Cohomologie, lemme \ref{cohomology-lemma-colimit}.)
+
+\begin{lemma}
+\label{lemma-sits-in-functions}
+Soit $X$ un schéma ind-quasi-affine. Soit $E \subset X$ une
+intersection d'une famille non vide d'ouverts quasi-compacts de $X$.
+Posons $A = \Gamma(E, \mathcal{O}_X|_E)$ et $Y = \Spec(A)$.
+Alors le morphisme canonique
+$$
+j : (E, \mathcal{O}_X|_E) \longrightarrow (Y, \mathcal{O}_Y)
+$$
+fourni par Schémas, lemme \ref{schemes-lemma-morphism-into-affine},
+détermine un isomorphisme
+$(E, \mathcal{O}_X|_E) \to (E', \mathcal{O}_Y|_{E'})$
+où $E' \subset Y$ est une intersection d'ouverts quasi-compacts.
+Si $W \subset E$ est ouvert dans $X$, alors $j(W)$ est ouvert dans $Y$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que $(E, \mathcal{O}_X|_E)$ est un espace localement annelé, de sorte que
+Schémas, lemme \ref{schemes-lemma-morphism-into-affine}, s'applique
+à $A \to \Gamma(E, \mathcal{O}_X|_E)$. Écrivons $E = \bigcap_{i \in I} U_i$,
+avec $I \not = \emptyset$ et $U_i \subset X$ ouvert quasi-compact.
+Nous pouvons supposer, et nous le faisons, que pour $i, j \in I$ il existe $k \in I$ tel que
+$U_k \subset U_i \cap U_j$. Posons $A_i = \Gamma(U_i, \mathcal{O}_{U_i})$.
+Nous obtenons les diagrammes commutatifs
+$$
+\xymatrix{
+(E, \mathcal{O}_X|_E) \ar[r] \ar[d] &
+(\Spec(A), \mathcal{O}_{\Spec(A)}) \ar[d] \\
+(U_i, \mathcal{O}_{U_i}) \ar[r] &
+(\Spec(A_i), \mathcal{O}_{\Spec(A_i)})
+}
+$$
+Puisque $U_i$ est quasi-affine, nous voyons que $U_i \to \Spec(A_i)$
+est une immersion ouverte quasi-compacte. D'autre part,
+$A = \colim A_i$. Ainsi $\Spec(A) = \lim \Spec(A_i)$ comme espaces
+topologiques (Limites, lemme \ref{limits-lemma-topology-limit}). Puisque
+$E = \lim U_i$ (d'après Topologie, lemme \ref{topology-lemma-make-spectral-space}),
+nous voyons que $E \to \Spec(A)$ est un homéomorphisme sur son
+image $E'$ et que $E'$ est l'intersection des images réciproques
+des ouverts $U_i \subset \Spec(A_i)$ dans $\Spec(A)$. Pour tout
+$e \in E$, l'anneau local $\mathcal{O}_{X, e}$ est
+$\mathcal{O}_{U_i, e}$, qui coïncide avec l'anneau local correspondant sur $\Spec(A)$.
+
+\medskip\noindent
+Pour démontrer la dernière assertion du lemme, raisonnons comme suit.
+Choisissons $i, j \in I$ tels que $U_i \subset U_j$.
+Considérons les diagrammes commutatifs suivants
+$$
+\xymatrix{
+U_i \ar[r] \ar[d] & \Spec(A_i) \ar[d] \\
+U_i \ar[r] & \Spec(A_j)
+}
+\quad\quad
+\xymatrix{
+W \ar[r] \ar[d] & \Spec(A_i) \ar[d] \\
+W \ar[r] & \Spec(A_j)
+}
+\quad\quad
+\xymatrix{
+W \ar[r] \ar[d] & \Spec(A) \ar[d] \\
+W \ar[r] & \Spec(A_j)
+}
+$$
+D'après Propriétés, lemme
+\ref{properties-lemma-cartesian-diagram-quasi-affine},
+le premier diagramme est cartésien. Le deuxième l'est donc aussi.
+En passant à la limite, nous trouvons que le troisième diagramme
+est cartésien, si bien que la flèche horizontale supérieure de ce diagramme est une immersion ouverte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-base-change}
+Supposons donné un diagramme cartésien
+$$
+\xymatrix{
+X \ar[d]_f \ar[r] & \Spec(B) \ar[d] \\
+Y \ar[r] & \Spec(A)
+}
+$$
+de schémas. Soit $E \subset Y$ une intersection d'une famille non vide
+d'ouverts quasi-compacts de $Y$. Alors
+$$
+\Gamma(f^{-1}(E), \mathcal{O}_X|_{f^{-1}(E)}) =
+\Gamma(E, \mathcal{O}_Y|_E) \otimes_A B
+$$
+pourvu que $Y$ soit quasi-séparé et que $A \to B$ soit plat.
+\end{lemma}
+
+\begin{proof}
+Écrivons $E = \bigcap_{i \in I} V_i$, où $V_i \subset Y$ est un ouvert quasi-compact.
+Nous pouvons supposer, et nous le faisons, que pour $i, j \in I$ il existe $k \in I$ tel que
+$V_k \subset V_i \cap V_j$. Nous avons alors de même
+$f^{-1}(E) = \bigcap_{i \in I} f^{-1}(V_i)$ dans $X$.
+Le résultat découle donc de l'équation (\ref{equation-sections-of-intersection})
+et du résultat correspondant pour $V_i$ et $f^{-1}(V_i)$, qui est
+Cohomologie des schémas, lemme \ref{coherent-lemma-flat-base-change-cohomology}.
+\end{proof}
+
+\begin{lemma}[Gabber]
+\label{lemma-ind-quasi-affine}
+Soit $S$ un schéma. Soit $\{X_i \to S\}_{i\in I}$ un recouvrement fpqc.
+Soit $(V_i/X_i, \varphi_{ij})$ une donnée de descente relativement à
+$\{X_i \to S\}$, voir Descente, définition
+\ref{descent-definition-descent-datum-for-family-of-morphisms}. 
+Si chaque morphisme $V_i \to X_i$ est ind-quasi-affine, alors la donnée de descente
+est effective.
+\end{lemma}
+
+\begin{proof}
+Être ind-quasi-affine est une propriété des morphismes de schémas
+qui est préservée par tout changement de base, voir
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-base-change-ind-quasi-affine}.
+Ainsi Descente, lemme \ref{descent-lemma-descending-types-morphisms}, s'applique,
+et il suffit de démontrer l'énoncé du lemme
+dans le cas où le recouvrement fpqc est constitué du singleton
+$\{X \to S\}$, formé d'un morphisme plat surjectif de schémas affines.
+Écrivons $X = \Spec(A)$ et $S = \Spec(R)$, de sorte
+que $R \to A$ est un homomorphisme d'anneaux fidèlement plat.
+Soit $(V, \varphi)$ une donnée de descente relative à $X$ au-dessus de $S$
+et supposons que $V \to X$ soit ind-quasi-affine, autrement dit que
+$V$ soit ind-quasi-affine.
+
+\medskip\noindent
+Soit $(U, R, s, t, c)$ le schéma en groupoïdes au-dessus de $S$ où
+$U = X$ et $R = X \times_S X$, et où $s$, $t$, $c$ sont les morphismes usuels.
+D'après Groupoïdes, lemme \ref{groupoids-lemma-cartesian-equivalent-descent-datum},
+la paire $(V, \varphi)$ correspond à un morphisme cartésien
+$(U', R', s', t', c') \to (U, R, s, t, c)$ de schémas en groupoïdes.
+Soit $u' \in U'$ un point quelconque. D'après
+Groupoïdes, lemmes \ref{groupoids-lemma-constructing-invariant-opens},
+\ref{groupoids-lemma-first-observation} et
+\ref{groupoids-lemma-second-observation},
+nous pouvons choisir $u' \in W \subset E \subset U'$
+où $W$ est ouvert et $R'$-invariant, et où
+$E$ est $R'$-invariant du point de vue ensembliste et
+est une intersection d'une famille non vide d'ouverts quasi-compacts.
+
+\medskip\noindent
+En revenant à $(V, \varphi)$, pour tout $v \in V$ nous pouvons choisir
+$v \in W \subset E \subset V$ de sorte que les propriétés suivantes soient vérifiées :
+(a) $W$ est ouvert et $\varphi(W \times_S X) = X \times_S W$, et
+(b) $E$ est une intersection d'ouverts quasi-compacts et
+$\varphi(E \times_S X) = X \times_S E$ du point de vue ensembliste.
+Ici, la notation $E \times_S X$ désigne
+l'image réciproque de $E$ dans $V \times_S X$ par le morphisme de projection, et
+de même pour $X \times_S E$. D'après le lemme \ref{lemma-affine-base-change},
+cela implique que $\varphi$ définit un isomorphisme
+\begin{align*}
+\Gamma(E, \mathcal{O}_V|_E) \otimes_R A
+& =
+\Gamma(E \times_S X, \mathcal{O}_{V \times_S X}|_{E \times_S X}) \\
+& \to
+\Gamma(X \times_S E, \mathcal{O}_{X \times_S V}|_{X \times_S E}) \\
+& =
+A \otimes_R \Gamma(E, \mathcal{O}_V|_E)
+\end{align*}
+d'algèbres sur $A \otimes_R A$, que nous appellerons $\psi$.
+La condition de cocycle pour $\varphi$
+se traduit par la condition de cocycle pour $\psi$ comme dans
+Descente, définition \ref{descent-definition-descent-datum-modules}
+(détails omis). D'après Descente, proposition
+\ref{descent-proposition-descent-module},
+nous trouvons une $R$-algèbre $R'$ et un isomorphisme
+$\chi : R' \otimes_R A \to \Gamma(E, \mathcal{O}_V|_E)$
+d'$A$-algèbres, compatible avec $\psi$ et avec la
+donnée de descente canonique sur $R' \otimes_R A$.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-sits-in-functions}, nous obtenons un ``plongement'' canonique
+$$
+j : (E, \mathcal{O}_V|_E) \longrightarrow
+\Spec(\Gamma(E, \mathcal{O}_V|_E)) = \Spec(R' \otimes_R A)
+$$
+d'espaces localement annelés. La construction de cette application est canonique
+et nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+& E \times_S X \ar[rr]_\varphi \ar[ld] \ar[rd]^{j'} & &
+X \times_S E \ar[rd] \ar[ld]_{j''} \\
+E \ar[rd]^j  & &
+\Spec(R' \otimes_R A \otimes_R A) \ar[ld] \ar[rd] & &
+E \ar[ld]_j \\
+& \Spec(R' \otimes_R A) \ar[rd] && \Spec(R' \otimes_R A) \ar[ld] \\
+& & \Spec(R')
+}
+$$
+où $j'$ et $j''$ proviennent de la même construction appliquée à
+$E \times_S X \subset V \times_S X$ et à $X \times_S E \subset X \times_S V$
+au moyen de $\chi$ et des identifications utilisées pour construire $\psi$.
+Il s'ensuit que $j(W)$ est un sous-schéma ouvert de $\Spec(R' \otimes_R A)$
+dont les images réciproques par les deux projections
+$\Spec(R' \otimes_R A \otimes_R A) \to \Spec(R' \otimes_R A)$
+sont égales. D'après Descente, lemme \ref{descent-lemma-open-fpqc-covering},
+nous trouvons un ouvert $W_0 \subset \Spec(R')$ dont le changement de base
+à $\Spec(A)$ est $j(W)$. En examinant le diagramme ci-dessus,
+nous voyons que la donnée de descente $(W, \varphi|_{W \times_S X})$
+est effective. D'après Descente, lemme
+\ref{descent-lemma-effective-for-fpqc-is-local-upstairs},
+nous voyons que notre donnée de descente est effective.
+\end{proof}
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,1916 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Compléments sur la cohomologie des espaces}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Nous poursuivons dans ce chapitre l'étude commencée dans
+Cohomologie des espaces, section \ref{spaces-cohomology-section-introduction}.
+On peut aussi voir ce chapitre comme l'analogue, pour les espaces algébriques,
+du chapitre consacré à la cohomologie étale des schémas; voir
+Cohomologie étale, section \ref{etale-cohomology-section-introduction}.
+
+\medskip\noindent
+En fait, ce chapitre vise principalement à transposer dans le langage des
+espaces algébriques des résultats déjà démontrés pour les schémas.
+Certains de nos résultats se trouvent dans \cite{Kn}.
+
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Nous supposons une fois pour toutes que tous les schémas appartiennent à
+un grand site fppf $\Sch_{fppf}$. Tous les anneaux $A$ considérés
+ont en outre la propriété que $\Spec(A)$ est (isomorphe à) un
+objet de ce grand site.
+
+\medskip\noindent
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Dans ce chapitre et dans les suivants, nous noterons $X \times_S X$
+le produit de $X$ par lui-même (dans la catégorie des espaces
+algébriques sur $S$), plutôt que $X \times X$.
+
+
+
+
+
+
+
+\section{Transfert des résultats établis pour les schémas}
+\label{section-api}
+
+\noindent
+Nous expliquons brièvement dans cette section comment des résultats concernant
+les schémas entraînent des résultats pour les espaces algébriques
+(représentables) et les morphismes (représentables) d'espaces algébriques.
+On dispose d'énoncés plus forts pour les modules quasi-cohérents
+(car la cohomologie étale d'un module quasi-cohérent sur un schéma
+coïncide avec sa cohomologie de Zariski); cette question a déjà été
+traitée dans Cohomologie des espaces, section
+\ref{spaces-cohomology-section-higher-direct-image}.
+
+\medskip\noindent
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Supposons maintenant que $X$ soit représentable par le schéma $X_0$
+(notation peu commode mais temporaire; nous disons habituellement simplement
+que « $X$ est un schéma »). Dans ce cas, $X$ et $X_0$ ont le même petit
+site étale:
+$$
+X_\etale = (X_0)_\etale
+$$
+Ceci est signalé dans Propriétés des espaces, section
+\ref{spaces-properties-section-etale-site}.
+De plus, si $f : X \to Y$ est un morphisme d'espaces algébriques représentables
+sur $S$ et si $f_0 : X_0 \to Y_0$ est un morphisme de schémas
+représentant $f$, alors les morphismes induits entre les petits topos
+étales coïncident:
+$$
+\xymatrix{
+\Sh(X_\etale) \ar[rr]_{f_{small}} \ar@{=}[d] & &
+\Sh(Y_\etale) \ar@{=}[d] \\
+\Sh((X_0)_\etale) \ar[rr]^{(f_0)_{small}} & &
+\Sh((Y_0)_\etale)
+}
+$$
+Voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-functoriality-etale-site} et
+Topologies, lemme \ref{topologies-lemma-morphism-big-small-etale}.
+
+\medskip\noindent
+Il n'y a donc absolument aucune différence entre la cohomologie étale
+d'un schéma et celle de l'espace algébrique correspondant.
+Il en va de même des images directes supérieures par des morphismes de schémas.
+En effet, si $f : X \to Y$ est un morphisme d'espaces algébriques sur $S$
+qui est représentable (par des schémas), les images directes supérieures
+$R^if_*\mathcal{F}$ d'un faisceau $\mathcal{F}$ sur $X_\etale$
+peuvent se calculer localement pour la topologie étale sur $Y$ (Cohomologie
+sur les sites, lemme \ref{sites-cohomology-lemma-higher-direct-images});
+ceci ramène donc souvent les calculs et les démonstrations au cas où
+$Y$ et $X$ sont des schémas.
+
+\medskip\noindent
+Nous utiliserons ce qui précède sans autre mention dans ce chapitre.
+Le même fait vaut pour les autres topologies; nous l'énonçons ici
+explicitement sous forme d'un lemme pour la cohomologie.
+
+\begin{lemma}
+\label{lemma-compare-cohomology-other-topologies}
+Soit $S$ un schéma. Soit $\tau \in \{\etale, fppf, ph\}$ (en ajouter ici).
+Le foncteur d'inclusion
+$$
+(\Sch/S)_\tau \longrightarrow (\textit{Spaces}/S)_\tau
+$$
+est un foncteur cocontinu spécial
+(Sites, définition \ref{sites-definition-special-cocontinuous-functor})
+et identifie par conséquent les topos.
+\end{lemma}
+
+\begin{proof}
+Les conditions de Sites, lemme \ref{sites-lemma-equivalence},
+se vérifient immédiatement, puisque notre foncteur est pleinement fidèle
+et que tout espace algébrique admet un recouvrement étale par des schémas.
+\end{proof}
+
+
+
+
+
+
+
+\section{Changement de base propre}
+\label{section-proper-base-change}
+
+\noindent
+Le théorème de changement de base propre pour les espaces algébriques se déduit,
+au prix d'un peu de travail, du théorème de changement de base propre
+pour les schémas et du lemme de Chow.
+
+\begin{lemma}
+\label{lemma-surjective-proper}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme propre surjectif
+d'espaces algébriques sur $S$. Soit $\mathcal{F}$ un faisceau sur $X_\etale$.
+Alors $\mathcal{F} \to f_*f^{-1}\mathcal{F}$ est injectif et son
+image est l'égalisateur des deux applications
+$f_*f^{-1}\mathcal{F} \to g_*g^{-1}\mathcal{F}$, où
+$g$ est le morphisme structural $g : Y \times_X Y \to X$.
+\end{lemma}
+
+\begin{proof}
+Pour tout morphisme surjectif $f : Y \to X$ d'espaces algébriques sur $S$,
+l'application $\mathcal{F} \to f_*f^{-1}\mathcal{F}$ est injective.
+En effet, si $\overline{x}$ est un point géométrique de $X$, choisissons
+un point géométrique $\overline{y}$ de $Y$ situé au-dessus de $\overline{x}$
+et considérons
+$$
+\mathcal{F}_{\overline{x}} \to
+(f_*f^{-1}\mathcal{F})_{\overline{x}} \to
+(f^{-1}\mathcal{F})_{\overline{y}} = \mathcal{F}_{\overline{x}}
+$$
+Voir Propriétés des espaces, lemme \ref{spaces-properties-lemma-stalk-pullback},
+pour la dernière égalité.
+
+\medskip\noindent
+Le second énoncé est local sur $X$ pour la topologie étale; nous pouvons donc
+supposer, et nous supposons, que $Y$ est un schéma affine.
+
+\medskip\noindent
+Choisissons un morphisme propre surjectif $Z \to Y$, où $Z$ est un schéma; voir
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-weak-chow}.
+Le résultat pour $Z \to X$ entraîne celui pour $Y \to X$.
+Comme $Z \to X$ est un morphisme propre surjectif de schémas,
+et par conséquent un recouvrement ph
+(Topologies, lemme \ref{topologies-lemma-surjective-proper-ph}),
+le résultat pour $Z \to X$ découle de Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-describe-pullback-pi-ph}
+(il est en fait, en un certain sens, équivalent à ce lemme).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-h0-proper-over-henselian-pair}
+Soit $(A, I)$ un couple hensélien. Soit $X$ un espace algébrique sur $A$
+tel que le morphisme structural $f : X \to \Spec(A)$ soit propre.
+Soit $i : X_0 \to X$ l'inclusion de $X \times_{\Spec(A)} \Spec(A/I)$.
+Pour tout faisceau $\mathcal{F}$ sur $X_\etale$, on a
+$\Gamma(X, \mathcal{F}) = \Gamma(X_0, i^{-1}\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme propre surjectif $Y \to X$, où $Y$ est un schéma; voir
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-weak-chow}.
+Considérons le diagramme
+$$
+\xymatrix{
+\Gamma(X_0, \mathcal{F}_0) \ar[r] &
+\Gamma(Y_0, \mathcal{G}_0) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\Gamma((Y \times_X Y)_0, \mathcal{H}_0) \\
+\Gamma(X, \mathcal{F}) \ar[r] \ar[u] &
+\Gamma(Y, \mathcal{G}) \ar@<1ex>[r] \ar@<-1ex>[r] \ar[u] &
+\Gamma(Y \times_X Y, \mathcal{H}) \ar[u]
+}
+$$
+Ici $\mathcal{G}$, resp.\ $\mathcal{H}$, est l'image réciproque de
+$\mathcal{F}$ sur $Y$, resp.\ sur $Y \times_X Y$, et l'indice $0$
+indique le changement de base à $\Spec(A/I)$. D'après le cas des schémas
+(Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-h0-proper-over-henselian-pair})
+nous voyons que les flèches verticales du milieu et de droite sont bijectives.
+Le lemme \ref{lemma-surjective-proper} montre qu'il en va de même de celle de gauche.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-h0-proper-over-henselian-local}
+Soit $A$ un anneau local hensélien. Soit $X$ un espace algébrique
+sur $A$ tel que $f : X \to \Spec(A)$ soit un morphisme propre.
+Soit $X_0 \subset X$ la fibre de $f$ au-dessus du point fermé.
+Pour tout faisceau $\mathcal{F}$ sur $X_\etale$, on a
+$\Gamma(X, \mathcal{F}) = \Gamma(X_0, \mathcal{F}|_{X_0})$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-h0-proper-over-henselian-pair}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-base-change-f-star}
+Soit $S$ un schéma. Soient $f : X \to Y$ et $g : Y' \to Y$
+des morphismes d'espaces algébriques sur $S$. Supposons $f$ propre.
+Posons $X' = Y' \times_Y X$, de projections $f' : X' \to Y'$ et $g' : X' \to X$.
+Soit $\mathcal{F}$ un faisceau quelconque sur $X_\etale$. Alors
+$g^{-1}f_*\mathcal{F} = f'_*(g')^{-1}\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+La question est locale pour la topologie étale sur $Y'$. Choisissons un schéma
+$V$ et un morphisme étale surjectif $V \to Y$. Choisissons un schéma $V'$ et un
+morphisme étale surjectif $V' \to V \times_Y Y'$. Nous pouvons alors remplacer
+$Y'$ par $V'$ et $Y$ par $V$, donc supposer que $Y$ et $Y'$ sont des schémas.
+Nous pouvons ensuite travailler localement pour la topologie de Zariski sur
+$Y$ et $Y'$, et donc supposer que $Y$ et $Y'$ sont des schémas affines.
+
+\medskip\noindent
+Supposons que $Y$ et $Y'$ soient des schémas affines. Choisissons un morphisme
+propre surjectif $h_1 : X_1 \to X$, où $X_1$ est un schéma; voir
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-weak-chow}.
+Posons $X_2 = X_1 \times_X X_1$ et notons
+$h_2 : X_2 \to X$ le morphisme structural. Observons qu'il s'agit d'un schéma.
+D'après le cas des schémas
+(Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-proper-base-change-f-star})
+nous savons que le lemme est vrai pour les diagrammes cartésiens
+$$
+\vcenter{
+\xymatrix{
+X'_1 \ar[r] \ar[d] & X_1 \ar[d] \\
+Y' \ar[r] & Y
+}
+}
+\quad\text{et}\quad
+\vcenter{
+\xymatrix{
+X'_2 \ar[r] \ar[d] & X_2 \ar[d] \\
+Y' \ar[r] & Y
+}
+}
+$$
+et les faisceaux $\mathcal{F}_i = (X_i \to X)^{-1}\mathcal{F}$.
+D'après le lemme \ref{lemma-surjective-proper}, nous avons une suite exacte
+$0 \to \mathcal{F} \to h_{1, *}\mathcal{F}_1 \to h_{2, *}\mathcal{F}_2$
+et de même pour $(g')^{-1}\mathcal{F}$, puisque
+$X'_2 = X'_1 \times_{X'} X'_1$. Nous en concluons que le
+lemme est vrai (certains détails sont omis).
+\end{proof}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$. Soit
+$\overline{x} : \Spec(k) \to S$ un point géométrique. La fibre
+de $f$ en $\overline{x}$ est l'espace algébrique
+$Y_{\overline{x}} = \Spec(k) \times_{\overline{x}, X} Y$ sur $\Spec(k)$.
+Si $\mathcal{F}$ est un faisceau sur $Y_\etale$, notons
+$\mathcal{F}_{\overline{x}} = p^{-1}\mathcal{F}$
+l'image réciproque de $\mathcal{F}$ sur $(Y_{\overline{x}})_\etale$.
+Ici $p : Y_{\overline{x}} \to Y$ est la projection.
+Dans la suite, nous considérerons l'ensemble
+$\Gamma(Y_{\overline{x}}, \mathcal{F}_{\overline{x}})$.
+
+\begin{lemma}
+\label{lemma-proper-pushforward-stalk}
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme propre d'espaces algébriques sur $S$. Soit
+$\overline{x} \to X$ un point géométrique.
+Pour tout faisceau $\mathcal{F}$ sur $Y_\etale$,
+l'application canonique
+$$
+(f_*\mathcal{F})_{\overline{x}} \longrightarrow
+\Gamma(Y_{\overline{x}}, \mathcal{F}_{\overline{x}})
+$$
+est bijective.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-proper-base-change-f-star}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-proper-base-change}
+Soit $S$ un schéma. Soit
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+un carré cartésien d'espaces algébriques sur $S$.
+Supposons $f$ propre.
+Soit $\mathcal{F}$ un faisceau abélien de torsion sur $X_\etale$.
+Alors le morphisme de changement de base
+$$
+g^{-1}Rf_*\mathcal{F} \longrightarrow Rf'_*(g')^{-1}\mathcal{F}
+$$
+est un isomorphisme.
+\end{theorem}
+
+\begin{proof}
+Cette démonstration reprend certains des arguments de la démonstration du
+théorème de changement de base propre pour les schémas. Voir
+Cohomologie étale, section \ref{etale-cohomology-section-proper-base-change},
+pour davantage de détails.
+
+\medskip\noindent
+L'énoncé est local pour la topologie étale sur $Y'$ et sur $Y$; nous pouvons
+donc supposer que $Y$ et $Y'$ sont tous deux des schémas affines. Observons que
+ceci démontre en particulier le théorème lorsque $f$ est représentable
+(nous l'utiliserons plus bas).
+
+\medskip\noindent
+Pour tout $n \geq 1$, soit $\mathcal{F}[n]$ le sous-faisceau des sections
+de $\mathcal{F}$ annulées par $n$. Alors
+$\mathcal{F} = \colim \mathcal{F}[n]$. D'après 
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-colimit-cohomology},
+les foncteurs $g^{-1}R^pf_*$ et $R^pf'_*(g')^{-1}$ commutent
+aux limites inductives filtrantes. Il suffit donc de démontrer le théorème
+lorsque $\mathcal{F}$ est annulée par $n$.
+
+\medskip\noindent
+Soit $\mathcal{F} \to \mathcal{I}^\bullet$ une résolution par des
+faisceaux injectifs de $\mathbf{Z}/n\mathbf{Z}$-modules.
+Observons que
+$g^{-1}f_*\mathcal{I}^\bullet = f'_*(g')^{-1}\mathcal{I}^\bullet$
+d'après le lemme \ref{lemma-proper-base-change-f-star}.
+En appliquant le lemme d'acyclicité de Leray
+(Catégories dérivées, lemme \ref{derived-lemma-leray-acyclicity}),
+nous concluons qu'il suffit de démontrer
+$R^pf'_*(g')^{-1}\mathcal{I}^m = 0$ pour $p > 0$ et $m \in \mathbf{Z}$.
+
+\medskip\noindent
+Choisissons un morphisme propre surjectif
+$h : Z \to X$, où $Z$ est un schéma; voir
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-weak-chow}.
+Choisissons une application injective $h^{-1}\mathcal{I}^m \to \mathcal{J}$,
+où $\mathcal{J}$ est un faisceau injectif de
+$\mathbf{Z}/n\mathbf{Z}$-modules sur $Z_\etale$.
+Comme $h$ est surjectif, l'application $\mathcal{I}^m \to h_*\mathcal{J}$
+est injective (voir le lemme \ref{lemma-surjective-proper}).
+Puisque $\mathcal{I}^m$ est injectif, nous voyons que $\mathcal{I}^m$
+est un facteur direct de
+$h_*\mathcal{J}$. Il suffit donc de démontrer l'annulation voulue
+pour $h_*\mathcal{J}$.
+
+\medskip\noindent
+Notons $h'$ son changement de base par $g$ et
+$g'' : Z' \to Z$ la projection. Il existe une suite spectrale
+$$
+E_2^{p, q} = R^pf'_* R^qh'_* (g'')^{-1}\mathcal{J}
+$$
+qui aboutit à $R^{p + q}(f' \circ h')_*(g'')^{-1}\mathcal{J}$.
+Comme $h$ et $f \circ h$ sont représentables (par des schémas),
+nous savons que le résultat voulu vaut pour eux. La suite spectrale montre donc
+que $E_2^{p, q} = 0$ pour $q > 0$ et que
+$R^{p + q}(f' \circ h')_*(g'')^{-1}\mathcal{J} = 0$
+pour $p + q > 0$. Il s'ensuit que $E_2^{p, 0} = 0$ pour $p > 0$.
+Or
+$$
+E_2^{p, 0} = R^pf'_* h'_* (g'')^{-1}\mathcal{J} =
+R^pf'_* (g')^{-1}h_*\mathcal{J}
+$$
+d'après le lemme \ref{lemma-proper-base-change-f-star}. Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-base-change}
+Soit $S$ un schéma. Soit
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+un carré cartésien d'espaces algébriques sur $S$. Supposons $f$ propre.
+Soit $E \in D^+(X_\etale)$ à faisceaux de cohomologie de torsion.
+Alors le morphisme de changement de base $g^{-1}Rf_*E \to Rf'_*(g')^{-1}E$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence immédiate du théorème de changement de base propre
+(théorème \ref{theorem-proper-base-change}), en utilisant les suites
+spectrales
+$$
+E_2^{p, q} = R^pf_*H^q(E)
+\quad\text{et}\quad
+{E'}_2^{p, q} = R^pf'_*(g')^{-1}H^q(E)
+$$
+qui aboutissent à $R^nf_*E$ et $R^nf'_*(g')^{-1}E$.
+Ces suites spectrales sont construites dans Catégories dérivées, lemme
+\ref{derived-lemma-two-ss-complex-functor}.
+Certains détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-base-change-stalk}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme propre d'espaces algébriques.
+Soit $\overline{y} \to Y$ un point géométrique.
+\begin{enumerate}
+\item Pour un faisceau abélien de torsion $\mathcal{F}$ sur $X_\etale$, on a
+$(R^nf_*\mathcal{F})_{\overline{y}} =
+H^n_\etale(X_{\overline{y}}, \mathcal{F}_{\overline{y}})$.
+\item Pour $E \in D^+(X_\etale)$ à faisceaux de cohomologie de torsion, on a
+$(R^nf_*E)_{\overline{y}} = H^n_\etale(X_{\overline{y}}, E_{\overline{y}})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans l'énoncé, $\mathcal{F}_{\overline{y}}$ désigne l'image réciproque
+de $\mathcal{F}$ sur $X_{\overline{y}} = \overline{y} \times_Y X$.
+Comme l'image réciproque par $\overline{y} \to Y$ donne la fibre de
+$\mathcal{F}$, la première assertion du lemme est un cas particulier du
+théorème \ref{theorem-proper-base-change}. La seconde est un cas particulier
+du lemme \ref{lemma-proper-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-separably-closed}
+Soit $k'/k$ une extension de corps séparablement clos.
+Soit $X$ un espace algébrique propre sur $k$.
+Soit $\mathcal{F}$ un faisceau abélien de torsion sur $X$.
+Alors l'application $H^q_\etale(X, \mathcal{F}) \to
+H^q_\etale(X_{k'}, \mathcal{F}|_{X_{k'}})$ est un isomorphisme
+pour $q \geq 0$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du théorème \ref{theorem-proper-base-change}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Comparaison des grands et petits topos}
+\label{section-compare}
+
+\noindent
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Dans Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-at-the-bottom-etale}
+nous avons introduit les morphismes de comparaison
+$\pi_X : (\textit{Spaces}/X)_\etale \to X_{spaces, \etale}$ et
+$i_X : \Sh(X_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$
+avec $\pi_X \circ i_X = \text{id}$ comme morphismes de topos et
+$\pi_{X, *} = i_X^{-1}$.
+Plus généralement, si $f : Y \to X$ est un objet de $(\textit{Spaces}/X)_\etale$,
+il existe un morphisme
+$i_f : \Sh(Y_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$
+tel que $f_{small} = \pi_X \circ i_f$; voir
+Topologies sur les espaces, lemmes \ref{spaces-topologies-lemma-put-in-T-etale} et
+\ref{spaces-topologies-lemma-morphism-big-small-etale}. Dans
+Topologies sur les espaces, remarque
+\ref{spaces-topologies-remark-change-topologies-ringed}
+nous avons étendu ceux-ci en un morphisme de sites annelés
+$$
+\pi_X :
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+\to
+(X_{spaces, \etale}, \mathcal{O}_X)
+$$
+et en des morphismes de topos annelés
+$$
+i_X :
+(\Sh(X_\etale), \mathcal{O}_X)
+\to
+(\Sh((\textit{Spaces}/X)_\etale), \mathcal{O})
+$$
+et
+$$
+i_f :
+(\Sh(Y_\etale), \mathcal{O}_Y)
+\to
+(\Sh((\textit{Spaces}/X)_\etale, \mathcal{O}))
+$$
+Notons que la restriction $i_X^{-1} = \pi_{X, *}$ (voir
+Topologies, définition \ref{topologies-definition-restriction-small-etale})
+transforme $\mathcal{O}$ en $\mathcal{O}_X$.
+De même, $i_f^{-1}$ transforme $\mathcal{O}$ en $\mathcal{O}_Y$.
+Voir Topologies sur les espaces, remarque
+\ref{spaces-topologies-remark-change-topologies-ringed}.
+Ainsi $i_X^*\mathcal{F} = i_X^{-1}\mathcal{F}$ et
+$i_f^*\mathcal{F} = i_f^{-1}\mathcal{F}$ pour tout $\mathcal{O}$-module
+$\mathcal{F}$ sur $(\textit{Spaces}/X)_\etale$. En particulier, $i_X^*$ et
+$i_f^*$ sont des foncteurs exacts. Le foncteur $i_X^*$ est souvent noté
+$\mathcal{F} \mapsto \mathcal{F}|_{X_\etale}$ (ce qui n'entre pas
+en conflit avec la notation de Topologies sur les espaces, définition
+\ref{spaces-topologies-definition-restriction-small-etale}).
+
+\begin{lemma}
+\label{lemma-describe-pullback}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un faisceau sur $X_\etale$. Alors
+$\pi_X^{-1}\mathcal{F}$ est donné par la règle
+$$
+(\pi_X^{-1}\mathcal{F})(Y) = \Gamma(Y_\etale, f_{small}^{-1}\mathcal{F})
+$$
+pour $f : Y \to X$ dans $(\textit{Spaces}/X)_\etale$.
+De plus, $\pi_Y^{-1}\mathcal{F}$ satisfait à la condition de faisceau pour les
+recouvrements lisses, syntomiques, fppf, fpqc et ph.
+\end{lemma}
+
+\begin{proof}
+Comme l'image réciproque est transitive et que $f_{small} = \pi_X \circ i_f$
+(voir ci-dessus), nous avons
+$i_f^{-1} \pi_X^{-1}\mathcal{F} = f_{small}^{-1}\mathcal{F}$.
+Ceci donne la description de $\pi_X^{-1}$ annoncée dans le lemme.
+
+\medskip\noindent
+Pour démontrer que $\pi_X^{-1}\mathcal{F}$ est un faisceau pour la topologie ph,
+il suffit, d'après Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-characterize-sheaf}
+de montrer que, pour tout morphisme propre surjectif
+$V \to U$ d'espaces algébriques sur $X$, l'ensemble
+$(\pi_X^{-1}\mathcal{F})(U)$ est l'égalisateur des deux applications
+$(\pi_X^{-1}\mathcal{F})(V) \to (\pi_X^{-1}\mathcal{F})(V \times_U V)$.
+C'est précisément le lemme \ref{lemma-surjective-proper}.
+
+\medskip\noindent
+Le cas des recouvrements lisses, syntomiques et fppf se déduit de celui
+des recouvrements ph par Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-ph}.
+
+\medskip\noindent
+Soit $\mathcal{U} = \{U_i \to U\}_{i \in I}$ un recouvrement fpqc d'espaces
+algébriques sur $X$. Soient $s_i \in (\pi_X^{-1}\mathcal{F})(U_i)$ des sections
+qui coïncident sur $U_i \times_U U_j$. Il faut démontrer qu'il existe un unique
+$s \in (\pi_X^{-1}\mathcal{F})(U)$ qui se restreint en $s_i$ sur $U_i$.
+Cas I: $U$ et les $U_i$ sont des schémas. Ce cas découle de
+Cohomologie étale, lemme \ref{etale-cohomology-lemma-describe-pullback}.
+Cas II: $U$ est un schéma. Choisissons des morphismes étales surjectifs
+$T_i \to U_i$, où les $T_i$ sont des schémas. Alors
+$\mathcal{T} = \{T_i \to U\}$ est un recouvrement fpqc par des schémas et,
+d'après le cas I, le résultat vaut pour $\mathcal{T}$. Nous omettons de vérifier
+que ceci entraîne le résultat pour $\mathcal{U}$.
+Cas III: cas général. Soit $W \to U$ un morphisme étale surjectif, où $W$ est
+un schéma. Alors $\mathcal{W} = \{U_i \times_U W \to W\}$ est un recouvrement
+fpqc (par des espaces algébriques) du schéma $W$.
+D'après le cas II, le résultat vaut pour $\mathcal{W}$. Nous omettons de vérifier
+que ceci entraîne le résultat pour $\mathcal{U}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-injectives}
+Soit $S$ un schéma.
+Soit $Y \to X$ un morphisme de $(\textit{Spaces}/S)_\etale$.
+\begin{enumerate}
+\item Si $\mathcal{I}$ est injectif dans
+$\textit{Ab}((\textit{Spaces}/X)_\etale)$, alors
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}$ est injectif dans $\textit{Ab}(Y_\etale)$,
+\item $\mathcal{I}|_{X_\etale}$ est injectif dans $\textit{Ab}(X_\etale)$,
+\end{enumerate}
+\item Si $\mathcal{I}^\bullet$ est un complexe K-injectif
+dans $\textit{Ab}((\textit{Spaces}/X)_\etale)$, alors
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}^\bullet$ est un complexe K-injectif dans
+$\textit{Ab}(Y_\etale)$,
+\item $\mathcal{I}^\bullet|_{X_\etale}$ est un complexe K-injectif dans
+$\textit{Ab}(X_\etale)$,
+\end{enumerate}
+\end{enumerate}
+Les énoncés correspondants ne valent pas pour les modules.
+\end{lemma}
+
+\begin{proof}
+Les assertions (1)(b) et (2)(b) découlent formellement du fait que le foncteur
+de restriction $\pi_{X, *} = i_X^{-1}$ est adjoint à droite du foncteur exact
+$\pi_X^{-1}$; voir Homologie, lemme
+\ref{homology-lemma-adjoint-preserve-injectives}, et Catégories dérivées,
+lemme \ref{derived-lemma-adjoint-preserve-K-injectives}.
+
+\medskip\noindent
+Les assertions (1)(a) et (2)(a) peuvent se voir de deux façons.
+Première démonstration: on utilise que $i_f^{-1}$ est adjoint à droite du
+foncteur exact $i_{f, !}$. Ce foncteur est construit, pour les faisceaux
+d'ensembles, dans Topologies, lemme \ref{topologies-lemma-put-in-T-etale},
+et, pour les faisceaux abéliens, dans Modules sur les sites, lemme
+\ref{sites-modules-lemma-g-shriek-adjoint}. Il est démontré dans Modules sur
+les sites, lemme \ref{sites-modules-lemma-exactness-lower-shriek}, qu'il est exact.
+Seconde démonstration: on utilise l'égalité $i_f = i_Y \circ f_{big}$,
+établie dans Topologies, lemme
+\ref{topologies-lemma-morphism-big-small-etale}. Comme $f_{big}$ est une
+localisation, l'image réciproque par ce morphisme préserve les injectifs et les
+K-injectifs; voir Cohomologie sur les sites, lemmes
+\ref{sites-cohomology-lemma-cohomology-of-open} et
+\ref{sites-cohomology-lemma-restrict-K-injective-to-open}.
+On conclut alors en appliquant au foncteur $i_Y^{-1}$ les assertions (1)(b)
+et (2)(b), déjà démontrées.
+
+\medskip\noindent
+Pour un contre-exemple dans le cas des modules, nous renvoyons à
+Cohomologie étale, lemme \ref{etale-cohomology-lemma-compare-injectives}.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$.
+Le diagramme commutatif de Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-morphism-big-small-etale} (3)
+donne un diagramme commutatif de sites annelés
+$$
+\xymatrix{
+(Y_{spaces, \etale}, \mathcal{O}_Y) \ar[d]_{f_{spaces, \etale}} &
+((\textit{Spaces}/Y)_\etale, \mathcal{O}) \ar[d]^{f_{big}} \ar[l]^{\pi_Y} \\
+(X_{spaces, \etale}, \mathcal{O}_X) &
+((\textit{Spaces}/X)_\etale, \mathcal{O}) \ar[l]_{\pi_X}
+}
+$$
+comme on le voit aisément en explicitant les définitions de
+$f_{small}^\sharp$, $f_{big}^\sharp$, $\pi_X^\sharp$ et $\pi_Y^\sharp$.
+En particulier, cela signifie que
+\begin{equation}
+\label{equation-compare-big-small}
+(f_{big, *}\mathcal{F})|_{X_\etale} =
+f_{small, *}(\mathcal{F}|_{Y_\etale})
+\end{equation}
+pour tout faisceau $\mathcal{F}$ sur $(\textit{Spaces}/Y)_\etale$; si
+$\mathcal{F}$ est un faisceau de $\mathcal{O}$-modules, alors
+(\ref{equation-compare-big-small})
+est un isomorphisme de $\mathcal{O}_X$-modules sur $X_\etale$.
+
+\begin{lemma}
+\label{lemma-compare-higher-direct-image}
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$.
+\begin{enumerate}
+\item Pour $K$ dans $D((\textit{Spaces}/Y)_\etale)$, on a
+$
+(Rf_{big, *}K)|_{X_\etale} = Rf_{small, *}(K|_{Y_\etale})
+$
+dans $D(X_\etale)$.
+\item Pour $K$ dans $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$, on a
+$
+(Rf_{big, *}K)|_{X_\etale} = Rf_{small, *}(K|_{Y_\etale})
+$
+dans $D(\textit{Mod}(X_\etale, \mathcal{O}_X))$.
+\end{enumerate}
+Plus généralement, soit $g : X' \to X$ un objet de
+$(\textit{Spaces}/X)_\etale$. Considérons le produit fibré
+$$
+\xymatrix{
+Y' \ar[r]_{g'} \ar[d]_{f'} & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+Alors
+\begin{enumerate}
+\item[(3)] Pour $K$ dans $D((\textit{Spaces}/Y)_\etale)$, on a
+$i_g^{-1}(Rf_{big, *}K) = Rf'_{small, *}(i_{g'}^{-1}K)$
+dans $D(X'_\etale)$.
+\item[(4)] Pour $K$ dans $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$, on a
+$i_g^*(Rf_{big, *}K) = Rf'_{small, *}(i_{g'}^*K)$
+dans $D(\textit{Mod}(X'_\etale, \mathcal{O}_{X'}))$.
+\item[(5)] Pour $K$ dans $D((\textit{Spaces}/Y)_\etale)$, on a
+$g_{big}^{-1}(Rf_{big, *}K) = Rf'_{big, *}((g'_{big})^{-1}K)$
+dans $D((\textit{Spaces}/X')_\etale)$.
+\item[(6)] Pour $K$ dans $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$, on a
+$g_{big}^*(Rf_{big, *}K) = Rf'_{big, *}((g'_{big})^*K)$
+dans $D(\textit{Mod}(X'_\etale, \mathcal{O}_{X'}))$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) découle du lemme \ref{lemma-compare-injectives}
+et de (\ref{equation-compare-big-small}),
+en choisissant un complexe K-injectif de faisceaux abéliens représentant $K$.
+
+\medskip\noindent
+L'assertion (3) découle du lemme \ref{lemma-compare-injectives}
+et de Topologies, lemme
+\ref{topologies-lemma-morphism-big-small-cartesian-diagram-etale}
+en choisissant un complexe K-injectif de faisceaux abéliens représentant $K$.
+
+\medskip\noindent
+L'assertion (5) est Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-localize-cartesian-square}.
+
+\medskip\noindent
+L'assertion (6) est Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-localize-cartesian-square-modules}.
+
+\medskip\noindent
+L'assertion (2) se démontre comme suit. Nous avons vu ci-dessus que
+$\pi_X \circ f_{big} = f_{small} \circ \pi_Y$ comme morphismes de sites
+annelés. Nous obtenons donc
+$R\pi_{X, *} \circ Rf_{big, *} = Rf_{small, *} \circ R\pi_{Y, *}$
+d'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+Comme les foncteurs de restriction $\pi_{X, *}$ et $\pi_{Y, *}$
+sont exacts, on conclut.
+
+\medskip\noindent
+L'assertion (4) découle des assertions (6) et (2), cette dernière étant
+appliquée à $f' : Y' \to X'$.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{H}$ un faisceau abélien sur
+$(\textit{Spaces}/X)_\etale$. Rappelons que $H^n_\etale(U, \mathcal{H})$
+désigne la cohomologie de $\mathcal{H}$ sur un objet
+$U$ de $(\textit{Spaces}/X)_\etale$.
+
+\begin{lemma}
+\label{lemma-compare-cohomology}
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$. Alors
+\begin{enumerate}
+\item Pour $K$ dans $D(X_\etale)$, on a
+$H^n_\etale(X, \pi_X^{-1}K) = H^n(X_\etale, K)$.
+\item Pour $K$ dans $D(X_\etale, \mathcal{O}_X)$, on a
+$H^n_\etale(X, L\pi_X^*K) = H^n(X_\etale, K)$.
+\item Pour $K$ dans $D(X_\etale)$, on a
+$H^n_\etale(Y, \pi_X^{-1}K) = H^n(Y_\etale, f_{small}^{-1}K)$.
+\item Pour $K$ dans $D(X_\etale, \mathcal{O}_X)$, on a
+$H^n_\etale(Y, L\pi_X^*K) = H^n(Y_\etale, Lf_{small}^*K)$.
+\item Pour $M$ dans $D((\textit{Spaces}/X)_\etale)$, on a
+$H^n_\etale(Y, M) = H^n(Y_\etale, i_f^{-1}M)$.
+\item Pour $M$ dans $D((\textit{Spaces}/X)_\etale, \mathcal{O})$, on a
+$H^n_\etale(Y, M) = H^n(Y_\etale, i_f^*M)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour démontrer (5), représentons $M$ par un complexe K-injectif de faisceaux
+abéliens, appliquons le lemme \ref{lemma-compare-injectives} et explicitons
+les définitions. L'assertion (3) en découle puisque
+$i_f^{-1}\pi_X^{-1} = f_{small}^{-1}$. L'assertion (1) est un cas
+particulier de (3).
+
+\medskip\noindent
+L'assertion (6) découle du très général lemme
+\ref{sites-cohomology-lemma-pullback-same-cohomology} de Cohomologie sur les
+sites. Ensuite, l'assertion (4) découle de l'égalité
+$Lf_{small}^* = i_f^* \circ L\pi_X^*$. L'assertion (2) est un cas particulier
+de (4).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Pour $K \in D(X_\etale)$, l'application
+$$
+K \longrightarrow R\pi_{X, *}\pi_X^{-1}K
+$$
+est un isomorphisme, où
+$\pi_X : \Sh((\textit{Spaces}/X)_\etale) \to \Sh(X_\etale)$ est défini ci-dessus.
+\end{lemma}
+
+\begin{proof}
+Ceci est vrai parce que $\pi_X^{-1}$ et $\pi_{X, *} = i_X^{-1}$ sont tous deux
+des foncteurs exacts et que le composé $\pi_{X, *} \circ \pi_X^{-1}$
+est le foncteur identité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-higher-direct-image-proper}
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme propre d'espaces algébriques sur $S$.
+Alors on a
+\begin{enumerate}
+\item $\pi_X^{-1} \circ f_{small, *} = f_{big, *} \circ \pi_Y^{-1}$
+comme foncteurs $\Sh(Y_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$,
+\item $\pi_X^{-1}Rf_{small, *}K = Rf_{big, *}\pi_Y^{-1}K$
+pour $K$ dans $D^+(Y_\etale)$ dont les faisceaux de cohomologie sont de torsion, et
+\item $\pi_X^{-1}Rf_{small, *}K = Rf_{big, *}\pi_Y^{-1}K$
+pour tout $K$ dans $D(Y_\etale)$ si $f$ est fini.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Soit $\mathcal{F}$ un faisceau sur $Y_\etale$.
+Soit $g : X' \to X$ un objet de $(\textit{Spaces}/X)_\etale$.
+Considérons le produit fibré
+$$
+\xymatrix{
+Y' \ar[r]_{f'} \ar[d]_{g'} & X' \ar[d]^g \\
+Y \ar[r]^f & X
+}
+$$
+On a alors
+$$
+(f_{big, *}\pi_Y^{-1}\mathcal{F})(X') =
+(\pi_Y^{-1}\mathcal{F})(Y') =
+((g'_{small})^{-1}\mathcal{F})(Y')  =
+(f'_{small, *}(g'_{small})^{-1}\mathcal{F})(X')
+$$
+la seconde égalité résultant du lemme \ref{lemma-describe-pullback}.
+D'autre part,
+$$
+(\pi_X^{-1}f_{small, *}\mathcal{F})(X') =
+(g_{small}^{-1}f_{small, *}\mathcal{F})(X')
+$$
+de nouveau d'après le lemme \ref{lemma-describe-pullback}.
+Le changement de base propre pour les faisceaux d'ensembles
+(lemme \ref{lemma-proper-base-change-f-star}) montre donc que les deux
+ensembles sont canoniquement isomorphes. Cet isomorphisme est compatible
+avec les applications de restriction et définit un isomorphisme
+$\pi_X^{-1}f_{small, *}\mathcal{F} = f_{big, *}\pi_Y^{-1}\mathcal{F}$.
+On obtient ainsi un isomorphisme de foncteurs
+$\pi_X^{-1} \circ f_{small, *} = f_{big, *} \circ \pi_Y^{-1}$.
+
+\medskip\noindent
+Démonstration de (2). Il existe un morphisme canonique de changement de base
+$\pi_X^{-1}Rf_{small, *}K \to Rf_{big, *}\pi_Y^{-1}K$
+pour tout $K$ dans $D(Y_\etale)$; voir Cohomologie sur les sites, remarque
+\ref{sites-cohomology-remark-base-change}.
+Pour démontrer que c'est un isomorphisme, il suffit de montrer que l'image
+réciproque du morphisme de changement de base par
+$i_g : \Sh(X'_\etale) \to \Sh((\Sch/X)_\etale)$ est un isomorphisme pour tout
+objet $g : X' \to X$ de $(\Sch/X)_\etale$.
+Soient $T', g', f'$ comme au paragraphe précédent.
+L'image réciproque du morphisme de changement de base est
+\begin{align*}
+g_{small}^{-1}Rf_{small, *}K
+& =
+i_g^{-1}\pi_X^{-1}Rf_{small, *}K \\
+& \to
+i_g^{-1}Rf_{big, *}\pi_Y^{-1}K \\
+& =
+Rf'_{small, *}(i_{g'}^{-1}\pi_Y^{-1}K) \\
+& =
+Rf'_{small, *}((g'_{small})^{-1}K)
+\end{align*}
+où nous avons utilisé $\pi_X \circ i_g = g_{small}$,
+$\pi_Y \circ i_{g'} = g'_{small}$ et le lemme
+\ref{lemma-compare-higher-direct-image}.
+Cette application est un isomorphisme d'après le théorème de changement de base
+propre (lemme \ref{lemma-proper-base-change}), pourvu que $K$ soit borné
+inférieurement et que les faisceaux de cohomologie de $K$ soient de torsion.
+
+\medskip\noindent
+Démonstration de (3). Si $f$ est fini, les foncteurs
+$f_{small, *}$ et $f_{big, *}$ sont exacts. Pour $f_{small}$, ceci découle de
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}.
+Comme tout changement de base $f'$ de $f$ est encore fini, le lemme
+\ref{lemma-compare-higher-direct-image}, assertion (3), montre que
+$f_{big, *}$ est lui aussi exact (puisque les foncteurs dérivés supérieurs
+sont nuls). Ce cas découle donc de l'assertion (1).
+\end{proof}
+
+
+
+
+
+
+
+\section{Comparaison des topologies fppf et étale}
+\label{section-fppf-etale}
+
+\noindent
+Cette section est l'analogue de Cohomologie étale, section
+\ref{etale-cohomology-section-fppf-etale}.
+
+\medskip\noindent
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Sur la catégorie $\textit{Spaces}/X$, considérons les topologies fppf
+et étale. Le foncteur identité
+$(\textit{Spaces}/X)_\etale \to (\textit{Spaces}/X)_{fppf}$
+est continu et définit un morphisme de sites
+$$
+\epsilon_X :
+(\textit{Spaces}/X)_{fppf} \longrightarrow (\textit{Spaces}/X)_\etale
+$$
+par application de Sites, proposition \ref{sites-proposition-get-morphism}.
+Notons que $\epsilon_{X, *}$ est le foncteur identité sur les préfaisceaux
+sous-jacents et que $\epsilon_X^{-1}$ associe à un faisceau étale son
+faisceau associé pour la topologie fppf.
+Considérons le morphisme de sites
+$$
+\pi_X : (\textit{Spaces}/X)_\etale \longrightarrow X_{spaces, \etale}
+$$
+qui compare les grands et petits sites étales; voir la section \ref{section-compare}.
+Le composé détermine un morphisme de sites
+$$
+a_X = \pi_X \circ \epsilon_X :
+(\textit{Spaces}/X)_{fppf}
+\longrightarrow
+X_{spaces, \etale}
+$$
+Si $\mathcal{H}$ est un faisceau abélien sur $(\textit{Spaces}/X)_{fppf}$,
+nous noterons $H^n_{fppf}(U, \mathcal{H})$ la cohomologie de
+$\mathcal{H}$ sur un objet $U$ de $(\textit{Spaces}/X)_{fppf}$.
+
+\begin{lemma}
+\label{lemma-comparison-fppf-etale}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Pour $\mathcal{F} \in \Sh(X_\etale)$, on a
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+et $a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$.
+\item Pour $\mathcal{F} \in \textit{Ab}(X_\etale)$, on a
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ pour $i > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+On a $a_X^{-1}\mathcal{F} = \epsilon_X^{-1} \pi_X^{-1}\mathcal{F}$.
+D'après le lemme \ref{lemma-describe-pullback}, le faisceau étale
+$\pi_X^{-1}\mathcal{F}$ est un faisceau pour la topologie fppf; il est donc
+égal à $a_X^{-1}\mathcal{F}$ (puisque l'image réciproque par $\epsilon_X$
+est donnée par le faisceau associé pour la topologie fppf).
+Rappelons en outre que $\epsilon_{X, *}$ est le foncteur identité
+sur les préfaisceaux sous-jacents.
+L'assertion (1) résulte alors immédiatement de la description explicite de
+$\pi_X^{-1}$ donnée au lemme \ref{lemma-describe-pullback}.
+
+\medskip\noindent
+Nous démontrerons (2) en nous ramenant au cas des schémas; voir l'assertion (1)
+de Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-V-C-all-n-etale-fppf}.
+Cette méthode « fonctionne clairement », puisque tout espace algébrique est
+localement un schéma pour la topologie étale. Les détails sont donnés ci-dessous,
+mais nous invitons vivement le lecteur à omettre la démonstration.
+
+\medskip\noindent
+Pour un faisceau abélien $\mathcal{H}$ sur $(\textit{Spaces}/X)_{fppf}$,
+l'image directe supérieure $R^p\epsilon_{X, *}\mathcal{H}$ est le faisceau
+associé au préfaisceau $U \mapsto H^p_{fppf}(U, \mathcal{H})$
+sur $(\textit{Spaces}/X)_\etale$. Voir Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-higher-direct-images}.
+Comme tout objet de $(\textit{Spaces}/X)_\etale$ admet un recouvrement par des
+schémas, il suffit de démontrer que, pour tout schéma $U/X$ et tout
+$\xi \in H^p_{fppf}(U, a_X^{-1}\mathcal{F})$, il existe un recouvrement étale
+$\{U_i \to U\}$ tel que la restriction de $\xi$ à chaque $U_i$ soit nulle.
+On a
+\begin{align*}
+H^p_{fppf}(U, a_X^{-1}\mathcal{F})
+& =
+H^p((\textit{Spaces}/U)_{fppf}, (a_X^{-1}\mathcal{F})|_{\textit{Spaces}/U}) \\
+& =
+H^p((\Sch/U)_{fppf}, (a_X^{-1}\mathcal{F})|_{\Sch/U})
+\end{align*}
+où la seconde identification est le lemme
+\ref{lemma-compare-cohomology-other-topologies}, et la première un fait général
+sur la restriction (Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-cohomology-of-open}).
+En comparant le premier paragraphe et le résultat correspondant dans le cas
+des schémas (Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-describe-pullback-pi-fppf})
+nous concluons que le faisceau $(a_X^{-1}\mathcal{F})|_{\Sch/U}$
+coïncide avec l'image réciproque par la « version pour les schémas de $a_U$ ».
+Nous pouvons donc trouver un recouvrement étale $\{U_i \to U\}$ tel que notre
+classe s'annule dans
+$H^p((\Sch/U_i)_{fppf}, (a_X^{-1}\mathcal{F})|_{\Sch/U_i})$
+pour tout $i$; voir Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-V-C-all-n-etale-fppf}
+(l'énoncé précis à utiliser ici est que $V_n$ vaut pour tout $n$, ce qui est
+l'assertion (2) dans le cas des schémas).
+En revenant en arrière (au moyen des mêmes formules que ci-dessus, appliquées
+cette fois à $U_i$), nous concluons que la restriction de $\xi$ à $U_i$
+est nulle, comme souhaité.
+\end{proof}
+
+\noindent
+Le travail difficile effectué dans le cas des schémas montre maintenant que
+les cohomologies étale et fppf coïncident pour les faisceaux provenant du
+petit site étale.
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-fppf}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Pour $K \in D^+(X_\etale)$, les applications
+$$
+\pi_X^{-1}K \longrightarrow R\epsilon_{X, *}a_X^{-1}K
+\quad\text{et}\quad
+K \longrightarrow Ra_{X, *}a_X^{-1}K
+$$
+sont des isomorphismes, où
+$a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$ est défini ci-dessus.
+\end{lemma}
+
+\begin{proof}
+Nous démontrons seulement le second énoncé; le premier est plus facile et se
+démontre exactement de la même manière. On se ramène immédiatement au cas où
+$K$ est donné par un seul faisceau abélien. En effet, représentons $K$ par un
+complexe borné inférieurement $\mathcal{F}^\bullet$. Le cas d'un faisceau donne
+$\mathcal{F}^n = a_{X, *} a_X^{-1} \mathcal{F}^n$
+et les faisceaux $R^qa_{X, *}a_X^{-1}\mathcal{F}^n$ sont nuls pour $q > 0$.
+Le lemme d'acyclicité de Leray (Catégories dérivées, lemme
+\ref{derived-lemma-leray-acyclicity}), appliqué à
+$a_X^{-1}\mathcal{F}^\bullet$ et au foncteur $a_{X, *}$, permet de conclure.
+Supposons désormais $K = \mathcal{F}$.
+
+\medskip\noindent
+Le lemme \ref{lemma-comparison-fppf-etale} donne
+$a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$. Il suffit donc de montrer que
+$R^qa_{X, *}a_X^{-1}\mathcal{F} = 0$ pour $q > 0$.
+Pour cela, nous pouvons utiliser $a_X = \epsilon_X \circ \pi_X$ et la suite
+spectrale de Leray (Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-relative-Leray}).
+D'après le lemme \ref{lemma-comparison-fppf-etale}, on a
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ pour $i > 0$.
+On a
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+et, d'après le lemme \ref{lemma-cohomological-descent-etale},
+$R^j\pi_{X, *}(\pi_X^{-1}\mathcal{F}) = 0$ pour $j > 0$.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cohomology-etale-fppf}
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Avec $a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$
+défini ci-dessus:
+\begin{enumerate}
+\item $H^q(X_\etale, \mathcal{F}) = H^q_{fppf}(X, a_X^{-1}\mathcal{F})$
+pour un faisceau abélien $\mathcal{F}$ sur $X_\etale$,
+\item $H^q(X_\etale, K) = H^q_{fppf}(X, a_X^{-1}K)$ pour $K \in D^+(X_\etale)$.
+\end{enumerate}
+Exemple: si $A$ est un groupe abélien, alors
+$H^q_\etale(X, \underline{A}) = H^q_{fppf}(X, \underline{A})$.
+\end{lemma}
+
+\begin{proof}
+Ceci découle du lemme \ref{lemma-cohomological-descent-etale-fppf}, d'après
+Cohomologie sur les sites, remarque \ref{sites-cohomology-remark-before-Leray}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-push-pull-fppf-etale}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Il existe alors des diagrammes commutatifs de topos
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{fppf}) \ar[rr]_{f_{big, fppf}} \ar[d]_{\epsilon_X} & &
+\Sh((\textit{Spaces}/Y)_{fppf}) \ar[d]^{\epsilon_Y} \\
+\Sh((\textit{Spaces}/X)_\etale) \ar[rr]^{f_{big, \etale}} & &
+\Sh((\textit{Spaces}/Y)_\etale)
+}
+$$
+et
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{fppf}) \ar[rr]_{f_{big, fppf}} \ar[d]_{a_X} & &
+\Sh((\textit{Spaces}/Y)_{fppf}) \ar[d]^{a_Y} \\
+\Sh(X_\etale) \ar[rr]^{f_{small}} & &
+\Sh(Y_\etale)
+}
+$$
+avec $a_X = \pi_X \circ \epsilon_X$ et $a_Y = \pi_X \circ \epsilon_X$.
+\end{lemma}
+
+\begin{proof}
+Ceci découle immédiatement des définitions des morphismes en jeu; voir
+Topologies sur les espaces, section \ref{spaces-topologies-section-fppf},
+et la section \ref{section-compare}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-push-pull-fppf-etale}
+Dans le lemme \ref{lemma-push-pull-fppf-etale}, si $f$ est propre, alors on a
+\begin{enumerate}
+\item $a_Y^{-1} \circ f_{small, *} = f_{big, fppf, *} \circ a_X^{-1}$, et
+\item
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, fppf, *}(a_X^{-1}K)$
+pour $K$ dans $D^+(X_\etale)$ à faisceaux de cohomologie de torsion.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). On pourrait la donner en répétant celle du lemme
+\ref{lemma-compare-higher-direct-image-proper}, assertion (1); nous allons
+plutôt en déduire le résultat. Comme $\epsilon_{Y, *}$ est le foncteur identité
+sur les préfaisceaux sous-jacents, il reflète les isomorphismes. Le lemme
+\ref{lemma-comparison-fppf-etale} montre que
+$\epsilon_{Y, *} \circ a_Y^{-1} = \pi_Y^{-1}$, et de même pour $X$.
+Pour montrer que l'application canonique
+$a_Y^{-1}f_{small, *}\mathcal{F} \to f_{big, fppf, *}a_X^{-1}\mathcal{F}$
+est un isomorphisme, il suffit de montrer que
+\begin{align*}
+\pi_Y^{-1}f_{small, *}\mathcal{F}
+& =
+\epsilon_{Y, *}a_Y^{-1}f_{small, *}\mathcal{F} \\
+& \to 
+\epsilon_{Y, *}f_{big, fppf, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *} \epsilon_{X, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *}\pi_X^{-1}\mathcal{F}
+\end{align*}
+est un isomorphisme. C'est l'assertion (1) du lemme
+\ref{lemma-compare-higher-direct-image-proper}.
+
+\medskip\noindent
+Pour démontrer (2), nous utilisons
+\begin{align*}
+R\epsilon_{Y, *}Rf_{big, fppf, *}a_X^{-1}K
+& =
+Rf_{big, \etale, *}R\epsilon_{X, *}a_X^{-1}K \\
+& =
+Rf_{big, \etale, *}\pi_X^{-1}K \\
+& =
+\pi_Y^{-1}Rf_{small, *}K \\
+& =
+R\epsilon_{Y, *} a_Y^{-1}Rf_{small, *}K
+\end{align*}
+La première égalité résulte du diagramme commutatif du lemme
+\ref{lemma-push-pull-fppf-etale} et de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+La deuxième est le lemme \ref{lemma-cohomological-descent-etale-fppf}; la
+troisième est l'assertion (2) du lemme
+\ref{lemma-compare-higher-direct-image-proper}; la quatrième est de nouveau
+le lemme \ref{lemma-cohomological-descent-etale-fppf}.
+Ainsi le morphisme de changement de base
+$a_Y^{-1}(Rf_{small, *}K) \to Rf_{big, fppf, *}(a_X^{-1}K)$
+induit un isomorphisme
+$$
+R\epsilon_{Y, *}a_Y^{-1}Rf_{small, *}K \to
+R\epsilon_{Y, *}Rf_{big, fppf, *}a_X^{-1}K
+$$
+La remarque suivante achève la démonstration: soit
+$\alpha : a_Y^{-1}L \to M$, avec $L$ dans $D^+(Y_\etale)$ et $M$ dans
+$D^+((\textit{Spaces}/Y)_{fppf})$, telle que $R\epsilon_{Y, *}\alpha$ soit un
+isomorphisme. Alors cette application est un isomorphisme. En effet, montrons par
+récurrence sur $i$ que $H^i(\alpha)$ est un isomorphisme. Ceci est vrai pour
+tout $i$ suffisamment petit. Si cela vaut pour $i \leq i_0$, alors
+$R^j\epsilon_{Y, *}H^i(M) = 0$ pour $j > 0$ et $i \leq i_0$ d'après le lemme
+\ref{lemma-comparison-fppf-etale}, puisque
+$H^i(M) = a_Y^{-1}H^i(L)$ dans cet intervalle. Un argument de suite spectrale
+donne alors
+$\epsilon_{Y, *}H^{i_0 + 1}(M) = H^{i_0 + 1}(R\epsilon_{Y, *}M)$.
+Par conséquent, $\epsilon_{Y, *}H^{i_0 + 1}(M) =
+\pi_Y^{-1}H^{i_0 + 1}(L) =
+\epsilon_{Y, *}a_Y^{-1}H^{i_0 + 1}(L)$. Il s'ensuit que
+$H^{i_0 + 1}(\alpha)$ est un isomorphisme (car $\epsilon_{Y, *}$ reflète les
+isomorphismes, puisqu'il est l'identité sur les préfaisceaux sous-jacents),
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-push-pull-fppf-etale}
+Dans le lemme \ref{lemma-push-pull-fppf-etale}, si $f$ est fini, alors
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, fppf, *}(a_X^{-1}K)$
+pour $K$ dans $D^+(X_\etale)$.
+\end{lemma}
+
+\begin{proof}
+Soit $V \to Y$ un morphisme étale surjectif, où $V$ est un schéma.
+Il suffit de montrer que le morphisme de changement de base est un isomorphisme
+après restriction à $V$. Nous pouvons donc supposer que $Y$ est un schéma.
+Comme le morphisme est fini, donc représentable, nous pouvons alors supposer
+que $X$ et $Y$ sont tous deux des schémas. Dans ce cas, le résultat découle du
+cas des schémas (Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-V-C-all-n-etale-fppf}, assertion (2)), au moyen de
+la comparaison des topos exposée à la section \ref{section-api} et, en
+particulier, dans le lemme \ref{lemma-compare-cohomology-other-topologies}.
+Certains détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-sheaf-fppf-etale}
+Dans le lemme \ref{lemma-push-pull-fppf-etale}, supposons que
+$f$ soit plat, localement de présentation finie et surjectif.
+Alors le foncteur
+$$
+\Sh(Y_\etale) \longrightarrow
+\left\{
+(\mathcal{G}, \mathcal{H}, \alpha)
+\middle|
+\begin{matrix}
+\mathcal{G} \in \Sh(X_\etale),\ \mathcal{H} \in \Sh((\Sch/Y)_{fppf}), \\
+\alpha : a_X^{-1}\mathcal{G} \to f_{big, fppf}^{-1}\mathcal{H}
+\text{ un isomorphisme}
+\end{matrix}
+\right\}
+$$
+qui envoie $\mathcal{F}$ sur
+$(f_{small}^{-1}\mathcal{F}, a_Y^{-1}\mathcal{F}, can)$ est une équivalence.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $a_X^{-1}$ est pleinement fidèle (car
+$a_{X, *}a_X^{-1} = \text{id}$ d'après le lemme
+\ref{lemma-comparison-fppf-etale}). Le foncteur d'oubli
+$(\mathcal{G}, \mathcal{H}, \alpha) \mapsto \mathcal{H}$ identifie donc la
+catégorie des triplets à une sous-catégorie pleine de $\Sh((\Sch/Y)_{fppf})$.
+De plus, le foncteur $a_Y^{-1}$ est pleinement fidèle; le foncteur du lemme
+l'est donc lui aussi.
+
+\medskip\noindent
+Supposons donné un recouvrement étale $\{Y_i \to Y\}$.
+Soit $f_i : X_i \to Y_i$ le changement de base de $f$.
+Notons $f_{ij} = f_i \times f_j : X_i \times_X X_j \to Y_i \times_Y Y_j$.
+Affirmation: si le lemme est vrai pour $f_i$ et $f_{ij}$ pour tous $i,j$, il
+est vrai pour $f$. En effet, le recouvrement étale donné détermine un
+recouvrement étale de l'objet final de chacun des quatre sites
+$Y_\etale, X_\etale, (\Sch/Y)_{fppf}, (\Sch/X)_{fppf}$.
+Dans chacun des quatre cas, la catégorie des faisceaux est donc équivalente à
+la catégorie des données de recollement pour ce recouvrement (Sites, lemme
+\ref{sites-lemma-mapping-property-glue}). Un immense diagramme commutatif de
+catégories achève alors la démonstration de l'affirmation. Nous omettons les
+détails. L'affirmation montre que nous pouvons travailler localement pour la
+topologie étale sur $Y$. En particulier, nous pouvons supposer que $Y$ est un
+schéma.
+
+\medskip\noindent
+Supposons que $Y$ soit un schéma. Choisissons un schéma $X'$ et un morphisme
+étale surjectif $s : X' \to X$. Posons $f' = f \circ s : X' \to Y$ et
+observons que $f'$ est surjectif, localement de présentation finie et plat.
+Affirmation: si le lemme est vrai pour $f'$, il est vrai pour $f$.
+En effet, à partir d'un triplet $(\mathcal{G}, \mathcal{H}, \alpha)$ pour $f$,
+on obtient par image réciproque par $s$ un triplet
+$(s_{small}^{-1}\mathcal{G}, \mathcal{H}, s_{big, fppf}^{-1}\alpha)$ pour $f'$.
+Une solution de ce triplet fournit un faisceau $\mathcal{F}$ sur $Y_\etale$
+tel que $a_Y^{-1}\mathcal{F} = \mathcal{H}$. D'après le premier paragraphe de
+la démonstration, cela signifie que le triplet appartient à l'image essentielle.
+Nous sommes ainsi ramenés au cas où $X$ et $Y$ sont tous deux des schémas.
+Ce cas découle de Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-descent-sheaf-fppf-etale}
+au moyen de la discussion de la section \ref{section-api}, et en particulier
+du lemme \ref{lemma-compare-cohomology-other-topologies}.
+\end{proof}
+
+
+
+\section{Comparaison des topologies fppf et étale: modules}
+\label{section-fppf-etale-modules}
+
+\noindent
+Nous poursuivons l'étude de la section \ref{section-fppf-etale}, en examinant
+brièvement ici ce qui se passe pour les faisceaux de modules.
+
+\medskip\noindent
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Les morphismes de sites $\epsilon_X$, $\pi_X$ et leur composé $a_X$, introduits
+à la section \ref{section-fppf-etale}, se prolongent naturellement en des
+morphismes de sites annelés. Le premier s'écrit
+$$
+\epsilon_X :
+((\textit{Spaces}/X)_{fppf}, \mathcal{O})
+\longrightarrow
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+$$
+Notons que nous pouvons employer le même symbole pour le faisceau structural,
+car ces faisceaux ont effectivement le même préfaisceau sous-jacent. Le second est
+$$
+\pi_X :
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+\longrightarrow
+(X_\etale, \mathcal{O}_X)
+$$
+Le troisième est le morphisme
+$$
+a_X :
+((\textit{Spaces}/X)_{fppf}, \mathcal{O})
+\longrightarrow
+(X_\etale, \mathcal{O}_X)
+$$
+Rappelons ce que nous savons déjà des modules quasi-cohérents sur ces sites.
+
+\begin{lemma}
+\label{lemma-review-quasi-coherent}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+\begin{enumerate}
+\item La règle
+$$
+\mathcal{F}^a : (\textit{Spaces}/X)_\etale \longrightarrow \textit{Ab},\quad
+(f : Y \to X) \longmapsto \Gamma(Y, f^*\mathcal{F})
+$$
+satisfait à la condition de faisceau pour les recouvrements fpqc et, a fortiori,
+pour les recouvrements fppf et étales,
+\item $\mathcal{F}^a = \pi_X^*\mathcal{F}$ sur $(\textit{Spaces}/X)_\etale$,
+\item $\mathcal{F}^a = a_X^*\mathcal{F}$ sur $(\textit{Spaces}/X)_{fppf}$,
+\item la règle $\mathcal{F} \mapsto \mathcal{F}^a$ définit une équivalence entre
+les $\mathcal{O}_X$-modules quasi-cohérents et les modules quasi-cohérents sur
+$((\textit{Spaces}/X)_\etale, \mathcal{O})$,
+\item la règle $\mathcal{F} \mapsto \mathcal{F}^a$ définit une équivalence entre
+les $\mathcal{O}_X$-modules quasi-cohérents et les modules quasi-cohérents sur
+$((\textit{Spaces}/X)_{fppf}, \mathcal{O})$,
+\item on a $\epsilon_{X, *}a_X^*\mathcal{F} = \pi_X^*\mathcal{F}$
+et $a_{X, *}a_X^*\mathcal{F} = \mathcal{F}$,
+\item on a $R^i\epsilon_{X, *}(a_X^*\mathcal{F}) = 0$
+et $R^ia_{X, *}(a_X^*\mathcal{F}) = 0$ pour $i > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) est une conséquence de la descente fppf des modules
+quasi-cohérents. Supposons en effet que $\{f_i : U_i \to U\}$ soit un
+recouvrement fpqc dans $(\textit{Spaces}/X)_\etale$. Notons $g : U \to X$ le
+morphisme structural. Supposons donnée une famille de sections
+$s_i \in \Gamma(U_i , f_i^*g^*\mathcal{F})$ telle que
+$s_i|_{U_i \times_U U_j} = s_j|_{U_i \times_U U_j}$. Il faut trouver la section
+correspondante $s \in \Gamma(U, g^*\mathcal{F})$. Nous pouvons interpréter
+les $s_i$ comme une famille d'applications
+$\varphi_i : f_i^*\mathcal{O}_U = \mathcal{O}_{U_i} \to f_i^*g^*\mathcal{F}$
+compatibles avec les données de descente canoniques associées aux faisceaux
+quasi-cohérents $\mathcal{O}_U$ et $g^*\mathcal{F}$ sur $U$.
+Par conséquent, d'après Descente sur les espaces, proposition
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+nous pouvons les descendre (de manière unique) en une application
+$\mathcal{O}_U \to g^*\mathcal{F}$, qui fournit notre section $s$.
+
+\medskip\noindent
+Nous déduirons les assertions (2) à (7) de l'énoncé correspondant pour les
+schémas. Choisissons un recouvrement étale $\{X_i \to X\}_{i \in I}$, où
+chaque $X_i$ est un schéma. Observons que $X_i \times_X X_j$ est également un
+schéma. Ce recouvrement induit un recouvrement de l'objet final de chacun des
+trois sites
+$(\textit{Spaces}/X)_{fppf}$, $(\textit{Spaces}/X)_\etale$ et $X_\etale$.
+Ainsi, la catégorie des faisceaux sur chacun de ces sites est équivalente à
+celle des données de descente pour ces recouvrements; voir Sites, lemme
+\ref{sites-lemma-mapping-property-glue}. Les assertions (2) et (3) sont locales
+(grâce à l'énoncé de recollement). La quasi-cohérence est une propriété locale;
+les assertions (4) et (5) sont donc locales. Les assertions (6) et (7) le sont
+manifestement. Il suffit par conséquent de démontrer les assertions (2) à (7)
+du lemme lorsque $X$ est un schéma.
+
+\medskip\noindent
+Supposons que $X$ soit un schéma. Les plongements
+$(\Sch/X)_\etale \subset (\textit{Spaces}/X)_\etale$ et
+$(\Sch/X)_{fppf} \subset (\textit{Spaces}/X)_{fppf}$
+déterminent des équivalences de topos annelés d'après le lemme
+\ref{lemma-compare-cohomology-other-topologies}.
+Nous concluons que les assertions (2) à (7) découlent du cas des schémas,
+Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-review-quasi-coherent}.
+Pour transporter la propriété de quasi-cohérence par cette équivalence, on
+utilise le fait que la quasi-cohérence est une propriété intrinsèque des
+modules, comme expliqué dans Modules sur les sites, section
+\ref{sites-modules-section-local}. Quelques détails mineurs sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-fppf-modules}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Pour $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent, les applications
+$$
+\pi_X^*\mathcal{F} \longrightarrow R\epsilon_{X, *}(a_X^*\mathcal{F})
+\quad\text{et}\quad
+\mathcal{F} \longrightarrow Ra_{X, *}(a_X^*\mathcal{F})
+$$
+sont des isomorphismes.
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence immédiate des assertions (6) et (7) du lemme
+\ref{lemma-review-quasi-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-vanishing-adequate}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3$
+un complexe de $\mathcal{O}_X$-modules quasi-cohérents.
+Posons
+$$
+\mathcal{H}_\etale =
+\Ker(\pi_X^*\mathcal{F}_2 \to \pi_X^*\mathcal{F}_3)/
+\Im(\pi_X^*\mathcal{F}_1 \to \pi_X^*\mathcal{F}_2)
+$$
+sur $(\textit{Spaces}/X)_\etale$, et posons
+$$
+\mathcal{H}_{fppf} =
+\Ker(a_X^*\mathcal{F}_2 \to a_X^*\mathcal{F}_3)/
+\Im(a_X^*\mathcal{F}_1 \to a_X^*\mathcal{F}_2)
+$$
+sur $(\textit{Spaces}/X)_{fppf}$.
+Alors $\mathcal{H}_\etale = \epsilon_{X, *}\mathcal{H}_{fppf}$ et
+$$
+H^p_\etale(U, \mathcal{H}_\etale) = H^p_{fppf}(U, \mathcal{H}_{fppf}) = 0
+$$
+pour $p > 0$ et tout objet affine $U$ de $(\textit{Spaces}/X)_\etale$.
+\end{lemma}
+
+\noindent
+Il y a mieux: les modules sur $(\textit{Spaces}/X)_{fppf}$ qui, localement pour
+la topologie fppf, sont de la forme considérée dans le lemme sont appelés
+modules adéquats. Ils forment une sous-catégorie de Serre faible de la catégorie
+de tous les $\mathcal{O}$-modules, et leur cohomologie est étudiée dans Modules
+adéquats, section \ref{adequate-section-adequate}.
+
+\begin{proof}
+Pour tout objet $f : U \to X$ de $(\textit{Spaces}/X)_\etale$, considérons la
+restriction $\mathcal{H}_\etale|_{U_\etale}$ de $\mathcal{H}_\etale$ à
+$U_\etale$ par le foncteur $i_f^* = i_f^{-1}$ étudié à la section
+\ref{section-compare}. Le faisceau $\mathcal{H}_\etale|_{U_\etale}$ est égal à
+l'homologie du complexe $f^*\mathcal{F}_\bullet$ en degré $1$.
+Ceci résulte de l'égalité $i_f \circ \pi_X = f$ comme morphismes de sites
+annelés $U_\etale \to X_\etale$. En particulier,
+$\mathcal{H}_\etale|_{U_\etale}$ est un $\mathcal{O}_U$-module quasi-cohérent.
+Soit ensuite $g : V \to U$ un morphisme plat dans
+$(\textit{Spaces}/X)_\etale$. Comme
+$$
+i_{f \circ g}^* \circ \pi_X^* = (f \circ g)^* = g^* \circ f^*
+$$
+comme morphismes de sites $V_\etale \to X_\etale$, et comme $g$ est plat, donc
+$g^*$ exact, nous obtenons
+$$
+\mathcal{H}_\etale|_{V_\etale} =
+g^*\left(\mathcal{H}_\etale|_{U_\etale}\right)
+$$
+Ces préparatifs achevés, nous pouvons démontrer le lemme.
+
+\medskip\noindent
+Soit $\mathcal{U} = \{g_i : U_i \to U\}_{i \in I}$ un recouvrement fppf, avec
+$f : U \to X$ comme ci-dessus. La propriété de faisceau vaut pour
+$\mathcal{H}_\etale$ et le recouvrement $\mathcal{U}$, d'après l'assertion (1)
+du lemme \ref{lemma-review-quasi-coherent}, appliquée à
+$\mathcal{H}_\etale|_{U_\etale}$, et d'après ce qui précède.
+Ainsi $\mathcal{H}_\etale$ est déjà un faisceau fppf, ce qui signifie que
+$\mathcal{H}_{fppf}$ est égal à $\mathcal{H}_\etale$ comme préfaisceau.
+En particulier,
+$\mathcal{H}_\etale = \epsilon_{X, *}\mathcal{H}_{fppf}$.
+
+\medskip\noindent
+Enfin, pour démontrer l'annulation, nous utilisons Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-cech-vanish-collection}. Soit $\mathcal{B}$
+la classe des objets affines de $(\textit{Spaces}/X)_{fppf}$ et soit
+$\text{Cov}$ l'ensemble des recouvrements fppf finis
+$\mathcal{U} = \{U_i \to U\}_{i = 1, \ldots, n}$ où $U$ et les $U_i$ sont affines.
+On a
+$$
+{\check H}^p(\mathcal{U}, \mathcal{H}_\etale) =
+{\check H}^p(\mathcal{U}, \left(\mathcal{H}_\etale|_{U_\etale}\right)^a)
+$$
+car, d'après le premier paragraphe, les valeurs de $\mathcal{H}_\etale$ sur les
+schémas affines $U_{i_0} \times_U \ldots \times_U U_{i_p}$, plats sur $U$,
+coïncident avec les valeurs de l'image réciproque du module quasi-cohérent
+$\mathcal{H}_\etale|_{U_\etale}$. L'annulation résulte alors de Descente, lemme
+\ref{descent-lemma-standard-covering-Cech-quasi-coherent}.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-fppf-modules-unbounded}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Pour $K \in D_\QCoh(\mathcal{O}_X)$, les applications
+$$
+L\pi_X^*K \longrightarrow R\epsilon_{X, *}(La_X^*K)
+\quad\text{et}\quad
+K \longrightarrow Ra_{X, *}(La_X^*K)
+$$
+sont des isomorphismes. Ici,
+$a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$ est défini ci-dessus.
+\end{lemma}
+
+\begin{proof}
+La question est locale pour la topologie étale sur $X$; nous pouvons donc
+supposer que $X$ est affine, disons $X = \Spec(A)$. Alors
+$D_\QCoh(\mathcal{O}_X) = D(A)$ d'après Catégories dérivées des espaces, lemme
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}
+et Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-affine-compare-bounded}.
+Nous pouvons donc choisir un complexe K-plat de $A$-modules $K^\bullet$ dont
+le complexe correspondant $\mathcal{K}^\bullet$ de $\mathcal{O}_X$-modules
+quasi-cohérents représente $K$.
+Nous affirmons que $\mathcal{K}^\bullet$ est un complexe K-plat de
+$\mathcal{O}_X$-modules.
+
+\medskip\noindent
+Démonstration de l'affirmation. D'après Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-affine-K-flat}
+le complexe $\widetilde{K}^\bullet$ est K-plat sur le schéma
+$(\Spec(A), \mathcal{O}_{\Spec(A)})$.
+Ensuite, notons que $\mathcal{K}^\bullet = \epsilon^*\widetilde{K}^\bullet$,
+où $\epsilon$ est défini comme dans Catégories dérivées des espaces, lemme
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}
+; le complexe $\mathcal{K}^\bullet$ est donc K-plat d'après Cohomologie sur les
+sites, lemme \ref{sites-cohomology-lemma-pullback-K-flat-points}, et le fait que
+le site étale d'un schéma possède suffisamment de points (Cohomologie étale,
+remarques \ref{etale-cohomology-remarks-enough-points}).
+
+\medskip\noindent
+D'après l'affirmation, on a
+$La_X^*K = a_X^*\mathcal{K}^\bullet$ et
+$L\pi_X^*K = \pi_X^*\mathcal{K}^\bullet$.
+Comme la première partie de la démonstration montre que l'image réciproque
+$a_X^*\mathcal{K}^n$ du module quasi-cohérent est acyclique pour
+$\epsilon_{X, *}$, resp.\ $a_{X, *}$, le lemme d'acyclicité de Leray ne
+permet-il pas aussitôt de conclure? En fait, non, car ce lemme ne s'applique
+qu'aux complexes bornés inférieurement. Nous montrerons toutefois au paragraphe
+suivant que le résultat découle bien du cas borné inférieurement, parce que
+notre complexe est la limite dérivée de complexes bornés inférieurement de
+modules quasi-cohérents.
+
+\medskip\noindent
+Les faisceaux de cohomologie de $\pi_X^*\mathcal{K}^\bullet$ et de
+$a_X^*\mathcal{K}^\bullet$ ont des groupes de cohomologie supérieure nuls sur
+les objets affines de $(\textit{Spaces}/X)_\etale$, d'après le lemme
+\ref{lemma-vanishing-adequate}. Par conséquent, on a
+$$
+L\pi_X^*K = R\lim \tau_{\geq -n}(L\pi_X^*K)
+\quad\text{et}\quad
+La_X^*K = R\lim \tau_{\geq -n}(La_X^*K)
+$$
+d'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-is-limit-dimension}.
+
+\medskip\noindent
+Démonstration de $L\pi_X^*K = R\epsilon_{X, *}(La_X^*\mathcal{F})$.
+D'après ce qui précède, on a
+$$
+R\epsilon_{X, *}La_X^*K =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(La_X^*K))
+$$
+d'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-Rf-commutes-with-Rlim}.
+Notons que $\tau_{\geq -n}(La_X^*K)$ est représenté par
+$\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)$, qui peut différer de
+$a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)$.
+Mais les systèmes
+$$
+\{\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)\}_{n \geq 1}
+\quad\text{et}\quad
+\{a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)\}_{n \geq 1}
+$$
+sont manifestement isomorphes comme pro-systèmes.
+D'après le lemme d'acyclicité de Leray (Catégories dérivées, lemme
+\ref{derived-lemma-leray-acyclicity}) et la première partie du lemme, on a
+$$
+R\epsilon_{X, *}(a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)) =
+\pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)
+$$
+Nous pouvons ensuite utiliser le fait que les systèmes
+$$
+\{\tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet)\}_{n \geq 1}
+\quad\text{et}\quad
+\{\pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)\}_{n \geq 1}
+$$
+sont isomorphes comme pro-systèmes. Enfin, regroupons toutes les égalités:
+\begin{align*}
+R\epsilon_{X, *}La_X^*K
+& =
+R\epsilon_{X, *} (R\lim \tau_{\geq -n}(La_X^*K)) \\
+& =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(La_X^*K)) \\
+& =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)) \\
+& =
+R\lim R\epsilon_{X, *}(a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)) \\
+& =
+R\lim \pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet) \\
+& =
+R\lim \tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet) \\
+& =
+R\lim \tau_{\geq -n}(L\pi_X^*K) \\
+& =
+L\pi_X^*K
+\end{align*}
+Dans les quatrième et sixième égalités, nous avons utilisé que des pro-systèmes
+isomorphes ont le même $R\lim$ (un petit détail est omis).
+On peut éviter cette étape en utilisant les résultats plus précis sur la
+cohomologie des termes du complexe $\tau_{\geq -n}a_X^*\mathcal{K}^\bullet$
+démontrés au lemme \ref{lemma-vanishing-adequate}; ils donnent directement
+$R\epsilon_{X, *}(\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)) =
+\tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet)$.
+
+\medskip\noindent
+L'égalité $K = Ra_{X, *}(La_X^*\mathcal{F})$ se démontre exactement de la même
+manière, en utilisant à la dernière étape l'égalité
+$K = R\lim \tau_{\geq -n}K$, donnée par Catégories dérivées des espaces,
+lemme \ref{spaces-perfect-lemma-nice-K-injective}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Comparaison des topologies ph et étale}
+\label{section-ph-etale}
+
+\noindent
+Cette section est l'analogue de Cohomologie étale, section
+\ref{etale-cohomology-section-ph-etale}.
+
+\medskip\noindent
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Sur la catégorie $\textit{Spaces}/X$, considérons les topologies ph et étale.
+Le foncteur identité
+$(\textit{Spaces}/X)_\etale \to (\textit{Spaces}/X)_{ph}$
+est continu, puisque tout recouvrement étale est un recouvrement ph d'après
+Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-ph}.
+Il définit donc un morphisme de sites
+$$
+\epsilon_X :
+(\textit{Spaces}/X)_{ph} \longrightarrow (\textit{Spaces}/X)_\etale
+$$
+par application de Sites, proposition \ref{sites-proposition-get-morphism}.
+Notons que $\epsilon_{X, *}$ est le foncteur identité sur les préfaisceaux
+sous-jacents et que $\epsilon_X^{-1}$ associe à un faisceau étale son faisceau
+associé pour la topologie ph.
+Considérons le morphisme de sites
+$$
+\pi_X : (\textit{Spaces}/X)_\etale \longrightarrow X_{spaces, \etale}
+$$
+qui compare les grands et petits sites étales; voir la section \ref{section-compare}.
+Le composé détermine un morphisme de sites
+$$
+a_X = \pi_X \circ \epsilon_X :
+(\textit{Spaces}/X)_{ph}
+\longrightarrow
+X_{spaces, \etale}
+$$
+Si $\mathcal{H}$ est un faisceau abélien sur $(\textit{Spaces}/X)_{ph}$,
+nous noterons $H^n_{ph}(U, \mathcal{H})$ la cohomologie de
+$\mathcal{H}$ sur un objet $U$ de $(\textit{Spaces}/X)_{ph}$.
+
+\begin{lemma}
+\label{lemma-comparison-ph-etale}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Pour $\mathcal{F} \in \Sh(X_\etale)$, on a
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+et $a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$.
+\item Pour $\mathcal{F} \in \textit{Ab}(X_\etale)$ de torsion, on a
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ pour $i > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+On a $a_X^{-1}\mathcal{F} = \epsilon_X^{-1} \pi_X^{-1}\mathcal{F}$.
+D'après le lemme \ref{lemma-describe-pullback}, le faisceau étale
+$\pi_X^{-1}\mathcal{F}$ est un faisceau pour la topologie ph; il est donc égal
+à $a_X^{-1}\mathcal{F}$ (puisque l'image réciproque par $\epsilon_X$ est donnée
+par le faisceau associé pour la topologie ph). Rappelons en outre que
+$\epsilon_{X, *}$ est le foncteur identité sur les préfaisceaux sous-jacents.
+L'assertion (1) résulte alors immédiatement de la description explicite de
+$\pi_X^{-1}$ donnée au lemme \ref{lemma-describe-pullback}.
+
+\medskip\noindent
+Nous démontrerons (2) en nous ramenant au cas des schémas; voir l'assertion (1)
+de Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-V-C-all-n-etale-ph}.
+Cette méthode « fonctionne clairement », puisque tout espace algébrique est
+localement un schéma pour la topologie étale. Les détails sont donnés ci-dessous,
+mais nous invitons vivement le lecteur à omettre la démonstration.
+
+\medskip\noindent
+Pour un faisceau abélien $\mathcal{H}$ sur $(\textit{Spaces}/X)_{ph}$,
+l'image directe supérieure $R^p\epsilon_{X, *}\mathcal{H}$ est le faisceau
+associé au préfaisceau $U \mapsto H^p_{ph}(U, \mathcal{H})$
+sur $(\textit{Spaces}/X)_\etale$. Voir Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-higher-direct-images}.
+Comme tout objet de $(\textit{Spaces}/X)_\etale$ admet un recouvrement par des
+schémas, il suffit de démontrer que, pour tout schéma $U/X$ et tout
+$\xi \in H^p_{ph}(U, a_X^{-1}\mathcal{F})$, il existe un recouvrement étale
+$\{U_i \to U\}$ tel que la restriction de $\xi$ à chaque $U_i$ soit nulle.
+On a
+\begin{align*}
+H^p_{ph}(U, a_X^{-1}\mathcal{F})
+& =
+H^p((\textit{Spaces}/U)_{ph}, (a_X^{-1}\mathcal{F})|_{\textit{Spaces}/U}) \\
+& =
+H^p((\Sch/U)_{ph}, (a_X^{-1}\mathcal{F})|_{\Sch/U})
+\end{align*}
+où la seconde identification est le lemme
+\ref{lemma-compare-cohomology-other-topologies}, et la première un fait général
+sur la restriction (Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-cohomology-of-open}).
+En comparant le premier paragraphe et le résultat correspondant dans le cas
+des schémas (Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-describe-pullback-pi-ph})
+nous concluons que le faisceau $(a_X^{-1}\mathcal{F})|_{\Sch/U}$
+coïncide avec l'image réciproque par la « version pour les schémas de $a_U$ ».
+Nous pouvons donc trouver un recouvrement étale $\{U_i \to U\}$ tel que notre
+classe s'annule dans
+$H^p((\Sch/U_i)_{ph}, (a_X^{-1}\mathcal{F})|_{\Sch/U_i})$
+pour tout $i$; voir Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-V-C-all-n-etale-ph}
+(l'énoncé précis à utiliser ici est que $V_n$ vaut pour tout $n$, ce qui est
+l'assertion (2) dans le cas des schémas).
+En revenant en arrière (au moyen des mêmes formules que ci-dessus, appliquées
+cette fois à $U_i$), nous concluons que la restriction de $\xi$ à $U_i$
+est nulle, comme souhaité.
+\end{proof}
+
+\noindent
+Le travail difficile effectué dans le cas des schémas montre maintenant que
+les cohomologies étale et ph coïncident pour les faisceaux abéliens de torsion
+provenant du petit site étale.
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-ph}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Pour $K \in D^+(X_\etale)$ à faisceaux de cohomologie de torsion, les applications
+$$
+\pi_X^{-1}K \longrightarrow R\epsilon_{X, *}a_X^{-1}K
+\quad\text{et}\quad
+K \longrightarrow Ra_{X, *}a_X^{-1}K
+$$
+sont des isomorphismes, où
+$a_X : \Sh((\textit{Spaces}/X)_{ph}) \to \Sh(X_\etale)$ est défini ci-dessus.
+\end{lemma}
+
+\begin{proof}
+Nous démontrons seulement le second énoncé; le premier est plus facile et se
+démontre exactement de la même manière. On se ramène au cas où $K$ est donné
+par un seul faisceau abélien de torsion. En effet, représentons $K$ par un
+complexe borné inférieurement $\mathcal{F}^\bullet$ de faisceaux abéliens de
+torsion. C'est possible d'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-torsion}.
+Le cas d'un faisceau donne
+$\mathcal{F}^n = a_{X, *} a_X^{-1} \mathcal{F}^n$
+et les faisceaux $R^qa_{X, *}a_X^{-1}\mathcal{F}^n$ sont nuls pour $q > 0$.
+Le lemme d'acyclicité de Leray (Catégories dérivées, lemme
+\ref{derived-lemma-leray-acyclicity}), appliqué à
+$a_X^{-1}\mathcal{F}^\bullet$ et au foncteur $a_{X, *}$, permet de conclure.
+Supposons désormais $K = \mathcal{F}$, où $\mathcal{F}$ est un faisceau
+abélien de torsion.
+
+\medskip\noindent
+Le lemme \ref{lemma-comparison-ph-etale} donne
+$a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$. Il suffit donc de montrer que
+$R^qa_{X, *}a_X^{-1}\mathcal{F} = 0$ pour $q > 0$.
+Pour cela, nous pouvons utiliser $a_X = \epsilon_X \circ \pi_X$ et la suite
+spectrale de Leray (Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-relative-Leray}).
+D'après le lemme \ref{lemma-comparison-ph-etale}, on a
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ pour $i > 0$.
+On a
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+et, d'après le lemme \ref{lemma-cohomological-descent-etale},
+$R^j\pi_{X, *}(\pi_X^{-1}\mathcal{F}) = 0$ pour $j > 0$.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cohomology-etale-ph}
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Avec $a_X : \Sh((\textit{Spaces}/X)_{ph}) \to \Sh(X_\etale)$
+défini ci-dessus:
+\begin{enumerate}
+\item $H^q(X_\etale, \mathcal{F}) = H^q_{ph}(X, a_X^{-1}\mathcal{F})$
+pour un faisceau abélien de torsion $\mathcal{F}$ sur $X_\etale$,
+\item $H^q(X_\etale, K) = H^q_{ph}(X, a_X^{-1}K)$ pour $K \in D^+(X_\etale)$
+à faisceaux de cohomologie de torsion.
+\end{enumerate}
+Exemple: si $A$ est un groupe abélien de torsion, alors
+$H^q_\etale(X, \underline{A}) = H^q_{ph}(X, \underline{A})$.
+\end{lemma}
+
+\begin{proof}
+Ceci découle du lemme \ref{lemma-cohomological-descent-etale-ph}, d'après
+Cohomologie sur les sites, remarque \ref{sites-cohomology-remark-before-Leray}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-push-pull-ph-etale}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Il existe alors des diagrammes commutatifs de topos
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{ph}) \ar[rr]_{f_{big, ph}} \ar[d]_{\epsilon_X} & &
+\Sh((\textit{Spaces}/Y)_{ph}) \ar[d]^{\epsilon_Y} \\
+\Sh((\textit{Spaces}/X)_\etale) \ar[rr]^{f_{big, \etale}} & &
+\Sh((\textit{Spaces}/Y)_\etale)
+}
+$$
+et
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{ph}) \ar[rr]_{f_{big, ph}} \ar[d]_{a_X} & &
+\Sh((\textit{Spaces}/Y)_{ph}) \ar[d]^{a_Y} \\
+\Sh(X_\etale) \ar[rr]^{f_{small}} & &
+\Sh(Y_\etale)
+}
+$$
+avec $a_X = \pi_X \circ \epsilon_X$ et $a_Y = \pi_X \circ \epsilon_X$.
+\end{lemma}
+
+\begin{proof}
+Ceci découle immédiatement des définitions des morphismes en jeu; voir
+Topologies sur les espaces, section \ref{spaces-topologies-section-ph},
+et la section \ref{section-compare}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-push-pull-ph-etale}
+Dans le lemme \ref{lemma-push-pull-ph-etale}, si $f$ est propre, alors on a
+\begin{enumerate}
+\item $a_Y^{-1} \circ f_{small, *} = f_{big, ph, *} \circ a_X^{-1}$, et
+\item
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, ph, *}(a_X^{-1}K)$
+pour $K$ dans $D^+(X_\etale)$ à faisceaux de cohomologie de torsion.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). On pourrait la donner en répétant celle du lemme
+\ref{lemma-compare-higher-direct-image-proper}, assertion (1); nous allons
+plutôt en déduire le résultat. Comme $\epsilon_{Y, *}$ est le foncteur identité
+sur les préfaisceaux sous-jacents, il reflète les isomorphismes. Le lemme
+\ref{lemma-comparison-ph-etale} montre que
+$\epsilon_{Y, *} \circ a_Y^{-1} = \pi_Y^{-1}$, et de même pour $X$.
+Pour montrer que l'application canonique
+$a_Y^{-1}f_{small, *}\mathcal{F} \to f_{big, ph, *}a_X^{-1}\mathcal{F}$
+est un isomorphisme, il suffit de montrer que
+\begin{align*}
+\pi_Y^{-1}f_{small, *}\mathcal{F}
+& =
+\epsilon_{Y, *}a_Y^{-1}f_{small, *}\mathcal{F} \\
+& \to 
+\epsilon_{Y, *}f_{big, ph, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *} \epsilon_{X, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *}\pi_X^{-1}\mathcal{F}
+\end{align*}
+est un isomorphisme. C'est l'assertion (1) du lemme
+\ref{lemma-compare-higher-direct-image-proper}.
+
+\medskip\noindent
+Pour démontrer (2), nous utilisons
+\begin{align*}
+R\epsilon_{Y, *}Rf_{big, ph, *}a_X^{-1}K
+& =
+Rf_{big, \etale, *}R\epsilon_{X, *}a_X^{-1}K \\
+& =
+Rf_{big, \etale, *}\pi_X^{-1}K \\
+& =
+\pi_Y^{-1}Rf_{small, *}K \\
+& =
+R\epsilon_{Y, *} a_Y^{-1}Rf_{small, *}K
+\end{align*}
+La première égalité résulte du diagramme commutatif du lemme
+\ref{lemma-push-pull-ph-etale} et de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+La deuxième est le lemme \ref{lemma-cohomological-descent-etale-ph}; la
+troisième est l'assertion (2) du lemme
+\ref{lemma-compare-higher-direct-image-proper}; la quatrième est de nouveau
+le lemme \ref{lemma-cohomological-descent-etale-ph}.
+Ainsi le morphisme de changement de base
+$a_Y^{-1}(Rf_{small, *}K) \to Rf_{big, ph, *}(a_X^{-1}K)$
+induit un isomorphisme
+$$
+R\epsilon_{Y, *}a_Y^{-1}Rf_{small, *}K \to
+R\epsilon_{Y, *}Rf_{big, ph, *}a_X^{-1}K
+$$
+La remarque suivante achève la démonstration: soit
+$\alpha : a_Y^{-1}L \to M$, avec $L$ dans $D^+(Y_\etale)$ à faisceaux de
+cohomologie de torsion et $M$ dans $D^+((\textit{Spaces}/Y)_{ph})$.
+Si $R\epsilon_{Y, *}\alpha$ est un isomorphisme, alors $\alpha$ est un
+isomorphisme. En effet, montrons par récurrence sur $i$ que $H^i(\alpha)$ est un
+isomorphisme. Ceci est vrai pour tout $i$ suffisamment petit. Si cela vaut pour
+$i \leq i_0$, alors $R^j\epsilon_{Y, *}H^i(M) = 0$ pour $j > 0$ et
+$i \leq i_0$ d'après le lemme \ref{lemma-comparison-ph-etale}, puisque
+$H^i(M) = a_Y^{-1}H^i(L)$ dans cet intervalle. Un argument de suite spectrale
+donne alors
+$\epsilon_{Y, *}H^{i_0 + 1}(M) = H^{i_0 + 1}(R\epsilon_{Y, *}M)$.
+Par conséquent, $\epsilon_{Y, *}H^{i_0 + 1}(M) =
+\pi_Y^{-1}H^{i_0 + 1}(L) =
+\epsilon_{Y, *}a_Y^{-1}H^{i_0 + 1}(L)$. Il s'ensuit que
+$H^{i_0 + 1}(\alpha)$ est un isomorphisme (car $\epsilon_{Y, *}$ reflète les
+isomorphismes, puisqu'il est l'identité sur les préfaisceaux sous-jacents),
+comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

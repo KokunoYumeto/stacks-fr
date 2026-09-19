@@ -1,0 +1,4608 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Le complexe cotangent}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Le but de ce chapitre est de construire le complexe cotangent d'un
+homomorphisme d'anneaux, d'un morphisme de schémas et d'un morphisme d'espaces
+algébriques. On pourra consulter les notes \cite{quillenhomology}, l'article
+\cite{quillencohomology}, ainsi que les livres \cite{Andre} et
+\cite{cotangent}.
+
+
+
+
+\section{Conseils au lecteur}
+\label{section-advice-reader}
+
+\noindent
+En rédigeant ce chapitre, nous avons cherché à réduire au minimum l'emploi
+des techniques simpliciales. Nous considérons le choix d'une
+{\it résolution} $P_\bullet$ d'un anneau $B$ sur un anneau $A$ comme un outil
+pour calculer l'{\it homologie} des faisceaux abéliens sur la catégorie
+$\mathcal{C}_{B/A}$ ; voir la remarque \ref{remark-resolution}. Ce rôle est
+analogue à celui d'un ``bon recouvrement'' dans le calcul de la cohomologie au
+moyen du complexe de {\v C}ech. Pour quelques notions d'homologie sur les
+catégories, voir Cohomologie sur les sites, section
+\ref{sites-cohomology-section-homology}. Le foncteur dérivé gauche $L\pi_!$
+joue pour l'homologie le rôle que $R\Gamma(\mathcal{C}_{B/A}, -)$ joue pour
+la cohomologie. La catégorie $\mathcal{C}_{B/A}$, étudiée dans la section
+\ref{section-compute-L-pi-shriek}, est l'opposée de la catégorie des
+factorisations $A \to P \to B$, où $P$ est une algèbre polynomiale sur $A$.
+Cette catégorie est munie d'homomorphismes de faisceaux d'anneaux
+$$
+\underline{A} \longrightarrow \mathcal{O} \longrightarrow \underline{B}
+$$
+où, sur l'objet $U =  (P \to B)$, on a $\mathcal{O}(U) = P$.
+On obtient alors le complexe cotangent de $B$ sur $A$ sous la forme
+$$
+L_{B/A} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{B})
+$$
+voir le lemme \ref{lemma-compute-cotangent-complex}. Nous nous sommes efforcés
+d'adopter systématiquement ce point de vue pour démontrer les propriétés
+élémentaires des complexes cotangents d'homomorphismes d'anneaux. Tous les
+résultats peuvent notamment se démontrer sans recourir à l'existence de
+résolutions standard, bien que nous ne l'ayons pas fait. La théorie est tout à
+fait satisfaisante, à ceci près que la démonstration du triangle fondamental
+(proposition \ref{proposition-triangle}) utilise peut-être un peu plus de
+théorie des foncteurs dérivés gauches. Afin d'offrir une autre voie au
+lecteur, nous donnons dans les remarques \ref{remark-triangle} et
+\ref{remark-explicit-map} une esquisse assez complète d'une approche fondée
+sur des propriétés simples des résolutions standard.
+
+\medskip\noindent
+Pour traiter le complexe cotangent des morphismes de topos annelés, des
+morphismes de schémas, des morphismes d'espaces algébriques, etc., notre
+méthode consiste à déduire autant que possible du cas des ``simples
+homomorphismes d'anneaux'' étudié ci-dessus.
+
+
+
+
+
+\section{Le complexe cotangent d'un homomorphisme d'anneaux}
+\label{section-cotangent-ring-map}
+
+\noindent
+Soit $A$ un anneau. Notons $\textit{Alg}_A$ la catégorie des $A$-algèbres.
+Considérons le couple de foncteurs adjoints $(U, V)$ où
+$V : \textit{Alg}_A \to \textit{Sets}$ est le foncteur d'oubli et où
+$U : \textit{Sets} \to \textit{Alg}_A$ associe à un ensemble $E$ l'algèbre
+polynomiale $A[E]$ sur $E$ au-dessus de $A$. Soit $X_\bullet$ l'objet
+simplicial de $\text{Fun}(\textit{Alg}_A, \textit{Alg}_A)$ construit dans
+Objets simpliciaux, section \ref{simplicial-section-standard}.
+
+\medskip\noindent
+Considérons une $A$-algèbre $B$. Notons $P_\bullet = X_\bullet(B)$ la
+$A$-algèbre simpliciale ainsi obtenue. Rappelons que $P_0 = A[B]$,
+$P_1 = A[A[B]]$, et ainsi de suite. En particulier, chaque terme $P_n$ est
+une $A$-algèbre polynomiale. Rappelons aussi qu'il existe une augmentation
+$$
+\epsilon : P_\bullet \longrightarrow B
+$$
+où l'on considère $B$ comme une $A$-algèbre simpliciale constante.
+
+\begin{definition}
+\label{definition-standard-resolution}
+Soit $A \to B$ un homomorphisme d'anneaux. La {\it résolution standard de
+$B$ sur $A$} est l'augmentation $\epsilon : P_\bullet \to B$ dont les termes
+sont
+$$
+P_0 = A[B],\quad P_1 = A[A[B]],\quad \ldots
+$$
+et dont les applications sont construites dans Objets simpliciaux, exemple
+\ref{simplicial-example-polynomial-algebra-maps}.
+\end{definition}
+
+\noindent
+Nous verrons que la résolution standard permet, dans certaines situations,
+de calculer les foncteurs dérivés gauches.
+
+\begin{definition}
+\label{definition-cotangent-complex-ring-map}
+Le {\it complexe cotangent} $L_{B/A}$ d'un homomorphisme d'anneaux $A \to B$
+est le complexe de $B$-modules associé au $B$-module simplicial
+$$
+\Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} B
+$$
+où $\epsilon : P_\bullet \to B$ est la résolution standard de $B$ sur $A$.
+\end{definition}
+
+\noindent
+Dans Objets simpliciaux, section \ref{simplicial-section-complexes}, nous
+associons un complexe de chaînes à un module simplicial ; ici, toutefois, nous
+travaillons avec des complexes de cochaînes. Ainsi, le terme $L_{B/A}^{-n}$
+en degré $-n$ est le $B$-module
+$\Omega_{P_n/A} \otimes_{P_n, \epsilon_n} B$, et $L_{B/A}^m = 0$ pour
+$m > 0$.
+
+\begin{remark}
+\label{remark-variant-cotangent-complex}
+Soit $A \to B$ un homomorphisme d'anneaux. Soit $\mathcal{A}$ la catégorie
+des flèches $\psi : C \to B$ de $A$-algèbres, et soit $\mathcal{S}$ la
+catégorie des applications $E \to B$, où $E$ est un ensemble. On dispose de
+foncteurs adjoints $V : \mathcal{A} \to \mathcal{S}$ (le foncteur d'oubli) et
+$U : \mathcal{S} \to \mathcal{A}$, qui envoie $E \to B$ sur
+$A[E] \to B$. Soit $X_\bullet$ l'objet simplicial de
+$\text{Fun}(\mathcal{A}, \mathcal{A})$ construit dans Objets simpliciaux,
+section \ref{simplicial-section-standard}. Le diagramme
+$$
+\xymatrix{
+\mathcal{A} \ar[d] \ar[r] & \mathcal{S} \ar@<1ex>[l] \ar[d] \\
+\textit{Alg}_A \ar[r] & \textit{Sets} \ar@<1ex>[l]
+}
+$$
+est commutatif. Il en résulte que $X_\bullet(\text{id}_B : B \to B)$ est égal
+à la résolution standard de $B$ sur $A$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-colimit-cotangent-complex}
+Soit $A_i \to B_i$ un système d'homomorphismes d'anneaux indexé par un
+ensemble ordonné filtrant $I$. Alors
+$\colim L_{B_i/A_i} = L_{\colim B_i/\colim A_i}$.
+\end{lemma}
+
+\begin{proof}
+Cela est vrai parce que le foncteur d'oubli
+$V : A\textit{-Alg} \to \textit{Sets}$ et son adjoint
+$U : \textit{Sets} \to A\textit{-Alg}$ commutent aux colimites filtrantes.
+Il en va de même du foncteur $B/A \mapsto \Omega_{B/A}$
+(Algèbre, lemme \ref{algebra-lemma-colimit-differentials}).
+\end{proof}
+
+
+
+
+
+\section{Résolutions simpliciales et foncteur dérivé gauche}
+\label{section-compute-L-pi-shriek}
+
+\noindent
+Soit $A \to B$ un homomorphisme d'anneaux. Considérons la catégorie dont les
+objets sont les homomorphismes de $A$-algèbres $\alpha : P \to B$, où $P$ est
+une algèbre polynomiale sur $A$ (en un certain ensemble de
+variables\footnote{Il suffit de considérer des ensembles dont le cardinal est
+au plus celui de $B$.}), et dont les morphismes
+$s : (\alpha : P \to B) \to (\alpha' : P' \to B)$ sont les homomorphismes de
+$A$-algèbres $s : P \to P'$ tels que $\alpha' \circ s = \alpha$.
+Notons $\mathcal{C} = \mathcal{C}_{B/A}$ la catégorie {\bf opposée} de cette
+catégorie. Ce passage à l'opposée vient de ce que nous voulons considérer les
+objets $(P, \alpha)$ comme correspondant au diagramme de schémas affines
+$$
+\xymatrix{
+\Spec(B) \ar[d] \ar[r] & \Spec(P) \ar[ld] \\
+\Spec(A)
+}
+$$
+Munissons $\mathcal{C}$ de la topologie chaotique
+(Sites, exemple \ref{sites-example-indiscrete}), c'est-à-dire munissons
+$\mathcal{C}$ de la structure de site dans laquelle les recouvrements sont
+donnés par les identités, de
+sorte que tout préfaisceau est un faisceau. Munissons en outre $\mathcal{C}$
+de deux faisceaux d'anneaux. Le premier est le faisceau $\mathcal{O}$ qui
+associe $P$ à l'objet $(P, \alpha)$. Le second est le faisceau constant $B$,
+que nous noterons $\underline{B}$. On obtient le diagramme suivant de
+morphismes de topos annelés
+\begin{equation}
+\label{equation-pi}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}), \underline{B}) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}), \mathcal{O}) \\
+(\Sh(*), B)
+}
+}
+\end{equation}
+Le morphisme $i$ est l'identité sur les topos sous-jacents, et
+$i^\sharp : \mathcal{O} \to \underline{B}$ est l'homomorphisme évident.
+L'application $\pi$ est celle de Cohomologie sur les sites, exemple
+\ref{sites-cohomology-example-category-to-point}. Les foncteurs dérivés
+suivants joueront un rôle important :
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{B})
+$
+adjoint à gauche de $Ri_* = i_* : D(\underline{B}) \to D(\mathcal{O})$, et
+$
+L\pi_! : D(\underline{B}) \longrightarrow D(B)
+$
+adjoint à gauche de $\pi^* = \pi^{-1} : D(B) \to D(\underline{B})$.
+
+\begin{lemma}
+\label{lemma-identify-pi-shriek}
+Avec les notations précédentes, soit $P_\bullet$ une $A$-algèbre simpliciale
+munie d'une augmentation $\epsilon : P_\bullet \to B$.
+Supposons que chaque $P_n$ soit une algèbre polynomiale sur $A$ et que
+$\epsilon$ soit une fibration de Kan triviale sur les ensembles simpliciaux
+sous-jacents. Alors
+$$
+L\pi_!(\mathcal{F}) = \mathcal{F}(P_\bullet, \epsilon)
+$$
+dans $D(\textit{Ab})$, resp.\ $D(B)$, fonctoriellement en $\mathcal{F}$ dans
+$\textit{Ab}(\mathcal{C})$, resp.\ $\textit{Mod}(\underline{B})$.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons pour cela le critère de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+Étant donné un objet $U = (Q, \beta)$ de $\mathcal{C}$, il faut montrer que
+$$
+S_\bullet = \Mor_\mathcal{C}((P_\bullet, \epsilon), (Q, \beta))
+$$
+est homotopiquement équivalent à un singleton.
+Écrivons $Q = A[E]$ pour un certain ensemble $E$ (ce qui est possible par
+notre choix de la catégorie $\mathcal{C}$). On voit que
+$$
+S_\bullet = \Mor_{\textit{Sets}}((E, \beta|_E), (P_\bullet, \epsilon))
+$$
+Soit $*$ l'ensemble simplicial constant de valeur un singleton. Pour $b \in B$,
+soit $F_{b, \bullet}$ l'ensemble simplicial défini par le diagramme cartésien
+$$
+\xymatrix{
+F_{b, \bullet} \ar[r] \ar[d] & P_\bullet \ar[d]_\epsilon \\
+{*} \ar[r]^b & B
+}
+$$
+Avec cette notation, $S_\bullet = \prod_{e \in E} F_{\beta(e), \bullet}$.
+Comme $\epsilon$ est par hypothèse une fibration de Kan triviale,
+$F_{b, \bullet} \to *$ est une fibration de Kan triviale
+(Objets simpliciaux, lemme
+\ref{simplicial-lemma-trivial-kan-base-change}). Ainsi,
+$S_\bullet \to *$ est une fibration de Kan triviale (Objets simpliciaux,
+lemme \ref{simplicial-lemma-product-trivial-kan}). Par conséquent,
+$S_\bullet$ est homotopiquement équivalent à $*$ (Objets simpliciaux, lemme
+\ref{simplicial-lemma-trivial-kan-homotopy}).
+\end{proof}
+
+\noindent
+En particulier, on peut employer la résolution standard de $B$ sur $A$ pour
+calculer le foncteur dérivé gauche correspondant.
+
+\begin{lemma}
+\label{lemma-pi-shriek-standard}
+Soit $A \to B$ un homomorphisme d'anneaux. Soit
+$\epsilon : P_\bullet \to B$ la résolution standard de $B$ sur $A$.
+Soit $\pi$ comme dans (\ref{equation-pi}). Alors
+$$
+L\pi_!(\mathcal{F}) = \mathcal{F}(P_\bullet, \epsilon)
+$$
+dans $D(\textit{Ab})$, resp.\ $D(B)$, fonctoriellement en $\mathcal{F}$ dans
+$\textit{Ab}(\mathcal{C})$, resp.\ $\textit{Mod}(\underline{B})$.
+\end{lemma}
+
+\begin{proof}[Première démonstration]
+Appliquons le lemme \ref{lemma-identify-pi-shriek}.
+Puisque les termes $P_n$ sont des algèbres polynomiales, la première hypothèse
+de ce lemme est satisfaite. Démontrons la seconde. D'après Objets simpliciaux,
+lemme \ref{simplicial-lemma-standard-simplicial-homotopy}, l'application
+$\epsilon$ est une équivalence d'homotopie des ensembles simpliciaux
+sous-jacents. D'après Objets simpliciaux, lemme
+\ref{simplicial-lemma-homotopy-equivalence}, il en résulte que $\epsilon$
+induit un quasi-isomorphisme des complexes de groupes abéliens associés.
+D'après Objets simpliciaux, lemme
+\ref{simplicial-lemma-qis-simplicial-abelian-groups}, cela implique que
+$\epsilon$ est une fibration de Kan triviale des ensembles simpliciaux
+sous-jacents.
+\end{proof}
+
+\begin{proof}[Seconde démonstration]
+Nous utiliserons le critère de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+Soit $U = (Q, \beta)$ un objet de $\mathcal{C}$.
+Il nous faut montrer que
+$$
+S_\bullet = \Mor_\mathcal{C}((P_\bullet, \epsilon), (Q, \beta))
+$$
+est homotopiquement équivalent à un singleton. Écrivons $Q = A[E]$ pour un
+certain ensemble $E$ (ce qui est possible par notre choix de la catégorie
+$\mathcal{C}$). Avec les notations de la remarque
+\ref{remark-variant-cotangent-complex}, on voit que
+$$
+S_\bullet = \Mor_\mathcal{S}((E \to B), i(P_\bullet \to B))
+$$
+D'après Objets simpliciaux, lemme
+\ref{simplicial-lemma-standard-simplicial-homotopy}, l'application
+$i(P_\bullet \to B) \to i(B \to B)$ est une équivalence d'homotopie dans
+$\mathcal{S}$. Par conséquent, $S_\bullet$ est homotopiquement équivalent à
+$$
+\Mor_\mathcal{S}((E \to B), (B \to B)) = \{*\}
+$$
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-cotangent-complex}
+Soit $A \to B$ un homomorphisme d'anneaux. Soient $\pi$ et $i$ comme dans
+(\ref{equation-pi}). Il existe un isomorphisme canonique
+$$
+L_{B/A} = L\pi_!(Li^*\Omega_{\mathcal{O}/A}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/A}) =
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+$$
+dans $D(B)$.
+\end{lemma}
+
+\begin{proof}
+Pour un objet $\alpha : P \to B$ de la catégorie $\mathcal{C}$, le module
+$\Omega_{P/A}$ est un $P$-module libre. Ainsi,
+$\Omega_{\mathcal{O}/A}$ est un $\mathcal{O}$-module plat. Par conséquent,
+$Li^*\Omega_{\mathcal{O}/A} = i^*\Omega_{\mathcal{O}/A}$ est le faisceau de
+$\underline{B}$-modules qui associe à $\alpha : P \to A$ le $B$-module
+$\Omega_{P/A} \otimes_{P, \alpha} B$. D'après le lemme
+\ref{lemma-pi-shriek-standard}, le membre de droite se calcule en évaluant ce
+faisceau sur la résolution standard ; c'est précisément notre définition du
+membre de gauche (définition \ref{definition-cotangent-complex-ring-map}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pi-lower-shriek-constant-sheaf}
+Si $A \to B$ est un homomorphisme d'anneaux, alors
+$L\pi_!(\pi^{-1}M) = M$, où $\pi$ est comme dans (\ref{equation-pi}).
+\end{lemma}
+
+\begin{proof}
+Cela résulte du lemme \ref{lemma-identify-pi-shriek}, qui affirme que
+$L\pi_!(\pi^{-1}M)$ se calcule par $(\pi^{-1}M)(P_\bullet, \epsilon)$, objet
+simplicial constant de valeur $M$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-identify-H0}
+Si $A \to B$ est un homomorphisme d'anneaux, alors
+$H^0(L_{B/A}) = \Omega_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+Nous allons le démontrer par un calcul direct, en utilisant l'identification
+du lemme \ref{lemma-compute-cotangent-complex}. Il existe manifestement un
+homomorphisme de $\Omega_{\mathcal{O}/A} \otimes \underline{B}$ vers le
+faisceau constant de valeur $\Omega_{B/A}$. Il induit donc un homomorphisme
+$$
+H^0(L_{B/A}) = H^0(L\pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B}))
+= \pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B}) \to \Omega_{B/A}
+$$
+En choisissant un objet $P \to B$ de $\mathcal{C}_{B/A}$ tel que $P \to B$
+soit surjectif, on voit que cet homomorphisme est surjectif (d'après Algèbre,
+lemme \ref{algebra-lemma-differential-surjective}). Pour montrer son
+injectivité, supposons que $P \to B$ soit un objet de $\mathcal{C}_{B/A}$ et
+que $\xi \in \Omega_{P/A} \otimes_P B$ soit un élément dont l'image dans
+$\Omega_{B/A}$ est nulle. Choisissons d'abord une factorisation
+$P \to P' \to B$ telle que $P' \to B$ soit surjectif et que $P'$ soit une
+algèbre polynomiale sur $A$. Nous pouvons remplacer $P$ par $P'$. Si
+$B = P/I$, alors le noyau de
+$\Omega_{P/A} \otimes_P B \to \Omega_{B/A}$ est l'image de $I/I^2$ (Algèbre,
+lemme \ref{algebra-lemma-differential-seq}). Disons que $\xi$ est l'image de
+$f \in I$. Considérons alors les deux homomorphismes
+$a, b : P' = P[x] \to P$ : le premier envoie $x$ sur $0$ et le second envoie
+$x$ sur $f$ (dans les deux cas, $P[x] \to B$ envoie $x$ sur zéro). On voit que
+$\xi$ et $0$ sont les images de $\text{d}x \otimes 1$ dans
+$\Omega_{P'/A} \otimes_{P'} B$. Ainsi, $\xi$ et $0$ ont la même image dans la
+colimite (voir Cohomologie sur les sites, exemple
+\ref{sites-cohomology-example-category-to-point})
+$\pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B})$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pi-lower-shriek-polynomial-algebra}
+Si $B$ est une algèbre polynomiale sur l'anneau $A$, alors, pour $\pi$ comme
+dans (\ref{equation-pi}), le foncteur $\pi_!$ est exact et
+$\pi_!\mathcal{F} = \mathcal{F}(B \to B)$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du lemme \ref{lemma-identify-pi-shriek}, qui affirme que
+l'algèbre simpliciale constante de valeur $B$ peut servir à calculer $L\pi_!$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cotangent-complex-polynomial-algebra}
+Si $B$ est une algèbre polynomiale sur l'anneau $A$, alors $L_{B/A}$ est
+quasi-isomorphe à $\Omega_{B/A}[0]$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des lemmes
+\ref{lemma-compute-cotangent-complex} et
+\ref{lemma-pi-lower-shriek-polynomial-algebra}.
+\end{proof}
+
+
+
+
+
+\section{Construction d'une résolution}
+\label{section-polynomial}
+
+\noindent
+Dans le cas noethérien de type fini, on peut construire une ``petite''
+résolution simpliciale des homomorphismes d'anneaux de type fini.
+
+\begin{lemma}
+\label{lemma-polynomial}
+Soit $A$ un anneau noethérien. Soit $A \to B$ un homomorphisme d'anneaux de
+type fini. Soit $\mathcal{A}$ la catégorie des homomorphismes de $A$-algèbres
+$C \to B$. Soit $n \geq 0$, et soit $P_\bullet$ un objet simplicial de
+$\mathcal{A}$ tel que :
+\begin{enumerate}
+\item $P_\bullet \to B$ est une fibration de Kan triviale d'ensembles
+simpliciaux ;
+\item $P_k$ est de type fini sur $A$ pour $k \leq n$ ;
+\item $P_\bullet = \text{cosk}_n \text{sk}_n P_\bullet$ comme objets
+simpliciaux de $\mathcal{A}$.
+\end{enumerate}
+Alors $P_{n + 1}$ est une $A$-algèbre de type fini.
+\end{lemma}
+
+\begin{proof}
+Bien que la démonstration que nous allons donner soit directe, elle est un peu
+laborieuse. Pour en éclairer l'idée, expliquons d'abord ce qui se passe pour
+les petites valeurs de $n$, avant de traiter le cas général. Si, par exemple,
+$n = 0$, alors (3) signifie que $P_1 = P_0 \times_B P_0$. Comme
+l'homomorphisme d'anneaux $P_0 \to B$ est surjectif, cette algèbre est de type
+fini sur $A$ d'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-fibre-product-finite-type}.
+
+\medskip\noindent
+Si $n = 1$, alors (3) signifie que
+$$
+P_2 = \{(f_0, f_1, f_2) \in P_1^3 \mid
+d_0f_0 = d_0f_1,\ d_1f_0 = d_0f_2,\ d_1f_1 = d_1f_2 \}
+$$
+où les égalités ont lieu dans $P_0$. Remarquons que le triplet
+$$
+(d_0f_0, d_1f_0, d_1f_1) = (d_0f_1, d_0f_2, d_1f_2)
+$$
+est un élément du produit fibré $P_0 \times_B P_0 \times_B P_0$ au-dessus de
+$B$, car les applications $d_i : P_1 \to P_0$ sont des morphismes au-dessus
+de $B$. On obtient donc une application
+$$
+\psi : P_2 \longrightarrow P_0 \times_B P_0 \times_B P_0
+$$
+La fibre de $\psi$ au-dessus d'un élément
+$(g_0, g_1, g_2) \in P_0 \times_B P_0 \times_B P_0$
+est l'ensemble des triplets $(f_0, f_1, f_2)$ de $1$-simplexes tels que
+$(d_0, d_1)(f_0) = (g_0, g_1)$, $(d_0, d_1)(f_1) = (g_0, g_2)$ et
+$(d_0, d_1)(f_2) = (g_1, g_2)$. Puisque $P_\bullet \to B$ est une fibration
+de Kan triviale, l'application $(d_0, d_1) : P_1 \to P_0 \times_B P_0$ est
+surjective. Ainsi, $P_2$ s'insère dans le diagramme cartésien
+$$
+\xymatrix{
+P_2 \ar[d] \ar[r] & P_1^3 \ar[d] \\
+P_0 \times_B P_0 \times_B P_0 \ar[r] & (P_0 \times_B P_0)^3
+}
+$$
+On conclut par Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-formal-consequence}. Le cas général est analogue, mais
+demande un peu plus de notation.
+
+\medskip\noindent
+Traitons le cas $n > 1$. D'après Objets simpliciaux, lemme
+\ref{simplicial-lemma-cosk-above-object}, la condition
+$P_\bullet = \text{cosk}_n \text{sk}_n P_\bullet$ implique que la même égalité
+vaut dans la catégorie des $A$-algèbres simpliciales, puis dans celle des
+ensembles (car le foncteur d'oubli des $A$-algèbres vers les ensembles commute
+aux limites). Ainsi,
+$$
+P_{n + 1} =
+\Mor(\Delta[n + 1], P_\bullet) =
+\Mor(\text{sk}_n \Delta[n + 1], \text{sk}_n P_\bullet)
+$$
+d'après Objets simpliciaux, lemme \ref{simplicial-lemma-simplex-map}, et
+l'équation (\ref{simplicial-equation-cosk}). Nous allons démontrer par
+récurrence sur $1 \leq k < m \leq n + 1$ que l'anneau
+$$
+Q_{k, m} = \Mor(\text{sk}_k \Delta[m], \text{sk}_k P_\bullet)
+$$
+est de type fini sur $A$. Le cas $k = 1$, $1 < m \leq n + 1$, est entièrement
+analogue à la discussion ci-dessus du cas $n = 1$. Plus précisément, on a un
+diagramme cartésien
+$$
+\xymatrix{
+Q_{1, m} \ar[d] \ar[r] & P_1^N \ar[d] \\
+P_0 \times_B \ldots \times_B P_0 \ar[r] & (P_0 \times_B P_0)^N
+}
+$$
+où $N = {m + 1 \choose 2}$. On conclut comme précédemment.
+
+\medskip\noindent
+Soit $1 \leq k_0 \leq n$, et supposons que $Q_{k, m}$ soit de type fini sur
+$A$ pour tous $1 \leq k \leq k_0$ et $k < m \leq n + 1$.
+Pour $k_0 + 1 < m \leq n + 1$, nous affirmons qu'il existe un carré cartésien
+$$
+\xymatrix{
+Q_{k_0 + 1, m} \ar[d] \ar[r] & P_{k_0 + 1}^N \ar[d] \\
+Q_{k_0, m} \ar[r] & Q_{k_0, k_0 + 1}^N
+}
+$$
+où $N$ est le nombre de $(k_0 + 1)$-simplexes non dégénérés de $\Delta[m]$.
+En effet, considérons un élément de $Q_{k_0 + 1, m}$ comme une application $f$
+du $(k_0 + 1)$-squelette de $\Delta[m]$ vers $P_\bullet$. On peut restreindre
+$f$ au $k_0$-squelette, ce qui donne l'application verticale gauche du
+diagramme. Sa
+restriction à chaque $(k_0 + 1)$-simplexe non dégénéré donne la flèche
+horizontale supérieure. De plus, se donner un tel $f$ revient à se donner sa
+restriction au $k_0$-squelette et à chaque $(k_0 + 1)$-face non dégénérée,
+pourvu que ces restrictions coïncident sur leurs intersections ; c'est
+exactement le contenu du diagramme. Enfin, le fait que
+$P_\bullet \to B$ soit une fibration de Kan triviale implique que
+l'application
+$$
+P_{k_0} \to Q_{k_0, k_0 + 1} = \Mor(\partial \Delta[k_0 + 1], P_\bullet)
+$$
+est surjective, car toute application $\partial \Delta[k_0 + 1] \to B$ se
+prolonge en une application $\Delta[k_0 + 1] \to B$ pour $k_0 \geq 1$ (nous
+omettons un petit argument sur les ensembles simpliciaux constants). Par
+l'hypothèse de récurrence, les anneaux $Q_{k_0, m}$,
+$Q_{k_0, k_0 + 1}$ sont des $A$-algèbres de type fini ; il en va donc de même
+de $Q_{k_0 + 1, m}$, encore une fois d'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-formal-consequence}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-polynomial}
+Soit $A$ un anneau noethérien. Soit $A \to B$ un homomorphisme d'anneaux de
+type fini. Il existe une $A$-algèbre simpliciale $P_\bullet$ munie d'une
+augmentation $\epsilon : P_\bullet \to B$ telle que chaque $P_n$ soit une
+algèbre polynomiale de type fini sur $A$ et que $\epsilon$ soit une fibration
+de Kan triviale d'ensembles simpliciaux.
+\end{proposition}
+
+\begin{proof}
+Soit $\mathcal{A}$ la catégorie des homomorphismes de $A$-algèbres $C \to B$.
+Dans cette démonstration, les objets simpliciaux ainsi que les foncteurs
+squelette et cosquelette seront pris dans cette catégorie.
+
+\medskip\noindent
+Choisissons une algèbre polynomiale $P_0$ de type fini sur $A$ et une
+surjection $P_0 \to B$. En première approximation, prenons
+$P_\bullet = \text{cosk}_0(P_0)$. Autrement dit, $P_\bullet$ est la
+$A$-algèbre simpliciale dont les termes sont
+$P_n = P_0 \times_A \ldots \times_A P_0$. (Dans le dernier paragraphe de la
+démonstration, cet objet simplicial sera noté $P^0_\bullet$.) D'après Objets
+simpliciaux, lemme \ref{simplicial-lemma-cosk-minus-one-equivalence},
+l'application $P_\bullet \to B$ est une fibration de Kan triviale d'ensembles
+simpliciaux. Remarquons aussi que
+$P_\bullet = \text{cosk}_0 \text{sk}_0 P_\bullet$.
+
+\medskip\noindent
+Supposons que, pour un certain $n \geq 0$, nous ayons construit $P_\bullet$
+(qui sera noté $P^n_\bullet$ dans le dernier paragraphe de la démonstration)
+de telle sorte que :
+\begin{enumerate}
+\item[(a)] $P_\bullet \to B$ est une fibration de Kan triviale d'ensembles
+simpliciaux ;
+\item[(b)] $P_k$ est une algèbre polynomiale de type fini pour
+$0 \leq k \leq n$ ;
+\item[(c)] $P_\bullet = \text{cosk}_n \text{sk}_n P_\bullet$
+\end{enumerate}
+D'après le lemme \ref{lemma-polynomial}, il existe une algèbre polynomiale de
+type fini $Q$ sur $A$ et une surjection $Q \to P_{n + 1}$. Comme $P_n$ est une
+algèbre polynomiale, les homomorphismes de $A$-algèbres
+$s_i : P_n \to P_{n + 1}$ se relèvent en des homomorphismes
+$s'_i : P_n \to Q$. Définissons $d'_j : Q \to P_n$ comme la composée de
+$Q \to P_{n + 1}$ et de $d_j : P_{n + 1} \to P_n$. On obtient un objet
+simplicial tronqué $P'_\bullet$ de $\mathcal{A}$ en posant $P'_k = P_k$ pour
+$k \leq n$ et $P'_{n + 1} = Q$, en prenant les morphismes $d'_i = d_i$ et
+$s'_i = s_i$ aux degrés $k \leq n - 1$, puis les morphismes $d'_j$ et $s'_i$
+au degré $n$. Prolongeons-le en un objet simplicial complet $P'_\bullet$ de
+$\mathcal{A}$ au moyen de $\text{cosk}_{n + 1}$. Par fonctorialité des
+foncteurs cosquelette, il existe un morphisme d'objets simpliciaux
+$P'_\bullet \to P_\bullet$ qui prolonge le morphisme donné d'objets simpliciaux
+$(n + 1)$-tronqués. (Ce morphisme sera noté
+$P^{n + 1}_\bullet \to P^n_\bullet$ dans le dernier paragraphe de la
+démonstration.)
+
+\medskip\noindent
+Notons que les conditions (b) et (c) sont satisfaites par $P'_\bullet$ après
+remplacement de $n$ par $n + 1$. Nous affirmons que l'application
+$P'_\bullet \to P_\bullet$ satisfait aux hypothèses (1), (2), (3) et (4) de
+Objets simpliciaux, lemme \ref{simplicial-lemma-section}, avec $n + 1$ à la
+place de $n$. Les conditions (1) et (2) sont vraies par construction. D'après
+Objets simpliciaux, lemme \ref{simplicial-lemma-cosk-above-object}, on a
+$P_\bullet = \text{cosk}_{n + 1}\text{sk}_{n + 1}P_\bullet$
+and
+$P'_\bullet = \text{cosk}_{n + 1}\text{sk}_{n + 1}P'_\bullet$
+non seulement dans $\mathcal{A}$, mais aussi dans la catégorie des
+$A$-algèbres, puis dans celle des ensembles (car le foncteur d'oubli des
+$A$-algèbres vers les ensembles commute à toutes les limites). Cela démontre
+(3) et (4). Le lemme s'applique donc, et
+$P'_\bullet \to P_\bullet$ est une fibration de Kan triviale. D'après Objets
+simpliciaux, lemme \ref{simplicial-lemma-trivial-kan-composition}, on en déduit
+que $P'_\bullet \to B$ est une fibration de Kan triviale ; la condition (a)
+est donc également satisfaite.
+
+\medskip\noindent
+Pour achever la démonstration, prenons la limite projective
+$P_\bullet = \lim P^n_\bullet$ de la suite d'algèbres simpliciales
+$$
+\ldots \to P^2_\bullet \to P^1_\bullet \to P^0_\bullet
+$$
+construite ci-dessus. L'application $P_\bullet \to B$ est une fibration de Kan
+triviale d'après Objets simpliciaux, lemme
+\ref{simplicial-lemma-limit-trivial-kan}. Or la construction ci-dessus se
+stabilise, en chaque degré, en une algèbre polynomiale de type fini fixée,
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pi-shriek-finite}
+Soit $A$ un anneau noethérien. Soit $A \to B$ un homomorphisme d'anneaux de
+type fini. Soient $\pi$, $\underline{B}$ comme dans (\ref{equation-pi}).
+Si $\mathcal{F}$ est un $\underline{B}$-module tel que
+$\mathcal{F}(P, \alpha)$ soit un $B$-module fini pour tout
+$\alpha : P = A[x_1, \ldots, x_n] \to B$, alors les modules de cohomologie de
+$L\pi_!(\mathcal{F})$ sont des $B$-modules finis.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-identify-pi-shriek} et la proposition
+\ref{proposition-polynomial}, on peut calculer $L\pi_!(\mathcal{F})$ au moyen
+d'un complexe construit à partir des valeurs de $\mathcal{F}$ sur les algèbres
+polynomiales de type fini.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cotangent-finite}
+Soit $A$ un anneau noethérien. Soit $A \to B$ un homomorphisme d'anneaux de
+type fini. Alors $H^n(L_{B/A})$ est un $B$-module fini pour tout
+$n \in \mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+Appliquer les lemmes \ref{lemma-compute-cotangent-complex} et
+\ref{lemma-pi-shriek-finite}.
+\end{proof}
+
+\begin{remark}[Resolutions]
+\label{remark-resolution}
+Soit $A \to B$ un homomorphisme d'anneaux quelconque. Appelons une
+$A$-algèbre simpliciale augmentée $\epsilon : P_\bullet \to B$ une
+{\it résolution de $B$ sur $A$} si chaque $P_n$ est une algèbre polynomiale
+et si $\epsilon$ est une fibration de Kan triviale d'ensembles simpliciaux.
+Si $P_\bullet \to B$ est une augmentation d'une $A$-algèbre simpliciale telle
+que chaque $P_n$ soit une algèbre polynomiale se surjectant sur $B$, alors les
+conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\epsilon : P_\bullet \to B$ est une résolution de $B$ sur $A$ ;
+\item $\epsilon : P_\bullet \to B$ est un quasi-isomorphisme sur les
+complexes associés ;
+\item $\epsilon : P_\bullet \to B$ induit une équivalence d'homotopie
+d'ensembles simpliciaux.
+\end{enumerate}
+Pour le voir, utiliser Objets simpliciaux, lemmes
+\ref{simplicial-lemma-trivial-kan-homotopy},
+\ref{simplicial-lemma-homotopy-equivalence} et
+\ref{simplicial-lemma-qis-simplicial-abelian-groups}.
+Une résolution $P_\bullet$ de $B$ sur $A$ fournit un objet cosimplicial
+$U_\bullet$ de $\mathcal{C}_{B/A}$ comme dans Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}
+et il s'ensuit que
+$$
+L\pi_!\mathcal{F} = \mathcal{F}(P_\bullet)
+$$
+fonctoriellement en $\mathcal{F}$ ; voir le lemme
+\ref{lemma-identify-pi-shriek}. La partie formelle de la démonstration de la
+proposition \ref{proposition-polynomial} montre l'existence de résolutions.
+Nous avons aussi vu, dans la première démonstration du lemme
+\ref{lemma-pi-shriek-standard}, que la résolution standard de $B$ sur $A$ est
+une résolution (de sorte que cette terminologie ne crée pas de conflit).
+Cependant, l'argument de la démonstration de la proposition
+\ref{proposition-polynomial} établit l'existence de résolutions sans faire
+appel aux calculs simpliciaux d'Objets simpliciaux, section
+\ref{simplicial-section-standard}. De plus, pour {\it tout} choix de
+résolution, on dispose d'un isomorphisme canonique
+$$
+L_{B/A} = \Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} B
+$$
+dans $D(B)$ d'après le lemme \ref{lemma-compute-cotangent-complex}. La liberté
+de choisir une résolution arbitraire peut être fort utile.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-O-homology-B-homology}
+Soit $A \to B$ un homomorphisme d'anneaux. Soient $\pi$, $\mathcal{O}$,
+$\underline{B}$ comme dans (\ref{equation-pi}). Pour tout $\mathcal{O}$-module
+$\mathcal{F}$, on a
+$$
+L\pi_!(\mathcal{F}) = L\pi_!(Li^*\mathcal{F}) =
+L\pi_!(\mathcal{F} \otimes_\mathcal{O}^\mathbf{L} \underline{B})
+$$
+dans $D(\textit{Ab})$.
+\end{lemma}
+
+\begin{proof}
+Il suffit de vérifier que les hypothèses de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-O-homology-qis}
+sont satisfaites pour $\mathcal{O} \to \underline{B}$ sur
+$\mathcal{C}_{B/A}$. Nous utiliserons sans plus le signaler les résultats de
+la remarque \ref{remark-resolution}. Choisissons une résolution $P_\bullet$
+de $B$ sur $A$ afin d'obtenir un objet cosimplicial convenable $U_\bullet$ de
+$\mathcal{C}_{B/A}$. Puisque $P_\bullet \to B$ induit un quasi-isomorphisme
+sur les complexes associés de groupes abéliens, on voit que
+$L\pi_!\mathcal{O} = B$. D'autre part, $L\pi_!\underline{B}$ est calculé par
+$\underline{B}(U_\bullet) = B$. Cela vérifie la seconde hypothèse de
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-O-homology-qis}
+et achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-apply-O-B-comparison}
+Soit $A \to B$ un homomorphisme d'anneaux. Soient $\pi$, $\mathcal{O}$,
+$\underline{B}$ comme dans (\ref{equation-pi}). On a
+$$
+L\pi_!(\mathcal{O}) = L\pi_!(\underline{B}) = B
+\quad\text{and}\quad
+L_{B/A} = L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}) =
+L\pi_!(\Omega_{\mathcal{O}/A})
+$$
+dans $D(\textit{Ab})$.
+\end{lemma}
+
+\begin{proof}
+C'est une application immédiate du lemme
+\ref{lemma-O-homology-B-homology} (et la première égalité à droite est le
+lemme \ref{lemma-compute-cotangent-complex}).
+\end{proof}
+
+\noindent
+Voici un cas particulier du triangle fondamental dont la démonstration est
+facile.
+
+\begin{lemma}
+\label{lemma-special-case-triangle}
+Soient $A \to B \to C$ des homomorphismes d'anneaux. Si $B$ est une algèbre
+polynomiale sur $A$, alors il existe un triangle distingué 
+$L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]$ dans $D(C)$.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons sans plus le signaler les observations de la remarque
+\ref{remark-resolution}. Choisissons une résolution
+$\epsilon : P_\bullet \to C$ de $C$ sur $B$ (par exemple la résolution
+standard). Puisque $B$ est une algèbre polynomiale sur $A$, on voit que
+$P_\bullet$ est aussi une résolution de $C$ sur $A$. Ainsi, $L_{C/A}$ est
+calculé par
+$\Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} C$
+et $L_{C/B}$ est calculé par
+$\Omega_{P_\bullet/B} \otimes_{P_\bullet, \epsilon} C$.
+Comme, pour chaque $n$, on a la suite exacte courte
+$0 \to \Omega_{B/A} \otimes_B P_n \to \Omega_{P_n/A} \to \Omega_{P_n/B} \to 0$
+(Algèbre, lemme \ref{algebra-lemma-ses-formally-smooth}) et comme
+$L_{B/A} = \Omega_{B/A}[0]$ (lemme
+\ref{lemma-cotangent-complex-polynomial-algebra}), on obtient le résultat.
+\end{proof}
+
+\begin{example}
+\label{example-resolution-length-two}
+Soit $A \to B$ un homomorphisme d'anneaux. Dans cet exemple, nous allons 
+construire une résolution ``explicite'' $P_\bullet$ de $B$ sur $A$ de longueur
+$2$. Pour ce faire, nous suivons la procédure de la démonstration de la
+proposition \ref{proposition-polynomial} ; voir aussi la discussion de la
+remarque \ref{remark-resolution}.
+
+\medskip\noindent
+Choisissons une surjection $P_0 = A[u_i] \to B$, où les $u_i$ forment un
+ensemble de variables. Choisissons des générateurs $f_t \in P_0$, $t \in T$,
+de l'idéal $\Ker(P_0 \to B)$. Prenons $P_1 = A[u_i, x_t]$, avec pour
+applications de face $d_0$ et $d_1$ les uniques homomorphismes de $A$-algèbres
+tels que $d_j(u_i) = u_i$, $d_0(x_t) = 0$ et $d_1(x_t) = f_t$.
+L'application $s_0 : P_0 \to P_1$ est l'unique homomorphisme de $A$-algèbres
+tel que $s_0(u_i) = u_i$. Il est clair que
+$$
+P_1 \xrightarrow{d_0 - d_1} P_0 \to B \to 0
+$$
+est exacte ; en particulier, l'application
+$(d_0, d_1) : P_1 \to P_0 \times_B P_0$ est surjective. Ainsi, si
+$P_\bullet$ désigne l'algèbre simpliciale $1$-tronquée sur $A$ donnée par $P_0$,
+$P_1$, $d_0$, $d_1$ et $s_0$, alors l'augmentation
+$\text{cosk}_1(P_\bullet) \to B$ est une fibration de Kan triviale. L'étape
+suivante de la procédure de la démonstration de la proposition
+\ref{proposition-polynomial} consiste à choisir une algèbre polynomiale $P_2$
+et une surjection
+$$
+P_2 \longrightarrow \text{cosk}_1(P_\bullet)_2
+$$
+Rappelons que
+$$
+\text{cosk}_1(P_\bullet)_2 =
+\{(g_0, g_1, g_2) \in P_1^3 \mid d_0(g_0) = d_0(g_1),
+d_1(g_0) = d_0(g_2), d_1(g_1) = d_1(g_2)\}
+$$
+En considérant $g_i \in P_1$ comme un polynôme en les $x_t$, les conditions
+sont
+$$
+g_0(0) = g_1(0),\quad
+g_0(f_t) = g_2(0),\quad
+g_1(f_t) = g_2(f_t)
+$$
+Ainsi, $\text{cosk}_1(P_\bullet)_2$ contient les éléments
+$y_t = (x_t, x_t, f_t)$ et $z_t = (0, x_t, x_t)$. Tout élément $G$ de
+$\text{cosk}_1(P_\bullet)_2$ est de la forme $G = H + (0, 0, g)$, où $H$
+appartient à l'image de
+$A[u_i, y_t, z_t] \to \text{cosk}_1(P_\bullet)_2$. Ici, $g \in P_1$ est un
+polynôme de terme constant nul tel que $g(f_t) = 0$ dans $P_0$. Observons que
+\begin{enumerate}
+\item $g = x_t x_{t'} - f_t x_{t'}$ ;
+\item $g = \sum r_t x_t$ avec $r_t \in P_0$ si $\sum r_t f_t = 0$ dans $P_0$,
+\end{enumerate}
+sont des éléments de $P_1$ de la forme voulue. Posons
+$$
+Rel = \Ker(\bigoplus\nolimits_{t \in T} P_0 \longrightarrow P_0),\quad
+(r_t) \longmapsto \sum r_tf_t
+$$
+Prenons $P_2 = A[u_i, y_t, z_t, v_r, w_{t, t'}]$, où
+$r = (r_t) \in Rel$, muni de l'application
+$$
+P_2 \longrightarrow \text{cosk}_1(P_\bullet)_2
+$$
+définie par $y_t  \mapsto (x_t, x_t, f_t)$,
+$z_t \mapsto (0, x_t, x_t)$,
+$v_r \mapsto (0, 0, \sum r_t x_t)$ et
+$w_{t, t'} \mapsto (0, 0, x_t x_{t'} - f_t x_{t'})$. Un calcul (omis) montre
+que cette application est surjective. Notre choix de l'application affichée
+ci-dessus détermine les applications $d_0, d_1, d_2 : P_2 \to P_1$.
+Enfin, la procédure de la démonstration de la proposition
+\ref{proposition-polynomial} nous dit de choisir les applications
+$s_0, s_1 : P_1 \to P_2$ relevant les deux applications
+$P_1 \to \text{cosk}_1(P_\bullet)_2$. Il est clair que l'on peut prendre pour
+$s_i$ les uniques homomorphismes de $A$-algèbres déterminés par
+$s_0(x_t) = y_t$ et $s_1(x_t) = z_t$.
+\end{example}
+
+
+
+
+
+
+
+
+\section{Fonctorialité}
+\label{section-functoriality}
+
+\noindent
+Dans cette section, nous considérons un carré commutatif
+\begin{equation}
+\label{equation-commutative-square}
+\vcenter{
+\xymatrix{
+B \ar[r] & B' \\
+A \ar[u] \ar[r] & A' \ar[u]
+}
+}
+\end{equation}
+d'homomorphismes d'anneaux. Nous affirmons qu'il existe une application
+canonique $B$-linéaire de complexes
+$$
+L_{B/A} \longrightarrow L_{B'/A'}
+$$
+associée à ce diagramme. En effet, si $P_\bullet \to B$ est la résolution
+standard de $B$ sur $A$ et si $P'_\bullet \to B'$ est la résolution standard
+de $B'$ sur $A'$, alors il existe une application canonique
+$P_\bullet \to P'_\bullet$
+de $A$-algèbres simpliciales compatible avec les augmentations
+$P_\bullet \to B$ et $P'_\bullet \to B'$. Cela se voit au moyen de la
+construction des résolutions standard dans Objets simpliciaux, section
+\ref{simplicial-section-standard}, mais, dans le cas particulier qui nous
+occupe, il suffit probablement de dire simplement que les applications
+$$
+P_0 = A[B] \longrightarrow A'[B'] = P'_0,\quad
+P_1 = A[A[B]] \longrightarrow A'[A'[B']] = P'_1,
+$$
+et ainsi de suite sont données par les homomorphismes prescrits $A \to A'$ et
+$B \to B'$. L'application souhaitée $L_{B/A} \to L_{B'/A'}$ provient alors
+des applications associées $\Omega_{P_n/A} \to \Omega_{P'_n/A'}$.
+
+\medskip\noindent
+On peut décrire autrement l'application de fonctorialité comme suit. Soient
+$\mathcal{C} = \mathcal{C}_{B/A}$ et $\mathcal{C}' = \mathcal{C}_{B'/A}'$
+les catégories considérées dans la section
+\ref{section-compute-L-pi-shriek}. Il existe un foncteur
+$$
+u : \mathcal{C} \longrightarrow \mathcal{C}',\quad
+(P, \alpha) \longmapsto (P \otimes_A A', c \circ (\alpha \otimes 1))
+$$
+où $c : B \otimes_A A' \to B'$ est l'application évidente. Comme il est
+expliqué dans Cohomologie sur les sites, exemple
+\ref{sites-cohomology-example-morphism-categories}
+on obtient un morphisme de topos $g : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$
+et un diagramme commutatif d'applications de topos annelés
+\begin{equation}
+\label{equation-double-square}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}'), \underline{B}) \ar[d]_{\pi'} &
+(\Sh(\mathcal{C}'), \underline{B'}) \ar[d]_{\pi'} \ar[l]^h &
+(\Sh(\mathcal{C}), \underline{B'}) \ar[d]_\pi \ar[l]^g \\
+(\Sh(*), B) &
+(\Sh(*), B') \ar[l]_f &
+(\Sh(*), B') \ar[l]
+}
+}
+\end{equation}
+Ici, $h$ est l'identité sur les topos sous-jacents et est donné, sur les
+faisceaux d'anneaux, par l'homomorphisme d'anneaux $B \to B'$. 
+D'après Cohomologie sur les sites, remarque
+\ref{sites-cohomology-remark-morphism-fibred-categories}
+étant donnés $\mathcal{F}$ sur $\mathcal{C}$ et $\mathcal{F}'$ sur
+$\mathcal{C}'$, ainsi qu'une transformation
+$t : \mathcal{F} \to g^{-1}\mathcal{F}'$, on obtient une application canonique
+$L\pi_!(\mathcal{F}) \to L\pi'_!(\mathcal{F}')$. Appliquons ceci aux faisceaux
+$$
+\mathcal{F} : (P, \alpha) \mapsto \Omega_{P/A} \otimes_P B,\quad
+\mathcal{F}' : (P', \alpha') \mapsto \Omega_{P'/A'} \otimes_{P'} B',
+$$
+et à la transformation $t$ donnée par les applications canoniques
+$$
+\Omega_{P/A} \otimes_P B \longrightarrow
+\Omega_{P \otimes_A A'/A'} \otimes_{P \otimes_A A'} B'
+$$
+pour obtenir une application canonique
+$$
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+\longrightarrow
+L\pi'_!(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})
+$$
+D'après le lemme \ref{lemma-compute-cotangent-complex}, cela fournit
+$L_{B/A} \to L_{B'/A'}$. Nous omettons de vérifier que cette application
+coïncide avec celle définie ci-dessus à l'aide de résolutions simpliciales.
+
+\begin{lemma}
+\label{lemma-flat-base-change}
+Supposons que (\ref{equation-commutative-square}) induise un quasi-isomorphisme
+$B \otimes_A^\mathbf{L} A' = B'$. Alors, avec les notations de
+(\ref{equation-double-square}) et pour
+$\mathcal{F}' \in \textit{Ab}(\mathcal{C}')$, on a
+$L\pi_!(g^{-1}\mathcal{F}') = L\pi'_!(\mathcal{F}')$.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons sans plus le signaler les résultats de la remarque
+\ref{remark-resolution}. Appliquons Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-get-it-now}. Soit $P_\bullet \to B$ une
+résolution. Il suffit de montrer que
+$u(P_\bullet) = P_\bullet \otimes_A A' \to B'$ est un quasi-isomorphisme. Le
+complexe de $A$-modules $s(P_\bullet)$ associé à $P_\bullet$ (considéré comme
+un $A$-module simplicial) est une résolution par des $A$-modules libres de
+$B$. En effet, $P_n$ est un $A$-module libre et
+$s(P_\bullet) \to B$ est un quasi-isomorphisme. Ainsi,
+$B \otimes_A^\mathbf{L} A'$ est calculé par
+$s(P_\bullet) \otimes_A A' = s(P_\bullet \otimes_A A')$. L'hypothèse du
+lemme signifie donc que $\epsilon' : P_\bullet \otimes_A A' \to B'$ est un
+quasi-isomorphisme.
+\end{proof}
+
+\noindent
+Le lemme suivant s'applique en particulier lorsque $A \to A'$ est plat et que
+$B' = B \otimes_A A'$ (changement de base plat).
+
+\begin{lemma}
+\label{lemma-flat-base-change-cotangent-complex}
+Si (\ref{equation-commutative-square}) induit un quasi-isomorphisme
+$B \otimes_A^\mathbf{L} A' = B'$, alors l'application de fonctorialité induit
+un isomorphisme
+$$
+L_{B/A} \otimes_B^\mathbf{L} B' \longrightarrow L_{B'/A'}
+$$
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons les notations introduites dans l'équation
+(\ref{equation-double-square}). On a
+$$
+L_{B/A} \otimes_B^\mathbf{L} B' =
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+\otimes_B^\mathbf{L} B' =
+L\pi_!(Lh^*(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}))
+$$
+où la première égalité résulte du lemme
+\ref{lemma-compute-cotangent-complex} et la seconde de Cohomologie sur les
+sites, lemme \ref{sites-cohomology-lemma-change-of-rings}. Comme
+$\Omega_{\mathcal{O}/A}$ est un $\mathcal{O}$-module plat, on voit que
+$\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$ est un
+$\underline{B}$-module plat. Ainsi,
+$Lh^*(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}) =
+\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B'}$
+qui est égal à
+$g^{-1}(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})$
+par inspection. On conclut par le lemme \ref{lemma-flat-base-change} et par le
+fait que $L_{B'/A'}$ est calculé par
+$L\pi'_!(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})$.
+\end{proof}
+
+\begin{remark}
+\label{remark-homotopy-triangle}
+Supposons donné un carré (\ref{equation-commutative-square}) tel qu'il existe
+une flèche $\kappa : B \to A'$ qui rende le diagramme commutatif :
+$$
+\xymatrix{
+B \ar[r]_\beta \ar[rd]_\kappa & B' \\
+A \ar[u] \ar[r]^\alpha & A' \ar[u]
+}
+$$
+Dans ce cas, nous affirmons que l'application de fonctorialité
+$P_\bullet \to P'_\bullet$ est homotope à la composée
+$P_\bullet \to B \to A' \to P'_\bullet$. En effet, au moyen de $\kappa$,
+l'application de fonctorialité se factorise sous la forme
+$$
+P_\bullet \to P_{A'/A', \bullet} \to P'_\bullet
+$$
+où $P_{A'/A', \bullet}$ est la résolution standard de $A'$ sur $A'$. Comme
+$A'$ est l'algèbre polynomiale sur l'ensemble vide sur $A'$, on déduit
+d'Objets simpliciaux, lemme
+\ref{simplicial-lemma-standard-simplicial-homotopy}, que l'augmentation
+$\epsilon_{A'/A'} : P_{A'/A', \bullet} \to A'$ est une équivalence d'homotopie
+d'anneaux simpliciaux. Observons que l'application inverse à homotopie près
+$c : A' \to P_{A'/A', \bullet}$ construite dans la démonstration de ce lemme
+n'est autre que le morphisme structural ; on obtient donc le résultat voulu,
+car les deux composées
+$$
+\xymatrix{
+P_\bullet \ar[r] &
+P_{A'/A', \bullet} \ar@<1ex>[rr]^{\text{id}}
+\ar@<-1ex>[rr]_{c \circ \epsilon_{A'/A'}} & &
+P_{A'/A', \bullet} \ar[r] &
+P'_\bullet
+}
+$$
+sont les deux applications considérées ci-dessus, et elles sont homotopes
+(Objets simpliciaux, remarque
+\ref{simplicial-remark-homotopy-pre-post-compose}). Puisque la seconde
+application $P_\bullet \to P'_\bullet$ induit l'application nulle
+$\Omega_{P_\bullet/A} \to \Omega_{P'_\bullet/A'}$, on conclut que, dans ce
+cas, l'application de fonctorialité $L_{B/A} \to L_{B'/A'}$ est homotope à
+zéro.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-cotangent-complex-product}
+Soient $A \to B$ et $A \to C$ des homomorphismes d'anneaux. Alors
+l'application $L_{B \times C/A} \to L_{B/A} \oplus L_{C/A}$ est un
+isomorphisme dans $D(B \times C)$.
+\end{lemma}
+
+\begin{proof}
+Bien que ce lemme puisse se déduire du triangle fondamental, nous allons en
+donner maintenant une démonstration directe et élémentaire. Factorisons
+l'homomorphisme d'anneaux $A \to B \times C$ sous la forme
+$A \to A[x] \to B \times C$, où $x \mapsto (1, 0)$. D'après le lemme
+\ref{lemma-special-case-triangle}, on a un triangle distingué
+$$
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} (B \times C) \to L_{B \times C/A} \to
+L_{B \times C/A[x]} \to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} (B \times C)[1]
+$$
+dans $D(B \times C)$. De même, on a les triangles distingués
+$$
+\begin{matrix}
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} B \to L_{B/A} \to L_{B/A[x]}
+\to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} B[1] \\
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} C \to L_{C/A} \to L_{C/A[x]}
+\to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} C[1]
+\end{matrix}
+$$
+Il suffit donc de démontrer le résultat pour $B \times C$ sur $A[x]$.
+Notons que $A[x] \to A[x, x^{-1}]$ est plat, que
+$(B \times C) \otimes_{A[x]} A[x, x^{-1}] = B \otimes_{A[x]} A[x, x^{-1}]$,
+et que $C \otimes_{A[x]} A[x, x^{-1}] = 0$. Par changement de base (lemme
+\ref{lemma-flat-base-change-cotangent-complex}), l'application
+$L_{B \times C/A[x]} \to L_{B/A[x]} \oplus L_{C/A[x]}$ devient un
+isomorphisme après inversion de $x$. De la même manière, on montre que
+l'application devient un isomorphisme après inversion de $x - 1$. Cela
+démontre le lemme.
+\end{proof}
+
+
+
+
+\section{Le triangle fondamental}
+\label{section-triangle}
+
+\noindent
+Dans cette section, nous considérons une suite d'homomorphismes d'anneaux
+$A \to B \to C$. Notre but est de montrer que ce triangle donne naissance
+à un triangle distingué
+\begin{equation}
+\label{equation-triangle}
+L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]
+\end{equation}
+dans $D(C)$. Cela sera démontré dans la proposition
+\ref{proposition-triangle}. Pour une autre approche, voir la remarque
+\ref{remark-triangle}.
+
+\medskip\noindent
+Considérons la catégorie $\mathcal{C}_{C/B/A}$, qui est la catégorie
+{\bf opposée} de la catégorie dont les objets sont les
+$(P \to B, Q \to C)$ tels que
+\begin{enumerate}
+\item $P$ soit une algèbre polynomiale sur $A$,
+\item $P \to B$ soit un homomorphisme de $A$-algèbres,
+\item $Q$ soit une algèbre polynomiale sur $P$, et
+\item $Q \to C$ soit un homomorphisme de $P$-algèbres.
+\end{enumerate}
+Nous prenons la catégorie opposée parce que nous voulons voir
+$(P \to B, Q \to C)$ comme correspondant au diagramme commutatif
+$$
+\xymatrix{
+\Spec(C) \ar[d] \ar[r] & \Spec(Q) \ar[d] \\
+\Spec(B) \ar[d] \ar[r] & \Spec(P) \ar[dl] \\
+\Spec(A)
+}
+$$
+Soient $\mathcal{C}_{B/A}$, $\mathcal{C}_{C/A}$ et $\mathcal{C}_{C/B}$
+les catégories considérées dans la section
+\ref{section-compute-L-pi-shriek}. Il existe des foncteurs
+$$
+\begin{matrix}
+u_1 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{B/A}, &
+(P \to B, Q \to C) \mapsto (P \to B) \\
+u_2 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/A}, &
+(P \to B, Q \to C) \mapsto (Q \to C) \\
+u_3 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/B}, &
+(P \to B, Q \to C) \mapsto (Q \otimes_P B \to C)
+\end{matrix}
+$$
+Ces foncteurs induisent des morphismes de topos correspondants $g_i$.
+Posons $\mathcal{O}_i = g_i^{-1}\mathcal{O}$ ; nous obtenons ainsi des
+morphismes de topos annelés
+\begin{equation}
+\label{equation-three-maps}
+\begin{matrix}
+g_1 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_1)
+\longrightarrow (\Sh(\mathcal{C}_{B/A}), \mathcal{O}) \\
+g_2 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_2)
+\longrightarrow (\Sh(\mathcal{C}_{C/A}), \mathcal{O}) \\
+g_3 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_3)
+\longrightarrow (\Sh(\mathcal{C}_{C/B}), \mathcal{O})
+\end{matrix}
+\end{equation}
+Notons
+$\pi : \Sh(\mathcal{C}_{C/B/A}) \to \Sh(*)$,
+$\pi_1 : \Sh(\mathcal{C}_{B/A}) \to \Sh(*)$,
+$\pi_2 : \Sh(\mathcal{C}_{C/A}) \to \Sh(*)$, and
+$\pi_3 : \Sh(\mathcal{C}_{C/B}) \to \Sh(*)$,
+de sorte que $\pi = \pi_i \circ g_i$. Nous obtiendrons notre triangle
+distingué à partir de l'identification du complexe cotangent dans le lemme
+\ref{lemma-compute-cotangent-complex} et des lemmes suivants.
+
+\begin{lemma}
+\label{lemma-triangle-ses}
+Avec les notations de (\ref{equation-three-maps}), posons
+$$
+\begin{matrix}
+\Omega_1 = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}
+\text{ sur }\mathcal{C}_{B/A} \\
+\Omega_2 = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{C}
+\text{ sur }\mathcal{C}_{C/A} \\
+\Omega_3 = \Omega_{\mathcal{O}/B} \otimes_\mathcal{O} \underline{C}
+\text{ sur }\mathcal{C}_{C/B}
+\end{matrix}
+$$
+Alors nous avons une suite exacte courte canonique de faisceaux de
+$\underline{C}$-modules
+$$
+0 \to g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C} \to
+g_2^{-1}\Omega_2 \to
+g_3^{-1}\Omega_3 \to 0
+$$
+sur $\mathcal{C}_{C/B/A}$.
+\end{lemma}
+
+\begin{proof}
+Rappelons que $g_i^{-1}$ s'obtient simplement par précomposition avec $u_i$.
+Pour un objet $U = (P \to B, Q \to C)$, nous avons une suite exacte courte
+scindée
+$$
+0 \to \Omega_{P/A} \otimes Q \to \Omega_{Q/A} \to \Omega_{Q/P} \to 0
+$$
+par exemple d'après Algèbre, lemme
+\ref{algebra-lemma-ses-formally-smooth}. En tensorisant par $C$ sur $Q$,
+nous obtenons une suite exacte courte
+$$
+0 \to \Omega_{P/A} \otimes C \to \Omega_{Q/A} \otimes C \to
+\Omega_{Q/P} \otimes C \to 0
+$$
+Nous avons $\Omega_{P/A} \otimes C = \Omega_{P/A} \otimes B \otimes C$ ;
+c'est donc la valeur de
+$g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C}$
+en $U$. Le module $\Omega_{Q/A} \otimes C$ est la valeur de
+$g_2^{-1}\Omega_2$ en $U$. Nous avons
+$\Omega_{Q/P} \otimes C = \Omega_{Q \otimes_P B/B} \otimes C$
+d'après Algèbre, lemme \ref{algebra-lemma-differentials-base-change} ;
+c'est donc la valeur de $g_3^{-1}\Omega_3$ en $U$. La suite exacte courte
+du lemme s'obtient ainsi en associant à $U$ la dernière suite exacte courte
+affichée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-polynomial-on-top}
+Avec les notations de (\ref{equation-three-maps}), supposons que $C$ soit
+une algèbre polynomiale sur $B$. Alors
+$L\pi_!(g_3^{-1}\mathcal{F}) = L\pi_{3, !}\mathcal{F} = \pi_{3, !}\mathcal{F}$
+pour tout faisceau abélien $\mathcal{F}$ sur $\mathcal{C}_{C/B}$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $C = B[E]$ pour un certain ensemble $E$. Choisissons une résolution
+$P_\bullet \to B$ de $B$ sur $A$. Pour tout $n$, considérons l'objet
+$U_n = (P_n \to B, P_n[E] \to C)$ de $\mathcal{C}_{C/B/A}$. Alors
+$U_\bullet$ est un objet cosimplicial de $\mathcal{C}_{C/B/A}$. Notons que
+$u_3(U_\bullet)$ est l'objet cosimplicial constant de
+$\mathcal{C}_{C/B}$ de valeur $(C \to C)$. Nous allons démontrer que l'objet
+$U_\bullet$ de $\mathcal{C}_{C/B/A}$ satisfait aux hypothèses de
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+Cela implique le lemme, car on voit ainsi que $L\pi_!(g_3^{-1}\mathcal{F})$
+est calculé par le groupe abélien simplicial constant
+$\mathcal{F}(C \to C)$, qui est la valeur de
+$L\pi_{3, !}\mathcal{F} = \pi_{3, !}\mathcal{F}$ d'après le lemme
+\ref{lemma-pi-lower-shriek-polynomial-algebra}.
+
+\medskip\noindent
+Soit $U = (\beta : P \to B, \gamma : Q \to C)$ un objet de
+$\mathcal{C}_{C/B/A}$. Nous pouvons écrire $P = A[S]$ et
+$Q = A[S \amalg T]$, par définition de notre catégorie
+$\mathcal{C}_{C/B/A}$. Nous devons montrer que
+$$
+\Mor_{\mathcal{C}_{C/B/A}}(U_\bullet, U)
+$$
+est homotopiquement équivalent au singleton simplicial $*$. Observons que
+cet ensemble simplicial est le produit
+$$
+\prod\nolimits_{s \in S} F_s \times \prod\nolimits_{t \in T} F'_t
+$$
+où $F_s$ est l'ensemble simplicial correspondant à
+$U_s = (A[\{s\}] \to B, A[\{s\}] \to C)$
+et $F'_t$ est l'ensemble simplicial correspondant à
+$U_t = (A \to B, A[\{t\}] \to C)$. En effet, l'objet $U$ est le produit
+$\prod U_s \times \prod U_t$ dans $\mathcal{C}_{C/B/A}$. Il suffit que
+chaque $F_s$ et chaque $F'_t$ soit homotopiquement équivalent à $*$ ; voir
+Simplicial, lemme \ref{simplicial-lemma-products-homotopy}. Le cas de $F_s$
+résulte de ce que $P_\bullet \to B$ est une fibration de Kan triviale
+(puisqu'il s'agit d'une résolution) et que $F_s$ est la fibre de cette
+application au-dessus de $\beta(s)$. (Utiliser Simplicial, lemmes
+\ref{simplicial-lemma-trivial-kan-base-change} and
+\ref{simplicial-lemma-trivial-kan-homotopy}).
+Le cas de $F'_t$ est plus intéressant. Il s'agit ici d'affirmer que la
+fibre de
+$$
+P_\bullet[E] \longrightarrow C = B[E]
+$$
+au-dessus de $\gamma(t) \in C$ est homotopiquement équivalente à un point.
+En fait, nous allons montrer que cette application est une fibration de Kan
+triviale. En effet, $P_\bullet \to B$ est une fibration de Kan triviale.
+Pour tout anneau $R$, nous avons
+$$
+R[E] =
+\colim_{\Sigma \subset \text{Map}(E, \mathbf{Z}_{\geq 0})\text{ finite}}
+\prod\nolimits_{I \in \Sigma} R
+$$
+(colimite filtrante). Ainsi, l'application affichée d'ensembles simpliciaux
+est une colimite filtrante de fibrations de Kan triviales, donc une fibration
+de Kan triviale d'après Simplicial, lemme
+\ref{simplicial-lemma-filtered-colimit-trivial-kan}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-triangle-compute-lower-shriek}
+Avec les notations de (\ref{equation-three-maps}), nous avons
+$Lg_{i, !} \circ g_i^{-1} = \text{id}$ for $i = 1, 2, 3$
+et par conséquent aussi $L\pi_! \circ g_i^{-1} = L\pi_{i, !}$ pour
+$i = 1, 2, 3$.
+\end{lemma}
+
+\begin{proof}
+Démonstration pour $i = 1$. Nous affirmons que le foncteur
+$\mathcal{C}_{C/B/A}$ est une catégorie fibrée sur $\mathcal{C}_{B/A}$.
+En effet, supposons donnés $(P \to B, Q \to C)$ et un morphisme
+$(P' \to B) \to (P \to B)$ de $\mathcal{C}_{B/A}$. Rappelons que cela
+signifie que nous avons un homomorphisme de $A$-algèbres $P \to P'$
+compatible aux applications vers $B$. Posons alors $Q' = Q \otimes_P P'$,
+muni de l'application induite vers $C$ ; le morphisme
+$$
+(P' \to B, Q' \to C) \longrightarrow (P \to B, Q \to C)
+$$
+dans $\mathcal{C}_{C/B/A}$ (noter à nouveau le renversement des flèches)
+est fortement cartésien dans $\mathcal{C}_{C/B/A}$ au-dessus de
+$\mathcal{C}_{B/A}$. Observons en outre que la catégorie fibre de $u_1$
+au-dessus de $P \to B$ est la catégorie $\mathcal{C}_{C/P}$. Soit
+$\mathcal{F}$ un faisceau abélien sur $\mathcal{C}_{B/A}$. Puisque nous
+avons une catégorie fibrée, nous pouvons appliquer Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}. Ainsi,
+$L_ng_{1, !}g_1^{-1}\mathcal{F}$ est le (pré)faisceau qui associe à
+$U \in \Ob(\mathcal{C}_{B/A})$ la $n$-ième homologie de
+$g_1^{-1}\mathcal{F}$ restreint à la catégorie fibre au-dessus de $U$.
+Comme ces restrictions sont constantes, le résultat voulu découle du lemme
+\ref{lemma-pi-lower-shriek-constant-sheaf}, grâce aux identifications des
+catégories fibres données ci-dessus.
+
+\medskip\noindent
+Le cas $i = 2$. Nous affirmons que $\mathcal{C}_{C/B/A}$ est une catégorie
+fibrée sur $\mathcal{C}_{C/A}$. En effet, supposons donnés
+$(P \to B, Q \to C)$ et un morphisme $(Q' \to C) \to (Q \to C)$ de
+$\mathcal{C}_{C/A}$. Rappelons que cela signifie que nous avons un
+homomorphisme de $B$-algèbres $Q \to Q'$ compatible aux applications vers
+$C$. Alors
+$$
+(P \to B, Q' \to C) \longrightarrow (P \to B, Q \to C)
+$$
+est fortement cartésien dans $\mathcal{C}_{C/B/A}$ au-dessus de
+$\mathcal{C}_{C/A}$. Notons que la catégorie fibre de $u_2$ au-dessus de
+$Q \to C$ possède un objet final (attention au renversement des flèches),
+à savoir $(A \to B, Q \to C)$. Soit $\mathcal{F}$ un faisceau abélien sur
+$\mathcal{C}_{C/A}$. Puisque nous avons une catégorie fibrée, nous pouvons
+appliquer Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}. Ainsi,
+$L_ng_{2, !}g_2^{-1}\mathcal{F}$ est le (pré)faisceau qui associe à
+$U \in \Ob(\mathcal{C}_{C/A})$ la $n$-ième homologie de
+$g_1^{-1}\mathcal{F}$ restreint à la catégorie fibre au-dessus de $U$.
+Comme ces restrictions sont constantes, le résultat voulu découle de
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-initial-final}, puisque les catégories fibres
+possèdent toutes des objets finals.
+
+\medskip\noindent
+Le cas $i = 3$. Dans ce cas, nous appliquerons Cohomologie sur les sites,
+lemme
+\ref{sites-cohomology-lemma-compute-left-derived-g-shriek}
+à $u = u_3 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/B}$ et à
+$\mathcal{F}' = g_3^{-1}\mathcal{F}$, où $\mathcal{F}$ est un faisceau
+abélien sur $\mathcal{C}_{C/B}$. Supposons que
+$U = (\overline{Q} \to C)$ soit un objet de $\mathcal{C}_{C/B}$. Alors
+$\mathcal{I}_U = \mathcal{C}_{\overline{Q}/B/A}$ (attention encore au
+renversement des flèches). Le faisceau $\mathcal{F}'_U$ est donné par la
+règle $(P \to B, Q \to \overline{Q}) \mapsto \mathcal{F}(Q \otimes_P B \to C)$.
+Autrement dit, ce faisceau est l'image inverse d'un faisceau sur
+$\mathcal{C}_{\overline{Q}/C}$ par le morphisme
+$\Sh(\mathcal{C}_{\overline{Q}/B/A}) \to \Sh(\mathcal{C}_{\overline{Q}/B})$.
+Le lemme \ref{lemma-polynomial-on-top} montre donc que
+$H_n(\mathcal{I}_U, \mathcal{F}'_U) = 0$ for $n > 0$
+et est égal à $\mathcal{F}(\overline{Q} \to C)$ pour $n = 0$. Le lemme de
+Cohomologie sur les sites déjà cité,
+\ref{sites-cohomology-lemma-compute-left-derived-g-shriek}
+implique que $Lg_{3, !}(g_3^{-1}\mathcal{F}) = \mathcal{F}$, ce qui achève
+la démonstration.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-triangle}
+Soient $A \to B \to C$ des homomorphismes d'anneaux. Il existe un triangle
+distingué canonique
+$$
+L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]
+$$
+dans $D(C)$.
+\end{proposition}
+
+\begin{proof}
+Considérons la suite exacte courte de faisceaux du lemme
+\ref{lemma-triangle-ses} et appliquons-lui le foncteur dérivé $L\pi_!$ ;
+nous obtenons un triangle distingué
+$$
+L\pi_!(g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C}) \to
+L\pi_!(g_2^{-1}\Omega_2) \to
+L\pi_!(g_3^{-1}\Omega_3) \to
+L\pi_!(g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C})[1]
+$$
+dans $D(C)$. Les lemmes \ref{lemma-triangle-compute-lower-shriek} et
+\ref{lemma-compute-cotangent-complex}
+montrent que les deuxième et troisième termes s'identifient respectivement
+à $L_{C/A}$ et $L_{C/B}$, tandis que le premier est égal à
+$$
+L\pi_{1, !}(\Omega_1 \otimes_{\underline{B}} \underline{C}) =
+L\pi_{1, !}(\Omega_1) \otimes_B^\mathbf{L} C =
+L_{B/A} \otimes_B^\mathbf{L} C
+$$
+La première égalité résulte de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-change-of-rings}
+(et de la platitude de $\Omega_1$ comme faisceau de modules sur
+$\underline{B}$), et la seconde du lemme
+\ref{lemma-compute-cotangent-complex}.
+\end{proof}
+
+\begin{remark}
+\label{remark-triangle}
+Esquissons une autre démonstration, peut-être plus simple, de l'existence du
+triangle fondamental. Soient $A \to B \to C$ des homomorphismes d'anneaux et
+supposons que $B \to C$ soit injectif. Soit $P_\bullet \to B$ la résolution
+standard de $B$ sur $A$, et soit $Q_\bullet \to C$ la résolution standard de
+$C$ sur $B$. Représentons-les ainsi :
+$$
+\xymatrix{
+P_\bullet : &
+A[A[A[B]]] \ar[d]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[B]] \ar[d]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[B] \ar[d] \ar@<0ex>[l] \ar[r] &
+B \\
+Q_\bullet : &
+A[A[A[C]]]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[C]]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[C] \ar@<0ex>[l] \ar[r] &
+C
+}
+$$
+Puisque $B \to C$ est injectif, observons que l'anneau $Q_n$ est une algèbre
+polynomiale sur $P_n$ pour tout $n$. Nous obtenons donc un objet cosimplicial
+de $\mathcal{C}_{C/B/A}$ (attention au renversement des flèches). Posons
+maintenant $\overline{Q}_\bullet = Q_\bullet \otimes_{P_\bullet} B$.
+Le point clef de la démonstration de la proposition
+\ref{proposition-triangle} consiste à montrer que $\overline{Q}_\bullet$ est
+une résolution de $C$ sur $B$. Cela résulte de Cohomologie sur les sites,
+lemme
+\ref{sites-cohomology-lemma-O-homology-qis}
+appliqué à $\mathcal{C} = \Delta$, $\mathcal{O} = P_\bullet$,
+$\mathcal{O}' = B$ et $\mathcal{F} = Q_\bullet$ (on utilise ici que $Q_n$
+est plat sur $P_n$ ; pour relier les modules simpliciaux aux faisceaux, voir
+Cohomologie sur les sites, remarque
+\ref{sites-cohomology-remark-simplicial-modules}). Ce fait clef implique que
+le triangle distingué de la proposition \ref{proposition-triangle} est celui
+qui est associé à la suite exacte courte de $C$-modules simpliciaux
+$$
+0 \to
+\Omega_{P_\bullet/A} \otimes_{P_\bullet} C \to
+\Omega_{Q_\bullet/A} \otimes_{Q_\bullet} C \to
+\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C \to 0
+$$
+qui se déduit des suites exactes courtes
+$0 \to \Omega_{P_n/A} \otimes_{P_n} Q_n \to \Omega_{Q_n/A} \to
+\Omega_{Q_n/P_n} \to 0$ of
+Algebra, Lemma \ref{algebra-lemma-ses-formally-smooth}.
+En effet, d'après la remarque \ref{remark-resolution} et le fait clef, le
+complexe du membre de droite représente $L_{C/B}$ dans $D(C)$.
+
+\medskip\noindent
+Si $B \to C$ n'est pas injectif, nous pouvons appliquer ce qui précède pour
+obtenir un triangle fondamental pour $A \to B \to B \times C$. Puisque
+$L_{B \times C/B} \to L_{B/B} \oplus L_{C/B}$ and
+$L_{B \times C/A} \to L_{B/A} \oplus L_{C/A}$
+constituent des quasi-isomorphismes dans $D(B \times C)$
+(Lemma \ref{lemma-cotangent-complex-product})
+cela induit le triangle distingué voulu dans $D(C)$ en tensorisant par
+l'homomorphisme plat d'anneaux $B \times C \to C$.
+\end{remark}
+
+\begin{remark}
+\label{remark-explicit-map}
+Soient $A \to B \to C$ des homomorphismes d'anneaux, avec $B \to C$
+injectif. Rappelons les notations $P_\bullet$, $Q_\bullet$ et
+$\overline{Q}_\bullet$ de la remarque \ref{remark-triangle}. Soit
+$R_\bullet$ la résolution standard de $C$ sur $B$. Dans cette remarque,
+nous expliquons comment obtenir l'identification canonique de
+$\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C$ à
+$L_{C/B} = \Omega_{R_\bullet/B} \otimes_{R_\bullet} C$. Soit
+$S_\bullet \to B$ la résolution standard de $B$ sur $B$. Notons que
+l'application de fonctorialité $S_\bullet \to R_\bullet$ fait de $R_n$ une
+algèbre polynomiale sur $S_n$, puisque $B \to C$ est injectif.
+Par exemple, en degré $0$, nous avons l'application $B[B] \to B[C]$ ; en
+degré $1$, l'application $B[B[B]] \to B[B[C]]$ ; et ainsi de suite. Par
+conséquent,
+$\overline{R}_\bullet = R_\bullet \otimes_{S_\bullet} B$
+est elle aussi une algèbre polynomiale simpliciale sur $B$, et il résulte
+(comme dans la remarque \ref{remark-triangle}) de Cohomologie sur les sites,
+lemme
+\ref{sites-cohomology-lemma-O-homology-qis}
+que $\overline{R}_\bullet \to C$ est une résolution. Comme nous avons un
+diagramme commutatif
+$$
+\xymatrix{
+Q_\bullet \ar[r] & R_\bullet \\
+P_\bullet \ar[u] \ar[r] & S_\bullet \ar[u] \ar[r] & B
+}
+$$
+nous obtenons une application canonique
+$\overline{Q}_\bullet = Q_\bullet \otimes_{P_\bullet} B \to
+\overline{R}_\bullet$. Les applications
+$$
+L_{C/B} = \Omega_{R_\bullet/B} \otimes_{R_\bullet} C
+\longrightarrow
+\Omega_{\overline{R}_\bullet/B} \otimes_{\overline{R}_\bullet} C
+\longleftarrow
+\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C
+$$
+sont alors des quasi-isomorphismes (remarque \ref{remark-resolution}), et
+composer l'une avec l'inverse de l'autre donne l'identification voulue.
+\end{remark}
+
+
+
+
+
+\section{Localisation et homomorphismes d'anneaux \'etales}
+\label{section-localization}
+
+\noindent
+Dans cette section, nous étudions ce qui se passe lorsque nous localisons nos
+anneaux. Soient $A \to A' \to B$ des homomorphismes d'anneaux tels que
+$B = B \otimes_A^\mathbf{L} A'$. C'est le cas, par exemple, si
+$A' = S^{-1}A$ est le localisé de $A$ par une partie multiplicative
+$S \subset A$. Dans ce cas, pour un faisceau abélien $\mathcal{F}'$ sur
+$\mathcal{C}_{B/A'}$, l'homologie de $g^{-1}\mathcal{F}'$ sur
+$\mathcal{C}_{B/A}$ coïncide avec celle de $\mathcal{F}'$ sur
+$\mathcal{C}_{B/A'}$ ; voir le lemme \ref{lemma-flat-base-change} pour un
+énoncé précis.
+
+\begin{lemma}
+\label{lemma-localize-at-bottom}
+Soient $A \to A' \to B$ des homomorphismes d'anneaux tels que
+$B = B \otimes_A^\mathbf{L} A'$. Alors $L_{B/A} = L_{B/A'}$ dans $D(B)$.
+\end{lemma}
+
+\begin{proof}
+D'après la discussion précédente (c'est-à-dire en utilisant le lemme
+\ref{lemma-flat-base-change}) et le lemme
+\ref{lemma-compute-cotangent-complex}, il nous faut montrer que le faisceau
+défini sur $\mathcal{C}_{B/A}$ par la règle
+$(P \to B) \mapsto \Omega_{P/A} \otimes_P B$ est l'image inverse du faisceau
+défini par la règle $(P \to B) \mapsto \Omega_{P/A'} \otimes_P B$.
+Le foncteur image inverse $g^{-1}$ s'obtient en précomposant avec le foncteur
+$u : \mathcal{C}_{B/A} \to \mathcal{C}_{B/A'}$,
+$(P \to B) \mapsto (P \otimes_A A' \to B)$. Il nous faut donc montrer que
+$$
+\Omega_{P/A} \otimes_P B =
+\Omega_{P \otimes_A A'/A'} \otimes_{(P \otimes_A A')} B
+$$
+D'après Algèbre, lemme \ref{algebra-lemma-differentials-base-change}, le
+membre de droite est égal à
+$$
+(\Omega_{P/A} \otimes_A A') \otimes_{(P \otimes_A A')} B
+$$
+Comme $P$ est une algèbre polynomiale sur $A$, le module $\Omega_{P/A}$ est
+libre et l'égalité est évidente.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-derived-diagonal}
+Soit $A \to B$ un homomorphisme d'anneaux tel que
+$B = B \otimes_A^\mathbf{L} B$. Alors $L_{B/A} = 0$ dans $D(B)$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de $L_{B/A} = L_{B/B} = 0$, d'après les lemmes
+\ref{lemma-localize-at-bottom} et
+\ref{lemma-cotangent-complex-polynomial-algebra}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bootstrap}
+Soit $A \to B$ un homomorphisme d'anneaux tel que
+$\text{Tor}^A_i(B, B) = 0$ pour $i > 0$ et tel que
+$L_{B/B \otimes_A B} = 0$. Alors $L_{B/A} = 0$ dans $D(B)$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-flat-base-change-cotangent-complex}, on a
+$L_{B/A} \otimes_B^\mathbf{L} (B \otimes_A B) = L_{B \otimes_A B/B}$.
+Utilisons maintenant le triangle distingué (\ref{equation-triangle})
+$$
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B \to
+L_{B/B} \to L_{B/B \otimes_A B} \to
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B[1]
+$$
+associé aux homomorphismes d'anneaux $B \to B \otimes_A B \to B$, ainsi que
+l'annulation de $L_{B/B}$ (lemme
+\ref{lemma-cotangent-complex-polynomial-algebra}) et celle, supposée, de
+$L_{B/B \otimes_A B}$, pour obtenir
+$$
+0 =
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B =
+L_{B/A} \otimes_B^\mathbf{L} (B \otimes_A B)
+\otimes^\mathbf{L}_{(B \otimes_A B)} B = L_{B/A}
+$$
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-zero}
+Le complexe cotangent $L_{B/A}$ est nul dans chacun des cas suivants :
+\begin{enumerate}
+\item $A \to B$ et $B \otimes_A B \to B$ sont plats, c'est-à-dire que
+$A \to B$ est faiblement \'etale (Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-weakly-etale}),
+\item $A \to B$ est un épimorphisme plat d'anneaux,
+\item $B = S^{-1}A$ pour une partie multiplicative $S \subset A$,
+\item $A \to B$ est non ramifié et plat,
+\item $A \to B$ est \'etale,
+\item $A \to B$ est une colimite filtrante d'homomorphismes d'anneaux dont le
+complexe cotangent s'annule,
+\item $B$ est un hensélisé d'un anneau local de $A$,
+\item $B$ est un hensélisé strict d'un anneau local de $A$, et
+\item ajouter ici d'autres cas.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans le cas (1), nous pouvons appliquer le lemme
+\ref{lemma-derived-diagonal} à l'homomorphisme d'anneaux plat surjectif
+$B \otimes_A B \to B$ pour conclure que $L_{B/B \otimes_A B} = 0$, puis le
+lemme \ref{lemma-bootstrap} permet de conclure. Les cas (2) -- (5) sont tous
+des cas particuliers de (1). L'assertion (6) résulte du lemme
+\ref{lemma-colimit-cotangent-complex}. Les assertions (7) et (8) résultent du
+fait que les hensélisés (stricts) sont des colimites filtrantes d'extensions
+d'anneaux \'etales de $A$ ; voir Algèbre, lemmes
+\ref{algebra-lemma-henselization-different} et
+\ref{algebra-lemma-strict-henselization-different}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localize-on-top}
+Soient $A \to B \to C$ des homomorphismes d'anneaux tels que $L_{C/B} = 0$.
+Alors $L_{C/A} = L_{B/A} \otimes_B^\mathbf{L} C$.
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence immédiate du triangle distingué
+(\ref{equation-triangle}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localize}
+Soit $A \to B$ un homomorphisme d'anneaux, et soient $S \subset A$ et
+$T \subset B$ des parties multiplicatives telles que $S$ s'envoie dans $T$.
+Alors $L_{T^{-1}B/S^{-1}A} = L_{B/A} \otimes_B T^{-1}B$ dans $D(T^{-1}B)$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-localize-on-top},
+$L_{T^{-1}B/A} = L_{B/A} \otimes_B T^{-1}B$
+et, d'après le lemme \ref{lemma-localize-at-bottom},
+$L_{T^{-1}B/A} = L_{T^{-1}B/S^{-1}A}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cotangent-complex-henselization}
+Soit $A \to B$ un homomorphisme local d'anneaux locaux. Notons
+$A^h \to B^h$, resp.\ $A^{sh} \to B^{sh}$, les homomorphismes induits entre
+hensélisés, resp.\ hensélisés stricts. Alors
+$$
+L_{B^h/A^h} = L_{B^h/A} = L_{B/A} \otimes_B^\mathbf{L} B^h
+\quad\text{resp.}\quad
+L_{B^{sh}/A^{sh}} = L_{B^{sh}/A} = L_{B/A} \otimes_B^\mathbf{L} B^{sh}
+$$
+dans $D(B^h)$, resp.\ $D(B^{sh})$.
+\end{lemma}
+
+\begin{proof}
+Les complexes $L_{A^h/A}$, $L_{A^{sh}/A}$, $L_{B^h/B}$ et
+$L_{B^{sh}/B}$ sont tous nuls d'après le lemme \ref{lemma-when-zero}. En
+appliquant le triangle distingué fondamental (\ref{equation-triangle}) à
+$A \to B \to B^h$, nous obtenons
+$L_{B^h/A} = L_{B/A} \otimes_B^\mathbf{L} B^h$.
+Le triangle fondamental appliqué à $A \to A^h \to B^h$ donne
+$L_{B^h/A^h} = L_{B^h/A}$. Le raisonnement est le même pour les hensélisés
+stricts.
+\end{proof}
+
+
+
+
+\section{Homomorphismes d'anneaux lisses}
+\label{section-smooth}
+
+\noindent
+Soit $C \to B$ une surjection d'anneaux de noyau $I$. Disons qu'un tel
+homomorphisme d'anneaux est « faiblement quasi régulier » si $I/I^2$ est un
+$B$-module plat et si $\text{Tor}_*^C(B, B)$ est l'algèbre extérieure de
+$I/I^2$. Pour généraliser aux « homomorphismes d'anneaux lisses » ce qui est
+fait dans le lemme \ref{lemma-when-zero} pour les « homomorphismes d'anneaux
+\'etales », il convient de considérer les homomorphismes plats $A \to B$ tels
+que l'homomorphisme de multiplication $B \otimes_A B \to B$ soit faiblement
+quasi régulier. Pour le moment, nous nous en tenons aux homomorphismes
+d'anneaux lisses.
+
+\begin{lemma}
+\label{lemma-when-projective}
+Si $A \to B$ est un homomorphisme d'anneaux lisse, alors
+$L_{B/A} = \Omega_{B/A}[0]$.
+\end{lemma}
+
+\begin{proof}
+L'identification en degré cohomologique $0$ est donnée par le lemme
+\ref{lemma-identify-H0}. Il suffit donc de montrer que les autres groupes de
+cohomologie sont nuls. Il suffit de le faire localement sur $\Spec(B)$, puisque
+$L_{B_g/A} = (L_{B/A})_g$ pour $g \in B$ d'après le lemme
+\ref{lemma-localize-on-top}. Nous pouvons ainsi supposer que $A \to B$ est
+lisse standard (Algèbre, lemme \ref{algebra-lemma-smooth-syntomic}),
+c'est-à-dire que $A \to B$ se factorise sous la forme
+$A \to A[x_1, \ldots, x_n] \to B$, où
+$A[x_1, \ldots, x_n] \to B$ est \'etale. Dans ce cas, les lemmes
+\ref{lemma-when-zero} et \ref{lemma-localize-on-top} montrent que
+$L_{B/A} = L_{A[x_1, \ldots, x_n]/A} \otimes B$
+d'où la conclusion par le lemme
+\ref{lemma-cotangent-complex-polynomial-algebra}.
+\end{proof}
+
+
+
+
+
+\section{Caractéristique positive}
+\label{section-positive-characteristic}
+
+\noindent
+Dans cette section, nous fixons un nombre premier $p$. Si $A$ est un anneau
+tel que $p = 0$ dans $A$, alors $F_A : A \to A$ désigne l'endomorphisme de
+Frobenius $a \mapsto a^p$.
+
+\begin{lemma}
+\label{lemma-frobenius-homotopy}
+Soit $A \to B$ un homomorphisme d'anneaux tel que $p = 0$ dans $A$. Soit
+$P_\bullet$ la résolution standard de $B$ sur $A$. L'application
+$P_\bullet \to P_\bullet$ induite par le diagramme
+$$
+\xymatrix{
+B \ar[r]_{F_B} & B \\
+A \ar[u] \ar[r]^{F_A} & A \ar[u]
+}
+$$
+considéré dans la section \ref{section-functoriality} est homotope à
+l'endomorphisme de Frobenius $P_\bullet \to P_\bullet$ donné par Frobenius sur
+chaque $P_n$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{A}$ la catégorie des homomorphismes de $\mathbf{F}_p$-algèbres
+$A \to B$. Soit $\mathcal{S}$ la catégorie des couples $(A, E)$, où $A$ est
+une $\mathbf{F}_p$-algèbre et $E$ un ensemble. Considérons les foncteurs
+adjoints
+$$
+V : \mathcal{A} \to \mathcal{S}, \quad (A \to B) \mapsto (A, B)
+$$
+and
+$$
+U : \mathcal{S} \to \mathcal{A}, \quad (A, E) \mapsto (A \to A[E])
+$$
+Soit $X$ l'objet simplicial de la catégorie des foncteurs de $\mathcal{A}$
+dans $\mathcal{A}$ construit dans Simplicial, section
+\ref{simplicial-section-standard}. Il est clair que
+$P_\bullet = X(A \to B)$ car, si l'on fixe $A$, alors.
+
+\medskip\noindent
+Posons $Y = U \circ V$. Rappelons que $X$ est construit à partir de $Y$ et de
+certaines applications, et que ses termes sont
+$X_n = Y \circ \ldots \circ Y$, avec $n + 1$ facteurs ; la construction est
+donnée dans Simplicial, exemple \ref{simplicial-example-godement}, et l'on
+trouvera les détails dans la démonstration de Simplicial, lemme
+\ref{simplicial-lemma-standard-simplicial}.
+
+\medskip\noindent
+Soit $f : \text{id}_\mathcal{A} \to \text{id}_\mathcal{A}$ l'endomorphisme de
+Frobenius du foncteur identité. Autrement dit, posons
+$f_{A \to B} = (F_A, F_B) : (A \to B) \to (A \to B)$. Nos deux applications
+sur $X(A \to B)$ sont alors données par les transformations naturelles
+$f \star 1_X$ et $1_X \star f$. Nous omettons les détails. On conclut donc par
+Simplicial, lemme \ref{simplicial-lemma-godement-before-after}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-frobenius-acts-as-zero}
+Soit $p$ un nombre premier. Soit $A \to B$ un homomorphisme d'anneaux et
+supposons que $p = 0$ dans $A$. L'application $L_{B/A} \to L_{B/A}$ de la
+section \ref{section-functoriality} induite par les applications de Frobenius
+$F_A$ et $F_B$ est homotope à zéro.
+\end{lemma}
+
+\begin{proof}
+Soit $P_\bullet$ la résolution standard de $B$ sur $A$. D'après le lemme
+\ref{lemma-frobenius-homotopy}, l'application $P_\bullet \to P_\bullet$ induite
+par $F_A$ et $F_B$ est homotope à l'application
+$F_{P_\bullet} : P_\bullet \to P_\bullet$ donnée par Frobenius sur chaque
+terme. On obtient donc le résultat voulu, puisque $F_{P_\bullet}$ induit
+manifestement l'application nulle $\Omega_{P_n/A} \to \Omega_{P_n/A}$ (la
+dérivée d'une puissance $p$-ième étant nulle).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-perfect-zero}
+Soit $p$ un nombre premier. Soit $A \to B$ un homomorphisme d'anneaux et
+supposons que $p = 0$ dans $A$. Si $A$ et $B$ sont parfaits, alors $L_{B/A}$
+est nul dans $D(B)$.
+\end{lemma}
+
+\begin{proof}
+L'application $(F_A, F_B) : (A \to B) \to (A \to B)$ est un isomorphisme et
+induit donc un isomorphisme sur $L_{B/A}$ ; d'autre part, elle induit zéro sur
+$L_{B/A}$ d'après le lemme \ref{lemma-frobenius-acts-as-zero}.
+\end{proof}
+
+
+
+
+
+\section{Comparaison avec le complexe cotangent naïf}
+\label{section-surjections}
+
+\noindent
+Le complexe cotangent naïf a été introduit dans Algèbre, section
+\ref{algebra-section-netherlander}.
+
+\begin{remark}
+\label{remark-make-map}
+Soit $A \to B$ un homomorphisme d'anneaux. Travaillons sur
+$\mathcal{C}_{B/A}$ comme dans la section
+\ref{section-compute-L-pi-shriek}, et notons
+$\mathcal{J} \subset \mathcal{O}$ le noyau de
+$\mathcal{O} \to \underline{B}$. Remarquons que
+$L\pi_!(\mathcal{J}) = 0$ d'après le lemme
+\ref{lemma-apply-O-B-comparison}. Posons
+$\Omega =  \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$
+de sorte que
+$L_{B/A} = L\pi_!(\Omega)$ d'après le lemme
+\ref{lemma-compute-cotangent-complex}. Il s'ensuit que
+$L\pi_!(\mathcal{J} \to \Omega) = L\pi_!(\Omega) = L_{B/A}$. Ainsi, pour tout
+objet $U = (P \to B)$ de $\mathcal{C}_{B/A}$, nous obtenons une application
+\begin{equation}
+\label{equation-comparison-map-A}
+(J \to \Omega_{P/A} \otimes_P B) \longrightarrow L_{B/A}
+\end{equation}
+où $J = \Ker(P \to B)$ dans $D(A)$ ; voir Cohomologie sur les sites, remarque
+\ref{sites-cohomology-remark-map-evaluation-to-derived}. Poursuivant de cette
+façon, remarquons que
+$L\pi_!(\mathcal{J} \otimes_\mathcal{O}^\mathbf{L} \underline{B}) =
+L\pi_!(\mathcal{J}) = 0$ by
+Lemma \ref{lemma-O-homology-B-homology}.
+Comme $\text{Tor}_0^\mathcal{O}(\mathcal{J}, \underline{B}) =
+\mathcal{J}/\mathcal{J}^2$, la suite spectrale
+$$
+H_p(\mathcal{C}_{B/A}, \text{Tor}_q^\mathcal{O}(\mathcal{J}, \underline{B}))
+\Rightarrow 
+H_{p + q}(\mathcal{C}_{B/A},
+\mathcal{J} \otimes_\mathcal{O}^\mathbf{L} \underline{B}) = 0
+$$
+(duale de Catégories dérivées, lemme
+\ref{derived-lemma-two-ss-complex-functor}) implique que
+$H_0(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) = 0$
+and $H_1(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) = 0$.
+Il s'ensuit que le complexe de $\underline{B}$-modules
+$\mathcal{J}/\mathcal{J}^2 \to \Omega$ vérifie
+$\tau_{\geq -1}L\pi_!(\mathcal{J}/\mathcal{J}^2 \to \Omega) =
+\tau_{\geq -1}L_{B/A}$.
+Ainsi, pour tout objet $U = (P \to B)$ de $\mathcal{C}_{B/A}$, nous obtenons
+une application
+\begin{equation}
+\label{equation-comparison-map}
+(J/J^2 \to \Omega_{P/A} \otimes_P B) \longrightarrow \tau_{\geq -1}L_{B/A}
+\end{equation}
+dans $D(B)$ ; voir Cohomologie sur les sites, remarque
+\ref{sites-cohomology-remark-map-evaluation-to-derived}.
+\end{remark}
+
+\noindent
+Le premier cas est celui d'une surjection d'anneaux.
+
+\begin{lemma}
+\label{lemma-surjection}
+\begin{slogan}
+La cohomologie du complexe cotangent d'un homomorphisme d'anneaux surjectif est
+nulle en degré zéro ; en degré $-1$, elle est le noyau modulo son carré.
+\end{slogan}
+Soit $A \to B$ un homomorphisme d'anneaux surjectif de noyau $I$. Alors
+$H^0(L_{B/A}) = 0$ et $H^{-1}(L_{B/A}) = I/I^2$. Cet isomorphisme provient de
+l'application (\ref{equation-comparison-map}) pour l'objet $(A \to B)$ de
+$\mathcal{C}_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+Nous allons montrer ci-dessous (en utilisant la surjectivité de $A \to B$)
+qu'il existe une suite exacte courte
+$$
+0 \to \pi^{-1}(I/I^2) \to \mathcal{J}/\mathcal{J}^2 \to \Omega \to 0
+$$
+de faisceaux sur $\mathcal{C}_{B/A}$. En appliquant $L\pi_!$, puis la suite
+exacte longue d'homologie associée, et en utilisant l'annulation de
+$H_1(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)$ et de
+$H_0(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)$ établie dans la remarque
+\ref{remark-make-map}, nous obtenons le résultat voulu grâce au lemme
+\ref{lemma-pi-lower-shriek-constant-sheaf}.
+
+\medskip\noindent
+Il reste à vérifier l'énoncé local mentionné ci-dessus. Pour tout objet
+$U = (P \to B)$ de $\mathcal{C}_{B/A}$, nous pouvons choisir un isomorphisme
+$P = A[E]$ tel que l'homomorphisme $P \to B$ envoie chaque $e \in E$ sur zéro.
+Alors
+$J = \mathcal{J}(U) \subset P = \mathcal{O}(U)$
+est égal à $J = IP + (e; e \in E)$. La valeur en $U$ de la suite exacte courte
+de faisceaux ci-dessus est la suite
+$$
+0 \to I/I^2 \to J/J^2 \to \Omega_{P/A} \otimes_P B \to 0
+$$
+Nous omettons la vérification (indication : le seul point délicat est l'égalité
+$IP \cap J^2 = IJ$, qui résulte par exemple de Compléments sur l'algèbre,
+lemme \ref{more-algebra-lemma-conormal-sequence-H1-regular}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relation-with-naive-cotangent-complex}
+Soit $A \to B$ un homomorphisme d'anneaux. Alors
+$\tau_{\geq -1}L_{B/A}$ est canoniquement quasi-isomorphe au complexe
+cotangent naïf.
+\end{lemma}
+
+\begin{proof}
+Considérons $P = A[B] \to B$, de noyau $I$. Le complexe cotangent naïf
+$\NL_{B/A}$ de $B$ sur $A$ est le complexe
+$I/I^2 \to \Omega_{P/A} \otimes_P B$ ; voir Algèbre, définition
+\ref{algebra-definition-naive-cotangent-complex}. Remarquons que nous avons
+déjà construit dans (\ref{equation-comparison-map}) une application canonique
+$$
+c : \NL_{B/A} \longrightarrow \tau_{\geq -1}L_{B/A}
+$$
+Considérons le triangle distingué (\ref{equation-triangle})
+$$
+L_{P/A} \otimes_P^\mathbf{L} B \to L_{B/A} \to L_{B/P} \to 
+(L_{P/A} \otimes_P^\mathbf{L} B)[1]
+$$
+associé aux homomorphismes d'anneaux $A \to A[B] \to B$. Nous savons que
+$L_{P/A} = \Omega_{P/A}[0] = \NL_{P/A}$ in $D(P)$
+(lemme \ref{lemma-cotangent-complex-polynomial-algebra} et Algèbre, lemme
+\ref{algebra-lemma-NL-polynomial-algebra}) et que
+$\tau_{\geq -1}L_{B/P} = I/I^2[1] = \NL_{B/P}$ in $D(B)$
+(lemme \ref{lemma-surjection} et Algèbre, lemme
+\ref{algebra-lemma-NL-surjection}). Pour montrer que $c$ est un
+quasi-isomorphisme, il suffit, d'après Algèbre, lemme
+\ref{algebra-lemma-exact-sequence-NL}, et la suite exacte longue de cohomologie
+associée au triangle distingué, de montrer que les applications
+$L_{P/A} \to L_{B/A} \to L_{B/P}$ sont compatibles sur les groupes de
+cohomologie avec les applications correspondantes
+$\NL_{P/A} \to \NL_{B/A} \to \NL_{B/P}$
+du complexe cotangent naïf. Nous omettons la vérification.
+\end{proof}
+
+\begin{remark}
+\label{remark-explicit-comparison-map}
+Nous pouvons expliciter comme suit l'application de comparaison du lemme
+\ref{lemma-relation-with-naive-cotangent-complex}. Soit $P_\bullet$ la
+résolution standard de $B$ sur $A$. Posons $I = \Ker(A[B] \to B)$. Rappelons
+que $P_0 = A[B]$. L'application du lemme est donnée par le diagramme
+commutatif
+$$
+\xymatrix{
+L_{B/A} \ar[d] & \ldots \ar[r] &
+\Omega_{P_2/A} \otimes_{P_2} B
+\ar[r] \ar[d] &
+\Omega_{P_1/A} \otimes_{P_1} B
+\ar[r] \ar[d] &
+\Omega_{P_0/A} \otimes_{P_0} B
+\ar[d] \\
+\NL_{B/A} & \ldots \ar[r] &
+0 \ar[r] & 
+I/I^2 \ar[r] &
+\Omega_{P_0/A} \otimes_{P_0} B
+}
+$$
+Nous construisons la flèche descendante de but $I/I^2$ en envoyant
+$\text{d}f \otimes b$ sur la classe de $(d_0(f) - d_1(f))b$ dans $I/I^2$.
+Ici, $d_i : P_1 \to P_0$, $i = 0, 1$, sont les deux applications de face de
+la structure simpliciale. Cela a un sens puisque $d_0 - d_1$ envoie $P_1$
+dans $I = \Ker(P_0 \to B)$. Nous omettons de vérifier que cette règle est bien
+définie. Notre application est compatible avec la différentielle
+$\Omega_{P_1/A} \otimes_{P_1} B \to \Omega_{P_0/A} \otimes_{P_0} B$
+car celle-ci envoie $\text{d}f \otimes b$ sur
+$\text{d}(d_0(f) - d_1(f)) \otimes b$. En outre, la différentielle
+$\Omega_{P_2/A} \otimes_{P_2} B \to \Omega_{P_1/A} \otimes_{P_1} B$
+envoie $\text{d}f \otimes b$ sur
+$\text{d}(d_0(f) - d_1(f) + d_2(f)) \otimes b$, qui est annulé par notre
+flèche descendante. Nous obtenons ainsi une application de complexes. Nous
+omettons de vérifier qu'elle coïncide avec l'application du lemme
+\ref{lemma-relation-with-naive-cotangent-complex}.
+\end{remark}
+
+\begin{remark}
+\label{remark-surjection}
+Reprenons les notations de la remarque \ref{remark-make-map}. Les arguments
+qui y sont donnés montrent que la différentielle
+$$
+H_2(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)
+\longrightarrow
+H_0(\mathcal{C}_{B/A}, \text{Tor}_1^\mathcal{O}(\mathcal{J}, \underline{B}))
+$$
+de la suite spectrale est un isomorphisme. Notons $\mathcal{C}'_{B/A}$ la
+sous-catégorie pleine de $\mathcal{C}_{B/A}$ formée des homomorphismes
+surjectifs $P \to B$. L'identification du complexe cotangent avec le complexe
+cotangent naïf (lemme \ref{lemma-relation-with-naive-cotangent-complex}) montre
+que nous avons une suite exacte de faisceaux
+$$
+0 \to \underline{H_1(L_{B/A})} \to
+\mathcal{J}/\mathcal{J}^2 \xrightarrow{\text{d}} \Omega \to
+\underline{H_2(L_{B/A})} \to 0
+$$
+sur $\mathcal{C}'_{B/A}$. Il s'ensuit que $\Ker(d)$ et $\Coker(d)$ sur la
+catégorie tout entière $\mathcal{C}_{B/A}$ ont leurs groupes d'homologie
+supérieure nuls, puisque ceux-ci sont calculés par les groupes d'homologie de
+groupes abéliens simpliciaux constants d'après le lemme
+\ref{lemma-identify-pi-shriek}. Nous en concluons que
+$$
+H_n(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) \to H_n(L_{B/A})
+$$
+est un isomorphisme pour tout $n \geq 2$. Avec la remarque précédente, ceci
+donne la formule
+$H_2(L_{B/A}) =
+H_0(\mathcal{C}_{B/A}, \text{Tor}_1^\mathcal{O}(\mathcal{J}, \underline{B}))$.
+\end{remark}
+
+
+
+
+
+\section{Une suite spectrale de Quillen}
+\label{section-spectral-sequence}
+
+\noindent
+Dans cette section, nous étudions une suite spectrale qui relie le produit
+tensoriel dérivé au complexe cotangent.
+
+\begin{lemma}
+\label{lemma-vanishing-symmetric-powers}
+Adoptons les notations et les hypothèses de Cohomologie sur les sites, exemple
+\ref{sites-cohomology-example-category-to-point}. Supposons que $\mathcal{C}$
+possède un objet cosimplicial comme dans Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}. Soit
+$\mathcal{F}$ un $\underline{B}$-module plat tel que
+$H_0(\mathcal{C}, \mathcal{F}) = 0$. Alors
+$H_l(\mathcal{C}, \text{Sym}_{\underline{B}}^k(\mathcal{F})) = 0$ pour
+$l < k$.
+\end{lemma}
+
+\begin{proof}
+Nous omettons l'indice ${}_{\underline{B}}$ dans les produits tensoriels, les
+puissances extérieures et les puissances symétriques. Démontrons le lemme par
+récurrence sur $k$. Les cas $k = 0, 1$ résultent des hypothèses. Si $k > 1$,
+considérons le complexe exact
+$$
+\ldots \to
+\wedge^2\mathcal{F} \otimes \text{Sym}^{k - 2}\mathcal{F} \to
+\mathcal{F} \otimes \text{Sym}^{k - 1}\mathcal{F} \to
+\text{Sym}^k\mathcal{F} \to 0
+$$
+dont les différentielles sont celles du complexe de Koszul. Considéré comme
+une résolution de $\text{Sym}^k\mathcal{F}$, ce complexe donne une suite
+spectrale du premier quadrant
+$$
+E_1^{p, q} =
+H_p(\mathcal{C},
+\wedge^{q + 1}\mathcal{F} \otimes \text{Sym}^{k - q - 1}\mathcal{F})
+\Rightarrow
+H_{p + q}(\mathcal{C}, \text{Sym}^k(\mathcal{F}))
+$$
+D'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-eilenberg-zilber}, nous avons
+$$
+L\pi_!(\wedge^{q + 1}\mathcal{F} \otimes \text{Sym}^{k - q - 1}\mathcal{F}) =
+L\pi_!(\wedge^{q + 1}\mathcal{F}) \otimes_B^\mathbf{L}
+L\pi_!(\text{Sym}^{k - q - 1}\mathcal{F}))
+$$
+Il résulte de la construction des produits tensoriels dérivés que l'hypothèse
+de récurrence, jointe à l'annulation de
+$H_0(\mathcal{C}, \wedge^{q + 1}(\mathcal{F})) = 0$, donnera le résultat voulu.
+Cette annulation est vraie parce que $\wedge^{q + 1}(\mathcal{F})$ est un
+quotient de $\mathcal{F}^{\otimes q + 1}$ et que
+$H_0(\mathcal{C}, \mathcal{F}^{\otimes q + 1})$ est un quotient de
+$H_0(\mathcal{C}, \mathcal{F})^{\otimes q + 1}$, qui est nul.
+\end{proof}
+
+\begin{remark}
+\label{remark-first-homology-symmetric-power}
+Dans la situation du lemme \ref{lemma-vanishing-symmetric-powers}, on peut
+montrer que
+$H_k(\mathcal{C}, \text{Sym}^k(\mathcal{F})) =
+\wedge^k_B(H_1(\mathcal{C}, \mathcal{F}))$.
+En effet, on peut déduire de la démonstration que
+$H_k(\mathcal{C}, \text{Sym}^k(\mathcal{F}))$ est le module des coinvariants
+sous $S_k$ de
+$$
+H^{-k}(L\pi_!(\mathcal{F}) \otimes_B^\mathbf{L}
+L\pi_!(\mathcal{F}) \otimes_B^\mathbf{L}
+\ldots \otimes_B^\mathbf{L} L\pi_!(\mathcal{F})) =
+H_1(\mathcal{C}, \mathcal{F})^{\otimes k}
+$$
+Notre assertion est donc que cette action est l'action usuelle de $S_k$ sur le
+produit tensoriel, multipliée par le caractère signature. Pour le démontrer,
+il faut examiner les conventions de signes dans la définition du complexe
+total associé à un multicomplexe. Nous omettons la vérification.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-map-tors-zero}
+Soit $A$ un anneau. Soit $P = A[E]$ un anneau de polynômes. Posons
+$I = (e; e \in E) \subset P$. Les applications
+$\text{Tor}_i^P(A, I^{n + 1}) \to \text{Tor}_i^P(A, I^n)$
+sont nulles pour tous $i$ et $n$.
+\end{lemma}
+
+\begin{proof}
+Notons $x_e \in P$ la variable correspondant à $e \in E$. Le complexe de
+Koszul $K_\bullet$ associé aux $x_e$ fournit une résolution libre de $A$ sur
+$P$. Ici, $K_i$ a pour base les produits extérieurs
+$e_1 \wedge \ldots \wedge e_i$, $e_1, \ldots, e_i \in E$, et $d(e) = x_e$.
+Ainsi, $K_\bullet \otimes_P I^n = I^nK_\bullet$ calcule
+$\text{Tor}_i^P(A, I^n)$. Remarquons que tout est gradué, avec
+$\deg(x_e) = 1$, $\deg(e) = 1$ et $\deg(a) = 0$ pour $a \in A$. Soit
+$\xi \in I^{n + 1}K_i$ un cocycle homogène de degré $m$. On a
+$m \geq i + 1 + n$. Il existe alors $\eta \in K_{i + 1}$ tel que
+$\xi = \text{d}\eta$, puisque $K_\bullet$ est exact en degrés $ > 0$. (Le cas
+$i = 0$ est laissé au lecteur.) Or $\deg(\eta) = m \geq i + 1 + n$. En
+écrivant $\eta$ dans la base, on voit donc que ses coordonnées appartiennent à
+$I^n$. Ainsi, $\xi$ s'envoie sur zéro dans l'homologie de $I^nK_\bullet$,
+comme voulu.
+\end{proof}
+
+\begin{theorem}[Suite spectrale de Quillen]
+\label{theorem-quillen-spectral-sequence}
+Soit $A \to B$ un homomorphisme d'anneaux surjectif. Considérons le faisceau
+de $\underline{B}$-modules
+$\Omega = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$ sur
+$\mathcal{C}_{B/A}$ ; voir la section \ref{section-compute-L-pi-shriek}. Il
+existe alors une suite spectrale dont la page $E_1$ est
+$$
+E_1^{p, q} =
+H_{- p - q}(\mathcal{C}_{B/A}, \text{Sym}^p_{\underline{B}}(\Omega))
+\Rightarrow \text{Tor}^A_{- p - q}(B, B)
+$$
+et dans laquelle $d_r$ est de bidegré $(r, -r + 1)$. De plus,
+$H_i(\mathcal{C}_{B/A}, \text{Sym}^k_{\underline{B}}(\Omega)) = 0$ pour
+$i < k$.
+\end{theorem}
+
+\begin{proof}
+Soit $I \subset A$ le noyau de $A \to B$. Soit
+$\mathcal{J} \subset \mathcal{O}$ le noyau de
+$\mathcal{O} \to \underline{B}$. Alors
+$I\mathcal{O} \subset \mathcal{J}$. Posons
+$\mathcal{K} = \mathcal{J}/I\mathcal{O}$ and
+$\overline{\mathcal{O}} = \mathcal{O}/I\mathcal{O}$.
+
+\medskip\noindent
+Pour tout objet $U = (P \to B)$ de $\mathcal{C}_{B/A}$, nous pouvons choisir
+un isomorphisme $P = A[E]$ tel que l'homomorphisme $P \to B$ envoie chaque
+$e \in E$ sur zéro. Alors
+$J = \mathcal{J}(U) \subset P = \mathcal{O}(U)$
+est égal à $J = IP + (e; e \in E)$. De plus,
+$\overline{\mathcal{O}}(U) = B[E]$ and $K = \mathcal{K}(U) = (e; e \in E)$
+est l'idéal engendré par les variables dans l'anneau de polynômes $B[E]$. En
+particulier, il est clair que
+$$
+K/K^2 \xrightarrow{\text{d}} \Omega_{P/A} \otimes_P B
+$$
+est une bijection. Autrement dit, $\Omega = \mathcal{K}/\mathcal{K}^2$ et
+$\text{Sym}_B^k(\Omega) = \mathcal{K}^k/\mathcal{K}^{k + 1}$. Remarquons que
+$\pi_!(\Omega) = \Omega_{B/A} = 0$ (lemme \ref{lemma-identify-H0}), puisque
+$A \to B$ est surjectif (Algèbre, lemme
+\ref{algebra-lemma-trivial-differential-surjective}). D'après le lemme
+\ref{lemma-vanishing-symmetric-powers}, nous en concluons que
+$$
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^k/\mathcal{K}^{k + 1}) =
+H_i(\mathcal{C}_{B/A}, \text{Sym}^k_{\underline{B}}(\Omega)) = 0
+$$
+pour $i < k$. Cela démontre la dernière assertion du théorème.
+
+\medskip\noindent
+Pour aborder le théorème, remarquons que
+$$
+B \otimes_A^\mathbf{L} B = L\pi_!(\mathcal{O}) \otimes_A^\mathbf{L} B =
+L\pi_!(\mathcal{O} \otimes_{\underline{A}}^\mathbf{L} \underline{B}) =
+L\pi_!(\overline{\mathcal{O}})
+$$
+La première égalité résulte du lemme \ref{lemma-apply-O-B-comparison}, la
+deuxième de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-change-of-rings}, et la troisième de la platitude
+de $\mathcal{O}$ sur $\underline{A}$. Le faisceau
+$\overline{\mathcal{O}}$ possède une filtration
+$$
+\ldots \subset
+\mathcal{K}^3 \subset
+\mathcal{K}^2 \subset
+\mathcal{K} \subset
+\overline{\mathcal{O}}
+$$
+Celle-ci induit une filtration $F$ sur un complexe $C$ représentant
+$L\pi_!(\overline{\mathcal{O}})$, où $F^pC$ représente
+$L\pi_!(\mathcal{K}^p)$ (nous omettons la construction de $C$ et de $F$).
+Considérons la suite spectrale de Homologie, section
+\ref{homology-section-filtered-complex}, associée à $(C, F)$. Sa page $E_1$
+est
+$$
+E_1^{p, q} = H_{- p - q}(\mathcal{C}_{B/A}, \mathcal{K}^p/\mathcal{K}^{p + 1})
+\quad\Rightarrow\quad
+H_{- p - q}(\mathcal{C}_{B/A}, \overline{\mathcal{O}}) = 
+\text{Tor}_{- p - q}^A(B, B)
+$$
+et ses différentielles sont
+$E_r^{p, q} \to E_r^{p + r, q - r + 1}$. Pour montrer la convergence, nous
+allons établir que, pour tout $k$, il existe un $c$ tel que
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^n) = 0$
+pour $i < k$ et $n > c$\footnote{A posteriori, on pourra en déduire
+l'annulation « correcte » $H_i(\mathcal{C}_{B/A}, \mathcal{K}^n) = 0$ pour
+$i < n$.}.
+
+\medskip\noindent
+Étant donné $k \geq 0$, posons $c = k^2$. Nous affirmons que
+$$
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) \to
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^n)
+$$
+est nulle pour $i < k$ et tout $n \geq 0$. Remarquons que
+$\mathcal{K}^n/\mathcal{K}^{n + c}$ possède une filtration finie dont les
+quotients successifs $\mathcal{K}^m/\mathcal{K}^{m + 1}$,
+$n \leq m < n + c$, vérifient
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^m/\mathcal{K}^{m + 1}) = 0$ pour $i < n$
+(voir ci-dessus). L'assertion implique donc
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) = 0$ for $i < k$ and all
+$n \geq k$, ce qu'il fallait montrer.
+
+\medskip\noindent
+Démonstration de l'assertion. Rappelons que, pour tout $\mathcal{O}$-module
+$\mathcal{F}$, l'application
+$\mathcal{F} \to \mathcal{F} \otimes_\mathcal{O}^\mathbf{L} B$ induit un
+isomorphisme après application de $L\pi_!$ ; voir le lemme
+\ref{lemma-O-homology-B-homology}. Considérons l'application
+$$
+\mathcal{K}^{n + k} \otimes_\mathcal{O}^\mathbf{L} B
+\longrightarrow
+\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B
+$$
+Nous affirmons que cette application induit l'application nulle sur les
+faisceaux de cohomologie en degrés $0, -1, \ldots, - k + 1$. Si cette seconde
+assertion est vraie, la composée de $k$ applications
+$$
+\mathcal{K}^{n + c} \otimes_\mathcal{O}^\mathbf{L} B
+\longrightarrow
+\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B
+$$
+se factorise par
+$\tau_{\leq -k}\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B$ et induit donc
+zéro sur $H_i(\mathcal{C}_{B/A}, -) = L_i\pi_!( - )$ pour $i < k$ ; voir
+Catégories dérivées, lemme
+\ref{derived-lemma-trick-vanishing-composition}. D'après la remarque
+précédente, il en va de même de
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) \to
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^n)$
+ce qui démontre la première assertion.
+
+\medskip\noindent
+Démonstration de la seconde assertion. L'énoncé est local ; nous pouvons donc
+travailler au-dessus d'un objet $U = (P \to B)$ comme ci-dessus. Il faut
+montrer que les applications
+$$
+\text{Tor}_i^P(B, K^{n + k}) \to \text{Tor}_i^P(B, K^n)
+$$
+sont nulles pour $i < k$. Il existe une suite spectrale
+$$
+\text{Tor}_a^P(P/IP, \text{Tor}_b^{P/IP}(B, K^n))
+\Rightarrow
+\text{Tor}_{a + b}^P(B, K^n),
+$$
+voir Compléments sur l'algèbre, exemple
+\ref{more-algebra-example-tor-change-rings}. Il suffit donc de montrer que les
+applications
+$$
+\text{Tor}_i^{P/IP}(B, K^{n + 1}) \to \text{Tor}_i^{P/IP}(B, K^n)
+$$
+sont nulles pour tout $i$. C'est le lemme \ref{lemma-map-tors-zero}.
+\end{proof}
+
+\begin{remark}
+\label{remark-elucidate-ss}
+Dans la situation du théorème \ref{theorem-quillen-spectral-sequence}, posons
+$I = \Ker(A \to B)$. Alors
+$H^{-1}(L_{B/A}) = H_1(\mathcal{C}_{B/A}, \Omega) = I/I^2$, see
+Lemma \ref{lemma-surjection}.
+Ainsi,
+$H_k(\mathcal{C}_{B/A}, \text{Sym}^k(\Omega)) = \wedge^k_B(I/I^2)$ d'après la
+remarque \ref{remark-first-homology-symmetric-power}. La page $E_1$ se présente
+donc sous la forme
+$$
+\begin{matrix}
+B \\
+0 \\
+0 & I/I^2 \\
+0 & H^{-2}(L_{B/A}) \\
+0 & H^{-3}(L_{B/A}) & \wedge^2(I/I^2) \\
+0 & H^{-4}(L_{B/A}) & H_3(\mathcal{C}_{B/A}, \text{Sym}^2(\Omega)) \\
+0 & H^{-5}(L_{B/A}) & H_4(\mathcal{C}_{B/A}, \text{Sym}^2(\Omega)) &
+\wedge^3(I/I^2)
+\end{matrix}
+$$
+avec une différentielle horizontale. Nous obtenons ainsi des morphismes de bord
+$\text{Tor}_i^A(B, B) \to H^{-i}(L_{B/A})$, $i > 0$, et
+$\wedge^i_B(I/I^2) \to \text{Tor}_i^A(B, B)$. Enfin,
+$\text{Tor}_1^A(B, B) = I/I^2$ et il existe une suite exacte à cinq termes
+$$
+\text{Tor}_3^A(B, B) \to H^{-3}(L_{B/A}) \to \wedge^2_B(I/I^2) \to
+\text{Tor}_2^A(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+formée des termes de bas degré.
+\end{remark}
+
+\begin{remark}
+\label{remark-elucidate-degree-two}
+Soit $A \to B$ un homomorphisme d'anneaux. Soit $P_\bullet$ une résolution de
+$B$ sur $A$ (remarque \ref{remark-resolution}). Posons
+$J_n = \Ker(P_n \to B)$. Remarquons que
+$$
+\text{Tor}_2^{P_n}(B, B) = 
+\text{Tor}_1^{P_n}(J_n, B) =
+\Ker(J_n \otimes_{P_n} J_n \to J_n^2).
+$$
+Ainsi, $H_2(L_{B/A})$ est canoniquement égal à
+$$
+\Coker(\text{Tor}_2^{P_1}(B, B) \to \text{Tor}_2^{P_0}(B, B))
+$$
+d'après la remarque \ref{remark-surjection}. Pour expliciter ceci, choisissons
+$P_2$, $P_1$, $P_0$ comme dans l'exemple
+\ref{example-resolution-length-two}. Nous affirmons que
+$$
+\text{Tor}_2^{P_1}(B, B) =
+\wedge^2(\bigoplus\nolimits_{t \in T} B)\ \oplus
+\ \bigoplus\nolimits_{t \in T} J_0\ \oplus
+\ \text{Tor}_2^{P_0}(B, B)
+$$
+Plus précisément, les éléments de base $x_t \wedge x_{t'}$ du premier facteur
+direct correspondent à l'élément
+$x_t \otimes x_{t'} - x_{t'} \otimes x_t$ de $J_1 \otimes_{P_1} J_1$. Pour
+$f \in J_0$, l'élément $x_t \otimes f$ du deuxième facteur direct correspond
+à l'élément $x_t \otimes s_0(f) - s_0(f) \otimes x_t$ de
+$J_1 \otimes_{P_1} J_1$. Enfin, l'application
+$\text{Tor}_2^{P_0}(B, B) \to \text{Tor}_2^{P_1}(B, B)$ est donnée par $s_0$.
+L'application
+$d_0 - d_1 : \text{Tor}_2^{P_1}(B, B) \to \text{Tor}_2^{P_0}(B, B)$
+est nulle sur le dernier facteur direct, envoie $x_t \otimes f$ sur
+$f \otimes f_t - f_t \otimes f$, et $x_t \wedge x_{t'}$ sur
+$f_t \otimes f_{t'} - f_{t'} \otimes f_t$. En définitive, nous en concluons
+qu'il existe une suite exacte
+$$
+\wedge^2_B(J_0/J_0^2) \to \text{Tor}_2^{P_0}(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+Nous obtenons ainsi une démonstration directe d'une conséquence de la suite
+spectrale de Quillen examinée dans la remarque \ref{remark-elucidate-ss}.
+\end{remark}
+
+
+
+
+
+
+\section{Comparaison avec Lichtenbaum-Schlessinger}
+\label{section-compare-higher}
+
+\noindent
+Soit $A \to B$ un homomorphisme d'anneaux. L'article
+\cite{Lichtenbaum-Schlessinger} donne une détermination assez explicite de
+$\tau_{\geq -2}L_{B/A}$, souvent utilisée pour calculer les espaces de
+déformations verselles de singularités. En voici la construction. Choisissons
+une algèbre polynomiale $P$ sur $A$ et une surjection $P \to B$ de noyau $I$.
+Choisissons des générateurs $f_t$, $t \in T$, de $I$, ce qui induit une
+surjection $F = \bigoplus_{t \in T} P \to I$, où $F$ est un $P$-module libre.
+Soit $Rel \subset F$ le noyau de $F \to I$ ; autrement dit, $Rel$ est
+l'ensemble des relations entre les $f_t$. Soit $TrivRel \subset Rel$ le
+sous-module des relations triviales, c'est-à-dire le sous-module de $Rel$
+engendré par les éléments
+$(\ldots, f_{t'}, 0, \ldots, 0, -f_t, 0, \ldots)$. Considérons le complexe de
+$B$-modules
+\begin{equation}
+\label{equation-lichtenbaum-schlessinger}
+Rel/TrivRel \longrightarrow
+F \otimes_P B \longrightarrow
+\Omega_{P/A} \otimes_P B
+\end{equation}
+où le dernier terme est placé en degré $0$. La première application est
+l'application évidente et la seconde envoie l'élément de base correspondant à
+$t \in T$ sur $\text{d}f_t \otimes 1$.
+
+\begin{definition}
+\label{definition-biderivation}
+Soit $A \to B$ un homomorphisme d'anneaux. Soit $M$ un $(B, B)$-bimodule sur
+$A$. Une {\it $A$-bidérivation} est une application $A$-linéaire
+$\lambda : B \to M$ telle que $\lambda(xy) = x\lambda(y) + \lambda(x)y$.
+\end{definition}
+
+\noindent
+Pour une algèbre polynomiale, les bidérivations sont faciles à décrire.
+
+\begin{lemma}
+\label{lemma-polynomial-ring-unique}
+Soit $P = A[S]$ un anneau de polynômes sur $A$. Soit $M$ un
+$(P, P)$-bimodule sur $A$. Étant donnés des $m_s \in M$, pour $s \in S$, il
+existe une unique $A$-bidérivation $\lambda : P \to M$ qui envoie $s$ sur
+$m_s$ pour $s \in S$.
+\end{lemma}
+
+\begin{proof}
+Posons
+$$
+\lambda(s_1 \ldots s_t) =
+\sum s_1 \ldots s_{i - 1} m_{s_i} s_{i + 1} \ldots s_t
+$$
+dans $M$. Le prolongement par $A$-linéarité est une bidérivation.
+\end{proof}
+
+\noindent
+Voici l'énoncé de comparaison. Le lecteur pourra également consulter
+\cite[page 206, Proposition 12]{Andre-Homologie} ou l'article \cite{Doncel},
+qui prolonge le complexe (\ref{equation-lichtenbaum-schlessinger}) d'un terme
+et étend la comparaison à $\tau_{\geq -3}$.
+
+\begin{lemma}
+\label{lemma-compare-higher}
+Dans la situation précédente, notons $L$ le complexe
+(\ref{equation-lichtenbaum-schlessinger}). Il existe dans $D(B)$ une
+application canonique $L_{B/A} \to L$ qui induit un isomorphisme
+$\tau_{\geq -2}L_{B/A} \to L$ dans $D(B)$.
+\end{lemma}
+
+\begin{proof}
+Soit $P_\bullet \to B$ une résolution de $B$ sur $A$ (remarque
+\ref{remark-resolution}). Nous identifierons $L_{B/A}$ à
+$\Omega_{P_\bullet/A} \otimes B$. Pour construire l'application, effectuons
+quelques choix.
+
+\medskip\noindent
+Choisissons un homomorphisme de $A$-algèbres $\psi : P_0 \to P$ compatible
+avec les homomorphismes donnés $P_0 \to B$ et $P \to B$.
+
+\medskip\noindent
+Écrivons $P_1 = A[S]$ pour un certain ensemble $S$. Pour $s \in S$, nous
+pouvons écrire
+$$
+\psi(d_0(s) - d_1(s)) = \sum p_{s, t} f_t
+$$
+pour certains $p_{s, t} \in P$. Considérons
+$F = \bigoplus_{t \in T} P$ comme un $(P_1, P_1)$-bimodule au moyen des
+homomorphismes $(\psi \circ d_0, \psi \circ d_1)$. D'après le lemme
+\ref{lemma-polynomial-ring-unique}, il existe une unique $A$-bidérivation
+$\lambda : P_1 \to F$ envoyant $s$ sur le vecteur de coordonnées $p_{s, t}$.
+Par construction, la composée
+$$
+P_1 \longrightarrow F \longrightarrow P
+$$
+envoie $f \in P_1$ sur $\psi(d_0(f) - d_1(f))$, car l'application
+$f \mapsto \psi(d_0(f) - d_1(f))$ est une $A$-bidérivation qui coïncide avec la
+composée sur les générateurs.
+
+\medskip\noindent
+Pour $g \in P_2$, nous affirmons que
+$\lambda(d_0(g) - d_1(g) + d_2(g))$ appartient à $Rel$. En effet, d'après la
+dernière observation du paragraphe précédent, l'image de
+$\lambda(d_0(g) - d_1(g) + d_2(g))$ dans $P$ est
+$$
+\psi((d_0 - d_1)(d_0(g) - d_1(g) + d_2(g)))
+$$
+qui est nulle d'après Simplicial, section
+\ref{simplicial-section-complexes}.
+
+\medskip\noindent
+Le choix de $\psi$ détermine une application
+$$
+\text{d}\psi \otimes 1 :
+\Omega_{P_0/A} \otimes B
+\longrightarrow
+\Omega_{P/A} \otimes B
+$$
+La composée de $\lambda$ avec l'application $F \to F \otimes B$ est une
+$A$-dérivation usuelle, puisque les deux structures de $P_1$-module sur
+$F \otimes B$ coïncident. Ainsi, $\lambda$ détermine une application
+$$
+\overline{\lambda} :
+\Omega_{P_1/A} \otimes B
+\longrightarrow
+F \otimes B
+$$
+Enfin, nous obtenons une application $B$-linéaire
+$$
+q :
+\Omega_{P_2/A} \otimes B
+\longrightarrow
+Rel/TrivRel
+$$
+en envoyant $\text{d}g$ sur la classe de
+$\lambda(d_0(g) - d_1(g) + d_2(g))$ dans le quotient.
+
+\medskip\noindent
+Le diagramme
+$$
+\xymatrix{
+\Omega_{P_3/A} \otimes B \ar[r] \ar[d] &
+\Omega_{P_2/A} \otimes B \ar[r] \ar[d]_q &
+\Omega_{P_1/A} \otimes B \ar[r] \ar[d]_{\overline{\lambda}} &
+\Omega_{P_0/A} \otimes B \ar[d]_{\text{d}\psi \otimes 1} \\
+0 \ar[r] &
+Rel/TrivRel \ar[r] &
+F \otimes B \ar[r] &
+\Omega_{P/A} \otimes B
+}
+$$
+est commutatif (calcul omis), et nous obtenons l'application du lemme. La
+remarque \ref{remark-explicit-comparison-map} et le lemme
+\ref{lemma-relation-with-naive-cotangent-complex} montrent que cette
+application induit des isomorphismes $H_1(L_{B/A}) \to H_1(L)$ et
+$H_0(L_{B/A}) \to H_0(L)$.
+
+\medskip\noindent
+Il reste à voir que notre application $L_{B/A} \to L$ induit un isomorphisme
+$H_2(L_{B/A}) \to H_2(L)$. Choisissons une résolution de $B$ sur $A$ telle que
+$P_0 = P = A[u_i]$, puis $P_1$ et $P_2$ comme dans l'exemple
+\ref{example-resolution-length-two}. Dans la remarque
+\ref{remark-elucidate-degree-two}, nous avons construit une suite exacte
+$$
+\wedge^2_B(J_0/J_0^2) \to \text{Tor}_2^{P_0}(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+où $P_0 = P$ et $J_0 = \Ker(P \to B) = I$. En calculant le groupe de Tor à
+l'aide des suites exactes courtes $0 \to I \to P \to B \to 0$ et
+$0 \to Rel \to F \to I \to 0$, nous trouvons que
+$\text{Tor}_2^P(B, B) = \Ker(Rel \otimes B \to F \otimes B)$.
+Sous cette identification, l'image de l'application
+$\wedge^2_B(I/I^2) \to \text{Tor}_2^P(B, B)$ est exactement l'image de
+$TrivRel \otimes B$. On voit donc que $H_2(L_{B/A}) \cong H_2(L)$.
+
+\medskip\noindent
+Enfin, il faut vérifier que notre application $L_{B/A} \to L$ induit bien cet
+isomorphisme. Nous utiliserons sans autre mention les notations et les résultats
+de l'exemple \ref{example-resolution-length-two} et des remarques
+\ref{remark-elucidate-degree-two} et \ref{remark-surjection}. Choisissons un
+élément $\xi$ de
+$\text{Tor}_2^{P_0}(B, B) = \Ker(I \otimes_P I \to I^2)$.
+Écrivons $\xi = \sum h_{t', t}f_{t'} \otimes f_t$ pour certains
+$h_{t', t} \in P$. En suivant les suites exactes précédentes, on trouve que
+$\xi$ correspond à l'image dans $Rel \otimes B$ de l'élément
+$r \in Rel \subset F = \bigoplus_{t \in T} P$ dont la coordonnée d'indice $t$
+est $r_t = \sum_{t' \in T} h_{t', t}f_{t'}$. D'autre part, $\xi$ correspond à
+l'élément de $H_2(L_{B/A}) = H_2(\Omega)$ qui est l'image, par
+$\text{d} : H_2(\mathcal{J}/\mathcal{J}^2) \to H_2(\Omega)$, du bord de $\xi$
+pour la $2$-extension
+$$
+0 \to
+\text{Tor}_2^\mathcal{O}(\underline{B}, \underline{B})
+\to 
+\mathcal{J} \otimes_\mathcal{O} \mathcal{J} \to \mathcal{J}
+\to
+\mathcal{J}/\mathcal{J}^2 \to 0
+$$
+Calculons les transgressions successives de notre élément. Tout d'abord,
+$$
+\xi = (d_0 - d_1)(- \sum s_0(h_{t', t} f_{t'}) \otimes x_t)
+$$
+puis
+$$
+\sum s_0(h_{t', t} f_{t'}) x_t = d_0(v_r) - d_1(v_r) + d_2(v_r)
+$$
+par notre choix des variables $v$ dans l'exemple
+\ref{example-resolution-length-two}. Nous pouvons choisir l'application
+$\lambda$ ci-dessus de telle sorte que
+$\lambda(u_i) = 0$ et $\lambda(x_t) = - e_t$, où $e_t \in F$ désigne le
+vecteur de base correspondant à $t \in T$. La
+construction de l'application $q$ ci-dessus envoie donc $\text{d}v_r$ sur
+$$
+\lambda(\sum s_0(h_{t', t} f_{t'}) x_t) =
+\sum\nolimits_t \left(\sum\nolimits_{t'} h_{t', t}f_{t'}\right) e_t
+$$
+qui coïncide avec l'image de $\xi$ dans $Rel \otimes B$ (les deux signes moins
+apparus ci-dessus se compensent). Cette coïncidence achève la démonstration.
+\end{proof}
+
+\begin{remark}[Fonctorialité du complexe de Lichtenbaum-Schlessinger]
+\label{remark-functoriality-lichtenbaum-schlessinger}
+Considérons un carré commutatif
+$$
+\xymatrix{
+A' \ar[r] & B' \\
+A \ar[u] \ar[r] & B \ar[u]
+}
+$$
+d'homomorphismes d'anneaux. Choisissons une factorisation
+$$
+\xymatrix{
+A' \ar[r] & P' \ar[r] & B' \\
+A \ar[u] \ar[r] & P \ar[u] \ar[r] & B \ar[u]
+}
+$$
+où $P$ est une algèbre polynomiale sur $A$ et $P'$ une algèbre polynomiale sur
+$A'$. Choisissons des générateurs $f_t$, $t \in T$, de $\Ker(P \to B)$. Pour
+$t \in T$, notons $f'_t$ l'image de $f_t$ dans $P'$. Choisissons des
+$f'_s \in P'$ de sorte que les éléments $f'_t$, pour
+$t \in T' = T \amalg S$, engendrent le noyau de $P' \to B'$. Posons
+$F = \bigoplus_{t \in T} P$ et $F' = \bigoplus_{t' \in T'} P'$. Soient
+$Rel = \Ker(F \to P)$ et $Rel' = \Ker(F' \to P')$, où les applications sont
+données sur les coordonnées par la multiplication par $f_t$, resp.\ $f'_t$.
+Enfin, soit $TrivRel$, resp.\ $TrivRel'$, le sous-module de $Rel$, resp.\
+$Rel'$, engendré par les éléments
+$(\ldots, f_{t'}, 0, \ldots, 0, -f_t, 0, \ldots)$
+pour $t, t' \in T$, resp.\ $T'$. Ces choix donnent un diagramme commutatif
+canonique
+$$
+\xymatrix{
+L' : &
+Rel'/TrivRel' \ar[r] &
+F' \otimes_{P'} B' \ar[r] &
+\Omega_{P'/A'} \otimes_{P'} B' \\
+L : \ar[u] &
+Rel/TrivRel \ar[r] \ar[u] &
+F \otimes_P B \ar[r] \ar[u] &
+\Omega_{P/A} \otimes_P B \ar[u]
+}
+$$
+De plus, en suivant les choix effectués dans la démonstration du lemme
+\ref{lemma-compare-higher}, le lecteur constate que l'on obtient un diagramme
+commutatif
+$$
+\xymatrix{
+L_{B'/A'} \ar[r] & L' \\
+L_{B/A} \ar[r] \ar[u] & L \ar[u]
+}
+$$
+\end{remark}
+
+
+
+
+
+\section{Le complexe cotangent d'une intersection complète locale}
+\label{section-lci}
+
+\noindent
+Si $A \to B$ est un homomorphisme d'intersection complète locale, alors
+$L_{B/A}$ est un complexe parfait. Le lemme suivant est la clef de la
+démonstration.
+
+\begin{lemma}
+\label{lemma-special-case}
+Soit $A = \mathbf{Z}[x_1, \ldots, x_n] \to B = \mathbf{Z}$ l'homomorphisme
+d'anneaux qui envoie $x_i$ sur $0$ pour $i = 1, \ldots, n$. Soit
+$I = (x_1, \ldots, x_n) \subset A$. Alors $L_{B/A}$ est quasi-isomorphe à
+$I/I^2[1]$.
+\end{lemma}
+
+\begin{proof}
+Il y a plusieurs façons de le démontrer. On peut, par exemple, construire
+explicitement une résolution de $B$ sur $A$ et effectuer le calcul. Nous
+utiliserons (\ref{equation-triangle}). Considérons en effet le triangle
+distingué
+$$
+L_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}
+\otimes_{\mathbf{Z}[x_1, \ldots, x_n]} \mathbf{Z} \to
+L_{\mathbf{Z}/\mathbf{Z}} \to
+L_{\mathbf{Z}/\mathbf{Z}[x_1, \ldots, x_n]}\to
+L_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}
+\otimes_{\mathbf{Z}[x_1, \ldots, x_n]} \mathbf{Z}[1]
+$$
+Le complexe $L_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}$ est quasi-isomorphe à
+$\Omega_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}$ d'après le lemme
+\ref{lemma-cotangent-complex-polynomial-algebra}. Le complexe
+$L_{\mathbf{Z}/\mathbf{Z}}$ est nul dans $D(\mathbf{Z})$ d'après le lemme
+\ref{lemma-when-zero}. On voit ainsi que $L_{B/A}$ n'a qu'un seul groupe de
+cohomologie non nul, qui est celui décrit dans l'énoncé d'après le lemme
+\ref{lemma-surjection}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-mod-regular-sequence}
+Soit $A \to B$ un homomorphisme d'anneaux surjectif dont le noyau $I$ est
+engendré par une suite régulière au sens de Koszul (par exemple une suite
+régulière). Alors $L_{B/A}$ est quasi-isomorphe à $I/I^2[1]$.
+\end{lemma}
+
+\begin{proof}
+Soit $f_1, \ldots, f_r \in I$ une suite régulière au sens de Koszul qui
+engendre $I$. Considérons l'homomorphisme d'anneaux
+$\mathbf{Z}[x_1, \ldots, x_r] \to A$ qui envoie $x_i$ sur $f_i$. Comme
+$x_1, \ldots, x_r$ est une suite régulière dans
+$\mathbf{Z}[x_1, \ldots, x_r]$, le complexe de Koszul associé à
+$x_1, \ldots, x_r$ est une résolution libre de
+$\mathbf{Z} = \mathbf{Z}[x_1, \ldots, x_r]/(x_1, \ldots, x_r)$
+sur $\mathbf{Z}[x_1, \ldots, x_r]$ (voir Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-regular-koszul-regular}). Ainsi, l'hypothèse que
+$f_1, \ldots, f_r$ est régulière au sens de Koszul signifie exactement que
+$B = A \otimes_{\mathbf{Z}[x_1, \ldots, x_r]}^\mathbf{L} \mathbf{Z}$.
+Par conséquent,
+$L_{B/A} = L_{\mathbf{Z}/\mathbf{Z}[x_1, \ldots, x_r]}
+\otimes_\mathbf{Z}^\mathbf{L} B$ d'après les lemmes
+\ref{lemma-flat-base-change-cotangent-complex} et \ref{lemma-special-case}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-mod-Koszul-regular-ideal}
+Soit $A \to B$ un homomorphisme d'anneaux surjectif dont le noyau $I$ est un
+idéal de Koszul. Alors $L_{B/A}$ est quasi-isomorphe à $I/I^2[1]$.
+\end{lemma}
+
+\begin{proof}
+Localement sur $\Spec(A)$, l'idéal $I$ est engendré par une suite régulière au
+sens de Koszul ; voir Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-regular-ideal}. Le résultat découle donc du lemme
+\ref{lemma-flat-base-change-cotangent-complex}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-cotangent-complex-local-complete-intersection}
+Soit $A \to B$ un homomorphisme d'intersection complète locale. Alors
+$L_{B/A}$ est un complexe parfait d'amplitude de Tor contenue dans $[-1, 0]$.
+\end{proposition}
+
+\begin{proof}
+Choisissons une surjection $P = A[x_1, \ldots, x_n] \to B$ de noyau $J$.
+D'après le lemme \ref{lemma-relation-with-naive-cotangent-complex}, le
+complexe $J/J^2 \to \bigoplus B\text{d}x_i$ est quasi-isomorphe à
+$\tau_{\geq -1}L_{B/A}$. Remarquons que $J/J^2$ est projectif de type fini
+(Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-quasi-regular-ideal-finite-projective}) ; ainsi,
+$\tau_{\geq -1}L_{B/A}$ est un complexe parfait d'amplitude de Tor contenue
+dans $[-1, 0]$. Il suffit donc de montrer que $H^i(L_{B/A}) = 0$ pour
+$i \not \in [-1, 0]$. Cela résulte de (\ref{equation-triangle})
+$$
+L_{P/A} \otimes_P^\mathbf{L} B \to L_{B/A} \to L_{B/P} \to
+L_{P/A} \otimes_P^\mathbf{L} B[1]
+$$
+et du lemme \ref{lemma-mod-Koszul-regular-ideal}, qui montrent que
+$H^i(L_{B/P})$ est nul sauf si $i \in \{-1, 0\}$. (Pour le terme de gauche,
+nous utilisons également le lemme
+\ref{lemma-cotangent-complex-polynomial-algebra}.)
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Produits tensoriels et complexe cotangent}
+\label{section-tensor-product}
+
+\noindent
+Soit $R$ un anneau et soient $A$, $B$ des $R$-algèbres. Dans cette section,
+nous étudions $L_{A \otimes_R B/R}$. L'essentiel des renseignements recherchés
+est contenu dans le diagramme suivant
+\begin{equation}
+\label{equation-tensor-product}
+\vcenter{
+\xymatrix{
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \ar[r] &
+L_{A \otimes_R B/B} \ar[r] &
+E \\
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \ar[r] \ar@{=}[u] &
+L_{A \otimes_R B/R} \ar[r] \ar[u] &
+L_{A \otimes_R B/A} \ar[u] \\
+ &
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \ar[u] \ar@{=}[r] &
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \ar[u]
+}
+}
+\end{equation}
+Explication : la ligne médiane est le triangle fondamental
+(\ref{equation-triangle}) associé aux homomorphismes d'anneaux
+$R \to A \to A \otimes_R B$. La colonne médiane est le triangle fondamental
+(\ref{equation-triangle}) associé aux homomorphismes d'anneaux
+$R \to B \to A \otimes_R B$. Ensuite, $E$ est un objet de
+$D(A \otimes_R B)$ qui « complète » le coin supérieur droit, c'est-à-dire qui
+fait de la ligne supérieure et de la colonne droite des triangles distingués.
+Un tel $E$ existe d'après Catégories dérivées, proposition
+\ref{derived-proposition-9}, appliquée au carré inférieur gauche (en plaçant
+$0$ à la position manquante). Plus explicitement, nous pourrions par exemple
+définir $E$ comme le cône (Catégories dérivées, définition
+\ref{derived-definition-cone}) de l'application de complexes
+$$
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \oplus
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B)
+\longrightarrow
+L_{A \otimes_R B/R}
+$$
+et obtenir les deux applications de but $E$ en appliquant TR3. Dans le cas
+Tor-indépendant, l'objet $E$ est nul.
+
+\begin{lemma}
+\label{lemma-tensor-product-tor-independent}
+Si $A$ et $B$ sont des $R$-algèbres Tor-indépendantes, alors l'objet $E$ de
+(\ref{equation-tensor-product}) est nul. Dans ce cas, nous avons
+$$
+L_{A \otimes_R B/R} =
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \oplus
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B)
+$$
+qui est représenté par le complexe
+$L_{A/R} \otimes_R B \oplus L_{B/R} \otimes_R A $
+de $A \otimes_R B$-modules.
+\end{lemma}
+
+\begin{proof}
+Les deux premières assertions résultent immédiatement du lemme
+\ref{lemma-flat-base-change-cotangent-complex}. La dernière résulte du fait que
+$L_{A/R}$ est un complexe de $A$-modules libres ; ainsi,
+$L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B)$ est représenté par
+$L_{A/R} \otimes_A (A \otimes_R B) = L_{A/R} \otimes_R B$
+\end{proof}
+
+\noindent
+En général, nous pouvons dire ce qui suit de l'objet $E$.
+
+\begin{lemma}
+\label{lemma-tensor-product}
+Soit $R$ un anneau et soient $A$, $B$ des $R$-algèbres. L'objet $E$ de
+(\ref{equation-tensor-product}) vérifie
+$$
+H^i(E) =
+\left\{
+\begin{matrix}
+0 & \text{si} & i \geq -1 \\
+\text{Tor}_1^R(A, B) & \text{si} & i = -2
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+Nous utilisons la description de $E$ comme le cône de
+$L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \to L_{A \otimes_R B/A}$.
+D'après le lemme \ref{lemma-compare-higher}, les troncations canoniques
+$\tau_{\geq -2}L_{B/R}$ et $\tau_{\geq -2}L_{A \otimes_R B/A}$ sont calculées
+par le complexe de Lichtenbaum-Schlessinger
+(\ref{equation-lichtenbaum-schlessinger}). Ces isomorphismes sont compatibles
+à la fonctorialité (remarque
+\ref{remark-functoriality-lichtenbaum-schlessinger}). Nous travaillons donc
+avec les complexes de Lichtenbaum-Schlessinger dans cette démonstration.
+
+\medskip\noindent
+Choisissons une algèbre polynomiale $P$ sur $R$ et une surjection $P \to B$.
+Choisissons des générateurs $f_t \in P$, $t \in T$, du noyau de cette
+surjection. Soit $Rel \subset F = \bigoplus_{t \in T} P$ le noyau de
+l'application $F \to P$ qui envoie le vecteur de base correspondant à $t$ sur
+$f_t$. Posons $P_A = A \otimes_R P$ et
+$F_A = A \otimes_R F = P_A \otimes_P F$. Soit $Rel_A$ le noyau de
+l'application $F_A \to P_A$. La suite exacte
+$$
+0 \to Rel \to F \to P \to B \to 0
+$$
+et les suites exactes courtes usuelles pour Tor donnent une suite exacte
+$$
+A \otimes_R Rel \to Rel_A \to \text{Tor}_1^R(A, B) \to 0
+$$
+Remarquons que $P_A \to A \otimes_R B$ est une surjection dont le noyau est
+engendré par les éléments $1 \otimes f_t$ de $P_A$. Notons
+$TrivRel_A \subset Rel_A$ le sous-$P_A$-module engendré par les éléments
+$(\ldots, 1 \otimes f_{t'}, 0, \ldots,
+0, - 1 \otimes f_t \otimes 1, 0, \ldots)$.
+Comme $TrivRel \otimes_R A \to TrivRel_A$ est surjectif, nous obtenons une
+suite exacte canonique
+$$
+A \otimes_R (Rel/TrivRel) \to Rel_A/TrivRel_A \to \text{Tor}_1^R(A, B) \to 0
+$$
+L'application entre les complexes de Lichtenbaum-Schlessinger est donnée par
+le diagramme
+$$
+\xymatrix{
+Rel_A/TrivRel_A \ar[r] &
+F_A \otimes_{P_A} (A \otimes_R B) \ar[r] &
+\Omega_{P_A/A \otimes_R B} \otimes_{P_A} (A \otimes_R B) \\
+Rel/TrivRel \ar[r] \ar[u]_{-2} &
+F \otimes_P B \ar[r] \ar[u]_{-1} &
+\Omega_{P/A} \otimes_P B \ar[u]_0
+}
+$$
+Remarquons que les applications verticales $-1$ et $0$ induisent un
+isomorphisme après application du foncteur
+$A \otimes_R - = P_A \otimes_P -$ à la source, et que l'application verticale
+$-2$ donne exactement l'application dont le conoyau est le module de Tor
+recherché, comme nous l'avons vu ci-dessus.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Déformations d'homomorphismes d'anneaux et complexe cotangent}
+\label{section-deformations}
+
+\noindent
+Cette section prolonge Théorie des déformations, section
+\ref{defos-section-deformations}, que nous invitons vivement le lecteur à lire
+d'abord. Partons d'un homomorphisme d'anneaux surjectif $A' \to A$ dont le
+noyau est un idéal $I$ de carré nul. Supposons de plus donnés un homomorphisme
+d'anneaux $A \to B$, un $B$-module $N$ et une application de $A$-modules
+$c : I \to N$. Nous cherchons ici si l'on peut remplacer le point
+d'interrogation dans le diagramme suivant
+\begin{equation}
+\label{equation-to-solve}
+\vcenter{
+\xymatrix{
+0 \ar[r] & N \ar[r] & {?} \ar[r] & B \ar[r] & 0 \\
+0 \ar[r] & I \ar[u]^c \ar[r] & A' \ar[u] \ar[r] & A \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+et, si une solution existe, à quel point elle est unique. Plus précisément,
+nous cherchons une surjection de $A'$-algèbres $B' \to B$ dont le noyau est
+un idéal de carré nul identifié à $N$, et telle que $A' \to B'$ induise
+l'application donnée $c$. Nous dirons que $B'$ est une {\it solution} de
+(\ref{equation-to-solve}).
+
+\begin{lemma}
+\label{lemma-find-obstruction}
+Dans la situation précédente :
+\begin{enumerate}
+\item il existe un élément canonique $\xi \in \Ext^2_B(L_{B/A}, N)$ dont
+l'annulation est une condition nécessaire et suffisante pour l'existence d'une
+solution de (\ref{equation-to-solve}) ;
+\item s'il existe une solution, l'ensemble des classes d'isomorphisme de
+solutions est un espace principal homogène sous $\Ext^1_B(L_{B/A}, N)$ ;
+\item étant donnée une solution $B'$, l'ensemble des automorphismes de $B'$
+qui s'insèrent dans (\ref{equation-to-solve}) est canoniquement isomorphe à
+$\Ext^0_B(L_{B/A}, N)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Au moyen des identifications $\NL_{B/A} = \tau_{\geq -1}L_{B/A}$ (lemme
+\ref{lemma-relation-with-naive-cotangent-complex}) et
+$H^0(L_{B/A}) = \Omega_{B/A}$ (lemme \ref{lemma-identify-H0}), nous avons déjà
+établi (2) et (3) dans Théorie des déformations, lemmes
+\ref{defos-lemma-huge-diagram} et \ref{defos-lemma-choices}.
+
+\medskip\noindent
+Démonstration de (1). En gros, l'assertion découle de la discussion de Théorie
+des déformations, remarque \ref{defos-remark-parametrize-solutions}, en
+remplaçant le complexe cotangent naïf par le complexe cotangent entier. Voici
+une explication plus détaillée. D'après Théorie des déformations, lemme
+\ref{defos-lemma-parametrize-solutions} et remarque
+\ref{defos-remark-parametrize-solutions}, il existe un élément
+$$
+\xi' \in
+\Ext^1_A(\NL_{A/A'}, N) =
+\Ext^1_B(\NL_{A/A'} \otimes_A^\mathbf{L} B, N) =
+\Ext^1_B(L_{A/A'} \otimes_A^\mathbf{L} B, N)
+$$
+(pour les égalités, voir Théorie des déformations, remarque
+\ref{defos-remark-parametrize-solutions}, et utiliser
+$\NL_{A'/A} = \tau_{\geq -1} L_{A'/A}$) tel qu'une solution existe si et
+seulement si cet élément appartient à l'image de l'application
+$$
+\Ext^1_B(\NL_{B/A'}, N) = \Ext^1_B(L_{B/A'}, N)
+\longrightarrow
+\Ext^1_B(L_{A/A'} \otimes_A^\mathbf{L} B, N)
+$$
+Le triangle distingué (\ref{equation-triangle}) associé à
+$A' \to A \to B$ donne naissance à une suite exacte longue
+$$
+\ldots \to
+\Ext^1_B(L_{B/A'}, N) \to
+\Ext^1_B(L_{A/A'} \otimes_A^\mathbf{L} B, N) \to
+\Ext^2_B(L_{B/A}, N) \to \ldots
+$$
+Il suffit donc de prendre pour $\xi$ l'image de $\xi'$.
+\end{proof}
+
+
+
+
+
+\section{La classe d'Atiyah d'un module}
+\label{section-atiyah}
+
+\noindent
+Soit $A \to B$ un homomorphisme d'anneaux. Soit $M$ un $B$-module. Soit
+$P \to B$ un objet de $\mathcal{C}_{B/A}$ (section
+\ref{section-compute-L-pi-shriek}). Considérons l'extension des parties
+principales
+$$
+0 \to \Omega_{P/A} \otimes_P M \to P^1_{P/A}(M) \to M \to 0
+$$
+voir Algèbre, lemme \ref{algebra-lemma-sequence-of-principal-parts}. Cette
+suite est fonctorielle en $P$ d'après Algèbre, remarque
+\ref{algebra-remark-functoriality-principal-parts}. Nous obtenons ainsi une
+suite exacte courte de faisceaux de $\mathcal{O}$-modules
+$$
+0 \to \Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{M} \to
+P^1_{\mathcal{O}/\underline{A}}(M) \to \underline{M} \to 0
+$$
+sur $\mathcal{C}_{B/A}$. Nous avons
+$L\pi_!(\Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{M})
+= L_{B/A} \otimes_B M = L_{B/A} \otimes_B^\mathbf{L} M$
+d'après le lemme \ref{lemma-pi-shriek-standard} et la platitude des termes de
+$L_{B/A}$. De plus, $L\pi_!(\underline{M}) = M$ d'après le lemme
+\ref{lemma-pi-lower-shriek-constant-sheaf}. On obtient donc un triangle
+distingué
+\begin{equation}
+\label{equation-atiyah}
+L_{B/A} \otimes_B^\mathbf{L} M \to
+L\pi_!\left(P^1_{\mathcal{O}/\underline{A}}(M)\right) \to M
+\to L_{B/A} \otimes_B^\mathbf{L} M [1]
+\end{equation}
+dans $D(B)$. Nous utilisons ici Cohomologie sur les sites, remarque
+\ref{sites-cohomology-remark-O-homology-B-homology-general}, pour obtenir un
+triangle distingué dans $D(B)$, et pas seulement dans $D(A)$.
+
+\begin{definition}
+\label{definition-atiyah-class}
+Soit $A \to B$ un homomorphisme d'anneaux. Soit $M$ un $B$-module.
+L'application $M \to L_{B/A} \otimes_B^\mathbf{L} M[1]$ de
+(\ref{equation-atiyah}) est appelée la {\it classe d'Atiyah} de $M$.
+\end{definition}
+
+
+
+
+\section{Le complexe cotangent}
+\label{section-cotangent-complex}
+
+\noindent
+Dans cette section, nous étudions le complexe cotangent d'un homomorphisme de
+faisceaux d'anneaux sur un site. Dans les sections suivantes, nous
+spécialiserons cette construction afin d'obtenir le complexe cotangent d'un
+morphisme de topos annelés, d'espaces annelés, de schémas, d'espaces
+algébriques, etc.
+
+\medskip\noindent
+Soit $\mathcal{C}$ un site et notons $\Sh(\mathcal{C})$ le topos associé. Soit
+$\mathcal{A}$ un faisceau d'anneaux sur $\mathcal{C}$. Notons
+$\mathcal{A}\textit{-Alg}$ la catégorie des $\mathcal{A}$-algèbres.
+Considérons le couple de foncteurs adjoints $(U, V)$, où
+$V : \mathcal{A}\textit{-Alg} \to \Sh(\mathcal{C})$ est le foncteur d'oubli et
+où $U : \Sh(\mathcal{C}) \to \mathcal{A}\textit{-Alg}$ associe à un faisceau
+d'ensembles $\mathcal{E}$ l'algèbre polynomiale
+$\mathcal{A}[\mathcal{E}]$ en $\mathcal{E}$ sur $\mathcal{A}$. Soit
+$X_\bullet$ l'objet simplicial de
+$\text{Fun}(\mathcal{A}\textit{-Alg}, \mathcal{A}\textit{-Alg})$ construit dans
+Simplicial, section \ref{simplicial-section-standard}.
+
+\medskip\noindent
+Supposons maintenant que $\mathcal{A} \to \mathcal{B}$ soit un homomorphisme
+de faisceaux d'anneaux. Alors $\mathcal{B}$ est un objet de la catégorie
+$\mathcal{A}\textit{-Alg}$. Notons
+$\mathcal{P}_\bullet = X_\bullet(\mathcal{B})$ la $\mathcal{A}$-algèbre
+simpliciale ainsi obtenue. Rappelons que
+$\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]$,
+$\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]]$, et ainsi de suite.
+Rappelons également qu'il existe une augmentation
+$$
+\epsilon : \mathcal{P}_\bullet \longrightarrow \mathcal{B}
+$$
+où $\mathcal{B}$ est regardée comme une $\mathcal{A}$-algèbre simpliciale
+constante.
+
+\begin{definition}
+\label{definition-standard-resolution-sheaves-rings}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux sur $\mathcal{C}$. La {\it résolution
+standard de $\mathcal{B}$ sur $\mathcal{A}$} est l'augmentation
+$\epsilon : \mathcal{P}_\bullet \to \mathcal{B}$
+dont les termes sont
+$$
+\mathcal{P}_0 = \mathcal{A}[\mathcal{B}],\quad
+\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]],\quad \ldots
+$$
+et dont les applications sont celles construites ci-dessus.
+\end{definition}
+
+\noindent
+Cette définition étant posée, le complexe cotangent d'un homomorphisme de
+faisceaux d'anneaux se définit comme suit. Nous utiliserons le module des
+différentielles défini dans Modules sur les sites, section
+\ref{sites-modules-section-differentials}.
+
+\begin{definition}
+\label{definition-cotangent-complex-morphism-sheaves-rings}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux sur $\mathcal{C}$. Le {\it complexe
+cotangent} $L_{\mathcal{B}/\mathcal{A}}$ est le complexe de
+$\mathcal{B}$-modules associé au module simplicial
+$$
+\Omega_{\mathcal{P}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{P}_\bullet, \epsilon} \mathcal{B}
+$$
+où $\epsilon : \mathcal{P}_\bullet \to \mathcal{B}$ est la résolution standard
+de $\mathcal{B}$ sur $\mathcal{A}$. Nous considérons généralement
+$L_{\mathcal{B}/\mathcal{A}}$ comme un objet de $D(\mathcal{B})$.
+\end{definition}
+
+\noindent
+Ces constructions possèdent une fonctorialité analogue à celle étudiée dans la
+section \ref{section-functoriality}. Plus précisément, étant donné un diagramme
+commutatif
+\begin{equation}
+\label{equation-commutative-square-sheaves}
+\vcenter{
+\xymatrix{
+\mathcal{B} \ar[r] & \mathcal{B}' \\
+\mathcal{A} \ar[u] \ar[r] & \mathcal{A}' \ar[u]
+}
+}
+\end{equation}
+de faisceaux d'anneaux sur $\mathcal{C}$, il existe une application canonique
+$\mathcal{B}$-linéaire de complexes
+$$
+L_{\mathcal{B}/\mathcal{A}} \longrightarrow L_{\mathcal{B}'/\mathcal{A}'}
+$$
+construite de la manière suivante. Si $\mathcal{P}_\bullet \to \mathcal{B}$ est
+la résolution standard de $\mathcal{B}$ sur $\mathcal{A}$ et si
+$\mathcal{P}'_\bullet \to \mathcal{B}'$ est la résolution standard de
+$\mathcal{B}'$ sur $\mathcal{A}'$, il existe une application canonique
+$\mathcal{P}_\bullet \to \mathcal{P}'_\bullet$ de $\mathcal{A}$-algèbres
+simpliciales, compatible avec les augmentations
+$\mathcal{P}_\bullet \to \mathcal{B}$ and
+$\mathcal{P}'_\bullet \to \mathcal{B}'$. Les applications
+$$
+\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]
+\longrightarrow
+\mathcal{A}'[\mathcal{B}'] = \mathcal{P}'_0,
+\quad
+\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]]
+\longrightarrow
+\mathcal{A}'[\mathcal{A}'[\mathcal{B}']] = \mathcal{P}'_1
+$$
+et ainsi de suite sont données par les homomorphismes
+$\mathcal{A} \to \mathcal{A}'$ et $\mathcal{B} \to \mathcal{B}'$. L'application
+recherchée $L_{\mathcal{B}/\mathcal{A}} \to L_{\mathcal{B}'/\mathcal{A}'}$
+provient alors des applications associées sur les faisceaux de
+différentielles.
+
+\begin{lemma}
+\label{lemma-pullback-cotangent-morphism-topoi}
+Soit $f : \Sh(\mathcal{D}) \to \Sh(\mathcal{C})$ un morphisme de topos. Soit
+$\mathcal{A} \to \mathcal{B}$ un homomorphisme de faisceaux d'anneaux sur
+$\mathcal{C}$. Alors
+$f^{-1}L_{\mathcal{B}/\mathcal{A}} = L_{f^{-1}\mathcal{B}/f^{-1}\mathcal{A}}$.
+\end{lemma}
+
+\begin{proof}
+Le diagramme
+$$
+\xymatrix{
+\mathcal{A}\textit{-Alg} \ar[d]_{f^{-1}} \ar[r] &
+\Sh(\mathcal{C}) \ar@<1ex>[l] \ar[d]^{f^{-1}} \\
+f^{-1}\mathcal{A}\textit{-Alg} \ar[r] & \Sh(\mathcal{D}) \ar@<1ex>[l]
+}
+$$
+est commutatif.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-L-morphism-sheaves-rings}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux sur $\mathcal{C}$. Alors
+$H^i(L_{\mathcal{B}/\mathcal{A}})$ est le faisceau associé au préfaisceau
+$U \mapsto H^i(L_{\mathcal{B}(U)/\mathcal{A}(U)})$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{C}'$ le site obtenu en munissant $\mathcal{C}$ de la topologie
+chaotique (les préfaisceaux sont alors des faisceaux). Il existe un morphisme
+de topos $f : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$, où $f_*$ est
+l'inclusion des faisceaux dans les préfaisceaux et $f^{-1}$ la faisceautisation.
+D'après le lemme \ref{lemma-pullback-cotangent-morphism-topoi}, il suffit de
+démontrer le résultat pour $\mathcal{C}'$, c'est-à-dire lorsque
+$\mathcal{C}$ est muni de la topologie chaotique.
+
+\medskip\noindent
+Si $\mathcal{C}$ est muni de la topologie chaotique, alors
+$L_{\mathcal{B}/\mathcal{A}}(U)$ est égal à
+$L_{\mathcal{B}(U)/\mathcal{A}(U)}$, car le diagramme
+$$
+\xymatrix{
+\mathcal{A}\textit{-Alg} \ar[d]_{\text{sections sur }U} \ar[r] &
+\Sh(\mathcal{C}) \ar@<1ex>[l] \ar[d]^{\text{sections sur }U} \\
+\mathcal{A}(U)\textit{-Alg} \ar[r] & \textit{Sets} \ar@<1ex>[l]
+}
+$$
+est commutatif.
+\end{proof}
+
+\begin{remark}
+\label{remark-map-sections-over-U}
+Il ressort de la démonstration du lemme
+\ref{lemma-compute-L-morphism-sheaves-rings} que, pour tout
+$U \in \Ob(\mathcal{C})$, il existe une application canonique
+$L_{\mathcal{B}(U)/\mathcal{A}(U)} \to L_{\mathcal{B}/\mathcal{A}}(U)$
+de complexes de $\mathcal{B}(U)$-modules. De plus, ces applications sont
+compatibles aux applications de restriction, et le complexe
+$L_{\mathcal{B}/\mathcal{A}}$ est la faisceautisation de la règle
+$U \mapsto L_{\mathcal{B}(U)/\mathcal{A}(U)}$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-H0-L-morphism-sheaves-rings}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux sur $\mathcal{C}$. Alors
+$H^0(L_{\mathcal{B}/\mathcal{A}}) = \Omega_{\mathcal{B}/\mathcal{A}}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte des lemmes \ref{lemma-compute-L-morphism-sheaves-rings} et
+\ref{lemma-identify-H0}, ainsi que de Modules sur les sites, lemme
+\ref{sites-modules-lemma-differentials-sheafify}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-L-product-sheaves-rings}
+Soit $\mathcal{C}$ un site. Soient $\mathcal{A} \to \mathcal{B}$ et
+$\mathcal{A} \to \mathcal{B}'$ des homomorphismes de faisceaux d'anneaux sur
+$\mathcal{C}$. Alors
+$$
+L_{\mathcal{B} \times \mathcal{B}'/\mathcal{A}}
+\longrightarrow
+L_{\mathcal{B}/\mathcal{A}} \oplus L_{\mathcal{B}'/\mathcal{A}}
+$$
+est un isomorphisme dans $D(\mathcal{B} \times \mathcal{B}')$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-compute-L-morphism-sheaves-rings}, il suffit de le
+démontrer pour des homomorphismes d'anneaux. Dans le cas des anneaux, il s'agit
+du lemme \ref{lemma-cotangent-complex-product}.
+\end{proof}
+
+\noindent
+Le triangle fondamental pour le complexe cotangent de faisceaux d'anneaux est
+une conséquence immédiate du résultat pour les homomorphismes d'anneaux.
+
+\begin{lemma}
+\label{lemma-triangle-sheaves-rings}
+Soit $\mathcal{D}$ un site. Soient
+$\mathcal{A} \to \mathcal{B} \to \mathcal{C}$ des homomorphismes de faisceaux
+d'anneaux sur $\mathcal{D}$. Il existe un triangle distingué canonique
+$$
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{C}
+\to L_{\mathcal{C}/\mathcal{A}} \to L_{\mathcal{C}/\mathcal{B}} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{C}[1]
+$$
+dans $D(\mathcal{C})$.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons la méthode décrite dans les remarques \ref{remark-triangle} et
+\ref{remark-explicit-map} pour construire le triangle, et ferons librement
+usage des résultats qui y sont mentionnés. Comme dans ces remarques, nous
+construisons d'abord le triangle lorsque
+$\mathcal{B} \to \mathcal{C}$ est un homomorphisme injectif de faisceaux
+d'anneaux. Dans ce cas, posons :
+\begin{enumerate}
+\item $\mathcal{P}_\bullet$ est la résolution standard de $\mathcal{B}$ sur
+$\mathcal{A}$,
+\item $\mathcal{Q}_\bullet$ est la résolution standard de $\mathcal{C}$ sur
+$\mathcal{A}$,
+\item $\mathcal{R}_\bullet$ est la résolution standard de $\mathcal{C}$ sur
+$\mathcal{B}$,
+\item $\mathcal{S}_\bullet$ est la résolution standard de $\mathcal{B}$ sur
+$\mathcal{B}$,
+\item $\overline{\mathcal{Q}}_\bullet =
+\mathcal{Q}_\bullet \otimes_{\mathcal{P}_\bullet} \mathcal{B}$, et
+\item $\overline{\mathcal{R}}_\bullet =
+\mathcal{R}_\bullet \otimes_{\mathcal{S}_\bullet} \mathcal{B}$.
+\end{enumerate}
+Le triangle distingué est celui qui est associé à la suite exacte courte de
+$\mathcal{C}$-modules simpliciaux
+$$
+0 \to
+\Omega_{\mathcal{P}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{P}_\bullet} \mathcal{C} \to
+\Omega_{\mathcal{Q}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{Q}_\bullet} \mathcal{C} \to
+\Omega_{\overline{\mathcal{Q}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{Q}}_\bullet} \mathcal{C} \to 0
+$$
+Les deux premiers termes sont égaux aux deux premiers termes du triangle de
+l'énoncé. L'identification du dernier terme avec
+$L_{\mathcal{C}/\mathcal{B}}$ utilise les quasi-isomorphismes de complexes
+$$
+L_{\mathcal{C}/\mathcal{B}} =
+\Omega_{\mathcal{R}_\bullet/\mathcal{B}}
+\otimes_{\mathcal{R}_\bullet} \mathcal{C}
+\longrightarrow
+\Omega_{\overline{\mathcal{R}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{R}}_\bullet} \mathcal{C}
+\longleftarrow
+\Omega_{\overline{\mathcal{Q}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{Q}}_\bullet} \mathcal{C}
+$$
+Toutes les constructions utilisées ci-dessus peuvent d'abord être effectuées
+au niveau des préfaisceaux, puis faisceautisées. Ainsi, pour démontrer que des
+suites sont exactes ou que des applications sont des quasi-isomorphismes, il
+suffit de démontrer l'énoncé correspondant pour les homomorphismes d'anneaux
+$\mathcal{A}(U) \to \mathcal{B}(U) \to \mathcal{C}(U)$
+pour lesquels le résultat est connu. Ceci achève la démonstration lorsque
+$\mathcal{B} \to \mathcal{C}$ est injectif.
+
+\medskip\noindent
+Dans le cas général, nous nous ramenons au cas où
+$\mathcal{B} \to \mathcal{C}$ est injectif en remplaçant, si nécessaire,
+$\mathcal{C}$ par $\mathcal{B} \times \mathcal{C}$. Cela est possible grâce à
+l'argument de la remarque \ref{remark-triangle} et au lemme
+\ref{lemma-compute-L-product-sheaves-rings}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalk-cotangent-complex}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux sur $\mathcal{C}$. Si $p$ est un point de
+$\mathcal{C}$, alors
+$(L_{\mathcal{B}/\mathcal{A}})_p = L_{\mathcal{B}_p/\mathcal{A}_p}$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme
+\ref{lemma-pullback-cotangent-morphism-topoi}.
+\end{proof}
+
+\noindent
+Pour la construction du complexe cotangent naïf et ses propriétés, nous
+renvoyons à Modules sur les sites, section
+\ref{sites-modules-section-netherlander}.
+
+\begin{lemma}
+\label{lemma-compare-cotangent-complex-with-naive}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux sur $\mathcal{C}$. Il existe une
+application canonique
+$L_{\mathcal{B}/\mathcal{A}} \to \NL_{\mathcal{B}/\mathcal{A}}$ qui identifie
+le complexe cotangent naïf à la troncation
+$\tau_{\geq -1}L_{\mathcal{B}/\mathcal{A}}$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{P}_\bullet$ la résolution standard de $\mathcal{B}$ sur
+$\mathcal{A}$. Posons
+$\mathcal{I} = \Ker(\mathcal{A}[\mathcal{B}] \to \mathcal{B})$. Rappelons que
+$\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]$. L'application du lemme est donnée
+par le diagramme commutatif
+$$
+\xymatrix{
+L_{\mathcal{B}/\mathcal{A}} \ar[d] & \ldots \ar[r] &
+\Omega_{\mathcal{P}_2/\mathcal{A}} \otimes_{\mathcal{P}_2} \mathcal{B}
+\ar[r] \ar[d] &
+\Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}
+\ar[r] \ar[d] &
+\Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}
+\ar[d] \\
+\NL_{\mathcal{B}/\mathcal{A}} & \ldots \ar[r] &
+0 \ar[r] & 
+\mathcal{I}/\mathcal{I}^2 \ar[r] &
+\Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}
+}
+$$
+Nous construisons la flèche descendante de but
+$\mathcal{I}/\mathcal{I}^2$ en envoyant une section locale
+$\text{d}f \otimes b$ sur la classe de $(d_0(f) - d_1(f))b$ dans
+$\mathcal{I}/\mathcal{I}^2$. Ici, $d_i : \mathcal{P}_1 \to \mathcal{P}_0$,
+$i = 0, 1$, sont les deux applications de face de la structure simpliciale.
+Cela a un sens puisque $d_0 - d_1$ envoie $\mathcal{P}_1$ dans
+$\mathcal{I} = \Ker(\mathcal{P}_0 \to \mathcal{B})$. Nous omettons de vérifier
+que cette règle est bien définie. Notre application est compatible avec la
+différentielle
+$\Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}
+\to \Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}$
+car celle-ci envoie une section locale $\text{d}f \otimes b$ sur
+$\text{d}(d_0(f) - d_1(f)) \otimes b$. En outre, la différentielle
+$\Omega_{\mathcal{P}_2/\mathcal{A}} \otimes_{\mathcal{P}_2} \mathcal{B}
+\to \Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}$
+envoie une section locale $\text{d}f \otimes b$ sur
+$\text{d}(d_0(f) - d_1(f) + d_2(f)) \otimes b$, qui est annulé par notre
+flèche descendante. Nous obtenons ainsi une application de complexes.
+
+\medskip\noindent
+Pour voir que notre application induit un isomorphisme sur les faisceaux de
+cohomologie $H^0$ et $H^{-1}$, raisonnons comme suit. Soit $\mathcal{C}'$ le
+site ayant même catégorie sous-jacente que $\mathcal{C}$, mais muni de la
+topologie chaotique. Soit $f : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$ le
+morphisme de topos dont le foncteur image inverse est la faisceautisation.
+Considérons l'homomorphisme donné $\mathcal{A}' \to \mathcal{B}'$ comme un
+homomorphisme de faisceaux d'anneaux sur $\mathcal{C}'$. La construction
+précédente donne sur $\mathcal{C}'$ une application
+$L_{\mathcal{B}'/\mathcal{A}'} \to \NL_{\mathcal{B}'/\mathcal{A}'}$ dont la
+valeur sur tout objet $U$ de $\mathcal{C}'$ est simplement l'application
+$$
+L_{\mathcal{B}(U)/\mathcal{A}(U)} \to \NL_{\mathcal{B}(U)/\mathcal{A}(U)}
+$$
+de la remarque \ref{remark-explicit-comparison-map}, qui induit un
+isomorphisme sur $H^0$ et $H^{-1}$. Puisque
+$f^{-1}L_{\mathcal{B}'/\mathcal{A}'} = L_{\mathcal{B}/\mathcal{A}}$
+(lemme \ref{lemma-pullback-cotangent-morphism-topoi}) et
+$f^{-1}\NL_{\mathcal{B}'/\mathcal{A}'} = \NL_{\mathcal{B}/\mathcal{A}}$
+(Modules sur les sites, lemme \ref{sites-modules-lemma-pullback-NL}), le lemme
+est démontré.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{La classe d'Atiyah d'un faisceau de modules}
+\label{section-atiyah-general}
+
+\noindent
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux. Soit $\mathcal{F}$ un faisceau de
+$\mathcal{B}$-modules. Soit $\mathcal{P}_\bullet \to \mathcal{B}$ la
+résolution standard de $\mathcal{B}$ sur $\mathcal{A}$ (section
+\ref{section-cotangent-complex}). Pour tout $n \geq 0$, considérons l'extension
+des parties principales
+\begin{equation}
+\label{equation-atiyah-extension}
+0 \to
+\Omega_{\mathcal{P}_n/\mathcal{A}} \otimes_{\mathcal{P}_n} \mathcal{F} \to
+\mathcal{P}^1_{\mathcal{P}_n/\mathcal{A}}(\mathcal{F}) \to
+\mathcal{F} \to 0
+\end{equation}
+voir Modules sur les sites, lemme
+\ref{sites-modules-lemma-sequence-of-principal-parts}. La fonctorialité de
+cette construction (Modules sur les sites, remarque
+\ref{sites-modules-remark-functoriality-principal-parts}) montre que
+(\ref{equation-atiyah-extension}) est la partie de degré $n$ d'une suite
+exacte courte de $\mathcal{P}_\bullet$-modules simpliciaux (Cohomologie sur les
+sites, section \ref{sites-cohomology-section-simplicial-modules}). En utilisant
+le foncteur $L\pi_! : D(\mathcal{P}_\bullet) \to D(\mathcal{B})$ de Cohomologie
+sur les sites, remarque \ref{sites-cohomology-remark-homology-augmentation}
+(nous utilisons ici le fait que $\mathcal{P}_\bullet \to \mathcal{A}$ est une
+résolution), nous obtenons un triangle distingué
+\begin{equation}
+\label{equation-atiyah-general}
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F} \to
+L\pi_!\left(\mathcal{P}^1_{\mathcal{P}_\bullet/\mathcal{A}}(\mathcal{F})\right)
+\to \mathcal{F} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F} [1]
+\end{equation}
+dans $D(\mathcal{B})$.
+
+\begin{definition}
+\label{definition-atiyah-class-general}
+Soit $\mathcal{C}$ un site. Soit $\mathcal{A} \to \mathcal{B}$ un
+homomorphisme de faisceaux d'anneaux. Soit $\mathcal{F}$ un faisceau de
+$\mathcal{B}$-modules. L'application $\mathcal{F} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F}[1]$
+de (\ref{equation-atiyah-general}) est appelée la {\it classe d'Atiyah} de
+$\mathcal{F}$.
+\end{definition}
+
+
+
+
+
+
+
+
+
+\section{Le complexe cotangent d'un morphisme d'espaces annelés}
+\label{section-cotangent-morphism-ringed-spaces}
+
+\noindent
+Le complexe cotangent d'un morphisme d'espaces annelés se définit au moyen du
+complexe cotangent défini ci-dessus.
+
+\begin{definition}
+\label{definition-cotangent-complex-morphism-ringed-spaces}
+Soit $f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$ un morphisme d'espaces
+annelés. Le {\it complexe cotangent} $L_f$ de $f$ est
+$L_f = L_{\mathcal{O}_X/f^{-1}\mathcal{O}_S}$.
+Nous utiliserons également la notation
+$L_f = L_{X/S} = L_{\mathcal{O}_X/\mathcal{O}_S}$.
+\end{definition}
+
+\noindent
+Plus précisément, nous considérons le complexe cotangent (définition
+\ref{definition-cotangent-complex-morphism-sheaves-rings}) de l'homomorphisme
+$f^\sharp : f^{-1}\mathcal{O}_S \to \mathcal{O}_X$ de faisceaux d'anneaux sur
+le site associé à l'espace topologique $X$ (Sites, exemple
+\ref{sites-example-site-topological}).
+
+\begin{lemma}
+\label{lemma-H0-L-morphism-ringed-spaces}
+Soit $f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$ un morphisme d'espaces
+annelés. Alors $H^0(L_{X/S}) = \Omega_{X/S}$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-H0-L-morphism-sheaves-rings}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-triangle-ringed-spaces}
+Soient $f : X \to Y$ et $g : Y \to Z$ des morphismes d'espaces annelés. Il
+existe alors un triangle distingué canonique
+$$
+Lf^* L_{Y/Z} \to L_{X/Z} \to L_{X/Y} \to Lf^*L_{Y/Z}[1]
+$$
+dans $D(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Posons $h = g \circ f$, de sorte que
+$h^{-1}\mathcal{O}_Z = f^{-1}g^{-1}\mathcal{O}_Z$. D'après le lemme
+\ref{lemma-pullback-cotangent-morphism-topoi}, nous avons
+$f^{-1}L_{Y/Z} = L_{f^{-1}\mathcal{O}_Y/h^{-1}\mathcal{O}_Z}$
+et celui-ci est un complexe de $f^{-1}\mathcal{O}_Y$-modules plats. Le triangle
+distingué précédent est donc un cas du triangle distingué du lemme
+\ref{lemma-triangle-sheaves-rings}, avec
+$\mathcal{A} = h^{-1}\mathcal{O}_Z$, $\mathcal{B} = f^{-1}\mathcal{O}_Y$ et
+$\mathcal{C} = \mathcal{O}_X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cotangent-complex-with-naive-ringed-spaces}
+Soit $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ un morphisme d'espaces
+annelés. Il existe une application canonique $L_{X/Y} \to \NL_{X/Y}$ qui
+identifie le complexe cotangent naïf à la troncation
+$\tau_{\geq -1}L_{X/Y}$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme
+\ref{lemma-compare-cotangent-complex-with-naive}.
+\end{proof}
+
+
+
+
+
+
+\section{Déformations d'espaces annelés et complexe cotangent}
+\label{section-deformations-ringed-spaces}
+
+\noindent
+Cette section prolonge Théorie des déformations, section
+\ref{defos-section-deformations-ringed-spaces}, que nous invitons vivement le
+lecteur à lire d'abord. Rappelons brièvement la situation. Nous avons un
+épaississement du premier ordre
+$t : (S, \mathcal{O}_S) \to (S', \mathcal{O}_{S'})$ d'espaces annelés, avec
+$\mathcal{J} = \Ker(t^\sharp)$, un morphisme d'espaces annelés
+$f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$, un $\mathcal{O}_X$-module
+$\mathcal{G}$ et un $f$-morphisme $c : \mathcal{J} \to \mathcal{G}$ de
+faisceaux de modules. Nous cherchons si l'on peut remplacer le point
+d'interrogation dans le diagramme suivant
+\begin{equation}
+\label{equation-to-solve-ringed-spaces}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] & \mathcal{J} \ar[u]^c \ar[r] & \mathcal{O}_{S'} \ar[u] \ar[r] &
+\mathcal{O}_S \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+et, si une solution existe, à quel point elle est unique. Plus précisément,
+nous cherchons un épaississement du premier ordre
+$i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+et un morphisme d'épaississements $(f, f')$ comme dans Théorie des
+déformations, équation (\ref{defos-equation-morphism-thickenings}), où
+$\Ker(i^\sharp)$ est identifié à $\mathcal{G}$, tels que $(f')^\sharp$ induise
+l'application donnée $c$. Nous dirons que $X'$ est une {\it solution} de
+(\ref{equation-to-solve-ringed-spaces}).
+
+\begin{lemma}
+\label{lemma-find-obstruction-ringed-spaces}
+Dans la situation précédente :
+\begin{enumerate}
+\item il existe un élément canonique
+$\xi \in \Ext^2_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$
+dont l'annulation est une condition nécessaire et suffisante pour l'existence
+d'une solution de (\ref{equation-to-solve-ringed-spaces}) ;
+\item s'il existe une solution, l'ensemble des classes d'isomorphisme de
+solutions est un espace principal homogène sous
+$\Ext^1_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$ ;
+\item étant donnée une solution $X'$, l'ensemble des automorphismes de $X'$
+qui s'insèrent dans (\ref{equation-to-solve-ringed-spaces}) est canoniquement
+isomorphe à $\Ext^0_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Au moyen des identifications $\NL_{X/S} = \tau_{\geq -1}L_{X/S}$ (lemme
+\ref{lemma-compare-cotangent-complex-with-naive-ringed-spaces}) et
+$H^0(L_{X/S}) = \Omega_{X/S}$
+(lemme \ref{lemma-H0-L-morphism-ringed-spaces}), nous avons déjà établi (2) et
+(3) dans Théorie des déformations, lemmes
+\ref{defos-lemma-huge-diagram-ringed-spaces} et
+\ref{defos-lemma-choices-ringed-spaces}.
+
+\medskip\noindent
+Démonstration de (1). En gros, l'assertion découle de la discussion de Théorie
+des déformations, remarque
+\ref{defos-remark-parametrize-solutions-ringed-spaces}, en remplaçant le
+complexe cotangent naïf par le complexe cotangent entier. Voici une explication
+plus détaillée. D'après Théorie des déformations, lemme
+\ref{defos-lemma-parametrize-solutions-ringed-spaces}, il existe un élément
+$$
+\xi' \in
+\Ext^1_{\mathcal{O}_X}(Lf^*\NL_{S/S'}, \mathcal{G}) =
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/S'}, \mathcal{G})
+$$
+tel qu'une solution existe si et seulement si cet élément appartient à l'image
+de l'application
+$$
+\Ext^1_{\mathcal{O}_X}(NL_{X/S'}, \mathcal{G}) =
+\Ext^1_{\mathcal{O}_X}(L_{X/S'}, \mathcal{G})
+\longrightarrow
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/S'}, \mathcal{G})
+$$
+Le triangle distingué du lemme \ref{lemma-triangle-ringed-spaces}, appliqué à
+$X \to S \to S'$, donne naissance à une suite exacte longue
+$$
+\ldots \to
+\Ext^1_{\mathcal{O}_X}(L_{X/S'}, \mathcal{G}) \to
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/S'}, \mathcal{G}) \to
+\Ext^2_{\mathcal{O}_X}(L_{X/S}, \mathcal{G}) \to \ldots
+$$
+Il suffit donc de prendre pour $\xi$ l'image de $\xi'$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Le complexe cotangent d'un morphisme de topos annelés}
+\label{section-cotangent-morphism-ringed-topoi}
+
+\noindent
+Le complexe cotangent d'un morphisme de topos annelés se définit au moyen du
+complexe cotangent défini ci-dessus.
+
+\begin{definition}
+\label{definition-cotangent-complex-morphism-ringed-topoi}
+Soit $(f, f^\sharp) : (\Sh(\mathcal{C}), \mathcal{O}_\mathcal{C}) \to
+(\Sh(\mathcal{D}), \mathcal{O}_\mathcal{D})$ un morphisme de topos annelés.
+Le {\it complexe cotangent} $L_f$ de $f$ est
+$L_f = L_{\mathcal{O}_\mathcal{C}/f^{-1}\mathcal{O}_\mathcal{D}}$.
+Nous écrivons parfois
+$L_f = L_{\mathcal{O}_\mathcal{C}/\mathcal{O}_\mathcal{D}}$.
+\end{definition}
+
+\noindent
+Cette définition s'applique dans de nombreuses situations, mais elle ne donne
+pas toujours l'objet attendu. Par exemple, si $f : X \to Y$ est un morphisme
+de schémas, alors $f$ induit un morphisme de grands sites étales
+$f_{big} : (\Sch/X)_\etale \to (\Sch/Y)_\etale$
+qui est un morphisme de topos annelés (Descente, remarque
+\ref{descent-remark-change-topologies-ringed}). Toutefois,
+$L_{f_{big}} = 0$ puisque $(f_{big})^\sharp$ est un isomorphisme. En revanche,
+si nous prenons $L_f$ en regardant $f$ comme un morphisme entre les topos
+annelés de Zariski sous-jacents, alors $L_f$ coïncide bien avec le complexe
+cotangent $L_{X/Y}$ (défini ci-dessous), dont le faisceau de cohomologie de
+degré zéro est $\Omega_{X/Y}$.
+
+\begin{lemma}
+\label{lemma-H0-L-morphism-ringed-topoi}
+Soit $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ un morphisme de topos annelés.
+Alors $H^0(L_f) = \Omega_f$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-H0-L-morphism-sheaves-rings}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-triangle-ringed-topoi}
+Soient $f : (\Sh(\mathcal{C}_1), \mathcal{O}_1) \to
+(\Sh(\mathcal{C}_2), \mathcal{O}_2)$ and
+$g : (\Sh(\mathcal{C}_2), \mathcal{O}_2) \to
+(\Sh(\mathcal{C}_3), \mathcal{O}_3)$ des morphismes de topos annelés. Il
+existe alors un triangle distingué canonique
+$$
+Lf^* L_g \to L_{g \circ f} \to L_f \to Lf^*L_g[1]
+$$
+dans $D(\mathcal{O}_1)$.
+\end{lemma}
+
+\begin{proof}
+Posons $h = g \circ f$, de sorte que
+$h^{-1}\mathcal{O}_3 = f^{-1}g^{-1}\mathcal{O}_3$. D'après le lemme
+\ref{lemma-pullback-cotangent-morphism-topoi}, nous avons
+$f^{-1}L_g = L_{f^{-1}\mathcal{O}_2/h^{-1}\mathcal{O}_3}$
+et celui-ci est un complexe de $f^{-1}\mathcal{O}_2$-modules plats. Le triangle
+distingué précédent est donc un cas du triangle distingué du lemme
+\ref{lemma-triangle-sheaves-rings}, avec
+$\mathcal{A} = h^{-1}\mathcal{O}_3$, $\mathcal{B} = f^{-1}\mathcal{O}_2$ et
+$\mathcal{C} = \mathcal{O}_1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cotangent-complex-with-naive-ringed-topoi}
+Soit $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ un morphisme de topos annelés. Il
+existe une application canonique $L_f \to \NL_f$ qui identifie le complexe
+cotangent naïf à la troncation $\tau_{\geq -1}L_f$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme
+\ref{lemma-compare-cotangent-complex-with-naive}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Déformations de topos annelés et complexe cotangent}
+\label{section-deformations-ringed-topoi}
+
+\noindent
+Cette section prolonge Théorie des déformations, section
+\ref{defos-section-deformations-ringed-topoi}, que nous invitons vivement le
+lecteur à lire d'abord. Rappelons brièvement la situation. Nous avons un
+épaississement du premier ordre
+$t : (\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B}) \to
+(\Sh(\mathcal{B}'), \mathcal{O}_{\mathcal{B}'})$ de topos annelés, avec
+$\mathcal{J} = \Ker(t^\sharp)$, un morphisme de topos annelés
+$f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$, an $\mathcal{O}$-module
+$\mathcal{G}$ et une application $f^{-1}\mathcal{J} \to \mathcal{G}$ de
+faisceaux de $f^{-1}\mathcal{O}_\mathcal{B}$-modules. Nous cherchons si l'on
+peut remplacer le point d'interrogation dans le diagramme suivant
+\begin{equation}
+\label{equation-to-solve-ringed-topoi}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O} \ar[r] & 0 \\
+0 \ar[r] & f^{-1}\mathcal{J} \ar[u]^c \ar[r] &
+f^{-1}\mathcal{O}_{\mathcal{B}'} \ar[u] \ar[r] &
+f^{-1}\mathcal{O}_\mathcal{B} \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+et, si une solution existe, à quel point elle est unique. Plus précisément,
+nous cherchons un épaississement du premier ordre
+$i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{C}'), \mathcal{O}')$
+et un morphisme d'épaississements $(f, f')$ comme dans Théorie des
+déformations, équation
+(\ref{defos-equation-morphism-thickenings-ringed-topoi}), où
+$\Ker(i^\sharp)$ est identifié à $\mathcal{G}$, tels que $(f')^\sharp$ induise
+l'application donnée $c$. Nous dirons que
+$(\Sh(\mathcal{C}'), \mathcal{O}')$ est une {\it solution} de
+(\ref{equation-to-solve-ringed-topoi}).
+
+\begin{lemma}
+\label{lemma-find-obstruction-ringed-topoi}
+Dans la situation précédente :
+\begin{enumerate}
+\item il existe un élément canonique
+$\xi \in \Ext^2_\mathcal{O}(L_f, \mathcal{G})$
+dont l'annulation est une condition nécessaire et suffisante pour l'existence
+d'une solution de (\ref{equation-to-solve-ringed-topoi}) ;
+\item s'il existe une solution, l'ensemble des classes d'isomorphisme de
+solutions est un espace principal homogène sous
+$\Ext^1_\mathcal{O}(L_f, \mathcal{G})$ ;
+\item étant donnée une solution $X'$, l'ensemble des automorphismes de $X'$
+qui s'insèrent dans (\ref{equation-to-solve-ringed-topoi}) est canoniquement
+isomorphe à $\Ext^0_\mathcal{O}(L_f, \mathcal{G})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Au moyen des identifications $\NL_f = \tau_{\geq -1}L_f$ (lemme
+\ref{lemma-compare-cotangent-complex-with-naive-ringed-topoi}) et
+$H^0(L_f) = \Omega_f$
+(lemme \ref{lemma-H0-L-morphism-ringed-topoi}), nous avons déjà établi (2) et
+(3) dans Théorie des déformations, lemmes
+\ref{defos-lemma-huge-diagram-ringed-topoi} et
+\ref{defos-lemma-choices-ringed-topoi}.
+
+\medskip\noindent
+Démonstration de (1). Pour accorder les notations à celles de Théorie des
+déformations, section \ref{defos-section-deformations-ringed-topoi}, nous
+écrirons
+$\NL_f = \NL_{\mathcal{O}/\mathcal{O}_\mathcal{B}}$ and
+$L_f = L_{\mathcal{O}/\mathcal{O}_\mathcal{B}}$, et de même pour les morphismes
+$t$ et $t \circ f$. D'après Théorie des déformations, lemme
+\ref{defos-lemma-parametrize-solutions-ringed-topoi}, il existe un élément
+$$
+\xi' \in
+\Ext^1_\mathcal{O}(
+Lf^*\NL_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G}) =
+\Ext^1_\mathcal{O}(
+Lf^*L_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+$$
+tel qu'une solution existe si et seulement si cet élément appartient à l'image
+de l'application
+$$
+\Ext^1_\mathcal{O}(
+\NL_{\mathcal{O}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G}) =
+\Ext^1_\mathcal{O}(
+L_{\mathcal{O}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+\longrightarrow
+\Ext^1_\mathcal{O}(
+Lf^*L_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+$$
+Le triangle distingué du lemme \ref{lemma-triangle-ringed-topoi}, appliqué à
+$f$ et $t$, donne naissance à une suite exacte longue
+$$
+\ldots \to
+\Ext^1_\mathcal{O}(
+L_{\mathcal{O}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G}) \to
+\Ext^1_\mathcal{O}(
+Lf^*L_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+\to
+\Ext^1_\mathcal{O}(
+L_{\mathcal{O}/\mathcal{O}_\mathcal{B}}, \mathcal{G})
+$$
+Il suffit donc de prendre pour $\xi$ l'image de $\xi'$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Le complexe cotangent d'un morphisme de schémas}
+\label{section-cotangent-morphism-schemes}
+
+\noindent
+Comme annoncé plus haut, nous définissons comme suit le complexe cotangent d'un
+morphisme de schémas.
+
+\begin{definition}
+\label{definition-cotangent-morphism-schemes}
+Soit $f : X \to Y$ un morphisme de schémas. Le {\it complexe cotangent
+$L_{X/Y}$ de $X$ sur $Y$} est le complexe cotangent de $f$ considéré comme un
+morphisme d'espaces annelés (définition
+\ref{definition-cotangent-complex-morphism-ringed-spaces}).
+\end{definition}
+
+\noindent
+En particulier, les résultats de la section
+\ref{section-cotangent-morphism-ringed-spaces} s'appliquent aux complexes
+cotangents des morphismes de schémas. Le lemme suivant montre que cette
+définition est compatible avec celle donnée pour les homomorphismes d'anneaux ;
+il implique aussi que $L_{X/Y}$ est un objet de $D_\QCoh(\mathcal{O}_X)$.
+
+\begin{lemma}
+\label{lemma-morphism-affine-schemes}
+Soit $f : X \to Y$ un morphisme de schémas. Soient
+$U = \Spec(B) \subset X$ et $V = \Spec(A) \subset Y$ des ouverts affines tels
+que $f(U) \subset V$. Il existe une application canonique
+$$
+\widetilde{L_{B/A}} \longrightarrow L_{X/Y}|_U
+$$
+de complexes qui est un isomorphisme dans $D(\mathcal{O}_U)$. Cette application
+est compatible à la restriction à des ouverts affines plus petits de $X$ et
+de $Y$.
+\end{lemma}
+
+\begin{proof}
+D'après la remarque \ref{remark-map-sections-over-U}, il existe une
+application canonique de complexes
+$L_{\mathcal{O}_X(U)/f^{-1}\mathcal{O}_Y(U)} \to L_{X/Y}(U)$
+de $B = \mathcal{O}_X(U)$-modules, compatible aux restrictions ultérieures. En
+utilisant l'application canonique $A \to f^{-1}\mathcal{O}_Y(U)$, nous
+obtenons une application canonique
+$L_{B/A} \to L_{\mathcal{O}_X(U)/f^{-1}\mathcal{O}_Y(U)}$
+de complexes de $B$-modules. La propriété universelle du foncteur
+$\widetilde{\ }$ (voir Schémas, lemme
+\ref{schemes-lemma-compare-constructions}) fournit l'application de l'énoncé.
+Pour vérifier qu'elle est un isomorphisme sur les faisceaux de cohomologie, il
+suffit de vérifier qu'elle induit des isomorphismes sur les fibres. Cela
+résulte immédiatement des lemmes \ref{lemma-stalk-cotangent-complex} et
+\ref{lemma-localize} (et de la description des fibres de
+$\mathcal{O}_X$ and $f^{-1}\mathcal{O}_Y$
+en un point $\mathfrak p \in \Spec(B)$ comme $B_\mathfrak p$ et
+$A_\mathfrak q$, où $\mathfrak q = A \cap \mathfrak p$ ; les références
+utilisées sont Schémas, lemme \ref{schemes-lemma-spec-sheaves}, et Faisceaux,
+lemme \ref{sheaves-lemma-stalk-pullback}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-scheme-over-ring}
+Soit $\Lambda$ un anneau. Soit $X$ un schéma sur $\Lambda$. Alors
+$$
+L_{X/\Spec(\Lambda)} = L_{\mathcal{O}_X/\underline{\Lambda}}
+$$
+où $\underline{\Lambda}$ est le faisceau constant de valeur $\Lambda$ sur $X$.
+\end{lemma}
+
+\begin{proof}
+Soit $p : X \to \Spec(\Lambda)$ le morphisme structural. Soit
+$q : \Spec(\Lambda) \to (*, \Lambda)$ le morphisme évident. D'après le triangle
+distingué du lemme \ref{lemma-triangle-ringed-spaces}, il suffit de montrer que
+$L_q = 0$. Pour cela, il suffit de montrer, pour
+$\mathfrak p \in \Spec(\Lambda)$, que
+$$
+(L_q)_\mathfrak p =
+L_{\mathcal{O}_{\Spec(\Lambda), \mathfrak p}/\Lambda} =
+L_{\Lambda_\mathfrak p/\Lambda}
+$$
+(lemme \ref{lemma-stalk-cotangent-complex}) est nul, ce qui résulte du lemme
+\ref{lemma-when-zero}.
+\end{proof}
+
+
+
+
+
+
+\section{Le complexe cotangent d'un schéma sur un anneau}
+\label{section-cotangent-schemes-variant}
+
+\noindent
+Soit $\Lambda$ un anneau et soit $X$ un schéma sur $\Lambda$. Écrivons
+$L_{X/\Spec(\Lambda)} = L_{X/\Lambda}$, ce qui est justifié par le lemme
+\ref{lemma-scheme-over-ring}. Dans cette section, nous donnons de
+$L_{X/\Lambda}$ une description analogue à celle du lemme
+\ref{lemma-compute-cotangent-complex}. Plus précisément, nous construisons une
+catégorie $\mathcal{C}_{X/\Lambda}$ fibrée au-dessus de $X_{Zar}$ et la
+munissons d'un faisceau $\mathcal{O}$ de $\Lambda$-algèbres (polynomiales) tel
+que
+$$
+L_{X/\Lambda} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}} \otimes_\mathcal{O}
+\underline{\mathcal{O}}_X).
+$$
+Nous utiliserons plus loin la catégorie $\mathcal{C}_{X/\Lambda}$ pour
+construire une théorie naïve des obstructions pour le champ des faisceaux
+cohérents.
+
+\medskip\noindent
+Soit $\Lambda$ un anneau. Soit $X$ un schéma sur $\Lambda$. Soit
+$\mathcal{C}_{X/\Lambda}$ la catégorie dont les objets sont les diagrammes
+commutatifs
+\begin{equation}
+\label{equation-object}
+\vcenter{
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \\
+\Spec(\Lambda) & \mathbf{A} \ar[l]
+}
+}
+\end{equation}
+de schémas tels que
+\begin{enumerate}
+\item $U$ soit un sous-schéma ouvert de $X$,
+\item il existe un isomorphisme $\mathbf{A} = \Spec(P)$, où $P$ est une
+algèbre polynomiale sur $\Lambda$ (en un certain ensemble de variables).
+\end{enumerate}
+Autrement dit, $\mathbf{A}$ est un espace affine (de dimension infinie) sur
+$\Spec(\Lambda)$. Les morphismes sont donnés par des diagrammes commutatifs.
+Rappelons que $X_{Zar}$ désigne le petit site de Zariski de $X$. Il existe un
+foncteur d'oubli
+$$
+u : \mathcal{C}_{X/\Lambda} \to X_{Zar},\ (U \to \mathbf{A}) \mapsto U
+$$
+Remarquons que la catégorie fibre au-dessus de $U$ est canoniquement
+équivalente à la catégorie $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ introduite
+dans la section \ref{section-compute-L-pi-shriek}.
+
+\begin{lemma}
+\label{lemma-category-fibred}
+Dans la situation précédente, la catégorie $\mathcal{C}_{X/\Lambda}$ est
+fibrée au-dessus de $X_{Zar}$.
+\end{lemma}
+
+\begin{proof}
+Étant donnés un objet $U \to \mathbf{A}$ de $\mathcal{C}_{X/\Lambda}$ et un
+morphisme $U' \to U$ de $X_{Zar}$, considérons l'objet
+$U' \to \mathbf{A}$ de $\mathcal{C}_{X/\Lambda}$, où
+$U' \to \mathbf{A}$ est la composée de $U' \to U$ et de
+$U \to \mathbf{A}$. Le morphisme
+$(U' \to \mathbf{A}) \to (U \to \mathbf{A})$ of
+de $\mathcal{C}_{X/\Lambda}$ est fortement cartésien au-dessus de $X_{Zar}$.
+\end{proof}
+
+\noindent
+Munissons $\mathcal{C}_{X/\Lambda}$ de la topologie héritée de $X_{Zar}$ (voir
+Champs, section \ref{stacks-section-topology}). Le foncteur $u$ définit un
+morphisme de topos
+$\pi : \Sh(\mathcal{C}_{X/\Lambda}) \to \Sh(X_{Zar})$. Le site
+$\mathcal{C}_{X/\Lambda}$ est muni de plusieurs faisceaux d'anneaux :
+\begin{enumerate}
+\item le faisceau $\mathcal{O}$ donné par la règle
+$(U \to \mathbf{A}) \mapsto \Gamma(\mathbf{A}, \mathcal{O}_\mathbf{A})$.
+\item le faisceau $\underline{\mathcal{O}}_X = \pi^{-1}\mathcal{O}_X$ donné
+par la règle $(U \to \mathbf{A}) \mapsto \mathcal{O}_X(U)$ ;
+\item le faisceau constant $\underline{\Lambda}$.
+\end{enumerate}
+Nous obtenons des morphismes de topos annelés
+\begin{equation}
+\label{equation-pi-schemes}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}_{X/\Lambda}), \underline{\mathcal{O}}_X) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}_{X/\Lambda}), \mathcal{O}) \\
+(\Sh(X_{Zar}), \mathcal{O}_X)
+}
+}
+\end{equation}
+Le morphisme $i$ est l'identité sur les topos sous-jacents, et
+$i^\sharp : \mathcal{O} \to \underline{\mathcal{O}}_X$ est l'homomorphisme
+évident. Le morphisme $\pi$ est un cas particulier de Cohomologie sur les
+sites, situation \ref{sites-cohomology-situation-fibred-category}. Les
+foncteurs dérivés suivants joueront un rôle important :
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{\mathcal{O}}_X)
+$
+adjoint à gauche de
+$Ri_* = i_* : D(\underline{\mathcal{O}}_X) \to D(\mathcal{O})$, et
+$
+L\pi_! : D(\underline{\mathcal{O}}_X) \longrightarrow D(\mathcal{O}_X)
+$
+adjoint à gauche de
+$\pi^* = \pi^{-1} : D(\mathcal{O}_X) \to D(\underline{\mathcal{O}}_X)$. Nos
+travaux précédents permettent de calculer $L\pi_!$.
+
+\begin{remark}
+\label{remark-compute-L-pi-shriek}
+Dans la situation précédente, pour tout ouvert $U \subset X$, soit
+$P_{\bullet, U}$ la résolution standard de $\mathcal{O}_X(U)$ sur $\Lambda$.
+Posons $\mathbf{A}_{n, U} = \Spec(P_{n, U})$. Alors
+$\mathbf{A}_{\bullet, U}$
+est un objet cosimplicial de la catégorie fibre
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ de $\mathcal{C}_{X/\Lambda}$ au-dessus
+de $U$. De plus, comme expliqué dans la remarque \ref{remark-resolution},
+$\mathbf{A}_{\bullet, U}$ est un objet cosimplicial de
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ comme dans Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}. La
+construction $U \mapsto \mathbf{A}_{\bullet, U}$ étant fonctorielle en $U$,
+tout faisceau (abélien) $\mathcal{F}$ sur $\mathcal{C}_{X/\Lambda}$ donne un
+complexe de préfaisceaux
+$$
+U \longmapsto \mathcal{F}(\mathbf{A}_{\bullet, U})
+$$
+dont les groupes de cohomologie calculent l'homologie de $\mathcal{F}$ sur la
+catégorie fibre. D'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}, nous en concluons
+que la faisceautisation calcule $L_n\pi_!(\mathcal{F})$. Autrement dit, le
+complexe de faisceaux dont le terme de degré $-n$ est la faisceautisation de
+$U \mapsto \mathcal{F}(\mathbf{A}_{n, U})$ calcule $L\pi_!(\mathcal{F})$.
+\end{remark}
+
+\noindent
+Nous pouvons maintenant énoncer le résultat principal de cette section.
+
+\begin{lemma}
+\label{lemma-cotangent-morphism-schemes}
+Dans la situation précédente, il existe un isomorphisme canonique
+$$
+L_{X/\Lambda} = 
+L\pi_!(Li^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)
+$$
+dans $D(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Observons d'abord que, pour tout objet $(U \to \mathbf{A})$ de
+$\mathcal{C}_{X/\Lambda}$, la valeur du faisceau $\mathcal{O}$ est une algèbre
+polynomiale sur $\Lambda$. Ainsi,
+$\Omega_{\mathcal{O}/\underline{\Lambda}}$ est un $\mathcal{O}$-module plat,
+et les deuxième et troisième égalités de l'énoncé sont vérifiées.
+
+\medskip\noindent
+D'après la remarque \ref{remark-compute-L-pi-shriek}, l'objet
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+se calcule comme la faisceautisation du complexe de préfaisceaux
+$$
+U \mapsto
+\left(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X\right)(\mathbf{A}_{\bullet, U})
+=
+\Omega_{P_{\bullet, U}/\Lambda} \otimes_{P_{\bullet, U}} \mathcal{O}_X(U) =
+L_{\mathcal{O}_X(U)/\Lambda}
+$$
+avec les notations de la remarque \ref{remark-compute-L-pi-shriek}. La remarque
+\ref{remark-map-sections-over-U} montre alors que
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+calcule le complexe cotangent de l'homomorphisme d'anneaux
+$\underline{\Lambda} \to \mathcal{O}_X$ sur $X$. C'est le résultat voulu
+d'après le lemme \ref{lemma-scheme-over-ring}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Le complexe cotangent d'un morphisme d'espaces algébriques}
+\label{section-cotangent-morphism-spaces}
+
+\noindent
+Nous définissons le complexe cotangent d'un morphisme d'espaces algébriques au
+moyen du morphisme associé entre les petits sites étales.
+
+\begin{definition}
+\label{definition-cotangent-morphism-spaces}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques sur
+$S$. Le {\it complexe cotangent $L_{X/Y}$ de $X$ sur $Y$} est le complexe
+cotangent du morphisme de topos annelés $f_{small}$ entre les petits sites
+étales de $X$ et de $Y$ (voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-morphism-ringed-topoi}, et définition
+\ref{definition-cotangent-complex-morphism-ringed-topoi}).
+\end{definition}
+
+\noindent
+En particulier, les résultats de la section
+\ref{section-cotangent-morphism-ringed-topoi} s'appliquent aux complexes
+cotangents des morphismes d'espaces algébriques. Les lemmes suivants montrent
+que cette définition est compatible avec celles données pour les
+homomorphismes d'anneaux et pour les schémas, et que $L_{X/Y}$ est un objet de
+$D_\QCoh(\mathcal{O}_X)$.
+
+\begin{lemma}
+\label{lemma-etale-localization}
+Soit $S$ un schéma. Considérons un diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_p \ar[r]_g & V \ar[d]^q \\
+X \ar[r]^f & Y
+}
+$$
+d'espaces algébriques sur $S$, où $p$ et $q$ sont étales. Il existe alors une
+identification canonique $L_{X/Y}|_{U_\etale} = L_{U/V}$ dans
+$D(\mathcal{O}_U)$.
+\end{lemma}
+
+\begin{proof}
+La formation du complexe cotangent commute à l'image inverse (lemme
+\ref{lemma-pullback-cotangent-morphism-topoi}), et nous avons
+$p_{small}^{-1}\mathcal{O}_X = \mathcal{O}_U$ et
+$g_{small}^{-1}\mathcal{O}_{V_\etale} =
+p_{small}^{-1}f_{small}^{-1}\mathcal{O}_{Y_\etale}$
+parce que $q_{small}^{-1}\mathcal{O}_{Y_\etale} =
+\mathcal{O}_{V_\etale}$
+(Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-etale-exact-pullback}).
+En suivant les définitions, nous en concluons que
+$L_{X/Y}|_{U_\etale} = L_{U/V}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-spaces-schemes}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques sur
+$S$. Supposons que $X$ et $Y$ soient représentables par des schémas $X_0$ et
+$Y_0$. Il existe alors une identification canonique
+$L_{X/Y} = \epsilon^*L_{X_0/Y_0}$ in $D(\mathcal{O}_X)$
+où $\epsilon$ est celui de Catégories dérivées des espaces, section
+\ref{spaces-perfect-section-derived-quasi-coherent-etale}, et où
+$L_{X_0/Y_0}$ est celui de la définition
+\ref{definition-cotangent-morphism-schemes}.
+\end{lemma}
+
+\begin{proof}
+Soit $f_0 : X_0 \to Y_0$ le morphisme de schémas correspondant à $f$. Il
+existe une application canonique
+$\epsilon^{-1}f_0^{-1}\mathcal{O}_{Y_0} \to f_{small}^{-1}\mathcal{O}_Y$
+compatible à
+$\epsilon^\sharp : \epsilon^{-1}\mathcal{O}_{X_0} \to \mathcal{O}_X$
+parce qu'il existe un diagramme commutatif
+$$
+\xymatrix{
+X_{0, Zar} \ar[d]_{f_0} & X_\etale \ar[l]^\epsilon \ar[d]^f \\
+Y_{0, Zar} & Y_\etale \ar[l]_\epsilon
+}
+$$
+voir Catégories dérivées des espaces, remarque
+\ref{spaces-perfect-remark-match-total-direct-images}.
+Nous obtenons ainsi une application canonique
+$$
+\epsilon^{-1}L_{X_0/Y_0} =
+\epsilon^{-1}L_{\mathcal{O}_{X_0}/f_0^{-1}\mathcal{O}_{Y_0}} =
+L_{\epsilon^{-1}\mathcal{O}_{X_0}/\epsilon^{-1}f_0^{-1}\mathcal{O}_{Y_0}}
+\longrightarrow
+L_{\mathcal{O}_X/f^{-1}_{small}\mathcal{O}_Y} = L_{X/Y}
+$$
+par la fonctorialité étudiée dans la section
+\ref{section-cotangent-complex} et le lemme
+\ref{lemma-pullback-cotangent-morphism-topoi}. Pour voir que l'application
+induite $\epsilon^*L_{X_0/Y_0} \to L_{X/Y}$ est un isomorphisme, nous pouvons
+le vérifier sur les fibres aux points géométriques (Propriétés des espaces,
+théorème \ref{spaces-properties-theorem-exactness-stalks}). Nous utiliserons
+le lemme \ref{lemma-stalk-cotangent-complex} pour calculer les fibres. Soit
+$\overline{x} : \Spec(k) \to X_0$ un point géométrique au-dessus de
+$x \in X_0$, et soit $\overline{y} = f \circ \overline{x}$ au-dessus de
+$y \in Y_0$. Alors
+$$
+L_{X/Y, \overline{x}} =
+L_{\mathcal{O}_{X, \overline{x}}/\mathcal{O}_{Y, \overline{y}}}
+$$
+et
+$$
+(\epsilon^*L_{X_0/Y_0})_{\overline{x}} =
+L_{X_0/Y_0, x} \otimes_{\mathcal{O}_{X_0, x}}
+\mathcal{O}_{X, \overline{x}} =
+L_{\mathcal{O}_{X_0, x}/\mathcal{O}_{Y_0, y}}
+\otimes_{\mathcal{O}_{X_0, x}} \mathcal{O}_{X, \overline{x}}
+$$
+Nous omettons quelques détails (indication : utiliser le fait que la fibre
+d'une image inverse est la fibre au point image ; voir Sites, lemme
+\ref{sites-lemma-point-morphism-sites}, ainsi que le résultat correspondant
+pour les modules, Modules sur les sites, lemme
+\ref{sites-modules-lemma-pullback-stalk}). Remarquons que
+$\mathcal{O}_{X, \overline{x}}$ est le hensélisé strict de
+$\mathcal{O}_{X_0, x}$, et de même pour $\mathcal{O}_{Y, \overline{y}}$
+(Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-describe-etale-local-ring}). Le résultat découle
+donc du lemme \ref{lemma-cotangent-complex-henselization}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-space-over-ring}
+Soit $\Lambda$ un anneau. Soit $X$ un espace algébrique sur $\Lambda$. Alors
+$$
+L_{X/\Spec(\Lambda)} = L_{\mathcal{O}_X/\underline{\Lambda}}
+$$
+où $\underline{\Lambda}$ est le faisceau constant de valeur $\Lambda$ sur
+$X_\etale$.
+\end{lemma}
+
+\begin{proof}
+Soit $p : X \to \Spec(\Lambda)$ le morphisme structural. Soit
+$q : \Spec(\Lambda)_\etale \to (*, \Lambda)$ le morphisme évident. D'après le
+triangle distingué du lemme \ref{lemma-triangle-ringed-topoi}, il suffit de
+montrer que $L_q = 0$. Pour cela, il suffit de montrer (Propriétés des espaces,
+théorème \ref{spaces-properties-theorem-exactness-stalks}) que, pour tout point
+géométrique $\overline{t} : \Spec(k) \to \Spec(\Lambda)$,
+$$
+(L_q)_{\overline{t}} =
+L_{\mathcal{O}_{\Spec(\Lambda)_\etale, \overline{t}}/\Lambda}
+$$
+(lemme \ref{lemma-stalk-cotangent-complex}) est nul. Comme
+$\mathcal{O}_{\Spec(\Lambda)_\etale, \overline{t}}$ est le hensélisé strict
+d'un anneau local de $\Lambda$ (Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-describe-etale-local-ring}), cela résulte du lemme
+\ref{lemma-when-zero}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Le complexe cotangent d'un espace algébrique sur un anneau}
+\label{section-cotangent-spaces-variant}
+
+\noindent
+Soit $\Lambda$ un anneau et soit $X$ un espace algébrique sur $\Lambda$.
+Écrivons $L_{X/\Spec(\Lambda)} = L_{X/\Lambda}$, ce qui est justifié par le
+lemme \ref{lemma-space-over-ring}. Dans cette section, nous donnons de
+$L_{X/\Lambda}$ une description analogue à celle du lemme
+\ref{lemma-compute-cotangent-complex}. Plus précisément, nous construisons une
+catégorie $\mathcal{C}_{X/\Lambda}$ fibrée au-dessus de $X_\etale$ et la
+munissons d'un faisceau $\mathcal{O}$ de $\Lambda$-algèbres (polynomiales) tel
+que
+$$
+L_{X/\Lambda} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}} \otimes_\mathcal{O}
+\underline{\mathcal{O}}_X).
+$$
+Nous utiliserons plus loin la catégorie $\mathcal{C}_{X/\Lambda}$ pour
+construire une théorie naïve des obstructions pour le champ des faisceaux
+cohérents.
+
+\medskip\noindent
+Soit $\Lambda$ un anneau. Soit $X$ un espace algébrique sur $\Lambda$. Soit
+$\mathcal{C}_{X/\Lambda}$ la catégorie dont les objets sont les diagrammes
+commutatifs
+\begin{equation}
+\label{equation-object-space}
+\vcenter{
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \\
+\Spec(\Lambda) & \mathbf{A} \ar[l]
+}
+}
+\end{equation}
+de schémas tels que
+\begin{enumerate}
+\item $U$ soit un schéma,
+\item $U \to X$ soit étale,
+\item il existe un isomorphisme $\mathbf{A} = \Spec(P)$, où $P$ est une
+algèbre polynomiale sur $\Lambda$ (en un certain ensemble de variables).
+\end{enumerate}
+Autrement dit, $\mathbf{A}$ est un espace affine (de dimension infinie) sur
+$\Spec(\Lambda)$. Les morphismes sont donnés par des diagrammes commutatifs.
+Rappelons que $X_\etale$ désigne le petit site étale de $X$, dont les objets
+sont les schémas étales sur $X$. Il existe un foncteur d'oubli
+$$
+u : \mathcal{C}_{X/\Lambda} \to X_\etale,
+\quad
+(U \to \mathbf{A}) \mapsto U
+$$
+Remarquons que la catégorie fibre au-dessus de $U$ est canoniquement
+équivalente à la catégorie $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ introduite
+dans la section \ref{section-compute-L-pi-shriek}.
+
+\begin{lemma}
+\label{lemma-category-fibred-space}
+Dans la situation précédente, la catégorie $\mathcal{C}_{X/\Lambda}$ est
+fibrée au-dessus de $X_\etale$.
+\end{lemma}
+
+\begin{proof}
+Étant donnés un objet $U \to \mathbf{A}$ de $\mathcal{C}_{X/\Lambda}$ et un
+morphisme $U' \to U$ de $X_\etale$, considérons l'objet
+$U' \to \mathbf{A}$ de $\mathcal{C}_{X/\Lambda}$, où
+$U' \to \mathbf{A}$ est la composée de $U' \to U$ et de
+$U \to \mathbf{A}$. Le morphisme
+$(U' \to \mathbf{A}) \to (U \to \mathbf{A})$ de
+$\mathcal{C}_{X/\Lambda}$ est fortement cartésien au-dessus de $X_\etale$.
+\end{proof}
+
+\noindent
+Munissons $\mathcal{C}_{X/\Lambda}$ de la topologie héritée de $X_\etale$
+(voir Champs, section \ref{stacks-section-topology}). Le foncteur $u$ définit
+un morphisme de topos
+$\pi : \Sh(\mathcal{C}_{X/\Lambda}) \to \Sh(X_\etale)$. Le site
+$\mathcal{C}_{X/\Lambda}$ est muni de plusieurs faisceaux d'anneaux :
+\begin{enumerate}
+\item le faisceau $\mathcal{O}$ donné par la règle
+$(U \to \mathbf{A}) \mapsto \Gamma(\mathbf{A}, \mathcal{O}_\mathbf{A})$.
+\item le faisceau $\underline{\mathcal{O}}_X = \pi^{-1}\mathcal{O}_X$ donné
+par la règle $(U \to \mathbf{A}) \mapsto \mathcal{O}_X(U)$ ;
+\item le faisceau constant $\underline{\Lambda}$.
+\end{enumerate}
+Nous obtenons des morphismes de topos annelés
+\begin{equation}
+\label{equation-pi-spaces}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}_{X/\Lambda}), \underline{\mathcal{O}}_X) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}_{X/\Lambda}), \mathcal{O}) \\
+(\Sh(X_\etale), \mathcal{O}_X)
+}
+}
+\end{equation}
+Le morphisme $i$ est l'identité sur les topos sous-jacents, et
+$i^\sharp : \mathcal{O} \to \underline{\mathcal{O}}_X$ est l'homomorphisme
+évident. Le morphisme $\pi$ est un cas particulier de Cohomologie sur les
+sites, situation \ref{sites-cohomology-situation-fibred-category}. Les
+foncteurs dérivés suivants joueront un rôle important :
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{\mathcal{O}}_X)
+$
+adjoint à gauche de
+$Ri_* = i_* : D(\underline{\mathcal{O}}_X) \to D(\mathcal{O})$, et
+$
+L\pi_! : D(\underline{\mathcal{O}}_X) \longrightarrow D(\mathcal{O}_X)
+$
+adjoint à gauche de
+$\pi^* = \pi^{-1} : D(\mathcal{O}_X) \to D(\underline{\mathcal{O}}_X)$. Nos
+travaux précédents permettent de calculer $L\pi_!$.
+
+\begin{remark}
+\label{remark-compute-L-pi-shriek-spaces}
+Dans la situation précédente, pour tout objet $U \to X$ de $X_\etale$, soit
+$P_{\bullet, U}$ la résolution standard de $\mathcal{O}_X(U)$ sur $\Lambda$.
+Posons $\mathbf{A}_{n, U} = \Spec(P_{n, U})$. Alors
+$\mathbf{A}_{\bullet, U}$ est un objet cosimplicial de la catégorie fibre
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ de $\mathcal{C}_{X/\Lambda}$ au-dessus
+de $U$. De plus, comme expliqué dans la remarque \ref{remark-resolution},
+$\mathbf{A}_{\bullet, U}$ est un objet cosimplicial de
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ comme dans Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}. La
+construction $U \mapsto \mathbf{A}_{\bullet, U}$ étant fonctorielle en $U$,
+tout faisceau (abélien) $\mathcal{F}$ sur $\mathcal{C}_{X/\Lambda}$ donne un
+complexe de préfaisceaux
+$$
+U \longmapsto \mathcal{F}(\mathbf{A}_{\bullet, U})
+$$
+dont les groupes de cohomologie calculent l'homologie de $\mathcal{F}$ sur la
+catégorie fibre. D'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}, nous en concluons
+que la faisceautisation calcule $L_n\pi_!(\mathcal{F})$. Autrement dit, le
+complexe de faisceaux dont le terme de degré $-n$ est la faisceautisation de
+$U \mapsto \mathcal{F}(\mathbf{A}_{n, U})$ calcule $L\pi_!(\mathcal{F})$.
+\end{remark}
+
+\noindent
+Nous pouvons maintenant énoncer le résultat principal de cette section.
+
+\begin{lemma}
+\label{lemma-cotangent-morphism-spaces}
+Dans la situation précédente, il existe un isomorphisme canonique
+$$
+L_{X/\Lambda} = 
+L\pi_!(Li^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)
+$$
+dans $D(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Observons d'abord que, pour tout objet $(U \to \mathbf{A})$ de
+$\mathcal{C}_{X/\Lambda}$, la valeur du faisceau $\mathcal{O}$ est une algèbre
+polynomiale sur $\Lambda$. Ainsi,
+$\Omega_{\mathcal{O}/\underline{\Lambda}}$ est un $\mathcal{O}$-module plat,
+et les deuxième et troisième égalités de l'énoncé sont vérifiées.
+
+\medskip\noindent
+D'après la remarque \ref{remark-compute-L-pi-shriek-spaces}, l'objet
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+se calcule comme la faisceautisation du complexe de préfaisceaux
+$$
+U \mapsto
+\left(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X\right)(\mathbf{A}_{\bullet, U})
+=
+\Omega_{P_{\bullet, U}/\Lambda} \otimes_{P_{\bullet, U}} \mathcal{O}_X(U) =
+L_{\mathcal{O}_X(U)/\Lambda}
+$$
+avec les notations de la remarque \ref{remark-compute-L-pi-shriek-spaces}. La
+remarque \ref{remark-map-sections-over-U} montre alors que
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+calcule le complexe cotangent de l'homomorphisme d'anneaux
+$\underline{\Lambda} \to \mathcal{O}_X$ sur $X_\etale$. C'est le résultat
+voulu d'après le lemme \ref{lemma-space-over-ring}.
+\end{proof}
+
+
+
+
+
+
+\section{Produits fibrés d'espaces algébriques et complexe cotangent}
+\label{section-fibre-product}
+
+\noindent
+Soit $S$ un schéma. Soient $X \to B$ et $Y \to B$ des morphismes d'espaces
+algébriques sur $S$. Considérons le produit fibré $X \times_B Y$, muni des
+morphismes de projection $p : X \times_B Y \to X$ et
+$q : X \times_B Y \to Y$. Dans cette section, nous étudions
+$L_{X \times_B Y/B}$. L'essentiel des renseignements recherchés est contenu
+dans le diagramme suivant
+\begin{equation}
+\label{equation-fibre-product}
+\vcenter{
+\xymatrix{
+Lp^*L_{X/B} \ar[r] &
+L_{X \times_B Y/Y} \ar[r] &
+E \\
+Lp^*L_{X/B} \ar[r] \ar@{=}[u] &
+L_{X \times_B Y/B} \ar[r] \ar[u] &
+L_{X \times_B Y/X} \ar[u] \\
+ &
+Lq^*L_{Y/B} \ar[u] \ar@{=}[r] &
+Lq^*L_{Y/B} \ar[u]
+}
+}
+\end{equation}
+Explication : la ligne médiane est le triangle fondamental du lemme
+\ref{lemma-triangle-ringed-topoi} associé aux morphismes
+$X \times_B Y \to X \to B$. La colonne médiane est le triangle fondamental
+associé aux morphismes $X \times_B Y \to Y \to B$. Ensuite, $E$ est un objet
+de $D(\mathcal{O}_{X \times_B Y})$ qui « complète » le coin supérieur droit,
+c'est-à-dire qui fait de la ligne supérieure et de la colonne droite des
+triangles distingués. Un tel $E$ existe d'après Catégories dérivées,
+proposition \ref{derived-proposition-9}, appliquée au carré inférieur gauche
+(en plaçant $0$ à la position manquante). Plus explicitement, nous pourrions
+par exemple définir $E$ comme le cône (Catégories dérivées, définition
+\ref{derived-definition-cone}) de l'application de complexes
+$$
+Lp^*L_{X/B} \oplus Lq^*L_{Y/B} \longrightarrow L_{X \times_B Y/B}
+$$
+et obtenir les deux applications de but $E$ en appliquant TR3. Dans le cas
+Tor-indépendant, l'objet $E$ est nul.
+
+\begin{lemma}
+\label{lemma-fibre-product-tor-independent}
+Dans la situation précédente, si $X$ et $Y$ sont Tor-indépendants sur $B$,
+alors l'objet $E$ de (\ref{equation-fibre-product}) est nul. Dans ce cas, nous
+avons
+$$
+L_{X \times_B Y/B} = Lp^*L_{X/B} \oplus Lq^*L_{Y/B}
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $W$ et un morphisme étale surjectif $W \to B$.
+Choisissons un schéma $U$ et un morphisme étale surjectif
+$U \to X \times_B W$. Choisissons un schéma $V$ et un morphisme étale
+surjectif $V \to Y \times_B W$. Alors
+$U \times_W V \to X \times_B Y$ est également étale surjectif. Il suffit donc
+de montrer que la restriction de $E$ à $U \times_W V$ est nulle. D'après le
+lemme \ref{lemma-compare-spaces-schemes} et Catégories dérivées des espaces,
+lemme \ref{spaces-perfect-lemma-tor-independent}, nous sommes ramenés au cas
+des schémas. En choisissant des ouverts affines convenables, nous nous ramenons
+au cas des schémas affines. Le lemme \ref{lemma-morphism-affine-schemes} nous
+ramène alors au cas d'un produit tensoriel d'anneaux, c'est-à-dire au lemme
+\ref{lemma-tensor-product-tor-independent}.
+\end{proof}
+
+\noindent
+Dans le cas général, nous pouvons dire ce qui suit de l'objet $E$.
+
+\begin{lemma}
+\label{lemma-fibre-product}
+Soit $S$ un schéma. Soient $X \to B$ et $Y \to B$ des morphismes d'espaces
+algébriques sur $S$. L'objet $E$ de (\ref{equation-fibre-product}) vérifie
+$H^i(E) = 0$ pour $i = 0, -1$, et, pour tout point géométrique
+$(\overline{x}, \overline{y}) : \Spec(k) \to X \times_B Y$, nous avons
+$$
+H^{-2}(E)_{(\overline{x}, \overline{y})} =
+\text{Tor}_1^R(A, B) \otimes_{A \otimes_R B} C
+$$
+où $R = \mathcal{O}_{B, \overline{b}}$, $A = \mathcal{O}_{X, \overline{x}}$,
+$B = \mathcal{O}_{Y, \overline{y}}$ et
+$C = \mathcal{O}_{X \times_B Y, (\overline{x}, \overline{y})}$.
+\end{lemma}
+
+\begin{proof}
+La formation du complexe cotangent commute au passage aux fibres et aux images
+inverses ; voir les lemmes \ref{lemma-stalk-cotangent-complex} et
+\ref{lemma-pullback-cotangent-morphism-topoi}. Remarquons que $C$ est un
+hensélisé de $A \otimes_R B$.
+$L_{C/R} = L_{A \otimes_R B/R} \otimes_{A \otimes_R B} C$
+d'après les résultats de la section \ref{section-localization}. Ainsi, la fibre
+de $E$ en notre point géométrique est le cône de l'application
+$L_{A/R} \otimes C \to L_{A \otimes_R B/R} \otimes C$. Les assertions du
+lemme résultent donc du cas des anneaux, c'est-à-dire du lemme
+\ref{lemma-tensor-product}.
+\end{proof}
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

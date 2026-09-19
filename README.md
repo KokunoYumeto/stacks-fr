@@ -1,3 +1,21 @@
+<!-- FRENCH-SOURCE-PROGRESS-20260919 -->
+# Stacks Project — French translation
+
+The French translation is **still in progress**. The released reader covers
+Chapters 1–15, with its PDF, direct full-text LaTeX and complete source archives.
+The available later chapter work is now preserved online as well:
+
+- [Current editable chapter sources and honest progress table](source-progress/2026-09-19/)
+- [Current-source ZIP](source-progress/2026-09-19/French_Stacks_Current_Chapter_Sources_2026-09-19.zip)
+- [Verified reader release and direct LaTeX downloads](https://github.com/KokunoYumeto/stacks-fr/releases/tag/2026-08-27-parts-01-02)
+
+All 116 chapter source positions are represented in the progress snapshot; this
+does **not** mean that all 116 have been translated. In-progress files are labelled,
+and no unverified cumulative PDF is presented as a finished French edition.
+
+---
+## Existing release documentation
+
 # Le projet Stacks — traduction française indépendante
 
 Ce dépôt est la lignée publique unique de la traduction française indépendante

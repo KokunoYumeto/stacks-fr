@@ -1,0 +1,2423 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Groupoïdes en espaces algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Ce chapitre est consacré à des généralités sur les groupoïdes en espaces algébriques. Nous recommandons la lecture du bel article \cite{K-M} de Keel et Mori.
+
+\medskip\noindent
+Une grande partie de ce qui suit reprend le chapitre consacré aux groupoïdes en schémas ; voir Groupoïdes, section \ref{groupoids-section-introduction}. En revanche, la discussion des champs quotients est nouvelle.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Nous supposons une fois pour toutes que tous les schémas sont contenus dans un grand site fppf $\Sch_{fppf}$ et que tout anneau $A$ considéré est tel que $\Spec(A)$ soit (isomorphe à) un objet de ce grand site.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$. Dans ce chapitre et dans ce qui suit, nous écrirons $X \times_S X$ pour le produit de $X$ avec lui-même (dans la catégorie d'espaces algébriques sur $S$), au lieu de $X \times X$.
+
+\medskip\noindent
+Nous conservons la convention qui consiste à indexer les projections à partir de $0$ : ainsi, $\text{pr}_0 : X \times_S Y \to X$ et $\text{pr}_1 : X \times_S Y \to Y$.
+
+
+
+
+\section{Notations}
+\label{section-notation}
+
+\noindent
+Soit $S$ un schéma ; ce sera notre schéma de base, et tous les espaces algébriques seront sur $S$. Soit $B$ un espace algébrique sur $S$ ; ce sera notre espace algébrique de base, et d'autres espaces algébriques, ainsi que des schémas, seront souvent considérés sur $B$. Dire que $X$ est un espace algébrique sur $B$ signifie que $X$ est un espace algébrique sur $S$ muni d'un morphisme structural $X \to B$. Nous nous efforçons en outre de réserver la lettre $T$ à un schéma ``test'' sur $B$, c'est-à-dire à un schéma muni d'un morphisme structural $T \to B$. Dans cette situation, nous notons $X(T)$ l'ensemble des points de $X$ à valeurs dans $T$ {\it au-dessus de} $B$. En formule :
+$$
+X(T) = \Mor_B(T, X).
+$$
+De même, étant donné un second espace algébrique $Y$ sur $B$, nous posons
+$$
+X(Y) = \Mor_B(Y, X).
+$$
+Supposons donnés des espaces algébriques $X$, $Y$ sur $B$ comme ci-dessus, ainsi qu'un morphisme $f : X \to Y$ sur $B$. Pour tout schéma $T$ sur $B$, nous obtenons une application d'ensembles induite
+$$
+f : X(T) \longrightarrow Y(T)
+$$
+qui est fonctorielle en $T$ sur $B$. Puisque $f$ est un morphisme de faisceaux sur $(\Sch/S)_{fppf}$ au-dessus du faisceau $B$, il est clair que $f$ détermine cette règle et est déterminé par elle. Plus généralement, nous employons la même notation pour les applications entre produits fibrés. Par exemple, si $X$, $Y$, $Z$ sont des espaces algébriques sur $B$ et si $m : X \times_B Y \to Z \times_B Z$ est un morphisme d'espaces algébriques sur $B$, nous regardons $m$ comme une famille d'applications entre points à valeurs dans $T$
+$$
+X(T) \times Y(T) \longrightarrow Z(T) \times Z(T).
+$$
+Et ainsi de suite.
+
+\medskip\noindent
+Enfin, soient deux morphismes $f, g : X \to Y$ d'espaces algébriques sur $B$. Si les applications induites $f, g : X(T) \to Y(T)$ sont égales pour tout schéma $T$ sur $B$, alors $f = g$ ; par suite, les applications $f, g : X(Z) \to Y(Z)$ sont aussi égales pour tout autre espace algébrique $Z$ sur $B$. Ainsi, pour vérifier les axiomes d'un espace algébrique en groupes $G$ sur $B$, il suffit par exemple de vérifier la commutativité des diagrammes sur les points à valeurs dans $T$, pour tout schéma $T$ sur $B$, comme nous le faisons dans la définition \ref{definition-group-space} ci-dessous.
+
+
+
+
+\section{Relations d'équivalence}
+\label{section-equivalence-relations}
+
+\noindent
+Voir Groupoïdes, section \ref{groupoids-section-equivalence-relations}, pour les notations.
+
+\begin{definition}
+\label{definition-equivalence-relation}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $U$ un espace algébrique sur $B$.
+\begin{enumerate}
+\item Une {\it pré-relation} sur $U$ au-dessus de $B$ est tout morphisme $j : R \to U \times_B U$ d'espaces algébriques sur $B$. Dans ce cas, nous posons $t = \text{pr}_0 \circ j$ et $s = \text{pr}_1 \circ j$, de sorte que $j = (t, s)$.
+\item Une {\it relation} sur $U$ au-dessus de $B$ est un monomorphisme $j : R \to U \times_B U$ d'espaces algébriques sur $B$.
+\item Une {\it pré-relation d'équivalence} est une pré-relation $j : R \to U \times_B U$ telle que l'image de $j : R(T) \to U(T) \times U(T)$ soit une relation d'équivalence pour tout schéma $T$ sur $B$.
+\item Nous disons qu'un morphisme $R \to U \times_B U$ d'espaces algébriques sur $B$ est une {\it relation d'équivalence sur $U$ au-dessus de $B$} si et seulement si, pour tout $T$ sur $B$, les points de $R$ à valeurs dans $T$ définissent une relation d'équivalence sur l'ensemble des points de $U$ à valeurs dans $T$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+En d'autres termes, une relation d'équivalence est une pré-relation d'équivalence telle que $j$ soit une relation.
+
+\begin{lemma}
+\label{lemma-restrict-relation}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $U$ un espace algébrique sur $B$. Soit $j : R \to U \times_B U$ une pré-relation. Soit $g : U' \to U$ un morphisme d'espaces algébriques sur $B$. Enfin, posons
+$$
+R' = (U' \times_B U')\times_{U \times_B U} R
+\xrightarrow{j'}
+U' \times_B U'
+$$
+$j'$ est une pré-relation sur $U'$ au-dessus de $B$. Si $j$ est une relation, alors $j'$ est une relation. Si $j$ est une pré-relation d'équivalence, alors $j'$ est une pré-relation d'équivalence. Si $j$ est une relation d'équivalence, alors $j'$ est une relation d'équivalence.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{definition}
+\label{definition-restrict-relation}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $U$ un espace algébrique sur $B$. Soit $j : R \to U \times_B U$ une pré-relation. Soit $g : U' \to U$ un morphisme d'espaces algébriques sur $B$. La pré-relation $j' : R' \to U' \times_B U'$ du lemme \ref{lemma-restrict-relation} est appelée la {\it restriction}, ou l'{\it image réciproque}, de la pré-relation $j$ à $U'$. Dans cette situation, nous écrivons parfois $R' = R|_{U'}$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-pre-equivalence-equivalence-relation-points}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $j : R \to U \times_B U$ une pré-relation d'espaces algébriques sur $B$. Considérons la relation sur $|U|$ définie par la règle
+$$
+x \sim y
+\Leftrightarrow
+\exists\ r \in |R| :
+t(r) = x,
+s(r) = y.
+$$
+Si $j$ est une pré-relation d'équivalence, alors c'est une relation d'équivalence.
+\end{lemma}
+
+\begin{proof}
+Supposons que $x \sim y$ et $y \sim z$. Choisissons $r \in |R|$ tel que $t(r) = x$, $s(r) = y$, et $r' \in |R|$ tel que $t(r') = y$, $s(r') = z$. On peut choisir un corps $K$ tel que $r$ et $r'$ soient représentés par des morphismes $r, r' : \Spec(K) \to R$ vérifiant $s \circ r = t \circ r'$. Posons $x = t \circ r$, $y = s \circ r = t \circ r'$ et $z = s \circ r'$ ; ainsi, $x, y, z : \Spec(K) \to U$. Par construction, $(x, y) \in j(R(K))$ et $(y, z) \in j(R(K))$. Puisque $j$ est une pré-relation d'équivalence, $(x, z) \in j(R(K))$ également. Il en résulte clairement que $x \sim z$.
+
+\medskip\noindent
+La preuve que $\sim$ est réflexive et symétrique est omise.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Espaces algébriques en groupes}
+\label{section-group-spaces}
+
+\noindent
+Voir Groupoïdes, section \ref{groupoids-section-group-schemes}, pour les notations.
+
+\begin{definition}
+\label{definition-group-space}
+Soit $B \to S$ comme dans la section \ref{section-notation}.
+\begin{enumerate}
+\item Un {\it espace algébrique en groupes sur $B$} est une paire $(G, m)$, où $G$ est un espace algébrique sur $B$ et $m : G \times_B G \to G$ est un morphisme d'espaces algébriques sur $B$ ayant la propriété suivante : pour tout schéma $T$ sur $B$, la paire $(G(T), m)$ est un groupe.
+\item Un morphisme {\it $\psi : (G, m) \to (G', m')$ d'espaces algébriques en groupes sur $B$} est un morphisme $\psi : G \to G'$ d'espaces algébriques sur $B$ tel que, pour tout $T/B$, l'application induite $\psi : G(T) \to G'(T)$ soit un homomorphisme de groupes.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Soit $(G, m)$ un espace algébrique en groupes sur l'espace algébrique $B$. La discussion de Groupoïdes, section \ref{groupoids-section-group-schemes}, fournit des morphismes d'espaces algébriques sur $B$, l'unité $e : B \to G$ et l'inversion $i : G \to G$, tels que, pour tout $T$, le quadruplet $(G(T), m, e, i)$ satisfasse aux axiomes d'un groupe.
+
+\medskip\noindent
+Soient $(G, m)$ et $(G', m')$ des espaces algébriques en groupes sur $B$. Soit $f : G \to G'$ un morphisme d'espaces algébriques sur $B$. Il résulte de la définition que $f$ est un morphisme d'espaces algébriques en groupes sur $B$ si et seulement si le diagramme suivant est commutatif :
+$$
+\xymatrix{
+G \times_B G \ar[r]_-{f \times f} \ar[d]_m &
+G' \times_B G' \ar[d]^m \\
+G \ar[r]^f & G'
+}
+$$
+
+\begin{lemma}
+\label{lemma-base-change-group-space}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(G, m)$ un espace algébrique en groupes sur $B$. Soit $B' \to B$ un morphisme d'espaces algébriques. L'image réciproque $(G_{B'}, m_{B'})$ est un espace algébrique en groupes sur $B'$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Propriétés des espaces algébriques en groupes}
+\label{section-properties-group-spaces}
+
+\noindent
+Dans cette section, nous rassemblons quelques propriétés simples des espaces algébriques en groupes, valables sur une base quelconque.
+
+\begin{lemma}
+\label{lemma-group-scheme-separated}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $G$ un espace algébrique en groupes sur $B$. Alors $G \to B$ est séparé (resp.\ quasi-séparé, resp.\ localement séparé) si et seulement si le morphisme unité $e : B \to G$ est une immersion fermée (resp.\ quasi-compact, resp.\ une immersion).
+\end{lemma}
+
+\begin{proof}
+Rappelons que, d'après Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-section-immersion}, $e$ est une immersion fermée (resp.\ quasi-compact, resp.\ une immersion) si $G \to B$ est séparé (resp.\ quasi-séparé, resp.\ localement séparé). Réciproquement, considérons le diagramme
+$$
+\xymatrix{
+G \ar[r]_-{\Delta_{G/B}} \ar[d] &
+G \times_B G \ar[d]^{(g, g') \mapsto m(i(g), g')} \\
+B \ar[r]^e & G
+}
+$$
+Le point de vue fonctoriel en géométrie algébrique permet de vérifier que ce diagramme est cartésien. Autrement dit, $\Delta_{G/B}$ est un changement de base de $e$. Par conséquent, si $e$ est une immersion fermée (resp.\ quasi-compact, resp.\ une immersion), il en va de même de $\Delta_{G/B}$ ; voir Espaces, lemme \ref{spaces-lemma-base-change-immersions} (resp.\ Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-quasi-compact}, resp.\ Espaces, lemme \ref{spaces-lemma-base-change-immersions}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-scheme-unramified-or-lqf}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $G$ un espace algébrique en groupes sur $B$. Supposons $G \to B$ localement de type fini. Alors $G \to B$ est non ramifié (resp.\ localement quasi-fini) si et seulement si $G \to B$ est non ramifié (resp.\ quasi-fini) en $e(b)$ pour tout $b \in |B|$.
+\end{lemma}
+
+\begin{proof}
+D'après Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-where-unramified} (resp.\ Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}), il existe un plus grand sous-espace ouvert $U \subset G$ tel que $U \to B$ soit non ramifié (resp.\ localement quasi-fini), et la formation de $U$ commute aux changements de base. On se ramène ainsi au cas où $B = \Spec(k)$ est le spectre d'un corps. Soit $g \in G(K)$ un point à valeurs dans une extension $K/k$. Pour vérifier si $g$ appartient à $U$, nous pouvons effectuer le changement de base à $K$. Il suffit donc de montrer
+$$
+G \to \Spec(k)\text{ est non ramifié en }e
+\Leftrightarrow
+G \to \Spec(k)\text{ est non ramifié en }g
+$$
+pour un point $k$-rationnel $g$ (resp.\ de même pour la quasi-finitude en $g$ et en $e$). Cela est clair, puisque la translation par $g$ est un automorphisme de $G$ sur $k$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-over-which-unramified-or-lqf}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $G$ un espace algébrique en groupes sur $B$. Supposons que $G \to B$ est localement de type fini.
+\begin{enumerate}
+\item Il existe un plus grand sous-espace ouvert $U \subset B$ tel que $G_U \to U$ soit non ramifié, et la formation de $U$ commute aux changements de base.
+\item Il existe un plus grand sous-espace ouvert $U \subset B$ tel que $G_U \to U$ soit localement quasi-fini, et la formation de $U$ commute aux changements de base.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-where-unramified} (resp.\ Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}), il existe un plus grand sous-espace ouvert $W \subset G$ tel que $W \to B$ soit non ramifié (resp.\ localement quasi-fini). De plus, la formation de $W$ commute aux changements de base. Le lemme \ref{lemma-group-scheme-unramified-or-lqf} donne alors $U = e^{-1}(W)$ dans les deux cas.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Exemples d'espaces algébriques en groupes}
+\label{section-examples-group-spaces}
+
+\noindent
+Si $G \to S$ est un schéma en groupes sur le schéma de base $S$, alors, pour tout espace algébrique $B$ sur $S$, son changement de base $G_B$ est un espace algébrique en groupes sur $B$, d'après le lemme \ref{lemma-base-change-group-space}. Nous utiliserons souvent ce fait dans les exemples ci-dessous.
+
+\begin{example}[Espace algébrique en groupes multiplicatif]
+\label{example-multiplicative-group}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Considérons le foncteur qui associe à tout schéma $T$ sur $B$ le groupe $\Gamma(T, \mathcal{O}_T^*)$ des éléments inversibles parmi les sections globales du faisceau structural. Ce foncteur est représenté par l'espace algébrique en groupes
+$$
+\mathbf{G}_{m, B} = B \times_S \mathbf{G}_{m, S}
+$$
+sur $B$. Ici $\mathbf{G}_{m, S}$ est le schéma en groupes multiplicatif sur $S$ ; voir Groupoïdes, exemple \ref{groupoids-example-multiplicative-group}.
+\end{example}
+
+\begin{example}[Racines de l'unité comme espace algébrique en groupes]
+\label{example-roots-of-unity}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $n \in \mathbf{N}$. Considérons le foncteur qui associe à tout schéma $T$ sur $B$ le sous-groupe de $\Gamma(T, \mathcal{O}_T^*)$ formé des racines $n$-ièmes de l'unité. Ce foncteur est représenté par l'espace algébrique en groupes
+$$
+\mu_{n, B} = B \times_S \mu_{n, S}
+$$
+sur $B$. Ici $\mu_{n, S}$ est le schéma en groupes des racines $n$-ièmes de l'unité sur $S$ ; voir Groupoïdes, exemple \ref{groupoids-example-roots-of-unity}.
+\end{example}
+
+\begin{example}[Espace algébrique en groupes additif]
+\label{example-additive-group}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Considérons le foncteur qui associe à tout schéma $T$ sur $B$ le groupe $\Gamma(T, \mathcal{O}_T)$ de sections globales du faisceau structural. Ceci est représentable par l'espace algébrique en groupes
+$$
+\mathbf{G}_{a, B} = B \times_S \mathbf{G}_{a, S}
+$$
+sur $B$. Ici $\mathbf{G}_{a, S}$ est le schéma en groupes additif sur $S$, voir groupoïdes, exemple \ref{groupoids-example-additive-group}.
+\end{example}
+
+\begin{example}[Espace algébrique en groupes linéaire général]
+\label{example-general-linear-group}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $n \geq 1$. Considérons le foncteur qui associe à tout schéma $T$ sur $B$ le groupe
+$$
+\text{GL}_n(\Gamma(T, \mathcal{O}_T))
+$$
+des matrices inversibles de taille $n \times n$ à coefficients dans les sections globales du faisceau structural. Ce foncteur est représenté par l'espace algébrique en groupes
+$$
+\text{GL}_{n, B} = B \times_S \text{GL}_{n, S}
+$$
+sur $B$. Ici, $\mathbf{G}_{m, S}$ est le schéma en groupes linéaire général sur $S$ ; voir Groupoïdes, exemple \ref{groupoids-example-general-linear-group}.
+\end{example}
+
+\begin{example}
+\label{example-determinant}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $n \geq 1$. Le déterminant définit un morphisme d'espaces algébriques en groupes
+$$
+\det : \text{GL}_{n, B} \longrightarrow \mathbf{G}_{m, B}
+$$
+sur $B$. C'est le changement de base du morphisme déterminant sur $S$ de Groupoïdes, exemple \ref{groupoids-example-determinant}.
+\end{example}
+
+\begin{example}[Espace algébrique en groupes constant]
+\label{example-constant-group}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $G$ un groupe abstrait. Considérons le foncteur qui associe à tout schéma $T$ sur $B$ le groupe des applications localement constantes $T \to G$ (où $T$ est muni de la topologie de Zariski et $G$ de la topologie discrète). Ce foncteur est représenté par l'espace algébrique en groupes
+$$
+G_B = B \times_S G_S
+$$
+sur $B$. Ici, $G_S$ est le schéma en groupes constant introduit dans Groupoïdes, exemple \ref{groupoids-example-constant-group}.
+\end{example}
+
+
+
+
+
+\section{Actions d'espaces algébriques en groupes}
+\label{section-action-group-space}
+
+\noindent
+Voir Groupoïdes, section \ref{groupoids-section-action-group-scheme}, pour les notations.
+
+\begin{definition}
+\label{definition-action-group-space}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(G, m)$ un espace algébrique en groupes sur $B$. Soit $X$ un espace algébrique sur $B$.
+\begin{enumerate}
+\item Une {\it action de $G$ sur l'espace algébrique $X/B$} est un morphisme $a : G \times_B X \to X$ sur $B$ tel que, pour tout schéma $T$ sur $B$, l'application $a : G(T) \times X(T) \to X(T)$ définisse sur $X(T)$ une structure de $G(T)$-ensemble.
+\item Supposons que $X$ et $Y$ soient des espaces algébriques sur $B$, chacun muni d'une action de $G$. Un morphisme {\it équivariant}, ou plus précisément {\it $G$-équivariant}, $\psi : X \to Y$ est un morphisme d'espaces algébriques sur $B$ tel que, pour tout $T$ sur $B$, l'application $\psi : X(T) \to Y(T)$ soit un morphisme de $G(T)$-ensembles.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Dans la situation (1), cela signifie que les diagrammes
+\begin{equation}
+\label{equation-action}
+\xymatrix{
+G \times_B G \times_B X \ar[r]_-{1_G \times a} \ar[d]_{m \times 1_X} &
+G \times_B X \ar[d]^a \\
+G \times_B X \ar[r]^a & X
+}
+\quad
+\xymatrix{
+G \times_B X \ar[r]_-a & X \\
+X\ar[u]^{e \times 1_X} \ar[ru]_{1_X}
+}
+\end{equation}
+sont commutatifs. Dans la situation (2), cela signifie simplement que le diagramme
+$$
+\xymatrix{
+G \times_B X \ar[r]_-{\text{id} \times f} \ar[d]_a &
+G \times_B Y \ar[d]^a \\
+X \ar[r]^f & Y
+}
+$$
+est commutatif.
+
+\begin{definition}
+\label{definition-free-action}
+Soient $B \to S$, $G \to B$ et $X \to B$ comme dans la définition \ref{definition-action-group-space}. Soit $a : G \times_B X \to X$ une action de $G$ sur $X/B$. Nous disons que cette action est {\it libre} si, pour tout schéma $T$ sur $B$, l'action $a : G(T) \times X(T) \to X(T)$ est une action libre du groupe $G(T)$ sur l'ensemble $X(T)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-free-action}
+Dans la situation de la définition \ref{definition-free-action}, l'action $a$ est libre si et seulement si
+$$
+G \times_B X \to X \times_B X, \quad (g, x) \mapsto (a(g, x), x)
+$$
+est un monomorphisme d'espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des définitions.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Espaces homogènes principaux}
+\label{section-principal-homogeneous}
+
+\noindent
+Cette section est l'analogue de Groupoïdes, section \ref{groupoids-section-principal-homogeneous}. Nous suggérons de lire d'abord cette dernière.
+
+\begin{definition}
+\label{definition-pseudo-torsor}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $(G, m)$ un espace algébrique en groupes sur $B$. Soit $X$ un espace algébrique sur $B$ et soit $a : G \times_B X \to X$ une action de $G$ sur $X$.
+\begin{enumerate}
+\item Nous disons que $X$ est un {\it pseudo-$G$-torseur}, ou que $X$ est {\it formellement principal homogène sous $G$}, si le morphisme induit $G \times_B X \to X \times_B X$, $(g, x) \mapsto (a(g, x), x)$, est un isomorphisme.
+\item Un pseudo-$G$-torseur $X$ est dit {\it trivial} s'il existe un isomorphisme $G$-équivariant $G \to X$ sur $B$, où $G$ agit sur lui-même par multiplication à gauche.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il est clair que, si $B' \to B$ est un morphisme d'espaces algébriques, l'image réciproque $X_{B'}$ d'un pseudo-$G$-torseur sur $B$ est un pseudo-$G_{B'}$-torseur sur $B'$.
+
+\begin{lemma}
+\label{lemma-characterize-trivial-pseudo-torsors}
+Dans la situation de la définition \ref{definition-pseudo-torsor}, on a les propriétés suivantes.
+\begin{enumerate}
+\item L'espace algébrique $X$ est un pseudo-$G$-torseur si et seulement si, pour tout schéma $T$ sur $B$, l'ensemble $X(T)$ est vide ou bien l'action du groupe $G(T)$ sur $X(T)$ est simplement transitive.
+\item Un pseudo-$G$-torseur $X$ est trivial si et seulement si le morphisme $X \to B$ admet une section.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{definition}
+\label{definition-principal-homogeneous-space}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $(G, m)$ un espace algébrique en groupes sur $B$. Soit $X$ un pseudo-$G$-torseur sur $B$.
+\begin{enumerate}
+\item Nous disons que $X$ est un {\it espace homogène principal}, ou plus précisément un {\it espace $G$-homogène principal sur $B$}, s'il existe un recouvrement fpqc\footnote{Dans Groupoïdes, définition \ref{groupoids-definition-principal-homogeneous-space}, le type de torseur retenu par défaut est un pseudo-torseur qui devient trivial sur un recouvrement fpqc. Puisque $G$, en tant qu'espace algébrique, peut être considéré comme un faisceau en groupes, il existe déjà une notion de $G$-torseur qui correspond au torseur fppf ; voir le lemme \ref{lemma-torsor}. Nous employons donc « espace homogène principal » pour désigner un pseudo-torseur localement trivial pour la topologie fpqc, et nous essayons d'éviter le mot « torseur » dans cette situation.} $\{B_i \to B\}_{i \in I}$ tel que chaque $X_{B_i} \to B_i$ admette une section (c'est-à-dire soit un pseudo-$G_{B_i}$-torseur trivial).
+\item Soit $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$. Nous disons que $X$ est un {\it $G$-torseur pour la topologie $\tau$}, ou un {\it $\tau$-$G$-torseur}, ou simplement un {\it $\tau$-torseur}, s'il existe un recouvrement pour la topologie $\tau$, $\{B_i \to B\}_{i \in I}$, tel que chaque $X_{B_i} \to B_i$ admette une section.
+\item Si $X$ est un espace $G$-homogène principal sur $B$, nous disons qu'il est {\it quasi-isotrivial} s'il est un torseur pour la topologie étale.
+\item Si $X$ est un espace $G$-homogène principal sur $B$, nous disons qu'il est {\it localement trivial} s'il est un torseur pour la topologie de Zariski.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous disons parfois « soit $X$ un espace $G$-homogène principal sur $B$ » pour indiquer que $X$ est un espace algébrique sur $B$, muni d'une action de $G$ qui en fait un espace homogène principal sur $B$. Nous montrons ensuite que cette terminologie coïncide, lorsque les deux s'appliquent, avec celle introduite précédemment.
+
+\begin{lemma}
+\label{lemma-torsor}
+Soit $S$ un schéma. Soit $(G, m)$ un espace algébrique en groupes sur $S$. Soit $X$ un espace algébrique sur $S$ et soit $a : G \times_S X \to X$ une action de $G$ sur $X$. Alors $X$ est un $G$-torseur pour la topologie $fppf$ au sens de la définition \ref{definition-principal-homogeneous-space} si et seulement si $X$ est un $G$-torseur sur $(\Sch/S)_{fppf}$ au sens de Cohomologie sur les sites, définition \ref{sites-cohomology-definition-torsor}.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pseudo-torsor-implications}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $G$ un espace algébrique en groupes sur $B$. Soit $X$ un pseudo-$G$-torseur sur $B$. Supposons $G$ et $X$ localement de type fini sur $B$.
+\begin{enumerate}
+\item Si $G \to B$ est non ramifié, alors $X \to B$ est non ramifié.
+\item Si $G \to B$ est localement quasi-fini, alors $X \to B$ est localement quasi-fini.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démontrons (1). Par Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-where-unramified}, nous nous ramenons au cas où $B$ est le spectre d'un corps. Si $X$ est vide, le résultat est acquis. Sinon, après une extension du corps, nous pouvons supposer que $X$ possède un point. On a alors $G \cong X$, d'où le résultat.
+
+\medskip\noindent
+La démonstration de (2) est exactement la même, en utilisant Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Faisceaux quasi-cohérents équivariants}
+\label{section-equivariant}
+
+\noindent
+Comparer avec Groupoïdes, section \ref{groupoids-section-equivariant}.
+
+\begin{definition}
+\label{definition-equivariant-module}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(G, m)$ un espace algébrique en groupes sur $B$ et soit $a : G \times_B X \to X$ une action de $G$ sur l'espace algébrique $X$ sur $B$. Un {\it $\mathcal{O}_X$-module quasi-cohérent $G$-équivariant}, ou simplement un {\it $\mathcal{O}_X$-module quasi-cohérent équivariant}, est un couple $(\mathcal{F}, \alpha)$, où $\mathcal{F}$ est un $\mathcal{O}_X$-module quasi-cohérent et $\alpha$ un morphisme de $\mathcal{O}_{G \times_B X}$-modules
+$$
+\alpha : a^*\mathcal{F} \longrightarrow \text{pr}_1^*\mathcal{F}
+$$
+où $\text{pr}_1 : G \times_B X \to X$ est la projection, tel que
+\begin{enumerate}
+\item le diagramme
+$$
+\xymatrix{
+(1_G \times a)^*\text{pr}_2^*\mathcal{F} \ar[r]_-{\text{pr}_{12}^*\alpha} &
+\text{pr}_2^*\mathcal{F} \\
+(1_G \times a)^*a^*\mathcal{F} \ar[u]^{(1_G \times a)^*\alpha} \ar@{=}[r] &
+(m \times 1_X)^*a^*\mathcal{F} \ar[u]_{(m \times 1_X)^*\alpha}
+}
+$$
+soit commutatif dans la catégorie des $\mathcal{O}_{G \times_B G \times_B X}$-modules, et
+\item l'image réciproque
+$$
+(e \times 1_X)^*\alpha : \mathcal{F} \longrightarrow \mathcal{F}
+$$
+soit l'identité.
+\end{enumerate}
+Pour l'interprétation, comparer avec les diagrammes correspondants de l'équation (\ref{equation-action}).
+\end{definition}
+
+\noindent
+Remarquons que la commutativité du premier diagramme garantit que $(e \times 1_X)^*\alpha$ est un endomorphisme idempotent de $\mathcal{F}$ ; la condition (2) revient donc à demander que cet endomorphisme soit un isomorphisme.
+
+\begin{lemma}
+\label{lemma-pullback-equivariant}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $G$ un espace algébrique en groupes sur $B$. Soit $f : X \to Y$ un morphisme $G$-équivariant entre des espaces algébriques sur $B$ munis d'actions de $G$. Alors l'image réciproque $f^*$, donnée par $(\mathcal{F}, \alpha) \mapsto (f^*\mathcal{F}, (1_G \times f)^*\alpha)$, définit un foncteur de la catégorie des faisceaux quasi-cohérents $G$-équivariants sur $Y$ vers celle des faisceaux quasi-cohérents $G$-équivariants sur $X$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+
+
+
+
+\section{Groupoïdes en espaces algébriques}
+\label{section-groupoids}
+
+\noindent
+Voir Groupoïdes, section \ref{groupoids-section-groupoids}, pour les notations.
+
+\begin{definition}
+\label{definition-groupoid}
+Soit $B \to S$ comme dans la section \ref{section-notation}.
+\begin{enumerate}
+\item Un {\it groupoïde en espaces algébriques sur $B$} est un quintuple $(U, R, s, t, c)$ où $U$ et $R$ sont des espaces algébriques sur $B$, et où $s, t : R \to U$ et $c : R \times_{s, U, t} R \to R$ sont des morphismes d'espaces algébriques sur $B$ ayant la propriété suivante : pour tout schéma $T$ sur $B$, le quintuple
+$$
+(U(T), R(T), s, t, c)
+$$
+est une catégorie qui est un groupoïde.
+\item Un {\it morphisme $f : (U, R, s, t, c) \to (U', R', s', t', c')$ de groupoïdes en espaces algébriques sur $B$} est donné par des morphismes d'espaces algébriques $f : U \to U'$ et $f : R \to R'$ sur $B$ ayant la propriété suivante : pour tout schéma $T$ sur $B$, les applications $f$ définissent un foncteur de la catégorie-groupoïde $(U(T), R(T), s, t, c)$ vers la catégorie-groupoïde $(U'(T), R'(T), s', t', c')$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Remarquons qu'il existe d'uniques morphismes d'espaces algébriques $e : U \to R$ et $i : R \to R$ sur $B$ tels que, pour tout schéma $T$ sur $B$, l'application induite $e : U(T) \to R(T)$ donne les identités et $i : R(T) \to R(T)$ donne les inverses de la catégorie-groupoïde. Le septuple $(U, R, s, t, c, e, i)$ satisfait aux diagrammes commutatifs correspondant à chacun des axiomes (1), (2)(a), (2)(b), (3)(a) et (3)(b) de Groupoïdes, section \ref{groupoids-section-groupoids}. Réciproquement, pour tout septuple ayant cette propriété, le quintuple $(U, R, s, t, c)$ est un groupoïde en espaces algébriques sur $B$. Remarquons que $i$ est un isomorphisme et que $e$ est une section de $s$ et de $t$. De plus, étant donné un groupoïde en espaces algébriques sur $B$, nous notons
+$$
+j = (t, s) : R \longrightarrow U \times_B U
+$$
+conformément aux conventions de la section \ref{section-equivalence-relations} ci-dessus. Nous disons parfois « soit $(U, R, s, t, c, e, i)$ un groupoïde en espaces algébriques sur $B$ » pour souligner l'existence de l'identité et de l'inversion.
+
+\begin{lemma}
+\label{lemma-groupoid-pre-equivalence}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Étant donné un groupoïde en espaces algébriques $(U, R, s, t, c)$ sur $B$, le morphisme $j : R \to U \times_B U$ est une pré-relation d'équivalence.
+\end{lemma}
+
+\begin{proof}
+Omis. C'est un joli exercice sur les définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-groupoid}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Étant donné une relation d'équivalence $j : R \to U \times_B U$ sur $B$, il existe une façon unique de l'étendre à un groupoïde en espaces algébriques $(U, R, s, t, c)$ sur $B$.
+\end{lemma}
+
+\begin{proof}
+Omis. C'est un joli exercice sur les définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagram}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Dans le diagramme commutatif
+$$
+\xymatrix{
+& U & \\
+R \ar[d]_s \ar[ru]^t &
+R \times_{s, U, t} R
+\ar[l]^-{\text{pr}_0} \ar[d]^{\text{pr}_1} \ar[r]_-c &
+R \ar[d]^s \ar[lu]_t \\
+U & R \ar[l]_t \ar[r]^s & U
+}
+$$
+les deux carrés inférieurs sont cartésiens. De plus, le triangle supérieur (qui est en réalité un carré) est lui aussi cartésien.
+\end{lemma}
+
+\begin{proof}
+Omis. C'est un exercice sur les définitions et le point de vue fonctoriel en géométrie algébrique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagram-pull}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c, e, i)$ un groupoïde en espaces algébriques sur $B$. Le diagramme
+\begin{equation}
+\label{equation-pull}
+\xymatrix{
+R \times_{t, U, t} R
+\ar@<1ex>[r]^-{\text{pr}_1} \ar@<-1ex>[r]_-{\text{pr}_0}
+\ar[d]_{\text{pr}_0 \times c \circ (i, 1)} &
+R \ar[r]^t \ar[d]^{\text{id}_R} &
+U \ar[d]^{\text{id}_U} \\
+R \times_{s, U, t} R
+\ar@<1ex>[r]^-c \ar@<-1ex>[r]_-{\text{pr}_0} \ar[d]_{\text{pr}_1} &
+R \ar[r]^t \ar[d]^s &
+U \\
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U
+}
+\end{equation}
+est commutatif. Les deux lignes supérieures sont isomorphes par les flèches verticales indiquées. Les deux carrés inférieurs de gauche sont cartésiens.
+\end{lemma}
+
+\begin{proof}
+La commutativité du diagramme résulte des axiomes d'un groupoïde. Remarquons que, en termes de groupoïdes, la flèche verticale supérieure de gauche associe à une paire de morphismes $(\alpha, \beta)$ de même but la paire $(\alpha, \alpha^{-1} \circ \beta)$. Dans tout groupoïde, cela définit une bijection entre $\text{Arrows} \times_{t, \text{Ob}, t} \text{Arrows}$ et $\text{Arrows} \times_{s, \text{Ob}, t} \text{Arrows}$. Cela démontre la deuxième assertion du lemme. La dernière résulte du lemme \ref{lemma-diagram}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-groupoid}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Soit $B' \to B$ un morphisme d'espaces algébriques. Alors les changements de base $U' = B' \times_B U$, $R' = B' \times_B R$ dotés des changements de base $s'$, $t'$, $c'$ des morphismes $s, t, c$ forment un groupoïde en espaces algébriques $(U', R', s', t', c')$ sur $B'$ et les projections déterminent un morphisme $(U', R', s', t', c') \to (U, R, s, t, c)$ de groupoïdes en espaces algébriques sur $B$.
+\end{lemma}
+
+\begin{proof}
+Omis. Indice : $R' \times_{s', U', t'} R' = B' \times_B (R \times_{s, U, t} R)$.
+\end{proof}
+
+
+
+
+
+\section{Faisceaux quasi-cohérents sur les groupoïdes}
+\label{section-groupoids-quasi-coherent}
+
+\noindent
+Comparer avec Groupoïdes, section \ref{groupoids-section-groupoids-quasi-coherent}.
+
+\begin{definition}
+\label{definition-groupoid-module}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Un {\it module quasi-cohérent sur $(U, R, s, t, c)$} est un couple $(\mathcal{F}, \alpha)$, où $\mathcal{F}$ est un $\mathcal{O}_U$-module quasi-cohérent et $\alpha$ un morphisme de $\mathcal{O}_R$-modules
+$$
+\alpha : t^*\mathcal{F} \longrightarrow s^*\mathcal{F}
+$$
+tel que
+\begin{enumerate}
+\item le diagramme
+$$
+\xymatrix{
+& \text{pr}_1^*t^*\mathcal{F} \ar[r]_-{\text{pr}_1^*\alpha} &
+\text{pr}_1^*s^*\mathcal{F} \ar@{=}[rd] & \\
+\text{pr}_0^*s^*\mathcal{F} \ar@{=}[ru] & & & c^*s^*\mathcal{F} \\
+& \text{pr}_0^*t^*\mathcal{F} \ar[lu]^{\text{pr}_0^*\alpha} \ar@{=}[r] &
+c^*t^*\mathcal{F} \ar[ru]_{c^*\alpha}
+}
+$$
+soit commutatif dans la catégorie des $\mathcal{O}_{R \times_{s, U, t} R}$-modules, et
+\item l'image réciproque
+$$
+e^*\alpha : \mathcal{F} \longrightarrow \mathcal{F}
+$$
+soit l'identité.
+\end{enumerate}
+Comparer avec les diagrammes commutatifs du lemme \ref{lemma-diagram}.
+\end{definition}
+
+\noindent
+La commutativité du premier diagramme impose à l'endomorphisme $e^*\alpha$ d'être idempotent. La deuxième condition peut donc se reformuler en disant que $e^*\alpha$ est un isomorphisme. En fait, cette condition implique que $\alpha$ est un isomorphisme.
+
+\begin{lemma}
+\label{lemma-isomorphism}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Si $(\mathcal{F}, \alpha)$ est un module quasi-cohérent sur $(U, R, s, t, c)$, alors $\alpha$ est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Prenons l'image réciproque du diagramme commutatif de la définition \ref{definition-groupoid-module} par le morphisme $(i, 1) : R \to R \times_{s, U, t} R$. Nous obtenons $i^*\alpha \circ \alpha = s^*e^*\alpha$. En prenant l'image réciproque par $(1, i)$, nous obtenons la relation $\alpha \circ i^*\alpha = t^*e^*\alpha$. Par la seconde hypothèse, ces morphismes sont les identités. Ainsi, $i^*\alpha$ est un inverse de $\alpha$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Considérons un morphisme $f : (U, R, s, t, c) \to (U', R', s', t', c')$ de groupoïdes en espaces algébriques sur $B$. L'image réciproque $f^*$, donnée par
+$$
+(\mathcal{F}, \alpha) \mapsto (f^*\mathcal{F}, f^*\alpha)
+$$
+définit un foncteur de la catégorie des faisceaux quasi-cohérents sur $(U', R', s', t', c')$ vers celle des faisceaux quasi-cohérents sur $(U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Considérons un morphisme $f : (U, R, s, t, c) \to (U', R', s', t', c')$ de groupoïdes en espaces algébriques sur $B$. Supposons que
+\begin{enumerate}
+\item $f : U \to U'$ est quasi-compact et quasi-séparé,
+\item le carré
+$$
+\xymatrix{
+R \ar[d]_t \ar[r]_f & R' \ar[d]^{t'} \\
+U \ar[r]^f & U'
+}
+$$
+est cartésien, et
+\item $s'$ et $t'$ sont plats.
+\end{enumerate}
+Alors l'image directe $f_*$, donnée par
+$$
+(\mathcal{F}, \alpha) \mapsto (f_*\mathcal{F}, f_*\alpha)
+$$
+définit un foncteur de la catégorie des faisceaux quasi-cohérents sur $(U, R, s, t, c)$ vers celle des faisceaux quasi-cohérents sur $(U', R', s', t', c')$ ; ce foncteur est adjoint à droite au foncteur image réciproque défini dans le lemme \ref{lemma-pullback}.
+\end{lemma}
+
+\begin{proof}
+Puisque $U \to U'$ est quasi-compact et quasi-séparé, $f_*$ transforme les faisceaux quasi-cohérents en faisceaux quasi-cohérents (Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-pushforward}). De plus, puisque les carrés
+$$
+\vcenter{
+\xymatrix{
+R \ar[d]_t \ar[r]_f & R' \ar[d]^{t'} \\
+U \ar[r]^f & U'
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+R \ar[d]_s \ar[r]_f & R' \ar[d]^{s'} \\
+U \ar[r]^f & U'
+}
+}
+$$
+sont cartésiens, nous obtenons $(t')^*f_*\mathcal{F} = f_*t^*\mathcal{F}$ et $(s')^*f_*\mathcal{F} = f_*s^*\mathcal{F}$ ; voir Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-flat-base-change-cohomology}. On peut donc considérer $f_*\alpha$ comme un morphisme $(t')^*f_*\mathcal{F} \to (s')^*f_*\mathcal{F}$. Un argument semblable montre que $f_*\alpha$ satisfait à la condition de cocycle. Ce foncteur est adjoint au foncteur image réciproque parce que, pour les modules sur des espaces annelés, image réciproque et image directe sont adjointes. Nous omettons quelques détails.
+\end{proof}
+
+
+\begin{lemma}
+\label{lemma-colimits}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. La catégorie des modules quasi-cohérents sur $(U, R, s, t, c)$ admet des colimites.
+\end{lemma}
+
+\begin{proof}
+Soit $i \mapsto (\mathcal{F}_i, \alpha_i)$ un diagramme indexé par la catégorie $\mathcal{I}$. Nous pouvons former la colimite $\mathcal{F} = \colim \mathcal{F}_i$, qui est un faisceau quasi-cohérent sur $U$ ; voir Propriétés des espaces, lemme \ref{spaces-properties-lemma-properties-quasi-coherent}. Comme les colimites commutent aux images réciproques, on a $s^*\mathcal{F} = \colim s^*\mathcal{F}_i$ et, de même, $t^*\mathcal{F} = \colim t^*\mathcal{F}_i$. Nous pouvons donc poser $\alpha = \colim \alpha_i$. Nous omettons de vérifier que $(\mathcal{F}, \alpha)$ est la colimite du diagramme dans la catégorie des modules quasi-cohérents sur $(U, R, s, t, c)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Si $s$, $t$ sont plats, alors la catégorie de modules quasi-cohérents sur $(U, R, s, t, c)$ est abélienne.
+\end{lemma}
+
+\begin{proof}
+Soit $\varphi : (\mathcal{F}, \alpha) \to (\mathcal{G}, \beta)$ un homomorphisme de modules quasi-cohérents sur $(U, R, s, t, c)$. Puisque $s$ est plat, la suite
+$$
+0 \to s^*\Ker(\varphi)
+\to s^*\mathcal{F} \to s^*\mathcal{G} \to s^*\Coker(\varphi) \to 0
+$$
+est exacte, et il en va de même après image réciproque par $t$. Ainsi, $\alpha$ et $\beta$ induisent des isomorphismes $\kappa : t^*\Ker(\varphi) \to s^*\Ker(\varphi)$ et $\lambda : t^*\Coker(\varphi) \to s^*\Coker(\varphi)$ qui satisfont à la condition de cocycle. Il est alors immédiat de vérifier que $(\Ker(\varphi), \kappa)$ et $(\Coker(\varphi), \lambda)$ sont respectivement un noyau et un conoyau dans la catégorie des modules quasi-cohérents sur $(U, R, s, t, c)$. De plus, l'égalité $\Coim(\varphi) = \Im(\varphi)$ résulte de ce qu'elle vaut sur $U$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Colimites de modules quasi-cohérents}
+\label{section-colimits}
+
+\noindent
+Cette section est l'analogue de Groupoïdes, section \ref{groupoids-section-colimits}.
+
+\begin{lemma}
+\label{lemma-construct-quasi-coherent}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Supposons $s$ et $t$ plats, quasi-compacts et quasi-séparés. Pour tout module quasi-cohérent $\mathcal{G}$ sur $U$, il existe un isomorphisme canonique $\alpha : t^*s_*t^*\mathcal{G} \to s^*s_*t^*\mathcal{G}$ qui munit $(s_*t^*\mathcal{G}, \alpha)$ d'une structure de module quasi-cohérent sur $(U, R, s, t, c)$. Cette construction définit un foncteur
+$$
+\QCoh(\mathcal{O}_U) \longrightarrow \QCoh(U, R, s, t, c)
+$$
+adjoint à droite au foncteur d'oubli $(\mathcal{F}, \beta) \mapsto \mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+L'image directe d'un module quasi-cohérent par un morphisme quasi-compact et quasi-séparé est quasi-cohérente ; voir Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-pushforward}. Ainsi, $s_*t^*\mathcal{G}$ est quasi-cohérent. Avec les notations du lemme \ref{lemma-diagram}, nous avons
+$$
+t^*s_*t^*\mathcal{G} =
+\text{pr}_{1, *}\text{pr}_0^*t^*\mathcal{G} =
+\text{pr}_{1, *}c^*t^*\mathcal{G} =
+s^*s_*t^*\mathcal{G}
+$$
+L'égalité du milieu vient de ce que $t \circ c = t \circ \text{pr}_0$ comme morphismes $R \times_{s, U, t} R \to U$ ; la première et la dernière viennent de la commutation du changement de base et de l'image directe dans ces cas, par Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+
+\medskip\noindent
+Pour vérifier la condition de cocycle de la définition \ref{definition-groupoid-module} pour $\alpha$, ainsi que la propriété d'adjonction, décrivons autrement la construction $\mathcal{G} \mapsto (s_*t^*\mathcal{G}, \alpha)$. Considérons le groupoïde en schémas $(R, R \times_{t, U, t} R, \text{pr}_0, \text{pr}_1, \text{pr}_{02})$ associé à la relation d'équivalence $R \times_{t, U, t} R$ sur $R$ ; voir le lemme \ref{lemma-equivalence-groupoid}. Il existe un morphisme
+$$
+f :
+(R, R \times_{t, U, t} R, \text{pr}_1, \text{pr}_0, \text{pr}_{02})
+\longrightarrow
+(U, R, s, t, c)
+$$
+de groupoïdes en schémas, donné par $s : R \to U$ et par le morphisme $R \times_{t, U, t} R \to R$, $(r_0, r_1) \mapsto r_0^{-1} \circ r_1$ ; nous omettons de vérifier la commutativité des diagrammes requis. Puisque $t, s : R \to U$ sont quasi-compacts, quasi-séparés et plats, et puisque le carré
+$$
+\xymatrix{
+R \times_{t, U, t} R \ar[d]_{\text{pr}_0}
+\ar[rr]_-{(r_0, r_1) \mapsto r_0^{-1} \circ r_1} & & R \ar[d]^t \\
+R \ar[rr]^s & & U
+}
+$$
+est cartésien, le lemme \ref{lemma-diagram-pull} montre que le lemme \ref{lemma-pushforward} s'applique à $f$. Ainsi, les foncteurs image directe et image réciproque des modules quasi-cohérents suivant $f$ sont adjoints. Pour terminer la démonstration, identifions-les aux foncteurs décrits ci-dessus. Remarquons que
+$$
+t^* :
+\QCoh(\mathcal{O}_U)
+\longrightarrow
+\QCoh(R, R \times_{t, U, t} R, \text{pr}_1, \text{pr}_0, \text{pr}_{02})
+$$
+est une équivalence par la théorie de la descente des faisceaux quasi-cohérents, puisque $\{t : R \to U\}$ est un recouvrement fpqc ; voir Descente sur les espaces, proposition \ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}.
+
+\medskip\noindent
+L'image directe suivant $f$, précomposée avec l'équivalence $t^*$, envoie $\mathcal{G}$ sur $(s_*t^*\mathcal{G}, \alpha)$ ; nous omettons de vérifier que l'isomorphisme $\alpha$ ainsi obtenu est celui construit ci-dessus.
+
+\medskip\noindent
+L'image réciproque suivant $f$, postcomposée avec l'inverse de l'équivalence $t^*$, envoie $(\mathcal{F}, \beta)$ sur le module obtenu par descente, relativement à $\{t : R \to U\}$, à partir de $s^*\mathcal{F}$ muni de la donnée de descente $\gamma$ sur $R \times_{t, U, t} R$ qui est l'image réciproque de $\beta$ par $(r_0, r_1) \mapsto r_0^{-1} \circ r_1$. Considérons l'isomorphisme $\beta : t^*\mathcal{F} \to s^*\mathcal{F}$. Par transport au moyen de $\beta$, la donnée de descente canonique (Descente sur les espaces, définition \ref{spaces-descent-definition-descent-datum-effective-quasi-coherent}) sur $t^*\mathcal{F}$ relativement à $\{t : R \to U\}$ devient le morphisme
+$$
+\text{pr}_0^*s^*\mathcal{F}
+\xrightarrow{\text{pr}_0^*\beta^{-1}}
+\text{pr}_0^*t^*\mathcal{F}
+\xrightarrow{can}
+\text{pr}_1^*t^*\mathcal{F}
+\xrightarrow{\text{pr}_1^*\beta}
+\text{pr}_1^*s^*\mathcal{F}
+$$
+Puisque $\beta$ satisfait à la condition de cocycle, ce morphisme est égal à l'image réciproque de $\beta$ par $(r_0, r_1) \mapsto r_0^{-1} \circ r_1$. Pour le voir, prenons la relation de cocycle de la définition \ref{definition-groupoid-module} et son image réciproque par le morphisme $(\text{pr}_0, c \circ (i, 1)) : R \times_{t, U, t} R \to R \times_{s, U, t} R$, qui intervient aussi dans le diagramme commutatif du lemme \ref{lemma-diagram-pull}. Il s'ensuit que $(s^*\mathcal{F}, \gamma)$ est isomorphe à $(t^*\mathcal{F}, can)$. En définitive, l'image réciproque suivant $f$, postcomposée avec l'inverse de l'équivalence $t^*$, est isomorphe au foncteur d'oubli $(\mathcal{F}, \beta) \mapsto \mathcal{F}$.
+\end{proof}
+
+\begin{remark}
+\label{remark-adjunction-map}
+Dans la situation du lemme \ref{lemma-construct-quasi-coherent}, notons
+$$
+F : \QCoh(U, R, s, t, c) \to \QCoh(\mathcal{O}_U),\quad
+(\mathcal{F}, \beta) \mapsto \mathcal{F}
+$$
+le foncteur d'oubli, et notons
+$$
+G : \QCoh(\mathcal{O}_U) \to \QCoh(U, R, s, t, c),\quad
+\mathcal{G} \mapsto (s_*t^*\mathcal{G}, \alpha)
+$$
+l'adjoint à droite construit dans le lemme. Alors l'unité $\eta : \text{id} \to G \circ F$ de l'adjonction, évaluée en $(\mathcal{F}, \beta)$, est donnée par le morphisme
+$$
+\mathcal{F} \to s_*s^*\mathcal{F} \xrightarrow{\beta^{-1}} s_*t^*\mathcal{F}
+$$
+Nous omettons la vérification.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-push-pull}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$. Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent, soit $\mathcal{G}$ un $\mathcal{O}_Y$-module quasi-cohérent et soit $\varphi : \mathcal{G} \to f^*\mathcal{F}$ un morphisme de modules. Supposons que
+\begin{enumerate}
+\item $\varphi$ est injectif,
+\item $f$ est quasi-compact, quasi-séparé, plat, et surjectif,
+\item $X$ et $Y$ sont localement noethériens, et
+\item $\mathcal{G}$ est un $\mathcal{O}_Y$-module cohérent.
+\end{enumerate}
+Alors $\mathcal{F} \cap f_*\mathcal{G}$, défini par le carré cartésien
+$$
+\xymatrix{
+\mathcal{F} \ar[r] & f_*f^*\mathcal{F} \\
+\mathcal{F} \cap f_*\mathcal{G} \ar[u] \ar[r] &
+f_*\mathcal{G} \ar[u]
+}
+$$
+est un $\mathcal{O}_X$-module cohérent.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons librement la caractérisation des modules cohérents donnée dans Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-coherent-Noetherian}, ainsi que le fait que les modules cohérents forment une sous-catégorie de Serre de $\QCoh(\mathcal{O}_X)$ ; voir Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}. Si $f$ admet une section $\sigma$, alors $\mathcal{F} \cap f_*\mathcal{G}$ est contenu dans l'image de $\sigma^*\mathcal{G} \to \sigma^*f^*\mathcal{F} = \mathcal{F}$, donc est cohérent. En général, pour montrer que $\mathcal{F} \cap f_*\mathcal{G}$ est cohérent, il suffit de montrer que $f^*(\mathcal{F} \cap f_*\mathcal{G})$ l'est (voir Descente sur les espaces, lemme \ref{spaces-descent-lemma-finite-type-descends}). Comme $f$ est plat, ce dernier est égal à $f^*\mathcal{F} \cap f^*f_*\mathcal{G}$. Puisque $f$ est plat, quasi-compact et quasi-séparé, on a $f^*f_*\mathcal{G} = p_*q^*\mathcal{G}$, où $p, q : Y \times_X Y \to Y$ sont les projections ; voir Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-flat-base-change-cohomology}. Comme $p$ admet une section, on conclut.
+\end{proof}
+
+\noindent
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Supposons $U$ localement noethérien. Dans le lemme ci-dessous, nous disons qu'un faisceau quasi-cohérent $(\mathcal{F}, \alpha)$ sur $(U, R, s, t, c)$ est {\it cohérent} si $\mathcal{F}$ est un $\mathcal{O}_U$-module cohérent.
+
+\begin{lemma}
+\label{lemma-colimit-coherent}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Supposons que
+\begin{enumerate}
+\item $U$ et $R$ sont noethériens,
+\item $s$ et $t$ sont plats, quasi-compacts et quasi-séparés.
+\end{enumerate}
+Tout module quasi-cohérent $(\mathcal{F}, \alpha)$ sur $(U, R, s, t, c)$ est une colimite filtrante de modules cohérents.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons sans autre mention la caractérisation des modules cohérents sur les espaces algébriques localement noethériens donnée dans Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-coherent-Noetherian}. Écrivons $\mathcal{F} = \colim \mathcal{H}_i$ comme colimite filtrante de sous-modules cohérents $\mathcal{H}_i \subset \mathcal{F}$ ; voir Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-directed-colimit-coherent}. Pour tout faisceau quasi-cohérent $\mathcal{H}$ sur $U$, notons $(s_*t^*\mathcal{H}, \alpha)$ le faisceau quasi-cohérent sur $(U, R, s, t, c)$ du lemme \ref{lemma-construct-quasi-coherent}. Considérons le morphisme d'adjonction $(\mathcal{F}, \beta) \to (s_*t^*\mathcal{F}, \alpha)$ dans $\QCoh(U, R, s, t, c)$ ; voir la remarque \ref{remark-adjunction-map}. Posons
+$$
+(\mathcal{F}_i, \beta_i) =
+(\mathcal{F}, \beta)
+\times_{(s_*t^*\mathcal{F}, \alpha)}
+(s_*t^*\mathcal{H}_i, \alpha)
+$$
+dans $\QCoh(U, R, s, t, c)$. Puisque la restriction à $U$ est un foncteur exact sur $\QCoh(U, R, s, t, c)$ d'après la démonstration du lemme \ref{lemma-abelian}, nous obtenons un carré cartésien
+$$
+\xymatrix{
+\mathcal{F} \ar[r] & s_*t^*\mathcal{F} \\
+\mathcal{F}_i \ar[r] \ar[u] & s_*t^*\mathcal{H}_i \ar[u]
+}
+$$
+Autrement dit, $\mathcal{F}_i = \mathcal{F} \cap s_*t^*\mathcal{H}_i$. Par la description du morphisme d'adjonction dans la remarque \ref{remark-adjunction-map}, ce diagramme est isomorphe au diagramme
+$$
+\xymatrix{
+\mathcal{F} \ar[r] & s_*s^*\mathcal{F} \\
+\mathcal{F}_i \ar[r] \ar[u] & s_*t^*\mathcal{H}_i \ar[u]
+}
+$$
+où la flèche verticale de droite s'obtient en appliquant $s_*$ au morphisme
+$$
+t^*\mathcal{H}_i \to t^*\mathcal{F} \xrightarrow{\beta} s^*\mathcal{F}
+$$
+Ce morphisme est injectif puisque $t$ est plat. Il s'ensuit que $\mathcal{F}_i$ est cohérent, par le lemme \ref{lemma-push-pull}. Enfin, comme $s$ est quasi-compact et quasi-séparé, $s_*$ commute aux colimites (voir Cohomologie des schémas, lemme \ref{coherent-lemma-colimit-cohomology}). Ainsi, $s_*t^*\mathcal{F} = \colim s_*t^*\mathcal{H}_i$, puis $(\mathcal{F}, \beta) = \colim (\mathcal{F}_i, \beta_i)$, comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Cristaux en faisceaux quasi-cohérents}
+\label{section-crystals}
+
+\noindent
+Soit $(I, \Phi, j)$ un couple formé d'un ensemble $I$ et d'une pré-relation $j : \Phi \to I \times I$. Supposons donné, pour tout $i \in I$, un schéma $X_i$ et, pour tout $\phi \in \Phi$, un morphisme de schémas $f_\phi : X_{i'} \to X_i$, où $j(\phi) = (i, i')$. Posons $X = (\{X_i\}_{i \in I}, \{f_\phi\}_{\phi \in \Phi})$. Un {\it cristal en modules quasi-cohérents sur $X$} est, par définition, une règle qui associe à tout $i \in \Ob(\mathcal{I})$ un faisceau quasi-cohérent $\mathcal{F}_i$ sur $X_i$ et, à tout $\phi \in \Phi$ tel que $j(\phi) = (i, i')$, un isomorphisme
+$$
+\alpha_\phi : f_\phi^*\mathcal{F}_i \longrightarrow \mathcal{F}_{i'}
+$$
+de faisceaux quasi-cohérents sur $X_{i'}$. Ces cristaux en modules quasi-cohérents forment une catégorie additive $\textit{CQC}(X)$\footnote{Nous pourrions distinguer un ensemble de triplets $\phi, \phi', \phi'' \in \Phi$ tels que $j(\phi) = (i, i')$, $j(\phi') = (i', i'')$ et $j(\phi'') = (i, i'')$, avec $f_{\phi''} = f_\phi \circ f_{\phi'}$, et imposer $\alpha_{\phi'} \circ f_{\phi'}^*\alpha_\phi = \alpha_{\phi''}$ pour ces triplets. Cela définirait une sous-catégorie additive. Par exemple, les données $(I, \Phi)$ pourraient être l'ensemble des objets et des flèches d'une catégorie d'indices, et $X$ un diagramme de schémas sur cette catégorie. Le lemme \ref{lemma-crystals-in-quasi-coherent-modules} donnerait aussitôt le résultat correspondant dans cette sous-catégorie.}. Cette catégorie admet des colimites (la démonstration est celle du lemme \ref{lemma-colimits}). Si tous les morphismes $f_\phi$ sont plats, alors $\textit{CQC}(X)$ est abélienne (la démonstration est celle du lemme \ref{lemma-abelian}). Soit $\kappa$ un cardinal. Nous disons qu'un cristal en modules quasi-cohérents $\mathcal{F}$ sur $X$ est {\it $\kappa$-généré} si chaque $\mathcal{F}_i$ est $\kappa$-généré (voir Propriétés, définition \ref{properties-definition-kappa-generated}).
+
+\begin{lemma}
+\label{lemma-crystals-in-quasi-coherent-modules}
+Dans la situation ci-dessus, si tous les morphismes $f_\phi$ sont plats, il existe un cardinal $\kappa$ tel que tout objet $(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$ de $\textit{CQC}(X)$ soit la colimite filtrante de ses sous-modules $\kappa$-générés.
+\end{lemma}
+
+\begin{proof}
+Dans l'énoncé et dans la démonstration, un {\it sous-module} de $(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$ désigne la donnée, pour tout $i$, d'un sous-module quasi-cohérent $\mathcal{G}_i \subset \mathcal{F}_i$ tel que $\alpha_\phi(f_\phi^*\mathcal{G}_i) = \mathcal{G}_{i'}$ comme sous-faisceaux de $\mathcal{F}_{i'}$, pour tout $\phi \in \Phi$. Cela a un sens car, $f_\phi$ étant plat, l'image réciproque $f^*_\phi$ est exacte, c'est-à-dire qu'elle préserve les sous-faisceaux. La démonstration sera une variante de celle de Propriétés, lemme \ref{properties-lemma-colimit-kappa}. Nous invitons le lecteur à lire d'abord cette dernière.
+
+\medskip\noindent
+Nous affirmons qu'il suffit de démontrer le lemme lorsque tous les schémas $X_i$ sont affines. En effet, posons
+$$
+J = \coprod\nolimits_{i \in I} \{U \subset X_i\text{ affine open}\}
+$$
+et
+\begin{align*}
+\Psi = & \coprod\nolimits_{\phi \in \Phi}
+\{
+(U, V) \mid
+U \subset X_i, V \subset X_{i'}\text{ affine open with } f_\phi(U) \subset V
+\} \\
+&
+\amalg \coprod\nolimits_{i \in I}
+\{
+(U, U') \mid
+U, U' \subset X_i\text{ affine open with } U \subset U'
+\}
+\end{align*}
+muni de l'application évidente $\Psi \to J \times J$. Notre $(\mathcal{F}, \alpha)$ induit alors un cristal en faisceaux quasi-cohérents $(\{\mathcal{H}_j\}_{j \in J}, \{\beta_\psi\}_{\psi \in \Psi})$ sur $Y = (J, \Psi)$ : on pose $\mathcal{H}_{(i, U)} = \mathcal{F}_i|_U$ pour $(i, U) \in J$ ; pour $\psi \in \Psi$, on prend pour $\beta_\psi$ la restriction de $\alpha_\phi$ à $U$ si $\psi = (\phi, U, V)$, et l'identité $\text{id} : (\mathcal{F}_i|_{U'})|_U \to \mathcal{F}_i|_U$ si $\psi = (i, U, U')$. De plus, les sous-modules de $(\{\mathcal{H}_j\}_{j \in J}, \{\beta_\psi\}_{\psi \in \Psi})$ correspondent bijectivement aux sous-modules de $(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$. Nous omettons la démonstration (indication : utiliser Faisceaux, section \ref{sheaves-section-bases}). Enfin, il est clair que, si $\kappa$ convient pour $Y$, le même $\kappa$ convient pour $X$ (par la définition des modules $\kappa$-générés). Il suffit donc de démontrer le lemme pour les cristaux en faisceaux quasi-cohérents sur $Y$.
+
+\medskip\noindent
+Supposons désormais tous les schémas $X_i$ affines. Soit $\kappa$ un cardinal infini supérieur aux cardinaux de $I$ et de $\Phi$. Soit $(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$ un objet de $\textit{CQC}(X)$. Pour tout $i$, écrivons $X_i = \Spec(A_i)$ et $M_i = \Gamma(X_i, \mathcal{F}_i)$. Pour tout $\phi \in \Phi$ tel que $j(\phi) = (i, i')$, le morphisme $\alpha_\phi$ se traduit par un isomorphisme de $A_{i'}$-modules
+$$
+\alpha_\phi : M_i \otimes_{A_i} A_{i'} \longrightarrow M_{i'}
+$$
+À l'aide de l'axiome du choix, choisissons une règle
+$$
+(\phi, m) \longmapsto S(\phi, m')
+$$
+dont la source est l'ensemble des couples $(\phi, m')$ tels que $\phi \in \Phi$, $j(\phi) = (i, i')$ et $m' \in M_{i'}$, et dont la valeur est une partie finie $S(\phi, m') \subset M_i$ telle que
+$$
+m' = \alpha_\phi\left(\sum\nolimits_{m \in S(\phi, m')} m \otimes a'_m\right)
+$$
+pour certains $a'_m \in A_{i'}$.
+
+\medskip\noindent
+Ces choix faits, nous affirmons que toute section de l'un quelconque des $\mathcal{F}_i$ sur $X_i$ appartient à un sous-module $\kappa$-généré. Soit en effet une famille $\mathcal{S} = \{S_i\}_{i \in I}$ de parties $S_i \subset M_i$, chacune de cardinal au plus $\kappa$. Définissons une nouvelle famille $\mathcal{S}' = \{S'_i\}_{i \in I}$ par
+$$
+S'_i = S_i \cup
+\bigcup\nolimits_{(\phi, m'),\ j(\phi) = (i, i'),\ m' \in S_{i'}} S(\phi, m')
+$$
+Chaque $S'_i$ est encore de cardinal au plus $\kappa$. Posons $\mathcal{S}^{(0)} = \mathcal{S}$, $\mathcal{S}^{(1)} = \mathcal{S}'$ et, par récurrence, $\mathcal{S}^{(n + 1)} = (\mathcal{S}^{(n)})'$. Posons ensuite $S_i^{(\infty)} = \bigcup_{n \geq 0} S_i^{(n)}$ et $\mathcal{S}^{(\infty)} = \{S_i^{(\infty)}\}_{i \in I}$. Par construction, pour tout $\phi \in \Phi$ tel que $j(\phi) = (i, i')$ et tout $m' \in S^{(\infty)}_{i'}$, on peut écrire $m'$ comme combinaison linéaire finie d'éléments $\alpha_\phi(m \otimes 1)$ avec $m \in S_i^{(\infty)}$. Si $N_i$ est le sous-$A_i$-module de $M_i$ engendré par $S_i^{(\infty)}$, les sous-modules quasi-cohérents correspondants $\widetilde{N_i} \subset \mathcal{F}_i$ forment donc un sous-module $\kappa$-généré. Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-set-generators}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Si $s$ et $t$ sont plats, il existe un ensemble $T$ et une famille d'objets $(\mathcal{F}_t, \alpha_t)_{t \in T}$ de $\QCoh(U, R, s, t, c)$ tels que tout objet $(\mathcal{F}, \alpha)$ soit la colimite filtrante de ses sous-modules isomorphes à l'un des objets $(\mathcal{F}_t, \alpha_t)$.
+\end{lemma}
+
+\begin{proof}
+Ce lemme généralise Groupoïdes, lemme \ref{groupoids-lemma-colimit-kappa}, qui traite le cas d'un groupoïde en schémas. Nous ne pouvons pas tout à fait reprendre le même argument ; nous allons donc utiliser les résultats sur les « cristaux en faisceaux quasi-cohérents » développés ci-dessus.
+
+\medskip\noindent
+Choisissons un schéma $W$ et un morphisme étale surjectif $W \to U$. Choisissons un schéma $V$ et un morphisme étale surjectif $V \to W \times_{U, s} R$. Choisissons un schéma $V'$ et un morphisme étale surjectif $V' \to R \times_{t, U} W$. Considérons la famille de schémas
+$$
+I = \{W, W \times_U W, V, V', V \times_R V'\}
+$$
+et l'ensemble des morphismes de schémas
+$$
+\Phi = \{\text{pr}_i : W \times_U W \to W, V \to W, V' \to W,
+V \times_R V' \to V, V \times_R V' \to V'\}
+$$
+Posons $X = (I, \Phi)$. Rappelons que nous avons défini une catégorie $\textit{CQC}(X)$ de cristaux en faisceaux quasi-cohérents sur $X$. Il existe un foncteur
+$$
+\QCoh(U, R, s, t, c) \longrightarrow \textit{CQC}(X)
+$$
+qui associe à $(\mathcal{F}, \alpha)$ le faisceau $\mathcal{F}|_W$ sur $W$, le faisceau $\mathcal{F}|_{W \times_U W}$ sur $W \times_U W$, l'image réciproque de $\mathcal{F}$ sur $V$ par $V \to W \times_{U, s} R \to W \to U$, l'image réciproque de $\mathcal{F}$ sur $V'$ par $V' \to R \times_{t, U} W \to W \to U$, et enfin l'image réciproque de $\mathcal{F}$ sur $V \times_R V'$ par $V \times_R V' \to V \to W \times_{U, s} R \to W \to U$. Pour morphismes de comparaison $\{\alpha_\phi\}_{\phi \in \Phi}$, nous prenons les morphismes évidents, issus de l'associativité des images réciproques, sauf lorsque $\phi = \text{pr}_{V'} : V \times_R V' \to V'$ : nous prenons alors l'image réciproque sur $V \times_R V'$ de $\alpha : t^*\mathcal{F} \to s^*\mathcal{F}$. Cette définition est licite en vertu du diagramme commutatif
+$$
+\xymatrix{
+& V \times_R V' \ar[ld] \ar[rd] \\
+V \ar[rd] \ar[dd] & & V' \ar[ld] \ar[dd] \\
+& R \ar@<-1ex>[dd]_s \ar@<1ex>[dd]^t \\
+W \ar[rd] & & W \ar[ld] \\
+& U
+}
+$$
+Le foncteur ci-dessus n'est pas une équivalence de catégories. Toutefois, puisque $W \to U$ est étale surjectif, il est fidèle\footnote{En fait, le foncteur est pleinement fidèle, mais nous n'en aurons pas besoin.}. Comme tous les morphismes du diagramme précédent sont plats, c'est un foncteur exact entre catégories abéliennes. De plus, si $(\mathcal{F}, \alpha)$ a pour image $(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$, nous affirmons qu'il existe une correspondance bijective entre les sous-modules quasi-cohérents de $(\mathcal{F}, \alpha)$ et ceux de $(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$. En effet, pour un sous-module de $(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$, la compatibilité du sous-module sur $W$ avec les projections $W \times_U W \to W$ garantit qu'il provient d'un sous-module quasi-cohérent de $\mathcal{F}$ (par Propriétés des espaces, proposition \ref{spaces-properties-proposition-quasi-coherent}) ; sa compatibilité avec $\alpha_{\text{pr}_{V'}}$ garantit ensuite que ce sous-faisceau est compatible avec $\alpha$. Nous omettons les détails.
+
+\medskip\noindent
+Choisissons un cardinal $\kappa$ comme dans le lemme \ref{lemma-crystals-in-quasi-coherent-modules} pour le système $X = (I, \Phi)$. D'après Propriétés, lemme \ref{properties-lemma-set-of-iso-classes}, les classes d'isomorphisme des cristaux en faisceaux quasi-cohérents $\kappa$-générés sur $X$ forment un ensemble. Le résultat s'ensuit.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Groupoïdes et espaces algébriques en groupes}
+\label{section-groupoids-group-spaces}
+
+\noindent
+Comparer avec Groupoïdes, section \ref{groupoids-section-groupoids-group-schemes}.
+
+\begin{lemma}
+\label{lemma-groupoid-from-action}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(G, m)$ un espace algébrique en groupes sur $B$, d'unité $e_G$ et d'inversion $i_G$. Soit $X$ un espace algébrique sur $B$ et soit $a : G \times_B X \to X$ une action de $G$ sur $X$ au-dessus de $B$. Nous obtenons un groupoïde en espaces algébriques $(U, R, s, t, c, e, i)$ sur $B$ comme suit :
+\begin{enumerate}
+\item Nous posons $U = X$ et $R = G \times_B X$.
+\item Nous définissons $s : R \to U$ par $(g, x) \mapsto x$.
+\item Nous définissons $t : R \to U$ par $(g, x) \mapsto a(g, x)$.
+\item Nous définissons $c : R \times_{s, U, t} R \to R$ par $((g, x), (g', x')) \mapsto (m(g, g'), x')$.
+\item Nous définissons $e : U \to R$ par $x \mapsto (e_G(x), x)$.
+\item Nous définissons $i : R \to R$ par $(g, x) \mapsto (i_G(g), a(g, x))$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : il suffit de vérifier l'assertion au niveau des ensembles. Pour cela, utiliser la description précédant le lemme, où $g$ est vu comme une flèche de $v$ vers $a(g, v)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-action-groupoid-modules}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(G, m)$ un espace algébrique en groupes sur $B$. Soit $X$ un espace algébrique sur $B$ et soit $a : G \times_B X \to X$ une action de $G$ sur $X$ au-dessus de $B$. Soit $(U, R, s, t, c)$ le groupoïde en espaces algébriques construit dans le lemme \ref{lemma-groupoid-from-action}. La règle $(\mathcal{F}, \alpha) \mapsto (\mathcal{F}, \alpha)$ définit une équivalence de catégories entre les $\mathcal{O}_X$-modules quasi-cohérents $G$-équivariants et la catégorie des modules quasi-cohérents sur $(U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+L'assertion a un sens parce que $t = a$ et $s = \text{pr}_1$ comme morphismes $R = G \times_B X \to X$ ; voir les définitions \ref{definition-equivariant-module} et \ref{definition-groupoid-module}. Au moyen de la traduction du lemme \ref{lemma-groupoid-from-action}, les conditions de commutativité des deux définitions coïncident exactement.
+\end{proof}
+
+
+
+
+
+\section{L'espace algébrique en groupes stabilisateur}
+\label{section-stabilizer}
+
+\noindent
+Comparer avec Groupoïdes, section \ref{groupoids-section-stabilizer}. À tout groupoïde en espaces algébriques, on associe un espace algébrique en groupes de la manière suivante.
+
+\begin{lemma}
+\label{lemma-groupoid-stabilizer}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. L'espace algébrique $G$ défini par le carré cartésien
+$$
+\xymatrix{
+G \ar[r] \ar[d] & R \ar[d]^{j = (t, s)} \\
+U \ar[r]^-{\Delta} & U \times_B U
+}
+$$
+est un espace algébrique en groupes sur $U$, dont la loi de composition $m$ est induite par la loi de composition $c$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que, dans une catégorie-groupoïde, l'ensemble des endomorphismes de tout objet est un groupe.
+\end{proof}
+
+\noindent
+Puisque $\Delta$ est un monomorphisme, $G = j^{-1}(\Delta_{U/B})$ est un sous-faisceau de $R$. De ce point de vue, le morphisme structural $G = j^{-1}(\Delta_{U/B}) \to U$ est induit indifféremment par $s$ ou par $t$, et $m$ est induit par $c$.
+
+\begin{definition}
+\label{definition-stabilizer-groupoid}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. L'espace algébrique en groupes $j^{-1}(\Delta_{U/B}) \to U$ est appelé le {\it stabilisateur du groupoïde en espaces algébriques $(U, R, s, t, c)$}.
+\end{definition}
+
+\noindent
+Dans la littérature, l'espace algébrique en groupes stabilisateur est souvent noté $S$ (sans doute parce que « stabilisateur » commence par un « s ») ; nous ne pouvons adopter cette notation, car $S$ désigne déjà le schéma de base.
+
+\begin{lemma}
+\label{lemma-groupoid-action-stabilizer}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$ et soit $G/U$ son stabilisateur. Notons $R_t/U$ l'espace algébrique $R$ considéré comme espace algébrique sur $U$ par le morphisme $t : R \to U$. Il existe une action à gauche canonique
+$$
+a : G \times_U R_t \longrightarrow R_t
+$$
+induite par la loi de composition $c$.
+\end{lemma}
+
+\begin{proof}
+En termes de points sur $T/B$, nous définissons $a(g, r) = c(g, r)$.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Restriction des groupoïdes}
+\label{section-restrict-groupoid}
+
+\noindent
+Voir Groupoïdes, section \ref{groupoids-section-restrict-groupoid}, pour les notations.
+
+\begin{lemma}
+\label{lemma-restrict-groupoid}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Soit $g : U' \to U$ un morphisme d'espaces algébriques. Considérons le diagramme suivant
+$$
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'}&
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d]^g \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r]^g &
+U
+}
+$$
+où tous les carrés sont cartésiens. Il existe alors une loi de composition canonique $c' : R' \times_{s', U', t'} R' \to R'$ telle que $(U', R', s', t', c')$ soit un groupoïde en espaces algébriques sur $B$ et que $U' \to U$, $R' \to R$ définissent un morphisme $(U', R', s', t', c') \to (U, R, s, t, c)$ de groupoïdes en espaces algébriques sur $B$. De plus, pour tout schéma $T$ sur $B$, le foncteur de groupoïdes
+$$
+(U'(T), R'(T), s', t', c') \to (U(T), R(T), s, t, c)
+$$
+est la restriction (voir Groupoïdes, section \ref{groupoids-section-restrict-groupoid}) de $(U(T), R(T), s, t, c)$ suivant l'application $U'(T) \to U(T)$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{definition}
+\label{definition-restrict-groupoid}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Soit $g : U' \to U$ un morphisme d'espaces algébriques sur $B$. Le morphisme de groupoïdes en espaces algébriques $(U', R', s', t', c') \to (U, R, s, t, c)$ construit dans le lemme \ref{lemma-restrict-groupoid} est appelé la {\it restriction de $(U, R, s, t, c)$ à $U'$}. Dans cette situation, nous écrivons parfois $R' = R|_{U'}$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-restrict-groupoid-relation}
+Les notions de restriction des groupoïdes et des (pré-)relations d'équivalence définies dans les définitions \ref{definition-restrict-groupoid} et \ref{definition-restrict-relation} coïncident par les constructions des lemmes \ref{lemma-groupoid-pre-equivalence} et \ref{lemma-equivalence-groupoid}.
+\end{lemma}
+
+\begin{proof}
+L'assertion signifie que le $R'$ du lemme \ref{lemma-restrict-groupoid} est aussi égal à
+$$
+R' = (U' \times_B U')\times_{U \times_B U} R
+\longrightarrow
+U' \times_B U'
+$$
+Cette formulation aurait d'ailleurs peut-être rendu le lemme plus clair.
+\end{proof}
+
+
+
+
+
+\section{Sous-espaces invariants}
+\label{section-invariant}
+
+\noindent
+Dans cette section, nous discutons brièvement de la notion de sous-espace invariant.
+
+\begin{definition}
+\label{definition-invariant-open}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur la base $B$.
+\begin{enumerate}
+\item Nous disons qu'un sous-espace ouvert $W \subset U$ est {\it $R$-invariant} si $t(s^{-1}(W)) \subset W$.
+\item Un sous-espace localement fermé $Z \subset U$ est appelé {\it $R$-invariant} si $t^{-1}(Z) = s^{-1}(Z)$ comme sous-espaces localement fermés de $R$.
+\item Un monomorphisme d'espaces algébriques $T \to U$ est {\it $R$-invariant} si $T \times_{U, t} R = R \times_{s, U} T$ comme espaces algébriques sur $R$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Pour un sous-espace ouvert $W \subset U$, l'invariance sous $R$ équivaut aussi à l'égalité $s^{-1}(W) = t^{-1}(W)$. Si $W \subset U$ est $R$-invariant, la restriction de $R$ à $W$ est simplement $R_W = s^{-1}(W) = t^{-1}(W)$. De même, si $Z \subset U$ est un sous-espace localement fermé $R$-invariant, la restriction de $R$ à $Z$ est simplement $R_Z = s^{-1}(Z) = t^{-1}(Z)$.
+
+\begin{lemma}
+\label{lemma-constructing-invariant-opens}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$.
+\begin{enumerate}
+\item Si $s$ et $t$ sont ouverts, alors, pour tout ouvert $W \subset U$, l'ouvert $s(t^{-1}(W))$ est $R$-invariant.
+\item Si $s$ et $t$ sont ouverts et quasi-compacts, alors $U$ admet un recouvrement ouvert par des sous-espaces ouverts quasi-compacts et $R$-invariants.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons $s$ et $t$ ouverts et $W \subset U$ ouvert. Puisque $s$ est ouvert, $W' = s(t^{-1}(W))$ est un sous-espace ouvert de $U$. Il est assez facile de voir, du point de vue fonctoriel, que c'est un ouvert $R$-invariant de $U$ ; nous allons néanmoins le démontrer directement au moyen de quelques diagrammes, car l'argument est instructif. Remarquons que $t^{-1}(W')$ est l'image du morphisme
+$$
+A := t^{-1}(W) \times_{s|_{t^{-1}(W)}, U, t} R
+\xrightarrow{\text{pr}_1} R
+$$
+et que $s^{-1}(W')$ est l'image du morphisme
+$$
+B := R \times_{s, U, s|_{t^{-1}(W)}} t^{-1}(W)
+\xrightarrow{\text{pr}_0} R.
+$$
+Les espaces algébriques $A$ et $B$, à gauche des flèches ci-dessus, sont respectivement des sous-espaces ouverts de $R \times_{s, U, t} R$ et de $R \times_{s, U, s} R$. D'après le lemme \ref{lemma-diagram}, le diagramme
+$$
+\xymatrix{
+R \times_{s, U, t} R \ar[rd]_{\text{pr}_1} \ar[rr]_{(\text{pr}_1, c)} & &
+R \times_{s, U, s} R \ar[ld]^{\text{pr}_0} \\
+& R &
+}
+$$
+est commutatif et la flèche horizontale est un isomorphisme. De plus, il est clair que $(\text{pr}_1, c)(A) = B$. Nous en concluons que $s^{-1}(W') = t^{-1}(W')$ et que $W'$ est $R$-invariant. Cela démontre (1).
+
+\medskip\noindent
+Supposons maintenant $s$ et $t$ tous deux ouverts et quasi-compacts. Si $W \subset U$ est un ouvert quasi-compact, alors $W' = s(t^{-1}(W))$ est lui aussi ouvert quasi-compact, et il est invariant d'après ce qui précède. En faisant parcourir à $W$ les images des schémas affines étales sur $U$, on obtient (2).
+\end{proof}
+
+
+
+
+
+\section{Faisceaux quotients}
+\label{section-quotient-sheaves}
+
+\noindent
+Soit $S$ un schéma et soit $B$ un espace algébrique sur $S$. Soit $j : R \to U \times_B U$ une pré-relation sur $B$. Pour tout schéma $S'$ sur $S$, considérons la relation d'équivalence $\sim_{S'}$ engendrée par l'image de $j(S') : R(S') \to U(S') \times U(S')$. Nous obtenons ainsi un préfaisceau
+\begin{equation}
+\label{equation-quotient-presheaf}
+\begin{matrix}
+(\Sch/S)^{opp}_{fppf} &
+\longrightarrow &
+\textit{Sets}, \\
+S' &
+\longmapsto  &
+U(S')/\sim_{S'}
+\end{matrix}
+\end{equation}
+Puisque $j$ est un morphisme d'espaces algébriques sur $B$ à valeurs dans $U \times_B U$, il existe une transformation canonique de préfaisceaux du préfaisceau (\ref{equation-quotient-presheaf}) vers $B$.
+
+\begin{definition}
+\label{definition-quotient-sheaf}
+Soient $B \to S$ et la pré-relation $j : R \to U \times_B U$ comme ci-dessus. Dans cette situation, le {\it faisceau quotient $U/R$} associé à $j$ est le faisceau associé au préfaisceau (\ref{equation-quotient-presheaf}) sur $(\Sch/S)_{fppf}$. Si $j : R \to U \times_B U$ provient de l'action sur $U$ d'un espace algébrique en groupes $G$ sur $B$, comme dans le lemme \ref{lemma-groupoid-from-action}, nous notons le faisceau quotient $U/G$.
+\end{definition}
+
+\noindent
+Cela signifie exactement que le diagramme
+$$
+\xymatrix{
+R \ar@<1ex>[r] \ar@<-1ex>[r] &
+U \ar[r] &
+U/R
+}
+$$
+est un diagramme coégalisateur dans la catégorie des faisceaux d'ensembles sur $(\Sch/S)_{fppf}$. Là encore, il existe un morphisme canonique de faisceaux $U/R \to B$, puisque $j$ est un morphisme d'espaces algébriques sur $B$ à valeurs dans $U \times_B U$.
+
+\begin{remark}
+\label{remark-quotient-variant}
+Une variante de la construction précédente consisterait à prendre le faisceau associé au foncteur
+$$
+\begin{matrix}
+(\textit{Spaces}/B)^{opp}_{fppf} &
+\longrightarrow &
+\textit{Sets}, \\
+X &
+\longmapsto  &
+U(X)/\sim_X
+\end{matrix}
+$$
+où $\sim_X \subset U(X) \times U(X)$ est désormais la relation d'équivalence engendrée par l'image de $j : R(X) \to U(X) \times U(X)$. Bien entendu, $U(X) = \Mor_B(X, U)$ et $R(X) = \Mor_B(X, R)$. En fait, le résultat serait le même, au moyen des identifications de (insérer ici une référence future dans Topologies sur les espaces).
+\end{remark}
+
+\begin{definition}
+\label{definition-representable-quotient}
+Dans la situation de la définition \ref{definition-quotient-sheaf}, nous disons que la pré-relation $j$ admet un {\it quotient représentable par un espace algébrique} si le faisceau $U/R$ est un espace algébrique. Nous disons qu'elle admet un {\it quotient représentable} si le faisceau $U/R$ est représentable par un schéma. Nous dirons qu'un groupoïde en espaces algébriques $(U, R, s, t, c)$ sur $B$ admet un {\it quotient représentable} (resp.\ un {\it quotient représentable par un espace algébrique}) si le quotient $U/R$, pour $j = (t, s)$, est représentable (resp.\ est un espace algébrique).
+\end{definition}
+
+\noindent
+Si le quotient $U/R$ est représenté par $M$ (schéma ou espace algébrique sur $S$), alors $M$ est muni d'un morphisme structural canonique $M \to B$, comme nous l'avons vu ci-dessus.
+
+\medskip\noindent
+Le lemme suivant caractérise les $M$ qui représentent le quotient. Il s'applique par exemple si $U \to M$ est plat, de présentation finie et surjectif, et si $R \cong U \times_M U$.
+
+\begin{lemma}
+\label{lemma-criterion-quotient-representable}
+Dans la situation de la définition \ref{definition-quotient-sheaf}, supposons donnés un espace algébrique $M$ sur $S$ et un morphisme $U \to M$ tels que
+\begin{enumerate}
+\item le morphisme $U \to M$ coégalise $s$ et $t$,
+\item l'application $U \to M$ est une surjection de faisceaux, et
+\item l'application induite $(t, s) : R \to U \times_M U$ est une surjection de faisceaux.
+\end{enumerate}
+Alors $M$ représente le faisceau quotient $U/R$.
+\end{lemma}
+
+\begin{proof}
+La condition (1) dit que $U \to M$ se factorise par $U/R$. La condition (2) dit que $U/R \to M$ est surjectif comme morphisme de faisceaux. La condition (3) dit qu'il est injectif. Le lemme en résulte.
+\end{proof}
+
+\noindent
+Le lemme suivant est faux si l'on ne suppose pas que $j$ est une pré-relation d'équivalence, mais seulement une pré-relation.
+
+\begin{lemma}
+\label{lemma-quotient-pre-equivalence}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $j : R \to U \times_B U$ une pré-relation d'équivalence sur $B$. Pour un schéma $S'$ sur $S$ et $a, b \in U(S')$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $a$ et $b$ ont même image dans $(U/R)(S')$, et
+\item il existe un recouvrement $\{f_i : S_i \to S'\}$ fppf de $S'$ et des morphismes $r_i : S_i \to R$ tels que $a \circ f_i = s \circ r_i$ et $b \circ f_i = t \circ r_i$.
+\end{enumerate}
+En d'autres termes, dans ce cas, le morphisme de faisceaux
+$$
+R \longrightarrow U \times_{U/R} U
+$$
+est surjectif.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : l'argument fonctionne parce que, dans ce cas, le préfaisceau (\ref{equation-quotient-presheaf}) est réellement donné par $T \mapsto U(T)/j(R(T))$, puisque $j(R(T)) \subset U(T) \times U(T)$ est une relation d'équivalence ; voir la définition \ref{definition-equivalence-relation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-pre-equivalence-relation-restrict}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $j : R \to U \times_B U$ une pré-relation d'équivalence sur $B$ et soit $g : U' \to U$ un morphisme d'espaces algébriques sur $B$. Soit $j' : R' \to U' \times_B U'$ la restriction de $j$ à $U'$. Le morphisme de faisceaux quotients
+$$
+U'/R' \longrightarrow U/R
+$$
+est injectif. Si $U' \to U$ est surjectif comme morphisme de faisceaux, par exemple si $\{g : U' \to U\}$ est un recouvrement fppf (voir Topologies sur les espaces, définition \ref{spaces-topologies-definition-fppf-covering}), alors $U'/R' \to U/R$ est un isomorphisme de faisceaux.
+\end{lemma}
+
+\begin{proof}
+Supposons que $\xi, \xi' \in (U'/R')(S')$ aient même image dans $U/R$. Il existe alors un recouvrement fppf $\mathcal{S} = \{S_i \to S'\}$ de $S'$ tel que $\xi|_{S_i}$ et $\xi'|_{S_i}$ soient représentés par $a_i, a_i' \in U'(S_i)$. Par le lemme \ref{lemma-quotient-pre-equivalence} et les axiomes d'un site, nous pouvons, après avoir raffiné par $\mathcal{T}$, supposer qu'il existe des morphismes $r_i : S_i \to R$ tels que $g \circ a_i = s \circ r_i$ et $g \circ a_i' = t \circ r_i$. Comme, par construction, $R' = R \times_{U \times_S U} (U' \times_S U')$, on a $(r_i, (a_i, a_i')) \in R'(S_i)$ ; ainsi, $a_i$ et $a_i'$ définissent la même section de $U'/R'$ sur $S_i$. La condition de faisceau entraîne $\xi = \xi'$.
+
+\medskip\noindent
+Si $U' \to U$ est surjectif comme morphisme de faisceaux, alors $U'/R' \to U/R$ est lui aussi surjectif. Enfin, si $\{g : U' \to U\}$ est un recouvrement fppf, le morphisme de faisceaux $U' \to U$ est surjectif ; voir Topologies sur les espaces, lemme \ref{spaces-topologies-lemma-fppf-covering-surjective}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-groupoid-restrict}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Soit $g : U' \to U$ un morphisme d'espaces algébriques sur $B$. Soit $(U', R', s', t', c')$ la restriction de $(U, R, s, t, c)$ à $U'$. Le morphisme de faisceaux quotients
+$$
+U'/R' \longrightarrow U/R
+$$
+est injectif. Si le composé
+$$
+\xymatrix{
+U' \times_{g, U, t} R \ar[r]_-{\text{pr}_1} \ar@/^3ex/[rr]^h
+& R \ar[r]_s & U
+}
+$$
+est une surjection de faisceaux fppf, alors ce morphisme est bijectif. C'est par exemple le cas si $\{h : U' \times_{g, U, t} R \to U\}$ est un recouvrement $fppf$, si $U' \to U$ est une surjection de faisceaux, ou si $\{g : U' \to U\}$ est un recouvrement pour la topologie fppf.
+\end{lemma}
+
+\begin{proof}
+L'injectivité résulte des lemmes \ref{lemma-groupoid-pre-equivalence} et \ref{lemma-quotient-pre-equivalence-relation-restrict}. Pour la surjectivité (voir Sites, section \ref{sites-section-sheaves-injective}, pour une caractérisation des morphismes surjectifs de faisceaux), raisonnons comme suit. Soit $T$ un schéma et soit $\sigma \in U/R(T)$. Il existe un recouvrement $\{T_i \to T\}$ tel que $\sigma|_{T_i}$ soit l'image d'un élément $f_i \in U(T_i)$. Nous pouvons donc supposer que $\sigma$ est l'image d'un élément $f \in U(T)$. Par l'hypothèse que $h$ est une surjection de faisceaux, il existe un recouvrement fppf $\{\varphi_i : T_i \to T\}$ et des morphismes $f_i : T_i \to U' \times_{g, U, t} R$ tels que $f \circ \varphi_i = h \circ f_i$. Notons $f'_i = \text{pr}_0 \circ f_i : T_i \to U'$. Alors $f'_i \in U'(T_i)$ a pour image $g \circ f'_i \in U(T_i)$, et $g \circ f'_i \sim_{T_i} h \circ f_i = f \circ \varphi_i$, avec les notations de (\ref{equation-quotient-presheaf}). L'élément de $R(T_i)$ qui donne cette relation est $\text{pr}_1 \circ f_i$. Ainsi, la restriction de $\sigma$ à $T_i$ appartient à l'image de $U'/R'(T_i) \to U/R(T_i)$, comme voulu.
+
+\medskip\noindent
+Si $\{h\}$ est un recouvrement fppf, il induit une surjection de faisceaux ; voir Topologies sur les espaces, lemme \ref{spaces-topologies-lemma-fppf-covering-surjective}. Si $U' \to U$ est surjectif, alors $h$ l'est aussi, puisque $s$ admet une section (à savoir l'élément neutre $e$ du groupoïde en schémas).
+\end{proof}
+
+
+
+
+
+\section{Champs quotients}
+\label{section-stacks}
+
+\noindent
+Dans cette section et les quelques suivantes, nous décrivons une sorte de généralisation de la section \ref{section-quotient-sheaves} ci-dessus et de Groupoïdes, section \ref{groupoids-section-quotient-sheaves}. La différence est que nous allons considérer des champs quotients plutôt que des faisceaux quotients.
+
+\medskip\noindent
+Soient un schéma $S$, un espace algébrique $B$ sur $S$ et un groupoïde en espaces algébriques $(U, R, s, t, c)$ sur $B$. À partir de ces données, considérons le foncteur
+\begin{equation}
+\label{equation-quotient-stack}
+\begin{matrix}
+(\Sch/S)_{fppf}^{opp} &
+\longrightarrow &
+\textit{Groupoids} \\
+S' &
+\longmapsto &
+(U(S'), R(S'), s, t, c)
+\end{matrix}
+\end{equation}
+D'après Catégories, exemple \ref{categories-example-functor-groupoids}, ce « préfaisceau en groupoïdes » correspond à une catégorie fibrée en groupoïdes sur $(\Sch/S)_{fppf}$. Dans ce chapitre, nous la noterons
+$$
+[U/_{\!p}R] \to (\Sch/S)_{fppf}
+$$
+où l'indice ${}_p$ sert à la distinguer du champ quotient.
+
+\begin{definition}
+\label{definition-quotient-stack}
+Champs quotients. Soit $B \to S$ comme ci-dessus.
+\begin{enumerate}
+\item Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Le {\it champ quotient}
+$$
+p : [U/R] \longrightarrow (\Sch/S)_{fppf}
+$$
+de $(U, R, s, t, c)$ est le champ associé (voir Champs, lemme \ref{stacks-lemma-stackify-groupoids}) à la catégorie fibrée en groupoïdes $[U/_{\!p}R]$ sur $(\Sch/S)_{fppf}$ provenant de (\ref{equation-quotient-stack}).
+\item Soit $(G, m)$ un espace algébrique en groupes sur $B$. Soit $a : G \times_B X \to X$ une action de $G$ sur un espace algébrique sur $B$. Le {\it champ quotient}
+$$
+p : [X/G] \longrightarrow (\Sch/S)_{fppf}
+$$
+est le champ quotient associé au groupoïde en espaces algébriques $(X, G \times_B X, s, t, c)$ sur $B$ du lemme \ref{lemma-groupoid-from-action}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Ainsi, $[U/R]$ et $[X/G]$ sont des champs en groupoïdes sur $(\Sch/S)_{fppf}$. Ces champs joueront un rôle très important par la suite ; il convient donc de les décrire en détail. Rappelons que, pour un espace algébrique $X$ sur $S$, nous notons $\mathcal{S}_X \to (\Sch/S)_{fppf}$ le champ en ensembles associé au faisceau $X$ ; voir Catégories, lemme \ref{categories-lemma-2-category-fibred-sets}, et Champs, lemme \ref{stacks-lemma-when-stack-in-sets}.
+
+\begin{lemma}
+\label{lemma-quotient-stack-arrows}
+Supposons $B \to S$ et $(U, R, s, t, c)$ comme dans la définition \ref{definition-quotient-stack} (1). Il existe des $1$-morphismes canoniques $\pi : \mathcal{S}_U \to [U/R]$ et $[U/R] \to \mathcal{S}_B$ de champs en groupoïdes sur $(\Sch/S)_{fppf}$. Le composé $\mathcal{S}_U \to \mathcal{S}_B$ est le $1$-morphisme associé au morphisme structural $U \to B$.
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, notons $[U/_{\!p}R]$ la catégorie fibrée en groupoïdes associée au préfaisceau en groupoïdes (\ref{equation-quotient-stack}). Par construction du champ associé, il existe un $1$-morphisme $[U/_{\!p}R] \to [U/R]$. Le $1$-morphisme $\mathcal{S}_U \to [U/R]$ est simplement le composé $\mathcal{S}_U \to [U/_{\!p}R] \to [U/R]$, où la première flèche associe, au schéma $S'/S$ et au morphisme $x : S' \to U$ sur $S$, l'objet $x \in U(S')$ de la catégorie fibre de $[U/_{\!p}R]$ au-dessus de $S'$.
+
+\medskip\noindent
+Pour construire le $1$-morphisme $[U/R] \to \mathcal{S}_B$, il suffit de construire le $1$-morphisme $[U/_{\!p}R] \to \mathcal{S}_B$ ; voir Champs, lemme \ref{stacks-lemma-stackify-groupoids-universal-property}. Sur les objets au-dessus de $S'/S$, nous utilisons simplement l'application
+$$
+U(S') \longrightarrow B(S')
+$$
+induite par le morphisme structural $U \to B$. Si $a \in R(S')$ est une « flèche » de source $s(a) \in U(S')$ et de but $t(a) \in U(S')$, alors, puisque $s$ et $t$ sont des morphismes {\it sur} $B$, ces deux éléments ont même image $\overline{a}$ dans $B(S')$. Nous pouvons donc envoyer la flèche $a \in R(S')$ sur le morphisme identité de $\overline{a}$ (ce qui convient, puisque la catégorie fibre $(\mathcal{S}_B)_{S'}$ ne contient que des identités). Nous omettons de vérifier que cette règle est compatible aux images réciproques dans ces catégories fibrées scindées et définit donc le $1$-morphisme voulu $[U/_{\!p}R] \to \mathcal{S}_B$.
+
+\medskip\noindent
+Nous omettons la vérification de la dernière assertion.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-2-arrow}
+Hypothèses et notations comme dans le lemme \ref{lemma-quotient-stack-arrows}. Il existe un $2$-morphisme canonique $\alpha : \pi \circ s \to \pi \circ t$ qui rend le diagramme
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]_t & \mathcal{S}_U \ar[d]^\pi \\
+\mathcal{S}_U \ar[r]^-\pi & [U/R]
+}
+$$
+$2$-commutatif.
+\end{lemma}
+
+\begin{proof}
+Soit $S'$ un schéma sur $S$. Soit $r : S' \to R$ un morphisme sur $S$. Alors $r \in R(S')$ est un isomorphisme entre les objets $s \circ r, t \circ r \in U(S')$. De plus, cette construction est compatible aux images réciproques. Elle donne un $2$-morphisme canonique $\alpha_p : \pi_p \circ s \to \pi_p \circ t$, où $\pi_p : \mathcal{S}_U \to [U/_{\!p}R]$ est celui de la démonstration du lemme \ref{lemma-quotient-stack-arrows}. Ainsi, le diagramme lui-même
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]^t & \mathcal{S}_U \ar[d]^{\pi_p} \\
+\mathcal{S}_U \ar[r]^-{\pi_p} & [U/_{\!p}R]
+}
+$$
+est $2$-commutatif. A fortiori, le diagramme du lemme est $2$-commutatif.
+\end{proof}
+
+\begin{remark}
+\label{remark-fundamental-square}
+Dans les chapitres suivants, nous emploierons la notation ambiguë qui consiste à écrire simplement $X$, au lieu de $\mathcal{S}_X$, pour le champ en ensembles associé à $X$. Avec cette notation, le diagramme du lemme \ref{lemma-quotient-stack-2-arrow} devient le diagramme familier
+$$
+\xymatrix{
+R \ar[r]_s \ar[d]_t & U \ar[d]^\pi \\
+U \ar[r]^-\pi & [U/R]
+}
+$$
+Dans les sections suivantes, nous montrerons que ce diagramme possède de nombreuses propriétés utiles. En particulier, c'est un $2$-produit fibré (section \ref{section-quotient-stack-2-cartesian}) et il est proche d'être un $2$-coégalisateur de $s$ et de $t$ (section \ref{section-quotient-stacks-2-coequalize}).
+\end{remark}
+
+
+
+
+\section{Fonctorialité des champs quotients}
+\label{section-functoriality-quotient-stacks}
+
+\noindent
+Un morphisme de groupoïdes en espaces algébriques induit un morphisme de champs quotients.
+
+\begin{lemma}
+\label{lemma-quotient-stack-functorial}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$. Soit $f : (U, R, s, t, c) \to (U', R', s', t', c')$ un morphisme de groupoïdes en espaces algébriques sur $B$. Alors $f$ induit un $1$-morphisme canonique de champs quotients
+$$
+[f] : [U/R] \longrightarrow [U'/R'].
+$$
+\end{lemma}
+
+\begin{proof}
+Notons $[U/_{\!p}R]$ et $[U'/_{\!p}R']$ les catégories fibrées en groupoïdes sur le site de base $(\Sch/S)_{fppf}$ associées aux foncteurs (\ref{equation-quotient-stack}). Il est clair que $f$ définit un $1$-morphisme $[U/_{\!p}R] \to [U'/_{\!p}R']$ ; en le composant avec le foncteur de passage au champ associé $[U'/R']$, nous obtenons $[U/_{\!p}R] \to [U'/R']$. La propriété universelle du foncteur de passage au champ associé $[U/_{\!p}R] \to [U/R]$ donne alors $[U/R] \to [U'/R']$ ; voir Champs, lemme \ref{stacks-lemma-stackify-groupoids-universal-property}.
+\end{proof}
+
+\noindent
+Soient $B \to S$ et $f : (U, R, s, t, c) \to (U', R', s', t', c')$ comme dans le lemme \ref{lemma-quotient-stack-functorial}. Dans cette situation, définissons un troisième groupoïde en espaces algébriques sur $B$ comme suit, en termes de points à valeurs dans un schéma variable $T$ sur $B$ :
+\begin{enumerate}
+\item $U'' = U \times_{f, U', t'} R'$, de sorte qu'un point à valeurs dans $T$ soit un couple $(u, r')$ tel que $f(u) = t'(r')$,
+\item $R'' = R \times_{f \circ s, U', t'} R'$, de sorte qu'un point à valeurs dans $T$ soit un couple $(r, r')$ tel que $f(s(r)) = t'(r')$,
+\item $s'' : R'' \to U''$ est donné par $s''(r, r') = (s(r), r')$,
+\item $t'' : R'' \to U''$ est donné par $t''(r, r') = (t(r), c'(f(r), r'))$,
+\item $c'' : R'' \times_{s'', U'', t''} R'' \to R''$ est donné par $c''((r_1, r'_1), (r_2, r'_2)) = (c(r_1, r_2), r'_2)$.
+\end{enumerate}
+La formule définissant $c''$ a un sens puisque $s''(r_1, r'_1) = t''(r_2, r'_2)$. Il est clair que $c''$ est associative. L'identité $e''$ est donnée par $e''(u, r) = (e(u), r)$, et l'inverse de $(r, r')$ par $(i(r), c'(f(r), r'))$. Nous obtenons bien ainsi un groupoïde en espaces algébriques sur $B$.
+
+\medskip\noindent
+Les applications $U'' \to U$ et $R'' \to R$ définissent clairement un morphisme $g : (U'', R'', s'', t'', c'') \to (U, R, s, t, c)$ de groupoïdes en espaces algébriques sur $B$. De plus, les applications $U'' \to U'$, $(u, r') \mapsto s'(r')$, et $R'' \to U'$, $(r, r') \mapsto s'(r')$, montrent que $(U'', R'', s'', t'', c'')$ est en fait un groupoïde en espaces algébriques sur $U'$.
+
+\begin{lemma}
+\label{lemma-cartesian-square-of-morphism}
+Notations et hypothèses comme dans le lemme \ref{lemma-quotient-stack-functorial}. Soit $(U'', R'', s'', t'', c'')$ le groupoïde en espaces algébriques sur $B$ construit ci-dessus. Il existe un carré $2$-commutatif
+$$
+\xymatrix{
+[U''/R''] \ar[d] \ar[r]_{[g]} & [U/R] \ar[d]^{[f]} \\
+\mathcal{S}_{U'} \ar[r] & [U'/R']
+}
+$$
+qui identifie $[U''/R'']$ au $2$-produit fibré.
+\end{lemma}
+
+\begin{proof}
+Les morphismes $[f]$ et $[g]$ proviennent du lemme \ref{lemma-quotient-stack-functorial}, et les deux autres du lemme \ref{lemma-quotient-stack-arrows} (ainsi que du fait que $(U'', R'', s'', t'', c'')$ est défini sur $U'$). Pour établir la propriété de $2$-produit fibré, il suffit de démontrer le lemme pour le diagramme
+$$
+\xymatrix{
+[U''/_{\!p}R''] \ar[d] \ar[r]_{[g]} & [U/_{\!p}R] \ar[d]^{[f]} \\
+\mathcal{S}_{U'} \ar[r] & [U'/_{\!p}R']
+}
+$$
+de catégories fibrées en groupoïdes ; voir Champs, lemme \ref{stacks-lemma-stackification-fibre-product-categories-fibred-in-groupoids}. Autrement dit, il suffit de montrer qu'un objet du $2$-produit fibré $\mathcal{S}_U \times_{[U'/_{\!p}R']} [U/_{\!p}R]$ au-dessus de $T$ correspond à un point de $U''$ à valeurs dans $T$, et de même pour les morphismes. C'est précisément ainsi que $U''$ et $R''$ ont été construits.
+
+\medskip\noindent
+Plus précisément, un objet de $\mathcal{S}_U \times_{[U'/_{\!p}R']} [U/_{\!p}R]$ au-dessus de $T$ est un triplet $(u', u, r')$, où $u'$ est un point de $U'$ à valeurs dans $T$, $u$ un point de $U$ à valeurs dans $T$ et $r'$ un morphisme de $u'$ vers $f(u)$ dans $[U'/R']_T$ ; autrement dit, $r'$ est un point de $R$ à valeurs dans $T$ tel que $s'(r') = u'$ et $t'(r') = f(u)$. On peut oublier $u'$ sans perte d'information ; ces objets correspondent donc bijectivement aux points de $R''$ à valeurs dans $T$.
+
+\medskip\noindent
+De même pour les morphismes. Soient $(u'_1, u_1, r'_1)$ et $(u'_2, u_2, r'_2)$ deux objets du produit fibré au-dessus de $T$. Un morphisme de $(u'_2, u_2, r'_2)$ vers $(u'_1, u_1, r'_1)$ est donné par $(1, r)$, où $1 : u'_1 \to u'_2$ signifie simplement que $u'_1 = u'_2$ (car $\mathcal{S}_U$ est fibrée en ensembles), et où $r$ est un point de $R$ à valeurs dans $T$ tel que $s(r) = u_2$, $t(r) = u_1$ et $c'(f(r), r'_2) = r'_1$. Par conséquent, la flèche
+$$
+(1, r) : (u'_2, u_2, r'_2) \to (u'_1, u_1, r'_1)
+$$
+est entièrement déterminée par le couple $(r, r'_2)$. Le foncteur des flèches est donc représenté par $R''$ ; de plus, les morphismes $s''$, $t''$ et $c''$ correspondent respectivement à la source, au but et à la composition dans le $2$-produit fibré $\mathcal{S}_U \times_{[U'/_{\!p}R']} [U/_{\!p}R]$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Le carré 2-cartésien d'un champ quotient}
+\label{section-quotient-stack-2-cartesian}
+
+\noindent
+Dans cette section, nous calculons les faisceaux $\mathit{Isom}$ d'un champ quotient et nous en déduisons que le diagramme qui le définit est un $2$-produit fibré.
+
+\begin{lemma}
+\label{lemma-quotient-stack-morphisms}
+Supposons que $B \to S$, $(U, R, s, t, c)$ et $\pi : \mathcal{S}_U \to [U/R]$ soient comme dans le lemme \ref{lemma-quotient-stack-arrows}. Soit $S'$ un schéma sur $S$. Soient $x, y \in \Ob([U/R]_{S'})$ des objets du champ quotient sur $S'$. Si $x = \pi(x')$ et $y = \pi(y')$ pour certains morphismes $x', y' : S' \to U$, alors
+$$
+\mathit{Isom}(x, y) = S' \times_{(y', x'), U \times_S U} R
+$$
+comme faisceaux sur $S'$.
+\end{lemma}
+
+\begin{proof}
+Soit $[U/_{\!p}R]$ la catégorie fibrée en groupoïdes associée au préfaisceau en groupoïdes (\ref{equation-quotient-stack}), comme dans la démonstration du lemme \ref{lemma-quotient-stack-arrows}. Par construction, le faisceau $\mathit{Isom}(x, y)$ est le faisceau associé au préfaisceau $\mathit{Isom}(x', y')$. D'autre part, par définition des morphismes dans $[U/_{\!p}R]$, nous avons
+$$
+\mathit{Isom}(x', y') = S' \times_{(y', x'), U \times_S U} R
+$$
+et le membre de droite est un espace algébrique, donc un faisceau.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-2-cartesian}
+Supposons que $B \to S$, $(U, R, s, t, c)$ et $\pi : \mathcal{S}_U \to [U/R]$ soient comme dans le lemme \ref{lemma-quotient-stack-arrows}. Le carré $2$-commutatif
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]_t & \mathcal{S}_U \ar[d]^\pi \\
+\mathcal{S}_U \ar[r]^-\pi & [U/R]
+}
+$$
+du lemme \ref{lemma-quotient-stack-2-arrow} est un $2$-produit fibré de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+D'après Champs, lemme \ref{stacks-lemma-2-product-stacks-in-groupoids}, l'énoncé a un sens. Ce lemme montre aussi qu'il nous faut prouver que le foncteur
+$$
+\mathcal{S}_R \longrightarrow \mathcal{S}_U \times_{[U/R]} \mathcal{S}_U
+$$
+qui envoie $r : T \to R$ sur $(T, t(r), s(r), \alpha(r))$ est une équivalence, le membre de droite étant le $2$-produit fibré décrit dans Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}. Une fois les définitions explicitées, c'est exactement le contenu du lemme \ref{lemma-quotient-stack-morphisms}. (Autre démonstration : expliciter le lemme \ref{lemma-cartesian-square-of-morphism} dans cette situation donne également le résultat.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-isom}
+Supposons que $B \to S$ et $(U, R, s, t, c)$ soient comme dans la définition \ref{definition-quotient-stack} (1). Pour tout schéma $T$ sur $S$ et tous objets $x, y$ de $[U/R]$ sur $T$, le faisceau $\mathit{Isom}(x, y)$ sur $(\Sch/T)_{fppf}$ a la propriété suivante : il existe un recouvrement fppf $\{T_i \to T\}_{i \in I}$ tel que $\mathit{Isom}(x, y)|_{(\Sch/T_i)_{fppf}}$ soit représentable par un espace algébrique.
+\end{lemma}
+
+\begin{proof}
+Cela découle immédiatement du lemme \ref{lemma-quotient-stack-morphisms} et du fait que, localement pour la topologie fppf, $x$ et $y$ proviennent tous deux d'objets de $\mathcal{S}_U$, par construction du champ quotient.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La propriété de 2-coégalisateur d'un champ quotient}
+\label{section-quotient-stacks-2-coequalize}
+
+\noindent
+La composition d'un groupoïde conduit à une condition de cocycle pour le $2$-morphisme canonique du lemme précédent. Pour l'énoncer précisément, nous utiliserons les notations introduites dans Catégories, sections \ref{categories-section-formal-cat-cat} et \ref{categories-section-2-categories}.
+
+\begin{lemma}
+\label{lemma-quotient-stack-cocycle}
+Hypothèses et notations comme dans les lemmes \ref{lemma-quotient-stack-arrows} et \ref{lemma-quotient-stack-2-arrow}. Le composé vertical de
+$$
+\xymatrix@C=15pc{
+\mathcal{S}_{R \times_{s, U, t} R}
+\ruppertwocell^{\pi \circ s \circ \text{pr}_1 = \pi \circ s \circ c}{\ \ \ \ \ \ \alpha \star \text{id}_{\text{pr}_1}}
+\ar[r]_(.3){\pi \circ t \circ \text{pr}_1 = \pi \circ s \circ \text{pr}_0}
+\rlowertwocell_{\pi \circ t \circ \text{pr}_0 = \pi \circ t \circ c}{\ \ \ \ \ \ \alpha \star \text{id}_{\text{pr}_0}}
+&
+[U/R]
+}
+$$
+est le $2$-morphisme $\alpha \star \text{id}_c$. Autrement dit, $\alpha \star \text{id}_c = (\alpha \star \text{id}_{\text{pr}_0}) \circ (\alpha \star \text{id}_{\text{pr}_1}) $.
+\end{lemma}
+
+\begin{proof}
+Nous faisons deux remarques :
+\begin{enumerate}
+\item La formule $\alpha \star \text{id}_c = (\alpha \star \text{id}_{\text{pr}_0}) \circ (\alpha \star \text{id}_{\text{pr}_1})$ n'a de sens qu'en tenant compte des {\it égalités} $\pi \circ s \circ \text{pr}_1 = \pi \circ s \circ c$, $\pi \circ t \circ \text{pr}_1 = \pi \circ s \circ \text{pr}_0$ et $\pi \circ t \circ \text{pr}_0 = \pi \circ t \circ c$. La deuxième rend possible la composition verticale $\circ$, et les deux autres garantissent que les deux membres de la formule sont des $2$-morphismes de même source et de même but.
+\item Le lemme vaut parce que la composition dans la catégorie fibrée en groupoïdes $[U/_{\!p}R]$ associée au préfaisceau en groupoïdes (\ref{equation-quotient-stack}) provient de la loi de composition $c : R \times_{s, U, t} R \to R$.
+\end{enumerate}
+Nous omettons la démonstration du lemme.
+\end{proof}
+
+\noindent
+Remarquons que, dans la situation du lemme, les égalités $s \circ \text{pr}_1 = s \circ c$, $t \circ \text{pr}_1 = s \circ \text{pr}_0$ et $t \circ \text{pr}_0 = t \circ c$ valent déjà avant composition par $\pi$. La formule du lemme suivant a donc un sens pour les mêmes raisons que celle du lemme précédent.
+
+\begin{lemma}
+\label{lemma-quotient-stack-2-coequalizer}
+Hypothèses et notations comme dans les lemmes \ref{lemma-quotient-stack-arrows} et \ref{lemma-quotient-stack-2-arrow}. Le diagramme $2$-commutatif du lemme \ref{lemma-quotient-stack-2-arrow} est un $2$-coégalisateur au sens suivant : étant donnés
+\begin{enumerate}
+\item un champ en groupoïdes $\mathcal{X}$ sur $(\Sch/S)_{fppf}$,
+\item un $1$-morphisme $f : \mathcal{S}_U \to \mathcal{X}$, et
+\item une $2$-flèche $\beta : f \circ s \to f \circ t$
+\end{enumerate}
+tels que
+$$
+\beta \star \text{id}_c
+=
+(\beta \star \text{id}_{\text{pr}_0})
+\circ
+(\beta \star \text{id}_{\text{pr}_1})
+$$
+alors il existe un $1$-morphisme $[U/R] \to \mathcal{X}$ qui rend le diagramme
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]^t & \mathcal{S}_U \ar[d] \ar[ddr]^f \\
+\mathcal{S}_U \ar[r] \ar[rrd]_f & [U/R] \ar[rd] \\
+& & \mathcal{X}
+}
+$$
+$2$-commutatif.
+\end{lemma}
+
+\begin{proof}
+Supposons $\mathcal{X}$, $f$ et $\beta$ donnés comme dans le lemme. D'après Champs, lemme \ref{stacks-lemma-stackify-groupoids-universal-property}, il suffit de construire un $1$-morphisme $g : [U/_{\!p}R] \to \mathcal{X}$. Remarquons d'abord que le $1$-morphisme $\mathcal{S}_U \to [U/_{\!p}R]$ est bijectif sur les objets. Nous pouvons donc poser $g(x) = f(x)$ sur les objets, pour $x \in \Ob(\mathcal{S}_U) = \Ob([U/_{\!p}R])$. Un morphisme $\varphi : x \to y$ de $[U/_{\!p}R]$ provient d'un diagramme commutatif
+$$
+\xymatrix{
+S_2 \ar[dd]_h \ar[r]_x \ar[dr]_\varphi & U \\
+& R \ar[u]_s \ar[d]^t \\
+S_1 \ar[r]^y & U.
+}
+$$
+Nous pouvons donc définir $g(\varphi)$ comme le composé
+$$
+\xymatrix{
+f(x) \ar@{=}[r] \ar[rrrrrd] &
+f(s \circ \varphi) \ar@{=}[r] &
+(f \circ s)(\varphi) \ar[r]^\beta &
+(f \circ t)(\varphi) \ar@{=}[r] &
+f(t \circ \varphi) \ar@{=}[r] &
+f(y \circ h) \ar[d] \\
+& & & & & f(y).
+}
+$$
+La flèche verticale s'obtient en appliquant le foncteur $f$ au morphisme canonique $y \circ h \to y$ dans $\mathcal{S}_U$ (c'est-à-dire au morphisme fortement cartésien relevant $h$ et de but $y$). Vérifions que $f$ ainsi défini est compatible à la composition, au moins dans les catégories fibres. Soit $S'$ un schéma sur $S$ et soit $a : S' \to R \times_{s, U, t} R$ un morphisme. Posons $x = s \circ \text{pr}_1 \circ a = s \circ c \circ a$, $y = t \circ \text{pr}_1 \circ a = s \circ \text{pr}_0 \circ a$ et $z = t \circ \text{pr}_0 \circ a = t \circ \text{pr}_0 \circ c$. Nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+x \ar[rr]_{c \circ a} \ar[rd]_{\text{pr}_1 \circ a} & & z \\
+& y \ar[ru]_{\text{pr}_0 \circ a}
+}
+$$
+dans la catégorie fibre $[U/_{\!p}R]_{S'}$. De plus, tout triangle commutatif de cette catégorie fibre est de cette forme. D'après les définitions précédentes, $f$ envoie ce triangle sur un diagramme commutatif si et seulement si le diagramme
+$$
+\xymatrix{
+& (f \circ s)(c \circ a) \ar[r]_-{\beta} &
+(f \circ t)(c \circ a) \ar@{=}[rd] & \\
+(f \circ s)(\text{pr}_1 \circ a) \ar[rd]^\beta \ar@{=}[ru] & & &
+(f \circ t)(\text{pr}_0 \circ a) \\
+& (f \circ t)(\text{pr}_1 \circ a) \ar@{=}[r] &
+(f \circ s)(\text{pr}_0 \circ a) \ar[ru]^\beta
+}
+$$
+est commutatif, ce qui est exactement la condition exprimée par la formule du lemme. Nous omettons de vérifier que $f$ envoie les identités sur les identités et qu'il est compatible à la composition pour des morphismes quelconques.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Description explicite des champs quotients}
+\label{section-explicit-quotient-stacks}
+
+\noindent
+Pour formuler le résultat, introduisons quelques notations. Supposons que $B \to S$ et $(U, R, s, t, c)$ soient comme dans la définition \ref{definition-quotient-stack} (1). Soit $T$ un schéma sur $S$. Soit $\mathcal{T} = \{T_i \to T\}_{i \in I}$ un recouvrement fppf. Une {\it donnée de descente pour $[U/R]$} relativement à $\mathcal{T}$ est un système $(u_i, r_{ij})$ où
+\begin{enumerate}
+\item pour tout $i$, $u_i : T_i \to U$ est un morphisme, et
+\item pour tous $i, j$, $r_{ij} : T_i \times_T T_j \to R$ est un morphisme,
+\end{enumerate}
+tels que
+\begin{enumerate}
+\item [(a)] comme morphismes $T_i \times_T T_j \to U$, on a
+$$
+s \circ r_{ij} = u_i \circ \text{pr}_0
+\quad\text{and}\quad
+t \circ r_{ij} = u_j \circ \text{pr}_1,
+$$
+\item [(b)] comme morphismes $T_i \times_T T_j \times_T T_k \to R$, on a
+$$
+c \circ (r_{jk} \circ \text{pr}_{12}, r_{ij} \circ \text{pr}_{01})
+= r_{ik} \circ \text{pr}_{02}.
+$$
+\end{enumerate}
+Un {\it morphisme $(u_i, r_{ij}) \to (u'_i, r'_{ij})$ entre deux données de descente pour $[U/R]$} relativement au même recouvrement $\mathcal{T}$ est une famille $(r_i : T_i \to R)$ telle que
+\begin{enumerate}
+\item [] $(\alpha)$ comme morphismes $T_i \to U$, on ait
+$$
+u_i = s \circ r_i
+\quad\text{and}\quad
+u'_i = t \circ r_i
+$$
+\item [] $(\beta)$ comme morphismes $T_i \times_T T_j \to R$, on ait
+$$
+c \circ (r'_{ij}, r_i \circ \text{pr}_0)
+=
+c \circ (r_j \circ \text{pr}_1, r_{ij}).
+$$
+\end{enumerate}
+Les morphismes de données de descente relativement à un recouvrement fixé sont munis d'une loi de composition naturelle ; on obtient ainsi une catégorie de données de descente. Cette catégorie est un groupoïde. Enfin, si $\mathcal{T}' = \{T'_j \to T\}_{j \in J}$ est un second recouvrement fppf qui raffine $\mathcal{T}$, on dispose d'une notion d'image réciproque des données de descente. Dans ce cas, elle se décrit très simplement. Si $\alpha : J \to I$ et les $\varphi_j : T'_j \to T_{\alpha(i)}$ définissent le morphisme de recouvrements, alors l'image réciproque de la donnée de descente $(u_i, r_{ii'})$ est
+$$
+(u_{\alpha(i)} \circ \varphi_j,
+r_{\alpha(j)\alpha(j')} \circ \varphi_j \times \varphi_{j'}).
+$$
+L'image réciproque ainsi définie donne un foncteur de la catégorie des données de descente relativement à $\mathcal{T}$ vers celle des données de descente relativement à $\mathcal{T}'$.
+
+\begin{lemma}
+\label{lemma-quotient-stack-objects}
+Supposons que $B \to S$ et $(U, R, s, t, c)$ soient comme dans la définition \ref{definition-quotient-stack} (1). Soit $\pi : \mathcal{S}_U \to [U/R]$ comme dans le lemme \ref{lemma-quotient-stack-arrows}. Soit $T$ un schéma sur $S$.
+\begin{enumerate}
+\item pour tout objet $x$ de la catégorie fibre $[U/R]_T$, il existe un recouvrement fppf $\{f_i : T_i \to T\}_{i \in I}$ tel que $f_i^*x \cong \pi(u_i)$ pour certains $u_i \in U(T_i)$,
+\item le composé des isomorphismes
+$$
+\pi(u_i \circ \text{pr}_0)
+=
+\text{pr}_0^*\pi(u_i)
+\cong
+\text{pr}_0^*f_i^*x
+\cong
+\text{pr}_1^*f_j^*x
+\cong
+\text{pr}_1^*\pi(u_j)
+=
+\pi(u_j \circ \text{pr}_1)
+$$
+est de la forme $\pi(r_{ij})$ pour certains morphismes $r_{ij} : T_i \times_T T_j \to R$,
+\item le système $(u_i, r_{ij})$ est une donnée de descente pour $[U/R]$ au sens défini ci-dessus,
+\item toute donnée de descente $(u_i, r_{ij})$ pour $[U/R]$ s'obtient de cette façon,
+\item si $x$ correspond à $(u_i, r_{ij})$ comme ci-dessus et si $y \in \Ob([U/R]_T)$ correspond à $(u'_i, r'_{ij})$, alors il existe une bijection canonique
+$$
+\Mor_{[U/R]_T}(x, y)
+\longleftrightarrow
+\left\{
+\begin{matrix}
+\text{morphisms }(u_i, r_{ij}) \to (u'_i, r'_{ij})\\
+\text{of }[U/R]\text{-descent data}
+\end{matrix}
+\right\}
+$$
+\item cette correspondance est compatible aux raffinements des recouvrements fppf.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) fait partie de la construction du champ associé. L'assertion (2) résulte du lemme \ref{lemma-quotient-stack-morphisms}. Nous omettons la vérification de (3). L'assertion (4) traduit le fait que, dans un champ, toute donnée de descente est effective. Nous omettons les vérifications de (5) et (6).
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Restriction et champs quotients}
+\label{section-quotient-stack-restrict}
+
+\noindent
+Dans cette section, nous étudions l'effet d'une restriction sur le champ quotient.
+
+\begin{lemma}
+\label{lemma-quotient-stack-restrict}
+Notations et hypothèses comme dans le lemme \ref{lemma-quotient-stack-functorial}. Le morphisme de champs quotients
+$$
+[f] : [U/R] \longrightarrow [U'/R']
+$$
+est pleinement fidèle si et seulement si $R$ est la restriction de $R'$ suivant le morphisme $f : U \to U'$.
+\end{lemma}
+
+\begin{proof}
+Soient $x, y$ des objets de $[U/R]$ sur un schéma $T/S$. Soient $x', y'$ leurs images dans la catégorie $[U'/R']_T$. Le foncteur $[f]$ est pleinement fidèle si et seulement si le morphisme de faisceaux
+$$
+\mathit{Isom}(x, y) \longrightarrow \mathit{Isom}(x', y')
+$$
+est un isomorphisme pour tous $T, x, y$. Cette propriété se vérifie localement sur $T$ pour la topologie fppf. D'après le lemme \ref{lemma-quotient-stack-objects}, nous pouvons donc supposer que $x$ et $y$ proviennent de $a, b \in U(T)$. Alors $x'$ et $y'$ correspondent à $f \circ a$ et $f \circ b$. Par le lemme \ref{lemma-quotient-stack-morphisms}, le morphisme de faisceaux ci-dessus devient
+$$
+T \times_{(a, b), U \times_B U} R
+\longrightarrow
+T \times_{f \circ a, f \circ b, U' \times_B U'} R'.
+$$
+C'est un isomorphisme si $R$ est la restriction, car alors $R = (U \times_B U) \times_{U' \times_B U'} R'$ ; voir le lemme \ref{lemma-restrict-groupoid-relation} et sa démonstration. Réciproquement, si le dernier morphisme affiché est un isomorphisme pour tous $T, a, b$, il s'ensuit que $R = (U \times_B U) \times_{U' \times_B U'} R'$, c'est-à-dire que $R$ est la restriction de $R'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-restrict-equivalence}
+Notations et hypothèses comme dans le lemme
+\ref{lemma-quotient-stack-functorial}. Le morphisme de champs quotients
+$$
+[f] : [U/R] \longrightarrow [U'/R']
+$$
+est une équivalence si et seulement si les conditions suivantes sont satisfaites :
+\begin{enumerate}
+\item $(U, R, s, t, c)$ est la restriction de $(U', R', s', t', c')$
+suivant $f : U \to U'$, et
+\item le morphisme
+$$
+\xymatrix{
+U \times_{f, U', t'} R' \ar[r]_-{\text{pr}_1} \ar@/^3ex/[rr]^h
+& R' \ar[r]_{s'} & U'
+}
+$$
+est une surjection de faisceaux.
+\end{enumerate}
+La condition (2) est par exemple satisfaite si
+$\{h : U \times_{f, U', t'} R' \to U'\}$ est un recouvrement fppf,
+si $f : U \to U'$ est une surjection de faisceaux, ou si
+$\{f : U \to U'\}$ est un recouvrement fppf.
+\end{lemma}
+
+\begin{proof}
+Nous savons déjà, par le lemme \ref{lemma-quotient-stack-restrict}, que la
+condition (1) équivaut à la pleine fidélité. Nous pouvons donc supposer que
+(1) est satisfaite et que $[f]$ est pleinement fidèle. Il s'agit alors de
+montrer que $[f]$ est une équivalence si et seulement si (2) est satisfaite.
+Nous pouvons appliquer Champs, lemme
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}, qui
+caractérise les équivalences.
+
+\medskip\noindent
+Supposons (2). Nous allons appliquer Champs, lemme
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}, pour montrer
+que $[f]$ est une équivalence. Soient $T$ un schéma et
+$x' \in \Ob([U'/R']_T)$. Il existe un recouvrement
+$\{g_i : T_i \to T\}$ tel que $g_i^*x'$ soit l'image d'un élément
+$a'_i \in U'(T_i)$ ; voir le lemme \ref{lemma-quotient-stack-objects}.
+Nous pouvons donc supposer que $x'$ est l'image de $a' \in U'(T)$. Comme
+$h$ est une surjection de faisceaux, il existe un recouvrement fppf
+$\{\varphi_i : T_i \to T\}$ et des morphismes
+$b_i : T_i \to U \times_{g, U', t'} R'$ tels que
+$a' \circ \varphi_i = h \circ b_i$. Posons
+$a_i = \text{pr}_0 \circ b_i : T_i \to U$. Alors $a_i \in U(T_i)$ a pour
+image $f \circ a_i \in U'(T_i)$, et
+$f \circ a_i \cong_{T_i} h \circ b_i = a' \circ \varphi_i$, où
+$\cong_{T_i}$ désigne un isomorphisme dans la catégorie fibre
+$[U'/R']_{T_i}$. L'élément de $R'(T_i)$ qui donne cet isomorphisme est
+$\text{pr}_1 \circ b_i$. Ainsi, la restriction de $x$ à $T_i$ appartient à
+l'image essentielle du foncteur
+$[U/R]_{T_i} \to [U'/R']_{T_i}$, comme voulu.
+
+\medskip\noindent
+Supposons que $[f]$ soit une équivalence. Soit
+$\xi' \in [U'/R']_{U'}$ l'objet correspondant au morphisme identité de
+$U'$. En appliquant Champs, lemme
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}, nous voyons
+qu'il existe un recouvrement fppf
+$\mathcal{U}' = \{g'_i : U'_i \to U'\}$ tel que
+$(g'_i)^*\xi' \cong [f](\xi_i)$ pour un objet $\xi_i$ de
+$[U/R]_{U'_i}$. Après avoir raffiné le recouvrement $\mathcal{U}'$ (au moyen
+du lemme \ref{lemma-quotient-stack-objects}), nous pouvons supposer que
+$\xi_i$ provient d'un morphisme $a_i : U'_i \to U$. L'isomorphisme
+$[f](\xi_i) \cong (g'_i)^*\xi'$ signifie qu'après avoir éventuellement
+raffiné encore une fois $\mathcal{U}'$, il existe des morphismes
+$r'_i : U'_i \to R'$ tels que $t' \circ r'_i = f \circ a_i$ et
+$s' \circ r'_i = \text{id}_{U'} \circ g'_i$. La situation est représentée
+par le diagramme
+$$
+\xymatrix{
+U \ar[d]^f & & U'_i \ar[ll]^{a_i} \ar[ld]_{r'_i} \ar[d]^{g'_i} \\
+U' & R' \ar[l]_{t'} \ar[r]^{s'} & U'
+}
+$$
+Les $(a_i, r'_i) : U'_i \to U \times_{g, U', t'} R'$ sont donc des
+morphismes tels que $h \circ (a_i, r'_i) = g'_i$. Par conséquent, le
+recouvrement fppf $\mathcal{U}'$ raffine
+$\{h : U \times_{g, U', t'} R' \to U'\}$, ce qui signifie que $h$ induit
+une surjection de faisceaux ; voir Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-fppf-covering-surjective}.
+
+\medskip\noindent
+Si $\{h\}$ est un recouvrement fppf, alors il induit une surjection de
+faisceaux ; voir Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-fppf-covering-surjective}. Si $U' \to U$ est
+surjectif, alors $h$ l'est aussi, car $s$ possède une section (à savoir
+l'élément neutre $e$ du groupoïde en espaces algébriques).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-criterion-fibre-product}
+Notations et hypothèses comme dans le lemme
+\ref{lemma-quotient-stack-functorial}. Supposons que le carré
+$$
+\xymatrix{
+R \ar[d]_s \ar[r]_f & R' \ar[d]^{s'} \\
+U \ar[r]^f & U'
+}
+$$
+soit cartésien. Alors le carré
+$$
+\xymatrix{
+\mathcal{S}_U \ar[d] \ar[r] & [U/R] \ar[d]^{[f]} \\
+\mathcal{S}_{U'} \ar[r] & [U'/R']
+}
+$$
+est $2$-cartésien.
+\end{lemma}
+
+\begin{proof}
+En appliquant les isomorphismes d'inversion $i : R \to R$ et
+$i' : R' \to R'$ au (premier) carré cartésien de l'énoncé, nous voyons que
+$$
+\xymatrix{
+R \ar[d]_t \ar[r]_f & R' \ar[d]^{t'} \\
+U \ar[r]^f & U'
+}
+$$
+est lui aussi cartésien. Par le lemme
+\ref{lemma-cartesian-square-of-morphism}, nous disposons d'un carré de
+$2$-produit fibré
+$$
+\xymatrix{
+[U''/R''] \ar[d] \ar[r] & [U/R] \ar[d] \\
+\mathcal{S}_{U'} \ar[r] & [U'/R']
+}
+$$
+où $U'' = U \times_{f, U', t'} R'$ et
+$R'' = R \times_{f \circ s, U', t'} R'$. Il résulte de ce qui précède que
+$(t, f) : R \to U''$ est un isomorphisme et que
+$$
+R'' =
+R \times_{f \circ s, U', t'} R' =
+R \times_{s, U} U \times_{f, U', t'} R' =
+R \times_{s, U, t} \times R.
+$$
+Explicitement, l'isomorphisme $R \times_{s, U, t} R \to R''$ est donné par
+la règle $(r_0, r_1) \mapsto (r_0, f(r_1))$. De plus, $s'', t'', c''$
+s'identifient aux applications
+$$
+R \times_{s, U, t} R \to R,
+\quad
+s''(r_0, r_1) = r_1, \quad t''(r_0, r_1) = c(r_0, r_1)
+$$
+et
+$$
+\begin{matrix}
+c'' : &
+(R \times_{s, U, t} R) \times_{s'', R, t''} (R \times_{s, U, t} R)
+&
+\longrightarrow
+&
+R \times_{s, U, t} R, \\
+&
+((r_0, r_1), (r_2, r_3)) &
+\longmapsto & (c(r_0, r_2), r_3).
+\end{matrix}
+$$
+Précomposition avec l'isomorphisme
+$$
+R \times_{s, U, s} R \longrightarrow R \times_{s, U, t} R,
+\quad
+(r_0, r_1) \longmapsto (c(r_0, i(r_1)), r_1)
+$$
+En précomposant, nous voyons que $t''$ et $s''$ deviennent
+$\text{pr}_0$ et $\text{pr}_1$, tandis que $c''$ devient
+$\text{pr}_{02} : R \times_{s, U, s} R \times_{s, U, s} R \to R \times_{s, U, s} R$.
+Il existe donc un isomorphisme
+$[U''/R''] \cong [R/R \times_{s, U, s} R]$, où le groupoïde en espaces
+algébriques $(R, R \times_{s, U, s} R, s'', t'', c'')$ est la restriction,
+suivant $s : R \to U$, du groupoïde trivial
+$(U, U, \text{id}, \text{id}, \text{id})$. Puisque $s : R \to U$ est une
+surjection de faisceaux fppf (il possède en effet un inverse à droite), le
+morphisme
+$$
+[U''/R''] \cong [R/R \times_{s, U, s} R]
+\longrightarrow
+[U/U] = \mathcal{S}_U
+$$
+est une équivalence par le lemme
+\ref{lemma-quotient-stack-restrict-equivalence}. Cela démontre le lemme.
+\end{proof}
+
+
+
+
+
+\section{Inertie et champs quotients}
+\label{section-inertia}
+
+\noindent
+Le champ d'inertie (relatif) d'un champ en groupoïdes est défini dans Champs,
+section \ref{stacks-section-the-inertia-stack}. Sa construction proprement
+dite dans le cadre des catégories fibrées, ainsi que certaines de ses
+propriétés, se trouvent dans Catégories, section
+\ref{categories-section-inertia}.
+
+\begin{lemma}
+\label{lemma-presentation-inertia}
+Supposons que $B \to S$ et $(U, R, s, t, c)$ soient comme dans la
+définition \ref{definition-quotient-stack} (1). Soit $G/U$ l'espace
+algébrique en groupes stabilisateur du groupoïde
+$(U, R, s, t, c, e, i)$ ; voir la définition
+\ref{definition-stabilizer-groupoid}. Posons $R' = R \times_{s, U} G$ et
+définissons
+\begin{enumerate}
+\item $s' : R' \to G$, $(r, g) \mapsto g$,
+\item $t' : R' \to G$, $(r, g) \mapsto c(r, c(g, i(r)))$,
+\item $c' : R' \times_{s', G, t'} R' \to R'$, $((r_1, g_1), (r_2, g_2) \mapsto (c(r_1, r_2), g_1)$.
+\end{enumerate}
+Alors $(G, R', s', t', c')$ est un groupoïde en espaces algébriques sur
+$B$ et
+$$
+\mathcal{I}_{[U/R]} = [G/ R'].
+$$
+Autrement dit, le champ quotient associé est le champ d'inertie de $[U/R]$.
+\end{lemma}
+
+\begin{proof}
+Par Champs, lemme \ref{stacks-lemma-stackification-inertia}, il suffit de
+démontrer que $\mathcal{I}_{[U/_{\!p}R]} = [G/_{\!p} R']$. Soit $T$ un
+schéma sur $S$. Rappelons qu'un objet de la catégorie fibrée d'inertie de
+$[U/_{\!p}R]$ sur $T$ est une paire $(x, g)$, où $x$ est un objet de
+$[U/_{\!\!p}R]$ sur $T$ et $g$ un automorphisme de $x$ dans sa catégorie
+fibre sur $T$. Autrement dit, $x : T \to U$ et $g : T \to R$ vérifient
+$x = s \circ g = t \circ g$. C'est exactement dire que $g : T \to G$.
+Un morphisme, dans la catégorie fibrée d'inertie, de $(x, g)$ vers $(y, h)$
+sur $T$ est donné par $r : T \to R$ tel que $s(r) = x$, $t(r) = y$ et
+$c(r, g) = c(h, r)$ ; voir le diagramme commutatif de Catégories, lemme
+\ref{categories-lemma-inertia-fibred-category}. Sous forme d'une formule,
+$$
+h = c(r, c(g, i(r))) = c(c(r, g), i(r)).
+$$
+La notation $s(r)$, etc., abrège $s \circ r$, etc. La composée de
+$r_1 : (x_2, g_2) \to (x_1, g_1)$ et de
+$r_2 : (x_1, g_1) \to (x_2, g_2)$ est
+$c(r_1, r_2) : (x_1, g_1) \to (x_3, g_3)$.
+
+\medskip\noindent
+Remarquons que, dans ce qui précède, nous aurions pu noter simplement $g$,
+au lieu de $(x, g)$, un objet de $\mathcal{I}_{[U/_{\!p}R]}$ sur $T$, car
+$x$ est l'image de $g$ par le morphisme structural $G \to U$. Les morphismes
+$g \to h$ de $\mathcal{I}_{[U/_{\!p}R]}$ sur $T$ correspondent alors
+exactement aux morphismes $r' : T \to R'$ tels que $s'(r') = g$ et
+$t'(r') = h$. En outre, la composition correspond à la règle décrite en
+(3). Le lemme est ainsi démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-cartesian-inertia}
+Supposons que $B \to S$ et $(U, R, s, t, c)$ soient comme dans la
+définition \ref{definition-quotient-stack} (1). Soit $G/U$ l'espace
+algébrique en groupes stabilisateur du groupoïde
+$(U, R, s, t, c, e, i)$ ; voir la définition
+\ref{definition-stabilizer-groupoid}. Il existe un diagramme canonique
+$2$-cartésien
+$$
+\xymatrix{
+\mathcal{S}_G \ar[r] \ar[d] & \mathcal{S}_U \ar[d] \\
+\mathcal{I}_{[U/R]} \ar[r] & [U/R]
+}
+$$
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Par le lemme \ref{lemma-criterion-fibre-product}, il suffit de démontrer que
+le morphisme $s' : R' \to G$ du lemme \ref{lemma-presentation-inertia} est
+isomorphe au changement de base de $s$ par le morphisme structural
+$G \to U$. Cette propriété de changement de base ressort immédiatement de
+la construction de $s'$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Gerbes et champs quotients}
+\label{section-gerbes}
+
+\noindent
+Dans cette section, nous mettons les champs quotients en relation avec la
+discussion de Champs, section \ref{stacks-section-gerbes}, et en particulier
+avec les gerbes telles qu'elles sont définies dans Champs, définition
+\ref{stacks-definition-gerbe-over-stack-in-groupoids}. Les champs en
+groupoïdes qui apparaissent dans cette section ne sont en général pas des
+champs algébriques !
+
+\begin{lemma}
+\label{lemma-when-gerbe}
+Notations et hypothèses comme dans le lemme
+\ref{lemma-quotient-stack-functorial}. Le morphisme de champs quotients
+$$
+[f] : [U/R] \longrightarrow [U'/R']
+$$
+fait de $[U/R]$ une gerbe sur $[U'/R']$ si $f : U \to U'$ et
+$R \to R'|_U$ sont des morphismes surjectifs de faisceaux fppf. Ici,
+$R'|_U$ désigne la restriction de $R'$ à $U$ suivant $f : U \to U'$.
+\end{lemma}
+
+\begin{proof}
+Nous allons vérifier les propriétés (2)(a) et (2)(b) de Champs, lemme
+\ref{stacks-lemma-when-gerbe}. La propriété (2)(a) est satisfaite parce que
+$U \to U'$ est un morphisme surjectif de faisceaux (utiliser le lemme
+\ref{lemma-quotient-stack-objects} pour voir que les objets de $[U'/R']$
+proviennent localement de $U'$). Pour démontrer (2)(b), soient $x, y$ des
+objets de $[U/R]$ sur un schéma $T/S$. Soient $x', y'$ les images de $x, y$
+dans la catégorie $[U'/'R]_T$. La condition (2)(b) demande de vérifier que
+le morphisme de faisceaux
+$$
+\mathit{Isom}(x, y) \longrightarrow \mathit{Isom}(x', y')
+$$
+sur $(\Sch/T)_{fppf}$ est surjectif. Pour cela, nous pouvons travailler
+localement pour la topologie fppf sur $T$ et supposer que $x, y$ proviennent
+de $a, b \in U(T)$. Alors $x', y'$ correspondent à
+$f \circ a, f \circ b$. Par le lemme
+\ref{lemma-quotient-stack-morphisms}, le morphisme de faisceaux affiché
+devient dans ce cas
+$$
+T \times_{(a, b), U \times_B U} R
+\longrightarrow
+T \times_{f \circ a, f \circ b, U' \times_B U'} R' =
+T \times_{(a, b), U \times_B U} R'|_U.
+$$
+L'hypothèse selon laquelle $R \to R'|_U$ est un morphisme surjectif de
+faisceaux fppf sur $(\Sch/S)_{fppf}$ entraîne donc la surjectivité voulue.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-quotient-gerbe}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$, et soit $G$ un
+espace algébrique en groupes sur $B$. Munissons $B$ de l'action triviale de
+$G$. Le morphisme
+$$
+[B/G] \longrightarrow \mathcal{S}_B
+$$
+(lemme \ref{lemma-quotient-stack-arrows}) fait de $[B/G]$ une gerbe sur $B$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du lemme \ref{lemma-when-gerbe}, car les
+morphismes $B \to B$ et $B \times_B G \to B$ sont surjectifs en tant que
+morphismes de faisceaux.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Champs quotients et changement de grand site}
+\label{section-bigger-site}
+
+\noindent
+Nous suggérons d'omettre cette section lors d'une première lecture. Les images
+inverses de champs sont définies dans Champs, section
+\ref{stacks-section-inverse-image}.
+
+\begin{lemma}
+\label{lemma-quotient-stack-change-big-site}
+Supposons donnés deux grands sites $\Sch_{fppf}$ et $\Sch'_{fppf}$, et que
+$\Sch_{fppf}$ soit contenu dans $\Sch'_{fppf}$ ; voir Topologies, section
+\ref{topologies-section-change-alpha}. Soit $S \in \Ob(\Sch_{fppf})$.
+Soient $B, U, R \in \Sh((\Sch/S)_{fppf})$ des espaces algébriques, et soit
+$(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$. Soit
+$f : (\Sch'/S)_{fppf} \to (\Sch/S)_{fppf}$ le morphisme de sites
+correspondant au foncteur d'inclusion
+$u : \Sch_{fppf} \to \Sch'_{fppf}$. Il existe alors une équivalence canonique
+$$
+[f^{-1}U/f^{-1}R]
+\longrightarrow
+f^{-1}[U/R]
+$$
+de champs en groupoïdes sur $(\Sch'/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que $f^{-1}B, f^{-1}U, f^{-1}R \in
+\Sh((\Sch'/S)_{fppf})$ sont des espaces algébriques par Espaces, lemme
+\ref{spaces-lemma-change-big-site}. Par conséquent,
+$(f^{-1}U, f^{-1}R, f^{-1}s, f^{-1}t, f^{-1}c)$ est un groupoïde en
+espaces algébriques sur $f^{-1}B$. L'énoncé a donc bien un sens.
+
+\medskip\noindent
+La catégorie $u_p[U/_{\!p}R]$ est la localisation de la catégorie
+$u_{pp}[U/_{\!p}R]$ par rapport au système multiplicatif à droite $I$ de
+morphismes. Un objet de $u_{pp}[U/_{\!p}R]$ est un triplet
+$$
+(T', \phi : T' \to T, x)
+$$
+où $T' \in \Ob((\Sch'/S)_{fppf})$, $T \in \Ob((\Sch/S)_{fppf})$,
+$\phi$ est un morphisme de schémas sur $S$, et $x : T \to U$ un
+morphisme de faisceaux sur $(\Sch/S)_{fppf}$. Remarquons que le morphisme de
+schémas $\phi : T' \to T$ revient à un morphisme
+$\phi : T' \to u(T)$ et, puisque $u(T)$ représente $f^{-1}T$, à un
+morphisme $T' \to f^{-1}T$. En outre, puisque $f^{-1}$ est pleinement fidèle
+sur les espaces algébriques, voir Espaces, lemme
+\ref{spaces-lemma-fully-faithful}, nous pouvons également considérer $x$
+comme un morphisme $x : f^{-1}T \to f^{-1}U$. Nous effectuerons désormais
+ces identifications sans les mentionner. Un morphisme
+$$
+(a, a', \alpha) :
+(T'_1, \phi_1 : T'_1 \to T_1, x_1)
+\longrightarrow
+(T'_2, \phi_2 : T'_2 \to T_2, x_2)
+$$
+de $u_{pp}[U/_{\!p}R]$ est un diagramme commutatif
+$$
+\xymatrix{
+& & U \\
+T'_1 \ar[d]_{a'} \ar[r]_{\phi_1} &
+T_1 \ar[d]_a \ar[ru]^{x_1} \ar[r]_\alpha &
+R \ar[d]^t \ar[u]_s \\
+T'_2 \ar[r]^{\phi_2} &
+T_2 \ar[r]^{x_2} &
+U
+}
+$$
+Un tel morphisme appartient à $I$ si et seulement si $T'_1 = T'_2$ et
+$a' = \text{id}$. Nous définissons un foncteur
+$$
+u_{pp}[U/_{\!p}R] \longrightarrow [f^{-1}U/_{\!p}f^{-1}R]
+$$
+par les règles
+$$
+(T', \phi : T' \to T, x) \longmapsto (x \circ \phi : T' \to f^{-1}U)
+$$
+sur les objets et
+$$
+(a, a', \alpha) \longmapsto (\alpha \circ \phi_1 : T'_1 \to f^{-1}R)
+$$
+sur les morphismes ci-dessus. Il est clair que les éléments de $I$ sont
+envoyés sur des isomorphismes, puisque
+$(f^{-1}U, f^{-1}R, f^{-1}s, f^{-1}t, f^{-1}c)$ est un groupoïde en
+espaces algébriques sur $f^{-1}B$. Ce foncteur se factorise donc canoniquement
+par un foncteur
+$$
+u_p[U/_{\!p}R] \longrightarrow [f^{-1}U/_{\!p}f^{-1}R]
+$$
+En passant aux champs associés, nous obtenons un foncteur entre champs
+$$
+f^{-1}[U/R] \longrightarrow [f^{-1}U/f^{-1}R]
+$$
+sur $(\Sch'/S)_{fppf}$, car, d'après Champs, lemme
+\ref{stacks-lemma-technical-up}, le champ $f^{-1}[U/R]$ est le champ associé
+à $u_p[U/_{\!p}R]$.
+
+\medskip\noindent
+Nous avons maintenant un morphisme de champs. Pour vérifier que c'est une
+équivalence, il suffit de montrer qu'il est pleinement fidèle et que les
+objets appartiennent localement à l'image essentielle ; voir Champs, lemmes
+\ref{stacks-lemma-characterize-ff} et
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}. L'assertion
+sur les objets découle de ce que $f^{-1}R$ admet un morphisme étale surjectif
+$f^{-1}W \to f^{-1}R$ pour un objet $W$ de $(\Sch/S)_{fppf}$. Pour montrer
+que le foncteur est « plein », il suffit de montrer que les morphismes
+appartiennent localement à son image ; cela découle de ce que $f^{-1}U$ admet
+un morphisme étale surjectif $f^{-1}W \to f^{-1}U$ pour un objet $W$ de
+$(\Sch/S)_{fppf}$. Nous omettons la démonstration de la fidélité.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Conditions de séparation}
+\label{section-separation}
+
+\noindent
+Il s'agit en fait de conditions portant sur le morphisme
+$j : R \to U \times_B U$ lorsqu'un groupoïde en espaces algébriques
+$(U, R, s, t, c)$ sur $B$ est donné. Comme dans la section précédente, nous
+commençons par formuler le diagramme correspondant.
+
+\begin{lemma}
+\label{lemma-diagram-diagonal}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit
+$(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$, et soit
+$G \to U$ l'espace algébrique en groupes stabilisateur. Dans le diagramme
+commutatif
+$$
+\xymatrix{
+R \ar[d]^{\Delta_{R/U \times_B U}} \ar[rrr]_{f \mapsto (f, s(f))} & & &
+R \times_{s, U} U \ar[d] \ar[r] & U \ar[d] \\
+R \times_{(U \times_B U)} R \ar[rrr]^{(f, g) \mapsto (f, f^{-1} \circ g)} & & &
+R \times_{s, U} G \ar[r] & G
+}
+$$
+les deux flèches horizontales de gauche sont des isomorphismes et le carré de
+droite est cartésien.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. C'est un exercice sur les définitions et le point de vue
+fonctoriel en géométrie algébrique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonal}
+Soit $B \to S$ comme dans la section \ref{section-notation}. Soit
+$(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$, et soit
+$G \to U$ l'espace algébrique en groupes stabilisateur.
+\begin{enumerate}
+\item Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $j : R \to U \times_B U$ est séparé,
+\item $G \to U$ est séparé, et
+\item $e : U \to G$ est une immersion fermée.
+\end{enumerate}
+\item Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $j : R \to U \times_B U$ est localement séparé,
+\item $G \to U$ est localement séparé, et
+\item $e : U \to G$ est une immersion.
+\end{enumerate}
+\item Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $j : R \to U \times_B U$ est quasi-séparé,
+\item $G \to U$ est quasi-séparé, et
+\item $e : U \to G$ est quasi-compact.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'espace algébrique en groupes $G \to U$ s'obtient à partir de
+$R \to U \times_B U$ par changement de base suivant le morphisme diagonal
+$U \to U \times_B U$ ; voir le lemme \ref{lemma-groupoid-stabilizer}. Ainsi,
+si $j$ est séparé (resp.\ localement séparé, resp.\ quasi-séparé), alors
+$G \to U$ est séparé (resp.\ localement séparé, resp.\ quasi-séparé) ; voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-base-change-separated}. Nous obtenons donc
+(a) $\Rightarrow$ (b) dans (1), (2) et (3).
+
+\medskip\noindent
+Réciproquement, si $G \to U$ est séparé (resp.\ localement séparé,
+resp.\ quasi-séparé), alors le morphisme $e : U \to G$, qui est une section
+du morphisme structural $G \to U$, est une immersion fermée (resp.\ une
+immersion, resp.\ quasi-compacte) ; voir Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-section-immersion}. Nous obtenons donc
+(b) $\Rightarrow$ (c) dans (1), (2) et (3).
+
+\medskip\noindent
+Si $e$ est une immersion fermée (resp.\ une immersion, resp.\ quasi-compacte),
+alors le lemme \ref{lemma-diagram-diagonal} (ainsi que Espaces, lemme
+\ref{spaces-lemma-base-change-immersions}, et Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-base-change-quasi-compact}) montre que
+$\Delta_{R/U \times_B U}$ est une immersion fermée (resp.\ une immersion,
+resp.\ quasi-compacte). Nous obtenons donc (c) $\Rightarrow$ (a) dans (1),
+(2) et (3).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

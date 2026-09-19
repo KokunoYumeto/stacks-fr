@@ -1,0 +1,2762 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Injectifs}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans des chapitres ultérieurs, nous utiliserons l'existence d'injectifs et
+de complexes K-injectifs pour étudier la cohomologie des faisceaux de modules
+sur les sites annelés. Dans ce chapitre, nous expliquons comment construire
+des injectifs et des complexes K-injectifs, d'abord pour les modules sur les
+sites, puis, plus généralement, pour les catégories abéliennes de Grothendieck.
+
+\medskip\noindent
+Observons que nous savons déjà que la catégorie des groupes abéliens et la
+catégorie des modules sur un anneau possèdent assez d'injectifs ; voir
+Compléments d'algèbre, sections
+\ref{more-algebra-section-abelian-groups} et
+\ref{more-algebra-section-injectives-modules}
+
+
+
+
+
+\section{L'argument de Baer pour les modules}
+\label{section-baer}
+
+\noindent
+Il existe une autre manière, plus ensembliste, de montrer que tout $R$-module
+$M$ se plonge dans un module injectif. Cette méthode construit le module
+injectif comme une colimite transfinie de sommes amalgamées. Bien qu'elle soit
+assez abstraite et plus compliquée que celle de
+Compléments d'algèbre, section \ref{more-algebra-section-injectives-modules},
+elle est aussi plus générale. Cette méthode semble remonter à Baer ; elle a
+été reprise par Cartan et Eilenberg dans \cite{Cartan-Eilenberg}, puis par
+Grothendieck dans \cite{Tohoku}. Grothendieck y montre que bien d'autres
+catégories abéliennes possèdent assez d'injectifs. Nous reviendrons plus loin
+au cas général (section \ref{section-grothendieck-categories}).
+
+\medskip\noindent
+Commençons par quelques remarques ensemblistes.
+Soit $\{B_{\beta}\}_{\beta \in \alpha}$ un système inductif d'objets d'une
+catégorie $\mathcal{C}$, indexé par un ordinal $\alpha$. Supposons que
+$\colim_{\beta \in \alpha} B_\beta$ existe dans $\mathcal{C}$. Si $A$ est un
+objet de $\mathcal{C}$, il existe alors une application naturelle
+\begin{equation}
+\label{equation-compare}
+\colim_{\beta \in \alpha} \Mor_\mathcal{C}(A, B_\beta)
+\longrightarrow
+\Mor_\mathcal{C}(A, \colim_{\beta \in \alpha} B_\beta).
+\end{equation}
+En effet, un morphisme $A \to B_\beta$ donné pour un certain $\beta$ fournit
+naturellement un morphisme de $A$ vers la colimite, par composition avec
+$B_\beta \to \colim_{\beta \in \alpha} B_\alpha$.
+Notons que la colimite de gauche est une colimite d'ensembles ! En général,
+(\ref{equation-compare}) n'est ni injective ni surjective.
+
+\begin{example}
+\label{example-not-surjective}
+Considérons la catégorie des ensembles. Posons $A = \mathbf{N}$ et prenons
+pour $B_n = \{1, \ldots, n\}$ le système inductif indexé par les entiers
+naturels, où $B_n \to B_m$, pour $n \leq m$, est l'application évidente.
+Alors $\colim B_n = \mathbf{N}$ ; il existe donc une application
+$A \to \colim B_n$ qui ne se factorise par aucune application $A \to B_m$,
+pour tout $m$.
+Par conséquent,
+$\colim \Mor(A, B_n) \to \Mor(A, \colim B_n)$
+n'est pas surjective.
+\end{example}
+
+\begin{example}
+\label{example-not-injective}
+Donnons ensuite un exemple où l'application n'est pas injective. Posons
+$B_n = \mathbf{N}/\{1, 2, \ldots, n\}$, c'est-à-dire l'ensemble quotient de
+$\mathbf{N}$ dans lequel les $n$ premiers éléments sont identifiés à un seul.
+Il existe des applications naturelles $B_n \to B_m$ pour $n \leq m$ ; les
+$\{B_n\}$ forment donc un système d'ensembles indexé par $\mathbf{N}$. On voit
+aisément que $\colim B_n = \{*\}$ : c'est l'ensemble à un élément. Il s'ensuit
+que $\Mor(A, \colim B_n)$ est un ensemble à un élément pour tout ensemble $A$.
+Cependant, $\colim \Mor(A , B_n)$ n'est {\bf pas} un ensemble à un élément.
+Considérons la famille d'applications $A \to B_n$ formée des projections
+naturelles $\mathbf{N} \to \mathbf{N}/\{1, 2, \ldots, n\}$, et la famille
+d'applications $A \to B_n$ qui envoient tout $A$ sur la classe de $1$.
+Ces deux familles d'applications sont distinctes à chaque étape, donc distinctes
+dans $\colim \Mor(A, B_n)$, mais elles induisent la même application
+$A \to \colim B_n$.
+\end{example}
+
+\noindent
+Néanmoins, si l'ensemble source est fini, (\ref{equation-compare}) est toujours
+un isomorphisme.
+
+\begin{lemma}
+\label{lemma-out-of-finite}
+Supposons que, dans (\ref{equation-compare}), $\mathcal{C}$ soit la catégorie
+des ensembles et que $A$ soit un {\it ensemble fini}. Alors l'application est
+une bijection.
+\end{lemma}
+
+\begin{proof}
+Soit $f : A \to \colim B_\beta$. L'image de $f$ est finie ; notons ses éléments
+$c_1, \ldots, c_r \in \colim B_\beta$. Par définition de la colimite, ils
+proviennent tous d'éléments d'un même $B_\beta$, pour $\beta \in \alpha$
+assez grand. On peut donc définir $\widetilde{f} : A \to B_\beta$ qui relève
+$f$ à une étape finie. Cela prouve que (\ref{equation-compare}) est surjective.
+Supposons maintenant que deux applications
+$f : A \to B_\gamma, f' : A \to B_{\gamma'}$ définissent la même application
+$A \to \colim B_\beta$. Chacun des éléments, en nombre fini, de $A$ a alors
+la même image dans la colimite. Par définition de la colimite d'ensembles, il
+existe $\beta \geq \gamma, \gamma'$ tel que les éléments de $A$ aient les mêmes images
+dans $B_\beta$ par $f$ et $f'$. Cela prouve que (\ref{equation-compare}) est
+injective.
+\end{proof}
+
+\noindent
+Le cas le plus intéressant du lemme est celui où $\alpha = \omega$, autrement
+dit où le système $\{B_\beta\}$ est un système
+$\{B_n\}_{n \in \mathbf{N}}$ indexé par les entiers naturels, comme dans les
+Exemples \ref{example-not-surjective} et \ref{example-not-injective}.
+L'idée essentielle est que $A$ est « petit » relativement à la longue chaîne
+de composées $B_1 \to B_2 \to \ldots$, de sorte que son morphisme doit se
+factoriser par une étape finie. On trouvera une version plus générale de ce
+lemme dans Ensembles, lemme \ref{sets-lemma-map-from-set-lifts}. Généralisons
+maintenant ce résultat à la catégorie des modules.
+
+\begin{definition}
+\label{definition-small}
+Soient $\mathcal{C}$ une catégorie, $I \subset \text{Arrows}(\mathcal{C})$
+et $\alpha$ un ordinal. Un objet $A$ de $\mathcal{C}$ est dit
+{\it $\alpha$-petit relativement à $I$} si, pour tout système
+$\{B_\beta\}$ indexé par $\alpha$ dont les morphismes de transition
+appartiennent à $I$, l'application (\ref{equation-compare}) est un
+isomorphisme.
+\end{definition}
+
+\noindent
+Dans la suite de cette section, nous nous restreindrons à la catégorie des
+$R$-modules, où $R$ est un anneau commutatif fixé. Nous prendrons aussi pour
+$I$ la famille des applications injectives, c'est-à-dire des
+{\it monomorphismes} dans la catégorie des modules sur $R$. Dans ce cas, pour
+tout système $\{B_\beta\}$ comme dans la définition, chacune des applications
+$$
+B_\beta \to \colim_{\beta \in \alpha} B_\beta
+$$
+est injective. Il s'ensuit que l'application (\ref{equation-compare}) est une
+{\it injection}. On peut en fait considérer les $B_\beta$ comme des
+sous-modules du module $B = \colim_{\beta \in \alpha} B_\beta$ ; on a alors
+$B = \bigcup_{\beta \in \alpha} B_\beta$. Il n'y a pas abus de notation si
+l'on identifie $B_\alpha$ à son image dans la colimite. Nous voulons maintenant
+montrer que les modules sont toujours petits pour des ordinaux $\alpha$
+« grands ».
+
+\begin{proposition}
+\label{proposition-modules-are-small}
+Soient $R$ un anneau et $M$ un $R$-module. Soit $\kappa$ le cardinal de
+l'ensemble des sous-modules de $M$. Si $\alpha$ est un ordinal dont la
+cofinalité est strictement supérieure à $\kappa$, alors $M$ est
+$\alpha$-petit relativement aux injections.
+\end{proposition}
+
+\begin{proof}
+La démonstration est immédiate, mais considérons d'abord un cas particulier.
+Si $M$ est fini, l'assertion est que, pour tout système inductif
+$\{B_\beta\}$ à morphismes de transition injectifs et indexé par un ordinal
+limite, toute application $M \to \colim B_\beta$ se factorise par l'un des
+$B_\beta$. C'est précisément ce que nous avons démontré dans le
+Lemme \ref{lemma-out-of-finite}.
+
+\medskip\noindent
+Passons au cas général. Il suffit de montrer que l'application
+(\ref{equation-compare}) est surjective. Soit
+$f : M \to \colim B_\beta$ une application. Considérons les sous-objets
+$\{f^{-1}(B_\beta)\}$ de $M$, où $B_\beta$ est vu comme un sous-objet de la
+colimite $B = \bigcup_\beta B_\beta$. Si l'un d'eux, disons
+$f^{-1}(B_\beta)$, est égal à $M$, alors l'application se factorise par
+$B_\beta$.
+
+\medskip\noindent
+Supposons donc, par l'absurde, que tous les $f^{-1}(B_\beta)$ soient des
+sous-objets propres de $M$. Or nous savons que
+$$
+\bigcup f^{-1}(B_\beta) = f^{-1}\left(\bigcup B_\beta\right) = M.
+$$
+Par hypothèse, il y a au plus $\kappa$ sous-objets distincts de $M$ parmi les
+$f^{-1}(B_\alpha)$. On peut donc trouver un sous-ensemble $S \subset \alpha$
+de cardinal au plus $\kappa$ tel que, lorsque $\beta'$ parcourt $S$, les
+$f^{-1}(B_{\beta'})$ parcourent \emph{tous} les $f^{-1}(B_\alpha)$.
+
+\medskip\noindent
+Cependant, $S$ possède un majorant $\widetilde{\alpha} < \alpha$, puisque
+$\alpha$ est de cofinalité strictement supérieure à $\kappa$. En particulier,
+tous les $f^{-1}(B_{\beta'})$, pour $\beta' \in S$, sont contenus dans
+$f^{-1}(B_{\widetilde{\alpha}})$. Il en résulte que
+$f^{-1}(B_{\widetilde{\alpha}}) = M$. Ainsi, l'application $f$ se factorise
+par $B_{\widetilde{\alpha}}$.
+\end{proof}
+
+\noindent
+Ce lemme nous permettra de déduire l'existence de nombreux injectifs.
+Rappelons le critère de Baer.
+
+\begin{lemma}[Critère de Baer]
+\label{lemma-criterion-baer}
+\begin{reference}
+\cite[Theorem 1]{Baer}
+\end{reference}
+Soit $R$ un anneau. Un $R$-module $Q$ est injectif si et seulement si, dans
+tout diagramme commutatif
+$$
+\xymatrix{
+\mathfrak{a} \ar[d] \ar[r] &  Q \\
+R \ar@{-->}[ru]
+}
+$$
+où $\mathfrak{a} \subset R$ est un idéal, la flèche pointillée existe.
+\end{lemma}
+
+\begin{proof}
+Il s'agit de l'équivalence entre (1) et (3) dans
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-characterize-injective-bis};
+notons que la démonstration qui y est donnée est élémentaire (elle n'utilise ni
+les groupes $\text{Ext}$, ni l'existence d'injectifs ou de projectifs dans la
+catégorie des $R$-modules).
+\end{proof}
+
+\noindent
+Si $M$ est un $R$-module, nous pouvons en général disposer d'un diagramme
+partiellement complété comme dans le Lemme \ref{lemma-criterion-baer}. Nous
+pouvons y former la \emph{somme amalgamée}
+$$
+\xymatrix{
+\mathfrak{a} \ar[d]  \ar[r] &  M \ar[d] \\
+R \ar[r] &  R \oplus_{\mathfrak{a}} M.
+}
+$$
+Ici, le morphisme vertical est injectif et le diagramme est commutatif. Le point
+essentiel est que nous pouvons prolonger $\mathfrak{a} \to M$ à $R$ \emph{si}
+nous remplaçons $M$ par le module plus grand
+$R \oplus_{\mathfrak{a}} M$.
+
+\medskip\noindent
+L'idée fondamentale de l'argument de Baer consiste à répéter cette procédure
+un nombre transfini de fois. Pour cela, étant donné un $R$-module $M$, nous
+commençons par définir l'immense somme amalgamée suivante
+\begin{equation}
+\label{equation-huge-diagram}
+\vcenter{
+\xymatrix{
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+\mathfrak{a} \ar[r] \ar[d] & M \ar[d] \\
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+R \ar[r] &  \mathbf{M}(M).
+}
+}
+\end{equation}
+La flèche horizontale supérieure envoie l'élément $a \in \mathfrak a$ du
+facteur correspondant à $\varphi$ sur l'élément $\varphi(a) \in M$. La flèche
+verticale de gauche envoie simplement $a \in \mathfrak a$, dans le facteur
+correspondant à $\varphi$, sur l'élément $a \in R$ du facteur correspondant à
+$\varphi$. Les propriétés fondamentales de cette construction sont énoncées
+dans le lemme suivant.
+
+\begin{lemma}
+\label{lemma-construction}
+Soit $R$ un anneau.
+\begin{enumerate}
+\item La construction $M \mapsto (M \to \mathbf{M}(M))$ est fonctorielle
+en $M$.
+\item L'application $M \to \mathbf{M}(M)$ est injective.
+\item Pour tout idéal $\mathfrak{a}$ et tout morphisme de $R$-modules
+$\varphi : \mathfrak a \to M$, il existe un morphisme de $R$-modules
+$\varphi' : R \to \mathbf{M}(M)$ tel que le diagramme
+$$
+\xymatrix{
+\mathfrak{a} \ar[d] \ar[r]_\varphi &  M \ar[d] \\
+R \ar[r]^{\varphi'} & \mathbf{M}(M)
+}
+$$
+soit commutatif.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les assertions (2) et (3) résultent immédiatement de la construction. Pour
+voir (1), soit $\chi : M \to N$ un morphisme de $R$-modules. Nous affirmons
+qu'il existe un diagramme commutatif canonique
+$$
+\xymatrix{
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+\mathfrak{a} \ar[r] \ar[d] \ar[rrd] & M \ar[rrd]^\chi \\
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+R \ar[rrd] & &
+\bigoplus_{\mathfrak a}
+\bigoplus_{\psi \in \Hom_R(\mathfrak a, N)}
+\mathfrak{a} \ar[r] \ar[d] & N \\
+& & \bigoplus_{\mathfrak a}
+\bigoplus_{\psi \in \Hom_R(\mathfrak a, N)}
+R
+}
+$$
+qui induit l'application voulue $\mathbf{M}(M) \to \mathbf{M}(N)$. La flèche
+centrale dirigée vers l'est-sud-est envoie le facteur $\mathfrak a$
+correspondant à $\varphi$, par $\text{id}_{\mathfrak a}$, sur le facteur
+$\mathfrak a$ correspondant à
+$\psi = \chi \circ \varphi$. Il en va de même de la flèche inférieure dirigée
+vers l'est-sud-est. Nous omettons les détails.
+\end{proof}
+
+\noindent
+Nous allons maintenant appliquer le foncteur $\mathbf{M}$ un nombre transfini
+de fois. Pour chaque ordinal $\alpha$, nous définissons un foncteur
+$\mathbf{M}_\alpha$ sur la catégorie des $R$-modules, ainsi qu'une injection
+naturelle $N \to \mathbf{M}_\alpha(N)$, par récurrence transfinie. D'abord,
+$\mathbf{M}_1 = \mathbf{M}$ est le foncteur défini ci-dessus. Soit ensuite un
+ordinal $\alpha$, et supposons $\mathbf{M}_{\alpha'}$ défini pour
+$\alpha' < \alpha$. Si $\alpha$ admet un prédécesseur immédiat
+$\widetilde{\alpha}$, posons
+$$
+\mathbf{M}_\alpha = \mathbf{M} \circ \mathbf{M}_{\widetilde{\alpha}}.
+$$
+Sinon, c'est-à-dire si $\alpha$ est un ordinal limite, posons
+$$
+\mathbf{M}_{\alpha}(N) =
+\colim_{\alpha' < \alpha} \mathbf{M}_{\alpha'}(N).
+$$
+Il est clair, par exemple par récurrence, que les
+$\mathbf{M}_{\alpha}(N)$ forment un système inductif indexé par les ordinaux ;
+cette définition a donc bien un sens.
+
+\begin{theorem}
+\label{theorem-baer-grothendieck}
+Soit $\kappa$ le cardinal de l'ensemble des idéaux de $R$, et soit $\alpha$
+un ordinal de cofinalité strictement supérieure à $\kappa$. Alors
+$\mathbf{M}_\alpha(N)$ est un $R$-module injectif, et
+$N \to \mathbf{M}_\alpha(N)$ est un plongement fonctoriel dans un injectif.
+\end{theorem}
+
+\begin{proof}
+D'après le critère de Baer, Lemme \ref{lemma-criterion-baer}, il suffit de
+montrer que, pour tout idéal $\mathfrak{a} \subset R$, toute application
+$f : \mathfrak{a} \to \mathbf{M}_\alpha(N)$ se prolonge en une application
+$R \to \mathbf{M}_\alpha(N)$. Or, puisque $\alpha$ est un ordinal limite, nous
+savons que
+$$
+\mathbf{M}_{\alpha}(N) =
+\colim_{\beta < \alpha} \mathbf{M}_{\beta}(N),
+$$
+donc, par la Proposition \ref{proposition-modules-are-small}, nous obtenons
+$$
+\Hom_R(\mathfrak{a}, \mathbf{M}_{\alpha}(N)) =
+\colim_{\beta < \alpha} \Hom_R(\mathfrak a, \mathbf{M}_{\beta}(N)).
+$$
+Cela signifie en particulier qu'il existe $\beta' < \alpha$ tel que $f$ se
+factorise par le sous-module $\mathbf{M}_{\beta'}(N)$, sous la forme
+$$
+f : \mathfrak{a} \to \mathbf{M}_{\beta'}(N) \to
+\mathbf{M}_{\alpha}(N).
+$$
+Cependant, d'après la propriété fondamentale du foncteur $\mathbf{M}$, voir le
+Lemme \ref{lemma-construction}, assertion (3), l'application
+$\mathfrak{a} \to \mathbf{M}_{\beta'}(N)$ se prolonge en
+$$
+R \to \mathbf{M}( \mathbf{M}_{\beta'}(N)) =
+\mathbf{M}_{\beta' + 1}(N),
+$$
+et ce dernier objet se plonge dans $\mathbf{M}_{\alpha}(N)$, car
+$\beta' + 1 < \alpha$ puisque $\alpha$ est un ordinal limite. Par conséquent,
+$f$ se prolonge à $\mathbf{M}_{\alpha}(N)$.
+\end{proof}
+
+
+
+
+\section{G-modules}
+\label{section-G-modules}
+
+\noindent
+Nous verrons plus loin (Algèbre différentielle graduée, section
+\ref{dga-section-modules-noncommutative}) que la catégorie des modules sur une
+algèbre admet des plongements fonctoriels dans des injectifs. La construction est
+exactement la même que celle de
+Compléments d'algèbre, section
+\ref{more-algebra-section-injectives-modules}.
+
+\begin{lemma}
+\label{lemma-G-modules}
+Soient $G$ un groupe topologique et $R$ un anneau. La catégorie
+$\text{Mod}_{R, G}$ des $R\text{-}G$-modules, voir Cohomologie étale,
+définition \ref{etale-cohomology-definition-G-module-continuous}, admet des
+plongements fonctoriels dans des injectifs. Il en est ainsi, en particulier, de la
+catégorie des $G$-modules discrets.
+\end{lemma}
+
+\begin{proof}
+La remarque qui précède le lemme montre que la catégorie
+$\text{Mod}_{R[G]}$ admet des plongements fonctoriels dans des injectifs. Considérons le
+foncteur d'oubli
+$v : \text{Mod}_{R, G} \to \text{Mod}_{R[G]}$.
+Ce foncteur est pleinement fidèle, transforme les applications injectives en
+applications injectives et possède un adjoint à droite, à savoir
+$$
+u : M \mapsto u(M) = \{x \in M \mid \text{le stabilisateur de }x\text{ est ouvert}\}
+$$
+Comme $v(M) = 0 \Rightarrow M = 0$, on conclut par
+Homologie, lemme \ref{homology-lemma-adjoint-functorial-injectives}.
+\end{proof}
+
+
+
+\section{Faisceaux abéliens sur un espace}
+\label{section-abelian-sheaves-space}
+
+
+\begin{lemma}
+\label{lemma-abelian-sheaves-space}
+Soit $X$ un espace topologique. La catégorie des faisceaux abéliens sur $X$
+possède assez d'injectifs. Elle admet même des plongements fonctoriels dans des
+injectifs.
+\end{lemma}
+
+\begin{proof}
+Pour tout groupe abélien $A$, notons $j : A \to J(A)$ le plongement fonctoriel
+dans un injectif construit dans
+Compléments d'algèbre, section
+\ref{more-algebra-section-injectives-modules}.
+Soit $\mathcal{F}$ un faisceau abélien sur $X$. D'après Faisceaux, exemple
+\ref{sheaves-example-sheaf-product-pointwise}, la donnée
+$$
+\mathcal{I} : U \mapsto
+\mathcal{I}(U) = \prod\nolimits_{x\in U} J(\mathcal{F}_x)
+$$
+est un faisceau abélien. Il existe une application canonique
+$\mathcal{F} \to \mathcal{I}$ qui envoie $s \in \mathcal{F}(U)$ sur
+$\prod_{x \in U} j(s_x)$, où $s_x \in \mathcal{F}_x$ désigne le germe de $s$
+en $x$. Cette application est injective ; voir, par exemple, Faisceaux, lemme
+\ref{sheaves-lemma-sheaf-subset-stalks}.
+
+\medskip\noindent
+Il reste à démontrer l'assertion suivante : si une donnée $x \mapsto I_x$
+associe à chaque point $x \in X$ un groupe abélien injectif, alors le faisceau
+$\mathcal{I} : U \mapsto \prod_{x \in U} I_x$ est injectif. Notons que
+$$
+\mathcal{I} = \prod\nolimits_{x \in X} i_{x, *}I_x
+$$
+est le produit des faisceaux gratte-ciel $i_{x, *}I_x$ (pour la notation, voir
+Faisceaux, section \ref{sheaves-section-skyscraper-sheaves}). On a
+$$
+\Mor_{\textit{Ab}}(\mathcal{F}_x, I_x)
+=
+\Mor_{\textit{Ab}(X)}(\mathcal{F}, i_{x, *}I_x).
+$$
+voir Faisceaux, lemme \ref{sheaves-lemma-stalk-skyscraper-adjoint}. Il est donc
+clair que chaque $i_{x, *}I_x$ est injectif. L'injectivité de $\mathcal{I}$
+résulte alors de
+Homologie, lemme \ref{homology-lemma-product-injectives}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Faisceaux de modules sur un espace annelé}
+\label{section-sheaves-modules-space}
+
+
+\begin{lemma}
+\label{lemma-sheaves-modules-space}
+Soit $(X, \mathcal{O}_X)$ un espace annelé ; voir Faisceaux, section
+\ref{sheaves-section-ringed-spaces}. La catégorie des faisceaux de
+$\mathcal{O}_X$-modules sur $X$ possède assez d'injectifs. Elle admet même des
+plongements fonctoriels dans des injectifs.
+\end{lemma}
+
+\begin{proof}
+Pour tout anneau $R$ et tout $R$-module $M$, notons
+$j : M \to J_R(M)$ le plongement fonctoriel dans un injectif construit dans
+Compléments d'algèbre, section
+\ref{more-algebra-section-injectives-modules}.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_X$-modules sur $X$. D'après
+Faisceaux, exemples \ref{sheaves-example-sheaf-product-pointwise} et
+\ref{sheaves-example-sheaf-product-pointwise-algebraic-structure}, la donnée
+$$
+\mathcal{I} : U \mapsto
+\mathcal{I}(U) = \prod\nolimits_{x\in U} J_{\mathcal{O}_{X, x}}(\mathcal{F}_x)
+$$
+est un faisceau abélien. Il existe une application canonique
+$\mathcal{F} \to \mathcal{I}$ qui envoie $s \in \mathcal{F}(U)$ sur
+$\prod_{x \in U} j(s_x)$, où $s_x \in \mathcal{F}_x$ désigne le germe de $s$
+en $x$. Cette application est injective ; voir, par exemple, Faisceaux, lemme
+\ref{sheaves-lemma-sheaf-subset-stalks}.
+
+\medskip\noindent
+Il reste à démontrer l'assertion suivante : si une donnée $x \mapsto I_x$
+associe à chaque point $x \in X$ un $\mathcal{O}_{X, x}$-module injectif, alors
+le faisceau $\mathcal{I} : U \mapsto \prod_{x \in U} I_x$ est injectif.
+Notons que
+$$
+\mathcal{I} = \prod\nolimits_{x \in X} i_{x, *}I_x
+$$
+est le produit des faisceaux gratte-ciel $i_{x, *}I_x$ (pour la notation, voir
+Faisceaux, section \ref{sheaves-section-skyscraper-sheaves}). On a
+$$
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, I_x)
+=
+\Hom_{\mathcal{O}_X}(\mathcal{F}, i_{x, *}I_x).
+$$
+voir Faisceaux, lemme \ref{sheaves-lemma-stalk-skyscraper-adjoint}. Il est donc
+clair que chaque $i_{x, *}I_x$ est un $\mathcal{O}_X$-module injectif (voir
+Homologie, lemme \ref{homology-lemma-adjoint-preserve-injectives}, ou raisonner
+directement). L'injectivité de $\mathcal{I}$ résulte alors de
+Homologie, lemme \ref{homology-lemma-product-injectives}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Préfaisceaux abéliens sur une catégorie}
+\label{section-injectives-presheaves}
+
+\noindent
+Soit $\mathcal{C}$ une catégorie. Rappelons que cela signifie que
+$\Ob(\mathcal{C})$ est un ensemble. Considérons, d'une part, les préfaisceaux
+abéliens sur $\mathcal{C}$, voir Sites, section
+\ref{sites-section-presheaves}, et, d'autre part, les familles de groupes
+abéliens indexées par les éléments de $\Ob(\mathcal{C})$ ; autrement dit, les
+préfaisceaux sur la catégorie discrète dont l'ensemble sous-jacent d'objets est
+$\Ob(\mathcal{C})$. Notons simplement $\Ob(\mathcal{C})$ cette catégorie
+discrète. Il existe un foncteur naturel
+$$
+i : \Ob(\mathcal{C}) \longrightarrow \mathcal{C}
+$$
+et, par conséquent, un foncteur naturel de restriction, ou foncteur d'oubli,
+$$
+v = i^p :
+\textit{PAb}(\mathcal{C})
+\longrightarrow
+\textit{PAb}(\Ob(\mathcal{C}))
+$$
+à comparer avec Sites, section \ref{sites-section-functoriality-PSh}. Nous
+noterons les préfaisceaux sur $\mathcal{C}$ par $B$ et les préfaisceaux sur
+$\Ob(\mathcal{C})$ par $A$.
+
+\medskip\noindent
+Il existe aussi deux foncteurs, à savoir $i_p$ et ${}_pi$, qui associent un
+préfaisceau abélien sur $\mathcal{C}$ à un préfaisceau abélien sur
+$\Ob(\mathcal{C})$ ; voir Sites, sections
+\ref{sites-section-functoriality-PSh} et
+\ref{sites-section-more-functoriality-PSh}. Nous utiliserons ici
+$u = {}_pi$, qui, dans le cas présent, est défini par
+$$
+uA(U) = \prod\nolimits_{U' \to U} A(U').
+$$
+Ainsi, un élément est une famille $(a_\phi)_\phi$, où $\phi$ parcourt tous les
+morphismes de $\mathcal{C}$ de but $U$. L'application de restriction de $uA$
+correspondant à $g : V \to U$ envoie l'élément $(a_\phi)_\phi$ sur
+$(a_{g \circ \psi})_\psi$.
+
+\medskip\noindent
+Il existe une application surjective canonique $vuA \to A$ et une application
+injective canonique $B \to uvB$. Nous laissons au lecteur le soin de montrer
+que
+$$
+\Mor_{\textit{PAb}(\mathcal{C})}(B, uA)
+=
+\Mor_{\textit{PAb}(\Ob(\mathcal{C}))}(vB, A).
+$$
+dans ce cas simple ; le cas général est traité dans Sites, section
+\ref{sites-section-functoriality-PSh}. Ainsi, le couple $(u, v)$ est un exemple
+de couple de foncteurs adjoints ; voir Catégories, section
+\ref{categories-section-adjoint}.
+
+\medskip\noindent
+Nous pouvons maintenant énumérer les faits suivants concernant la situation
+ci-dessus.
+\begin{enumerate}
+\item Les foncteurs $u$ et $v$ sont exacts. Cela résulte de leur description
+explicite donnée ci-dessus.
+\item En particulier, le foncteur $v$ transforme les applications injectives
+en applications injectives.
+\item La catégorie $\textit{PAb}(\Ob(\mathcal{C}))$ possède assez d'injectifs.
+\item Il existe même un plongement fonctoriel dans un injectif
+$A \mapsto \big(A \to J(A)\big)$ comme dans
+Homologie, définition \ref{homology-definition-functorial-injective-embedding}.
+On peut en effet prendre pour $J(A)$ le préfaisceau
+$U\mapsto J(A(U))$, où $J(-)$ est le foncteur construit dans
+Compléments d'algèbre, section
+\ref{more-algebra-section-injectives-modules}
+pour l'anneau $\mathbf{Z}$.
+\end{enumerate}
+En réunissant ces faits, on obtient la procédure suivante pour plonger les
+objets $B$ de $\textit{PAb}(\mathcal{C})$ dans un objet injectif :
+$B \to uJ(vB)$. Voir
+Homologie, lemme \ref{homology-lemma-adjoint-functorial-injectives}.
+
+\begin{proposition}
+\label{proposition-presheaves-injectives}
+Les préfaisceaux abéliens sur une catégorie admettent un plongement fonctoriel
+dans un injectif.
+\end{proposition}
+
+\begin{proof}
+Voir la discussion ci-dessus.
+\end{proof}
+
+\section{Faisceaux abéliens sur un site}
+\label{section-injectives-sheaves}
+
+\noindent
+Soit $\mathcal{C}$ un site. Dans cette section, nous démontrons que la
+catégorie des faisceaux abéliens sur $\mathcal{C}$ a assez d'injectifs.
+
+\medskip\noindent
+Notons
+$i : \textit{Ab}(\mathcal{C}) \longrightarrow \textit{PAb}(\mathcal{C})$
+le foncteur d'oubli des faisceaux abéliens vers les préfaisceaux abéliens.
+Notons
+${}^\# : \textit{PAb}(\mathcal{C}) \longrightarrow \textit{Ab}(\mathcal{C})$
+le foncteur de faisceautisation. Rappelons que ${}^\#$ est adjoint à gauche
+de $i$, que ${}^\#$ est exact et que $i\mathcal{F}^\# = \mathcal{F}$
+pour tout faisceau abélien $\mathcal{F}$. Enfin, notons
+$\mathcal{G} \to J(\mathcal{G})$ le plongement canonique dans un
+préfaisceau injectif construit à la
+section \ref{section-injectives-presheaves}.
+
+\medskip\noindent
+Pour tout faisceau $\mathcal{F}$ de $\textit{Ab}(\mathcal{C})$ et tout
+ordinal $\beta$, nous définissons un faisceau $J_\beta(\mathcal{F})$ par
+récurrence transfinie. Posons $J_0(\mathcal{F}) = \mathcal{F}$ et
+$J_1(\mathcal{F}) = J(i\mathcal{F})^\#$. La faisceautisation de
+l'application canonique $i\mathcal{F} \to J(i\mathcal{F})$ donne une
+application fonctorielle
+$$
+\mathcal{F} \longrightarrow J_1(\mathcal{F})
+$$
+qui est injective puisque $\#$ est exact. Posons
+$J_{\alpha + 1}(\mathcal{F}) = J_1(J_\alpha(\mathcal{F}))$. On obtient ainsi
+des applications injectives canoniques
+$J_\alpha(\mathcal{F}) \to J_{\alpha + 1}(\mathcal{F})$. Pour un ordinal
+limite $\beta$, nous posons
+$$
+J_\beta(\mathcal{F}) = \colim_{\alpha < \beta} J_\alpha(\mathcal{F}).
+$$
+Remarquons qu'il s'agit d'une colimite filtrante. Ainsi, pour tous ordinaux
+$\alpha < \beta$, on dispose d'une application injective
+$J_\alpha(\mathcal{F}) \to J_\beta(\mathcal{F})$.
+
+\begin{lemma}
+\label{lemma-map-into-next-one}
+Avec les notations ci-dessus, supposons que
+$\mathcal{G}_1 \to \mathcal{G}_2$ soit une application injective de faisceaux
+abéliens sur $\mathcal{C}$. Soit $\alpha$ un ordinal et soit
+$\mathcal{G}_1 \to J_\alpha(\mathcal{F})$ un morphisme de faisceaux. Il existe
+un morphisme $\mathcal{G}_2 \to J_{\alpha + 1}(\mathcal{F})$ tel que le
+diagramme suivant soit commutatif
+$$
+\xymatrix{
+\mathcal{G}_1 \ar[d] \ar[r] & \mathcal{G}_2 \ar[d] \\
+J_{\alpha}(\mathcal{F}) \ar[r] & J_{\alpha + 1}(\mathcal{F}) }
+$$
+\end{lemma}
+
+\begin{proof}
+En effet, l'application $i\mathcal{G}_1 \to i\mathcal{G}_2$ est injective ;
+par conséquent, $i\mathcal{G}_1 \to iJ_\alpha(\mathcal{F})$ se prolonge en
+$i\mathcal{G}_2 \to J(iJ_\alpha(\mathcal{F}))$, ce qui donne l'application
+voulue après application du foncteur de faisceautisation.
+\end{proof}
+
+\noindent
+Ce lemme affirme qu'en un certain sens le système
+$\{J_{\alpha}(\mathcal{F})\}$ est un plongement injectif de $\mathcal{F}$.
+Bien entendu, on ne peut pas prendre la limite sur tous les $\alpha$, car
+ceux-ci forment une classe et non un ensemble. L'idée est cependant qu'il
+n'est pas nécessaire de vérifier l'injectivité sur toutes les injections
+$\mathcal{G}_1 \to \mathcal{G}_2$, compte tenu du lemme suivant.
+
+\begin{lemma}
+\label{lemma-map-into-smaller}
+Supposons que les $\mathcal{G}_i$, $i\in I$, forment un ensemble de faisceaux
+abéliens sur $\mathcal{C}$. Il existe un ordinal $\beta$ tel que, pour tout
+faisceau $\mathcal{F}$, tout $i\in I$ et toute application
+$\varphi : \mathcal{G}_i \to J_\beta(\mathcal{F})$, il existe un
+$\alpha < \beta$ tel que $ \varphi $ se factorise par
+$J_\alpha(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+On se ramène au cas d'un seul faisceau $\mathcal{G}$ en prenant la somme
+directe de tous les $\mathcal{G}_i$.
+
+\medskip\noindent
+Considérons les ensembles
+$$
+S = \coprod\nolimits_{U \in \Ob(\mathcal{C})} \mathcal{G}(U).
+$$
+et
+$$
+T_\beta
+=
+\coprod\nolimits_{U \in \Ob(\mathcal{C})} J_\beta(\mathcal{F})(U)
+$$
+Les applications de transition entre les ensembles $T_\beta$ sont injectives.
+Si la cofinalité de $\beta$ est assez grande, alors
+$T_\beta = \colim_{\alpha < \beta} T_\alpha$ ; voir
+Sites, lemme \ref{sites-lemma-colimit-over-ordinal-sections}. Un morphisme
+$\mathcal{G} \to J_\beta(\mathcal{F})$ se factorise par
+$J_\alpha(\mathcal{F})$ si et seulement si l'application associée
+$S \to T_\beta$ se factorise par $T_\alpha$. D'après
+Sets, lemme \ref{sets-lemma-map-from-set-lifts}, si la cofinalité de $\beta$
+est strictement supérieure au cardinal de $S$, la conclusion du lemme est
+vraie. Le lemme résulte donc du fait qu'il existe des ordinaux de cofinalité
+arbitrairement grande ; voir
+Sets, proposition \ref{sets-proposition-exist-ordinals-large-cofinality}.
+\end{proof}
+
+\noindent
+Rappelons que, pour un objet $X$ de $\mathcal{C}$, on note $\mathbf{Z}_X$ le
+préfaisceau de groupes abéliens $\Gamma(U, \mathbf{Z}_X) =
+\oplus_{U \to X} \mathbf{Z}$ ; voir
+Modules on Sites, section \ref{sites-modules-section-free-abelian-presheaf}.
+Le faisceau associé à ce préfaisceau est noté $\mathbf{Z}_X^\#$ ; voir
+Modules on Sites, section \ref{sites-modules-section-free-abelian-sheaf}.
+Il se caractérise par la propriété
+\begin{equation}
+\label{equation-free-sheaf-on}
+\Mor_{\textit{Ab}(\mathcal{C})}(\mathbf{Z}_X^\#, \mathcal{G})
+=
+\mathcal{G}(X)
+\end{equation}
+où l'élément $\varphi$ du membre de gauche est envoyé sur
+$\varphi(1 \cdot \text{id}_X)$ dans celui de droite. Ces faisceaux permettent
+de caractériser les faisceaux abéliens injectifs.
+
+\begin{lemma}
+\label{lemma-characterize-injectives}
+Soit $\mathcal{J}$ un faisceau de groupes abéliens ayant la propriété
+suivante : pour tout $X\in \Ob(\mathcal{C})$, tout sous-faisceau abélien
+$\mathcal{S} \subset \mathbf{Z}_X^\#$ et tout morphisme
+$\varphi : \mathcal{S} \to \mathcal{J}$, il existe un morphisme
+$\mathbf{Z}_X^\# \to \mathcal{J}$ prolongeant $\varphi$. Alors $\mathcal{J}$
+est un faisceau injectif de groupes abéliens.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{F} \to \mathcal{G}$ une application injective de faisceaux
+abéliens et soit $\varphi : \mathcal{F} \to \mathcal{J}$ un morphisme.
+En raisonnant comme dans la preuve de
+More on Algebra, lemme \ref{more-algebra-lemma-injective-abelian}, on voit qu'il
+suffit de démontrer que, si $\mathcal{F} \not = \mathcal{G}$, on peut trouver
+un faisceau abélien $\mathcal{F}'$ tel que
+$\mathcal{F} \subset \mathcal{F}' \subset \mathcal{G}$, l'inclusion
+$\mathcal{F} \subset \mathcal{F}'$ étant stricte, et tel que $\varphi$ se
+prolonge à $\mathcal{F}'$. Pour trouver $\mathcal{F}'$, choisissons un objet
+$X$ de $\mathcal{C}$ pour lequel l'inclusion
+$\mathcal{F}(X) \subset \mathcal{G}(X)$ est stricte, puis
+$s \in \mathcal{G}(X)$, $s \not \in \mathcal{F}(X)$. Soit
+$\psi : \mathbf{Z}_X^\# \to \mathcal{G}$ le morphisme correspondant à la
+section $s$ par (\ref{equation-free-sheaf-on}). Posons
+$\mathcal{S} = \psi^{-1}(\mathcal{F})$. Par hypothèse, le morphisme
+$$
+\mathcal{S} \xrightarrow{\psi} \mathcal{F} \xrightarrow{\varphi} \mathcal{J}
+$$
+se prolonge en un morphisme $\varphi' : \mathbf{Z}_X^\# \to \mathcal{J}$.
+Remarquons que $\varphi'$ annule le noyau de $\psi$ (puisque c'est le cas de
+$\varphi$). Ainsi, $\varphi'$ induit un morphisme
+$\varphi'' : \Im(\psi) \to \mathcal{J}$ qui coïncide par construction avec
+$\varphi$ sur l'intersection $\mathcal{F} \cap \Im(\psi)$. Les morphismes
+$\varphi$ et $\varphi''$ se recollent donc en un prolongement de $\varphi$ au
+sous-faisceau strictement plus grand
+$\mathcal{F}' = \mathcal{F} + \Im(\psi)$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-sheaves-injectives}
+La catégorie des faisceaux de groupes abéliens sur un site a assez
+d'injectifs. Plus précisément, il existe un plongement injectif fonctoriel ;
+voir Homology, définition
+\ref{homology-definition-functorial-injective-embedding}.
+\end{theorem}
+
+\begin{proof}
+Soit $\mathcal{G}_i$, $i \in I$, un ensemble de faisceaux abéliens tel que
+tout sous-faisceau de tout $\mathbf{Z}_X^\#$ soit l'un des $\mathcal{G}_i$.
+Appliquons le lemme \ref{lemma-map-into-smaller} à cette famille et obtenons
+ainsi un ordinal $\beta$. Nous affirmons que, pour tout faisceau de groupes
+abéliens $\mathcal{F}$, l'application
+$\mathcal{F} \to J_\beta(\mathcal{F})$ plonge $\mathcal{F}$ dans un injectif.
+Remarquons que, par construction, l'association
+$\mathcal{F} \mapsto \big(\mathcal{F} \to J_\beta(\mathcal{F})\big)$ est bien
+fonctorielle.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-characterize-injectives}, il suffit, pour prouver
+cette affirmation, de prolonger tout morphisme
+$\gamma : \mathcal{G} \to J_\beta(\mathcal{F})$ défini sur un sous-faisceau
+$\mathcal{G}$ d'un $\mathbf{Z}_X^\#$ à tout $\mathbf{Z}_X^\#$. Or, d'après le
+lemme \ref{lemma-map-into-smaller}, l'application $\gamma$ se relève dans
+$J_\alpha(\mathcal{F})$ pour un certain $\alpha < \beta$. Enfin, le
+lemme \ref{lemma-map-into-next-one} fournit le prolongement voulu de $\gamma$
+en un morphisme à valeurs dans
+$J_{\alpha + 1}(\mathcal{F}) \to J_\beta(\mathcal{F})$.
+\end{proof}
+
+
+
+
+
+
+\section{Modules sur un site annelé}
+\label{section-sheaves-modules}
+
+\noindent
+Soit $\mathcal{C}$ un site et soit $\mathcal{O}$ un faisceau d'anneaux sur
+$\mathcal{C}$. Par analogie avec
+More on Algebra, section \ref{more-algebra-section-injectives-modules},
+cherchons à démontrer qu'il existe assez de $\mathcal{O}$-modules injectifs.
+Choisissons tout d'abord un plongement injectif
+$$
+\bigoplus\nolimits_{U, \mathcal{I}}
+j_{U!}\mathcal{O}_U/\mathcal{I}
+\longrightarrow
+\mathcal{J}
+$$
+où $\mathcal{J}$ est un faisceau abélien injectif, dont l'existence résulte de
+la section précédente. La somme directe porte ici sur tous les objets $U$ de
+$\mathcal{C}$ et tous les sous-$\mathcal{O}$-modules
+$\mathcal{I} \subset j_{U!}\mathcal{O}_U$. Pour les foncteurs de restriction
+et de prolongement par $0$ associés au foncteur de localisation
+$j_U : \mathcal{C}/U \to \mathcal{C}$, voir
+Modules on Sites, section \ref{sites-modules-section-localize}.
+
+\medskip\noindent
+Pour tout faisceau de $\mathcal{O}$-modules $\mathcal{F}$, notons
+$$
+\mathcal{F}^\vee
+=
+\SheafHom(\mathcal{F}, \mathcal{J})
+$$
+muni de sa structure naturelle de $\mathcal{O}$-module.
+Insérer ici une future référence au Hom interne.
+Nous aurons également besoin d'une résolution plate canonique d'un faisceau de
+$\mathcal{O}$-modules. Nous la construisons comme suit : pour tout
+$\mathcal{O}$-module $\mathcal{F}$, notons
+$$
+F(\mathcal{F})
+=
+\bigoplus\nolimits_{U \in \Ob(\mathcal{C}), s \in \mathcal{F}(U)}
+j_{U!}\mathcal{O}_U.
+$$
+C'est un faisceau plat de $\mathcal{O}$-modules, muni d'une surjection canonique
+$F(\mathcal{F}) \to \mathcal{F}$ ; voir
+Modules on Sites, lemme \ref{sites-modules-lemma-module-quotient-flat}.
+En outre, la construction $\mathcal{F} \mapsto F(\mathcal{F})$ est
+fonctorielle en $\mathcal{F}$.
+
+\begin{lemma}
+\label{lemma-vee-exact-sheaves}
+Le foncteur $\mathcal{F} \mapsto \mathcal{F}^\vee$ est exact.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que $\mathcal{J}$ est un faisceau abélien injectif.
+\end{proof}
+
+\noindent
+Il existe une application canonique d'évaluation
+$ev : \mathcal{F} \to (\mathcal{F}^\vee)^\vee$ : étant donné
+$x \in \mathcal{F}(U)$, on définit
+$ev(x) \in (\mathcal{F}^\vee)^\vee =
+\SheafHom(\mathcal{F}^\vee, \mathcal{J})$ comme l'application
+$\varphi \mapsto \varphi(x)$.
+
+\begin{lemma}
+\label{lemma-ev-injective-sheaves}
+Pour tout $\mathcal{O}$-module $\mathcal{F}$, l'application d'évaluation
+$ev : \mathcal{F} \to (\mathcal{F}^\vee)^\vee$ est injective.
+\end{lemma}
+
+\begin{proof}
+On le vérifie à l'aide de la définition de $\mathcal{J}$. En effet, si
+$s \in \mathcal{F}(U)$ est non nul, soit
+$j_{U!}\mathcal{O}_U \to \mathcal{F}$ l'application de
+$\mathcal{O}$-modules qui lui correspond par adjonction, et soit
+$\mathcal{I}$ son noyau. Il existe une application non nulle
+$\mathcal{F} \supset j_{U!}\mathcal{O}_U/\mathcal{I} \to \mathcal{J}$ qui
+n'annule pas $s$. Comme $\mathcal{J}$ est un faisceau abélien injectif, cette
+application sous-jacente de $\mathcal{O}$-modules se prolonge en une application
+$\varphi : \mathcal{F} \to \mathcal{J}$.
+Alors $ev(s)(\varphi) = \varphi(s) \not = 0$, ce qu'il fallait démontrer.
+\end{proof}
+
+\noindent
+La surjection canonique $F(\mathcal{F}) \to \mathcal{F}$ de
+$\mathcal{O}$-modules donne, d'après ce qui précède, une injection canonique de
+$\mathcal{O}$-modules
+$$
+(\mathcal{F}^\vee)^\vee \longrightarrow (F(\mathcal{F}^\vee))^\vee.
+$$
+Posons $J(\mathcal{F}) = (F(\mathcal{F}^\vee))^\vee$. La composée de $ev$
+avec l'application affichée donne
+$\mathcal{F} \to J(\mathcal{F})$, fonctoriellement en $\mathcal{F}$.
+
+\begin{lemma}
+\label{lemma-JM-injective-sheaves}
+Soit $\mathcal{O}$ un faisceau d'anneaux. Pour tout $\mathcal{O}$-module
+$\mathcal{F}$, le $\mathcal{O}$-module $J(\mathcal{F})$ est injectif.
+\end{lemma}
+
+\begin{proof}
+Il faut montrer que le foncteur
+$\Hom_\mathcal{O}(\mathcal{G}, J(\mathcal{F}))$ est exact. Remarquons que
+\begin{eqnarray*}
+\Hom_\mathcal{O}(\mathcal{G}, J(\mathcal{F}))
+& = &
+\Hom_\mathcal{O}(\mathcal{G}, (F(\mathcal{F}^\vee))^\vee) \\
+& = &
+\Hom_\mathcal{O}
+(\mathcal{G}, \SheafHom(F(\mathcal{F}^\vee), \mathcal{J})) \\
+& = &
+\Hom(\mathcal{G} \otimes_\mathcal{O} F(\mathcal{F}^\vee), \mathcal{J})
+\end{eqnarray*}
+La conclusion résulte donc de ce que $F(\mathcal{F}^\vee)$ est plat et
+$\mathcal{J}$ injectif.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-sheaves-modules-injectives}
+Soit $\mathcal{C}$ un site et soit $\mathcal{O}$ un faisceau d'anneaux sur
+$\mathcal{C}$. La catégorie des faisceaux de $\mathcal{O}$-modules sur ce site
+a assez d'injectifs. Plus précisément, il existe un plongement injectif
+fonctoriel ; voir Homology, définition
+\ref{homology-definition-functorial-injective-embedding}.
+\end{theorem}
+
+\begin{proof}
+Cela résulte de la discussion de cette section.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-presheaves-modules}
+Soit $\mathcal{C}$ une catégorie et soit $\mathcal{O}$ un préfaisceau
+d'anneaux sur $\mathcal{C}$. La catégorie
+$\textit{PMod}(\mathcal{O})$ des préfaisceaux de $\mathcal{O}$-modules possède
+des plongements injectifs fonctoriels.
+\end{proposition}
+
+\begin{proof}
+On pourrait procéder comme dans la discussion de la
+section \ref{section-injectives-presheaves}. Nous utiliserons plutôt le
+théorème précédent. Munissons $\mathcal{C}$ de la structure de site pour
+laquelle les recouvrements d'un objet $U$ sont tous les singletons
+$\{f : V \to U\}$ où $f$ est un isomorphisme. Nous omettons la vérification
+qu'il s'agit bien d'un site. Pour cette topologie, un faisceau est la même chose
+qu'un préfaisceau (preuve omise). Le théorème s'applique donc.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Plongement des catégories abéliennes}
+\label{section-embedding}
+
+\noindent
+Dans cette section, nous montrons qu'une catégorie abélienne se plonge dans la
+catégorie des faisceaux abéliens sur un site ayant assez de points. Le site
+sera celui décrit dans le lemme suivant.
+
+\begin{lemma}
+\label{lemma-site-abelian-category}
+Soit $\mathcal{A}$ une catégorie abélienne. Posons
+$$
+\text{Cov} = \{\{f : V \to U\} \mid f\text{ est surjectif}\}.
+$$
+Alors $(\mathcal{A}, \text{Cov})$ est un site ; voir
+Sites, définition \ref{sites-definition-site}.
+\end{lemma}
+
+\begin{proof}
+Selon nos conventions sur les catégories, $\Ob(\mathcal{A})$ est un ensemble.
+Un isomorphisme est un morphisme surjectif, la composée de morphismes
+surjectifs est surjective, et le changement de base d'un morphisme surjectif
+dans $\mathcal{A}$ est surjectif ; voir
+Homology, lemme \ref{homology-lemma-epimorphism-universal-abelian-category}.
+\end{proof}
+
+\noindent
+Soit $\mathcal{A}$ une catégorie préadditive. Dans ce cas, le plongement de
+Yoneda $\mathcal{A} \to \textit{PSh}(\mathcal{A})$, $X \mapsto h_X$, se
+factorise par un foncteur $\mathcal{A} \to \textit{PAb}(\mathcal{A})$.
+
+\begin{lemma}
+\label{lemma-embedding}
+Soit $\mathcal{A}$ une catégorie abélienne et soit
+$\mathcal{C} = (\mathcal{A}, \text{Cov})$ le site défini au
+lemme \ref{lemma-site-abelian-category}. Alors $X \mapsto h_X$ définit un
+foncteur exact et pleinement fidèle
+$$
+\mathcal{A} \longrightarrow \textit{Ab}(\mathcal{C}).
+$$
+De plus, le site $\mathcal{C}$ a assez de points.
+\end{lemma}
+
+\begin{proof}
+Supposons que $f : V \to U$ soit un morphisme surjectif de $\mathcal{A}$ et
+posons $K = \Ker(f)$. Rappelons que
+$V \times_U V = \Ker((f, -f) : V \oplus V \to U)$ ; voir
+Homology, exemple \ref{homology-example-fibre-product-pushouts}. Il existe en
+particulier une injection $K \oplus K \to V \times_U V$. Soient
+$p, q : V \times_U V \to V$ les deux projections. Le morphisme
+$p - q : V \times_U V \to V$ vérifie $f \circ (p  - q) = 0$ ; ainsi,
+$p - q$ se factorise par $K \to V$. Notons
+$c : V \times_U V \to K$ le morphisme ainsi
+obtenu. Comme la composée $K \oplus K \to V \times_U V \to K$ est
+surjective, $c$ est surjectif. Par conséquent,
+$$
+V \times_U V \xrightarrow{p - q} V \to U \to 0
+$$
+est une suite exacte de $\mathcal{A}$. Ainsi, pour un objet $X$ de
+$\mathcal{A}$, la suite
+$$
+0 \to
+\Hom_\mathcal{A}(U, X) \to
+\Hom_\mathcal{A}(V, X) \to
+\Hom_\mathcal{A}(V \times_U V, X)
+$$
+est une suite exacte de groupes abéliens ; voir
+Homology, lemme \ref{homology-lemma-check-exactness}. Cela signifie que $h_X$
+satisfait à la condition de faisceau sur $\mathcal{C}$.
+
+\medskip\noindent
+Le foncteur est pleinement fidèle d'après
+Categories, lemme \ref{categories-lemma-yoneda}. Il est exact à gauche entre
+catégories abéliennes d'après
+Homology, lemme \ref{homology-lemma-check-exactness}. Pour montrer qu'il est
+exact à droite, soit $X \to Y$ un morphisme surjectif de $\mathcal{A}$. Soit
+$U$ un objet de $\mathcal{A}$ et soit
+$s \in h_Y(U) = \Mor_\mathcal{A}(U, Y)$ une section de $h_Y$ au-dessus de
+$U$. D'après
+Homology, lemme \ref{homology-lemma-epimorphism-universal-abelian-category},
+la projection $U \times_Y X \to U$ est surjective. Ainsi,
+$\{V = U \times_Y X \to U\}$ est un recouvrement de $U$ tel que $s|_V$ se
+relève en une section de $h_X$. Ceci montre que $h_X \to h_Y$ est une
+surjection de faisceaux abéliens ; voir
+Sites, lemme \ref{sites-lemma-mono-epi-sheaves}.
+
+\medskip\noindent
+Le site $\mathcal{C}$ a assez de points d'après
+Sites, proposition \ref{sites-proposition-criterion-points}.
+\end{proof}
+
+\begin{remark}
+\label{remark-embedding}
+Le théorème de plongement de Freyd--Mitchell affirme qu'il existe, de toute
+catégorie abélienne $\mathcal{A}$ vers la catégorie des modules sur un anneau,
+un foncteur exact et pleinement fidèle. Le lemme \ref{lemma-embedding} n'est
+pas tout à fait aussi fort. Son résultat convient toutefois au Stacks Project,
+puisque nous devons de toute façon étudier en détail les faisceaux de groupes
+abéliens sur des sites. En outre, la « chasse au diagramme » fonctionne dans la
+catégorie des faisceaux abéliens sur $\mathcal{C}$, par exemple en travaillant
+avec des sections au-dessus des objets, ou au niveau des germes en utilisant le
+fait que $\mathcal{C}$ a assez de points. Pour déduire le théorème de plongement
+de Freyd--Mitchell du lemme \ref{lemma-embedding}, voir la
+remarque \ref{remark-embedding-freyd}.
+\end{remark}
+
+\begin{remark}
+\label{remark-embedding-big}
+Si $\mathcal{A}$ est une « grande » catégorie abélienne, c'est-à-dire si
+$\mathcal{A}$ possède une classe d'objets, le lemme \ref{lemma-embedding} ne
+s'applique pas. Dans ce cas, pour tout ensemble d'objets
+$E \subset \Ob(\mathcal{A})$, il existe une sous-catégorie abélienne pleine
+$\mathcal{A}' \subset \mathcal{A}$ telle que $\Ob(\mathcal{A}')$ soit un
+ensemble et $E \subset \Ob(\mathcal{A}')$. On peut alors appliquer le
+lemme \ref{lemma-embedding} à $\mathcal{A}'$. Cela permet de prouver que les
+résultats fondés sur une chasse au diagramme restent valables dans
+$\mathcal{A}$.
+\end{remark}
+
+\begin{remark}
+\label{remark-embedding-freyd}
+Soit $\mathcal{C}$ un site. La catégorie $\textit{Ab}(\mathcal{C})$ a assez
+d'injectifs ; voir le théorème \ref{theorem-sheaves-injectives}. Lorsque
+$\mathcal{C}$ a assez de points, cela est immédiat, car $p_*I$ est un faisceau
+injectif si $I$ est un $\mathbf{Z}$-module injectif et $p$ un point. De plus,
+$\textit{Ab}(\mathcal{C})$ possède un cogénérateur (détails omis). Le
+lemme \ref{lemma-embedding} donne donc un plongement exact et pleinement fidèle
+$\mathcal{A} \to \mathcal{B}$, où $\mathcal{B}$ possède un cogénérateur et
+assez d'injectifs. En l'appliquant à $\mathcal{A}^{opp}$, on obtient un foncteur
+exact et pleinement fidèle
+$i : \mathcal{A} \to \mathcal{D} = \mathcal{B}^{opp}$, où $\mathcal{D}$ a
+assez de projectifs et possède un générateur. Ainsi, $\mathcal{D}$ possède un
+générateur projectif $P$. Posons $R = \Mor_\mathcal{D}(P, P)$. Alors
+$$
+\mathcal{A} \longrightarrow \text{Mod}_R, \quad
+X \longmapsto \Hom_\mathcal{D}(P, X).
+$$
+On vérifie que ce foncteur est exact et pleinement fidèle. Autrement dit, on
+retrouve le théorème de Freyd--Mitchell mentionné dans la
+remarque \ref{remark-embedding}.
+\end{remark}
+
+\begin{remark}
+\label{remark-embed-exact-category}
+Les arguments qui démontrent les lemmes
+\ref{lemma-site-abelian-category} et \ref{lemma-embedding} valent aussi pour
+les {\it catégories exactes} ; voir \cite[Appendix A]{Buhler} et
+\cite[1.1.4]{BBD}. Nous les rappelons brièvement ici et ajouterons des détails
+si le Stacks Project en a besoin.
+
+\medskip\noindent
+Soit $\mathcal{A}$ une catégorie additive. Une paire {\it noyau-conoyau} est
+une paire $(i, p)$ de morphismes de $\mathcal{A}$,
+$i : A \to B$, $p : B \to C$, telle que $i$ soit le noyau de $p$ et $p$ le
+conoyau de $i$. Étant donné un ensemble $\mathcal{E}$ de paires
+noyau-conoyau, on dit que $i : A \to B$ est un
+{\it monomorphisme admissible} si $(i, p) \in \mathcal{E}$ pour un certain
+morphisme $p$. De même, on dit qu'un morphisme $p : B \to C$ est un
+{\it épimorphisme admissible} si $(i, p) \in \mathcal{E}$ pour un certain
+morphisme $i$. La paire $(\mathcal{A}, \mathcal{E})$ est appelée
+{\it catégorie exacte} si les axiomes suivants sont satisfaits
+\begin{enumerate}
+\item $\mathcal{E}$ est stable par isomorphismes de paires noyau-conoyau ;
+\item pour tout objet $A$, le morphisme $1_A$ est à la fois un épimorphisme
+admissible et un monomorphisme admissible ;
+\item les monomorphismes admissibles sont stables par composition ;
+\item les épimorphismes admissibles sont stables par composition ;
+\item la somme amalgamée d'un monomorphisme admissible $i : A \to B$ par tout
+morphisme $A \to A'$ existe et le morphisme induit $i' : A' \to B'$ est un
+monomorphisme admissible ;
+\item le changement de base d'un épimorphisme admissible $p : B \to C$ par
+tout morphisme $C' \to C$ existe et le morphisme induit $p' : B' \to C'$ est
+un épimorphisme admissible.
+\end{enumerate}
+Étant donnée une telle structure, posons
+$\mathcal{C} = (\mathcal{A}, \text{Cov})$, où les recouvrements, c'est-à-dire
+les éléments de $\text{Cov}$, sont les épimorphismes admissibles. Les axiomes
+ci-dessus entraînent immédiatement qu'il s'agit d'un site. Considérons le
+foncteur
+$$
+F : \mathcal{A} \longrightarrow \textit{Ab}(\mathcal{C}), \quad
+X \longmapsto h_X
+$$
+exactement comme au lemme \ref{lemma-embedding}. Ce foncteur est pleinement
+fidèle, exact, et reflète l'exactitude. En outre, toute extension d'objets de
+l'image essentielle de $F$ appartient à l'image essentielle de $F$.
+\end{remark}
+
+
+
+
+
+
+\section{Conditions AB de Grothendieck}
+\label{section-grothendieck-conditions}
+
+\noindent
+Cette section et les quelques suivantes concernent surtout les « grandes »
+catégories abéliennes, c'est-à-dire les catégories énumérées dans
+Categories, remarque \ref{categories-remark-big-categories}. L'exemple à
+garder à l'esprit est la catégorie des faisceaux de modules sur un site annelé.
+
+\medskip\noindent
+Grothendieck a démontré l'existence d'injectifs dans une grande généralité dans
+l'article \cite{Tohoku}. Il a utilisé les conditions suivantes pour distinguer
+les catégories abéliennes dotées de propriétés particulières.
+
+\begin{definition}
+\label{definition-grothendieck-conditions}
+Soit $\mathcal{A}$ une catégorie abélienne. Nous nommons quelques conditions :
+\begin{enumerate}
+\item[AB3] $\mathcal{A}$ possède des sommes directes ;
+\item[AB4] $\mathcal{A}$ satisfait AB3 et les sommes directes sont exactes ;
+\item[AB5] $\mathcal{A}$ satisfait AB3 et les colimites filtrantes sont
+exactes.
+\end{enumerate}
+Voici les notions duales :
+\begin{enumerate}
+\item[AB3*] $\mathcal{A}$ possède des produits ;
+\item[AB4*] $\mathcal{A}$ satisfait AB3* et les produits sont exacts ;
+\item[AB5*] $\mathcal{A}$ satisfait AB3* et les limites cofiltrantes sont
+exactes.
+\end{enumerate}
+On dit qu'un objet $U$ de $\mathcal{A}$ est un {\it générateur} si, pour tous
+$N \subset M$, $N \not = M$, dans $\mathcal{A}$, il existe un morphisme
+$U \to M$ qui ne se factorise pas par $N$. On dit que $\mathcal{A}$ est une
+{\it catégorie abélienne de Grothendieck} si elle satisfait AB5 et possède un
+générateur.
+\end{definition}
+
+\noindent
+Discussion : une somme directe dans une catégorie abélienne est un coproduit.
+Si une catégorie abélienne possède des sommes directes, c'est-à-dire satisfait
+AB3, alors elle possède des colimites ; voir
+Categories, lemme \ref{categories-lemma-colimits-coproducts-coequalizers}. 
+De même, si $\mathcal{A}$ satisfait AB3*, alors elle possède des limites ; voir
+Categories, lemme \ref{categories-lemma-limits-products-equalizers}. 
+L'exactitude des sommes directes signifie ceci : étant donnés un ensemble
+d'indices $I$ et des suites exactes courtes
+$$
+0 \to A_i \to B_i \to C_i \to 0,\quad i \in I
+$$
+dans $\mathcal{A}$, la suite
+$$
+0 \to
+\bigoplus\nolimits_{i \in I} A_i \to
+\bigoplus\nolimits_{i \in I} B_i \to
+\bigoplus\nolimits_{i \in I} C_i \to 0
+$$
+est elle aussi exacte. Sans supposer AB4, on peut seulement affirmer en général
+que cette suite est exacte à droite, c'est-à-dire que la prise des sommes
+directes est un foncteur exact à droite lorsqu'elles existent. De même,
+l'exactitude des colimites filtrantes signifie ceci : étant donnés un ensemble
+filtrant $I$ et un système de suites exactes courtes
+$$
+0 \to A_i \to B_i \to C_i \to 0
+$$
+indexé par $I$ dans $\mathcal{A}$, la suite
+$$
+0 \to
+\colim_{i \in I} A_i \to
+\colim_{i \in I} B_i \to
+\colim_{i \in I} C_i \to 0
+$$
+est elle aussi exacte. Sans supposer AB5, on peut seulement affirmer en général
+que cette suite est exacte à droite, c'est-à-dire que la prise des colimites
+est un foncteur exact à droite lorsqu'elles existent. Une explication analogue
+vaut pour AB4* et AB5*.
+\section{Objets injectifs dans les catégories de Grothendieck}
+\label{section-grothendieck-categories}
+
+\noindent
+L'existence d'un générateur implique que, pour tout objet $M$ d'une
+catégorie abélienne de Grothendieck $\mathcal{A}$, ses sous-objets
+forment un ensemble. (Cela peut être faux pour une catégorie abélienne
+``grande'' quelconque.)
+
+\begin{lemma}
+\label{lemma-set-of-subobjects}
+Soient $\mathcal{A}$ une catégorie abélienne munie d'un générateur $U$ et
+$X$ un objet de $\mathcal{A}$. Si $\kappa$ est le cardinal de
+$\Mor(U, X)$, alors
+\begin{enumerate}
+\item Il n'existe aucune chaîne strictement croissante
+(ni strictement décroissante) de sous-objets de $X$ indexée par
+un cardinal strictement supérieur à $\kappa$.
+\item Si $\alpha$ est un ordinal de cofinalité $> \kappa$,
+toute suite croissante (ou décroissante) de sous-objets de $X$
+indexée par $\alpha$ est stationnaire à partir d'un certain rang.
+\item Le cardinal de l'ensemble des sous-objets de $X$
+est $\leq 2^\kappa$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour (1), soit $\kappa' > \kappa$ un cardinal et supposons que
+la famille $X_i$, $i \in \kappa'$, soit strictement croissante. Pour tout
+$i$, choisissons alors $\phi_i \in \Mor(U, X)$ tel que $\phi_i$ se factorise
+par $X_{i + 1}$, mais non par $X_i$. Les morphismes $\phi_i$ sont donc
+deux à deux distincts, ce qui contredit la définition de $\kappa$.
+
+\medskip\noindent
+L'assertion (2) résulte de la définition de la cofinalité et de (1).
+
+\medskip\noindent
+Démonstration de (3). Pour tout sous-objet $Y \subset X$, définissons
+$S_Y \in \mathcal{P}(\Mor(U, X))$ (l'ensemble des parties) par
+$S_Y = \{\phi \in \Mor(U,X) : \phi\text{ se factorise par }Y\}$.
+Alors $Y = Y'$ si et seulement si $S_Y = S_{Y'}$. Le cardinal de
+l'ensemble des sous-objets est donc au plus celui de cet ensemble des parties.
+\end{proof}
+
+\noindent
+D'après le lemme \ref{lemma-set-of-subobjects}, la définition suivante
+a un sens.
+
+\begin{definition}
+\label{definition-size}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soit $M$ un objet de $\mathcal{A}$.
+La {\it taille} $|M|$ de $M$ est le cardinal de l'ensemble des sous-objets
+de $M$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-size-goes-down}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Si $0 \to M' \to M \to M'' \to 0$ est une suite exacte courte dans
+$\mathcal{A}$, alors $|M'|, |M''| \leq |M|$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-set-iso-classes-bounded-size}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck munie d'un
+générateur $U$.
+\begin{enumerate}
+\item Si $|M| \leq \kappa$, alors $M$ est un quotient d'une somme directe
+d'au plus $\kappa$ copies de $U$.
+\item Pour tout cardinal $\kappa$, les classes d'isomorphisme des objets
+$M$ tels que $|M| \leq \kappa$ forment un ensemble.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour (1), choisissons, pour tout sous-objet propre $M' \subset M$, un morphisme
+$\varphi_{M'} : U \to M$ dont l'image n'est pas contenue dans $M'$. Alors
+$\bigoplus_{M' \subset M} \varphi_{M'} : \bigoplus_{M' \subset M} U \to M$
+est surjectif. Il est clair que (1) implique (2).
+\end{proof}
+
+\begin{proposition}
+\label{proposition-objects-are-small}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Soit $M$ un
+objet de $\mathcal{A}$. Posons $\kappa = |M|$.
+Si $\alpha$ est un ordinal dont la cofinalité est strictement supérieure
+à $\kappa$, alors $M$ est $\alpha$-petit relativement aux monomorphismes.
+\end{proposition}
+
+\begin{proof}
+Comparons avec la proposition \ref{proposition-modules-are-small}.
+Il suffit de montrer que l'application (\ref{equation-compare}) est surjective.
+Soit $f : M \to \colim B_\beta$ une application.
+Considérons les sous-objets $\{f^{-1}(B_\beta)\}$ de $M$, où $B_\beta$
+est vu comme un sous-objet de la colimite $B = \bigcup_\beta B_\beta$.
+Si l'un d'eux, disons $f^{-1}(B_\beta)$, est égal à $M$,
+alors l'application se factorise par $B_\beta$.
+
+\medskip\noindent
+Puisque $\mathcal{A}$ vérifie AB5, on a
+$$
+\colim f^{-1}(B_\beta) = f^{-1}\left(\colim B_\beta\right) = M.
+$$
+Par hypothèse, il y a au plus $\kappa$ sous-objets distincts de $M$ parmi
+les $f^{-1}(B_\alpha)$.
+On peut donc trouver une partie $S \subset \alpha$ de cardinal au plus
+$\kappa$ telle que, lorsque $\beta'$ parcourt $S$, les
+$f^{-1}(B_{\beta'})$ parcourent \emph{tous} les $f^{-1}(B_\alpha)$.
+
+\medskip\noindent
+Toutefois, $S$ admet un majorant $\widetilde{\alpha} < \alpha$, puisque
+$\alpha$ est de cofinalité strictement supérieure à $\kappa$. En particulier,
+tous les $f^{-1}(B_{\beta'})$, $\beta' \in S$, sont contenus dans
+$f^{-1}(B_{\widetilde{\alpha}})$.
+Il s'ensuit que $f^{-1}(B_{\widetilde{\alpha}}) = M$.
+L'application $f$ se factorise donc par $B_{\widetilde{\alpha}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-injective}
+\begin{slogan}
+Pour vérifier qu'un objet est injectif, il suffit de vérifier la propriété
+de relèvement pour les sous-objets d'un générateur.
+\end{slogan}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck munie d'un
+générateur $U$.
+Un objet $I$ de $\mathcal{A}$ est injectif si et seulement si, dans tout
+diagramme commutatif
+$$
+\xymatrix{
+M \ar[d] \ar[r] &  I \\
+U \ar@{-->}[ru]
+}
+$$
+où $M \subset U$ est un sous-objet, la flèche pointillée existe.
+\end{lemma}
+
+\begin{proof}
+Voir le lemme \ref{lemma-criterion-baer} pour le cas des modules.
+Soient un monomorphisme $A \subset B$ et un morphisme $\varphi : A \to I$.
+Considérons l'ensemble $S$ des couples $(A', \varphi')$ formés de
+sous-objets $A \subset A' \subset B$ et d'un morphisme $\varphi' : A' \to I$
+prolongeant $\varphi$. Munissons cet ensemble de l'ordre partiel évident.
+Soit $T \subset S$ une partie totalement ordonnée. Alors
+$$
+A' = \colim_{t \in T} A_t \xrightarrow{\colim_{t \in T} \varphi_t} I
+$$
+est un majorant. Le lemme de Zorn assure donc que $S$ possède un élément
+maximal $(A', \varphi')$. Nous affirmons que $A' = B$. Sinon, choisissons
+un morphisme $\psi : U \to B$ qui ne se factorise pas par $A'$. Posons
+$N = A' \cap \psi(U)$ et $M = \psi^{-1}(N)$. L'application
+$$
+M \to N \to A' \xrightarrow{\varphi'} I
+$$
+se prolonge en un morphisme $\chi : U \to I$. Comme
+$\chi|_{\Ker(\psi)} = 0$, le morphisme $\chi$ se factorise sous la forme
+$$
+U \to \Im(\psi) \xrightarrow{\varphi''} I
+$$
+Puisque $\varphi'$ et $\varphi''$ coïncident sur
+$N = A' \cap \Im(\psi)$, ils définissent ensemble un morphisme
+$A' + \Im(\psi) \to I$, ce qui contredit la maximalité supposée de $A'$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-injective-embedding-grothendieck}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Alors $\mathcal{A}$ admet des plongements injectifs fonctoriels.
+\end{theorem}
+
+\begin{proof}
+Comparons avec la démonstration du
+théorème \ref{theorem-baer-grothendieck}.
+Choisissons un générateur $U$ de $\mathcal{A}$. Pour un objet $M$, on définit
+$\mathbf{M}(M)$ par le diagramme cocartésien suivant :
+$$
+\xymatrix{
+\bigoplus_{N \subset U}
+\bigoplus_{\varphi \in \Hom(N, M)}
+N \ar[r] \ar[d] & M \ar[d] \\
+\bigoplus_{N \subset U}
+\bigoplus_{\varphi \in \Hom(N, M)}
+U \ar[r] &  \mathbf{M}(M).
+}
+$$
+Notons que $M \mapsto \mathbf{M}(M)$ est un foncteur et qu'il existe des
+applications injectives fonctorielles $M \to \mathbf{M}(M)$. On définit par
+récurrence transfinie des foncteurs $\mathbf{M}_\alpha(M)$ pour tout ordinal
+$\alpha$. On pose $\mathbf{M}_0(M) = M$. Une fois $\mathbf{M}_\alpha(M)$
+défini, on pose
+$\mathbf{M}_{\alpha + 1}(M) = \mathbf{M}(\mathbf{M}_\alpha(M))$.
+Pour un ordinal limite $\beta$, on pose
+$$
+\mathbf{M}_\beta(M) = \colim_{\alpha < \beta} \mathbf{M}_\alpha(M).
+$$
+Enfin, choisissons un ordinal $\alpha$ dont la cofinalité est strictement
+supérieure à $|U|$. Un tel ordinal existe d'après
+Ensembles, proposition \ref{sets-proposition-exist-ordinals-large-cofinality}.
+Nous affirmons que $M \to \mathbf{M}_\alpha(M)$ est le plongement injectif
+fonctoriel recherché. En effet, si $N \subset U$ est un sous-objet et si
+$\varphi : N \to \mathbf{M}_\alpha(M)$ est un morphisme, alors
+$\varphi$ se factorise par $\mathbf{M}_{\alpha'}(M)$ pour un certain
+$\alpha' < \alpha$, d'après la
+proposition \ref{proposition-objects-are-small}.
+Par construction de $\mathbf{M}(-)$, le morphisme $\varphi$ se prolonge en
+un morphisme de $U$ dans $\mathbf{M}_{\alpha' + 1}(M)$, donc dans
+$\mathbf{M}_\alpha(M)$. Le
+lemme \ref{lemma-characterize-injective}
+montre alors que $\mathbf{M}_\alpha(M)$ est injectif.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Complexes K-injectifs dans les catégories de Grothendieck}
+\label{section-K-injective}
+
+\noindent
+Le contenu de cette section provient de l'article \cite{serpe} de Serp\'e.
+Cet article généralise certains résultats de Spaltenstein
+\cite{Spaltenstein} à des catégories abéliennes de Grothendieck quelconques.
+Notre lemme \ref{lemma-characterize-K-injective} n'apparaît
+qu'implicitement dans l'article de Serp\'e. Notre démarche consiste à imiter
+la démonstration de Grothendieck du
+théorème \ref{theorem-injective-embedding-grothendieck}.
+
+\begin{lemma}
+\label{lemma-surjection-bounded-size}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck munie d'un
+générateur $U$. Soit $c$ la fonction sur les cardinaux définie par
+$c(\kappa) = |\bigoplus_{\alpha \in \kappa} U|$. Si $\pi : M \to N$ est
+surjectif, il existe un sous-objet $M' \subset M$ qui se surjecte sur $N$
+et tel que $|M'| \leq c(|N|)$.
+\end{lemma}
+
+\begin{proof}
+Pour tout sous-objet propre $N' \subset N$, choisissons un morphisme
+$\varphi_{N'} : U \to M$ tel que $U \to M \to N$ ne se factorise pas
+par $N'$. Posons
+$$
+M' = \Im\left(
+\bigoplus\nolimits_{N' \subset N} \varphi_{N'} :
+\bigoplus\nolimits_{N' \subset N} U \longrightarrow M\right)
+$$
+Alors $M'$ convient.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-acyclic-quotient-complexes-bounded-size}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Il existe un
+cardinal $\kappa$ tel que, pour tout complexe acyclique $M^\bullet$, on ait :
+\begin{enumerate}
+\item si $M^\bullet$ est non nul, il existe un sous-complexe non nul
+$N^\bullet$, borné supérieurement et acyclique, tel que
+$|N^n| \leq \kappa$ ;
+\item il existe une surjection de complexes
+$$
+\bigoplus\nolimits_{i \in I} M_i^\bullet \longrightarrow M^\bullet
+$$
+où $M_i^\bullet$ est borné supérieurement, acyclique, et
+$|M_i^n| \leq \kappa$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un générateur $U$ de $\mathcal{A}$. Notons $c$ la fonction du
+lemme \ref{lemma-surjection-bounded-size}.
+Posons $\kappa = \sup \{c^n(|U|), n = 1, 2, 3, \ldots\}$.
+Soient $n \in \mathbf{Z}$ et un morphisme $\psi : U \to M^n$.
+Pour démontrer (1) et (2), il suffit d'établir qu'il existe un sous-complexe
+$N^\bullet \subset M^\bullet$, borné supérieurement et acyclique, tel que
+$|N^m| \leq \kappa$ et que $\psi$ se factorise par $N^n$.
+À cette fin, posons $N^n = \Im(\psi)$,
+$N^{n + 1} = \Im(U \to M^n \to M^{n + 1})$, et $N^m = 0$ pour
+$m \geq n + 2$.
+Supposons que, pour un certain $k \leq n$, on ait construit
+$N^m \subset M^m$ pour tout $n > m \geq k$, de telle sorte que
+\begin{enumerate}
+\item $\text{d}(N^m) \subset N^{m + 1}$ pour tout $m \geq k$ ;
+\item $\Im(N^{m - 1} \to N^m) = \Ker(N^m \to N^{m + 1})$ pour
+tout $m \geq k + 1$ ;
+\item $|N^m| \leq c^{\max\{n - m, 0\}}(|U|)$ pour tout $m \geq k$.
+\end{enumerate}
+Comme $M^\bullet$ est acyclique, le sous-objet
+$\text{d}^{-1}(\Ker(N^k \to N^{k + 1})) \subset M^{k - 1}$ se surjecte sur
+$\Ker(N^k \to N^{k + 1})$. Le
+lemme \ref{lemma-surjection-bounded-size} permet donc de choisir
+$N^{k - 1} \subset M^{k - 1}$ se surjectant sur
+$\Ker(N^k \to N^{k + 1})$ et vérifiant
+$|N^{k - 1}| \leq c^{n - k + 1}(|U|)$.
+On conclut par récurrence sur $k$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-K-injective}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soit $\kappa$ un cardinal comme dans le
+lemme \ref{lemma-acyclic-quotient-complexes-bounded-size}.
+Supposons que $I^\bullet$ soit un complexe tel que
+\begin{enumerate}
+\item chaque $I^j$ soit injectif ;
+\item pour tout complexe acyclique $M^\bullet$, borné supérieurement,
+tel que $|M^n| \leq \kappa$, on ait
+$\Hom_{K(\mathcal{A})}(M^\bullet, I^\bullet) = 0$.
+\end{enumerate}
+Alors $I^\bullet$ est un complexe $K$-injectif.
+\end{lemma}
+
+\begin{proof}
+Soit $M^\bullet$ un complexe acyclique. Nous allons construire, par
+récurrence sur l'ordinal $\alpha$, un sous-complexe acyclique
+$K_\alpha^\bullet \subset M^\bullet$ de la manière suivante.
+Pour $\alpha = 0$, posons $K_0^\bullet = 0$. Pour $\alpha > 0$,
+procédons comme suit :
+\begin{enumerate}
+\item Si $\alpha = \beta + 1$ et $K_\beta^\bullet = M^\bullet$,
+on choisit $K_\alpha^\bullet = K_\beta^\bullet$.
+\item Si $\alpha = \beta + 1$ et $K_\beta^\bullet \not = M^\bullet$,
+alors $M^\bullet/K_\beta^\bullet$ est un complexe acyclique non nul.
+On choisit un sous-complexe
+$N_\alpha^\bullet \subset M^\bullet/K_\beta^\bullet$ comme dans le
+lemme \ref{lemma-acyclic-quotient-complexes-bounded-size}.
+Enfin, on prend pour $K_\alpha^\bullet \subset M^\bullet$
+l'image inverse de $N_\alpha^\bullet$.
+\item Si $\alpha$ est un ordinal limite, on pose
+$K_\alpha^\bullet = \colim_{\beta < \alpha} K_\beta^\bullet$.
+\end{enumerate}
+Il est clair que $M^\bullet = K_\alpha^\bullet$ pour un ordinal $\alpha$
+assez grand. Nous allons démontrer que
+$$
+\Hom_{K(\mathcal{A})}(K_\alpha^\bullet, I^\bullet)
+$$
+est nul par récurrence transfinie sur $\alpha$. C'est vrai pour $\alpha = 0$,
+car $K_0^\bullet$ est nul. Supposons le résultat vrai pour $\beta$ et
+$\alpha = \beta + 1$. Dans le cas (1) de la liste ci-dessus, le résultat est
+clair. Dans le cas (2), on dispose d'une suite exacte courte de complexes
+$$
+0 \to K_\beta^\bullet \to K_\alpha^\bullet \to N_\alpha^\bullet \to 0
+$$
+Puisque chaque composante de $I^\bullet$ est injective, on obtient une suite
+exacte
+$$
+\Hom_{K(\mathcal{A})}(K_\beta^\bullet, I^\bullet) \leftarrow
+\Hom_{K(\mathcal{A})}(K_\alpha^\bullet, I^\bullet) \leftarrow
+\Hom_{K(\mathcal{A})}(N_\alpha^\bullet, I^\bullet)
+$$
+Par récurrence, le terme de gauche est nul et, par hypothèse sur
+$I^\bullet$, celui de droite est nul. Le groupe du milieu est donc lui aussi
+nul. Supposons enfin que $\alpha$ soit un ordinal limite. Alors
+$$
+\Hom^\bullet(K_\alpha^\bullet, I^\bullet) =
+\lim_{\beta < \alpha} \Hom^\bullet(K_\beta^\bullet, I^\bullet)
+$$
+avec les notations de
+Compléments d'algèbre, section \ref{more-algebra-section-hom-complexes}.
+Ces complexes calculent les morphismes dans $K(\mathcal{A})$ d'après
+Compléments d'algèbre, équation
+(\ref{more-algebra-equation-cohomology-hom-complex}).
+Les applications de transition du système sont surjectives, puisque $I^j$
+est injectif pour tout $j$. En outre, pour un ordinal limite $\alpha$, la
+limite est égale à la valeur (voir la formule affichée ci-dessus). On peut donc
+conclure à l'aide de
+Homologie, lemme \ref{homology-lemma-ML-over-ordinals}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functorial-homotopies}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soit $(K_i^\bullet)_{i \in I}$ un ensemble de complexes acycliques.
+Il existe un foncteur $M^\bullet \mapsto \mathbf{M}^\bullet(M^\bullet)$
+et une transformation naturelle
+$j_{M^\bullet} : M^\bullet \to \mathbf{M}^\bullet(M^\bullet)$
+tels que
+\begin{enumerate}
+\item $j_{M^\bullet}$ soit un quasi-isomorphisme injectif (terme à terme) ;
+\item pour tout $i \in I$ et tout $w : K_i^\bullet \to M^\bullet$,
+le morphisme $j_{M^\bullet} \circ w$ soit homotope à zéro.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour tout $i \in I$, choisissons une application de complexes injective
+terme à terme $K_i^\bullet \to L_i^\bullet$, homotope à zéro, où
+$L_i^\bullet$ est quasi-isomorphe à zéro. On peut par exemple prendre pour
+$L_i^\bullet$ le cône de l'identité de $K_i^\bullet$.
+On définit $\mathbf{M}^\bullet(M^\bullet)$ par le diagramme cocartésien suivant :
+$$
+\xymatrix{
+\bigoplus_{i \in I}
+\bigoplus_{w : K_i^\bullet \to M^\bullet}
+K_i^\bullet \ar[r] \ar[d] & M^\bullet \ar[d] \\
+\bigoplus_{i \in I}
+\bigoplus_{w : K_i^\bullet \to M^\bullet}
+L_i^\bullet \ar[r] &  \mathbf{M}^\bullet(M^\bullet).
+}
+$$
+Alors $M^\bullet \mapsto \mathbf{M}^\bullet(M^\bullet)$ est un foncteur. La flèche
+verticale de droite définit l'application injective fonctorielle
+$j_{M^\bullet}$. Le conoyau de $j_{M^\bullet}$ est isomorphe à la somme directe
+des conoyaux des
+applications $K_i^\bullet \to L_i^\bullet$, et est donc acyclique. Ainsi,
+$j_{M^\bullet}$ est un quasi-isomorphisme. L'assertion (2) est vraie par
+construction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functorial-injective}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Il existe un foncteur $M^\bullet \mapsto \mathbf{N}^\bullet(M^\bullet)$
+et une transformation naturelle
+$j_{M^\bullet} : M^\bullet \to \mathbf{N}^\bullet(M^\bullet)$
+tels que
+\begin{enumerate}
+\item $j_{M^\bullet}$ soit un quasi-isomorphisme injectif (terme à terme) ;
+\item pour tout $n \in \mathbf{Z}$, l'application
+$M^n \to \mathbf{N}^n(M^\bullet)$ se factorise par un sous-objet
+$I^n \subset \mathbf{N}^n(M^\bullet)$, où $I^n$ est un objet injectif de
+$\mathcal{A}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons des plongements injectifs fonctoriels $i_M : M \to I(M)$, voir le
+théorème \ref{theorem-injective-embedding-grothendieck}.
+Pour tout complexe $M^\bullet$, notons $J^\bullet(M^\bullet)$ le complexe
+dont les termes sont $J^n(M^\bullet) = I(M^n) \oplus I(M^{n + 1})$ et dont
+la différentielle est
+$$
+d_{J^\bullet(M^\bullet)} =
+\left(
+\begin{matrix}
+0 & 1 \\
+0 & 0
+\end{matrix}
+\right)
+$$
+Il existe une application injective canonique de complexes
+$u_{M^\bullet} : M^\bullet \to J^\bullet(M^\bullet)$, obtenue en envoyant
+$M^n$ dans $I(M^n) \oplus I(M^{n + 1})$ au moyen des applications
+$i_{M^n} : M^n \to I(M^n)$ et
+$i_{M^{n + 1}} \circ d : M^n \to M^{n + 1} \to I(M^{n + 1})$. On dispose donc
+d'une suite exacte courte de complexes
+$$
+0 \to M^\bullet \xrightarrow{u_{M^\bullet}}
+J^\bullet(M^\bullet) \xrightarrow{v_{M^\bullet}}
+Q^\bullet(M^\bullet) \to 0
+$$
+fonctorielle en $M^\bullet$. Posons
+$$
+\mathbf{N}^\bullet(M^\bullet) = C(v_{M^\bullet})^\bullet[-1].
+$$
+Remarquons que
+$$
+\mathbf{N}^n(M^\bullet) = Q^{n - 1}(M^\bullet) \oplus J^n(M^\bullet)
+$$
+dont la différentielle est
+$$
+\left(
+\begin{matrix}
+- d^{n - 1}_{Q^\bullet(M^\bullet)} & - v^n_{M^\bullet} \\
+0 & d^n_{J^\bullet(M^\bullet)}
+\end{matrix}
+\right)
+$$
+Il existe donc une application de complexes
+$j_{M^\bullet} : M^\bullet \to \mathbf{N}^\bullet(M^\bullet)$ induite par $u$.
+Elle est injective et se factorise par un sous-objet injectif par construction.
+L'application $j_{M^\bullet}$ est un quasi-isomorphisme, comme le montre la
+suite exacte longue de cohomologie associée aux suites exactes courtes de
+complexes ci-dessus.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-K-injective-embedding-grothendieck}
+\begin{slogan}
+Existence de complexes K-injectifs dans les catégories abéliennes de
+Grothendieck.
+\end{slogan}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Pour tout complexe $M^\bullet$, il existe un quasi-isomorphisme
+$M^\bullet \to I^\bullet$ tel que $M^n \to I^n$ soit injectif, que $I^n$
+soit un objet injectif de $\mathcal{A}$ pour tout $n$, et que $I^\bullet$
+soit un complexe K-injectif. En outre, cette construction est fonctorielle
+en $M^\bullet$.
+\end{theorem}
+
+\begin{proof}
+Comparons avec les démonstrations des
+théorèmes \ref{theorem-baer-grothendieck} et
+\ref{theorem-injective-embedding-grothendieck}.
+Choisissons un cardinal $\kappa$ comme dans les
+lemmes \ref{lemma-acyclic-quotient-complexes-bounded-size} et
+\ref{lemma-characterize-K-injective}.
+Choisissons un ensemble $(K_i^\bullet)_{i \in I}$ de complexes acycliques
+bornés supérieurement tel que tout complexe acyclique $K^\bullet$, borné
+supérieurement et vérifiant $|K^n| \leq \kappa$, soit isomorphe à
+$K_i^\bullet$ pour un certain $i \in I$. Cela est possible d'après le
+lemme \ref{lemma-set-iso-classes-bounded-size}.
+Notons $\mathbf{M}^\bullet(-)$ le foncteur construit dans le
+lemme \ref{lemma-functorial-homotopies}, et
+$\mathbf{N}^\bullet(-)$ celui construit dans le
+lemme \ref{lemma-functorial-injective}.
+Ces deux foncteurs sont munis de transformations injectives
+$\text{id} \to \mathbf{M}$ et $\text{id} \to \mathbf{N}$.
+
+\medskip\noindent
+Par récurrence transfinie, on définit une suite de foncteurs
+$\mathbf{T}_\alpha(-)$ et les transformations correspondantes
+$\text{id} \to \mathbf{T}_\alpha$. On pose
+$\mathbf{T}_0(M^\bullet) = M^\bullet$. Si $\mathbf{T}_\alpha$ est défini,
+on pose
+$$
+\mathbf{T}_{\alpha + 1}(M^\bullet) =
+\mathbf{N}^\bullet(\mathbf{M}^\bullet(\mathbf{T}_\alpha(M^\bullet)))
+$$
+Si $\beta$ est un ordinal limite, on pose
+$$
+\mathbf{T}_\beta(M^\bullet) =
+\colim_{\alpha < \beta} \mathbf{T}_\alpha(M^\bullet)
+$$
+Les applications de transition du système sont des quasi-isomorphismes
+injectifs. D'après AB5, la colimite est encore quasi-isomorphe à $M^\bullet$.
+Nous affirmons que $M^\bullet \to \mathbf{T}_\alpha(M^\bullet)$ convient si
+la cofinalité de $\alpha$ est strictement supérieure à
+$\max(\kappa, |U|)$, où $U$ est un générateur de $\mathcal{A}$.
+Il suffit en effet de vérifier les conditions (1) et (2) du
+lemme \ref{lemma-characterize-K-injective}.
+
+\medskip\noindent
+Pour (1), utilisons le critère du
+lemme \ref{lemma-characterize-injective}.
+Supposons que $M \subset U$ et que
+$\varphi : M \to \mathbf{T}^n_\alpha(M^\bullet)$ soit un morphisme pour un
+certain $n \in \mathbf{Z}$. La
+proposition \ref{proposition-objects-are-small} montre que $\varphi$ se
+factorise par $\mathbf{T}^n_{\alpha'}(M^\bullet)$ pour un certain
+$\alpha' < \alpha$. En particulier, par construction du foncteur
+$\mathbf{N}^\bullet(-)$, le morphisme $\varphi$ se factorise par un objet
+injectif de $\mathcal{A}$ ; cela montre que $\varphi$ se relève en un morphisme
+défini sur $U$.
+
+\medskip\noindent
+Pour (2), soit $w : K^\bullet \to \mathbf{T}_\alpha(M^\bullet)$ un morphisme
+de complexes, où $K^\bullet$ est un complexe acyclique borné supérieurement
+tel que $|K^n| \leq \kappa$. Alors $K^\bullet \cong K_i^\bullet$ pour un
+certain $i \in I$. De nouveau, la
+proposition \ref{proposition-objects-are-small} montre que $w$ se factorise
+par $\mathbf{T}_{\alpha'}(M^\bullet)$ pour un certain $\alpha' < \alpha$.
+Par construction du foncteur $\mathbf{M}^\bullet(-)$, il s'ensuit que $w$
+est homotope à zéro. Cela achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+\section{Remarques complémentaires sur les catégories abéliennes de
+Grothendieck}
+\label{section-additional-Grothendieck}
+
+\noindent
+Nous rassemblons dans cette section quelques résultats classiques sur les
+catégories abéliennes de Grothendieck.
+
+\begin{lemma}
+\label{lemma-grothendieck-brown}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soit $F : \mathcal{A}^{opp} \to \textit{Sets}$ un foncteur.
+Alors $F$ est représentable si et seulement si $F$ transforme les colimites
+en limites, c'est-à-dire si
+$$
+F(\colim_i N_i) = \lim F(N_i)
+$$
+pour tout diagramme $\mathcal{I} \to \mathcal{A}$, $i \in \mathcal{I}$.
+\end{lemma}
+
+\begin{proof}
+Si $F$ est représentable, il transforme les colimites en limites par
+définition des colimites.
+
+\medskip\noindent
+Supposons que $F$ transforme les colimites en limites. Alors
+$F(M \oplus N) = F(M) \times F(N)$, ce qui permet de munir $F(M)$ d'une
+structure de groupe. On obtient ainsi un foncteur
+$F : \mathcal{A}^{opp} \to \textit{Ab}$ additif et exact à droite au sens
+contravariant, c'est-à-dire qu'il transforme une suite exacte courte
+$0 \to K \to L \to M \to 0$ en une suite exacte
+$F(K) \leftarrow F(L) \leftarrow F(M) \leftarrow 0$ (comparer avec
+Homologie, section \ref{homology-section-functors}).
+
+\medskip\noindent
+Soit $U$ un générateur de $\mathcal{A}$. Posons
+$A = \bigoplus_{s \in F(U)} U$ et
+$s_{univ} = (s)_{s \in F(U)} \in F(A) = \prod_{s \in F(U)} F(U)$.
+Soit $A' \subset A$ le plus grand sous-objet tel que la restriction de
+$s_{univ}$ à $A'$ soit nulle. Il existe parce que $\mathcal{A}$ est une
+catégorie de Grothendieck et que $F$ transforme les colimites en limites.
+Puisque $F$ transforme les colimites en limites, il existe aussi un unique
+élément $\overline{s}_{univ} \in F(A/A')$ qui s'envoie sur $s_{univ}$ dans
+$F(A)$.
+Nous affirmons que $A/A'$ représente $F$ ; autrement dit, l'application de
+Yoneda
+$$
+\overline{s}_{univ} : h_{A/A'} \longrightarrow F
+$$
+est un isomorphisme. Soient $M \in \Ob(\mathcal{A})$ et $s \in F(M)$.
+Considérons la surjection
+$$
+c_M :
+A_M = \bigoplus\nolimits_{\varphi \in \Hom_\mathcal{A}(U, M)} U
+\longrightarrow
+M.
+$$
+Elle donne $F(c_M)(s) = (s_\varphi) \in \prod_\varphi F(U)$.
+Considérons l'application
+$$
+\psi :
+A_M = \bigoplus\nolimits_{\varphi \in \Hom_\mathcal{A}(U, M)} U
+\longrightarrow
+\bigoplus\nolimits_{s \in F(U)} U = A
+$$
+qui envoie le facteur correspondant à $\varphi$ sur celui correspondant à
+$s_\varphi$ par l'application identique de $U$. Par construction, $s_{univ}$
+a pour image $(s_\varphi)_\varphi$. Autrement dit, le carré de droite du
+diagramme
+$$
+\xymatrix{
+A' \ar[r] &
+A \ar@{..>}[r]_{s_{univ}} & F \\
+K \ar[r] \ar[u]^{?} & A_M \ar[u]^\psi \ar[r] &
+M \ar@{..>}[u]_s
+}
+$$
+est commutatif. Posons $K = \Ker(A_M \to M)$. Comme la restriction de $s$
+à $K$ est nulle, on a $\psi(K) \subset A'$ par définition de $A'$. Il existe
+donc un morphisme induit $M \to A/A'$. Cette construction fournit un inverse
+de l'application $h_{A/A'}(M) \to F(M)$ (nous omettons les détails).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-grothendieck-products}
+Toute catégorie abélienne de Grothendieck vérifie Ab3*.
+\end{lemma}
+
+\begin{proof}
+Soit $M_i$, $i \in I$, une famille d'objets de $\mathcal{A}$ indexée par un
+ensemble $I$. Le foncteur $F = \prod_{i \in I} h_{M_i}$ transforme les
+colimites en limites. Le
+lemme \ref{lemma-grothendieck-brown} s'applique donc.
+\end{proof}
+
+\begin{remark}
+\label{remark-existence-D}
+Dans le chapitre consacré aux catégories dérivées, nous travaillons
+systématiquement avec des catégories abéliennes ``petites'' (conformément à
+la convention du Stacks project). Pour une catégorie abélienne ``grande''
+$\mathcal{A}$, l'existence de la catégorie dérivée $D(\mathcal{A})$ n'est pas
+évidente, car il n'est pas clair que les morphismes de la catégorie dérivée
+forment des ensembles. En général, c'est faux ; voir
+Exemples, lemme \ref{examples-lemma-big-abelian-category}.
+En revanche, si $\mathcal{A}$ est une catégorie abélienne de Grothendieck et si
+$K^\bullet, L^\bullet$ sont dans $K(\mathcal{A})$, alors le
+théorème \ref{theorem-K-injective-embedding-grothendieck} donne un
+quasi-isomorphisme $L^\bullet \to I^\bullet$ vers un complexe K-injectif
+$I^\bullet$, et Catégories dérivées,
+lemme \ref{derived-lemma-K-injective}, montre que
+$$
+\Hom_{D(\mathcal{A})}(K^\bullet, L^\bullet) =
+\Hom_{K(\mathcal{A})}(K^\bullet, I^\bullet)
+$$
+qui est un ensemble. La catégorie des modules sur un anneau et, plus
+généralement, celle des faisceaux de modules sur un site annelé sont des
+exemples de catégories abéliennes de Grothendieck.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-derived-products}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Alors :
+\begin{enumerate}
+\item $D(\mathcal{A})$ admet des sommes directes et des produits ;
+\item les sommes directes s'obtiennent en prenant terme à terme les sommes
+directes de complexes quelconques ;
+\item les produits s'obtiennent en prenant terme à terme les produits de
+complexes K-injectifs.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $K^\bullet_i$, $i \in I$, une famille d'objets de $D(\mathcal{A})$
+indexée par un ensemble $I$. Nous affirmons que la somme directe terme à
+terme $\bigoplus_{i \in I} K^\bullet_i$ est une somme directe dans
+$D(\mathcal{A})$. Soit en effet $I^\bullet$ un complexe K-injectif. On a
+\begin{align*}
+\Hom_{D(\mathcal{A})}(\bigoplus\nolimits_{i \in I} K^\bullet_i, I^\bullet)
+& =
+\Hom_{K(\mathcal{A})}(\bigoplus\nolimits_{i \in I} K^\bullet_i, I^\bullet) \\
+& =
+\prod\nolimits_{i \in I} \Hom_{K(\mathcal{A})}(K^\bullet_i, I^\bullet) \\
+& =
+\prod\nolimits_{i \in I} \Hom_{D(\mathcal{A})}(K^\bullet_i, I^\bullet)
+\end{align*}
+comme souhaité. Cela suffit, puisque tout complexe peut être représenté par
+un complexe K-injectif d'après le
+théorème \ref{theorem-K-injective-embedding-grothendieck}.
+Pour construire le produit, choisissons une résolution K-injective
+$K_i^\bullet \to I_i^\bullet$ pour chaque $i$. Nous affirmons alors que
+$\prod_{i \in I} I_i^\bullet$ est un produit dans $D(\mathcal{A})$.
+Cela résulte de Catégories dérivées,
+lemme \ref{derived-lemma-product-K-injective}.
+\end{proof}
+
+\begin{remark}
+\label{remark-direct-sum-product-derived}
+Soit $R$ un anneau. Supposons que $M_n$, $n \in \mathbf{Z}$, soient des
+$R$-modules. Notons $E_n = M_n[-n] \in D(R)$. Nous affirmons que
+$E = \bigoplus M_n[-n]$ est {\it à la fois} la somme directe et le produit des
+objets $E_n$ dans $D(R)$. Pour la somme directe, il suffit de consulter la
+démonstration du lemme \ref{lemma-derived-products}.
+Pour le produit direct, choisissons des résolutions injectives
+$M_n \to I_n^\bullet$. La démonstration du
+lemme \ref{lemma-derived-products} donne
+$$
+\prod E_n = \prod I_n^\bullet[-n]
+$$
+dans $D(R)$. Comme les produits sont exacts dans $\text{Mod}_R$,
+$\prod I_n^\bullet[-n]$ est quasi-isomorphe à $E$. Le même raisonnement vaut
+plus généralement dans $D(\mathcal{A})$, lorsque $\mathcal{A}$ est une
+catégorie abélienne de Grothendieck vérifiant Ab4*.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-RF-commutes-with-Rlim}
+Soit $F : \mathcal{A} \to \mathcal{B}$ un foncteur additif entre catégories
+abéliennes. Supposons que
+\begin{enumerate}
+\item $\mathcal{A}$ soit une catégorie abélienne de Grothendieck ;
+\item les produits dénombrables soient exacts dans $\mathcal{B}$ ;
+\item $F$ commute aux produits dénombrables.
+\end{enumerate}
+Alors $RF : D(\mathcal{A}) \to D(\mathcal{B})$ commute aux limites dérivées.
+\end{lemma}
+
+\begin{proof}
+Remarquons que $RF$ existe, car $\mathcal{A}$ possède suffisamment de
+complexes K-injectifs (théorème
+\ref{theorem-K-injective-embedding-grothendieck} et
+Catégories dérivées, lemme \ref{derived-lemma-K-injective-defined}).
+L'énoncé signifie que, si $K = R\lim K_n$, alors
+$RF(K) = R\lim RF(K_n)$. Pour les notations, voir
+Catégories dérivées, définition \ref{derived-definition-derived-limit}.
+Comme $RF$ est un foncteur exact entre catégories triangulées, il suffit de
+vérifier que $RF$ commute aux produits dénombrables d'objets de
+$D(\mathcal{A})$. La démonstration du
+lemme \ref{lemma-derived-products} montre que les produits dans
+$D(\mathcal{A})$ se calculent en prenant les produits de complexes
+K-injectifs, et qu'un produit de complexes K-injectifs est K-injectif.
+En outre, Catégories dérivées,
+lemme \ref{derived-lemma-products}, montre que les produits dans
+$D(\mathcal{B})$ se calculent terme à terme.
+Or $RF$ se calcule en appliquant $F$ à un représentant K-injectif, et nous
+avons supposé que $F$ commute aux produits dénombrables ; le résultat en
+découle.
+\end{proof}
+\noindent
+Le lemme suivant constitue une sorte de généralisation de
+l'existence des résolutions de Cartan--Eilenberg
+(Catégories dérivées, section \ref{derived-section-cartan-eilenberg}).
+
+\begin{lemma}
+\label{lemma-K-injective-embedding-filtration}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soit $K^\bullet$ un complexe filtré de $\mathcal{A}$, voir
+Homologie, définition \ref{homology-definition-filtered-complex}.
+Il existe alors un morphisme $j : K^\bullet \to J^\bullet$
+de complexes filtrés de $\mathcal{A}$ tel que
+\begin{enumerate}
+\item $J^n$, $F^pJ^n$, $J^n/F^pJ^n$ et $F^pJ^n/F^{p'}J^n$ sont des
+objets injectifs de $\mathcal{A}$,
+\item $J^\bullet$, $F^pJ^\bullet$, $J^\bullet/F^pJ^\bullet$ et
+$F^pJ^\bullet/F^{p'}J^\bullet$ sont des complexes K-injectifs,
+\item $j$ induit les quasi-isomorphismes
+$K^\bullet \to J^\bullet$,
+$F^pK^\bullet \to F^pJ^\bullet$,
+$K^\bullet/F^pK^\bullet \to J^\bullet/F^pJ^\bullet$, et
+$F^pK^\bullet/F^{p'}K^\bullet \to F^pJ^\bullet/F^{p'}J^\bullet$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après le théorème \ref{theorem-K-injective-embedding-grothendieck},
+on obtient des quasi-isomorphismes $i : K^\bullet \to I^\bullet$ et
+$i^p : F^pK^\bullet \to I^{p, \bullet}$ ainsi que les diagrammes commutatifs
+$$
+\vcenter{
+\xymatrix{
+K^\bullet \ar[d]_i & F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^\bullet & I^{p, \bullet} \ar[l]_{\alpha^p}
+}
+}
+\quad\text{et}\quad
+\vcenter{
+\xymatrix{
+F^{p'}K^\bullet \ar[d]_{i^{p'}} &
+F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^{p', \bullet} &
+I^{p, \bullet} \ar[l]_{\alpha^{p p'}}
+}
+}
+\quad\text{pour }p' \leq p
+$$
+de sorte que $\alpha^{p'} \circ \alpha^{p p'} = \alpha^p$
+et $\alpha^{p'p''} \circ \alpha^{pp'} = \alpha^{pp''}$.
+Le problème est que les applications $\alpha^p : I^{p, \bullet} \to I^\bullet$
+ne sont pas nécessairement injectives. Pour chaque $p$, choisissons une
+injection $t^p : I^{p, \bullet} \to J^{p, \bullet}$ dans un complexe
+K-injectif acyclique $J^{p, \bullet}$ dont les termes sont des objets
+injectifs de $\mathcal{A}$ (on l'envoie d'abord dans le cône de l'identité,
+puis on applique le théorème).
+Choisissons un morphisme de complexes $s^p : I^\bullet \to J^{p, \bullet}$
+tel que le diagramme suivant soit commutatif
+$$
+\xymatrix{
+K^\bullet \ar[d]_i & F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^\bullet \ar[rd]_{s^p} & I^{p, \bullet} \ar[d]^{t^p} \\
+& J^{p, \bullet}
+}
+$$
+C'est possible : la composée $F^pK^\bullet \to J^{p, \bullet}$
+est homotope à zéro, car $J^{p, \bullet}$ est acyclique et K-injectif
+(Catégories dérivées, lemme \ref{derived-lemma-K-injective}).
+Puisque les objets $J^{p, n - 1}$ sont injectifs et que
+$F^pK^n \to K^n \to I^n$ sont des morphismes injectifs, on peut
+prolonger les applications $F^pK^n \to J^{p, n - 1}$ qui définissent
+l'homotopie en une application $h^n : I^n \to J^{p, n - 1}$.
+On pose alors $s^p$ égal à $h \circ \text{d} + \text{d} \circ h$.
+(Attention : on n'aura pas $t^p = s^p \circ \alpha^p$ ; il faudra donc
+veiller à ne pas utiliser cette égalité ci-dessous.)
+
+\medskip\noindent
+Considérons
+$$
+J^\bullet = I^\bullet \times \prod\nolimits_p J^{p, \bullet}
+$$
+Comme les produits dans $D(\mathcal{A})$ s'obtiennent en prenant
+les produits de complexes K-injectifs
+(lemme \ref{lemma-derived-products}) et que $J^{p, \bullet}$
+est isomorphe à $0$ dans $D(\mathcal{A})$, le morphisme
+$J^\bullet \to I^\bullet$ est un isomorphisme dans $D(\mathcal{A})$.
+Considérons l'application
+$$
+j = i \times (s^p \circ i)_{p \in \mathbf{Z}} :
+K^\bullet
+\longrightarrow
+I^\bullet \times \prod\nolimits_p J^{p, \bullet} = J^\bullet
+$$
+D'après les remarques précédentes, c'est un quasi-isomorphisme. Il est aussi
+injectif. Pour $p \in \mathbf{Z}$, on définit $F^pJ^\bullet \subset J^\bullet$ par
+$$
+\Im\left(
+\alpha^p \times (t^{p'} \circ \alpha^{pp'})_{p' \leq p} :
+I^{p, \bullet}
+\to
+I^\bullet \times \prod\nolimits_{p' \leq p} J^{p', \bullet}
+\right)
+\times \prod\nolimits_{p' > p} J^{p', \bullet}
+$$
+Ce complexe est isomorphe au complexe
+$I^{p, \bullet} \times \prod_{p' > p} J^{p', \bullet}$
+car $\alpha^{pp} = \text{id}$ et $t^p$ est injective.
+Par conséquent, $F^pJ^\bullet$ est quasi-isomorphe à $I^{p, \bullet}$
+(on raisonne comme ci-dessus). La commutativité du diagramme précédent donne
+$j(F^pK^\bullet) \subset F^pJ^\bullet$. Le morphisme de complexes correspondant
+$F^pK^\bullet \to F^pJ^\bullet$ est donc un quasi-isomorphisme.
+Enfin, pour voir que
+$F^{p + 1}J^\bullet \subset F^pJ^\bullet$
+on utilise l'égalité $\alpha^{pp'} \circ \alpha^{p + 1p} = \alpha^{p + 1p'}$
+et la commutativité du premier diagramme affiché au premier paragraphe
+de la démonstration.
+
+\medskip\noindent
+Affirmons que $j : K^\bullet \to J^\bullet$ résout le problème posé par le
+lemme. En effet, $F^pJ^n$ est un objet injectif de $\mathcal{A}$ puisqu'il est
+isomorphe à $I^{p, n} \times \prod_{p' > p} J^{p', n}$ et que les produits
+d'injectifs sont injectifs. L'application injective $F^pJ^n \to J^n$ est alors
+scindée ; le quotient $J^n/F^pJ^n$ est donc lui aussi injectif, comme facteur
+direct de l'objet injectif $J^n$. Il en va de même de
+$F^pJ^n/F^{p'}J^n$. En particulier,
+$0 \to F^pJ^\bullet \to J^\bullet \to J^\bullet/F^pJ^\bullet \to 0$
+est une suite exacte courte de complexes scindée terme à terme ; elle définit
+donc, par convention, un triangle distingué dans $K(\mathcal{A})$.
+Puisque $J^\bullet$ et $F^pJ^\bullet$ sont des complexes K-injectifs, il en va
+de même de $J^\bullet/F^pJ^\bullet$ d'après Catégories dérivées, lemme
+\ref{derived-lemma-triangle-K-injective}. Un raisonnement semblable montre que
+$F^pJ^\bullet/F^{p'}J^\bullet$ est K-injectif. Par construction,
+$j : K^\bullet \to J^\bullet$ et les applications induites
+$F^pK^\bullet \to F^pJ^\bullet$ sont des quasi-isomorphismes. Les longues
+suites exactes de cohomologie des complexes considérés montrent qu'il en va
+de même pour
+$K^\bullet/F^pK^\bullet \to J^\bullet/F^pJ^\bullet$ et
+$F^pK^\bullet/F^{p'}K^\bullet \to F^pJ^\bullet/F^{p'}J^\bullet$.
+\end{proof}
+
+\begin{remark}
+\label{remark-ext-into-filtered-complex}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soit $K^\bullet$ un complexe filtré de $\mathcal{A}$, voir
+Homologie, définition \ref{homology-definition-filtered-complex}.
+Pour alléger les notations, désignons par $K$, $F^pK$, $\text{gr}^pK$
+les objets de $D(\mathcal{A})$ représentés respectivement par $K^\bullet$,
+$F^pK^\bullet$, $\text{gr}^pK^\bullet$. Soit $M \in D(\mathcal{A})$.
+Le lemme \ref{lemma-K-injective-embedding-filtration} permet de construire
+une suite spectrale $(E_r, d_r)_{r \geq 1}$ d'objets bigradués de
+$\mathcal{A}$, où $d_r$ est de bidegré $(r, -r + 1)$ et
+$$
+E_1^{p, q} = \Ext^{p + q}(M, \text{gr}^pK)
+$$
+Si, pour tout $n$, on a
+$$
+\Ext^n(M, F^pK) = 0 \text{ pour } p \gg 0
+\quad\text{et}\quad
+\Ext^n(M, F^pK) = \Ext^n(M, K) \text{ pour } p \ll 0
+$$
+alors la suite spectrale est bornée et converge vers $\Ext^{p + q}(M, K)$.
+En effet, choisissons un complexe quelconque $M^\bullet$ représentant $M$,
+un morphisme $j : K^\bullet \to J^\bullet$ comme dans le lemme, et considérons
+le complexe
+$$
+\Hom^\bullet(M^\bullet, J^\bullet)
+$$
+défini exactement comme dans Compléments d'algèbre, section
+\ref{more-algebra-section-hom-complexes}. En posant
+$F^p\Hom^\bullet(M^\bullet, J^\bullet) =
+\Hom^\bullet(M^\bullet, F^pJ^\bullet)$, on obtient un complexe filtré.
+La suite spectrale d'Homologie, section
+\ref{homology-section-filtered-complex}, possède les différentielles et les
+termes décrits ci-dessus ; nous omettons les détails. Le caractère borné et la
+convergence résultent d'Homologie, lemme
+\ref{homology-lemma-ss-converges-trivial}.
+\end{remark}
+
+\begin{remark}
+\label{remark-spectral-sequences-ext}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soient $M, K$ des objets de $D(\mathcal{A})$.
+Pour tout choix d'un complexe $K^\bullet$ représentant $K$, on peut utiliser
+la filtration $F^pK^\bullet = \tau_{\leq -p}K^\bullet$ et la discussion de la
+remarque \ref{remark-ext-into-filtered-complex} afin d'obtenir une suite
+spectrale telle que
+$$
+E_1^{p, q} = \Ext^{2p + q}(M, H^{-p}(K))
+$$
+Cette suite spectrale ne dépend pas du choix du complexe $K^\bullet$
+représentant $K$. Après la renumérotation $p = -j$ et $q = i + 2j$, on
+obtient une suite spectrale $(E'_r, d'_r)_{r \geq 2}$ où $d'_r$ est de
+bidegré $(r, -r + 1)$ et
+$$
+(E'_2)^{i, j} = \Ext^i(M, H^j(K))
+$$
+Si $M \in D^-(\mathcal{A})$ et $K \in D^+(\mathcal{A})$, alors $E_r$ et
+$E'_r$ sont toutes deux bornées et convergent vers $\Ext^{p + q}(M, K)$.
+Si l'on utilise la filtration $F^pK^\bullet = \sigma_{\geq p}K^\bullet$,
+on obtient
+$$
+E_1^{p, q} = \Ext^q(M, K^p)
+$$
+Si $M \in D^-(\mathcal{A})$ et si $K^\bullet$ est borné inférieurement,
+cette suite spectrale est bornée et converge vers $\Ext^{p + q}(M, K)$.
+\end{remark}
+
+\begin{remark}
+\label{remark-ext-from-filtered-complex}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Soit
+$K \in D(\mathcal{A})$. Soit $M^\bullet$ un complexe filtré de
+$\mathcal{A}$, voir Homologie, définition
+\ref{homology-definition-filtered-complex}. Pour alléger les notations,
+désignons par $M$, $M/F^pM$, $\text{gr}^pM$ les objets de
+$D(\mathcal{A})$ représentés respectivement par $M^\bullet$,
+$M^\bullet/F^pM^\bullet$, $\text{gr}^pM^\bullet$. Par dualité avec la
+remarque \ref{remark-ext-into-filtered-complex}, on peut construire une suite
+spectrale $(E_r, d_r)_{r \geq 1}$ d'objets bigradués de $\mathcal{A}$, où
+$d_r$ est de bidegré $(r, -r + 1)$ et
+$$
+E_1^{p, q} = \Ext^{p + q}(\text{gr}^{-p}M, K)
+$$
+Si, pour tout $n$, on a
+$$
+\Ext^n(M/F^pM, K) = 0 \text{ pour } p \ll 0
+\quad\text{et}\quad
+\Ext^n(M/F^pM, K) = \Ext^n(M, K) \text{ pour } p \gg 0
+$$
+alors la suite spectrale est bornée et converge vers $\Ext^{p + q}(M, K)$.
+En effet, choisissons un complexe K-injectif $I^\bullet$ à termes injectifs
+représentant $K$, voir le théorème
+\ref{theorem-K-injective-embedding-grothendieck}. Considérons le complexe
+$$
+\Hom^\bullet(M^\bullet, I^\bullet)
+$$
+défini exactement comme dans Compléments d'algèbre, section
+\ref{more-algebra-section-hom-complexes}. En posant
+$$
+F^p\Hom^\bullet(M^\bullet, I^\bullet) =
+\Hom^\bullet(M^\bullet/F^{-p + 1}M^\bullet, I^\bullet)
+$$
+on obtient un complexe filtré (remarquer le signe et le décalage de la
+filtration). La suite spectrale d'Homologie, section
+\ref{homology-section-filtered-complex}, possède les différentielles et les
+termes décrits ci-dessus ; nous omettons les détails. Le caractère borné et la
+convergence résultent d'Homologie, lemme
+\ref{homology-lemma-ss-converges-trivial}.
+\end{remark}
+
+\begin{remark}
+\label{remark-spectral-sequences-ext-variant}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soient $M, K$ des objets de $D(\mathcal{A})$.
+Pour tout choix d'un complexe $M^\bullet$ représentant $M$, on peut utiliser
+la filtration $F^pM^\bullet = \tau_{\leq -p}M^\bullet$ et la discussion de la
+remarque \ref{remark-ext-into-filtered-complex} afin d'obtenir une suite
+spectrale telle que
+$$
+E_1^{p, q} = \Ext^{2p + q}(H^p(M), K)
+$$
+Cette suite spectrale ne dépend pas du choix du complexe $M^\bullet$
+représentant $M$. Après la renumérotation $p = -j$ et $q = i + 2j$, on
+obtient une suite spectrale $(E'_r, d'_r)_{r \geq 2}$ où $d'_r$ est de
+bidegré $(r, -r + 1)$ et
+$$
+(E'_2)^{i, j} = \Ext^i(H^{-j}(M), K)
+$$
+Si $M \in D^-(\mathcal{A})$ et $K \in D^+(\mathcal{A})$, alors $E_r$ et
+$E'_r$ sont bornées et convergent vers $\Ext^{p + q}(M, K)$.
+Si l'on utilise la filtration $F^pM^\bullet = \sigma_{\geq p}M^\bullet$,
+on obtient
+$$
+E_1^{p, q} = \Ext^q(M^{-p}, K)
+$$
+Si $K \in D^+(\mathcal{A})$ et si $M^\bullet$ est borné supérieurement,
+cette suite spectrale est bornée et converge vers $\Ext^{p + q}(M, K)$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-represent-by-filtered-complex}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Supposons donnés
+un objet $E \in D(\mathcal{A})$, un système projectif
+$\{E^i\}_{i \in \mathbf{Z}}$ d'objets de $D(\mathcal{A})$ indexé par
+$\mathbf{Z}$, ainsi qu'un système compatible de morphismes $E^i \to E$.
+On a le diagramme suivant :
+$$
+\ldots \to E^{i + 1} \to E^i \to E^{i - 1} \to \ldots \to E
+$$
+Il existe alors un complexe filtré $K^\bullet$ de $\mathcal{A}$
+(Homologie, définition \ref{homology-definition-filtered-complex}) tel que
+$K^\bullet$ représente $E$ et que $F^iK^\bullet$ représente $E^i$, de façon
+compatible avec les morphismes donnés.
+\end{lemma}
+
+\begin{proof}
+D'après le théorème \ref{theorem-K-injective-embedding-grothendieck}, on peut
+choisir un complexe K-injectif $I^\bullet$ représentant $E$, dont tous les
+termes $I^n$ sont des objets injectifs de $\mathcal{A}$.
+Choisissons un complexe $G^{0, \bullet}$ représentant $E^0$, puis un
+morphisme de complexes $\varphi^0 : G^{0, \bullet} \to I^\bullet$
+représentant $E^0 \to E$.
+Pour $i > 0$, représentons par récurrence $E^i \to E^{i - 1}$ par un
+morphisme de complexes
+$\delta : G^{i, \bullet} \to G^{i - 1, \bullet}$
+et posons $\varphi^i = \varphi^{i - 1} \circ \delta$.
+Pour $i < 0$, représentons par récurrence $E^{i + 1} \to E^i$ par un
+morphisme de complexes injectif terme à terme
+$\delta : G^{i + 1, \bullet} \to G^{i, \bullet}$
+(on peut, par exemple, utiliser Catégories dérivées, lemme
+\ref{derived-lemma-make-injective}).
+Affirmons qu'il existe un morphisme de complexes
+$\varphi^i : G^{i, \bullet} \to I^\bullet$ représentant le morphisme
+$E^i \to E$ et s'insérant dans le diagramme commutatif
+$$
+\xymatrix{
+G^{i + 1, \bullet} \ar[r]_\delta \ar[d]_{\varphi^{i + 1}} &
+G^{i, \bullet} \ar[ld]^{\varphi^i} \\
+I^\bullet
+}
+$$
+En effet, choisissons d'abord un morphisme de complexes quelconque
+$\varphi : G^{i, \bullet} \to I^\bullet$ représentant le morphisme
+$E^i \to E$. Les morphismes $\varphi \circ \delta$ et
+$\varphi^{i + 1}$ sont alors homotopes par une homotopie
+$h^p : G^{i + 1, p} \to I^{p - 1}$. Comme les termes de $I^\bullet$ sont
+injectifs et que $\delta$ est injectif terme à terme, on peut prolonger
+$h^p$ en $(h')^p : G^{i, p} \to I^{p - 1}$. En posant
+$\varphi^i = \varphi + h' \circ d + d \circ h'$, on obtient ce qui était
+annoncé.
+
+\medskip\noindent
+Choisissons ensuite, pour tout $i$, un morphisme de complexes injectif terme
+à terme $a^i : G^{i, \bullet} \to J^{i, \bullet}$, où $J^{i, \bullet}$ est
+acyclique et K-injectif et où les $J^{i, p}$ sont des objets injectifs de
+$\mathcal{A}$. Pour cela, on envoie d'abord $G^{i, \bullet}$ dans le cône de
+l'identité, puis on applique le théorème cité ci-dessus.
+En raisonnant comme précédemment, on trouve des morphismes de complexes
+$\delta' : J^{i, \bullet} \to J^{i - 1, \bullet}$ tels que les diagrammes
+$$
+\xymatrix{
+G^{i, \bullet} \ar[r]_\delta \ar[d]_{a^i} &
+G^{i - 1, \bullet} \ar[d]^{a^{i - 1}} \\
+J^{i, \bullet} \ar[r]^{\delta'} &
+J^{i - 1, \bullet}
+}
+$$
+soient commutatifs. (On pourrait aussi utiliser la fonctorialité des cônes et
+celle du théorème.) Considérons alors les morphismes
+$$
+\xymatrix{
+G^{i + 1, \bullet} \times \prod\nolimits_{p > i + 1} J^{p, \bullet}
+\ar[r] \ar[rd] &
+G^{i, \bullet} \times \prod\nolimits_{p > i} J^{p, \bullet}
+\ar[r] \ar[d] &
+G^{i - 1, \bullet} \times \prod\nolimits_{p > i - 1} J^{p, \bullet}
+\ar[ld] \\
+& I^\bullet \times \prod\nolimits_p J^{p, \bullet}
+}
+$$
+Ici, les flèches portant sur $J^{p, \bullet}$ sont les flèches évidentes
+(l'identité ou le morphisme nul). Sur le facteur $G^{i, \bullet}$, on utilise
+$\delta : G^{i, \bullet} \to G^{i - 1, \bullet}$, le morphisme
+$\varphi^i : G^{i, \bullet} \to I^\bullet$, le morphisme nul
+$0 : G^{i, \bullet} \to J^{p, \bullet}$ pour $p > i$, le morphisme
+$a^i : G^{i, \bullet} \to J^{p, \bullet}$ pour $p = i$, et
+$(\delta')^{i - p} \circ a^i = a^p \circ \delta^{i - p} :
+G^{i, \bullet} \to J^{p, \bullet}$ pour $p < i$.
+Nous omettons de vérifier que toutes les flèches du diagramme sont injectives
+terme à terme. On obtient ainsi un complexe filtré. Comme les produits dans
+$D(\mathcal{A})$ s'obtiennent en prenant les produits de complexes K-injectifs
+(lemme \ref{lemma-derived-products}) et que $J^{p, \bullet}$ est nul dans
+$D(\mathcal{A})$, ce diagramme représente le diagramme donné dans la catégorie
+dérivée. Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-represent-by-filtered-complex-bis}
+Dans la situation du lemme \ref{lemma-represent-by-filtered-complex},
+supposons donné un second système projectif
+$\{(E')^i\}_{i \in \mathbf{Z}}$, ainsi qu'un système compatible de morphismes
+$(E')^i \to E$. Il existe alors un complexe bifiltré $K^\bullet$ de
+$\mathcal{A}$ tel que $K^\bullet$ représente $E$, que $F^iK^\bullet$
+représente $E^i$ et que $(F')^iK^\bullet$ représente $(E')^i$, de façon
+compatible avec les morphismes donnés.
+\end{lemma}
+
+\begin{proof}
+Le lemme permet d'abord de choisir $K^\bullet$ et $F$. On choisit ensuite
+$(K')^\bullet$ et $F'$ convenant à $\{(E')^i\}_{i \in \mathbf{Z}}$ et aux
+morphismes $(E')^i \to E$. D'après le lemme
+\ref{lemma-K-injective-embedding-filtration}, on peut supposer que
+$K^\bullet$ est un complexe K-injectif. On choisit alors un morphisme de
+complexes $(K')^\bullet \to K^\bullet$ correspondant aux identifications
+données $(K')^\bullet \cong E \cong K^\bullet$. On peut en outre choisir un
+morphisme $(K')^\bullet \to J^\bullet$ injectif terme à terme, où
+$J^\bullet$ est acyclique et K-injectif. (Pour cela, on envoie d'abord
+$(K')^\bullet$ dans le cône de l'identité, puis on applique le théorème
+\ref{theorem-K-injective-embedding-grothendieck}.) Les morphismes
+$(K')^\bullet \to K^\bullet \times J^\bullet$ et
+$K^\bullet \to K^\bullet \times J^\bullet$ sont alors tous deux injectifs
+terme à terme et sont des quasi-isomorphismes (car le produit représente $E$
+d'après le lemme \ref{lemma-derived-products}). Il suffit enfin de prendre les
+images des filtrations de $K^\bullet$ et $(K')^\bullet$ par ces morphismes.
+\end{proof}
+
+
+
+
+
+\section{Le théorème de Gabriel--Popescu}
+\label{section-gabriel-popescu}
+
+\noindent
+Dans cette section, nous étudions le théorème principal de \cite{GP}. La
+méthode de démonstration suit des notes de Jacob Lurie et d'Akhil Mathew, qui
+suivent à leur tour la présentation de Kuhn dans \cite{Kuhn}. Voir aussi
+\cite{Takeuchi}.
+
+\medskip\noindent
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck et soit $U$ un
+générateur de $\mathcal{A}$, voir la définition
+\ref{definition-grothendieck-conditions}. Posons
+$R = \Hom_\mathcal{A}(U, U)$. Considérons le foncteur
+$G : \mathcal{A} \to \text{Mod}_R$ défini par
+$$
+G(A) = \Hom_\mathcal{A}(U, A)
+$$
+muni de sa structure canonique de $R$-module à droite.
+
+\begin{lemma}
+\label{lemma-gabriel-popescu-left-adjoint}
+Le foncteur $G$ ci-dessus possède un adjoint à gauche
+$F : \text{Mod}_R \to \mathcal{A}$.
+\end{lemma}
+
+\begin{proof}
+Nous donnons deux démonstrations de ce lemme.
+
+\medskip\noindent
+La première utilise le théorème du foncteur adjoint, voir Catégories,
+théorème \ref{categories-theorem-adjoint-functor}. Remarquons que
+$G : \mathcal{A} \to \text{Mod}_R$ est exact à gauche et envoie les produits
+sur les produits. Le foncteur $G$ commute donc aux limites. Pour vérifier la condition
+ensembliste du théorème, soit $M$ un objet de $\text{Mod}_R$. Choisissons un
+cardinal $\kappa$ suffisamment grand et désignons par $E$ un ensemble d'objets
+de $\mathcal{A}$ tel que tout objet $A$ vérifiant $|A| \leq \kappa$ soit
+isomorphe à un élément de $E$. C'est possible d'après le lemme
+\ref{lemma-set-iso-classes-bounded-size}. Posons
+$I = \coprod_{A \in E} \Hom_R(M, G(A))$. Un élément $i \in I$ sera considéré
+comme un couple $(A_i, f_i)$. Enfin, soient $A$ un objet quelconque de
+$\mathcal{A}$ et $f : M \to G(A)$ un morphisme quelconque. Interprétons les
+éléments de $\Im(f) \subset G(A) = \Hom_\mathcal{A}(U, A)$ comme des
+morphismes $u : U \to A$. Posons
+$$
+A' = \Im(\bigoplus\nolimits_{u \in \Im(f)} U \xrightarrow{u} A)
+$$
+Puisque $G$ est exact à gauche, $G(A') \subset G(A)$ contient $\Im(f)$ ; on
+obtient donc $f' : M \to G(A')$ par lequel $f$ se factorise. D'autre part,
+l'objet $A'$ est quotient d'une somme directe d'au plus $|M|$ copies de $U$.
+Ainsi, si $\kappa = |\bigoplus_{|M|} U|$, le couple $(A', f')$ est isomorphe
+à un élément $(A_i, f_i)$ de $I$, et $f$ se factorise, comme souhaité, sous
+la forme $M \xrightarrow{f_i} G(A_i) \to G(A)$.
+
+\medskip\noindent
+La seconde démonstration construit $F$ et montre, en un certain sens, que
+``$F(M) = M \otimes_R U$''. En effet, pour tout $R$-module $M$, on peut
+choisir une présentation
+$$
+\bigoplus\nolimits_{j \in J} R \to
+\bigoplus\nolimits_{i \in I} R \to
+M \to 0
+$$
+On définit alors $F(M)$ par la suite exacte correspondante
+$$
+\bigoplus\nolimits_{j \in J} U \to
+\bigoplus\nolimits_{i \in I} U \to
+F(M) \to 0
+$$
+Cette construction ne dépend pas du choix de la présentation et elle est
+fonctorielle ; nous omettons les détails. Pour tout $A$ dans $\mathcal{A}$,
+on obtient une suite exacte
+$$
+0 \to \Hom_\mathcal{A}(F(M), A) \to
+\prod\nolimits_{i \in I} G(A) \to
+\prod\nolimits_{j \in J} G(A)
+$$
+qui est isomorphe à la suite
+$$
+0 \to \Hom_R(M, G(A)) \to
+\Hom_R(\bigoplus\nolimits_{i \in I} R, G(A)) \to
+\Hom_R(\bigoplus\nolimits_{j \in J} R, G(A))
+$$
+ce qui montre que $F$ est l'adjoint à gauche de $G$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-F-G-monos}
+Soit $f : M \to G(A)$ un morphisme injectif dans $\text{Mod}_R$.
+Alors le morphisme adjoint $f' : F(M) \to A$ est lui aussi injectif.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme $R^{\oplus n} \to M$ et considérons le morphisme
+correspondant $U^{\oplus n} \to F(M)$. Soit
+$v : U \to U^{\oplus n}$ un morphisme tel que la composée
+$U \to U^{\oplus n} \to F(M) \to A$ soit $0$. La flèche
+$v : U \to U^{\oplus n}$ est alors un élément $v$ de $R^{\oplus n}$ dont
+l'image dans $G(A)$ est nulle. Puisque $f$ est injectif, l'image de $v$ dans
+$M$ est nulle ; cela signifie que $U \to U^{\oplus n} \to F(M)$ est nul,
+par la construction de $F(M)$ donnée dans la démonstration du
+lemme \ref{lemma-gabriel-popescu-left-adjoint}. Comme $U$ est un générateur, on en
+déduit que
+$$
+\Ker(U^{\oplus n} \to F(M) \to A) = \Ker(U^{\oplus n} \to F(M))
+$$
+Pour achever la démonstration, choisissons une surjection
+$\bigoplus_{i \in I} R \to M$ et considérons la surjection correspondante
+$$
+\pi : \bigoplus\nolimits_{i \in I} U \longrightarrow F(M)
+$$
+Pour montrer que $f'$ est injectif, il suffit d'établir l'égalité
+$\Ker(\pi) = \Ker(f' \circ \pi)$ entre sous-objets de
+$\bigoplus_{i \in I} U$. Or on peut écrire $\bigoplus_{i \in I} U$ comme la
+colimite filtrante de ses sous-objets $\bigoplus_{i \in I'} U$, où
+$I' \subset I$ parcourt les sous-ensembles finis. Comme les colimites
+filtrantes sont exactes dans $\mathcal{A}$ par AB5, on a
+$$
+\Ker(\pi) =
+\colim_{I' \subset I\text{ fini}}
+\left(\bigoplus\nolimits_{i \in I'} U\right)
+\bigcap \Ker(\pi)
+$$
+et
+$$
+\Ker(f' \circ \pi) =
+\colim_{I' \subset I\text{ fini}}
+\left(\bigoplus\nolimits_{i \in I'} U\right)
+\bigcap \Ker(f' \circ \pi)
+$$
+et l'on obtient l'égalité, car la première égalité affichée ci-dessus
+l'établit pour chaque $I'$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-gabriel-popescu}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Il existe alors
+un anneau (non commutatif) $R$ et des foncteurs
+$G : \mathcal{A} \to \text{Mod}_R$ et
+$F : \text{Mod}_R \to \mathcal{A}$ tels que
+\begin{enumerate}
+\item $F$ est l'adjoint à gauche de $G$,
+\item $G$ est pleinement fidèle, et
+\item $F$ est exact.
+\end{enumerate}
+Ces foncteurs sont en outre ceux construits ci-dessus.
+\end{theorem}
+
+\begin{proof}
+Montrons d'abord que $G$ est pleinement fidèle, ou, ce qui revient au même,
+que $F \circ G \to \text{id}$ est un isomorphisme, voir Catégories, lemme
+\ref{categories-lemma-adjoint-fully-faithful}. Pour tout objet $A$, le
+morphisme $F(G(A)) \to A$ est surjectif, car, par construction, tout morphisme
+$U \to A$ se factorise par $F(G(A))$. D'autre part, le morphisme
+$F(G(A)) \to A$ est l'adjoint du morphisme
+$\text{id} : G(A) \to G(A)$ ; il est donc injectif d'après le lemme
+\ref{lemma-F-G-monos}.
+
+\medskip\noindent
+Le foncteur $F$ est exact à droite puisqu'il est adjoint à gauche.
+Comme $\text{Mod}_R$ possède assez de projectifs, pour montrer que $F$ est
+exact, il suffit de montrer que son premier foncteur dérivé gauche $L_1F$ est
+nul. Pour établir $L_1F(M) = 0$ pour un $R$-module $M$, choisissons une suite
+exacte $0 \to K \to P \to M \to 0$ de $R$-modules où $P$ est libre. Il suffit
+de montrer que $F(K) \to F(P)$ est injectif. Écrivons cette suite comme
+colimite filtrante de suites $0 \to K_i \to P_i \to M_i \to 0$ où $P_i$ est
+un $R$-module libre de type fini : il suffit d'écrire ainsi $P$, puis de poser
+$K_i = K \cap P_i$ et $M_i = \Im(P_i \to M)$. Puisque $F$ est adjoint à
+gauche, il commute aux colimites ; et puisque $\mathcal{A}$ est une catégorie
+abélienne de Grothendieck, $F(K) \to F(P)$ est injectif dès que chaque
+$F(K_i) \to F(P_i)$ l'est. Il suffit donc de vérifier que
+$F(K) \to F(P)$ est injectif lorsque $K \subset P = R^{\oplus n}$.
+Le lemme \ref{lemma-F-G-monos} montre précisément que
+$F(K) \to U^{\oplus n}$ est injectif.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gabriel-popescu}
+\begin{reference}
+\cite[Corollary 4.1]{serpe}
+\end{reference}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Soient
+$R$, $F$, $G$ comme dans le théorème de Gabriel--Popescu
+(théorème \ref{theorem-gabriel-popescu}). On obtient alors les foncteurs
+dérivés
+$$
+RG : D(\mathcal{A}) \to D(\text{Mod}_R)
+\quad\text{and}\quad
+F : D(\text{Mod}_R) \to D(\mathcal{A})
+$$
+tels que $F$ est adjoint à gauche de $RG$, que $RG$ est pleinement fidèle et
+que $F \circ RG = \text{id}$.
+\end{lemma}
+
+\begin{proof}
+L'existence et l'adjonction de ces foncteurs résultent des théorèmes
+\ref{theorem-gabriel-popescu} et
+\ref{theorem-K-injective-embedding-grothendieck}
+et
+des lemmes de Catégories dérivées
+\ref{derived-lemma-K-injective-defined},
+\ref{derived-lemma-right-derived-exact-functor}, et
+\ref{derived-lemma-derived-adjoint-functors}.
+L'égalité $F \circ RG = \text{id}$ vient du fait qu'on peut calculer $RG$ sur
+un objet de $D(\mathcal{A})$ en appliquant $G$ à un complexe représentant
+convenable $I^\bullet$ (par exemple un complexe K-injectif) ; on a alors
+$F(G(I^\bullet)) = I^\bullet$ puisque $F \circ G = \text{id}$. La pleine
+fidélité de $RG$ en résulte d'après Catégories, lemme
+\ref{categories-lemma-adjoint-fully-faithful}.
+\end{proof}
+
+
+
+
+
+\section{Représentabilité de Brown et catégories abéliennes de Grothendieck}
+\label{section-brown}
+
+\noindent
+Dans cette section, nous démontrons rapidement un théorème de représentabilité
+pour les catégories dérivées de catégories abéliennes de Grothendieck. Le
+lecteur devrait d'abord étudier le cas des catégories triangulées compactement
+engendrées dans Catégories dérivées, section \ref{derived-section-brown}.
+Il est ensuite tout indiqué de consulter, plutôt que cette section, la
+littérature pour des résultats plus généraux de ce type ; voir par exemple
+\cite{Franke}, \cite{Neeman}, \cite{Krause}, ou Catégories dérivées, section
+\ref{derived-section-brown-bis}.
+
+\begin{lemma}
+\label{lemma-brown}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck.
+Soit $H : D(\mathcal{A}) \to \textit{Ab}$ un foncteur cohomologique
+contravariant qui transforme les sommes directes en produits.
+Alors $H$ est représentable.
+\end{lemma}
+
+\begin{proof}
+Soient $R, F, G, RG$ comme dans le lemme \ref{lemma-gabriel-popescu}, et
+considérons le foncteur $H \circ F : D(\text{Mod}_R) \to \textit{Ab}$.
+Comme $F$ est adjoint à gauche, il envoie les sommes directes sur les sommes
+directes ; $H \circ F$ transforme donc les sommes directes en produits.
+D'autre part, la catégorie dérivée $D(\text{Mod}_R)$ est engendrée par un
+unique objet compact, à savoir $R$. D'après Catégories dérivées, lemme
+\ref{derived-lemma-brown}, le foncteur $H \circ F$ est représentable, disons
+par $L \in D(\text{Mod}_R)$. Choisissons un triangle distingué
+$$
+M \to L \to RG(F(L)) \to M[1]
+$$
+dans $D(\text{Mod}_R)$. Alors $F(M) = 0$ puisque
+$F \circ RG = \text{id}$. Par conséquent $H(F(M)) = 0$, puis
+$\Hom(M, L) = 0$. Il s'ensuit que $L \to RG(F(L))$ est l'inclusion d'un
+facteur direct, voir Catégories dérivées, lemme \ref{derived-lemma-split}.
+Pour $A$ dans $D(\mathcal{A})$, on obtient
+\begin{align*}
+H(A)
+& =
+H(F(RG(A))) \\
+& =
+\Hom(RG(A), L) \\
+& \to
+\Hom(RG(A), RG(F(L))) \\
+& =
+\Hom(F(RG(A)), F(L)) \\
+& =
+\Hom(A, F(L))
+\end{align*}
+où la flèche possède un inverse à gauche fonctoriel en $A$. Autrement dit,
+$H$ est facteur direct d'un foncteur représentable. Comme $D(\mathcal{A})$
+est karoubienne (Catégories dérivées, lemme
+\ref{derived-lemma-projectors-have-images-triangulated}), on conclut.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-brown}
+Soit $\mathcal{A}$ une catégorie abélienne de Grothendieck. Soit $\mathcal{D}$
+une catégorie triangulée. Soit $F : D(\mathcal{A}) \to \mathcal{D}$ un
+foncteur exact de catégories triangulées qui transforme les sommes directes en
+sommes directes. Alors $F$ possède un adjoint à droite exact.
+\end{proposition}
+
+\begin{proof}
+Pour un objet $Y$ de $\mathcal{D}$, considérons le foncteur contravariant
+$$
+D(\mathcal{A}) \to \textit{Ab},\quad
+W \mapsto \Hom_\mathcal{D}(F(W), Y)
+$$
+C'est un foncteur cohomologique puisque $F$ est exact, et il transforme les
+sommes directes en produits puisque $F$ transforme les sommes directes en
+sommes directes. Le lemme \ref{lemma-brown} fournit donc un objet $X$ de
+$D(\mathcal{A})$ tel que
+$\Hom_{D(\mathcal{A})}(W, X) = \Hom_\mathcal{D}(F(W), Y)$.
+L'existence de l'adjoint résulte de Catégories, lemme
+\ref{categories-lemma-adjoint-exists}. Son exactitude résulte de Catégories
+dérivées, lemme \ref{derived-lemma-adjoint-is-exact}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

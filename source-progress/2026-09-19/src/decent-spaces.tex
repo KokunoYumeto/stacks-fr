@@ -1,0 +1,1821 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Espaces algébriques décents}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions les propriétés « locales » des espaces
+algébriques généraux, c'est-à-dire de ceux qui ne sont pas quasi-séparés.
+Les espaces algébriques quasi-séparés sont étudiés dans \cite{Kn}.
+Il apparaît que des phénomènes essentiellement nouveaux se produisent,
+notamment en ce qui concerne les points et leurs spécialisations, pour les
+espaces algébriques plus généraux. D'autre part, dans la plupart des résultats
+fondamentaux sur les espaces algébriques, il n'est pas nécessaire de se
+préoccuper de ces phénomènes. C'est pourquoi nous avons choisi de réunir cette
+matière dans un chapitre séparé, après l'exposé habituel de la théorie.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Nous supposons une fois pour toutes que tous les schémas sont contenus dans
+un grand site fppf $\Sch_{fppf}$. De plus, tout anneau $A$ considéré est tel
+que $\Spec(A)$ est (isomorphe à) un objet de ce grand site.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Dans ce chapitre et le suivant, nous noterons $X \times_S X$ le produit de $X$
+par lui-même (dans la catégorie des espaces algébriques sur $S$), au lieu de
+$X \times X$.
+
+
+
+\section{Fibres universellement bornées}
+\label{section-universally-bounded}
+
+\noindent
+Nous examinons brièvement ce que signifie, pour un morphisme d'un schéma vers
+un espace algébrique, le fait d'avoir des fibres universellement bornées. Voir
+Morphisms, Section \ref{morphisms-section-universally-bounded}
+pour les définitions et résultats analogues concernant les morphismes de
+schémas.
+
+\begin{definition}
+\label{definition-universally-bounded}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$, et soit
+$U$ un schéma sur $S$. Soit $f : U \to X$ un morphisme sur $S$.
+Nous dirons que {\it les fibres de $f$ sont universellement
+bornées}\footnote{Cette terminologie n'est probablement pas standard.}
+s'il existe un entier $n$ tel que, pour tout corps $k$ et tout morphisme
+$\Spec(k) \to X$, le produit fibré $\Spec(k) \times_X U$ soit un schéma fini
+sur $k$, dont le degré sur $k$ est $\leq n$.
+\end{definition}
+
+\noindent
+Cette définition a un sens, car le produit fibré
+$\Spec(k) \times_X U$ est un schéma. De plus, si $X$ est un schéma,
+on retrouve la notion de
+Morphisms, Definition \ref{morphisms-definition-universally-bounded}
+en vertu de
+Morphisms, Lemma \ref{morphisms-lemma-characterize-universally-bounded}.
+
+\begin{lemma}
+\label{lemma-composition-universally-bounded}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $V \to U$ un morphisme de schémas sur $S$, et soit
+$U \to X$ un morphisme de $U$ vers $X$. Si les fibres de
+$V \to U$ et de $U \to X$ sont universellement bornées, alors celles de
+$V \to X$ le sont aussi.
+\end{lemma}
+
+\begin{proof}
+Soit $n$ un entier qui convient à $V \to U$, et soit $m$ un entier qui
+convient à $U \to X$ dans la
+Définition \ref{definition-universally-bounded}.
+Soit $\Spec(k) \to X$ un morphisme, où $k$ est un corps.
+Considérons les morphismes
+$$
+\Spec(k) \times_X V
+\longrightarrow
+\Spec(k) \times_X U
+\longrightarrow
+\Spec(k).
+$$
+Par hypothèse, le schéma $\Spec(k) \times_X U$ est fini de degré au plus $m$
+sur $k$, et $n$ borne le degré des fibres du premier morphisme. Par
+Morphisms, Lemma \ref{morphisms-lemma-composition-universally-bounded},
+nous en déduisons que $\Spec(k) \times_X V$ est fini sur $k$ de degré au plus
+$nm$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-universally-bounded}
+Soit $S$ un schéma.
+Soit $Y \to X$ un morphisme représentable d'espaces algébriques sur $S$.
+Soit $U \to X$ un morphisme d'un schéma vers $X$.
+Si les fibres de $U \to X$ sont universellement bornées, alors celles de
+$U \times_X Y \to Y$ le sont aussi.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de la définition et des propriétés des produits
+fibrés. (Notons que $U \times_X Y$ est un schéma puisque nous avons supposé
+$Y \to X$ représentable, si bien que la définition s'applique.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-universally-bounded}
+Soit $S$ un schéma. Soit $g : Y \to X$ un morphisme représentable d'espaces
+algébriques sur $S$. Soit $f : U \to X$ un morphisme d'un schéma vers $X$.
+Soit $f' : U \times_X Y \to Y$ le changement de base de $f$.
+Si
+$$
+\Im(|f| : |U| \to |X|) \subset \Im(|g| : |Y| \to |X|)
+$$
+et si $f'$ a des fibres universellement bornées, alors $f$ a des fibres
+universellement bornées.
+\end{lemma}
+
+\begin{proof}
+Soit $n \geq 0$ un entier qui borne les degrés des produits fibrés
+$\Spec(k) \times_Y (U \times_X Y)$ au sens de la
+Définition \ref{definition-universally-bounded} appliquée au morphisme $f'$.
+Nous affirmons que $n$ convient aussi à $f$. En effet, supposons que
+$x : \Spec(k) \to X$ soit un morphisme depuis le spectre d'un corps.
+Alors, soit $\Spec(k) \times_X U$ est vide (et il n'y a rien à démontrer),
+soit $x$ appartient à l'image de $|f|$. D'après
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}
+et l'hypothèse du lemme, cela signifie qu'il existe une extension de corps
+$k'/k$ et un diagramme commutatif
+$$
+\xymatrix{
+\Spec(k') \ar[r] \ar[d] & Y \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+On obtient alors
+$$
+\Spec(k') \times_Y (U \times_X Y) =
+\Spec(k') \times_{\Spec(k)} (\Spec(k) \times_X U)
+$$
+Comme le schéma $\Spec(k') \times_Y (U \times_X Y)$ est supposé fini de degré
+$\leq n$ sur $k'$, il en résulte que $\Spec(k) \times_X U$ est lui aussi fini
+de degré $\leq n$ sur $k$, comme voulu. (Nous omettons quelques détails.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universally-bounded-permanence}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Considérons un diagramme commutatif
+$$
+\xymatrix{
+U \ar[rd]_g \ar[rr]_f & & V \ar[ld]^h \\
+& X &
+}
+$$
+où $U$ et $V$ sont des schémas. Si $g$ a des fibres universellement bornées
+et si $f$ est surjectif et plat, alors $h$ a lui aussi des fibres
+universellement bornées.
+\end{lemma}
+
+\begin{proof}
+Supposons que $g$ ait des fibres universellement bornées et que $f$ soit
+surjectif et plat. Soit $n \geq 0$ un entier qui borne les degrés des schémas
+$\Spec(k) \times_X U$ au sens de la
+Définition \ref{definition-universally-bounded}.
+Nous affirmons que $n$ convient aussi à $h$.
+Soit $\Spec(k) \to X$ un morphisme du spectre d'un corps vers $X$.
+Considérons le morphisme de schémas
+$$
+\Spec(k) \times_X U \longrightarrow \Spec(k) \times_X V
+$$
+Il est plat et surjectif. Par hypothèse, le schéma de gauche est fini de degré
+$\leq n$ sur $\Spec(k)$. Il résulte de
+Morphisms, Lemma \ref{morphisms-lemma-universally-bounded-permanence}
+que le degré du schéma de droite est lui aussi majoré par $n$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universally-bounded-finite-fibres}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$, et soit $U$ un schéma sur $S$.
+Soit $\varphi : U \to X$ un morphisme sur $S$.
+Si les fibres de $\varphi$ sont universellement bornées, il existe un entier
+$n$ tel que chaque fibre de $|U| \to |X|$ compte au plus $n$ éléments.
+\end{lemma}
+
+\begin{proof}
+L'entier $n$ de la Définition \ref{definition-universally-bounded} convient.
+En effet, choisissons $x \in |X|$. Représentons $x$ par un morphisme
+$x : \Spec(k) \to X$. Nous obtenons alors un diagramme commutatif
+$$
+\xymatrix{
+\Spec(k) \times_X U \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r]^x & X
+}
+$$
+qui montre (au moyen de
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian})
+que l'image réciproque de $x$ dans $|U|$ est l'image de la flèche horizontale
+supérieure. Puisque $\Spec(k) \times_X U$ est fini de degré $\leq n$ sur $k$,
+il possède au plus $n$ points.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Conditions de finitude et points}
+\label{section-points-monomorphisms}
+
+\noindent
+Dans cette section, nous approfondissons la question de savoir quand des
+points peuvent être représentés par des monomorphismes de spectres de corps
+dans l'espace.
+
+\begin{remark}
+\label{remark-recall}
+Avant de démontrer le lemme suivant, rappelons quelques faits sur les
+morphismes étales de schémas :
+\begin{enumerate}
+\item Un morphisme étale est plat; les générisations se relèvent donc le long
+d'un morphisme étale
+(Morphisms, Lemmas \ref{morphisms-lemma-etale-flat}
+et \ref{morphisms-lemma-generalizations-lift-flat}).
+\item Un morphisme étale est non ramifié; un morphisme non ramifié est
+localement quasi-fini; ses fibres sont donc discrètes
+(Morphisms, Lemmas \ref{morphisms-lemma-flat-unramified-etale},
+\ref{morphisms-lemma-unramified-quasi-finite}, et
+\ref{morphisms-lemma-quasi-finite-at-point-characterize}).
+\item Un morphisme étale quasi-compact est quasi-fini et possède en particulier
+des fibres finies
+(Morphisms, Lemmas \ref{morphisms-lemma-quasi-finite-locally-quasi-compact} et
+\ref{morphisms-lemma-quasi-finite}).
+\item Un schéma étale sur un corps $k$ est une réunion disjointe de spectres
+d'extensions finies séparables de $k$
+(Morphisms, Lemma \ref{morphisms-lemma-etale-over-field}).
+\end{enumerate}
+Pour une étude générale des morphismes étales, voir
+\'Etale Morphisms, Section \ref{etale-section-etale-morphisms}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-U-finite-above-x}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $x \in |X|$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe une famille de schémas $U_i$ et de morphismes étales
+$\varphi_i : U_i \to X$ telle que
+$\coprod \varphi_i : \coprod U_i \to X$ soit surjectif,
+et telle que, pour tout $i$, la fibre de
+$|U_i| \to |X|$ au-dessus de $x$ soit finie, et
+\item pour tout schéma affine $U$ et tout morphisme étale $\varphi : U \to X$,
+la fibre de $|U| \to |X|$ au-dessus de $x$ est finie.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (2) $\Rightarrow$ (1) est immédiate.
+Soit $\varphi_i : U_i \to X$ une famille de morphismes étales comme en (1).
+Soit $\varphi : U \to X$ un morphisme étale d'un schéma affine vers $X$.
+Considérons les diagrammes de produits fibrés
+$$
+\xymatrix{
+U \times_X U_i \ar[r]_-{p_i} \ar[d]_{q_i} & U_i \ar[d]^{\varphi_i} \\
+U \ar[r]^\varphi & X
+}
+\quad \quad
+\xymatrix{
+\coprod U \times_X U_i \ar[r]_-{\coprod p_i} \ar[d]_{\coprod q_i} &
+\coprod U_i \ar[d]^{\coprod \varphi_i} \\
+U \ar[r]^\varphi & X
+}
+$$
+Comme $q_i$ est étale, il est ouvert (voir la Remarque \ref{remark-recall}).
+De plus, le morphisme $\coprod q_i$ est surjectif.
+Il existe donc un nombre fini d'indices $i_1, \ldots, i_n$ et des ouverts
+quasi-compacts $W_{i_j} \subset U \times_X U_{i_j}$ dont les images recouvrent
+$U$.
+Le morphisme $p_i$ est étale, donc localement quasi-fini (voir la remarque sur
+les morphismes étales ci-dessus). Nous pouvons donc appliquer
+Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+pour voir que les fibres de
+$p_{i_j}|_{W_{i_j}} : W_{i_j} \to U_{i_j}$ sont finies.
+D'après
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}
+et l'hypothèse sur $\varphi_i$, nous en concluons que la fibre de $\varphi$
+au-dessus de $x$ est finie. Autrement dit, (2) est vérifiée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-R-finite-above-x}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $x \in |X|$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un schéma $U$, un morphisme étale
+$\varphi : U \to X$, et des points $u, u' \in U$ dont l'image est
+$x$ tels que, si l'on pose $R = U \times_X U$, la fibre de
+$$
+|R| \to |U| \times_{|X|} |U|
+$$
+au-dessus de $(u, u')$ soit finie,
+\item pour tout schéma $U$, tout morphisme étale $\varphi : U \to X$ et
+tous points $u, u' \in U$ dont l'image est
+$x$, si l'on pose $R = U \times_X U$, la fibre de
+$$
+|R| \to |U| \times_{|X|} |U|
+$$
+au-dessus de $(u, u')$ est finie,
+\item il existe un morphisme $\Spec(k) \to X$, où $k$ est un corps,
+dans la classe d'équivalence de $x$, tel que les projections
+$\Spec(k) \times_X \Spec(k) \to \Spec(k)$ soient
+étales et quasi-compactes, et
+\item il existe un monomorphisme $\Spec(k) \to X$, où $k$ est un corps,
+dans la classe d'équivalence de $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1), c'est-à-dire soit $\varphi : U \to X$ un morphisme étale
+d'un schéma vers $X$, et soient $u, u'$ des points de $U$ situés au-dessus de
+$x$ tels que la fibre de $|R| \to |U| \times_{|X|} |U|$ au-dessus de $(u, u')$
+soit un ensemble fini. Dans cette démonstration, nous considérons un point
+$u = \Spec(\kappa(u))$ comme un schéma. Notons que $u \to U$, $u' \to U$ sont
+des monomorphismes (voir
+Schemes, Lemma \ref{schemes-lemma-injective-points-surjective-stalks}); ainsi,
+$u \times_X u' \to R = U \times_X U$ est un monomorphisme.
+Dans ce langage, l'hypothèse signifie exactement que
+$u \times_X u'$ est un schéma dont l'espace topologique sous-jacent possède
+un nombre fini de points.
+Soit $\psi : W \to X$ un morphisme étale d'un schéma vers $X$.
+Soient $w, w' \in W$ des points de $W$ dont l'image est $x$.
+Nous devons montrer que $w \times_X w'$ est un schéma dont l'espace topologique
+sous-jacent possède un nombre fini de points.
+Considérons le diagramme de produit fibré
+$$
+\xymatrix{
+W \times_X U \ar[r]_p \ar[d]_q & U \ar[d]^\varphi \\
+W \ar[r]^\psi & X
+}
+$$
+Comme $x$ est l'image de $u$ et de $u'$, nous pouvons choisir des points
+$\tilde w, \tilde w'$ de $W \times_X U$ tels que $q(\tilde w) = w$,
+$q(\tilde w') = w'$, $u = p(\tilde w)$ et $u' = p(\tilde w')$; voir
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}.
+Comme $p$ et $q$ sont étales, les extensions de corps
+$\kappa(w) \subset \kappa(\tilde w) \supset \kappa(u)$ et
+$\kappa(w') \subset \kappa(\tilde w') \supset \kappa(u')$ sont
+finies séparables; voir la Remarque \ref{remark-recall}.
+Nous obtenons alors un diagramme commutatif
+$$
+\xymatrix{
+w \times_X w' \ar[d] &
+\tilde w \times_X \tilde w' \ar[l] \ar[d] \ar[r] &
+u \times_X u' \ar[d] \\
+w \times_X w' &
+\tilde w \times_S \tilde w' \ar[l] \ar[r] &
+u \times_S u'
+}
+$$
+où les carrés sont des carrés de produits fibrés. Les morphismes
+horizontaux inférieurs sont étales et quasi-compacts, car tout schéma de la
+forme $\Spec(k) \times_S \Spec(k')$ est affine, et d'après nos observations
+ci-dessus sur les extensions de corps.
+Nous voyons donc que les flèches horizontales supérieures sont étales et
+quasi-compactes, et qu'elles ont par conséquent des fibres finies.
+Nous avons vu plus haut que $|u \times_X u'|$ est fini; nous en concluons que
+$|w \times_X w'|$ est fini. Autrement dit, (2) est vérifiée.
+
+\medskip\noindent
+Supposons (2). Soit $U \to X$ un morphisme étale d'un schéma $U$
+tel que $x$ appartienne à l'image de $|U| \to |X|$. Soit $u \in U$ un
+point dont l'image est $x$. Nous avons alors vu au paragraphe précédent que
+$u = \Spec(\kappa(u)) \to X$ a la propriété que
+$u \times_X u$ possède un espace topologique sous-jacent fini. D'autre part,
+les projections $u \times_X u \to u$ sont les composés
+$$
+u \times_X u \longrightarrow
+u \times_X U \longrightarrow
+u \times_X X = u,
+$$
+c'est-à-dire les composés d'un monomorphisme (le changement de base du
+monomorphisme $u \to U$) et d'un morphisme étale (le changement de base du
+morphisme étale $U \to X$). Ainsi, $u \times_X U$ est une réunion disjointe
+de spectres de corps qui sont des extensions finies séparables de $\kappa(u)$
+(voir la Remarque \ref{remark-recall}). Puisque $u \times_X u$ est fini, son
+image dans $u \times_X U$ est une réunion disjointe finie de spectres de corps
+qui sont des extensions finies séparables de $\kappa(u)$. Par
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field},
+nous en concluons que $u \times_X u$ est une réunion disjointe finie de
+spectres de corps qui sont des extensions finies séparables de $\kappa(u)$.
+Autrement dit, nous voyons que $u \times_X u \to u$ est quasi-compact et
+étale. Cela signifie que (3) est vérifiée.
+
+\medskip\noindent
+Démontrons que (3) implique (4). Soit $\Spec(k) \to X$ un morphisme
+du spectre d'un corps vers $X$, dans la classe d'équivalence de $x$,
+tel que les deux projections
+$t, s : R = \Spec(k) \times_X \Spec(k)  \to \Spec(k)$
+soient quasi-compactes et étales.
+Cela signifie en particulier que $R$ est une relation d'équivalence étale
+sur $\Spec(k)$.
+Par Spaces, Theorem \ref{spaces-theorem-presentation},
+nous savons que le faisceau quotient
+$X' = \Spec(k)/R$ est un espace algébrique. Par
+Groupoids, Lemma \ref{groupoids-lemma-quotient-groupoid-restrict},
+le morphisme $X' \to X$ est un monomorphisme.
+Comme $s, t$ sont quasi-compacts, nous voyons que $R$ est quasi-compact;
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-point-like-spaces}
+s'applique donc à $X'$, et nous voyons que
+$X' = \Spec(k')$ pour un certain corps $k'$. Nous obtenons ainsi une
+factorisation
+$$
+\Spec(k) \longrightarrow
+\Spec(k') \longrightarrow X
+$$
+qui montre que $\Spec(k') \to X$ est un monomorphisme dont l'image est
+$x \in |X|$. Autrement dit, (4) est vérifiée.
+
+\medskip\noindent
+Enfin, démontrons que (4) implique (1). Soit $\Spec(k) \to X$
+un monomorphisme, où $k$ est un corps, dans la classe d'équivalence de $x$.
+Soit $U \to X$ un morphisme étale surjectif d'un schéma $U$ vers $X$.
+Soit $u \in U$ un point au-dessus de $x$. Puisque $\Spec(k) \times_X u$
+est non vide et que $\Spec(k) \times_X u \to u$ est un monomorphisme,
+nous en concluons que $\Spec(k) \times_X u = u$ (voir
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}).
+Le morphisme $u \to U \to X$ se factorise donc par $\Spec(k) \to X$; voici
+le diagramme
+$$
+\xymatrix{
+u \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+Comme la flèche verticale de droite est étale, il en résulte que
+$\kappa(u)/k$ est une extension finie séparable. Par conséquent,
+$$
+u \times_X u = u \times_{\Spec(k)} u
+$$
+est un schéma fini, et le résultat découle de l'analyse de la propriété (1)
+faite au premier paragraphe de cette démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weak-UR-finite-above-x}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $x \in |X|$.
+Soit $U$ un schéma et soit $\varphi : U \to X$ un morphisme étale.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $x$ appartient à l'image de $|U| \to |X|$ et, si l'on pose
+$R = U \times_X U$, les fibres des deux applications
+$$
+|U| \longrightarrow |X|
+\quad\text{and}\quad
+|R| \longrightarrow |X|
+$$
+au-dessus de $x$ sont finies,
+\item il existe un monomorphisme $\Spec(k) \to X$, où $k$ est un corps,
+dans la classe d'équivalence de $x$, et
+le produit fibré $\Spec(k) \times_X U$ est
+un schéma fini non vide sur $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1). Cette condition implique clairement la première condition du
+Lemme \ref{lemma-R-finite-above-x}; nous obtenons donc un monomorphisme
+$\Spec(k) \to X$ dans la classe de $x$. En prenant le produit fibré,
+nous voyons que $\Spec(k) \times_X U \to \Spec(k)$ est un schéma
+étale sur $\Spec(k)$ ayant un nombre fini de points, donc un schéma fini
+non vide sur $k$, c'est-à-dire que (2) est vérifiée.
+
+\medskip\noindent
+Supposons (2). Par hypothèse, $x$ appartient à l'image de
+$|U| \to |X|$. La finitude de la fibre de
+$|U| \to |X|$ au-dessus de $x$ est claire, puisque cette fibre est égale à
+$|\Spec(k) \times_X U|$ d'après
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}.
+La finitude de la fibre de $|R| \to |X|$ au-dessus de $x$ est également
+claire, puisqu'elle est égale à l'ensemble sous-jacent au schéma
+$$
+(\Spec(k) \times_X U) \times_{\Spec(k)} (\Spec(k) \times_X U)
+$$
+qui est fini sur $k$. Ainsi, (1) est vérifiée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-UR-finite-above-x}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $x \in |X|$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item pour tout schéma affine $U$ et tout morphisme étale
+$\varphi : U \to X$, si l'on pose $R = U \times_X U$, les fibres des deux
+applications
+$$
+|U| \longrightarrow |X|
+\quad\text{and}\quad
+|R| \longrightarrow |X|
+$$
+au-dessus de $x$ sont finies,
+\item il existe des schémas $U_i$ et des morphismes étales
+$U_i \to X$ tels que $\coprod U_i \to X$ soit surjectif et que, pour tout
+$i$, si l'on pose $R_i = U_i \times_X U_i$, les fibres des deux applications
+$$
+|U_i| \longrightarrow |X|
+\quad\text{and}\quad
+|R_i| \longrightarrow |X|
+$$
+au-dessus de $x$ soient finies,
+\item il existe un monomorphisme $\Spec(k) \to X$, où $k$ est un corps,
+dans la classe d'équivalence de $x$, et, pour tout schéma affine $U$ et tout
+morphisme étale $U \to X$, le produit fibré $\Spec(k) \times_X U$ est
+un schéma fini sur $k$,
+\item il existe un monomorphisme quasi-compact $\Spec(k) \to X$,
+où $k$ est un corps dans la classe d'équivalence de $x$,
+\item il existe un morphisme quasi-compact $\Spec(k) \to X$,
+où $k$ est un corps dans la classe d'équivalence de $x$, et
+\item tout morphisme $\Spec(k) \to X$, où $k$ est un corps dans la
+classe d'équivalence de $x$, est quasi-compact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (3) résulte de l'application du
+Lemme \ref{lemma-weak-UR-finite-above-x}
+à tout morphisme étale $U \to X$ avec $U$ affine.
+Il est clair que (3) implique (2).
+Supposons que $U_i \to X$ et $R_i$ soient comme en (2). Le
+Lemme \ref{lemma-U-finite-above-x}
+nous permet de conclure que, pour tout schéma affine $U$ et tout morphisme
+étale $U \to X$, la fibre de $|U| \to |X|$ au-dessus de $x$ est finie.
+Écrivons cette fibre $\{u_1, \ldots, u_n\}$. Comme la condition (1) du
+Lemme \ref{lemma-R-finite-above-x}
+s'applique à $U_i \to X$ pour un certain $i$ tel que $x$ appartienne à
+l'image de $|U_i| \to |X|$, nous voyons que la fibre de
+$|R = U \times_X U| \to |U| \times_{|X|} |U|$
+est finie au-dessus de $(u_a, u_b)$, où $a, b \in \{1, \ldots, n\}$.
+La fibre de $|R| \to |X|$ au-dessus de $x$ est donc finie.
+Nous voyons ainsi que (1) est vérifiée. À ce stade, nous savons que
+(1), (2) et (3) sont équivalentes.
+
+\medskip\noindent
+Si (4) est vérifiée, alors, pour tout schéma affine $U$ et tout morphisme
+étale $U \to X$, le schéma $\Spec(k) \times_X U$ est d'une part
+étale sur $k$ (donc une réunion disjointe de spectres d'extensions finies
+séparables de $k$, d'après la
+Remarque \ref{remark-recall})
+et d'autre part quasi-compact sur $U$ (donc quasi-compact).
+Nous voyons ainsi que (3) est vérifiée.
+Réciproquement, si $U_i \to X$ est comme en (2) et si $\Spec(k) \to X$
+est un monomorphisme comme en (3), alors
+$$
+\coprod \Spec(k) \times_X U_i
+\longrightarrow
+\coprod U_i
+$$
+est quasi-compact (car, au-dessus de chaque $U_i$, nous voyons que
+$\Spec(k) \times_X U_i$ est une réunion disjointe finie de spectres de corps).
+Ainsi, $\Spec(k) \to X$ est quasi-compact d'après
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}.
+
+\medskip\noindent
+Il est immédiat que (4) implique (5). Réciproquement, soit
+$\Spec(k) \to X$ un morphisme quasi-compact dans la classe d'équivalence de
+$x$. Soit $U \to X$ un morphisme étale avec $U$ affine. Considérons le
+produit fibré
+$$
+\xymatrix{
+F \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+Alors $F \to U$ est quasi-compact, donc $F$ est quasi-compact.
+D'autre part, $F \to \Spec(k)$ est étale; ainsi, $F$ est une
+réunion disjointe finie de spectres d'extensions finies séparables de $k$
+(Remarque \ref{remark-recall}). Comme l'image de $|F| \to |U|$
+est la fibre de $|U| \to |X|$ au-dessus de $x$ (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-points-cartesian}), nous en concluons que
+la fibre de $|U| \to |X|$ au-dessus de $x$ est finie. Le schéma
+$F \times_{\Spec(k)} F$ est aussi une réunion finie de spectres de corps,
+car il est lui aussi quasi-compact et étale sur $\Spec(k)$.
+Il existe un monomorphisme
+$F \times_X F \to F \times_{\Spec(k)} F$; par conséquent, $F \times_X F$ est
+une réunion disjointe finie de spectres de corps
+(Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}).
+L'image de $F \times_X F \to U \times_X U = R$ est donc finie.
+Comme cette image est la fibre de $|R| \to |X|$ au-dessus de $x$ d'après
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian},
+nous en concluons que (1) est vérifiée. À ce stade, nous savons que
+(1) -- (5) sont équivalentes.
+
+\medskip\noindent
+Il est clair que (6) implique (5). Réciproquement, supposons que
+$\Spec(k) \to X$ soit comme en (4) et soit $\Spec(k') \to X$ un autre
+morphisme, où $k'$ est un corps dans la classe d'équivalence de $x$. Par
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-equivalence-class-point-monomorphism},
+nous avons une factorisation $\Spec(k') \to \Spec(k) \to X$ du morphisme
+donné. C'est un composé de morphismes quasi-compacts, donc un morphisme
+quasi-compact (Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-composition-quasi-compact}), comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-U-universally-bounded}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe des schémas $U_i$ et des morphismes étales
+$U_i \to X$ tels que $\coprod U_i \to X$ soit surjectif et que
+chaque $U_i \to X$ ait des fibres universellement bornées, et
+\item pour tout schéma affine $U$ et tout morphisme étale $\varphi : U \to X$,
+les fibres de $U \to X$ sont universellement bornées.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (2) $\Rightarrow$ (1) est immédiate.
+Supposons (1). Soit $(\varphi_i : U_i \to X)_{i \in I}$ une famille de
+morphismes étales de schémas vers $X$, qui recouvre $X$, telle que
+chaque $\varphi_i$ ait des fibres universellement bornées.
+Soit $\psi : U \to X$ un morphisme étale d'un schéma affine vers $X$.
+Pour tout $i$, considérons le diagramme de produit fibré
+$$
+\xymatrix{
+U \times_X U_i \ar[r]_{p_i} \ar[d]_{q_i} & U_i \ar[d]^{\varphi_i} \\
+U \ar[r]^\psi & X
+}
+$$
+Comme $q_i$ est étale, il est ouvert (voir la Remarque \ref{remark-recall}).
+De plus, nous avons $U = \bigcup \Im(q_i)$, puisque la famille
+$(\varphi_i)_{i \in I}$ est surjective. Comme $U$ est affine, donc
+quasi-compact, nous pouvons trouver un nombre fini d'indices
+$i_1, \ldots, i_n \in I$ et des ouverts quasi-compacts
+$W_j \subset U \times_X U_{i_j}$ tels que
+$U = \bigcup q_{i_j}(W_j)$.
+Le morphisme $p_{i_j}$ est étale, donc localement quasi-fini
+(voir la remarque sur les morphismes étales ci-dessus). Nous pouvons donc
+appliquer Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+pour voir que les fibres de $p_{i_j}|_{W_j} : W_j \to U_{i_j}$ sont
+universellement bornées. Par le
+Lemme \ref{lemma-composition-universally-bounded},
+nous voyons donc que les fibres de $W_j \to X$ sont universellement bornées.
+Ainsi, $\coprod_{j = 1, \ldots, n} W_j \to X$ a lui aussi des fibres
+universellement bornées. Comme $\coprod_{j = 1, \ldots, n} W_j \to X$ se
+factorise par le morphisme étale surjectif
+$\coprod q_{i_j}|_{W_j} : \coprod_{j = 1, \ldots, n} W_j \to U$, nous
+voyons que les fibres de $U \to X$ sont universellement bornées d'après le
+Lemme \ref{lemma-universally-bounded-permanence}.
+Autrement dit, (2) est vérifiée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-very-reasonable}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un recouvrement de Zariski $X = \bigcup X_i$ et, pour
+chaque $i$, un schéma $U_i$ ainsi qu'un morphisme étale surjectif
+quasi-compact $U_i \to X_i$, et
+\item il existe des schémas $U_i$ et des morphismes étales $U_i \to X$
+tels que les projections $U_i \times_X U_i \to U_i$ soient quasi-compactes
+et que $\coprod U_i \to X$ soit surjectif.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Si (1) est vérifiée, alors les morphismes $U_i \to X_i \to X$ sont étales
+(combiner Morphisms, Lemma \ref{morphisms-lemma-composition-etale}
+et
+Spaces, Lemmas
+\ref{spaces-lemma-composition-representable-transformations-property} et
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation-property}
+).
+De plus, puisque $U_i \times_X U_i = U_i \times_{X_i} U_i$,
+les deux projections $U_i \times_X U_i \to U_i$ sont quasi-compactes.
+
+\medskip\noindent
+Si (2) est vérifiée, soit $X_i \subset X$ le sous-espace ouvert correspondant
+à l'image de l'application ouverte $|U_i| \to |X|$; voir
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-etale-image-open}.
+Les morphismes $U_i \to X_i$ sont surjectifs.
+Ainsi, $U_i \to X_i$ est étale surjectif, et les projections
+$U_i \times_{X_i} U_i \to U_i$ sont quasi-compactes, car
+$U_i \times_{X_i} U_i = U_i \times_X U_i$. Par conséquent, d'après
+Spaces, Lemma \ref{spaces-lemma-representable-morphisms-spaces-property},
+les morphismes $U_i \to X_i$ sont quasi-compacts.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Conditions sur les espaces algébriques}
+\label{section-conditions}
+
+\noindent
+Dans cette section, nous étudions les relations entre diverses conditions
+naturelles sur les espaces algébriques rencontrées plus haut. Veuillez lire
+la Section \ref{section-reasonable-decent}
+pour vous faire une idée du sens de ces conditions.
+
+\begin{lemma}
+\label{lemma-bounded-fibres}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Considérons les conditions suivantes sur $X$ :
+\begin{itemize}
+\item[] $(\alpha)$ Pour tout $x \in |X|$, les conditions équivalentes du
+Lemme \ref{lemma-U-finite-above-x}
+sont vérifiées.
+\item[] $(\beta)$ Pour tout $x \in |X|$, les conditions équivalentes du
+Lemme \ref{lemma-R-finite-above-x}
+sont vérifiées.
+\item[] $(\gamma)$ Pour tout $x \in |X|$, les conditions équivalentes du
+Lemme \ref{lemma-UR-finite-above-x}
+sont vérifiées.
+\item[] $(\delta)$ Les conditions équivalentes du
+Lemme \ref{lemma-U-universally-bounded}
+sont vérifiées.
+\item[] $(\epsilon)$ Les conditions équivalentes du
+Lemme \ref{lemma-characterize-very-reasonable}
+sont vérifiées.
+\item[] $(\zeta)$ L'espace $X$ est localement quasi-séparé pour la topologie
+de Zariski.
+\item[] $(\eta)$ L'espace $X$ est quasi-séparé.
+\item[] $(\theta)$ L'espace $X$ est représentable, c'est-à-dire que $X$ est un
+schéma.
+\item[] $(\iota)$ L'espace $X$ est un schéma quasi-séparé.
+\end{itemize}
+Nous avons
+$$
+\xymatrix{
+& (\theta) \ar@{=>}[rd] & & & &  \\
+(\iota) \ar@{=>}[ru] \ar@{=>}[rd] & &
+(\zeta) \ar@{=>}[r] &
+(\epsilon) \ar@{=>}[r] &
+(\delta) \ar@{=>}[r] &
+(\gamma) \ar@{<=>}[r] & (\alpha) + (\beta) \\
+& (\eta) \ar@{=>}[ru] & & & &
+}
+$$
+\end{lemma}
+
+\begin{proof}
+L'implication $(\gamma) \Leftrightarrow (\alpha) + (\beta)$ est immédiate.
+Les implications du losange de gauche résultent clairement des définitions.
+
+\medskip\noindent
+Supposons $(\zeta)$, c'est-à-dire que $X$ soit localement quasi-séparé pour
+la topologie de Zariski. Alors $(\epsilon)$ est vérifiée d'après
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-separated-quasi-compact-pieces}.
+
+\medskip\noindent
+Supposons $(\epsilon)$. D'après le
+Lemme \ref{lemma-characterize-very-reasonable},
+il existe un recouvrement ouvert de Zariski $X = \bigcup X_i$ tel que, pour
+chaque $i$, il existe un schéma $U_i$ et un morphisme étale surjectif
+quasi-compact $U_i \to X_i$. Fixons un $i$ et un sous-schéma ouvert affine
+$W \subset U_i$. Il suffit de montrer que $W \to X$ a des fibres
+universellement bornées, puisque la famille de tous ces morphismes
+$W \to X$ recouvre alors $X$.
+Pour cela, considérons le diagramme
+$$
+\xymatrix{
+W \times_X U_i \ar[r]_-p \ar[d]_q & U_i \ar[d] \\
+W \ar[r] & X
+}
+$$
+Puisque $W \to X$ se factorise par $X_i$, nous voyons que
+$W \times_X U_i = W \times_{X_i} U_i$; par conséquent, $q$ est quasi-compact.
+Comme $W$ est affine, il en résulte que le schéma $W \times_X U_i$
+est quasi-compact. Nous pouvons donc appliquer
+Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded},
+et nous concluons que $p$ a des fibres universellement bornées. Du
+Lemme \ref{lemma-descent-universally-bounded},
+nous concluons que $W \to X$ a lui aussi des fibres universellement bornées.
+
+\medskip\noindent
+Supposons $(\delta)$. Soit $U$ un schéma affine, et soit $U \to X$ un morphisme
+étale. Par hypothèse, les fibres du morphisme $U \to X$ sont universellement
+bornées. Il en va donc de même des fibres des deux projections
+$R = U \times_X U \to U$; voir le
+Lemme \ref{lemma-base-change-universally-bounded}.
+Et, d'après le
+Lemme \ref{lemma-composition-universally-bounded},
+les fibres de $R \to X$ sont elles aussi universellement bornées.
+Par conséquent, pour tout $x \in X$, les fibres de $|U| \to |X|$ et de
+$|R| \to |X|$ au-dessus de $x$ sont finies; voir le
+Lemme \ref{lemma-universally-bounded-finite-fibres}.
+Autrement dit, les conditions équivalentes du
+Lemme \ref{lemma-UR-finite-above-x}
+sont vérifiées. Cela prouve $(\delta) \Rightarrow (\gamma)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-properties-local}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ l'une des propriétés
+$(\alpha)$, $(\beta)$, $(\gamma)$, $(\delta)$, $(\epsilon)$, $(\zeta)$ ou
+$(\theta)$ des espaces algébriques énumérées dans le
+Lemme \ref{lemma-bounded-fibres}.
+Alors, si $X$ est un espace algébrique sur $S$ et si
+$X = \bigcup X_i$ est un recouvrement ouvert de Zariski tel que chaque
+$X_i$ possède $\mathcal{P}$, alors $X$ possède $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Soit $X$ un espace algébrique sur $S$, et soit $X = \bigcup X_i$ un
+recouvrement ouvert de Zariski tel que chaque $X_i$ possède $\mathcal{P}$.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\alpha)$. La condition $(\alpha)$ pour $X_i$
+signifie que, pour tout $x \in |X_i|$, tout schéma affine $U$ et tout
+morphisme étale $\varphi : U \to X_i$, la fibre de
+$\varphi : |U| \to |X_i|$ au-dessus de $x$ est finie. Considérons
+$x \in X$, un schéma affine $U$ et un morphisme étale $U \to X$.
+Puisque $X = \bigcup X_i$ est un recouvrement ouvert de Zariski, il existe
+un recouvrement ouvert affine fini $U = U_1 \cup \ldots \cup U_n$ tel que
+chaque $U_j \to X$ se factorise par un certain $X_{i_j}$. Par hypothèse,
+les fibres de $|U_j | \to |X_{i_j}|$ au-dessus de $x$ sont finies pour
+$j = 1, \ldots, n$. Cela signifie clairement que la fibre de
+$|U| \to |X|$ au-dessus de $x$ est finie.
+Ceci prouve le résultat pour $(\alpha)$.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\beta)$. La condition $(\beta)$ pour $X_i$ signifie
+que tout $x \in |X_i|$ est représenté par un monomorphisme du spectre
+d'un corps vers $X_i$. Il en va donc de même pour $X$, puisque
+$X_i \to X$ est un monomorphisme et que $X = \bigcup X_i$.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\gamma)$.
+Notons que $(\gamma) = (\alpha) + (\beta)$ d'après le
+Lemme \ref{lemma-bounded-fibres}; le lemme pour $(\gamma)$ résulte donc
+des cas traités ci-dessus.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\delta)$. La condition $(\delta)$ pour $X_i$ signifie
+qu'il existe des schémas $U_{ij}$ et des morphismes étales
+$U_{ij} \to X_i$ à fibres universellement bornées qui recouvrent $X_i$.
+Ces schémas fournissent aussi un morphisme étale surjectif
+$\coprod U_{ij} \to X$, et $U_{ij} \to X$ a encore des fibres
+universellement bornées.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\epsilon)$. La condition $(\epsilon)$ pour $X_i$
+signifie que l'on peut trouver un ensemble $J_i$ et des morphismes
+$\varphi_{ij} : U_{ij} \to X_i$ tels que chaque $\varphi_{ij}$ soit étale,
+que les deux projections $U_{ij} \times_{X_i} U_{ij} \to U_{ij}$ soient
+quasi-compactes et que $\coprod_{j \in J_i} U_{ij} \to X_i$ soit surjectif.
+Dans ce cas, les composés $U_{ij} \to X_i \to X$ sont étales
+(combiner
+Morphisms, Lemmas
+\ref{morphisms-lemma-composition-etale} et
+\ref{morphisms-lemma-open-immersion-etale}
+et
+Spaces, Lemmas
+\ref{spaces-lemma-composition-representable-transformations-property} et
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation-property}
+).
+Comme $X_i \subset X$ est un sous-espace, nous voyons que
+$U_{ij} \times_{X_i} U_{ij} = U_{ij} \times_X U_{ij}$; la condition sur
+les produits fibrés est donc préservée. Et il est clair que
+$\coprod_{i, j} U_{ij} \to X$ est surjectif. Ainsi, $X$
+satisfait $(\epsilon)$.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\zeta)$. La condition $(\zeta)$ pour $X_i$ signifie
+que $X_i$ est localement quasi-séparé pour la topologie de Zariski.
+Il est immédiat que $X$ est alors localement quasi-séparé pour la
+topologie de Zariski.
+
+\medskip\noindent
+Pour $(\theta)$, voir
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-subscheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-properties}
+Soit $S$ un schéma. Soit $\mathcal{P}$ l'une des propriétés
+$(\beta)$, $(\gamma)$, $(\delta)$, $(\epsilon)$ ou
+$(\theta)$ des espaces algébriques énumérées dans le
+Lemme \ref{lemma-bounded-fibres}.
+Soient $X$, $Y$ des espaces algébriques sur $S$.
+Soit $X \to Y$ un morphisme représentable.
+Si $Y$ possède la propriété $\mathcal{P}$, il en est de même de $X$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $f : X \to Y$ soit un morphisme représentable d'espaces
+algébriques et que $Y$ possède $\mathcal{P}$. Soit $x \in |X|$, et posons
+$y = f(x) \in |Y|$.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\beta)$. La condition $(\beta)$ pour $Y$ signifie
+qu'il existe un monomorphisme $\Spec(k) \to Y$ représentant $y$.
+Le produit fibré $X_y = \Spec(k) \times_Y X$ est un schéma, et
+$x$ correspond à un point de $X_y$, c'est-à-dire à un monomorphisme
+$\Spec(k') \to X_y$. Comme $X_y \to X$ est lui aussi un monomorphisme,
+nous voyons que $x$ est représenté par le monomorphisme
+$\Spec(k') \to X_y \to X$.
+Autrement dit, $(\beta)$ est vérifiée pour $X$.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\gamma)$. Puisque $(\gamma) \Rightarrow (\beta)$,
+nous avons vu au paragraphe précédent que $y$ et $x$ peuvent être
+représentés par des monomorphismes comme dans le diagramme suivant
+$$
+\xymatrix{
+\Spec(k') \ar[r]_-x \ar[d] & X \ar[d] \\
+\Spec(k) \ar[r]^-y & Y
+}
+$$
+De plus, par définition de la propriété $(\gamma)$ au moyen du
+Lemme \ref{lemma-UR-finite-above-x} (2),
+il existe des schémas $V_i$ et des morphismes étales $V_i \to Y$ tels que
+$\coprod V_i \to Y$ soit surjectif et que, pour chaque $i$, en posant
+$R_i = V_i \times_Y V_i$, les fibres des deux applications
+$$
+|V_i| \longrightarrow |Y|
+\quad\text{and}\quad
+|R_i| \longrightarrow |Y|
+$$
+au-dessus de $y$ soient finies. Cela signifie que les schémas
+$(V_i)_y$ et $(R_i)_y$ sont des schémas finis sur $y = \Spec(k)$.
+Comme $X \to Y$ est représentable, les produits fibrés
+$U_i = V_i \times_Y X$ sont des schémas. Les morphismes $U_i \to X$
+sont étales, et $\coprod U_i \to X$ est surjectif. Enfin, pour chaque $i$,
+nous avons
+$$
+(U_i)_x =
+(V_i \times_Y X)_x =
+(V_i)_y \times_{\Spec(k)} \Spec(k')
+$$
+et
+$$
+(U_i \times_X U_i)_x =
+\left((V_i \times_Y X) \times_X (V_i \times_Y X)\right)_x =
+(R_i)_y \times_{\Spec(k)} \Spec(k')
+$$
+de sorte que ces schémas sont finis sur $k'$, comme changements de base des
+schémas finis $(V_i)_y$ et $(R_i)_y$. Il s'ensuit que $(\gamma)$ est
+vérifiée pour $X$, de nouveau par la seconde condition du
+Lemme \ref{lemma-UR-finite-above-x}.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\delta)$. Soit $V \to Y$ un morphisme étale, où
+$V$ est un schéma affine. Puisque $Y$ possède la propriété $(\delta)$,
+ce morphisme a des fibres universellement bornées. D'après le
+Lemme \ref{lemma-base-change-universally-bounded},
+le changement de base $V \times_Y X \to X$ a lui aussi des fibres
+universellement bornées. La première partie du
+Lemme \ref{lemma-U-universally-bounded}
+s'applique donc, et nous voyons que $X$ possède lui aussi la propriété
+$(\delta)$.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\epsilon)$. Nous utiliserons à plusieurs reprises
+Spaces, Lemma
+\ref{spaces-lemma-base-change-representable-transformations-property}.
+Soient $V_i \to Y$ comme dans le
+Lemme \ref{lemma-characterize-very-reasonable} (2).
+Posons $U_i = X \times_Y V_i$. Les morphismes $U_i \to X$ sont étales,
+et $\coprod U_i \to X$ est surjectif. Puisque
+$U_i \times_X U_i = X \times_Y (V_i \times_Y V_i)$, nous voyons que les
+projections $U_i \times_X U_i \to U_i$ sont les changements de base des
+projections $V_i \times_Y V_i \to V_i$, et sont donc elles aussi
+quasi-compactes. Ainsi, $X$ satisfait la condition (2) du
+Lemme \ref{lemma-characterize-very-reasonable}.
+
+\medskip\noindent
+Le cas $\mathcal{P} = (\theta)$. Dans ce cas, le résultat est
+Categories, Lemma \ref{categories-lemma-representable-over-representable}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Espaces algébriques raisonnables et décents}
+\label{section-reasonable-decent}
+
+\noindent
+Dans le
+Lemme \ref{lemma-bounded-fibres},
+nous avons rencontré plusieurs conditions sur les espaces algébriques liées
+au comportement des morphismes étales de schémas affines vers $X$
+et à l'existence de recouvrements étales particuliers de $X$ par des
+schémas. Nous récapitulons ici les différents types de conditions :
+$$
+\boxed{
+\begin{matrix}
+(\alpha) & \text{les fibres des morphismes étales issus d'affines
+sont finies} \\
+(\beta) & \text{les points proviennent de monomorphismes
+de spectres de corps} \\
+(\gamma) & \text{les points proviennent de monomorphismes quasi-compacts de
+spectres de corps} \\
+(\delta) & \text{les fibres des morphismes étales issus d'affines sont
+universellement bornées} \\
+(\epsilon) & \text{recouvrement par des morphismes étales issus de schémas,
+quasi-compacts sur leur image}
+\end{matrix}
+}
+$$
+
+\medskip\noindent
+Les conditions de la définition suivante ne sont pas exactement des conditions
+sur la diagonale de $X$, mais ce sont, en un certain sens, des conditions de
+séparation sur $X$.
+
+\begin{definition}
+\label{definition-very-reasonable}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Nous disons que $X$ est {\it décent} si, pour tout point $x \in X$, les
+conditions équivalentes du
+Lemme \ref{lemma-UR-finite-above-x}
+sont vérifiées, autrement dit si la propriété $(\gamma)$ du
+Lemme \ref{lemma-bounded-fibres}
+est vérifiée.
+\item Nous disons que $X$ est {\it raisonnable} si les conditions équivalentes
+du
+Lemme \ref{lemma-U-universally-bounded}
+sont vérifiées, autrement dit si la propriété $(\delta)$ du
+Lemme \ref{lemma-bounded-fibres}
+est vérifiée.
+\item Nous disons que $X$ est {\it très raisonnable} si les conditions
+équivalentes du
+Lemme \ref{lemma-characterize-very-reasonable}
+sont vérifiées, c'est-à-dire si la propriété $(\epsilon)$ du
+Lemme \ref{lemma-bounded-fibres}
+est vérifiée.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous avons les implications suivantes entre ces conditions sur les espaces
+algébriques :
+$$
+\xymatrix{
+\text{représentable} \ar@{=>}[rd] & & & \\
+ & \text{très raisonnable} \ar@{=>}[r] &
+\text{raisonnable} \ar@{=>}[r] &
+\text{décent} \\
+\text{quasi-séparé} \ar@{=>}[ru] & & &
+}
+$$
+La notion d'espace algébrique très raisonnable est obsolète.
+Elle a été introduite parce que cette hypothèse était nécessaire pour
+démontrer certains résultats qui le sont maintenant pour la classe des
+espaces décents.
+La classe des espaces décents est la plus grande classe d'espaces $X$ pour
+lesquels on dispose d'une bonne relation entre la topologie de $|X|$ et les
+propriétés de $X$ lui-même.
+
+\begin{example}
+\label{example-not-decent}
+L'espace algébrique $\mathbf{A}^1_{\mathbf{Q}}/\mathbf{Z}$ construit dans
+Spaces, Example \ref{spaces-example-affine-line-translation}
+n'est pas décent, car son ``point générique'' ne peut pas être représenté par
+un monomorphisme du spectre d'un corps.
+\end{example}
+
+\begin{remark}
+\label{remark-reasonable}
+Les espaces algébriques raisonnables sont techniquement plus faciles à manier
+que les espaces algébriques très raisonnables. Par exemple, si $X \to Y$ est
+un morphisme quasi-compact, étale et surjectif d'espaces algébriques et si
+$X$ est raisonnable, alors $Y$ l'est aussi; voir le
+Lemme \ref{lemma-descent-conditions}.
+Mais nous ne savons pas si cela reste vrai pour la propriété
+``très raisonnable''. Nous donnons plus bas une autre propriété technique
+que possèdent les espaces algébriques raisonnables.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-fun-property-reasonable}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique raisonnable quasi-compact sur $S$.
+Il existe alors un système inductif filtrant d'espaces algébriques
+quasi-compacts et quasi-séparés $X_i$ tel que $X = \colim_i X_i$
+(la colimite étant prise dans la catégorie des faisceaux). De plus, on peut
+faire en sorte que
+\begin{enumerate}
+\item pour tout schéma quasi-compact $T$ sur $S$, on ait
+$\colim X_i(T) = X(T)$,
+\item les morphismes de transition $X_i \to X_{i'}$ du système et les
+coprojections $X_i \to X$ soient surjectifs et étales, et
+\item si $X$ est un schéma, les espaces algébriques $X_i$ soient des schémas,
+et les morphismes de transition $X_i \to X_{i'}$ et les coprojections
+$X_i \to X$ soient des isomorphismes locaux.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Esquissons la démonstration. D'après
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-affine-cover},
+nous avons $X = U/R$, avec $U$ affine.
+Dans ce cas, être raisonnable signifie que $U \to X$ est
+universellement borné. Il existe donc un entier $N$ tel que les ``fibres'' de
+$U \to X$ soient de degré au plus $N$; voir la
+Définition \ref{definition-universally-bounded}.
+Désignons par $s, t : R \to U$ et $c : R \times_{s, U, t} R \to R$ les
+applications structurales du groupoïde.
+
+\medskip\noindent
+Affirmation : pour tout ouvert quasi-compact $A \subset R$, il existe un ouvert
+$R' \subset R$ tel que
+\begin{enumerate}
+\item $A \subset R'$,
+\item $R'$ soit quasi-compact, et
+\item $(U, R', s|_{R'}, t|_{R'}, c|_{R' \times_{s, U, t} R'})$ soit
+un groupoïde en schémas.
+\end{enumerate}
+Notons que le morphisme $e : U \to R$ est ouvert, puisqu'il est une section du
+morphisme étale $s : R \to U$; voir
+\'Etale Morphisms, Proposition \ref{etale-proposition-properties-sections}.
+De plus, $U$ est affine, donc quasi-compact. Nous pouvons ainsi remplacer $A$
+par $A \cup e(U) \subset R$ et supposer que $A$ contient $e(U)$. Définissons
+ensuite par récurrence $A^1 = A$ et
+$$
+A^n = c(A^{n - 1} \times_{s, U, t} A) \subset R
+$$
+pour $n \geq 2$. Un raisonnement par récurrence montre que $A^n$ est
+quasi-compact pour tout $n \geq 2$, comme image du produit fibré quasi-compact
+$A^{n - 1} \times_{s, U, t} A$. Si $k$ est un corps algébriquement clos sur
+$S$ et si nous considérons les points à valeurs dans $k$, alors
+$$
+A^n(k) = \left\{(u, u') \in U(k) \times U(k)
+:
+\begin{matrix}
+\text{il existe } u = u_1, u_2, \ldots, u_{n + 1} = u' \in U(k)
+\text{ tels que} \\
+(u_i , u_{i + 1}) \in A \text{ pour tout }i = 1, \ldots, n.
+\end{matrix}
+\right\}
+$$
+Mais, comme les fibres de $U(k) \to X(k)$ sont de cardinal au plus $N$, dès
+que $n > N$, un terme se répète dans la suite ci-dessus et nous pouvons la
+raccourcir. Cela prouve que $A^N = A^n$ pour tout $n \geq N$.
+Il en résulte que $R' = A^N$ fournit le groupoïde en schémas
+$(U, R', s|_{R'}, t|_{R'}, c|_{R' \times_{s, U, t} R'})$, ce qui démontre
+l'affirmation.
+
+\medskip\noindent
+Considérons le morphisme de faisceaux sur $(\Sch/S)_{fppf}$
+$$
+\colim_{R' \subset R} U/R' \longrightarrow U/R
+$$
+où $R' \subset R$ parcourt les sous-schémas ouverts quasi-compacts de $R$
+qui définissent des relations d'équivalence étales comme ci-dessus.
+Chacun des quotients $U/R'$ est un espace algébrique
+(voir Spaces, Theorem \ref{spaces-theorem-presentation}).
+Comme $R'$ est quasi-compact et $U$ affine, le morphisme
+$R' \to U \times_{\Spec(\mathbf{Z})} U$ est quasi-compact;
+par conséquent, $U/R'$ est quasi-séparé. Enfin, si $T$ est un schéma
+quasi-compact, alors
+$$
+\colim_{R' \subset R} U(T)/R'(T) \longrightarrow U(T)/R(T)
+$$
+est une bijection, car tout morphisme de $T$ dans $R$ se factorise par l'une
+des sous-relations ouvertes $R'$ grâce à l'affirmation ci-dessus. Cela
+implique clairement que la colimite des faisceaux $U/R'$ est $U/R$. Autrement
+dit, l'espace algébrique $X = U/R$ est la colimite des espaces algébriques
+quasi-séparés $U/R'$.
+
+\medskip\noindent
+Les propriétés (1) et (2) résultent de la discussion précédente.
+Si $X$ est un schéma, choisir pour $U$ une réunion disjointe finie d'ouverts
+affines de $X$ donne (3).
+Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-named-properties}
+Soit $S$ un schéma. Soient $X$, $Y$ des espaces algébriques sur $S$.
+Soit $X \to Y$ un morphisme représentable.
+Si $Y$ est décent (resp.\ raisonnable), alors $X$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+C'est une reformulation du Lemme \ref{lemma-representable-properties}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-named-properties}
+Soit $S$ un schéma. Soit $X \to Y$ un morphisme étale d'espaces
+algébriques sur $S$. Si $Y$ est décent, resp.\ raisonnable,
+alors $X$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma affine et $U \to X$ un morphisme étale.
+Posons $R = U \times_X U$ et $R' = U \times_Y U$. Notons que
+$R \to R'$ est un monomorphisme.
+
+\medskip\noindent
+Soit $x \in |X|$. Pour montrer que $X$ est décent, nous devons montrer que
+les fibres de $|U| \to |X|$ et de $|R| \to |X|$ au-dessus de $x$ sont finies.
+Mais si $Y$ est décent, les fibres de $|U| \to |Y|$ et de
+$|R'| \to |Y|$ sont finies. D'où le résultat pour ``décent''.
+
+\medskip\noindent
+Pour montrer que $X$ est raisonnable, nous devons montrer que les fibres de
+$U \to X$ sont universellement bornées. Or, si $Y$ est raisonnable, les fibres
+de $U \to Y$ sont universellement bornées, ce qui implique immédiatement la
+même propriété pour les fibres de $U \to X$.
+D'où le résultat pour ``raisonnable''.
+\end{proof}
+
+
+
+
+
+
+
+\section{Points et spécialisations}
+\label{section-specializations}
+
+\noindent
+Il existe un morphisme étale d'espaces algébriques $f : X \to Y$ et une
+spécialisation non triviale entre des points d'une fibre de
+$|f| : |X| \to |Y|$; voir
+Examples, Lemma \ref{examples-lemma-specializations-fibre-etale}.
+Si la source du morphisme est un schéma, on peut exclure ce phénomène en
+imposant la condition ($\alpha$) à $Y$.
+
+\begin{lemma}
+\label{lemma-no-specializations-map-to-same-point}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+Soit $U \to X$ un morphisme étale d'un schéma vers $X$.
+Supposons que $u, u' \in |U|$ aient pour image le même point $x$ de $|X|$ et
+que $u' \leadsto u$. Si le couple $(X, x)$ satisfait les conditions
+équivalentes du
+Lemme \ref{lemma-U-finite-above-x},
+alors $u = u'$.
+\end{lemma}
+
+\begin{proof}
+Supposons que le couple $(X, x)$ satisfasse les conditions équivalentes du
+Lemme \ref{lemma-U-finite-above-x}.
+Soit $U$ un schéma, soit $U \to X$ un morphisme étale, et supposons que
+$u, u' \in |U|$ aient pour image $x$ dans $|X|$ et que
+$u' \leadsto u$. Nous pouvons remplacer, et remplaçons, $U$ par un voisinage
+affine de $u$. Soient $t, s : R = U \times_X U \to U$
+les projections étales.
+
+\medskip\noindent
+Choisissons un point $r \in R$ tel que $t(r) = u$ et $s(r) = u'$.
+C'est possible d'après
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-presentation}.
+Comme les générisations se relèvent le long du morphisme étale $t$
+(Remarque \ref{remark-recall}), nous pouvons trouver une spécialisation
+$r' \leadsto r$ telle que $t(r') = u'$. Posons $u'' = s(r')$. Alors
+$u'' \leadsto u'$.
+Nous pouvons donc recommencer et trouver $r'' \leadsto r'$ tel que
+$t(r'') = u''$. Posons $u''' = s(r'')$, et ainsi de suite.
+Voici le diagramme :
+$$
+\xymatrix{
+& r'' \ar[rd]^s \ar[ld]_t \ar@{~>}[d] & \\
+u'' \ar@{~>}[d] & r' \ar[rd]^s \ar[ld]_t \ar@{~>}[d] & u''' \ar@{~>}[d] \\
+u' \ar@{~>}[d] & r \ar[rd]^s \ar[ld]_t & u'' \ar@{~>}[d] \\
+u & & u'
+}
+$$
+Dans la Remarque \ref{remark-recall}, nous avons vu qu'il n'y a pas de
+spécialisations entre les points des fibres du morphisme étale $s$. Ainsi,
+si $u^{(n + 1)} = u^{(n)}$ pour un certain $n$, alors aussi
+$r^{(n)} = r^{(n - 1)}$, puis, en appliquant $t$,
+$u^{(n)} = u^{(n - 1)}$. Toute la tour est alors constante; en particulier,
+$u = u'$. Nous voyons donc que, si $u \not = u'$, toutes les spécialisations
+sont strictes et que $\{u, u', u'', \ldots\}$ est un ensemble infini de points
+de $U$ dont l'image est le point $x$ de $|X|$. Comme nous avons choisi $U$
+affine, cela contredit la seconde partie du
+Lemme \ref{lemma-U-finite-above-x}, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-no-specializations-map-to-same-point-Noetherian}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $U \to X$ un morphisme étale d'un schéma vers $X$.
+Supposons que $u, u' \in |U|$ aient pour image le même point $x$ de $|X|$ et
+que $u' \leadsto u$. Si $X$ est localement noethérien, alors $u = u'$.
+\end{lemma}
+
+\begin{proof}
+La discussion de Schemes, Section \ref{schemes-section-points}
+montre que $\mathcal{O}_{U, u'}$ est un localisé de
+l'anneau local noethérien $\mathcal{O}_{U, u}$.
+D'après Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-pre-dimension-local-ring},
+nous avons $\dim(\mathcal{O}_{U, u}) = \dim(\mathcal{O}_{U, u'})$.
+La théorie de la dimension des anneaux locaux noethériens permet de conclure
+que $u = u'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-specialization}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+Soient $x, x' \in |X|$ et supposons que $x' \leadsto x$, c'est-à-dire que $x$
+est une spécialisation de $x'$.
+Supposons que le couple $(X, x')$ satisfasse les conditions équivalentes
+du Lemme \ref{lemma-UR-finite-above-x}.
+Alors, pour tout morphisme étale $\varphi : U \to X$ d'un schéma $U$ et tout
+$u \in U$ tel que $\varphi(u) = x$, il existe un point $u'\in U$ tel que
+$u' \leadsto u$ et $\varphi(u') = x'$.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons remplacer $U$ par un voisinage ouvert affine de $u$.
+Nous pouvons donc supposer que $U$ est affine. Comme $x$ appartient à l'image
+du morphisme ouvert $|U| \to |X|$, il en est de même de $x'$. Nous pouvons
+ainsi remplacer $X$ par le sous-espace ouvert de Zariski correspondant à
+l'image de $|U| \to |X|$; voir
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-etale-image-open}.
+Autrement dit, nous pouvons supposer que
+$U \to X$ est surjectif et étale.
+Soient $s, t : R = U \times_X U \to U$ les projections.
+Comme $(X, x')$ satisfait par hypothèse les conditions équivalentes du
+Lemme \ref{lemma-UR-finite-above-x},
+les fibres de $|U| \to |X|$ et de $|R| \to |X|$
+au-dessus de $x'$ sont finies. Écrivons $\{u'_1, \ldots, u'_n\} \subset U$ et
+$\{r'_1, \ldots, r'_m\} \subset R$ pour les images inverses respectives
+de $\{x'\}$.
+Considérons les fermés
+$$
+T = \overline{\{u'_1\}} \cup \ldots \cup \overline{\{u'_n\}} \subset |U|,
+\quad
+T' = \overline{\{r'_1\}} \cup \ldots \cup \overline{\{r'_m\}} \subset |R|.
+$$
+Il est clair que $s(T') \subset T$. Comme $R$ est une relation d'équivalence,
+nous avons aussi $t(T') = s(T')$, puisque l'ensemble $\{r_j'\}$ est invariant
+par la symétrie de $R$, par construction. Soit $w \in T$ un point quelconque.
+Alors $u'_i \leadsto w$ pour un certain $i$. Choisissons $r \in R$
+tel que $s(r) = w$. Comme les générisations se relèvent le long de
+$s : R \to U$ (voir la Remarque \ref{remark-recall}), nous pouvons trouver
+$r' \leadsto r$ tel que $s(r') = u_i'$. Alors $r' = r'_j$ pour un certain $j$,
+et nous en déduisons que $w \in s(T')$. Ainsi,
+$T = s(T') = t(T')$ est une partie saturée pour la relation d'équivalence
+$|R|$, fermée dans $|U|$. Cela signifie que $T$ est l'image inverse d'une
+partie fermée (!) $T'' = \varphi(T)$ de $|X|$; voir
+Properties of Spaces,
+Lemmas \ref{spaces-properties-lemma-points-presentation} et
+\ref{spaces-properties-lemma-topology-points}.
+Par conséquent, $T'' = \overline{\{x'\}}$.
+Ainsi, $T$ contient un point $u_1$ d'image $x$, puisque $x \in T''$.
+Autrement dit, pour un certain $i$, il existe une spécialisation
+$u'_i \leadsto u_1$ dont l'image est la spécialisation donnée
+$x' \leadsto x$.
+
+\medskip\noindent
+Pour achever la preuve, choisissons un point $r \in R$ tel que
+$s(r) = u$ et $t(r) = u_1$ (à l'aide de
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}).
+Comme les générisations se relèvent le long de $t$ et que
+$u'_i \leadsto u_1$, nous pouvons trouver une spécialisation
+$r' \leadsto r$ telle que $t(r') = u'_i$.
+Posons $u' = s(r')$. Alors $u' \leadsto u$ et $\varphi(u') = x'$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-generalizations-lift-flat}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme plat d'espaces algébriques
+sur $S$. Soient $x, x' \in |X|$ et supposons que $x' \leadsto x$, c'est-à-dire
+que $x$ est une spécialisation de $x'$. Supposons que le couple $(X, x')$
+satisfasse les conditions équivalentes du
+Lemme \ref{lemma-UR-finite-above-x} (par exemple si
+$X$ est décent, $X$ est quasi-séparé ou $X$ est représentable).
+Alors, pour tout $y \in |Y|$ tel que $f(y) = x$, il existe un point
+$y' \in |Y|$ tel que $y' \leadsto y$ et $f(y') = x'$.
+\end{lemma}
+
+\begin{proof}
+(L'assertion entre parenthèses résulte de la définition des espaces décents
+et des implications entre les différentes conditions de séparation
+mentionnées dans la Section \ref{section-reasonable-decent}.)
+Choisissons un schéma $V$ et un morphisme étale surjectif $V \to Y$.
+Choisissons $v \in V$ d'image $y$. Il suffit alors de démontrer le lemme pour
+$V \to X$. Nous pouvons donc supposer que $Y$ est un schéma.
+Choisissons un schéma $U$ et un morphisme étale surjectif $U \to X$.
+Choisissons $u \in U$ d'image $x$. D'après le
+Lemme \ref{lemma-specialization}, nous pouvons choisir $u' \leadsto u$
+d'image $x'$. D'après Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian},
+nous pouvons choisir $z \in U \times_X Y$ d'image $y$ et $u$.
+Nous nous ramenons ainsi au cas du morphisme plat de schémas
+$U \times_X Y \to U$. La conclusion résulte alors de
+Morphisms, Lemma \ref{morphisms-lemma-generalizations-lift-flat}.
+\end{proof}
+
+
+
+
+
+
+\section{Stratification des espaces algébriques par des schémas}
+\label{section-stratifications}
+
+\noindent
+Dans cette section, nous montrons qu'un espace algébrique quasi-compact et
+quasi-séparé admet une stratification finie par des sous-espaces localement
+fermés dont chacun est un schéma, et telle que le recollement des strates
+s'effectue par des carrés distingués élémentaires. Nous établissons d'abord
+un résultat un peu plus faible pour les espaces algébriques raisonnables.
+
+\begin{lemma}
+\label{lemma-quasi-compact-reasonable-stratification}
+Soit $S$ un schéma. Soit $W \to X$ un morphisme d'un schéma $W$
+vers un espace algébrique $X$, plat, localement de présentation finie,
+séparé, localement quasi-fini et à fibres universellement bornées. Il existe
+des sous-espaces fermés réduits
+$$
+\emptyset = Z_{-1} \subset Z_0 \subset Z_1 \subset Z_2 \subset
+\ldots \subset Z_n = X
+$$
+tels que, si $X_r = Z_r \setminus Z_{r - 1}$, la stratification
+$X = \coprod_{r = 0, \ldots, n} X_r$ est caractérisée par la propriété
+universelle suivante : étant donné $g : T \to X$, la projection
+$W \times_X T \to T$ est finie localement libre de degré $r$ si et seulement si
+$g(|T|) \subset |X_r|$.
+\end{lemma}
+
+\begin{proof}
+Soit $n$ un entier qui majore les degrés des fibres de $W \to X$.
+Choisissons un schéma $U$ et un morphisme étale surjectif $U \to X$.
+Appliquons More on Morphisms, Lemma
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf-universally-bounded}
+à $W \times_X U \to U$. Nous obtenons des parties fermées
+$$
+\emptyset = Y_{-1} \subset Y_0 \subset Y_1 \subset Y_2 \subset
+\ldots \subset Y_n = U
+$$
+caractérisées par la propriété de l'énoncé pour le morphisme
+$W \times_X U \to U$. Manifestement, la formation de ces parties fermées
+commute au changement de base. Posant $R = U \times_X U$, et notant
+$s, t : R \to U$ les projections, nous concluons que
+$$
+s^{-1}(Y_r) = t^{-1}(Y_r)
+$$
+en tant que parties fermées de $R$. Autrement dit, les parties fermées
+$Y_r \subset U$ sont saturées pour la relation $R$. Cela signifie que
+$|Y_r|$ est l'image inverse d'une partie fermée $Z_r \subset |X|$.
+Notons encore $Z_r \subset X$ le sous-espace algébrique muni de la structure
+réduite induite; voir Properties of Spaces, Definition
+\ref{spaces-properties-definition-reduced-induced-space}.
+
+\medskip\noindent
+Soit $g : T \to X$ un morphisme d'espaces algébriques. Choisissons un schéma
+$V$ et un morphisme étale surjectif $V \to T$. Pour démontrer la dernière
+assertion du lemme, il suffit de la démontrer pour la composée
+$V \to X$ (d'après notre définition des morphismes finis localement libres;
+voir Morphisms of Spaces, Section
+\ref{spaces-morphisms-section-finite-locally-free}).
+De même, le morphisme de schémas $W \times_X V \to V$ est fini
+localement libre de degré $r$ si et seulement si le morphisme de schémas
+$$
+W \times_X (U \times_X V)
+\longrightarrow
+U \times_X V
+$$
+est fini localement libre de degré $r$ (voir
+Descent, Lemma \ref{descent-lemma-descending-property-finite-locally-free}).
+Par construction, cela se produit si et seulement si
+$|U \times_X V| \to |U|$ a son image contenue dans $|Y_r|$, ce qui équivaut
+à ce que $|V| \to |X|$ ait son image contenue dans $|Z_r|$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stratify-flat-fp-lqf}
+Soit $S$ un schéma. Soit $W \to X$ un morphisme d'un schéma $W$
+vers un espace algébrique $X$, plat, localement de présentation finie,
+séparé et localement quasi-fini. Il existe alors des sous-espaces ouverts
+$$
+X = X_0 \supset X_1 \supset X_2 \supset \ldots
+$$
+tels qu'un morphisme $\Spec(k) \to X$, où $k$ est un corps,
+se factorise par $X_d$ si et seulement si
+$W \times_X \Spec(k)$ est de degré $\geq d$ sur $k$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme étale surjectif $U \to X$.
+Appliquons More on Morphisms, Lemma
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf}
+à $W \times_X U \to U$. Nous obtenons des sous-schémas ouverts
+$$
+U = U_0 \supset U_1 \supset U_2 \supset \ldots
+$$
+caractérisés par la propriété de l'énoncé pour le morphisme
+$W \times_X U \to U$. Manifestement, la formation de ces sous-schémas ouverts
+commute au changement de base. Posons $R = U \times_X U$ et notons
+$s, t : R \to U$ les projections. Nous concluons que
+$$
+s^{-1}(U_d) = t^{-1}(U_d)
+$$
+en tant que sous-schémas ouverts de $R$. Autrement dit, les sous-schémas
+ouverts $U_d \subset U$ sont saturés pour la relation $R$. Cela signifie que
+$U_d$ est l'image inverse d'un sous-espace ouvert $X_d \subset X$
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-subspaces-presentation}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-filter-quasi-compact}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact sur $S$.
+Il existe des sous-espaces ouverts
+$$
+\ldots \subset U_4 \subset U_3 \subset U_2 \subset U_1 = X
+$$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item si l'on pose $T_p = U_p \setminus U_{p + 1}$ (muni de la structure
+réduite induite), il existe un schéma séparé $V_p$ et un morphisme étale
+surjectif $f_p : V_p \to U_p$ tels que $f_p^{-1}(T_p) \to T_p$ soit un
+isomorphisme,
+\item si $x \in |X|$ peut être représenté par un morphisme quasi-compact
+$\Spec(k) \to X$ dont la source est le spectre d'un corps, alors
+$x \in T_p$ pour un certain $p$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-affine-cover},
+nous pouvons choisir un schéma affine $U$ et un morphisme étale surjectif
+$U \to X$. Pour $p \geq 0$, posons
+$$
+W_p = U \times_X \ldots \times_X U \setminus
+\text{toutes les diagonales}
+$$
+où le produit fibré comporte $p$ facteurs. Puisque $U$ est séparé,
+le morphisme $U \to X$ est séparé et tous les produits fibrés
+$U \times_X \ldots \times_X U$ sont des schémas séparés. Comme $U \to X$
+est séparé, la diagonale $U \to U \times_X U$ est une immersion fermée.
+Comme $U \to X$ est étale, la diagonale $U \to U \times_X U$ est une
+immersion ouverte; voir Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-etale-unramified} et
+\ref{spaces-morphisms-lemma-diagonal-unramified-morphism}.
+De même, tous les morphismes diagonaux sont des immersions ouvertes et
+fermées, et $W_p$ est un sous-schéma ouvert et fermé de
+$U \times_X \ldots \times_X U$. De plus, le morphisme
+$$
+U \times_X \ldots \times_X U \longrightarrow
+U \times_{\Spec(\mathbf{Z})} \ldots \times_{\Spec(\mathbf{Z})} U
+$$
+est localement quasi-fini et séparé (Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-fibre-product-after-map}),
+et son but est un schéma affine. Toute partie finie de
+$U \times_X \ldots \times_X U$ est donc contenue dans un ouvert affine;
+voir More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-over-affine}.
+Il en va donc de même pour $W_p$.
+Le groupe symétrique $S_p$ opère librement sur $W_p$ au-dessus de $X$
+(puisque nous avons retranché le lieu des points fixes de
+$U \times_X \ldots \times_X U$). D'après ce qui précède et
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-finite-flat-equivalence-global},
+le quotient $V_p = W_p/S_p$ est un schéma. Comme l'action de $S_p$ sur
+$W_p$ est au-dessus de $X$, il existe un morphisme $V_p \to X$.
+Puisque $W_p \to X$ est étale et que $W_p \to V_p$ est étale surjectif,
+il s'ensuit que $V_p \to X$ est lui aussi étale; voir
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-etale-local}.
+Notons que $V_p$ est un schéma séparé d'après
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quotient-separated}.
+
+\medskip\noindent
+Soit $U_p \subset X$ le sous-espace ouvert image de $V_p \to X$.
+Par construction, un morphisme $\Spec(k) \to X$, où $k$ est
+algébriquement clos, se factorise par $U_p$ si et seulement si
+$U \times_X \Spec(k)$ possède $\geq p$ points; comme d'habitude, notons que
+$U \times_X \Spec(k)$ est, en tant que schéma, une réunion disjointe
+(éventuellement infinie) de copies de $\Spec(k)$; voir
+Remark \ref{remark-recall}. Il s'ensuit que les $U_p$ forment une filtration
+de $X$ comme dans l'énoncé du lemme. De plus, notre morphisme
+$\Spec(k) \to X$ se factorise par $T_p$ si et seulement si
+$U \times_X \Spec(k)$ possède exactement $p$ points. Dans ce cas, nous
+voyons que $V_p \times_X \Spec(k)$ possède exactement un point.
+Posons $Z_p = f_p^{-1}(T_p) \subset V_p$. C'est un sous-schéma fermé de
+$V_p$. Alors $Z_p \to T_p$ est un morphisme étale d'espaces algébriques qui
+induit une bijection sur les points à valeurs dans $k$ pour tout corps
+algébriquement clos $k$. Précisément, cela implique que $Z_p \to T_p$ est
+universellement injectif, donc une immersion ouverte d'après
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-etale-universally-injective-open},
+et par conséquent un isomorphisme. Cela démontre (1).
+
+\medskip\noindent
+Soit $x : \Spec(k) \to X$ un morphisme quasi-compact, où $k$ est un corps.
+Alors la composée $\Spec(\overline{k}) \to \Spec(k) \to X$ est elle aussi
+quasi-compacte (Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-composition-quasi-compact}).
+Dans ce cas, le schéma $U \times_X \Spec(\overline{k})$ est quasi-compact.
+Comme nous avons vu ci-dessus qu'il est une réunion disjointe de copies de
+$\Spec(\overline{k})$, nous constatons qu'il a un nombre fini de points.
+Si ce nombre est $p$, alors $x \in T_p$, comme voulu, ce qui achève la preuve.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-filter-reasonable}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact et raisonnable
+sur $S$. Il existe un entier $n$ et des sous-espaces ouverts
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+ayant la propriété suivante : si l'on pose $T_p = U_p \setminus U_{p + 1}$
+(muni de la structure réduite induite), il existe un schéma séparé $V_p$ et
+un morphisme étale surjectif $f_p : V_p \to U_p$ tels que
+$f_p^{-1}(T_p) \to T_p$ soit un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+La démonstration de ce lemme est identique à celle du
+Lemme \ref{lemma-filter-quasi-compact}.
+Soit $n$ un entier qui majore les degrés des fibres de $U \to X$;
+un tel entier existe puisque $X$ est raisonnable, voir
+Definition \ref{definition-very-reasonable}.
+Nous constatons alors que $U_{n + 1} = \emptyset$, ce qui achève la preuve.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stratify-reasonable}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact et raisonnable
+sur $S$. Il existe un entier $n$ et des sous-espaces ouverts
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+tels que chaque $T_p = U_p \setminus U_{p + 1}$ (muni de la structure réduite
+induite) soit un schéma.
+\end{lemma}
+
+\begin{proof}
+Conséquence immédiate du Lemme \ref{lemma-filter-reasonable}.
+\end{proof}
+
+\noindent
+Le résultat suivant est presque identique à
+\cite[Proposition 5.7.8]{GruRay}.
+
+\begin{lemma}
+\label{lemma-filter-quasi-compact-quasi-separated}
+\begin{reference}
+Ce résultat est presque identique à \cite[Proposition 5.7.8]{GruRay}.
+\end{reference}
+Soit $X$ un espace algébrique quasi-compact et quasi-séparé sur
+$\Spec(\mathbf{Z})$. Il existe un entier $n$ et des sous-espaces ouverts
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+ayant la propriété suivante : si l'on pose $T_p = U_p \setminus U_{p + 1}$
+(muni de la structure réduite induite), il existe un schéma $V_p$
+quasi-compact et séparé et un morphisme étale surjectif
+$f_p : V_p \to U_p$ tels que $f_p^{-1}(T_p) \to T_p$ soit un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+La démonstration de ce lemme est identique à celle du
+Lemme \ref{lemma-filter-quasi-compact}.
+Remarquons qu'un espace quasi-séparé est raisonnable; voir
+Lemma \ref{lemma-bounded-fibres} et
+Definition \ref{definition-very-reasonable}.
+Nous obtenons donc $U_{n + 1} = \emptyset$, comme dans le
+Lemme \ref{lemma-filter-reasonable}.
+À la fin de l'argument, ajoutons que, puisque $X$ est quasi-séparé,
+les schémas $U \times_X \ldots \times_X U$ sont tous quasi-compacts.
+Les schémas $W_p$ sont donc quasi-compacts. Par conséquent, les quotients
+$V_p = W_p/S_p$ par le groupe symétrique $S_p$ sont des schémas
+quasi-compacts.
+\end{proof}
+
+\noindent
+Le lemme suivant devrait probablement se trouver ailleurs.
+
+\begin{lemma}
+\label{lemma-locally-constructible}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-séparé sur $S$.
+Soit $E \subset |X|$ une partie. Alors $E$ est étale-localement constructible
+(Properties of Spaces, Definition
+\ref{spaces-properties-definition-locally-constructible})
+si et seulement si $E$ est une partie localement constructible de
+l'espace topologique $|X|$
+(Topology, Definition \ref{topology-definition-constructible}).
+\end{lemma}
+
+\begin{proof}
+Supposons que $E \subset |X|$ soit une partie localement constructible de
+l'espace topologique $|X|$. Soit $f : U \to X$ un morphisme étale, où $U$
+est un schéma. Nous devons montrer que $f^{-1}(E)$ est localement constructible
+dans $U$. La question est locale sur $U$ et $X$; nous pouvons donc supposer
+que $X$ est quasi-compact, que $E \subset |X|$ est constructible et que $U$
+est affine. Dans ce cas, $U \to X$ est quasi-compact, donc
+$f : |U| \to |X|$ est quasi-compact. Remarquons que les ouverts rétrocompacts
+de $|X|$, resp.\ $U$, ne sont autres que les ouverts quasi-compacts de
+$|X|$, resp.\ $U$; voir
+Topology, Lemma \ref{topology-lemma-topology-quasi-separated-scheme}.
+Ainsi, $f^{-1}(E)$ est constructible d'après Topology, Lemma
+\ref{topology-lemma-inverse-images-constructibles}.
+
+\medskip\noindent
+Réciproquement, supposons que $E$ soit étale-localement constructible.
+Nous voulons montrer que $E$ est localement constructible dans l'espace
+topologique $|X|$. La question est locale sur $X$; nous pouvons donc supposer
+que $X$ est à la fois quasi-compact et quasi-séparé. Montrons que, dans ce cas,
+$E$ est constructible dans $|X|$. Choisissons des sous-espaces ouverts
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+et des morphismes étales surjectifs $f_p : V_p \to U_p$ induisant des
+isomorphismes $f_p^{-1}(T_p) \to T_p = U_p \setminus U_{p + 1}$, où $V_p$
+est un schéma quasi-compact et séparé, comme dans le
+Lemme \ref{lemma-filter-quasi-compact-quasi-separated}.
+Par définition, l'image inverse $E_p \subset V_p$ de $E$ est localement
+constructible dans $V_p$. Alors $E_p$ est constructible dans $V_p$ d'après
+Properties, Lemma
+\ref{properties-lemma-constructible-quasi-compact-quasi-separated}.
+Ainsi, $E_p \cap |f_p^{-1}(T_p)| = E \cap |T_p|$ est constructible dans
+$|T_p|$ d'après
+Topology, Lemma \ref{topology-lemma-intersect-constructible-with-closed}
+(remarquons que $V_p \setminus f_p^{-1}(T_p)$ est quasi-compact, car c'est
+l'image inverse de l'espace quasi-compact $U_{p + 1}$ par le morphisme
+quasi-compact $f_p$). Par conséquent,
+$$
+E = (|T_n| \cap E) \cup (|T_{n - 1}| \cap E) \cup \ldots \cup
+(|T_1| \cap E)
+$$
+est constructible d'après
+Topology, Lemma \ref{topology-lemma-collate-constructible-from-constructible}.
+Nous utilisons ici le fait que $|T_p|$ est constructible dans $|X|$, ce qui
+résulte clairement de ce qui précède.
+\end{proof}
+
+
+
+
+
+\section{Recouvrement entier par un schéma}
+\label{section-integral-cover}
+
+\noindent
+Nous démontrons ici que, pour tout espace algébrique $X$ quasi-compact et
+quasi-séparé, il existe un schéma $Y$ et un morphisme entier surjectif
+$Y \to X$. Après avoir développé une théorie des limites d'espaces
+algébriques, nous démontrerons qu'on peut obtenir un morphisme fini; voir
+Limits of Spaces, Section \ref{spaces-limits-section-finite-cover}.
+
+\begin{lemma}
+\label{lemma-extend-integral-morphism}
+Soit $S$ un schéma. Soit $j : V \to Y$ une immersion ouverte quasi-compacte
+d'espaces algébriques sur $S$. Soit $\pi : Z \to V$ un morphisme entier.
+Il existe alors un morphisme entier $\nu : Y' \to Y$ tel que $Z$ soit
+$V$-isomorphe à l'image inverse de $V$ dans $Y'$.
+\end{lemma}
+
+\begin{proof}
+Puisque $j$ et $\pi$ sont tous deux quasi-compacts et séparés, il en va de
+même de $j \circ \pi$. Soit $\nu : Y' \to Y$ la normalisation de $Y$ dans
+$Z$; voir Morphisms of Spaces, Section
+\ref{spaces-morphisms-section-normalization-X-in-Y}.
+Bien entendu, $\nu$ est entier; voir
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-characterize-normalization}.
+La dernière assertion résulte formellement de
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-properties-normalization} et
+\ref{spaces-morphisms-lemma-normalization-in-integral}.
+\end{proof}

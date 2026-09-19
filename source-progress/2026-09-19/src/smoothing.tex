@@ -1,0 +1,3441 @@
+\input{preamble}
+
+% Bon, commençons ici.
+%
+\begin{document}
+
+\title{Lissage des morphismes d'anneaux}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Le résultat principal de ce chapitre est le suivant :
+$$
+\fbox{Un morphisme d'anneaux régulier entre anneaux noethériens est une
+colimite filtrante de morphismes lisses.}
+$$
+Ce théorème est dû à Popescu, voir \cite{popescu-letter}.
+Richard Swan a donné une présentation accessible de la démonstration de Popescu,
+voir \cite{swan} ; il s'est appuyé sur des notes d'Andr\'e et sur un article d'Ogoma, voir
+\cite{Ogoma}.
+
+\medskip\noindent
+Notre présentation suit celle de Swan, mais nous démontrons d'abord un résultat
+intermédiaire qui permet de nous placer dans une situation un peu plus simple.
+En voici un aperçu. Nous résolvons d'abord le ``problème de relèvement'' suivant :
+une déformation infinitésimale plate d'une colimite filtrante d'algèbres lisses
+est une colimite filtrante d'algèbres lisses. Ce résultat dit essentiellement
+qu'il suffit de démontrer le théorème principal pour les morphismes entre
+anneaux noethériens réduits. Nous démontrons ensuite deux lemmes très ingénieux,
+appelés le ``lemme de relèvement'' et le ``lemme de désingularisation''.
+Nous montrons que, combinés, ces lemmes ramènent le théorème principal à prouver
+qu'une algèbre noethérienne $\Lambda$, géométriquement régulière sur un corps $k$,
+est une colimite filtrante de $k$-algèbres lisses. Nous examinons ensuite les
+arguments locaux nécessaires à la démonstration de Popescu-Ogoma-Swan-Andr\'e.
+Enfin, nous donnons la démonstration dans les trois dernières sections.
+
+\medskip\noindent
+Nous terminons cette introduction par quelques indications bibliographiques.
+Soit $A$ un anneau local noethérien hensélien.
+Nous disons que $A$ possède la {\it propriété d'approximation} si, quels que soient
+$f_1, \ldots, f_m \in A[x_1, \ldots, x_n]$, le système d'équations
+$f_1 = 0, \ldots, f_m = 0$ admet une solution dans le complété de $A$ si et
+seulement s'il admet une solution dans $A$. Cette définition est due à Artin.
+Artin a d'abord démontré la propriété d'approximation pour les systèmes
+d'équations analytiques, voir \cite{Artin-Analytic-Approximation}.
+Dans \cite{Artin-Algebraic-Approximation}, Artin a démontré la propriété
+d'approximation pour les anneaux locaux essentiellement de type fini sur un
+anneau de valuation discrète excellent.
+Artin a conjecturé (page 26 de \cite{Artin-Algebraic-Approximation}) que tout
+anneau local hensélien excellent devait posséder la propriété d'approximation.
+
+\medskip\noindent
+À un certain moment, on a conjecturé que tout morphisme d'anneaux régulier entre
+anneaux noethériens est une colimite filtrante d'algèbres lisses (voir par exemple
+\cite{Raynaud-Rennes}, \cite{popescu-global}, \cite{Artin-power-series},
+\cite{Artin-Denef}). Nous ne savons pas à qui cette conjecture\footnote{La
+question/conjecture formulée dans \cite{Artin-power-series},
+\cite{Artin-Denef} et \cite{popescu-global} est plus forte ; il a été démontré
+dans \cite{Cipu} qu'elle est équivalente à la version originale.}
+est due. Le lien avec la propriété d'approximation est le suivant : si
+$A \to A^\wedge$ est une colimite d'algèbres lisses, avec $A$ comme ci-dessus,
+alors la propriété d'approximation est satisfaite (insérer ici une référence
+ultérieure). En outre, le théorème principal s'applique au morphisme
+$A \to A^\wedge$ si $A$ est un anneau local excellent, car l'une des conditions
+définissant un anneau local excellent est que ses fibres formelles soient
+géométriquement régulières. Notons que les anneaux locaux excellents ont été
+définis par Grothendieck et que leur définition a été publiée en 1965.
+
+\medskip\noindent
+Dans \cite{Artin-power-series}, il a été démontré que
+$R \to R^\wedge$ est une colimite filtrante d'algèbres lisses pour tout anneau
+local $R$ essentiellement de type fini sur un corps.
+Dans \cite{Rotthaus-Artin}, il a été démontré que $R \to R^\wedge$ est une
+colimite filtrante d'algèbres lisses pour tout anneau local $R$ essentiellement
+de type fini sur un anneau de valuation discrète excellent.
+Enfin, le théorème principal a été démontré dans
+\cite{popescu-GND}, \cite{popescu-GNDA}, \cite{popescu-letter}, 
+\cite{Ogoma} et \cite{swan}, comme indiqué ci-dessus.
+
+\medskip\noindent
+Réciproquement, à l'aide de certains des résultats précédents, il a été démontré
+dans \cite{Rotthaus-excellent} que tout anneau local noethérien possédant la
+propriété d'approximation est excellent.
+
+\medskip\noindent
+L'article \cite{Spivakovsky} propose une autre approche du théorème principal,
+mais il semble difficile à lire (par exemple, \cite[Lemma 5.2]{Spivakovsky}
+semble être une reformulation incorrecte de \cite[Lemma 3]{Elkik}). Il existe
+également un exposé Bourbaki sur ce sujet, voir \cite{Teissier}.
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Idéaux singuliers}
+\label{section-singular-ideal}
+
+\noindent
+Soit $R \to A$ un morphisme d'anneaux. L'idéal singulier de $A$ sur $R$ est
+l'idéal radical de $A$ qui définit le lieu singulier du morphisme
+$\Spec(A) \to \Spec(R)$. En voici une définition précise.
+
+\begin{definition}
+\label{definition-singular-ideal}
+Soit $R \to A$ un morphisme d'anneaux. L'{\it idéal singulier de $A$ sur $R$},
+noté $H_{A/R}$, est l'unique idéal radical $H_{A/R} \subset A$ tel que
+$$
+V(H_{A/R}) = \{\mathfrak q \in \Spec(A) \mid R \to A
+\text{ non lisse en }\mathfrak q\}
+$$
+\end{definition}
+
+\noindent
+Cette définition a un sens car l'ensemble des idéaux premiers où $R \to A$
+est lisse est ouvert, voir
+Algèbre, Définition \ref{algebra-definition-smooth-at-prime}.
+Afin de trouver un ensemble explicite de générateurs de l'idéal singulier,
+nous démontrons d'abord le lemme suivant.
+
+\begin{lemma}
+\label{lemma-find-strictly-standard}
+Soit $R$ un anneau. Soit $A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$.
+Soit $\mathfrak q \subset A$ un idéal premier. Supposons que $R \to A$ soit
+lisse en l'idéal premier $\mathfrak q$. Il existe alors un $a \in A$, $a \not \in \mathfrak q$,
+un entier $c$, $0 \leq c \leq \min(n, m)$, et des sous-ensembles
+$U \subset \{1, \ldots, n\}$, $V \subset \{1, \ldots, m\}$
+de cardinal $c$ tels que
+$$
+a = a' \det(\partial f_j/\partial x_i)_{j \in V, i \in U}
+$$
+pour un certain $a' \in A$, et
+$$
+a f_\ell \in (f_j, j \in V) + (f_1, \ldots, f_m)^2
+$$
+pour tout $\ell \in \{1, \ldots, m\}$.
+\end{lemma}
+
+\begin{proof}
+Posons $I = (f_1, \ldots, f_m)$, de sorte que le complexe cotangent naïf de
+$A$ sur $R$ soit homotopiquement équivalent à
+$I/I^2 \to \bigoplus A\text{d}x_i$, voir
+Algèbre, Lemme \ref{algebra-lemma-NL-homotopy}.
+Nous utiliserons le fait que la formation du complexe cotangent naïf commute à
+la localisation, voir Algèbre, Section \ref{algebra-section-netherlander},
+et en particulier Algèbre, Lemme \ref{algebra-lemma-localize-NL}.
+D'après Algèbre, Définitions \ref{algebra-definition-smooth} et
+\ref{algebra-definition-smooth-at-prime}
+nous voyons que $(I/I^2)_a \to \bigoplus A_a\text{d}x_i$ est une injection
+scindée pour un certain $a \in A$, $a \not \in \mathfrak q$.
+Après avoir renuméroté $x_1, \ldots, x_n$ et $f_1, \ldots, f_m$, nous pouvons
+supposer que $f_1, \ldots, f_c$ forment une base de l'espace vectoriel
+$I/I^2 \otimes_A \kappa(\mathfrak q)$ et que les images de
+$\text{d}x_{c + 1}, \ldots, \text{d}x_n$ forment une base de
+$\Omega_{A/R} \otimes_A \kappa(\mathfrak q)$. Ainsi, après avoir remplacé $a$
+par $aa'$ pour un certain $a' \in A$, $a' \not \in \mathfrak q$, nous pouvons
+supposer que $f_1, \ldots, f_c$ forment une base de $(I/I^2)_a$ et que les images
+de $\text{d}x_{c + 1}, \ldots, \text{d}x_n$ forment une base de
+$(\Omega_{A/R})_a$. Dans cette situation, $a^N$ satisfait les conditions du
+lemme pour un entier $N$ suffisamment grand (avec $U = V = \{1, \ldots, c\}$).
+\end{proof}
+
+\noindent
+Nous utiliserons la notion d'élément {\it strictement standard} de $A$ sur $R$.
+Notre notion est légèrement plus faible que celle de l'article de Swan
+\cite{swan}. Nous définissons aussi un élément {\it standard élémentaire}
+comme étant du type obtenu dans le lemme précédent. Nous comparons les
+différents types d'éléments dans le lemme \ref{lemma-compare-standard}.
+
+\begin{definition}
+\label{definition-strictly-standard}
+Soit $R \to A$ un morphisme d'anneaux de présentation finie.
+Nous disons qu'un élément $a \in A$ est {\it standard élémentaire dans $A$ sur $R$}
+s'il existe une présentation
+$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+et un entier $0 \leq c \leq \min(n, m)$ tels que
+\begin{equation}
+\label{equation-elementary-standard-one}
+a = a' \det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}
+\end{equation}
+pour un certain $a' \in A$, et
+\begin{equation}
+\label{equation-elementary-standard-two}
+a f_{c + j} \in (f_1, \ldots, f_c) + (f_1, \ldots, f_m)^2
+\end{equation}
+pour $j = 1, \ldots, m - c$. Nous disons que $a \in A$ est
+{\it strictement standard dans $A$ sur $R$} s'il existe une présentation
+$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+et un entier $0 \leq c \leq \min(n, m)$ tels que
+\begin{equation}
+\label{equation-strictly-standard-one}
+a = \sum\nolimits_{I \subset \{1, \ldots, n\},\ |I| = c}
+a_I \det(\partial f_j/\partial x_i)_{j = 1, \ldots, c,\ i \in I}
+\end{equation}
+pour certains $a_I \in A$, et
+\begin{equation}
+\label{equation-strictly-standard-two}
+a f_{c + j} \in (f_1, \ldots, f_c) + (f_1, \ldots, f_m)^2
+\end{equation}
+pour $j = 1, \ldots, m - c$.
+\end{definition}
+
+\noindent
+Le lemme suivant est utile pour dégager des conséquences de
+(\ref{equation-strictly-standard-one}).
+
+\begin{lemma}
+\label{lemma-parse-equation-strictly-standard-one}
+Soit $R$ un anneau. Soit $A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+et posons $I = (f_1, \ldots, f_m)$. Soit $a \in A$. Alors
+(\ref{equation-strictly-standard-one}) implique qu'il existe un morphisme
+$A$-linéaire
+$\psi : \bigoplus\nolimits_{i = 1, \ldots, n} A \text{d}x_i \to A^{\oplus c}$
+tel que la composée
+$$
+A^{\oplus c} \xrightarrow{(f_1, \ldots, f_c)}
+I/I^2 \xrightarrow{f \mapsto \text{d}f}
+\bigoplus\nolimits_{i = 1, \ldots, n} A \text{d}x_i
+\xrightarrow{\psi}
+A^{\oplus c}
+$$
+soit la multiplication par $a$. Réciproquement, si un tel $\psi$ existe,
+alors $a^c$ satisfait (\ref{equation-strictly-standard-one}).
+\end{lemma}
+
+\begin{proof}
+Il s'agit d'un cas particulier de
+Algèbre, Lemme \ref{algebra-lemma-matrix-left-inverse}.
+\end{proof}
+
+\begin{lemma}[Elkik]
+\label{lemma-elkik}
+Soit $R \to A$ un morphisme d'anneaux de présentation finie.
+L'idéal singulier $H_{A/R}$ est le radical de l'idéal engendré par les éléments
+strictement standard de $A$ sur $R$, et aussi le radical de l'idéal engendré
+par les éléments standard élémentaires de $A$ sur $R$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $a$ soit strictement standard dans $A$ sur $R$. Nous affirmons
+que $A_a$ est lisse sur $R$, ce qui prouve que $a \in H_{A/R}$. En effet,
+soient $A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$, $c$ et $a' \in A$
+comme dans la définition \ref{definition-strictly-standard}.
+Posons $I = (f_1, \ldots, f_m)$, de sorte que le complexe cotangent naïf de
+$A$ sur $R$ soit donné par $I/I^2 \to \bigoplus A\text{d}x_i$.
+L'hypothèse (\ref{equation-strictly-standard-two}) implique que $(I/I^2)_a$
+est engendré par les classes de $f_1, \ldots, f_c$.
+L'hypothèse (\ref{equation-strictly-standard-one}) implique que la différentielle
+$(I/I^2)_a \to \bigoplus A_a\text{d}x_i$ admet un inverse à gauche, voir
+le lemme \ref{lemma-parse-equation-strictly-standard-one}.
+Ainsi, $R \to A_a$ est lisse par définition et d'après
+Algèbre, Lemme \ref{algebra-lemma-localize-NL}.
+
+\medskip\noindent
+Soient $H_e, H_s \subset A$ les radicaux des idéaux engendrés par les éléments
+standard élémentaires, resp.\ strictement standard, de $A$ sur $R$.
+Par définition et d'après ce que nous venons de démontrer, nous avons
+$H_e \subset H_s \subset H_{A/R}$. L'inclusion $H_{A/R} \subset H_e$ résulte
+du lemme \ref{lemma-find-strictly-standard}.
+\end{proof}
+
+\begin{example}
+\label{example-not-quasi-compact}
+L'ensemble des points où un morphisme d'anneaux de présentation finie est lisse
+n'est pas nécessairement un ouvert quasi-compact. Par exemple, soient
+$R = k[x, y_1, y_2, y_3, \ldots]/(xy_i)$ et $A = R/(x)$.
+Alors le lieu de lissité de $R \to A$ est $\bigcup D(y_i)$, qui n'est pas
+quasi-compact.
+\end{example}
+
+\begin{lemma}
+\label{lemma-strictly-standard-base-change}
+Soit $R \to A$ un morphisme d'anneaux de présentation finie.
+Soit $R \to R'$ un morphisme d'anneaux. Si $a \in A$ est standard élémentaire,
+resp.\ strictement standard, dans $A$ sur $R$, alors $a \otimes 1$ est standard
+élémentaire, resp.\ strictement standard, dans $A \otimes_R R'$ sur $R'$.
+\end{lemma}
+
+\begin{proof}
+Si $A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ est une présentation de $A$
+sur $R$, alors
+$A \otimes_R R' = R'[x_1, \ldots, x_n]/(f'_1, \ldots, f'_m)$
+est une présentation de $A \otimes_R R'$ sur $R'$. Ici, $f'_j$ est l'image de
+$f_j$ dans $R'[x_1, \ldots, x_n]$. Le résultat découle donc des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-final-solve}
+Soient $R \to A \to \Lambda$ des morphismes d'anneaux, avec $A$ de présentation
+finie sur $R$. Supposons que $H_{A/R} \Lambda = \Lambda$. Il existe alors une
+factorisation $A \to B \to \Lambda$ telle que $B$ soit lisse sur $R$.
+\end{lemma}
+
+\begin{proof}
+Choisissons $f_1, \ldots, f_r \in H_{A/R}$ et
+$\lambda_1, \ldots, \lambda_r \in \Lambda$ tels que
+$\sum f_i\lambda_i = 1$ dans $\Lambda$. Posons
+$B = A[x_1, \ldots, x_r]/(f_1x_1 + \ldots + f_rx_r - 1)$
+et définissons $B \to \Lambda$ en envoyant $x_i$ sur $\lambda_i$.
+Pour vérifier que $B$ est lisse sur $R$, utilisons le fait que $A_{f_i}$ est
+lisse sur $R$ par définition de $H_{A/R}$ et que $B_{f_i}$ est lisse sur
+$A_{f_i}$. Détails omis.
+\end{proof}
+
+
+
+
+
+\section{Présentations d'algèbres}
+\label{section-presentations}
+
+\noindent
+Certains des résultats de cette section sont dus à Elkik. Notons que l'algèbre
+$C$ du lemme suivant est une algèbre symétrique sur $A$. De plus, si $R$ est
+noethérien, alors $C$ est de présentation finie sur $R$.
+
+\begin{lemma}
+\label{lemma-improve-presentation}
+Soit $R$ un anneau et soit $A$ une $R$-algèbre de présentation finie.
+Il existe un morphisme de $R$-algèbres de type fini $A \to C$ qui admet une
+rétraction et possède les deux propriétés suivantes :
+\begin{enumerate}
+\item pour tout $a \in A$ tel que $R \to A_a$ soit une intersection complète
+locale (Compléments d'algèbre, Définition
+\ref{more-algebra-definition-local-complete-intersection}),
+l'anneau $C_a$ est lisse sur $A_a$ et admet une présentation
+$C_a = R[y_1, \ldots, y_m]/J$ telle que $J/J^2$ soit libre sur $C_a$, et
+\item pour tout $a \in A$ tel que $A_a$ soit lisse sur $R$, le module
+$\Omega_{C_a/R}$ est libre sur $C_a$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons une présentation $A = R[x_1, \ldots, x_n]/I$ et écrivons
+$I = (f_1, \ldots, f_m)$. Définissons le $A$-module $K$ par la suite exacte courte
+$$
+0 \to K \to A^{\oplus m} \to I/I^2 \to 0
+$$
+où le $j$-ième vecteur de base $e_j$ du terme central est envoyé sur la classe de
+$f_j$ dans le terme de droite. Posons
+$$
+C = \text{Sym}^*_A(I/I^2).
+$$
+La rétraction est simplement la projection sur la composante de degré $0$ de
+$C$. Nous avons une surjection
+$R[x_1, \ldots, x_n, y_1, \ldots, y_m] \to C$ qui envoie $y_j$ sur la classe de
+$f_j$ dans $I/I^2$. Le noyau $J$ de ce morphisme est engendré par les éléments
+$f_1, \ldots, f_m$ et par les éléments $\sum h_j y_j$, où
+$h_j \in R[x_1, \ldots, x_n]$, tels que $\sum h_j e_j$ définisse un élément de
+$K$. D'après
+Algèbre, Lemme \ref{algebra-lemma-exact-sequence-NL}
+appliqué à $R \to A \to C$ et aux présentations ci-dessus, ainsi que
+Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-cotangent-complex-symmetric-algebra}
+il existe une suite exacte
+\begin{equation}
+\label{equation-sequence}
+I/I^2 \otimes_A C \to J/J^2 \to K \otimes_A C \to 0
+\end{equation}
+de $C$-modules. Soit $h \in R[x_1, \ldots, x_n]$ un élément d'image $a \in A$.
+Nous utiliserons, pour les anneaux localisés, les présentations
+$$
+A_a = R[x_0, x_1, \ldots, x_n]/I'
+\quad\text{et}\quad
+C_a = R[x_0, x_1, \ldots, x_n, y_1, \ldots, y_m]/J'
+$$
+où $I' = (hx_0 - 1, I)$ et $J' = (hx_0 - 1, J)$. Ainsi,
+$I'/(I')^2 = A_a \oplus (I/I^2)_a$ comme $A_a$-modules et
+$J'/(J')^2 = C_a \oplus (J/J^2)_a$ comme $C_a$-modules.
+Nous obtenons donc
+\begin{equation}
+\label{equation-sequence-localized}
+C_a \oplus I/I^2 \otimes_A C_a \to
+C_a \oplus (J/J^2)_a \to
+K \otimes_A C_a \to 0
+\end{equation}
+qui est la suite fournie par
+Algèbre, lemme \ref{algebra-lemma-exact-sequence-NL},
+pour $R \to A_a \to C_a$ et les présentations ci-dessus.
+
+\medskip\noindent
+Supposons maintenant que $a \in A$ soit tel que $A_a$ soit une intersection
+complète locale sur $R$. Alors $(I/I^2)_a$ est projectif de type fini sur $A_a$,
+voir
+Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-quasi-regular-ideal-finite-projective}.
+Nous voyons donc que $K_a \oplus (I/I^2)_a \cong A_a^{\oplus m}$ est libre.
+En particulier, $K_a$ est lui aussi projectif de type fini.
+D'après Compléments d'algèbre, Lemme \ref{more-algebra-lemma-transitive-lci-at-end},
+la suite (\ref{equation-sequence-localized}) est exacte à gauche. Ainsi,
+$$
+J'/(J')^2 \cong
+C_a \oplus I/I^2 \otimes_A C_a \oplus K \otimes_A C_a \cong
+C_a^{\oplus m + 1}
+$$
+Cela démontre (1). Supposons enfin que, de plus, $A_a$ soit lisse sur $R$.
+La même présentation montre alors que le module des différentielles de Kähler
+$\Omega_{C_a/R}$ est le conoyau du morphisme
+$$
+J'/(J')^2 \longrightarrow
+\bigoplus\nolimits_i C_a\text{d}x_i \oplus \bigoplus\nolimits_j C_a\text{d}y_j
+$$
+Dans la décomposition ci-dessus, le facteur direct $C_a$ de $J'/(J')^2$
+correspond à $hx_0 - 1$ et s'envoie donc isomorphiquement sur le facteur direct
+$C_a\text{d}x_0$. Le facteur direct $I/I^2 \otimes_A C_a$ de $J'/(J')^2$
+s'injecte dans $\bigoplus_{i = 1, \ldots, n} C_a\text{d}x_i$, avec pour quotient
+$\Omega_{A_a/R} \otimes_{A_a} C_a$. Le facteur direct $K \otimes_A C_a$
+s'injecte dans $\bigoplus_{j \geq 1} C_a\text{d}y_j$, avec un quotient isomorphe
+à $I/I^2 \otimes_A C_a$. Ainsi, le conoyau du dernier morphisme affiché est le
+module
+$I/I^2 \otimes_A C_a \oplus \Omega_{A_a/R} \otimes_{A_a} C_a$.
+Puisque $(I/I^2)_a \oplus \Omega_{A_a/R}$ est libre (d'après la définition des
+morphismes d'anneaux lisses), nous voyons que (2) est satisfaite.
+\end{proof}
+
+\noindent
+La proposition suivante a été démontrée par Elkik dans \cite{Elkik} pour les
+morphismes d'anneaux lisses sur des couples henséliens. Pour les morphismes
+d'anneaux lisses, on la trouve dans \cite{Arabia}, où il est également démontré
+que les morphismes d'anneaux entre algèbres lisses peuvent être relevés.
+
+\begin{proposition}
+\label{proposition-lift-smooth}
+\begin{slogan}
+Les algèbres lisses et syntomiques se relèvent à travers les surjections
+\end{slogan}
+Soit $R \to R_0$ un morphisme d'anneaux surjectif de noyau $I$.
+\begin{enumerate}
+\item Si $R_0 \to A_0$ est un morphisme d'anneaux syntomique, alors il existe
+un morphisme d'anneaux syntomique $R \to A$ tel que $A/IA \cong A_0$.
+\item Si $R_0 \to A_0$ est un morphisme d'anneaux lisse, alors il existe un
+morphisme d'anneaux lisse $R \to A$ tel que $A/IA \cong A_0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Supposons que $R_0 \to A_0$ soit syntomique, donc en particulier une
+intersection complète locale (Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-syntomic-lci}).
+Choisissons une présentation $A_0 = R_0[x_1, \ldots, x_n]/J_0$. Posons
+$C_0 = \text{Sym}^*_{A_0}(J_0/J_0^2)$. Notons que $J_0/J_0^2$ est un
+$A_0$-module projectif de type fini (Algèbre, Lemme
+\ref{algebra-lemma-syntomic-presentation-ideal-mod-squares}).
+D'après le lemme \ref{lemma-improve-presentation}, le morphisme d'anneaux
+$A_0 \to C_0$ est lisse et nous pouvons trouver une présentation
+$C_0 = R_0[y_1, \ldots, y_m]/K_0$ dans laquelle $K_0/K_0^2$ est libre sur
+$C_0$. D'après Algèbre, Lemme \ref{algebra-lemma-huber}, nous pouvons supposer
+$C_0 = R_0[y_1, \ldots, y_m]/(\overline{f}_1, \ldots, \overline{f}_c)$
+où les images de $\overline{f}_1, \ldots, \overline{f}_c$ forment une base de
+$K_0/K_0^2$ sur $C_0$. Choisissons des relèvements
+$f_1, \ldots, f_c \in R[y_1, \ldots, y_m]$ de
+$\overline{f}_1, \ldots, \overline{f}_c$ et posons
+$$
+C = R[y_1, \ldots, y_m]/(f_1, \ldots, f_c)
+$$
+Par construction, $C_0 = C/IC$. D'après Algèbre, Lemme
+\ref{algebra-lemma-localize-relative-complete-intersection},
+quitte à remplacer $C$ par $C_g$, nous pouvons supposer que $C$ est une
+intersection complète globale relative sur $R$.
+Nous en concluons qu'il existe un $A_0$-module projectif de type fini $P_0$ tel
+que $C_0 = \text{Sym}^*_{A_0}(P_0)$ soit isomorphe à $C/IC$ pour une certaine
+$R$-algèbre syntomique $C$.
+
+\medskip\noindent
+Choisissons un entier $n$ et une décomposition en somme directe
+$A_0^{\oplus n} = P_0 \oplus Q_0$.
+D'après Compléments d'algèbre, Lemme \ref{more-algebra-lemma-lift-projective-module},
+nous pouvons trouver un morphisme d'anneaux \'etale $C \to C'$ qui induit un
+isomorphisme $C/IC \to C'/IC'$ et un $C'$-module projectif de type fini $Q$ tel
+que $Q/IQ$ soit isomorphe à $Q_0 \otimes_{A_0} C/IC$.
+Alors $D = \text{Sym}_{C'}^*(Q)$ est une $C'$-algèbre lisse (voir
+Compléments d'algèbre, Lemme \ref{more-algebra-lemma-symmetric-algebra-smooth}).
+Considérons le diagramme
+$$
+\xymatrix{
+R \ar[d] \ar[rr] & &
+C \ar[r] \ar[d] &
+C' \ar[r] \ar[d] &
+D \ar[d] \\
+R/I \ar[r] &
+A_0 \ar[r] &
+C/IC \ar[r]^{\cong} &
+C'/IC' \ar[r] &
+D/ID
+}
+$$
+Observons que notre choix de $Q$ donne
+\begin{align*}
+D/ID & =
+\text{Sym}_{C/IC}^*(Q_0 \otimes_{A_0} C/IC) \\
+& =
+\text{Sym}_{A_0}^*(Q_0) \otimes_{A_0} C/IC \\
+& =
+\text{Sym}_{A_0}^*(Q_0) \otimes_{A_0}
+\text{Sym}_{A_0}^*(P_0) \\
+& =
+\text{Sym}_{A_0}^*(Q_0 \oplus P_0) \\
+& =
+\text{Sym}_{A_0}^*(A_0^{\oplus n}) \\
+& =
+A_0[x_1, \ldots, x_n]
+\end{align*}
+Choisissons $f_1, \ldots, f_n \in D$ dont les images sont
+$x_1, \ldots, x_n$ dans $D/ID = A_0[x_1, \ldots, x_n]$. Posons
+$A = D/(f_1, \ldots, f_n)$. Notons que $A_0 = A/IA$. Nous affirmons que
+$R \to A$ est syntomique dans un voisinage de $V(IA)$. Si cette affirmation est
+vraie, nous pouvons trouver un $f \in A$ d'image $1 \in A_0$ tel que $A_f$ soit
+syntomique sur $R$, ce qui achève la démonstration de (1).
+
+\medskip\noindent
+Démonstration de l'affirmation. Observons que $R \to D$ est syntomique en tant
+que composée du morphisme d'anneaux syntomique $R \to C$, du morphisme
+d'anneaux \'etale $C \to C'$ et du morphisme d'anneaux lisse $C' \to D$
+(Algèbre, Lemmes
+\ref{algebra-lemma-composition-syntomic} et
+\ref{algebra-lemma-smooth-syntomic}).
+La question est locale sur $\Spec(D)$ ; nous pouvons donc supposer que $D$ est
+une intersection complète globale relative
+(Algèbre, Lemme \ref{algebra-lemma-syntomic}).
+Écrivons $D = R[y_1, \ldots, y_m]/(g_1, \ldots, g_s)$.
+Soient $f'_1, \ldots, f'_n \in R[y_1, \ldots, y_m]$ des relèvements de
+$f_1, \ldots, f_n$. Nous pouvons alors appliquer
+Algèbre, Lemme \ref{algebra-lemma-localize-relative-complete-intersection}
+pour obtenir l'affirmation.
+
+\medskip\noindent
+Démonstration de (2). Comme tout morphisme d'anneaux lisse est syntomique, nous
+pouvons trouver un morphisme d'anneaux syntomique $R \to A$ tel que
+$A_0 = A/IA$. Par hypothèse, les fibres de $R \to A$ sont lisses au-dessus des
+idéaux premiers de $V(I)$ ; ainsi, $R \to A$ est lisse dans un voisinage ouvert
+de $V(IA)$
+(Algèbre, Lemme \ref{algebra-lemma-flat-fibre-smooth}).
+Nous pouvons donc remplacer $A$ par une localisation pour obtenir le résultat
+voulu.
+\end{proof}
+
+\noindent
+Nous savons que tout morphisme d'anneaux syntomique $R \to A$ est localement
+une intersection complète globale relative, voir
+Algèbre, Lemme \ref{algebra-lemma-syntomic}.
+Le lemme suivant affirme qu'un fibré vectoriel sur $\Spec(A)$ est une
+intersection complète globale relative.
+
+\begin{lemma}
+\label{lemma-syntomic-complete-intersection}
+Soit $R \to A$ un morphisme d'anneaux syntomique. Il existe alors un morphisme
+lisse de $R$-algèbres $A \to C$ admettant une rétraction tel que $C$ soit une
+intersection complète globale relative sur $R$, c'est-à-dire
+$$
+C \cong R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)
+$$
+plate sur $R$ et dont toutes les fibres sont de dimension $n - c$.
+\end{lemma}
+
+\begin{proof}
+Appliquons le lemme \ref{lemma-improve-presentation} pour obtenir $A \to C$.
+D'après Algèbre, Lemme \ref{algebra-lemma-huber}, nous pouvons écrire
+$C = R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$ de sorte que les images des $f_i$
+forment une base de $J/J^2$.
+Le morphisme d'anneaux $R \to C$ est syntomique (donc plat), car il est la
+composée d'un morphisme d'anneaux syntomique et d'un morphisme d'anneaux lisse.
+La dimension des fibres est $n - c$ d'après
+Algèbre, Lemme \ref{algebra-lemma-lci}
+(les fibres sont des intersections complètes locales, le lemme s'applique donc).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-standard-smooth}
+Soit $R \to A$ un morphisme d'anneaux lisse. Il existe alors un morphisme lisse
+de $R$-algèbres $A \to B$ admettant une rétraction tel que $B$ soit standard
+lisse sur $R$, c'est-à-dire
+$$
+B \cong R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)
+$$
+et $\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$ est inversible dans
+$B$.
+\end{lemma}
+
+\begin{proof}
+Appliquons le lemme \ref{lemma-syntomic-complete-intersection} pour obtenir un
+morphisme lisse de $R$-algèbres $A \to C$ admettant une rétraction, tel que
+$C = R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$ soit une intersection complète
+globale relative sur $R$. Comme $C$ est lisse sur $R$, nous avons une suite
+exacte courte
+$$
+0 \to
+\bigoplus\nolimits_{j = 1, \ldots, c} C f_j \to
+\bigoplus\nolimits_{i = 1, \ldots, n} C\text{d}x_i \to
+\Omega_{C/R} \to 0
+$$
+Puisque $\Omega_{C/R}$ est un $C$-module projectif, cette suite est scindée.
+Choisissons un inverse à gauche $t$ du premier morphisme. Écrivons
+$t(\text{d}x_i) = \sum c_{ij} f_j$
+de sorte que $\sum_i \frac{\partial f_j}{\partial x_i} c_{i\ell} = \delta_{j\ell}$
+(symbole de Kronecker). Soit
+$$
+B' = C[y_1, \ldots, y_c] =
+R[x_1, \ldots, x_n, y_1, \ldots, y_c]/(f_1, \ldots, f_c)
+$$
+Le morphisme de $R$-algèbres $C \to B'$ admet la rétraction qui envoie $y_j$
+sur zéro. Nous affirmons que le morphisme
+$$
+R[z_1, \ldots, z_n] \longrightarrow B',\quad
+z_i \longmapsto x_i - \sum\nolimits_j c_{ij} y_j
+$$
+est \'etale en tout point de l'image de $\Spec(C) \to \Spec(B')$.
+Dans $\Omega_{B'/R[z_1, \ldots, z_n]}$, nous avons
+$$
+0 =
+\text{d}f_j - \sum\nolimits_i \frac{\partial f_j}{\partial x_i} \text{d}z_i
+\equiv
+\sum\nolimits_{i, \ell}
+\frac{\partial f_j}{\partial x_i} c_{i\ell} \text{d}y_\ell
+\equiv
+\text{d}y_j \bmod (y_1, \ldots, y_c)\Omega_{B'/R[z_1, \ldots, z_n]}
+$$
+Puisque $0 = \text{d}z_i = \text{d}x_i$ modulo
+$\sum B'\text{d}y_j + (y_1, \ldots, y_c)\Omega_{B'/R[z_1, \ldots, z_n]}$,
+nous en concluons que
+$$
+\Omega_{B'/R[z_1, \ldots, z_n]}/
+(y_1, \ldots, y_c)\Omega_{B'/R[z_1, \ldots, z_n]} = 0.
+$$
+Comme $\Omega_{B'/R[z_1, \ldots, z_n]}$ est un $B'$-module de type fini, le
+lemme de Nakayama montre qu'il existe un $g \in 1 + (y_1, \ldots, y_c)$ tel que
+$(\Omega_{B'/R[z_1, \ldots, z_n]})_g = 0$. Cela démontre que
+$R[z_1, \ldots, z_n] \to B'_g$ est non ramifié, voir
+Algèbre, Définition \ref{algebra-definition-unramified}.
+Pour tout morphisme d'anneaux $R \to k$, où $k$ est un corps, nous obtenons un
+morphisme d'anneaux non ramifié
+$k[z_1, \ldots, z_n] \to (B'_g) \otimes_R k$ entre $k$-algèbres lisses de
+dimension $n$. Il en résulte que
+$k[z_1, \ldots, z_n] \to (B'_g) \otimes_R k$ est plat d'après
+Algèbre, Lemmes \ref{algebra-lemma-CM-over-regular-flat} et
+\ref{algebra-lemma-characterize-smooth-kbar}. Par le crit\`ere
+de platitude par fibre
+(Algèbre, Lemme \ref{algebra-lemma-criterion-flatness-fibre}),
+nous concluons que $R[z_1, \ldots, z_n] \to B'_g$ est plat.
+Enfin, Algèbre, Lemme \ref{algebra-lemma-characterize-etale} implique que
+$R[z_1, \ldots, z_n] \to B'_g$ est \'etale.
+Posons $B = B'_g$. Notons que $C \to B$ est lisse et admet une rétraction ; il
+en est donc de même de $A \to B$. De plus,
+$R[z_1, \ldots, z_n] \to B$ est \'etale.
+D'après Algèbre, Lemme \ref{algebra-lemma-etale-standard-smooth}, nous pouvons
+écrire
+$$
+B = R[z_1, \ldots, z_n, w_1, \ldots, w_m]/(g_1, \ldots, g_m)
+$$
+avec $\det(\partial g_j/\partial w_i)$ inversible dans $B$.
+Cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-standard-smooth}
+Soit $R \to \Lambda$ un morphisme d'anneaux. Si $\Lambda$ est une colimite
+filtrante de $R$-algèbres lisses, alors $\Lambda$ est une colimite filtrante de
+$R$-algèbres standard lisses.
+\end{lemma}
+
+\begin{proof}
+Soit $A \to \Lambda$ un morphisme de $R$-algèbres, avec $A$ de présentation
+finie sur $R$. D'après
+Algèbre, Lemme \ref{algebra-lemma-when-colimit}
+nous devons factoriser ce morphisme par une algèbre standard lisse, et nous
+savons que nous pouvons le factoriser sous la forme $A \to B \to \Lambda$, où
+$B$ est lisse sur $R$. Choisissons un morphisme de $R$-algèbres $B \to C$
+admettant une rétraction $C \to B$, tel que $C$ soit standard lisse sur $R$, voir
+Lemme \ref{lemma-smooth-standard-smooth}.
+La factorisation cherchée est alors $A \to B \to C \to B \to \Lambda$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-standard-smooth-include-generators}
+Soit $R \to A$ un morphisme d'anneaux standard lisse.
+Soit $E \subset A$ un sous-ensemble fini de cardinal $|E| = n$.
+Il existe alors une présentation
+$A = R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$ avec $c \geq n$, dans
+laquelle $\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$ est inversible
+dans $A$ et telle que $E$ soit l'ensemble des classes, dans ce quotient, de
+$x_1, \ldots, x_n$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une présentation $A = R[y_1, \ldots, y_m]/(g_1, \ldots, g_d)$
+telle que l'image de $\det(\partial g_j/\partial y_i)_{i, j = 1, \ldots, d}$
+soit inversible dans $A$. Choisissons une énumération
+$E = \{a_1, \ldots, a_n\}$ et des éléments $h_i \in R[y_1, \ldots, y_m]$ dont
+l'image dans $A$ est $a_i$. Considérons la présentation
+$$
+A = R[x_1, \ldots, x_n, y_1, \ldots, y_m]/
+(x_1 - h_1, \ldots, x_n - h_n, g_1, \ldots, g_d)
+$$
+et posons $c = n + d$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-standard}
+Soit $R \to A$ un morphisme d'anneaux de présentation finie.
+Soit $a \in A$. Considérons les conditions suivantes sur $a$ :
+\begin{enumerate}
+\item $A_a$ est lisse sur $R$,
+\item $A_a$ est lisse sur $R$ et $\Omega_{A_a/R}$ est stablement libre,
+\item $A_a$ est lisse sur $R$ et $\Omega_{A_a/R}$ est libre,
+\item $A_a$ est standard lisse sur $R$,
+\item $a$ est strictement standard dans $A$ sur $R$,
+\item $a$ est standard élémentaire dans $A$ sur $R$.
+\end{enumerate}
+Alors :
+\begin{enumerate}
+\item[(a)] (4) $\Rightarrow$ (3) $\Rightarrow$ (2) $\Rightarrow$ (1),
+\item[(b)] (6) $\Rightarrow$ (5),
+\item[(c)] (6) $\Rightarrow$ (4),
+\item[(d)] (5) $\Rightarrow$ (2),
+\item[(e)] (2) $\Rightarrow$ les éléments $a^e$, $e \geq e_0$, sont
+strictement standard dans $A$ sur $R$,
+\item[(f)] (4) $\Rightarrow$ les éléments $a^e$, $e \geq e_0$, sont standard
+élémentaires dans $A$ sur $R$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après les définitions et
+Algèbre, Lemme \ref{algebra-lemma-standard-smooth},
+la partie (a) est claire. La partie (b) résulte immédiatement de
+la définition \ref{definition-strictly-standard}.
+
+\medskip\noindent
+Démonstration de (c). Choisissons une présentation
+$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ telle que
+(\ref{equation-elementary-standard-one}) et
+(\ref{equation-elementary-standard-two}) soient satisfaites.
+Choisissons $h \in R[x_1, \ldots, x_n]$ d'image $a$. Alors
+$$
+A_a = R[x_0, x_1, \ldots, x_n]/(x_0h - 1, f_1, \ldots, f_m).
+$$
+Écrivons $J = (x_0h - 1, f_1, \ldots, f_m)$.
+D'après (\ref{equation-elementary-standard-two}), nous voyons que le
+$A_a$-module $J/J^2$ est engendré par $x_0h - 1, f_1, \ldots, f_c$ sur
+$A_a$. Ainsi, comme dans la démonstration de
+Algèbre, Lemme \ref{algebra-lemma-huber}, nous pouvons choisir un $g \in 1 + J$
+tel que
+$$
+A_a = R[x_0, \ldots, x_n, x_{n + 1}]/
+(x_0h - 1, f_1, \ldots, f_c, gx_{n + 1} - 1).
+$$
+À ce stade, (\ref{equation-elementary-standard-one}) implique que $R \to A_a$
+est standard lisse (utiliser les coordonnées
+$x_0, x_1, \ldots, x_c, x_{n + 1}$ pour calculer les dérivées).
+
+\medskip\noindent
+Démonstration de (d). Choisissons une présentation
+$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ telle que
+(\ref{equation-strictly-standard-one}) et
+(\ref{equation-strictly-standard-two}) soient satisfaites.
+Écrivons $I = (f_1, \ldots, f_m)$.
+Nous savons déjà que $A_a$ est lisse sur $R$, voir
+Lemme \ref{lemma-elkik}.
+D'après le lemme \ref{lemma-parse-equation-strictly-standard-one}, nous voyons que
+$(I/I^2)_a$ est libre de base $f_1, \ldots, f_c$ et s'envoie isomorphiquement
+sur un facteur direct de $\bigoplus A_a \text{d}x_i$. Puisque
+$\Omega_{A_a/R} = (\Omega_{A/R})_a$
+est le conoyau du morphisme
+$(I/I^2)_a \to \bigoplus A_a \text{d}x_i$,
+nous concluons qu'il est stablement libre.
+
+\medskip\noindent
+Démonstration de (e). Choisissons une présentation
+$A = R[x_1, \ldots, x_n]/I$ avec $I$ de type fini.
+Par hypothèse, nous avons une suite exacte courte
+$$
+0 \to (I/I^2)_a \to \bigoplus\nolimits_{i = 1, \ldots, n} A_a\text{d}x_i \to
+\Omega_{A_a/R} \to 0
+$$
+qui est exacte scindée. Nous voyons donc que
+$(I/I^2)_a \oplus \Omega_{A_a/R}$ est un $A_a$-module libre.
+Puisque $\Omega_{A_a/R}$ est stablement libre, nous voyons que $(I/I^2)_a$
+l'est également. Ainsi, en remplaçant la présentation choisie ci-dessus par
+$A = R[x_1, \ldots, x_n, x_{n + 1}, \ldots, x_{n + r}]/J$, avec
+$J = (I, x_{n + 1}, \ldots, x_{n + r})$ pour un certain $r$, nous obtenons que
+$(J/J^2)_a$ est libre de type fini. Choisissons
+$f_1, \ldots, f_c \in J$ dont les images forment une base de $(J/J^2)_a$.
+Complétons cette famille en une famille de générateurs
+$f_1, \ldots, f_m \in J$. Considérons la présentation
+$A = R[x_1, \ldots, x_{n + r}]/(f_1, \ldots, f_m)$.
+Alors, par construction, (\ref{equation-strictly-standard-two}) est satisfaite
+pour $a^e$ dès que $e$ est suffisamment grand. De plus, puisque
+$(J/J^2)_a \to \bigoplus\nolimits_{i = 1, \ldots, n + r} A_a\text{d}x_i$
+est une injection scindée, nous pouvons trouver un inverse à gauche
+$A_a$-linéaire. En exprimant cet inverse à gauche dans la base
+$f_1, \ldots, f_c$ et en chassant les dénominateurs, nous trouvons un morphisme
+linéaire
+$\psi_0 : A^{\oplus n + r} \to A^{\oplus c}$ tel que
+$$
+A^{\oplus c} \xrightarrow{(f_1, \ldots, f_c)}
+J/J^2 \xrightarrow{f \mapsto \text{d}f}
+\bigoplus\nolimits_{i = 1, \ldots, n + r} A \text{d}x_i
+\xrightarrow{\psi_0}
+A^{\oplus c}
+$$
+soit la multiplication par $a^{e_0}$ pour un certain $e_0 \geq 1$. D'après
+Lemme \ref{lemma-parse-equation-strictly-standard-one},
+nous voyons que (\ref{equation-strictly-standard-one}) est satisfaite pour
+$a^{ce_0}$, et donc pour $a^e$ pour tout $e$ tel que $e \geq ce_0$.
+
+\medskip\noindent
+Démonstration de (f). Choisissons une présentation
+$A_a = R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$ telle que
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+soit inversible dans $A_a$. Nous pouvons supposer que, pour un certain $m < n$,
+les classes des éléments $x_1, \ldots, x_m$ correspondent aux $a_i/1$, où
+$a_1, \ldots, a_m \in A$ sont des générateurs de $A$ sur $R$, voir
+Lemme \ref{lemma-standard-smooth-include-generators}.
+Après avoir remplacé $x_i$ par $a^Nx_i$ pour $m < i \leq n$, nous pouvons
+supposer que la classe de $x_i$ est $a_i/1 \in A_a$ pour un certain $a_i \in A$.
+Considérons le morphisme d'anneaux
+$$
+\Psi : R[x_1, \ldots, x_n] \longrightarrow A,\quad
+x_i \longmapsto a_i.
+$$
+Il s'agit d'un morphisme d'anneaux surjectif. En remplaçant $f_j$ par $a^Nf_j$,
+nous pouvons supposer que $f_j \in R[x_1, \ldots, x_n]$ et que
+$\Psi(f_j) = 0$ (car, après tout, $f_j(a_1/1, \ldots, a_n/1) = 0$ dans $A_a$).
+Soit $J = \Ker(\Psi)$. Alors $A = R[x_1, \ldots, x_n]/J$ est une présentation,
+et $f_1, \ldots, f_c \in J$ sont des éléments tels que $(J/J^2)_a$ soit libre
+de base $f_1, \ldots, f_c$ et que
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$ s'envoie sur un élément
+inversible de $A_a$. Il en résulte que
+(\ref{equation-elementary-standard-one}) et
+(\ref{equation-elementary-standard-two})
+sont satisfaites pour $a^e$ et tout $e$ suffisamment grand, comme souhaité.
+\end{proof}
+\section{Intermède : désingularisation de Néron}
+\label{section-neron}
+
+\noindent
+Nous interrompons l'étude du cas général du théorème de Popescu pour
+examiner un cas plus facile mais déjà très intéressant, à savoir celui où
+$R \to \Lambda$ est un homomorphisme d'anneaux de valuation discrète.
+Ce cas est étudié dans
+\cite[Section 4]{Artin-Algebraic-Approximation}.
+
+\begin{situation}
+\label{situation-neron}
+Ici, $R \subset \Lambda$ est une extension d'anneaux de valuation discrète
+d'indice de ramification $1$ (Compléments d'algèbre, définition
+\ref{more-algebra-definition-extension-discrete-valuation-rings}).
+Nous nous donnons une factorisation
+$$
+R \to A \xrightarrow{\varphi} \Lambda
+$$
+où $R \to A$ est plat et de type fini. Posons $\mathfrak q = \Ker(\varphi)$
+et $\mathfrak p = \varphi^{-1}(\mathfrak m_\Lambda)$.
+\end{situation}
+
+\noindent
+Dans la situation \ref{situation-neron}, soit $\pi \in R$ une uniformisante.
+Rappelons que la platitude de $A$ sur $R$ signifie que $\pi$
+est un non-diviseur de zéro dans $A$
+(Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-valuation-ring-torsion-free-flat}).
+Notre hypothèse sur $R \subset \Lambda$ montre que l'image de $\pi$
+est une uniformisante de $\Lambda$. Comme $\pi \in \mathfrak p$, nous pouvons considérer
+l'algèbre d'éclatement affine de Néron (voir
+Algèbre, section \ref{algebra-section-blow-up})
+$$
+\varphi' :
+A' = A[\textstyle{\frac{\mathfrak p}{\pi}}]
+\longrightarrow
+\Lambda
+$$
+munie du morphisme induit vers $\Lambda$ qui envoie
+$a/\pi^n$, $a \in \mathfrak p^n$, sur $\pi^{-n}\varphi(a)$ dans $\Lambda$.
+Nous noterons $\mathfrak q' \subset \mathfrak p' \subset A'$
+les idéaux premiers correspondants de $A'$. Remarquons que la classe
+d'isomorphisme de $A'$ ne dépend pas du choix de l'uniformisante.
+En répétant cette construction, nous obtenons une suite
+$$
+A \to A' \to A'' \to \ldots \to \Lambda
+$$
+
+\begin{lemma}
+\label{lemma-neron-functorial}
+Dans la situation \ref{situation-neron}, l'éclatement de Néron est fonctoriel
+au sens suivant :
+\begin{enumerate}
+\item si $a \in A$, $a \not \in \mathfrak p$, alors l'éclatement de Néron
+de $A_a$ est $A'_a$, et
+\item si $B \to A$ est une surjection de $R$-algèbres plates de type fini
+de noyau $I$, alors $A'$ est le quotient de $B'/IB'$ par sa
+torsion annulée par une puissance de $\pi$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les assertions (1) et (2) sont des cas particuliers de
+Algèbre, lemme \ref{algebra-lemma-blowup-base-change}.
+En effet, dès que nous avons $A_1 \to A_2 \to \Lambda$ avec
+$\mathfrak p_1 A_2 = \mathfrak p_2$, l'algèbre $A_2'$ est
+le quotient de $A_1' \otimes_{A_1} A_2$ par sa torsion annulée par une puissance de $\pi$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-neron-blowup-smooth}
+Dans la situation \ref{situation-neron}, supposons que $R \to A$ soit lisse
+en $\mathfrak p$ et que $R/\pi R \subset \Lambda/\pi \Lambda$
+soit une extension séparable de corps. Alors $R \to A'$ est lisse en
+$\mathfrak p'$ et il existe une suite exacte courte
+$$
+0 \to
+\Omega_{A/R} \otimes_A A'_{\mathfrak p'} \to
+\Omega_{A'/R, \mathfrak p'} \to
+(A'/\pi A')_{\mathfrak p'}^{\oplus c} \to 0
+$$
+où $c = \dim((A/\pi A)_\mathfrak p)$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-neron-functorial}, nous pouvons remplacer $A$ par
+un localisé en un élément qui n'appartient pas à $\mathfrak p$ ; nous le ferons
+désormais sans autre mention. Posons $\kappa = R/\pi R$. Comme la lissité est
+stable par changement de base
+(Algèbre, lemme \ref{algebra-lemma-base-change-smooth}),
+nous voyons que $A/\pi A$ est lisse sur $\kappa$ en $\mathfrak p$.
+Par conséquent, $(A/\pi A)_\mathfrak p$ est un anneau local régulier
+(Algèbre, lemme \ref{algebra-lemma-characterize-smooth-over-field}).
+Choisissons $g_1, \ldots, g_c \in \mathfrak p$ dont les images forment
+un système régulier de paramètres de $(A/\pi A)_\mathfrak p$.
+Nous voyons alors que $\mathfrak p = (\pi, g_1, \ldots, g_c)$,
+quitte à remplacer $A$ par un localisé.
+Remarquons que $\pi, g_1, \ldots, g_c$ est une suite régulière
+dans $A_\mathfrak p$ (d'abord $\pi$ est un non-diviseur de zéro, puis on applique
+Algèbre, lemme \ref{algebra-lemma-regular-ring-CM}
+au reste de la suite).
+Après avoir remplacé $A$ par un localisé, nous pouvons supposer que
+$\pi, g_1, \ldots, g_c$ est une suite régulière dans $A$
+(Algèbre, lemme \ref{algebra-lemma-regular-sequence-in-neighbourhood}).
+Il s'ensuit que
+$$
+A' = A[y_1, \ldots, y_c]/(\pi y_1 - g_1, \ldots, \pi y_c - g_c) =
+A[y_1, \ldots, y_c]/I
+$$
+d'après Compléments d'algèbre, lemme \ref{more-algebra-lemma-blowup-regular-sequence}.
+Dans la suite, nous utiliserons sans autre mention la définition de la lissité
+au moyen du complexe cotangent naïf (Algèbre, définition \ref{algebra-definition-smooth})
+et le critère d'Algèbre, lemme \ref{algebra-lemma-smooth-at-point}.
+La suite exacte d'Algèbre, lemme \ref{algebra-lemma-exact-sequence-NL},
+pour $R \to A[y_1, \ldots, y_c] \to A'$, s'écrit
+$$
+0 \to H_1(\NL_{A'/R}) \to I/I^2 \to
+\Omega_{A/R} \otimes_A A' \oplus
+\bigoplus\nolimits_{i = 1, \ldots, c} A' \text{d}y_i \to
+\Omega_{A'/R} \to 0
+$$
+où la classe de $\pi y_i - g_i$ dans $I/I^2$ est envoyée
+sur $- \text{d}g_i + \pi \text{d}y_i$ dans le terme suivant.
+Ici, nous avons utilisé Algèbre, lemme \ref{algebra-lemma-NL-surjection},
+pour calculer $\NL_{A'/A[y_1, \ldots, y_c]}$, ainsi que le fait que
+$R \to A[y_1, \ldots, y_c]$ est lisse, de sorte que
+$H_1(\NL_{A[y_1, \ldots, y_c]/R}) = 0$ et
+$\Omega_{A[y_1, \ldots, y_c]/R}$ est un
+$A[y_1, \ldots, y_c]$-module projectif fini (donc, a fortiori, plat),
+qui est en fait la somme directe de
+$\Omega_{A/R} \otimes_A A[y_1, \ldots, y_c]$ et d'un module libre
+de base les $\text{d}y_i$. Pour achever la démonstration, il suffit de
+montrer que $\text{d}g_1, \ldots, \text{d}g_c$ font partie d'une base du
+module libre fini $\Omega_{A/R, \mathfrak p}$.
+En effet, cela montrera que $(I/I^2)_{\mathfrak p'}$ est libre sur les
+$\pi y_i - g_i$, que le localisé en $\mathfrak p'$ du morphisme central
+de la suite est injectif, donc que $H_1(\NL_{A'/R})_{\mathfrak p'} = 0$, et que
+le conoyau $\Omega_{A'/R, \mathfrak p'}$ est libre fini.
+Pour cela, il suffit de montrer que les images des $\text{d}g_i$ sont
+linéairement indépendantes sur $\kappa(\mathfrak p)$ dans
+$\Omega_{A/R, \mathfrak p}/\pi = \Omega_{(A/\pi A)/\kappa, \mathfrak p}$
+(l'égalité résulte d'Algèbre, lemme \ref{algebra-lemma-differentials-base-change}).
+Comme $\kappa \subset \kappa(\mathfrak p) \subset \Lambda/\pi \Lambda$,
+nous voyons que $\kappa(\mathfrak p)$ est séparable sur $\kappa$
+(Algèbre, définition \ref{algebra-definition-separable-field-extension}).
+L'indépendance linéaire recherchée résulte alors d'Algèbre,
+lemme \ref{algebra-lemma-computation-differential}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-neron-when-smooth}
+Dans la situation \ref{situation-neron}, supposons que $R \to A$ soit lisse
+en $\mathfrak q$ et que nous ayons une surjection de $R$-algèbres
+$B \to A$ de noyau $I$. Supposons $R \to B$ lisse en
+$\mathfrak p_B = (B \to A)^{-1}\mathfrak p$. Si le conoyau de
+$$
+I/I^2 \otimes_A \Lambda \to \Omega_{B/R} \otimes_B \Lambda
+$$
+est un $\Lambda$-module libre, alors $R \to A$ est lisse en $\mathfrak p$.
+\end{lemma}
+
+\begin{proof}
+Le conoyau du morphisme $I/I^2 \to \Omega_{B/R} \otimes_B A$
+est $\Omega_{A/R}$, voir Algèbre, lemme \ref{algebra-lemma-differential-seq}.
+Soit $d = \dim_\mathfrak q(A/R)$ la dimension relative de $R \to A$
+en $\mathfrak q$, c'est-à-dire la dimension de $\Spec(A[1/\pi])$ en $\mathfrak q$.
+Voir Algèbre, définition \ref{algebra-definition-relative-dimension}.
+Alors $\Omega_{A/R, \mathfrak q}$ est libre sur $A_\mathfrak q$ et de rang $d$
+(Algèbre, lemme \ref{algebra-lemma-characterize-smooth-over-field}).
+Ainsi, si l'hypothèse du lemme est satisfaite,
+$\Omega_{A/R} \otimes_A \Lambda$ est libre de rang $d$.
+Il s'ensuit que $\Omega_{A/R} \otimes_A \kappa(\mathfrak p)$
+est de dimension $d$ (car c'est le cas après tensorisation par $\Lambda/\pi \Lambda$).
+Comme $R \to A$ est plat et que $\mathfrak p$
+est une spécialisation de $\mathfrak q$, nous voyons que
+$\dim_\mathfrak p(A/R) \geq d$ d'après Algèbre, lemme
+\ref{algebra-lemma-dimension-fibres-bounded-open-upstairs}.
+Il en résulte que $R \to A$ est lisse en $\mathfrak p$ d'après
+Algèbre, lemmes \ref{algebra-lemma-flat-fibre-smooth} et
+\ref{algebra-lemma-characterize-smooth-over-field}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-neron-desingularization}
+Dans la situation \ref{situation-neron},
+supposons que $R \to A$ soit lisse en $\mathfrak q$
+et que $R/\pi R \subset \Lambda/\pi \Lambda$ soit une extension
+séparable de corps. Après un nombre fini d'éclatements affines de Néron,
+l'algèbre $A$ devient alors lisse sur $R$ en $\mathfrak p$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une $R$-algèbre $B$ et une surjection $B \to A$. Posons
+$\mathfrak p_B = (B \to A)^{-1}(\mathfrak p)$ et notons $r$
+la dimension relative de $R \to B$ en $\mathfrak p_B$. Nous choisissons $B$
+de sorte que $R \to B$ soit lisse en $\mathfrak p_B$.
+Par exemple, nous pouvons prendre pour $B$ une algèbre de polynômes en $r$
+variables sur $R$. Considérons le complexe
+$$
+I/I^2 \otimes_A \Lambda \longrightarrow \Omega_{B/R} \otimes_B \Lambda
+$$
+du lemme \ref{lemma-neron-when-smooth}. La structure des modules finis sur
+$\Lambda$ (Compléments d'algèbre, lemme \ref{more-algebra-lemma-modules-PID})
+montre que le conoyau est de la forme
+$$
+\Lambda^{\oplus d} \oplus
+\bigoplus\nolimits_{i = 1, \ldots, n} \Lambda/\pi^{e_i} \Lambda
+$$
+pour certains $d \geq 0$, $n \geq 0$ et $e_i \geq 1$. Remarquons que $d$
+est la dimension relative de $A/R$ en $\mathfrak q$
+(Algèbre, lemme \ref{algebra-lemma-characterize-smooth-over-field}).
+Si le défaut $e = \sum_{i = 1, \ldots, n} e_i$ est nul, la conclusion résulte du
+lemme \ref{lemma-neron-when-smooth}.
+
+\medskip\noindent
+Examinons maintenant ce qui se passe lorsque nous effectuons l'éclatement de Néron.
+Rappelons que $A'$ est le quotient de $B'/IB'$ par sa torsion annulée par
+une puissance de $\pi$ (lemme \ref{lemma-neron-functorial}) et que $R \to B'$ est lisse en
+$\mathfrak p_{B'}$ (lemme \ref{lemma-neron-blowup-smooth}).
+Après éclatement, nous nous retrouvons donc exactement dans la même situation. Représentons-la par
+$$
+\xymatrix{
+0 \ar[r] & I' \ar[r] & B' \ar[r] & A' \ar[r] & 0 \\
+0 \ar[r] & I \ar[u] \ar[r] & B \ar[u] \ar[r] & A \ar[r] \ar[u] & 0
+}
+$$
+Comme $I \subset \mathfrak p_B$, nous voyons que $I \to I'$
+se factorise par $\pi I'$. En considérant le morphisme induit de
+complexes, nous obtenons
+$$
+\xymatrix{
+I'/(I')^2 \otimes_{A'} \Lambda \ar[r] &
+\Omega_{B'/R} \otimes_{B'} \Lambda \ar@{=}[r] & M' \\
+I/I^2 \otimes_A \Lambda \ar[r] \ar[u] &
+\Omega_{B/R} \otimes_B \Lambda \ar[u] \ar@{=}[r] & M
+}
+$$
+Alors $M \subset M'$ sont des $\Lambda$-modules libres finis, et le quotient
+$M'/M$ est annulé par $\pi$, voir le lemme \ref{lemma-neron-blowup-smooth}.
+Soient $N \subset M$ et $N' \subset M'$ les images des morphismes horizontaux,
+et posons $Q = M/N$ et $Q' = M'/N'$.
+Nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+0 \ar[r] &
+N' \ar[r] &
+M' \ar[r] &
+Q' \ar[r] &
+0 \\
+0 \ar[r] &
+N \ar[r] \ar[u] &
+M \ar[r] \ar[u] &
+Q \ar[r] \ar[u] &
+0
+}
+$$
+Alors $N \subset N'$ sont des $\Lambda$-modules libres de rang $r - d$.
+Comme $I$ s'envoie dans $\pi I'$, nous voyons que $N \subset \pi N'$.
+
+\medskip\noindent
+Soit $K = \Lambda_\pi$ le corps des fractions de $\Lambda$.
+Nous avons un diagramme commutatif
+$$
+\xymatrix{
+0 \ar[r] &
+N' \ar[r] &
+N'_K \cap M' \ar[r] &
+Q'_{tor} \ar[r] &
+0 \\
+0 \ar[r] &
+N \ar[r] \ar[u] &
+N_K \cap M \ar[r] \ar[u] &
+Q_{tor} \ar[r] \ar[u] &
+0
+}
+$$
+dont les lignes sont des suites exactes courtes. Cela montre que la variation du défaut
+est donnée par
+$$
+e - e' =
+\text{longueur}(Q_{tor}) - \text{longueur}(Q'_{tor})
+=
+\text{longueur}(N'/N) - \text{longueur}(N'_K \cap M' / N_K \cap M)
+$$
+Comme $M'/M$ est annulé par $\pi$, il en va de même de $N'_K \cap M' / N_K \cap M$,
+et sa longueur est au plus $\dim_K(N_K)$.
+Comme $N \subset \pi N'$, nous obtenons $\text{longueur}(N'/N) \ge \dim_K(N_K)$,
+avec égalité si et seulement si $N = \pi N'$.
+
+\medskip\noindent
+Pour achever la démonstration, nous devons montrer que $N$ est strictement contenu
+dans $\pi N'$ lorsque $A$ n'est pas lisse en $\mathfrak p$ ;
+c'est le calcul clé de l'argument de Néron.
+Pour cela, considérons la suite exacte
+$$
+I/I^2 \otimes_B \kappa(\mathfrak p_B)
+\to \Omega_{B/R} \otimes_B \kappa(\mathfrak p_B)
+\to \Omega_{A/R} \otimes_A \kappa(\mathfrak p) \to 0
+$$
+(qui résulte d'Algèbre, lemme \ref{algebra-lemma-differential-seq}).
+Comme $R \to A$ n'est pas lisse en $\mathfrak p$, nous voyons que la dimension $s$ de
+$\Omega_{A/R} \otimes_A \kappa(\mathfrak p)$
+est strictement supérieure à $d$. D'autre part,
+la première flèche se factorise par le morphisme injectif
+$$
+\mathfrak p_B B_{\mathfrak p_B}/\mathfrak p_B^2 B_{\mathfrak p_B}
+\to \Omega_{B/R} \otimes_B \kappa(\mathfrak p_B)
+$$
+d'Algèbre, lemme \ref{algebra-lemma-computation-differential} ;
+remarquons que $\kappa(\mathfrak p)$ est séparable sur $\kappa$
+d'après notre hypothèse sur $R/\pi R \subset \Lambda/\pi \Lambda$.
+Nous en concluons qu'il existe des générateurs
+$g_1, \ldots, g_t \in I$ tels que $g_j \in \mathfrak p^2$
+pour $j > r - s$. Les images des $g_j$ dans $A'$ appartiennent alors à $\pi^2 I'$
+pour $j > r - s$. Comme $r - s < r - d$,
+au moins un des générateurs minimaux
+de $N$ devient divisible par $\pi^2$ dans $N'$.
+Ainsi, $e$ diminue d'au moins $1$, ce qui conclut la démonstration.
+\end{proof}
+
+\noindent
+Si $R \to \Lambda$ est une extension d'anneaux de valuation discrète,
+alors $R \to \Lambda$ est régulier si et seulement si
+(a) l'indice de ramification vaut $1$,
+(b) l'extension des corps de fractions est séparable, et
+(c) $R/\mathfrak m_R \subset \Lambda/\mathfrak m_\Lambda$
+est séparable. Le résultat suivant est donc un cas particulier
+de la désingularisation générale de Néron donnée dans le
+théorème \ref{theorem-popescu}.
+
+\begin{lemma}
+\label{lemma-neron-colimit}
+\begin{slogan}
+Les extensions non ramifiées d'anneaux de valuation discrète sont ind-lisses : désingularisation de Néron
+\end{slogan}
+Soit $R \subset \Lambda$ une extension d'anneaux de valuation
+discrète d'indice de ramification $1$ qui induit une extension séparable
+des corps résiduels et des corps de fractions.
+Alors $\Lambda$ est une colimite filtrante de $R$-algèbres lisses.
+\end{lemma}
+
+\begin{proof}
+D'après Algèbre, lemme \ref{algebra-lemma-when-colimit}, il suffit de montrer
+que tout $R \to A \to \Lambda$ comme dans la situation \ref{situation-neron}
+se factorise sous la forme $A \to B \to \Lambda$, où $B$ est une
+$R$-algèbre lisse. Après avoir remplacé $A$ par son image dans $\Lambda$,
+nous pouvons supposer que $A$ est un domaine dont le corps des fractions $K$
+est un sous-corps du corps des fractions de $\Lambda$.
+En particulier, $K$ est séparable sur le corps des fractions de $R$
+d'après nos hypothèses. Alors $R \to A$ est lisse en $\mathfrak q = (0)$ d'après
+Algèbre, lemme \ref{algebra-lemma-smooth-at-generic-point}.
+Après un nombre fini d'éclatements de Néron, nous pouvons supposer que $R \to A$
+est lisse en $\mathfrak p$, voir le lemme \ref{lemma-neron-desingularization}.
+Enfin, après avoir remplacé $A$ par son localisé
+en un élément $a \in A$, $a \not \in \mathfrak p$, elle devient
+lisse sur $R$, ce qui démontre le lemme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Le problème de relèvement}
+\label{section-lifting}
+
+\noindent
+Le but de cette section est de démontrer (proposition \ref{proposition-lift})
+que la classe des algèbres qui sont des colimites filtrantes d'algèbres lisses
+est stable par déformations infinitésimales plates. La démonstration est élémentaire
+et n'utilise que les résultats sur les présentations d'algèbres lisses de la
+section \ref{section-presentations}.
+
+\begin{lemma}
+\label{lemma-lift-once}
+Soit $R \to \Lambda$ un homomorphisme d'anneaux. Soit $I \subset R$ un idéal.
+Supposons que
+\begin{enumerate}
+\item $I^2 = 0$, et
+\item $\Lambda/I\Lambda$ soit une colimite filtrante de $R/I$-algèbres lisses.
+\end{enumerate}
+Soit $\varphi : A \to \Lambda$ un morphisme de $R$-algèbres, où $A$ est de
+présentation finie sur $R$. Il existe alors une factorisation
+$$
+A \to B/J \to \Lambda
+$$
+où $B$ est une $R$-algèbre lisse et $J \subset IB$ un idéal de type fini.
+\end{lemma}
+
+\begin{proof}
+Choisissons une factorisation
+$$
+A/IA \to \bar B \to \Lambda/I\Lambda
+$$
+où $\bar B$ est standard lisse sur $R/I$ ; cela est possible d'après
+l'hypothèse et le lemme \ref{lemma-colimit-standard-smooth}. Écrivons
+$$
+\bar B = A/IA[t_1, \ldots, t_r]/(\bar g_1, \ldots, \bar g_s)
+$$
+et supposons que $\bar B \to \Lambda/I\Lambda$ envoie $t_i$ sur la classe
+de $\lambda_i$ modulo $I\Lambda$. Choisissons
+$g_1, \ldots, g_s \in A[t_1, \ldots, t_r]$ relevant
+$\bar g_1, \ldots, \bar g_s$. Écrivons
+$\varphi(g_i)(\lambda_1, \ldots, \lambda_r) =
+\sum \epsilon_{ij} \mu_{ij}$
+pour certains $\epsilon_{ij} \in I$ et $\mu_{ij} \in \Lambda$. Définissons
+$$
+A' = A[t_1, \ldots, t_r, \delta_{i, j}]/
+(g_i - \sum \epsilon_{ij} \delta_{ij})
+$$
+et considérons le morphisme
+$$
+A' \longrightarrow \Lambda,\quad
+a \longmapsto \varphi(a),\quad
+t_i \longmapsto \lambda_i,\quad
+\delta_{ij} \longmapsto \mu_{ij}
+$$
+Nous avons
+$$
+A'/IA' = A/IA[t_1, \ldots, t_r]/(\bar g_1, \ldots, \bar g_s)[\delta_{ij}]
+\cong \bar B[\delta_{ij}]
+$$
+C'est une algèbre standard lisse sur $R/I$, puisque $\bar B$ est standard
+lisse. Choisissons une présentation
+$A'/IA' = R/I[x_1, \ldots, x_n]/(\bar f_1, \ldots, \bar f_c)$ telle que
+$\det(\partial \bar f_j/\partial x_i)_{i, j = 1, \ldots, c}$ soit inversible dans
+$A'/IA'$. Choisissons des relèvements $f_1, \ldots, f_c \in R[x_1, \ldots, x_n]$ de
+$\bar f_1, \ldots, \bar f_c$. Alors
+$$
+B = R[x_1, \ldots, x_n, x_{n + 1}]/
+(f_1, \ldots, f_c,
+x_{n + 1}\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c} - 1)
+$$
+est lisse sur $R$. Comme les morphismes d'anneaux lisses sont formellement lisses
+(Algèbre, proposition \ref{algebra-proposition-smooth-formally-smooth}),
+il existe un morphisme de $R$-algèbres $B \to A'$ qui est un isomorphisme
+modulo $I$. Le morphisme $B \to A'$ est alors surjectif par le lemme de Nakayama
+(Algèbre, lemme \ref{algebra-lemma-NAK}).
+Ainsi $A' = B/J$, où $J \subset IB$ est de type fini (voir
+Algèbre, lemme \ref{algebra-lemma-finite-presentation-independent}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-twice}
+Soit $R \to \Lambda$ un homomorphisme d'anneaux. Soit $I \subset R$ un idéal.
+Supposons que
+\begin{enumerate}
+\item $I^2 = 0$,
+\item $\Lambda/I\Lambda$ soit une colimite filtrante de $R/I$-algèbres lisses, et
+\item $R \to \Lambda$ soit plat.
+\end{enumerate}
+Soit $\varphi : B \to \Lambda$ un morphisme de $R$-algèbres, où $B$
+est lisse sur $R$. Soit $J \subset IB$ un idéal de type fini
+tel que $\varphi(J) = 0$.
+Il existe alors des morphismes de $R$-algèbres
+$$
+B \xrightarrow{\alpha} B' \xrightarrow{\beta} \Lambda
+$$
+tels que $B'$ soit lisse sur $R$, que $\alpha(J) = 0$ et
+que $\beta \circ \alpha = \varphi$.
+\end{lemma}
+
+\begin{proof}
+Si nous savons démontrer le lemme dans le cas $J = (h)$, nous pouvons le
+démontrer par récurrence sur le nombre de générateurs de $J$. Supposons en effet
+que $J$ puisse être engendré par $n$ éléments $h_1, \ldots, h_n$ et que le
+lemme soit vrai dans tous les cas où $J$ est engendré par $n - 1$ éléments.
+Nous appliquons d'abord le cas $n = 1$ pour construire $B \to B' \to \Lambda$
+tel que le premier morphisme annule $h_n$. Soit ensuite $J'$ l'idéal de $B'$
+engendré par les images de $h_1, \ldots, h_{n - 1}$ ; nous appliquons le cas
+$n - 1$ pour construire $B' \to B'' \to \Lambda$.
+Il est immédiat de vérifier que $B \to B'' \to \Lambda$ convient.
+
+\medskip\noindent
+Supposons $J = (h)$ et écrivons $h = \sum \epsilon_i b_i$
+pour certains $\epsilon_i \in I$ et $b_i \in B$. Remarquons que
+$0 = \varphi(h) = \sum \epsilon_i \varphi(b_i)$.
+Comme $\Lambda$ est plat sur $R$, le critère équationnel de platitude
+(Algèbre, lemme \ref{algebra-lemma-flat-eq}) implique qu'il existe
+$\lambda_j \in \Lambda$, $j = 1, \ldots, m$, et $a_{ij} \in R$ tels que
+$\varphi(b_i) = \sum_j a_{ij} \lambda_j$ et $\sum_i \epsilon_i a_{ij} = 0$.
+Posons
+$$
+C = B[x_1, \ldots, x_m]/(b_i - \sum a_{ij} x_j)
+$$
+où $C \to \Lambda$ est défini par $\varphi$ et $x_j \mapsto \lambda_j$.
+Choisissons une factorisation
+$$
+C \to B'/J' \to \Lambda
+$$
+comme dans le lemme \ref{lemma-lift-once}. Comme $B$ est lisse sur $R$, nous pouvons
+relever le morphisme $B \to C \to B'/J'$ en un morphisme $\alpha : B \to B'$. Alors
+$\varphi = \beta \circ \alpha$. Pour achever la démonstration, vérifions que
+$\alpha(h) = 0$. En effet, le fait que $\alpha$ relève
+$B \to C \to B'/J'$ implique que
+$$
+\alpha(b_i) = \sum a_{ij} \xi_j + \theta_i
+$$
+pour certains $\xi_j \in B'$ et $\theta_i \in J' \subset IB'$.
+Par conséquent,
+$$
+\alpha(h) = \alpha(\sum \epsilon_i b_i) =
+\sum \epsilon_i a_{ij} \xi_j + \sum \epsilon_i \theta_i = 0
+$$
+en vertu des relations ci-dessus et du fait que $I^2 = 0$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-lift}
+\begin{slogan}
+L'ind-lissité d'une algèbre est stable par déformations infinitésimales
+\end{slogan}
+Soit $R \to \Lambda$ un homomorphisme d'anneaux. Soit $I \subset R$ un idéal.
+Supposons que
+\begin{enumerate}
+\item $I$ soit nilpotent,
+\item $\Lambda/I\Lambda$ soit une colimite filtrante de $R/I$-algèbres lisses, et
+\item $R \to \Lambda$ soit plat.
+\end{enumerate}
+Alors $\Lambda$ est une colimite filtrante de $R$-algèbres lisses.
+\end{proposition}
+
+\begin{proof}
+Comme $I^n = 0$ pour un certain $n$, une récurrence sur $n$ montre qu'il
+suffit de considérer le cas où $I^2 = 0$. Soit
+$\varphi : A \to \Lambda$ un morphisme de $R$-algèbres, où $A$ est de
+présentation finie sur $R$. Nous devons trouver une factorisation $A \to B \to \Lambda$
+avec $B$ lisse sur $R$, voir Algèbre, lemme \ref{algebra-lemma-when-colimit}.
+D'après le lemme \ref{lemma-lift-once}, nous pouvons supposer que
+$A = B/J$, où $B$ est lisse sur $R$ et $J \subset IB$
+est un idéal de type fini. D'après le
+lemme \ref{lemma-lift-twice},
+il existe un diagramme commutatif
+$$
+\xymatrix{
+B \ar[rr]_\alpha \ar[rd]_\varphi & & B' \ar[ld]^\beta \\
+& \Lambda
+}
+$$
+de $R$-algèbres, où $B'$ est lisse sur $R$ et $\alpha(J) = 0$.
+Ainsi, $\alpha$ se factorise sous la forme $B \to A \to B'$, ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+\section{Le lemme de relèvement}
+\label{section-lifting-lemma}
+
+\noindent
+Voici un lemme diaboliquement ingénieux.
+
+\begin{lemma}
+\label{lemma-lifting}
+Soit $R$ un anneau noethérien et soit $\Lambda$ une $R$-algèbre.
+Soit $\pi \in R$ et supposons que $\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$ et
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$.
+Supposons donnés des morphismes de $R$-algèbres
+$R/\pi^2R \to \bar C \to \Lambda/\pi^2\Lambda$
+avec $\bar C$ de présentation finie.
+Il existe alors un homomorphisme de $R$-algèbres
+$D \to \Lambda$ et un diagramme commutatif
+$$
+\xymatrix{
+R/\pi^2R \ar[r] \ar[d] &
+\bar C \ar[r] \ar[d] &
+\Lambda/\pi^2\Lambda \ar[d] \\
+R/\pi R \ar[r] &
+D/\pi D \ar[r] &
+\Lambda/\pi \Lambda
+}
+$$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item[(a)] $D$ est de présentation finie,
+\item[(b)] $R \to D$ est lisse en tout idéal premier $\mathfrak q$ tel que
+$\pi \not \in \mathfrak q$,
+\item[(c)] $R \to D$ est lisse en tout idéal premier $\mathfrak q$ tel que
+$\pi \in \mathfrak q$ et situé au-dessus d'un idéal premier de $\bar C$ où
+$R/\pi^2 R \to \bar C$ est lisse, et
+\item[(d)] $\bar C/\pi \bar C \to D/\pi D$ est lisse en tout idéal premier
+situé au-dessus d'un idéal premier de $\bar C$ où $R/\pi^2R \to \bar C$ est lisse.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons une présentation
+$$
+\bar C = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)
+$$
+Notons également $I = (f_1, \ldots, f_m)$ et $\bar I$ l'image de
+$I$ dans $R/\pi^2R[x_1, \ldots, x_n]$. Puisque $R$ est noethérien,
+$\bar C$ l'est aussi. Le lieu lisse de $R/\pi^2 R \to \bar C$
+est donc quasi-compact, voir
+Topologie, lemme \ref{topology-lemma-Noetherian}.
+En appliquant le
+lemme \ref{lemma-find-strictly-standard},
+nous pouvons choisir une famille finie d'éléments
+$a_1, \ldots, a_r \in R[x_1, \ldots, x_n]$ telle que
+\begin{enumerate}
+\item la réunion des sous-espaces ouverts
+$\Spec(\bar C_{a_k}) \subset \Spec(\bar C)$
+recouvre le lieu lisse de $R/\pi^2 R \to \bar C$, et
+\item pour chaque $k = 1, \ldots, r$, il existe une partie finie
+$E_k \subset \{1, \ldots, m\}$ telle que
+$(\bar I/\bar I^2)_{a_k}$ soit librement engendré par les classes des
+$f_j$, $j \in E_k$.
+\end{enumerate}
+Posons $I_k = (f_j, j \in E_k) \subset I$ et notons $\bar I_k$
+l'image de $I_k$ dans $R/\pi^2R[x_1, \ldots, x_n]$.
+D'après (2) et le lemme de Nakayama, $(\bar I/\bar I_k)_{a_k}$
+est annulé par $1 + b'_k$ pour un certain $b'_k \in \bar I_{a_k}$.
+Supposons que $b'_k$ soit l'image de $b_k/(a_k)^N$ pour un certain $b_k \in I$
+et un certain entier $N$. En remplaçant $a_k$ par $(a_k)^N + b_k$, nous obtenons
+\begin{enumerate}
+\item[(3)] $(\bar I_k)_{a_k} = (\bar I)_{a_k}$.
+\end{enumerate}
+Ainsi, quitte à remplacer $a_k$ par une puissance suffisamment grande, nous pouvons écrire
+\begin{enumerate}
+\item[(4)]
+$a_k f_\ell = \sum\nolimits_{j \in E_k} h_{k, \ell}^jf_j + \pi^2 g_{k, \ell}$
+\end{enumerate}
+pour tout $\ell \in \{1, \ldots, m\}$ et certains
+$h_{k, \ell}^j, g_{k, \ell} \in R[x_1, \ldots, x_n]$.
+Si $\ell \in E_k$, nous choisissons $h_{k, \ell}^j = a_k\delta_{\ell, j}$
+(symbole de Kronecker) et $g_{k, \ell} = 0$. Posons
+$$
+D = R[x_1, \ldots, x_n, z_1, \ldots, z_m]/
+(f_j - \pi z_j, p_{k, \ell}).
+$$
+Ici, $j \in \{1, \ldots, m\}$, $k \in \{1, \ldots, r\}$,
+$\ell \in \{1, \ldots, m\}$, et
+$$
+p_{k, \ell} = a_k z_\ell - \sum\nolimits_{j \in E_k} h_{k, \ell}^j z_j
+- \pi g_{k, \ell}.
+$$
+Remarquons que, pour $\ell \in E_k$, nos choix ci-dessus donnent $p_{k, \ell} = 0$.
+
+\medskip\noindent
+Le morphisme $R \to D$ est le morphisme structural.
+Supposons que $\bar C \to \Lambda/\pi^2\Lambda$ envoie $x_i$
+sur la classe de $\lambda_i$ modulo $\pi^2$. Pour un élément
+$f \in R[x_1, \ldots, x_n]$, nous notons $f(\lambda) \in \Lambda$
+le résultat de la substitution de $\lambda_i$ à $x_i$. Nous savons alors que
+$f_j(\lambda) = \pi^2 \mu_j$ pour un certain $\mu_j \in \Lambda$.
+Définissons $D \to \Lambda$ par les règles $x_i \mapsto \lambda_i$ et
+$z_j \mapsto \pi\mu_j$. Ce morphisme est bien défini car
+\begin{align*}
+p_{k, \ell} & \mapsto
+a_k(\lambda) \pi \mu_\ell -
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j(\lambda) \pi \mu_j
+- \pi g_{k, \ell}(\lambda) \\
+& =
+\pi\left(a_k(\lambda) \mu_\ell -
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j(\lambda) \mu_j
+- g_{k, \ell}(\lambda)\right)
+\end{align*}
+En substituant $x_i = \lambda_i$ dans (4), nous voyons que l'expression
+entre parenthèses est annulée par $\pi^2$, donc par $\pi$, puisque nous avons supposé
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$.
+Le morphisme $\bar C \to D/\pi D$ est déterminé par $x_i \mapsto x_i$
+(il est manifestement bien défini). Il reste donc à démontrer (b), (c) et (d).
+
+\medskip\noindent
+À l'aide de (4), nous obtenons l'égalité clé suivante :
+\begin{align*}
+\pi p_{k, \ell} & =
+\pi a_k z_\ell - \sum\nolimits_{j \in E_k} \pi h_{k, \ell}^jz_j
+- \pi^2 g_{k, \ell} \\
+& =
+- a_k (f_\ell - \pi z_\ell) + a_k f_\ell +
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j (f_j - \pi z_j) -
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j f_j - \pi^2 g_{k, \ell} \\
+& =
+-a_k(f_\ell - \pi z_\ell) +
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j(f_j - \pi z_j)
+\end{align*}
+Le résultat est un élément de l'idéal engendré par les $f_j - \pi z_j$.
+En particulier, nous voyons que $D[1/\pi]$ est isomorphe à
+$R[1/\pi][x_1, \ldots, x_n, z_1, \ldots, z_m]/(f_j - \pi z_j)$
+qui est isomorphe à $R[1/\pi][x_1, \ldots, x_n]$, donc lisse
+sur $R$. Cela démontre (b).
+
+\medskip\noindent
+Pour $k \in \{1, \ldots, r\}$ fixé, considérons l'anneau
+$$
+D_k = R[x_1, \ldots, x_n, z_1, \ldots, z_m]/
+(f_j - \pi z_j, j \in E_k, p_{k, \ell})
+$$
+Le nombre d'équations est $m = |E_k| + (m - |E_k|)$, puisque $p_{k, \ell}$
+est nul si $\ell \in E_k$. Remarquons aussi que
+\begin{align*}
+(D_k/\pi D_k)_{a_k}
+& =
+R/\pi R[x_1, \ldots, x_n, 1/a_k, z_1, \ldots, z_m]/
+(f_j, j \in E_k, p_{k, \ell}) \\
+& =
+(\bar C/\pi \bar C)_{a_k}[z_1, \ldots, z_m]/
+(a_kz_\ell - \sum\nolimits_{j \in E_k} h_{k, \ell}^j z_j) \\
+& \cong
+(\bar C/\pi \bar C)_{a_k}[z_j, j \in E_k]
+\end{align*}
+En particulier, $(D_k/\pi D_k)_{a_k}$ est lisse sur $(\bar C/\pi \bar C)_{a_k}$.
+Par notre choix de $a_k$, l'anneau $(\bar C/\pi \bar C)_{a_k}$ est lisse
+sur $R/\pi R$ de dimension relative $n - |E_k|$, voir (2). Par conséquent,
+pour un idéal premier $\mathfrak q_k \subset D_k$ contenant $\pi$ et situé au-dessus de
+$\Spec(\bar C_{a_k})$, l'anneau de la fibre de $R \to D_k$
+est lisse en $\mathfrak q_k$ de dimension $n$. Ainsi, $R \to D_k$ est syntomique
+en $\mathfrak q_k$ d'après le décompte ci-dessus du nombre d'équations, voir
+Algèbre, lemme \ref{algebra-lemma-localize-relative-complete-intersection}.
+Il s'ensuit que $R \to D_k$ est lisse en $\mathfrak q_k$, voir
+Algèbre, lemme \ref{algebra-lemma-flat-fibre-smooth}.
+
+\medskip\noindent
+Pour achever la démonstration, soit $\mathfrak q \subset D$ un idéal premier
+contenant $\pi$ et situé au-dessus d'un idéal premier où $R/\pi^2 R \to \bar C$
+est lisse. D'après (1), $a_k \not \in \mathfrak q$ pour un certain $k$.
+Nous allons montrer que la surjection $D_k \to D$ induit
+un isomorphisme sur les anneaux locaux en $\mathfrak q$. Nous savons, par le
+paragraphe précédent, que les morphismes d'anneaux
+$\bar C/\pi \bar C \to D_k/\pi D_k$ et $R \to D_k$ sont lisses en
+l'idéal premier correspondant $\mathfrak q_k$ ; cela démontrera (c) et (d),
+et achèvera donc la démonstration.
+
+\medskip\noindent
+Tout d'abord, pour tout $\ell$, l'équation démontrée ci-dessus
+$\pi p_{k, \ell} = -a_k(f_\ell - \pi z_\ell) +
+\sum_{j \in E_k} h_{k, \ell}^j (f_j - \pi z_j)$ montre que
+$f_\ell - \pi z_\ell$ a une image nulle dans $(D_k)_{a_k}$, et donc dans
+$(D_k)_{\mathfrak q_k}$.
+Les relations (4) impliquent que $a_k f_\ell =
+\sum_{j \in E_k} h_{k, \ell}^j f_j$ dans $I/I^2$.
+Comme $(\bar I_k/\bar I_k^2)_{a_k}$ est libre sur les $f_j$, $j \in E_k$,
+nous voyons que
+$$
+a_{k'} h_{k, \ell}^j -
+\sum\nolimits_{j' \in E_{k'}} h_{k', \ell}^{j'} h_{k, j'}^j
+$$
+est nul dans $\bar C_{a_k}$ pour tous $k, k', \ell$ et $j \in E_k$.
+Il existe donc un entier $N$ suffisamment grand tel que
+$$
+a_k^N\left(
+a_{k'} h_{k, \ell}^j -
+\sum\nolimits_{j' \in E_{k'}} h_{k', \ell}^{j'} h_{k, j'}^j
+\right)
+$$
+appartienne à $I_k + \pi^2R[x_1, \ldots, x_n]$. En calculant modulo $\pi$, nous obtenons
+\begin{align*}
+&
+a_kp_{k', \ell} - a_{k'}p_{k, \ell} + \sum h_{k', \ell}^{j'} p_{k, j'}
+\\
+&
+=
+- a_k \sum h_{k', \ell}^{j'} z_{j'}
++ a_{k'} \sum h_{k, \ell}^j z_j
++ \sum h_{k', \ell}^{j'} a_k z_{j'}
+- \sum \sum h_{k', \ell}^{j'} h_{k, j'}^j z_j \\
+&
+=
+\sum \left(
+a_{k'} h_{k, \ell}^j
+- \sum h_{k', \ell}^{j'} h_{k, j'}^j
+\right) z_j
+\end{align*}
+avec la convention de sommation d'Einstein. En combinant ce calcul avec ce qui précède,
+nous voyons que $a_k^{N + 1} p_{k', \ell}$ appartient à l'idéal engendré
+par $I_k$ et $\pi$ dans $R[x_1, \ldots, x_n, z_1, \ldots, z_m]$.
+Ainsi, $p_{k', \ell}$ s'envoie dans $\pi (D_k)_{a_k}$. D'autre part, l'équation
+$$
+\pi p_{k', \ell} =
+-a_{k'} (f_\ell - \pi z_\ell) +
+\sum\nolimits_{j' \in E_{k'}} h_{k', \ell}^{j'}(f_{j'} - \pi z_{j'})
+$$
+montre que $\pi p_{k', \ell}$ est nul dans $(D_k)_{a_k}$.
+Comme nous avons supposé que $\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$
+et que $(D_k)_{\mathfrak q_k}$ est lisse, donc plat, sur $R$,
+nous voyons que
+$\text{Ann}_{(D_k)_{\mathfrak q_k}}(\pi) =
+\text{Ann}_{(D_k)_{\mathfrak q_k}}(\pi^2)$.
+Nous en concluons que $p_{k', \ell}$ s'annule également, et donc que
+$D_{\mathfrak q} = (D_k)_{\mathfrak q_k}$, ce qui conclut la démonstration.
+\end{proof}
+\section{Le lemme de désingularisation}
+\label{section-desingularization-lemma}
+
+\noindent
+Voici un autre lemme d'une ingéniosité diabolique.
+
+\begin{lemma}
+\label{lemma-desingularize}
+Soit $R$ un anneau noethérien.
+Soit $\Lambda$ une $R$-algèbre. Soit $\pi \in R$ et
+supposons que $\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$. Soit
+$A \to \Lambda$ un morphisme de $R$-algèbres, avec $A$ de
+présentation finie. Supposons que
+\begin{enumerate}
+\item l'image de $\pi$ est strictement standard dans $A$ sur $R$, et
+\item il existe une section $\rho : A/\pi^4 A \to R/\pi^4 R$
+compatible avec le morphisme vers $\Lambda/\pi^4 \Lambda$.
+\end{enumerate}
+Alors il existe des morphismes de $R$-algèbres $A \to B \to \Lambda$, avec
+$B$ de présentation finie, tels que $\mathfrak a B \subset H_{B/R}$, où
+$\mathfrak a = \text{Ann}_R(\text{Ann}_R(\pi^2)/\text{Ann}_R(\pi))$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une présentation
+$$
+A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)
+$$
+et un entier $0 \leq c \leq \min(n, m)$ tels que
+(\ref{equation-strictly-standard-one}) soit satisfaite pour $\pi$ et que
+\begin{equation}
+\label{equation-star}
+\pi f_{c + j} \in (f_1, \ldots, f_c) + (f_1, \ldots, f_m)^2
+\end{equation}
+pour $j = 1, \ldots, m - c$. Disons que $\rho$ envoie $x_i$ sur la classe de
+$r_i \in R$. Nous pouvons alors remplacer $x_i$ par $x_i - r_i$. Ainsi, nous pouvons
+supposer que $\rho(x_i) = 0$ dans $R/\pi^4 R$. Il s'ensuit que
+$f_j(0) \in \pi^4R$ et que $A \to \Lambda$ envoie $x_i$
+sur $\pi^4\lambda_i$ pour un certain $\lambda_i \in \Lambda$. Écrivons
+$$
+f_j = f_j(0) + \sum\nolimits_{i = 1, \ldots, n} r_{ji} x_i + \text{termes d'ordre supérieur}
+$$
+Il en résulte que le terme constant de $\partial f_j/\partial x_i$ est
+$r_{ji}$. Appliquons $\rho$ à (\ref{equation-strictly-standard-one})
+pour $\pi$ ; nous obtenons
+$$
+\pi = \sum\nolimits_{I \subset \{1, \ldots, n\},\ |I| = c}
+r_I \det(r_{ji})_{j = 1, \ldots, c,\ i \in I} \bmod \pi^4R
+$$
+pour certains $r_I \in R$. Nous avons donc
+$$
+u\pi = \sum\nolimits_{I \subset \{1, \ldots, n\},\ |I| = c}
+r_I \det(r_{ji})_{j = 1, \ldots, c,\ i \in I}
+$$
+pour un certain $u \in 1 + \pi^3R$. D'après
+Algèbre, lemme \ref{algebra-lemma-matrix-left-inverse},
+il existe alors une matrice $n \times c$ $(s_{ik})$ telle que
+$$
+u\pi \delta_{jk} = \sum\nolimits_{i = 1, \ldots, n} r_{ji}s_{ik}\quad
+\text{pour tous } j, k = 1, \ldots, c
+$$
+(symbole de Kronecker). Introduisons des variables auxiliaires
+$v_1, \ldots, v_c, w_1, \ldots, w_n$ et posons
+$$
+h_i = x_i - \pi^2 \sum\nolimits_{j = 1, \ldots c} s_{ij} v_j - \pi^3 w_i
+$$
+Dans la suite, nous utiliserons que
+$$
+R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(h_1, \ldots, h_n) = R[v_1, \ldots, v_c, w_1, \ldots, w_n]
+$$
+sans autre mention. Dans
+$R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(h_1, \ldots, h_n)$, nous avons
+\begin{align*}
+f_j & = f_j(x_1 - h_1, \ldots, x_n - h_n) \\
+& =
+\pi^2 \sum\nolimits_{k = 1}^c
+\left(\sum\nolimits_{i = 1}^n r_{ji} s_{ik}\right) v_k
++
+\pi^3 \sum\nolimits_{i = 1}^n r_{ji}w_i \bmod \pi^4 \\
+& =
+\pi^3 v_j + \pi^3 \sum\nolimits_{i = 1}^n r_{ji}w_i \bmod \pi^4
+\end{align*}
+pour $1 \leq j \leq c$. Nous pouvons donc choisir des éléments
+$g_j \in R[v_1, \ldots, v_c, w_1, \ldots, w_n]$
+tels que $g_j = v_j + \sum r_{ji}w_i \bmod \pi$
+et que $f_j = \pi^3 g_j$ dans la $R$-algèbre :
+$$
+R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(h_1, \ldots, h_n)
+$$
+Posons
+$$
+B = R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(f_1, \ldots, f_m, h_1, \ldots, h_n, g_1, \ldots, g_c).
+$$
+Le morphisme $A \to B$ est évident. Définissons $B \to \Lambda$ en envoyant
+$x_i \to \pi^4\lambda_i$, $v_i \mapsto 0$, et $w_i \mapsto \pi \lambda_i$.
+Il est alors clair que les éléments $f_j$ et $h_i$ ont pour image zéro
+dans $\Lambda$. De plus, $g_i$ a manifestement pour image un élément
+$t$ de $\pi\Lambda$ tel que $\pi^3t = 0$ (car $f_i = \pi^3 g_i$ modulo
+l'idéal engendré par les $h$). Notre hypothèse
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$ entraîne donc que $t = 0$.
+Il reste ainsi à démontrer l'assertion concernant la lissité.
+
+\medskip\noindent
+Remarquons que $B_\pi \cong A_\pi[v_1, \ldots, v_c]$, car les équations
+$g_i = 0$ résultent de $f_i = 0$. Ainsi, $B_\pi$ est lisse sur $R$
+puisque $A_\pi$ est lisse sur $R$ par l'hypothèse selon laquelle $\pi$ est
+strictement standard dans $A$ sur $R$ ; voir le
+Lemme \ref{lemma-elkik}.
+
+\medskip\noindent
+Posons $B' = R[v_1, \ldots, v_c, w_1, \ldots, w_n]/(g_1, \ldots, g_c)$.
+Comme $g_i = v_i + \sum r_{ji}w_i \bmod \pi$, nous voyons que
+$B'/\pi B' = R/\pi R[w_1, \ldots, w_n]$. Ainsi,
+$R \to B'$ est lisse de dimension relative $n$ en tout
+point de $V(\pi)$ d'après
+Algèbre, lemmes
+\ref{algebra-lemma-localize-relative-complete-intersection} et
+\ref{algebra-lemma-flat-fibre-smooth}
+(le premier lemme montre qu'il est syntomique en ces idéaux premiers, donc en particulier
+plat, après quoi le second lemme montre qu'il est lisse).
+
+\medskip\noindent
+Soit $\mathfrak q \subset B$ un idéal premier tel que $\pi \in \mathfrak q$ et
+tel que, pour un certain $r \in \mathfrak a$, $r \not \in \mathfrak q$.
+Notons $\mathfrak q' = B' \cap \mathfrak q$.
+Nous affirmons que la surjection $B' \to B$ induit un isomorphisme d'anneaux
+locaux $(B')_{\mathfrak q'} \to B_\mathfrak q$. Cela
+achèvera la démonstration du lemme. Remarquons que $B_\mathfrak q$ est le
+quotient de $(B')_{\mathfrak q'}$ par l'idéal engendré par
+$f_{c + j}$, $j = 1, \ldots, m - c$. Nous observons deux faits :
+premièrement, l'image de $f_{c + j}$ dans $(B')_{\mathfrak q'}$ est
+divisible par $\pi^2$ ;
+deuxièmement, l'image de $\pi f_{c + j}$ dans $(B')_{\mathfrak q'}$
+peut s'écrire $\sum b_{j_1 j_2} f_{c + j_1}f_{c + j_2}$ d'après
+(\ref{equation-star}). Nous voyons donc que l'image de chaque $\pi f_{c + j}$
+appartient à l'idéal engendré par les éléments $\pi^2 f_{c + j'}$.
+Ainsi, $\pi f_{c + j} = 0$ dans $(B')_{\mathfrak q'}$, puisque celui-ci est un
+anneau local noethérien ; voir
+Algèbre, lemme \ref{algebra-lemma-intersect-powers-ideal-module-zero}.
+Comme $R \to (B')_{\mathfrak q'}$ est plat, nous avons
+$$
+\left(\text{Ann}_R(\pi^2)/\text{Ann}_R(\pi)\right)
+\otimes_R (B')_{\mathfrak q'}
+=
+\text{Ann}_{(B')_{\mathfrak q'}}(\pi^2)/\text{Ann}_{(B')_{\mathfrak q'}}(\pi)
+$$
+Puisque $r \in \mathfrak a$ est inversible dans
+$(B')_{\mathfrak q'}$, nous voyons que ce module est nul.
+Il s'ensuit que l'image de $f_{c + j}$ est nulle dans
+$(B')_{\mathfrak q'}$, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-desingularize-strictly-standard}
+Soit $R$ un anneau noethérien. Soit $\Lambda$ une $R$-algèbre.
+Soit $\pi \in R$ et supposons que $\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$ et
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$.
+Soient $A \to \Lambda$ et $D \to \Lambda$ des morphismes de $R$-algèbres, avec
+$A$ et $D$ de présentation finie. Supposons que
+\begin{enumerate}
+\item $\pi$ est strictement standard dans $A$ sur $R$, et
+\item il existe un morphisme de $R$-algèbres $A/\pi^4 A \to D/\pi^4 D$ compatible
+avec les morphismes vers $\Lambda/\pi^4 \Lambda$.
+\end{enumerate}
+Alors il existe un morphisme de $R$-algèbres $B \to \Lambda$, avec $B$ de
+présentation finie, ainsi que des morphismes de $R$-algèbres $A \to B$ et $D \to B$
+compatibles avec les morphismes vers $\Lambda$, tels que $H_{D/R}B \subset H_{B/D}$
+et $H_{D/R}B \subset H_{B/R}$.
+\end{lemma}
+
+\begin{proof}
+Appliquons le Lemme \ref{lemma-desingularize} à
+$$
+D \longrightarrow A \otimes_R D \longrightarrow \Lambda
+$$
+et à l'image de $\pi$ dans $D$. D'après le
+Lemme \ref{lemma-strictly-standard-base-change},
+$\pi$ est strictement standard dans $A \otimes_R D$ sur $D$.
+Comme section $\rho : (A \otimes_R D)/\pi^4 (A \otimes_R D) \to D/\pi^4 D$,
+prenons le morphisme induit par celui de (2). Ainsi, le
+Lemme \ref{lemma-desingularize} s'applique et fournit une factorisation
+$A \otimes_R D \to B \to \Lambda$, avec $B$ de présentation finie,
+et $\mathfrak a B \subset H_{B/D}$, où
+$$
+\mathfrak a = \text{Ann}_D(\text{Ann}_D(\pi^2)/\text{Ann}_D(\pi)).
+$$
+Pour tout idéal premier $\mathfrak q$ de $D$ tel que $D_\mathfrak q$ soit plat sur $R$,
+nous avons
+$\text{Ann}_{D_\mathfrak q}(\pi^2)/\text{Ann}_{D_\mathfrak q}(\pi) = 0$
+car la formation des annulateurs d'éléments commute au changement de base plat et
+nous avons supposé $\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$. Comme $D$ est
+noethérien, $\text{Ann}_D(\pi^2)/\text{Ann}_D(\pi)$ est un
+$D$-module de type fini ; la formation de son annulateur commute donc à la localisation.
+Nous voyons ainsi que $\mathfrak a \not \subset \mathfrak q$. Par conséquent,
+$D \to B$ est lisse en tout idéal premier de $B$ situé au-dessus de $\mathfrak q$.
+Puisque, en tout idéal premier de $D$ où $R \to D$ est lisse,
+$D_\mathfrak q$ est plat sur $R$, nous concluons que $H_{D/R}B \subset H_{B/D}$.
+La dernière inclusion $H_{D/R}B \subset H_{B/R}$ résulte du fait que les composées
+de morphismes d'anneaux lisses sont lisses
+(Algèbre, lemme \ref{algebra-lemma-compose-smooth}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-desingularize-lifting-apply}
+Soit $R$ un anneau noethérien. Soit $\Lambda$ une $R$-algèbre.
+Soit $\pi \in R$ et supposons que $\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$ et
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$.
+Soit $A \to \Lambda$ un morphisme de $R$-algèbres, avec
+$A$ de présentation finie, et supposons que $\pi$ est strictement standard
+dans $A$ sur $R$. Soit
+$$
+A/\pi^8A \to \bar C \to \Lambda/\pi^8\Lambda
+$$
+une factorisation, avec $\bar C$ de présentation finie.
+Alors il existe une factorisation $A \to B \to \Lambda$, avec $B$ de
+présentation finie, telle que $R_\pi \to B_\pi$ soit lisse et que
+$$
+H_{\bar C/(R/\pi^8 R)} \cdot \Lambda/\pi^8\Lambda
+\subset
+\sqrt{H_{B/R} \Lambda} \bmod \pi^8\Lambda.
+$$
+\end{lemma}
+
+\begin{proof}
+Appliquons le Lemme \ref{lemma-lifting} pour obtenir $R \to D \to \Lambda$
+avec une factorisation
+$\bar C/\pi^4\bar C \to D/\pi^4 D \to \Lambda/\pi^4\Lambda$
+telle que $R \to D$ soit lisse en tout idéal premier ne contenant pas $\pi$
+et en tout idéal premier situé au-dessus d'un idéal premier de $\bar C/\pi^4\bar C$
+où $R/\pi^8 R \to \bar C$ est lisse.
+D'après le Lemme \ref{lemma-desingularize-strictly-standard},
+il existe une $R$-algèbre $B$ de présentation finie et des
+factorisations $A \to B \to \Lambda$ et $D \to B \to \Lambda$
+telles que $H_{D/R}B \subset H_{B/R}$. Nous omettons de vérifier qu'il
+s'agit bien d'une solution au problème posé par le lemme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Préliminaire : réduction à un corps de base}
+\label{section-reduction}
+
+\noindent
+Dans cette section, nous appliquons les lemmes des sections précédentes
+pour montrer qu'il suffit de démontrer le résultat principal lorsque l'anneau
+de base est un corps ; voir le Lemme \ref{lemma-reduce-to-field}.
+
+\begin{situation}
+\label{situation-global}
+Ici, $R \to \Lambda$ est un morphisme d'anneaux régulier entre anneaux noethériens.
+\end{situation}
+
+\noindent
+Soit $R \to \Lambda$ comme dans la Situation \ref{situation-global}.
+Nous disons que {\it PT est vraie pour $R \to \Lambda$} si $\Lambda$ est une
+colimite filtrante de $R$-algèbres lisses.
+
+\begin{lemma}
+\label{lemma-product}
+Soient $R_i \to \Lambda_i$, $i = 1, 2$, comme dans la Situation \ref{situation-global}.
+Si PT est vraie pour $R_i \to \Lambda_i$, $i = 1, 2$, alors PT est vraie pour
+$R_1 \times R_2 \to \Lambda_1 \times \Lambda_2$.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : un produit de colimites filtrantes est une colimite filtrante.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-delocalize-base}
+Soient $R \to A \to \Lambda$ des morphismes d'anneaux, avec $A$ de présentation finie
+sur $R$. Soit $S \subset R$ une partie
+multiplicative. Soit $S^{-1}A \to B' \to S^{-1}\Lambda$ une factorisation telle que
+$B'$ soit lisse sur $S^{-1}R$. Alors il existe une factorisation
+$A \to B \to \Lambda$ telle que l'image d'un certain $s \in S$ soit un
+élément standard élémentaire (Définition \ref{definition-strictly-standard})
+dans $B$ sur $R$.
+\end{lemma}
+
+\begin{proof}
+Appliquons d'abord le Lemme \ref{lemma-smooth-standard-smooth} à $S^{-1}R \to B'$.
+Nous pouvons donc supposer que $B'$ est standard lisse sur $S^{-1}R$.
+Écrivons $A = R[x_1, \ldots, x_n]/(g_1, \ldots, g_t)$ et supposons que
+$x_i \mapsto \lambda_i$ dans $\Lambda$. Nous pouvons écrire
+$B' = S^{-1}R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$
+pour un certain $c \geq n$, où
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+est inversible dans $B'$ et tel que $A \to B'$ soit donné par $x_i \mapsto x_i$ ;
+voir le Lemme \ref{lemma-standard-smooth-include-generators}.
+Après avoir multiplié $x_i$, $i > n$, par un élément de $S$ et modifié en conséquence
+les équations $f_j$, nous pouvons supposer que $B' \to S^{-1}\Lambda$ envoie
+$x_i$ sur $\lambda_i/1$ pour un certain $\lambda_i \in \Lambda$, lorsque $i > n$.
+Choisissons une relation
+$$
+1 =
+a_0 \det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}
++
+\sum\nolimits_{j = 1, \ldots, c} a_jf_j
+$$
+pour certains $a_j \in S^{-1}R[x_1, \ldots, x_{n + m}]$. Puisque tout élément de $S$
+est inversible dans $B'$, nous pouvons, en chassant les dénominateurs, supposer que
+$f_j, a_j \in R[x_1, \ldots, x_{n + m}]$ et que
+$$
+s_0 = a_0 \det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}
++
+\sum\nolimits_{j = 1, \ldots, c} a_jf_j
+$$
+pour un certain $s_0 \in S$. Puisque $g_j$ a pour image zéro dans
+$S^{-1}R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$
+il existe des éléments $s_j \in S$ tels que $s_j g_j = 0$ dans
+$R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$.
+Puisque $f_j$ a pour image zéro dans $S^{-1}\Lambda$, il existe $s'_j \in S$
+tel que $s'_j f_j(\lambda_1, \ldots, \lambda_{n + m}) = 0$ dans
+$\Lambda$. Considérons l'anneau
+$$
+B = R[x_1, \ldots, x_{n + m}]/
+(s'_1f_1, \ldots, s'_cf_c, g_1, \ldots, g_t)
+$$
+et la factorisation $A \to B \to \Lambda$, où $B \to \Lambda$ est donné par
+$x_i \mapsto \lambda_i$. Nous affirmons que $s = s_0s_1 \ldots s_ts'_1 \ldots s'_c$
+est standard élémentaire dans $B$ sur $R$, ce qui achève la démonstration.
+En effet, $s_j g_j \in (f_1, \ldots, f_c)$, et donc
+$sg_j \in (s'_1f_1, \ldots, s'_cf_c)$. Enfin, nous avons
+$$
+a_0\det(\partial s'_jf_j/\partial x_i)_{i, j = 1, \ldots, c}
++
+\sum\nolimits_{j = 1, \ldots, c}
+(s'_1 \ldots \hat{s'_j} \ldots s'_c) a_j s'_jf_j
+=
+s_0s'_1\ldots s'_c
+$$
+qui divise $s$, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduce-to-field}
+\begin{slogan}
+Démontrer l'approximation de Popescu se ramène aux algèbres sur un corps
+\end{slogan}
+Si PT est vraie pour toute Situation \ref{situation-global} où $R$
+est un corps, alors PT est vraie en général.
+\end{lemma}
+
+\begin{proof}
+Supposons que PT soit vraie pour toute Situation \ref{situation-global} où $R$ est un corps.
+Soit $R \to \Lambda$ une Situation \ref{situation-global} arbitraire.
+Remarquons que $R/I \to \Lambda/I\Lambda$ est encore un morphisme d'anneaux régulier
+entre anneaux noethériens ; voir
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-regular-base-change}.
+Considérons l'ensemble d'idéaux
+$$
+\mathcal{I} = \{I \subset R \mid R/I \to \Lambda/I\Lambda
+\text{ ne vérifie pas PT}\}
+$$
+Nous devons montrer que $\mathcal{I}$ est vide. Si cet ensemble est non vide,
+il contient un élément maximal puisque $R$ est noethérien.
+En remplaçant $R$ par $R/I$ et $\Lambda$ par $\Lambda/I$, nous obtenons une
+situation où PT est vraie pour $R/I \to \Lambda/I\Lambda$ pour tout
+idéal non nul de $R$. En particulier, en appliquant la
+Proposition \ref{proposition-lift},
+nous voyons que $R$ est un anneau réduit.
+
+\medskip\noindent
+Soit $A \to \Lambda$ un morphisme de $R$-algèbres, avec $A$ de
+présentation finie. Nous devons trouver une factorisation $A \to B \to \Lambda$
+où $B$ est lisse sur $R$ ; voir Algèbre, lemme \ref{algebra-lemma-when-colimit}.
+
+\medskip\noindent
+Soit $S \subset R$ l'ensemble des non-diviseurs de zéro et
+considérons l'anneau total des fractions $Q = S^{-1}R$ de $R$. Nous savons que
+$Q = K_1 \times \ldots \times K_n$ est un produit de corps ; voir
+Algèbre, lemmes \ref{algebra-lemma-total-ring-fractions-no-embedded-points} et
+\ref{algebra-lemma-Noetherian-irreducible-components}.
+D'après le Lemme \ref{lemma-product} et notre hypothèse,
+PT est vraie pour le morphisme d'anneaux $S^{-1}R \to S^{-1}\Lambda$.
+Il existe donc une factorisation $S^{-1}A \to B' \to S^{-1}\Lambda$
+où $B'$ est lisse sur $S^{-1}R$.
+
+\medskip\noindent
+Appliquons le Lemme \ref{lemma-delocalize-base} ;
+nous obtenons une factorisation $A \to B \to \Lambda$ telle qu'un
+certain $\pi \in S$ soit standard élémentaire dans $B$ sur $R$.
+Après avoir remplacé $A$ par $B$, nous pouvons supposer que $\pi$ est
+standard élémentaire, donc strictement standard dans $A$. Nous savons que
+$R/\pi^8R \to \Lambda/\pi^8\Lambda$ vérifie PT.
+Il existe donc une factorisation
+$R/\pi^8 R \to A/\pi^8A \to \bar C \to \Lambda/\pi^8\Lambda$
+où $R/\pi^8 R \to \bar C$ est lisse. D'après le
+Lemme \ref{lemma-lifting},
+il existe un morphisme de $R$-algèbres $D \to \Lambda$, avec $D$ lisse sur $R$,
+et une factorisation
+$R/\pi^4 R \to A/\pi^4A \to D/\pi^4D \to \Lambda/\pi^4\Lambda$.
+D'après le Lemme \ref{lemma-desingularize-strictly-standard},
+il existe $A \to B \to \Lambda$ avec $B$ lisse sur $R$,
+ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Arguments locaux}
+\label{section-local}
+
+
+\begin{situation}
+\label{situation-local}
+On se donne un anneau noethérien $R$, un morphisme de $R$-algèbres $A \to \Lambda$
+et un idéal premier $\mathfrak q \subset \Lambda$. Nous supposons que $A$ est de
+présentation finie sur $R$. Dans cette situation, nous notons
+$\mathfrak h_A = \sqrt{H_{A/R} \Lambda}$.
+\end{situation}
+
+\noindent
+Soit $R \to A \to \Lambda \supset \mathfrak q$ comme dans la
+Situation \ref{situation-local}. Nous disons que
+{\it $R \to A \to \Lambda \supset \mathfrak q$
+peut être résolu} s'il existe une factorisation $A \to B \to \Lambda$
+avec $B$ de présentation finie et
+$\mathfrak h_A \subset \mathfrak h_B \not \subset \mathfrak q$.
+Dans ce cas, nous appelons la factorisation $A \to B \to \Lambda$
+une {\it résolution de $R \to A \to \Lambda \supset \mathfrak q$}.
+
+\begin{lemma}
+\label{lemma-lift-solution}
+Soit $R \to A \to \Lambda \supset \mathfrak q$ comme dans la
+Situation \ref{situation-local}. Soit $r \geq 1$, et supposons que
+$\pi_1, \ldots, \pi_r \in R$ ont leurs images dans $\mathfrak q$. Supposons que
+\begin{enumerate}
+\item pour $i = 1, \ldots, r$, nous avons
+$$
+\text{Ann}_{R/(\pi_1^8, \ldots, \pi_{i - 1}^8)R}(\pi_i)
+=
+\text{Ann}_{R/(\pi_1^8, \ldots, \pi_{i - 1}^8)R}(\pi_i^2)
+$$
+et
+$$
+\text{Ann}_{\Lambda/(\pi_1^8, \ldots, \pi_{i - 1}^8)\Lambda}(\pi_i)
+=
+\text{Ann}_{\Lambda/(\pi_1^8, \ldots, \pi_{i - 1}^8)\Lambda}(\pi_i^2)
+$$
+\item pour $i = 1, \ldots, r$, l'élément $\pi_i$ a pour image un élément
+strictement standard dans $A$ sur $R$.
+\end{enumerate}
+Alors, si
+$$
+R/(\pi_1^8, \ldots, \pi_r^8)R \to A/(\pi_1^8, \ldots, \pi_r^8)A
+\to \Lambda/(\pi_1^8, \ldots, \pi_r^8)\Lambda \supset
+\mathfrak q/(\pi_1^8, \ldots, \pi_r^8)\Lambda
+$$
+peut être résolu, il en va de même de $R \to A \to \Lambda \supset \mathfrak q$.
+\end{lemma}
+
+\begin{proof}
+Nous allons le démontrer par récurrence sur $r$.
+
+\medskip\noindent
+Le cas $r = 1$. L'hypothèse affirme ici qu'il existe une
+factorisation $A/\pi_1^8 \to \bar C \to \Lambda/\pi_1^8$
+qui résout la situation modulo $\pi_1^8$. Les conditions (1) et
+(2) sont les hypothèses nécessaires pour appliquer le
+Lemme \ref{lemma-desingularize-lifting-apply}.
+Nous pouvons donc ``relever'' la résolution $\bar C$
+en une résolution de $R \to A \to \Lambda \supset \mathfrak q$.
+
+\medskip\noindent
+Le cas $r > 1$. Dans ce cas, appliquons l'hypothèse de récurrence pour $r - 1$
+à la situation
+$R/\pi_1^8 \to A/\pi_1^8 \to \Lambda/\pi_1^8
+\supset \mathfrak q/\pi_1^8\Lambda$.
+Remarquons que la propriété (2) est préservée par le
+Lemme \ref{lemma-strictly-standard-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-delocalize-weak}
+\begin{reference}
+\cite[Lemma 12.2]{swan} ou
+\cite[Lemma 2]{popescu-GND}
+\end{reference}
+Soit $R \to A \to \Lambda \supset \mathfrak q$ comme dans la
+Situation \ref{situation-local}. Soit $\mathfrak p = R \cap \mathfrak q$.
+Supposons que $\mathfrak q$ soit minimal au-dessus de $\mathfrak h_A$ et que
+$R_\mathfrak p \to A_\mathfrak p \to \Lambda_\mathfrak q
+\supset \mathfrak q\Lambda_\mathfrak q$ puisse être résolu.
+Alors il existe une factorisation $A \to C \to \Lambda$, avec $C$ de
+présentation finie, telle que $H_{C/R} \Lambda \not \subset \mathfrak q$.
+\end{lemma}
+
+\begin{proof}
+Soit $A_\mathfrak p \to C \to \Lambda_\mathfrak q$ une résolution de
+$R_\mathfrak p \to A_\mathfrak p \to \Lambda_\mathfrak q
+\supset \mathfrak q\Lambda_\mathfrak q$. Comme $\mathfrak q$ est, par hypothèse,
+minimal au-dessus de $\mathfrak h_A$, cela
+signifie que $H_{C/R_\mathfrak p} \Lambda_\mathfrak q = \Lambda_\mathfrak q$.
+D'après le Lemme \ref{lemma-final-solve},
+nous pouvons supposer que $C$ est lisse sur $R_\mathfrak p$.
+D'après le Lemme \ref{lemma-smooth-standard-smooth}, nous pouvons supposer que
+$C$ est standard lisse sur $R_\mathfrak p$.
+Écrivons $A = R[x_1, \ldots, x_n]/(g_1, \ldots, g_t)$ et supposons que
+$A \to \Lambda$ est donné par $x_i \mapsto \lambda_i$.
+Écrivons $C = R_\mathfrak p[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$
+pour un certain $c \geq n$, de sorte que $A \to C$ envoie $x_i$ sur $x_i$ et que
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+soit inversible dans $C$ ; voir le
+Lemme \ref{lemma-standard-smooth-include-generators}.
+Après avoir chassé les dénominateurs, nous pouvons supposer que
+$f_1, \ldots, f_c$ sont des éléments de $R[x_1, \ldots, x_{n + m}]$.
+Bien entendu,
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+n'est pas inversible dans $R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$,
+mais il le devient après inversion d'un certain élément $s_0 \in R$,
+$s_0 \not \in \mathfrak p$.
+Comme $g_j$ a pour image zéro par $R[x_1, \ldots, x_n] \to A \to C$,
+il existe $s_j \in R$, $s_j \not \in \mathfrak p$, tel que
+$s_j g_j$ soit nul dans $R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$.
+Écrivons $f_j = F_j(x_1, \ldots, x_{n + m}, 1)$
+pour un polynôme
+$F_j \in R[x_1, \ldots, x_n, X_{n + 1}, \ldots, X_{n + m + 1}]$
+homogène en $X_{n + 1}, \ldots, X_{n + m + 1}$.
+Choisissons $\lambda_{n + i} \in \Lambda$, $i = 1, \ldots, m + 1$, avec
+$\lambda_{n + m + 1} \not \in \mathfrak q$, de sorte que $x_{n + i}$ ait pour image
+$\lambda_{n + i}/\lambda_{n + m + 1}$ dans $\Lambda_\mathfrak q$.
+Alors
+\begin{align*}
+F_j(\lambda_1, \ldots, \lambda_{n + m + 1})
+& =
+(\lambda_{n + m + 1})^{\deg(F_j)} F_j(\lambda_1, \ldots, \lambda_n,
+\frac{\lambda_{n + 1}}{\lambda_{n + m + 1}}, \ldots,
+\frac{\lambda_{n + m}}{\lambda_{n + m + 1}}, 1) \\
+& =
+(\lambda_{n + m + 1})^{\deg(F_j)} f_j(\lambda_1, \ldots, \lambda_n,
+\frac{\lambda_{n + 1}}{\lambda_{n + m + 1}}, \ldots,
+\frac{\lambda_{n + m}}{\lambda_{n + m + 1}}) \\
+& = 0
+\end{align*}
+dans $\Lambda_\mathfrak q$. Il existe donc
+$\lambda_0 \in \Lambda$, $\lambda_0 \not \in \mathfrak q$, tel que
+$\lambda_0 F_j(\lambda_1, \ldots, \lambda_{n + m + 1}) = 0$
+dans $\Lambda$. Posons maintenant $B$ égal à
+$$
+R[x_0, \ldots, x_{n + m + 1}]/
+(g_1, \ldots, g_t, x_0F_1(x_1, \ldots, x_{n + m + 1}), \ldots,
+x_0F_c(x_1, \ldots, x_{n + m + 1}))
+$$
+que nous envoyons dans $\Lambda$ en envoyant $x_i$ sur $\lambda_i$.
+Soit $b$ l'image de $x_0 x_{n + m + 1} s_0 s_1 \ldots s_t$ dans $B$.
+Alors $B_b$ est isomorphe à
+$$
+R_{s_0s_1 \ldots s_t}[x_0, x_1, \ldots, x_{n + m + 1}, 1/x_0x_{n + m + 1}]/
+(f_1, \ldots, f_c)
+$$
+qui est lisse sur $R$ par construction.
+Puisque l'image de $b$ n'appartient pas à $\mathfrak q$, le résultat s'ensuit.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-delocalize-height-zero}
+Soit $R \to A \to \Lambda \supset \mathfrak q$ comme dans la
+Situation \ref{situation-local}. Soit $\mathfrak p = R \cap \mathfrak q$.
+Supposons que
+\begin{enumerate}
+\item $\mathfrak q$ est minimal au-dessus de $\mathfrak h_A$,
+\item $R_\mathfrak p \to A_\mathfrak p \to \Lambda_\mathfrak q
+\supset \mathfrak q\Lambda_\mathfrak q$ peut être résolu, et
+\item $\dim(\Lambda_\mathfrak q) = 0$.
+\end{enumerate}
+Alors $R \to A \to \Lambda \supset \mathfrak q$ peut être résolu.
+\end{lemma}
+
+\begin{proof}
+Par (3), l'anneau $\Lambda_\mathfrak q$ est local artinien ; ainsi,
+$\mathfrak q\Lambda_\mathfrak q$ est nilpotent. Par conséquent,
+$(\mathfrak h_A)^N \Lambda_\mathfrak q = 0$ pour un certain $N > 0$.
+Il existe donc $\lambda \in \Lambda$, $\lambda \not \in \mathfrak q$,
+tel que $\lambda (\mathfrak h_A)^N = 0$ dans $\Lambda$.
+Écrivons $H_{A/R} = (a_1, \ldots, a_r)$, de sorte que $\lambda a_i^N = 0$
+dans $\Lambda$. D'après le Lemme \ref{lemma-delocalize-weak}, il existe une factorisation
+$A \to C \to \Lambda$, avec $C$ de présentation finie, telle que
+$\mathfrak h_C \not \subset \mathfrak q$.
+Écrivons $C = A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$.
+Posons
+$$
+B = A[x_1, \ldots, x_n, y_1, \ldots, y_r, z, t_{ij}]/
+(f_j - \sum y_i t_{ij}, zy_i)
+$$
+où les $t_{ij}$ forment un ensemble de $rm$ variables.
+Remarquons qu'il existe un morphisme $B \to C[y_i, z]/(y_iz)$ obtenu en posant les $t_{ij}$
+égaux à zéro. Le morphisme $B \to \Lambda$ est la composée
+$B \to C[y_i, z]/(y_iz) \to \Lambda$, où $C[y_i, z]/(y_iz) \to \Lambda$
+est le morphisme donné $C \to \Lambda$, envoie $z$ sur $\lambda$ et envoie
+$y_i$ sur l'image de $a_i^N$ dans $\Lambda$.
+
+\medskip\noindent
+Nous affirmons que $B$ est une solution pour $R \to A \to \Lambda \supset \mathfrak q$.
+Remarquons d'abord que $B_z$ est isomorphe à $C[z, z^{-1}, t_{ij}]$.
+Choisissons $c \in H_{C/R}$ dont l'image dans $\Lambda$ n'appartient pas à
+$\mathfrak q$. Alors $B_{zc}$ est lisse sur $R$. D'autre part,
+$B_{y_\ell} \cong A[x_i, y_i, y_\ell^{-1}, t_{ij}, i \not = \ell]$
+qui est lisse sur $A$. Nous voyons ainsi que $zc$ et les $a_\ell y_\ell$
+(les composées de morphismes lisses sont lisses) sont tous
+des éléments de $H_{B/R}$. Cela démontre le lemme.
+\end{proof}
+
+
+
+
+\section{Corps résiduels séparables}
+\label{section-separable}
+
+\noindent
+Dans cette section, nous expliquons comment résoudre un problème local dans le cas
+d'une extension séparable de corps résiduels.
+
+\begin{lemma}[Ogoma]
+\label{lemma-ogoma}
+Soit $A$ un anneau noethérien et soit $M$ un $A$-module de type fini.
+Soit $S \subset A$ une partie multiplicative. Si $\pi \in A$ et
+$\Ker(\pi : S^{-1}M \to S^{-1}M) =
+\Ker(\pi^2 : S^{-1}M \to S^{-1}M)$
+alors il existe $s \in S$ tel que, pour tout $n > 0$, nous ayons
+$\Ker(s^n\pi : M \to M) = \Ker((s^n\pi)^2 : M \to M)$.
+\end{lemma}
+
+\begin{proof}
+Posons $K = \Ker(\pi : M \to M)$ et
+$K' = \{m \in M \mid \pi^2 m = 0\text{ dans }S^{-1}M\}$ et
+$Q = K'/K$. Remarquons que $S^{-1}Q = 0$ par hypothèse. Comme $A$
+est noethérien, $Q$ est un $A$-module de type fini.
+Il existe donc $s \in S$ tel que $s$ annule $Q$.
+Alors $s$ convient.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-find-sequence}
+Soit $\Lambda$ un anneau noethérien. Soit $I \subset \Lambda$ un idéal.
+Soit $I \subset \mathfrak q$, où ce dernier est un idéal premier. Soient $n, e$ des entiers positifs.
+Supposons que $\mathfrak q^n\Lambda_\mathfrak q \subset I\Lambda_\mathfrak q$
+et que $\Lambda_\mathfrak q$ soit un anneau local régulier de dimension $d$.
+Alors il existe des éléments $\pi_1, \ldots, \pi_d \in \Lambda$ tels que
+\begin{enumerate}
+\item $(\pi_1, \ldots, \pi_d)\Lambda_\mathfrak q =
+\mathfrak q\Lambda_\mathfrak q$,
+\item $\pi_1^n, \ldots, \pi_d^n \in I$, et
+\item pour $i = 1, \ldots, d$, nous avons
+$$
+\text{Ann}_{\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)\Lambda}(\pi_i) =
+\text{Ann}_{\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)\Lambda}(\pi_i^2).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Posons $S = \Lambda \setminus \mathfrak q$, de sorte que
+$\Lambda_\mathfrak q = S^{-1}\Lambda$.
+Choisissons d'abord $\pi_1, \ldots, \pi_d$ satisfaisant (1), ce qui est possible
+puisque $\Lambda_\mathfrak q$ est régulier. Par hypothèse,
+$\pi_i^n \in I\Lambda_\mathfrak q$. Il existe donc
+$s_1, \ldots, s_d \in S$ tels que $s_i\pi_i^n \in I$.
+En remplaçant $\pi_i$ par $s_i\pi_i$, nous obtenons (2).
+Remarquons que (1) et (2) sont préservées par toute multiplication ultérieure par des éléments de $S$.
+Supposons que (3) soit satisfaite pour $i = 1, \ldots, t$, pour un certain
+$t \in \{0, \ldots, d\}$. Remarquons que
+$\pi_1, \ldots, \pi_d$ est une suite régulière dans $S^{-1}\Lambda$ ; voir
+Algèbre, lemme \ref{algebra-lemma-regular-ring-CM}.
+En particulier, $\pi_1^e, \ldots, \pi_t^e, \pi_{t + 1}$ est une
+suite régulière dans $S^{-1}\Lambda = \Lambda_\mathfrak q$ d'après
+Algèbre, lemme \ref{algebra-lemma-regular-sequence-powers}.
+Nous obtenons donc
+$$
+\text{Ann}_{S^{-1}\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)}(\pi_i) =
+\text{Ann}_{S^{-1}\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)}(\pi_i^2).
+$$
+Nous obtenons ainsi (3) pour $i = t + 1$ après avoir remplacé $\pi_{t + 1}$ par $s\pi_{t + 1}$
+pour un certain $s \in S$, d'après le Lemme \ref{lemma-ogoma}. Par récurrence sur $t$, ceci
+produit une suite satisfaisant (1), (2) et (3).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-resolve-special}
+Soit $k \to A \to \Lambda \supset \mathfrak q$ comme dans la
+Situation \ref{situation-local}, où
+\begin{enumerate}
+\item $k$ est un corps,
+\item $\Lambda$ est noethérien,
+\item $\mathfrak q$ est minimal au-dessus de $\mathfrak h_A$,
+\item $\Lambda_\mathfrak q$ est un anneau local régulier, et
+\item l'extension de corps $\kappa(\mathfrak q)/k$ est séparable.
+\end{enumerate}
+Alors $k \to A \to \Lambda \supset \mathfrak q$ peut être résolu.
+\end{lemma}
+
+\begin{proof}
+Posons $d = \dim \Lambda_\mathfrak q$. Posons $R = k[x_1, \ldots, x_d]$.
+Choisissons $n > 0$ tel que
+$\mathfrak q^n\Lambda_\mathfrak q \subset \mathfrak h_A\Lambda_\mathfrak q$
+ce qui est possible puisque $\mathfrak q$ est minimal au-dessus de $\mathfrak h_A$.
+Choisissons des générateurs $a_1, \ldots, a_r$ de $H_{A/k}$. Posons
+$$
+B = A[x_1, \ldots, x_d, z_{ij}]/(x_i^n - \sum z_{ij}a_j)
+$$
+Chaque $B_{a_j}$ est lisse sur $R$ : c'est une algèbre de polynômes
+sur $A_{a_j}[x_1, \ldots, x_d]$, et $A_{a_j}$ est lisse sur $k$.
+Par conséquent, $B_{x_i}$ est lisse sur $R$. Soit $B \to C$ le morphisme de $R$-algèbres
+construit dans le Lemme \ref{lemma-improve-presentation},
+qui est muni d'une rétraction de $R$-algèbres $C \to B$. En particulier,
+nous obtenons un morphisme $C \to \Lambda$ s'insérant dans le diagramme ci-dessous.
+Par construction, $C_{x_i}$ est une $R$-algèbre lisse dont
+$\Omega_{C_{x_i}/R}$ est libre. Il existe donc $c > 0$
+tel que $x_i^c$ soit strictement standard dans $C/R$ ; voir le
+Lemme \ref{lemma-compare-standard}.
+Choisissons maintenant $\pi_1, \ldots, \pi_d \in \Lambda$ comme dans le
+Lemme \ref{lemma-find-sequence},
+où $n = n$, $e = 8c$, $\mathfrak q = \mathfrak q$ et $I = \mathfrak h_A$.
+Écrivons $\pi_i^n = \sum \lambda_{ij} a_j$ pour certains $\lambda_{ij} \in \Lambda$.
+Il existe un morphisme $B \to \Lambda$ donné par $x_i \mapsto \pi_i$
+et $z_{ij} \mapsto \lambda_{ij}$. Posons $R = k[x_1, \ldots, x_d]$.
+Considérons le diagramme
+$$
+\xymatrix{
+R \ar[r] & B \ar[rd] \\
+k \ar[u] \ar[r] & A \ar[u] \ar[r] & \Lambda
+}
+$$
+Appliquons maintenant le
+Lemme \ref{lemma-lift-solution}
+à $R \to C \to \Lambda \supset \mathfrak q$
+et à la suite d'éléments $x_1^c, \ldots, x_d^c$ de $R$.
+L'hypothèse (2) est claire. L'hypothèse (1) est satisfaite pour $R$
+par inspection et pour $\Lambda$ grâce à notre choix de
+$\pi_1, \ldots, \pi_d$. (Remarquons que si
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$, alors nous avons
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^c)$ pour tout $c > 0$.)
+Il suffit donc de résoudre
+$$
+R/(x_1^e, \ldots, x_d^e) \to C/(x_1^e, \ldots, x_d^e) \to
+\Lambda/(\pi_1^e, \ldots, \pi_d^e) \supset
+\mathfrak q/(\pi_1^e, \ldots, \pi_d^e)
+$$
+pour $e = 8c$. D'après le
+Lemme \ref{lemma-delocalize-height-zero},
+il suffit de résoudre cette situation après localisation en $\mathfrak q$.
+Mais puisque $x_1, \ldots, x_d$ ont pour images une suite régulière
+dans $\Lambda_\mathfrak q$, nous voyons que $R_\mathfrak p \to \Lambda_\mathfrak q$
+est plat ; voir Algèbre, lemme \ref{algebra-lemma-flat-over-regular}. Par conséquent,
+$$
+R_\mathfrak p/(x_1^e, \ldots, x_d^e) \to
+\Lambda_\mathfrak q/(\pi_1^e, \ldots, \pi_d^e)
+$$
+est un morphisme d'anneaux plat entre anneaux locaux artiniens.
+De plus, ce morphisme induit par hypothèse une extension séparable
+de corps résiduels. Ce morphisme est donc une colimite filtrante
+d'algèbres lisses d'après
+Algèbre, lemme \ref{algebra-lemma-colimit-syntomic},
+et la Proposition \ref{proposition-lift}.
+L'existence de la solution souhaitée résulte de
+Algèbre, lemme \ref{algebra-lemma-when-colimit}.
+\end{proof}
+\section{Extensions inséparables de corps résiduels}
+\label{section-inseparable}
+
+\noindent
+Dans cette section, nous expliquons comment résoudre un problème local dans le cas
+d'une extension inséparable de corps résiduels.
+
+\begin{lemma}
+\label{lemma-helper}
+Soit $k$ un corps de caractéristique $p > 0$.
+Soit $(\Lambda, \mathfrak m, K)$ une $k$-algèbre locale artinienne.
+Supposons que $\dim H_1(L_{K/k}) < \infty$.
+Alors $\Lambda$ est une colimite filtrante de $k$-algèbres
+locales artiniennes $A$ telles que chaque morphisme $A \to \Lambda$ soit plat, que
+$\mathfrak m_A \Lambda = \mathfrak m$ et que
+$A$ soit essentiellement de type fini sur $k$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que la platitude de $A \to \Lambda$ implique que $A \to \Lambda$
+est injectif ; le lemme affirme donc en réalité que $\Lambda$ est une
+réunion filtrante de sous-anneaux $A \subset \Lambda$ de ce type.
+Soit $n$ le plus petit entier tel que $\mathfrak m^n = 0$.
+Nous démontrons ce lemme par récurrence sur $n$. Le cas $n = 1$ est clair,
+car une extension de corps est la réunion de ses sous-extensions de type fini.
+
+\medskip\noindent
+Choisissons $\lambda_1, \ldots, \lambda_d \in \mathfrak m$ qui engendrent
+$\mathfrak m$. Comme $K$ est formellement lisse sur $\mathbf{F}_p$ (voir
+Algèbre, lemme \ref{algebra-lemma-formally-smooth-extensions-easy}), nous pouvons
+trouver un morphisme d'anneaux $\sigma : K \to \Lambda$ qui est une section du
+morphisme quotient $\Lambda \to K$. En général, $\sigma$ n'est {\bf pas}
+un morphisme de $k$-algèbres. Étant donné $\sigma$, définissons
+$$
+\Psi_\sigma : K[x_1, \ldots, x_d] \longrightarrow \Lambda
+$$
+en utilisant $\sigma$ sur les éléments de $K$ et en envoyant $x_i$ sur $\lambda_i$.
+Assertion : il existe un $\sigma : K \to \Lambda$
+et un sous-corps $k \subset F \subset K$ de type fini sur $k$
+tels que l'image de $k$ dans $\Lambda$ soit contenue dans
+$\Psi_\sigma(F[x_1, \ldots, x_d])$.
+
+\medskip\noindent
+Nous démontrons l'assertion par récurrence sur le plus petit entier $n$ tel que
+$\mathfrak m^n = 0$. Elle est claire pour $n = 1$. Si $n > 1$, posons
+$I = \mathfrak m^{n - 1}$ et $\Lambda' = \Lambda/I$.
+Par récurrence, nous pouvons supposer donnés
+$\sigma' : K \to \Lambda'$ et $k \subset F' \subset K$, le corps intermédiaire
+étant de type fini sur le corps de base, tels que l'image de $k \to \Lambda \to \Lambda'$
+soit contenue dans $A' = \Psi_{\sigma'}(F'[x_1, \ldots, x_d])$.
+Notons $\tau' : k \to A'$ le morphisme induit.
+Choisissons un relèvement $\sigma : K \to \Lambda$ de $\sigma'$ (cela est possible
+par la lissité formelle de $K/\mathbf{F}_p$ mentionnée ci-dessus).
+Pour usage ultérieur, remarquons que nous pouvons remplacer $\sigma$ par
+$\sigma + D$ pour une certaine dérivation $D : K \to I$.
+Posons $A = F'[x_1, \ldots, x_d]/(x_1, \ldots, x_d)^n$.
+Alors $\Psi_\sigma$ induit un morphisme d'anneaux
+$\Psi_\sigma : A \to \Lambda$. La composition avec le
+morphisme quotient $\Lambda \to \Lambda'$ induit un morphisme surjectif
+$A \to A'$ de noyau nilpotent.
+Choisissons un relèvement $\tau : k \to A$ de $\tau'$ (possible puisque $k/\mathbf{F}_p$
+est formellement lisse). Nous obtenons ainsi deux morphismes $k \to \Lambda$, à savoir
+$\Psi_\sigma \circ \tau : k \to \Lambda$ et le morphisme donné $i : k \to \Lambda$.
+Ces morphismes coïncident modulo $I$ ; leur différence est donc une
+dérivation $\theta = i - \Psi_\sigma \circ \tau : k \to I$.
+Remarquons que si nous remplaçons $\sigma$ par $\sigma + D$, alors nous remplaçons
+$\theta$ par $\theta - D|_k$.
+
+\medskip\noindent
+Choisissons une famille d'éléments $\{y_j\}_{j \in J}$ de $k$ dont les différentielles
+$\text{d}y_j$ forment une base de $\Omega_{k/\mathbf{F}_p}$. La suite de Jacobi-Zariski
+pour $\mathbf{F}_p \subset k \subset K$ est
+$$
+0 \to H_1(L_{K/k}) \to \Omega_{k/\mathbf{F}_p} \otimes K \to
+\Omega_{K/\mathbf{F}_p} \to \Omega_{K/k} \to 0
+$$
+Comme $\dim H_1(L_{K/k}) < \infty$, nous pouvons trouver un sous-ensemble fini $J_0 \subset J$
+tel que l'image du premier morphisme soit contenue dans
+$\bigoplus_{j \in J_0} K\text{d}y_j$. Par conséquent, les images des éléments
+$\text{d}y_j$, $j \in J \setminus J_0$, sont $K$-linéairement indépendantes
+dans $\Omega_{K/\mathbf{F}_p}$. Nous pouvons donc choisir
+$D : K \to I$ tel que $\theta - D|_k = \xi \circ \text{d}$,
+où $\xi$ est la composition
+$$
+\Omega_{k/\mathbf{F}_p} = \bigoplus\nolimits_{j \in J} k \text{d}y_j
+\longrightarrow \bigoplus\nolimits_{j \in J_0} k \text{d}y_j
+\longrightarrow I
+$$
+Posons $f_j = \xi(\text{d}y_j) \in I$ pour $j \in J_0$.
+Remplaçons $\sigma$ par $\sigma + D$ comme ci-dessus. Nous voyons alors que
+$\theta(a) = \sum_{j \in J_0} a_j f_j$ pour $a \in k$, où
+$\text{d}a = \sum a_j \text{d}y_j$ dans $\Omega_{k/\mathbf{F}_p}$.
+Remarquons que $I$ est engendré par les monômes
+$\lambda^E = \lambda_1^{e_1} \ldots \lambda_d^{e_d}$ de
+degré total $|E| = \sum e_i = n - 1$ en $\lambda_1, \ldots, \lambda_d$.
+Écrivons $f_j = \sum_E c_{j, E} \lambda^E$ avec $c_{j, E} \in K$.
+Remplaçons $F'$ par $F = F'(c_{j, E})$. L'assertion est alors démontrée.
+
+\medskip\noindent
+Choisissons $\sigma$ et $F$ comme dans l'assertion. Le noyau de $\Psi_\sigma$ est
+engendré par un nombre fini de polynômes
+$g_1, \ldots, g_t \in K[x_1, \ldots, x_d]$ et, après avoir agrandi $F$ en lui adjoignant
+un nombre fini d'éléments, nous pouvons supposer que leurs coefficients appartiennent à $F$.
+Dans ce cas, il est clair que le morphisme
+$A = F[x_1, \ldots, x_d]/(g_1, \ldots, g_t) \to
+K[x_1, \ldots, x_d]/(g_1, \ldots, g_t) = \Lambda$ est plat.
+D'après l'assertion, $A$ est une sous-$k$-algèbre de $\Lambda$.
+Il est clair que $\Lambda$ est la colimite filtrante de ces
+algèbres, puisque $K$ est la réunion filtrante des sous-corps $F$.
+Enfin, ces algèbres sont essentiellement de type fini sur $k$ d'après
+Algèbre, lemme
+\ref{algebra-lemma-essentially-of-finite-type-into-artinian-local}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-solution-modulo}
+Soit $k$ un corps de caractéristique $p > 0$.
+Soit $\Lambda$ une $k$-algèbre noethérienne géométriquement régulière.
+Soit $\mathfrak q \subset \Lambda$ un idéal premier.
+Soit $n \geq 1$ un entier et soit
+$E \subset \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+un sous-ensemble fini.
+Alors nous pouvons trouver $m \geq 0$ et
+$\varphi : k[y_1, \ldots, y_m] \to \Lambda$ ayant les propriétés suivantes :
+\begin{enumerate}
+\item en posant $\mathfrak p = \varphi^{-1}(\mathfrak q)$, nous avons
+$\mathfrak q\Lambda_\mathfrak q = \mathfrak p \Lambda_\mathfrak q$
+et $k[y_1, \ldots, y_m]_\mathfrak p \to \Lambda_\mathfrak q$ est plat,
+\item il existe une factorisation par des morphismes d'anneaux locaux artiniens
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to D \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+où la première flèche est essentiellement lisse et la seconde est plate,
+\item $E$ est contenu dans $D$ modulo $\mathfrak q^n\Lambda_\mathfrak q$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Posons $\bar \Lambda = \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$.
+Remarquons que $\dim H_1(L_{\kappa(\mathfrak q)/k}) < \infty$ d'après
+Compléments d'algèbre, proposition
+\ref{more-algebra-proposition-characterization-geometrically-regular}.
+Choisissons $A \subset \bar \Lambda$ contenant $E$, telle que $A$ soit locale
+artinienne, essentiellement de type fini sur $k$, que le morphisme
+$A \to \bar \Lambda$ soit plat et que $\mathfrak m_A$ engendre l'idéal maximal
+de $\bar \Lambda$ ; voir le Lemme \ref{lemma-helper}.
+Notons $F = A/\mathfrak m_A$ le corps résiduel, de sorte que $k \subset F \subset K$.
+Choisissons $\lambda_1, \ldots, \lambda_t \in \Lambda$ dont les images
+appartiennent à $A$ dans $\bar \Lambda$ et tels que, de plus, les images
+de $\text{d}\lambda_1, \ldots, \text{d}\lambda_t$ forment une base
+de $\Omega_{F/k}$. Considérons le morphisme
+$\varphi' : k[y_1, \ldots, y_t] \to \Lambda$ qui envoie $y_j$ sur $\lambda_j$.
+Posons $\mathfrak p' = (\varphi')^{-1}(\mathfrak q)$. D'après
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-geometrically-regular-over-field}
+le morphisme d'anneaux $k[y_1, \ldots, y_t]_{\mathfrak p'} \to \Lambda_\mathfrak q$
+est plat et $\Lambda_\mathfrak q/\mathfrak p' \Lambda_\mathfrak q$ est
+régulier. Nous pouvons donc choisir d'autres éléments
+$\lambda_{t + 1}, \ldots, \lambda_m \in \Lambda$
+dont les images appartiennent à $A \subset \bar \Lambda$ et dont les
+images forment un système régulier de paramètres de
+$\Lambda_\mathfrak q/\mathfrak p' \Lambda_\mathfrak q$.
+Nous obtenons $\varphi : k[y_1, \ldots, y_m] \to \Lambda$ ayant
+la propriété (1), tel que
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to \bar\Lambda$
+se factorise par $A$. Ainsi,
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to A$ est plat d'après
+Algèbre, lemme \ref{algebra-lemma-flatness-descends-more-general}.
+Par construction, l'extension de corps résiduels $F/\kappa(\mathfrak p)$
+est de type fini et $\Omega_{F/\kappa(\mathfrak p)} = 0$. Cette extension est
+donc finie séparable d'après
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-cartier-equality}.
+Ainsi,
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to A$
+est fini d'après Algèbre, lemme
+\ref{algebra-lemma-essentially-of-finite-type-into-artinian-local}.
+Enfin, nous concluons qu'il est étale d'après
+Algèbre, lemme \ref{algebra-lemma-characterize-etale}.
+Comme un morphisme d'anneaux étale est certainement essentiellement lisse, la démonstration est achevée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-enlarge-solution-modulo}
+Soient $\varphi : k[y_1, \ldots, y_m] \to \Lambda$, $n$, $\mathfrak q$,
+$\mathfrak p$ et
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n \to
+D \to \Lambda_\mathfrak q/\mathfrak q^n \Lambda_\mathfrak q
+$$
+comme dans le Lemme \ref{lemma-solution-modulo}. Alors, pour tout
+$\lambda \in \Lambda \setminus \mathfrak q$
+il existe un entier $q > 0$ et une factorisation
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n \to
+D \to D' \to \Lambda_\mathfrak q/\mathfrak q^n \Lambda_\mathfrak q
+$$
+tels que $D \to D'$ soit un morphisme essentiellement lisse d'anneaux locaux artiniens,
+que la dernière flèche soit plate et que $\lambda^q$ appartienne à $D'$.
+\end{lemma}
+
+\begin{proof}
+Posons $\bar \Lambda = \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$.
+Soit $\bar \lambda$ l'image de $\lambda$ dans $\bar \Lambda$.
+Soit $\alpha \in \kappa(\mathfrak q)$ l'image de $\lambda$ dans le
+corps résiduel.
+Soit $k \subset F \subset \kappa(\mathfrak q)$ le corps résiduel de $D$.
+Si $\alpha$ appartient à $F$, nous pouvons trouver
+$x \in D$ tel que $x \bar\lambda = 1 \bmod \mathfrak q$. Par conséquent,
+$(x \bar \lambda)^q = 1 \bmod (\mathfrak q)^q$ si $q$ est divisible par $p$.
+Ainsi, $\bar\lambda^q$ appartient à $D$. Si $\alpha$ est
+transcendant sur $F$, nous pouvons prendre $D' = (D[\bar \lambda])_\mathfrak m$
+égal au sous-anneau engendré par $D$ et $\bar \lambda$, localisé
+en $\mathfrak m = D[\bar \lambda] \cap \mathfrak q \bar \Lambda$.
+Cela convient car, dans ce cas, $D[\bar \lambda]$ est en fait une algèbre de polynômes
+sur $D$. Enfin, si $\lambda \bmod \mathfrak q$ est
+algébrique sur $F$, nous pouvons trouver une puissance de $p$, notée $q$, telle que
+$\alpha^q$ soit séparable algébrique sur $F$ ; voir
+Corps, section \ref{fields-section-algebraic}.
+Remarquons que $D$ et $\bar\Lambda$ sont des anneaux locaux henséliens ; voir
+Algèbre, lemme \ref{algebra-lemma-local-dimension-zero-henselian}.
+Soit $D \to D'$ une extension étale finie
+dont l'extension de corps résiduels est $F(\alpha^q)/F$ ; voir
+Algèbre, lemme \ref{algebra-lemma-henselian-cat-finite-etale}.
+Comme $\bar\Lambda$ est hensélien et que $F(\alpha^q)$ est contenu
+dans son corps résiduel, nous pouvons trouver une factorisation
+$D' \to \bar \Lambda$. La première partie de l'argument montre que
+$\bar\lambda^{qq'} \in D'$ pour un certain $q' > 0$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-resolve-general}
+Soit $k \to A \to \Lambda \supset \mathfrak q$ comme dans la
+Situation \ref{situation-local}, où
+\begin{enumerate}
+\item $k$ est un corps de caractéristique $p > 0$,
+\item $\Lambda$ est noethérien et géométriquement régulier sur $k$,
+\item $\mathfrak q$ est minimal au-dessus de $\mathfrak h_A$.
+\end{enumerate}
+Alors $k \to A \to \Lambda \supset \mathfrak q$ peut être résolu.
+\end{lemma}
+
+\begin{proof}
+Le lemme se démontre par les étapes suivantes, dans l'ordre indiqué.
+Nous justifierons chacune de ces étapes ci-dessous.
+\begin{enumerate}
+\item
+\label{item-power}
+Choisissons un entier $N > 0$ tel que
+$\mathfrak q^N\Lambda_\mathfrak q \subset H_{A/k}\Lambda_\mathfrak q$.
+\item
+\label{item-generators}
+Choisissons des générateurs $a_1, \ldots, a_t \in A$ de l'idéal $H_{A/k}$.
+\item
+\label{item-dimension}
+Posons $d = \dim(\Lambda_\mathfrak q)$.
+\item
+\label{item-standardizer}
+Posons $B = A[x_1, \ldots, x_d, z_{ij}]/(x_i^{2N} - \sum z_{ij}a_j)$.
+\item
+\label{item-elkik}
+Considérons $B$ comme une $k[x_1, \ldots, x_d]$-algèbre et soit
+$B \to C$ comme dans le
+Lemme \ref{lemma-improve-presentation}.
+Nous obtenons aussi une section $C \to B$.
+\item
+\label{item-strictly-standard}
+Choisissons $c > 0$ tel que chaque $x_i^c$
+soit strictement standard dans $C$ sur $k[x_1, \ldots, x_d]$.
+\item
+\label{item-set-n}
+Posons $n = N + dc$ et $e = 8c$.
+\item
+\label{item-set-E}
+Soit $E \subset \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+l'ensemble des images de générateurs de $A$ comme $k$-algèbre.
+\item
+\label{item-NP}
+Choisissons un entier $m$, un morphisme de $k$-algèbres
+$\varphi : k[y_1, \ldots, y_m] \to \Lambda$
+et une factorisation par des anneaux locaux artiniens
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to D \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+telle que la première flèche soit essentiellement lisse, la seconde plate,
+que $E$ soit contenu dans $D$, et, avec $\mathfrak p = \varphi^{-1}(\mathfrak q)$,
+que le morphisme $k[y_1, \ldots, y_m]_\mathfrak p \to \Lambda_\mathfrak q$ soit
+plat et que $\mathfrak p \Lambda_\mathfrak q = \mathfrak q \Lambda_\mathfrak q$.
+\item
+\label{item-choose-pii}
+Choisissons $\pi_1, \ldots, \pi_d \in \mathfrak p$ dont les images forment un
+système régulier de paramètres de $k[y_1, \ldots, y_m]_\mathfrak p$.
+\item
+\label{item-set-R}
+Soit $R = k[y_1, \ldots, y_m, t_1, \ldots, t_d]$ et $\gamma_i = \pi_i t_i$.
+\item
+\label{item-modify-pii}
+Si nécessaire, modifions le choix des $\pi_i$ de sorte que,
+pour $i = 1, \ldots, d$, nous ayons
+$$
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i)
+=
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i^2)
+$$
+\item
+\label{item-choose-deltai}
+Il existe $\delta_1, \ldots, \delta_d \in \Lambda$,
+$\delta_i \not \in \mathfrak q$, et une factorisation
+$D \to D' \to \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+avec $D'$ local artinien, $D \to D'$ essentiellement lisse, la dernière flèche
+$D' \to \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+étant plate, et tels que, si l'on pose $\pi_i' = \delta_i \pi_i$, on ait pour
+$i = 1, \ldots, d$ :
+\begin{enumerate}
+\item $(\pi_i')^{2N} = \sum a_j\lambda_{ij}$ dans $\Lambda$, où
+$\lambda_{ij} \bmod \mathfrak q^n\Lambda_\mathfrak q$ est un élément de $D'$,
+\item $\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_{i - 1}^e)}({\pi'}_i) =
+\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_{i - 1}^e)}({\pi'}_i^2)$,
+\item $\delta_i \bmod \mathfrak q^n\Lambda_\mathfrak q$ est un élément de $D'$.
+\end{enumerate}
+\item
+\label{item-map-B-Lambda}
+Définissons $B \to \Lambda$ en envoyant $x_i$ sur $\pi'_i$ et
+$z_{ij}$ sur le $\lambda_{ij}$ trouvé ci-dessus. Définissons $C \to \Lambda$
+en composant le morphisme $B \to \Lambda$ avec la rétraction $C \to B$.
+\item
+\label{item-set-map-R}
+Définissons $R \to \Lambda$ par $\varphi$ sur $k[y_1, \ldots, y_m]$
+et en envoyant $t_i$ sur $\delta_i$. Introduisons en outre un morphisme
+$$
+k[x_1, \ldots, x_d]
+\longrightarrow
+R = k[y_1, \ldots, y_m, t_1, \ldots, t_d]
+$$
+en envoyant $x_i$ sur $\gamma_i = \pi_i t_i$.
+\item
+\label{item-first-solve}
+Il suffit de résoudre
+$$
+R
+\to
+C \otimes_{k[x_1, \ldots, x_d]} R
+\to
+\Lambda \supset \mathfrak q
+$$
+\item
+\label{item-set-I}
+Posons $I = (\gamma_1^e, \ldots, \gamma_d^e) \subset R$.
+\item
+\label{item-second-resolve}
+Il suffit de résoudre
+$$
+R/I
+\to
+C \otimes_{k[x_1, \ldots, x_d]} R/I
+\to
+\Lambda/I\Lambda \supset \mathfrak q/I\Lambda
+$$
+\item
+\label{item-set-r}
+Notons $\mathfrak r \subset R = k[y_1, \ldots, y_m, t_1, \ldots, t_d]$
+l'image inverse de $\mathfrak q$.
+\item
+\label{item-third-resolve}
+Il suffit de résoudre
+$$
+(R/I)_\mathfrak r \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/I)_\mathfrak r \to
+\Lambda_\mathfrak q/I\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/I\Lambda_\mathfrak q
+$$
+\item
+\label{item-fourth-resolve}
+Posons $J = (\pi_1^e, \ldots, \pi_d^e)$ dans $k[y_1, \ldots, y_m]$.
+\item
+\label{item-fifth-resolve}
+Il suffit de résoudre
+$$
+(R/JR)_\mathfrak p \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/JR)_\mathfrak p \to
+\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+$$
+\item
+\label{item-sixth-resolve}
+Il suffit de résoudre
+$$
+(R/\mathfrak p^nR)_\mathfrak p \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+\item
+\label{item-seventh-resolve}
+Il suffit de résoudre
+$$
+(R/\mathfrak p^nR)_\mathfrak p \to
+B \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+\item
+\label{item-eighth-resolve}
+On munit l'anneau $D'[t_1, \ldots, t_d]$ d'une structure de
+$R_\mathfrak p/\mathfrak p^nR_\mathfrak p$-algèbre au moyen du morphisme donné
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to D'$ et en envoyant $t_i$ sur $t_i$. Il suffit de trouver une factorisation
+$$
+B \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p
+\to D'[t_1, \ldots, t_d] \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+où la seconde flèche envoie $t_i$ sur $\delta_i$ et induit le
+morphisme donné $D' \to \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$.
+\item
+\label{item-done}
+Une telle factorisation existe grâce au choix de $D'$ fait ci-dessus.
+\end{enumerate}
+Nous donnons maintenant la justification de chacune des étapes, en omettant
+celles qui ne font qu'introduire des notations.
+
+\medskip\noindent
+Pour (\ref{item-power}). Cela est possible puisque $\mathfrak q$ est minimal
+au-dessus de $\mathfrak h_A = \sqrt{H_{A/k}\Lambda}$.
+
+\medskip\noindent
+Pour (\ref{item-strictly-standard}). Remarquons que $A_{a_j}$ est lisse
+sur $k$. Ainsi $B_{a_j}$, qui est isomorphe à une algèbre de polynômes
+sur $A_{a_j}[x_1, \ldots, x_d]$, est lisse sur
+$k[x_1, \ldots, x_d]$. Par conséquent, $B_{x_i}$ est lisse sur $k[x_1, \ldots, x_d]$.
+D'après le Lemme \ref{lemma-improve-presentation},
+nous voyons que $C_{x_i}$ est lisse sur $k[x_1, \ldots, x_d]$
+et que son module des différentielles de Kähler est libre de type fini. Une certaine puissance de
+$x_i$ est donc strictement standard dans $C$ sur $k[x_1, \ldots, x_d]$
+d'après le Lemme \ref{lemma-compare-standard}.
+
+\medskip\noindent
+Pour (\ref{item-NP}). Cela résulte de l'application du Lemme \ref{lemma-solution-modulo}.
+
+\medskip\noindent
+Pour (\ref{item-choose-pii}). Puisque
+$k[y_1, \ldots, y_m]_\mathfrak p \to \Lambda_\mathfrak q$
+est plat et que $\mathfrak p \Lambda_\mathfrak q = \mathfrak q \Lambda_\mathfrak q$
+par construction,
+nous avons $\dim(k[y_1, \ldots, y_m]_\mathfrak p) = d$ d'après
+Algèbre, lemme \ref{algebra-lemma-dimension-base-fibre-equals-total}.
+Nous pouvons donc trouver $\pi_1, \ldots, \pi_d \in \mathfrak p$ formant
+un système régulier de paramètres de $k[y_1, \ldots, y_m]_\mathfrak p$.
+
+\medskip\noindent
+Pour (\ref{item-modify-pii}). D'après
+Algèbre, lemme \ref{algebra-lemma-regular-ring-CM},
+toute permutation de la suite $\pi_1, \ldots, \pi_d$ est une
+suite régulière dans $k[y_1, \ldots, y_m]_\mathfrak p$. Par conséquent,
+$\gamma_1 = \pi_1 t_1, \ldots, \gamma_d = \pi_d t_d$ est une suite
+régulière dans
+$R_\mathfrak p = k[y_1, \ldots, y_m]_\mathfrak p[t_1, \ldots, t_d]$ ; voir
+Algèbre, lemme \ref{algebra-lemma-regular-sequence-in-polynomial-ring}.
+Soit $S = k[y_1, \ldots, y_m] \setminus \mathfrak p$, de sorte que
+$R_\mathfrak p = S^{-1}R$. Remarquons que $\pi_1, \ldots, \pi_d$
+et $\gamma_1, \ldots, \gamma_d$
+restent des suites régulières si nous multiplions nos $\pi_i$ par des éléments de $S$.
+Supposons que
+$$
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i)
+=
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i^2)
+$$
+soit satisfaite pour $i = 1, \ldots, t$, pour un certain $t \in \{0, \ldots, d\}$. Remarquons que
+$\gamma_1^e, \ldots, \gamma_t^e, \gamma_{t + 1}$ est une
+suite régulière dans $S^{-1}R$ d'après
+Algèbre, lemme \ref{algebra-lemma-regular-sequence-powers}.
+Nous voyons donc que
+$$
+\text{Ann}_{S^{-1}R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)}(\gamma_i) =
+\text{Ann}_{S^{-1}R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)}(\gamma_i^2).
+$$
+Nous obtenons ainsi
+$$
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_t^e)R}(\gamma_{t + 1})
+=
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_t^e)R}(\gamma_{t + 1}^2)
+$$
+après avoir remplacé $\pi_{t + 1}$ par $s\pi_{t + 1}$ pour un certain $s \in S$, d'après le
+Lemme \ref{lemma-ogoma}. Par récurrence sur $t$, ceci produit la
+suite souhaitée.
+
+\medskip\noindent
+Pour (\ref{item-choose-deltai}). Posons $S = \Lambda \setminus \mathfrak q$,
+de sorte que $\Lambda_\mathfrak q = S^{-1}\Lambda$. Posons
+$\bar \Lambda = \Lambda_\mathfrak q/\mathfrak q^n \Lambda_\mathfrak q$.
+Supposons que nous ayons un $t \in \{0, \ldots, d\}$, des éléments
+$\delta_1, \ldots, \delta_t \in S$ et une factorisation
+$D \to D' \to \bar \Lambda$ comme dans (\ref{item-choose-deltai}),
+tels que (a), (b), (c) soient satisfaites pour $i = 1, \ldots, t$. Nous avons
+$\pi_{t + 1}^N \in H_{A/k}\Lambda_\mathfrak q$
+car $\mathfrak q^N \Lambda_\mathfrak q \subset H_{A/k}\Lambda_\mathfrak q$
+d'après (\ref{item-power}). Par conséquent,
+$\pi_{t + 1}^N \in H_{A/k} \bar\Lambda$, puis
+$\pi_{t + 1}^N \in H_{A/k}D'$, puisque $D' \to \bar \Lambda$
+est fidèlement plat ; voir
+Algèbre, lemme \ref{algebra-lemma-faithfully-flat-universally-injective}.
+Rappelons que $H_{A/k} = (a_1, \ldots, a_t)$.
+Écrivons $\pi_{t + 1}^N = \sum a_j d_j$ dans $D'$ et choisissons
+$c_j \in \Lambda_\mathfrak q$ relevant $d_j \in D'$. Alors
+$\pi_{t + 1}^N = \sum c_j a_j + \epsilon$, avec
+$\epsilon \in \mathfrak q^n\Lambda_\mathfrak q \subset
+\mathfrak q^{n - N}H_{A/k}\Lambda_\mathfrak q$.
+Écrivons $\epsilon = \sum a_j c'_j$ pour certains
+$c'_j \in \mathfrak q^{n - N}\Lambda_\mathfrak q$.
+Ainsi, $\pi_{t + 1}^{2N} = \sum (\pi_{t + 1}^N c_j + \pi_{t + 1}^N c'_j) a_j$.
+Remarquons que $\pi_{t + 1}^Nc'_j$ a pour image zéro dans $\bar \Lambda$ ; cette observation
+élémentaire mais essentielle garantira plus loin que (a) est satisfaite.
+Choisissons maintenant $s \in S$ tel qu'il existe des
+$\mu_{t + 1j} \in \Lambda$ vérifiant, d'une part,
+$\pi_{t + 1}^N c_j + \pi_{t + 1}^N c'_j = \mu_{t + 1j}/s^{2N}$
+dans $S^{-1}\Lambda$ et, d'autre part,
+$(s \pi_{t + 1})^{2N} = \sum \mu_{t + 1j}a_j$
+dans $\Lambda$ (détail mineur omis). Nous pouvons en outre remplacer $s$ par
+une puissance et agrandir $D'$ de sorte que $s$ ait pour image un élément de $D'$.
+Avec ces choix, $\mu_{t + 1j}$ a pour image $s^{2N}d_j$, qui est
+un élément de $D'$. Remarquons que $\pi_1, \ldots, \pi_d$ forment un système
+régulier de paramètres dans $S^{-1}\Lambda$ par notre
+choix de $\varphi$. Ainsi, $\pi_1, \ldots, \pi_d$ forment une suite régulière
+dans $\Lambda_\mathfrak q$ d'après
+Algèbre, lemme \ref{algebra-lemma-regular-ring-CM}.
+Il s'ensuit que ${\pi'}_1^e, \ldots, {\pi'}_t^e, s\pi_{t + 1}$ est une
+suite régulière dans $S^{-1}\Lambda$ d'après
+Algèbre, lemme \ref{algebra-lemma-regular-sequence-powers}.
+Nous obtenons donc
+$$
+\text{Ann}_{S^{-1}\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}(s\pi_{t + 1}) =
+\text{Ann}_{S^{-1}\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}((s\pi_{t + 1})^2).
+$$
+Nous pouvons donc appliquer le Lemme \ref{lemma-ogoma} afin de trouver $s' \in S$
+tel que
+$$
+\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}((s')^qs\pi_{t + 1})
+=
+\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}(((s')^qs\pi_{t + 1})^2).
+$$
+pour tout $q > 0$. D'après le Lemme \ref{lemma-enlarge-solution-modulo},
+nous pouvons choisir $q$ et agrandir $D'$ de sorte que $(s')^q$ ait pour image un élément
+de $D'$. En posant $\delta_{t + 1} = (s')^qs$, nous concluons que
+(a), (b), (c) sont satisfaites pour $i = 1, \ldots, t + 1$. Pour (a), remarquons que
+$\lambda_{t + 1j} = (s')^{2Nq}\mu_{t + 1j}$ convient.
+Une récurrence sur $t$ achève la démonstration.
+
+\medskip\noindent
+Pour (\ref{item-first-solve}). Par construction, le radical de
+$H_{(C \otimes_{k[x_1, \ldots, x_d]} R)/R} \Lambda$ contient
+$\mathfrak h_A$. En effet, les éléments $a_j \in H_{A/k}$
+ont pour images des éléments de $H_{B/k[x_1, \ldots, x_d]}$, puis des éléments
+de $H_{C/k[x_1, \ldots, x_d]}$ ; par conséquent, les $a_j \otimes 1$ ont pour images des éléments de
+$H_{C \otimes_{k[x_1, \ldots, x_d]} R/R}$. De plus, si nous avons une solution
+$C \otimes_{k[x_1, \ldots, x_d]} R \to T \to \Lambda$ de
+$$
+R
+\to
+C \otimes_{k[x_1, \ldots, x_d]} R
+\to
+\Lambda \supset \mathfrak q
+$$
+alors $H_{T/R} \subset H_{T/k}$, puisque $R$ est lisse sur $k$.
+Ainsi, $T$ sera aussi une solution de
+la situation initiale $k \to A \to \Lambda \supset \mathfrak q$.
+
+\medskip\noindent
+Pour (\ref{item-second-resolve}). Cela résulte de l'application du
+Lemme \ref{lemma-lift-solution} à
+$R \to C \otimes_{k[x_1, \ldots, x_d]} R
+\to \Lambda \supset \mathfrak q$ et à la suite d'éléments
+$\gamma_1^c, \ldots, \gamma_d^c$. Remarquons que, puisque les $x_i^c$
+sont strictement standard dans $C$ sur $k[x_1, \ldots, x_d]$, les éléments
+$\gamma_i^c$ sont strictement standard dans $C \otimes_{k[x_1, \ldots, x_d]} R$
+sur $R$ d'après le Lemme \ref{lemma-strictly-standard-base-change}.
+L'autre hypothèse du Lemme \ref{lemma-lift-solution} est satisfaite grâce aux étapes
+(\ref{item-modify-pii}) et (\ref{item-choose-deltai}).
+
+\medskip\noindent
+Pour (\ref{item-third-resolve}). Appliquons le Lemme \ref{lemma-delocalize-height-zero}
+à la situation de (\ref{item-second-resolve}). Dans la suite des
+arguments, l'anneau d'arrivée est local artinien ; nous cherchons donc
+une factorisation par une algèbre $T$ lisse sur l'anneau de départ.
+
+\medskip\noindent
+Pour (\ref{item-fifth-resolve}).
+Supposons que $C \otimes_{k[x_1, \ldots, x_d]} (R/JR)_\mathfrak p \to
+T \to \Lambda_\mathfrak q/J\Lambda_\mathfrak q$ soit une solution de
+$$
+(R/JR)_\mathfrak p \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/JR)_\mathfrak p \to
+\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+$$
+Alors $C \otimes_{k[x_1, \ldots, x_d]} (R/I)_\mathfrak r \to T_\mathfrak r \to
+\Lambda_\mathfrak q/I\Lambda_\mathfrak q$
+est une solution de la situation de (\ref{item-third-resolve}).
+
+\medskip\noindent
+Pour (\ref{item-sixth-resolve}). Notre entier $n = N + dc$ est assez grand pour que
+$\mathfrak p^nk[y_1, \ldots, y_m]_\mathfrak p \subset J_\mathfrak p$
+et $\mathfrak q^n \Lambda_\mathfrak q \subset J\Lambda_\mathfrak q$.
+Par conséquent, si nous avons une solution
+$C \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p \to
+T \to \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+de (\ref{item-fifth-resolve},
+nous pouvons prendre $T/JT$ comme solution de
+(\ref{item-sixth-resolve}).
+
+\medskip\noindent
+Pour (\ref{item-seventh-resolve}). Cela est vrai parce que nous avons une
+section $C \to B$ dans la catégorie des $R$-algèbres.
+
+\medskip\noindent
+Pour (\ref{item-eighth-resolve}). Cela est vrai parce que $D'$ est
+essentiellement lisse sur l'anneau local artinien
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p$
+et que
+$$
+R_\mathfrak p/\mathfrak p^nR_\mathfrak p =
+k[y_1, \ldots, y_m]_\mathfrak p/
+\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p[t_1, \ldots, t_d].
+$$
+Ainsi, $D'[t_1, \ldots, t_d]$ est une colimite filtrante de
+$R_\mathfrak p/\mathfrak p^nR_\mathfrak p$-algèbres lisses et
+$B \otimes_{k[x_1, \ldots, x_d]} (R_\mathfrak p/\mathfrak p^nR_\mathfrak p)$
+se factorise par l'une d'elles.
+
+\medskip\noindent
+Pour (\ref{item-done}). La dernière subtilité de la démonstration est que nous ne pouvons
+pas simplement utiliser le morphisme $B \to D'$ qui envoie $x_i$ sur l'image de $\pi_i'$
+dans $D'$ et $z_{ij}$ sur l'image de $\lambda_{ij}$ dans $D'$, 
+car nous avons besoin que le diagramme
+$$
+\xymatrix{
+B \ar[r] & D'[t_1, \ldots, t_d] \\
+k[x_1, \ldots, x_d] \ar[r] \ar[u] &
+R_\mathfrak p/\mathfrak p^nR_\mathfrak p \ar[u]
+}
+$$
+soit commutatif et que la composée
+$B \to D'[t_1, \ldots, t_d] \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+soit le morphisme de (\ref{item-map-B-Lambda}).
+Cela nous impose d'envoyer $x_i$ sur l'image de
+$\pi_i t_i$ dans $D'[t_1, \ldots, t_d]$.
+Nous envoyons donc $z_{ij}$ sur l'image de
+$\lambda_{ij} t_i^{2N} / \delta_i^{2N}$ dans $D'[t_1, \ldots, t_d]$
+et tout est clair.
+\end{proof}
+
+
+
+
+
+
+
+\section{Le théorème principal}
+\label{section-main}
+
+\noindent
+Dans cette section, nous concluons la discussion.
+
+\begin{theorem}[Popescu]
+\label{theorem-popescu}
+Tout morphisme régulier entre anneaux noethériens est une colimite filtrante
+de morphismes d'anneaux lisses.
+\end{theorem}
+
+\begin{proof}
+D'après le lemme \ref{lemma-reduce-to-field},
+il suffit de démontrer l'énoncé pour $k \to \Lambda$,
+où $\Lambda$ est noethérien et géométriquement régulier sur $k$.
+Soit $k \to A \to \Lambda$ une factorisation, avec $A$ une
+$k$-algèbre de type fini. Il suffit de construire une factorisation
+$A \to B \to \Lambda$, avec $B$ de type fini, telle que
+$\mathfrak h_B = \Lambda$ ; voir le lemme \ref{lemma-final-solve}.
+Nous pouvons donc procéder par récurrence noethérienne sur l'idéal
+$\mathfrak h_A$. Choisissons un idéal premier
+$\mathfrak q \supset \mathfrak h_A$ tel que
+$\mathfrak q$ soit minimal au-dessus de $\mathfrak h_A$.
+Il suffit alors de résoudre $k \to A \to \Lambda \supset \mathfrak q$
+(au sens défini dans le texte qui suit la situation \ref{situation-local}).
+Si la caractéristique de $k$ est nulle, cela résulte du
+lemme \ref{lemma-resolve-special}.
+Si la caractéristique de $k$ est $p > 0$, cela résulte du
+lemme \ref{lemma-resolve-general}.
+\end{proof}
+
+
+
+
+\section{La propriété d'approximation pour les G-anneaux}
+\label{section-approximation-G-rings}
+
+\noindent
+Soit $R$ un anneau local noethérien. Alors $R$ est un G-anneau si et
+seulement si le morphisme d'anneaux $R \to R^\wedge$ est régulier ; voir
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-check-G-ring-maximal-ideals}.
+Dans ce cas, l'hensélisation $R^h$ et l'hensélisation stricte
+$R^{sh}$ de $R$ sont des G-anneaux ; voir
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-henselization-G-ring}.
+En outre, toute algèbre essentiellement de type fini sur un corps, sur un
+anneau local complet, sur $\mathbf{Z}$ ou sur un anneau de Dedekind de
+caractéristique nulle est un G-anneau ; voir
+Compléments d'algèbre, proposition
+\ref{more-algebra-proposition-ubiquity-G-ring}.
+Nous disposons ainsi d'un vaste choix d'anneaux auxquels s'applique le
+résultat ci-dessous.
+
+\medskip\noindent
+Soit $R$ un anneau. Soient $f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$.
+Soit $S$ une $R$-algèbre. Dans cette situation, nous disons qu'un vecteur
+$(a_1, \ldots, a_n) \in S^n$ est une {\it solution dans $S$}
+si et seulement si
+$$
+f_j(a_1, \ldots, a_n) = 0 \text{ dans } S, \text{ pour }
+j = 1, \ldots, m
+$$
+L'une des questions importantes de la géométrie algébrique consiste
+naturellement à déterminer quand des systèmes d'équations polynomiales
+ont des solutions. Le théorème suivant affirme que l'existence de solutions
+dans le complété d'un anneau local noethérien suffit souvent à montrer
+qu'il en existe dans l'hensélisation de cet anneau.
+
+\begin{theorem}
+\label{theorem-approximation-property}
+Soit $R$ un anneau local noethérien. Soient
+$f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$.
+Supposons que $(a_1, \ldots, a_n) \in (R^\wedge)^n$ soit une solution
+dans $R^\wedge$. Si $R$ est un G-anneau hensélien, alors, pour tout entier
+$N$, il existe une solution $(b_1, \ldots, b_n) \in R^n$ dans $R$ telle que
+$a_i - b_i \in \mathfrak m^NR^\wedge$.
+\end{theorem}
+
+\begin{proof}
+Choisissons $c_i \in R$ tel que $a_i - c_i \in \mathfrak m^N$.
+Choisissons des générateurs $\mathfrak m^N = (d_1, \ldots, d_M)$.
+Écrivons $a_i = c_i + \sum a_{i, l} d_l$.
+Considérons l'anneau de polynômes $R[x_{i, l}]$ et les éléments
+$$
+g_j = f_j(c_1 + \sum x_{1, l} d_l , \ldots, c_n + \sum x_{n, l} d_l)
+\in R[x_{i, l}]
+$$
+Le système d'équations $g_j = 0$ admet la solution $(a_{i, l})$.
+Supposons que nous puissions montrer que $g_j$ admet une solution
+$(b_{i, l})$ dans $R$.
+Il s'ensuit que $b_i = c_i + \sum b_{i, l}d_l$ est une solution
+de $f_j = 0$ congrue à $a_i$ modulo $\mathfrak m^N$.
+Il suffit donc de montrer que l'existence d'une solution sur $R^\wedge$
+entraîne l'existence d'une solution sur $R$.
+
+\medskip\noindent
+Soit $A \subset R^\wedge$ la sous-$R$-algèbre engendrée par
+$a_1, \ldots, a_n$. Puisque nous avons supposé que $R$ est un G-anneau,
+c'est-à-dire que $R \to R^\wedge$ est régulier, il existe une factorisation
+$$
+A \to B \to R^\wedge
+$$
+où $B$ est lisse sur $R$ ; voir le théorème \ref{theorem-popescu}.
+Notons $\kappa = R/\mathfrak m$ le corps résiduel. C'est aussi
+le corps résiduel de $R^\wedge$, si bien que nous obtenons un diagramme
+commutatif
+$$
+\xymatrix{
+B \ar[rd] \ar@{..>}[r] & R' \ar@{..>}[d] \\
+R \ar[r] \ar[u] & \kappa
+}
+$$
+Comme la flèche verticale est lisse,
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-lift-section-smooth-morphism},
+il existe un morphisme d'anneaux \'etale $R \to R'$ qui induit un isomorphisme
+$R/\mathfrak m \to R'/\mathfrak mR'$ et un morphisme de $R$-algèbres
+$B \to R'$ rendant commutatif le diagramme ci-dessus.
+Puisque $R$ est hensélien, le morphisme $R \to R'$ possède une section ; voir
+Algèbre, lemme \ref{algebra-lemma-characterize-henselian}.
+Soit $b_i \in R$ l'image de $a_i$ par les morphismes d'anneaux
+$A \to B \to R' \to R$. Puisque tous ces morphismes sont des morphismes de
+$R$-algèbres, $(b_1, \ldots, b_n)$ est une solution dans $R$.
+\end{proof}
+
+\noindent
+Étant donnés un anneau local noethérien $(R, \mathfrak m)$, un morphisme
+d'anneaux \'etale $R \to R'$ et un idéal maximal
+$\mathfrak m' \subset R'$ au-dessus de $\mathfrak m$, tels que
+$\kappa(\mathfrak m) = \kappa(\mathfrak m')$. Nous avons alors les inclusions
+$$
+R \subset R_{\mathfrak m'} \subset R^h \subset R^\wedge,
+$$
+d'après Algèbre, lemme \ref{algebra-lemma-henselian-functorial-prepare}, et
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-henselization-noetherian}.
+
+\begin{theorem}
+\label{theorem-approximation-property-variant}
+Soit $R$ un anneau local noethérien. Soient
+$f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$.
+Supposons que $(a_1, \ldots, a_n) \in (R^\wedge)^n$ soit une solution.
+Si $R$ est un G-anneau, alors, pour tout entier $N$, il existe
+\begin{enumerate}
+\item un morphisme d'anneaux \'etale $R \to R'$,
+\item un idéal maximal $\mathfrak m' \subset R'$ au-dessus de $\mathfrak m$,
+\item une solution $(b_1, \ldots, b_n) \in (R')^n$ dans $R'$,
+\end{enumerate}
+tels que $\kappa(\mathfrak m) = \kappa(\mathfrak m')$ et
+$a_i - b_i \in (\mathfrak m')^NR^\wedge$.
+\end{theorem}
+
+\begin{proof}
+Nous pourrions déduire ce théorème du théorème
+\ref{theorem-approximation-property}, en utilisant le fait que
+l'hensélisation $R^h$ est un G-anneau d'après
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-henselization-G-ring}, et en écrivant $R^h$ comme une
+colimite filtrante d'extensions \'etales $R'$. Nous préférons en donner une
+démonstration en reprenant, dans ce cas, celle du théorème précédent.
+
+\medskip\noindent
+Choisissons $c_i \in R$ tel que $a_i - c_i \in \mathfrak m^N$.
+Choisissons des générateurs $\mathfrak m^N = (d_1, \ldots, d_M)$.
+Écrivons $a_i = c_i + \sum a_{i, l} d_l$.
+Considérons l'anneau de polynômes $R[x_{i, l}]$ et les éléments
+$$
+g_j = f_j(c_1 + \sum x_{1, l} d_l , \ldots, c_n + \sum x_{n, l} d_l)
+\in R[x_{i, l}]
+$$
+Le système d'équations $g_j = 0$ admet la solution $(a_{i, l})$.
+Supposons que nous puissions montrer que $g_j$ admet une solution
+$(b_{i, l})$ dans $R'$, pour un morphisme d'anneaux \'etale $R \to R'$ muni
+d'un idéal maximal $\mathfrak m'$ tel que
+$\kappa(\mathfrak m) = \kappa(\mathfrak m')$.
+Il s'ensuit que $b_i = c_i + \sum b_{i, l}d_l$ est une solution
+de $f_j = 0$ congrue à $a_i$ modulo $(\mathfrak m')^N$.
+Il suffit donc de montrer que l'existence d'une solution sur $R^\wedge$
+entraîne l'existence d'une solution sur une extension d'anneaux \'etale
+qui induit une extension triviale des corps résiduels en un idéal premier
+au-dessus de $\mathfrak m$.
+
+\medskip\noindent
+Soit $A \subset R^\wedge$ la sous-$R$-algèbre engendrée par
+$a_1, \ldots, a_n$. Puisque nous avons supposé que $R$ est un G-anneau,
+c'est-à-dire que $R \to R^\wedge$ est régulier, il existe une factorisation
+$$
+A \to B \to R^\wedge
+$$
+où $B$ est lisse sur $R$ ; voir le théorème \ref{theorem-popescu}.
+Notons $\kappa = R/\mathfrak m$ le corps résiduel. C'est aussi
+le corps résiduel de $R^\wedge$, si bien que nous obtenons un diagramme
+commutatif
+$$
+\xymatrix{
+B \ar[rd] \ar@{..>}[r] & R' \ar@{..>}[d] \\
+R \ar[r] \ar[u] & \kappa
+}
+$$
+Comme la flèche verticale est lisse,
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-lift-section-smooth-morphism},
+il existe un morphisme d'anneaux \'etale $R \to R'$ qui induit un isomorphisme
+$R/\mathfrak m \to R'/\mathfrak mR'$ et un morphisme de $R$-algèbres
+$B \to R'$ rendant commutatif le diagramme ci-dessus.
+Soit $b_i \in R'$ l'image de $a_i$ par les morphismes d'anneaux
+$A \to B \to R'$. Puisque tous ces morphismes sont des morphismes de
+$R$-algèbres, $(b_1, \ldots, b_n)$ est une solution dans $R'$.
+\end{proof}
+
+\begin{example}
+\label{example-describe-henselian}
+Soit $(R, \mathfrak m)$ un anneau local noethérien d'hensélisation $R^h$.
+Le morphisme entre les complétés $R^\wedge \to (R^h)^\wedge$ est un
+isomorphisme ; voir Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-henselization-noetherian}.
+Comme $R^h$ est lui aussi noethérien (ibid.), nous pouvons considérer $R^h$
+comme un sous-anneau de son complété (car la complétion est fidèlement
+plate). Nous pouvons ainsi identifier $R^h$ à un sous-anneau de $R^\wedge$.
+
+\medskip\noindent
+Cherchons à comprendre quels sont les éléments de $R^\wedge$ qui
+appartiennent à $R^h$. Pour simplifier, supposons que $R$ soit un domaine
+ayant $K$ pour corps des fractions. Il est clair que tout élément $f$ de $R^h$
+est algébrique sur $R$, au sens où il existe une équation de la forme
+$a_n f^n + \ldots + a_1 f + a_0 = 0$, pour certains $a_i \in R$ tels que
+$n > 0$ et $a_n \not = 0$.
+
+\medskip\noindent
+Réciproquement, soient $f \in R^\wedge$, $n \in \mathbf{N}$ et
+$a_0, \ldots, a_n \in R$, avec $a_n \not = 0$, tels que
+$a_n f^n + \ldots + a_1 f + a_0 = 0$. Si $R$ est un G-anneau, alors, pour
+tout $N > 0$, il existe un élément $g \in R^h$ tel que
+$a_n g^n + \ldots + a_1 g + a_0 = 0$ et $f - g \in \mathfrak m^N R^\wedge$,
+voir le théorème \ref{theorem-approximation-property-variant}.
+Nous voudrions en déduire que $f = g$ lorsque $N \gg 0$.
+Si ce n'est pas le cas, nous obtenons une infinité de racines $g$ de $P(T)$
+dans $R^h$. C'est impossible, car (1) $R^h \subset R^h \otimes_R K$
+et (2) $R^h \otimes_R K$ est un produit fini d'extensions de corps de $K$.
+En effet, $R \to K$ est injectif et $R \to R^h$ est plat ; par conséquent,
+$R^h \to R^h \otimes_R K$ est injectif, et (2) résulte de
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-fibres-henselization}.
+
+\medskip\noindent
+Conclusion : si $R$ est un domaine local noethérien ayant $K$ pour corps des
+fractions et un G-anneau, alors $R^h \subset R^\wedge$ est l'ensemble des
+éléments algébriques sur $K$.
+\end{example}
+
+\noindent
+Voici une autre variante du théorème principal de cette section.
+
+\begin{lemma}
+\label{lemma-approximation-property-variant}
+Soit $R$ un anneau noethérien. Soit $\mathfrak p \subset R$ un idéal
+premier. Soient
+$f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$.
+Supposons que $(a_1, \ldots, a_n) \in ((R_\mathfrak p)^\wedge)^n$ soit une
+solution. Si $R_\mathfrak p$ est un G-anneau, alors, pour tout entier $N$,
+il existe
+\begin{enumerate}
+\item un morphisme d'anneaux \'etale $R \to R'$,
+\item un idéal premier $\mathfrak p' \subset R'$ au-dessus de $\mathfrak p$,
+\item une solution $(b_1, \ldots, b_n) \in (R')^n$ dans $R'$,
+\end{enumerate}
+tels que $\kappa(\mathfrak p) = \kappa(\mathfrak p')$ et
+$a_i - b_i \in (\mathfrak p')^N(R'_{\mathfrak p'})^\wedge$.
+\end{lemma}
+
+\begin{proof}
+D'après le théorème \ref{theorem-approximation-property-variant},
+nous pouvons trouver une solution $(b'_1, \ldots, b'_n)$ dans un anneau
+$R''$ \'etale sur $R_\mathfrak p$, muni d'un idéal premier
+$\mathfrak p''$ au-dessus de $\mathfrak p$, tel que
+$\kappa(\mathfrak p) = \kappa(\mathfrak p'')$ et
+$a_i - b'_i \in (\mathfrak p'')^N(R''_{\mathfrak p''})^\wedge$.
+Nous pouvons écrire
+$R'' = R' \otimes_R R_\mathfrak p$
+pour une $R$-algèbre \'etale $R'$ (voir Algèbre, lemme
+\ref{algebra-lemma-etale}). Après avoir remplacé $R'$ par une localisation
+principale si nécessaire, nous pouvons supposer que
+$(b'_1, \ldots, b'_n)$ provient d'une solution $(b_1, \ldots, b_n)$
+dans $R'$. Posons $\mathfrak p' = R' \cap \mathfrak p''$ ; alors
+$R''_{\mathfrak p''} = R'_{\mathfrak p'}$, ce qui achève la démonstration.
+\end{proof}
+
+
+
+\section{Approximation pour les couples henséliens}
+\label{section-approximation-pairs}
+
+\noindent
+Nous pouvons généraliser la discussion de la
+section \ref{section-approximation-G-rings} au cas des couples henséliens.
+Les couples henséliens ont été définis dans
+Compléments d'algèbre, section
+\ref{more-algebra-section-henselian-pairs}.
+
+\begin{lemma}
+\label{lemma-henselian-pair}
+\begin{slogan}
+Approximation pour les couples henséliens.
+\end{slogan}
+Soit $(A, I)$ un couple hensélien, avec $A$ noethérien.
+Soit $A^\wedge$ le complété $I$-adique de $A$. Supposons que l'une au
+moins des conditions suivantes soit satisfaite :
+\begin{enumerate}
+\item $A \to A^\wedge$ est un morphisme d'anneaux régulier ;
+\item $A$ est un G-anneau noethérien ;
+\item $(A, I)$ est l'hensélisation
+(Compléments d'algèbre, lemme \ref{more-algebra-lemma-henselization})
+d'un couple $(B, J)$, où $B$ est un G-anneau noethérien.
+\end{enumerate}
+Soient $f_1, \ldots, f_m \in A[x_1, \ldots, x_n]$
+et $\hat{a}_1, \ldots, \hat{a}_n \in A^\wedge$ tels que
+$f_j(\hat{a}_1, \ldots, \hat{a}_n) = 0$
+pour $j = 1, \ldots, m$. Alors, pour tout $N \geq 1$, il existe
+$a_1, \ldots, a_n \in A$ tels que
+$\hat{a}_i - a_i \in I^N$ et $f_j(a_1, \ldots, a_n) = 0$
+pour $j = 1, \ldots, m$.
+\end{lemma}
+
+\begin{proof}
+D'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-henselization-pair-G-ring}
+nous voyons que (3) implique (2). D'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-map-G-ring-to-completion-regular}
+nous voyons que (2) implique (1). Il suffit donc de démontrer le lemme
+dans le cas où $A \to A^\wedge$ est un morphisme d'anneaux régulier.
+
+\medskip\noindent
+Soient $\hat{a}_1, \ldots, \hat{a}_n$ comme dans l'énoncé du lemme.
+D'après le théorème \ref{theorem-popescu}, nous pouvons trouver une
+factorisation $A \to B \to A^\wedge$ telle que $A \to B$ soit lisse, ainsi que
+des éléments $b_1, \ldots, b_n \in B$ tels que
+$f_j(b_1, \ldots, b_n) = 0$ dans $B$.
+Notons $\sigma : B \to A^\wedge \to A/I^N$ la composée.
+D'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-lift-section-smooth-morphism}, il existe un morphisme
+d'anneaux \'etale $A \to A'$ qui induit un isomorphisme
+$A/I^N \to A'/I^NA'$ et un morphisme de $A$-algèbres
+$\tilde \sigma : B \to A'$ relevant $\sigma$.
+Comme $(A, I)$ est hensélien, il existe un morphisme de $A$-algèbres
+$\chi : A' \to A$ ; voir Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-characterize-henselian-pair}.
+En posant alors $a_i = \chi(\tilde \sigma(b_i))$, nous obtenons une solution.
+\end{proof}
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

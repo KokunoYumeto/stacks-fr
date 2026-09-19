@@ -1,0 +1,2249 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{La géométrie des champs algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Ce chapitre étudie quelques propriétés géométriques des champs algébriques.
+Les versions initiales des Sections \ref{section-multiplicities} et
+\ref{section-dimension-of-algebraic-stacks}
+ont été rédigées par Matthew Emerton et Toby Gee et se trouvent
+sous leur forme originale dans \cite{Emerton-Gee-dim}.
+
+
+
+
+
+
+
+\section{Anneaux versels}
+\label{section-versal}
+
+\noindent
+Dans cette section, nous explicitons le lien entre les anneaux de déformation
+et les anneaux locaux des champs algébriques de type fini sur une base
+localement noethérienne.
+
+\begin{situation}
+\label{situation-versal}
+Ici, $\mathcal{X}$ est un champ algébrique localement de type fini
+sur un schéma localement noethérien $S$.
+\end{situation}
+
+\noindent
+Voici la définition.
+
+\begin{definition}
+\label{definition-versal-ring-at-x}
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+Un {\it anneau versel de $\mathcal{X}$ en $x_0$} est
+une $S$-algèbre locale noethérienne complète $A$ de corps résiduel $k$,
+pour laquelle il existe un objet formel versel
+$(A, \xi_n, f_n)$ comme dans Axiomes d'Artin, Définition
+\ref{artin-definition-versal-formal-object},
+avec $\xi_1 \cong x_0$ (une $2$-isomorphie).
+\end{definition}
+
+\noindent
+Nous voulons démontrer que les anneaux versels existent et sont uniques à
+facteurs lisses près. Nous utiliserons pour cela les catégories de prédéformations de
+Axiomes d'Artin, Section \ref{artin-section-predeformation-categories}.
+Dans notre situation, ce sont toujours des catégories de déformations.
+
+\begin{lemma}
+\label{lemma-deformation-category}
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+Alors $\mathcal{F}_{\mathcal{X}, k, x_0}$
+est une catégorie de déformations, et $T\mathcal{F}_{\mathcal{X}, k, x_0}$
+ainsi que $\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0})$
+sont des espaces vectoriels sur $k$ de dimension finie.
+\end{lemma}
+
+\begin{proof}
+Choisissons un ouvert affine $\Spec(\Lambda) \subset S$ tel que
+$\Spec(k) \to S$ se factorise par celui-ci.
+D'après Axiomes d'Artin, Section \ref{artin-section-predeformation-categories},
+nous obtenons une catégorie de prédéformations
+$\mathcal{F}_{\mathcal{X}, k, x_0}$
+sur la catégorie $\mathcal{C}_\Lambda$.
+(Comme il est signalé au passage cité, cette catégorie ne dépend que
+du morphisme $\Spec(k) \to S$, et non du choix de
+$\Lambda$.) D'après Axiomes d'Artin, Lemmes
+\ref{artin-lemma-deformation-category} et
+\ref{artin-lemma-algebraic-stack-RS}
+$\mathcal{F}_{\mathcal{X}, k, x_0}$ est en fait une catégorie de déformations.
+D'après Axiomes d'Artin, Lemme \ref{artin-lemma-finite-dimension},
+nous constatons que $T\mathcal{F}_{\mathcal{X}, k, x_0}$
+et $\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0})$
+sont des espaces vectoriels sur $k$ de dimension finie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-versal-ring}
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+Il existe alors un anneau versel de $\mathcal{X}$ en $x_0$. Si
+$A$, $A'$ en sont deux, alors $A \cong A'[[t_1, \ldots, t_r]]$
+ou $A' \cong A[[t_1, \ldots, t_r]]$ comme $S$-algèbres
+pour un certain $r$.
+\end{lemma}
+
+\begin{proof}
+L'existence résulte du Lemme \ref{lemma-deformation-category} et de
+Théorie formelle des déformations,
+Définition \ref{formal-defos-definition-deformation-category} et
+Lemmes \ref{formal-defos-lemma-RS-implies-S1-S2} et
+\ref{formal-defos-lemma-versal-object-existence}.
+D'après le résultat d'unicité de
+Théorie formelle des déformations, Lemme \ref{formal-defos-lemma-minimal-versal},
+il existe un anneau versel « minimal » $A$ de $\mathcal{X}$ en $x_0$
+tel que tout autre anneau versel de $\mathcal{X}$ en $x_0$ soit
+isomorphe à $A[[t_1, \ldots, t_r]]$ pour un certain $r$.
+Ceci entraîne manifestement la seconde assertion.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-versal-ring-field-extension}
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+Soit $l/k$ une extension finie de corps, et notons
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$ le morphisme induit.
+Étant donné un anneau versel $A$ de $\mathcal{X}$ en $x_0$, il existe
+un anneau versel $A'$ de $\mathcal{X}$ en $x_{l, 0}$ tel
+qu'il existe un homomorphisme de $S$-algèbres $A \to A'$ induisant
+l'extension de corps donnée $l/k$ et formellement lisse pour la topologie $\mathfrak m_{A'}$-adique
+considérée.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de
+Axiomes d'Artin, Lemme \ref{artin-lemma-change-of-field},
+et de
+Théorie formelle des déformations, Lemme
+\ref{formal-defos-lemma-change-of-field-versal-ring}.
+(Nous utilisons aussi le fait que $\mathcal{X}$ satisfait (RS), d'après
+Axiomes d'Artin, Lemme \ref{artin-lemma-algebraic-stack-RS}.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-versal-ring-completion}
+Dans la Situation \ref{situation-versal}, soit $x : U \to \mathcal{X}$ un
+morphisme, où $U$ est un schéma localement de type fini sur $S$.
+Soit $u_0 \in U$ un point de type fini.
+Posons $k = \kappa(u_0)$ et notons $x_0 : \Spec(k) \to \mathcal{X}$
+l'application induite. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $x$ est versel en $u_0$
+(Axiomes d'Artin, Définition \ref{artin-definition-versal}),
+\item $\hat x : \mathcal{F}_{U, k, u_0} \to \mathcal{F}_{\mathcal{X}, k, x_0}$
+est lisse,
+\item l'objet formel associé à
+$x|_{\Spec(\mathcal{O}_{U, u_0}^\wedge)}$ est versel, et
+\item il existe un voisinage ouvert $U' \subset U$ de $x$ tel que
+$x|_{U'} : U' \to \mathcal{X}$ soit lisse.
+\end{enumerate}
+De plus, dans ce cas, le complété $\mathcal{O}_{U, u_0}^\wedge$
+est un anneau versel de $\mathcal{X}$ en $x_0$.
+\end{lemma}
+
+\begin{proof}
+Puisque $U \to S$ est localement de type fini (comme composé de tels morphismes),
+nous voyons que $\Spec(k) \to S$ est de type fini (encore comme composé).
+L'énoncé a donc un sens. L'équivalence de (1) et (2)
+est la définition du fait que $x$ est versel en $u_0$.
+L'équivalence de (1) et (3) est
+Axiomes d'Artin, Lemme \ref{artin-lemma-versality-matches}.
+Ainsi, (1), (2) et (3) sont équivalentes.
+
+\medskip\noindent
+Si $x|_{U'}$ est lisse, alors le foncteur
+$\hat x : \mathcal{F}_{U, k, u_0} \to \mathcal{F}_{\mathcal{X}, k, x_0}$
+est lisse d'après Axiomes d'Artin, Lemme
+\ref{artin-lemma-formally-smooth-on-deformation-categories}.
+Ainsi, (4) entraîne (1), (2) et (3).
+Réciproquement, supposons que $x$ soit versel en $u_0$.
+Choisissons un morphisme lisse surjectif $y : V \to \mathcal{X}$, où $V$
+est un schéma. Posons $Z = V \times_\mathcal{X} U$ et choisissons un
+point de type fini $z_0 \in |Z|$ au-dessus de $u_0$ (cela est possible d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-finite-type-points-surjective-morphism}).
+D'après Axiomes d'Artin, Lemme \ref{artin-lemma-base-change-versal},
+le morphisme $Z \to V$ est lisse en $z_0$.
+Par définition, nous pouvons trouver un voisinage ouvert $W \subset Z$
+de $z_0$ tel que $W \to V$ soit lisse. Puisque $Z \to U$ est ouvert,
+soit $U' \subset U$ l'image de $W$. Nous voyons alors que
+$U' \to \mathcal{X}$ est lisse par notre définition des morphismes lisses
+de champs.
+
+\medskip\noindent
+La dernière assertion résulte des définitions, puisque
+$\mathcal{O}_{U, u_0}^\wedge$
+proreprésente $\mathcal{F}_{U, k, u_0}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-smoothness}
+Dans la Situation \ref{situation-versal}. Soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme tel que $\Spec(k) \to S$ soit de type fini, d'image $s$.
+Soit $A$ un anneau versel de $\mathcal{X}$ en $x_0$. Les conditions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item $x_0$ appartient au lieu lisse de $\mathcal{X} \to S$
+(Morphismes de champs, Lemme \ref{stacks-morphisms-lemma-where-smooth}),
+\item $\mathcal{O}_{S, s} \to A$ est formellement lisse pour la
+topologie $\mathfrak m_A$-adique, et
+\item $\mathcal{F}_{\mathcal{X}, k, x_0}$ est sans obstruction.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (2) et (3) résulte immédiatement de
+Théorie formelle des déformations, Lemme
+\ref{formal-defos-lemma-smooth-power-series-classical}.
+
+\medskip\noindent
+Notons que $\mathcal{O}_{S, s} \to A$ est formellement lisse pour la
+topologie $\mathfrak m_A$-adique si et seulement si
+$\mathcal{O}_{S, s} \to A' = A[[t_1, \ldots, t_r]]$
+est formellement lisse pour la topologie $\mathfrak m_{A'}$-adique.
+Par conséquent, (2) ne dépend pas du choix
+de l'anneau versel, d'après le Lemme \ref{lemma-versal-ring}.
+Ensuite, soit $l/k$ une extension finie et choisissons
+$A \to A'$ comme dans le Lemme \ref{lemma-versal-ring-field-extension}.
+Si $\mathcal{O}_{S, s} \to A$ est formellement lisse pour la
+topologie $\mathfrak m_A$-adique, alors $\mathcal{O}_{S, s} \to A'$
+est formellement lisse pour la topologie $\mathfrak m_{A'}$-adique, voir
+Compléments d'algèbre, Lemme \ref{more-algebra-lemma-compose-formally-smooth}.
+Réciproquement, si $\mathcal{O}_{S, s} \to A'$
+est formellement lisse pour la topologie $\mathfrak m_{A'}$-adique,
+alors $\mathcal{O}_{S, s}^\wedge \to A'$ et $A \to A'$ sont réguliers
+(Compléments d'algèbre, Proposition \ref{more-algebra-proposition-fs-regular}),
+donc $\mathcal{O}_{S, s}^\wedge \to A$ est régulier
+(Compléments d'algèbre, Lemme \ref{more-algebra-lemma-regular-permanence}),
+et donc $\mathcal{O}_{S, s} \to A$ est formellement lisse pour la
+topologie $\mathfrak m_A$-adique (même lemme que précédemment).
+Ainsi, l'équivalence de (2) et (1) vaut pour
+$k$ et $x_0$ si et seulement si elle vaut pour $l$ et $x_{0, l}$.
+
+\medskip\noindent
+Choisissons un schéma $U$ et un morphisme lisse $U \to \mathcal{X}$ tels
+que $\Spec(k) \times_\mathcal{X} U$ soit non vide. Choisissons une extension
+finie $l/k$ et un point $w_0 : \Spec(l) \to \Spec(k) \times_\mathcal{X} U$.
+Soit $u_0 \in U$ l'image de $w_0$.
+Nous pouvons appliquer ce qui précède à $l/k$ et à $l/\kappa(u_0)$
+pour voir que nous pouvons nous ramener à $u_0$. Nous pouvons donc supposer
+$A = \mathcal{O}_{U, u_0}^\wedge$, voir le
+Lemme \ref{lemma-compare-versal-ring-completion}.
+Observons que $x_0$ appartient au lieu lisse de $\mathcal{X} \to S$
+si et seulement si $u_0$ appartient au lieu lisse de $U \to S$, voir par exemple
+Morphismes de champs, Lemme \ref{stacks-morphisms-lemma-where-smooth}.
+L'équivalence de (1) et (2) résulte donc de
+Compléments d'algèbre, Lemme \ref{more-algebra-lemma-formally-smooth-finite-type}.
+\end{proof}
+
+\noindent
+Rappelons une conséquence de l'approximation d'Artin.
+
+\begin{lemma}
+\label{lemma-Artin-approximation-by-smooth-morphism}
+Dans la Situation \ref{situation-versal}. Soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme tel que $\Spec(k) \to S$ soit de type fini, d'image $s$.
+Soit $A$ un anneau versel de $\mathcal{X}$ en $x_0$.
+Si $\mathcal{O}_{S, s}$ est un anneau G, nous pouvons trouver un morphisme lisse
+$U \to \mathcal{X}$ dont la source est un schéma, et un point
+$u_0 \in U$ de corps résiduel $k$, tels que
+\begin{enumerate}
+\item $\Spec(k) \to U \to \mathcal{X}$ coïncide avec le morphisme donné $x_0$,
+\item il existe un isomorphisme $\mathcal{O}_{U, u_0}^\wedge \cong A$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $(\xi_n, f_n)$ l'objet formel versel sur $A$.
+D'après Axiomes d'Artin, Lemme \ref{artin-lemma-effective},
+nous savons que $\xi = (A, \xi_n, f_n)$ est effectif.
+Par hypothèse, $\mathcal{X}$ est localement de présentation finie sur $S$
+(utiliser Morphismes de champs, Lemme
+\ref{stacks-morphisms-lemma-noetherian-finite-type-finite-presentation}),
+et préserve donc les limites d'après Limites de champs, Proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+Ainsi, l'approximation d'Artin, sous la forme de
+Axiomes d'Artin, Lemme \ref{artin-lemma-approximate-versal},
+montre que nous pouvons trouver un morphisme $U \to \mathcal{X}$ dont
+la source est un $S$-schéma de type fini, contenant un point $u_0 \in U$
+de corps résiduel $k$ satisfaisant (1) et (2), tel que $U \to \mathcal{X}$
+soit versel en $u_0$. D'après le Lemme \ref{lemma-compare-versal-ring-completion},
+quitte à rétrécir $U$, nous pouvons supposer que $U \to \mathcal{X}$ est lisse.
+\end{proof}
+
+\begin{remark}[Amélioration des anneaux versels]
+\label{remark-upgrade}
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+Soit $A$ un anneau versel de $\mathcal{X}$ en $x_0$. D'après Axiomes d'Artin,
+Lemme \ref{artin-lemma-effective}, notre objet formel versel
+provient en fait d'un morphisme
+$$
+\Spec(A) \longrightarrow \mathcal{X}
+$$
+sur $S$. De plus, chacun des résultats précédents peut être renforcé de façon
+à être compatible avec ce morphisme. En voici la liste :
+\begin{enumerate}
+\item dans le Lemme \ref{lemma-versal-ring}, l'isomorphisme
+$A \cong A'[[t_1, \ldots, t_r]]$ ou $A' \cong A[[t_1, \ldots, t_r]]$
+peut être choisi compatible avec ces morphismes,
+\item dans le Lemme \ref{lemma-versal-ring-field-extension},
+l'homomorphisme $A \to A'$ peut être choisi compatible avec ces morphismes,
+\item dans le Lemme \ref{lemma-compare-versal-ring-completion},
+le morphisme $\Spec(\mathcal{O}_{U, u_0}^\wedge) \to \mathcal{X}$
+est le composé de l'application canonique
+$\Spec(\mathcal{O}_{U, u_0}^\wedge) \to U$ et de l'application donnée
+$U \to \mathcal{X}$,
+\item dans le Lemme \ref{lemma-Artin-approximation-by-smooth-morphism},
+l'isomorphisme $\mathcal{O}_{U, u_0}^\wedge \cong A$ peut
+être choisi de telle sorte que $\Spec(A) \to \mathcal{X}$ corresponde à l'application canonique
+de l'alinéa précédent.
+\end{enumerate}
+Dans chaque cas, l'assertion résulte du fait que nos applications sont
+compatibles avec les éléments formels versels; notons toutefois que les
+diagrammes sous-entendus ne sont $2$-commutatifs qu'au choix (non canonique)
+d'une $2$-flèche près. Cela signifie néanmoins que l'application $A' \to A$
+ou $A \to A'$ sous-entendue dans (1) est bien définie à homotopie formelle près, voir
+Théorie formelle des déformations, Lemme
+\ref{formal-defos-lemma-versal-unique-up-to-homotopy}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-versal-ring-flat}
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+Soit $A$ un anneau versel de $\mathcal{X}$ en $x_0$.
+Alors le morphisme $\Spec(A) \to \mathcal{X}$ de la
+Remarque \ref{remark-upgrade} est plat.
+\end{lemma}
+
+\begin{proof}
+Si l'anneau local de $S$ au point image est un anneau G, cela
+résulte immédiatement du
+Lemme \ref{lemma-Artin-approximation-by-smooth-morphism}
+et du fait que l'application d'un anneau local noethérien dans son
+complété est plate. Dans le cas général, nous procédons comme suit.
+
+\medskip\noindent
+Étape I. Si $A$ et $A'$ sont deux anneaux versels de $\mathcal{X}$ en $x_0$,
+le résultat est vrai pour $A$ si et seulement s'il l'est pour $A'$.
+En effet, quitte à échanger $A$ et $A'$, nous pouvons supposer qu'il existe
+une application formellement lisse $\varphi : A \to A'$ telle que le composé
+$$
+\Spec(A') \to \Spec(A) \to \mathcal{X}
+$$
+soit le morphisme $\Spec(A') \to \mathcal{X}$, voir le
+Lemme \ref{lemma-versal-ring} et la
+Remarque \ref{remark-upgrade}.
+Puisque $A \to A'$ est fidèlement plat, l'équivalence résulte de
+Morphismes de champs, Lemmes \ref{stacks-morphisms-lemma-composition-flat} et
+\ref{stacks-morphisms-lemma-flat-permanence}.
+
+\medskip\noindent
+Étape II. Soit $l/k$ une extension finie de corps. Soit
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$ le morphisme induit.
+Soit $A$ un anneau versel de $\mathcal{X}$ en $x_0$ et
+soit $A \to A'$ comme dans le Lemme \ref{lemma-versal-ring-field-extension}.
+À nouveau, le composé
+$$
+\Spec(A') \to \Spec(A) \to \mathcal{X}
+$$
+est le morphisme $\Spec(A') \to \mathcal{X}$, voir la Remarque \ref{remark-upgrade}.
+En raisonnant comme précédemment et en utilisant l'étape I pour voir que le choix des anneaux versels
+est sans incidence, nous voyons que le lemme vaut pour $x_0$ si et seulement
+s'il vaut pour $x_{l, 0}$.
+
+\medskip\noindent
+Étape III. Choisissons un schéma $U$ et un morphisme lisse surjectif
+$U \to \mathcal{X}$. Nous pouvons alors choisir un point de type fini
+$z_0$ de $Z = U \times_\mathcal{X} x_0$ (c'est un espace algébrique
+non vide). Soit $u_0 \in U$ l'image de $z_0$ dans $U$.
+Choisissons un schéma et une application étale surjective $W \to Z$
+tels que $z_0$ soit l'image d'un point fermé $w_0 \in W$
+(voir Morphismes d'espaces, Section
+\ref{spaces-morphisms-section-points-finite-type}).
+Puisque $W \to \Spec(k)$ et $W \to U$ sont de type fini,
+nous voyons que $\kappa(w_0)/k$ et $\kappa(w_0)/\kappa(u_0)$
+sont des extensions finies de corps
+(voir Morphismes, Section \ref{morphisms-section-points-finite-type}).
+En appliquant deux fois l'étape II, nous pouvons remplacer $x_0$ par
+$u_0 \to U \to \mathcal{X}$. Nous voyons alors que notre morphisme est le composé
+$$
+\Spec(\mathcal{O}_{U, u_0}^\wedge) \to U \to \mathcal{X}
+$$
+La première flèche est plate parce que les complétions d'anneaux locaux noethériens
+sont plates (Algèbre, Lemme \ref{algebra-lemma-completion-flat}),
+et la seconde flèche est plate puisque
+les morphismes lisses sont plats. Le composé est plat car la composition
+préserve la platitude.
+\end{proof}
+
+\begin{remark}
+\label{remark-groupoid-defo}
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+D'après le Lemme \ref{lemma-deformation-category} et
+Théorie formelle des déformations, Théorème
+\ref{formal-defos-theorem-presentation-deformation-groupoid}
+nous savons que $\mathcal{F}_{\mathcal{X}, k, x_0}$ admet une
+présentation par un groupoïde lisse proreprésentable en
+foncteurs sur $\mathcal{C}_\Lambda$.
+En explicitant les définitions, cela signifie que nous pouvons choisir
+\begin{enumerate}
+\item une $\Lambda$-algèbre locale noethérienne complète $A$
+de corps résiduel $k$, et un objet formel versel $\xi$
+de $\mathcal{F}_{\mathcal{X}, k, x_0}$ sur $A$,
+\item une $\Lambda$-algèbre locale noethérienne complète $B$
+de corps résiduel $k$, et un isomorphisme
+$$
+\underline{B}|_{\mathcal{C}_\Lambda}
+\longrightarrow
+\underline{A}|_{\mathcal{C}_\Lambda}
+\times_{\underline{\xi}, \mathcal{F}_{\mathcal{X}, k, x_0}, \underline{\xi}}
+\underline{A}|_{\mathcal{C}_\Lambda}
+$$
+\end{enumerate}
+Les projections correspondent à des applications formellement lisses
+$t : A \to B$ et $s : A \to B$ (car $\xi$ est versel).
+Il existe une application $c : B \to B \widehat{\otimes}_{s, A, t} B$
+qui fait de $(A, B, s, t, c)$ un cogroupoïde dans la catégorie
+des $\Lambda$-algèbres locales noethériennes complètes de corps résiduel $k$
+(sur les foncteurs proreprésentables, cette application est construite dans
+Théorie formelle des déformations, Lemme
+\ref{formal-defos-lemma-presentation-construction}).
+Enfin, le théorème cité nous dit que $\xi$ induit
+une équivalence
+$$
+[\underline{A}|_{\mathcal{C}_\Lambda} / \underline{B}|_{\mathcal{C}_\Lambda}]
+\longrightarrow
+\mathcal{F}_{\mathcal{X}, k, x_0}
+$$
+de groupoïdes cofibrés sur $\mathcal{C}_\Lambda$. En fait, nous obtenons aussi
+une équivalence
+$$
+[\underline{A}/\underline{B}]
+\longrightarrow
+\widehat{\mathcal{F}}_{\mathcal{X}, k, x_0}
+$$
+de groupoïdes cofibrés sur la catégorie complétée
+$\widehat{\mathcal{C}}_\Lambda$ (voir la discussion dans
+Théorie formelle des déformations, Section
+\ref{formal-defos-section-prorepresentable-groupoids-in-functors}
+qui explique pourquoi cela fonctionne). Bien entendu, $A$ est un anneau versel de
+$\mathcal{X}$ en $x_0$.
+\end{remark}
+
+
+
+
+
+
+
+
+\section{Multiplicités des composantes des champs algébriques}
+\label{section-multiplicities}
+
+\noindent
+Si $X$ est un schéma localement noethérien, nous pouvons écrire $X$ (considéré
+simplement comme espace topologique) comme réunion de composantes irréductibles,
+disons $X = \bigcup T_i$. Chaque composante irréductible est l'adhérence d'un
+unique point générique $\xi_i$, et l'anneau local $\mathcal O_{X,\xi_i}$
+est un anneau artinien local. Nous pouvons définir la {\it multiplicité de $X$ le long de $T_i$}
+ou la {\it multiplicité de $T_i$ dans $X$} par
+$$
+m_{T_i, X} = \text{length}_{\mathcal O_{X, \xi_i}} \mathcal O_{X, \xi_i}
+$$
+Autrement dit, c'est la longueur de l'anneau artinien local. Comparer
+avec
+Homologie de Chow, Section \ref{chow-section-cycle-of-closed-subscheme}.
+
+\medskip\noindent
+Notre but est ici de généraliser cette définition aux champs algébriques
+localement noethériens. Si $\mathcal{X}$ est un champ,
+alors son espace topologique $|\mathcal{X}|$
+(voir Propriétés des champs, Définition
+\ref{stacks-properties-definition-topological-space})
+est localement noethérien
+(Morphismes de champs, Lemme \ref{stacks-morphisms-lemma-Noetherian-topology}).
+Les composantes irréductibles de $|\mathcal{X}|$ sont parfois
+appelées les composantes irréductibles de $\mathcal{X}$.
+Si $\mathcal{X}$ est quasi-séparé, alors $|\mathcal{X}|$
+est sobre (Morphismes de champs, Lemme
+\ref{stacks-morphisms-lemma-sober-qs}),
+mais il ne l'est pas nécessairement dans le cas
+non quasi-séparé. Considérons par exemple l'espace algébrique non quasi-séparé
+$X = \mathbf{A}^1_\mathbf{C}/\mathbf{Z}$.
+En outre, il n'existe pas de faisceau structural
+sur $|\mathcal{X}|$ dont les fibres puissent servir à définir les multiplicités.
+
+\begin{lemma}
+\label{lemma-map-of-components}
+Soit $f : U \to \mathcal{X}$ un morphisme lisse d'un schéma
+vers un champ algébrique localement noethérien. L'adhérence de l'image de toute
+composante irréductible de $|U|$ est une composante irréductible de $|\mathcal{X}|$.
+Si $U \to \mathcal{X}$ est surjectif, toutes les composantes irréductibles de
+$|\mathcal{X}|$ s'obtiennent ainsi.
+\end{lemma}
+
+\begin{proof}
+L'application $|U| \to |\mathcal{X}|$ est continue et ouverte d'après
+Propriétés des champs, Lemme \ref{stacks-properties-lemma-topology-points}.
+Soit $T \subset |U|$ une composante irréductible. Puisque $U$ est localement
+noethérien, nous pouvons trouver un ouvert affine non vide $W \subset U$ contenu dans $T$.
+Alors $f(T) \subset |\mathcal{X}|$ est irréductible et contient le
+sous-ensemble ouvert non vide $f(W)$. Ainsi, l'adhérence de $f(T)$ est irréductible et
+contient un ouvert non vide. Il s'ensuit que cette adhérence est une composante
+irréductible.
+
+\medskip\noindent
+Supposons $U \to \mathcal{X}$ surjectif et soit $Z \subset |\mathcal{X}|$
+une composante irréductible. Choisissons un sous-ensemble ouvert noethérien $V$
+de $|\mathcal{X}|$ rencontrant $Z$. Après avoir retiré les autres composantes
+irréductibles de $V$, nous pouvons supposer que $V \subset Z$.
+Prenons une composante irréductible de l'ouvert non vide
+$f^{-1}(V) \subset |U|$ et soit $T \subset |U|$ son adhérence.
+C'est une composante irréductible de $|U|$, et l'adhérence de $f(T)$
+doit coïncider avec $Z$ par notre choix de $T$.
+\end{proof}
+
+\noindent
+Le lemme précédent s'applique en particulier aux morphismes lisses
+entre schémas localement noethériens. Ce cas particulier est
+invoqué implicitement dans l'énoncé du lemme suivant.
+
+\begin{lemma}
+\label{lemma-multiplicities}
+Soit $U \to X$ un morphisme lisse de schémas localement noethériens.
+Soit $T'$ une composante irréductible de $U$. Soit $T$ la
+composante irréductible de $X$ obtenue comme adhérence de
+l'image de $T'$. Alors $m_{T', U} = m_{T, X}$.
+\end{lemma}
+
+\begin{proof}
+Notons $\xi'$ le point générique de $T'$, et $\xi$ le
+point générique de $T$. Soient $A = \mathcal{O}_{X, \xi}$ et
+$B = \mathcal{O}_{U, \xi'}$. Nous devons montrer que
+$\text{length}_A A = \text{length}_B B$. Puisque
+$A \to B$ est un homomorphisme local plat d'anneaux
+(car les morphismes lisses sont plats), nous avons
+$$
+\text{length}_A(A) \text{length}_B(B/\mathfrak m_A B) =
+\text{length}_B(B)
+$$
+d'après Algèbre, Lemme \ref{algebra-lemma-pullback-module}. Il suffit donc
+de montrer que $\mathfrak m_A B = \mathfrak m_B$, ou, de manière équivalente, que
+$B/\mathfrak m_A B$ est réduit. Puisque $U \to X$ est lisse,
+son changement de base $U_{\xi} \to \Spec \kappa(\xi)$ l'est aussi. Comme $U_{\xi}$ est un
+schéma lisse sur un corps, il est réduit, et son anneau local
+en tout point l'est donc aussi
+(Variétés, Lemme \ref{varieties-lemma-smooth-geometrically-normal}).
+En particulier,
+$$
+B/\mathfrak m_A B =
+\mathcal{O}_{U, \xi'}/\mathfrak m_{X, \xi}\mathcal{O}_{U, \xi'} =
+\mathcal{O}_{U_\xi, \xi'}
+$$
+est réduit, comme voulu.
+\end{proof}
+
+\noindent
+À l'aide de ce résultat, nous pouvons montrer qu'il existe une bonne notion
+de multiplicité en nous plaçant localement pour la topologie lisse.
+
+\begin{lemma}
+\label{lemma-multiplicity}
+Soient $U_1 \to \mathcal{X}$ et $U_2 \to \mathcal{X}$ deux morphismes lisses
+de schémas vers un champ algébrique localement noethérien $\mathcal{X}$.
+Soient $T_1'$ et $T_2'$ des composantes irréductibles de $|U_1|$
+et $|U_2|$, respectivement. Supposons que les adhérences des images de
+$T_1'$ et $T_2'$ soient la même composante irréductible $T$ de $|\mathcal{X}|$.
+Alors $m_{T_1', U_1} = m_{T_2', U_2}$.
+\end{lemma}
+
+\begin{proof}
+Soient $V_1$ et $V_2$ des sous-ensembles denses de $T_1'$ et $T'_2$, respectivement,
+qui soient ouverts dans $U_1$ et $U_2$, respectivement (voir la preuve du
+Lemme \ref{lemma-map-of-components}).
+Les images de $|V_1|$ et $|V_2|$ dans $|\mathcal{X}|$ sont des sous-ensembles ouverts
+non vides de l'ensemble irréductible $T$, et ont donc une intersection
+non vide. D'après
+Propriétés des champs, Lemme \ref{stacks-properties-lemma-points-cartesian},
+l'application $|V_1 \times_\mathcal{X} V_2| \to |V_1| \times_{|\mathcal{X}|} |V_2|$
+est surjective. Par conséquent, $V_1 \times_\mathcal{X} V_2$
+est un espace algébrique non vide; nous pouvons donc choisir une
+surjection étale $V \to V_1 \times_\mathcal{X} V_2$
+dont la source est un schéma (non vide).
+Si $T'$ est une composante irréductible quelconque de $V$,
+alors le Lemme \ref{lemma-map-of-components} montre que l'adhérence de
+l'image de $T'$ dans $U_1$ (respectivement dans $U_2$) est égale à $T'_1$
+(respectivement à $T'_2$).
+
+\medskip\noindent
+En appliquant deux fois le Lemme \ref{lemma-multiplicities}, nous trouvons
+que
+$$
+m_{T_1', U_1} = m_{T', V} = m_{T_2', U_2},
+$$
+comme voulu.
+\end{proof}
+
+\noindent
+Nous en avons maintenant fait assez pour montrer que la définition
+suivante a un sens.
+
+\begin{definition}
+\label{definition-multiplicity}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien. Soit
+$T \subset |\mathcal{X}|$ une composante irréductible.
+La {\it multiplicité} de $T$ dans $\mathcal{X}$ est définie par
+$m_{T, \mathcal{X}} = m_{T', U}$, où $f : U \to \mathcal{X}$
+est un morphisme lisse d'un schéma et $T' \subset |U|$
+est une composante irréductible telle que $f(T') \subset T$.
+\end{definition}
+
+\noindent
+Ceci est indépendant du choix de $f : U \to \mathcal{X}$
+et de celui de la composante irréductible $T'$ envoyée dans $T$,
+d'après les Lemmes \ref{lemma-map-of-components} et \ref{lemma-multiplicity}.
+
+\medskip\noindent
+Pour terminer, notons qu'il est parfois commode de considérer
+une composante irréductible de $\mathcal{X}$ comme un sous-champ fermé.
+À cette fin, si $T \subset |\mathcal{X}|$ est une composante irréductible,
+nous pouvons considérer l'unique sous-champ fermé réduit
+$\mathcal{T} \subset \mathcal{X}$ tel que $|\mathcal{T}| = T$, voir
+Propriétés des champs, Définition
+\ref{stacks-properties-definition-reduced-induced-stack}.
+Si $\mathcal{X}$ est quasi-séparé, alors
+une composante irréductible est un champ intègre; voir
+Morphismes de champs, Section \ref{stacks-morphisms-section-integral-stacks},
+pour plus de détails.
+
+
+
+\section{Branches formelles et multiplicités}
+\label{section-formal-branches}
+
+\noindent
+Il sera commode de comparer la notion de multiplicité
+d'une composante irréductible donnée par la Définition \ref{definition-multiplicity}
+à la notion connexe de multiplicité des composantes irréductibles
+(des spectres) des anneaux versels de $\mathcal{X}$ aux points de type fini.
+
+\medskip\noindent
+Dans la Situation \ref{situation-versal}, soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+Soient $A$, $A'$ des anneaux versels de $\mathcal{X}$ en $x_0$.
+Quitte à échanger $A$ et $A'$, nous savons qu'il existe une application
+formellement lisse\footnote{Au sens où
+$A'$ devient isomorphe à un anneau de séries formelles sur $A$.}
+$\varphi : A \to A'$ compatible avec les objets formels versels, voir le
+Lemme \ref{lemma-versal-ring} et la
+Remarque \ref{remark-upgrade}.
+De plus, $\varphi$ est bien définie à homotopie formelle près, voir
+Théorie formelle des déformations, Lemme
+\ref{formal-defos-lemma-versal-unique-up-to-homotopy}.
+En particulier, nous constatons que $\varphi(\mathfrak p)A'$ est un idéal
+bien défini de $A'$, d'après
+Théorie formelle des déformations, Lemme
+\ref{formal-defos-lemma-homotopic-minimal-prime}.
+Puisque $A \to A'$ est formellement lisse,
+$\varphi(\mathfrak p)A'$ est en fait un idéal premier minimal de $A'$,
+et tout idéal premier minimal de $A'$ est de cette forme pour
+un unique idéal premier minimal $\mathfrak p \subset A$ (tout cela
+se démontre facilement en écrivant $A'$ comme anneau de séries formelles sur $A$).
+Ainsi, puisque les idéaux premiers minimaux correspondent
+aux composantes irréductibles, la définition suivante a un sens.
+
+\begin{definition}
+\label{definition-formal-branches}
+Soit $\mathcal{X}$ un champ algébrique localement de type fini
+sur un schéma localement noethérien $S$. Soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+L'ensemble des {\it branches formelles de $\mathcal{X}$ passant par $x_0$}
+est l'ensemble des composantes irréductibles de $\Spec(A)$
+pour un choix quelconque d'anneau versel de $\mathcal{X}$ en $x_0$,
+ces ensembles étant identifiés pour les différents choix de $A$ par le procédé décrit ci-dessus.
+\end{definition}
+
+\noindent
+Supposons, dans la situation de la Définition \ref{definition-formal-branches},
+qu'une extension finie $l/k$ soit donnée. Posons
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$ égal au composé de
+$\Spec(l) \to \Spec(k)$ avec $x_0$. Soit
+$A \to A'$ comme dans le Lemme \ref{lemma-versal-ring-field-extension}.
+Puisque $A \to A'$ est fidèlement plat, le morphisme
+$$
+\Spec(A') \to \Spec(A)
+$$
+envoie les (points génériques des) composantes irréductibles sur les
+(points génériques des) composantes irréductibles.
+Cette application est surjective, mais
+elle n'est en général pas bijective.
+Autrement dit, nous obtenons une application surjective
+$$
+\text{branches formelles de }\mathcal{X}\text{ passant par }x_{l, 0}
+\longrightarrow
+\text{branches formelles de }\mathcal{X}\text{ passant par }x_0
+$$
+Il se trouve que, si $l/k$ est purement inséparable, alors
+l'application est également injective (nous ajouterons ici un énoncé précis
+et une preuve si nous en avons un jour besoin).
+
+\begin{lemma}
+\label{lemma-branches}
+Dans la situation de la Définition \ref{definition-formal-branches},
+il existe une surjection canonique de l'ensemble des branches formelles de
+$\mathcal{X}$ passant par $x_0$ sur l'ensemble des composantes irréductibles de
+$|\mathcal{X}|$ qui contiennent $x_0$ dans $|\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+Soit $A$ comme dans la Définition \ref{definition-formal-branches}, et
+soit $\Spec(A) \to \mathcal{X}$ comme dans la Remarque \ref{remark-upgrade}.
+Nous affirmons que le point générique d'une composante irréductible de
+$\Spec(A)$ est envoyé sur un point générique d'une composante irréductible
+de $|\mathcal{X}|$. Choisissons un schéma $U$ et un morphisme
+lisse surjectif $U \to \mathcal{X}$. Considérons le diagramme
+$$
+\xymatrix{
+\Spec(A) \times_\mathcal{X} U \ar[d]_p \ar[r]_-q & U \ar[d]^f \\
+\Spec(A) \ar[r]^j & \mathcal{X}
+}
+$$
+D'après le Lemme \ref{lemma-versal-ring-flat}, $j$ est plat.
+Par conséquent, $q$ est plat. D'autre part, $f$ est lisse surjectif,
+donc $p$ est lisse surjectif. Cela entraîne que tout point générique
+$\eta \in \Spec(A)$ d'une composante irréductible est l'image d'un
+point de codimension $0$, $\eta'$, de l'espace algébrique
+$\Spec(A) \times_\mathcal{X} U$ (voir
+Propriétés des espaces, Section \ref{spaces-properties-section-generic-points},
+pour la notation et l'emploi du théorème de descente dans les anneaux locaux étales).
+Puisque $q$ est plat, $q(\eta')$ est un point de codimension $0$ de $U$
+(même raisonnement).
+Puisque $U$ est un schéma, $q(\eta')$ est le point générique
+d'une composante irréductible de $U$. Ainsi, l'adhérence de l'image
+de $q(\eta')$ dans $|\mathcal{X}|$ est une composante irréductible
+d'après le Lemme \ref{lemma-map-of-components}, comme affirmé.
+
+\medskip\noindent
+L'affirmation fournit manifestement un procédé pour définir l'application voulue.
+Pour voir qu'elle est surjective, choisissons $u_0 \in U$ s'envoyant sur
+$x_0$ dans $|\mathcal{X}|$. Choisissons un voisinage ouvert affine $U' \subset U$
+de $u_0$. Quitte à rétrécir $U'$, nous pouvons supposer que toute
+composante irréductible de $U'$ passe par $u_0$. Nous pouvons alors
+remplacer $\mathcal{X}$ par le sous-champ ouvert correspondant à
+l'image de $|U'| \to |\mathcal{X}|$. Nous pouvons donc supposer que $U$ est affine,
+possède un point $u_0$ s'envoyant sur $x_0 \in |\mathcal{X}|$,
+et que toute composante irréductible de $U$ passe par $u_0$.
+D'après Propriétés des champs, Lemme
+\ref{stacks-properties-lemma-points-cartesian}
+il existe un point $t \in |\Spec(A) \times_\mathcal{X} U|$
+s'envoyant sur le point fermé de $\Spec(A)$ et sur $u_0$.
+En appliquant le théorème de descente aux homomorphismes locaux plats d'anneaux
+$$
+A \longrightarrow
+\mathcal{O}_{\Spec(A) \times_\mathcal{X} U, \overline{t}}
+\longleftarrow \mathcal{O}_{U, u_0}
+$$
+nous voyons que tout idéal premier minimal de $\mathcal{O}_{U, u_0}$
+est l'image d'un idéal premier minimal de l'anneau local du milieu,
+et qu'un tel idéal premier minimal s'envoie sur un idéal premier minimal de $A$.
+Cela démontre la surjectivité. Certains détails sont omis.
+\end{proof}
+
+\noindent
+Soit $A$ un anneau local noethérien complet. Les composantes
+irréductibles de $\Spec(A)$ ont alors des multiplicités, voir
+l'introduction de la Section \ref{section-multiplicities}.
+Si $A' = A[[t_1, \ldots, t_r]]$, alors le morphisme
+$\Spec(A') \to \Spec(A)$ induit une bijection entre les composantes
+irréductibles qui préserve les multiplicités (nous omettons la preuve facile).
+Ceci, joint à la discussion précédant la
+Définition \ref{definition-formal-branches},
+montre que la définition suivante a un sens.
+
+\begin{definition}
+\label{definition-multiplicity-formal-branches}
+Soit $\mathcal{X}$ un champ algébrique localement de type fini
+sur un schéma localement noethérien $S$. Soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$.
+La {\it multiplicité d'une branche formelle de $\mathcal{X}$ passant par $x_0$}
+est la multiplicité de la composante irréductible correspondante de
+$\Spec(A)$ pour un choix quelconque d'anneau versel de $\mathcal{X}$ en $x_0$
+(voir la discussion ci-dessus).
+\end{definition}
+
+\begin{lemma}
+\label{lemma-branches-multiplicity}
+Soit $\mathcal{X}$ un champ algébrique localement de type fini
+sur un schéma localement noethérien $S$. Soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$, dont
+l'image est $s \in S$. Si $\mathcal{O}_{S, s}$ est un anneau G, alors
+l'application du Lemme \ref{lemma-branches} préserve les multiplicités.
+\end{lemma}
+
+\begin{proof}
+D'après le Lemme \ref{lemma-Artin-approximation-by-smooth-morphism}, nous
+pouvons supposer qu'il existe un morphisme lisse $U \to \mathcal{X}$,
+où $U$ est un schéma, et où un point à valeurs dans $k$, $u_0$, appartient à $U$,
+tels que $\mathcal{O}_{U, u_0}^\wedge$ soit un anneau versel de
+$\mathcal{X}$ en $x_0$. Par la construction de notre application dans
+la preuve du Lemme \ref{lemma-branches} (qui se simplifie
+considérablement puisque $A = \mathcal{O}_{U, u_0}^\wedge$), nous trouvons
+qu'il suffit de montrer ceci : la multiplicité d'une composante irréductible
+de $U$ passant par $u_0$ est égale à la
+multiplicité de toute composante irréductible de
+$\Spec(\mathcal{O}_{U, u_0}^\wedge)$ qui s'y envoie.
+
+\medskip\noindent
+Traduit en algèbre commutative, cela donne ce qui suit :
+soit $C = \mathcal{O}_{U, u_0}$. Il est essentiellement de type fini
+sur $\mathcal{O}_{S, s}$ et est donc un anneau G (Compléments d'algèbre,
+Proposition \ref{more-algebra-proposition-finite-type-over-G-ring}).
+Alors $A = C^\wedge$. Par conséquent, $C \to A$ est un homomorphisme régulier d'anneaux.
+Soit $\mathfrak q \subset C$ un idéal premier minimal et soit $\mathfrak p \subset A$
+un idéal premier minimal au-dessus de $\mathfrak q$. Alors
+$$
+R = C_\mathfrak p \longrightarrow A_\mathfrak p = R'
+$$
+est un homomorphisme régulier d'anneaux locaux artiniens. Pour un tel homomorphisme,
+on a toujours
+$$
+\text{length}_R R = \text{length}_{R'} R'
+$$
+C'est précisément ce qu'il fallait montrer, car le membre de gauche
+est la multiplicité de notre composante sur $U$, et le membre de droite
+est la multiplicité de notre composante sur $\Spec(A)$.
+Pour établir l'égalité, nous utilisons d'abord
+$$
+\text{length}_R(R) \text{length}_{R'}(R'/\mathfrak m_R R') =
+\text{length}_{R'}(R')
+$$
+d'après Algèbre, Lemme \ref{algebra-lemma-pullback-module}. Il suffit donc
+de montrer que $\mathfrak m_R R' = \mathfrak m_{R'}$, ce qui résulte
+du fait qu'il s'agit d'un homomorphisme régulier d'anneaux locaux de dimension zéro.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Théorie de la dimension des champs algébriques}
+\label{section-dimension-of-algebraic-stacks}
+
+\noindent
+À notre connaissance, les principaux résultats publiés sur la théorie de la
+dimension des champs algébriques sont ceux de \cite{Osserman}, qui
+étudie les notions de codimension et de dimension relative. Nous
+examinons plus en détail la notion de dimension d'un
+champ algébrique en un point, et démontrons divers résultats
+reliant la dimension des fibres d'un morphisme en un point de la source
+à la dimension de sa source et de son but. Nous démontrons aussi un résultat
+(le Lemme \ref{lemma-dimension-formula} ci-dessous) qui
+nous permet (sous des hypothèses appropriées) de calculer la dimension
+d'un champ algébrique en un point au moyen d'un anneau versel.
+
+\medskip\noindent
+Sans avoir toujours cherché à optimiser nos résultats, nous avons
+dans une large mesure essayé d'éviter les hypothèses superflues. Toutefois, dans certains
+de nos résultats, où nous comparons certaines propriétés d'un champ
+algébrique à celles d'un anneau versel de ce
+champ en un point, nous nous sommes restreints
+au cas des champs algébriques localement de présentation finie
+sur un schéma de base localement noethérien dont tous les anneaux locaux sont
+des anneaux $G$. Cela nous permet de disposer de l'approximation d'Artin
+pour comparer la géométrie de l'anneau versel à celle
+du champ lui-même. Il se peut cependant que cette hypothèse restrictive
+ne soit pas nécessaire à la validité
+de tous les énoncés que nous démontrons.
+Comme elle est satisfaite dans les applications que nous avons en vue,
+nous nous en sommes néanmoins accommodés lorsqu'elle est utile.
+
+\medskip\noindent
+Si $X$ est un schéma, nous définissons la dimension $\dim(X)$ de $X$
+comme la dimension de Krull de l'
+espace topologique sous-jacent à $X$,
+tandis que, si $x$ est un point de $X$,
+nous définissons la dimension $\dim_x (X)$ de $X$ en $x$ comme le
+minimum des dimensions des sous-ensembles ouverts $U$ de $X$ contenant
+$x$, voir
+Propriétés, Définition \ref{properties-definition-dimension}.
+On a la relation $\dim(X) = \sup_{x \in X} \dim_x(X)$, voir
+Propriétés, Lemme \ref{properties-lemma-dimension}.
+Si $X$ est localement noethérien, alors $\dim_x(X)$ coïncide avec le supremum
+des dimensions en $x$
+des composantes irréductibles de $X$ passant par $x$.
+
+\medskip\noindent
+Si $X$ est un espace algébrique et $x \in |X|$,
+nous définissons $\dim_x X = \dim_u U,$ où $U$ est un schéma quelconque
+admettant une surjection étale $U \to X$,
+et où $u\in U$ est un point quelconque au-dessus de $x$, voir
+Propriétés des espaces, Définition
+\ref{spaces-properties-definition-dimension-at-point}.
+Nous posons $\dim(X) = \sup_{x \in |X|} \dim_x(X)$, voir
+Propriétés des espaces, Définition \ref{spaces-properties-definition-dimension}.
+
+\begin{remark}
+\label{remark-dimension-algebraic-space}
+En général, la dimension de l'espace algébrique $X$ en un point $x$
+peut ne pas coïncider avec la dimension de l'espace topologique sous-jacent
+$|X|$ en $x$. Par exemple, si $k$ est un corps de caractéristique zéro et
+$X =  \mathbf{A}^1_k / \mathbf{Z}$, alors $X$ est de dimension $1$ (la dimension
+de $\mathbf{A}^1_k$) en chacun de ses points,
+tandis que $|X|$ est muni de la topologie grossière et a donc une
+dimension de Krull nulle. D'autre part, dans
+Espaces algébriques, Exemple \ref{spaces-example-infinite-product},
+on donne un exemple d'espace algébrique
+qui est de dimension $0$ en chacun de ses points, tandis que $|X|$ est
+irréductible, de dimension de Krull $1$, et admet un point générique (de sorte que la
+dimension de $|X|$ en chacun de ses points est $1$); voir aussi la discussion
+de cet exemple dans
+Propriétés des espaces, Section \ref{spaces-properties-section-dimension}.
+
+\medskip\noindent
+D'autre part, si $X$ est un espace algébrique {\it convenable}, au sens de
+Espaces convenables, Définition \ref{decent-spaces-definition-very-reasonable}
+(en particulier, si $X$ est quasi-séparé; voir
+Espaces convenables, Section \ref{decent-spaces-section-reasonable-decent}),
+alors la dimension de $X$ en $x$ coïncide effectivement avec la dimension
+de $|X|$ en $x$; voir
+Espaces convenables, Lemme \ref{decent-spaces-lemma-dimension-decent-space}.
+\end{remark}
+
+\noindent
+Pour définir la dimension d'un champ algébrique,
+il sera utile de disposer d'abord de la notion de dimension relative,
+en un point de la source,
+d'un morphisme dont la source est un espace algébrique
+et le but un champ algébrique. La définition est quelque peu
+compliquée, simplement parce que (contrairement au cas des schémas) les points d'un
+champ algébrique, ou d'un espace
+algébrique, ne peuvent être décrits comme des morphismes depuis le spectre d'un corps,
+mais seulement comme des classes d'équivalence de tels morphismes.
+
+\begin{definition}
+\label{definition-relative-dimension}
+Si $f : T \to \mathcal{X}$ est un morphisme localement de type fini d'un
+espace algébrique vers un champ algébrique,
+et si $t \in |T|$ est un point d'image $x \in | \mathcal{X}|$, nous définissons
+{\it la dimension relative} de $f$ en $t$, notée
+$\dim_t(T_x),$
+comme suit :
+choisissons un morphisme $\Spec k \to \mathcal{X}$, de source le spectre d'un
+corps, qui représente $x$, et choisissons un point
+$t' \in |T \times_{\mathcal{X}} \Spec k|$
+s'envoyant sur $t$ par la projection vers $|T|$
+(un tel point $t'$ existe, d'après
+Propriétés des champs, Lemme \ref{stacks-properties-lemma-points-cartesian});
+alors
+$$
+\dim_t(T_x) = \dim_{t'}(T \times_{\mathcal{X}} \Spec k ).
+$$
+\end{definition}
+
+\noindent
+Notons que, puisque $T$ est un espace algébrique et $\mathcal{X}$ un
+champ algébrique, le produit fibré $T \times_{\mathcal{X}} \Spec k$
+est un espace algébrique; la quantité figurant au membre de droite de
+cette définition est donc bien définie (voir la discussion ci-dessus).
+
+\begin{remark}
+\label{remark-relative-dimension}
+(1)
+On vérifie aisément (par exemple en utilisant l'invariance
+par changement de base de la dimension relative des morphismes de schémas localement
+de type fini; voir par exemple
+Morphismes, Lemme \ref{morphisms-lemma-dimension-fibre-after-base-change})
+que $\dim_t(T_x)$ est bien définie, indépendamment des choix
+faits pour la calculer.
+
+\medskip\noindent
+(2)
+Lorsque $\mathcal{X}$ est aussi un espace algébrique,
+on vérifie immédiatement que cette définition coïncide avec
+la définition de la dimension relative donnée dans
+Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-dimension-fibre}.
+\end{remark}
+
+\noindent
+Rappelons maintenant le lemme suivant, sur lequel repose notre étude de
+la dimension d'un champ algébrique localement noethérien.
+
+\begin{lemma}
+\label{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+Si $f: U \to X$ est un morphisme lisse d'espaces algébriques localement
+noethériens, et
+si $u \in |U|$ est d'image $x \in |X|$, alors
+$$
+\dim_u (U) = \dim_x(X) + \dim_{u} (U_x)
+$$
+où $\dim_u (U_x)$ est défini par la
+Définition \ref{definition-relative-dimension}.
+\end{lemma}
+
+\begin{proof}
+Voir Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-smoothness-dimension-spaces}
+en notant que la définition de $\dim_u (U_x)$ utilisée ici coïncide avec
+celle qui y est employée, d'après la Remarque \ref{remark-relative-dimension} (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-for-stacks}
+Soient $\mathcal{X}$ un champ algébrique localement noethérien et
+$x \in |\mathcal{X}|$. Soit $U \to \mathcal{X}$ un morphisme lisse
+d'un espace algébrique vers $\mathcal{X}$, et soit $u$ un point quelconque de $|U|$
+s'envoyant sur $x$. Alors
+$$
+\dim_x(\mathcal{X}) =  \dim_u(U) - \dim_{u}(U_x)
+$$
+où la dimension relative $\dim_u(U_x)$ est définie
+par la Définition \ref{definition-relative-dimension}, et la
+dimension de $\mathcal{X}$ en $x$ comme dans
+Propriétés des champs, Définition
+\ref{stacks-properties-definition-dimension-at-point}.
+\end{lemma}
+
+\begin{proof}
+Le Lemme \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+permet de vérifier que le membre de droite
+$\dim_u(U) + \dim_u(U_x)$ est indépendant du choix
+du morphisme lisse $U \to \mathcal{X}$ et de $u \in |U|$.
+Nous omettons les détails. En particulier, nous pouvons supposer que $U$ est un schéma.
+Dans ce cas, nous pouvons calculer $\dim_u(U_x)$
+en choisissant comme représentant de $x$
+le composé $\Spec \kappa(u) \to U \to \mathcal{X}$, où
+le premier morphisme est le morphisme canonique d'image $u \in U$.
+Écrivons alors $R = U \times_{\mathcal{X}} U$ et notons
+$e : U \to R$ le morphisme diagonal. L'invariance de la
+dimension relative par changement de base montre que
+$\dim_u(U_x) = \dim_{e(u)}(R_u)$. Nous voyons donc que
+le membre de droite est égal à
+$\dim_u (U) - \dim_{e(u)}(R_u) = \dim_x(\mathcal{X})$, comme voulu.
+\end{proof}
+
+\begin{remark}
+\label{remark-dimension-DM}
+Pour les champs de Deligne--Mumford suffisamment convenables
+(par exemple quasi-séparés),
+$\dim_x(\mathcal{X})$ coïncide à nouveau avec la
+quantité définie
+topologiquement $\dim_x |\mathcal{X}|$. Cependant, pour des champs d'Artin plus
+généraux,
+ce n'est généralement pas le cas. Par exemple, si
+$\mathcal{X} = [\mathbf{A}^1/\mathbf{G}_m]$
+(sur un certain corps, le quotient étant pris pour
+l'action multiplicative usuelle de $\mathbf{G}_m$ sur $\mathbf{A}^1$),
+alors $|\mathcal{X}|$ possède deux points, dont l'un est une spécialisation de l'autre
+(correspondant
+aux deux orbites de $\mathbf{G}_m$ sur $\mathbf{A}^1$), et est donc de
+dimension $1$ comme
+espace topologique; mais $\dim_x (\mathcal{X}) = 0$ pour les deux points
+$x \in |\mathcal{X}|$.
+(Un exemple encore plus extrême est fourni par l'espace classifiant
+$[\Spec k/\mathbf{G}_m]$, dont la dimension en son unique point
+est égale à $-1$.)
+\end{remark}
+
+\noindent
+Nous pouvons maintenant étendre la Définition \ref{definition-relative-dimension}
+au contexte des morphismes (localement de type fini)
+entre champs algébriques (localement noethériens).
+
+\begin{definition}
+\label{definition-relative-dimension-for-stacks}
+Si $f : \mathcal{T} \to \mathcal{X}$
+est un morphisme localement de type fini entre
+champs algébriques localement noethériens, et si
+$t \in |\mathcal{T}|$ est un point d'image $x \in |\mathcal{X}|$, nous
+définissons la {\it dimension relative} de $f$ en $t$, notée
+$\dim_t(\mathcal{T}_x),$ comme suit :
+choisissons un morphisme $\Spec k \to \mathcal{X}$, de source le spectre d'un
+corps, qui représente $x$, et choisissons un point
+$t' \in |\mathcal{T} \times_{\mathcal{X}} \Spec k|$
+s'envoyant sur $t$ par la projection vers $|\mathcal{T}|$
+(un tel point $t'$ existe, d'après
+Propriétés des champs, Lemme
+\ref{stacks-properties-lemma-points-cartesian}; alors
+$$
+\dim_t(\mathcal{T}_x) = \dim_{t'}(\mathcal{T} \times_{\mathcal{X}} \Spec k ).
+$$
+\end{definition}
+
+\noindent
+Notons que, puisque $\mathcal{T}$ est un champ algébrique et $\mathcal{X}$ un
+champ algébrique, le produit fibré $\mathcal{T}\times_{\mathcal{X}} \Spec k$
+est un champ algébrique, localement noethérien d'après
+Morphismes de champs, Lemme
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}.
+Ainsi, la quantité figurant au membre de droite de cette définition
+est définie par Propriétés des champs,
+Définition \ref{stacks-properties-definition-dimension-at-point}.
+
+\begin{remark}
+\label{remark-dimension-tangent-space-well-defined}
+Des manipulations usuelles montrent que $\dim_t(\mathcal{T}_x)$ est bien définie,
+indépendamment des choix faits pour la calculer.
+\end{remark}
+
+\noindent
+Établissons maintenant quelques propriétés élémentaires de la dimension relative,
+qui sont des généralisations évidentes des énoncés correspondants dans le
+cas des morphismes de schémas.
+
+\begin{lemma}
+\label{lemma-base-change-invariance-of-relative-dimension}
+Supposons donné
+un carré cartésien de morphismes de champs localement noethériens
+$$
+\xymatrix{
+\mathcal{T}' \ar[d]\ar[r] & \mathcal{T} \ar[d] \\
+\mathcal{X}' \ar[r] & \mathcal{X}
+}
+$$
+où les morphismes verticaux sont localement de type fini.
+Si $t' \in |\mathcal{T}'|$,
+a pour images $t$, $x'$ et $x$ dans $|\mathcal{T}|$, $|\mathcal{X}'|$ et
+$|\mathcal{X}|$,
+respectivement, alors $\dim_{t'}(\mathcal{T}'_{x'}) = \dim_{t}(\mathcal{T}_x).$
+\end{lemma}
+
+\begin{proof}
+Les deux membres peuvent (par définition) être calculés comme la
+dimension du même produit fibré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-behaviour-of-dimensions-wrt-smooth-morphisms-stacky}
+Si $f: \mathcal{U} \to \mathcal{X}$ est un morphisme lisse de champs algébriques
+localement noethériens, et
+si $u \in |\mathcal{U}|$ est d'image $x \in |\mathcal{X}|$,
+alors
+$$
+\dim_u (\mathcal{U}) = \dim_x(\mathcal{X}) + \dim_{u} (\mathcal{U}_x).
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme lisse surjectif $V \to \mathcal{U}$ dont la source
+est un schéma, et soit $v\in |V|$ un point s'envoyant sur $u$.
+Alors le composé $V \to \mathcal{U} \to \mathcal{X}$ est lui aussi lisse,
+et, d'après le Lemme \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms},
+nous avons $\dim_x(\mathcal{X}) = \dim_v(V) - \dim_v(V_x),$
+tandis que $\dim_u(\mathcal{U}) = \dim_v(V) - \dim_v(V_u).$
+Ainsi
+$$
+\dim_u(\mathcal{U}) - \dim_x(\mathcal{X}) = \dim_v (V_x) - \dim_v (V_u).
+$$
+
+\medskip\noindent
+Choisissons un représentant $\Spec k \to \mathcal{X}$ de $x$
+et un point $v' \in | V \times_{\mathcal{X}} \Spec k|$ au-dessus de
+$v$, d'image $u'$ dans $|\mathcal{U}\times_{\mathcal{X}} \Spec k|$;
+alors, par définition,
+$\dim_u(\mathcal{U}_x) = \dim_{u'}(\mathcal{U}\times_{\mathcal{X}} \Spec k),$
+et
+$\dim_v(V_x) = \dim_{v'}(V\times_{\mathcal{X}} \Spec k).$
+
+\medskip\noindent
+Or $V\times_{\mathcal{X}} \Spec k \to \mathcal{U}\times_{\mathcal{X}}\Spec k$
+est un morphisme lisse surjectif (comme changement de base
+d'un tel morphisme) dont la source est un espace algébrique
+(puisque $V$ et $\Spec k$ sont des schémas et $\mathcal{X}$
+un champ algébrique). Ainsi, toujours par définition,
+nous avons
+\begin{align*}
+\dim_{u'}(\mathcal{U}\times_{\mathcal{X}} \Spec k)
+& =
+\dim_{v'}(V\times_{\mathcal{X}} \Spec k) -
+\dim_{v'}(V \times_{\mathcal{X}} \Spec k)_{u'}) \\
+& = \dim_v(V_x) -
+\dim_{v'}( (V\times_{\mathcal{X}} \Spec k)_{u'}).
+\end{align*}
+Or $V\times_{\mathcal{X}} \Spec k \cong
+V\times_{\mathcal{U}} (\mathcal{U}\times_{\mathcal{X}} \Spec k),$
+et donc le
+Lemme \ref{lemma-base-change-invariance-of-relative-dimension}
+montre que
+$\dim_{v'}((V\times_{\mathcal{X}} \Spec k)_{u'})  = \dim_v(V_u).$
+En réunissant ces égalités, nous trouvons
+$$
+\dim_u(\mathcal{U}) - \dim_x(\mathcal{X}) =
+\dim_u(\mathcal{U}_x),
+$$
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-dimension-is-semi-continuous}
+Soit $f: \mathcal{T} \to \mathcal{X}$ un morphisme localement de type fini de
+champs algébriques.
+\begin{enumerate}
+\item
+La fonction $t \mapsto \dim_t(\mathcal{T}_{f(t)})$ est semi-continue supérieurement
+sur $|\mathcal{T}|$.
+\item Si $f$ est lisse, alors
+la fonction $t \mapsto \dim_t(\mathcal{T}_{f(t)})$ est localement constante
+sur $|\mathcal{T}|$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons d'abord que $\mathcal{T}$ soit un schéma $T$,
+soit $U \to \mathcal{X}$ un morphisme lisse surjectif dont la source
+est un schéma, et soit $T' = T \times_{\mathcal{X}} U$.
+Soit $f': T' \to U$ le changement de base de $f$ à $U$,
+et soit $g: T' \to T$ la projection.
+
+\medskip\noindent
+Le Lemme \ref{lemma-base-change-invariance-of-relative-dimension}
+montre que $\dim_{t'}(T'_{f'(t')}) = \dim_{g(t')}(T_{f(g(t'))}),$
+pour $t' \in T'$, tandis que,
+puisque $g$ est lisse et surjectif (étant le changement de base
+d'un morphisme lisse surjectif), l'application induite par $g$ sur les espaces
+topologiques sous-jacents est continue et ouverte
+(d'après
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-topology-points}), et
+surjective. Il suffit donc de noter que la partie (1) pour le morphisme $f'$
+résulte de
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-openness-bounded-dimension-fibres}, et la partie (2)
+de l'un ou l'autre des lemmes suivants, Morphismes, Lemme
+\ref{morphisms-lemma-flat-finite-presentation-CM-fibres-relative-dimension}
+ou
+Morphismes, Lemme \ref{morphisms-lemma-smooth-omega-finite-locally-free}
+(chacun donne le résultat pour les schémas, d'où
+les résultats analogues pour les espaces algébriques se
+déduisent exactement comme dans
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-openness-bounded-dimension-fibres}.
+
+\medskip\noindent
+Revenons maintenant au cas général,
+et choisissons un morphisme lisse surjectif
+$h:V \to \mathcal{T}$ dont la source est un schéma.
+Si $v \in V$, alors, essentiellement par définition,
+nous avons
+$$
+\dim_{h(v)}(\mathcal{T}_{f(h(v))}) =
+\dim_{v}(V_{f(h(v))}) - \dim_{v}(V_{h(v)}).
+$$
+Puisque $V$ est un schéma, nous avons démontré que le premier
+des termes du membre de droite de cette égalité
+est semi-continu supérieur (et même localement
+constant si $f$ est lisse), tandis que le second terme est
+en fait localement constant.
+Leur différence est donc semi-continue supérieurement
+(et localement constante si $f$ est lisse),
+et par conséquent la fonction
+$\dim_{h(v)}(\mathcal{T}_{f(h(v))})$
+est semi-continue supérieurement sur $|V|$ (et localement
+constante si $f$ est lisse).
+Puisque le morphisme $|V| \to |\mathcal{T}|$ est ouvert et surjectif,
+le lemme en résulte.
+\end{proof}
+
+\noindent
+Avant de poursuivre notre étude,
+démontrons deux lemmes relatifs à la théorie de la dimension des schémas.
+
+\medskip\noindent
+Pour situer le premier lemme,
+notons que, si $X$ est un schéma de dimension finie, puisque $\dim X$
+est défini comme le supremum des dimensions $\dim_x X$,
+il existe un point $x \in X$ tel que $\dim_x X = \dim X$.
+Le lemme suivant montre que nous pouvons en outre choisir le point
+$x$ de type fini.
+
+\begin{lemma}
+\label{lemma-dimension-achieved-by-finite-type-point}
+Si $X$ est un schéma de dimension finie,
+il existe un point fermé (et donc de type fini) $x \in X$
+tel que $\dim_x X = \dim X$.
+\end{lemma}
+
+\begin{proof}
+Soit $d = \dim X$,
+et choisissons une chaîne strictement décroissante maximale
+de sous-ensembles fermés irréductibles de $X$,
+disons
+\begin{equation}
+\label{equation-maximal-chain}
+Z_0 \supset Z_1 \supset \ldots \supset Z_d.
+\end{equation}
+Le sous-ensemble $Z_d$ est un sous-ensemble fermé irréductible minimal de $X$,
+et tout point de $Z_d$ est donc un point générique de $Z_d$.
+Puisque l'espace topologique sous-jacent au schéma $X$ est sobre,
+nous concluons que $Z_d$ est un singleton, constitué d'un unique
+point fermé $x \in X$.
+Si $U$ est
+un voisinage quelconque de $x$, alors
+la chaîne
+$$
+U\cap Z_0 \supset U\cap Z_1 \supset \ldots \supset U\cap Z_d = Z_d =
+\{x\}
+$$
+est une chaîne strictement décroissante de sous-ensembles
+fermés irréductibles de $U$, ce qui montre que $\dim U \geq d$.
+Nous trouvons donc $\dim_x X \geq d$. L'autre inégalité
+étant évidente, le lemme est démontré.
+\end{proof}
+
+\noindent
+Le lemme suivant montre que $\dim_x X$ est une fonction {\it constante}
+sur un schéma irréductible satisfaisant quelques hypothèses supplémentaires modérées.
+
+\begin{lemma}
+\label{lemma-constancy-of-dimension}
+Si $X$ est un schéma irréductible, jacobsonien, caténaire et localement
+noethérien, de dimension finie,
+alors $\dim U = \dim X$ pour tout
+sous-ensemble ouvert non vide $U$ de $X$.
+De manière équivalente, $\dim_x X$ est une fonction constante sur $X$.
+\end{lemma}
+
+\begin{proof}
+L'équivalence des deux assertions résulte directement des
+définitions. Supposons donc que $U\subset X$ soit un sous-ensemble ouvert
+non vide.
+Certes $\dim U \leq \dim X$, et nous devons montrer
+que $\dim U \geq \dim X.$
+Écrivons $d = \dim X$, et choisissons une chaîne strictement
+décroissante maximale de sous-ensembles fermés irréductibles
+de $X$, disons
+$$
+X = Z_0 \supset Z_1 \supset \ldots \supset Z_d.
+$$
+Puisque $X$ est jacobsonien, le sous-ensemble fermé irréductible
+minimal $Z_d$ est égal à $\{x\}$ pour un certain
+point fermé $x$.
+
+\medskip\noindent
+Si $x \in U,$ alors
+$$
+U = U \cap Z_0  \supset U\cap Z_1 \supset \ldots \supset
+U\cap Z_d = \{x\}
+$$
+est une chaîne strictement décroissante de sous-ensembles fermés
+irréductibles de $U$, et nous concluons donc que $\dim U \geq d$,
+comme voulu. Nous pouvons donc supposer que $x \not\in U.$
+
+\medskip\noindent
+Considérons le morphisme plat $\Spec \mathcal{O}_{X,x} \to X$.
+Le sous-ensemble ouvert non vide (et donc dense) $U$ de $X$
+se relève en un sous-ensemble ouvert $V \subset \Spec \mathcal{O}_{X,x}$.
+En remplaçant $U$ par un sous-ensemble ouvert non vide quasi-compact, donc
+noethérien, nous pouvons supposer que l'inclusion
+$U \to X$ est un morphisme quasi-compact. Puisque la
+formation des images schématiques de morphismes quasi-compacts
+commute au changement de base plat, d'après
+Morphismes, Lemme
+\ref{morphisms-lemma-flat-base-change-scheme-theoretic-image}
+nous voyons que $V$ est dense dans $\Spec \mathcal{O}_{X,x}$,
+et en particulier non vide,
+et bien sûr $x \not\in V.$ (Ici, nous notons aussi $x$
+le point fermé de $\Spec \mathcal{O}_{X,x}$, puisque son image
+est égale au point donné $x \in X$.)
+Or $\Spec \mathcal{O}_{X,x} \setminus \{x\}$ est jacobsonien d'après
+Propriétés, Lemme
+\ref{properties-lemma-complement-closed-point-Jacobson}
+et $V$ contient donc un point fermé $z$
+de $\Spec \mathcal{O}_{X,x} \setminus \{x\}$. L'adhérence
+dans $X$ de l'image de $z$ est alors un sous-ensemble
+fermé irréductible $Z$ de $X$ contenant $x$, dont l'intersection
+avec $U$ est non vide, et
+pour lequel il n'existe aucun sous-ensemble fermé
+irréductible strictement contenu dans $Z$
+et contenant strictement $\{x\}$
+(car le changement de base à $\Spec \mathcal{O}_{X,x}$ induit
+une bijection entre les sous-ensembles fermés irréductibles de $X$
+contenant $x$ et les sous-ensembles fermés irréductibles de $\Spec
+\mathcal{O}_{X,x}$).
+Puisque $U \cap Z$ est un sous-ensemble fermé non vide de $U$,
+il contient un point $u$ qui est fermé dans $X$ (puisque
+$X$ est jacobsonien), et puisque $U\cap Z$
+est un sous-ensemble ouvert non vide (donc dense) de l'ensemble irréductible $Z$
+(qui contient un point n'appartenant pas à $U$, à savoir $x$),
+l'inclusion $\{u\} \subset U\cap Z$ est stricte.
+
+\medskip\noindent
+Puisque $X$ est caténaire, la chaîne
+$$
+X = Z_0 \supset Z \supset \{x\} = Z_d
+$$
+peut être raffinée en une chaîne de longueur $d+1$, qui est nécessairement
+de la forme
+$$
+X = Z_0 \supset W_1 \supset \ldots \supset W_{d-1} = Z \supset \{x\} = Z_d.
+$$
+Puisque $U\cap Z$ est non vide, nous trouvons alors que
+$$
+U = U \cap Z_0 \supset U \cap W_1\supset \ldots \supset U\cap W_{d-1}
+= U\cap Z \supset \{u\}
+$$
+est une chaîne strictement décroissante de sous-ensembles fermés irréductibles
+de $U$, de longueur $d+1$, ce qui montre que $\dim U \geq d$,
+comme voulu.
+\end{proof}
+
+\noindent
+Nous démontrerons un analogue pour les champs
+du Lemme \ref{lemma-constancy-of-dimension}
+dans le Lemme \ref{lemma-irreducible-implies-equidimensional} ci-dessous,
+mais nous devons auparavant introduire une définition supplémentaire,
+rendue nécessaire par le fait que la propriété d'un schéma d'être caténaire
+n'est pas locale pour la topologie étale
+(voir l'exemple de
+Algèbre, Remarque \ref{algebra-remark-universally-catenary-does-not-descend},
+ce qui rend difficile de définir ce que signifie, pour un espace algébrique
+ou un champ algébrique, d'être caténaire
+(voir la discussion de \cite[page 3]{Osserman}).
+Pour certains aspects de la théorie de la dimension, la définition
+suivante semble fournir un bon substitut à la notion manquante
+de champ algébrique caténaire.
+
+\begin{definition}
+\label{definition-pseudo-catenary}
+Nous disons qu'un champ algébrique localement noethérien $\mathcal{X}$
+est {\it pseudo-caténaire} s'il existe un morphisme lisse
+et surjectif $U \to \mathcal{X}$ dont la source est
+un schéma universellement caténaire.
+\end{definition}
+
+\begin{example}
+\label{example-pseudo-catenary}
+Si $\mathcal{X}$ est localement de type fini sur un schéma universellement
+caténaire et localement noethérien $S$,
+et si $U\to \mathcal{X}$ est un morphisme lisse surjectif
+dont la source est un schéma, alors le composé
+$U \to \mathcal{X} \to S$ est localement de type fini,
+et donc $U$ est universellement caténaire d'après
+Morphismes, Lemme
+\ref{morphisms-lemma-universally-catenary-local}.
+Ainsi, $\mathcal{X}$ est pseudo-caténaire.
+\end{example}
+
+\noindent
+Le lemme suivant montre que la propriété d'être pseudo-caténaire
+se transmet par les morphismes de type fini.
+
+\begin{lemma}
+\label{lemma-catenary-covers}
+Si $\mathcal{X}$ est un champ algébrique localement noethérien
+pseudo-caténaire, et si $\mathcal{Y} \to \mathcal{X}$ est un morphisme
+localement de type fini,
+alors il existe un morphisme lisse surjectif $V \to \mathcal{Y}$
+dont la source est un schéma universellement caténaire; ainsi
+$\mathcal{Y}$ est encore pseudo-caténaire.
+\end{lemma}
+
+\begin{proof}
+Par hypothèse, nous pouvons trouver un morphisme lisse surjectif
+$U \to \mathcal{X}$ dont la source est un schéma universellement caténaire.
+Le changement de base $U\times_{\mathcal{X}} \mathcal{Y}$ est alors un champ
+algébrique; soit $V \to U\times_{\mathcal{X}} \mathcal{Y}$ un morphisme lisse
+surjectif dont la source est un schéma.
+Le composé $V \to U\times_{\mathcal{X}} \mathcal{Y} \to \mathcal{Y}$ est alors
+lisse et surjectif (comme composé de morphismes lisses et
+surjectifs), tandis que le morphisme $V \to U\times_{\mathcal{X}}
+\mathcal{Y} \to U$ est localement de type fini (comme composé
+de morphismes localement de type fini). Puisque $U$
+est universellement caténaire, nous voyons que $V$ l'est aussi
+(d'après Morphismes, Lemme
+\ref{morphisms-lemma-universally-catenary-local}),
+comme affirmé.
+\end{proof}
+
+\noindent
+Étudions maintenant le comportement de la fonction $\dim_x(\mathcal{X})$ sur
+$|\mathcal{X}|$
+(pour un champ localement noethérien $\mathcal{X}$) par rapport aux
+composantes
+irréductibles de $|\mathcal{X}|$, ainsi que diverses
+questions connexes.
+
+\begin{lemma}
+\label{lemma-irreducible-implies-equidimensional}
+Si $\mathcal{X}$ est
+un champ algébrique jacobsonien, pseudo-caténaire et localement noethérien
+tel que $|\mathcal{X}|$ soit irréductible,
+alors $\dim_x(\mathcal{X})$ est une fonction constante sur $|\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+Il suffit de montrer que $\dim_x(\mathcal{X})$ est localement constante sur
+$|\mathcal{X}|$,
+car elle sera alors nécessairement constante (puisque $|\mathcal{X}|$ est connexe,
+étant irréductible). Puisque $\mathcal{X}$ est pseudo-caténaire,
+nous pouvons trouver un morphisme lisse surjectif $U \to \mathcal{X}$, avec $U$
+un schéma universellement caténaire. Si $\{U_i\}$ est un
+recouvrement de $U$ par des sous-schémas ouverts quasi-compacts, nous pouvons remplacer
+$U$ par $\coprod U_i,$, et
+il suffit de montrer que
+la fonction $u \mapsto \dim_{f(u)}(\mathcal{X})$ est localement constante sur $U_i$.
+Puisque nous vérifions ceci pour un seul $U_i$ à la fois, omettons désormais l'indice,
+et écrivons simplement $U$ plutôt que $U_i$.
+Puisque $U$ est quasi-compact, il
+est la réunion d'un nombre fini de composantes irréductibles,
+disons $T_1 \cup \ldots \cup T_n$. Notons que chaque $T_i$ est jacobsonien,
+caténaire et localement noethérien,
+car c'est un sous-schéma fermé du schéma jacobsonien, caténaire et localement noethérien
+$U$.
+
+\medskip\noindent
+D'après le Lemme \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}, nous avons
+$\dim_{f(u)}(\mathcal{X}) = \dim_{u}(U) - \dim_{u}(U_{f(u)}).$
+Le Lemme \ref{lemma-relative-dimension-is-semi-continuous} (2)
+montre que le second terme du membre de droite est localement
+constant sur $U$, puisque $f$ est lisse;
+nous devons donc montrer que $\dim_u(U)$
+est localement constante sur $U$. Puisque $\dim_u(U)$ est le maximum
+des dimensions $\dim_u T_i$, lorsque $T_i$ parcourt les composantes
+de $U$ contenant $u$, il suffit de montrer
+que, si un point $u$ appartient à deux composantes distinctes,
+disons $T_i$ et $T_j$ (avec $i \neq j$),
+alors $\dim_u T_i = \dim_u T_j$,
+puis de noter que $t\mapsto \dim_t T$ est une fonction constante
+sur un schéma irréductible et jacobsonien,
+caténaire et localement noethérien, noté $T$,
+(comme il résulte du Lemme \ref{lemma-constancy-of-dimension}).
+
+\medskip\noindent
+Soient $V = T_i \setminus (\bigcup_{i' \neq i} T_{i'})$
+et $W = T_j \setminus (\bigcup_{i' \neq j} T_{i'})$.
+Chacun de $V$ et $W$ est alors un sous-ensemble ouvert non vide de $U$,
+et a donc une image ouverte non vide dans $|\mathcal{X}|$. Puisque $|\mathcal{X}|$ est
+irréductible,
+ces deux sous-ensembles ouverts non vides de $|\mathcal{X}|$ ont une intersection
+non vide.
+Soit $x$ un point de cette intersection, et soient $v \in V$ et
+$w\in W$ des points s'envoyant sur $x$.
+Nous trouvons alors
+$$
+\dim T_i = \dim V = \dim_v (U) = \dim_x (\mathcal{X}) + \dim_v (U_x)
+$$
+et, de même,
+$$
+\dim T_j = \dim W = \dim_w (U) = \dim_x (\mathcal{X}) + \dim_w (U_x).
+$$
+Puisque $u \mapsto \dim_u (U_{f(u)})$ est localement constante sur $U$,
+et puisque $T_i \cup T_j$ est connexe (comme réunion de deux ensembles irréductibles,
+donc connexes, d'intersection non vide),
+nous voyons que $\dim_v (U_x) = \dim_w(U_x)$,
+et donc, en comparant les deux équations précédentes,
+que $\dim T_i = \dim T_j$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-immersions}
+Si $\mathcal{Z} \hookrightarrow \mathcal{X}$ est une immersion fermée
+de champs algébriques localement noethériens,
+et si $z \in |\mathcal{Z}|$ a pour image $x \in |\mathcal{X}|$,
+alors $\dim_z (\mathcal{Z}) \leq \dim_x(\mathcal{X})$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme lisse surjectif
+$U\to \mathcal{X}$ dont la source est un schéma;
+le morphisme obtenu par changement de base
+$V = U\times_{\mathcal{X}} \mathcal{Z} \to \mathcal{Z}$
+est alors lui aussi lisse et surjectif, et la projection
+$V \to U$ est une immersion fermée.
+Si $v \in |V|$ s'envoie sur $z \in |\mathcal{Z}|$, et
+si nous notons $u$ l'image de $v$ dans $|U|$,
+alors, manifestement,
+$\dim_v(V) \leq \dim_u(U)$,
+tandis que
+$\dim_v (V_z) = \dim_u(U_x)$,
+d'après le Lemme \ref{lemma-base-change-invariance-of-relative-dimension}.
+Ainsi,
+$$
+\dim_z(\mathcal{Z})  = \dim_v(V) - \dim_v(V_z)
+\leq \dim_u(U) - \dim_u(U_x) = \dim_x(\mathcal{X}),
+$$
+comme affirmé.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-via-components}
+Si $\mathcal{X}$ est un champ algébrique localement noethérien, et si
+$x \in |\mathcal{X}|$,
+alors $\dim_x(\mathcal{X}) = \sup_{\mathcal{T}} \{ \dim_x(\mathcal{T}) \} $,
+où $\mathcal{T}$ parcourt toutes les composantes irréductibles
+de $|\mathcal{X}|$ passant par $x$ (munies de leur
+structure réduite induite).
+\end{lemma}
+
+\begin{proof}
+Le Lemme \ref{lemma-closed-immersions}
+montre que
+$\dim_x (\mathcal{T}) \leq \dim_x(\mathcal{X})$ pour chaque
+pour chaque composante irréductible $\mathcal{T}$ passant par
+le point $x$. Pour démontrer le lemme,
+il suffit donc de montrer que
+\begin{equation}
+\label{equation-desired-inequality}
+\dim_x(\mathcal{X}) \leq
+\sup_{\mathcal{T}} \{\dim_x(\mathcal{T})\}.
+\end{equation}
+Soit $U\to\mathcal{X}$ un recouvrement lisse par un schéma. Si $T$ est une composante
+irréductible de $U$, notons $\mathcal{T}$ l'adhérence de son image
+dans $\mathcal{X}$; c'est une composante irréductible de $\mathcal{X}$. Soit
+$u \in U$
+un point s'envoyant sur $x$. Alors
+$\dim_x(\mathcal{X})=\dim_uU-\dim_uU_x=\sup_T\dim_uT-\dim_uU_x$, où le
+supremum est pris sur les composantes irréductibles de $U$ passant
+par $u$. Choisissons une composante $T$ sur laquelle le supremum
+est atteint, et notons que
+$\dim_x(\mathcal{T})=\dim_uT-\dim_u T_x$.
+L'inégalité voulue (\ref{equation-desired-inequality})
+résulte maintenant de l'inégalité évidente $\dim_u T_x \leq \dim_u U_x.$
+(Notons que, si $\Spec k \to \mathcal{X}$ est un représentant de $x$,
+alors $T\times_{\mathcal{X}} \Spec k$ est un sous-espace fermé de
+$U\times_{\mathcal{X}}
+\Spec k$.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-at-finite-type-point}
+Si $\mathcal{X}$ est un champ algébrique localement noethérien, et si
+$x \in |\mathcal{X}|$, alors,
+pour tout sous-champ ouvert $\mathcal{V}$ de $\mathcal{X}$ contenant $x$,
+il existe un point de type fini $x_0 \in |\mathcal{V}|$ tel que
+$\dim_{x_0}(\mathcal{X}) = \dim_x(\mathcal{V})$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme lisse surjectif
+$f:U \to \mathcal{X}$ dont la source est un schéma, et considérons la
+fonction $u \mapsto \dim_{f(u)}(\mathcal{X});$
+puisque le morphisme $|U| \to |\mathcal{X}|$ induit par $f$ est ouvert (car $f$
+est lisse) et surjectif (par hypothèse),
+et envoie les points de type fini sur des points de type fini (par la définition même
+des points de type fini de $|\mathcal{X}|$),
+il suffit de montrer que, pour tout $u \in U$ et tout voisinage ouvert de $u$,
+il existe dans ce voisinage un point de type fini $u_0$ tel que
+$\dim_{f(u_0)}(\mathcal{X}) = \dim_{f(u)}(\mathcal{X}).$
+Avec cette reformulation
+du problème, la surjectivité de $f$ n'étant plus requise,
+nous pouvons remplacer $U$ par le voisinage ouvert du point $u$ considéré,
+et nous ramener ainsi à montrer que, pour chaque $u \in U$,
+il existe un point de type fini $u_0 \in U$ tel que
+$\dim_{f(u_0)}(\mathcal{X}) = \dim_{f(u)}(\mathcal{X}).$
+D'après le Lemme \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms},
+$\dim_{f(u)}(\mathcal{X}) = \dim_u(U) - \dim_u(U_{f(u)}),$
+tandis que
+$\dim_{f(u_0)}(\mathcal{X}) = \dim_{u_0}(U) - \dim_{u_0}(U_{f(u_0)}).$
+Puisque $f$ est lisse, l'expression $\dim_{u_0}(U_{f(u_0)})$ est localement
+constante lorsque $u_0$ varie dans $U$ (d'après le
+Lemme \ref{lemma-relative-dimension-is-semi-continuous} (2));
+quitte donc à rétrécir encore $U$ autour de
+$u$, nous pouvons la supposer constante. Le problème
+se réduit ainsi à montrer que nous pouvons trouver un point de type fini $u_0 \in U$
+pour lequel $\dim_{u_0}(U) = \dim_u(U)$.
+Comme, par définition, $\dim_u U$ est le minimum des dimensions
+$\dim V$, lorsque $V$ parcourt les voisinages ouverts $V$ de $u$
+dans $U$, nous pouvons encore rétrécir $U$ autour de $u$ de sorte que
+$\dim_u U = \dim U$.
+L'existence du point voulu $u_0$ résulte alors du
+Lemme \ref{lemma-dimension-achieved-by-finite-type-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphing-a-component-in-of-the-right-dimension}
+Soit $\mathcal{T} \hookrightarrow \mathcal{X}$ un monomorphisme localement
+de type fini de champs algébriques,
+où $\mathcal{X}$ (et donc aussi $\mathcal{T}$)
+est jacobsonien, pseudo-caténaire et localement noethérien.
+Supposons en outre que $\mathcal{T}$ soit irréductible,
+de dimension (finie) $d$, et que $\mathcal{X}$ soit réduit
+et de dimension inférieure
+ou égale à $d$.
+Alors il existe un sous-champ ouvert non vide $\mathcal{V}$ de $\mathcal{T}$ tel
+que le monomorphisme
+induit $\mathcal{V} \hookrightarrow \mathcal{X}$ soit une immersion ouverte
+qui identifie
+$\mathcal{V}$ à un sous-ensemble ouvert d'une composante irréductible de $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme lisse surjectif $f:U \to \mathcal{X}$ de source un schéma,
+nécessairement réduit puisque $\mathcal{X}$ l'est,
+et écrivons $U' = \mathcal{T}\times_{\mathcal{X}} U$. Le morphisme obtenu par changement de base
+$U' \to U$ est un monomorphisme d'espaces algébriques, localement de type
+fini, donc représentable d'après
+Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable} et
+\ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite};
+puisque $U$ est un schéma, $U'$ l'est aussi.
+La projection $f': U' \to \mathcal{T}$ est encore une surjection lisse.
+Soit $u' \in U'$, d'image $u \in U$.
+Le Lemme \ref{lemma-base-change-invariance-of-relative-dimension}
+montre que $\dim_{u'}(U'_{f(u')}) = \dim_u(U_{f(u)}),$
+tandis que $\dim_{f'(u')}(\mathcal{T}) =d
+\geq \dim_{f(u)}(\mathcal{X})$ d'après le
+Lemme \ref{lemma-irreducible-implies-equidimensional}
+et nos hypothèses sur $\mathcal{T}$ et $\mathcal{X}$.
+Nous voyons donc que
+\begin{equation}
+\label{equation-dim-inequality}
+\dim_{u'} (U') = \dim_{u'} (U'_{f(u')}) + \dim_{f'(u')}(\mathcal{T})
+\\
+\geq \dim_u (U_{f(u)}) + \dim_{f(u)}(\mathcal{X}) = \dim_u (U).
+\end{equation}
+Puisque $U' \to U$ est un monomorphisme localement de type fini,
+il est en particulier non ramifié;
+par la structure locale étale des morphismes non ramifiés,
+Morphismes étales, Lemme \ref{etale-lemma-finite-unramified-etale-local},
+nous pouvons donc trouver un diagramme commutatif
+$$
+\xymatrix{
+V' \ar[r]\ar[d] & V \ar[d] \\
+U' \ar[r] & U
+}
+$$
+où le schéma $V'$ est non vide,
+les flèches verticales sont étales,
+et la flèche horizontale supérieure est une immersion fermée.
+En remplaçant $V$ par un sous-ensemble ouvert quasi-compact
+dont l'image rencontre l'image de $U'$,
+et $V'$ par l'image réciproque de $V$, nous pouvons en outre
+supposer que $V$ (et donc $V'$) est quasi-compact.
+Puisque $V$ est aussi localement noethérien,
+il est donc noethérien, et est par conséquent la réunion d'un nombre fini de composantes
+irréductibles.
+
+\medskip\noindent
+Puisque les morphismes étales préservent la dimension ponctuelle, d'après
+Descente, Lemme \ref{descent-lemma-dimension-at-point-local},
+nous déduisons de (\ref{equation-dim-inequality})
+que, pour tout point $v' \in V'$,
+d'image $v \in V$, nous avons
+$\dim_{v'}( V') \geq \dim_v(V)$.
+En particulier, l'image de $V'$ ne peut être contenue dans l'intersection
+de deux composantes irréductibles distinctes de $V$; nous pouvons donc trouver
+au moins un sous-ensemble ouvert irréductible de $V$ ayant une intersection non vide
+avec $V'$; en remplaçant $V$ par cet ouvert, nous pouvons supposer $V$ intègre
+(car à la fois réduit et irréductible). L'inégalité précédente
+sur les dimensions permet de conclure que l'immersion fermée $V' \hookrightarrow V$
+est en fait un isomorphisme.
+Si nous notons $W$ l'image de $V'$
+dans $U'$, alors $W$ est un sous-ensemble
+ouvert non vide de $U'$ (car les morphismes étales sont ouverts),
+et le monomorphisme induit $W \to U$ est étale
+(puisqu'il l'est localement pour la topologie étale sur la source, c'est-à-dire après changement de base
+à $V'$), et est donc une immersion ouverte (étant un monomorphisme étale).
+Ainsi, si nous notons $\mathcal{V}$ l'image de $W$ dans $\mathcal{T}$,
+alors $\mathcal{V}$ est un sous-champ ouvert dense (de manière équivalente, non vide) de
+$\mathcal{T}$,
+dont l'image est dense dans une composante irréductible de $\mathcal{X}$.
+Enfin,
+notons que le morphisme $\mathcal{V} \to \mathcal{X}$ est lisse
+(puisque son composé
+avec le morphisme lisse $W\to \mathcal{V}$ est lisse),
+et est aussi un monomorphisme, donc une immersion ouverte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dims-of-images}
+Soit $f: \mathcal{T} \to \mathcal{X}$ un morphisme localement de type fini
+de champs algébriques jacobsoniens, pseudo-caténaires et localement
+noethériens,
+dont la source est irréductible et le but quasi-séparé,
+et soit $\mathcal{Z} \hookrightarrow \mathcal{X}$ l'image
+schématique de $\mathcal{T}$.
+Alors, pour tout $t \in |T|$,
+nous avons
+$\dim_t( \mathcal{T}_{f(t)}) \geq \dim \mathcal{T}  - \dim \mathcal{Z}$,
+et il existe un sous-ensemble ouvert non vide (de manière équivalente, dense)
+de $|\mathcal{T}|$ sur lequel l'égalité est satisfaite.
+\end{lemma}
+
+\begin{proof}
+En remplaçant $\mathcal{X}$ par $\mathcal{Z}$, nous pouvons supposer, et supposons, que $f$ est
+schématiquement dominant,
+et aussi que $\mathcal{X}$ est irréductible.
+Par la semi-continuité supérieure des dimensions des fibres
+(Lemme \ref{lemma-relative-dimension-is-semi-continuous} (1)),
+il suffit de démontrer que l'égalité
+$\dim_t( \mathcal{T}_{f(t)}) =\dim \mathcal{T}  - \dim \mathcal{Z}$
+est satisfaite pour $t$ appartenant à
+un certain sous-champ ouvert non vide de $\mathcal{T}$.
+Pour cette raison, nous pouvons à tout moment dans le raisonnement
+remplacer $\mathcal{T}$ par un sous-champ ouvert non vide.
+
+\medskip\noindent
+Soit $T' \to \mathcal{T}$ un morphisme lisse surjectif dont la source
+est un schéma, et soit $T$ un sous-ensemble ouvert non vide quasi-compact
+de $T'$. Puisque $\mathcal{Y}$ est quasi-séparé, nous trouvons
+que $T \to  \mathcal{Y}$ est quasi-compact
+(d'après Morphismes de champs, Lemme
+\ref{stacks-morphisms-lemma-quasi-compact-permanence}, appliqué aux morphismes
+ $T \to \mathcal{Y} \to \Spec \mathbf{Z}$ auquel on l'applique).
+Ainsi, en remplaçant $\mathcal{T}$ par l'image de $T$ dans $\mathcal{T}$,
+nous pouvons supposer (en invoquant
+Morphismes de champs, Lemme
+\ref{stacks-morphisms-lemma-surjection-from-quasi-compact}
+que le morphisme $f:\mathcal{T} \to \mathcal{X}$ est quasi-compact.
+
+\medskip\noindent
+Si nous choisissons une surjection lisse $U \to \mathcal{X}$ avec $U$ un schéma,
+alors le Lemme \ref{lemma-map-of-components} assure que
+nous pouvons trouver un sous-ensemble ouvert irréductible $V$ de $U$ tel
+que $V \to \mathcal{X}$ soit lisse et schématiquement dominant.
+Puisque la dominance schématique des morphismes quasi-compacts
+est préservée par changement de base plat,
+le changement de base $\mathcal{T} \times_{\mathcal{X}} V \to V$
+du morphisme schématiquement
+dominant $f$ est encore
+schématiquement dominant. Soit $Z$ un schéma
+admettant une surjection lisse sur ce produit fibré;
+alors $Z \to \mathcal{T} \times_{\mathcal{X}} V \to V$
+est encore schématiquement dominant.
+Nous pouvons donc trouver une composante
+irréductible $C$ de $Z$ qui domine
+schématiquement $V$.
+Puisque le composé $Z \to \mathcal{T}\times_{\mathcal{X}} V \to \mathcal{T}$
+est lisse,
+et puisque $\mathcal{T}$ est irréductible,
+le Lemme \ref{lemma-map-of-components} montre que toute composante irréductible
+de la source a une image dense dans $|\mathcal{T}|$.
+Remplaçons maintenant
+$C$ par un sous-ensemble ouvert non vide $W$ disjoint de toute autre
+composante irréductible de $Z$, puis
+remplaçons $\mathcal{T}$ et $\mathcal{X}$ par les images de $W$
+et de $V$
+(et appliquons le Lemme \ref{lemma-irreducible-implies-equidimensional}
+pour voir que cela
+ne change la dimension ni de $\mathcal{T}$ ni de $\mathcal{X}$).
+Si nous notons $\mathcal{W}$ l'image du morphisme
+$W \to \mathcal{T}\times_{\mathcal{X}} V$,
+alors $\mathcal{W}$ est ouvert dans $\mathcal{T}\times_{\mathcal{X}} V$ (puisque le
+morphisme $W \to \mathcal{T}\times_{\mathcal{X}} V$ est lisse),
+et est irréductible (comme image d'un schéma
+irréductible). Nous aboutissons ainsi à un diagramme commutatif
+$$
+\xymatrix{
+W \ar[dr] \ar[r]  & \mathcal{W} \ar[r] \ar[d] & V \ar[d] \\
+& \mathcal{T} \ar[r] & \mathcal{X}
+}
+$$
+où $W$ et $V$ sont des schémas,
+les flèches verticales sont lisses et surjectives,
+les flèches diagonales et la flèche horizontale
+supérieure de gauche sont lisses,
+et le morphisme induit $\mathcal{W} \to \mathcal{T}\times_{\mathcal{X}} V$ est
+une immersion ouverte. À l'aide de ce diagramme et des définitions
+des diverses dimensions intervenant dans
+l'énoncé du lemme, nous ramènerons la vérification
+du lemme au cas des schémas, où elle est connue.
+
+\medskip\noindent
+Fixons $w \in |W|$, d'image $w' \in |\mathcal{W}|$,
+d'image $t \in |\mathcal{T}|$, d'image $v$ dans $|V|$,
+et d'image $x$ dans $|\mathcal{X}|$.
+Essentiellement par définition (en utilisant le
+fait que $\mathcal{W}$ est ouvert dans $\mathcal{T}\times_{\mathcal{X}} V$, et que
+la fibre d'un changement de base est le changement de base de la fibre),
+nous obtenons les égalités
+$$
+\dim_v V_x = \dim_{w'} \mathcal{W}_t
+$$
+et
+$$
+\dim_t \mathcal{T}_x = \dim_{w'} \mathcal{W}_v.
+$$
+D'après le Lemme \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+(la flèche diagonale et la flèche verticale de droite
+de notre diagramme réalisent $W$ et $V$ comme des recouvrements lisses par des
+schémas des champs $\mathcal{T}$ et $\mathcal{X}$), nous trouvons
+$$
+\dim_t \mathcal{T} = \dim_w W - \dim_w W_t
+$$
+et
+$$
+\dim_x \mathcal{X} = \dim_v V - \dim_v V_x.
+$$
+En combinant ces égalités, nous trouvons
+$$
+\dim_t \mathcal{T}_x - \dim_t \mathcal{T} + \dim_x \mathcal{X}
+= \dim_{w'} \mathcal{W}_v - \dim_w W + \dim_w W_t + \dim_v V -
+\dim_{w'} \mathcal{W}_t
+$$
+Puisque $W \to \mathcal{W}$ est une surjection lisse, il en va de même
+après changement de base par le morphisme $\Spec \kappa(v) \to V$
+(en considérant $W \to \mathcal{W}$ comme un morphisme sur $V$),
+et ce morphisme lisse donne la première des deux
+égalités suivantes
+$$
+\dim_w W_v - \dim_{w'} \mathcal{W}_v = \dim_w (W_v)_{w'} = \dim_w W_{w'};
+$$
+la seconde égalité résulte d'une comparaison directe des
+deux fibres en jeu.
+De même, si nous considérons $W \to \mathcal{W}$ comme un morphisme de schémas
+sur $\mathcal{T}$, et effectuons le changement de base par un représentant du point
+$t \in |\mathcal{T}|$, nous obtenons les égalités
+$$
+\dim_w W_t - \dim_{w'} \mathcal{W}_t = \dim_w (W_t)_{w'} = \dim_w W_{w'}.
+$$
+En réunissant le tout, nous trouvons
+$$
+\dim_t \mathcal{T}_x - \dim_t \mathcal{T} + \dim_x \mathcal{X}
+=  \dim_w W_v - \dim_w W + \dim_v V.
+$$
+Notre but est de montrer que le membre de gauche de cette égalité
+s'annule sur un sous-ensemble ouvert non vide
+de $t$. Lorsque $w$ parcourt un sous-ensemble ouvert non vide de $W$,
+son image $t \in |\mathcal{T}|$ parcourt un sous-ensemble ouvert non vide
+de $|\mathcal{T}|$ (puisque $W \to \mathcal{T}$ est lisse).
+
+\medskip\noindent
+Nous sommes donc ramenés à montrer que, si $W\to V$ est un
+morphisme schématiquement dominant de schémas irréductibles localement
+noethériens, localement de type fini,
+alors il existe un sous-ensemble ouvert non vide de
+points $w\in W$ tels que $\dim_w W_v =\dim_w W - \dim_v V$
+(où $v$ désigne l'image de $w$ dans $V$).
+C'est un fait classique,
+dont nous rappelons la preuve pour la commodité du lecteur.
+
+\medskip\noindent
+Nous pouvons remplacer $W$ et $V$ par leurs sous-schémas réduits sous-jacents
+sans modifier la validité (ou non) de cette équation,
+et pouvons donc les supposer en fait intègres.
+Puisque $\dim_w W_v$ est localement constante sur $W,$ quitte à remplacer $W$
+par un sous-ensemble ouvert non vide, nous pouvons supposer que $\dim_w W_v$
+est constante, disons égale à $d$. En choisissant cet ouvert affine,
+nous pouvons aussi supposer que le morphisme $W\to V$ est de type fini.
+Quitte à remplacer $V$ par un sous-ensemble ouvert non vide
+(et à changer ensuite la base de $W$ à cet ouvert; le changement de base obtenu
+est non vide, puisque le changement de base plat d'un morphisme quasi-compact
+et schématiquement
+dominant demeure schématiquement dominant),
+nous pouvons en outre supposer que $W$ est plat sur $V$.
+Le morphisme $W\to V$ est donc de dimension relative $d$
+au sens de
+Morphismes, Définition
+\ref{morphisms-definition-relative-dimension-d}
+et il résulte de
+Morphismes, Lemme \ref{morphisms-lemma-rel-dimension-dimension},
+que $\dim_w(W) = \dim_v(V) + d,$ comme voulu.
+\end{proof}
+
+\begin{remark}
+\label{remark-negative-dimension}
+Notons que, dans le contexte du lemme précédent,
+on n'a pas nécessairement $\dim \mathcal{T} \geq \dim \mathcal{Z}$; cela ne
+contredit pas l'inégalité de l'énoncé du lemme, car
+les fibres du morphisme $f$ sont encore des champs algébriques, et
+peuvent donc avoir une dimension négative. On l'illustre en prenant
+pour $k$ un corps et en appliquant le lemme au morphisme
+$[\Spec k/\mathbf{G}_m] \to \Spec k$.
+
+\medskip\noindent
+Si le morphisme $f$ de l'énoncé du lemme est supposé
+quasi-DM (au sens de
+Morphismes de champs, Définition
+\ref{stacks-morphisms-definition-separated}; les morphismes
+représentables par des espaces algébriques sont par exemple quasi-DM),
+alors les fibres du morphisme aux points du but
+sont des champs algébriques quasi-DM, et ont donc une dimension
+positive ou nulle. Dans ce cas, le lemme entraîne
+que l'on a bien $\dim \mathcal{T} \geq \dim \mathcal{Z}$. En fait, nous obtenons
+le résultat plus général suivant.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-dims-of-images-two}
+Soit $f: \mathcal{T} \to \mathcal{X}$ un morphisme localement de type fini
+de champs algébriques jacobsoniens, pseudo-caténaires et localement
+noethériens,
+qui est quasi-DM,
+dont la source est irréductible et le but quasi-séparé,
+et soit $\mathcal{Z} \hookrightarrow \mathcal{X}$ l'image
+schématique de $\mathcal{T}$.
+Alors $\dim \mathcal{Z} \leq \dim \mathcal{T}$,
+et, de plus, exactement l'une des deux conditions suivantes est satisfaite :
+\begin{enumerate}
+\item pour tout point de type fini $t \in |T|,$
+nous avons
+$\dim_t(\mathcal{T}_{f(t)}) > 0,$ auquel
+cas $\dim \mathcal{Z} < \dim \mathcal{T}$; ou
+\item $\mathcal{T}$ et $\mathcal{Z}$
+ont la même dimension.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Comme nous l'avons observé dans la remarque précédente,
+la dimension d'un champ quasi-DM est toujours positive ou nulle,
+d'où nous concluons que $\dim_t \mathcal{T}_{f(t)} \geq 0$
+pour tout $t \in |\mathcal{T}|$, l'égalité
+$$
+\dim_t \mathcal{T}_{f(t)} = \dim_t \mathcal{T} - \dim_{f(t)} \mathcal{Z}
+$$
+étant satisfaite
+sur un sous-ensemble ouvert dense de points $t\in |\mathcal{T}|$.
+\end{proof}
+
+
+
+
+
+\section{La dimension de l'anneau local}
+\label{section-dimension-local-ring}
+
+\noindent
+Un champ algébrique ne possède pas véritablement d'anneaux locaux au sens usuel,
+mais nous pouvons définir la dimension de l'anneau local comme suit.
+
+\begin{lemma}
+\label{lemma-dimension-local-ring-pre}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Soit $U \to \mathcal{X}$ un morphisme lisse et soit $u \in U$.
+Alors
+$$
+\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R_u, e(\overline{u})}) =
+2\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R, e(\overline{u})})
+$$
+Ici, $R = U \times_\mathcal{X} U$, de projections $s, t : R \to U$ et de
+diagonale $e : U \to R$, et $R_u$ est la fibre de $s : R \to U$ en $u$.
+\end{lemma}
+
+\begin{proof}
+Cela est vrai parce que
+$s : \mathcal{O}_{U, \overline{u}} \to \mathcal{O}_{R, e(\overline{u})}$
+est un homomorphisme local plat d'anneaux locaux noethériens, et donc
+$$
+\dim(\mathcal{O}_{R, e(\overline{u})}) =
+\dim(\mathcal{O}_{U, \overline{u}}) +
+\dim(\mathcal{O}_{R_u, e(\overline{u})})
+$$
+d'après
+Algèbre, Lemme \ref{algebra-lemma-dimension-base-fibre-equals-total}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-local-ring}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Soit $x \in |\mathcal{X}|$ un point de type fini 
+Morphismes de champs, Définition
+\ref{stacks-morphisms-definition-finite-type-point}).
+Soit $d \in \mathbf{Z}$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un schéma $U$, un morphisme lisse $U \to \mathcal{X}$,
+et un point de type fini $u \in U$ s'envoyant sur $x$, tels que
+$2\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R, e(\overline{u})}) = d$, et
+\item pour tout schéma $U$, tout morphisme lisse $U \to \mathcal{X}$,
+et tout point de type fini $u \in U$ s'envoyant sur $x$, nous avons
+$2\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R, e(\overline{u})}) = d$.
+\end{enumerate}
+Ici, $R = U \times_\mathcal{X} U$, de projections $s, t : R \to U$ et de
+diagonale $e : U \to R$, et $R_u$ est la fibre de $s : R \to U$ en $u$.
+\end{lemma}
+
+\begin{proof}
+Supposons donnés deux voisinages lisses $(U, u)$ et $(U', u')$
+de $x$, où $u$ et $u'$ sont des points de type fini. Quitte à rétrécir $U$
+et $U'$, nous pouvons supposer que $u$ et $u'$ sont des points fermés
+(par définition des points de type fini). Choisissons alors
+un morphisme étale surjectif $W \to U \times_\mathcal{X} U'$.
+Soit $W_u$ la fibre de $W \to U$ en $u$, et
+soit $W_{u'}$ la fibre de $W \to U'$ en $u'$.
+Puisque $u$ et $u'$ s'envoient sur le même point de $|\mathcal{X}|$,
+nous voyons que $W_u \cap W_{u'}$ est non vide.
+Nous pouvons donc choisir un point fermé $w \in W$ s'envoyant à la fois
+sur $u$ et sur $u'$. Cela nous ramène à la discussion du
+paragraphe suivant.
+
+\medskip\noindent
+Supposons que $(U', u') \to (U, u)$ soit un morphisme lisse de voisinages
+lisses de $x$, avec $u$ et $u'$ des points fermés.
+Le but est de démontrer que l'invariant défini pour $(U, u)$ est égal
+à celui défini pour $(U', u')$.
+Pour le voir, observons que $\mathcal{O}_{U, u} \to \mathcal{O}_{U', u'}$
+est un homomorphisme local plat d'anneaux locaux noethériens, et donc
+$$
+\dim(\mathcal{O}_{U', \overline{u}'}) =
+\dim(\mathcal{O}_{U, \overline{u}}) +
+\dim(\mathcal{O}_{U'_u, \overline{u}'})
+$$
+d'après Algèbre, Lemme \ref{algebra-lemma-dimension-base-fibre-equals-total}.
+(Nous omettons le détail de toutes les étapes reliant les propriétés des anneaux
+locaux et de leurs hensélisés stricts; voir
+Compléments d'algèbre, Section \ref{more-algebra-section-permanence-henselization}).
+D'autre part, nous avons
+$$
+R' = U' \times_{U, t} R \times_{s, U} U'
+$$
+Nous voyons donc que
+$$
+\dim(\mathcal{O}_{R', e(\overline{u}')}) =
+\dim(\mathcal{O}_{R, e(\overline{u})}) +
+\dim(\mathcal{O}_{U'_u \times_u U'_u, (\overline{u}', \overline{u}')})
+$$
+Pour démontrer le lemme, il suffit de montrer que
+$$
+\dim(\mathcal{O}_{U'_u \times_u U'_u, (\overline{u}', \overline{u}')}) =
+2\dim(\mathcal{O}_{U'_u, \overline{u}'})
+$$
+Observons que ceci n'est pas toujours vrai (par exemple, si $U'_u$ est une courbe
+et $u'$ le point générique de cette courbe). Nous savons toutefois
+que $u'$ est un point fermé de l'espace algébrique $U'_u$, localement
+de type fini sur $u$. Dans ce cas, l'égalité est satisfaite car, premièrement,
+$\dim_{(u', u')}(U'_u \times_u U'_u) = 2\dim_{u'}(U'_u)$ d'après
+Variétés, Lemme \ref{varieties-lemma-dimension-product-locally-algebraic},
+et, deuxièmement, parce que la dimension coïncide avec celle des anneaux locaux
+aux points fermés des schémas localement algébriques; voir
+Variétés, Lemme \ref{varieties-lemma-dimension-locally-algebraic}.
+Nous omettons la transposition de ces résultats pour les schémas dans le
+langage des espaces algébriques.
+\end{proof}
+
+\begin{definition}
+\label{definition-dimension-local-ring}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Soit $x \in |\mathcal{X}|$ un point de type fini.
+La {\it dimension de l'anneau local de $\mathcal{X}$ en $x$}
+est $d \in \mathbf{Z}$ si les conditions équivalentes du
+Lemme \ref{lemma-dimension-local-ring} sont satisfaites.
+\end{definition}
+
+\noindent
+Bien entendu, ceci est motivé par le Lemme \ref{lemma-dimension-local-ring-pre}
+et Propriétés des champs, Définition
+\ref{stacks-properties-definition-dimension-at-point}.
+Terminons cette section en établissant une formule permettant de
+calculer $\dim_x(\mathcal{X})$ à partir des propriétés de l'anneau versel
+de $\mathcal{X}$ en $x$.
+
+\begin{lemma}
+\label{lemma-dimension-formula}
+Supposons que $\mathcal{X}$ soit un champ algébrique, localement de type fini
+sur un schéma localement noethérien $S$. Soit $x_0 : \Spec(k) \to \mathcal{X}$
+un morphisme, où $k$ est un corps de type fini sur $S$. Représentons
+$\mathcal{F}_{\mathcal{X}, k, x_0}$ comme dans la Remarque \ref{remark-groupoid-defo}
+par un cogroupoïde $(A, B, s, t, c)$ de $S$-algèbres locales noethériennes complètes
+de corps résiduel $k$. Alors
+$$
+\text{la dimension de l'anneau local de }\mathcal{X}\text{ en }x_0 =
+2\dim A - \dim B
+$$
+\end{lemma}
+
+\begin{proof}
+Soit $s \in S$ l'image de $x_0$. Si $\mathcal{O}_{S, s}$
+est un anneau G (condition presque toujours satisfaite en pratique),
+nous pouvons démontrer le lemme comme suit.
+D'après le Lemme \ref{lemma-Artin-approximation-by-smooth-morphism},
+nous pouvons trouver un morphisme lisse $U \to \mathcal{X}$, de source un schéma,
+contenant un point $u_0 \in U$ de corps résiduel $k$, tel que le
+morphisme induit $\Spec(k) \to U \to \mathcal{X}$ coïncide avec $x_0$
+et que $A = \mathcal{O}_{U, u_0}^\wedge$.
+Écrivons $R = U \times_\mathcal{X} U$. Nous pouvons alors identifier
+$\mathcal{O}_{R, e(u_0)}^\wedge$ à $B$.
+L'égalité résulte donc des définitions.
+
+\medskip\noindent
+Dans la suite de cette preuve, nous expliquons comment démontrer le lemme en
+général, mais nous invitons vivement le lecteur à passer ce qui suit.
+
+\medskip\noindent
+Montrons d'abord que le membre de droite est indépendant du choix
+de $(A, B, s, t, c)$. Supposons en effet que $(A', B', s', t', c')$
+soit un second choix. Puisque $A$ et $A'$ sont des anneaux versels de $\mathcal{X}$
+en $x_0$, nous pouvons choisir, quitte à échanger $A$ et $A'$,
+une application formellement lisse $A \to A'$ compatible avec les objets formels
+versels donnés $\xi$ et $\xi'$ sur $A$ et $A'$.
+Rappelons que $\widehat{\mathcal{C}}_\Lambda$ possède
+des coproduits, donnés par le produit tensoriel complété
+sur $\Lambda$; voir Théorie formelle des déformations, Lemme
+\ref{formal-defos-lemma-CLambdahat-coproducts}.
+Alors $B$ proreprésente le foncteur des isomorphismes entre les
+deux images directes de $\xi$ dans $A \widehat{\otimes}_\Lambda A$.
+Il en va de même pour $B'$. Nous en concluons que
+$$
+B' =
+B \otimes_{(A \widehat{\otimes}_\Lambda A)}
+(A' \widehat{\otimes}_\Lambda A')
+$$
+On voit immédiatement que
+$$
+A \widehat{\otimes}_\Lambda A \longrightarrow
+A \widehat{\otimes}_\Lambda A' \longrightarrow
+A' \widehat{\otimes}_\Lambda A'
+$$
+est formellement lisse, de dimension relative égale à $2$ fois la
+dimension relative de l'application formellement lisse $A \to A'$.
+(Cela résulte de principes généraux, mais aussi du fait que,
+dans ce cas particulier, $A'$ est un anneau de séries formelles sur $A$
+en $r$ variables.) Ainsi, $B \to B'$ est formellement lisse, de
+dimension relative $2(\dim(A') - \dim(A))$, comme voulu.
+
+\medskip\noindent
+Ensuite, soit $l/k$ une extension finie. Soit
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$
+le point induit. Nous affirmons que le membre de droite de la formule
+est le même pour $x_0$ que pour $x_{l, 0}$.
+On le montre en choisissant $A \to A'$ comme dans le
+Lemme \ref{lemma-versal-ring-field-extension}
+et en raisonnant exactement comme au paragraphe précédent.
+Nous omettons les détails.
+
+\medskip\noindent
+Enfin, en raisonnant comme dans la preuve du Lemme \ref{lemma-versal-ring-flat},
+nous pouvons utiliser les compatibilités des deux paragraphes précédents
+pour nous ramener au cas (étudié au premier paragraphe)
+où $A$ est l'anneau local complet de $U$ en $u_0$, pour un certain
+schéma lisse sur $\mathcal{X}$ et un point de type fini $u_0$.
+Détails omis.
+\end{proof}
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
