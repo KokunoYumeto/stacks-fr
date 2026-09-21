@@ -11,6 +11,12 @@ pas une certification linguistique ou mathématique par des spécialistes humain
 Toute relecture experte est bienvenue, notamment pour la terminologie et les
 choix de traduction discutables.
 
+Traduction française et corrections produites par **OpenAI Codex — GPT-5.6 Sol,
+effort Ultra**, conformément à l’identification fournie par le producteur.
+Préparation des notices de publication et vérification des téléchargements :
+**OpenAI Codex — GPT-6 Astra, effort Ultra**. Il ne s’agit pas d’une relecture
+humaine.
+
 ## Accès à l’édition complète
 
 1. [Lire le PDF intégral (8 374 pages)](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/01_stacks_project_french_complete_116.pdf)
@@ -18,8 +24,8 @@ choix de traduction discutables.
 3. [Télécharger toutes les sources modifiables](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/03_stacks_project_french_complete_source.zip)
 4. [Télécharger les registres de traduction et les preuves de provenance](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/04_stacks_project_french_provenance_evidence.zip)
 5. [Télécharger les preuves des contrôles visuels](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/05_stacks_project_french_visual_qa.zip)
-6. [Lire la notice française](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/06_README_PUBLICATION.md)
-7. [Vérifier les empreintes SHA-256](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/07_SHA256SUMS.txt)
+6. [Lire la notice française](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/06_LISEZ_MOI_PUBLICATION.md)
+7. [Vérifier les empreintes SHA-256](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/07_EMPREINTES_SHA256.txt)
 
 [Parcourir les 116 sources par chapitre](editions/2026-09-21-complete116/chapters/) · [Instructions de compilation et dépendances](editions/2026-09-21-complete116/COMPILATION.md)
 

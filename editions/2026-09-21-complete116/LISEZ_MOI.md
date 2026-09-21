@@ -11,6 +11,12 @@ pas une certification linguistique ou mathématique par des spécialistes humain
 Toute relecture experte est bienvenue, notamment pour la terminologie et les
 choix de traduction discutables.
 
+Traduction française et corrections produites par **OpenAI Codex — GPT-5.6 Sol,
+effort Ultra**, conformément à l’identification fournie par le producteur.
+Préparation des notices de publication et vérification des téléchargements :
+**OpenAI Codex — GPT-6 Astra, effort Ultra**. Il ne s’agit pas d’une relecture
+humaine.
+
 ## Lire, modifier et vérifier
 
 1. `01_stacks_project_french_complete_116.pdf` : lecteur intégral de 8 374 pages.
@@ -24,8 +30,8 @@ choix de traduction discutables.
    décisions éditoriales, journaux de travail et preuves de compilation.
 5. `05_stacks_project_french_visual_qa.zip` : contrôles géométriques, registre
    d’inspection visuelle, planches de contrôle et images des pages corrigées.
-6. `06_README_PUBLICATION.md` : la présente notice en français.
-7. `07_SHA256SUMS.txt` : empreintes SHA-256 des six fichiers précédents.
+6. `06_LISEZ_MOI_PUBLICATION.md` : la présente notice en français.
+7. `07_EMPREINTES_SHA256.txt` : empreintes SHA-256 des six fichiers précédents.
 
 Le LaTeX modifiable est un livrable principal, et non un simple supplément au
 PDF. L’archive des sources conserve la structure modulaire nécessaire à la
