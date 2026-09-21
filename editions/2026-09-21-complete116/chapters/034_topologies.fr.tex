@@ -1,0 +1,4512 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Topologies sur les schémas}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous décrivons les différentes topologies sur la
+catégorie des schémas. On pourra consulter, entre autres, \cite{SGA1} et \cite{Ner}.
+Avant de le faire, nous souhaitons signaler qu'il existe de nombreux
+choix de sites (au sens de
+Sites, définition \ref{sites-definition-site}) qui donnent lieu à
+la même notion de faisceau sur la catégorie sous-jacente. Ainsi,
+nos choix peuvent différer légèrement de ceux des références,
+mais conduisent finalement aux mêmes groupes de cohomologie, etc.
+
+\section{La méthode générale}
+\label{section-procedure}
+
+\noindent
+Dans cette section, nous exposons une méthode générale de construction des
+sites avec lesquels nous travaillerons. Supposons que l'on veuille étudier les faisceaux
+sur les schémas relativement à une topologie $\tau$. Pour obtenir
+un site, comme dans Sites, définition \ref{sites-definition-site},
+formé de schémas munis de cette topologie, il faut prendre quelques précautions. En effet,
+on ne peut pas simplement dire « considérons tous les schémas munis de la topologie de Zariski »,
+car on obtiendrait ainsi une catégorie « grande ». Dans chaque section de
+ce chapitre, nous procéderons plutôt comme suit :
+\begin{enumerate}
+\item On définit une classe $\text{Cov}_\tau$ de recouvrements de schémas
+satisfaisant aux axiomes de Sites, définition \ref{sites-definition-site}.
+Un recouvrement ouvert de Zariski d'un
+schéma sera toujours un recouvrement pour $\tau$.
+\item On distingue, dans la catégorie des schémas affines, une notion de
+$\tau$-recouvrement standard.
+\item On définit ce qu'est un gros $\tau$-site « absolu » $\Sch_\tau$.
+Il s'agit des sites obtenus en choisissant convenablement un ensemble de schémas
+et un ensemble de recouvrements.
+\item Pour tout objet $S$ de $\Sch_\tau$,
+on définit le gros $\tau$-site $(\Sch/S)_\tau$ et, lorsque
+$\tau$ s'y prête, le petit\footnote{Les mots gros et
+petit ne renvoient pas ici à la taille des catégories
+correspondantes.} $\tau$-site $S_\tau$.
+\item En outre, il existe un site $(\textit{Aff}/S)_\tau$ fondé sur la
+notion de $\tau$-recouvrement standard d'affines\footnote{Dans le cas
+de la topologie ph, nous nous écartons très légèrement de cette méthode ; voir la
+définition \ref{definition-big-small-ph} et la discussion qui l'entoure.}
+dont la catégorie des faisceaux
+est équivalente à la catégorie des faisceaux sur $(\Sch/S)_\tau$.
+\end{enumerate}
+Cette construction est quelque peu malcommode, car elle ne fournit pas de choix canonique
+du gros $\tau$-site d'un schéma, ni même du petit
+$\tau$-site d'un schéma. Si l'on accepte d'ignorer les difficultés
+ensemblistes, on peut travailler avec des classes et obtenir
+des gros et petits sites canoniques…
+
+
+
+
+
+
+
+\section{La topologie de Zariski}
+\label{section-zariski}
+
+\begin{definition}
+\label{definition-zariski-covering}
+Soit $T$ un schéma. Un {\it recouvrement de Zariski de $T$} est une famille
+de morphismes de schémas $\{f_i : T_i \to T\}_{i \in I}$
+telle que chaque $f_i$ soit une immersion ouverte et que
+$T = \bigcup f_i(T_i)$.
+\end{definition}
+
+\noindent
+Cela définit une classe (propre) de recouvrements.
+Montrons à présent que cette notion satisfait aux conditions de
+Sites, définition \ref{sites-definition-site}.
+
+\begin{lemma}
+\label{lemma-zariski}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement de Zariski de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement de Zariski et si, pour tout
+$i$, on dispose d'un recouvrement de Zariski $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement de Zariski.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement de Zariski
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement de Zariski.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zariski-affine}
+Soit $T$ un schéma affine. Soit $\{T_i \to T\}_{i \in I}$ un
+recouvrement de Zariski de $T$. Il existe alors un recouvrement de Zariski
+$\{U_j \to T\}_{j = 1, \ldots, m}$ qui raffine
+$\{T_i \to T\}_{i \in I}$ et tel que chaque $U_j$ soit un ouvert
+principal de $T$ ; voir
+Schémas, définition \ref{schemes-definition-standard-covering}.
+On peut en outre choisir chaque $U_j$ comme ouvert de l'un des $T_i$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que $T$ est quasi-compact et que les ouverts principaux forment une base
+de sa topologie. C'est également démontré dans
+Schémas, lemme \ref{schemes-lemma-standard-open}.
+\end{proof}
+
+\noindent
+On définit donc comme suit les recouvrements standards d'affines correspondants.
+
+\begin{definition}
+\label{definition-standard-Zariski}
+Comparer à Schémas, définition \ref{schemes-definition-standard-covering}.
+Soit $T$ un schéma affine. Un {\it recouvrement de Zariski standard}
+de $T$ est un recouvrement de Zariski $\{U_j \to T\}_{j = 1, \ldots, m}$
+tel que chaque $U_j \to T$ induise un isomorphisme sur un ouvert affine principal
+de $T$.
+\end{definition}
+
+\begin{definition}
+\label{definition-big-zariski-site}
+Un {\it gros site de Zariski} est un site $\Sch_{Zar}$, au sens de
+Sites, définition \ref{sites-definition-site}, construit comme suit :
+\begin{enumerate}
+\item Choisir un ensemble quelconque de schémas $S_0$, ainsi qu'un ensemble de recouvrements de Zariski
+$\text{Cov}_0$ entre ces schémas.
+\item Prendre pour catégorie sous-jacente à $\Sch_{Zar}$
+une catégorie $\Sch_\alpha$ construite comme dans
+Ensembles, lemme \ref{sets-lemma-construct-category}, à partir de l'ensemble $S_0$.
+\item Prendre pour recouvrements de $\Sch_{Zar}$ un ensemble de recouvrements obtenu comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, à partir de la
+catégorie $\Sch_\alpha$, de la classe des recouvrements de Zariski
+et de l'ensemble $\text{Cov}_0$ choisi ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Sites, lemme \ref{sites-lemma-choice-set-coverings-immaterial}, montre
+qu'une fois la catégorie $\Sch_\alpha$ choisie, la
+catégorie des faisceaux sur $\Sch_\alpha$ ne dépend pas du
+choix des recouvrements effectué au point (3) ci-dessus. Autrement dit, le topos
+$\Sh(\Sch_{Zar})$ ne dépend que du choix de
+la catégorie $\Sch_\alpha$. Il est démontré dans
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}, que ces catégories
+sont stables par de nombreuses constructions de géométrie algébrique, par exemple
+les produits fibrés et le passage aux sous-schémas ouverts ou fermés. On peut également montrer
+que le choix précis de $\Sch_\alpha$ importe
+assez peu ; voir la section \ref{section-change-alpha}.
+
+\medskip\noindent
+Une autre méthode consisterait à supposer l'existence d'un
+cardinal fortement inaccessible et à définir $\Sch_{Zar}$
+comme la catégorie des schémas contenus dans un univers choisi, les
+recouvrements étant les recouvrements de Zariski contenus dans ce même
+univers.
+
+\medskip\noindent
+Avant de poursuivre par l'introduction du gros site de Zariski d'un
+schéma $S$, observons que la topologie d'un gros site de Zariski
+$\Sch_{Zar}$ est, en un certain sens, induite par la topologie de Zariski
+sur la catégorie de tous les schémas.
+
+\begin{lemma}
+\label{lemma-zariski-induced}
+Soit $\Sch_{Zar}$ un gros site de Zariski comme dans la
+définition \ref{definition-big-zariski-site}.
+Soit $T \in \Ob(\Sch_{Zar})$.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement de Zariski quelconque de $T$.
+Il existe un recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{Zar}$ qui soit tautologiquement équivalent (voir
+Sites, définition \ref{sites-definition-combinatorial-tautological})
+à $\{T_i \to T\}_{i \in I}$.
+\end{lemma}
+
+\begin{proof}
+Puisque chaque $T_i \to T$ est une immersion ouverte, il résulte de
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+que chaque $T_i$ est isomorphe à un objet $V_i$ de $\Sch_{Zar}$.
+Le recouvrement $\{V_i \to T\}_{i \in I}$ est tautologiquement équivalent
+à $\{T_i \to T\}_{i \in I}$ (en utilisant dans les deux sens l'application identité de $I$).
+En outre, $\{V_i \to T\}_{i \in I}$ est combinatoirement équivalent à un
+recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site $\Sch_{Zar}$ d'après
+Ensembles, lemme \ref{sets-lemma-coverings-site}.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-small-Zariski}
+Soit $S$ un schéma. Soit $\Sch_{Zar}$ un gros site de Zariski
+contenant $S$.
+\begin{enumerate}
+\item Le {\it gros site de Zariski de $S$}, noté
+$(\Sch/S)_{Zar}$, est le site $\Sch_{Zar}/S$
+introduit dans Sites, section \ref{sites-section-localize}.
+\item Le {\it petit site de Zariski de $S$}, que nous notons
+$S_{Zar}$, est la sous-catégorie pleine de $(\Sch/S)_{Zar}$
+dont les objets sont les $U/S$ tels que $U \to S$ soit une immersion ouverte.
+Un recouvrement de $S_{Zar}$ est tout recouvrement $\{U_i \to U\}$ de
+$(\Sch/S)_{Zar}$ avec $U \in \Ob(S_{Zar})$.
+\item Le {\it gros site de Zariski affine de $S$}, noté
+$(\textit{Aff}/S)_{Zar}$, est la sous-catégorie pleine de
+$(\Sch/S)_{Zar}$ formée des objets $U/S$ tels que $U$ soit un
+schéma affine. Un recouvrement de $(\textit{Aff}/S)_{Zar}$ est tout recouvrement
+$\{U_i \to U\}$ de $(\Sch/S)_{Zar}$ avec $U \in \Ob((\textit{Aff}/S)_{Zar})$
+qui soit un recouvrement de Zariski standard.
+\item Le {\it petit site de Zariski affine de $S$}, noté
+$S_{affine, Zar}$, est la sous-catégorie pleine de $S_{Zar}$
+dont les objets sont les $U/S$ tels que $U$ soit un schéma affine.
+Un recouvrement de $S_{affine, Zar}$ est tout recouvrement $\{U_i \to U\}$ de
+$S_{Zar}$ avec $U \in \Ob(S_{affine, Zar})$
+qui soit un recouvrement de Zariski standard.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il n'est pas tout à fait évident que le petit site de Zariski,
+le gros site de Zariski affine et le petit site de Zariski affine
+soient bien des sites. Vérifions-le.
+
+\begin{lemma}
+\label{lemma-verify-site-Zariski}
+Soit $S$ un schéma. Soit $\Sch_{Zar}$ un gros site de Zariski
+contenant $S$. Les structures $S_{Zar}$, $(\textit{Aff}/S)_{Zar}$
+et $S_{affine, Zar}$ définies ci-dessus sont des sites.
+\end{lemma}
+
+\begin{proof}
+Montrons que $S_{Zar}$ est un site. C'est une catégorie munie d'un
+ensemble donné de familles de morphismes de but fixé. Il faut donc
+établir les propriétés (1), (2) et (3) de
+Sites, définition \ref{sites-definition-site}.
+Puisque $(\Sch/S)_{Zar}$ est un site, il suffit de prouver
+que, pour tout recouvrement $\{U_i \to U\}$ de $(\Sch/S)_{Zar}$
+avec $U \in \Ob(S_{Zar})$, on a aussi $U_i \in \Ob(S_{Zar})$.
+Cela résulte des définitions,
+car la composée de deux immersions ouvertes est une immersion ouverte.
+
+\medskip\noindent
+Montrons que $(\textit{Aff}/S)_{Zar}$ est un site.
+En raisonnant comme ci-dessus, il suffit de montrer que l'ensemble
+des recouvrements de Zariski standards d'affines satisfait aux propriétés
+(1), (2) et (3) de
+Sites, définition \ref{sites-definition-site}.
+Soit $R$ un anneau. Soient $f_1, \ldots, f_n \in R$ engendrant l'idéal unité.
+Pour chaque $i \in \{1, \ldots, n\}$, soient $g_{i1}, \ldots, g_{in_i} \in R_{f_i}$
+des éléments engendrant l'idéal unité de $R_{f_i}$. On peut écrire
+$g_{ij} = f_{ij}/f_i^{e_{ij}}$. Après avoir remplacé, si nécessaire,
+$f_{ij}$ par $f_i f_{ij}$, on a
+$D(f_{ij}) \subset D(f_i) \cong \Spec(R_{f_i})$
+égal à $D(g_{ij}) \subset \Spec(R_{f_i})$. On voit donc que
+la famille de morphismes $\{D(g_{ij}) \to \Spec(R)\}$
+est un recouvrement de Zariski standard. Ces considérations
+montrent que (2) vaut pour les recouvrements de Zariski standards.
+Nous omettons la vérification de (1) et de (3).
+
+\medskip\noindent
+Nous omettons la démonstration du fait que $S_{affine, Zar}$ est un site.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-products-Zariski}
+Soit $S$ un schéma. Soit $\Sch_{Zar}$ un gros site de Zariski
+contenant $S$. Les catégories sous-jacentes aux sites
+$\Sch_{Zar}$, $(\Sch/S)_{Zar}$,
+$S_{Zar}$, $(\textit{Aff}/S)_{Zar}$ et $S_{affine, Zar}$ possèdent des produits fibrés.
+Dans chaque cas, le foncteur évident vers la catégorie $\Sch$ de
+tous les schémas commute aux produits fibrés. Les catégories
+$(\Sch/S)_{Zar}$ et $S_{Zar}$ possèdent toutes deux un objet final,
+à savoir $S/S$.
+\end{lemma}
+
+\begin{proof}
+Pour $\Sch_{Zar}$, c'est vrai par construction ; voir
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Supposons donnés des morphismes de schémas $U \to S$, $V \to U$, $W \to U$
+avec $U, V, W \in \Ob(\Sch_{Zar})$.
+Le produit fibré $V \times_U W$ dans $\Sch_{Zar}$
+est un produit fibré dans $\Sch$ ; c'est aussi
+le produit fibré de $V/S$ et $W/S$ au-dessus de $U/S$ dans
+la catégorie de tous les schémas au-dessus de $S$, et donc également un
+produit fibré dans $(\Sch/S)_{Zar}$.
+Cela démontre le résultat pour $(\Sch/S)_{Zar}$.
+Si $U \to S$, $V \to U$ et $W \to U$ sont des immersions ouvertes, alors
+$V \times_U W \to S$ l'est aussi, d'où le résultat pour $S_{Zar}$.
+Si $U, V, W$ sont affines, $V \times_U W$ l'est également, d'où le
+résultat pour $(\textit{Aff}/S)_{Zar}$ et $S_{affine, Zar}$.
+\end{proof}
+
+\noindent
+Vérifions à présent que le gros, resp.\ petit, site affine définit le même
+topos que le gros, resp.\ petit, site.
+
+\begin{lemma}
+\label{lemma-affine-big-site-Zariski}
+Soit $S$ un schéma. Soit $\Sch_{Zar}$ un gros site de Zariski
+contenant $S$.
+Le foncteur $(\textit{Aff}/S)_{Zar} \to (\Sch/S)_{Zar}$
+est un foncteur cocontinu spécial. Il induit donc une équivalence
+de topos de $\Sh((\textit{Aff}/S)_{Zar})$ vers
+$\Sh((\Sch/S)_{Zar})$.
+\end{lemma}
+
+\begin{proof}
+La notion de foncteur cocontinu spécial est introduite dans
+Sites, définition \ref{sites-definition-special-cocontinuous-functor}.
+Il faut donc vérifier les hypothèses (1) -- (5) de
+Sites, lemme \ref{sites-lemma-equivalence}.
+Notons le foncteur d'inclusion
+$u : (\textit{Aff}/S)_{Zar} \to (\Sch/S)_{Zar}$.
+La cocontinuité signifie simplement que tout recouvrement de Zariski de
+$T/S$, avec $T$ affine, peut être raffiné par un recouvrement de Zariski standard de $T$.
+C'est le contenu du
+lemme \ref{lemma-zariski-affine}.
+Ainsi, (1) est satisfaite. Le foncteur $u$ est continu, simplement parce qu'un recouvrement
+de Zariski standard est un recouvrement de Zariski. Ainsi, (2) est satisfaite.
+Les assertions (3) et (4) résultent immédiatement de ce que $u$ est
+pleinement fidèle. Enfin, la condition (5) résulte de ce que
+tout schéma possède un recouvrement ouvert affine.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-alternative-zariski}
+Soit $S$ un schéma. Soit $\Sch_{Zar}$ un gros site de Zariski
+contenant $S$. Le foncteur $S_{affine, Zar} \to S_{Zar}$
+est un foncteur cocontinu spécial. Il induit donc une équivalence
+de topos de $\Sh(S_{affine, Zar})$ vers $\Sh(S_{Zar})$.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : comparer à la démonstration du
+lemme \ref{lemma-affine-big-site-Zariski}.
+\end{proof}
+
+\noindent
+Vérifions que la notion de faisceau sur le petit site de Zariski
+correspond à celle de faisceau sur $S$.
+
+\begin{lemma}
+\label{lemma-Zariski-usual}
+La catégorie des faisceaux sur $S_{Zar}$ est équivalente à la
+catégorie des faisceaux sur l'espace topologique sous-jacent à $S$.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons à plusieurs reprises le fait que, pour tout objet
+$U/S$ de $S_{Zar}$, le morphisme $U \to S$ est un isomorphisme
+sur un sous-schéma ouvert.
+Soit $\mathcal{F}$ un faisceau sur $S$. On définit alors un faisceau
+sur $S_{Zar}$ par la règle $\mathcal{F}'(U/S) = \mathcal{F}(\Im(U \to S))$.
+Réciproquement, choisissons pour tout sous-schéma ouvert $U \subset S$ un objet
+$U'/S \in \Ob(S_{Zar})$ tel que $\Im(U' \to S) = U$
+(il faut ici utiliser Ensembles, lemme \ref{sets-lemma-what-is-in-it}).
+Étant donné un faisceau $\mathcal{G}$ sur $S_{Zar}$, on définit un faisceau sur $S$ en posant
+$\mathcal{G}'(U) = \mathcal{G}(U'/S)$. Pour voir que $\mathcal{G}'$ est
+un faisceau, on utilise que, pour tout recouvrement ouvert $U = \bigcup_{i \in I} U_i$,
+le recouvrement $\{U_i \to U\}_{i \in I}$
+est combinatoirement équivalent à un recouvrement $\{U_j' \to U'\}_{j \in J}$
+dans $S_{Zar}$ d'après Ensembles, lemme \ref{sets-lemma-coverings-site},
+et l'on applique Sites, lemme \ref{sites-lemma-tautological-same-sheaf}.
+Détails omis.
+\end{proof}
+
+\noindent
+Désormais, nous ne ferons plus de distinction entre un faisceau sur
+$S_{Zar}$ et un faisceau sur $S$. Nous utiliserons toujours les procédés
+de la démonstration du lemme pour passer d'une notion à l'autre.
+Établissons maintenant quelques relations entre les topos
+associés à ces sites.
+
+\begin{lemma}
+\label{lemma-put-in-T}
+Soit $\Sch_{Zar}$ un gros site de Zariski.
+Soit $f : T \to S$ un morphisme dans $\Sch_{Zar}$.
+Le foncteur $T_{Zar} \to (\Sch/S)_{Zar}$
+est cocontinu et induit un morphisme de topos
+$$
+i_f :
+\Sh(T_{Zar})
+\longrightarrow
+\Sh((\Sch/S)_{Zar})
+$$
+Pour tout faisceau $\mathcal{G}$ sur $(\Sch/S)_{Zar}$,
+on a la formule $(i_f^{-1}\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+Le foncteur $i_f^{-1}$ possède aussi un adjoint à gauche $i_{f, !}$ qui commute
+aux produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Notons le foncteur $u : T_{Zar} \to (\Sch/S)_{Zar}$.
+Autrement dit, étant donnée une immersion ouverte $j : U \to T$ correspondant
+à un objet de $T_{Zar}$, on pose $u(U \to T) = (f \circ j : U \to S)$.
+Ce foncteur commute aux produits fibrés ; voir le
+lemme \ref{lemma-fibre-products-Zariski}.
+De plus, $T_{Zar}$ possède des égalisateurs (car deux morphismes de même
+source et de même but sont égaux) et $u$ commute à ceux-ci.
+Il est manifestement cocontinu.
+Il est aussi continu, puisque $u$ transforme les recouvrements en recouvrements et
+commute aux produits fibrés. Le lemme résulte donc de
+Sites, lemmes \ref{sites-lemma-when-shriek}
+et \ref{sites-lemma-preserve-equalizers}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-at-the-bottom}
+Soit $S$ un schéma. Soit $\Sch_{Zar}$ un gros site de Zariski
+contenant $S$.
+Le foncteur d'inclusion $S_{Zar} \to (\Sch/S)_{Zar}$
+satisfait aux hypothèses de Sites, lemme \ref{sites-lemma-bigger-site},
+et induit donc un morphisme de sites
+$$
+\pi_S : (\Sch/S)_{Zar} \longrightarrow S_{Zar}
+$$
+et un morphisme de topos
+$$
+i_S : \Sh(S_{Zar}) \longrightarrow \Sh((\Sch/S)_{Zar})
+$$
+tels que $\pi_S \circ i_S = \text{id}$. De plus, $i_S = i_{\text{id}_S}$,
+où $i_{\text{id}_S}$ est celui du lemme \ref{lemma-put-in-T}. En particulier, le
+foncteur $i_S^{-1} = \pi_{S, *}$ est décrit par la règle
+$i_S^{-1}(\mathcal{G})(U/S) = \mathcal{G}(U/S)$.
+\end{lemma}
+
+\begin{proof}
+Dans ce cas, le foncteur $u : S_{Zar} \to (\Sch/S)_{Zar}$,
+outre les propriétés relevées dans la démonstration du
+lemme \ref{lemma-put-in-T} ci-dessus, est pleinement fidèle
+et transforme l'objet final en l'objet final.
+Le lemme en résulte.
+\end{proof}
+
+\begin{definition}
+\label{definition-restriction-small-zariski}
+Dans la situation du
+lemme \ref{lemma-at-the-bottom},
+le foncteur $i_S^{-1} = \pi_{S, *}$ est souvent
+appelé la {\it restriction au petit site de Zariski} et, pour un faisceau
+$\mathcal{F}$ sur le gros site de Zariski, on note $\mathcal{F}|_{S_{Zar}}$
+cette restriction.
+\end{definition}
+
+\noindent
+Avec cette notation, pour un faisceau $\mathcal{F}$ sur le
+gros site et un faisceau $\mathcal{G}$ sur le petit site, on a
+\begin{align*}
+\Mor_{\Sh(S_{Zar})}(\mathcal{F}|_{S_{Zar}}, \mathcal{G})
+& =
+\Mor_{\Sh((\Sch/S)_{Zar})}(\mathcal{F},
+i_{S, *}\mathcal{G}) \\
+\Mor_{\Sh(S_{Zar})}(\mathcal{G}, \mathcal{F}|_{S_{Zar}})
+& =
+\Mor_{\Sh((\Sch/S)_{Zar})}(\pi_S^{-1}\mathcal{G},
+\mathcal{F})
+\end{align*}
+De plus, on a $(i_{S, *}\mathcal{G})|_{S_{Zar}} = \mathcal{G}$
+et $(\pi_S^{-1}\mathcal{G})|_{S_{Zar}} = \mathcal{G}$.
+
+\begin{lemma}
+\label{lemma-morphism-big}
+Soit $\Sch_{Zar}$ un gros site de Zariski.
+Soit $f : T \to S$ un morphisme dans $\Sch_{Zar}$.
+Le foncteur
+$$
+u : (\Sch/T)_{Zar} \longrightarrow (\Sch/S)_{Zar},
+\quad
+V/T \longmapsto V/S
+$$
+est cocontinu et possède un adjoint à droite continu
+$$
+v : (\Sch/S)_{Zar} \longrightarrow (\Sch/T)_{Zar},
+\quad
+(U \to S) \longmapsto (U \times_S T \to T).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\Sch/T)_{Zar})
+\longrightarrow
+\Sh((\Sch/S)_{Zar})
+$$
+On a $f_{big}^{-1}(\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+On a $f_{big, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$.
+De plus, $f_{big}^{-1}$ possède un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs (détails omis ; comparer à la démonstration du
+lemme \ref{lemma-put-in-T}).
+Par conséquent,
+Sites, lemmes \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers},
+s'appliquent et donnent la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est adjoint à droite car, pour $U/T$ et $V/S$ donnés,
+on a $\Mor_S(u(U), V) = \Mor_T(U, V \times_S T)$,
+comme voulu. On peut donc appliquer
+Sites, lemmes \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism},
+pour obtenir la formule pour $f_{big, *}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-big-small}
+Soit $\Sch_{Zar}$ un gros site de Zariski.
+Soit $f : T \to S$ un morphisme dans $\Sch_{Zar}$.
+\begin{enumerate}
+\item On a $i_f = f_{big} \circ i_T$, où $i_f$ est celui du
+lemme \ref{lemma-put-in-T} et $i_T$ celui du
+lemme \ref{lemma-at-the-bottom}.
+\item Le foncteur $S_{Zar} \to T_{Zar}$,
+$(U \to S) \mapsto (U \times_S T \to T)$, est continu et induit
+un morphisme de sites
+$$
+f_{small} :
+T_{Zar}
+\longrightarrow
+S_{Zar}
+$$
+Les foncteurs $f_{small}^{-1}$ et $f_{small, *}$ coïncident avec
+les notions usuelles $f^{-1}$ et $f_*$ lorsque l'on identifie les faisceaux
+sur $T_{Zar}$, resp.\ $S_{Zar}$, aux faisceaux sur $T$, resp.\ $S$,
+au moyen du lemme \ref{lemma-Zariski-usual}.
+\item On a un diagramme commutatif de morphismes de sites
+$$
+\xymatrix{
+T_{Zar} \ar[d]_{f_{small}} &
+(\Sch/T)_{Zar} \ar[d]^{f_{big}} \ar[l]^{\pi_T} \\
+S_{Zar} &
+(\Sch/S)_{Zar} \ar[l]_{\pi_S}
+}
+$$
+de sorte que $f_{small} \circ \pi_T = \pi_S \circ f_{big}$ comme morphismes de topos.
+\item On a $f_{small} = \pi_S \circ f_{big} \circ i_T = \pi_S \circ i_f$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'égalité $i_f = f_{big} \circ i_T$ résulte de
+l'égalité $i_f^{-1} = i_T^{-1} \circ f_{big}^{-1}$, qui est
+claire d'après les descriptions de ces foncteurs données ci-dessus.
+Cela démontre (1).
+
+\medskip\noindent
+Assertion (2) : voir Sites, exemple \ref{sites-example-continuous-map}.
+
+\medskip\noindent
+L'assertion (3) résulte de ce que $\pi_S$ et $\pi_T$ sont donnés par
+les foncteurs d'inclusion, tandis que $f_{small}$ et $f_{big}$ le sont par le
+foncteur de changement de base $U \mapsto U \times_S T$.
+
+\medskip\noindent
+L'assertion (4) se déduit de (3) par précomposition avec $i_T$.
+\end{proof}
+
+\noindent
+Dans la situation du lemme, avec la terminologie de la
+définition \ref{definition-restriction-small-zariski},
+on a, pour tout faisceau $\mathcal{F}$ sur le gros site de Zariski de $T$,
+$$
+(f_{big, *}\mathcal{F})|_{S_{Zar}} =
+f_{small, *}(\mathcal{F}|_{T_{Zar}}),
+$$
+Cette égalité résulte immédiatement de la commutativité du diagramme de
+sites du lemme, puisque la restriction au petit site de Zariski de
+$T$, resp.\ $S$, est donnée par $\pi_{T, *}$, resp.\ $\pi_{S, *}$. La formule
+analogue faisant intervenir images inverses et restrictions est fausse.
+
+\begin{lemma}
+\label{lemma-composition}
+Étant donnés des schémas $X$, $Y$, $Z$ dans $(\Sch/S)_{Zar}$
+et des morphismes $f : X \to Y$, $g : Y \to Z$, on a
+$g_{big} \circ f_{big} = (g \circ f)_{big}$ et
+$g_{small} \circ f_{small} = (g \circ f)_{small}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la description simple de l'image directe
+et de l'image inverse pour les foncteurs entre gros sites donnée par le
+lemme \ref{lemma-morphism-big}. Pour les foncteurs
+entre petits sites, c'est le contenu de
+Faisceaux, lemme \ref{sheaves-lemma-pushforward-composition},
+via l'identification du lemme \ref{lemma-Zariski-usual}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-big-small-cartesian-diagram}
+Soit $\Sch_{Zar}$ un gros site de Zariski. Considérons un diagramme cartésien
+$$
+\xymatrix{
+T' \ar[r]_{g'} \ar[d]_{f'} & T \ar[d]^f \\
+S' \ar[r]^g & S
+}
+$$
+dans $\Sch_{Zar}$. Alors
+$i_g^{-1} \circ f_{big, *} = f'_{small, *} \circ (i_{g'})^{-1}$
+et $g_{big}^{-1} \circ f_{big, *} = f'_{big, *} \circ (g'_{big})^{-1}$.
+\end{lemma}
+
+\begin{proof}
+Puisque le diagramme est cartésien, on a, pour $U'/S'$,
+l'égalité $U' \times_{S'} T' = U' \times_S T$. Ainsi,
+$i_g^{-1} \circ f_{big, *}$ et $f'_{small, *} \circ (i_{g'})^{-1}$
+envoient tous deux un faisceau $\mathcal{F}$ sur $(\Sch/T)_{Zar}$ sur le faisceau
+$U' \mapsto \mathcal{F}(U' \times_{S'} T')$ sur $S'_{Zar}$
+(utiliser les lemmes \ref{lemma-put-in-T} et \ref{lemma-morphism-big-small}).
+La seconde égalité se démontre de la même manière ou peut se
+déduire du très général
+Sites, lemme \ref{sites-lemma-localize-morphism}.
+\end{proof}
+
+\noindent
+On peut considérer un faisceau sur le gros site de Zariski de $S$ comme une collection
+de faisceaux « usuels » sur tous les schémas au-dessus de $S$.
+
+\begin{lemma}
+\label{lemma-characterize-sheaf-big}
+Soit $S$ un schéma contenu dans un gros site de Zariski $\Sch_{Zar}$.
+Un faisceau $\mathcal{F}$ sur le gros site de Zariski $(\Sch/S)_{Zar}$
+est donné par les données suivantes :
+\begin{enumerate}
+\item pour tout $T/S \in \Ob((\Sch/S)_{Zar})$, un faisceau
+$\mathcal{F}_T$ sur $T$ ;
+\item pour tout $f : T' \to T$ dans
+$(\Sch/S)_{Zar}$, une application
+$c_f : f^{-1}\mathcal{F}_T \to \mathcal{F}_{T'}$.
+\end{enumerate}
+Ces données sont soumises aux conditions suivantes :
+\begin{enumerate}
+\item[(a)] pour tous $f : T' \to T$ et $g : T'' \to T'$ dans
+$(\Sch/S)_{Zar}$, la composée $c_g \circ g^{-1}c_f$
+est égale à $c_{f \circ g}$ ;
+\item[(b)] si $f : T' \to T$ dans $(\Sch/S)_{Zar}$ est une
+immersion ouverte, alors $c_f$ est un isomorphisme.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Ce lemme résulte d'un énoncé purement faisceautique discuté dans
+Sites, remarque \ref{sites-remark-variant-glue-sheaves-absolute}.
+Nous en donnons aussi une démonstration directe dans ce cas.
+
+\medskip\noindent
+Étant donné un faisceau $\mathcal{F}$ sur $\Sh((\Sch/S)_{Zar})$,
+on pose $\mathcal{F}_T = i_p^{-1}\mathcal{F}$, où $p : T \to S$
+est le morphisme structural. Remarquons que
+$\mathcal{F}_T(U) = \mathcal{F}(U'/S)$ pour tout ouvert $U \subset T$
+et toute immersion ouverte $U' \to T$ dans $(\Sch/T)_{Zar}$
+d'image $U$ ; voir les lemmes \ref{lemma-Zariski-usual} et \ref{lemma-put-in-T}.
+Ainsi, étant donnés $f : T' \to T$ au-dessus de $S$ et $U, U' \to T$, on obtient une
+application canonique $\mathcal{F}_T(U) = \mathcal{F}(U'/S) \to \mathcal{F}(U'\times_T T'/S)
+= \mathcal{F}_{T'}(f^{-1}(U))$, celle du milieu étant l'application de restriction
+de $\mathcal{F}$ relativement au morphisme
+$U' \times_T T' \to U'$ au-dessus de $S$. La famille de ces applications est
+compatible aux restrictions et définit donc une $f$-application $c_f$
+de $\mathcal{F}_T$ vers $\mathcal{F}_{T'}$ ; voir
+Faisceaux, définition \ref{sheaves-definition-f-map} et la discussion
+qui l'entoure. Il est clair que $c_{f \circ g}$ est la composée de
+$c_f$ et $c_g$, puisque composer les applications de restriction de $\mathcal{F}$
+donne encore une application de restriction.
+
+\medskip\noindent
+Réciproquement, étant donné un système $(\mathcal{F}_T, c_f)$ comme dans le lemme,
+on peut définir un préfaisceau $\mathcal{F}$ sur $\Sh((\Sch/S)_{Zar})$
+en posant simplement $\mathcal{F}(T/S) = \mathcal{F}_T(T)$. Comme application de restriction,
+pour $f : T' \to T$ donné, on définit, pour $s \in \mathcal{F}(T)$,
+l'image inverse $f^*(s)$ comme étant $c_f(s)$ (où l'on considère de nouveau $c_f$ comme
+une $f$-application). La condition imposée aux $c_f$ garantit que
+les images inverses satisfont à la propriété de fonctorialité requise.
+Nous omettons la vérification qu'il s'agit d'un faisceau.
+Il est clair que les constructions ainsi définies sont mutuellement inverses.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La topologie \'etale}
+\label{section-etale}
+
+\noindent
+Soit $S$ un schéma. Nous voulons définir la topologie \'etale sur
+la catégorie des schémas au-dessus de $S$. Conformément à notre principe général,
+nous introduisons d'abord la notion de recouvrement \'etale.
+
+\begin{definition}
+\label{definition-etale-covering}
+Soit $T$ un schéma. Un {\it recouvrement \'etale de $T$} est une famille
+de morphismes de schémas $\{f_i : T_i \to T\}_{i \in I}$
+telle que chaque $f_i$ soit \'etale et que $T = \bigcup f_i(T_i)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zariski-etale}
+Tout recouvrement de Zariski est un recouvrement \'etale.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des définitions et du fait qu'une immersion ouverte
+est un morphisme \'etale ; voir
+Morphismes, lemme \ref{morphisms-lemma-open-immersion-etale}.
+\end{proof}
+
+\noindent
+Montrons maintenant que cette notion satisfait aux conditions de
+Sites, définition \ref{sites-definition-site}.
+
+\begin{lemma}
+\label{lemma-etale}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement \'etale de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement \'etale et si, pour tout
+$i$, on a un recouvrement \'etale $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement \'etale.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement \'etale
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement \'etale.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-affine}
+Soit $T$ un schéma affine.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement \'etale de $T$.
+Il existe alors un recouvrement \'etale
+$\{U_j \to T\}_{j = 1, \ldots, m}$ qui raffine
+$\{T_i \to T\}_{i \in I}$ et tel que chaque $U_j$ soit un schéma
+affine. On peut en outre choisir chaque $U_j$ comme ouvert affine
+de l'un des $T_i$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\noindent
+On définit donc comme suit les recouvrements standards d'affines correspondants.
+
+\begin{definition}
+\label{definition-standard-etale}
+Soit $T$ un schéma affine. Un {\it recouvrement \'etale standard}
+de $T$ est une famille $\{f_j : U_j \to T\}_{j = 1, \ldots, m}$
+telle que chaque $U_j$ soit affine et \'etale sur $T$, et que
+$T = \bigcup f_j(U_j)$.
+\end{definition}
+
+\noindent
+Dans la définition ci-dessus, nous ne supposons {\bf pas} que les morphismes $f_j$ soient
+étales standards. En effet, sous cette hypothèse, les recouvrements étales
+standards ne définiraient pas un site sur $\textit{Aff}/S$, notamment à cause de
+Algèbre, lemme \ref{algebra-lemma-standard-etale}, partie (4).
+En revanche, un morphisme étale d'affines est automatiquement
+lisse standard ; voir
+Algèbre, lemme \ref{algebra-lemma-etale-standard-smooth}.
+Ainsi, un recouvrement étale standard est un recouvrement lisse
+standard et un recouvrement syntomique standard.
+
+\begin{definition}
+\label{definition-big-etale-site}
+Un {\it gros site étale} est un site $\Sch_\etale$, au sens de
+Sites, définition \ref{sites-definition-site}, construit comme suit :
+\begin{enumerate}
+\item Choisir un ensemble quelconque de schémas $S_0$, ainsi qu'un ensemble de recouvrements étales
+$\text{Cov}_0$ entre ces schémas.
+\item Prendre comme catégorie sous-jacente une catégorie $\Sch_\alpha$
+construite comme dans Ensembles, lemme \ref{sets-lemma-construct-category},
+à partir de l'ensemble $S_0$.
+\item Choisir un ensemble de recouvrements comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, à partir de la
+catégorie $\Sch_\alpha$, de la classe des recouvrements étales
+et de l'ensemble $\text{Cov}_0$ choisi ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voir les remarques suivant la définition \ref{definition-big-zariski-site}
+pour la motivation et les explications relatives à la définition des gros sites.
+
+\medskip\noindent
+Avant de poursuivre par l'introduction du gros site étale d'un
+schéma $S$, observons que la topologie d'un gros site étale
+$\Sch_\etale$ est, en un certain sens, induite par la topologie
+étale sur la catégorie de tous les schémas.
+
+\begin{lemma}
+\label{lemma-etale-induced}
+Soit $\Sch_\etale$ un gros site étale comme dans la
+définition \ref{definition-big-etale-site}.
+Soit $T \in \Ob(\Sch_\etale)$.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement étale quelconque de $T$.
+\begin{enumerate}
+\item Il existe un recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_\etale$ qui raffine $\{T_i \to T\}_{i \in I}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement étale standard, alors
+il est tautologiquement équivalent à un recouvrement dans $\Sch_\etale$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement de Zariski, alors
+il est tautologiquement équivalent à un recouvrement dans $\Sch_\etale$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour chaque $i$, choisissons un recouvrement ouvert affine $T_i = \bigcup_{j \in J_i} T_{ij}$
+tel que chaque $T_{ij}$ s'envoie dans un sous-schéma ouvert affine de $T$. D'après le
+lemme \ref{lemma-etale},
+le raffinement $\{T_{ij} \to T\}_{i \in I, j \in J_i}$ est lui aussi un recouvrement étale
+de $T$. On peut donc supposer chaque $T_i$ affine et s'envoyant dans
+un ouvert affine $W_i$ de $T$. En appliquant
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+on voit que $W_i$ est isomorphe à un objet de $\Sch_\etale$.
+Mais alors $T_i$, en tant que schéma de type fini au-dessus de $W_i$,
+est isomorphe à un objet $V_i$ de $\Sch_\etale$ par une seconde
+application de
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{V_i \to T\}_{i \in I}$ raffine $\{T_i \to T\}_{i \in I}$
+(puisqu'ils sont isomorphes).
+De plus, $\{V_i \to T\}_{i \in I}$ est combinatoirement équivalent à un
+recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_\etale$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{U_j \to T\}_{j \in J}$ est un raffinement comme en (1).
+Dans la situation de (2), (3), chacun des
+schémas $T_i$ est isomorphe à un objet de $\Sch_\etale$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+et une nouvelle application de
+Ensembles, lemme \ref{sets-lemma-coverings-site},
+donne le résultat voulu.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-small-etale}
+Soit $S$ un schéma. Soit $\Sch_\etale$ un gros site
+étale contenant $S$.
+\begin{enumerate}
+\item Le {\it gros site étale de $S$}, noté
+$(\Sch/S)_\etale$, est le site
+$\Sch_\etale/S$ introduit dans
+Sites, section \ref{sites-section-localize}.
+\item Le {\it petit site étale de $S$}, que nous notons
+$S_\etale$, est la sous-catégorie pleine de
+$(\Sch/S)_\etale$
+dont les objets sont les $U/S$ tels que $U \to S$ soit étale.
+Un recouvrement de $S_\etale$ est tout recouvrement $\{U_i \to U\}$ de
+$(\Sch/S)_\etale$ avec $U \in \Ob(S_\etale)$.
+\item Le {\it gros site étale affine de $S$}, noté
+$(\textit{Aff}/S)_\etale$, est la sous-catégorie pleine de
+$(\Sch/S)_\etale$ dont les objets sont les $U/S$
+tels que $U$ soit un schéma affine.
+Un recouvrement de $(\textit{Aff}/S)_\etale$ est tout recouvrement
+$\{U_i \to U\}$ de $(\Sch/S)_\etale$ avec $U \in \Ob((\textit{Aff}/S)_\etale)$
+qui soit un recouvrement étale standard.
+\item Le {\it petit site étale affine de $S$}, noté
+$S_{affine, \etale}$, est la sous-catégorie pleine de $S_\etale$
+dont les objets sont les $U/S$ tels que $U$ soit un schéma affine.
+Un recouvrement de $S_{affine, \etale}$ est tout recouvrement $\{U_i \to U\}$
+de $S_\etale$ avec $U \in \Ob(S_{affine, \etale})$ qui soit un recouvrement
+étale standard.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il n'est pas tout à fait évident que le gros site étale affine,
+le petit site étale et le petit site étale affine soient des sites.
+Vérifions-le.
+
+\begin{lemma}
+\label{lemma-verify-site-etale}
+Soit $S$ un schéma. Soit $\Sch_\etale$ un gros site
+étale contenant $S$.
+Les structures $S_\etale$, $(\textit{Aff}/S)_\etale$ et $S_{affine, \etale}$
+sont des sites.
+\end{lemma}
+
+\begin{proof}
+Montrons que $S_\etale$ est un site. C'est une catégorie munie d'un
+ensemble donné de familles de morphismes de but fixé. Il faut donc
+établir les propriétés (1), (2) et (3) de
+Sites, définition \ref{sites-definition-site}.
+Puisque $(\Sch/S)_\etale$ est un site, il suffit de prouver
+que, pour tout recouvrement $\{U_i \to U\}$ de $(\Sch/S)_\etale$
+avec $U \in \Ob(S_\etale)$, on a aussi
+$U_i \in \Ob(S_\etale)$.
+Cela résulte des définitions, car la composée de morphismes étales
+est un morphisme étale.
+
+\medskip\noindent
+Montrons que $(\textit{Aff}/S)_\etale$ est un site.
+En raisonnant comme ci-dessus, il suffit de montrer que l'ensemble
+des recouvrements étales standards d'affines satisfait aux propriétés
+(1), (2) et (3) de
+Sites, définition \ref{sites-definition-site}.
+C'est clair : par exemple, étant donné un recouvrement étale
+standard $\{T_i \to T\}_{i\in I}$ et, pour chaque
+$i$, un recouvrement étale standard $\{T_{ij} \to T_i\}_{j\in J_i}$,
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement étale standard
+car $\bigcup_{i\in I} J_i$ est fini et chaque $T_{ij}$ est affine.
+
+\medskip\noindent
+Nous omettons la démonstration du fait que $S_{affine, \'etale}$ est un site.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-products-etale}
+Soit $S$ un schéma. Soit $\Sch_\etale$ un gros site
+étale contenant $S$. Les catégories sous-jacentes des sites
+$\Sch_\etale$, $(\Sch/S)_\etale$, $S_\etale$, $(\textit{Aff}/S)_\etale$,
+et $S_{affine, \etale}$ admettent des produits fibrés.
+Dans chaque cas, le foncteur évident vers la catégorie $\Sch$ de
+tous les schémas commute à la formation des produits fibrés. Les catégories
+$(\Sch/S)_\etale$ et $S_\etale$ possèdent toutes deux un
+objet final, à savoir $S/S$.
+\end{lemma}
+
+\begin{proof}
+Pour $\Sch_\etale$, cela est vrai par construction ; voir
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Supposons donnés des morphismes $U \to S$, $V \to U$, $W \to U$
+de schémas, avec $U, V, W \in \Ob(\Sch_\etale)$.
+Le produit fibré $V \times_U W$ dans $\Sch_\etale$
+est un produit fibré dans $\Sch$ et
+est le produit fibré de $V/S$ et $W/S$ au-dessus de $U/S$ dans
+la catégorie de tous les schémas au-dessus de $S$, donc aussi un
+produit fibré dans $(\Sch/S)_\etale$.
+Cela prouve le résultat pour $(\Sch/S)_\etale$.
+Si $U \to S$, $V \to U$ et $W \to U$ sont étales, alors
+$V \times_U W \to S$ l'est aussi, d'où le résultat pour $S_\etale$.
+Si $U, V, W$ sont affines, $V \times_U W$ l'est aussi, d'où le
+résultat pour $(\textit{Aff}/S)_\etale$ et $S_{affine, \etale}$.
+\end{proof}
+
+\noindent
+Vérifions ensuite que le gros, resp.\ petit, site affine définit le même
+topos que le gros, resp.\ petit, site.
+
+\begin{lemma}
+\label{lemma-affine-big-site-etale}
+Soit $S$ un schéma. Soit $\Sch_\etale$ un gros site
+étale contenant $S$.
+Le foncteur
+$(\textit{Aff}/S)_\etale \to (\Sch/S)_\etale$
+est cocontinu spécial et induit une équivalence de topos de
+$\Sh((\textit{Aff}/S)_\etale)$ vers
+$\Sh((\Sch/S)_\etale)$.
+\end{lemma}
+
+\begin{proof}
+La notion de foncteur cocontinu spécial est introduite dans
+Sites, définition \ref{sites-definition-special-cocontinuous-functor}.
+Il faut donc vérifier les hypothèses (1) -- (5) de
+Sites, lemme \ref{sites-lemma-equivalence}.
+Notons le foncteur d'inclusion
+$u : (\textit{Aff}/S)_\etale \to (\Sch/S)_\etale$.
+La cocontinuité signifie simplement que tout recouvrement étale de
+$T/S$, avec $T$ affine, admet un raffinement par un recouvrement étale standard de $T$.
+C'est le contenu du
+lemme \ref{lemma-etale-affine}.
+Ainsi, (1) est vérifiée. Le foncteur $u$ est continu simplement parce qu'un recouvrement
+étale standard est un recouvrement étale. Ainsi, (2) est vérifiée.
+Les points (3) et (4) découlent immédiatement du fait que $u$ est
+pleinement fidèle. Enfin, la condition (5) découle du
+fait que tout schéma admet un recouvrement ouvert affine.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-alternative}
+Soit $S$ un schéma. Soit $\Sch_\etale$ un gros site
+étale contenant $S$. Le foncteur $S_{affine, \etale} \to S_\etale$
+est cocontinu spécial et induit une équivalence de topos de
+$\Sh(S_{affine, \etale})$ vers $\Sh(S_\etale)$.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : comparer avec la démonstration du
+lemme \ref{lemma-affine-big-site-etale}.
+\end{proof}
+
+\noindent
+Établissons maintenant quelques relations entre les topos
+associés à ces sites.
+
+\begin{lemma}
+\label{lemma-put-in-T-etale}
+Soit $\Sch_\etale$ un gros site étale.
+Soit $f : T \to S$ un morphisme dans $\Sch_\etale$.
+Le foncteur $T_\etale \to (\Sch/S)_\etale$
+est cocontinu et induit un morphisme de topos
+$$
+i_f :
+\Sh(T_\etale)
+\longrightarrow
+\Sh((\Sch/S)_\etale)
+$$
+Pour un faisceau $\mathcal{G}$ sur $(\Sch/S)_\etale$,
+on a la formule $(i_f^{-1}\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+Le foncteur $i_f^{-1}$ admet aussi un adjoint à gauche $i_{f, !}$ qui commute
+aux produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Notons le foncteur $u : T_\etale \to (\Sch/S)_\etale$.
+Autrement dit, à un morphisme étale $j : U \to T$ correspondant
+à un objet de $T_\etale$, on associe $u(U \to T) = (f \circ j : U \to S)$.
+Ce foncteur commute aux produits fibrés ; voir le
+lemme \ref{lemma-fibre-products-etale}.
+Soient $a, b : U \to V$ deux morphismes dans $T_\etale$.
+Dans ce cas, l'égalisateur de $a$ et $b$ (dans la catégorie des schémas) est
+$$
+V \times_{\Delta_{V/T}, V \times_T V, (a, b)} U
+$$
+qui est un produit fibré de schémas étales au-dessus de $T$, donc étale
+au-dessus de $T$. Ainsi, $T_\etale$ admet des égalisateurs et $u$ commute avec eux.
+Il est clairement cocontinu.
+Il est aussi continu, car $u$ envoie les recouvrements sur des recouvrements et
+commute aux produits fibrés. Le lemme résulte donc de
+Sites, lemmes \ref{sites-lemma-when-shriek}
+et \ref{sites-lemma-preserve-equalizers}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-at-the-bottom-etale}
+Soit $S$ un schéma. Soit $\Sch_\etale$ un gros site
+étale contenant $S$.
+Le foncteur d'inclusion $S_\etale \to (\Sch/S)_\etale$
+satisfait aux hypothèses de Sites, lemme \ref{sites-lemma-bigger-site},
+et induit donc un morphisme de sites
+$$
+\pi_S : (\Sch/S)_\etale \longrightarrow S_\etale
+$$
+et un morphisme de topos
+$$
+i_S : \Sh(S_\etale) \longrightarrow \Sh((\Sch/S)_\etale)
+$$
+tel que $\pi_S \circ i_S = \text{id}$. De plus, $i_S = i_{\text{id}_S}$,
+où $i_{\text{id}_S}$ est défini comme dans le lemme \ref{lemma-put-in-T-etale}.
+En particulier, le foncteur $i_S^{-1} = \pi_{S, *}$ est décrit par la règle
+$i_S^{-1}(\mathcal{G})(U/S) = \mathcal{G}(U/S)$.
+\end{lemma}
+
+\begin{proof}
+Dans ce cas, le foncteur
+$u : S_\etale \to (\Sch/S)_\etale$,
+outre les propriétés établies dans la démonstration du
+lemme \ref{lemma-put-in-T-etale} ci-dessus, est pleinement fidèle
+et envoie l'objet final sur l'objet final.
+Le lemme résulte de Sites, lemme \ref{sites-lemma-bigger-site}.
+\end{proof}
+
+\begin{definition}
+\label{definition-restriction-small-etale}
+Dans la situation du
+lemme \ref{lemma-at-the-bottom-etale},
+le foncteur $i_S^{-1} = \pi_{S, *}$ est souvent
+appelé la {\it restriction au petit site étale} et, pour un faisceau
+$\mathcal{F}$ sur le gros site étale, nous notons
+$\mathcal{F}|_{S_\etale}$ cette restriction.
+\end{definition}
+
+\noindent
+Avec cette notation, pour un faisceau $\mathcal{F}$ sur le
+gros site et un faisceau $\mathcal{G}$ sur le petit site, on a
+\begin{align*}
+\Mor_{\Sh(S_\etale)}(
+\mathcal{F}|_{S_\etale},
+\mathcal{G})
+& =
+\Mor_{\Sh((\Sch/S)_\etale)}(
+\mathcal{F},
+i_{S, *}\mathcal{G}) \\
+\Mor_{\Sh(S_\etale)}(
+\mathcal{G},
+\mathcal{F}|_{S_\etale})
+& =
+\Mor_{\Sh((\Sch/S)_\etale)}(
+\pi_S^{-1}\mathcal{G},
+\mathcal{F})
+\end{align*}
+De plus, on a $(i_{S, *}\mathcal{G})|_{S_\etale} = \mathcal{G}$
+et $(\pi_S^{-1}\mathcal{G})|_{S_\etale} = \mathcal{G}$.
+
+\begin{lemma}
+\label{lemma-morphism-big-etale}
+Soit $\Sch_\etale$ un gros site étale.
+Soit $f : T \to S$ un morphisme dans $\Sch_\etale$.
+Le foncteur
+$$
+u :
+(\Sch/T)_\etale
+\longrightarrow
+(\Sch/S)_\etale,
+\quad
+V/T \longmapsto V/S
+$$
+est cocontinu et admet un adjoint à droite continu
+$$
+v :
+(\Sch/S)_\etale
+\longrightarrow
+(\Sch/T)_\etale,
+\quad
+(U \to S) \longmapsto (U \times_S T \to T).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\Sch/T)_\etale)
+\longrightarrow
+\Sh((\Sch/S)_\etale)
+$$
+On a $f_{big}^{-1}(\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+On a $f_{big, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$.
+En outre, $f_{big}^{-1}$ admet un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs (détails omis ; comparer à la démonstration du
+lemme \ref{lemma-put-in-T-etale}).
+Par conséquent,
+Sites, lemmes \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et donnent la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est un adjoint à droite car, étant donnés $U/T$ et $V/S$,
+on a $\Mor_S(u(U), V) = \Mor_T(U, V \times_S T)$,
+comme voulu. On peut donc appliquer
+Sites, lemmes \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule pour $f_{big, *}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-big-small-etale}
+Soit $\Sch_\etale$ un gros site étale.
+Soit $f : T \to S$ un morphisme dans $\Sch_\etale$.
+\begin{enumerate}
+\item On a $i_f = f_{big} \circ i_T$, où $i_f$ est défini comme dans le
+lemme \ref{lemma-put-in-T-etale} et $i_T$ comme dans le
+lemme \ref{lemma-at-the-bottom-etale}.
+\item Le foncteur $S_\etale \to T_\etale$,
+$(U \to S) \mapsto (U \times_S T \to T)$, est continu et induit
+un morphisme de sites
+$$
+f_{small} : T_\etale \longrightarrow S_\etale
+$$
+On a $f_{small, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$.
+\item On a un diagramme commutatif de morphismes de sites
+$$
+\xymatrix{
+T_\etale \ar[d]_{f_{small}} &
+(\Sch/T)_\etale \ar[d]^{f_{big}} \ar[l]^{\pi_T}\\
+S_\etale &
+(\Sch/S)_\etale \ar[l]_{\pi_S}
+}
+$$
+de sorte que $f_{small} \circ \pi_T = \pi_S \circ f_{big}$ comme morphismes de topos.
+\item On a $f_{small} = \pi_S \circ f_{big} \circ i_T = \pi_S \circ i_f$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'égalité $i_f = f_{big} \circ i_T$ résulte de
+l'égalité $i_f^{-1} = i_T^{-1} \circ f_{big}^{-1}$, qui découle
+des descriptions de ces foncteurs données ci-dessus.
+Cela prouve (1).
+
+\medskip\noindent
+Le foncteur
+$u :
+S_\etale
+\to
+T_\etale$, $u(U \to S) = (U \times_S T \to T)$
+envoie les recouvrements sur des recouvrements et commute aux produits fibrés ;
+voir le lemme \ref{lemma-etale} (3) et \ref{lemma-fibre-products-etale}.
+De plus, $S_\etale$ et $T_\etale$ admettent tous deux des objets finaux,
+à savoir $S/S$ et $T/T$, et $u(S/S) = T/T$. Par conséquent, d'après
+Sites, proposition \ref{sites-proposition-get-morphism},
+le foncteur $u$ correspond à un morphisme de sites
+$T_\etale \to S_\etale$. Celui-ci donne à son tour naissance au
+morphisme de topos ; voir
+Sites, lemme \ref{sites-lemma-morphism-sites-topoi}. La description
+de l'image directe résulte immédiatement de ces références.
+
+\medskip\noindent
+Le point (3) résulte du fait que $\pi_S$ et $\pi_T$ sont donnés par les
+foncteurs d'inclusion, et $f_{small}$ et $f_{big}$ par les
+foncteurs de changement de base $U \mapsto U \times_S T$.
+
+\medskip\noindent
+L'assertion (4) résulte de (3) en précomposant avec $i_T$.
+\end{proof}
+
+\noindent
+Dans la situation du lemme, avec la terminologie de la
+définition \ref{definition-restriction-small-etale},
+on a, pour $\mathcal{F}$ faisceau sur le gros site étale de $T$,
+$$
+(f_{big, *}\mathcal{F})|_{S_\etale} =
+f_{small, *}(\mathcal{F}|_{T_\etale}),
+$$
+Cette égalité résulte de la commutativité du diagramme de
+sites du lemme, puisque la restriction au petit site étale de
+$T$, resp.\ $S$, est donnée par $\pi_{T, *}$, resp.\ $\pi_{S, *}$. Une formule
+analogue faisant intervenir images inverses et restrictions est fausse.
+
+\begin{lemma}
+\label{lemma-composition-etale}
+Étant donnés des schémas $X$, $Y$, $Y$ de $\Sch_\etale$
+et des morphismes $f : X \to Y$, $g : Y \to Z$, on a
+$g_{big} \circ f_{big} = (g \circ f)_{big}$ et
+$g_{small} \circ f_{small} = (g \circ f)_{small}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la description simple de l'image directe
+et de l'image inverse pour les foncteurs sur les gros sites donnée par le
+lemme \ref{lemma-morphism-big-etale}. Pour les foncteurs
+sur les petits sites, cela résulte de la description des
+foncteurs image directe dans le lemme \ref{lemma-morphism-big-small-etale}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-big-small-cartesian-diagram-etale}
+Soit $\Sch_\etale$ un gros site étale. Considérons un diagramme cartésien
+$$
+\xymatrix{
+T' \ar[r]_{g'} \ar[d]_{f'} & T \ar[d]^f \\
+S' \ar[r]^g & S
+}
+$$
+dans $\Sch_\etale$. Alors
+$i_g^{-1} \circ f_{big, *} = f'_{small, *} \circ (i_{g'})^{-1}$
+et $g_{big}^{-1} \circ f_{big, *} = f'_{big, *} \circ (g'_{big})^{-1}$.
+\end{lemma}
+
+\begin{proof}
+Le diagramme étant cartésien, on a, pour $U'/S'$,
+$U' \times_{S'} T' = U' \times_S T$. Par conséquent, les deux foncteurs
+$i_g^{-1} \circ f_{big, *}$ et $f'_{small, *} \circ (i_{g'})^{-1}$
+envoient un faisceau $\mathcal{F}$ sur $(\Sch/T)_\etale$ sur le faisceau
+$U' \mapsto \mathcal{F}(U' \times_{S'} T')$ sur $S'_\etale$
+(utiliser les lemmes \ref{lemma-put-in-T-etale} et \ref{lemma-morphism-big-etale}).
+La seconde égalité peut se démontrer de la même manière ou se
+déduire du très général
+Sites, lemme \ref{sites-lemma-localize-morphism}.
+\end{proof}
+
+\noindent
+On peut considérer un faisceau sur le gros site étale de $S$ comme une collection
+de faisceaux « usuels » sur tous les schémas au-dessus de $S$.
+
+\begin{lemma}
+\label{lemma-characterize-sheaf-big-etale}
+Soit $S$ un schéma contenu dans un gros site étale
+$\Sch_\etale$.
+Un faisceau $\mathcal{F}$ sur le gros site étale
+$(\Sch/S)_\etale$ est décrit par les données suivantes :
+\begin{enumerate}
+\item pour tout $T/S \in \Ob((\Sch/S)_\etale)$, un faisceau
+$\mathcal{F}_T$ sur $T_\etale$,
+\item pour tout $f : T' \to T$ dans
+$(\Sch/S)_\etale$, une application
+$c_f : f_{small}^{-1}\mathcal{F}_T \to \mathcal{F}_{T'}$.
+\end{enumerate}
+Ces données sont soumises aux conditions suivantes :
+\begin{enumerate}
+\item[(a)] pour tous $f : T' \to T$ et $g : T'' \to T'$ dans
+$(\Sch/S)_\etale$, la composée
+$c_g \circ g_{small}^{-1}c_f$ est égale à $c_{f \circ g}$, et
+\item[(b)] si $f : T' \to T$ dans $(\Sch/S)_\etale$
+est étale, alors $c_f$ est un isomorphisme.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Ce lemme résulte d'un énoncé purement faisceautique discuté dans
+Sites, remarque \ref{sites-remark-variant-glue-sheaves-absolute}.
+Nous donnons aussi une démonstration directe dans ce cas.
+
+\medskip\noindent
+Étant donné un faisceau $\mathcal{F}$ sur $\Sh((\Sch/S)_\etale)$,
+on pose $\mathcal{F}_T = i_p^{-1}\mathcal{F}$, où $p : T \to S$
+est le morphisme structural. Remarquons que
+$\mathcal{F}_T(U) = \mathcal{F}(U/S)$ pour tout $U \to T$
+dans $T_\etale$ ; voir le lemme \ref{lemma-put-in-T-etale}.
+Ainsi, étant donnés $f : T' \to T$ au-dessus de $S$ et $U \to T$, on obtient une
+application canonique $\mathcal{F}_T(U) = \mathcal{F}(U/S) \to \mathcal{F}(U \times_T T'/S)
+= \mathcal{F}_{T'}(U \times_T T')$, où l'application médiane est l'application de restriction
+de $\mathcal{F}$ relativement au morphisme
+$U \times_T T' \to U$ au-dessus de $S$. La famille de ces applications est
+compatible aux restrictions et définit donc une application
+$c'_f : \mathcal{F}_T \to f_{small, *}\mathcal{F}_{T'}$, où
+$u : T_\etale \to T'_\etale$ est le foncteur de changement de base
+associé à $f$. Par l'adjonction de $f_{small, *}$ (voir
+Sites, section \ref{sites-section-continuous-functors}) avec
+$f_{small}^{-1}$, cela revient à une application
+$c_f : f_{small}^{-1}\mathcal{F}_T \to \mathcal{F}_{T'}$.
+Il est clair que $c'_{f \circ g}$ est la composée de
+$c'_f$ et $f_{small, *}c'_g$, puisque la composée d'applications de restriction
+de $\mathcal{F}$ est encore une application de restriction ; on obtient ainsi la
+relation voulue entre $c_f$, $c_g$ et $c_{f \circ g}$.
+
+\medskip\noindent
+Réciproquement, étant donné un système $(\mathcal{F}_T, c_f)$ comme dans le lemme,
+on peut définir un préfaisceau $\mathcal{F}$ sur
+$\Sh((\Sch/S)_\etale)$
+en posant simplement $\mathcal{F}(T/S) = \mathcal{F}_T(T)$. Comme application de restriction,
+étant donné $f : T' \to T$, on définit, pour $s \in \mathcal{F}(T)$,
+l'image inverse $f^*(s)$ comme $c_f(s)$, où l'on considère de nouveau $c_f$ comme
+une application $\mathcal{F}_T \to f_{small, *}\mathcal{F}_{T'}$.
+La condition sur les $c_f$ garantit que
+les images inverses satisfont à la fonctorialité requise.
+Nous omettons la vérification qu'il s'agit d'un faisceau.
+Il est clair que les constructions ainsi définies sont inverses l'une de l'autre.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La topologie lisse}
+\label{section-smooth}
+
+\noindent
+Dans cette section, nous définissons la topologie lisse.
+Cela est quelque peu gratuit, puisqu'on verra plus loin (voir
+Compléments sur les morphismes, section \ref{more-morphisms-section-etale-over-smooth})
+que cette topologie définit le même topos que la
+topologie étale. Elle demeure néanmoins naturelle et intervient
+à l'occasion.
+
+\begin{definition}
+\label{definition-smooth-covering}
+Soit $T$ un schéma. Un {\it recouvrement lisse de $T$} est une famille
+de morphismes de schémas $\{f_i : T_i \to T\}_{i \in I}$
+telle que chaque $f_i$ soit lisse et
+que $T = \bigcup f_i(T_i)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth}
+Tout recouvrement étale est un recouvrement lisse et, à plus forte raison,
+tout recouvrement de Zariski est un recouvrement lisse.
+\end{lemma}
+
+\begin{proof}
+Cela résulte des définitions et du fait qu'un morphisme étale est
+lisse ; voir
+Morphismes, définition \ref{morphisms-definition-etale}
+et le lemme \ref{lemma-zariski-etale}.
+\end{proof}
+
+\noindent
+Montrons maintenant que cette notion satisfait aux conditions de
+Sites, définition \ref{sites-definition-site}.
+
+\begin{lemma}
+\label{lemma-smooth}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement lisse de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement lisse et si, pour tout
+$i$, on a un recouvrement lisse $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement lisse.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement lisse
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement lisse.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-affine}
+Soit $T$ un schéma affine.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement lisse de $T$.
+Il existe alors un recouvrement lisse
+$\{U_j \to T\}_{j = 1, \ldots, m}$ qui raffine
+$\{T_i \to T\}_{i \in I}$, tel que chaque $U_j$ soit un schéma
+affine et que chaque morphisme $U_j \to T$ soit lisse
+standard ; voir Morphismes, définition \ref{morphisms-definition-smooth}.
+On peut en outre choisir chaque $U_j$ comme ouvert affine de l'un des $T_i$.
+\end{lemma}
+
+\begin{proof}
+Omis ; voir toutefois Algèbre, lemme \ref{algebra-lemma-smooth-syntomic}.
+\end{proof}
+
+\noindent
+On définit donc comme suit les recouvrements standards d'affines correspondants.
+
+\begin{definition}
+\label{definition-standard-smooth}
+Soit $T$ un schéma affine. Un {\it recouvrement lisse standard}
+de $T$ est une famille $\{f_j : U_j \to T\}_{j = 1, \ldots, m}$
+telle que chaque $U_j$ soit affine, que $U_j \to T$ soit lisse standard
+et que $T = \bigcup f_j(U_j)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-big-smooth-site}
+Un {\it gros site lisse} est un site $\Sch_{smooth}$ au sens de
+Sites, définition \ref{sites-definition-site}, construit comme suit :
+\begin{enumerate}
+\item Choisir un ensemble quelconque de schémas $S_0$ et un ensemble de recouvrements lisses
+$\text{Cov}_0$ entre ces schémas.
+\item Prendre comme catégorie sous-jacente une catégorie $\Sch_\alpha$
+construite comme dans Ensembles, lemme \ref{sets-lemma-construct-category},
+à partir de l'ensemble $S_0$.
+\item Choisir un ensemble de recouvrements comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, à partir de la
+catégorie $\Sch_\alpha$, de la classe des recouvrements lisses
+et de l'ensemble $\text{Cov}_0$ choisi ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voir les remarques suivant la définition \ref{definition-big-zariski-site}
+pour la motivation et les explications relatives à la définition des gros sites.
+
+\medskip\noindent
+Avant de poursuivre par l'introduction du gros site lisse d'un
+schéma $S$, observons que la topologie d'un gros site lisse
+$\Sch_{smooth}$ est, en un certain sens, induite par la topologie lisse
+sur la catégorie de tous les schémas.
+
+\begin{lemma}
+\label{lemma-smooth-induced}
+Soit $\Sch_{smooth}$ un gros site lisse comme dans la
+définition \ref{definition-big-smooth-site}.
+Soit $T \in \Ob(\Sch_{smooth})$.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement lisse quelconque de $T$.
+\begin{enumerate}
+\item Il existe un recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{smooth}$ qui raffine $\{T_i \to T\}_{i \in I}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement lisse standard, alors
+il est tautologiquement équivalent à un recouvrement de $\Sch_{smooth}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement de Zariski, alors
+il est tautologiquement équivalent à un recouvrement de $\Sch_{smooth}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour chaque $i$, choisissons un recouvrement ouvert affine $T_i = \bigcup_{j \in J_i} T_{ij}$
+tel que chaque $T_{ij}$ s'envoie dans un sous-schéma ouvert affine de $T$. D'après le
+lemme \ref{lemma-smooth},
+le raffinement $\{T_{ij} \to T\}_{i \in I, j \in J_i}$ est lui aussi un recouvrement lisse
+de $T$. On peut donc supposer chaque $T_i$ affine et s'envoyant dans
+un ouvert affine $W_i$ de $T$. En appliquant
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+on voit que $W_i$ est isomorphe à un objet de $\Sch_{smooth}$.
+Mais alors $T_i$, comme schéma de type fini au-dessus de $W_i$,
+est isomorphe à un objet $V_i$ de $\Sch_{smooth}$ par une seconde
+application de
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{V_i \to T\}_{i \in I}$ raffine $\{T_i \to T\}_{i \in I}$
+(puisqu'ils sont isomorphes).
+De plus, $\{V_i \to T\}_{i \in I}$ est combinatoirement équivalent à un
+recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{smooth}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{U_j \to T\}_{j \in J}$ est un raffinement comme en (1).
+Dans la situation de (2), (3), chacun des
+schémas $T_i$ est isomorphe à un objet de $\Sch_{smooth}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+et une nouvelle application de
+Ensembles, lemme \ref{sets-lemma-coverings-site},
+donne le résultat voulu.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-small-smooth}
+Soit $S$ un schéma. Soit $\Sch_{smooth}$ un gros site
+lisse contenant $S$.
+\begin{enumerate}
+\item Le {\it gros site lisse de $S$}, noté
+$(\Sch/S)_{smooth}$, est le site $\Sch_{smooth}/S$
+introduit dans Sites, section \ref{sites-section-localize}.
+\item Le {\it gros site lisse affine de $S$}, noté
+$(\textit{Aff}/S)_{smooth}$, est la sous-catégorie pleine de
+$(\Sch/S)_{smooth}$ dont les objets sont les $U/S$ affines.
+Un recouvrement de $(\textit{Aff}/S)_{smooth}$ est tout recouvrement
+$\{U_i \to U\}$ de $(\Sch/S)_{smooth}$ qui soit un
+recouvrement lisse standard.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Vérifions ensuite que le gros site affine définit le même
+topos que le gros site.
+
+\begin{lemma}
+\label{lemma-affine-big-site-smooth}
+Soit $S$ un schéma. Soit $\Sch_{smooth}$ un gros site
+lisse contenant $S$.
+Le foncteur
+$(\textit{Aff}/S)_{smooth} \to (\Sch/S)_{smooth}$
+est cocontinu spécial et induit une équivalence de topos de
+$\Sh((\textit{Aff}/S)_{smooth})$ vers
+$\Sh((\Sch/S)_{smooth})$.
+\end{lemma}
+
+\begin{proof}
+La notion de foncteur cocontinu spécial est introduite dans
+Sites, définition \ref{sites-definition-special-cocontinuous-functor}.
+Il faut donc vérifier les hypothèses (1) -- (5) de
+Sites, lemme \ref{sites-lemma-equivalence}.
+Notons le foncteur d'inclusion
+$u : (\textit{Aff}/S)_{smooth} \to (\Sch/S)_{smooth}$.
+La cocontinuité signifie simplement que tout recouvrement lisse de
+$T/S$, avec $T$ affine, admet un raffinement par un recouvrement lisse standard de $T$.
+C'est le contenu du
+lemme \ref{lemma-smooth-affine}.
+Ainsi, (1) est vérifiée. Le foncteur $u$ est continu simplement parce qu'un recouvrement
+lisse standard est un recouvrement lisse. Ainsi, (2) est vérifiée.
+Les points (3) et (4) découlent immédiatement du fait que $u$ est
+pleinement fidèle. Enfin, la condition (5) découle du
+fait que tout schéma admet un recouvrement ouvert affine.
+\end{proof}
+
+\noindent
+À suivre...
+
+\begin{lemma}
+\label{lemma-morphism-big-smooth}
+Soit $\Sch_{smooth}$ un gros site lisse.
+Soit $f : T \to S$ un morphisme dans $\Sch_{smooth}$.
+Le foncteur
+$$
+u : (\Sch/T)_{smooth} \longrightarrow (\Sch/S)_{smooth},
+\quad
+V/T \longmapsto V/S
+$$
+est cocontinu et admet un adjoint à droite continu
+$$
+v : (\Sch/S)_{smooth} \longrightarrow (\Sch/T)_{smooth},
+\quad
+(U \to S) \longmapsto (U \times_S T \to T).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\Sch/T)_{smooth})
+\longrightarrow
+\Sh((\Sch/S)_{smooth})
+$$
+On a $f_{big}^{-1}(\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+On a $f_{big, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$.
+En outre, $f_{big}^{-1}$ admet un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs. Par conséquent,
+Sites, lemmes \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et donnent la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est un adjoint à droite car, étant donnés $U/T$ et $V/S$,
+on a $\Mor_S(u(U), V) = \Mor_T(U, V \times_S T)$,
+comme voulu. On peut donc appliquer
+Sites, lemmes \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule pour $f_{big, *}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{La topologie syntomique}
+\label{section-syntomic}
+
+\noindent
+Dans cette section, nous définissons la topologie syntomique.
+Cette topologie est assez intéressante : elle possède souvent
+les mêmes groupes de cohomologie que la topologie fppf,
+tout en étant techniquement plus facile à manier.
+
+\begin{definition}
+\label{definition-syntomic-covering}
+Soit $T$ un schéma. Un {\it recouvrement syntomique de $T$} est une famille
+de morphismes de schémas $\{f_i : T_i \to T\}_{i \in I}$
+telle que chaque $f_i$ soit syntomique et
+que $T = \bigcup f_i(T_i)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic}
+Tout recouvrement lisse est un recouvrement syntomique et, à plus forte raison,
+tout recouvrement étale ou de Zariski est un recouvrement syntomique.
+\end{lemma}
+
+\begin{proof}
+Cela résulte des définitions et du fait qu'un
+morphisme lisse est syntomique ; voir
+Morphismes, lemme \ref{morphisms-lemma-smooth-syntomic}
+et le lemme \ref{lemma-zariski-etale-smooth}.
+\end{proof}
+
+\noindent
+Montrons maintenant que cette notion satisfait aux conditions de
+Sites, définition \ref{sites-definition-site}.
+
+\begin{lemma}
+\label{lemma-syntomic}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement syntomique de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement syntomique et si, pour tout
+$i$, on a un recouvrement syntomique $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement syntomique.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement syntomique
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement syntomique.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-syntomic-affine}
+Soit $T$ un schéma affine.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement syntomique de $T$.
+Il existe alors un recouvrement syntomique
+$\{U_j \to T\}_{j = 1, \ldots, m}$ qui raffine
+$\{T_i \to T\}_{i \in I}$, tel que chaque $U_j$ soit un schéma
+affine et que chaque morphisme $U_j \to T$ soit syntomique
+standard ; voir Morphismes, définition \ref{morphisms-definition-syntomic}.
+On peut en outre choisir chaque $U_j$ comme ouvert affine de l'un des $T_i$.
+\end{lemma}
+
+\begin{proof}
+Omis ; voir toutefois Algèbre, lemme \ref{algebra-lemma-syntomic}.
+\end{proof}
+
+\noindent
+On définit donc comme suit les recouvrements standards d'affines correspondants.
+
+\begin{definition}
+\label{definition-standard-syntomic}
+Soit $T$ un schéma affine. Un {\it recouvrement syntomique standard} de $T$ est
+une famille $\{f_j : U_j \to T\}_{j = 1, \ldots, m}$ telle que chaque $U_j$ soit
+affine, que $U_j \to T$ soit syntomique standard et que $T = \bigcup f_j(U_j)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-big-syntomic-site}
+Un {\it gros site syntomique} est un site $\Sch_{syntomic}$ au sens de
+Sites, définition \ref{sites-definition-site}, construit comme suit :
+\begin{enumerate}
+\item Choisir un ensemble quelconque de schémas $S_0$ et un ensemble de recouvrements syntomiques
+$\text{Cov}_0$ entre ces schémas.
+\item Prendre comme catégorie sous-jacente une catégorie $\Sch_\alpha$
+construite comme dans Ensembles, lemme \ref{sets-lemma-construct-category},
+à partir de l'ensemble $S_0$.
+\item Choisir un ensemble de recouvrements comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, à partir de la
+catégorie $\Sch_\alpha$, de la classe des recouvrements syntomiques
+et de l'ensemble $\text{Cov}_0$ choisi ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voir les remarques suivant la définition \ref{definition-big-zariski-site}
+pour la motivation et les explications relatives à la définition des gros sites.
+
+\medskip\noindent
+Avant de poursuivre par l'introduction du gros site syntomique d'un
+schéma $S$, observons que la topologie d'un gros site syntomique
+$\Sch_{syntomic}$ est, en un certain sens, induite par la topologie syntomique
+sur la catégorie de tous les schémas.
+
+\begin{lemma}
+\label{lemma-syntomic-induced}
+Soit $\Sch_{syntomic}$ un gros site syntomique comme dans la
+définition \ref{definition-big-syntomic-site}.
+Soit $T \in \Ob(\Sch_{syntomic})$.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement syntomique quelconque de $T$.
+\begin{enumerate}
+\item Il existe un recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{syntomic}$ qui raffine $\{T_i \to T\}_{i \in I}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement syntomique standard, alors
+il est tautologiquement équivalent à un recouvrement dans $\Sch_{syntomic}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement de Zariski, alors
+il est tautologiquement équivalent à un recouvrement dans $\Sch_{syntomic}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour chaque $i$, choisissons un recouvrement ouvert affine $T_i = \bigcup_{j \in J_i} T_{ij}$
+tel que chaque $T_{ij}$ s'envoie dans un sous-schéma ouvert affine de $T$. D'après le
+lemme \ref{lemma-syntomic},
+le raffinement $\{T_{ij} \to T\}_{i \in I, j \in J_i}$ est lui aussi un recouvrement syntomique
+de $T$. On peut donc supposer chaque $T_i$ affine et s'envoyant dans
+un ouvert affine $W_i$ de $T$. En appliquant
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+on voit que $W_i$ est isomorphe à un objet de $\Sch_{syntomic}$.
+Mais alors $T_i$, comme schéma de type fini au-dessus de $W_i$,
+est isomorphe à un objet $V_i$ de $\Sch_{syntomic}$ par une seconde
+application de
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{V_i \to T\}_{i \in I}$ raffine $\{T_i \to T\}_{i \in I}$
+(puisqu'ils sont isomorphes).
+De plus, $\{V_i \to T\}_{i \in I}$ est combinatoirement équivalent à un
+recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{syntomic}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{U_j \to T\}_{j \in J}$ est un recouvrement comme en (1).
+Dans la situation de (2), (3), chacun des
+schémas $T_i$ est isomorphe à un objet de $\Sch_{syntomic}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+et une nouvelle application de
+Ensembles, lemme \ref{sets-lemma-coverings-site},
+donne le résultat voulu.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-small-syntomic}
+Soit $S$ un schéma. Soit $\Sch_{syntomic}$ un gros site
+syntomique contenant $S$.
+\begin{enumerate}
+\item Le {\it gros site syntomique de $S$}, noté
+$(\Sch/S)_{syntomic}$, est le site $\Sch_{syntomic}/S$
+introduit dans Sites, section \ref{sites-section-localize}.
+\item Le {\it gros site syntomique affine de $S$}, noté
+$(\textit{Aff}/S)_{syntomic}$, est la sous-catégorie pleine de
+$(\Sch/S)_{syntomic}$ dont les objets sont les $U/S$ affines.
+Un recouvrement de $(\textit{Aff}/S)_{syntomic}$ est tout recouvrement
+$\{U_i \to U\}$ de $(\Sch/S)_{syntomic}$ qui soit un
+recouvrement syntomique standard.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Vérifions ensuite que le gros site affine définit le même
+topos que le gros site.
+
+\begin{lemma}
+\label{lemma-affine-big-site-syntomic}
+Soit $S$ un schéma. Soit $\Sch_{syntomic}$ un gros site
+syntomique contenant $S$.
+Le foncteur
+$(\textit{Aff}/S)_{syntomic} \to (\Sch/S)_{syntomic}$
+est cocontinu spécial et induit une équivalence de topos de
+$\Sh((\textit{Aff}/S)_{syntomic})$ vers
+$\Sh((\Sch/S)_{syntomic})$.
+\end{lemma}
+
+\begin{proof}
+La notion de foncteur cocontinu spécial est introduite dans
+Sites, définition \ref{sites-definition-special-cocontinuous-functor}.
+Il faut donc vérifier les hypothèses (1) -- (5) de
+Sites, lemme \ref{sites-lemma-equivalence}.
+Notons le foncteur d'inclusion
+$u : (\textit{Aff}/S)_{syntomic} \to (\Sch/S)_{syntomic}$.
+La cocontinuité signifie simplement que tout recouvrement syntomique de
+$T/S$, avec $T$ affine, admet un raffinement par un recouvrement syntomique standard de $T$.
+C'est le contenu du
+lemme \ref{lemma-syntomic-affine}.
+Ainsi, (1) est vérifiée. Le foncteur $u$ est continu simplement parce qu'un recouvrement
+syntomique standard est un recouvrement syntomique. Ainsi, (2) est vérifiée.
+Les points (3) et (4) découlent immédiatement du fait que $u$ est
+pleinement fidèle. Enfin, la condition (5) découle du
+fait que tout schéma admet un recouvrement ouvert affine.
+\end{proof}
+
+\noindent
+À suivre...
+
+\begin{lemma}
+\label{lemma-morphism-big-syntomic}
+Soit $\Sch_{syntomic}$ un gros site syntomique.
+Soit $f : T \to S$ un morphisme dans $\Sch_{syntomic}$.
+Le foncteur
+$$
+u : (\Sch/T)_{syntomic} \longrightarrow (\Sch/S)_{syntomic},
+\quad
+V/T \longmapsto V/S
+$$
+est cocontinu et admet un adjoint à droite continu
+$$
+v : (\Sch/S)_{syntomic} \longrightarrow (\Sch/T)_{syntomic},
+\quad
+(U \to S) \longmapsto (U \times_S T \to T).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\Sch/T)_{syntomic})
+\longrightarrow
+\Sh((\Sch/S)_{syntomic})
+$$
+On a $f_{big}^{-1}(\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+On a $f_{big, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$.
+En outre, $f_{big}^{-1}$ admet un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs. Par conséquent,
+Sites, lemmes \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et donnent la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est un adjoint à droite car, étant donnés $U/T$ et $V/S$,
+on a $\Mor_S(u(U), V) = \Mor_T(U, V \times_S T)$,
+comme voulu. On peut donc appliquer
+Sites, lemmes \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule pour $f_{big, *}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La topologie fppf}
+\label{section-fppf}
+
+\noindent
+Soit $S$ un schéma. Nous voulons définir la topologie fppf\footnote{
+Les lettres fppf signifient « fid\`element plat de pr\'esentation finie ».} sur
+la catégorie des schémas au-dessus de $S$. Conformément à notre principe général,
+nous introduisons d'abord la notion de recouvrement fppf.
+
+\begin{definition}
+\label{definition-fppf-covering}
+Soit $T$ un schéma. Un {\it recouvrement fppf de $T$} est une famille
+de morphismes de schémas $\{f_i : T_i \to T\}_{i \in I}$
+telle que chaque $f_i$ soit plat, localement de présentation finie, et
+que $T = \bigcup f_i(T_i)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic-fppf}
+Tout recouvrement syntomique est un recouvrement fppf et, à plus forte raison,
+tout recouvrement lisse, étale ou de Zariski est un recouvrement fppf.
+\end{lemma}
+
+\begin{proof}
+Cela résulte des définitions et du fait qu'un morphisme syntomique
+est plat et localement de présentation finie ; voir
+Morphismes, lemmes
+\ref{morphisms-lemma-syntomic-locally-finite-presentation} et
+\ref{morphisms-lemma-syntomic-flat},
+ainsi que
+le lemme \ref{lemma-zariski-etale-smooth-syntomic}.
+\end{proof}
+
+\noindent
+Montrons maintenant que cette notion satisfait aux conditions de
+Sites, définition \ref{sites-definition-site}.
+
+\begin{lemma}
+\label{lemma-fppf}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement fppf de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement fppf et si, pour tout
+$i$, on a un recouvrement fppf $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement fppf.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement fppf
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement fppf.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La première assertion est claire.
+La deuxième résulte de ce que la composée de morphismes plats est plate
+(voir Morphismes, lemme \ref{morphisms-lemma-composition-flat})
+et que la composée de morphismes de présentation finie est
+de présentation finie
+(voir Morphismes, lemme \ref{morphisms-lemma-composition-finite-presentation}).
+La troisième résulte de ce que le changement de base d'un morphisme plat est plat
+(voir Morphismes, lemme \ref{morphisms-lemma-base-change-flat})
+et que le changement de base d'un morphisme de présentation finie est
+de présentation finie
+(voir Morphismes, lemme \ref{morphisms-lemma-base-change-finite-presentation}).
+De plus, le changement de base d'une famille surjective de morphismes est surjectif
+(démonstration omise).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fppf-affine}
+Soit $T$ un schéma affine.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement fppf de $T$.
+Il existe alors un recouvrement fppf
+$\{U_j \to T\}_{j = 1, \ldots, m}$ qui raffine
+$\{T_i \to T\}_{i \in I}$ et tel que chaque $U_j$ soit un schéma
+affine. On peut en outre choisir chaque $U_j$ comme ouvert affine
+de l'un des $T_i$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte directement des définitions, puisqu'un
+morphisme plat et localement de présentation finie est ouvert ;
+voir Morphismes, lemme \ref{morphisms-lemma-fppf-open}.
+\end{proof}
+
+\noindent
+On définit donc comme suit les recouvrements standards d'affines correspondants.
+
+\begin{definition}
+\label{definition-standard-fppf}
+Soit $T$ un schéma affine. Un {\it recouvrement fppf standard}
+de $T$ est une famille $\{f_j : U_j \to T\}_{j = 1, \ldots, m}$
+telle que chaque $U_j$ soit affine, plat et de présentation finie sur $T$,
+et que $T = \bigcup f_j(U_j)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-big-fppf-site}
+Un {\it gros site fppf} est un site $\Sch_{fppf}$ au sens de
+Sites, définition \ref{sites-definition-site}, construit comme suit :
+\begin{enumerate}
+\item Choisir un ensemble quelconque de schémas $S_0$ et un ensemble de recouvrements fppf
+$\text{Cov}_0$ entre ces schémas.
+\item Prendre comme catégorie sous-jacente une catégorie $\Sch_\alpha$
+construite comme dans Ensembles, lemme \ref{sets-lemma-construct-category},
+à partir de l'ensemble $S_0$.
+\item Choisir un ensemble de recouvrements comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, à partir de la
+catégorie $\Sch_\alpha$, de la classe des recouvrements fppf
+et de l'ensemble $\text{Cov}_0$ choisi ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voir les remarques suivant la définition \ref{definition-big-zariski-site}
+pour la motivation et les explications relatives à la définition des gros sites.
+
+\medskip\noindent
+Avant de poursuivre par l'introduction du gros site fppf d'un
+schéma $S$, observons que la topologie d'un gros site fppf
+$\Sch_{fppf}$ est, en un certain sens, induite par la topologie fppf
+sur la catégorie de tous les schémas.
+
+\begin{lemma}
+\label{lemma-fppf-induced}
+Soit $\Sch_{fppf}$ un gros site fppf comme dans la
+définition \ref{definition-big-fppf-site}.
+Soit $T \in \Ob(\Sch_{fppf})$.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement fppf quelconque de $T$.
+\begin{enumerate}
+\item Il existe un recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{fppf}$ qui raffine $\{T_i \to T\}_{i \in I}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement fppf standard, alors
+il est tautologiquement équivalent à un recouvrement de $\Sch_{fppf}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement de Zariski, alors
+il est tautologiquement équivalent à un recouvrement de $\Sch_{fppf}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour chaque $i$, choisissons un recouvrement ouvert affine $T_i = \bigcup_{j \in J_i} T_{ij}$
+tel que chaque $T_{ij}$ s'envoie dans un sous-schéma ouvert affine de $T$. D'après le
+lemme \ref{lemma-fppf},
+le raffinement $\{T_{ij} \to T\}_{i \in I, j \in J_i}$ est lui aussi un recouvrement fppf
+de $T$. On peut donc supposer chaque $T_i$ affine et s'envoyant dans
+un ouvert affine $W_i$ de $T$. En appliquant
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+on voit que $W_i$ est isomorphe à un objet de $\Sch_{fppf}$.
+Mais alors $T_i$, comme schéma de type fini au-dessus de $W_i$,
+est isomorphe à un objet $V_i$ de $\Sch_{fppf}$ par une seconde
+application de
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{V_i \to T\}_{i \in I}$ raffine $\{T_i \to T\}_{i \in I}$
+(puisqu'ils sont isomorphes).
+De plus, $\{V_i \to T\}_{i \in I}$ est combinatoirement équivalent à un
+recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{fppf}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{U_j \to T\}_{j \in J}$ est un raffinement comme en (1).
+Dans la situation de (2), (3), chacun des
+schémas $T_i$ est isomorphe à un objet de $\Sch_{fppf}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+et une nouvelle application de
+Ensembles, lemme \ref{sets-lemma-coverings-site},
+donne le résultat voulu.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-small-fppf}
+Soit $S$ un schéma. Soit $\Sch_{fppf}$ un gros site
+fppf contenant $S$.
+\begin{enumerate}
+\item Le {\it gros site fppf de $S$}, noté
+$(\Sch/S)_{fppf}$, est le site $\Sch_{fppf}/S$
+introduit dans Sites, section \ref{sites-section-localize}.
+\item Le {\it gros site fppf affine de $S$}, noté
+$(\textit{Aff}/S)_{fppf}$, est la sous-catégorie pleine de
+$(\Sch/S)_{fppf}$ dont les objets sont les $U/S$ affines.
+Un recouvrement de $(\textit{Aff}/S)_{fppf}$ est tout recouvrement
+$\{U_i \to U\}$ de $(\Sch/S)_{fppf}$ qui soit un
+recouvrement fppf standard.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il n'est pas tout à fait évident que
+le gros site fppf affine soit un site. Vérifions-le.
+
+\begin{lemma}
+\label{lemma-verify-site-fppf}
+Soit $S$ un schéma. Soit $\Sch_{fppf}$ un gros site
+fppf contenant $S$. Alors $(\textit{Aff}/S)_{fppf}$ est un site.
+\end{lemma}
+
+\begin{proof}
+Montrons que $(\textit{Aff}/S)_{fppf}$ est un site.
+En raisonnant comme dans la démonstration du lemme \ref{lemma-verify-site-etale},
+il suffit de montrer que l'ensemble
+des recouvrements fppf standards d'affines satisfait aux propriétés
+(1), (2) et (3) de
+Sites, définition \ref{sites-definition-site}.
+C'est clair : par exemple, étant donné un recouvrement fppf
+standard $\{T_i \to T\}_{i\in I}$ et, pour chaque
+$i$, un recouvrement fppf standard $\{T_{ij} \to T_i\}_{j\in J_i}$,
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement fppf standard
+car $\bigcup_{i\in I} J_i$ est fini et chaque $T_{ij}$ est affine.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-products-fppf}
+Soit $S$ un schéma. Soit $\Sch_{fppf}$ un gros site
+fppf contenant $S$. Les catégories sous-jacentes des sites
+$\Sch_{fppf}$, $(\Sch/S)_{fppf}$,
+et $(\textit{Aff}/S)_{fppf}$ admettent des produits fibrés.
+Dans chaque cas, le foncteur évident vers la catégorie $\Sch$ de
+tous les schémas commute à la formation des produits fibrés. La catégorie
+$(\Sch/S)_{fppf}$ possède un objet final, à savoir $S/S$.
+\end{lemma}
+
+\begin{proof}
+Pour $\Sch_{fppf}$, cela est vrai par construction ; voir
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Supposons donnés des morphismes $U \to S$, $V \to U$, $W \to U$
+de schémas, avec $U, V, W \in \Ob(\Sch_{fppf})$.
+Le produit fibré $V \times_U W$ dans $\Sch_{fppf}$
+est un produit fibré dans $\Sch$ et
+est le produit fibré de $V/S$ et $W/S$ au-dessus de $U/S$ dans
+la catégorie de tous les schémas au-dessus de $S$, donc aussi un
+produit fibré dans $(\Sch/S)_{fppf}$.
+Cela prouve le résultat pour $(\Sch/S)_{fppf}$.
+Si $U, V, W$ sont affines, $V \times_U W$ l'est aussi, d'où le
+résultat pour $(\textit{Aff}/S)_{fppf}$.
+\end{proof}
+
+\noindent
+Vérifions ensuite que le gros site affine définit le même
+topos que le gros site.
+
+\begin{lemma}
+\label{lemma-affine-big-site-fppf}
+Soit $S$ un schéma. Soit $\Sch_{fppf}$ un gros site
+fppf contenant $S$.
+Le foncteur $(\textit{Aff}/S)_{fppf} \to (\Sch/S)_{fppf}$
+est cocontinu et induit une équivalence de topos de
+$\Sh((\textit{Aff}/S)_{fppf})$ vers
+$\Sh((\Sch/S)_{fppf})$.
+\end{lemma}
+
+\begin{proof}
+La notion de foncteur cocontinu spécial est introduite dans
+Sites, définition \ref{sites-definition-special-cocontinuous-functor}.
+Il faut donc vérifier les hypothèses (1) -- (5) de
+Sites, lemme \ref{sites-lemma-equivalence}.
+Notons le foncteur d'inclusion
+$u : (\textit{Aff}/S)_{fppf} \to (\Sch/S)_{fppf}$.
+La cocontinuité signifie simplement que tout recouvrement fppf de
+$T/S$, avec $T$ affine, admet un raffinement par un recouvrement fppf standard de $T$.
+C'est le contenu du
+lemme \ref{lemma-fppf-affine}.
+Ainsi, (1) est vérifiée. Le foncteur $u$ est continu simplement parce qu'un recouvrement
+fppf standard est un recouvrement fppf. Ainsi, (2) est vérifiée.
+Les points (3) et (4) découlent immédiatement du fait que $u$ est
+pleinement fidèle. Enfin, la condition (5) découle du
+fait que tout schéma admet un recouvrement ouvert affine.
+\end{proof}
+
+\noindent
+Établissons maintenant quelques relations entre les topos
+associés à ces sites.
+
+\begin{lemma}
+\label{lemma-morphism-big-fppf}
+Soit $\Sch_{fppf}$ un gros site fppf.
+Soit $f : T \to S$ un morphisme dans $\Sch_{fppf}$.
+Le foncteur
+$$
+u : (\Sch/T)_{fppf} \longrightarrow (\Sch/S)_{fppf},
+\quad
+V/T \longmapsto V/S
+$$
+est cocontinu et admet un adjoint à droite continu
+$$
+v : (\Sch/S)_{fppf} \longrightarrow (\Sch/T)_{fppf},
+\quad
+(U \to S) \longmapsto (U \times_S T \to T).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\Sch/T)_{fppf})
+\longrightarrow
+\Sh((\Sch/S)_{fppf})
+$$
+On a $f_{big}^{-1}(\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+On a $f_{big, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$.
+En outre, $f_{big}^{-1}$ admet un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs. Par conséquent,
+Sites, lemmes \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et donnent la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est un adjoint à droite car, étant donnés $U/T$ et $V/S$,
+on a $\Mor_S(u(U), V) = \Mor_T(U, V \times_S T)$,
+comme voulu. On peut donc appliquer
+Sites, lemmes \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule pour $f_{big, *}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-fppf}
+Étant donnés des schémas $X$, $Y$, $Z$ dans $(\Sch/S)_{fppf}$
+et des morphismes $f : X \to Y$, $g : Y \to Z$, on a
+$g_{big} \circ f_{big} = (g \circ f)_{big}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la description simple de l'image directe
+et de l'image inverse pour les foncteurs sur les gros sites donnée par le
+lemme \ref{lemma-morphism-big-fppf}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La topologie ph}
+\label{section-ph}
+
+\noindent
+Dans cette section, nous définissons la topologie ph. C'est la topologie
+engendrée par les recouvrements de Zariski et les morphismes propres surjectifs, voir
+le lemme \ref{lemma-characterize-sheaf}.
+
+\medskip\noindent
+Nous reprenons nos notations et notre terminologie
+de l'article \cite{ph} de Goodwillie et Lichtenbaum.
+Ces auteurs montrent que, si l'on se restreint à la sous-catégorie des
+schémas noethériens, la topologie ph coïncide avec la
+« topologie h » telle que Voevodsky l'a définie à l'origine : c'est
+la topologie engendrée par les recouvrements ouverts de Zariski et les
+morphismes de type fini qui sont universellement submersifs.
+Ils montrent aussi que les deux topologies ne coïncident pas sur les
+schémas non noethériens, voir \cite[exemple 4.5]{ph}.
+Nous revenons à (notre version de) la topologie h dans
+Compléments sur la platitude, section \ref{flat-section-h}.
+
+\medskip\noindent
+Avant de pouvoir définir les recouvrements de notre topologie, il nous faut
+quelques préliminaires.
+
+\begin{definition}
+\label{definition-standard-ph-covering}
+Soit $T$ un schéma affine. Un {\it recouvrement ph standard} est une famille
+$\{f_j : U_j \to T\}_{j = 1, \ldots, m}$ construite à partir d'un
+morphisme propre surjectif $f : U \to T$ et d'un recouvrement ouvert affine
+$U = \bigcup_{j = 1, \ldots, m} U_j$, en posant $f_j = f|_{U_j}$.
+\end{definition}
+
+\noindent
+Il résulte immédiatement du lemme de Chow que l'on peut raffiner un
+recouvrement ph standard par un recouvrement ph standard correspondant à
+un morphisme projectif surjectif.
+
+\begin{lemma}
+\label{lemma-base-change-standard-ph}
+Soit $\{f_j : U_j \to T\}_{j = 1, \ldots, m}$ un recouvrement ph standard.
+Soit $T' \to T$ un morphisme de schémas affines.
+Alors $\{U_j \times_T T' \to T'\}_{j = 1, \ldots, m}$ est un
+recouvrement ph standard.
+\end{lemma}
+
+\begin{proof}
+Soient $f : U \to T$ un morphisme propre surjectif et
+$U = \bigcup_{j = 1, \ldots, m} U_j$ un recouvrement ouvert affine comme dans la
+définition \ref{definition-standard-ph-covering}.
+Alors $U \times_T T' \to T'$ est propre et surjectif
+(Morphismes, lemmes \ref{morphisms-lemma-base-change-surjective} et
+\ref{morphisms-lemma-base-change-proper}).
+De plus, $U \times_T T' = \bigcup_{j = 1, \ldots, m} U_j \times_T T'$
+est un recouvrement ouvert affine.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-refine-by-standard-ph}
+Soit $T$ un schéma affine. Chacun des types de familles suivants
+de morphismes de but $T$ admet un raffinement qui est un recouvrement ph standard :
+\begin{enumerate}
+\item tout recouvrement ouvert de Zariski de $T$,
+\item $\{W_{ji} \to T\}_{j = 1, \ldots, m, i = 1, \ldots n_j}$
+où $\{W_{ji} \to U_j\}_{i = 1, \ldots, n_j}$
+et $\{U_j \to T\}_{j = 1, \ldots, m}$ sont des recouvrements ph standards.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) résulte du fait que tout recouvrement ouvert de Zariski de $T$
+peut être raffiné par un recouvrement ouvert affine fini.
+
+\medskip\noindent
+Preuve de (3). Choisissons $U \to T$ propre et surjectif et
+$U = \bigcup_{j = 1, \ldots, m} U_j$ comme dans la
+définition \ref{definition-standard-ph-covering}.
+Choisissons $W_j \to U_j$ propre et surjectif et $W_j = \bigcup W_{ji}$
+comme dans la définition \ref{definition-standard-ph-covering}.
+Par le lemme de Chow (Limits, lemme \ref{limits-lemma-chow-finite-type}),
+il existe $W'_j \to W_j$ propre et surjectif
+et des immersions fermées $W'_j \to \mathbf{P}^{e_j}_{U_j}$.
+Ainsi, après avoir remplacé $W_j$ par $W'_j$ et $W_j = \bigcup W_{ji}$
+par un recouvrement ouvert affine convenable de $W'_j$, on peut supposer
+qu'il existe une immersion fermée $W_j \subset \mathbf{P}^{e_j}_{U_j}$
+pour tout $j = 1, \ldots, m$.
+
+\medskip\noindent
+Soit $\overline{W}_j \subset \mathbf{P}^{e_j}_U$ l'adhérence
+schématique de $W_j$. Alors $W_j \subset \overline{W}_j$
+est un sous-schéma ouvert ; en fait, $W_j$ est l'image inverse de
+$U_j \subset U$ par le morphisme $\overline{W}_j \to U$.
+(Pour le voir, utilisons le fait que $W_j \to \mathbf{P}^{e_j}_U$ est quasi-compact
+et que, par suite, la formation de l'image schématique commute
+à la restriction aux ouverts, voir
+Morphismes, section \ref{morphisms-section-scheme-theoretic-image}.)
+Munissons $Z_j = U \setminus U_j$
+de la structure de sous-schéma fermé réduit induite.
+Alors
+$$
+V_j = \overline{W}_j \amalg Z_j \to U
+$$
+est propre et surjectif, et le sous-schéma ouvert $W_j \subset V_j$
+est l'image inverse de $U_j$. Ainsi, pour $v \in V_j$, $v \not \in W_j$,
+on peut choisir un voisinage ouvert affine $v \in V_{j, v} \subset V_j$
+dont l'image est contenue dans $U_{j'}$ pour un certain $1 \leq j' \leq m$.
+
+\medskip\noindent
+Pour achever la démonstration, considérons le morphisme propre surjectif
+$$
+V = V_1 \times_U V_2 \times_U \ldots \times_U V_m
+\longrightarrow U \longrightarrow T
+$$
+et le recouvrement de $V$ par les ouverts affines
+$$
+V_{1, v_1} \times_U \ldots \times_U V_{j - 1, v_{j - 1}}
+\times_U W_{j i} \times_U
+V_{j + 1, v_{j + 1}} \times_U \ldots \times_U V_{m, v_m}
+$$
+Ceux-ci forment bien un recouvrement, car tout point de $U$ appartient
+à un certain $U_j$ et l'image inverse de $U_j$ dans $V$ est égale à
+$V_1 \times \ldots \times V_{j - 1} \times W_j \times V_{j + 1} \times
+\ldots \times V_m$. Remarquons que le morphisme de
+l'ouvert affine ci-dessus vers $T$ se factorise par $W_{ji}$ ;
+on obtient donc un raffinement. Enfin, il suffit d'un nombre fini
+de ces ouverts affines puisque $V$ est quasi-compact (comme schéma propre
+sur le schéma affine $T$).
+\end{proof}
+
+\begin{definition}
+\label{definition-ph-covering}
+Soit $T$ un schéma. Un {\it recouvrement ph de $T$} est une famille
+de morphismes de schémas $\{f_i : T_i \to T\}_{i \in I}$ telle
+que $f_i$ soit localement de type fini et que, pour tout
+ouvert affine $U \subset T$, il existe un recouvrement ph standard
+$\{U_j \to U\}_{j = 1, \ldots, m}$ qui raffine la famille
+$\{T_i \times_T U \to U\}_{i \in I}$.
+\end{definition}
+
+\noindent
+Un recouvrement ph standard est un recouvrement ph d'après le
+lemme \ref{lemma-base-change-standard-ph}.
+
+\begin{lemma}
+\label{lemma-zariski-ph}
+Un recouvrement de Zariski est un recouvrement ph\footnote{Nous verrons
+dans Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-fppf-ph}, que les
+recouvrements fppf (et donc les recouvrements syntomiques, lisses ou \'etales)
+sont eux aussi des recouvrements ph.}.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du fait qu'un recouvrement de Zariski d'un schéma affine
+peut être raffiné par un recouvrement ph standard d'après le
+lemme \ref{lemma-refine-by-standard-ph}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-proper-ph}
+Soit $f : Y \to X$ un morphisme propre surjectif de schémas.
+Alors $\{Y \to X\}$ est un recouvrement ph.
+\end{lemma}
+
+\begin{proof}
+Omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-refine-by-ph}
+Soit $T$ un schéma. Soit $\{f_i : T_i \to T\}_{i \in I}$ une famille
+de morphismes telle que $f_i$ soit localement de type fini pour tout $i$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\{T_i \to T\}_{i \in I}$ est un recouvrement ph,
+\item il existe un recouvrement ph qui raffine $\{T_i \to T\}_{i \in I}$, et
+\item $\{\coprod_{i \in I} T_i \to T\}$ est un recouvrement ph.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) résulte immédiatement de la
+définition \ref{definition-ph-covering}
+et du fait qu'un raffinement d'un raffinement est un raffinement.
+En vertu de l'équivalence de (1) et (2), et puisque
+$\{T_i \to T\}_{i \in I}$ raffine $\{\coprod_{i \in I} T_i \to T\}$,
+on voit que (1) implique (3). Supposons enfin que (3) soit vérifiée.
+Soit $U \subset T$ un ouvert affine et soit
+$\{U_j \to U\}_{j = 1, \ldots, m}$ un recouvrement ph standard
+qui raffine $\{U \times_T \coprod_{i \in I} T_i \to U\}$.
+Cela signifie que, pour tout $j$, on dispose d'un morphisme
+$$
+h_j :
+U_j
+\longrightarrow
+U \times_T \coprod\nolimits_{i \in I} T_i =
+\coprod\nolimits_{i \in I} U \times_T T_i
+$$
+au-dessus de $U$. Comme $U_j$ est quasi-compact, on obtient
+des décompositions en réunion disjointe $U_j = \coprod_{i \in I} U_{j, i}$
+en sous-schémas ouverts et fermés, presque tous vides,
+telles que $h_j|_{U_{j, i}}$ envoie $U_{j, i}$ dans $U \times_T T_i$.
+Il s'ensuit que
+$$
+\{U_{j, i} \to U\}_{j = 1, \ldots, m,\ i \in I,\ U_{j, i} \not = \emptyset}
+$$
+est un recouvrement ph standard (un petit détail est omis) qui raffine
+$\{U \times_T T_i \to U\}_{i \in I}$. Ainsi, (1) est vérifiée.
+\end{proof}
+
+\noindent
+Montrons ensuite que cette notion satisfait les conditions de
+Sites, définition \ref{sites-definition-site}.
+
+\begin{lemma}
+\label{lemma-ph}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement ph de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement ph et si, pour tout
+$i$, on a un recouvrement ph $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement ph.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement ph
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement ph.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) est claire.
+
+\medskip\noindent
+Preuve de (3). Le changement de base $T_i \times_T T' \to T'$ est
+localement de type fini d'après
+Morphismes, lemme \ref{morphisms-lemma-base-change-finite-type}.
+Il suffit donc de vérifier la condition sur les ouverts affines.
+Soit $U' \subset T'$ un sous-schéma ouvert affine.
+Comme $U'$ est quasi-compact, on peut trouver un recouvrement ouvert
+affine fini $U' = U'_1 \cup \ldots \cup U'$ tel que
+l'image de $U'_j \to T$ soit contenue dans un ouvert affine $U_j \subset T$.
+Choisissons un recouvrement ph standard $\{U_{jl} \to U_j\}_{l = 1, \ldots, n_j}$
+qui raffine $\{T_i \times_T U_j \to U_j\}$.
+D'après le lemme \ref{lemma-base-change-standard-ph},
+le changement de base $\{U_{jl} \times_{U_j} U'_j \to U'_j\}$
+est un recouvrement ph standard. Remarquons que $\{U'_j \to U'\}$
+est lui aussi un recouvrement ph standard.
+D'après le lemme \ref{lemma-refine-by-standard-ph},
+la famille $\{U_{jl} \times_{U_j} U'_j \to U'\}$
+peut être raffinée par un recouvrement ph standard. Comme
+$\{U_{jl} \times_{U_j} U'_j \to U'\}$ raffine $\{T_i \times_T U' \to U'\}$,
+on conclut.
+
+\medskip\noindent
+Preuve de (2). La composition préserve la propriété d'être localement de type fini,
+voir Morphismes, lemme \ref{morphisms-lemma-composition-finite-type}.
+Il suffit donc de vérifier la condition sur les ouverts affines.
+Soit $U \subset T$ un ouvert affine. Choisissons d'abord un recouvrement ph standard
+$\{U_k \to U\}_{k = 1, \ldots, m}$ qui raffine
+$\{T_i \times_T U \to U\}$.
+Supposons que le raffinement soit donné par des morphismes $U_k \to T_{i_k}$ sur $T$.
+Alors
+$$
+\{T_{i_kj} \times_{T_{i_k}} U_k \to U_k\}_{j \in J_{i_k}}
+$$
+est un recouvrement ph d'après l'assertion (3). Comme $U_k$ est affine,
+on peut trouver un recouvrement ph standard
+$\{U_{ka} \to U_k\}_{a = 1, \ldots, b_k}$ qui raffine cette famille.
+On applique alors le lemme \ref{lemma-refine-by-standard-ph}
+pour voir que $\{U_{ka} \to U\}$ peut être raffiné par un
+recouvrement ph standard. Comme $\{U_{ka} \to U\}$
+raffine $\{T_{ij} \times_T U \to U\}$, ceci achève la démonstration.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-ph-site}
+Un {\it gros site ph} est un site $\Sch_{ph}$ comme dans
+Sites, définition \ref{sites-definition-site}, construit comme suit :
+\begin{enumerate}
+\item Choisir un ensemble quelconque de schémas $S_0$ et un ensemble quelconque
+$\text{Cov}_0$ de recouvrements ph entre ces schémas.
+\item Prendre pour catégorie sous-jacente une catégorie quelconque $\Sch_\alpha$
+construite comme dans Ensembles, lemme \ref{sets-lemma-construct-category},
+à partir de l'ensemble $S_0$.
+\item Choisir un ensemble quelconque de recouvrements comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, à partir de la
+catégorie $\Sch_\alpha$, de la classe des recouvrements ph
+et de l'ensemble $\text{Cov}_0$ choisi ci-dessus.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voir les remarques qui suivent la définition \ref{definition-big-zariski-site}
+pour la motivation et les explications concernant la définition des gros sites.
+
+\medskip\noindent
+Avant de poursuivre l'introduction du gros site ph d'un
+schéma $S$, signalons que la topologie d'un gros site ph
+$\Sch_{ph}$ est, en un certain sens, induite par la topologie ph
+sur la catégorie de tous les schémas.
+
+\begin{lemma}
+\label{lemma-ph-induced}
+Soit $\Sch_{ph}$ un gros site ph comme dans la
+définition \ref{definition-big-ph-site}.
+Soit $T \in \Ob(\Sch_{ph})$.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement ph quelconque de $T$.
+\begin{enumerate}
+\item Il existe un recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{ph}$ qui raffine $\{T_i \to T\}_{i \in I}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement ph standard, alors
+il est tautologiquement équivalent à un recouvrement de $\Sch_{ph}$.
+\item Si $\{T_i \to T\}_{i \in I}$ est un recouvrement de Zariski, alors
+il est tautologiquement équivalent à un recouvrement de $\Sch_{ph}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour tout $i$, choisissons un recouvrement ouvert affine $T_i = \bigcup_{j \in J_i} T_{ij}$
+tel que chaque $T_{ij}$ s'envoie dans un sous-schéma ouvert affine de $T$. D'après les
+lemmes \ref{lemma-zariski-ph} et \ref{lemma-ph},
+le raffinement $\{T_{ij} \to T\}_{i \in I, j \in J_i}$ est lui aussi un recouvrement ph
+de $T$. On peut donc supposer que chaque $T_i$ est affine et s'envoie dans
+un ouvert affine $W_i$ de $T$. En appliquant
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}
+on voit que $W_i$ est isomorphe à un objet de $\Sch_{ph}$.
+Mais alors $T_i$, comme schéma de type fini sur $W_i$,
+est isomorphe à un objet $V_i$ de $\Sch_{ph}$ par une seconde
+application de
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{V_i \to T\}_{i \in I}$ raffine $\{T_i \to T\}_{i \in I}$
+(car ils sont isomorphes).
+De plus, $\{V_i \to T\}_{i \in I}$ est combinatoirement équivalent à un
+recouvrement $\{U_j \to T\}_{j \in J}$ de $T$ dans le site
+$\Sch_{ph}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le recouvrement $\{U_j \to T\}_{j \in J}$ est un raffinement comme en (1).
+Dans les situations de (2) et (3), chacun des
+schémas $T_i$ est isomorphe à un objet de $\Sch_{ph}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+et une autre application de
+Ensembles, lemme \ref{sets-lemma-coverings-site}
+donne le résultat voulu.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-small-ph}
+Soit $S$ un schéma. Soit $\Sch_{ph}$ un gros site ph contenant $S$.
+\begin{enumerate}
+\item Le {\it gros site ph de $S$}, noté
+$(\Sch/S)_{ph}$, est le site $\Sch_{ph}/S$
+introduit dans Sites, section \ref{sites-section-localize}.
+\item Le {\it gros site ph affine de $S$}, noté
+$(\textit{Aff}/S)_{ph}$, est la sous-catégorie pleine de
+$(\Sch/S)_{ph}$ dont les objets sont les $U/S$ affines.
+Un recouvrement de $(\textit{Aff}/S)_{ph}$ est tout recouvrement fini
+$\{U_i \to U\}$ de $(\Sch/S)_{ph}$ tel que $U_i$ et $U$ soient affines.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Remarquons que les recouvrements de $(\textit{Aff}/S)_{ph}$ ne sont {\it pas}
+donnés par les recouvrements ph standards. La raison en est simplement que
+le deuxième axiome de Sites, définition \ref{sites-definition-site}, échouerait.
+Les recouvrements de $(\textit{Aff}/S)_{ph}$ sont plutôt les familles finies
+$\{U_i \to U\}$ de morphismes de type fini entre objets affines
+de $(\Sch/S)_{ph}$ qui peuvent être raffinées par un recouvrement ph standard.
+Énonçons et démontrons explicitement que le gros site ph affine est un site.
+
+\begin{lemma}
+\label{lemma-verify-site-ph}
+Soit $S$ un schéma. Soit $\Sch_{ph}$ un gros site ph
+contenant $S$. Alors $(\textit{Aff}/S)_{ph}$ est un site.
+\end{lemma}
+
+\begin{proof}
+En raisonnant comme dans la démonstration du lemme \ref{lemma-verify-site-etale},
+il suffit de montrer que la famille des recouvrements ph finis
+$\{U_i \to U\}$, où $U$ et les $U_i$ sont affines, satisfait les propriétés
+(1), (2) et (3) de
+Sites, définition \ref{sites-definition-site}.
+C'est clair car, par exemple, étant donné un recouvrement ph fini
+$\{T_i \to T\}_{i\in I}$ où $T_i, T$ sont affines, et, pour tout
+$i$, un recouvrement ph fini $\{T_{ij} \to T_i\}_{j\in J_i}$ où $T_{ij}$ est
+affine, $\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est alors un recouvrement ph
+(lemme \ref{lemma-ph}), $\bigcup_{i\in I} J_i$ est fini et
+chaque $T_{ij}$ est affine.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-products-ph}
+Soit $S$ un schéma. Soit $\Sch_{ph}$ un gros site ph
+contenant $S$. Les catégories sous-jacentes aux sites
+$\Sch_{ph}$, $(\Sch/S)_{ph}$ et $(\textit{Aff}/S)_{ph}$ ont des produits fibrés.
+Dans chaque cas, le foncteur évident vers la catégorie $\Sch$ de
+tous les schémas commute aux produits fibrés. La catégorie
+$(\Sch/S)_{ph}$ a un objet final, à savoir $S/S$.
+\end{lemma}
+
+\begin{proof}
+Pour $\Sch_{ph}$, c'est vrai par construction, voir
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Supposons donnés des morphismes de schémas $U \to S$, $V \to U$, $W \to U$
+avec $U, V, W \in \Ob(\Sch_{ph})$.
+Le produit fibré $V \times_U W$ dans $\Sch_{ph}$
+est un produit fibré dans $\Sch$ et
+est le produit fibré de $V/S$ et $W/S$ au-dessus de $U/S$ dans
+la catégorie de tous les schémas au-dessus de $S$, et donc aussi un
+produit fibré dans $(\Sch/S)_{ph}$.
+Ceci démontre le résultat pour $(\Sch/S)_{ph}$.
+Si $U, V, W$ sont affines, $V \times_U W$ l'est aussi, d'où le
+résultat pour $(\textit{Aff}/S)_{ph}$.
+\end{proof}
+
+\noindent
+Vérifions ensuite que le gros site affine définit le même
+topos que le gros site.
+
+\begin{lemma}
+\label{lemma-affine-big-site-ph}
+Soit $S$ un schéma. Soit $\Sch_{ph}$ un gros site ph
+contenant $S$.
+Le foncteur $(\textit{Aff}/S)_{ph} \to (\Sch/S)_{ph}$
+est cocontinu et induit une équivalence de topos de
+$\Sh((\textit{Aff}/S)_{ph})$ vers
+$\Sh((\Sch/S)_{ph})$.
+\end{lemma}
+
+\begin{proof}
+La notion de foncteur cocontinu spécial est introduite dans
+Sites, définition \ref{sites-definition-special-cocontinuous-functor}.
+Il faut donc vérifier les hypothèses (1) -- (5) de
+Sites, lemme \ref{sites-lemma-equivalence}.
+Notons le foncteur d'inclusion
+$u : (\textit{Aff}/S)_{ph} \to (\Sch/S)_{ph}$.
+La cocontinuité résulte du fait que tout recouvrement ph de
+$T/S$, avec $T$ affine, peut être raffiné par un recouvrement ph standard de $T$
+par définition. Ainsi, (1) est vérifiée. Le foncteur $u$ est continu simplement
+parce qu'un recouvrement ph fini d'un affine par des affines est un recouvrement ph.
+Ainsi, (2) est vérifiée.
+Les assertions (3) et (4) résultent immédiatement du fait que $u$ est
+pleinement fidèle. Enfin, la condition (5) résulte du
+fait que tout schéma possède un recouvrement ouvert affine (qui est
+un recouvrement ph).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-sheaf}
+Soit $\mathcal{F}$ un préfaisceau sur $(\Sch/S)_{ph}$.
+Alors $\mathcal{F}$ est un faisceau si et seulement si
+\begin{enumerate}
+\item $\mathcal{F}$ satisfait la condition de faisceau pour les
+recouvrements de Zariski, et
+\item si $f : V \to U$ est propre et surjectif, alors
+$\mathcal{F}(U)$ s'envoie bijectivement sur l'égalisateur
+des deux applications $\mathcal{F}(V) \to \mathcal{F}(V \times_U V)$.
+\end{enumerate}
+De plus, en présence de (1), la propriété (2) équivaut à la propriété
+\begin{enumerate}
+\item[(2')] de faisceau pour $\{V \to U\}$ comme en (2), avec $U$ affine.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Montrons que, si (1) et (2) sont vérifiées, alors $\mathcal{F}$ est un faisceau.
+Soit $\{T_i \to T\}$ un recouvrement ph, c'est-à-dire un recouvrement dans $(\Sch/S)_{ph}$.
+Vérifions la condition de faisceau pour ce recouvrement.
+Soient $s_i \in \mathcal{F}(T_i)$ des sections dont les restrictions donnent la même
+section sur $T_i \times_T T_{i'}$. Montrons qu'il existe une
+unique section $s \in \mathcal{F}(T)$ dont la restriction est $s_i$ sur $T_i$.
+Soit $T = \bigcup U_j$ un recouvrement ouvert affine.
+D'après la propriété (1), il suffit de produire des sections $s_j \in \mathcal{F}(U_j)$
+qui coïncident sur $U_j \cap U_{j'}$ pour construire $s$.
+Considérons les recouvrements ph $\{T_i \times_T U_j \to U_j\}$.
+Alors les $s_{ji} = s_i|_{T_i \times_T U_j}$ sont des sections qui coïncident
+sur $(T_i \times_T U_j) \times_{U_j} (T_{i'} \times_T U_j)$.
+Choisissons un morphisme propre surjectif $V_j \to U_j$ et un recouvrement ouvert
+affine fini $V_j = \bigcup V_{jk}$ tel que le recouvrement ph standard
+$\{V_{jk} \to U_j\}$ raffine $\{T_i \times_T U_j \to U_j\}$.
+Si $s_{jk} \in \mathcal{F}(V_{jk})$
+désigne l'image inverse de $s_{ji}$ sur $V_{jk}$ par les
+morphismes sous-entendus, les $s_{jk}$ se recollent en une section
+$s'_j \in \mathcal{F}(V_j)$. En utilisant encore une fois l'accord sur les intersections,
+on voit que $s'_j$ appartient à l'égalisateur des deux
+applications $\mathcal{F}(V_j) \to \mathcal{F}(V_j \times_{U_j} V_j)$.
+Ainsi, d'après (2), $s'_j$ provient d'une unique section
+$s_j \in \mathcal{F}(U_j)$. Nous omettons de vérifier que ces
+sections $s_j$ possèdent toutes les propriétés voulues.
+
+\medskip\noindent
+Preuve de l'équivalence de (2) et (2') en présence de (1).
+Supposons que $V \to U$ soit un morphisme de $(\Sch/S)_{ph}$ qui soit
+propre et surjectif. Choisissons un
+recouvrement ouvert affine $U = \bigcup U_i$ et posons $V_i = V \times_U U_i$.
+On voit alors que $\mathcal{F}(U) \to \mathcal{F}(V)$
+est injective, car $\mathcal{F}(U_i) \to \mathcal{F}(V_i)$
+est injective d'après (2') et $\mathcal{F}(U) \to \prod \mathcal{F}(U_i)$
+est injective d'après (1). Supposons enfin donné un élément
+$t \in \mathcal{F}(V)$ de l'égalisateur des deux applications
+$\mathcal{F}(V) \to \mathcal{F}(V \times_U V)$.
+Alors $t|_{V_i}$ appartient à l'égalisateur des deux applications
+$\mathcal{F}(V_i) \to \mathcal{F}(V_i \times_{U_i} V_i)$
+pour tout $i$. On obtient donc une unique section $s_i \in \mathcal{F}(U_i)$
+qui s'envoie sur $t|_{V_i}$ pour tout $i$ d'après (2').
+Nous omettons de vérifier que $s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}$
+pour tous $i, j$ ; cela utilise la propriété d'unicité que l'on vient d'établir.
+La propriété de faisceau pour le recouvrement $U = \bigcup U_i$ fournit
+une section $s \in \mathcal{F}(U)$. Nous omettons de démontrer que $s$
+s'envoie sur $t$ dans $\mathcal{F}(V)$.
+\end{proof}
+
+\noindent
+Établissons ensuite quelques relations entre les topos
+associés à ces sites.
+
+\begin{lemma}
+\label{lemma-morphism-big-ph}
+Soit $\Sch_{ph}$ un gros site ph.
+Soit $f : T \to S$ un morphisme de $\Sch_{ph}$.
+Le foncteur
+$$
+u : (\Sch/T)_{ph} \longrightarrow (\Sch/S)_{ph},
+\quad
+V/T \longmapsto V/S
+$$
+est cocontinu et admet un adjoint à droite continu
+$$
+v : (\Sch/S)_{ph} \longrightarrow (\Sch/T)_{ph},
+\quad
+(U \to S) \longmapsto (U \times_S T \to T).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\Sch/T)_{ph})
+\longrightarrow
+\Sh((\Sch/S)_{ph})
+$$
+On a $f_{big}^{-1}(\mathcal{G})(U/T) = \mathcal{G}(U/S)$.
+On a $f_{big, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$.
+De plus, $f_{big}^{-1}$ admet un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs. Par conséquent,
+Sites, lemmes \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et donnent la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est adjoint à droite car, étant donnés $U/T$ et $V/S$,
+on a $\Mor_S(u(U), V) = \Mor_T(U, V \times_S T)$,
+comme voulu. On peut donc appliquer
+Sites, lemmes \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule pour $f_{big, *}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-ph}
+Étant donnés des schémas $X$, $Y$, $Y$ dans $(\Sch/S)_{ph}$
+et des morphismes $f : X \to Y$, $g : Y \to Z$, on a
+$g_{big} \circ f_{big} = (g \circ f)_{big}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la description simple de l'image directe
+et de l'image inverse des foncteurs sur les gros sites donnée dans le
+lemme \ref{lemma-morphism-big-ph}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La topologie fpqc}
+\label{section-fpqc}
+
+\begin{definition}
+\label{definition-fpqc-covering}
+Soit $T$ un schéma. Un {\it recouvrement fpqc de $T$} est une famille
+de morphismes de schémas $\{f_i : T_i \to T\}_{i \in I}$
+telle que chaque $f_i$ soit plat et que, pour tout ouvert affine
+$U \subset T$, il existe $n \geq 0$, une application
+$a : \{1, \ldots, n\} \to I$ et des ouverts affines
+$V_j \subset T_{a(j)}$, $j = 1, \ldots, n$,
+tels que $\bigcup_{j = 1}^n f_{a(j)}(V_j) = U$.
+\end{definition}
+
+\noindent
+Cette condition implique bien que $T = \bigcup f_i(T_i)$.
+Il est un peu plus difficile de reconnaître un recouvrement fpqc ; nous donnons donc
+quelques lemmes à cet effet.
+
+\begin{lemma}
+\label{lemma-recognize-fpqc-covering}
+Soit $T$ un schéma. Soit $\{f_i : T_i \to T\}_{i \in I}$ une famille de
+morphismes de schémas de but $T$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\{f_i : T_i \to T\}_{i \in I}$ est un recouvrement fpqc,
+\item chaque $f_i$ est plat et, pour tout ouvert affine $U \subset T$,
+il existe des ouverts quasi-compacts
+$U_i \subset T_i$, presque tous vides,
+tels que $U = \bigcup f_i(U_i)$,
+\item chaque $f_i$ est plat et il existe un recouvrement ouvert affine
+$T = \bigcup_{\alpha \in A} U_\alpha$ et, pour tout $\alpha \in A$,
+il existe $i_{\alpha, 1}, \ldots, i_{\alpha, n(\alpha)} \in I$
+et des ouverts quasi-compacts $U_{\alpha, j} \subset T_{i_{\alpha, j}}$ tels que
+$U_\alpha =
+\bigcup_{j = 1, \ldots, n(\alpha)} f_{i_{\alpha, j}}(U_{\alpha, j})$.
+\end{enumerate}
+Si $T$ est quasi-séparé, ces conditions équivalent aussi à
+\begin{enumerate}
+\item[(4)] chaque $f_i$ est plat et, pour tout $t \in T$, il existe
+$i_1, \ldots, i_n \in I$ et des ouverts quasi-compacts $U_j \subset T_{i_j}$
+tels que $\bigcup_{j = 1, \ldots, n} f_{i_j}(U_j)$ soit un
+voisinage (non nécessairement ouvert) de $t$ dans $T$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous omettons la démonstration de l'équivalence de (1), (2) et (3).
+Supposons désormais que $T$ soit quasi-séparé.
+Montrons que (4) implique (2). Soit $U \subset T$ un ouvert affine.
+Pour démontrer (2), il suffit de montrer que, pour tout $t \in U$, il existe
+un nombre fini d'ouverts quasi-compacts $U_j \subset T_{i_j}$ tels que
+$f_{i_j}(U_j) \subset U$ et que $\bigcup f_{i_j}(U_j)$
+soit un voisinage de $t$ dans $U$. Par hypothèse, il existe bien
+un nombre fini d'ouverts quasi-compacts $U'_j \subset T_{i_j}$ tels que
+$\bigcup f_{i_j}(U'_j)$ soit un voisinage de $t$ dans $T$.
+Puisque $T$ est quasi-séparé, on voit que
+$U_j = U'_j \cap f_{i_j}^{-1}(U) = (f_{i_j}|_{U'_j})^{-1}(U)$
+est quasi-compact d'après
+Schémas, lemme \ref{schemes-lemma-quasi-compact-permanence}.
+Ainsi, (2) est vérifiée. Comme il est clair que (2) implique
+(4), la démonstration est achevée.
+\end{proof}
+
+\begin{example}
+\label{example-not-fpqc}
+Soit $X = X_1 \cup X_2$, où $X_1 = X_2 = \Spec(k[t_1,t_2,\dots])$
+est le schéma non quasi-séparé de
+Schémas, exemple \ref{schemes-example-not-quasi-separated}, et soit
+$Y = X_1 \amalg \Spec(\mathcal{O}_{X_2, 0})$.
+Alors le morphisme évident $f : Y \to X$
+est plat et surjectif et, puisque $Y$ est quasi-compact,
+satisfait trivialement à (4) du lemme \ref{lemma-recognize-fpqc-covering}.
+Mais $\{f : Y \to X\}$ n'est pas un recouvrement fpqc. En effet, affirmons qu'il
+n'existe aucun ouvert quasi-compact $W$ de $Y$ dont l'image par $f$ soit $X_2$.
+En effet, $f^{-1}(X_2) = X_1 \setminus \{0\} \amalg \Spec(\mathcal{O}_{X_2, 0})$.
+Donc, si $W$ existe, alors $W = U \amalg \Spec(\mathcal{O}_{X_2, 0})$
+pour un ouvert quasi-compact $U$ de $X_1 \setminus \{0\} = X_2 \setminus \{0\}$.
+Mais on peut alors écrire $U = D(f_1) \cup \ldots \cup D(f_n)$ pour
+certains $f_i \in k[t_1, t_2, \ldots]$ qui s'annulent en $0$.
+Supposons que $f_1, \ldots, f_n$ n'utilisent que les variables
+$x_1, \ldots, x_m$. Alors $p = (0, \ldots, 0, 1, 0, \ldots)$, où $1$
+occupe la $(m + 1)$-ième place, est un point fermé de $X_2$ qui n'appartient pas à l'image
+de $W$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-disjoint-union-is-fpqc-covering}
+Soit $T$ un schéma. Soit $\{f_i : T_i \to T\}_{i \in I}$ une famille de
+morphismes de schémas de but $T$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\{f_i : T_i \to T\}_{i \in I}$ est un recouvrement fpqc, et
+\item en posant $T' = \coprod_{i \in I} T_i$ et $f = \coprod_{i \in I} f_i$,
+la famille $\{f : T' \to T\}$ est un recouvrement fpqc.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que $U \subset T$ soit un ouvert affine. Si (1) est vérifiée, il existe
+$i_1, \ldots, i_n \in I$ et des ouverts affines $U_j \subset T_{i_j}$ tels que
+$U = \bigcup_{j = 1, \ldots, n} f_{i_j}(U_j)$. Alors
+$U_1 \amalg \ldots \amalg U_n \subset T'$ est un ouvert quasi-compact dont l'image
+est $U$. Ainsi, $\{f : T' \to T\}$ est un recouvrement fpqc d'après le
+lemme \ref{lemma-recognize-fpqc-covering}.
+Réciproquement, si (2) est vérifiée, il existe un ouvert quasi-compact
+$U' \subset T'$ tel que $U = f(U')$. Alors $U_j = U' \cap T_j$ est un ouvert quasi-compact
+de $T_j$ et est vide pour presque tout $j$. D'après le
+lemme \ref{lemma-recognize-fpqc-covering}, on voit que (1) est vérifiée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-family-flat-dominated-covering}
+Soit $T$ un schéma. Soit $\{f_i : T_i \to T\}_{i \in I}$ une famille de
+morphismes de schémas de but $T$. Supposons que
+\begin{enumerate}
+\item chaque $f_i$ soit plat, et
+\item la famille $\{f_i : T_i \to T\}_{i \in I}$ puisse être raffinée par un
+recouvrement fpqc de $T$.
+\end{enumerate}
+Alors $\{f_i : T_i \to T\}_{i \in I}$ est un recouvrement fpqc de $T$.
+\end{lemma}
+
+\begin{proof}
+Soit $\{g_j : X_j \to T\}_{j \in J}$ un recouvrement fpqc qui raffine
+$\{f_i : T_i \to T\}$. Supposons que $U \subset T$ soit un ouvert affine.
+Choisissons $j_1, \ldots, j_m \in J$ et des ouverts affines $V_k \subset X_{j_k}$
+tel que $U = \bigcup g_{j_k}(V_k)$. Pour tout $j$, choisissons $i_j \in I$
+et un morphisme $h_j : X_j \to T_{i_j}$ tel que $g_j = f_{i_j} \circ h_j$.
+Comme $h_{j_k}(V_k)$ est quasi-compact, on peut trouver un ouvert quasi-compact
+$h_{j_k}(V_k) \subset U_k \subset f_{i_{j_k}}^{-1}(U)$.
+Alors $U = \bigcup f_{i_{j_k}}(U_k)$. On en conclut que
+$\{f_i : T_i \to T\}_{i \in I}$ est un recouvrement fpqc d'après le
+lemme \ref{lemma-recognize-fpqc-covering}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-family-flat-fpqc-local-covering}
+Soit $T$ un schéma. Soit $\{f_i : T_i \to T\}_{i \in I}$ une famille de
+morphismes de schémas de but $T$. Supposons que
+\begin{enumerate}
+\item chaque $f_i$ soit plat, et
+\item il existe un recouvrement fpqc
+$\{g_j : S_j \to T\}_{j \in J}$ tel que chacun des
+$\{S_j \times_T T_i \to S_j\}_{i \in I}$ soit un recouvrement fpqc.
+\end{enumerate}
+Alors $\{f_i : T_i \to T\}_{i \in I}$ est un recouvrement fpqc de $T$.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons le lemme \ref{lemma-recognize-fpqc-covering} sans autre
+mention. Soit $U \subset T$ un ouvert affine. D'après (2), il existe
+des ouverts quasi-compacts $V_j \subset S_j$ pour $j \in J$, presque tous vides, tels que
+$U = \bigcup g_j(V_j)$. Pour tout $j$, on peut alors choisir des ouverts quasi-compacts
+$W_{ij} \subset S_j \times_T T_i$ pour $i \in I$, presque tous vides,
+tels que $V_j = \bigcup_i \text{pr}_1(W_{ij})$. Ainsi,
+$\{S_j \times_T T_i \to T\}$ est un recouvrement fpqc.
+Comme ce recouvrement raffine $\{f_i : T_i \to T\}$, on conclut par le
+lemme \ref{lemma-family-flat-dominated-covering}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic-fppf-fpqc}
+Tout recouvrement fppf est un recouvrement fpqc et, a fortiori,
+tout recouvrement syntomique, lisse, \'etale ou de Zariski est un recouvrement fpqc.
+\end{lemma}
+
+\begin{proof}
+Montrons qu'un recouvrement fppf est un recouvrement fpqc ; le
+reste résultera alors du
+lemme \ref{lemma-zariski-etale-smooth-syntomic-fppf}.
+Soit $\{f_i : U_i \to U\}_{i \in I}$ un recouvrement fppf.
+Par définition, les $f_i$ sont plats, ce qui vérifie la première
+condition de la définition \ref{definition-fpqc-covering}. Pour vérifier la
+seconde, soit $V \subset U$ un sous-ensemble ouvert affine.
+Écrivons $f_i^{-1}(V) = \bigcup_{j \in J_i} V_{ij}$
+pour des ouverts affines $V_{ij} \subset U_i$. Comme chaque $f_i$ est ouvert
+(Morphismes, lemme \ref{morphisms-lemma-fppf-open}), on voit que
+$V = \bigcup_{i\in I} \bigcup_{j \in J_i} f_i(V_{ij})$
+est un recouvrement ouvert de $V$.
+Comme $V$ est quasi-compact, ce recouvrement admet un
+raffinement fini. Ceci achève la démonstration.
+\end{proof}
+
+\noindent
+La topologie fpqc\footnote{Les lettres fpqc signifient
+« fid\`element plat quasi-compacte ».}
+ne peut pas être traitée de la même manière que la topologie
+fppf\footnote{Plus précisément, l'analogue du
+lemme \ref{lemma-fppf-induced} pour la topologie fpqc n'est pas valable.}.
+En effet, supposons que $R$ soit un anneau non nul. Nous verrons au
+lemme \ref{lemma-no-set-of-fpqc-covers-is-initial}
+qu'il n'existe pas d'ensemble $A$ de recouvrements fpqc de $\Spec(R)$
+tel que tout recouvrement fpqc puisse être raffiné par un élément de $A$.
+Si $R = k$ est un corps, la raison de cette absence de borne est
+qu'il n'existe aucune extension de corps de $k$ qui contienne toute extension de corps
+de $k$.
+
+\medskip\noindent
+Si l'on néglige les difficultés ensemblistes, on rencontre des préfaisceaux
+qui n'admettent pas de faisceau associé, voir
+\cite[théorème 5.5]{Waterhouse-fpqc-sheafification}.
+Une option d'un certain intérêt consiste à ne considérer que les extensions d'anneaux
+fidèlement plates $R \to R'$ où le cardinal de $R'$ est convenablement borné.
+(Et si l'on considère tous les schémas d'un univers fixé, comme dans SGA4, on
+borne le cardinal par un cardinal fortement inaccessible.)
+Il n'est toutefois pas très clair de savoir ce qui se passe si l'on remplace ce cardinal
+par un cardinal plus grand.
+
+\medskip\noindent
+Pour ces raisons, nous n'introduisons pas de sites fpqc et ne considérons pas
+la cohomologie relativement à la topologie fpqc.
+
+\medskip\noindent
+En revanche, étant donné un foncteur contravariant
+$F : \Sch^{opp} \to \textit{Ensembles}$
+il est légitime de demander si $F$ satisfait la propriété de faisceau
+pour la topologie fpqc, voir ci-dessous.
+On peut en outre s'interroger sur la descente des objets
+pour la topologie fpqc, etc. En termes simples, pour certains résultats, le bon
+degré de généralité consiste à travailler avec des recouvrements fpqc.
+
+\begin{lemma}
+\label{lemma-fpqc}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement fpqc de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement fpqc et si, pour tout
+$i$, on a un recouvrement fpqc $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement fpqc.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement fpqc
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement fpqc.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) est immédiate. Rappelons que le composé de morphismes plats
+est plat et que le changement de base d'un morphisme plat est plat
+(Morphismes, lemmes \ref{morphisms-lemma-base-change-flat} et
+\ref{morphisms-lemma-composition-flat}).
+On peut donc appliquer le lemme \ref{lemma-recognize-fpqc-covering}
+dans chaque cas pour vérifier que nos familles de morphismes sont des recouvrements fpqc.
+
+\medskip\noindent
+Preuve de (2). Supposons que $\{T_i \to T\}_{i\in I}$ soit un recouvrement fpqc et que, pour tout
+$i$, on ait un recouvrement fpqc $\{f_{ij} : T_{ij} \to T_i\}_{j\in J_i}$.
+Soit $U \subset T$ un ouvert affine. On peut trouver
+des ouverts quasi-compacts $U_i \subset T_i$ pour $i \in I$, presque tous vides,
+tels que $U = \bigcup f_i(U_i)$. Pour tout $i$, on peut alors choisir
+des ouverts quasi-compacts $U_{ij} \subset T_{ij}$ pour $j \in J_i$, presque tous vides,
+tels que $U_i = \bigcup_j f_{ij}(U_{ij})$. Ainsi,
+$\{T_{ij} \to T\}$ est un recouvrement fpqc.
+
+\medskip\noindent
+Preuve de (3). Supposons que $\{T_i \to T\}_{i\in I}$ soit un recouvrement fpqc
+et que $T' \to T$ soit un morphisme de schémas. Soit $U' \subset T'$ un ouvert affine
+dont l'image est contenue dans l'ouvert affine $U \subset T$. Choisissons
+des ouverts quasi-compacts $U_i \subset T_i$, presque tous vides,
+tels que $U = \bigcup f_i(U_i)$. Alors $U' \times_U U_i$ est
+un ouvert quasi-compact de $T' \times_T T_i$ et
+$U' = \bigcup \text{pr}_1(U' \times_U U_i)$. Puisque $T'$
+peut être recouvert par de tels ouverts affines $U' \subset T'$, on voit
+que $\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement fpqc d'après le
+lemme \ref{lemma-recognize-fpqc-covering}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fpqc-affine}
+Soit $T$ un schéma affine.
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement fpqc de $T$.
+Il existe alors un recouvrement fpqc
+$\{U_j \to T\}_{j = 1, \ldots, n}$ qui est un raffinement
+de $\{T_i \to T\}_{i \in I}$ tel que chaque $U_j$ soit un schéma
+affine. De plus, on peut choisir chaque $U_j$ ouvert affine
+dans l'un des $T_i$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte directement de la définition.
+\end{proof}
+
+\begin{definition}
+\label{definition-standard-fpqc}
+Soit $T$ un schéma affine. Un {\it recouvrement fpqc standard}
+de $T$ est une famille $\{f_j : U_j \to T\}_{j = 1, \ldots, n}$
+où chaque $U_j$ est affine, plat sur $T$, et $T = \bigcup f_j(U_j)$.
+\end{definition}
+
+\noindent
+Puisque nous n'introduisons pas le site affine, il faut montrer directement
+que la famille de tous les recouvrements fpqc standards satisfait les
+axiomes.
+
+\begin{lemma}
+\label{lemma-fpqc-affine-axioms}
+Soit $T$ un schéma affine.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement fpqc standard de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement fpqc standard et si, pour tout
+$i$, on a un recouvrement fpqc standard $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement fpqc standard.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement fpqc standard
+et si $T' \to T$ est un morphisme de schémas affines, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement fpqc standard.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte formellement du fait que les composés et les changements de base
+de morphismes plats sont plats
+(Morphismes, lemmes \ref{morphisms-lemma-base-change-flat} et
+\ref{morphisms-lemma-composition-flat})
+et que les produits fibrés de schémas affines sont affines
+(Schémas, lemme \ref{schemes-lemma-fibre-product-affines}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fpqc-covering-affines-mapping-in}
+Soit $T$ un schéma. Soit $\{f_i : T_i \to T\}_{i \in I}$ une famille de
+morphismes de schémas de but $T$. Supposons que
+\begin{enumerate}
+\item chaque $f_i$ soit plat, et
+\item pour tout schéma affine
+$Z$ et tout morphisme $h : Z \to T$, il existe un recouvrement fpqc standard
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ qui raffine la famille
+$\{T_i \times_T Z \to Z\}_{i \in I}$.
+\end{enumerate}
+Alors $\{f_i : T_i \to T\}_{i \in I}$ est un recouvrement fpqc de $T$.
+\end{lemma}
+
+\begin{proof}
+Soit $T = \bigcup U_\alpha$ un recouvrement ouvert affine.
+Pour tout $\alpha$, la famille obtenue par image inverse $\{T_i \times_T U_\alpha \to U_\alpha\}$
+peut être raffinée par un recouvrement fpqc standard ; c'est donc un
+recouvrement fpqc d'après le lemme
+\ref{lemma-family-flat-dominated-covering}.
+Comme $\{U_\alpha \to T\}$ est un recouvrement fpqc, on en conclut que
+$\{T_i \to T\}$ est un recouvrement fpqc d'après le
+lemme \ref{lemma-family-flat-fpqc-local-covering}.
+\end{proof}
+
+\begin{definition}
+\label{definition-sheaf-property-fpqc}
+Soit $F$ un foncteur contravariant de la catégorie
+des schémas vers celle des ensembles.
+\begin{enumerate}
+\item Soit $\{U_i \to T\}_{i \in I}$ une famille de morphismes
+de schémas de but fixé.
+On dit que $F$ {\it satisfait la propriété de faisceau pour la famille donnée}
+si, pour toute famille d'éléments $\xi_i \in F(U_i)$ telle que
+$\xi_i|_{U_i \times_T U_j} = \xi_j|_{U_i \times_T U_j}$
+il existe un unique élément
+$\xi \in F(T)$ tel que $\xi_i = \xi|_{U_i}$ dans $F(U_i)$.
+\item On dit que $F$ {\it satisfait la propriété de faisceau pour la
+topologie fpqc} s'il satisfait la propriété de faisceau pour tout
+recouvrement fpqc.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous évitons autant que possible de dire « $F$ est un faisceau » dans cette
+situation, puisque nous ne définissons pas de catégorie de faisceaux fpqc,
+comme nous l'avons expliqué ci-dessus.
+
+\begin{lemma}
+\label{lemma-sheaf-property-fpqc}
+Soit $F$ un foncteur contravariant de la catégorie
+des schémas vers celle des ensembles. Alors $F$ satisfait
+la propriété de faisceau pour la topologie fpqc si et seulement
+s'il satisfait
+\begin{enumerate}
+\item la propriété de faisceau pour tout recouvrement de Zariski, et
+\item la propriété de faisceau pour tout recouvrement fpqc standard.
+\end{enumerate}
+De plus, en présence de (1), la propriété (2) équivaut à la
+propriété
+\begin{enumerate}
+\item[(2')] de faisceau pour $\{V \to U\}$,
+où $V$, $U$ sont affines et $V \to U$ est fidèlement plat.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1) et (2) vérifiées.
+Soit $\{f_i : T_i \to T\}_{i \in I}$ un recouvrement fpqc. Soit $s_i \in F(T_i)$
+une famille d'éléments telle que $s_i$ et $s_j$ aient la même image
+dans $F(T_i \times_T T_j)$. Soit $W \subset T$ le plus grand ouvert
+tel qu'il existe un unique $s \in F(W)$ satisfaisant
+$s|_{f_i^{-1}(W)} = s_i|_{f_i^{-1}(W)}$ pour tout $i$.
+Un tel plus grand ouvert existe puisque $F$ satisfait la
+propriété de faisceau pour les recouvrements de Zariski ; en fait, $W$ est la
+réunion de tous les ouverts qui ont cette propriété. Soit $t \in T$.
+Montrons que $t \in W$. Pour cela, choisissons un ouvert affine
+$t \in U \subset T$ et montrons qu'il existe un unique
+$s \in F(U)$ tel que
+$s|_{f_i^{-1}(U)} = s_i|_{f_i^{-1}(U)}$ pour tout $i$.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-fpqc-affine}, on peut trouver un recouvrement fpqc standard
+$\{U_j \to U\}_{j = 1, \ldots, n}$ qui raffine $\{U \times_T T_i \to U\}$,
+disons par des morphismes $h_j : U_j \to T_{i_j}$. D'après (2), on obtient un unique élément
+$s \in F(U)$ tel que $s|_{U_j} = F(h_j)(s_{i_j})$. Remarquons que, pour tout
+schéma $V \to U$ sur $U$, il existe une unique section $s_V \in F(V)$
+dont la restriction vaut $F(h_j \circ \text{pr}_2)(s_{i_j})$ sur
+$V \times_U U_j$ pour $j = 1, \ldots, n$. En effet, c'est vrai si $V$
+est affine d'après (2), puisque $\{V \times_U U_j \to V\}$ est un recouvrement fpqc standard,
+et le cas général résulte de (1) et du cas affine en choisissant un
+recouvrement ouvert affine de $V$. En particulier, $s_V = s|_V$.
+En prenant maintenant $V = U \times_T T_i$ et en utilisant
+$s_{i_j}|_{T_{i_j} \times_T T_i} = s_i|_{T_{i_j} \times_T T_i}$,
+on en conclut que $s|_{U \times_T T_i} = s_V = s_i|_{U \times_T T_i}$,
+ce qu'il fallait démontrer.
+
+\medskip\noindent
+Preuve de l'équivalence de (2) et (2') en présence de (1).
+Si $\{T_i \to T\}$ est un recouvrement fpqc standard, alors
+$\coprod T_i \to T$ est un morphisme fidèlement plat de schémas affines.
+En présence de (1), on a $F(\coprod T_i) = \prod F(T_i)$
+et, de même,
+$F((\coprod T_i) \times_T (\coprod T_i)) = \prod F(T_i \times_T T_{i'})$.
+Ainsi, la condition de faisceau pour $\{T_i \to T\}$ et pour $\{\coprod T_i \to T\}$
+est la même.
+\end{proof}
+
+\noindent
+Le lemme suivant sert seulement à signaler que les difficultés ensemblistes
+se présentent bel et bien et que la plupart des lecteurs devraient les ignorer.
+
+\begin{lemma}
+\label{lemma-no-set-of-fpqc-covers-is-initial}
+Soit $R$ un anneau non nul. Il n'existe aucun ensemble $A$ de
+recouvrements fpqc de $\Spec(R)$ tel que tout recouvrement fpqc puisse
+être raffiné par un élément de $A$.
+\end{lemma}
+
+\begin{proof}
+Expliquons d'abord le cas où $R = k$ est un corps. Pour tout ensemble $I$, considérons
+l'extension transcendante pure
+$k_I = k(\{t_i\}_{i \in I})/k$. Comme $k \to k_I$ est fidèlement plat,
+on voit que $\{\Spec(k_I) \to \Spec(k)\}$ est un recouvrement fpqc.
+Soit $A$ un ensemble et, pour tout $\alpha \in A$, soit
+$\mathcal{U}_\alpha = \{S_{\alpha, j} \to \Spec(k)\}_{j \in J_\alpha}$ un
+recouvrement fpqc. Si $\mathcal{U}_\alpha$ raffine $\{\Spec(k_I) \to \Spec(k)\}$,
+alors les morphismes $S_{\alpha, j} \to \Spec(k)$ se factorisent par
+$\Spec(k_I)$. Comme $\mathcal{U}_\alpha$ est un recouvrement,
+au moins un certain $S_{\alpha, j}$ est non vide. Choisissons un
+point $s \in S_{\alpha, j}$. Puisque l'on a la factorisation
+$S_{\alpha, j} \to \Spec(k_I) \to \Spec(k)$
+on obtient un homomorphisme de corps $k_I \to \kappa(s)$.
+En particulier, on voit que la cardinalité de $\kappa(s)$
+est au moins celle de $I$. Ainsi, si l'on choisit pour $I$ un ensemble
+de cardinalité supérieure à celles des corps résiduels
+de tous les schémas $S_{\alpha, j}$, une telle factorisation
+n'existe pas et le lemme est démontré pour $R = k$.
+
+\medskip\noindent
+Cas général. Comme $R$ est non nul, il possède un idéal premier maximal
+$\mathfrak m$ de corps résiduel $\kappa$. Soit $I$ un ensemble et
+considérons $R_I = S_I^{-1} R[\{t_i\}_{i \in I}]$,
+où $S_I \subset R[\{t_i\}_{i \in I}]$ est la partie multiplicative
+formée des $f \in R[\{t_i\}_{i \in I}]$ tels que l'image de $f$ soit
+un élément non nul de $R/\mathfrak p[\{t_i\}_{i \in I}]$ pour
+tout idéal premier $\mathfrak p$ de $R$. Alors $R_I$ est une $R$-algèbre
+fidèlement plate et $\{\Spec(R_I) \to \Spec(R)\}$ est un
+recouvrement fpqc. Nous laissons au lecteur le soin de montrer que
+$R_I \otimes_R \kappa \cong \kappa(\{t_i\}_{i \in I}) = \kappa_I$
+avec les notations ci-dessus (indication : utiliser la surjectivité de $R \to \kappa$
+et le fait que tout $f \in R[\{t_i\}_{i \in I}]$ dont l'un des monômes apparaît
+avec le coefficient $1$ appartient à $S_I$). Soit $A$ un ensemble et,
+pour tout $\alpha \in A$, soit
+$\mathcal{U}_\alpha = \{S_{\alpha, j} \to \Spec(R)\}_{j \in J_\alpha}$ un
+recouvrement fpqc. Si $\mathcal{U}_\alpha$ raffine $\{\Spec(R_I) \to \Spec(R)\}$,
+alors, par changement de base, on en conclut que
+$\{S_{\alpha, j} \times_{\Spec(R)} \Spec(\kappa) \to \Spec(\kappa)\}$
+raffine $\{\Spec(\kappa_I) \to \Spec(\kappa)\}$.
+Par le résultat du paragraphe précédent, il existe donc un $I$
+pour lequel ce n'est pas le cas, ce qui démontre le lemme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La topologie V}
+\label{section-V}
+
+\noindent
+La topologie V est plus fine que toutes les autres topologies de ce chapitre.
+Grosso modo, elle est engendrée par les recouvrements de Zariski et
+par les morphismes quasi-compacts satisfaisant une propriété de relèvement
+des spécialisations (lemme \ref{lemma-refine-qcqs-V}).
+Cependant, le procédé que nous emploierons pour définir les recouvrements V est un peu différent.
+Nous définirons d'abord les recouvrements V standards des schémas affines, puis
+nous les utiliserons pour définir les recouvrements V en général. Remarque typographique :
+dans la littérature, on emploie parfois « $v$-recouvrement » au lieu de « recouvrement V ».
+
+\begin{definition}
+\label{definition-standard-V-covering}
+Soit $T$ un schéma affine. Un {\it recouvrement V standard} est une famille finie
+$\{T_j \to T\}_{j = 1, \ldots, m}$, où les $T_j$ sont affines,
+telle que, pour tout morphisme $g : \Spec(V) \to T$, où $V$
+est un anneau de valuation, il existe une extension $V \subset W$ d'anneaux de valuation
+(Compléments d'algèbre, définition
+\ref{more-algebra-definition-extension-valuation-rings}),
+un indice $1 \leq j \leq m$ et un diagramme commutatif
+$$
+\xymatrix{
+\Spec(W) \ar[r] \ar[d] & T_j \ar[d] \\
+\Spec(V) \ar[r]^g & T
+}
+$$
+\end{definition}
+
+\noindent
+Nous démontrons d'abord quelques lemmes élémentaires sur cette notion.
+
+\begin{lemma}
+\label{lemma-standard-fpqc-standard-V}
+Tout recouvrement fpqc standard est un recouvrement V standard.
+\end{lemma}
+
+\begin{proof}
+Soit $\{X_i \to X\}_{i = 1, \ldots, n}$ un recouvrement fpqc standard
+(définition \ref{definition-standard-fpqc}). Soit $g : \Spec(V) \to X$
+un morphisme, où $V$ est un anneau de valuation. Soit $x \in X$
+l'image du point fermé de $\Spec(V)$. Choisissons un $i$ et un point
+$x_i \in X_i$ d'image $x$. Alors $\Spec(V) \times_X X_i$
+possède un point $x'_i$ dont l'image est le point fermé de $\Spec(V)$.
+Comme $\Spec(V) \times_X X_i \to \Spec(V)$ est plat,
+on peut trouver une spécialisation $x''_i \leadsto x'_i$ de
+points de $\Spec(V) \times_X X_i$, où $x''_i$ s'envoie sur
+le point générique de $\Spec(V)$ ; voir
+Morphismes, lemme \ref{morphisms-lemma-generalizations-lift-flat}. D'après
+Schémas, lemme \ref{schemes-lemma-points-specialize},
+on peut choisir un anneau de valuation $W$ et un morphisme
+$h : \Spec(W) \to \Spec(V) \times_X X_i$ tels que $h$
+envoie le point générique de $\Spec(W)$ sur $x''_i$ et le
+point fermé de $\Spec(W)$ sur $x'_i$. On obtient un
+diagramme commutatif
+$$
+\xymatrix{
+\Spec(W) \ar[r] \ar[d] & X_i \ar[d] \\
+\Spec(V) \ar[r] & X
+}
+$$
+où $V \to W$ est une extension d'anneaux de valuation.
+Cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-standard-ph-standard-V}
+Tout recouvrement ph standard est un recouvrement V standard.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma affine. Soit $f : U \to T$ un morphisme propre
+surjectif. Soit $U = \bigcup_{j = 1, \ldots, m} U_j$ un recouvrement ouvert
+affine fini. Il faut montrer que $\{U_j \to T\}$ est un recouvrement V
+standard ; voir la définition
+\ref{definition-standard-ph-covering}.
+Soit $g : \Spec(V) \to T$
+un morphisme, où $V$ est un anneau de valuation de corps des fractions $K$.
+Comme $U \to T$ est surjectif, on peut choisir une extension de corps
+$L/K$ et un diagramme commutatif
+$$
+\xymatrix{
+\Spec(L) \ar[rr] \ar[d] & & U \ar[d] \\
+\Spec(K) \ar[r] & \Spec(V) \ar[r]^g & T
+}
+$$
+D'après Algèbre, lemme \ref{algebra-lemma-dominate}, on peut choisir un anneau
+de valuation $W \subset L$ dominant $V$. Le critère valuatif de
+propreté (Morphismes, lemme \ref{morphisms-lemma-characterize-proper})
+fournit alors le morphisme $h$ dans le diagramme
+commutatif
+$$
+\xymatrix{
+\Spec(L) \ar[r] \ar[d] & \Spec(W) \ar[r]_h \ar[d] & U \ar[d] \\
+\Spec(K) \ar[r] & \Spec(V) \ar[r]^g & X
+}
+$$
+Comme $\Spec(W)$ possède un unique point fermé, on voit que $\Im(h)$
+est contenue dans $U_j$ pour un certain $j$. Ainsi, $h : \Spec(W) \to U_j$
+est le relèvement cherché, et $\{U_j \to T\}$ est donc un recouvrement V standard.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-standard-V}
+Soit $\{T_j \to T\}_{j = 1, \ldots, m}$ un recouvrement V standard.
+Soit $T' \to T$ un morphisme de schémas affines.
+Alors $\{T_j \times_T T' \to T'\}_{j = 1, \ldots, m}$ est un
+recouvrement V standard.
+\end{lemma}
+
+\begin{proof}
+Soit $\Spec(V) \to T'$ un morphisme, où $V$ est un anneau de valuation.
+Par hypothèse, on peut trouver une extension d'anneaux de valuation $V \subset W$,
+un $i$ et un diagramme commutatif
+$$
+\xymatrix{
+\Spec(W) \ar[r] \ar[d] & T_i \ar[d] \\
+\Spec(V) \ar[r] & T
+}
+$$
+La propriété universelle des produits fibrés
+donne le morphisme $\Spec(W) \to T' \times_T T_i$
+voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-standard-V}
+Soit $T$ un schéma affine. Soit $\{T_j \to T\}_{j = 1, \ldots, m}$
+un recouvrement V standard. Soit $\{T_{ji} \to T_j\}_{i = 1, \ldots n_j}$
+un recouvrement V standard. Alors $\{T_{ji} \to T\}_{i, j}$
+est un recouvrement V standard.
+\end{lemma}
+
+\begin{proof}
+Cela résulte formellement de l'observation suivante : si
+$V \subset W$ et $W \subset \Omega$ sont des extensions
+d'anneaux de valuation, alors $V \subset \Omega$ est une extension
+d'anneaux de valuation.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-refine-standard-V}
+Soit $T$ un schéma affine. Soit $\{T_j \to T\}_{j = 1, \ldots, m}$
+une famille de morphismes telle que $T_j$ soit affine pour tout $j$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\{T_j \to T\}_{j = 1, \ldots, m}$ est un recouvrement V standard ;
+\item il existe un recouvrement V standard qui raffine
+$\{T_j \to T\}_{j = 1, \ldots, m}$ ;
+\item $\{\coprod_{j = 1, \ldots, m} T_j \to T\}$ est un recouvrement
+V standard.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. Indications : cela résulte presque immédiatement de la définition.
+Le seul point qui mérite quelque attention est qu'un
+morphisme du spectre d'un anneau local vers
+$\coprod_{j = 1, \ldots, m} T_j$ se factorise nécessairement par l'un des $T_j$.
+\end{proof}
+
+\begin{definition}
+\label{definition-V-covering}
+Soit $T$ un schéma. Un {\it recouvrement V de $T$} est une famille
+de morphismes de schémas $\{T_i \to T\}_{i \in I}$ telle que, pour tout
+ouvert affine $U \subset T$, il existe un recouvrement V standard
+$\{U_j \to U\}_{j = 1, \ldots, m}$ qui raffine la famille
+$\{T_i \times_T U \to U\}_{i \in I}$.
+\end{definition}
+
+\noindent
+La topologie V présente les mêmes problèmes ensemblistes que
+la topologie fpqc. Nous nous abstiendrons donc de définir des sites V
+et nous ne considérerons pas de cohomologie pour la topologie V.
+En revanche, étant donné un foncteur
+$F : \Sch^{opp} \to \textit{Ensembles}$
+il est légitime de demander si $F$ satisfait la propriété de faisceau
+pour la topologie V ; voir ci-dessous.
+On peut en outre s'interroger sur la descente d'objets
+pour la topologie V, etc.
+
+\begin{lemma}
+\label{lemma-refine-by-V}
+Soit $T$ un schéma. Soit $\{f_i : T_i \to T\}_{i \in I}$ une famille
+de morphismes. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\{T_i \to T\}_{i \in I}$ est un recouvrement V ;
+\item il existe un recouvrement V qui raffine $\{T_i \to T\}_{i \in I}$ ;
+\item $\{\coprod_{i \in I} T_i \to T\}$ est un recouvrement V.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : comparer avec la démonstration du
+lemme \ref{lemma-refine-by-ph}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-V}
+Soit $T$ un schéma.
+\begin{enumerate}
+\item Si $T' \to T$ est un isomorphisme, alors $\{T' \to T\}$
+est un recouvrement V de $T$.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement V et si, pour chaque
+$i$, on a un recouvrement V $\{T_{ij} \to T_i\}_{j\in J_i}$, alors
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ est un recouvrement V.
+\item Si $\{T_i \to T\}_{i\in I}$ est un recouvrement V
+et si $T' \to T$ est un morphisme de schémas, alors
+$\{T' \times_T T_i \to T'\}_{i\in I}$ est un recouvrement V.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) est claire.
+
+\medskip\noindent
+Démonstration de (3).
+Soit $U' \subset T'$ un sous-schéma ouvert affine.
+Comme $U'$ est quasi-compact, on peut trouver un recouvrement ouvert affine
+fini $U' = U'_1 \cup \ldots \cup U'$ tel que
+$U'_j \to T$ se factorise par un ouvert affine $U_j \subset T$.
+Choisissons un recouvrement V standard $\{U_{jl} \to U_j\}_{l = 1, \ldots, n_j}$
+qui raffine $\{T_i \times_T U_j \to U_j\}$.
+D'après le lemme \ref{lemma-base-change-standard-V},
+le changement de base $\{U_{jl} \times_{U_j} U'_j \to U'_j\}$
+est un recouvrement V standard. Notons que $\{U'_j \to U'\}$
+est un recouvrement V standard
+(par exemple d'après le lemme \ref{lemma-standard-fpqc-standard-V}).
+D'après le lemme \ref{lemma-composition-standard-V}, 
+la famille $\{U_{jl} \times_{U_j} U'_j \to U'\}$
+est un recouvrement V standard. Comme
+$\{U_{jl} \times_{U_j} U'_j \to U'\}$ raffine $\{T_i \times_T U' \to U'\}$,
+on conclut.
+
+\medskip\noindent
+Démonstration de (2).
+Soit $U \subset T$ un ouvert affine. Choisissons d'abord un recouvrement V standard
+$\{U_k \to U\}_{k = 1, \ldots, m}$ qui raffine
+$\{T_i \times_T U \to U\}$.
+Supposons que le raffinement soit donné par des morphismes $U_k \to T_{i_k}$ au-dessus de $T$.
+Alors
+$$
+\{T_{i_kj} \times_{T_{i_k}} U_k \to U_k\}_{j \in J_{i_k}}
+$$
+est un recouvrement V d'après (3). Comme $U_k$ est affine,
+on peut trouver un recouvrement V standard
+$\{U_{ka} \to U_k\}_{a = 1, \ldots, b_k}$ qui raffine cette famille.
+On applique alors le lemme \ref{lemma-composition-standard-V}
+pour voir que $\{U_{ka} \to U\}$ est un recouvrement V standard qui
+raffine $\{T_{ij} \times_T U \to U\}$. Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic-fppf-fpqc-ph-V}
+Tout recouvrement fpqc est un recouvrement V. A fortiori,
+tout recouvrement fppf, syntomique, lisse, étale ou de Zariski est un recouvrement V.
+De même, tout recouvrement ph est un recouvrement V.
+\end{lemma}
+
+\begin{proof}
+Tout recouvrement fpqc peut, localement sur des ouverts affines, être raffiné par un
+recouvrement fpqc standard ; voir le lemme \ref{lemma-fpqc-affine}.
+Tout recouvrement fpqc standard est un recouvrement V standard ; voir le
+lemme \ref{lemma-standard-fpqc-standard-V}. La première assertion résulte donc
+de notre définition des recouvrements V au moyen des recouvrements V standards.
+La conclusion pour les recouvrements fppf, syntomiques, lisses, étales ou de Zariski
+résulte de ce que ceux-ci sont des recouvrements fpqc ; voir le
+lemme \ref{lemma-zariski-etale-smooth-syntomic-fppf-fpqc}.
+
+\medskip\noindent
+L'assertion sur les recouvrements ph résulte de la même manière du
+lemme \ref{lemma-standard-ph-standard-V}.
+\end{proof}
+
+\begin{definition}
+\label{definition-sheaf-property-V}
+Soit $F$ un foncteur contravariant de la catégorie
+des schémas dans celle des ensembles. On dit que
+$F$ {\it satisfait la propriété de faisceau pour la topologie V}
+s'il satisfait la propriété de faisceau pour tout recouvrement V
+(voir la définition \ref{definition-sheaf-property-fpqc}).
+\end{definition}
+
+\noindent
+Nous évitons d'employer la terminologie « $F$ est un faisceau » dans cette
+situation, puisque nous ne définissons pas de catégorie des faisceaux V,
+comme nous l'avons expliqué plus haut.
+
+\begin{lemma}
+\label{lemma-sheaf-property-V}
+Soit $F$ un foncteur contravariant de la catégorie
+des schémas dans celle des ensembles. Alors $F$ satisfait
+la propriété de faisceau pour la topologie V si et seulement
+s'il satisfait aux deux conditions suivantes :
+\begin{enumerate}
+\item la propriété de faisceau pour tout recouvrement de Zariski ;
+\item la propriété de faisceau pour tout recouvrement V standard.
+\end{enumerate}
+En outre, sous l'hypothèse (1), la propriété (2) équivaut à la
+propriété suivante :
+\begin{enumerate}
+\item[(2')] la propriété de faisceau pour un recouvrement V standard
+de la forme $\{V \to U\}$, c'est-à-dire constitué d'une seule flèche.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1) et (2) satisfaites.
+Soit $\{f_i : T_i \to T\}_{i \in I}$ un recouvrement V. Soit $s_i \in F(T_i)$
+une famille d'éléments telle que $s_i$ et $s_j$ s'envoient sur le même élément
+de $F(T_i \times_T T_j)$. Soit $W \subset T$ le plus grand ouvert
+tel qu'il existe un unique $s \in F(W)$ vérifiant
+$s|_{f_i^{-1}(W)} = s_i|_{f_i^{-1}(W)}$ pour tout $i$.
+Un tel plus grand ouvert existe parce que $F$ satisfait la
+propriété de faisceau pour les recouvrements de Zariski ; en fait, $W$ est la
+réunion de tous les ouverts possédant cette propriété. Soit $t \in T$.
+Nous allons montrer que $t \in W$. Pour cela, choisissons un ouvert affine
+$t \in U \subset T$ et montrons qu'il existe un unique
+$s \in F(U)$ tel que
+$s|_{f_i^{-1}(U)} = s_i|_{f_i^{-1}(U)}$ pour tout $i$.
+
+\medskip\noindent
+On peut trouver un recouvrement V standard
+$\{U_j \to U\}_{j = 1, \ldots, n}$ qui raffine $\{U \times_T T_i \to U\}$,
+disons au moyen de morphismes $h_j : U_j \to T_{i_j}$. D'après (2), on obtient un unique élément
+$s \in F(U)$ tel que $s|_{U_j} = F(h_j)(s_{i_j})$. Notons que, pour tout
+schéma $V \to U$ au-dessus de $U$, il existe une unique section $s_V \in F(V)$
+qui se restreint en $F(h_j \circ \text{pr}_2)(s_{i_j})$ sur
+$V \times_U U_j$ pour $j = 1, \ldots, n$. En effet, cela est vrai si $V$
+est affine d'après (2), puisque $\{V \times_U U_j \to V\}$ est un recouvrement V standard
+(lemme \ref{lemma-base-change-standard-V}) ;
+dans le cas général, cela résulte de (1) et du cas affine en choisissant un
+recouvrement ouvert affine de $V$. En particulier, $s_V = s|_V$.
+En prenant maintenant $V = U \times_T T_i$ et en utilisant l'égalité
+$s_{i_j}|_{T_{i_j} \times_T T_i} = s_i|_{T_{i_j} \times_T T_i}$
+on conclut que $s|_{U \times_T T_i} = s_V = s_i|_{U \times_T T_i}$,
+ce qu'il fallait démontrer.
+
+\medskip\noindent
+Démonstration de l'équivalence de (2) et (2') sous l'hypothèse (1).
+Supposons que $\{T_i \to T\}_{i = 1, \ldots, n}$ soit un recouvrement V standard. Alors
+$\coprod_{i = 1, \ldots, n} T_i \to T$ est un morphisme de schémas affines
+qui est manifestement aussi un recouvrement V standard.
+Sous l'hypothèse (1), on a $F(\coprod T_i) = \prod F(T_i)$
+et, de même,
+$F((\coprod T_i) \times_T (\coprod T_i)) = \prod F(T_i \times_T T_{i'})$.
+Ainsi, la condition de faisceau pour $\{T_i \to T\}$ et pour $\{\coprod T_i \to T\}$
+est la même.
+\end{proof}
+
+\noindent
+Le lemme suivant montre que la propriété d'être un recouvrement V est
+liée à la possibilité de relever les spécialisations.
+
+\begin{lemma}
+\label{lemma-refine-qcqs-V}
+Soit $X \to Y$ un morphisme quasi-compact de schémas.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\{X \to Y\}$ est un recouvrement V ;
+\item pour tout anneau de valuation $V$ et tout morphisme $g : \Spec(V) \to Y$,
+il existe une extension d'anneaux de valuation $V \subset W$
+et un diagramme commutatif
+$$
+\xymatrix{
+\Spec(W) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(V) \ar[r] & Y
+}
+$$
+\item pour tout morphisme $Z \to Y$ et toute spécialisation $z' \leadsto z$
+de points de $Z$, il existe une spécialisation $w' \leadsto w$
+de points de $Z \times_Y X$ qui s'envoie sur $z' \leadsto z$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1) et soit $g : \Spec(V) \to Y$ comme dans (2).
+Comme $V$ est un anneau local, il existe un ouvert affine $U \subset Y$
+tel que $g$ se factorise par $U$. D'après la définition \ref{definition-V-covering},
+on peut trouver un recouvrement V standard $\{U_j \to U\}$ qui raffine
+$\{X \times_Y U \to U\}$. D'après la définition \ref{definition-standard-V-covering},
+on peut trouver un $j$, une extension d'anneaux de valuation $V \subset W$
+et un diagramme commutatif
+$$
+\xymatrix{
+\Spec(W) \ar[r] \ar[d] & U_j \ar[d] \ar@{..>}[r] & X \ar[ld] \\
+\Spec(V) \ar[r] & Y
+}
+$$
+La propriété de raffinement du recouvrement fournit la flèche pointillée
+qui rend le diagramme commutatif, et l'on voit que (2) est satisfaite.
+
+\medskip\noindent
+Supposons (2) et soient $Z \to Y$ et $z' \leadsto z$ comme dans (3).
+D'après Schémas, lemme \ref{schemes-lemma-points-specialize},
+on peut trouver un anneau de valuation $V$ et un morphisme $\Spec(V) \to Z$
+tels que le point fermé de $\Spec(V)$ s'envoie sur $z$ et que le
+point générique de $\Spec(V)$ s'envoie sur $z'$. D'après (2), on peut trouver une
+extension d'anneaux de valuation $V \subset W$ et un
+diagramme commutatif
+$$
+\xymatrix{
+\Spec(W) \ar[rr] \ar[d] & & X \ar[d] \\
+\Spec(V) \ar[r] & Z \ar[r] & Y
+}
+$$
+Les points générique et fermé de $\Spec(W)$ s'envoient sur des points
+$w' \leadsto w$ de $Z \times_Y X$ par le
+morphisme induit $\Spec(W) \to Z \times_Y X$.
+Cela montre que (3) est satisfaite.
+
+\medskip\noindent
+Supposons (3) satisfaite et soit $U \subset Y$ un ouvert affine.
+Choisissons un recouvrement ouvert affine fini
+$U \times_Y X = \bigcup_{j = 1, \ldots, m} U_j$.
+C'est possible puisque $X \to Y$ est quasi-compact.
+Nous affirmons que $\{U_j \to U\}$ est un recouvrement V standard.
+Cette affirmation entraîne (1) et achève la démonstration du lemme.
+Pour la démontrer, soit $V$ un anneau de valuation
+et soit $g : \Spec(V) \to U$ un morphisme.
+D'après (3), on trouve une spécialisation $w' \leadsto w$ de
+points de
+$$
+T = \Spec(V) \times_X Y = \Spec(V) \times_U (U \times_X Y)
+$$
+telle que $w'$ s'envoie sur le point générique de $\Spec(V)$
+et que $w$ s'envoie sur le point fermé de $\Spec(V)$.
+D'après Schémas, lemme \ref{schemes-lemma-points-specialize},
+on peut trouver un anneau de valuation $W$ et un morphisme
+$\Spec(W) \to T$ tels que le point générique de $\Spec(W)$
+s'envoie sur $w'$ et que le point fermé de $\Spec(W)$ s'envoie sur $w$.
+La composée $\Spec(W) \to T \to \Spec(V)$ correspond
+à une inclusion $V \subset W$ qui fait de $W$ une
+extension de l'anneau de valuation $V$.
+Comme $T = \bigcup \Spec(V) \times_U U_j$ est un recouvrement
+ouvert, on voit que $\Spec(W) \to T$ se factorise par
+$\Spec(V) \times_U U_j$ pour un certain $j$. On obtient donc
+un diagramme commutatif
+$$
+\xymatrix{
+\Spec(W) \ar[d] \ar[r] & U_j \ar[d] \\
+\Spec(V) \ar[r] & U
+}
+$$
+et la démonstration de l'affirmation est achevée.
+\end{proof}
+
+\noindent
+Tout recouvrement V fournit une famille de morphismes universellement submersive.
+La réciproque de ce lemme est fausse ; voir
+Exemples, section \ref{examples-section-universally-submersive-not-V}.
+
+\begin{lemma}
+\label{lemma-V-covering-universally-submersive}
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement V.
+Alors
+$$
+\coprod\nolimits_{i \in I} f_i :
+\coprod\nolimits_{i \in I} X_i
+\longrightarrow
+X
+$$
+est un morphisme de schémas universellement submersif (Morphismes, définition
+\ref{morphisms-definition-submersive}).
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons sans autre mention que le changement de base d'un recouvrement V
+est un recouvrement V (lemme \ref{lemma-V}). Il suffit donc
+de montrer que le morphisme est submersif.
+Le caractère submersif est manifestement local pour la topologie de Zariski sur la base.
+On peut donc supposer $X$ affine. Alors $\{X_i \to X\}$
+peut être raffiné par un recouvrement V standard $\{Y_j \to X\}$.
+S'il est possible de montrer que $\coprod Y_j \to X$ est submersif,
+alors, puisqu'il existe une factorisation $\coprod Y_j \to \coprod X_i \to X$,
+on conclut que $\coprod X_i \to X$ est submersif.
+Posons $Y = \coprod Y_j$ et considérons le morphisme de schémas affines
+$f : Y \to X$.
+D'après le lemme \ref{lemma-refine-qcqs-V}, on sait que toute
+spécialisation $x' \leadsto x$ dans $X$ se relève en une spécialisation
+$y' \leadsto y$ dans $Y$.
+Ainsi, si $T \subset X$ est une partie telle que $f^{-1}(T)$
+soit fermée dans $Y$, alors $T \subset X$ est stable par spécialisation.
+Comme $f^{-1}(T) \subset Y$, muni de la structure réduite
+de sous-schéma fermé induite, est un schéma affine, on conclut que
+$T \subset X$ est fermé d'après Algèbre, lemme
+\ref{algebra-lemma-image-stable-specialization-closed}.
+Ainsi, $f$ est submersif.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Changement de topologies}
+\label{section-change-topologies}
+
+\noindent
+Soit $f : X \to Y$ un morphisme de schémas au-dessus d'un schéma de base $S$.
+On dispose alors des morphismes de sites suivants\footnote{Nous n'avons
+pas inclus la comparaison entre la topologie ph et les autres ;
+voir à ce sujet
+Compléments sur les morphismes, remarque \ref{more-morphisms-remark-change-topologies}.}
+(moyennant des choix convenables de sites comme dans la remarque
+\ref{remark-choice-sites} ci-dessous) :
+\begin{enumerate}
+\item $(\Sch/X)_{fppf} \longrightarrow (\Sch/Y)_{fppf}$,
+\item $(\Sch/X)_{fppf} \longrightarrow (\Sch/Y)_{syntomic}$,
+\item $(\Sch/X)_{fppf} \longrightarrow (\Sch/Y)_{smooth}$,
+\item $(\Sch/X)_{fppf} \longrightarrow
+(\Sch/Y)_\etale$,
+\item $(\Sch/X)_{fppf} \longrightarrow (\Sch/Y)_{Zar}$,
+\item $(\Sch/X)_{syntomic} \longrightarrow (\Sch/Y)_{syntomic}$,
+\item $(\Sch/X)_{syntomic} \longrightarrow (\Sch/Y)_{smooth}$,
+\item $(\Sch/X)_{syntomic} \longrightarrow
+(\Sch/Y)_\etale$,
+\item $(\Sch/X)_{syntomic} \longrightarrow (\Sch/Y)_{Zar}$,
+\item $(\Sch/X)_{smooth} \longrightarrow (\Sch/Y)_{smooth}$,
+\item $(\Sch/X)_{smooth} \longrightarrow
+(\Sch/Y)_\etale$,
+\item $(\Sch/X)_{smooth} \longrightarrow (\Sch/Y)_{Zar}$,
+\item $(\Sch/X)_\etale \longrightarrow
+(\Sch/Y)_\etale$,
+\item $(\Sch/X)_\etale \longrightarrow (\Sch/Y)_{Zar}$,
+\item $(\Sch/X)_{Zar} \longrightarrow (\Sch/Y)_{Zar}$,
+\item $(\Sch/X)_{fppf} \longrightarrow Y_\etale$,
+\item $(\Sch/X)_{syntomic} \longrightarrow Y_\etale$,
+\item $(\Sch/X)_{smooth} \longrightarrow Y_\etale$,
+\item $(\Sch/X)_\etale \longrightarrow Y_\etale$,
+\item $(\Sch/X)_{fppf} \longrightarrow Y_{Zar}$,
+\item $(\Sch/X)_{syntomic} \longrightarrow Y_{Zar}$,
+\item $(\Sch/X)_{smooth} \longrightarrow Y_{Zar}$,
+\item $(\Sch/X)_\etale \longrightarrow Y_{Zar}$,
+\item $(\Sch/X)_{Zar} \longrightarrow Y_{Zar}$,
+\item $X_\etale \longrightarrow Y_\etale$,
+\item $X_\etale \longrightarrow Y_{Zar}$,
+\item $X_{Zar} \longrightarrow Y_{Zar}$,
+\end{enumerate}
+Dans chaque cas, le foncteur continu sous-jacent
+$\Sch/Y \to \Sch/X$, ou
+$Y_\tau \to \Sch/X$
+est le foncteur $Y'/Y \mapsto X \times_Y Y'/X$. En effet, dans les sections
+précédentes, nous avons construit les morphismes
+$f_{big} : (\Sch/X)_\tau \to (\Sch/Y)_\tau$
+et
+$f_{small} : X_\tau \to Y_\tau$
+pour $\tau$ comme ci-dessus.
+Nous avons aussi construit les morphismes de sites
+$\pi_Y : (\Sch/Y)_\tau \to Y_\tau$ pour
+$\tau \in \{\etale, Zariski\}$.
+D'autre part, il est clair que le foncteur identité
+$(\Sch/X)_\tau \to (\Sch/X)_{\tau'}$ définit
+un morphisme de sites lorsque $\tau$ est une topologie plus fine que
+$\tau'$. En composant ces morphismes, on obtient donc la liste des morphismes possibles
+ci-dessus.
+
+\medskip\noindent
+La description simple du foncteur sous-jacent montre clairement que, pour des
+morphismes de schémas $X \to Y \to Z$, la composée de deux des
+morphismes de sites ci-dessus, par exemple
+$$
+(\Sch/X)_{\tau_0} \longrightarrow
+(\Sch/Y)_{\tau_1} \longrightarrow
+(\Sch/Z)_{\tau_2}
+$$
+est le morphisme de sites correspondant associé au morphisme de
+schémas $X \to Z$.
+
+\begin{remark}
+\label{remark-choice-sites}
+Prenons une catégorie $\Sch_\alpha$ construite comme dans
+Ensembles, lemme \ref{sets-lemma-construct-category},
+en partant de l'ensemble de schémas $\{X, Y, S\}$. Choisissons un ensemble de
+recouvrements $\text{Cov}_{fppf}$ sur $\Sch_\alpha$ comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site},
+en partant de la catégorie $\Sch_\alpha$ et de la classe des recouvrements
+fppf. Notons $\Sch_{fppf}$ le gros site fppf ainsi
+obtenu. Ensuite, pour $\tau \in \{Zariski, \etale, smooth, syntomic\}$,
+munissons $\Sch_\tau$ de la même catégorie sous-jacente que
+$\Sch_{fppf}$, avec pour recouvrements
+$\text{Cov}_\tau \subset \text{Cov}_{fppf}$, simplement le sous-ensemble des
+recouvrements $\tau$. On vérifie immédiatement que cela définit
+un gros site $\Sch_\tau$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{Changement de gros sites}
+\label{section-change-alpha}
+
+\noindent
+Dans cette section, nous expliquons ce qui se passe lorsqu'on change de gros
+site de Zariski, fppf ou étale.
+
+\medskip\noindent
+Soient $\tau, \tau' \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+Étant donnés deux gros sites $\Sch_\tau$ et $\Sch'_{\tau'}$,
+on dit que
+{\it $\Sch_\tau$ est contenu dans $\Sch'_{\tau'}$} si
+$\Ob(\Sch_\tau) \subset \Ob(\Sch'_{\tau'})$
+et
+$\text{Cov}(\Sch_\tau) \subset \text{Cov}(\Sch'_{\tau'})$.
+Dans ce cas, $\tau$ est plus fine que $\tau'$ ; par exemple, aucun site
+fppf ne peut être contenu dans un site étale.
+
+\begin{lemma}
+\label{lemma-contained-in}
+Tout ensemble de gros sites de Zariski est contenu dans un même gros site de Zariski.
+Il en va de même, mutatis mutandis, pour les gros sites fppf et les gros sites étales.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que la réunion d'un ensemble d'ensembles est un ensemble et que les
+constructions de Ensembles, lemmes \ref{sets-lemma-construct-category} et
+\ref{sets-lemma-coverings-site}
+permettent de partir de n'importe quel ensemble initialement donné de schémas
+et de recouvrements.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-change-alpha}
+Soit $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+Supposons donnés deux gros sites $\Sch_\tau$ et $\Sch'_\tau$.
+Supposons que $\Sch_\tau$ soit contenu dans $\Sch'_\tau$.
+Le foncteur d'inclusion $\Sch_\tau \to \Sch'_\tau$ satisfait
+aux hypothèses de Sites, lemme \ref{sites-lemma-bigger-site}.
+Il existe des morphismes de topos
+\begin{eqnarray*}
+g : \Sh(\Sch_\tau) &
+\longrightarrow &
+\Sh(\Sch'_\tau) \\
+f : \Sh(\Sch'_\tau) &
+\longrightarrow &
+\Sh(\Sch_\tau)
+\end{eqnarray*}
+tels que $f \circ g \cong \text{id}$. Pour tout objet $S$
+de $\Sch_\tau$, le foncteur d'inclusion
+$(\Sch/S)_\tau \to (\Sch'/S)_\tau$ satisfait lui aussi
+aux hypothèses de Sites, lemme \ref{sites-lemma-bigger-site}.
+On obtient donc de même des morphismes
+\begin{eqnarray*}
+g : \Sh((\Sch/S)_\tau) &
+\longrightarrow &
+\Sh((\Sch'/S)_\tau) \\
+f : \Sh((\Sch'/S)_\tau) &
+\longrightarrow &
+\Sh((\Sch/S)_\tau)
+\end{eqnarray*}
+avec $f \circ g \cong \text{id}$.
+\end{lemma}
+
+\begin{proof}
+Les hypothèses (b), (c) et (e) de
+Sites, lemme \ref{sites-lemma-bigger-site},
+sont immédiates pour les foncteurs
+$\Sch_\tau \to \Sch'_\tau$ et
+$(\Sch/S)_\tau \to (\Sch'/S)_\tau$. La propriété (a) résulte du
+lemme \ref{lemma-zariski-induced},
+\ref{lemma-etale-induced},
+\ref{lemma-smooth-induced},
+\ref{lemma-syntomic-induced}, ou
+\ref{lemma-fppf-induced}.
+La propriété (d) est satisfaite parce que
+les produits fibrés existent dans les catégories $\Sch_\tau$, $\Sch'_\tau$
+et sont compatibles avec les produits fibrés dans la catégorie des schémas.
+\end{proof}
+
+\noindent
+Discussion :
+Le foncteur $g^{-1} = f_*$ est simplement le foncteur de restriction qui associe
+à un faisceau $\mathcal{G}$ sur $\Sch'_\tau$ sa restriction
+$\mathcal{G}|_{\Sch_\tau}$. Ainsi, ce lemme affirme simplement qu'étant donné
+un faisceau d'ensembles $\mathcal{F}$ sur $\Sch_\tau$, il existe un
+faisceau canonique $\mathcal{F}'$ sur $\Sch'_\tau$ tel que
+$\mathcal{F}|_{\Sch'_\tau} = \mathcal{F}'$. En fait, le faisceau
+$\mathcal{F}'$ admet la description suivante : c'est le faisceau associé
+au préfaisceau
+$$
+\Sch'_\tau \longrightarrow \textit{Ensembles}, \quad
+V \longmapsto \colim_{V \to U} \mathcal{F}(U)
+$$
+où $U$ est un objet de $\Sch_\tau$. Cela résulte de l'égalité
+$\mathcal{F}' = f^{-1}\mathcal{F} = (u_p\mathcal{F})^\#$ d'après
+Sites, lemmes \ref{sites-lemma-when-shriek} et \ref{sites-lemma-bigger-site}.
+
+
+
+
+
+
+\section{Prolongement de foncteurs}
+\label{section-extending-functors}
+
+\noindent
+Commençons par un exemple simple qui explique notre démarche.
+Soit $R$ un anneau. Supposons que $F$ soit un foncteur défini sur la catégorie
+$\mathcal{C}$ des $R$-algèbres de la forme
+$$
+A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)
+$$
+où $n, m \geq 0$ sont des entiers et $f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$
+des éléments. Pour toute $R$-algèbre $B$, on peut alors définir
+$$
+F'(B) = \colim_{A \to B,\ A \in \mathcal{C}} F(A)
+$$
+Il se trouve que $F'$ est l'unique foncteur sur la catégorie
+de toutes les $R$-algèbres qui prolonge $F$ et commute aux limites
+inductives filtrantes. Le même procédé fonctionne dans la catégorie des schémas
+si l'on impose que notre foncteur soit un faisceau de Zariski.
+
+\begin{lemma}
+\label{lemma-extend}
+Soit $S$ un schéma. Soit $\mathcal{C}$ une sous-catégorie pleine
+de la catégorie $\Sch/S$ de tous les schémas au-dessus de $S$. Supposons que
+\begin{enumerate}
+\item si $X \to S$ est un objet de $\mathcal{C}$ et si
+$U \subset X$ est un ouvert affine, alors $U \to S$ est isomorphe
+à un objet de $\mathcal{C}$ ;
+\item si $V$ est un schéma affine au-dessus d'un ouvert affine $U \subset S$
+tel que $V \to U$ soit de présentation finie, alors $V \to S$ est isomorphe
+à un objet de $\mathcal{C}$.
+\end{enumerate}
+Soit $F : \mathcal{C}^{opp} \to \textit{Ensembles}$ un foncteur.
+Supposons que
+\begin{enumerate}
+\item[(a)] pour tout recouvrement de Zariski $\{f_i : X_i \to X\}_{i \in I}$
+où $X, X_i$ sont des objets de $\mathcal{C}$, la condition de
+faisceau soit satisfaite par $F$ et cette famille\footnote{Comme nous
+ne savons pas si $X_i \times_X X_j$ appartient à $\mathcal{C}$,
+il faut l'interpréter comme suit : d'après la propriété (1),
+il existe des recouvrements de Zariski $\{U_{ijk} \to X_i \times_X X_j\}_{k \in K_{ij}}$
+où $U_{ijk}$ est un objet de $\mathcal{C}$. La condition de faisceau
+signifie alors que $F(X)$ est l'égalisateur des deux applications
+de $\prod F(X_i)$ vers $\prod F(U_{ijk})$.} ;
+\item[(b)] si $X = \lim X_i$ est une limite projective filtrante de schémas affines
+au-dessus de $S$, où $X, X_i$ sont des objets de $\mathcal{C}$, alors
+$F(X) = \colim F(X_i)$.
+\end{enumerate}
+Il existe alors une manière unique de prolonger $F$ en un foncteur
+$F' : (\Sch/S)^{opp} \to \textit{Ensembles}$ satisfaisant aux analogues de
+(a) et (b), c'est-à-dire que $F'$ satisfait la condition de faisceau pour tout
+recouvrement de Zariski et que $F'(X) = \colim F'(X_i)$ dès que $X = \lim X_i$
+est une limite projective filtrante de schémas affines au-dessus de $S$.
+\end{lemma}
+
+\begin{proof}
+L'idée consiste d'abord à prolonger $F$ à une collection suffisamment grande de
+schémas affines au-dessus de $S$, puis à utiliser la propriété de faisceau de Zariski pour le prolonger
+à tous les schémas.
+
+\medskip\noindent
+Supposons que $V$ soit un schéma affine au-dessus de $S$ dont le morphisme structural
+$V \to S$ se factorise par un ouvert affine $U \subset S$. Dans ce cas,
+on peut écrire
+$$
+V = \lim V_i
+$$
+comme une limite projective filtrante, où $V_i \to U$ est de présentation finie
+et $V_i$ est affine. Voir Algèbre, lemme \ref{algebra-lemma-ring-colimit-fp}.
+D'après les conditions (1) et (2),
+on peut remplacer les $V_i$ par des objets de $\mathcal{C}$.
+Observons que $V_i \to S$ est localement de présentation finie
+(si $S$ est quasi-séparé, ces morphismes sont même
+de présentation finie). Posons alors
+$$
+F'(V) = \colim F(V_i)
+$$
+On peut en fait donner l'expression plus canonique
+$$
+F'(V) = \colim_{V \to V'} F(V')
+$$
+où la limite inductive est prise sur la catégorie des morphismes $V \to V'$ au-dessus de $S$
+pour lesquels $V'$ est un objet de $\mathcal{C}$ dont le morphisme
+structural $V' \to S$ est localement de présentation finie.
+Cette expression coïncide avec la première parce que, d'après
+Limits, proposition
+\ref{limits-proposition-characterize-locally-finite-presentation}
+notre système projectif $V_i$ est cofinal dans cette catégorie !
+Enfin, notons que si $V$ était un objet de $\mathcal{C}$,
+alors $F'(V) = F(V)$ d'après l'hypothèse (b).
+
+\medskip\noindent
+La seconde formule fait de $F'$ un foncteur contravariant
+sur la catégorie formée des schémas affines $V$ au-dessus de $S$ dont le
+morphisme structural se factorise par un ouvert affine de $S$.
+Soit $V$ un tel schéma affine au-dessus de $S$ et
+supposons que $V = \bigcup_{k = 1, \ldots, n} V_k$ soit un recouvrement ouvert fini
+par des schémas affines. Il est alors légitime de demander si la condition de faisceau
+est satisfaite par $F'$ et ce recouvrement ouvert.
+C'est vrai et facile à montrer : écrivons $V = \lim V_i$ comme au
+paragraphe précédent. D'après Limits, lemme \ref{limits-lemma-descend-opens},
+pour tout $i$ suffisamment grand, on peut trouver des ouverts affines
+$V_{i, k} \subset V_i$ compatibles aux morphismes de transition
+et dont l'image inverse est $V_k$ dans $V$. Ainsi,
+$$
+F'(V_k) = \colim F(V_{i, k})
+\quad\text{et}\quad
+F'(V_k \cap V_l) = \colim F(V_{i, k} \cap V_{i, l})
+$$
+À strictement parler, il faut, dans ces formules, remplacer $V_{i, k}$ et
+$V_{i, k} \cap V_{i, l}$ par des objets affines isomorphes de $\mathcal{C}$
+avant d'appliquer le foncteur $F$.
+Comme $I$ est filtrant, les limites inductives commutent aux égalisateurs.
+La condition de faisceau (b) pour $F$ et les recouvrements de Zariski
+$\{V_{i, k} \to V_i\}$ entraîne donc la condition de
+faisceau pour $F'$ et ce recouvrement.
+
+\medskip\noindent
+Soit $X$ un schéma quelconque au-dessus de $S$. Notons $\mathcal{B}_X$
+la collection des ouverts affines de $X$ dont le morphisme structural
+vers $S$ se factorise par un ouvert affine de $S$. Il est clair que
+$\mathcal{B}_X$ est une base de la topologie de $X$.
+D'après le résultat du paragraphe précédent et Faisceaux, lemme
+\ref{sheaves-lemma-cofinal-systems-coverings-standard-case}
+on voit que $F'$ est un faisceau sur $\mathcal{B}_X$.
+La restriction de $F'$ à $\mathcal{B}_X$
+se prolonge donc uniquement en un faisceau $F'_X$ sur $X$ ; voir
+Faisceaux, lemme \ref{sheaves-lemma-extend-off-basis}.
+Si $X$ est un objet de $\mathcal{C}$, on dispose d'une
+identification canonique $F'_X(X) = F(X)$, car $F'$ et $F$ coïncident
+sur les objets où ils sont tous deux définis et
+parce que $F$ satisfait la condition de faisceau pour les
+recouvrements de Zariski.
+
+\medskip\noindent
+Soit $f : X \to Y$ un morphisme de schémas au-dessus de $S$.
+On obtient une unique $f$-application de $F'_Y$ vers $F'_X$ compatible
+avec les applications $F'(V) \to F'(U)$ pour tous
+$U \in \mathcal{B}_X$ et $V \in \mathcal{B}_Y$
+tels que $f(U) \subset V$ ; voir
+Faisceaux, lemme \ref{sheaves-lemma-f-map-basis-above-and-below-structures}.
+Nous omettons la vérification que ces applications se composent
+correctement pour des morphismes $X \to Y \to Z$ de schémas au-dessus de $S$.
+Nous omettons aussi la vérification que, si $f$ est un morphisme
+de $\mathcal{C}$, alors l'application induite $F'_Y(Y) \to F'_X(X)$
+coïncide avec l'application $F(Y) \to F(X)$ via les identifications
+$F'_X(X) = F(X)$ et $F'_Y(Y) = F(Y)$ ci-dessus.
+On voit ainsi que le prolongement cherché de
+$F$ est le foncteur qui envoie $X/S$ sur $F'_X(X)$.
+
+\medskip\noindent
+La propriété (a) pour le foncteur $X \mapsto F'_X(X)$ est presque immédiate
+d'après la construction ; nous omettons les détails.
+Supposons que $X = \lim_{i \in I} X_i$
+soit une limite projective filtrante de schémas affines au-dessus de $S$. Il faut montrer que
+$$
+F'_X(X) = \colim_{i \in I} F'_{X_i}(X_i)
+$$
+Supposons d'abord qu'il existe un $i \in I$ tel que
+$X_i \to S$ se factorise par un ouvert affine $U \subset S$.
+Alors $F'$ est défini sur $X$ et sur $X_{i'}$ pour $i' \geq i$,
+et l'on a $F'_{X_{i'}}(X_{i'}) = F'(X_{i'})$ pour
+$i' \geq i$ ainsi que $F'_X(X) = F'(X)$. Dans ce cas, toute flèche
+$X \to V$, où $V$ est localement de présentation finie
+au-dessus de $S$, se factorise sous la forme $X \to X_{i'} \to V$ pour un certain
+$i' \geq i$ ; voir Limits, proposition
+\ref{limits-proposition-characterize-locally-finite-presentation}.
+On a donc
+\begin{align*}
+F'_X(X)
+& =
+F'(X)  \\
+& = \colim_{X \to V} F(V) \\
+& =
+\colim_{i' \geq i} \colim_{X_{i'} \to V} F(V) \\
+& =
+\colim_{i' \geq i} F'(X_{i'}) \\
+& =
+\colim_{i' \geq i} F'_{X_{i'}}(X_{i'}) \\
+& =
+\colim_{i' \in I} F'_{X_{i'}}(X_{i'})
+\end{align*}
+comme voulu. Enfin, dans le cas général, choisissons un $i \in I$ et un
+recouvrement ouvert affine fini $V_i = V_{i, 1} \cup \ldots \cup V_{i, n}$
+tel que $V_{i, k} \to S$ se factorise par un ouvert affine de $S$.
+Soient $V_k \subset V$ et $V_{i', k}$, pour $i' \geq i$,
+les images inverses de $V_{i, k}$.
+Le cas précédent donne
+$$
+F'_{V_k}(V_k) = \colim_{i' \geq i} F'_{V_{i', k}}(V_{i', k})
+$$
+et
+$$
+F'_{V_k \cap V_l}(V_k \cap V_l) =
+\colim_{i' \geq i}
+F'_{V_{i', k} \cap V_{i', l}}(V_{i', k} \cap V_{i', l})
+$$
+La propriété de faisceau et l'exactitude des limites inductives filtrantes
+donnent $F'_X(X) = \colim_{i \in I} F'_{X_i}(X_i)$
+également dans ce cas. Cela achève la démonstration de la propriété (b)
+et donc celle du lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-limit-fppf-topology}
+Soit $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+Soit $T$ un schéma affine écrit comme limite
+$T = \lim_{i \in I} T_i$ d'un système projectif filtrant de schémas affines.
+\begin{enumerate}
+\item Soit $\mathcal{V} = \{V_j \to T\}_{j = 1, \ldots, m}$ un
+recouvrement $\tau$ standard de $T$; voir les définitions
+\ref{definition-standard-Zariski},
+\ref{definition-standard-etale},
+\ref{definition-standard-smooth},
+\ref{definition-standard-syntomic} et
+\ref{definition-standard-fppf}.
+Il existe alors un indice $i$ et un recouvrement $\tau$ standard
+$\mathcal{V}_i = \{V_{i, j} \to T_i\}_{j = 1, \ldots, m}$
+dont le changement de base $T \times_{T_i} \mathcal{V}_i$ à $T$
+est isomorphe à $\mathcal{V}$.
+\item Soient $\mathcal{V}_i$, $\mathcal{V}'_i$ deux recouvrements
+$\tau$ standards de $T_i$. Si
+$f : T \times_{T_i} \mathcal{V}_i \to T \times_{T_i} \mathcal{V}'_i$ est
+un morphisme de recouvrements de $T$, il existe un indice
+$i' \geq i$ et un morphisme
+$f_{i'} : T_{i'} \times_{T_i} \mathcal{V} \to
+T_{i'} \times_{T_i} \mathcal{V}'_i$
+dont le changement de base à $T$ est $f$.
+\item Si
+$f, g : \mathcal{V} \to \mathcal{V}'_i$
+sont des morphismes de recouvrements $\tau$ standards de $T_i$ dont
+les changements de base $f_T, g_T$ à $T$ sont égaux, alors il existe un
+indice $i' \geq i$ tel que $f_{T_{i'}} = g_{T_{i'}}$.
+\end{enumerate}
+Autrement dit, la catégorie des recouvrements $\tau$ standards de $T$ est
+la limite inductive, sur $I$, des catégories des recouvrements $\tau$ standards de $T_i$.
+\end{lemma}
+
+\begin{proof}
+Démontrons l'énoncé pour $\tau = fppf$.
+D'après Limits, lemme \ref{limits-lemma-descend-finite-presentation},
+la catégorie des schémas de présentation finie sur $T$ est la
+limite inductive, sur $I$, des catégories des schémas de présentation finie sur $T_i$. D'après
+Limits, lemmes \ref{limits-lemma-descend-affine-finite-presentation}
+et \ref{limits-lemma-descend-flat-finite-presentation},
+il en va de même pour la catégorie des schémas affines, plats et
+de présentation finie sur $T$.
+Pour achever la démonstration du lemme, il suffit de montrer que, si
+$\{V_{j, i} \to T_i\}_{j = 1, \ldots, m}$ est une famille finie de
+morphismes plats de présentation finie, avec $V_{j, i}$ affine, et si le
+changement de base $\coprod_j T \times_{T_i} V_{j, i} \to T$ est surjectif,
+alors, pour un certain $i' \geq i$, le morphisme
+$\coprod T_{i'} \times_{T_i} V_{j, i} \to T_{i'}$ est surjectif.
+Notons $W_{i'} \subset T_{i'}$, respectivement $W \subset T$, l'image.
+Par hypothèse, on a bien sûr $W = T$.
+Puisque les morphismes sont plats et de présentation finie,
+$W_i$ est un ouvert quasi-compact de $T_i$; voir
+Morphismes, lemme \ref{morphisms-lemma-fppf-open}.
+En outre, $W = T \times_{T_i} W_i$ (la formation de l'image commute
+au changement de base). Par conséquent, d'après
+Limits, lemme \ref{limits-lemma-descend-opens},
+on a $W_{i'} = T_{i'}$ pour un indice $i'$ assez grand,
+ce qui conclut.
+
+\medskip\noindent
+Pour $\tau \in \{Zariski, \etale, smooth, syntomic\}$, tout recouvrement $\tau$ standard
+est un recouvrement fppf standard. La pleine fidélité du foncteur
+en résulte. Il reste seulement à montrer que, si un recouvrement fppf standard
+$\mathcal{V}_i$ est donné pour un certain $i$ et si $\mathcal{V}_i \times_{T_i} T$
+est un recouvrement $\tau$ standard, alors $\mathcal{V}_i \times_{T_i} T_{i'}$
+est un recouvrement $\tau$ standard pour tout $i' \gg i$. Cela résulte immédiatement
+de Limits, lemmes
+\ref{limits-lemma-descend-open-immersion},
+\ref{limits-lemma-descend-etale},
+\ref{limits-lemma-descend-smooth} et
+\ref{limits-lemma-descend-syntomic}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend-sheaf-general}
+Supposons que $S$, $\mathcal{C}$ et $F$ satisfassent aux conditions (1), (2), (a) et (b) du
+lemme \ref{lemma-extend}, et notons $F' : (\Sch/S)^{opp} \to \textit{Ensembles}$
+le prolongement unique construit dans ce lemme. Soit
+$\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$. Supposons que
+\begin{enumerate}
+\item[(c)] pour tout recouvrement $\tau$ standard $\{V_i \to V\}_{i = 1, \ldots, n}$
+par des schémas affines dans $\Sch/S$, tel que $V \to S$ se factorise par un ouvert affine
+$U \subset S$ et que $V \to U$ soit de présentation finie, la condition de faisceau
+vaut pour $F$ et $\{V_i \to V\}_{i = 1, \ldots, n}$\footnote{Cela a
+un sens, puisque $V$, $V_i$ et $V_i \times_V V_j$ sont isomorphes à des objets
+de $\mathcal{C}$ d'après (2).}.
+\end{enumerate}
+Alors $F'$ satisfait à la condition de faisceau pour tout recouvrement $\tau$.
+\end{lemma}
+
+\begin{proof}
+Soit $X$ un schéma sur $S$, et soit $\{X_i \to X\}_{i \in I}$
+un recouvrement $\tau$. Soient $s_i \in F'(X_i)$ des éléments tels que
+$s_i$ et $s_j$ aient même image dans $F'(X_i \times_X X_j)$
+pour tous $i, j \in I$. Il faut montrer qu'il existe un unique
+élément $s \in F'(X)$ dont la restriction est $s_i \in F'(X_i)$ pour tout $i \in I$.
+
+\medskip\noindent
+Cas particulier : $X$ est affine, son morphisme structural
+est à valeurs dans un ouvert affine $U$ de $S$, et le recouvrement
+$\{X_i \to X\}_{i \in I}$ est un recouvrement $\tau$ standard.
+Dans ce cas, on peut écrire
+$$
+X = \lim V_k
+$$
+comme limite projective filtrante, où $V_k \to U$ est de présentation finie
+et $V_k$ est affine. Voir Algèbre, lemme \ref{algebra-lemma-ring-colimit-fp}.
+D'après lemme \ref{lemma-limit-fppf-topology}, il existe un $k$ et un recouvrement
+$\tau$ standard $\{V_{k, i} \to V_k\}_{i \in I}$ dont le changement de base
+à $X$ est le recouvrement donné. Pour $k' \geq k$, notons
+$\{V_{k', i} \to V_{k'}\}_{i \in I}$ le changement de base à $V_{k'}$
+de ce recouvrement. On a alors
+\begin{align*}
+F'(X)
+& =
+\colim_{k' \geq k} F(V_k) \\
+& =
+\colim_{k' \geq k}
+\text{Equalizer}(
+\xymatrix{
+\prod F(V_{k', i})
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\prod F(V_{k', i} \times_{V_{k'}} V_{k', j})
+}
+\\
+& =
+\text{Equalizer}(
+\xymatrix{
+\colim_{k' \geq k}
+\prod F(V_{k', i})
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\colim_{k' \geq k}
+\prod F(V_{k', i} \times_{V_{k'}} V_{k', j})
+}
+\\
+& =
+\text{Equalizer}(
+\xymatrix{
+\prod F'(X_i)
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\prod F'(X_i \times_X X_j)
+}
+\end{align*}
+La première égalité résulte de la construction de $F'$. La deuxième résulte de
+l'hypothèse (c). La troisième résulte de l'exactitude des limites inductives filtrantes.
+La quatrième résulte encore de la construction de $F'$.
+On obtient ainsi la propriété de faisceau pour $F'$
+relativement à $\{X_i \to X\}_{i \in I}$.
+
+\medskip\noindent
+Cas général. Choisissons un recouvrement ouvert affine $X = \bigcup U_k$ tel que
+chaque $U_k$ soit à valeurs dans un ouvert affine de $S$. Pour tout $k$, choisissons
+un recouvrement $\tau$ standard $\{V_{k, j} \to U_k\}_{j = 1, \ldots, m_k}$
+qui raffine $\{X_i \times_X U_k \to U_k\}_{i \in I}$. Pour chaque
+$j \in \{1, \ldots, m_k\}$, choisissons un indice $i_{k, j} \in I$
+et un morphisme $g_{k, j} : V_{k, j} \to X_{i_{k, j}}$ au-dessus de $X$.
+Soit $s_{k, j}$ l'élément de $F'(V_{k, j})$ obtenu en restreignant
+$s_{i_{k, j}}$ par $g_{k, j}$. Observons que $s_{k, j}$ et $s_{k', j'}$
+ont même restriction dans $F'(V_{k, j} \times_X V_{k', j'})$
+pour tous $k$ et $k'$, tout $j \in \{1, \ldots, m_k\}$
+et tout $j' \in \{1, \ldots, m_{k'}\}$; nous omettons la vérification.
+En particulier, le paragraphe précédent donne un unique
+élément $s_k \in F'(U_k)$ dont la restriction est $s_{k, j}$ pour tout $j$.
+Avec ces notations, nous pouvons achever la démonstration.
+
+\medskip\noindent
+Unicité de $s$ : elle résulte de ce que $F'$ satisfait à la
+propriété de faisceau pour les recouvrements de Zariski et que $s|_{U_k}$ doit être égal
+à $s_k$, puisque tous deux ont pour restriction $s_{k, j}$ pour tout $j$.
+Cette unicité montre alors que $s_k$ et $s_{k'}$ doivent induire
+la même section de $F'$ sur (le schéma non affine) $U_k \cap U_{k'}$,
+car ces sections induisent la même section sur le
+recouvrement $\tau$ $\{V_{k, j} \times_X V_{k', j'} \to U_k \cap U_{k'}\}$.
+La propriété de faisceau pour les recouvrements de Zariski donne donc une unique
+section $s$ de $F'$ sur $X$ dont la restriction à $U_k$ est $s_k$.
+Nous omettons la vérification (analogue à la précédente) que $s$ se restreint
+en $s_i$ sur $X_i$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend-sheaf}
+Soit $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+Soit $S$ un schéma contenu dans un gros site $\Sch_\tau$.
+Soit $F : (\Sch/S)_\tau^{opp} \to \textit{Ensembles}$ un $\tau$-faisceau
+satisfaisant à la propriété (b) de lemme \ref{lemma-extend} pour
+$\mathcal{C} = (\Sch/S)_\tau$. Alors le prolongement
+$F'$ de $F$ à la catégorie de tous les schémas sur $S$
+satisfait à la condition de faisceau pour tout recouvrement $\tau$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de lemme \ref{lemma-extend-sheaf-general}
+appliqué avec $\mathcal{C} = (\Sch/S)_\tau$.
+Les conditions (1), (2), (a) et (b) de lemme \ref{lemma-extend}
+sont satisfaites; nous omettons les détails. On obtient ainsi l'unique prolongement $F'$
+à la catégorie de tous les schémas sur $S$. Observons enfin que
+tout recouvrement $\tau$ standard est tautologiquement équivalent à un
+recouvrement dans $(\Sch/S)_\tau$; voir Ensembles, lemme \ref{sets-lemma-what-is-in-it}
+ainsi que lemmes \ref{lemma-zariski-induced},
+\ref{lemma-etale-induced},
+\ref{lemma-smooth-induced},
+\ref{lemma-syntomic-induced} et
+\ref{lemma-fppf-induced}. D'après
+Sites, lemme \ref{sites-lemma-tautological-same-sheaf}
+la propriété de faisceau se conserve par équivalence tautologique
+des recouvrements. Le fait que $F$ soit un $\tau$-faisceau entraîne donc
+la propriété (c) de lemme \ref{lemma-extend-sheaf-general},
+ce qui conclut.
+\end{proof}
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

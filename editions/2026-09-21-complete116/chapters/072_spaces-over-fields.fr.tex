@@ -1,0 +1,3344 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Espaces algébriques sur les corps}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Ce chapitre est l'analogue du chapitre sur les variétés dans le cadre
+des espaces algébriques. Une référence pour les espaces algébriques est
+\cite{Kn}.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Nous faisons l'hypothèse permanente que tous les schémas appartiennent à
+un gros site fppf $\Sch_{fppf}$. De plus, tout anneau $A$ considéré
+est tel que $\Spec(A)$ est (isomorphe à) un
+objet de ce grand site.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Dans ce chapitre et le suivant, nous écrirons $X \times_S X$
+pour le produit de $X$ par lui-même (dans la catégorie des espaces algébriques
+sur $S$), au lieu de $X \times X$.
+
+
+
+\section{Morphismes génériquement finis}
+\label{section-generically-finite}
+
+\noindent
+Cette section prolonge la discussion de
+Espaces décents, section \ref{decent-spaces-section-generically-finite},
+ainsi que son analogue, pour les morphismes d'espaces algébriques, dans
+Variétés, section \ref{varieties-section-generically-finite}.
+
+\begin{lemma}
+\label{lemma-quasi-finite-in-codim-1}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Supposons que $f$ soit localement de type fini et que $Y$ soit
+localement noethérien. Soit $y \in |Y|$ un point de codimension $\leq 1$ de $Y$.
+Soit $X^0 \subset |X|$ l'ensemble des points de codimension $0$ de $X$.
+Supposons de plus que l'une des conditions suivantes soit satisfaite
+\begin{enumerate}
+\item pour tout $x \in X^0$, le degré de transcendance de $x/f(x)$ est $0$,
+\item pour tout $x \in X^0$ tel que $f(x) \leadsto y$,
+le degré de transcendance de $x/f(x)$ est $0$,
+\item $f$ est quasi-fini en tout $x \in X^0$,
+\item $f$ est quasi-fini en tout point d'une partie dense de $|X|$,
+\item en ajouter d'autres ici.
+\end{enumerate}
+Alors $f$ est quasi-fini en tout point de $X$ situé au-dessus de $y$.
+\end{lemma}
+
+\begin{proof}
+Nous voulons ramener la preuve au cas des schémas. Pour ce faire, nous
+choisissons un diagramme commutatif
+$$
+\xymatrix{
+U \ar[r] \ar[d]_g & X \ar[d]^f \\
+V \ar[r] & Y
+}
+$$
+où $U$ et $V$ sont des schémas et où les flèches horizontales sont \'etales
+et surjectives. Choisissons $v \in V$ d'image $y$. Observons que
+$V$ est localement noethérien et que $\dim(\mathcal{O}_{V, v}) \leq 1$
+(voir Propriétés des espaces, Définitions
+\ref{spaces-properties-definition-dimension-local-ring} et
+Remarque \ref{spaces-properties-remark-list-properties-local-etale-topology}).
+La fibre $U_v$ de $U \to V$ au-dessus de $v$ s'envoie surjectivement sur
+$f^{-1}(\{y\}) \subset |X|$. L'image réciproque de $X^0$ dans $U$
+est exactement l'ensemble des
+points génériques des composantes irréductibles de $U$ (Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-codimension-0-points}).
+Si $\eta \in U$ est un tel point, d'image $x \in X^0$, alors
+le degré de transcendance de $x / f(x)$ est le degré de transcendance de
+$\kappa(\eta)$ sur $\kappa(g(\eta))$
+(Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-dimension-fibre}).
+Observons que $U \to V$ est quasi-fini en $u \in U$ si et seulement si
+$f$ est quasi-fini en l'image de $u$ dans $X$.
+
+\medskip\noindent
+Cas (1). Ici le cas (1) de
+Variétés, Lemme \ref{varieties-lemma-quasi-finite-in-codim-1} s'applique
+et nous concluons que $U \to V$ est quasi-fini en tout point de $U_v$.
+Donc $f$ est quasi-fini en tout point situé au-dessus de $y$.
+
+\medskip\noindent
+Cas (2). Soit $u \in U$ un point générique d'une composante irréductible
+dont l'image dans $V$ se spécialise en $v$. Alors l'image $x \in X^0$ de
+$u$ vérifie $f(x) \leadsto y$. Par conséquent, nous voyons que
+le cas (2) de
+Variétés, Lemme \ref{varieties-lemma-quasi-finite-in-codim-1} s'applique
+et nous concluons comme précédemment.
+
+\medskip\noindent
+Le cas (3) découle du cas (3) de
+Variétés, Lemme \ref{varieties-lemma-quasi-finite-in-codim-1}.
+
+\medskip\noindent
+Dans le cas (4), puisque l'application $|U| \to |X|$ est ouverte, nous voyons que
+l'ensemble des points où $U \to V$ est quasi-fini est également dense.
+Ainsi le cas (4) de
+Variétés, Lemme \ref{varieties-lemma-quasi-finite-in-codim-1} s'applique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-in-codim-1}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Supposons que $f$ soit propre et que $Y$ soit localement
+noethérien. Soit $y \in Y$ un point de codimension $\leq 1$ de $Y$.
+Soit $X^0 \subset |X|$ l'ensemble des points de codimension $0$ de $X$.
+Supposons de plus que l'une des
+conditions suivantes soit satisfaite
+\begin{enumerate}
+\item pour tout $x \in X^0$, le degré de transcendance de $x/f(x)$ est $0$,
+\item pour tout $x \in X^0$ tel que $f(x) \leadsto y$, le degré de transcendance
+de $x/f(x)$ est $0$,
+\item $f$ est quasi-fini en tout $x \in X^0$,
+\item $f$ est quasi-fini en tout point d'une partie dense de $|X|$,
+\item en ajouter d'autres ici.
+\end{enumerate}
+Alors il existe un sous-espace ouvert $Y' \subset Y$ contenant $y$ tel que
+$Y' \times_Y X \to Y'$ soit fini.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-quasi-finite-in-codim-1}, le morphisme $f$ est
+quasi-fini en tout point situé au-dessus de $y$. Soit $\overline{y} : \Spec(k) \to Y$
+un point géométrique situé au-dessus de $y$. Alors $|X_{\overline{y}}|$ est un espace
+discret (Espaces décents, Lemme
+\ref{decent-spaces-lemma-conditions-on-fibre-and-qf}).
+L'espace $X_{\overline{y}}$ étant quasi-compact puisque $f$ est propre, nous concluons
+que $|X_{\overline{y}}|$ est fini.
+Nous pouvons donc appliquer Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+pour conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-modification-normal-iso-over-codimension-1}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $f : Y \to X$ un morphisme propre birationnel d'espaces algébriques
+tel que $Y$ soit réduit.
+Soit $U \subset X$ l'ouvert maximal sur lequel $f$ est un isomorphisme.
+Alors $U$ contient
+\begin{enumerate}
+\item tout point de codimension $0$ de $X$,
+\item tout $x \in |X|$ de codimension $1$ de $X$ tel que l'anneau local
+de $X$ en $x$ soit normal (Propriétés des espaces, Remarque
+\ref{spaces-properties-remark-list-properties-local-ring-local-etale-topology}),
+et
+\item tout $x \in |X|$ tel que la fibre de $|Y| \to |X|$ au-dessus de $x$ soit
+finie et tel que l'anneau local de $X$ en $x$ soit normal.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) résulte du lemme
+\ref{decent-spaces-lemma-birational-isomorphism-over-dense-open} du chapitre Espaces décents
+(et du fait que les espaces algébriques noethériens $X$ et $Y$
+sont quasi-séparés et donc décents).
+La partie (2) résulte de la partie (3) et du lemme \ref{lemma-finite-in-codim-1}
+(et du fait que les morphismes finis ont des fibres finies).
+Soit $x \in |X|$ satisfaisant (3). D'après
+Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+(qui s'applique d'après le lemme
+\ref{decent-spaces-lemma-conditions-on-fibre-and-qf} du chapitre Espaces décents),
+nous pouvons supposer que $f$ est fini. Choisissons un schéma affine $X'$ et
+un morphisme \'etale $X' \to X$ et un point $x' \in X$ s'envoyant sur $x$.
+Il suffit de montrer qu'il existe un voisinage ouvert $U'$ de $x' \in X'$
+tel que $Y \times_X X' \to X'$ soit un isomorphisme au-dessus de $U'$
+(en effet, $U$ contient alors l'image de $U'$ dans $X$, voir Espaces, Lemme
+\ref{spaces-lemma-descent-representable-transformations-property}).
+Alors $Y \times_X X' \to X$ est un morphisme fini et birationnel
+(Espaces décents, Lemme \ref{decent-spaces-lemma-birational-etale-localization}).
+Comme un morphisme fini est affine, nous nous ramenons
+au cas d'un morphisme fini birationnel de schémas affines noethériens
+$Y \to X$ et d'un point $x \in X$ tel que $\mathcal{O}_{X, x}$ soit un
+anneau intègre normal. Ceci est traité dans Variétés, Lemme
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}.
+\end{proof}
+
+
+
+
+
+
+\section{Espaces algébriques intègres}
+\label{section-integral-spaces}
+
+\noindent
+Nous n'avons pas encore défini la notion d'espace algébrique intègre. La
+difficulté vient de ce que la propriété d'être intègre n'est pas locale pour la topologie \'etale des schémas.
+Nous pourrions prendre comme définition le fait que $X$ soit réduit et que $|X|$ soit irréductible,
+caractérisation donnée dans Propriétés, Lemme \ref{properties-lemma-characterize-integral}.
+Dans ce cas, l'espace algébrique
+décrit dans Espaces, Exemple \ref{spaces-example-infinite-product}
+serait intègre, ce qui ne paraît pas souhaitable.
+Pour éviter ce type de pathologie, nous supposerons de plus que $X$ est
+un espace algébrique décent, bien qu'une hypothèse plus faible puisse peut-être suffire.
+
+\begin{definition}
+\label{definition-integral-algebraic-space}
+Soit $S$ un schéma. On dit qu'un espace algébrique $X$ sur $S$ est
+{\it intègre} s'il est réduit et décent, et si $|X|$ est irréductible.
+\end{definition}
+
+\noindent
+Dans ce cas, l'espace topologique irréductible $|X|$ est sobre
+(Espaces décents, Proposition \ref{decent-spaces-proposition-reasonable-sober}).
+Il admet donc un unique point générique $x$. En fait, le lemme
+\ref{decent-spaces-lemma-finitely-many-irreducible-components} du chapitre
+Espaces décents caractérise les espaces algébriques décents
+ayant un nombre fini de
+composantes irréductibles. Il en résulte qu'un
+espace algébrique $X$ est intègre s'il est
+réduit, s'il admet un sous-schéma ouvert dense et irréductible $X'$,
+de point générique $x'$, et si le morphisme $x' \to X$ est quasi-compact.
+
+\begin{lemma}
+\label{lemma-integral-algebraic-space-rational-functions}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre sur $S$.
+Soit $\eta \in |X|$ le point générique de $X$.
+On a des identifications canoniques
+$$
+R(X) = \mathcal{O}_{X, \eta}^h = \kappa(\eta)
+$$
+où $R(X)$ désigne l'anneau des fonctions rationnelles défini dans
+Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-ring-of-rational-functions},
+$\kappa(\eta)$ est le corps résiduel défini dans
+Espaces décents, Définition \ref{decent-spaces-definition-residue-field},
+et $\mathcal{O}_{X, \eta}^h$ est l'anneau local hensélien défini dans
+Espaces décents, Définition
+\ref{decent-spaces-definition-elemenary-etale-neighbourhood}.
+En particulier, ces anneaux sont des corps.
+\end{lemma}
+
+\begin{proof}
+Comme $X$ est un schéma dans un voisinage ouvert de $\eta$ (voir ci-dessus),
+l'assertion découle immédiatement du résultat correspondant pour
+les schémas ; voir Morphismes, Lemme
+\ref{morphisms-lemma-integral-scheme-rational-functions}.
+Nous utilisons aussi le fait que l'hensélisation d'un corps est ce corps lui-même,
+ainsi que la compatibilité de nos définitions de ces objets
+pour les espaces algébriques avec celles qui valent pour les schémas.
+Nous omettons les détails.
+\end{proof}
+
+\noindent
+Cela conduit à la définition suivante.
+
+\begin{definition}
+\label{definition-function-field}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre sur $S$.
+Le {\it corps des fonctions}, ou le {\it corps des fonctions rationnelles},
+de $X$ est le corps $R(X)$ du
+lemme \ref{lemma-integral-algebraic-space-rational-functions}.
+\end{definition}
+
+\noindent
+Nous noterons parfois ce corps $k(X)$ au lieu de $R(X)$.
+
+\begin{lemma}
+\label{lemma-integral-sections}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre sur $S$.
+Alors $\Gamma(X, \mathcal{O}_X)$ est un anneau intègre.
+\end{lemma}
+
+\begin{proof}
+Posons $R = \Gamma(X, \mathcal{O}_X)$. Si $f, g \in R$ sont non nuls et
+$fg = 0$, alors $X = V(f) \cup V(g)$, où $V(f)$ désigne le sous-espace fermé
+de $X$ défini par $f$. Comme $X$ est irréductible, on a soit
+$V(f) = X$, soit $V(g) = X$. Il s'ensuit que soit $f = 0$, soit $g = 0$, d'après
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-reduced-space}.
+\end{proof}
+
+\noindent
+Voici un lemme sur les espaces algébriques intègres et normaux.
+
+\begin{lemma}
+\label{lemma-normal-integral-cover-by-affines}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre et normal sur $S$.
+Pour tout $x \in |X|$, il existe un schéma affine intègre et normal $U$
+et un morphisme \'etale $U \to X$ dont l'image contient $x$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma affine $U$ et un morphisme \'etale $U \to X$ dont
+l'image contient $x$. Soient $u_i$, $i \in I$, les points génériques des
+composantes irréductibles de $U$. Alors chaque $u_i$ a pour image le point générique de $X$
+(Espaces décents, Lemme \ref{decent-spaces-lemma-decent-generic-points}). D'après
+notre définition d'un espace décent
+(Espaces décents, Définition \ref{decent-spaces-definition-very-reasonable}),
+on voit que $I$ est fini. Ainsi, $U = \Spec(A)$, où $A$ est un anneau normal
+ayant un nombre fini d'idéaux premiers minimaux.
+Par conséquent, $A = \prod_{i \in I} A_i$ est un produit d'anneaux intègres normaux d'après
+Algèbre, Lemme \ref{algebra-lemma-characterize-reduced-ring-normal}.
+Alors $U = \coprod U_i$ avec $U_i = \Spec(A_i)$ et $x$ appartient à l'image de
+$U_i \to X$ pour un certain $i$. Cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-integral-sections}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre et normal sur $S$.
+Alors $\Gamma(X, \mathcal{O}_X)$ est un anneau intègre normal.
+\end{lemma}
+
+\begin{proof}
+Posons $R = \Gamma(X, \mathcal{O}_X)$. Alors $R$ est un anneau intègre d'après
+Lemme \ref{lemma-integral-sections}.
+Soit $f = a/b$ un élément du corps des fractions de $R$
+qui est entier sur $R$.
+Pour tout $U \to X$ \'etale, où $U$ est un schéma, il existe au plus un
+$f_U \in \Gamma(U, \mathcal{O}_U)$ tel que $b|_U f_U = a|_U$.
+En effet, $U$ est réduit et les points génériques de $U$ s'envoient sur
+le point générique de $X$, ce qui implique que $b|_U$ est un
+non diviseur de zéro.
+Pour tout $x \in |X|$, choisissons $U \to X$ comme dans
+Lemme \ref{lemma-normal-integral-cover-by-affines}.
+Il existe alors un unique $f_U \in \Gamma(U, \mathcal{O}_U)$
+tel que $b|_U f_U = a|_U$, puisque
+$\Gamma(U, \mathcal{O}_U)$ est un anneau intègre normal d'après
+Propriétés, Lemme \ref{properties-lemma-normal-integral-sections}.
+Par l'unicité ci-dessus, ces $f_U$
+se recollent en une section globale $f$ du faisceau
+structural, c'est-à-dire en un élément de $R$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-decent-irreducible-closed}
+Soit $S$ un schéma. Soit $X$ un espace algébrique décent sur $S$.
+On a des bijections canoniques entre les ensembles suivants :
+\begin{enumerate}
+\item l'ensemble des points de $X$, c'est-à-dire $|X|$,
+\item l'ensemble des parties fermées irréductibles de $|X|$,
+\item l'ensemble des sous-espaces fermés intègres de $X$.
+\end{enumerate}
+La bijection de (1) sur (2) envoie $x$ sur $\overline{\{x\}}$.
+La bijection de (3) sur (2) envoie $Z$ sur $|Z|$.
+\end{lemma}
+
+\begin{proof}
+L'application ainsi définie est une bijection entre (1) et (2), puisque $|X|$ est
+sobre d'après
+Espaces décents, Proposition \ref{decent-spaces-proposition-reasonable-sober}.
+Soit $T \subset |X|$ une partie fermée irréductible. Il existe un
+unique sous-espace fermé réduit $Z \subset X$ tel que
+$|Z| = T$ : $Z$ est le sous-espace porté par $T$ et muni de la structure réduite
+induite ; voir Propriétés des espaces, Définition
+\ref{spaces-properties-definition-reduced-induced-space}.
+C'est un espace algébrique intègre car il est décent,
+réduit et irréductible.
+\end{proof}
+
+
+
+
+
+
+\section{Morphismes entre espaces algébriques intègres}
+\label{section-morphisms-between-integral-spaces}
+
+\noindent
+Le lemme suivant caractérise les morphismes dominants de degré fini
+entre espaces algébriques intègres.
+
+\begin{lemma}
+\label{lemma-finite-degree}
+Soit $S$ un schéma. Soient $X$, $Y$ des espaces algébriques intègres sur $S$.
+Soient $x \in |X|$ et $y \in |Y|$ les points génériques. Soit $f : X \to Y$
+un morphisme localement de type fini. Supposons que $f$ soit dominant
+(Morphismes d'espaces, Définition \ref{spaces-morphisms-definition-dominant}).
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le degré de transcendance de $x/y$ est $0$,
+\item l'extension $\kappa(x)/\kappa(y)$ (voir la démonstration) est finie,
+\item il existe des ouverts affines non vides $U \subset X$ et $V \subset Y$
+tels que $f(U) \subset V$ et que $f|_U : U \to V$ soit fini,
+\item $f$ est quasi-fini en $x$, et
+\item $x$ est le seul point de $|X|$ ayant pour image $y$.
+\end{enumerate}
+Si $f$ est séparé ou si $f$ est quasi-compact, alors ces conditions sont
+également équivalentes à
+\begin{enumerate}
+\item[(6)] il existe un ouvert affine non vide $V \subset Y$ tel
+que $f^{-1}(V) \to V$ soit fini.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Un argument de topologie élémentaire montre que $f(x) = y$, puisque $f$ est dominant.
+Soit $Y' \subset Y$ le lieu schématique de $Y$ et soit
+$X' \subset f^{-1}(Y')$ le lieu schématique de $f^{-1}(Y')$.
+D'après la discussion ci-dessus, en utilisant
+Espaces décents, Proposition \ref{decent-spaces-proposition-reasonable-sober} et
+Théorème \ref{decent-spaces-theorem-decent-open-dense-scheme},
+on voit que $x \in |X'|$ et $y \in |Y'|$.
+Alors $f|_{X'} : X' \to Y'$ est un morphisme de schémas intègres
+qui est localement de type fini. On en déduit que les conditions (1), (2) et (3)
+sont équivalentes d'après Morphismes, Lemme \ref{morphisms-lemma-finite-degree}.
+
+\medskip\noindent
+La condition (4) implique la condition (1) d'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-compare-tr-deg}
+appliqué à $X \to Y \to Y$.
+Réciproquement, la condition (3) implique la condition (4), car tout morphisme
+fini est quasi-fini et $x \in U$, puisque $x$
+est le point générique. Ainsi (1) -- (4) sont équivalentes.
+
+\medskip\noindent
+Supposons satisfaites les conditions équivalentes (1) -- (4). Supposons que
+$x' \mapsto y$. Alors $x \leadsto x'$ est une spécialisation dans la
+fibre de $|X| \to |Y|$ au-dessus de $y$. Si $x' \not = x$, alors $f$ n'est pas
+quasi-fini en $x$ d'après Espaces décents, Lemme
+\ref{decent-spaces-lemma-conditions-on-point-in-fibre-and-qf}.
+Donc $x = x'$ et (5) est vérifiée. Réciproquement, si (5) est vérifiée, alors
+(5) est vérifiée pour le morphisme de schémas $X' \to Y'$ (voir ci-dessus)
+et nous pouvons utiliser
+Morphismes, Lemme \ref{morphisms-lemma-finite-degree}
+pour voir que (1) est vérifiée.
+
+\medskip\noindent
+Remarquons que (6) implique les conditions équivalentes (1) -- (5)
+sans hypothèse supplémentaire sur $f$. Pour achever la démonstration,
+il faut montrer que les conditions équivalentes (1) -- (5) impliquent (6).
+Cela résulte du lemme
+\ref{decent-spaces-lemma-finite-over-dense-open} du chapitre Espaces décents.
+\end{proof}
+
+\begin{definition}
+\label{definition-degree}
+Soit $S$ un schéma.
+Soient $X$ et $Y$ des espaces algébriques intègres sur $S$.
+Soit $f : X \to Y$ un morphisme localement de type fini et dominant.
+Supposons que l'une des conditions équivalentes (1) -- (5) du
+lemme \ref{lemma-finite-degree} soit satisfaite. Soient $x \in |X|$ et $y \in |Y|$
+les points génériques. Alors l'entier positif
+$$
+\deg(X/Y) = [\kappa(x) : \kappa(y)]
+$$
+est appelé le {\it degré de $X$ sur $Y$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-degree-composition}
+Soit $S$ un schéma.
+Soient $X$, $Y$, $Z$ des espaces algébriques intègres sur $S$.
+Soient $f : X \to Y$ et $g : Y \to Z$ des morphismes dominants et localement
+de type fini. Supposons que l'une des conditions équivalentes
+(1) -- (5) du lemme \ref{lemma-finite-degree} soit satisfaite pour $f$ et $g$. Alors
+$$
+\deg(X/Z) = \deg(X/Y) \deg(Y/Z).
+$$
+\end{lemma}
+
+\begin{proof}
+Cela découle de la multiplicativité des degrés dans les tours
+d'extensions finies de corps ; voir
+Corps, Lemme \ref{fields-lemma-multiplicativity-degrees}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Diviseurs de Weil}
+\label{section-Weil-divisors}
+
+\noindent
+Cette section est l'analogue de la section
+\ref{divisors-section-Weil-divisors} de Diviseurs.
+
+\medskip\noindent
+Nous allons introduire les diviseurs de Weil et l'équivalence rationnelle des
+diviseurs de Weil pour les espaces algébriques intègres localement noethériens.
+Comme nous ne supposons pas que nos espaces algébriques sont quasi-compacts, nous devons
+être un peu prudents lors de la définition des diviseurs de Weil. Nous devons permettre
+des sommes infinies de diviseurs premiers, car une fonction rationnelle peut avoir,
+par exemple, une infinité de pôles. Dans le cas quasi-compact, nos diviseurs
+de Weil sont des sommes finies comme d'habitude. Voici un lemme fondamental que nous
+utiliserons souvent pour montrer que des familles de sous-espaces fermés sont localement finies.
+
+\begin{lemma}
+\label{lemma-components-locally-finite}
+Soit $S$ un schéma et soit $X$ un espace algébrique localement noethérien
+sur $S$. Si $T \subset |X|$ est une partie fermée,
+alors la famille des composantes irréductibles de $T$ est localement finie.
+\end{lemma}
+
+\begin{proof}
+L'espace topologique $|X|$ est localement noethérien
+(Propriétés des espaces, lemme \ref{spaces-properties-lemma-Noetherian-topology}).
+Un espace topologique noethérien possède un nombre fini de
+composantes irréductibles et tout sous-espace d'un espace noethérien est noethérien
+(Topologie, lemme \ref{topology-lemma-Noetherian}).
+Le lemme découle donc de la définition d'une famille localement finie
+(Topologie, définition \ref{topology-definition-locally-finite}).
+\end{proof}
+
+\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique décent sur $S$.
+Soit $Z$ un sous-espace fermé intègre de $X$ et soit
+$\xi \in |Z|$ son point générique. Alors la codimension de
+$|Z|$ dans $|X|$ est égale à la dimension de l'anneau local
+de $X$ en $\xi$, d'après
+le lemme d'Espaces décents \ref{decent-spaces-lemma-codimension-local-ring}.
+Rappelons que nous indiquons également cela en disant que
+{\it $\xi$ est un point de codimension $1$ sur $X$}, voir la
+définition de Propriétés des espaces
+\ref{spaces-properties-definition-dimension-local-ring}.
+
+\begin{definition}
+\label{definition-Weil-divisor}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique intègre localement noethérien sur $S$.
+\begin{enumerate}
+\item Un {\it diviseur premier} est un sous-espace fermé intègre $Z \subset X$
+de codimension $1$, c'est-à-dire que le point générique de $|Z|$ est un point
+de codimension $1$ sur $X$.
+\item Un {\it diviseur de Weil} est une somme formelle $D = \sum n_Z Z$ où
+la somme porte sur les diviseurs premiers de $X$ et la famille
+$\{|Z| : n_Z \not = 0\}$ est localement finie dans $|X|$
+(Topologie, définition \ref{topology-definition-locally-finite}).
+\end{enumerate}
+Le groupe de tous les diviseurs de Weil sur $X$ est noté $\text{Div}(X)$.
+\end{definition}
+
+\noindent
+Notre prochaine tâche consiste à définir le diviseur de Weil associé à une fonction
+rationnelle. Pour cela, nous devons définir l'ordre d'annulation d'une
+fonction rationnelle sur un espace algébrique intègre localement noethérien $X$
+le long d'un diviseur premier $Z$. Soit $\xi \in |Z|$ le point générique.
+Nous rencontrons ici le problème que l'anneau local $\mathcal{O}_{X, \xi}$
+n'existe pas et que l'anneau local hensélien $\mathcal{O}_{X, \xi}^h$
+peut ne pas être un anneau intègre, voir l'exemple \ref{example-not-a-domain}.
+Pour contourner cela, nous utilisons le lemme suivant.
+
+\begin{lemma}
+\label{lemma-order-vanishing}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $Z \subset X$ un diviseur premier et soit $\xi \in |Z|$
+le point générique. Alors l'anneau local hensélien $\mathcal{O}_{X, \xi}^h$
+est un anneau local noethérien réduit de dimension $1$ et
+il existe une application canonique injective
+$$
+R(X) \longrightarrow Q(\mathcal{O}_{X, \xi}^h)
+$$
+du corps des fonctions $R(X)$ de $X$ dans l'anneau total des fractions.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons les résultats d'Espaces décents, section
+\ref{decent-spaces-section-residue-fields-henselian-local-rings}.
+Soit $(U, u) \to (X, \xi)$ un voisinage \'etale élémentaire.
+Observons que $U$ est localement noethérien et réduit.
+Ainsi, $\mathcal{O}_{U, u}$ est un anneau de dimension $1$
+(par notre définition des diviseurs premiers),
+réduit et noethérien.
+Après avoir remplacé $U$ par un voisinage ouvert affine de $u$
+nous pouvons supposer que $U$ est noethérien et affine.
+Après avoir remplacé $U$ par un ouvert plus petit, nous pouvons supposer que toute
+composante irréductible de $U$ passe par $u$.
+Comme $U \to X$ est ouvert et que $X$ est irréductible, $U \to X$ est dominant.
+Nous obtenons donc une application d'anneaux $R(X) \to R(U)$ en composant des applications rationnelles, voir
+Morphismes d'espaces, section \ref{spaces-morphisms-section-rational-maps}.
+Comme $R(X)$ est un corps, cette application est injective.
+Par notre choix de $U$, nous voyons que $R(U)$ est l'anneau total des fractions
+$Q(\mathcal{O}_{U, u})$, voir
+Morphismes, lemme \ref{morphisms-lemma-integral-scheme-rational-functions}
+et
+Algèbre, lemme \ref{algebra-lemma-total-ring-fractions-no-embedded-points}.
+
+\medskip\noindent
+À ce stade, nous avons démontré toutes les assertions du lemme avec
+$\mathcal{O}_{U, u}$ à la place de $\mathcal{O}_{X, \xi}^h$.
+Cependant, $\mathcal{O}_{X, \xi}^h$ est l'hensélisation de
+$\mathcal{O}_{U, u}$. Ainsi, $\mathcal{O}_{X, \xi}^h$ est un anneau
+réduit noethérien de dimension $1$, voir
+Compléments d'algèbre, lemmes
+\ref{more-algebra-lemma-henselization-reduced},
+\ref{more-algebra-lemma-henselization-dimension}, et
+\ref{more-algebra-lemma-henselization-noetherian}.
+Comme $\mathcal{O}_{U, u} \to \mathcal{O}_{X, \xi}^h$ est
+fidèlement plat d'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-dumb-properties-henselization}
+elle envoie les non diviseurs de zéro sur des non diviseurs de zéro.
+Nous obtenons donc une application canonique
+$Q(\mathcal{O}_{U, u}) \to Q(\mathcal{O}_{X, \xi}^h)$
+et nous obtenons notre application.
+Nous omettons la vérification que l'application est indépendante du
+choix de $(U, u) \to (X, x)$ ; une approche légèrement meilleure
+consisterait d'abord à observer que
+$\colim Q(\mathcal{O}_{U, u}) = Q(\mathcal{O}_{X, \xi}^h)$.
+\end{proof}
+
+\begin{definition}
+\label{definition-order-vanishing}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $f \in R(X)^*$. Pour tout diviseur premier
+$Z \subset X$, nous définissons l'{\it ordre d'annulation de $f$ le long de $Z$}
+comme l'entier
+$$
+\text{ord}_Z(f) =
+\text{longueur}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h) -
+\text{longueur}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/b \mathcal{O}_{X, \xi}^h)
+$$
+où $a, b \in \mathcal{O}_{X, \xi}^h$ sont des non diviseurs de zéro
+tels que l'image de $f$ dans $Q(\mathcal{O}_{X, \xi}^h)$
+(lemme \ref{lemma-order-vanishing}) soit égale à $a/b$.
+Ceci est bien défini d'après
+Algèbre, lemme \ref{algebra-lemma-ord-additive}.
+\end{definition}
+
+\noindent
+Si $\mathcal{O}_{X, \xi}^h$ est un anneau intègre, nous obtenons
+$$
+\text{ord}_Z(f) = \text{ord}_{\mathcal{O}_{X, \xi}^h}(f)
+$$
+où le membre de droite est la notion de
+la définition d'Algèbre \ref{algebra-definition-ord}.
+Notons que pour $f, g \in R(X)^*$ nous avons
+$$
+\text{ord}_Z(fg) = \text{ord}_Z(f) + \text{ord}_Z(g).
+$$
+Bien sûr, il peut arriver que $\text{ord}_Z(f) < 0$.
+Dans ce cas, nous disons que $f$ possède un {\it pôle} le long de $Z$
+et que $-\text{ord}_Z(f) > 0$ est l'
+{\it ordre du pôle de $f$ le long de $Z$}. Il est important de remarquer que
+la condition $\text{ord}_Z(f) \geq 0$ n'est {\bf pas} équivalente
+à la condition $f \in \mathcal{O}_{X, \xi}^h$, sauf si l'anneau local
+$\mathcal{O}_{X, \xi}$ est un anneau de valuation discrète.
+
+\begin{lemma}
+\label{lemma-order-vanishing-agrees}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $f \in R(X)^*$. Si le diviseur premier
+$Z \subset X$ rencontre le lieu schématique de $X$, alors l'ordre
+d'annulation $\text{ord}_Z(f)$ de la définition \ref{definition-order-vanishing}
+coïncide avec l'ordre d'annulation de
+Diviseurs, définition \ref{divisors-definition-order-vanishing}.
+\end{lemma}
+
+\begin{proof}
+Après avoir rétréci $X$, nous pouvons supposer que $X$ est un schéma intègre noethérien.
+Si $\xi \in Z$ désigne le point générique, alors
+$\mathcal{O}_{X, \xi}^h$ est l'hensélisation de $\mathcal{O}_{X, \xi}$
+(Espaces décents, lemme \ref{decent-spaces-lemma-describe-henselian-local-ring}).
+Pour démontrer le lemme, il suffit et il est nécessaire de montrer que
+$$
+\text{longueur}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{X, \xi}/a \mathcal{O}_{X, \xi}) =
+\text{longueur}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h)
+$$
+Ceci découle immédiatement de
+Algèbre, lemme \ref{algebra-lemma-pullback-module}
+(et du fait que $\mathcal{O}_{X, \xi} \to \mathcal{O}_{X, \xi}^h$
+est un homomorphisme local plat d'anneaux locaux noethériens).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-divisor-locally-finite}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $f \in R(X)^*$. Alors les familles
+$$
+\{Z \subset X \mid Z\text{ est un diviseur premier de point générique }\xi
+\text{ et }f\text{ n'appartient pas à }\mathcal{O}_{X, \xi}\}
+$$
+et
+$$
+\{Z \subset X \mid Z \text{ est un diviseur premier et }\text{ord}_Z(f) \not = 0\}
+$$
+sont localement finies dans $X$.
+\end{lemma}
+
+\begin{proof}
+Il existe un sous-espace ouvert non vide $U \subset X$
+tel que $f$ corresponde à une section de $\Gamma(U, \mathcal{O}_X^*)$.
+Par conséquent, les diviseurs premiers qui peuvent apparaître dans les ensembles du lemme
+correspondent tous à des composantes irréductibles de $|X| \setminus |U|$.
+Le lemme \ref{lemma-components-locally-finite} donne donc le résultat voulu.
+\end{proof}
+
+\noindent
+Ce lemme nous permet de donner la définition suivante.
+
+\begin{definition}
+\label{definition-principal-divisor}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique intègre localement noethérien sur $S$.
+Soit $f \in R(X)^*$.
+Le {\it diviseur de Weil principal associé à $f$} est le diviseur de Weil
+$$
+\text{div}(f) = \text{div}_X(f) = \sum \text{ord}_Z(f) [Z]
+$$
+où la somme porte sur les diviseurs premiers et où $\text{ord}_Z(f)$ est comme dans
+la définition \ref{definition-order-vanishing}. Ceci a un sens
+d'après le lemme \ref{lemma-divisor-locally-finite}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-div-additive}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique intègre localement noethérien sur $S$.
+Soient $f, g \in R(X)^*$. Alors
+$$
+\text{div}_X(fg) = \text{div}_X(f) + \text{div}_X(g)
+$$
+en tant que diviseurs de Weil sur $X$.
+\end{lemma}
+
+\begin{proof}
+Ceci est clair par additivité des fonctions $\text{ord}$.
+\end{proof}
+
+\noindent
+Nous voyons d'après le lemme ci-dessus que la famille des diviseurs de Weil principaux
+forme un sous-groupe du groupe de tous les diviseurs de Weil. Cela conduit à la
+définition suivante.
+
+\begin{definition}
+\label{definition-class-group}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique intègre localement noethérien sur $S$. Le
+{\it groupe des classes de diviseurs de Weil} de $X$ est le quotient du
+groupe des diviseurs de Weil par le sous-groupe des diviseurs de Weil principaux.
+Notation : $\text{Cl}(X)$.
+\end{definition}
+
+\noindent
+Par construction, nous obtenons un complexe exact
+\begin{equation}
+\label{equation-Weil-divisor-class}
+R(X)^* \xrightarrow{\text{div}} \text{Div}(X) \to \text{Cl}(X) \to 0
+\end{equation}
+que nous pouvons considérer comme une présentation de $\text{Cl}(X)$. Notre prochaine tâche
+est de relier le groupe des classes de diviseurs de Weil au groupe de Picard.
+
+\begin{example}
+\label{example-Z-mod-2}
+Cet exemple prolonge celui de Morphismes d'espaces,
+exemple \ref{spaces-morphisms-example-universal-homeomorphism}.
+Considérons l'espace algébrique
+$X = \mathbf{A}^1_k/\{t \sim -t \mid t \not = 0\}$.
+C'est un espace algébrique lisse sur le corps $k$.
+Il existe un homéomorphisme universel
+$$
+X \longrightarrow \mathbf{A}^1_k = \Spec(k[t])
+$$
+qui est un isomorphisme au-dessus de $\mathbf{A}^1_k \setminus \{0\}$.
+Nous en concluons que $X$ est noethérien et intègre.
+Comme $\dim(X) = 1$, les diviseurs premiers de $X$ sont
+les points fermés de $X$.
+Considérons l'unique point fermé $x \in |X|$ situé au-dessus de $0 \in \mathbf{A}^1_k$.
+Comme $X \setminus \{x\}$ s'envoie isomorphiquement sur $\mathbf{A}^1 \setminus \{0\}$,
+nous voyons que les classes dans $\text{Cl}(X)$ des points fermés distincts
+de $x$ sont nulles. Cependant, le diviseur de $t$ sur $X$ est $2[x]$.
+Nous concluons que $\text{Cl}(X) = \mathbf{Z}/2\mathbf{Z}$.
+\end{example}
+
+\begin{example}
+\label{example-not-a-domain}
+Soit $k$ un corps. Soit
+$$
+U = \Spec(k[x, y]/(xy))
+$$
+qui est l'union des axes de coordonnées dans $\mathbf{A}^2_k$.
+Notons $\Delta : U \to U \times_k U$ la diagonale et
+$\Delta' : U \to U \times_k U$ l'application $u \mapsto (u, \sigma(u))$
+où $\sigma : U \to U$, $(x, y) \mapsto (y, x)$
+est l'automorphisme qui échange les axes de coordonnées. Posons
+$$
+R = \Delta(U) \amalg \Delta'(U \setminus \{0_U\})
+$$
+où $0_U \in U$ est l'origine. Il est facile de voir que
+$R$ est une relation d'équivalence \'etale sur $U$. Le quotient $X = U/R$
+est un espace algébrique. Le morphisme $U \to \mathbf{A}^1_k$,
+$(x, y) \mapsto x + y$ est invariant par $R$ et définit donc
+un morphisme
+$$
+X \longrightarrow \mathbf{A}^1_k
+$$
+Ce morphisme est un homéomorphisme universel et un isomorphisme au-dessus de
+$\mathbf{A}^1_k \setminus \{0\}$. Il s'ensuit que $X$ est intègre
+et noethérien. Exactement comme dans l'exemple \ref{example-Z-mod-2}
+le lecteur montre que $\text{Cl}(X) = \mathbf{Z}/2\mathbf{Z}$
+avec pour générateur la classe correspondant à l'unique point fermé $x \in |X|$
+situé au-dessus de $0 \in \mathbf{A}^1_k$. Cependant, dans ce cas, l'anneau local hensélien
+de $X$ en $x$ n'est pas un anneau intègre, car c'est l'hensélisation
+de $\mathcal{O}_{U, 0_U}$.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Classe de diviseur de Weil associée à un module inversible}
+\label{section-c1}
+
+\noindent
+Dans cette section, nous suivons exactement la même progression que dans la
+section \ref{section-Weil-divisors} pour définir une application canonique
+$\Pic(X) \to \text{Cl}(X)$
+sur un espace algébrique intègre localement noethérien.
+
+\medskip\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+D'après Diviseurs sur les espaces, lemme
+\ref{spaces-divisors-lemma-regular-meromorphic-section-exists}
+il existe une section méromorphe régulière
+$s \in \Gamma(X, \mathcal{K}_X(\mathcal{L}))$.
+En fait, d'après Diviseurs sur les espaces, lemme
+\ref{spaces-divisors-lemma-compute-meromorphic}
+c'est la même chose qu'un élément non nul de
+$\mathcal{L}_\eta$, où $\eta \in |X|$ est le point générique.
+Le même lemme nous dit que si $\mathcal{L} = \mathcal{O}_X$,
+alors $s$ est la même chose qu'une fonction rationnelle non nulle sur $X$
+(ainsi ce que nous ferons ci-dessous coïncide avec la construction de la
+section \ref{section-Weil-divisors}).
+
+\medskip\noindent
+Soit $Z \subset X$ un diviseur premier et soit $\xi \in |Z|$ le point générique.
+Nous allons définir l'ordre d'annulation de $s$ le long de $Z$.
+Considérons le morphisme canonique
+$$
+c_\xi : \Spec(\mathcal{O}_{X, \xi}^h) \longrightarrow X
+$$
+dont la source est le spectre de l'anneau local hensélien de $X$ en $\xi$
+(Espaces décents, définition \ref{decent-spaces-definition-henselian-local-ring}).
+Le tiré en arrière $\mathcal{L}_\xi = c_\xi^*\mathcal{L}$
+est un module inversible, donc trivial ; choisissons un générateur $s_\xi$ de
+$\mathcal{L}_\xi$. Comme $c_\xi$ est plat, les tirés en arrière des fonctions méromorphes
+et des sections (régulières) sont définis pour $c_\xi$, voir
+Diviseurs sur les espaces, définition
+\ref{spaces-divisors-definition-pullback-meromorphic-sections} et
+les lemmes \ref{spaces-divisors-lemma-pullback-meromorphic-sections-defined} et
+\ref{spaces-divisors-lemma-meromorphic-sections-pullback}.
+Nous obtenons ainsi
+$$
+c_\xi^*(s) = f s_\xi
+$$
+pour un élément non diviseur de zéro $f \in Q(\mathcal{O}_{X, \xi}^h)$.
+Nous utilisons ici le lemme de Diviseurs \ref{divisors-lemma-locally-Noetherian-K}
+pour identifier l'espace des sections méromorphes de
+$\mathcal{L}_\xi \cong \mathcal{O}_{\Spec(\mathcal{O}_{X, \xi}^h)}$
+en termes de l'anneau total des fractions de $\mathcal{O}_{X, \xi}^h$.
+Convenons de noter cet élément
+$$
+s/s_\xi = f \in  Q(\mathcal{O}_{X, \xi}^h)
+$$
+Observons que $f = s/s_\xi$
+est remplacé par $uf$ où $u \in \mathcal{O}_{X, \xi}^h$
+est une unité lorsque nous changeons le choix de $s_\xi$.
+
+\begin{definition}
+\label{definition-order-vanishing-meromorphic}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $\mathcal{L}$ un
+$\mathcal{O}_X$-module inversible.
+Soit $s \in \Gamma(X, \mathcal{K}_X(\mathcal{L}))$
+une section méromorphe régulière de $\mathcal{L}$.
+Pour tout diviseur premier $Z \subset X$ dont le point générique est $\xi \in |Z|$
+nous définissons l'
+{\it ordre d'annulation de $s$ le long de $Z$}
+comme l'entier
+$$
+\text{ord}_{Z, \mathcal{L}}(s) =
+\text{longueur}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h) -
+\text{longueur}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/b \mathcal{O}_{X, \xi}^h)
+$$
+où $a, b \in \mathcal{O}_{X, \xi}^h$ sont des non diviseurs de zéro
+tels que l'élément $s/s_\xi$ de $Q(\mathcal{O}_{X, \xi}^h)$
+construit ci-dessus soit égal à $a/b$.
+Ceci est bien défini d'après ce qui précède et
+le lemme d'Algèbre \ref{algebra-lemma-ord-additive}.
+\end{definition}
+
+\noindent
+Comme expliqué ci-dessus, une section méromorphe régulière $s$ de $\mathcal{O}_X$
+peut s'écrire $s = f \cdot 1$ où $f$
+est une fonction rationnelle non nulle sur $X$ et nous avons
+$\text{ord}_Z(f) = \text{ord}_{Z, \mathcal{O}_X}(s)$.
+Comme dans le cas des diviseurs principaux, nous avons le lemme suivant.
+
+\begin{lemma}
+\label{lemma-divisor-meromorphic-locally-finite}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soit $s \in \mathcal{K}_X(\mathcal{L})$ une
+section méromorphe régulière (c'est-à-dire non nulle) de $\mathcal{L}$. Alors les ensembles
+$$
+\{Z \subset X \mid Z \text{ est un diviseur premier de point générique }\xi
+\text{ et }s\text{ n'appartient pas à }\mathcal{L}_\xi\}
+$$
+et
+$$
+\{Z \subset X \mid Z \text{ est un diviseur premier et }
+\text{ord}_{Z, \mathcal{L}}(s) \not = 0\}
+$$
+sont localement finis dans $X$.
+\end{lemma}
+
+\begin{proof}
+Il existe un sous-espace ouvert non vide $U \subset X$ tel que $s$
+corresponde à une section de $\Gamma(U, \mathcal{L})$ qui engendre
+$\mathcal{L}$ sur $U$. Par conséquent, les diviseurs premiers qui peuvent apparaître
+dans les ensembles du lemme correspondent tous à des composantes irréductibles de
+$|X| \setminus |U|$. Le lemme \ref{lemma-components-locally-finite}
+donne le résultat voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-divisor-meromorphic-well-defined}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soient $s, s' \in \mathcal{K}_X(\mathcal{L})$ des sections méromorphes
+non nulles de $\mathcal{L}$. Alors $f = s/s'$
+est un élément de $R(X)^*$ et nous avons
+$$
+\sum \text{ord}_{Z, \mathcal{L}}(s)[Z]
+=
+\sum \text{ord}_{Z, \mathcal{L}}(s')[Z]
++
+\text{div}(f)
+$$
+en tant que diviseurs de Weil.
+\end{lemma}
+
+\begin{proof}
+C'est clair d'après les définitions.
+Notons que le lemme \ref{lemma-divisor-meromorphic-locally-finite}
+garantit que les sommes sont bien des diviseurs de Weil.
+\end{proof}
+
+\begin{definition}
+\label{definition-divisor-invertible-sheaf}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+\begin{enumerate}
+\item Pour toute section méromorphe non nulle $s$ de $\mathcal{L}$
+nous définissons le {\it diviseur de Weil associé à $s$} comme
+$$
+\text{div}_\mathcal{L}(s) =
+\sum \text{ord}_{Z, \mathcal{L}}(s) [Z] \in \text{Div}(X)
+$$
+où la somme porte sur les diviseurs premiers. Ceci est bien défini d'après
+le lemme \ref{lemma-divisor-meromorphic-locally-finite}.
+\item Nous définissons la {\it classe de diviseur de Weil associée à $\mathcal{L}$}
+comme l'image de $\text{div}_\mathcal{L}(s)$ dans $\text{Cl}(X)$
+où $s$ est une quelconque section méromorphe non nulle de $\mathcal{L}$ sur $X$.
+Ceci est bien défini d'après
+le lemme \ref{lemma-divisor-meromorphic-well-defined}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Comme prévu, cette construction est additive par rapport au module inversible.
+
+\begin{lemma}
+\label{lemma-c1-additive}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Soient $\mathcal{L}$ et $\mathcal{N}$ deux $\mathcal{O}_X$-modules inversibles.
+Soit $s$, resp.\ $t$, une section méromorphe non nulle de $\mathcal{L}$,
+resp.\ de $\mathcal{N}$. Alors $st$ est une section méromorphe non nulle de
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N}$ et
+$$
+\text{div}_{\mathcal{L} \otimes \mathcal{N}}(st)
+=
+\text{div}_\mathcal{L}(s) + \text{div}_\mathcal{N}(t)
+$$
+dans $\text{Div}(X)$. En particulier, la classe de diviseur de Weil de
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N}$ est la somme
+des classes de diviseurs de Weil de $\mathcal{L}$ et de $\mathcal{N}$.
+\end{lemma}
+
+\begin{proof}
+Soit $s$, resp.\ $t$, une section méromorphe non nulle de
+$\mathcal{L}$, resp.\ de $\mathcal{N}$. Alors $st$ est une section
+méromorphe non nulle de $\mathcal{L} \otimes \mathcal{N}$.
+Soit $Z \subset X$ un diviseur premier. Soit $\xi \in |Z|$ son point
+générique. Choisissons des générateurs $s_\xi \in \mathcal{L}_\xi$ et
+$t_\xi \in \mathcal{N}_\xi$, avec les notations introduites plus haut
+dans cette section. Alors $s_\xi \otimes t_\xi$ est un générateur
+de $(\mathcal{L} \otimes \mathcal{N})_\xi$.
+Ainsi, $st/(s_\xi t_\xi) = (s/s_\xi)(t/t_\xi)$ dans
+$Q(\mathcal{O}_{X, \xi}^h)$. En appliquant l'additivité du
+lemme d'Algèbre \ref{algebra-lemma-ord-additive},
+nous concluons que
+$$
+\text{div}_{\mathcal{L} \otimes \mathcal{N}, Z}(st)
+=
+\text{div}_{\mathcal{L}, Z}(s) + \text{div}_{\mathcal{N}, Z}(t)
+$$
+Nous omettons certains détails.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Les constructions et les lemmes ci-dessus donnent un homomorphisme
+de groupes abéliens
+\begin{equation}
+\label{equation-c1}
+\Pic(X) \longrightarrow \text{Cl}(X)
+\end{equation}
+qui associe à tout module inversible sa classe de diviseur de Weil.
+
+\begin{lemma}
+\label{lemma-normal-c1-injective}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre localement noethérien
+sur $S$. Si $X$ est normal, alors l'application (\ref{equation-c1})
+$\Pic(X) \to \text{Cl}(X)$ est injective.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible dont la
+classe de diviseur de Weil associée est triviale. Soit $s$ une section
+méromorphe régulière de $\mathcal{L}$. L'hypothèse signifie que
+$\text{div}_\mathcal{L}(s) = \text{div}(f)$ pour un certain
+$f \in R(X)^*$. Alors $t = f^{-1}s$ est une section
+méromorphe régulière de $\mathcal{L}$ telle que
+$\text{div}_\mathcal{L}(t) = 0$, voir le
+lemme \ref{lemma-divisor-meromorphic-well-defined}.
+Nous affirmons que $t$ définit une trivialisation de $\mathcal{L}$.
+Cette assertion achève la démonstration du lemme.
+La démonstration qui suit est un peu maladroite, car nous ne
+disposons pas encore d'une théorie très développée ; nous suggérons
+au lecteur de la passer.
+
+\medskip\noindent
+Nous pouvons vérifier cette assertion localement pour la topologie \'etale. Soit
+$U \in X_\etale$ affine tel que $\mathcal{L}|_U$ soit trivial. Soit
+$s_U \in \Gamma(U, \mathcal{L}|_U)$ une trivialisation. D'après le
+lemme de Propriétés \ref{properties-lemma-normal-locally-finite-nr-irreducibles},
+nous pouvons aussi supposer $U$ intègre. Écrivons $U = \Spec(A)$, où $A$ est
+un anneau intègre normal noethérien de corps des fractions $K$.
+Nous pouvons écrire $t|_U = f s_U$ pour un élément $f$ de $K$, voir par exemple le
+lemme de Diviseurs sur les espaces \ref{spaces-divisors-lemma-meromorphic-quasi-coherent}.
+Soit $\mathfrak p \subset A$ un idéal premier de hauteur un
+correspondant à un point de codimension $1$, $u \in U$, dont l'image
+est un point de codimension $1$, $\xi \in |X|$. Choisissons une trivialisation
+$s_\xi$ de $\mathcal{L}_\xi$ comme au début de cette section.
+Choisissons un point géométrique $\overline{u}$ de $U$ situé au-dessus de $u$.
+Alors
+$$
+(\mathcal{O}_{X, \xi}^h)^{sh} =
+\mathcal{O}_{X, \overline{u}} =
+\mathcal{O}_{U, u}^{sh} = (A_\mathfrak p)^{sh}
+$$
+voir les lemmes d'Espaces décents
+\ref{decent-spaces-lemma-henselian-local-ring-strict}
+et le lemme de
+Propriétés des espaces
+\ref{spaces-properties-lemma-describe-etale-local-ring}.
+La normalité de $X$ montre que tous ces anneaux sont des
+anneaux de valuation discrète. Les trivialisations $s_U$ et $s_\xi$
+diffèrent par une unité comme sections du tiré en arrière de $\mathcal{L}$ sur
+$\Spec(\mathcal{O}_{X, \overline{u}})$.
+Écrivons $t = f_\xi s_\xi$ avec $f_\xi \in Q(\mathcal{O}_{X, \xi}^h)$.
+Nous en concluons que $f_\xi$ et $f$ diffèrent par une unité
+dans $Q(\mathcal{O}_{X, \overline{u}})$.
+Si $Z \subset X$ désigne le diviseur premier correspondant à $\xi$
+(lemme \ref{lemma-decent-irreducible-closed}), alors
+$0 = \text{ord}_{Z, \mathcal{L}}(t) =
+\text{ord}_{\mathcal{O}_{X, \xi}^h}(f_\xi)$
+et, comme $\mathcal{O}_{X, \xi}^h$ est un anneau de valuation discrète,
+nous voyons que $f_\xi$ est une unité.
+Ainsi, $f$ est une unité dans $\mathcal{O}_{X, \overline{u}}$
+et, en particulier, $f \in A_\mathfrak p$.
+Cela implique $f \in A$ d'après le lemme d'Algèbre
+\ref{algebra-lemma-normal-domain-intersection-localizations-height-1}.
+Nous concluons que $t \in \Gamma(X, \mathcal{L})$.
+En répétant le raisonnement avec $t^{-1}$ considéré comme section méromorphe
+de $\mathcal{L}^{\otimes -1}$, on achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Modifications et altérations}
+\label{section-modifications-alterations}
+
+\noindent
+Notre notion d'espace algébrique intègre permet de définir une modification
+comme suit.
+
+\begin{definition}
+\label{definition-modification}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre sur $S$. Une
+{\it modification de $X$} est un morphisme propre birationnel
+$f : X' \to X$ d'espaces algébriques sur $S$, où $X'$ est intègre.
+\end{definition}
+
+\noindent
+Pour les morphismes birationnels d'espaces algébriques, voir la
+définition d'Espaces décents \ref{decent-spaces-definition-birational}.
+
+\begin{lemma}
+\label{lemma-modification-iso-over-open}
+Soit $f : X' \to X$ une modification comme dans la
+définition \ref{definition-modification}.
+Il existe un ouvert non vide $U \subset X$ tel que $f^{-1}(U) \to U$
+soit un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-finite-degree}, il existe un ouvert non vide $U \subset X$ tel
+que $f^{-1}(U) \to U$ soit fini. Par platitude générique
+(Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-generic-flatness-reduced}),
+nous pouvons supposer $f^{-1}(U) \to U$ plat et de présentation finie.
+Ainsi, $f^{-1}(U) \to U$ est fini localement libre
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-finite-flat}).
+Comme $f$ est birationnel, le degré de $X'$ sur $X$ est $1$.
+Par conséquent, $f^{-1}(U) \to U$ est fini localement libre de degré $1$,
+autrement dit, c'est un isomorphisme.
+\end{proof}
+
+\begin{definition}
+\label{definition-alteration}
+Soit $S$ un schéma. Soit $X$ un espace algébrique intègre sur $S$.
+Une {\it altération de $X$} est un morphisme propre dominant $f : Y \to X$
+d'espaces algébriques sur $S$, avec $Y$ intègre, tel que $f^{-1}(U) \to U$
+soit fini pour un certain ouvert non vide $U \subset X$.
+\end{definition}
+
+\noindent
+Si $f : Y \to X$ est un morphisme dominant et propre entre espaces
+algébriques intègres, alors c'est une altération dès que l'extension induite
+des corps résiduels aux points génériques est finie. Voici l'énoncé
+précis.
+
+\begin{lemma}
+\label{lemma-alteration-generically-finite}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme propre dominant
+d'espaces algébriques intègres sur $S$. Alors $f$ est une altération
+si et seulement si l'une des conditions équivalentes (1) -- (6) du
+lemme \ref{lemma-finite-degree} est satisfaite.
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence immédiate du lemme cité dans l'énoncé.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-alteration-contained-in}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme propre surjectif
+d'espaces algébriques sur $S$. Supposons $Y$ intègre. Alors
+il existe un sous-espace fermé intègre $X' \subset X$ tel que
+$f' = f|_{X'} : X' \to Y$ soit une altération.
+\end{lemma}
+
+\begin{proof}
+Soit $V \subset Y$ un ouvert affine non vide
+(Espaces décents, théorème \ref{decent-spaces-theorem-decent-open-dense-scheme}).
+Soit $\eta \in V$ le point générique. Alors
+$X_\eta$ est un espace algébrique propre non vide sur $\eta$.
+Choisissons un point fermé $x \in |X_\eta|$
+(il en existe, car $|X_\eta|$ est un espace topologique quasi-compact
+et sobre ; voir Espaces décents, proposition
+\ref{decent-spaces-proposition-reasonable-sober},
+et Topologie, lemme \ref{topology-lemma-quasi-compact-closed-point}).
+Soit $X'$ le sous-espace fermé, muni de la structure réduite induite, porté par
+$\overline{\{x\}} \subset |X|$ (Propriétés des espaces, définition
+\ref{spaces-properties-definition-reduced-induced-space}).
+Alors $f' : X' \to Y$ est surjectif, puisque son image contient $\eta$.
+De plus, $f'$ est propre comme composé d'une immersion fermée
+et d'un morphisme propre. Enfin, la fibre $X'_\eta$ ne possède qu'un
+seul point ; pour le voir, appliquons le
+lemme d'Espaces décents \ref{decent-spaces-lemma-topology-fibre}
+à $X \to Y$ et à $X' \to Y$, au point $\eta$.
+Comme $Y$ est décent et que $X' \to Y$ est séparé, $X'$ est décent
+(Espaces décents, lemmes
+\ref{decent-spaces-lemma-properties-trivial-implications} et
+\ref{decent-spaces-lemma-property-over-property}).
+Ainsi, $f'$ est une altération d'après le
+lemme \ref{lemma-alteration-generically-finite}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Lieu schématique}
+\label{section-schematic}
+
+\noindent
+Nous avons déjà démontré plusieurs résultats sur le lieu schématique
+d'un espace algébrique. En voici une liste de références :
+\begin{enumerate}
+\item Propriétés des espaces, sections
+\ref{spaces-properties-section-schematic} et
+\ref{spaces-properties-section-getting-a-scheme},
+\item Espaces décents, section \ref{decent-spaces-section-schematic},
+\item Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-point-like-spaces}
+$\Leftarrow$
+Espaces décents, lemme \ref{decent-spaces-lemma-decent-point-like-spaces}
+$\Leftarrow$
+Espaces décents, lemme \ref{decent-spaces-lemma-when-field},
+\item Limites d'espaces, section \ref{spaces-limits-section-affine}, et
+\item Limites d'espaces, section \ref{spaces-limits-section-representable}.
+\end{enumerate}
+Dans certains cas, certains types de morphismes d'espaces algébriques
+sont automatiquement représentables, par exemple les morphismes
+séparés et localement quasi-finis (Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable})
+et les monomorphismes plats (Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-flat-case}).
+Dans la section \ref{section-schematic-and-field-extension},
+nous étudierons le comportement du lieu
+schématique par extension du corps de base.
+
+\begin{lemma}
+\label{lemma-locally-finite-type-dim-zero}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Supposons que $X$ satisfasse au moins l'une des conditions suivantes :
+\begin{enumerate}
+\item $X$ est quasi-séparé et $\dim(X) = 0$,
+\item $X$ est localement de type fini sur un corps $k$ et $\dim(X) = 0$,
+\item $X$ est noethérien et $\dim(X) = 0$, ou
+\item en ajouter d'autres ici.
+\end{enumerate}
+Alors $X$ est un schéma séparé et tout ouvert quasi-compact de $X$ est affine.
+\end{lemma}
+
+\begin{proof}
+Si nous démontrons que tout ouvert quasi-compact de $X$ est affine, alors
+$X$ est un schéma séparé. Nous pouvons donc supposer $X$ quasi-compact
+et cherchons à montrer que $X$ est affine.
+Les cas (2) et (3) découlent immédiatement du cas (1), mais nous donnerons des
+démonstrations séparées de (2) et (3), qui utilisent beaucoup moins de théorie.
+
+\medskip\noindent
+Démonstration de (3). Soit $U$ un schéma affine et soit $U \to X$ un
+morphisme \'etale. Posons $R = U \times_X U$. Les deux morphismes de
+projection $s, t : R \to U$ sont des morphismes étales de schémas. D'après la
+définition de Propriétés des espaces \ref{spaces-properties-definition-dimension},
+nous avons $\dim(U) = 0$ et $\dim(R) = 0$.
+Comme $R$ est un schéma localement noethérien de dimension $0$,
+$R$ est une réunion disjointe de spectres
+d'anneaux locaux artiniens
+(Propriétés, lemme \ref{properties-lemma-locally-Noetherian-dimension-0}).
+Puisque nous avons supposé $X$ noethérien (donc quasi-séparé), nous
+concluons que $R$ est quasi-compact. Ainsi, $R$ est un schéma affine
+(utiliser Schémas, lemme \ref{schemes-lemma-disjoint-union-affines}).
+Les morphismes étales $s, t : R \to U$ induisent des extensions finies
+des corps résiduels. Le lemme d'Algèbre
+\ref{algebra-lemma-essentially-of-finite-type-into-artinian-local}
+montre donc que $s$ et $t$ sont finis
+(nous omettons un détail mineur).
+La proposition de Groupoïdes
+\ref{groupoids-proposition-finite-flat-equivalence}
+montre alors que $X = U/R$ est un schéma affine.
+
+\medskip\noindent
+Démonstration de (2), presque identique à celle de (3).
+Soit $U$ un schéma affine et soit $U \to X$ un morphisme étale surjectif.
+Posons $R = U \times_X U$. Les deux morphismes de projection
+$s, t : R \to U$ sont des morphismes étales de schémas. D'après la
+définition de Propriétés des espaces \ref{spaces-properties-definition-dimension},
+nous avons $\dim(U) = 0$ et, de même, $\dim(R) = 0$.
+D'autre part, le morphisme $U \to \Spec(k)$ est localement de type
+fini comme composé du morphisme étale $U \to X$ et de
+$X \to \Spec(k)$ ; voir
+Morphismes d'espaces,
+les lemmes \ref{spaces-morphisms-lemma-composition-finite-type} et
+\ref{spaces-morphisms-lemma-etale-locally-finite-type}.
+De même, $R \to \Spec(k)$ est localement de type fini.
+Le lemme de Variétés
+\ref{varieties-lemma-algebraic-scheme-dim-0}
+montre donc que $U$ et $R$ sont des réunions disjointes de spectres de
+$k$-algèbres locales artiniennes finies sur $k$. Il en va donc
+de même pour $U \times_{\Spec(k)} U$. Comme
+$$
+R = U \times_X U \longrightarrow U \times_{\Spec(k)} U
+$$
+est un monomorphisme, $R$ est une réunion finie (!) de spectres de
+$k$-algèbres finies. Il s'ensuit que $R$ est affine ; voir
+Schémas, lemme \ref{schemes-lemma-disjoint-union-affines}.
+En appliquant de nouveau le
+lemme de Variétés \ref{varieties-lemma-algebraic-scheme-dim-0},
+nous voyons que $R$ est fini sur $k$. Ainsi, $s, t$
+sont finis ; voir
+Morphismes, lemme \ref{morphisms-lemma-finite-permanence}.
+La proposition de Groupoïdes
+\ref{groupoids-proposition-finite-flat-equivalence}
+montre alors que $X = U/R$ est un schéma affine.
+
+\medskip\noindent
+Démonstration cohomologique de (1). D'après le lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-vanishing-above-dimension},
+les groupes de cohomologie supérieure s'annulent pour tout
+faisceau quasi-cohérent $\mathcal{F}$ sur $X$. Par conséquent, $X$
+est affine (donc, en particulier, un schéma) d'après la
+proposition de Cohomologie des espaces
+\ref{spaces-cohomology-proposition-vanishing-affine}.
+
+\medskip\noindent
+Démonstration géométrique de (1). Choisissons une stratification
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+et des morphismes étales $f_p : V_p \to U_p$ comme dans le
+lemme d'Espaces décents
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}
+(nous utiliserons ci-dessous toutes leurs propriétés).
+Alors $\dim(V_p) = 0$ par notre définition de la dimension des espaces
+algébriques. Le lemme de Propriétés \ref{properties-lemma-dimension-zero}
+s'applique donc à chaque $V_p$. Puis $f_p^{-1}(U_{p + 1}) \subset V_p$
+est un ouvert quasi-compact, donc à la fois affine et fermé.
+Il s'ensuit que $|T_p| \subset |U_p|$ (voir la référence citée)
+est à la fois ouvert et fermé. Ainsi, $X$ est une réunion disjointe
+de sous-espaces ouverts et fermés dont les structures réduites sont des schémas.
+Il s'ensuit que $X$ est un schéma
+(Limites d'espaces, lemme \ref{spaces-limits-lemma-reduction-scheme}).
+La démonstration s'achève alors par le cas des schémas
+déjà cité ci-dessus.
+\end{proof}
+
+\noindent
+Le lemme suivant affirme qu'un espace algébrique quasi-séparé
+est un schéma hors d'une partie de codimension au moins $1$.
+
+\begin{lemma}
+\label{lemma-generic-point-in-schematic-locus}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-séparé sur $S$.
+Soit $x \in |X|$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $x$ est un point de codimension $0$ sur $X$ ;
+\item l'anneau local de $X$ en $x$ est de dimension $0$ ;
+\item $x$ est un point générique d'une composante irréductible de $|X|$.
+\end{enumerate}
+Si ces conditions sont satisfaites, il existe un sous-espace ouvert de $X$
+qui contient $x$ et qui est un schéma.
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1), (2) et (3) découle du
+lemme d'Espaces décents \ref{decent-spaces-lemma-decent-generic-points}
+et du fait qu'un espace algébrique quasi-séparé est décent
+(Espaces décents, section \ref{decent-spaces-section-reasonable-decent}).
+Nous donnerons toutefois, dans le paragraphe suivant, une démonstration plus
+élémentaire de cette équivalence.
+
+\medskip\noindent
+Notons que (1) et (2) sont équivalents par définition
+(Propriétés des espaces, définition
+\ref{spaces-properties-definition-dimension-local-ring}).
+Pour démontrer l'équivalence de (1) et (3), nous pouvons supposer $X$ quasi-compact.
+Choisissons
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+et $f_i : V_i \to U_i$ comme dans le lemme d'Espaces décents
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}.
+Supposons $x \in U_i$, $x \not \in U_{i + 1}$. Alors $x = f_i(y)$ pour
+un unique $y \in V_i$. Si (1) est satisfaite, $y$ est un point générique
+d'une composante irréductible de $V_i$ (Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-codimension-0-points}).
+Comme $f_i^{-1}(U_{i + 1})$ est un ouvert quasi-compact de $V_i$
+qui ne contient pas $y$, il existe un voisinage ouvert $W \subset V_i$
+de $y$ disjoint de $f_i^{-1}(V_i)$
+(voir
+Propriétés, lemme \ref{properties-lemma-generic-point-in-constructible},
+ou, plus simplement, Algèbre, lemme
+\ref{algebra-lemma-standard-open-containing-maximal-point}).
+Alors $f_i|_W : W \to X$ est un isomorphisme sur son image, et donc
+$x = f_i(y)$ est un point générique de $|X|$. Réciproquement, supposons (3).
+Alors $f_i$ envoie $\overline{\{y\}}$ sur la composante irréductible
+$\overline{\{x\}}$ de $|U_i|$. Comme $|f_i|$ est bijectif au-dessus de
+$\overline{\{x\}}$, il s'ensuit que $\overline{\{y\}}$
+est une composante irréductible de $U_i$. Ainsi, $x$ est un point de
+codimension $0$.
+
+\medskip\noindent
+La dernière assertion du lemme est la
+proposition de Propriétés des espaces
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+\end{proof}
+
+\noindent
+Le lemme suivant affirme qu'un espace algébrique séparé localement noethérien
+est un schéma en codimension $1$, c'est-à-dire hors de la codimension $2$.
+
+\begin{lemma}
+\label{lemma-codim-1-point-in-schematic-locus}
+\begin{slogan}
+Les espaces algébriques séparés sont des schémas en codimension 1.
+\end{slogan}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $x \in |X|$. Si $X$ est séparé et localement noethérien, et si
+la dimension de l'anneau local de $X$ en $x$ est $\leq 1$
+(Propriétés des espaces, définition
+\ref{spaces-properties-definition-dimension-local-ring}),
+alors il existe un sous-espace ouvert de $X$ contenant $x$ qui est un schéma.
+\end{lemma}
+
+\begin{proof}
+(Voir la remarque ci-dessous pour une autre approche qui évite les résultats sur
+les groupoïdes finis.) Nous pouvons remplacer $X$ par un voisinage quasi-compact
+de $x$ ; nous pouvons donc supposer $X$ quasi-compact, séparé et noethérien.
+Il existe un schéma $U$ et un morphisme fini surjectif $U \to X$ ;
+voir Limites d'espaces, proposition
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}.
+Soit $R = U \times_X U$. Alors $j : R \to U \times_S U$ définit une relation
+d'équivalence et nous obtenons un schéma en groupoïdes $(U, R, s, t, c)$ sur $S$,
+avec $s, t$ finis et $U$ noethérien et séparé.
+Soit $\{u_1, \ldots, u_n\} \subset U$ l'ensemble des points ayant pour image $x$.
+Alors $\dim(\mathcal{O}_{U, u_i}) \leq 1$ d'après le
+lemme d'Espaces décents
+\ref{decent-spaces-lemma-dimension-local-ring-quasi-finite}.
+
+\medskip\noindent
+D'après le lemme de Compléments sur les groupoïdes
+\ref{more-groupoids-lemma-find-affine-codimension-1},
+il existe un ouvert affine $R$-invariant $W \subset U$ qui contient
+l'orbite $\{u_1, \ldots, u_n\}$. Comme $U \to X$ est fini surjectif,
+l'application continue $|U| \to |X|$ est fermée et surjective, donc
+submersive d'après le lemme de Topologie
+\ref{topology-lemma-closed-morphism-quotient-topology}.
+Ainsi, $f(W)$ est ouvert et il existe un sous-espace ouvert $X' \subset X$
+tel que $f : W \to X'$ soit un morphisme fini surjectif.
+Alors $X'$ est un schéma affine d'après le
+lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian},
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{remark}
+\label{remark-alternate-proof-scheme-codim-1}
+Voici une esquisse de démonstration du
+lemme \ref{lemma-codim-1-point-in-schematic-locus}
+qui n'utilise pas le
+lemme de Compléments sur les groupoïdes
+\ref{more-groupoids-lemma-find-affine-codimension-1}.
+
+\medskip\noindent
+Étape 1. Nous pouvons supposer que $X$ est un espace algébrique réduit,
+noethérien et séparé (par exemple d'après Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian},
+ou d'après
+Limites d'espaces, lemme \ref{spaces-limits-lemma-reduction-scheme}),
+et nous pouvons choisir un morphisme fini surjectif
+$Y \to X$, où $Y$ est un schéma noethérien (d'après
+Limites d'espaces, proposition
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}).
+
+\medskip\noindent
+Étape 2. Après avoir remplacé $X$ par un voisinage ouvert de $x$, il
+existe un morphisme fini birationnel $X' \to X$ et un sous-schéma fermé
+$Y' \subset X' \times_X Y$ tels que $Y' \to X'$ soit surjectif,
+fini et localement libre. En effet, puisque $X$ est réduit, il existe un
+sous-espace ouvert dense $U \subset X$ au-dessus duquel $Y$ est plat (Morphismes d'espaces,
+proposition \ref{spaces-morphisms-proposition-generic-flatness-reduced}).
+Nous pouvons alors choisir un éclatement $U$-admissible $b : \tilde X \to X$ tel
+que la transformée stricte $\tilde Y$ de $Y$ soit plate sur $\tilde X$ ; voir
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-flat-after-blowing-up}.
+(On peut aussi utiliser les schémas de Hilbert si l'on veut éviter
+le résultat sur les éclatements.)
+Soit alors $X' \subset \tilde X$ l'adhérence
+schématique de $b^{-1}(U)$ et $Y' = X' \times_{\tilde X} \tilde Y$.
+Comme $x$ est un point de codimension $1$, $X' \to X$ est fini au-dessus d'un
+voisinage de $x$ (lemme \ref{lemma-finite-in-codim-1}).
+
+\medskip\noindent
+Étape 3. Après avoir restreint $X$ à un voisinage plus petit de $x$, nous
+obtenons que $X'$ est un schéma. En effet, $Y'$ est un schéma, $Y' \to X'$
+est fini localement libre, et tout ensemble fini de points de codimension $1$
+de $Y'$ est contenu dans un ouvert affine. Utiliser la
+proposition de Propriétés des espaces
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}
+et la
+proposition de Variétés
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}.
+
+\medskip\noindent
+Étape 4. Il existe un ouvert affine $W' \subset X'$ qui contient tous les points
+situés au-dessus de $x$ et qui est l'image réciproque d'un sous-espace ouvert de $X$.
+Pour le démontrer, soit $Z \subset X$ l'adhérence de l'ensemble des points
+où $X' \to X$ n'est pas un isomorphisme. Nous pouvons supposer $x \in Z$, sinon
+nous avons déjà terminé. Alors $x$ est un point générique d'une composante
+irréductible de $Z$ et, après restriction de $X$, nous pouvons supposer $Z$ affine
+(lemme \ref{lemma-generic-point-in-schematic-locus}).
+L'image réciproque $Z' \subset X'$ est alors elle aussi un schéma affine.
+Soient $x_1, \ldots, x_n \in Z'$ les points ayant pour image $x$.
+Nous pouvons trouver un ouvert affine $W'$ de $X'$ dont l'intersection avec
+$Z'$ est l'image réciproque d'un ouvert principal de $Z$ contenant $x$.
+En effet, choisissons d'abord un ouvert affine $W' \subset X'$ contenant
+$x_1, \ldots, x_n$ grâce à la proposition de Variétés
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}.
+Choisissons ensuite un ouvert principal $D(f) \subset Z$ contenant $x$
+dont l'image réciproque $D(f|_{Z'})$ est contenue dans $W' \cap Z'$.
+Choisissons enfin $f' \in \Gamma(W', \mathcal{O}_{W'})$ dont la restriction
+est $f|_{Z'}$, puis remplaçons $W'$ par $D(f') \subset W'$.
+Comme $X' \to X$ est un isomorphisme hors de $Z' \to Z$, le choix
+de $W'$ garantit que l'image $W \subset X$ de $W'$ est ouverte
+et qu'elle a pour image réciproque $W'$ dans $X'$.
+
+\medskip\noindent
+Étape 5. Alors $W' \to W$ est un morphisme fini surjectif et $W$ est un schéma d'après le
+lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian},
+ce qui achève la démonstration.
+\end{remark}
+
+
+
+
+
+\section{Lieu schématique et extension de corps}
+\label{section-schematic-and-field-extension}
+
+\noindent
+Il peut arriver qu'un espace algébrique non représentable sur un corps $k$
+devienne représentable (c'est-à-dire un schéma) après changement de base à une extension
+de $k$. Voir Espaces, exemple \ref{spaces-example-non-representable-descent}.
+Dans cette section, nous étudions cette question.
+
+\begin{lemma}
+\label{lemma-scheme-after-purely-inseparable-base-change}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+S'il existe une extension radicielle de corps $k'/k$
+telle que $X_{k'}$ soit un schéma, alors $X$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $X_{k'} \to X$ est entier, surjectif et
+universellement injectif. Le lemme découle donc du
+lemme de Limites d'espaces
+\ref{spaces-limits-lemma-integral-universally-bijective-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-scheme-after-base-change}
+Soit $k$ un corps muni d'une clôture algébrique $\overline{k}$.
+Soit $X$ un espace algébrique quasi-séparé sur $k$.
+\begin{enumerate}
+\item S'il existe une extension de corps $K/k$ telle que
+$X_K$ soit un schéma, alors $X_{\overline{k}}$ est un schéma.
+\item Si $X$ est quasi-compact et s'il existe une extension de corps
+$K/k$ telle que $X_K$ soit un schéma, alors $X_{k'}$
+est un schéma pour une certaine extension finie séparable $k'$ de $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Puisque tout espace algébrique est la réunion de ses sous-espaces ouverts
+quasi-compacts, la première partie du lemme découle de
+la seconde (nous omettons certains détails). Supposons donc $X$ quasi-compact
+et donnée une extension $K/k$ pour laquelle $X_K$ est représentable.
+Écrivons $K = \bigcup A$ comme la limite inductive des sous-$k$-algèbres de type fini
+$A$. D'après le lemme de Limites d'espaces \ref{spaces-limits-lemma-limit-is-scheme},
+$X_A$ est un schéma pour une certaine $A$. Choisissons un idéal maximal
+$\mathfrak m \subset A$. D'après le théorème des zéros de Hilbert
+(Algèbre, théorème \ref{algebra-theorem-nullstellensatz}),
+le corps résiduel $k' = A/\mathfrak m$ est une extension finie de $k$.
+Ainsi, $X_{k'}$ est un schéma. Si $k' \supset k$ n'est pas
+séparable, soit $k'/k''/k$ la sous-extension
+fournie par le lemme de Corps \ref{fields-lemma-separable-first}.
+Comme $k'/k''$ est radicielle, le
+lemme \ref{lemma-scheme-after-purely-inseparable-base-change}
+montre que l'espace algébrique $X_{k''}$ est un schéma. Puisque $k''|k$ est séparable,
+la démonstration est achevée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-by-Galois}
+Soit $k'/k$ une extension galoisienne finie de groupe de Galois $G$.
+Soit $X$ un espace algébrique sur $k$. Alors $G$ agit librement sur
+l'espace algébrique $X_{k'}$ et $X = X_{k'}/G$ au sens du
+lemme de Propriétés des espaces \ref{spaces-properties-lemma-quotient}.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indications : montrer d'abord que $\Spec(k) = \Spec(k')/G$.
+Utiliser ensuite la compatibilité des quotients avec le changement de base.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-quotient-scheme-at-point}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$ et
+soit $G$ un groupe fini agissant librement sur $X$. Posons $Y = X/G$ comme
+dans le lemme de Propriétés des espaces \ref{spaces-properties-lemma-quotient}.
+Pour $y \in |Y|$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $y$ appartient au lieu schématique de $Y$ ;
+\item il existe un ouvert affine $U \subset X$
+qui contient l'image réciproque de $y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il découle de la construction de $Y = X/G$ dans le
+lemme de Propriétés des espaces \ref{spaces-properties-lemma-quotient}
+que le morphisme $X \to Y$ est surjectif et \'etale.
+Nous avons bien sûr $X \times_Y X = X \times G$ ; le morphisme
+$X \to Y$ est donc même fini étale. Il est aussi surjectif.
+Le lemme découle ainsi du
+lemme d'Espaces décents \ref{decent-spaces-lemma-when-quotient-scheme-at-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-scheme-after-purely-transcendental-base-change}
+Soit $k$ un corps. Soit $X$ un espace algébrique
+quasi-séparé sur $k$. S'il existe une extension transcendante pure
+$K/k$ telle que $X_K$ soit un schéma, alors
+$X$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+Puisque tout espace algébrique est la réunion de ses sous-espaces ouverts
+quasi-compacts, nous pouvons supposer $X$ quasi-compact (certains détails sont omis).
+Rappelons (Corps, définition \ref{fields-definition-transcendence})
+que l'hypothèse sur l'extension $K/k$ signifie que
+$K$ est le corps des fractions d'un anneau de polynômes (en un nombre éventuellement infini
+de variables) sur $k$. Ainsi, $K = \bigcup A$ est la réunion de sous-algèbres
+dont chacune est une localisation d'une algèbre polynomiale en un nombre fini de variables sur $k$.
+D'après le lemme de Limites d'espaces \ref{spaces-limits-lemma-limit-is-scheme},
+$X_A$ est un schéma pour une certaine $A$. Écrivons
+$$
+A = k[x_1, \ldots, x_n][1/f]
+$$
+pour un certain élément non nul $f \in k[x_1, \ldots, x_n]$.
+
+\medskip\noindent
+Si $k$ est infini, nous pouvons achever la démonstration comme suit : choisissons
+$a_1, \ldots, a_n \in k$ tels que $f(a_1, \ldots, a_n) \not = 0$.
+Alors $(a_1, \ldots, a_n)$ définit un homomorphisme de $k$-algèbres $A \to k$
+qui envoie $x_i$ sur $a_i$ et $1/f$ sur $1/f(a_1, \ldots, a_n)$.
+Ainsi, le changement de base $X_A \times_{\Spec(A)} \Spec(k) \cong X$ est un
+schéma, comme voulu.
+
+\medskip\noindent
+Dans ce paragraphe, achevons la démonstration lorsque $k$ est fini. Dans ce
+cas, écrivons $X = \lim X_i$, où les $X_i$ sont de présentation finie sur $k$
+et les morphismes de transition sont affines
+(Limites d'espaces, lemme \ref{spaces-limits-lemma-relative-approximation}).
+En utilisant le lemme de Limites d'espaces \ref{spaces-limits-lemma-limit-is-scheme},
+nous voyons que $X_{i, A}$ est un schéma pour un certain $i$. Nous pouvons donc supposer
+$X \to \Spec(k)$ de présentation finie. Soit $x \in |X|$ un point fermé.
+Nous pouvons représenter $x$ par une immersion fermée
+$\Spec(\kappa) \to X$
+(Espaces décents, lemme \ref{decent-spaces-lemma-decent-space-closed-point}).
+Alors $\Spec(\kappa) \to \Spec(k)$ est de type fini, donc $\kappa$
+est une extension finie de $k$ (d'après le théorème des zéros de Hilbert ; voir
+Algèbre, théorème \ref{algebra-theorem-nullstellensatz} ;
+nous omettons certains détails). Posons $[\kappa : k] = d$. Choisissons un entier
+$n \gg 0$ premier à $d$ et soit $k'/k$ l'extension
+de degré $n$. Alors $k'/k$ est galoisienne, avec $G = \text{Aut}(k'/k)$
+cyclique d'ordre $n$. Si $n$ est assez grand, il existe un homomorphisme de $k$-algèbres
+$A \to k'$ pour la même raison que ci-dessus.
+Alors $X_{k'}$ est un schéma et $X = X_{k'}/G$
+(lemme \ref{lemma-base-change-by-Galois}).
+D'autre part, comme $n$ et $d$ sont premiers entre eux, nous avons
+$$
+\Spec(\kappa) \times_{X} X_{k'} =
+\Spec(\kappa) \times_{\Spec(k)} \Spec(k') =
+\Spec(\kappa \otimes_k k')
+$$
+est le spectre d'un corps. Autrement dit, la fibre de $X_{k'} \to X$
+au-dessus de $x$ est réduite à un seul point. Le
+lemme \ref{lemma-when-quotient-scheme-at-point}
+montre donc que $x$ appartient au lieu schématique de $X$, comme voulu.
+\end{proof}
+
+\begin{remark}
+\label{remark-when-does-the-argument-work}
+Soit $k$ un corps fini. Soit $K/k$ une extension de corps géométriquement
+irréductible. Alors $K$ est la limite inductive de $k$-algèbres de type fini
+géométriquement irréductibles $A$. Pour une telle $A$, les estimations
+de Lang et Weil \cite{LW} montrent que, pour $n \gg 0$, il existe
+un homomorphisme de $k$-algèbres $A \to k'$ avec $k'/k$ de degré $n$.
+L'analyse de l'argument donné dans la démonstration du
+lemme \ref{lemma-scheme-after-purely-transcendental-base-change}
+montre que, si $X$ est un espace algébrique quasi-séparé sur $k$
+et si $X_K$ est un schéma, alors $X$ est un schéma. Si nous avons un jour besoin de ce
+résultat, nous le formulerons précisément et le démontrerons ici.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-scheme-over-algebraic-closure-enough-affines}
+Soit $k$ un corps muni d'une clôture algébrique $\overline{k}$. Soit $X$
+un espace algébrique sur $k$ tel que
+\begin{enumerate}
+\item $X$ est décent et localement de type fini sur $k$ ;
+\item $X_{\overline{k}}$ est un schéma ;
+\item tout ensemble fini de points $\overline{k}$-rationnels de $X_{\overline{k}}$
+est contenu dans un ouvert affine.
+\end{enumerate}
+Alors $X$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+Si $K/k$ est une extension, le changement de base $X_K$ est
+décent (Espaces décents, lemme
+\ref{decent-spaces-lemma-representable-named-properties})
+et localement de type fini
+sur $K$ (Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-base-change-finite-type}).
+D'après le lemme \ref{lemma-scheme-after-purely-inseparable-base-change},
+il suffit de démontrer que $X$ devient un schéma après changement de base à
+la perfection de $k$ ; nous pouvons donc supposer que $k$ est un corps parfait
+(cette étape n'est pas strictement nécessaire, mais facilite
+la compréhension des autres arguments).
+En recouvrant $X$ par des ouverts quasi-compacts, il suffit de démontrer
+le lemme lorsque $X$ est quasi-compact (nous omettons un détail mineur).
+Dans ce cas, $|X|$ est un espace topologique sobre
+(Espaces décents, proposition
+\ref{decent-spaces-proposition-reasonable-sober}).
+Il suffit donc de montrer que tout point fermé de $|X|$
+appartient au lieu schématique de $X$
+(utiliser Propriétés des espaces, lemme \ref{spaces-properties-lemma-subscheme}, et
+Topologie, lemme \ref{topology-lemma-quasi-compact-closed-point}).
+
+\medskip\noindent
+Soit $x \in |X|$ un point fermé. D'après le lemme d'Espaces décents
+\ref{decent-spaces-lemma-decent-space-closed-point},
+il existe une immersion fermée $\Spec(l) \to X$ représentant $x$.
+Alors $\Spec(l) \to \Spec(k)$ est de type fini (Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-composition-finite-type}) et nous
+concluons que $l$ est une extension finie de $k$
+d'après le théorème des zéros de Hilbert (Algèbre, théorème
+\ref{algebra-theorem-nullstellensatz}). Elle est séparable, car
+$k$ est parfait. Ainsi, le schéma
+$$
+\Spec(l) \times_X X_{\overline{k}} =
+\Spec(l) \times_{\Spec(k)} \Spec(\overline{k}) =
+\Spec(l \otimes_k \overline{k})
+$$
+est la réunion disjointe d'un nombre fini de points $\overline{k}$-rationnels.
+D'après l'hypothèse (3), il existe un ouvert affine $W \subset X_{\overline{k}}$
+qui contient ces points.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-when-scheme-after-base-change}, $X_{k'}$
+est un schéma pour une certaine extension finie $k'/k$. Après avoir agrandi
+$k'$, nous pouvons supposer qu'il existe un ouvert affine $U' \subset X_{k'}$
+dont le changement de base à $\overline{k}$ redonne $W$
+(utiliser que $X_{\overline{k}}$ est la limite des schémas $X_{k''}$
+pour les extensions finies $k' \subset k'' \subset \overline{k}$, ainsi que les
+lemmes de Limites \ref{limits-lemma-descend-opens} et
+\ref{limits-lemma-limit-affine}). Nous pouvons supposer
+que $k'/k$ est une extension galoisienne (prendre la clôture normale ;
+Corps, lemme \ref{fields-lemma-normal-closure}, et utiliser
+que $k$ est parfait). Posons $G = \text{Gal}(k'/k)$.
+Par construction, le sous-schéma fermé stable par $G$
+$\Spec(l) \times_X X_{k'}$ est contenu dans $U'$.
+Ainsi, $x$ appartient au lieu schématique d'après les
+lemmes \ref{lemma-base-change-by-Galois} et
+\ref{lemma-when-quotient-scheme-at-point}.
+\end{proof}
+
+\noindent
+Les deux lemmes suivants devraient figurer ailleurs.
+Comparer le lemme suivant au
+lemme d'Espaces décents \ref{decent-spaces-lemma-conditions-on-space-over-field}.
+
+\begin{lemma}
+\label{lemma-locally-quasi-finite-over-field}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est localement quasi-fini sur $k$ ;
+\item $X$ est localement de type fini sur $k$ et de dimension $0$ ;
+\item $X$ est un schéma localement quasi-fini sur $k$ ;
+\item $X$ est un schéma localement de type fini sur $k$ et de
+dimension $0$ ;
+\item $X$ est une réunion disjointe de spectres de $k$-algèbres locales artiniennes
+$A$ finies sur $k$ telles que $\dim_k(A) < \infty$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Comme nous sommes sur un corps, la dimension relative de $X/k$ est égale à
+la dimension de $X$. Le
+lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-locally-quasi-finite-rel-dimension-0}
+montre donc que (1) et (2) sont équivalents. Il découle alors du
+lemme \ref{lemma-locally-finite-type-dim-zero}
+(et d'implications immédiates) que (1) -- (4) sont équivalents.
+Enfin, le
+lemme de Variétés \ref{varieties-lemma-algebraic-scheme-dim-0}
+montre que (1) -- (4) sont équivalents à (5).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-mono-towards-locally-quasi-finite-over-field}
+Soit $k$ un corps. Soit $f : X \to Y$ un monomorphisme d'espaces algébriques
+sur $k$. Si $Y$ est localement quasi-fini sur $k$, alors $X$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Supposons $Y$ localement quasi-fini sur $k$. D'après le
+lemme \ref{lemma-locally-quasi-finite-over-field},
+nous avons $Y = \coprod \Spec(A_i)$, où chaque $A_i$ est un
+anneau local artinien fini sur $k$. D'après le
+lemme d'Espaces décents
+\ref{decent-spaces-lemma-monomorphism-toward-disjoint-union-dim-0-rings},
+$X$ est un schéma. Considérons $X_i = f^{-1}(\Spec(A_i))$.
+Alors $X_i$ possède soit un point, soit aucun. Si $X_i$ n'a aucun point, il
+n'y a rien à démontrer. Si $X_i$ possède un point, alors
+$X_i = \Spec(B_i)$, où $B_i$ est un anneau local de dimension zéro,
+et $A_i \to B_i$ est un épimorphisme d'anneaux. En particulier,
+$A_i/\mathfrak m_{A_i} = B_i/\mathfrak m_{A_i}B_i$, et
+$A_i \to B_i$ est surjectif d'après le lemme de Nakayama,
+Algèbre, lemme \ref{algebra-lemma-NAK}
+(car $\mathfrak m_{A_i}$ est un idéal nilpotent !).
+Ainsi, $B_i$ est une $k$-algèbre locale finie, et le
+lemme \ref{lemma-locally-quasi-finite-over-field}
+montre que $X \to \Spec(k)$ est localement quasi-fini.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Espaces algébriques géométriquement réduits}
+\label{section-geometrically-reduced}
+
+\noindent
+Si $X$ est un espace algébrique réduit sur un corps, il peut arriver que $X$
+cesse d'être réduit après extension du corps de base. Cela ne se produit pas
+pour les espaces algébriques géométriquement réduits.
+
+\begin{definition}
+\label{definition-geometrically-reduced}
+Soit $k$ un corps.
+Soit $X$ un espace algébrique sur $k$.
+\begin{enumerate}
+\item Soit $x \in |X|$ un point. Nous disons que $X$ est
+{\it géométriquement réduit en $x$} si $\mathcal{O}_{X, \overline{x}}$
+est géométriquement réduit sur $k$.
+\item Nous disons que $X$ est {\it géométriquement réduit} sur $k$
+si $X$ est géométriquement réduit en tout point de $X$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Observons que, si $X$ est géométriquement réduit en $x$, alors l'anneau local
+de $X$ en $x$ est réduit (Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-reduced-local-ring}).
+De même, si $X$ est géométriquement réduit sur $k$, alors $X$ est réduit
+(d'après Propriétés des espaces, lemme \ref{spaces-properties-lemma-reduced-space}).
+Le lemme suivant implique notamment que cette définition est compatible
+avec la propriété correspondante pour les schémas sur un corps.
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-at-point}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+Soit $x \in |X|$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est géométriquement réduit en $x$ ;
+\item il existe un voisinage \'etale $(U, u) \to (X, x)$
+tel que $U$ soit un schéma et que $U$ soit géométriquement réduit en $u$ ;
+\item pour tout voisinage \'etale $(U, u) \to (X, x)$
+tel que $U$ soit un schéma, $U$ est géométriquement réduit en $u$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Rappelons que l'anneau local $\mathcal{O}_{X, \overline{x}}$
+est l'hensélisé strict de $\mathcal{O}_{U, u}$ ; voir le
+lemme de Propriétés des espaces
+\ref{spaces-properties-lemma-describe-etale-local-ring}.
+D'après le lemme de Variétés \ref{varieties-lemma-geometrically-reduced-at-point},
+$U$ est géométriquement réduit en $u$ si et seulement
+si $\mathcal{O}_{U, u}$ est géométriquement réduit sur $k$.
+Il nous reste donc à montrer ceci : si $A$ est une $k$-algèbre locale,
+$A$ est géométriquement réduite sur $k$ si et seulement si
+$A^{sh}$ est géométriquement réduite sur $k$.
+Vérifions-le à partir de la définition des algèbres
+géométriquement réduites (Algèbre, définition \ref{algebra-definition-geometrically-reduced}).
+Soit $K/k$ une extension de corps.
+Comme $A \to A^{sh}$ est fidèlement plat
+(Compléments d'algèbre, lemme \ref{more-algebra-lemma-dumb-properties-henselization}),
+le morphisme
+$A \otimes_k K \to A^{sh} \otimes_k K$ est fidèlement plat
+(Algèbre, lemme \ref{algebra-lemma-flat-base-change}).
+Par conséquent, si $A^{sh} \otimes_k K$ est réduit, alors
+$A \otimes_k K$ l'est aussi, d'après le lemme d'Algèbre \ref{algebra-lemma-descent-reduced}.
+Réciproquement, rappelons que $A^{sh}$ est une limite inductive
+d'$A$-algèbres \'etales ; voir le
+lemme d'Algèbre \ref{algebra-lemma-strict-henselization}.
+Ainsi, $A^{sh} \otimes_k K$ est une limite inductive
+filtrante d'algèbres \'etales sur $A \otimes_k K$.
+Nous concluons par le lemme d'Algèbre \ref{algebra-lemma-reduced-goes-up}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est géométriquement réduit ;
+\item il existe un morphisme \'etale surjectif $U \to X$, où $U$
+est un schéma, et $U$ est géométriquement réduit ;
+\item pour tout morphisme \'etale $U \to X$
+où $U$ est un schéma, $U$ est géométriquement réduit.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des définitions et du
+lemme \ref{lemma-geometrically-reduced-at-point}.
+\end{proof}
+
+\noindent
+Cette notion ne présente pas d'intérêt en caractéristique nulle.
+
+\begin{lemma}
+\label{lemma-perfect-reduced}
+Soit $X$ un espace algébrique sur un corps parfait $k$ (par exemple,
+$k$ est de caractéristique nulle).
+\begin{enumerate}
+\item Pour $x \in |X|$, si $\mathcal{O}_{X, \overline{x}}$ est
+réduit, alors $X$ est géométriquement réduit en $x$.
+\item Si $X$ est réduit, alors $X$ est géométriquement réduit sur $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La première assertion résulte du
+lemme d'Algèbre \ref{algebra-lemma-separable-extension-preserves-reducedness}
+et de la définition d'un corps parfait
+(Algèbre, définition \ref{algebra-definition-perfect}).
+La seconde assertion résulte de la première.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-positive-characteristic}
+Soit $k$ un corps de caractéristique $p > 0$. Soit $X$ un espace algébrique
+sur $k$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est géométriquement réduit sur $k$ ;
+\item $X_{k'}$ est réduit pour toute extension de corps $k'/k$ ;
+\item $X_{k'}$ est réduit pour toute
+extension radicielle finie de corps $k'/k$ ;
+\item $X_{k^{1/p}}$ est réduit ;
+\item $X_{k^{perf}}$ est réduit ;
+\item $X_{\bar k}$ est réduit.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme \'etale surjectif $U \to X$, où $U$ est un schéma.
+Le lemme \ref{lemma-geometrically-reduced} ramène l'énoncé au
+résultat pour $U$ sur $k$.
+Voir le lemme de Variétés \ref{varieties-lemma-geometrically-reduced}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-upstairs}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+Soit $k'/k$ une extension de corps. Soit $x \in |X|$ un point et soit
+$x' \in |X_{k'}|$ un point au-dessus de $x$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est géométriquement réduit en $x$ ;
+\item $X_{k'}$ est géométriquement réduit en $x'$.
+\end{enumerate}
+En particulier, $X$ est géométriquement réduit sur $k$ si et seulement si
+$X_{k'}$ est géométriquement réduit sur $k'$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme \'etale $U \to X$, où $U$ est un schéma,
+et un point $u \in U$ dont l'image est $x \in |X|$.
+D'après le lemme de Propriétés des espaces \ref{spaces-properties-lemma-points-cartesian},
+nous pouvons choisir un point $u' \in U_{k'} = U \times_X X_{k'}$ dont les images
+sont $u$ et $x'$. D'après le lemme \ref{lemma-geometrically-reduced-at-point},
+l'énoncé se ramène au lemme pour $U, u, u'$, à savoir au
+lemme de Variétés \ref{varieties-lemma-geometrically-reduced-upstairs}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-etale-local}
+Soit $k$ un corps. Soit $f : X \to Y$ un morphisme
+d'espaces algébriques sur $k$. Soit $x \in |X|$ un point
+dont l'image est $y \in |Y|$.
+\begin{enumerate}
+\item si $f$ est \'etale en $x$, alors
+$X$ est géométriquement réduit en $x$ $\Leftrightarrow$
+$Y$ est géométriquement réduit en $y$ ;
+\item si $f$ est \'etale surjectif, alors
+$X$ est géométriquement réduit $\Leftrightarrow$
+$Y$ est géométriquement réduit.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) est claire, car
+$\mathcal{O}_{X, \overline{x}} = \mathcal{O}_{Y, \overline{y}}$
+lorsque $f$ est \'etale en $x$.
+L'assertion (2) découle immédiatement de l'assertion (1).
+\end{proof}
+
+
+
+
+
+
+\section{Espaces algébriques géométriquement connexes}
+\label{section-geometrically-connected}
+
+\noindent
+Si $X$ est un espace algébrique connexe sur un corps, il peut arriver que
+$X$ devienne non connexe après extension du corps de base. Cela ne se
+produit pas pour les espaces algébriques géométriquement connexes.
+
+\begin{definition}
+\label{definition-geometrically-connected}
+Soit $X$ un espace algébrique sur le corps $k$. Nous disons que $X$ est
+{\it géométriquement connexe} sur $k$ si le changement de base $X_{k'}$
+est connexe pour toute extension de corps $k'$ de $k$.
+\end{definition}
+
+\noindent
+Par convention, un espace topologique connexe est non vide ; à plus forte raison,
+les espaces algébriques géométriquement connexes sont non vides.
+
+\begin{lemma}
+\label{lemma-geometrically-connected-check-after-extension}
+Soit $X$ un espace algébrique sur le corps $k$.
+Soit $k'/k$ une extension de corps.
+Alors $X$ est géométriquement connexe sur $k$ si et seulement si
+$X_{k'}$ est géométriquement connexe sur $k'$.
+\end{lemma}
+
+\begin{proof}
+Si $X$ est géométriquement connexe sur $k$, il est clair que
+$X_{k'}$ est géométriquement connexe sur $k'$. Réciproquement,
+pour toute extension de corps $k''/k$, il existe une extension de corps commune
+$k'''/k$ de $k'/k$ et $k''/k$ ; voir le
+lemme de Corps \ref{fields-lemma-common-extension-field}. Comme le
+morphisme $X_{k'''} \to X_{k''}$ est surjectif (c'est un changement de base
+d'un morphisme surjectif entre spectres de corps), la
+connexité de $X_{k'''}$ entraîne celle de $X_{k''}$.
+Ainsi, si $X_{k'}$ est géométriquement connexe sur $k'$, alors
+$X$ est géométriquement connexe sur $k$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bijection-connected-components}
+Soit $k$ un corps. Soient $X$, $Y$ des espaces algébriques sur $k$.
+Supposons $X$ géométriquement connexe sur $k$.
+Alors le morphisme de projection
+$$
+p : X \times_k Y \longrightarrow Y
+$$
+induit une bijection entre les composantes connexes.
+\end{lemma}
+
+\begin{proof}
+Soit $y \in |Y|$ représenté par un morphisme $\Spec(K) \to Y$,
+où $K$ est un corps. La fibre de $|X \times_k Y| \to |Y|$ au-dessus de $y$
+est l'image de $|X_K| \to |X \times_k Y|$ d'après le
+lemme de Propriétés des espaces \ref{spaces-properties-lemma-points-cartesian}.
+Ces fibres sont donc connexes puisque $X$ est, par hypothèse,
+géométriquement connexe. D'après le
+lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-space-over-field-universally-open}
+l'application $|p|$ est ouverte.
+Nous pouvons donc appliquer le lemme de Topologie
+\ref{topology-lemma-connected-fibres-connected-components}
+pour conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separably-closed-field-connected-components}
+Soit $k'/k$ une extension de corps. Soit $X$ un espace algébrique
+sur $k$. Supposons $k$ séparablement clos. Alors le morphisme
+$X_{k'} \to X$ induit une bijection entre les composantes connexes. En particulier,
+$X$ est géométriquement connexe sur $k$ si et seulement si $X$ est connexe.
+\end{lemma}
+
+\begin{proof}
+Comme $k$ est séparablement clos, nous voyons que
+$k'$ est géométriquement connexe sur $k$ ; voir le
+lemme d'Algèbre
+\ref{algebra-lemma-separably-closed-connected-implies-geometric}.
+Par conséquent, $Z = \Spec(k')$ est géométriquement connexe sur $k$ d'après le
+lemme de Variétés \ref{varieties-lemma-affine-geometrically-connected}.
+Comme $X_{k'} = Z \times_k X$, le résultat est un cas particulier du
+lemme \ref{lemma-bijection-connected-components}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-geometrically-connected}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+Soit $\overline{k}$ une clôture séparable de $k$.
+Alors $X$ est géométriquement connexe si et seulement si le changement de base
+$X_{\overline{k}}$ est connexe.
+\end{lemma}
+
+\begin{proof}
+Supposons $X_{\overline{k}}$ connexe. Soit $k'/k$ une extension de
+corps. Il existe une extension de corps $\overline{k}'/\overline{k}$
+dans laquelle $k'$ se plonge dans $\overline{k}'$ par-dessus $k$.
+D'après le lemme \ref{lemma-separably-closed-field-connected-components},
+$X_{\overline{k}'}$ est connexe.
+Comme $X_{\overline{k}'} \to X_{k'}$ est surjectif, nous concluons
+que $X_{k'}$ est connexe, comme voulu.
+\end{proof}
+
+\noindent
+Soit $k$ un corps. Soit $\overline{k}/k$ une extension galoisienne
+(éventuellement infinie). Par exemple, $\overline{k}$ pourrait être la
+clôture séparable de $k$.
+À tout $\sigma \in \text{Gal}(\overline{k}/k)$ correspond un
+automorphisme
+$
+\Spec(\sigma) :
+\Spec(\overline{k})
+\longrightarrow
+\Spec(\overline{k})
+$.
+Remarquons que
+$\Spec(\sigma) \circ \Spec(\tau) = \Spec(\tau \circ \sigma)$.
+Nous obtenons donc une action
+$$
+\text{Gal}(\overline{k}/k)^{opp} \times \Spec(\overline{k})
+\longrightarrow
+\Spec(\overline{k})
+$$
+du groupe opposé sur le schéma $\Spec(\overline{k})$.
+Soit $X$ un espace algébrique sur $k$. Comme
+$X_{\overline{k}} =
+\Spec(\overline{k}) \times_{\Spec(k)} X$
+par définition, l'action ci-dessus induit une action canonique
+\begin{equation}
+\label{equation-galois-action-base-change-kbar}
+\text{Gal}(\overline{k}/k)^{opp} \times X_{\overline{k}}
+\longrightarrow
+X_{\overline{k}}.
+\end{equation}
+
+\begin{lemma}
+\label{lemma-Galois-action-quasi-compact-open}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+Soit $\overline{k}$ une extension galoisienne (éventuellement infinie) de $k$.
+Soit $V \subset X_{\overline{k}}$ un ouvert quasi-compact.
+Alors :
+\begin{enumerate}
+\item il existe une sous-extension finie $\overline{k}/k'/k$
+et un ouvert quasi-compact $V' \subset X_{k'}$ tels que
+$V = (V')_{\overline{k}}$,
+\item il existe un sous-groupe ouvert $H \subset \text{Gal}(\overline{k}/k)$
+tel que $\sigma(V) = V$ pour tout $\sigma \in H$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to X$.
+Choisissons un ouvert quasi-compact $W \subset U_{\overline{k}}$ dont
+l'image dans $X_{\overline{k}}$ est $V$. Cela est possible, car
+$|U_{\overline{k}}| \to |X_{\overline{k}}|$ est continue et
+$|U_{\overline{k}}|$ possède une base d'ouverts quasi-compacts. Nous pouvons appliquer le
+lemme de Variétés
+\ref{varieties-lemma-Galois-action-quasi-compact-open}
+à $W \subset U_{\overline{k}}$, ce qui donne le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-fixed-by-Galois}
+Soit $k$ un corps. Soit $\overline{k}/k$ une extension galoisienne
+(éventuellement infinie). Soit $X$ un espace algébrique sur $k$. Soit
+$\overline{T} \subset |X_{\overline{k}}|$ vérifiant les propriétés suivantes :
+\begin{enumerate}
+\item $\overline{T}$ est une partie fermée de $|X_{\overline{k}}|$ ;
+\item pour tout $\sigma \in \text{Gal}(\overline{k}/k)$,
+nous avons $\sigma(\overline{T}) = \overline{T}$.
+\end{enumerate}
+Alors il existe une partie fermée $T \subset |X|$ dont l'image réciproque
+dans $|X_{k'}|$ est $\overline{T}$.
+\end{lemma}
+
+\begin{proof}
+Soit $T \subset |X|$ l'image de $\overline{T}$.
+Comme $|X_{\overline{k}}| \to |X|$ est surjectif, l'assertion signifie
+que $T$ est fermé et que son image réciproque est $\overline{T}$.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to X$.
+Dans le cas des schémas
+(voir le lemme de Variétés \ref{varieties-lemma-closed-fixed-by-Galois}),
+il existe une partie fermée $T' \subset |U|$ dont l'image réciproque
+dans $|U_{\overline{k}}|$ est l'image réciproque de $\overline{T}$.
+Comme $|U_{\overline{k}}| \to |X_{\overline{k}}|$ est surjectif,
+$T'$ est l'image réciproque de $T$ par $|U| \to |X|$.
+Par notre construction de la topologie sur $|X|$, cela signifie que $T$ est
+fermé. De la même manière, on voit que $\overline{T}$ est l'image
+réciproque de $T$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-geometrically-disconnected}
+Soit $k$ un corps. Soit $X$ un espace algébrique sur $k$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est géométriquement connexe ;
+\item pour toute extension de corps finie séparable $k'/k$,
+l'espace algébrique $X_{k'}$ est connexe.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est identique à celle du
+lemme de Variétés \ref{varieties-lemma-characterize-geometrically-disconnected},
+si ce n'est que
+nous remplaçons le
+lemme de Variétés \ref{varieties-lemma-characterize-geometrically-connected}
+par le lemme \ref{lemma-characterize-geometrically-connected},
+nous remplaçons le
+lemme de Variétés \ref{varieties-lemma-Galois-action-quasi-compact-open}
+par le lemme \ref{lemma-Galois-action-quasi-compact-open}, et
+nous remplaçons le
+lemme de Variétés \ref{varieties-lemma-closed-fixed-by-Galois}
+par le lemme \ref{lemma-closed-fixed-by-Galois}.
+Nous invitons le lecteur à lire cette démonstration plutôt que celle-ci.
+
+\medskip\noindent
+Il découle immédiatement de la définition que (1) implique (2).
+Supposons que $X$ ne soit pas géométriquement connexe.
+Soit $k \subset \overline{k}$ une clôture séparable
+de $k$. D'après le
+lemme \ref{lemma-characterize-geometrically-connected},
+$X_{\overline{k}}$ est non connexe.
+Écrivons $X_{\overline{k}} = \overline{U} \amalg \overline{V}$,
+où $\overline{U}$ et $\overline{V}$ sont des sous-espaces algébriques ouverts, fermés et non vides
+de $X_{\overline{k}}$.
+
+\medskip\noindent
+Soit $W \subset X$ un sous-espace ouvert quasi-compact quelconque.
+Alors $W_{\overline{k}} \cap \overline{U}$ et
+$W_{\overline{k}} \cap \overline{V}$ sont des sous-espaces ouverts et fermés de
+$W_{\overline{k}}$. En particulier, $W_{\overline{k}} \cap \overline{U}$ et
+$W_{\overline{k}} \cap \overline{V}$ sont quasi-compacts et, d'après le
+lemme \ref{lemma-Galois-action-quasi-compact-open},
+$W_{\overline{k}} \cap \overline{U}$ et
+$W_{\overline{k}} \cap \overline{V}$
+sont tous deux définis sur une sous-extension finie et stables par un
+sous-groupe ouvert de $\text{Gal}(\overline{k}/k)$.
+Nous l'utiliserons désormais sans autre mention.
+
+\medskip\noindent
+Choisissons un sous-espace ouvert quasi-compact $W_0 \subset X$ tel que
+$W_{0, \overline{k}} \cap \overline{U}$ et
+$W_{0, \overline{k}} \cap \overline{V}$ soient tous deux non vides.
+Choisissons une sous-extension finie $\overline{k}/k'/k$
+et une décomposition $W_{0, k'} = U_0' \amalg V_0'$ en parties ouvertes et fermées
+telle que
+$W_{0, \overline{k}} \cap \overline{U} = (U'_0)_{\overline{k}}$ et
+$W_{0, \overline{k}} \cap \overline{V} = (V'_0)_{\overline{k}}$.
+Posons $H = \text{Gal}(\overline{k}/k') \subset \text{Gal}(\overline{k}/k)$.
+En particulier,
+$\sigma(W_{0, \overline{k}} \cap \overline{U}) =
+W_{0, \overline{k}} \cap \overline{U}$, et de même pour
+$\overline{V}$.
+
+\medskip\noindent
+$W_0$, $k'$ étant choisis comme ci-dessus, pour tout sous-espace ouvert quasi-compact
+$W \subset X$, posons
+$$
+U_W =
+\bigcap\nolimits_{\sigma \in H} \sigma(W_{\overline{k}} \cap \overline{U}),
+\quad
+V_W =
+\bigcup\nolimits_{\sigma \in H} \sigma(W_{\overline{k}} \cap \overline{V}).
+$$
+Comme $W_{\overline{k}} \cap \overline{U}$ et
+$W_{\overline{k}} \cap \overline{V}$ sont fixés par un sous-groupe ouvert de
+$\text{Gal}(\overline{k}/k)$, la réunion et l'intersection
+ci-dessus sont finies. Ainsi, $U_W$ et $V_W$ sont des sous-espaces ouverts et fermés.
+De plus, par construction, $W_{\bar k} = U_W \amalg V_W$.
+
+\medskip\noindent
+Affirmons que, si $W \subset W' \subset X$ sont des sous-espaces ouverts
+quasi-compacts, alors $W_{\overline{k}} \cap U_{W'} = U_W$ et
+$W_{\overline{k}} \cap V_{W'} = V_W$. Vérification omise.
+Il s'ensuit qu'en posant $U = \bigcup_{W \subset X} U_W$
+et $V = \bigcup_{W \subset X} V_W$, nous obtenons
+$X_{\overline{k}} = U \amalg V$ comme réunion disjointe de parties ouvertes
+et fermées.
+Il est clair que $V$ est non vide, puisqu'il est construit en prenant des
+réunions (localement). D'autre part, $U$ est non vide puisqu'il contient
+$W_0 \cap \overline{U}$ par construction. Enfin, $U, V \subset X_{\bar k}$
+sont fermés et stables par $H$ par construction. Donc, d'après le
+lemme \ref{lemma-closed-fixed-by-Galois},
+nous avons $U = (U')_{\bar k}$ et $V = (V')_{\bar k}$ pour certaines
+parties fermées $U', V' \subset X_{k'}$. Manifestement, $X_{k'} = U' \amalg V'$,
+et $X_{k'}$ est non connexe, comme voulu.
+\end{proof}
+
+
+
+
+
+
+\section{Espaces algébriques géométriquement irréductibles}
+\label{section-geometrically-irreducible}
+
+\noindent
+L'exemple d'Espaces \ref{spaces-example-infinite-product} montre qu'il
+vaut mieux ne pas considérer les espaces algébriques irréductibles en toute
+généralité\footnote{Bien entendu, si nous disons « l'espace algébrique $X$
+est irréductible », nous voulons probablement dire « l'espace topologique $|X|$
+est irréductible ».}. Pour les espaces algébriques décents (par exemple quasi-séparés),
+ce type de désastre ne se produit pas. Nous posons donc la
+définition suivante seulement sous l'hypothèse que notre espace algébrique est décent.
+
+\begin{definition}
+\label{definition-geometrically-irreducible}
+Soit $k$ un corps.
+Soit $X$ un espace algébrique décent sur $k$.
+Nous disons que $X$ est {\it géométriquement irréductible} si l'espace
+topologique $|X_{k'}|$ est
+irréductible\footnote{Un espace irréductible est non vide.}
+pour toute extension de corps $k'$ de $k$.
+\end{definition}
+
+\noindent
+Observons que $X_{k'}$ est un espace algébrique décent
+(Espaces décents, lemme
+\ref{decent-spaces-lemma-representable-named-properties}).
+Par conséquent, l'espace topologique $|X_{k'}|$ est sobre,
+d'après la proposition d'Espaces décents \ref{decent-spaces-proposition-reasonable-sober}.
+
+
+
+
+
+\section{Espaces algébriques géométriquement intègres}
+\label{section-geometrically-integral}
+
+\noindent
+Rappelons que les espaces algébriques intègres sont décents par définition ; voir
+la section \ref{section-integral-spaces}.
+
+\begin{definition}
+\label{definition-geometrically-integral}
+Soit $X$ un espace algébrique sur le corps $k$. Nous disons que $X$ est
+{\it géométriquement intègre} sur $k$ si l'espace algébrique
+$X_{k'}$ est intègre (définition \ref{definition-integral-algebraic-space})
+pour toute extension de corps $k'$ de $k$.
+\end{definition}
+
+\noindent
+En particulier, $X$ est un espace algébrique décent.
+On peut relier cette propriété au fait d'être géométriquement réduit et
+géométriquement irréductible comme suit.
+
+\begin{lemma}
+\label{lemma-geometrically-integral}
+Soit $k$ un corps. Soit $X$ un espace algébrique décent sur $k$.
+Alors $X$ est géométriquement intègre sur $k$ si et seulement si
+$X$ est à la fois géométriquement réduit et géométriquement irréductible
+sur $k$.
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence immédiate des définitions, car notre
+notion d'intégrité (sous l'hypothèse de décence) équivaut à
+être réduit et irréductible.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-geometrically-reduced-global-sections}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$.
+\begin{enumerate}
+\item $A = H^0(X, \mathcal{O}_X)$ est une $k$-algèbre de dimension finie ;
+\item $A = \prod_{i = 1, \ldots, n} A_i$ est un produit de
+$k$-algèbres locales artiniennes, avec un facteur par composante connexe de $|X|$ ;
+\item si $X$ est réduit, alors $A = \prod_{i = 1, \ldots, n} k_i$
+est un produit de corps, chacun étant une extension finie de $k$ ;
+\item si $X$ est géométriquement réduit, alors $k_i$ est fini séparable
+sur $k$ ;
+\item si $X$ est géométriquement connexe, alors $A$ est géométriquement
+irréductible sur $k$ ;
+\item si $X$ est géométriquement irréductible, alors $A$ est géométriquement
+irréductible sur $k$ ;
+\item si $X$ est géométriquement réduit et connexe, alors $A = k$ ;
+\item si $X$ est géométriquement intègre, alors $A = k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après le lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}
+$A = H^0(X, \mathcal{O}_X)$ est une
+$k$-algèbre de dimension finie. Cela démontre (1).
+
+\medskip\noindent
+Alors $A$ est un produit d'anneaux locaux d'après le
+lemme d'Algèbre \ref{algebra-lemma-finite-dimensional-algebra} et la
+proposition d'Algèbre \ref{algebra-proposition-dimension-zero-ring}.
+Si $X = Y \amalg Z$, avec $Y$ et $Z$ des sous-espaces ouverts de $X$, nous obtenons
+un idempotent $e \in A$ en prenant la section de $\mathcal{O}_X$
+qui vaut $1$ sur $Y$ et $0$ sur $Z$. Réciproquement, si $e \in A$
+est un idempotent, nous obtenons une décomposition correspondante de $|X|$.
+Enfin, comme $|X|$ est un espace topologique noethérien
+(d'après le lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian} et
+le lemme de Propriétés des espaces
+\ref{spaces-properties-lemma-Noetherian-topology})
+ses composantes connexes sont ouvertes. Les composantes connexes
+de $|X|$ correspondent donc $1$ pour $1$ aux idempotents primitifs de $A$.
+Cela démontre (2).
+
+\medskip\noindent
+Si $X$ est réduit, alors $A$ est réduit
+(Propriétés des espaces, lemme \ref{spaces-properties-lemma-reduced-space}).
+Les anneaux locaux $A_i = k_i$ sont donc réduits et sont par conséquent des corps
+(par exemple d'après le lemme d'Algèbre \ref{algebra-lemma-minimal-prime-reduced-ring}).
+Cela démontre (3).
+
+\medskip\noindent
+Si $X$ est géométriquement réduit, la même propriété vaut pour
+$A \otimes_k \overline{k} =
+H^0(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})$
+(voir le lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology} pour l'égalité).
+Il s'ensuit que $k_i \otimes_k \overline{k}$ est un produit
+de corps et que $k_i/k$ est donc séparable, par exemple d'après les
+lemmes d'Algèbre
+\ref{algebra-lemma-characterize-separable-field-extensions} et
+\ref{algebra-lemma-geometrically-reduced-finite-purely-inseparable-extension}.
+Cela démontre (4).
+
+\medskip\noindent
+Si $X$ est géométriquement connexe, alors $A \otimes_k \overline{k} =
+H^0(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})$
+est un anneau local de dimension zéro d'après (2) ; son
+spectre n'a donc qu'un point et il est en particulier irréductible.
+Ainsi, $A$ est géométriquement irréductible. Cela démontre (5).
+Bien entendu, (5) entraîne (6).
+
+\medskip\noindent
+Si $X$ est géométriquement réduit et connexe, alors
+$A = k_1$ est un corps et l'extension $k_1/k$ est finie séparable et
+géométriquement irréductible. Mais $k_1 \otimes_k \overline{k}$
+est alors un produit de $[k_1 : k]$ copies de $\overline{k}$, d'où
+$k_1 = k$. Cela démontre (7). Bien entendu, (7) entraîne (8).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-trivial-pic-integral}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre intègre sur $k$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Si $H^0(X, \mathcal{L})$ et $H^0(X, \mathcal{L}^{\otimes - 1})$
+sont tous deux non nuls, alors $\mathcal{L} \cong \mathcal{O}_X$.
+\end{lemma}
+
+\begin{proof}
+Soient $s \in H^0(X, \mathcal{L})$ et $t \in H^0(X, \mathcal{L}^{\otimes - 1})$
+des sections non nulles. Soit $x \in |X|$ un point appartenant au support de $s$.
+Choisissons un voisinage affine \'etale $(U, u) \to (X, x)$ tel que
+$\mathcal{L}|_U \cong \mathcal{O}_U$. Alors $s|_U$ correspond à une fonction régulière non nulle
+sur un schéma réduit (car $X$ est réduit), à savoir $U$, et elle ne
+s'annule donc pas en un point générique d'une composante irréductible de $U$. D'après le
+lemme d'Espaces décents \ref{decent-spaces-lemma-decent-generic-points},
+le point générique $\eta$ de $|X|$ appartient au support de $s$.
+Il en va de même pour $t$. Alors, bien sûr, $st$ est non nul, car
+l'anneau local de $X$ en $\eta$ est un corps (d'après le lemme précité,
+l'anneau local est de dimension zéro ; comme $X$ est réduit, l'anneau local est
+réduit ; appliquer le lemme d'Algèbre \ref{algebra-lemma-minimal-prime-reduced-ring}).
+Or, nous avons vu que $K = H^0(X, \mathcal{O}_X)$
+est un corps au lemme \ref{lemma-proper-geometrically-reduced-global-sections}.
+Ainsi, $st$ est partout non nul, et
+$s : \mathcal{O}_X \to \mathcal{L}$ est un isomorphisme.
+\end{proof}
+
+
+
+
+
+
+\section{Dimension}
+\label{section-dimension}
+
+\noindent
+Dans cette section, nous poursuivons l'étude de la dimension.
+Voici une liste des résultats antérieurs :
+\begin{enumerate}
+\item la dimension est définie dans la
+section de Propriétés des espaces
+\ref{spaces-properties-section-dimension},
+\item la dimension de l'anneau local est définie dans la
+section de Propriétés des espaces
+\ref{spaces-properties-section-dimension-local-ring},
+\item quelques résultats figurent dans les lemmes de Propriétés des espaces
+\ref{spaces-properties-lemma-dimension-local-ring} et
+\ref{spaces-properties-lemma-dimension-decent-invariant-under-etale},
+\item la dimension relative est définie dans la
+section de Morphismes d'espaces \ref{spaces-morphisms-section-relative-dimension},
+\item des résultats sur la dimension des fibres figurent dans la
+section de Morphismes d'espaces \ref{spaces-morphisms-section-dimension-fibres},
+\item une forme faible de la formule de dimension figure dans la
+section de Morphismes d'espaces \ref{spaces-morphisms-section-dimension-formula},
+\item un résultat sur la lissité et la dimension figure dans le lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-smoothness-dimension-spaces},
+\item pour les espaces décents, la dimension est $\dim(|X|)$, d'après le
+lemme d'Espaces décents \ref{decent-spaces-lemma-dimension-decent-space},
+\item les morphismes quasi-finis et la dimension sont étudiés dans les
+lemmes d'Espaces décents
+\ref{decent-spaces-lemma-dimension-local-ring-quasi-finite} et
+\ref{decent-spaces-lemma-dimension-quasi-finite}.
+\end{enumerate}
+Dans la section de Compléments sur les morphismes d'espaces
+\ref{spaces-more-morphisms-section-dimension}
+nous étudierons les sauts de
+dimension dans les fibres d'un morphisme de type fini.
+
+\begin{lemma}
+\label{lemma-integral-dimension}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme entier
+d'espaces algébriques. Alors $\dim(X) \leq \dim(Y)$.
+Si $f$ est surjectif, alors $\dim(X) = \dim(Y)$.
+\end{lemma}
+
+\begin{proof}
+Choisissons $V \to Y$ \'etale surjectif, avec $V$ un schéma.
+Alors $U = X \times_Y V$ est un schéma et $U \to V$ est entier
+(et surjectif si $f$ est surjectif).
+D'après le lemme de Propriétés des espaces
+\ref{spaces-properties-lemma-dimension-decent-invariant-under-etale}
+nous avons $\dim(X) = \dim(U)$ et $\dim(Y) = \dim(V)$.
+Le résultat découle donc du cas des schémas,
+qui est le lemme de Morphismes \ref{morphisms-lemma-integral-dimension}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-alteration-dimension}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Supposons que :
+\begin{enumerate}
+\item $Y$ est localement noethérien ;
+\item $X$ et $Y$ sont des espaces algébriques intègres ;
+\item $f$ est dominant ;
+\item $f$ est localement de type fini.
+\end{enumerate}
+Si $x \in |X|$ et $y \in |Y|$ sont les points génériques, alors
+$$
+\dim(X) \leq \dim(Y) + \text{degré de transcendance de }x/y.
+$$
+Si $f$ est propre, alors il y a égalité.
+\end{lemma}
+
+\begin{proof}
+Rappelons que $|X|$ et $|Y|$ sont des espaces topologiques irréductibles et sobres ; voir la
+discussion qui suit la définition \ref{definition-integral-algebraic-space}.
+Ainsi, la dominance de $f$ signifie que $|f|$ envoie $x$ sur $y$.
+De plus, $x \in |X|$ est l'unique point auquel
+l'anneau local de $X$ est de dimension $0$ ; voir le
+lemme d'Espaces décents \ref{decent-spaces-lemma-decent-generic-points}.
+D'après le lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-dimension-formula-general}
+la dimension de l'anneau local de $X$ en
+tout point $x' \in |X|$ est au plus égale à celle de l'anneau local
+de $Y$ en $y' = f(x')$, augmentée du degré de transcendance de $x/y$.
+Comme la dimension de $X$, resp.\ celle de $Y$, est le
+supremum des dimensions des anneaux locaux en $x'$, resp.\ en $y'$
+(Propriétés des espaces, lemme \ref{spaces-properties-lemma-dimension}),
+nous obtenons l'inégalité.
+
+\medskip\noindent
+Supposons $f$ propre.
+Soit $V \subset Y$ un sous-espace ouvert quasi-compact non vide.
+Si nous pouvons démontrer l'égalité pour le morphisme $f^{-1}(V) \to V$,
+nous l'obtenons pour $X \to Y$. Nous pouvons donc supposer que
+$X$ et $Y$ sont quasi-compacts.
+Observons que $X$ est quasi-séparé, car c'est
+un espace algébrique décent localement noethérien ; voir le
+lemme d'Espaces décents
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}.
+Nous pouvons donc choisir $Y' \to Y$ fini surjectif, où $Y'$
+est un schéma ; voir la proposition de Limites d'espaces
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}.
+Après avoir remplacé $Y'$ par un sous-schéma fermé convenable, nous
+pouvons supposer $Y'$ intègre ; voir, par exemple, le lemme plus général
+\ref{lemma-alteration-contained-in}.
+D'après le même lemme, nous pouvons choisir un sous-espace fermé
+$X' \subset X \times_Y Y'$ tel que $X'$ soit intègre
+et que $X' \to X$ soit fini surjectif.
+Alors $X'$ est aussi localement noethérien
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian})
+et nous pouvons utiliser la proposition de Limites d'espaces
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}
+une nouvelle fois pour choisir un morphisme fini surjectif $X'' \to X'$
+avec $X''$ un schéma. Comme précédemment, nous pouvons supposer $X''$
+intègre. On obtient le diagramme
+$$
+\xymatrix{
+X'' \ar[d] \ar[r] & X \ar[d]^f \\
+Y' \ar[r] & Y
+}
+$$
+D'après le lemme \ref{lemma-integral-dimension}, nous avons $\dim(X'') = \dim(X)$
+et $\dim(Y') = \dim(Y)$. Comme $X$ et $Y$ possèdent des voisinages ouverts
+de $x$, resp.\ de $y$, qui sont des schémas, nous voyons aussitôt que les points génériques
+$x'' \in X''$, resp.\ $y' \in Y'$, sont les uniques points envoyés
+sur $x$, resp.\ sur $y$, et que les extensions de corps résiduels
+$\kappa(x'')/\kappa(x)$ et $\kappa(y')/\kappa(y)$ sont finies.
+Il s'ensuit que le degré de transcendance de $x''/y'$ est le
+même que celui de $x/y$. L'égalité découle donc
+du cas des schémas, qui est le
+lemme de Morphismes \ref{morphisms-lemma-alteration-dimension}.
+\end{proof}
+
+
+
+
+
+\section{Espaces lisses sur les corps}
+\label{section-smooth}
+
+\noindent
+Cette section est l'analogue de la
+section de Variétés \ref{varieties-section-smooth}.
+
+\begin{lemma}
+\label{lemma-smooth-regular}
+Soit $k$ un corps.
+Soit $X$ un espace algébrique lisse sur $k$.
+Alors $X$ est un espace algébrique régulier.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to X$.
+Le morphisme $U \to \Spec(k)$ est lisse, car il est composé
+d'un morphisme \'etale (donc lisse) et d'un morphisme lisse (voir les
+lemmes de Morphismes d'espaces \ref{spaces-morphisms-lemma-etale-smooth}
+et \ref{spaces-morphisms-lemma-composition-smooth}).
+Par conséquent, $U$ est régulier d'après le
+lemme de Variétés \ref{varieties-lemma-smooth-regular}.
+D'après la
+définition de Propriétés des espaces
+\ref{spaces-properties-definition-type-property}
+cela signifie que $X$ est régulier.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-separable-closed-points-dense}
+Soit $k$ un corps. Soit $X$ un espace algébrique lisse sur $\Spec(k)$.
+L'ensemble des $x \in |X|$ qui sont images de morphismes $\Spec(k') \to X$
+où $k' \supset k$ est fini séparable est dense dans $|X|$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to X$.
+Le morphisme $U \to \Spec(k)$ est lisse, car il est composé
+d'un morphisme \'etale (donc lisse) et d'un morphisme lisse (voir les
+lemmes de Morphismes d'espaces \ref{spaces-morphisms-lemma-etale-smooth}
+et \ref{spaces-morphisms-lemma-composition-smooth}).
+Nous pouvons donc appliquer le lemme de Variétés
+\ref{varieties-lemma-smooth-separable-closed-points-dense}, selon lequel
+les points fermés de $U$ dont les corps résiduels sont finis séparables sur
+$k$ sont denses. Le lemme en résulte par notre définition de la
+topologie sur $|X|$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Caractéristiques d'Euler-Poincaré}
+\label{section-euler}
+
+\noindent
+Dans cette section, nous démontrons quelques propriétés élémentaires des caractéristiques
+d'Euler-Poincaré des faisceaux cohérents sur les espaces algébriques propres sur des corps.
+
+\begin{definition}
+\label{definition-euler-characteristic}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$. Soit $\mathcal{F}$
+un $\mathcal{O}_X$-module cohérent. Dans cette situation, la
+{\it caractéristique d'Euler-Poincaré de $\mathcal{F}$} est l'entier
+$$
+\chi(X, \mathcal{F}) = \sum\nolimits_i (-1)^i \dim_k H^i(X, \mathcal{F}).
+$$
+La justification de cette formule est donnée ci-dessous.
+\end{definition}
+
+\noindent
+Dans la situation de la définition, les espaces vectoriels
+$H^i(X, \mathcal{F})$ non nuls sont en nombre fini (lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-vanishing-quasi-separated})
+et ils sont tous de dimension finie
+(lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}). Ainsi,
+$\chi(X, \mathcal{F}) \in \mathbf{Z}$ est bien défini. Remarquons que
+cette définition dépend du corps $k$ et non pas seulement de la paire
+$(X, \mathcal{F})$.
+
+\begin{lemma}
+\label{lemma-euler-characteristic-additive}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$.
+Soit $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+une suite exacte courte de modules cohérents sur $X$. Alors
+$$
+\chi(X, \mathcal{F}_2) = \chi(X, \mathcal{F}_1) + \chi(X, \mathcal{F}_3)
+$$
+\end{lemma}
+
+\begin{proof}
+Considérons la suite exacte longue de cohomologie
+$$
+0 \to H^0(X, \mathcal{F}_1) \to H^0(X, \mathcal{F}_2) \to
+H^0(X, \mathcal{F}_3) \to H^1(X, \mathcal{F}_1) \to \ldots
+$$
+associée à la suite exacte courte du lemme. Le théorème du rang
+en algèbre linéaire montre que
+$$
+0 = \dim H^0(X, \mathcal{F}_1) - \dim H^0(X, \mathcal{F}_2)
++ \dim H^0(X, \mathcal{F}_3) - \dim H^1(X, \mathcal{F}_1) + \ldots
+$$
+Cela implique immédiatement le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-euler-characteristic-morphism}
+Soit $k$ un corps. Soit $f : Y \to X$ un morphisme d'
+espaces algébriques propres sur $k$. Soit $\mathcal{G}$ un
+$\mathcal{O}_Y$-module cohérent. Alors
+$$
+\chi(Y, \mathcal{G}) = \sum (-1)^i \chi(X, R^if_*\mathcal{G})
+$$
+\end{lemma}
+
+\begin{proof}
+La formule a un sens : les faisceaux $R^if_*\mathcal{G}$ sont cohérents
+et ceux qui sont non nuls sont en nombre fini ; voir les
+lemmes de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent} et
+\ref{spaces-cohomology-lemma-vanishing-higher-direct-images}.
+D'après le lemme de Cohomologie sur les sites \ref{sites-cohomology-lemma-Leray},
+il existe une suite spectrale telle que
+$$
+E_2^{p, q} = H^p(X, R^qf_*\mathcal{G})
+$$
+qui aboutit à $H^{p + q}(Y, \mathcal{G})$. La finitude de la cohomologie
+sur $X$ montre que les $E_2^{p, q}$ non nuls sont en nombre fini
+et que chaque $E_2^{p, q}$ est un espace vectoriel de dimension finie. Il s'ensuit
+qu'il en va de même pour $E_r^{p, q}$ lorsque $r \geq 2$ et que
+$$
+\sum (-1)^{p + q} \dim_k E_r^{p, q}
+$$
+est indépendante de $r$. Comme, pour $r$ assez grand, nous avons
+$E_r^{p, q} = E_\infty^{p, q}$ et que la convergence signifie qu'il
+existe sur $H^n(Y, \mathcal{G})$ une filtration dont les quotients gradués sont
+les $E_\infty^{p, q}$ avec $p + 1 = n$ (c'est le sens de la convergence
+de la suite spectrale), nous concluons.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Nombres d'intersection}
+\label{section-num}
+
+\noindent
+Dans cette section, nous étudions la caractéristique d'Euler-Poincaré des
+faisceaux cohérents sur les espaces algébriques propres afin d'obtenir des
+nombres d'intersection pour les modules inversibles. Notre outil principal sera le
+lemme suivant.
+
+\begin{lemma}
+\label{lemma-numerical-polynomial-from-euler}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent. Soient
+$\mathcal{L}_1, \ldots, \mathcal{L}_r$ des $\mathcal{O}_X$-modules inversibles.
+L'application
+$$
+(n_1, \ldots, n_r) \longmapsto
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+$$
+est un polynôme numérique en $n_1, \ldots, n_r$ de degré total au
+plus égal à la dimension du support schématique de $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+Soit $Z \subset X$ le support schématique de $\mathcal{F}$.
+Alors $\mathcal{F} = i_*\mathcal{G}$ pour un
+$\mathcal{O}_Z$-module cohérent $\mathcal{G}$
+(lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-coherent-support-closed})
+et nous avons
+$$
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) =
+\chi(Z, \mathcal{G} \otimes
+i^*\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+i^*\mathcal{L}_r^{\otimes n_r})
+$$
+d'après la formule de projection
+(lemme de Cohomologie sur les sites \ref{sites-cohomology-lemma-projection-formula})
+et le lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-relative-affine-cohomology}.
+Comme $|Z| = \text{Supp}(\mathcal{F})$, il suffit
+de montrer que
+$$
+P_\mathcal{F}(n_1, \ldots, n_r) :
+(n_1, \ldots, n_r)
+\longmapsto
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+$$
+est un polynôme numérique en $n_1, \ldots, n_r$ de degré total au
+plus égal à $\dim(X)$. Disons que la propriété $\mathcal{P}$ est vérifiée par le
+$\mathcal{O}_X$-module cohérent $\mathcal{F}$ si l'assertion ci-dessus est vraie.
+
+\medskip\noindent
+Nous démontrerons cet énoncé par dévissage ; plus précisément, nous
+vérifierons que les conditions (1), (2) et (3) du
+lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}
+sont satisfaites.
+
+\medskip\noindent
+Vérification de la condition (1). Soit
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+une suite exacte courte de faisceaux cohérents sur $X$.
+D'après le lemme \ref{lemma-euler-characteristic-additive}, nous avons
+$$
+P_{\mathcal{F}_2}(n_1, \ldots, n_r) =
+P_{\mathcal{F}_1}(n_1, \ldots, n_r) +
+P_{\mathcal{F}_3}(n_1, \ldots, n_r)
+$$
+Il est alors clair que, si deux des trois faisceaux $\mathcal{F}_i$
+vérifient la propriété $\mathcal{P}$, le troisième la vérifie aussi.
+
+\medskip\noindent
+La condition (2) résulte de l'égalité
+$P_{\mathcal{F}^{\oplus m}}(n_1, \ldots, n_r) =
+mP_\mathcal{F}(n_1, \ldots, n_r)$.
+
+\medskip\noindent
+Démonstration de (3). Soit $i : Z \to X$ un sous-espace fermé réduit tel que
+$|Z|$ soit irréductible. Nous devons trouver un module cohérent $\mathcal{G}$
+sur $X$, de support $Z$, tel que $\mathcal{P}$ soit vérifiée pour $\mathcal{G}$.
+Nous donnerons deux constructions : l'une au moyen du lemme de Chow, l'autre
+au moyen d'un revêtement fini par un schéma.
+
+\medskip\noindent
+Existence de $\mathcal{G}$ au moyen d'un revêtement fini par un schéma.
+Choisissons $\pi : Z' \to Z$ fini surjectif, où $Z'$ est un schéma ; voir la
+proposition de Limites d'espaces
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}.
+Posons $\mathcal{G} = i_*\pi_*\mathcal{O}_{Z'} = (i \circ \pi)_*\mathcal{O}_{Z'}$.
+Remarquons que $Z'$ est propre sur $k$ et que le support de $\mathcal{G}$ est $Y$
+(détails omis). Nous avons
+$$
+R(\pi \circ i)_*(\mathcal{O}_{Z'}) = \mathcal{G}
+\quad\text{et}\quad
+R(\pi \circ i)_*(\pi^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+) = \mathcal{G} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}
+$$
+La première égalité vaut parce que $i \circ \pi$ est affine
+(lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images})
+et la seconde résulte de la première et de la formule de projection
+(lemme de Cohomologie sur les sites \ref{sites-cohomology-lemma-projection-formula}).
+En utilisant Leray
+(lemme de Cohomologie sur les sites \ref{sites-cohomology-lemma-apply-Leray}),
+nous obtenons
+$$
+P_\mathcal{G}(n_1, \ldots, n_r) =
+\chi(Z', \pi^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}))
+$$
+D'après le cas des schémas
+(lemme de Variétés \ref{varieties-lemma-numerical-polynomial-from-euler}),
+il s'agit d'un polynôme numérique en
+$n_1, \ldots, n_r$ de degré au plus égal à $\dim(Z')$.
+Nous concluons puisque $\dim(Z') \leq \dim(Z) \leq \dim(X)$.
+La première inégalité résulte du
+lemme d'Espaces décents \ref{decent-spaces-lemma-dimension-quasi-finite}.
+
+\medskip\noindent
+Existence de $\mathcal{G}$ au moyen du lemme de Chow. Nous appliquons le
+lemme de Cohomologie des espaces \ref{spaces-cohomology-lemma-weak-chow}
+au morphisme $Z \to \Spec(k)$. Nous obtenons ainsi un
+morphisme propre surjectif $f : Y \to Z$ sur $\Spec(k)$,
+où $Y$ est un sous-schéma fermé de $\mathbf{P}^m_k$ pour un certain $m$.
+Après remplacement de $Y$ par un sous-schéma fermé, nous pouvons supposer que $Y$
+est intègre et que $f : Y \to Z$ est une altération ; voir le
+lemme \ref{lemma-alteration-contained-in}.
+Notons $\mathcal{O}_Y(n)$ le tiré en arrière de $\mathcal{O}_{\mathbf{P}^m_k}(n)$.
+Choisissons $n > 0$ tel que $R^pf_*\mathcal{O}_Y(n) = 0$
+pour $p > 0$ ; voir le lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-kill-by-twisting}.
+Nous affirmons que $\mathcal{G} = i_*f_*\mathcal{O}_Y(n)$ vérifie $\mathcal{P}$.
+En effet, le cas des schémas
+(lemme de Variétés \ref{varieties-lemma-numerical-polynomial-from-euler})
+montre que
+$$
+(n_1, \ldots, n_r)
+\longmapsto
+\chi(Y, \mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}))
+$$
+est un polynôme numérique en $n_1, \ldots, n_r$ de degré total au
+plus égal à $\dim(Y)$. D'autre part, d'après la formule de projection
+(lemme de Cohomologie sur les sites \ref{sites-cohomology-lemma-projection-formula}),
+\begin{align*}
+i_*Rf_*\left(
+\mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})\right)
+& =
+i_*Rf_*\mathcal{O}_Y(n) \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r} \\
+& =
+\mathcal{G} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}
+\end{align*}
+la dernière égalité résultant de notre choix de $n$. D'après
+Leray (lemme de Cohomologie sur les sites \ref{sites-cohomology-lemma-apply-Leray}),
+nous obtenons
+$$
+\chi(Y, \mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})) =
+P_\mathcal{G}(n_1, \ldots, n_r)
+$$
+et nous concluons puisque $\dim(Y) \leq \dim(Z) \leq \dim(X)$.
+La première inégalité résulte du
+lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-alteration-dimension-general}
+et du fait que $Y \to Z$ est une altération (de sorte que
+l'extension induite des corps résiduels aux points génériques est finie).
+\end{proof}
+
+\noindent
+Le lemme suivant montre, en gros, que le coefficient dominant ne dépend que
+de la longueur du module cohérent aux points génériques de son
+support.
+
+\begin{lemma}
+\label{lemma-numerical-polynomial-leading-term}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$. Soit
+$\mathcal{F}$ un $\mathcal{O}_X$-module cohérent. Soient
+$\mathcal{L}_1, \ldots, \mathcal{L}_r$ des $\mathcal{O}_X$-modules inversibles.
+Posons $d = \dim(\text{Supp}(\mathcal{F}))$.
+Soient $Z_i \subset X$ les composantes irréductibles
+de $\text{Supp}(\mathcal{F})$ de dimension $d$. Soit $\overline{x}_i$
+un point générique géométrique de $Z_i$ et posons
+$m_i = \text{longueur}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{F}_{\overline{x}_i})$.
+Alors
+$$
+\chi(X, \mathcal{F} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) -
+\sum\nolimits_i
+m_i\ \chi(Z_i, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}|_{Z_i})
+$$
+est un polynôme numérique en $n_1, \ldots, n_r$ de degré total $< d$.
+\end{lemma}
+
+\begin{proof}
+Démontrons d'abord un énoncé légèrement plus faible. Posons
+$\dim(X) = N$ et soient $X_i \subset X$ les composantes
+irréductibles de dimension $N$. Soit $\overline{x}_i$ un point
+générique géométrique de $X_i$. L'anneau local \'etale
+$\mathcal{O}_{X, \overline{x}_i}$ est noethérien de
+dimension $0$ ; ainsi, pour tout $\mathcal{O}_X$-module cohérent
+$\mathcal{F}$, la longueur
+$$
+m_i(\mathcal{F}) = \text{longueur}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{F}_{\overline{x}_i})
+$$
+est un entier $\geq 0$. Nous affirmons que
+$$
+E(\mathcal{F}) =
+\chi(X, \mathcal{F} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) -
+\sum\nolimits_i
+m_i(\mathcal{F})\ \chi(Z_i, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}|_{Z_i})
+$$
+est un polynôme numérique en $n_1, \ldots, n_r$ de degré total $< N$.
+Nous le démontrerons au moyen du lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}.
+Pour toute suite exacte courte $0 \to \mathcal{F}' \to \mathcal{F} \to
+\mathcal{F}'' \to 0$, nous avons
+$E(\mathcal{F}) = E(\mathcal{F}') + E(\mathcal{F}'')$.
+Cela résulte de l'additivité des caractéristiques d'Euler-Poincaré
+(lemme \ref{lemma-euler-characteristic-additive})
+et de l'additivité des longueurs
+(lemme d'Algèbre \ref{algebra-lemma-length-additive}).
+Cela implique immédiatement les propriétés (1) et (2) du lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}.
+Enfin, la propriété (3) est vérifiée avec $\mathcal{G} = \mathcal{O}_Z$
+pour tout sous-espace fermé réduit et irréductible $Z \subset X$.
+En effet, si $Z = Z_{i_0}$ pour un certain $i_0$, alors
+$m_i(\mathcal{G}) = \delta_{i_0i}$ et nous concluons que $E(\mathcal{G}) = 0$.
+Si $Z \not = Z_i$ pour tout $i$, alors $m_i(\mathcal{G}) = 0$ pour tout $i$,
+$\dim(Z) < N$ et le résultat découle du
+lemme \ref{lemma-numerical-polynomial-from-euler}.
+
+\medskip\noindent
+Démonstration de l'énoncé du lemme.
+Soit $Z \subset X$ le support schématique de $\mathcal{F}$.
+Alors $\mathcal{F} = i_*\mathcal{G}$ pour un
+$\mathcal{O}_Z$-module cohérent $\mathcal{G}$
+(lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-coherent-support-closed})
+et nous avons
+$$
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) =
+\chi(Z, \mathcal{G} \otimes
+i^*\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+i^*\mathcal{L}_r^{\otimes n_r})
+$$
+d'après la formule de projection
+(lemme de Cohomologie sur les sites \ref{sites-cohomology-lemma-projection-formula})
+et le lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-relative-affine-cohomology}.
+Comme $|Z| = \text{Supp}(\mathcal{F})$, nous avons $Z_i \subset Z$
+pour tout $i$, et ce sont les composantes irréductibles
+de $Z$ de dimension $d$. Nous considérons désormais $\overline{x}_i$
+comme un point géométrique de $Z$. L'application
+$i^\sharp : \mathcal{O}_X \to i_*\mathcal{O}_Z$
+détermine une surjection
+$$
+\mathcal{O}_{X, \overline{x}_i} \to \mathcal{O}_{Z, \overline{x}_i}
+$$
+Cette application induit un isomorphisme de modules
+$\mathcal{G}_{\overline{x}_i} = \mathcal{F}_{\overline{x}_i}$
+puisque $\mathcal{F} = i_*\mathcal{G}$. Il en résulte que
+$$
+m_i = \text{longueur}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{F}_{\overline{x}_i}) =
+\text{longueur}_{\mathcal{O}_{Z, \overline{x}_i}}
+(\mathcal{G}_{\overline{x}_i})
+$$
+Nous voyons donc que l'expression du lemme est égale à
+$$
+\chi(Z, \mathcal{G} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) -
+\sum\nolimits_i
+m_i\ \chi(Z_i, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}|_{Z_i})
+$$
+et le résultat découle de la discussion du premier paragraphe
+(appliquée à $Z$ plutôt qu'à $X$).
+\end{proof}
+
+\begin{definition}
+\label{definition-intersection-number}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$. Soit
+$i : Z \to X$ un sous-espace fermé de dimension $d$. Soient
+$\mathcal{L}_1, \ldots, \mathcal{L}_d$ des
+$\mathcal{O}_X$-modules inversibles. Nous définissons le {\it nombre d'intersection}
+$(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z)$
+comme le coefficient de $n_1 \ldots n_d$ dans le polynôme numérique
+$$
+\chi(X, i_*\mathcal{O}_Z \otimes \mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes \mathcal{L}_d^{\otimes n_d}) =
+\chi(Z, \mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes \mathcal{L}_d^{\otimes n_d}|_Z)
+$$
+Dans le cas particulier
+où $\mathcal{L}_1 = \ldots = \mathcal{L}_d = \mathcal{L}$,
+nous écrivons $(\mathcal{L}^d \cdot Z)$.
+\end{definition}
+
+\noindent
+L'égalité affichée dans la définition résulte de
+la formule de projection
+(Cohomologie, section \ref{cohomology-section-projection-formula}) et du
+lemme de Cohomologie des schémas
+\ref{coherent-lemma-relative-affine-cohomology}.
+Démontrons quelques lemmes sur ces nombres d'intersection.
+
+\begin{lemma}
+\label{lemma-intersection-number-integer}
+Dans la situation de la définition \ref{definition-intersection-number},
+le nombre d'intersection
+$(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z)$
+est un entier.
+\end{lemma}
+
+\begin{proof}
+Tout polynôme numérique de degré $e$ en $n_1, \ldots, n_d$ s'écrit
+de manière unique comme combinaison $\mathbf{Z}$-linéaire des fonctions
+${n_1 \choose k_1}{n_2 \choose k_2} \ldots {n_d \choose k_d}$ avec
+$k_1 + \ldots + k_d \leq e$. Appliquons ceci avec $e = d$.
+La vérification est laissée en exercice.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-intersection-number-additive}
+Dans la situation de la définition \ref{definition-intersection-number},
+le nombre d'intersection
+$(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z)$
+est additif : si $\mathcal{L}_i = \mathcal{L}_i' \otimes \mathcal{L}_i''$,
+alors nous avons
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_i \cdots \mathcal{L}_d \cdot Z) =
+(\mathcal{L}_1 \cdots \mathcal{L}_i' \cdots \mathcal{L}_d \cdot Z) +
+(\mathcal{L}_1 \cdots \mathcal{L}_i'' \cdots \mathcal{L}_d \cdot Z)
+$$
+\end{lemma}
+
+\begin{proof}
+Cela résulte du lemme \ref{lemma-numerical-polynomial-from-euler}, car
+la fonction
+$$
+(n_1, \ldots, n_{i - 1}, n_i', n_i'', n_{i + 1}, \ldots, n_d)
+\mapsto
+\chi(Z, \mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes (\mathcal{L}_i')^{\otimes n_i'} \otimes
+(\mathcal{L}_i'')^{\otimes n_i''} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d}|_Z)
+$$
+est un polynôme numérique de degré total au plus égal à $d$ en $d + 1$ variables.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-intersection-number-in-terms-of-components}
+Dans la situation de la définition \ref{definition-intersection-number},
+soient $Z_i \subset Z$ les composantes irréductibles de dimension $d$. Soit
+$m_i = \text{longueur}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{O}_{Z, \overline{x}_i})$
+où $\overline{x}_i$ est un point générique géométrique de $Z_i$. Alors
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z) =
+\sum m_i(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z_i)
+$$
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du lemme \ref{lemma-numerical-polynomial-leading-term}
+et des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-intersection-number-and-pullback}
+Soit $k$ un corps. Soit $f : Y \to X$ un morphisme d'
+espaces algébriques propres sur $k$.
+Soit $Z \subset Y$ un sous-espace fermé intègre de dimension $d$ et soient
+$\mathcal{L}_1, \ldots, \mathcal{L}_d$ des $\mathcal{O}_X$-modules inversibles.
+Alors
+$$
+(f^*\mathcal{L}_1 \cdots f^*\mathcal{L}_d \cdot Z) =
+\deg(f|_Z : Z \to f(Z)) (\mathcal{L}_1 \cdots \mathcal{L}_d \cdot f(Z))
+$$
+où $\deg(Z \to f(Z))$ est défini comme dans la définition \ref{definition-degree},
+ou vaut $0$ si $\dim(f(Z)) < d$.
+\end{lemma}
+
+\begin{proof}
+Dans l'énoncé, $f(Z) \subset X$ est l'image schématique de $f$
+et c'est aussi l'espace algébrique muni de la structure réduite induite sur la
+partie fermée $f(|Z|) \subset X$ ; voir le lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-scheme-theoretic-image-reduced}.
+Alors $Z$ et $f(Z)$ sont des espaces algébriques réduits, propres (donc décents)
+sur $k$, et par suite intègres
+(définition \ref{definition-integral-algebraic-space}).
+Le membre de gauche se calcule comme le coefficient de $n_1 \ldots n_d$
+dans la fonction
+$$
+\chi(Y, \mathcal{O}_Z \otimes f^*\mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes f^*\mathcal{L}_d^{\otimes n_d}) =
+\sum (-1)^i
+\chi(X, R^if_*\mathcal{O}_Z \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})
+$$
+L'égalité résulte du lemme \ref{lemma-euler-characteristic-morphism}
+et de la formule de projection
+(lemme de Cohomologie \ref{cohomology-lemma-projection-formula}).
+Si $f(Z)$ est de dimension $< d$, alors le membre de droite
+est un polynôme de degré total $< d$ d'après le
+lemme \ref{lemma-numerical-polynomial-from-euler},
+et le résultat est établi. Supposons $\dim(f(Z)) = d$. Alors
+la théorie de la dimension (lemme \ref{lemma-alteration-dimension}) montre
+que les conditions équivalentes (1) -- (5) du
+lemme \ref{lemma-finite-degree} sont satisfaites. Ainsi,
+$\deg(Z \to f(Z))$ est bien défini.
+D'après le lemme \ref{lemma-finite-degree}, déjà utilisé,
+$f : Z \to f(Z)$ est fini au-dessus d'un ouvert non vide
+$V$ de $f(Z)$ ; après avoir éventuellement rétréci $V$, nous pouvons supposer que
+$V$ est un schéma. Soit $\xi \in V$ le point générique.
+Ainsi, $\deg(f : Z \to f(Z))$ est la longueur du germe de
+$f_*\mathcal{O}_Z$ en $\xi$ sur $\mathcal{O}_{X, \xi}$,
+et le germe de $R^if_*\mathcal{O}_X$ en $\xi$ est nul pour $i > 0$
+(par exemple d'après le lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}).
+Ainsi, les termes $\chi(X, R^if_*\mathcal{O}_Z \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})$ pour $i > 0$
+ont un degré total $< d$ et
+$$
+\chi(X, f_*\mathcal{O}_Z \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})
+=
+\deg(f : Z \to f(Z)) \chi(f(Z),
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d}|_{f(Z)})
+$$
+à un polynôme de degré total $< d$ près, d'après le
+lemme \ref{lemma-numerical-polynomial-leading-term}.
+Le résultat voulu en découle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-numerical-intersection-effective-Cartier-divisor}
+Soit $k$ un corps. Soit $X$ un espace algébrique propre sur $k$.
+Soit $Z \subset X$ un sous-espace fermé de dimension $d$.
+Soient $\mathcal{L}_1, \ldots, \mathcal{L}_d$
+des $\mathcal{O}_X$-modules inversibles. Supposons qu'il existe un
+diviseur de Cartier effectif $D \subset Z$ tel que
+$\mathcal{L}_1|_Z \cong \mathcal{O}_Z(D)$. Alors
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z) =
+(\mathcal{L}_2 \cdots \mathcal{L}_d \cdot D)
+$$
+\end{lemma}
+
+\begin{proof}
+Nous pouvons remplacer $X$ par $Z$ et $\mathcal{L}_i$ par $\mathcal{L}_i|_Z$.
+Ainsi, nous pouvons supposer $X = Z$ et $\mathcal{L}_1 = \mathcal{O}_X(D)$.
+Alors $\mathcal{L}_1^{-1}$ est le faisceau d'idéaux de $D$ et nous pouvons
+considérer la suite exacte courte
+$$
+0 \to \mathcal{L}_1^{\otimes -1} \to \mathcal{O}_X \to \mathcal{O}_D \to 0
+$$
+Posons
+$P(n_1, \ldots, n_d) =
+\chi(X, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})$
+et
+$Q(n_1, \ldots, n_d) =
+\chi(D, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d}|_D)$.
+L'additivité
+(lemme \ref{lemma-euler-characteristic-additive})
+donne
+$$
+P(n_1, \ldots, n_d) - P(n_1 - 1, n_2, \ldots, n_d) =
+Q(n_1, \ldots, n_d)
+$$
+Comme le degré total de $P$ est au plus égal à $d$, nous voyons que
+le coefficient de $n_1 \ldots n_d$ dans $P$ est égal au coefficient
+de $n_2 \ldots n_d$ dans $Q$.
+\end{proof}
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

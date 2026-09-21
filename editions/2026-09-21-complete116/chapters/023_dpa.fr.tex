@@ -1,0 +1,2986 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Algèbre à puissances divisées}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions les algèbres à puissances divisées et les
+constructions qu'elles permettent. Une référence est l'ouvrage \cite{Berthelot}.
+
+
+
+
+
+\section{Puissances divisées}
+\label{section-divided-powers}
+
+\noindent
+Dans cette section, nous rassemblons quelques résultats sur les anneaux à puissances divisées.
+Nous adoptons la convention $0! = 1$ (un produit vide devant valoir $1$).
+
+\begin{definition}
+\label{definition-divided-powers}
+Soit $A$ un anneau. Soit $I$ un idéal de $A$. Une famille d'applications
+$\gamma_n : I \to I$, $n > 0$, est appelée une {\it structure d'idéal à puissances divisées}
+sur $I$ si, pour tous $n \geq 0$, $m > 0$, $x, y \in I$ et $a \in A$, on a
+\begin{enumerate}
+\item $\gamma_1(x) = x$ ; on pose aussi $\gamma_0(x) = 1$,
+\item $\gamma_n(x)\gamma_m(x) = \frac{(n + m)!}{n! m!} \gamma_{n + m}(x)$,
+\item $\gamma_n(ax) = a^n \gamma_n(x)$,
+\item $\gamma_n(x + y) = \sum_{i = 0, \ldots, n} \gamma_i(x)\gamma_{n - i}(y)$,
+\item $\gamma_n(\gamma_m(x)) = \frac{(nm)!}{n! (m!)^n} \gamma_{nm}(x)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Remarquons que les nombres rationnels $\frac{(n + m)!}{n! m!}$
+et $\frac{(nm)!}{n! (m!)^n}$ qui interviennent dans la définition sont en réalité des
+entiers : le premier est le nombre de façons de choisir $n$ éléments parmi $n + m$,
+et le second compte les façons de répartir $nm$
+objets en $n$ groupes de $m$ objets.
+Voici quelques remarques sur la définition qui montrent que
+$\gamma_n(x)$ remplace $x^n/n!$ dans $I$.
+
+\begin{lemma}
+\label{lemma-silly}
+Soit $A$ un anneau. Soit $I$ un idéal de $A$.
+\begin{enumerate}
+\item Si $\gamma$ est une structure de puissances divisées\footnote{Ici
+et dans la suite, $\gamma$ désigne une suite
+d'applications $\gamma_1, \gamma_2, \gamma_3, \ldots$ de $I$ dans $I$.}
+sur $I$, alors
+$n! \gamma_n(x) = x^n$ pour $n \geq 1$, $x \in I$.
+\end{enumerate}
+Supposons que $A$ soit sans torsion en tant que $\mathbf{Z}$-module.
+\begin{enumerate}
+\item[(2)] Une structure de puissances divisées sur $I$, si elle existe, est unique.
+\item[(3)] Si $\gamma_n : I \to I$ sont des applications, alors
+$$
+\gamma\text{ est une structure de puissances divisées}
+\Leftrightarrow
+n! \gamma_n(x) = x^n\ \forall x \in I, n \geq 1.
+$$
+\item[(4)] L'idéal $I$ admet une structure de
+puissances divisées si et seulement
+s'il existe des éléments $x_i$ qui engendrent $I$ comme idéal et tels que,
+pour tout $n \geq 1$, on ait $x_i^n \in (n!)I$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Si $\gamma$ est une structure de puissances divisées, alors la
+condition (2) (appliquée à $1$ et $n-1$ à la place de $n$ et $m$)
+entraîne que $n \gamma_n(x) = \gamma_1(x)\gamma_{n - 1}(x)$. Par
+récurrence et grâce à la condition (1), on obtient donc $n! \gamma_n(x) = x^n$.
+
+\medskip\noindent
+Supposons que $A$ soit sans torsion en tant que $\mathbf{Z}$-module.
+Démonstration de (2). Cela résulte immédiatement de (1).
+
+\medskip\noindent
+Démonstration de (3). Supposons que $n! \gamma_n(x) = x^n$ pour tout $x \in I$ et tout
+$n \geq 1$. Comme $A \subset A \otimes_{\mathbf{Z}} \mathbf{Q}$, il suffit
+de démontrer les axiomes (1) -- (5) de la définition
+\ref{definition-divided-powers} lorsque $A$ est une $\mathbf{Q}$-algèbre.
+Dans ce cas, $\gamma_n(x) = x^n/n!$, et la vérification de
+(1) -- (5) est immédiate ; par exemple, (4) correspond à la formule du
+binôme
+$$
+(x + y)^n = \sum_{i = 0, \ldots, n} \frac{n!}{i!(n - i)!} x^iy^{n - i}
+$$
+Nous laissons au lecteur le soin d'effectuer ces
+vérifications afin de s'assurer que les coefficients sont corrects.
+
+\medskip\noindent
+Démonstration de (4). Supposons que des éléments $x_i$ engendrent $I$ comme idéal
+et vérifient $x_i^n \in (n!)I$ pour tout $n \geq 1$. Nous affirmons que,
+pour tout $x \in I$, on a $x^n \in (n!)I$. Si cette assertion est vraie,
+on peut poser $\gamma_n(x) = x^n/n!$, ce qui définit une structure de puissances divisées d'après
+(3). Pour démontrer l'assertion, remarquons qu'elle est vraie pour $x = ax_i$. Elle est
+donc vraie pour un ensemble d'éléments qui engendre $I$ comme groupe abélien.
+Par récurrence sur la longueur d'une expression en fonction de ces générateurs, il
+suffit de la vérifier pour $x + y$ lorsqu'elle est vraie pour $x$ et $y$. Cela
+découle immédiatement de la formule du binôme.
+\end{proof}
+
+\begin{example}
+\label{example-ideal-generated-by-p}
+Soit $p$ un nombre premier.
+Soit $A$ un anneau dans lequel tout entier $n$ non divisible par $p$
+est inversible, autrement dit, $A$ est une $\mathbf{Z}_{(p)}$-algèbre. Alors
+$I = pA$ admet une structure canonique de puissances divisées. Plus précisément, pour
+$x = pa \in I$, on pose
+$$
+\gamma_n(x) = \frac{p^n}{n!} a^n
+$$
+On vérifie immédiatement que $p^n/n! \in p\mathbf{Z}_{(p)}$
+pour $n \geq 1$ (cela découle par exemple du fait
+que l'exposant de $p$ dans la décomposition en facteurs premiers de $n!$ est
+$\left\lfloor n/p \right\rfloor + \left\lfloor n/p^2 \right\rfloor
++ \left\lfloor n/p^3 \right\rfloor + \ldots$),
+de sorte que la définition a un sens et fournit une suite
+d'applications $\gamma_n : I \to I$. Il est immédiat de vérifier que
+les conditions (1) -- (5) de la
+définition \ref{definition-divided-powers} sont satisfaites.
+On peut aussi observer que la définition convient manifestement à
+$A_0 = \mathbf{Z}_{(p)}$, puis appliquer le
+lemme \ref{lemma-gamma-extends}.
+\end{example}
+
+\noindent
+On remarque que $\gamma_n\left(0\right) = 0$ pour tout idéal $I$ de
+$A$ et toute structure de puissances divisées $\gamma$ sur $I$. (Cela résulte
+de l'axiome (3) de la définition \ref{definition-divided-powers},
+en prenant $a=0$.)
+
+\begin{lemma}
+\label{lemma-check-on-generators}
+Soit $A$ un anneau. Soit $I$ un idéal de $A$. Soit $\gamma_n : I \to I$,
+$n \geq 1$, une suite d'applications. Supposons que
+\begin{enumerate}
+\item[(a)] les propriétés (1), (3) et (4) de la définition \ref{definition-divided-powers} soient
+vérifiées pour tous $x, y \in I$, et
+\item[(b)] les propriétés (2) et (5) soient vérifiées pour tout $x$ appartenant
+à un ensemble d'éléments qui engendre $I$ comme idéal.
+\end{enumerate}
+Alors $\gamma$ est une structure de puissances divisées sur $I$.
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, les numéros (1), (2), (3), (4), (5) renvoient aux
+conditions énoncées dans la définition \ref{definition-divided-powers}. Il
+résulte de (3) que, si (2) et (5) sont vérifiées pour $x$, elles le
+sont pour $ax$, quel que soit $a \in A$. L'hypothèse (b) entraîne donc que (2)
+et (5) sont vérifiées pour un ensemble d'éléments qui
+engendre $I$ comme groupe abélien. Par récurrence sur la longueur d'une
+expression en fonction de ces générateurs, il suffit par conséquent de montrer que, si
+$x, y \in I$ et si (2) et (5) sont vérifiées pour $x$ et $y$, alors elles le sont
+pour $x + y$.
+
+\medskip\noindent
+Démonstration de (2) pour $x + y$. D'après (4), on a
+$$
+\gamma_n(x + y)\gamma_m(x + y) =
+\sum\nolimits_{i + j = n,\ k + l = m}
+\gamma_i(x)\gamma_k(x)\gamma_j(y)\gamma_l(y)
+$$
+En utilisant (2) pour $x$ et $y$, ceci vaut
+$$
+\sum\frac{(i + k)!}{i!k!}\frac{(j + l)!}{j!l!}
+\gamma_{i + k}(x)\gamma_{j + l}(y)
+$$
+En comparant avec le développement
+$$
+\gamma_{n + m}(x + y) = \sum\gamma_a(x)\gamma_b(y)
+$$
+on voit qu'il faut démontrer que, pour $a + b = n + m$, on a
+$$
+\sum\nolimits_{i + k = a,\ j + l = b,\ i + j = n,\ k + l = m}
+\frac{(i + k)!}{i!k!}\frac{(j + l)!}{j!l!}
+=
+\frac{(n + m)!}{n!m!}.
+$$
+Plutôt que de démontrer directement cette identité, remarquons qu'elle est
+vraie pour l'idéal $I = (x, y)$ de l'anneau de polynômes $\mathbf{Q}[x, y]$,
+car $\gamma_n(f) = f^n/n!$, $f \in I$, définit une structure de
+puissances divisées sur $I$. L'identité entre nombres rationnels ci-dessus est donc vraie.
+
+\medskip\noindent
+Démonstration de (5) pour $x + y$, sachant que (1) -- (4) sont vérifiées et que
+(5) l'est pour $x$ et $y$. Nous nous ramenons de nouveau à une identité
+entre nombres rationnels. En effet, (4) permet d'écrire
+$\gamma_n(\gamma_m(x + y)) = \gamma_n(\sum\gamma_i(x)\gamma_j(y))$.
+Une nouvelle application de (4) permet d'écrire
+$\gamma_n(\gamma_m(x + y))$ comme une somme de termes qui sont des produits
+de facteurs de la forme $\gamma_k(\gamma_i(x)\gamma_j(y))$.
+Si $i > 0$, alors
+\begin{align*}
+\gamma_k(\gamma_i(x)\gamma_j(y)) & =
+\gamma_j(y)^k\gamma_k(\gamma_i(x)) \\
+& = \frac{(ki)!}{k!(i!)^k} \gamma_j(y)^k \gamma_{ki}(x) \\
+& =
+\frac{(ki)!}{k!(i!)^k} \frac{(kj)!}{(j!)^k} \gamma_{ki}(x) \gamma_{kj}(y)
+\end{align*}
+où l'on a utilisé (3) dans la première égalité, (5) pour $x$ dans la deuxième et
+(2) exactement $k$ fois dans la troisième. En utilisant (5) pour $y$, on voit
+que la même égalité vaut lorsque $i = 0$. En poursuivant ainsi et en
+utilisant tous les axiomes sauf (5), on obtient
+$$
+\gamma_n(\gamma_m(x + y)) =
+\sum\nolimits_{i + j = nm} c_{ij}\gamma_i(x)\gamma_j(y)
+$$
+où les $c_{ij} \in\mathbf{Z}$ sont certaines constantes
+universelles. Comme précédemment, le fait que l'égalité soit valable dans l'anneau de polynômes $\mathbf{Q}[x, y]$
+implique que tous les coefficients $c_{ij}$ sont égaux à $(nm)!/n!(m!)^n$,
+comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-two-ideals}
+Soit $A$ un anneau muni de deux idéaux $I, J \subset A$.
+Soit $\gamma$ une structure de puissances divisées sur $I$, et soit
+$\delta$ une structure de puissances divisées sur $J$.
+Alors
+\begin{enumerate}
+\item $\gamma$ et $\delta$ coïncident sur $IJ$,
+\item si $\gamma$ et $\delta$ coïncident sur $I \cap J$, alors elles
+sont les restrictions d'une unique structure de puissances divisées $\epsilon$
+sur $I + J$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soient $x \in I$ et $y \in J$. Alors
+$$
+\gamma_n(xy) = y^n\gamma_n(x) = n! \delta_n(y) \gamma_n(x) =
+\delta_n(y) x^n = \delta_n(xy).
+$$
+Par conséquent, $\gamma$ et $\delta$ coïncident sur un ensemble de générateurs (additifs)
+de $IJ$. D'après la propriété (4) de la définition \ref{definition-divided-powers},
+elles coïncident donc sur tout $IJ$.
+
+\medskip\noindent
+Supposons que $\gamma$ et $\delta$ coïncident sur $I \cap J$.
+Soit $z \in I + J$. Écrivons $z = x + y$ avec $x \in I$ et $y \in J$.
+On pose alors
+$$
+\epsilon_n(z) = \sum\gamma_i(x)\delta_{n - i}(y)
+$$
+pour tout $n \geq 1$.
+Pour vérifier que cette définition ne dépend pas du choix, supposons que $z = x' + y'$ soit une
+autre écriture avec $x' \in I$ et $y' \in J$. Alors
+$w = x - x' = y' - y \in I \cap J$. Par conséquent,
+\begin{align*}
+\sum\nolimits_{i + j = n} \gamma_i(x)\delta_j(y)
+& =
+\sum\nolimits_{i + j = n} \gamma_i(x' + w)\delta_j(y) \\
+& =
+\sum\nolimits_{i' + l + j = n} \gamma_{i'}(x')\gamma_l(w)\delta_j(y) \\
+& =
+\sum\nolimits_{i' + l + j = n} \gamma_{i'}(x')\delta_l(w)\delta_j(y) \\
+& =
+\sum\nolimits_{i' + j' = n} \gamma_{i'}(x')\delta_{j'}(y + w) \\
+& =
+\sum\nolimits_{i' + j' = n} \gamma_{i'}(x')\delta_{j'}(y')
+\end{align*}
+comme souhaité. Nous avons donc défini des applications
+$\epsilon_n : I + J \to I + J$ pour tout $n \geq 1$; il est
+immédiat que $\epsilon_n \mid_{I} = \gamma_n$ et
+$\epsilon_n \mid_{J} = \delta_n$.
+Montrons ensuite les conditions (1) -- (5) de
+la définition \ref{definition-divided-powers} pour la famille
+d'applications $\epsilon_n$.
+Les propriétés (1) et (3) sont immédiates. Pour vérifier (4),
+supposons que $z = x + y$ et $z' = x' + y'$ avec $x, x' \in I$ et $y, y' \in J$,
+et calculons
+\begin{align*}
+\epsilon_n(z + z') & =
+\sum\nolimits_{a + b = n} \gamma_a(x + x')\delta_b(y + y') \\
+& =
+\sum\nolimits_{i + i' + j + j' = n}
+\gamma_i(x) \gamma_{i'}(x')\delta_j(y)\delta_{j'}(y') \\
+& =
+\sum\nolimits_{k = 0, \ldots, n}
+\sum\nolimits_{i+j=k} \gamma_i(x)\delta_j(y)
+\sum\nolimits_{i'+j'=n-k} \gamma_{i'}(x')\delta_{j'}(y') \\
+& =
+\sum\nolimits_{k = 0, \ldots, n}\epsilon_k(z)\epsilon_{n-k}(z')
+\end{align*}
+ce qui donne le résultat voulu. Il suffit maintenant de vérifier (2) et (5) sur
+les éléments de $I$ ou de $J$, voir le lemme \ref{lemma-check-on-generators}.
+Cela est immédiat puisque $\gamma$ et $\delta$ sont des structures de
+puissances divisées.
+
+\medskip\noindent
+Nous avons ainsi démontré l'existence d'une structure de puissances divisées $\epsilon$ sur $I+J$
+dont les restrictions à $I$ et à $J$ sont $\gamma$ et $\delta$ ;
+son unicité est immédiate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-nil}
+Soit $p$ un nombre premier. Soit $A$ un anneau, soit $I \subset A$ un idéal,
+et soit $\gamma$ une structure de puissances divisées sur $I$. Supposons que $p$ soit nilpotent
+dans $A/I$. Alors $I$ est localement nilpotent si et seulement si $p$ est nilpotent dans $A$.
+\end{lemma}
+
+\begin{proof}
+Si $p^N = 0$ dans $A$, alors, pour $x \in I$, on a
+$x^{pN} = (pN)!\gamma_{pN}(x) = 0$, car $(pN)!$ est
+divisible par $p^N$. Réciproquement, supposons que $I$ soit localement nilpotent.
+Comme nous avons aussi supposé que $p$ est nilpotent dans $A/I$, on a
+$p^r \in I$ pour un certain $r$; ainsi $p^r$ est nilpotent, et donc $p$ est nilpotent.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Anneaux à puissances divisées}
+\label{section-divided-power-rings}
+
+\noindent
+Les anneaux à puissances divisées forment une
+catégorie. En voici la définition.
+
+\begin{definition}
+\label{definition-divided-power-ring}
+Un {\it anneau à puissances divisées} est un triplet $(A, I, \gamma)$, où
+$A$ est un anneau, $I \subset A$ est un idéal et $\gamma = (\gamma_n)_{n \geq 1}$
+est une structure de puissances divisées sur $I$.
+Un {\it homomorphisme d'anneaux à puissances divisées}
+$\varphi : (A, I, \gamma) \to (B, J, \delta)$ est un homomorphisme d'anneaux
+$\varphi : A \to B$ tel que $\varphi(I) \subset J$ et
+$\delta_n(\varphi(x)) = \varphi(\gamma_n(x))$ pour tout $x \in I$ et tout
+$n \geq 1$.
+\end{definition}
+
+\noindent
+Nous dirons parfois « soit $(B, J, \delta)$ une algèbre à puissances divisées sur
+$(A, I, \gamma)$ » pour indiquer que $(B, J, \delta)$ est un anneau à
+puissances divisées muni d'un homomorphisme d'anneaux à puissances divisées
+$(A, I, \gamma) \to (B, J, \delta)$.
+
+\begin{lemma}
+\label{lemma-limits} La
+catégorie des anneaux à puissances divisées admet toutes les limites, et celles-ci coïncident avec les
+limites calculées dans la catégorie des anneaux.
+\end{lemma}
+
+\begin{proof}
+La limite du diagramme vide est l'anneau nul (ce qui est étrange, mais nécessaire
+ici). Le produit d'une famille d'anneaux à puissances divisées $(A_t, I_t, \gamma_t)$,
+$t \in T$, est $(\prod A_t, \prod I_t, \gamma)$, où
+$\gamma_n((x_t)) = (\gamma_{t, n}(x_t))$.
+L'égalisateur de $\alpha, \beta : (A, I, \gamma) \to (B, J, \delta)$
+est simplement $C = \{a \in A \mid\alpha(a) = \beta(a)\}$, muni de l'idéal $C \cap I$
+et des puissances divisées induites. Il en résulte que toutes les limites existent ;
+voir Catégories, lemme \ref{categories-lemma-limits-products-equalizers}.
+\end{proof}
+
+\noindent
+Le lemme suivant illustre, dans le cas des algèbres à puissances
+divisées, un phénomène très général de théorie des catégories.
+
+\begin{lemma}
+\label{lemma-a-version-of-brown}
+Soit $\mathcal{C}$ la catégorie des anneaux à puissances divisées. Soit
+$F : \mathcal{C} \to\textit{Ensembles}$ un foncteur.
+Supposons que
+\begin{enumerate}
+\item il existe un cardinal $\kappa$ tel que, pour tout
+$f \in F(A, I, \gamma)$, il existe un morphisme
+$(A', I', \gamma') \to (A, I, \gamma)$ de $\mathcal{C}$ tel que $f$
+soit l'image d'un élément $f' \in F(A', I', \gamma')$ et que $|A'| \leq\kappa$;
+\item $F$ commute aux limites.
+\end{enumerate}
+Alors $F$ est représentable, c'est-à-dire qu'il existe un objet $(B, J, \delta)$
+de $\mathcal{C}$ tel que
+$$
+F(A, I, \gamma) = \Hom_\mathcal{C}((B, J, \delta), (A, I, \gamma))
+$$
+fonctoriellement en $(A, I, \gamma)$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier de
+Catégories, lemme \ref{categories-lemma-a-version-of-brown}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimits} La
+catégorie des anneaux à puissances divisées admet toutes les colimites.
+\end{lemma}
+
+\begin{proof} La
+colimite du diagramme vide est $\mathbf{Z}$, muni de l'idéal à puissances divisées $(0)$.
+Considérons maintenant une colimite quelconque. Soit $\mathcal{C}$ une catégorie et soit
+$c \mapsto (A_c, I_c, \gamma_c)$ un diagramme. Considérons le foncteur
+$$
+F(B, J, \delta) = \lim_{c \in\mathcal{C}}
+Hom((A_c, I_c, \gamma_c), (B, J, \delta))
+$$
+Tout élément $f = (f_c)_{c \in C} \in F(B, J, \delta)$ possède la
+propriété suivante : les images $f_c(A_c)$ engendrent un sous-anneau $B'$ de $B$ dont le cardinal est
+borné par un cardinal $\kappa$, et les images $f_c(I_c)$ engendrent
+un idéal à puissances divisées $J'$ de $B'$. On obtient ainsi une factorisation de
+$f$ par un élément $f'$ de $F(B')$, suivie de l'inclusion $B' \to B$. En outre,
+$F$ commute aux limites. Nous pouvons donc appliquer
+le lemme \ref{lemma-a-version-of-brown}
+pour conclure que $F$ est représentable.
+\end{proof}
+
+\begin{remark}
+\label{remark-pushout}
+Soit
+$$
+\xymatrix{
+(B, J, \delta) \ar[r] & (B'', J'', \delta'') \\
+(A, I, \gamma) \ar[r] \ar[u] & (B', J', \delta') \ar[u]
+}
+$$
+un carré cocartésien dans la catégorie des anneaux à puissances divisées (les sommes amalgamées existent
+d'après le lemme \ref{lemma-colimits}). Alors
+\begin{enumerate}
+\item $B''/J'' = B/J \otimes_{A/I} B'/J'$,
+\item l'application $\varphi : B \otimes_A B' \to B''$ est surjective, et
+\item l'application $J \otimes_A B' + B \otimes_A J' \to J''$ induite par $\varphi$
+est surjective.
+\end{enumerate} Pour
+démontrer (1), considérons les applications $(B'', J'', \delta'') \to (C, (0), \emptyset)$
+et appliquons la définition d'un carré cocartésien. Pour démontrer (2), considérons
+l'image $\tilde B = \varphi(B \otimes_A B')$ et l'idéal
+$\tilde J = \varphi(J \otimes_A B' + B \otimes_A J')$. Alors il
+est clair que $\delta''_n(\tilde J) \subset\tilde J$ pour tous $n \geq 1$
+par compatibilité de $\delta''$ avec $\delta$ et $\delta'$.
+On a donc $\tilde B = B''$ et $\tilde J = J''$
+par la propriété universelle du carré cocartésien.
+\end{remark}
+
+\begin{remark}
+\label{remark-forgetful}
+Le foncteur d'oubli $(A, I, \gamma) \mapsto A$ ne commute pas aux
+colimites. Par exemple, soit
+$$
+\xymatrix{
+(B, J, \delta) \ar[r] & (B'', J'', \delta'') \\
+(A, I, \gamma) \ar[r] \ar[u] & (B', J', \delta') \ar[u]
+}
+$$
+un carré cocartésien dans la catégorie des anneaux à puissances divisées, comme dans
+la remarque \ref{remark-pushout}. En général, l'application
+$B \otimes_A B' \to B''$ n'est pas un
+isomorphisme. Un exemple explicite est fourni par
+$(A, I, \gamma) = (\mathbf{Z}, (0), \emptyset)$,
+$(B, J, \delta) = (\mathbf{Z}/4\mathbf{Z}, 2\mathbf{Z}/4\mathbf{Z}, \delta)$,
+et
+$(B', J', \delta') =
+(\mathbf{Z}/4\mathbf{Z}, 2\mathbf{Z}/4\mathbf{Z}, \delta')$
+où $\delta_2(2) = 2$ et $\delta'_2(2) = 0$.
+Plus précisément, en appliquant le lemme \ref{lemma-need-only-gamma-p}, on
+prend pour $\delta$, respectivement\ $\delta'$, l'unique
+structure de puissances divisées sur $J$, respectivement\ $J'$, telle que
+$\delta_2 : J \to J$, respectivement\ $\delta'_2 : J' \to J'$,
+soit l'application $0 \mapsto 0, 2 \mapsto 2$, respectivement\ $0 \mapsto 0, 2 \mapsto 0$.
+Alors $(B'', J'', \delta'') = (\mathbf{F}_2, (0), \emptyset)$,
+ce qui ne coïncide pas avec le produit tensoriel.
+\end{remark}
+
+
+\section{Prolongement des puissances divisées}
+\label{section-extend}
+
+\noindent
+Voici la définition.
+
+\begin{definition}
+\label{definition-extends} Étant
+donnés un anneau à puissances divisées $(A, I, \gamma)$ et un homomorphisme d'anneaux
+$A \to B$, nous disons que $\gamma$ {\it se prolonge} à $B$ s'il existe une
+structure de puissances divisées $\bar\gamma$ sur $IB$ telle que
+$(A, I, \gamma) \to (B, IB, \bar\gamma)$ soit un homomorphisme
+d'anneaux à puissances divisées.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-gamma-extends}
+Soit $(A, I, \gamma)$ un anneau à puissances divisées.
+Soit $A \to B$ un homomorphisme
+d'anneaux. Si $\gamma$ se prolonge à $B$, ce prolongement est unique.
+Supposons que l'une au moins des conditions suivantes soit vérifiée :
+\begin{enumerate}
+\item $IB = 0$,
+\item $I$ est principal, ou
+\item $A \to B$ est plat.
+\end{enumerate}
+Alors $\gamma$ se prolonge à $B$.
+\end{lemma}
+
+\begin{proof}
+Tout élément de $IB$ s'écrit comme une somme finie
+$\sum\nolimits_{i=1}^t b_ix_i$, avec
+$b_i \in B$ et $x_i \in I$. Si $\gamma$ admet un prolongement $\bar\gamma$ à $IB$,
+alors $\bar\gamma_n(x_i) = \gamma_n(x_i)$.
+Les conditions (3) et (4) de la
+définition \ref{definition-divided-powers} impliquent donc que
+$$
+\bar\gamma_n(\sum\nolimits_{i=1}^t b_ix_i) =
+\sum\nolimits_{n_1 + \ldots + n_t = n}
+\prod\nolimits_{i = 1}^t b_i^{n_i}\gamma_{n_i}(x_i)
+$$
+On voit ainsi que $\bar\gamma$, si elle existe, est unique.
+
+\medskip\noindent
+Si $IB = 0$, il suffit de poser $\bar\gamma_n(0) = 0$. Si $I = (x)$,
+nous définissons $\bar\gamma_n(bx) = b^n\gamma_n(x)$. Cette définition ne dépend pas du coefficient choisi
+: si $b'x = bx$, c'est-à-dire si $(b - b')x = 0$, alors
+\begin{align*}
+b^n\gamma_n(x) - (b')^n\gamma_n(x)
+& =
+(b^n - (b')^n)\gamma_n(x) \\
+& =
+(b^{n - 1} + \ldots + (b')^{n - 1})(b - b')\gamma_n(x) = 0
+\end{align*}
+car $\gamma_n(x)$ est divisible par $x$ (puisque
+$\gamma_n(I) \subset I$) et est donc annulé par $b - b'$.
+Vérifions maintenant les conditions (1) -- (5) de
+la définition \ref{definition-divided-powers}. Les
+conditions (1), (2), (3) et (5) découlent immédiatement de la
+construction. Pour (4), soient $y, z \in IB$, disons $y = bx$ et $z = cx$. Alors
+$y + z = (b + c)x$. Par conséquent,
+\begin{align*}
+\bar\gamma_n(y + z)
+& =
+(b + c)^n\gamma_n(x) \\
+& =
+\sum\frac{n!}{i!(n - i)!}b^ic^{n -i}\gamma_n(x) \\
+& =
+\sum b^ic^{n - i}\gamma_i(x)\gamma_{n - i}(x) \\
+& =
+\sum\bar\gamma_i(y)\bar\gamma_{n -i}(z)
+\end{align*}
+comme voulu.
+
+\medskip\noindent
+Supposons enfin que $A \to B$ soit plat. Soient $b_1, \ldots, b_r \in B$ et
+$x_1, \ldots, x_r \in I$. Alors
+$$
+\bar\gamma_n(\sum b_ix_i) =
+\sum b_1^{e_1} \ldots b_r^{e_r} \gamma_{e_1}(x_1) \ldots\gamma_{e_r}(x_r)
+$$
+où la somme porte sur les $e_1 + \ldots + e_r = n$,
+si $\bar\gamma_n$ existe. Supposons ensuite donnés $c_1, \ldots, c_s \in B$
+et $a_{ij} \in A$ tels que $b_i = \sum a_{ij}c_j$.
+En posant $y_j = \sum a_{ij}x_i$, nous affirmons que
+$$
+\sum b_1^{e_1} \ldots b_r^{e_r} \gamma_{e_1}(x_1) \ldots\gamma_{e_r}(x_r) =
+\sum c_1^{d_1} \ldots c_s^{d_s} \gamma_{d_1}(y_1) \ldots\gamma_{d_s}(y_s)
+$$
+dans $B$, où, au membre de droite, la somme porte sur les
+$d_1 + \ldots + d_s = n$. En effet, les axiomes d'une structure de puissances
+divisées permettent de développer les deux membres en sommes, à coefficients
+dans $\mathbf{Z}[a_{ij}]$, de termes de la forme
+$c_1^{d_1} \ldots c_s^{d_s}\gamma_{e_1}(x_1) \ldots\gamma_{e_r}(x_r)$.
+Pour vérifier l'égalité des coefficients, il suffit de remarquer que le résultat est vrai
+dans $\mathbf{Q}[x_1, \ldots, x_r, c_1, \ldots, c_s, a_{ij}]$, muni de l'unique structure de puissances divisées
+$\gamma$ sur $(x_1, \ldots, x_r)$.
+D'après le théorème de Lazard (Algèbre, théorème \ref{algebra-theorem-lazard}),
+$B$ est une colimite filtrante de $A$-modules libres
+de type fini. En particulier, si $z \in IB$ s'écrit à la fois $z = \sum x_ib_i$ et
+$z = \sum x'_{i'}b'_{i'}$, alors nous pouvons trouver $c_1, \ldots, c_s \in B$
+et $a_{ij}, a'_{i'j} \in A$ tels que $b_i = \sum a_{ij}c_j$
+et $b'_{i'} = \sum a'_{i'j}c_j$, et tels que
+$y_j = \sum x_ia_{ij} = \sum x'_{i'}a'_{i'j}$\footnote{On
+peut également le démontrer sans
+recourir au théorème \ref{algebra-theorem-lazard} d'Algèbre. En effet, si
+$z = \sum x_ib_i$ et $z = \sum x'_{i'}b'_{i'}$, alors
+$\sum x_ib_i - \sum x'_{i'}b'_{i'} = 0$ est une relation dans le
+$A$-module $B$. Le lemme \ref{algebra-lemma-flat-eq}
+d'Algèbre (appliqué aux $x_i$ et $x'_{i'}$ à la place des $f_i$,
+et aux $b_i$ et $b'_{i'}$ à la place des $x_i$)
+fournit alors les éléments $c_1, \ldots, c_s \in B$
+et $a_{ij}, a'_{i'j} \in A$ voulus.}. La
+procédure ci-dessus définit donc une application $\bar\gamma_n$
+sur $IB$, indépendante de l'écriture choisie. Par construction, $\bar\gamma$ satisfait les conditions (1), (3)
+et (4). De plus, pour $x \in I$, on a $\bar\gamma_n(x) = \gamma_n(x)$.
+Le lemme \ref{lemma-check-on-generators} montre alors que $\bar\gamma$
+est une structure de puissances divisées sur $IB$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kernel}
+Soit $(A, I, \gamma)$ un anneau à puissances divisées.
+\begin{enumerate}
+\item Si $\varphi : (A, I, \gamma) \to (B, J, \delta)$ est
+un homomorphisme d'anneaux à puissances divisées, alors $\Ker(\varphi) \cap I$
+est préservé par $\gamma_n$ pour tous $n \geq 1$.
+\item Soit $\mathfrak a \subset A$ un idéal et posons
+$I' = I \cap\mathfrak a$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $I'$ est préservé par $\gamma_n$ pour tous $n > 0$,
+\item $\gamma$ se prolonge à $A/\mathfrak a$,
+\item il existe une famille de générateurs $x_i$ de l'idéal $I'$ telle
+que $\gamma_n(x_i) \in I'$ pour tout $n > 0$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). C'est immédiat. Supposons (2)(a). Posons
+$\bar\gamma_n(x \bmod I') = \gamma_n(x) \bmod I'$ pour $x \in I$.
+Cette définition est indépendante du représentant, car on a $\gamma_n(x + y) = \gamma_n(x) \bmod I'$
+pour $y \in I'$ d'après la définition \ref{definition-divided-powers}, (4),
+et l'hypothèse $\gamma_j(y) \in I'$. Il est clair que
+$\bar\gamma$ est une structure de puissances divisées puisque $\gamma$ en est
+une. Ainsi, (2)(b) est vérifiée. Réciproquement, (2)(b) implique (2)(a)
+d'après (1). Il est clair que (2)(a) implique (2)(c). Supposons (2)(c).
+Notons que $\gamma_n(x) = a^n\gamma_n(x_i) \in I'$ lorsque $x = ax_i$.
+Ainsi, $\gamma_n(x) \in I'$ pour une famille de générateurs de $I'$
+comme groupe abélien. Par récurrence sur la longueur d'une expression en
+ces générateurs, il suffit de montrer que $\forall n : \gamma_n(x + y) \in I'$
+dès que $\forall n : \gamma_n(x), \gamma_n(y) \in I'$. Cela
+résulte immédiatement du quatrième axiome d'une structure de puissances divisées.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sub-dp-ideal}
+Soit $(A, I, \gamma)$ un anneau à puissances divisées et
+soit $E \subset I$ une
+partie. Le plus petit idéal $J \subset I$ stable par $\gamma$
+et contenant tous les $f \in E$ est l'idéal $J$ engendré par les
+$\gamma_n(f)$, pour $n \geq 1$ et $f \in E$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du lemme \ref{lemma-kernel}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend-to-completion}
+Soit $(A, I, \gamma)$ un anneau à puissances divisées. Soit $p$ un nombre
+premier. Si $p$ est nilpotent dans $A/I$, alors
+\begin{enumerate}
+\item l'application canonique du complété $p$-adique $A^\wedge = \lim_e A/p^eA$ vers $A/I$ est surjective ;
+\item le noyau de cette application est le complété $p$-adique $I^\wedge$ de $I$;
+\item chaque application $\gamma_n$ est continue pour la topologie $p$-adique et se prolonge en une
+application $\gamma_n^\wedge : I^\wedge\to I^\wedge$, les applications ainsi obtenues définissant une
+structure de puissances divisées sur $I^\wedge$.
+\end{enumerate}
+Si, de plus, $A$ est une $\mathbf{Z}_{(p)}$-algèbre, alors
+\begin{enumerate}
+\item[(4)] pour $e$ assez grand, l'idéal $p^eA \subset I$ est stable par la
+structure de puissances divisées $\gamma$, et
+$$
+(A^\wedge, I^\wedge, \gamma^\wedge) = \lim_e (A/p^eA, I/p^eA, \bar\gamma)
+$$
+dans la catégorie des anneaux à puissances divisées.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $t \geq 1$ un entier tel que $p^tA/I = 0$, c'est-à-dire $p^tA \subset I$.
+L'application $A^\wedge\to A/I$ est la composée $A^\wedge\to A/p^tA \to A/I$,
+qui est surjective (par exemple
+d'après Algèbre, lemme \ref{algebra-lemma-completion-generalities}).
+Comme $p^eI \subset p^eA \cap I \subset p^{e - t}I$ pour $e \geq t$,
+le noyau de la composée $A^\wedge\to A/I$ est le complété $p$-adique
+de $I$. L'application $\gamma_n$ est continue, car
+$$
+\gamma_n(x + p^ey) =
+\sum\nolimits_{i + j = n} p^{je}\gamma_i(x)\gamma_j(y) =
+\gamma_n(x) \bmod p^eI
+$$
+par les axiomes d'une structure de puissances
+divisées. Il est clair que les applications $\gamma_n^\wedge$
+satisfont aux mêmes axiomes que les applications $\gamma_n$. Enfin, pour démontrer la dernière assertion, prenons $e > t$.
+Alors $p^eA \subset I$ et $\gamma_1(p^eA) \subset p^eA$ ; pour $n > 1$,
+on a
+$$
+\gamma_n(p^ea) = p^n \gamma_n(p^{e - 1}a) = \frac{p^n}{n!} p^{n(e - 1)}a^n
+\in p^e A
+$$
+car $p^n/n! \in\mathbf{Z}_{(p)}$ et, puisque $n \geq 2$ et $e \geq 2$,
+$n(e - 1) \geq e$.
+Cela prouve que $\gamma$ se prolonge à $A/p^eA$; voir le lemme \ref{lemma-kernel}.
+L'assertion relative aux limites découle immédiatement de la construction des limites donnée dans
+la démonstration du lemme \ref{lemma-limits}.
+\end{proof}
+
+
+
+
+\section{Algèbres polynomiales à puissances divisées}
+\label{section-divided-power-polynomial-ring}
+
+\noindent
+Un exemple très utile est celui de l'{\it algèbre polynomiale à puissances divisées}.
+Soit $A$ un anneau. Soit $t \geq 1$. On note
+$A\langle x_1, \ldots, x_t \rangle$ la $A$-algèbre suivante :
+en tant que $A$-module, on pose
+$$
+A\langle x_1, \ldots, x_t \rangle =
+\bigoplus\nolimits_{n_1, \ldots, n_t \geq 0} A x_1^{[n_1]} \ldots x_t^{[n_t]}
+$$
+et la multiplication est donnée par
+$$
+x_i^{[n]}x_i^{[m]} = \frac{(n + m)!}{n!m!}x_i^{[n + m]}.
+$$
+On pose aussi $x_i = x_i^{[1]}$. Remarquons que
+$1 = x_1^{[0]} \ldots x_t^{[0]}$. Une construction analogue donne
+l'algèbre polynomiale à puissances divisées en une infinité de variables.
+Il existe un morphisme canonique de $A$-algèbres
+$A\langle x_1, \ldots, x_t \rangle\to A$ qui envoie $x_i^{[n]}$ sur zéro
+pour $n > 0$. Le noyau de ce morphisme est noté
+$A\langle x_1, \ldots, x_t \rangle_{+}$.
+
+\begin{lemma}
+\label{lemma-divided-power-polynomial-algebra}
+Soit $(A, I, \gamma)$ un anneau à puissances
+divisées. Il existe une unique structure de puissances divisées $\delta$ sur
+$$
+J = IA\langle x_1, \ldots, x_t \rangle + A\langle x_1, \ldots, x_t \rangle_{+}
+$$
+telle que
+\begin{enumerate}
+\item $\delta_n(x_i) = x_i^{[n]}$, et
+\item $(A, I, \gamma) \to (A\langle x_1, \ldots, x_t \rangle, J, \delta)$
+soit un homomorphisme d'anneaux à puissances divisées.
+\end{enumerate}
+De plus, $(A\langle x_1, \ldots, x_t \rangle, J, \delta)$ possède
+la propriété universelle suivante : se donner un homomorphisme d'anneaux à puissances divisées
+$\varphi : (A\langle x_1, \ldots, x_t \rangle, J, \delta) \to
+(C, K, \epsilon)$ revient
+à se donner un homomorphisme d'anneaux à puissances divisées
+$A \to C$ et des éléments $k_1, \ldots, k_t \in K$.
+\end{lemma}
+
+\begin{proof}
+Nous démontrons le lemme dans le cas d'une algèbre polynomiale à
+puissances divisées en une variable. Le cas général se traite exactement de la même
+manière ; on peut aussi remarquer que $A\langle x_1, \ldots, x_t\rangle$ est
+isomorphe à l'anneau obtenu en adjoignant successivement les variables à puissances divisées
+$x_1, \ldots, x_t$.
+
+\medskip\noindent
+Soit $A\langle x \rangle_{+}$ l'idéal engendré par
+$x, x^{[2]}, x^{[3]}, \ldots$.
+Remarquons que $J = IA\langle x \rangle + A\langle x \rangle_{+}$
+et que
+$$
+IA\langle x \rangle\cap A\langle x \rangle_{+} =
+IA\langle x \rangle\cdot A\langle x \rangle_{+}
+$$
+Par conséquent, d'après le lemme \ref{lemma-two-ideals}, il suffit de montrer qu'il existe
+des structures de puissances divisées sur les idéaux $IA\langle x \rangle$ et
+$A\langle x \rangle_{+}$. L'existence de la première résulte du
+lemme \ref{lemma-gamma-extends}, puisque $A \to A\langle x \rangle$ est
+plat. Pour la seconde, si $A$ est sans torsion, le
+lemme \ref{lemma-silly} (4) montre que $\delta$ existe. En effet, en
+choisissant les éléments $x^{[m]}$ comme générateurs, on constate que
+$(x^{[m]})^n = \frac{(nm)!}{(m!)^n} x^{[nm]}$
+et que $n!$ divise l'entier $\frac{(nm)!}{(m!)^n}$.
+Dans le cas général, écrivons $A = R/\mathfrak a$, où $R$
+est un anneau sans torsion (par exemple un anneau de polynômes sur $\mathbf{Z}$). Le noyau de
+$R\langle x \rangle\to A\langle x \rangle$ est
+$\bigoplus\mathfrak a x^{[m]}$. En appliquant le critère (2)(c) du
+lemme \ref{lemma-kernel}, on voit que la structure de puissances divisées
+sur $R\langle x \rangle_{+}$ se transporte à $A\langle x \rangle$,
+comme souhaité.
+
+\medskip\noindent
+Démontrons la propriété universelle. Étant donnés un homomorphisme $\varphi : A \to C$
+d'anneaux à puissances divisées et des éléments $k_1, \ldots, k_t \in K$, considérons
+$$
+A\langle x_1, \ldots, x_t \rangle\to C,\quad
+x_1^{[n_1]} \ldots x_t^{[n_t]} \longmapsto
+\epsilon_{n_1}(k_1) \ldots\epsilon_{n_t}(k_t)
+$$
+où l'on utilise $\varphi$ sur les coefficients. Il reste seulement à vérifier qu'il s'agit d'un
+homomorphisme de $A$-algèbres (détails omis). La construction
+inverse est claire.
+\end{proof}
+
+\begin{remark}
+\label{remark-divided-power-polynomial-algebra}
+Soit $(A, I, \gamma)$ un anneau à puissances
+divisées. Il existe une variante du lemme \ref{lemma-divided-power-polynomial-algebra}
+pour une infinité de variables. Remarquons d'abord que, si $s < t$, il existe
+un morphisme canonique
+$$
+A\langle x_1, \ldots, x_s \rangle\to A\langle x_1, \ldots, x_t\rangle
+$$
+Ainsi, si $W$ est un ensemble quelconque, on pose
+$$
+A\langle x_w: w \in W\rangle =
+\colim_{E \subset W} A\langle x_e:e \in E\rangle
+$$
+(la colimite étant prise sur les sous-ensembles finis $E$ de $W$),
+avec les morphismes de transition ci-dessus. La définition d'une
+colimite montre que la propriété universelle de $A\langle x_w: w \in W\rangle$ est
+entièrement analogue à celle énoncée dans le
+lemme \ref{lemma-divided-power-polynomial-algebra}.
+\end{remark}
+
+\noindent
+Le lemme suivant se trouve dans \cite{BO}.
+
+\begin{lemma}
+\label{lemma-need-only-gamma-p}
+Soit $p$ un nombre premier. Soit $A$ un anneau dans lequel tout entier $n$
+non divisible par $p$ est inversible, autrement dit $A$ est une $\mathbf{Z}_{(p)}$-algèbre.
+Soit $I \subset A$ un idéal. Deux structures de puissances divisées
+$\gamma, \gamma'$ sur $I$ sont égales si et seulement si $\gamma_p = \gamma'_p$.
+De plus, étant donnée une application $\delta : I \to I$ telle que
+\begin{enumerate}
+\item $p!\delta(x) = x^p$ pour tout $x \in I$\footnote{Cette condition
+résulte des deux autres ; voir la remarque \ref{remark-ryo-suzuki}.},
+\item $\delta(ax) = a^p\delta(x)$ pour tous $a \in A$, $x \in I$, et
+\item
+$\delta(x + y) =
+\delta(x) +
+\sum\nolimits_{i + j = p, i,j \geq 1} \frac{1}{i!j!} x^i y^j +
+\delta(y) $ pour tous $ x, y \in I$,
+\end{enumerate}
+il existe une unique structure de puissances divisées $\gamma$ sur $I$ telle
+que $\gamma_p = \delta$.
+\end{lemma}
+
+\begin{proof}
+Si $n$ n'est pas divisible par $p$, alors $\gamma_n(x) = c x \gamma_{n - 1}(x)$,
+où $c$ est une unité de $\mathbf{Z}_{(p)}$. De plus,
+$$
+\gamma_{pm}(x) = c \gamma_m(\gamma_p(x))
+$$
+où $c$ est une unité de $\mathbf{Z}_{(p)}$. La première assertion est donc
+claire. Pour la seconde, on peut remonter ces égalités afin de
+définir tous les $\gamma_n$. Plus précisément, si
+$n = a_0 + a_1p + \ldots + a_e p^e$ avec $a_i \in\{0, \ldots, p - 1\}$,
+on pose
+$$
+\gamma_n(x) = c_n x^{a_0} \delta(x)^{a_1} \ldots\delta^e(x)^{a_e}
+$$
+où $c_n \in\mathbf{Z}_{(p)}$ est défini par
+$$
+c_n =
+{(p!)^{a_1 + a_2(1 + p) + \ldots + a_e(1 + \ldots + p^{e - 1})}}/{n!}.
+$$
+Il faut maintenant vérifier les axiomes (1) -- (5) d'une structure de puissances divisées ; voir
+la définition \ref{definition-divided-powers}. Les axiomes (1) et (3) sont
+immédiats. Les axiomes (2) et (5) se vérifient par un calcul direct que nous
+omettons. Soient $x, y \in I$. Nous affirmons qu'il existe un homomorphisme d'anneaux
+$$
+\varphi : \mathbf{Z}_{(p)}\langle u, v \rangle\longrightarrow A
+$$
+qui envoie $u^{[n]}$ sur $\gamma_n(x)$ et $v^{[n]}$ sur $\gamma_n(y)$.
+D'après la construction de $\mathbf{Z}_{(p)}\langle u, v \rangle$, il faut
+pour cela vérifier que
+$$
+\gamma_n(x)\gamma_m(x) = \frac{(n + m)!}{n!m!} \gamma_{n + m}(x)
+$$
+dans $A$, et de même pour $y$. C'est vrai, puisque l'axiome (2) est vérifié par $\gamma$.
+Notons $\epsilon$ la structure de puissances divisées sur
+l'idéal $\mathbf{Z}_{(p)}\langle u, v\rangle_{+}$ de
+$\mathbf{Z}_{(p)}\langle u, v\rangle$.
+Nous affirmons ensuite que $\varphi(\epsilon_n(f)) = \gamma_n(\varphi(f))$
+pour $f \in\mathbf{Z}_{(p)}\langle u, v\rangle_{+}$ et tout $n$.
+C'est clair pour $n = 0, 1, \ldots, p - 1$. Pour $n = p$, il suffit
+de le vérifier sur un système de générateurs de l'idéal
+$\mathbf{Z}_{(p)}\langle u, v\rangle_{+}$, car $\epsilon_p$
+et $\gamma_p = \delta$ vérifient toutes deux les propriétés (1) et (3)
+du lemme. Il suffit donc d'établir
+$\gamma_p(\gamma_n(x)) = \frac{(pn)!}{p!(n!)^p}\gamma_{pn}(x)$,
+et de même pour $y$; cela résulte de l'axiome (5) pour $\gamma$.
+Maintenant, si $n = a_0 + a_1p + \ldots + a_e p^e$
+est un entier quelconque écrit sous la forme de son développement $p$-adique ci-dessus, alors
+$$
+\epsilon_n(f) =
+c_n f^{a_0} \gamma_p(f)^{a_1} \ldots\gamma_p^e(f)^{a_e}
+$$
+car $\epsilon$ est une structure de puissances divisées. On en déduit que
+$\varphi(\epsilon_n(f)) = \gamma_n(\varphi(f))$ pour tout $n$.
+En appliquant ceci à $f = u + v$, on voit que l'axiome (4) pour $\gamma$
+découle du fait que $\epsilon$ est une structure de puissances divisées.
+\end{proof}
+
+\begin{remark}
+\label{remark-ryo-suzuki} Dans la
+situation $A \supset I$ du lemme \ref{lemma-need-only-gamma-p},
+soit $\delta : I \to I$ une application vérifiant (2) et (3) du lemme. Alors (1)
+est également vérifiée.
+Montrons d'abord que $\delta(nx) = n\delta(x) + \frac{n^p - n}{p!}x^p$
+pour $n \geq 1$, par récurrence sur $n$. Le cas $n = 1$ est
+clair. Supposons le résultat établi pour un certain $n$. Alors
+$\delta((n + 1)x) = \delta(nx) + \delta(x) +
+(\sum_{i = 1}^{p - 1} \frac{n^i}{i!(p - i)!})x^p
+= (n + 1)\delta(x) + \left( \frac{n^p - n}{p!} + \frac{(n + 1)^p}{p!}
+- \frac{n^p + 1}{p!} \right)x^p =
+(n + 1)\delta(x) + \frac{(n + 1)^p - (n + 1)}{p!}x^p$,
+ce qui établit le résultat pour $n + 1$. D'autre part,
+$\delta(nx) = n^p\delta(x)$, donc
+$(n^p - n)\delta(x) = \frac{n^p - n}{p!}x^p$.
+Or, pour tout $p$, il existe un entier $n$ tel que $p^2 \not\mid n^p - n$.
+En effet,
+$(\mathbf{Z}/p^2\mathbf{Z})^\times\cong\mathbf{Z}/p(p-1)\mathbf{Z}$.
+Il existe donc $n$ tel que $n^{p-1} \not\equiv 1 \mod p^2$.
+On obtient ainsi $p!\delta(x)=x^p$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{Résolutions de Tate}
+\label{section-tate}
+
+\noindent
+Dans cette section, nous présentons brièvement les résolutions construites dans
+\cite{Tate-homology} et \cite{AH},
+qui combinent les structures de puissances
+divisées et les algèbres différentielles
+graduées. Nous utiliserons la {\it notation homologique} pour
+les algèbres différentielles
+graduées. Celles-ci seront concentrées en degrés homologiques positifs ou
+nuls. Ainsi, nos algèbres différentielles graduées $(A, \text{d})$
+seront des complexes de chaînes
+$$
+\ldots\to A_2 \to A_1 \to A_0 \to 0 \to\ldots
+$$
+munis d'une multiplication.
+
+\medskip\noindent
+Soit $R$ un anneau (commutatif, comme
+toujours). Dans cette section, nous considérerons souvent des
+$R$-algèbres graduées $A = \bigoplus_{d \geq 0} A_d$ dont les composantes
+de degré négatif sont nulles. On pose $A_+ = \bigoplus_{d > 0} A_d$.
+On notera $A_{even} = \bigoplus_{d \geq 0} A_{2d}$ et
+$A_{odd} = \bigoplus_{d \geq 0} A_{2d + 1}$.
+Rappelons que $A$ est commutative au sens gradué si
+$x y = (-1)^{\deg(x)\deg(y)} y x$ pour tous éléments homogènes $x, y$.
+Rappelons que $A$ est strictement commutative au sens gradué si, de plus,
+$x^2 = 0$ pour tout élément homogène $x$ de degré impair. Enfin, pour comprendre
+la définition suivante, gardons à l'esprit que $\gamma_n(x) = x^n/n!$
+lorsque $A$ est une $\mathbf{Q}$-algèbre.
+
+\begin{definition}
+\label{definition-divided-powers-graded}
+Soit $R$ un anneau. Soit $A = \bigoplus_{d \geq 0} A_d$ une
+$R$-algèbre graduée strictement commutative au sens gradué. Une famille d'applications
+$\gamma_n : A_{even, +} \to A_{even, +}$, définies pour tout $n > 0$, est appelée
+une {\it structure de puissances divisées} sur $A$ si les conditions suivantes sont satisfaites :
+\begin{enumerate}
+\item $\gamma_n(x) \in A_{2nd}$ si $x \in A_{2d}$,
+\item $\gamma_1(x) = x$ pour tout $x$; on pose aussi $\gamma_0(x) = 1$,
+\item $\gamma_n(x)\gamma_m(x) = \frac{(n + m)!}{n! m!} \gamma_{n + m}(x)$,
+\item $\gamma_n(xy) = x^n \gamma_n(y)$ pour tous $x \in A_{even}$ et
+$y \in A_{even, +}$,
+\item $\gamma_n(xy) = 0$ si $x, y \in A_{odd}$ sont homogènes et $n > 1$,
+\item si $x, y \in A_{even, +}$, alors
+$\gamma_n(x + y) = \sum_{i = 0, \ldots, n} \gamma_i(x)\gamma_{n - i}(y)$,
+\item $\gamma_n(\gamma_m(x)) =
+\frac{(nm)!}{n! (m!)^n} \gamma_{nm}(x) $ pour $ x \in A_{even, +}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Remarquons que les conditions (2), (3), (4), (6) et (7) impliquent que
+$\gamma$ est une structure de puissances divisées « usuelle » sur l'idéal
+$A_{even, +}$ de l'anneau commutatif $A_{even}$; voir
+les sections \ref{section-divided-powers},
+\ref{section-divided-power-rings},
+\ref{section-extend} et
+\ref{section-divided-power-polynomial-ring}.
+En particulier, $n! \gamma_n(x) = x^n$ pour tout $x \in A_{even, +}$.
+La condition (1) exprime la compatibilité de $\gamma$ avec la graduation, et la condition
+(5) dit que $\gamma_n$, pour $n > 1$, s'annule sur les
+produits d'éléments homogènes de degré impair. Il peut toutefois arriver
+que
+$$
+\gamma_2(z_1 z_2 + z_3 z_4) = z_1z_2z_3z_4
+$$
+soit non nul lorsque $z_1, z_2, z_3, z_4$ sont des éléments homogènes de degré impair.
+
+\begin{example}[Adjonction d'une variable impaire]
+\label{example-adjoining-odd}
+Soit $R$ un anneau. Soit $(A, \gamma)$ une
+$R$-algèbre graduée strictement commutative au sens gradué, munie d'une structure de puissances divisées
+comme dans la définition ci-dessus. Soit $d > 0$ un entier impair.
+Dans ce cas, on peut adjoindre une variable $T$ de degré $d$ à $A$.
+Plus précisément, on pose
+$$
+A\langle T \rangle = A \oplus AT
+$$
+avec la graduation donnée par $A\langle T \rangle_m = A_m \oplus A_{m - d}T$.
+Il existe une unique structure de puissances divisées sur
+$A\langle T \rangle$ compatible avec la structure
+donnée sur $A$. Elle est définie par
+$$
+\gamma_n(x + yT) = \gamma_n(x) + \gamma_{n - 1}(x)yT
+$$
+pour $x \in A_{even, +}$ et $y \in A_{odd}$.
+\end{example}
+
+\begin{example}[Adjonction d'une variable paire]
+\label{example-adjoining-even}
+Soit $R$ un anneau. Soit $(A, \gamma)$ une
+$R$-algèbre graduée strictement commutative au sens gradué, munie d'une structure de puissances divisées
+comme dans la définition ci-dessus. Soit $d > 0$ un entier pair.
+Dans ce cas, on peut adjoindre une variable $T$ de degré $d$ à $A$.
+Plus précisément, on pose
+$$
+A\langle T \rangle = A \oplus AT \oplus AT^{(2)} \oplus AT^{(3)} \oplus\ldots
+$$
+avec la multiplication donnée par
+$$
+T^{(n)} T^{(m)} = \frac{(n + m)!}{n!m!} T^{(n + m)}
+$$
+et la graduation donnée par
+$$
+A\langle T \rangle_m =
+A_m \oplus A_{m - d}T \oplus A_{m - 2d}T^{(2)} \oplus\ldots
+$$
+Il existe une unique structure de puissances divisées sur
+$A\langle T \rangle$, compatible avec celle
+donnée sur $A$, telle que $\gamma_n(T^{(i)}) = T^{(ni)}$.
+Pour la définir, on pose d'abord
+$$
+\gamma_n\left(\sum\nolimits_{i > 0} x_i T^{(i)}\right) =
+\sum\prod\nolimits_{n = \sum e_i} x_i^{e_i} T^{(ie_i)}
+$$
+si $x_i$ appartient à $A_{even}$. Si $x_0 \in A_{even, +}$,
+on pose ensuite
+$$
+\gamma_n\left(\sum\nolimits_{i \geq 0} x_i T^{(i)}\right) =
+\sum\nolimits_{a + b = n}
+\gamma_a(x_0)\gamma_b\left(\sum\nolimits_{i > 0} x_iT^{(i)}\right)
+$$
+où $\gamma_b$ est défini comme ci-dessus.
+\end{example}
+
+\begin{remark}
+\label{remark-adjoining-set-of-variables} On
+peut aussi adjoindre un ensemble, éventuellement infini, de générateurs extérieurs ou
+à puissances divisées dans un degré donné $d > 0$, plutôt qu'un seul comme
+dans les exemples \ref{example-adjoining-odd}
+et \ref{example-adjoining-even}. Plus
+précisément, suivant la remarque \ref{remark-divided-power-polynomial-algebra},
+pour $(A,\gamma)$
+comme ci-dessus et un ensemble $J$, soit $A\langle
+T_j:j\in J\rangle$ la colimite filtrante des algèbres
+$A\langle T_j:j\in S\rangle$, où $S$
+parcourt les sous-ensembles finis de $J$. Il est immédiat que cette algèbre possède une unique structure de
+puissances divisées compatible avec la structure donnée sur $A$ et avec
+celle de chaque générateur $T_j$.
+\end{remark}
+
+\noindent
+Nous relions maintenant la notion de structure de puissances divisées à
+celle de différentielle. Pour comprendre la définition, remarquons que
+$\text{d}(x^n/n!) = \text{d}(x) x^{n - 1}/(n - 1)!$ si $A$
+est une $\mathbf{Q}$-algèbre et si $x \in A_{even, +}$.
+
+\begin{definition}
+\label{definition-divided-powers-dga}
+Soit $R$ un anneau. Soit $A = \bigoplus_{d \geq 0} A_d$ une
+$R$-algèbre différentielle graduée strictement commutative au sens
+gradué. Une structure de puissances divisées $\gamma$ sur $A$ est {\it compatible avec
+la structure différentielle graduée} si
+$\text{d}(\gamma_n(x)) = \text{d}(x) \gamma_{n - 1}(x)$ pour
+tout $x \in A_{even, +}$.
+\end{definition}
+
+\noindent
+Attention : soit $(A, \text{d}, \gamma)$ comme dans
+la définition \ref{definition-divided-powers-dga}.
+Il se peut que $\gamma_n(x)$ ne soit pas un bord, même lorsque
+$x$ est un bord. Ainsi, en général, $\gamma$ n'induit pas de structure
+de puissances divisées sur l'algèbre d'homologie $H(A)$.
+Dans certains articles, les auteurs imposent une condition de
+compatibilité supplémentaire afin que ce soit le cas ; nous choisissons de ne
+pas le faire.
+
+\begin{lemma}
+\label{lemma-dpdga-good}
+Soient $(A, \text{d}, \gamma)$ et $(B, \text{d}, \gamma)$ comme dans
+la définition \ref{definition-divided-powers-dga}. Soit $f : A \to B$
+un morphisme d'algèbres différentielles graduées compatible avec les structures de
+puissances divisées. Supposons que
+\begin{enumerate}
+\item $H_k(A) = 0$ pour $k > 0$, et
+\item $f$ soit surjectif.
+\end{enumerate}
+Alors $\gamma$ induit une structure de puissances divisées sur la
+$R$-algèbre graduée $H(B)$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $x$ et $x'$ soient homogènes de même degré $2d$
+et représentent la même classe d'homologie dans $H(B)$. Écrivons $x' - x = \text{d}(w)$.
+Choisissons un relèvement $y \in A_{2d}$ de $x$ et un relèvement $z \in A_{2d + 1}$
+de $w$. Alors $y' = y + \text{d}(z)$ est un relèvement de $x'$.
+Par conséquent,
+$$
+\gamma_n(y') = \sum\gamma_i(y) \gamma_{n - i}(\text{d}(z))
+= \gamma_n(y) +
+\sum\nolimits_{i < n} \gamma_i(y) \gamma_{n - i}(\text{d}(z))
+$$
+Comme $A$ est acyclique en degrés positifs et que
+$\text{d}(\gamma_j(\text{d}(z))) = 0$ pour tout $j$, on peut écrire cette
+égalité sous la forme
+$$
+\gamma_n(y') = \gamma_n(y) +
+\sum\nolimits_{i < n} \gamma_i(y) \text{d}(z_i)
+$$
+pour certains $z_i$ dans $A$. De plus, pour $0 < i < n$, on a
+$$
+\text{d}(\gamma_i(y) z_i) =
+\text{d}(\gamma_i(y))z_i + \gamma_i(y)\text{d}(z_i) =
+\text{d}(y) \gamma_{i - 1}(y) z_i + \gamma_i(y)\text{d}(z_i)
+$$
+et le premier terme a une image nulle dans $B$, car $\text{d}(y)$ a une image nulle dans $B$.
+Ainsi, $\gamma_n(x')$ et $\gamma_n(x)$ ont la même image dans $H(B)$.
+On obtient donc une application bien définie $\gamma_n : H_{2d}(B) \to H_{2nd}(B)$
+pour tous $d > 0$ et $n > 0$. Nous omettons la vérification du fait qu'elle
+définit une structure de puissances divisées sur $H(B)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-div}
+Soit $(A, \text{d}, \gamma)$ comme dans
+la définition \ref{definition-divided-powers-dga}.
+Soit $R \to R'$ un homomorphisme
+d'anneaux. Alors $\text{d}$ et $\gamma$ induisent des structures analogues sur
+$A' = A \otimes_R R'$ telles que $(A', \text{d}, \gamma)$ soit comme
+dans la définition \ref{definition-divided-powers-dga}.
+\end{lemma}
+
+\begin{proof}
+Remarquons que $A'_{even} = A_{even} \otimes_R R'$ et
+$A'_{even, +} = A_{even, +} \otimes_R R'$. Il s'agit donc de
+montrer que les puissances divisées $\gamma$ se prolongent à $A'_{even}$
+(au sens de la définition \ref{definition-extends}).
+Une fois établi que $\gamma$ se prolonge, il est facile de voir que ce
+prolongement possède toutes les propriétés voulues.
+
+\medskip\noindent
+Choisissons une $R$-algèbre polynomiale $P$ sur un ensemble quelconque de
+générateurs, ainsi qu'une surjection de $R$-algèbres
+$P \to R'$. L'homomorphisme d'anneaux $A_{even} \to A_{even} \otimes_R P$ est plat
+; les puissances divisées $\gamma$ se prolongent donc de manière unique à $A_{even} \otimes_R P$
+par le lemme \ref{lemma-gamma-extends}.
+Soit $J = \Ker(P \to R')$. Pour montrer que $\gamma$ se
+prolonge à $A \otimes_R R'$, il suffit de montrer que
+$I' = \Ker(A_{even, +} \otimes_R P \to A_{even, +} \otimes_R R')$
+est engendré par des éléments $z$ tels que $\gamma_n(z) \in I'$
+pour tout $n > 0$. C'est clair, car $I'$ est engendré par les
+éléments de la forme $x \otimes f$, avec
+$x \in A_{even, +}$ et $f \in\Ker(P \to R')$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend-differential}
+Soit $(A, \text{d}, \gamma)$ comme dans
+la définition \ref{definition-divided-powers-dga}.
+Soit $d \geq 1$ un entier.
+Soit $A\langle T \rangle$ l'algèbre polynomiale graduée à puissances divisées
+en $T$, avec $\deg(T) = d$,
+construite dans l'exemple \ref{example-adjoining-odd} ou
+\ref{example-adjoining-even}.
+Soit $f \in A_{d - 1}$ un élément tel que $\text{d}(f) = 0$.
+Il existe une unique différentielle $\text{d}$
+sur $A\langle T\rangle$ telle que $\text{d}(T) = f$ et
+telle que $\text{d}$ soit compatible avec la structure de
+puissances divisées sur $A\langle T \rangle$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte d'un calcul direct que nous omettons.
+\end{proof}
+
+\noindent
+Dans le lemme \ref{lemma-compute-cohomology-adjoin-variable},
+nous calculerons l'homologie de $A\langle T \rangle$ dans certains cas
+particuliers. Voici la construction de Tate, telle qu'elle a été
+étendue par Avramov et Halperin.
+
+\begin{lemma}
+\label{lemma-tate-resolution}
+Soit $R \to S$ un homomorphisme d'anneaux commutatifs.
+Il existe une factorisation
+$$
+R \to A \to S
+$$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item $(A, \text{d}, \gamma)$ est comme
+dans la définition \ref{definition-divided-powers-dga},
+\item $A \to S$ est un quasi-isomorphisme (si l'on munit $S$ de
+la différentielle nulle),
+\item $A_0 = R[x_j: j\in J] \to S$ est une surjection quelconque d'un anneau de
+polynômes vers $S$, et
+\item $A$ est une algèbre polynomiale graduée à puissances divisées sur $R$.
+\end{enumerate}
+La dernière condition signifie que $A$ est construite à partir de $A_0$ en
+adjoignant successivement un ensemble de variables $T$ dans chaque degré $> 0$, comme
+dans l'exemple \ref{example-adjoining-odd} ou \ref{example-adjoining-even}.
+De plus, si $R$ est noethérien et si $R\to S$ est de type fini, on peut
+choisir $A$ avec seulement un nombre fini de générateurs dans
+chaque degré.
+\end{lemma}
+
+\begin{proof}
+Détaillons la construction lorsque $R$ est
+noethérien et $R\to S$ est de type fini. Sans ces hypothèses, la démonstration
+est la même, sauf qu'il faut utiliser dans chaque degré un
+ensemble de générateurs éventuellement infini.
+
+\medskip\noindent
+Début de la construction : soit $A(0) = R[x_1, \ldots, x_n]$ un
+anneau de polynômes usuel, et soit $A(0) \to S$ une surjection. Pour
+la graduation, on pose $A(0)_0 = A(0)$ et $A(0)_d = 0$ pour $d \not = 0$.
+Ainsi, $\text{d} = 0$ et $\gamma_n$ est également nulle pour $n > 0$.
+
+\medskip\noindent
+Choisissons des générateurs $f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$
+du noyau de l'homomorphisme donné $A(0) = R[x_1, \ldots, x_n] \to S$.
+En appliquant l'exemple \ref{example-adjoining-odd} $m$ fois, on obtient
+$$
+A(1) = A(0)\langle T_1, \ldots, T_m\rangle
+$$
+avec $\deg(T_i) = 1$, en tant qu'algèbre polynomiale graduée à puissances
+divisées. Posons $\text{d}(T_i) = f_i$. Comme $A(1)$ est une algèbre polynomiale à
+puissances divisées sur $A(0)$ et que $\text{d}(f_i) = 0$,
+ceci se prolonge de manière unique en une différentielle sur $A(1)$,
+d'après le lemme \ref{lemma-extend-differential}.
+
+\medskip\noindent
+Hypothèse de récurrence : supposons données des factorisations
+$$
+R \to A(0) \to A(1) \to\ldots\to A(m) \to S
+$$
+où $A(0)$ et $A(1)$ sont comme ci-dessus, et telles que chaque $R \to A(m') \to S$,
+pour $2 \leq m' \leq m$, vérifie les propriétés (1) et (4)
+de l'énoncé du lemme, la propriété (2) étant remplacée par la condition que
+$H_i(A(m')) \to H_i(S)$ est un isomorphisme pour
+$m' > i \geq 0$. Le cas initial est $m = 1$.
+
+\medskip\noindent
+Étape de récurrence : supposons donné $R \to A(m) \to S$
+comme dans l'hypothèse de récurrence. Considérons le
+groupe $H_m(A(m))$. C'est un module sur $H_0(A(m)) = S$.
+En fait, c'est un sous-quotient de $A(m)_m$, qui est un
+module de type fini sur $A(m)_0 = R[x_1, \ldots, x_n]$.
+On peut donc choisir un nombre fini d'éléments
+$$
+e_1, \ldots, e_t \in\Ker(\text{d} : A(m)_m \to A(m)_{m - 1})
+$$
+dont les images engendrent ce module. En appliquant
+l'exemple \ref{example-adjoining-odd} ou
+\ref{example-adjoining-even} $t$ fois, on obtient
+$$
+A(m + 1) = A(m)\langle T_1, \ldots, T_t\rangle
+$$
+avec $\deg(T_i) = m + 1$, en tant qu'algèbre graduée à puissances divisées. Posons
+$\text{d}(T_i) = e_i$. Comme $A(m+1)$ est une algèbre polynomiale à
+puissances divisées sur $A(m)$ et que $\text{d}(e_i) = 0$,
+ceci se prolonge de manière unique en une différentielle sur $A(m + 1)$
+compatible avec la structure de puissances divisées.
+Puisque nous n'avons ajouté des éléments qu'en degré $m + 1$ et au-dessus,
+on a $H_i(A(m + 1)) = H_i(A(m))$ pour $i < m$. De
+plus, $H_m(A(m + 1)) = 0$ par construction.
+
+\medskip\noindent
+Pour achever la démonstration, remarquons que nous avons construit
+une suite de morphismes
+$$
+R \to A(0) \to A(1) \to\ldots\to A(m) \to A(m + 1) \to\ldots\to S
+$$
+et posons $A = \colim A(m)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-tate-resoluton-pseudo-coherent-ring-map}
+Soit $R \to S$ un homomorphisme pseudo-cohérent d'anneaux (Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-pseudo-coherent-perfect}). Alors le
+lemme \ref{lemma-tate-resolution} vaut avec une résolution $A$ de $S$
+possédant un nombre fini de générateurs dans chaque degré.
+\end{lemma}
+
+\begin{proof}
+La démonstration est exactement la même que celle du lemme \ref{lemma-tate-resolution}. Le
+seul point supplémentaire est que, étant donné $A(m) \to S$, il faut
+montrer que $H_m = H_m(A(m))$ est un $R[x_1, \ldots, x_m]$-module de
+type fini (de sorte qu'à l'étape suivante il ne soit nécessaire d'ajouter qu'un nombre fini de
+variables). Considérons le complexe
+$$
+\ldots\to A(m)_{m - 1} \to A(m)_m \to A(m)_{m - 1} \to
+\ldots\to A(m)_0 \to S \to 0
+$$
+Comme $S$ est un $R[x_1, \ldots, x_n]$-module
+pseudo-cohérent et que $A(m)_i$ est un $R[x_1, \ldots, x_n]$-module
+libre de type fini, ce complexe est pseudo-cohérent ; voir
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-complex-pseudo-coherent-modules}.
+Comme le complexe est exact en degrés homologiques $> m$,
+on conclut que $H_m$ est un $R$-module de type
+fini, d'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-finite-cohomology}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-uniqueness-tate-resolution}
+Soit $R$ un anneau commutatif. Supposons que $(A, \text{d}, \gamma)$ et
+$(B, \text{d}, \gamma)$ soient comme
+dans la définition \ref{definition-divided-powers-dga}.
+Soit $\overline{\varphi} : H_0(A) \to H_0(B)$ un homomorphisme de $R$-algèbres.
+Supposons que
+\begin{enumerate}
+\item $A$ soit une algèbre polynomiale graduée à puissances divisées sur $R$.
+\item $H_k(B) = 0$ pour $k > 0$.
+\end{enumerate}
+Il existe alors un morphisme $\varphi : A \to B$ de
+$R$-algèbres différentielles graduées, compatible avec les puissances
+divisées, qui relève $\overline{\varphi}$.
+\end{lemma}
+
+\begin{proof}
+L'hypothèse signifie que $A$ s'obtient à partir de $R$ en adjoignant successivement
+un ensemble de générateurs polynomiaux en degré zéro, des générateurs extérieurs en
+degrés impairs positifs et des générateurs à puissances divisées
+en degrés pairs positifs. On dispose donc d'une filtration
+$R \subset A(0) \subset A(1) \subset\ldots$
+de $A$ telle que $A(m + 1)$ s'obtienne à partir de $A(m)$ en adjoignant
+des générateurs du type approprié (que nous appellerons simplement «
+générateurs à puissances divisées ») en degré $m + 1$.
+En particulier, $A(0) \to H_0(A)$ est un morphisme surjectif d'une algèbre
+polynomiale usuelle sur $R$ vers $H_0(A)$. On peut donc relever $\overline{\varphi}$
+en un homomorphisme de $R$-algèbres $\varphi(0) : A(0) \to B_0$.
+
+\medskip\noindent
+Écrivons $A(1) = A(0)\langle T_j:j\in J\rangle$ pour un
+ensemble $J$ de variables à puissances divisées $T_j$ de degré $1$. Soit $f_j \in B_0$
+défini par $f_j = \varphi(0)(\text{d}(T_j))$. Remarquons que l'image de $f_j$
+dans $H_0(B)$ est nulle, puisque l'image de $\text{d}T_j$ dans $H_0(A)$ est
+nulle. Il existe donc $b_j \in B_1$ tel que $\text{d}(b_j) = f_j$.
+D'après la propriété universelle des algèbres polynomiales à puissances divisées du
+lemme \ref{lemma-divided-power-polynomial-algebra}, il
+existe un relèvement $\varphi(1) : A(1) \to B$ de $\varphi(0)$
+qui envoie $T_j$ sur $f_j$.
+
+\medskip\noindent
+Après avoir construit $\varphi(m)$ pour un certain $m \geq 1$, on construit
+$\varphi(m + 1) : A(m + 1) \to B$ exactement de la même manière.
+Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-divided-powers-on-tor}
+Soit $R$ un anneau commutatif. Soient $S$ et $T$ des $R$-algèbres
+commutatives. Il existe alors
+une structure canonique de $R$-algèbre strictement commutative au sens gradué et munie de puissances divisées sur
+$$
+\operatorname{Tor}_*^R(S, T).
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons une factorisation $R \to A \to S$ comme ci-dessus. Comme $A \to S$
+est un quasi-isomorphisme et que $A_d$ est un $R$-module
+libre, l'algèbre différentielle graduée $B = A \otimes_R T$ calcule
+les groupes de Tor affichés dans le lemme. Choisissons une surjection
+$R[y_j:j\in J] \to T$. Alors
+$B$ est un quotient de l'algèbre différentielle graduée
+$A[y_j:j\in J]$, dont l'homologie est concentrée en degré $0$ (elle est
+égale à $S[y_j:j\in J]$).
+D'après le lemme \ref{lemma-base-change-div}, les algèbres différentielles graduées $B$ et
+$A[y_j:j\in J]$ possèdent des structures de puissances divisées
+compatibles avec les différentielles. On obtient donc la structure de
+puissances divisées cherchée sur $H(B)$ par le lemme \ref{lemma-dpdga-good}.
+
+\medskip\noindent
+La structure d'algèbre à puissances divisées ainsi construite ne dépend
+pas du choix de $A$. En effet, si $A'$ est un second choix, le
+lemme \ref{lemma-uniqueness-tate-resolution}
+fournit un morphisme $A \to A'$ qui préserve toutes les structures ainsi
+que les augmentations vers $S$. Le morphisme induit
+$B = A \otimes_R T \to A' \otimes_R T' = B'$ préserve alors
+lui aussi toutes les
+structures et est un quasi-isomorphisme. L'isomorphisme induit entre
+les algèbres de Tor est donc compatible avec les produits et
+les puissances divisées.
+\end{proof}
+
+
+
+
+
+\section{Application aux intersections complètes}
+\label{section-application-ci}
+
+\noindent
+Soit $R$ un anneau. Soit $(A, \text{d}, \gamma)$ comme dans
+la définition \ref{definition-divided-powers-dga}.
+Une {\it dérivation} de degré $2$ est une application $R$-linéaire
+$\theta : A \to A$ possédant les
+propriétés suivantes :
+\begin{enumerate}
+\item $\theta(A_d) \subset A_{d - 2}$,
+\item $\theta(xy) = \theta(x)y + x\theta(y)$,
+\item $\theta$ commute avec $\text{d}$,
+\item $\theta(\gamma_n(x)) = \theta(x) \gamma_{n - 1}(x)$
+pour tout $x \in A_{2d}$ et tout $d$.
+\end{enumerate}
+Dans le lemme suivant, nous construisons une dérivation.
+
+\begin{lemma}
+\label{lemma-get-derivation}
+Soit $R$ un anneau. Soit $(A, \text{d}, \gamma)$ comme dans
+la définition \ref{definition-divided-powers-dga}.
+Soit $R' \to R$ une surjection d'anneaux dont le
+noyau est de carré nul et engendré par un élément $f$.
+Si $A$ est une algèbre polynomiale graduée à puissances divisées sur $R$,
+ayant un nombre fini de variables en chaque degré,
+alors on obtient une dérivation
+$\theta : A/IA \to A/IA$, où $I$ est l'annulateur
+de $f$ dans $R$.
+\end{lemma}
+
+\begin{proof}
+Comme $A$ est une algèbre polynomiale à puissances divisées, il existe une algèbre
+polynomiale à puissances divisées $A'$ sur $R'$ telle que $A = A' \otimes_{R'} R$.
+De plus, on peut relever $\text{d}$ en un opérateur $R$-linéaire
+$\text{d}$ sur $A'$ tel que
+\begin{enumerate}
+\item $\text{d}(xy) = \text{d}(x)y + (-1)^{\deg(x)}x \text{d}(y)$
+pour $x, y \in A'$ homogènes, et
+\item $\text{d}(\gamma_n(x)) = \text{d}(x) \gamma_{n - 1}(x)$ pour
+$x \in A'_{even, +}$.
+\end{enumerate}
+Nous omettons les détails (indication : procéder une variable
+à la fois). Il se peut toutefois que $\text{d}^2$
+ne soit pas nul sur $A'$. Il est clair que $\text{d}^2$ envoie $A'$ dans
+$fA' \cong A/IA$. Par conséquent, $\text{d}^2$ annule $fA'$ et se factorise en
+une application $A \to A/IA$. Comme $\text{d}^2$ est $R$-linéaire, on obtient
+l'application voulue $\theta : A/IA \to A/IA$. La vérification des propriétés
+d'une dérivation est immédiate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-theta} On
+conserve les hypothèses et les notations du lemme \ref{lemma-get-derivation}.
+Supposons que $S = H_0(A)$ soit isomorphe à
+$R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+pour certains $n$, $m$ et $f_j \in R[x_1, \ldots, x_n]$.
+Supposons en outre donnée une relation
+$$
+\sum r_j f_j = 0
+$$
+avec $r_j \in R[x_1, \ldots, x_n]$.
+Choisissons des relèvements $r'_j, f'_j \in R'[x_1, \ldots, x_n]$ de $r_j, f_j$.
+Écrivons $\sum r'_j f'_j = gf$ pour un certain $g \in R/I[x_1, \ldots, x_n]$.
+Si $H_1(A) = 0$ et si tous les coefficients de chaque $r_j$ appartiennent à $I$,
+alors il existe un élément $\xi\in H_2(A/IA)$ tel que
+$\theta(\xi) = g$ dans $S/IS$.
+\end{lemma}
+
+\begin{proof}
+Soit $A(0) \subset A(1) \subset A(2) \subset\ldots$ la filtration
+de $A$ telle que $A(m)$ s'obtienne à partir de $A(m - 1)$ en adjoignant des
+variables à puissances divisées de degré $m$. Alors $A(0)$ est une algèbre
+polynomiale sur $R$, munie d'une surjection de $R$-algèbres $A(0) \to S$.
+On peut donc choisir une application
+$$
+\varphi : R[x_1, \ldots, x_n] \to A(0)
+$$
+qui relève les applications d'augmentation vers $S$.
+Ensuite, $A(1) = A(0)\langle T_1, \ldots, T_t \rangle$, où
+les $T_i$ sont des variables à puissances divisées de degré $1$. Comme $H_0(A) = S$, on
+peut choisir des éléments $\xi_j \in\sum A(0)T_i$ tels que $\text{d}(\xi_j) = \varphi(f_j)$.
+Alors
+$$
+\text{d}\left(\sum\varphi(r_j) \xi_j\right) =
+\sum\varphi(r_j) \varphi(f_j) = \sum\varphi(r_jf_j) = 0
+$$
+Comme $H_1(A) = 0$, on peut choisir $\xi\in A_2$ tel que
+$\text{d}(\xi) = \sum\varphi(r_j) \xi_j$.
+Si les coefficients de $r_j$ appartiennent à $I$,
+alors $\varphi(r_j)$ possède aussi cette propriété. Dans ce cas,
+$\text{d}(\xi)$ s'annule dans $A_1/IA_1$ et
+$\xi$ définit donc une classe dans $H_2(A/IA)$.
+
+\medskip\noindent
+La construction de $\theta$ dans la démonstration du lemme \ref{lemma-get-derivation}
+consiste à relever successivement $A(i)$ en $A'(i)$ ainsi qu'à relever
+la différentielle $\text{d}$. On relève $\varphi$
+en $\varphi' : R'[x_1, \ldots, x_n] \to A'(0)$.
+Ensuite, on a $A'(1) = A'(0)\langle T_1, \ldots, T_t\rangle$.
+De plus, on peut relever $\xi_j$ en $\xi'_j \in\sum A'(0)T_i$.
+Alors $\text{d}(\xi'_j) = \varphi'(f'_j) + f a_j$ pour un certain
+$a_j \in A'(0)$.
+Considérons un relèvement $\xi' \in A'_2$ de $\xi$.
+On sait alors que
+$$
+\text{d}(\xi') = \sum\varphi'(r'_j)\xi'_j + \sum fb_iT_i
+$$
+pour certains $b_i \in A(0)$. En appliquant de nouveau $\text{d}$, on obtient
+$$
+\theta(\xi) = \sum\varphi'(r'_j)\varphi'(f'_j) +
+\sum f \varphi'(r'_j) a_j + \sum fb_i \text{d}(T_i)
+$$
+Le premier terme donne le résultat voulu. Le deuxième est
+nul, car les coefficients de $r_j$ appartiennent à $I$ et sont
+donc annulés par $f$. Le troisième a une image nulle dans $H_0$,
+car l'image de $\text{d}(T_i)$ y est nulle.
+\end{proof}
+
+\noindent
+La méthode de démonstration du lemme suivant semble due à Gulliksen.
+
+\begin{lemma}
+\label{lemma-not-finite-pd}
+Soit $R' \to R$ une surjection d'anneaux noethériens dont le noyau est de
+carré nul et engendré par un élément $f$. Soit
+$S = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$.
+Soit $\sum r_j f_j = 0$ une relation dans $R[x_1, \ldots, x_n]$.
+Supposons que
+\begin{enumerate}
+\item chaque $r_j$ ait ses coefficients dans l'annulateur $I$ de $f$ dans $R$,
+\item pour certains relèvements $r'_j, f'_j \in R'[x_1, \ldots, x_n]$, on ait
+$\sum r'_j f'_j = gf$, où $g$ n'est pas nilpotent dans $S/IS$.
+\end{enumerate}
+Alors $S$ n'est pas de dimension de Tor finie sur $R$ (autrement dit, $S$ n'est
+pas une $R$-algèbre parfaite).
+\end{lemma}
+
+\begin{proof}
+Choisissons une résolution de Tate $R \to A \to S$ comme
+dans le lemme \ref{lemma-tate-resolution}.
+Soient $\xi\in H_2(A/IA)$ et $\theta : A/IA \to A/IA$ l'élément et la
+dérivation obtenus dans les lemmes \ref{lemma-get-derivation} et
+\ref{lemma-compute-theta}.
+On observe que
+$$
+\theta^n(\gamma_n(\xi)) = g^n
+$$
+dans $H_0(A/IA) = S/IS$.
+Ainsi, si $g$ n'est pas nilpotent dans $S/IS$, alors $\xi^n$ est non nul dans
+$H_{2n}(A/IA)$ pour tout $n > 0$. Comme
+$H_{2n}(A/IA) = \text{Tor}^R_{2n}(S, R/I)$, on conclut.
+\end{proof}
+
+\noindent
+Le résultat suivant se trouve dans \cite{Rodicio}.
+
+\begin{lemma}
+\label{lemma-injective}
+Soit $(A, \mathfrak m)$ un anneau local noethérien. Soient
+$I \subset J \subset A$ des idéaux propres. Si $A/J$ est de
+dimension de Tor finie sur $A/I$, alors l'application $I/\mathfrak m I \to J/\mathfrak m J$
+est injective.
+\end{lemma}
+
+\begin{proof}
+Soit $f \in I$ un élément dont l'image dans $I/\mathfrak m I$
+est non nulle et dont l'image dans $J/\mathfrak mJ$ est nulle. On peut choisir un idéal $I'$
+tel que $\mathfrak mI \subset I' \subset I$ et que $I/I'$ soit engendré
+par l'image de $f$. Posons $R = A/I$ et $R' = A/I'$. Écrivons $J = (a_1, \ldots, a_m)$
+avec $a_j \in A$. Alors $f = \sum b_j a_j$ pour certains $b_j \in\mathfrak m$.
+Soient $r_j, f_j \in R$ resp.\ $r'_j, f'_j \in R'$ les images de $b_j, a_j$.
+On se trouve alors
+dans la situation du lemme \ref{lemma-not-finite-pd}
+(l'idéal $I$ de ce lemme étant égal à $\mathfrak m_R$),
+ce qui démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-regular-sequence}
+Soit $(A, \mathfrak m)$ un anneau local noethérien. Soient
+$I \subset J \subset A$ des idéaux propres. Supposons que
+\begin{enumerate}
+\item $A/J$ soit de dimension de Tor finie sur $A/I$, et
+\item $J$ soit engendré par une suite régulière.
+\end{enumerate}
+Alors $I$ est engendré par une suite régulière et $J/I$
+est engendré par une suite régulière.
+\end{lemma}
+
+\begin{proof}
+Le lemme \ref{lemma-injective} montre que l'application
+$I/\mathfrak m I \to J/\mathfrak m J$
+est injective. Il existe donc $s \leq r$ et un système minimal de
+générateurs $f_1, \ldots, f_r$ de $J$ tels que $f_1, \ldots, f_s$ appartiennent à $I$
+et forment un système minimal de générateurs de $I$.
+Le lemme en résulte, car tout système minimal de générateurs de $J$
+est une suite régulière d'après
+Compléments sur l'algèbre, lemmes
+\ref{more-algebra-lemma-independence-of-generators} et
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-perfect-map-ci}
+Soit $R \to S$ un homomorphisme local d'anneaux locaux noethériens.
+Soient $I \subset R$ et $J \subset S$ des idéaux tels que
+$IS \subset J$. Si $R \to S$ est plat et si $S/\mathfrak m_RS$ est
+régulier, alors les propriétés suivantes sont équivalentes :
+\begin{enumerate}
+\item $J$ est engendré par une suite régulière et
+$S/J$ est de dimension de Tor finie comme module sur $R/I$,
+\item $J$ est engendré par une suite régulière et
+$\text{Tor}^{R/I}_p(S/J, R/\mathfrak m_R)$ n'est non nul
+que pour un nombre fini d'entiers $p$,
+\item $I$ est engendré par une suite
+régulière et $J/IS$ est engendré par une suite régulière dans $S/IS$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Si (3) est vérifiée, alors $J$ est engendré par une suite régulière ; voir, par exemple,
+Compléments sur l'algèbre, lemmes
+\ref{more-algebra-lemma-join-koszul-regular-sequences} et
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent}. De
+plus, sous cette même hypothèse, $S/J = (S/I)/(J/I)$
+est de dimension projective finie sur $S/IS$, car le complexe
+de Koszul fournit une résolution libre finie de $S/J$ sur $S/IS$.
+Comme $R/I \to S/IS$ est plat, il s'ensuit que $S/J$ est de
+dimension de Tor finie sur $R/I$,
+d'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-flat-push-tor-amplitude}.
+Ainsi, (3) implique (1).
+
+\medskip\noindent
+L'implication (1) $\Rightarrow$ (2) est immédiate.
+Supposons (2). D'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-perfect-over-regular-local-ring},
+$S/J$ est de dimension de Tor finie sur $S/IS$.
+On peut donc appliquer le lemme \ref{lemma-regular-sequence}
+pour conclure que $IS$ et $J/IS$ sont engendrés par des suites régulières.
+Soit $f_1, \ldots, f_r \in I$ un système minimal de générateurs de $I$.
+Comme $R \to S$ est plat, les éléments $f_1, \ldots, f_r$ forment un
+système minimal de générateurs de $IS$ dans $S$. Ainsi, $f_1, \ldots, f_r \in R$
+est une suite d'éléments dont les images dans $S$ forment une suite régulière,
+d'après Compléments sur l'algèbre, lemmes
+\ref{more-algebra-lemma-independence-of-generators} et
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent}. Par
+conséquent, $f_1, \ldots, f_r$ est une suite régulière dans $R$,
+d'après Algèbre, lemme \ref{algebra-lemma-flat-increases-depth}.
+\end{proof}
+
+
+
+
+
+\section{Anneaux d'intersection complète locale}
+\label{section-lci}
+
+\noindent
+Soit $(A, \mathfrak m)$ un anneau local noethérien complet.
+D'après le théorème de structure de Cohen (voir
+Algèbre, théorème \ref{algebra-theorem-cohen-structure-theorem}),
+on peut écrire $A$ comme quotient d'un anneau local
+noethérien régulier et complet $R$. On dit que $A$ est une
+{\it intersection
+complète} s'il existe une surjection $R \to A$,
+où $R$ est un anneau local régulier, dont le
+noyau est engendré par une suite
+régulière. Le lemme suivant montre que cette notion ne dépend
+pas du choix de la surjection.
+
+\begin{lemma}
+\label{lemma-ci-well-defined}
+Soit $(A, \mathfrak m)$ un anneau local noethérien complet. Les
+propriétés suivantes sont équivalentes :
+\begin{enumerate}
+\item pour toute surjection d'anneaux locaux $R \to A$, où $R$
+est un anneau local régulier, le noyau de $R \to A$ est engendré
+par une suite régulière, et
+\item pour une certaine surjection d'anneaux locaux $R \to A$, où $R$
+est un anneau local régulier, le noyau de $R \to A$ est engendré
+par une suite régulière.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $k$ le corps résiduel de $A$. Si la caractéristique de
+$k$ est $p > 0$, on désigne par $\Lambda$ un anneau de
+Cohen (Algèbre, définition \ref{algebra-definition-cohen-ring})
+de corps résiduel $k$ (Algèbre, lemme \ref{algebra-lemma-cohen-rings-exist}).
+Si la caractéristique de $k$ est $0$, on pose $\Lambda = k$.
+Rappelons que $\Lambda[[x_1, \ldots, x_n]]$, pour tout $n$,
+est formellement lisse sur $\mathbf{Z}$, resp.\ $\mathbf{Q}$,
+pour la topologie $\mathfrak m$-adique ; voir
+Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-power-series-ring-over-Cohen-fs}.
+Fixons une surjection $\Lambda[[x_1, \ldots, x_n]] \to A$ donnée
+par le théorème de structure de
+Cohen (Algèbre, théorème \ref{algebra-theorem-cohen-structure-theorem}).
+
+\medskip\noindent
+Soit $R \to A$ une surjection, où $R$ est un
+anneau local régulier. Soit $f_1, \ldots, f_r$ un système minimal de générateurs
+de $\Ker(R \to A)$. Nous utiliserons sans autre mention le
+fait qu'un idéal d'un anneau local noethérien est engendré par une suite
+régulière si et seulement si tout système minimal de générateurs est
+une suite régulière. On observe que $f_1, \ldots, f_r$
+est une suite régulière dans $R$ si et seulement si $f_1, \ldots, f_r$
+est une suite régulière dans le complété $R^\wedge$,
+d'après Algèbre, lemmes \ref{algebra-lemma-flat-increases-depth} et
+\ref{algebra-lemma-completion-flat}.
+De plus,
+$$
+R^\wedge/(f_1, \ldots, f_r)R^\wedge =
+(R/(f_1, \ldots, f_n))^\wedge = A^\wedge = A
+$$
+car $A$ est complet pour la topologie $\mathfrak m_A$-adique (la première égalité résulte
+d'Algèbre, lemme \ref{algebra-lemma-completion-tensor}). Enfin,
+l'anneau $R^\wedge$ est régulier puisque $R$ est régulier
+(Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-completion-regular}). On
+peut donc supposer que $R$ est complet.
+
+\medskip\noindent
+Si $R$ est complet, on peut choisir une application
+$\Lambda[[x_1, \ldots, x_n]] \to R$ relevant l'application donnée
+$\Lambda[[x_1, \ldots, x_n]] \to A$; voir
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-lift-continuous}.
+En ajoutant des variables $y_1, \ldots, y_m$ envoyées
+sur des générateurs du noyau de $R \to A$, on peut supposer que
+$\Lambda[[x_1, \ldots, x_n, y_1, \ldots, y_m]] \to R$ est surjective
+(nous omettons quelques détails). On peut alors considérer le diagramme commutatif
+$$
+\xymatrix{
+\Lambda[[x_1, \ldots, x_n, y_1, \ldots, y_m]] \ar[r] \ar[d] & R \ar[d] \\
+\Lambda[[x_1, \ldots, x_n]] \ar[r] & A
+}
+$$
+Le lemme \ref{algebra-lemma-ci-well-defined} d'Algèbre montre que
+la condition relative à $R \to A$ équivaut à celle relative à
+l'application fixée
+$\Lambda[[x_1, \ldots, x_n]] \to A$. Cela achève la démonstration du lemme.
+\end{proof}
+
+\noindent
+Les deux lemmes suivants constituent des vérifications de cohérence de la définition donnée ci-dessus.
+
+\begin{lemma}
+\label{lemma-quotient-regular-ring-by-regular-sequence}
+Soit $R$ un anneau régulier. Soit $\mathfrak p \subset R$ un idéal premier.
+Soit $f_1, \ldots, f_r \in\mathfrak p$ une suite régulière.
+Alors le complété de
+$$
+A = (R/(f_1, \ldots, f_r))_\mathfrak p =
+R_\mathfrak p/(f_1, \ldots, f_r)R_\mathfrak p
+$$
+est une intersection complète au sens défini ci-dessus.
+\end{lemma}
+
+\begin{proof}
+Le complété de $A$ est égal à
+$A^\wedge = R_\mathfrak p^\wedge/(f_1, \ldots, f_r)R_\mathfrak p^\wedge$,
+car le foncteur de complétion est exact sur les modules finis sur l'anneau noethérien
+$R_\mathfrak p$ (Algèbre,
+lemme \ref{algebra-lemma-completion-tensor}).
+L'image de la suite $f_1, \ldots, f_r$ dans $R_\mathfrak p$
+est une suite régulière
+d'après Algèbre, lemmes \ref{algebra-lemma-completion-flat} et
+\ref{algebra-lemma-flat-increases-depth}.
+De plus, $R_\mathfrak p^\wedge$ est un anneau local régulier d'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-completion-regular}. Le
+résultat découle donc de notre définition d'une intersection
+complète pour les anneaux locaux complets.
+\end{proof}
+
+\noindent
+Le lemme suivant est l'analogue d'Algèbre, lemme \ref{algebra-lemma-lci}.
+
+\begin{lemma}
+\label{lemma-quotient-regular-ring}
+Soit $R$ un anneau régulier. Soit $\mathfrak p \subset R$ un idéal premier.
+Soit $I \subset\mathfrak p$ un idéal.
+Posons $A = (R/I)_\mathfrak p = R_\mathfrak p/I_\mathfrak p$.
+Les propriétés suivantes sont équivalentes :
+\begin{enumerate}
+\item le complété de $A$
+est une intersection complète au sens ci-dessus,
+\item $I_\mathfrak p \subset R_\mathfrak p$ est engendré
+par une suite régulière,
+\item le module $(I/I^2)_\mathfrak p$ peut être engendré par
+$\dim(R_\mathfrak p) - \dim(A)$ éléments,
+\item ajouter quelque chose ici.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} On
+peut remplacer, et l'on remplace, $R$ par son localisé en $\mathfrak p$.
+Alors $\mathfrak p = \mathfrak m$ est l'idéal maximal de $R$
+et $A = R/I$. Soit $f_1, \ldots, f_r \in I$ un système minimal
+de générateurs. Le complété de $A$ est égal à
+$A^\wedge = R^\wedge/(f_1, \ldots, f_r)R^\wedge$,
+car le foncteur de complétion est exact sur les modules finis sur l'anneau noethérien
+$R_\mathfrak p$ (Algèbre,
+lemme \ref{algebra-lemma-completion-tensor}).
+
+\medskip\noindent
+Si (1) est vérifiée, alors l'image de la suite $f_1, \ldots, f_r$ dans $R^\wedge$
+est une suite régulière par hypothèse. C'est donc une suite régulière
+dans $R$ d'après Algèbre, lemmes \ref{algebra-lemma-completion-flat} et
+\ref{algebra-lemma-flat-increases-depth}. Ainsi, (1) implique (2).
+
+\medskip\noindent
+Supposons (3). Posons $c = \dim(R) - \dim(A)$ et choisissons $f_1, \ldots, f_c \in I$
+dont les images engendrent $I/I^2$. Le lemme de Nakayama
+(Algèbre, lemme \ref{algebra-lemma-NAK})
+montre que $I = (f_1, \ldots, f_c)$. Comme $R$ est régulier, donc de
+Cohen--Macaulay (Algèbre, proposition \ref{algebra-proposition-CM-module}),
+$f_1, \ldots, f_c$ est une suite régulière
+d'après Algèbre, proposition \ref{algebra-proposition-CM-module}.
+Ainsi, (3) implique (2).
+Enfin, (2) implique (1) d'après le
+lemme \ref{lemma-quotient-regular-ring-by-regular-sequence}.
+\end{proof}
+
+\noindent
+Le résultat suivant est dû à Avramov ; voir \cite{Avramov}.
+
+\begin{proposition}
+\label{proposition-avramov}
+Soit $A \to B$ un homomorphisme local plat d'anneaux locaux noethériens. Les
+propriétés suivantes sont équivalentes :
+\begin{enumerate}
+\item $B^\wedge$ est une intersection complète,
+\item $A^\wedge$ et $(B/\mathfrak m_A B)^\wedge$ sont des intersections complètes.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Considérons le diagramme
+$$
+\xymatrix{
+B \ar[r] & B^\wedge\\
+A \ar[u] \ar[r] & A^\wedge\ar[u]
+}
+$$
+Comme les applications horizontales sont fidèlement
+plates (Algèbre, lemme \ref{algebra-lemma-completion-faithfully-flat}),
+la flèche verticale de droite est plate (par
+exemple, d'après Algèbre, lemme
+\ref{algebra-lemma-criterion-flatness-fibre-Noetherian}).
+De plus,
+$(B/\mathfrak m_A B)^\wedge = B^\wedge/\mathfrak m_{A^\wedge} B^\wedge$
+d'après Algèbre, lemme \ref{algebra-lemma-completion-tensor}. On
+peut donc supposer que $A$ et $B$ sont des anneaux locaux noethériens complets.
+
+\medskip\noindent
+Supposons que $A$ et $B$ soient des anneaux locaux noethériens complets.
+Choisissons un diagramme
+$$
+\xymatrix{
+S \ar[r] & B \\
+R \ar[u] \ar[r] & A \ar[u]
+}
+$$
+comme dans Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-embed-map-Noetherian-complete-local-rings}.
+Posons $I = \Ker(R \to A)$ et $J = \Ker(S \to B)$.
+Comme $R/I = A \to B = S/J$ est plat, l'application
+$J/IS \otimes_R R/\mathfrak m_R \to J/J \cap\mathfrak m_R S$
+est un isomorphisme. Par conséquent, un système minimal de générateurs de $J/IS$
+s'envoie sur un système minimal de générateurs de
+$\Ker(S/\mathfrak m_R S \to B/\mathfrak m_A B)$.
+Enfin, $S/\mathfrak m_R S$ est un anneau local régulier.
+
+\medskip\noindent
+Supposons (1), c'est-à-dire que $J$ soit engendré par une suite régulière.
+Comme $A = R/I \to B = S/J$ est plat, le
+lemme \ref{lemma-perfect-map-ci} s'applique et montre
+que $I$ et $J/IS$ sont engendrés par des suites
+régulières. On a $\dim(B) = \dim(A) + \dim(B/\mathfrak m_A B)$ et
+$\dim(S/IS) = \dim(A) + \dim(S/\mathfrak m_R S)$
+(Algèbre, lemme \ref{algebra-lemma-dimension-base-fibre-equals-total}).
+Ainsi, $J/IS$ est engendré par
+$$
+\dim(S/IS) - \dim(S/J) = \dim(S/\mathfrak m_R S) - \dim(B/\mathfrak m_A B)
+$$
+éléments (Algèbre, lemme \ref{algebra-lemma-one-equation}).
+Il s'ensuit que $\Ker(S/\mathfrak m_R S \to B/\mathfrak m_A B)$
+est engendré par le même nombre d'éléments (voir ci-dessus). Par
+conséquent, $\Ker(S/\mathfrak m_R S \to B/\mathfrak m_A B)$
+est engendré par une suite régulière ; voir, par exemple, le
+lemme \ref{lemma-quotient-regular-ring}.
+On obtient ainsi (2).
+
+\medskip\noindent
+Si (2) est vérifiée, alors $I$ et $J/J \cap\mathfrak m_RS$
+sont engendrés par des suites régulières. En relevant ces générateurs (voir
+ci-dessus), puis en utilisant la platitude de $R/I \to S/IS$ et
+le lemme de Grothendieck
+(Algèbre, lemme \ref{algebra-lemma-grothendieck-regular-sequence}),
+on voit que $J/IS$ est engendré par une suite régulière dans $S/IS$.
+Le lemme \ref{lemma-perfect-map-ci} montre alors que $J$
+est engendré par une suite régulière, d'où (1).
+\end{proof}
+
+\begin{definition}
+\label{definition-lci}
+Soit $A$ un anneau noethérien.
+\begin{enumerate}
+\item Si $A$ est local, on dit que $A$ est une {\it intersection complète}
+si son complété est une intersection complète au sens ci-dessus.
+\item En général, on dit que $A$ est une {\it intersection complète locale}
+si tous ses anneaux locaux sont des intersections complètes.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous vérifierons plus loin que cela ne contredit pas la terminologie
+introduite dans
+Algèbre, définitions \ref{algebra-definition-lci-field} et
+\ref{algebra-definition-lci-local-ring}.
+Mais montrons d'abord que cette définition est
+cohérente : si $A$ est un anneau local
+noethérien qui est une intersection complète, alors $A$ est une intersection complète locale,
+c'est-à-dire que tous ses anneaux locaux sont des intersections complètes.
+
+\begin{lemma}
+\label{lemma-ci-good}
+Soit $(A, \mathfrak m)$ un anneau local noethérien. Soit
+$\mathfrak p \subset A$ un idéal premier. Si $A$ est une
+intersection complète, alors $A_\mathfrak p$ est aussi une intersection complète.
+\end{lemma}
+
+\begin{proof}
+Choisissons un idéal premier $\mathfrak q$ de $A^\wedge$ au-dessus de $\mathfrak p$
+(cela est possible puisque $A \to A^\wedge$ est fidèlement plat
+d'après Algèbre, lemme \ref{algebra-lemma-completion-faithfully-flat}).
+Alors $A_\mathfrak p \to (A^\wedge)_\mathfrak q$ est un
+homomorphisme local plat. La proposition \ref{proposition-avramov}
+montre donc que $A_\mathfrak p$ est une intersection complète si et seulement si
+$(A^\wedge)_\mathfrak q$ est une intersection complète. Il suffit ainsi
+de démontrer le lemme lorsque $A$ est complet (c'est l'étape essentielle de
+la démonstration).
+
+\medskip\noindent
+Supposons $A$ complet. Par définition, on peut écrire
+$A = R/(f_1, \ldots, f_r)$ pour une suite régulière
+$f_1, \ldots, f_r$ dans un anneau local régulier $R$.
+Soit $\mathfrak q \subset R$ l'idéal premier correspondant à $\mathfrak p$.
+On observe que $f_1, \ldots, f_r \in\mathfrak q$ et que
+$A_\mathfrak p = R_\mathfrak q/(f_1, \ldots, f_r)R_\mathfrak q$.
+Ainsi, $A_\mathfrak p$ est une intersection complète d'après
+le lemme \ref{lemma-quotient-regular-ring-by-regular-sequence}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-lci-at-maximal-ideals}
+Soit $A$ un anneau noethérien. Alors $A$ est une intersection complète locale
+si et seulement si $A_\mathfrak m$ est une intersection complète pour
+tout idéal maximal $\mathfrak m$ de $A$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du lemme \ref{lemma-ci-good} et des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-lci-agrees}
+Soit $S$ une algèbre de type fini sur un corps $k$.
+\begin{enumerate}
+\item pour un idéal premier $\mathfrak q \subset S$, l'anneau local $S_\mathfrak q$
+est une intersection complète au sens
+de la définition \ref{algebra-definition-lci-local-ring} d'Algèbre,
+si et seulement si $S_\mathfrak q$ est une
+intersection complète au sens de la définition \ref{definition-lci}, et
+\item $S$ est une intersection complète locale au
+sens de la définition \ref{algebra-definition-lci-field}
+d'Algèbre, si et seulement si $S$ est une
+intersection complète locale au sens de la définition \ref{definition-lci}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démontrons (1). Soit $k[x_1, \ldots, x_n] \to S$ une surjection.
+Soit $\mathfrak p \subset k[x_1, \ldots, x_n]$ l'idéal premier
+correspondant à $\mathfrak q$.
+Soit $I \subset k[x_1, \ldots, x_n]$ le noyau de cette surjection.
+L'application $k[x_1, \ldots, x_n]_\mathfrak p \to S_\mathfrak q$
+est surjective, de noyau $I_\mathfrak p$. Or
+$k[x_1, \ldots, x_n]$ est un anneau régulier
+d'après Algèbre, proposition \ref{algebra-proposition-finite-gl-dim-polynomial-ring}.
+L'équivalence des deux notions de (1) résulte donc de la
+combinaison du
+lemme \ref{lemma-quotient-regular-ring}
+avec Algèbre, lemme \ref{algebra-lemma-lci-local}.
+
+\medskip\noindent
+Après avoir démontré (1), l'équivalence de (2) résulte de la
+définition et d'Algèbre, lemme \ref{algebra-lemma-lci-global}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-avramov}
+Soit $A \to B$ un homomorphisme local plat d'anneaux locaux noethériens. Les
+propriétés suivantes sont équivalentes :
+\begin{enumerate}
+\item $B$ est une intersection complète,
+\item $A$ et $B/\mathfrak m_A B$ sont des intersections complètes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Maintenant que la définition est cohérente, il s'agit d'une reformulation
+immédiate de la proposition (non triviale) \ref{proposition-avramov}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Homomorphismes d'intersection complète locale}
+\label{section-lci-homomorphisms}
+
+\noindent
+Soit $A \to B$ un homomorphisme local d'anneaux locaux noethériens complets. Une
+conséquence du théorème de structure de Cohen est que l'on peut trouver un
+diagramme commutatif
+$$
+\xymatrix{
+S \ar[r] & B \\
+& A \ar[lu] \ar[u]
+}
+$$
+d'anneaux locaux noethériens complets tel que
+$S \to B$ soit surjectif, $A \to S$ soit plat et que
+$S/\mathfrak m_A S$ soit un anneau local régulier. Cela résulte de
+Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-embed-map-Noetherian-complete-local-rings}.
+Disons (provisoirement) que $A \to S \to B$ est une {\it bonne factorisation}
+de $A \to B$ si $S$ est un anneau local noethérien,
+$A \to S \to B$ sont des homomorphismes locaux d'anneaux,
+$S \to B$ est surjectif, $A \to S$ est plat et $S/\mathfrak m_AS$ est
+régulier. Disons que $A \to B$ est un
+{\it homomorphisme d'intersection
+complète} s'il existe une bonne factorisation $A \to S \to B$
+telle que le noyau de $S \to B$ soit engendré par une suite
+régulière. Le lemme suivant montre que cette notion ne dépend
+pas du choix du diagramme.
+
+\begin{lemma}
+\label{lemma-ci-map-well-defined}
+Soit $A \to B$ un homomorphisme local d'anneaux locaux noethériens complets. Les
+assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item pour une certaine bonne factorisation $A \to S \to B$, le noyau de
+$S \to B$ est engendré par une suite régulière, et
+\item pour toute bonne factorisation $A \to S \to B$, le noyau de
+$S \to B$ est engendré par une suite régulière.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $A \to S \to B$ une bonne factorisation.
+Comme $B$ est complet, on obtient une factorisation
+$A \to S^\wedge\to B$ où $S^\wedge$ est le complété de $S$.
+Remarquons qu'il s'agit encore d'une bonne factorisation :
+l'homomorphisme d'anneaux $S \to S^\wedge$ est
+plat (Algèbre, lemme \ref{algebra-lemma-completion-flat}),
+donc $A \to S^\wedge$ est plat.
+L'anneau $S^\wedge/\mathfrak m_A S^\wedge = (S/\mathfrak m_A S)^\wedge$
+est régulier puisque $S/\mathfrak m_A S$ est régulier
+(Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-completion-regular}).
+Soit $f_1, \ldots, f_r$ un système minimal de générateurs
+de $\Ker(S \to B)$. Nous utiliserons sans autre mention le
+fait qu'un idéal d'un anneau local noethérien est engendré par une suite
+régulière si et seulement si tout système minimal de générateurs est
+une suite régulière. Remarquons que $f_1, \ldots, f_r$
+est une suite régulière dans $S$ si et seulement si $f_1, \ldots, f_r$
+est une suite régulière dans le complété $S^\wedge$,
+d'après Algèbre, lemme \ref{algebra-lemma-flat-increases-depth}.
+De plus, on a
+$$
+S^\wedge/(f_1, \ldots, f_r)R^\wedge =
+(S/(f_1, \ldots, f_n))^\wedge = B^\wedge = B
+$$
+car $B$ est complet pour la topologie $\mathfrak m_B$-adique (la première égalité résulte
+d'Algèbre, lemme \ref{algebra-lemma-completion-tensor}).
+Ainsi, le noyau de $S \to B$ est engendré par une suite régulière
+si et seulement si le noyau de $S^\wedge\to B$ est engendré par une
+suite régulière. Il
+suffit donc de considérer les bonnes factorisations pour lesquelles $S$ est complet.
+
+\medskip\noindent
+Supposons données deux factorisations $A \to S \to B$ et
+$A \to S' \to B$, avec $S$ et $S'$ complets. D'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-dominate-two-surjections},
+l'anneau $S \times_B S'$ est un anneau local noethérien complet. Par
+conséquent, en appliquant Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-embed-map-Noetherian-complete-local-rings}, on
+peut choisir une bonne factorisation $A \to S'' \to S \times_B S'$
+avec $S''$ complet. Il suffit donc de montrer ceci :
+si $A \to S' \to S \to B$ sont de bonnes factorisations comparables,
+alors $\Ker(S \to B)$ est engendré par une suite régulière
+si et seulement si $\Ker(S' \to B)$ est engendré par une suite régulière.
+
+\medskip\noindent
+Soient $A \to S' \to S \to B$ de bonnes factorisations comparables. Tout
+d'abord, puisque $S'/\mathfrak m_R S' \to S/\mathfrak m_R S$ est
+une surjection d'anneaux locaux réguliers, son noyau est engendré
+par une suite régulière
+$\overline{x}_1, \ldots, \overline{x}_c \in
+\mathfrak m_{S'}/\mathfrak m_R S'$
+que l'on peut compléter en un système régulier de paramètres de
+l'anneau local régulier $S'/\mathfrak m_R S'$;
+voir (Algèbre, lemme \ref{algebra-lemma-regular-quotient-regular}).
+Posons $I = \Ker(S' \to S)$. Comme $S$ est plat sur $R$, on a
+$$
+I/\mathfrak m_R I =
+\Ker(S'/\mathfrak m_R S' \to S/\mathfrak m_R S) =
+(\overline{x}_1, \ldots, \overline{x}_c).
+$$
+Choisissons des relèvements $x_1, \ldots, x_c \in I$. Ceux-ci forment une suite régulière
+qui engendre $I$, puisque $S'$ est plat sur $R$;
+voir Algèbre, lemme \ref{algebra-lemma-grothendieck-regular-sequence}.
+
+\medskip\noindent
+On en déduit que, si $\Ker(S \to B)$ est lui aussi engendré
+par une suite régulière, il en va de même de $\Ker(S' \to B)$; voir
+Compléments sur l'algèbre, lemmes
+\ref{more-algebra-lemma-join-koszul-regular-sequences} et
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent}.
+
+\medskip\noindent
+Réciproquement, supposons que $J = \Ker(S' \to B)$ soit
+engendré par une suite régulière. Comme les générateurs $x_1, \ldots, x_c$
+de $I$ s'envoient sur des éléments linéairement indépendants de
+$\mathfrak m_{S'}/\mathfrak m_{S'}^2$, on voit que
+$I/\mathfrak m_{S'}I \to J/\mathfrak m_{S'}J$ est injectif.
+Il existe donc un système minimal de générateurs
+$x_1, \ldots, x_c, y_1, \ldots, y_d$ de $J$.
+Alors $x_1, \ldots, x_c, y_1, \ldots, y_d$ est une suite
+régulière, et il s'ensuit que les images de $y_1, \ldots, y_d$ dans $S$
+forment une suite régulière qui engendre $\Ker(S \to B)$.
+Ceci achève la démonstration du lemme.
+\end{proof}
+
+\noindent
+Dans la proposition suivante, remarquons que la condition d'annulation des
+Tor est notamment satisfaite si $B$ est de dimension de Tor finie sur $A$,
+et donc, en particulier, si $B$ est plat sur $A$.
+
+\begin{proposition}
+\label{proposition-avramov-map}
+Soit $A \to B$ un homomorphisme local d'anneaux locaux noethériens. Les
+assertions suivantes sont alors équivalentes :
+\begin{enumerate}
+\item $B$ est une intersection complète et
+$\text{Tor}^A_p(B, A/\mathfrak m_A)$ n'est non nul que pour un nombre fini de $p$,
+\item $A$ est une intersection complète et
+$A^\wedge\to B^\wedge$ est un homomorphisme d'intersection
+complète au sens défini ci-dessus.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Soit $F_\bullet\to A/\mathfrak m_A$ une résolution par
+des $A$-modules libres de type fini. Remarquons que
+$\text{Tor}^A_p(B, A/\mathfrak m_A)$
+est la $p$-ième homologie du complexe $F_\bullet\otimes_A B$.
+Soit $F_\bullet^\wedge = F_\bullet\otimes_A A^\wedge$ le complété.
+Alors $F_\bullet^\wedge$ est une résolution de $A^\wedge/\mathfrak m_{A^\wedge}$
+par des $A^\wedge$-modules libres de type fini (car $A \to A^\wedge$ est plat et le foncteur de
+complétion est exact sur les modules de type fini ;
+voir Algèbre, lemmes \ref{algebra-lemma-completion-tensor} et
+\ref{algebra-lemma-completion-flat}).
+Il s'ensuit que
+$$
+F_\bullet^\wedge\otimes_{A^\wedge} B^\wedge =
+F_\bullet\otimes_A B \otimes_B B^\wedge
+$$
+La platitude de $B \to B^\wedge$ donne alors
+$$
+\text{Tor}^{A^\wedge}_p(B^\wedge, A^\wedge/\mathfrak m_{A^\wedge}) =
+\text{Tor}^A_p(B, A/\mathfrak m_A) \otimes_B B^\wedge
+$$
+On voit ainsi que la condition de (1) portant sur l'homomorphisme local $A \to B$
+est équivalente à la même condition pour l'homomorphisme local
+$A^\wedge\to B^\wedge$.
+On peut donc supposer que $A$ et $B$ sont des anneaux locaux noethériens
+complets (puisque, de toute façon, les autres conditions sont formulées en termes
+des complétés).
+
+\medskip\noindent
+Supposons que $A$ et $B$ soient des anneaux locaux noethériens complets.
+Choisissons un diagramme
+$$
+\xymatrix{
+S \ar[r] & B \\
+R \ar[u] \ar[r] & A \ar[u]
+}
+$$
+comme dans Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-embed-map-Noetherian-complete-local-rings}.
+Posons $I = \Ker(R \to A)$ et $J = \Ker(S \to B)$.
+La proposition résulte alors du lemme \ref{lemma-perfect-map-ci}.
+\end{proof}
+
+\begin{remark}
+\label{remark-no-good-ci-map} Il
+semble difficile de définir une bonne notion d'« homomorphismes
+d'intersection complète locale » pour les homomorphismes entre anneaux noethériens généraux.
+La raison en est que, pour un anneau local noethérien $A$, les fibres de
+$A \to A^\wedge$ ne sont pas des anneaux d'intersection complète
+locale. Ainsi, si $A \to B$ est un homomorphisme local d'anneaux locaux noethériens et si
+l'homomorphisme entre les complétés $A^\wedge\to B^\wedge$ est
+un homomorphisme d'intersection complète au sens défini ci-dessus,
+alors $(A_\mathfrak p)^\wedge\to (B_\mathfrak q)^\wedge$ n'est en général
+{\bf pas} un homomorphisme d'intersection complète au sens défini
+ci-dessus. Une solution consiste à travailler exclusivement avec des anneaux
+noethériens excellents. Plus généralement, on pourrait travailler avec les
+anneaux noethériens dont les fibres formelles sont des
+intersections complètes ; voir \cite{Rodicio-ci}.
+Nous développerons cette théorie
+dans Complexes dualisants, section \ref{dualizing-section-formal-fibres}.
+\end{remark}
+
+\noindent
+Pour terminer cette section, comparons la notion définie ci-dessus
+à celle introduite dans
+Compléments sur l'algèbre, section \ref{section-lci}.
+
+\begin{lemma}
+\label{lemma-well-defined-if-you-can-find-good-factorization}
+Considérons un diagramme commutatif
+$$
+\xymatrix{
+S \ar[r] & B \\
+& A \ar[lu] \ar[u]
+}
+$$
+d'anneaux locaux noethériens tel que $S \to B$ soit surjectif, $A \to S$ soit plat et que
+$S/\mathfrak m_A S$ soit un anneau local régulier. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\Ker(S \to B)$ est engendré par une suite régulière, et
+\item $A^\wedge\to B^\wedge$ est un homomorphisme d'intersection complète au
+sens défini ci-dessus.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : la démonstration est identique à l'argument donné
+dans le premier paragraphe de la démonstration du lemme \ref{lemma-ci-map-well-defined}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type-lci-map}
+Soit $A$ un anneau noethérien.
+Soit $A \to B$ un homomorphisme d'anneaux de type fini.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $A \to B$ est une intersection complète locale au sens de
+Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-local-complete-intersection},
+\item pour tout idéal premier $\mathfrak q \subset B$, en posant
+$\mathfrak p = A \cap\mathfrak q$, l'homomorphisme d'anneaux
+$(A_\mathfrak p)^\wedge\to (B_\mathfrak q)^\wedge$ est
+un homomorphisme d'intersection complète au sens défini ci-dessus.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons une surjection $R = A[x_1, \ldots, x_n] \to B$.
+Remarquons que $A \to R$ est plat à fibres régulières.
+Soit $I$ le noyau de $R \to B$.
+Supposons (2). On voit alors que
+$I$ est localement engendré par une suite régulière,
+d'après le
+lemme \ref{lemma-well-defined-if-you-can-find-good-factorization}
+et
+Algèbre, lemme \ref{algebra-lemma-regular-sequence-in-neighbourhood}.
+Autrement dit, (1) est vérifiée.
+Réciproquement, supposons (1). Après localisation sur $R$ et $B$,
+on peut alors supposer que $I$ est engendré par une suite régulière au sens de Koszul.
+D'après Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent},
+on trouve que $I$ est localement engendré par une suite régulière. Ainsi,
+(2) est vérifiée d'après le
+lemme \ref{lemma-well-defined-if-you-can-find-good-factorization}.
+Certains détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-avramov-map-finite-type}
+Soit $A$ un anneau noethérien. Soit $A \to B$ un homomorphisme d'anneaux de
+type fini tel que l'image de $\Spec(B) \to\Spec(A)$ contienne tous les
+points fermés de $\Spec(A)$. Les assertions suivantes sont alors équivalentes :
+\begin{enumerate}
+\item $B$ est une intersection complète et $A \to B$ est de
+dimension de Tor finie,
+\item $A$ est une intersection complète et $A \to B$ est une intersection
+complète locale au sens de Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-local-complete-intersection}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il s'agit d'une reformulation de la proposition \ref{proposition-avramov-map} au
+moyen du lemme \ref{lemma-finite-type-lci-map}.
+Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Homomorphismes d'anneaux lisses et diagonales}
+\label{section-smooth-diagonal-perfect}
+
+\noindent
+Dans cette section, nous utilisons les résultats précédents pour caractériser les homomorphismes d'anneaux
+lisses comme ceux dont la diagonale est parfaite.
+
+\begin{lemma}
+\label{lemma-local-perfect-diagonal}
+Soit $A \to B$ un homomorphisme local d'anneaux locaux noethériens tel que
+$B$ soit plat et essentiellement de type fini sur $A$. Si
+$$
+B \otimes_A B \longrightarrow B
+$$
+est un homomorphisme d'anneaux parfait, c'est-à-dire si $B$ est de dimension de Tor finie sur
+$B \otimes_A B$, alors $B$ est la localisation d'une $A$-algèbre lisse.
+\end{lemma}
+
+\begin{proof}
+Comme $B$ est essentiellement de type fini sur $A$, il en va de même de $B \otimes_A B$,
+et en particulier $B \otimes_A B$ est noethérien. Par conséquent, le quotient $B$ de
+$B \otimes_A B$ est pseudo-cohérent sur $B \otimes_A B$
+(Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-Noetherian-pseudo-coherent}), ce qui
+explique pourquoi la perfection de l'homomorphisme d'anneaux (Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-pseudo-coherent-perfect}) équivaut à la
+condition de dimension de Tor finie.
+
+\medskip\noindent
+On peut écrire $B = R/K$, où $R$ est la localisation de $A[x_1, \ldots, x_n]$
+en un idéal premier et où $K \subset R$ est un idéal. Notons
+$\mathfrak m \subset R \otimes_A R$ l'idéal maximal qui est l'image
+réciproque de l'idéal maximal de $B$ par la surjection
+$R \otimes_A R \to B \otimes_A B \to B$. On a alors des surjections
+$$
+(R \otimes_A R)_\mathfrak m \to (B \otimes_A B)_\mathfrak m \to B
+$$
+et donc des idéaux $I \subset J \subset (R \otimes_A R)_\mathfrak m$
+comme dans le lemme \ref{lemma-injective}. On en déduit que
+$I/\mathfrak m I \to J/\mathfrak m J$ est injectif.
+
+\medskip\noindent
+Écrivons $K = (f_1, \ldots, f_r)$ avec $r$ minimal. On peut supposer, et on le fera, que
+$f_i \in R$ est l'image d'un élément de $A[x_1, \ldots, x_n]$ que l'on
+note également $f_i$. Remarquons que $I$ est engendré
+par $f_1 \otimes 1, \ldots, f_r \otimes 1$ et
+$1 \otimes f_1, \ldots, 1 \otimes f_r$. Nous affirmons que c'est un système
+minimal de générateurs de $I$. En effet, si $\kappa$ est le corps résiduel commun
+de $R$, $B$, $(R \otimes_A R)_\mathfrak m$ et $(B \otimes_A B)_\mathfrak m$,
+alors on dispose d'un homomorphisme
+$R \otimes_A R \to R \otimes_A \kappa\oplus\kappa\otimes_A R$
+qui se factorise par $(R \otimes_A R)_\mathfrak m$. Comme $B$ est
+plat sur $A$ et que l'on a la suite exacte courte
+$0 \to K \to R \to B \to 0$, on voit que
+$K \otimes_A \kappa\subset R \otimes_A \kappa$;
+voir Algèbre, lemme \ref{algebra-lemma-flat-tor-zero}. En
+restreignant ainsi l'homomorphisme
+$(R \otimes_A R)_\mathfrak m \to R \otimes_A \kappa\oplus\kappa\otimes_A R$
+à $I$, on obtient un homomorphisme
+$$
+I \to K \otimes_A \kappa\oplus\kappa\otimes_A K \to
+K \otimes_B \kappa\oplus\kappa\otimes_B K.
+$$
+Les éléments
+$f_1 \otimes 1, \ldots, f_r \otimes 1, 1 \otimes f_1, \ldots, 1 \otimes f_r$
+s'envoient sur une base du but de cet homomorphisme, puisque, d'après le lemme de
+Nakayama (Algèbre, lemme \ref{algebra-lemma-NAK}),
+$f_1, \ldots, f_r$ s'envoient sur une base de $K \otimes_B \kappa$.
+Ceci démontre notre assertion.
+
+\medskip\noindent
+L'idéal $J$ est engendré par $f_1 \otimes 1, \ldots, f_r \otimes 1$
+et par les éléments $x_1 \otimes 1 - 1 \otimes x_1, \ldots,
+x_n \otimes 1 - 1 \otimes x_n$ (pour la démonstration, il
+suffit de voir que ces éléments appartiennent à l'idéal $J$).
+On peut alors écrire
+$$
+f_i \otimes 1 - 1 \otimes f_i =
+\sum g_{ij} (x_j \otimes 1 - 1 \otimes x_j)
+$$
+pour certains $g_{ij}$ dans $(R \otimes_A R)_\mathfrak m$. C'est un fait général
+concernant les éléments de $A[x_1, \ldots, x_n]$, dont nous omettons la
+démonstration. Notons $a_{ij} \in\kappa$ l'image de $g_{ij}$. Un autre calcul
+montre que $a_{ij}$ est l'image de $\partial f_i / \partial x_j$ dans $\kappa$.
+L'injectivité de $I/\mathfrak m I \to J/\mathfrak m J$ et les remarques
+précédentes imposent à la matrice $(a_{ij})$ d'être de rang maximal $r$.
+Posons
+$$
+C = A[x_1, \ldots, x_n]/(f_1, \ldots, f_r)
+$$
+et considérons le complexe cotangent naïf
+$\NL_{C/A} \cong (C^{\oplus r} \to C^{\oplus n})$
+où l'homomorphisme est donné par la matrice des dérivées partielles.
+Ainsi, $\NL_{C/A} \otimes_A B$
+est isomorphe à un $B$-module libre de rang $n - r$ placé en degré $0$.
+Ainsi, $C_g$ est lisse sur $A$ pour un certain $g \in C$ dont l'image
+dans $B$ est une unité ; voir Algèbre, lemme \ref{algebra-lemma-smooth-at-point}.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-perfect-diagonal}
+Soit $A \to B$ un homomorphisme d'anneaux noethériens, plat et de type fini. Si
+$$
+B \otimes_A B \longrightarrow B
+$$
+est un homomorphisme d'anneaux parfait, c'est-à-dire si $B$ est de dimension de Tor finie sur
+$B \otimes_A B$, alors $B$ est une $A$-algèbre lisse.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du lemme \ref{lemma-local-perfect-diagonal} et des
+propriétés générales des homomorphismes d'anneaux lisses ;
+voir Algèbre, lemmes \ref{algebra-lemma-smooth-at-point} et
+\ref{algebra-lemma-locally-smooth}.
+On peut aussi modifier légèrement la démonstration du
+lemme \ref{lemma-local-perfect-diagonal} pour démontrer le
+présent lemme.
+\end{proof}
+
+
+
+
+
+
+\section{Liberté du module conormal}
+\label{section-freeness-conormal}
+
+\noindent
+Les résolutions de Tate et les dérivations sur celles-ci permettent de
+démontrer des versions (plus fortes) des résultats de cette section ; voir \cite{Iyengar}.
+Deux références plus élémentaires sont
+\cite{Vasconcelos} et \cite{Ferrand-lci}.
+
+\begin{lemma}
+\label{lemma-free-summand-in-ideal-finite-proj-dim}
+\begin{reference}
+\cite{Vasconcelos}
+\end{reference}
+Soit $R$ un anneau local noethérien. Soit $I \subset R$ un idéal
+de dimension projective finie sur $R$. Si $F \subset I/I^2$ est
+un facteur direct isomorphe à $R/I$, alors il existe un élément non diviseur de zéro
+$x \in I$ tel que l'image de $x$ dans $I/I^2$ engendre $F$.
+\end{lemma}
+
+\begin{proof}
+Par hypothèse, on peut choisir une résolution libre finie
+$$
+0 \to R^{\oplus n_e} \to R^{\oplus n_{e-1}} \to\ldots\to
+R^{\oplus n_1} \to R \to R/I \to 0
+$$
+Alors $\varphi_1 : R^{\oplus n_1} \to R$ est de rang $1$,
+et on voit que $I$ contient un élément non diviseur de zéro $y$,
+d'après Algèbre, proposition \ref{algebra-proposition-what-exact}.
+Soient $\mathfrak p_1, \ldots, \mathfrak p_n$ les idéaux premiers
+associés à $R$; voir Algèbre, lemme \ref{algebra-lemma-finite-ass}.
+Soit $I^2 \subset J \subset I$ un idéal tel que $J/I^2 = F$.
+Alors $J \not\subset\mathfrak p_i$ pour tout $i$,
+car $y^2 \in J$ et $y^2 \not\in\mathfrak p_i$;
+voir Algèbre, lemme \ref{algebra-lemma-ass-zero-divisors}.
+D'après le lemme de Nakayama (Algèbre, lemme \ref{algebra-lemma-NAK}),
+on a $J \not\subset\mathfrak m J + I^2$.
+D'après Algèbre, lemme \ref{algebra-lemma-silly},
+on peut choisir $x \in J$, $x \not\in\mathfrak m J + I^2$ et
+$x \not\in\mathfrak p_i$ pour $i = 1, \ldots, n$.
+Alors $x$ est un élément non diviseur de zéro, et l'image
+de $x$ dans $I/I^2$ engendre (d'après le lemme de Nakayama) le
+facteur direct $J/I^2 \cong R/I$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-vasconcelos}
+\begin{reference}
+Version locale de \cite[Theorem 1.1]{Vasconcelos}
+\end{reference}
+Soit $R$ un anneau local noethérien. Soit $I \subset R$ un idéal
+de dimension projective finie sur $R$. Si $F \subset I/I^2$
+est un facteur direct libre de rang $r$, alors il existe une suite régulière
+$x_1, \ldots, x_r \in I$ telle que $x_1 \bmod I^2, \ldots, x_r \bmod I^2$
+engendrent $F$.
+\end{lemma}
+
+\begin{proof}
+Si $r = 0$, il n'y a rien à démontrer. Supposons $r > 0$. On peut choisir
+$x \in I$ tel que $x$ soit un élément non diviseur de zéro et que $x \bmod I^2$
+engendre un facteur direct de $F$ isomorphe à $R/I$; voir
+le lemme \ref{lemma-free-summand-in-ideal-finite-proj-dim}.
+Considérons l'anneau $R' = R/(x)$ et l'idéal $I' = I/(x)$.
+Bien entendu, $R'/I' = R/I$. La suite exacte courte
+$$
+0 \to R/I \xrightarrow{x} I/xI \to I' \to 0
+$$
+est scindée, car l'homomorphisme $I/xI \to I/I^2$ envoie $xR/xI$
+sur un facteur direct. Or $I/xI = I \otimes_R^\mathbf{L} R'$ est
+de dimension projective finie sur $R'$; voir
+Compléments sur l'algèbre, lemmes \ref{more-algebra-lemma-perfect-module} et
+\ref{more-algebra-lemma-pull-perfect}. Par
+conséquent, le facteur direct $I'$ est de dimension projective finie sur $R'$.
+D'autre part, on a la suite exacte courte
+$0 \to xR/xI \to I/I^2 \to I'/(I')^2 \to 0$, et on en déduit que
+$I'/(I')^2$ possède comme facteur direct libre $F' = F/(R/I \cdot x)$
+de rang $r - 1$. Par récurrence sur $r$, on
+peut choisir une suite régulière $x'_2, \ldots, x'_r \in I'$
+dont les classes engendrent librement $F'$.
+Si $x_1 = x$ et si $x_2, \ldots, x_r$ sont des relèvements quelconques de
+$x'_1, \ldots, x'_r$ dans $R$, on voit alors que le lemme est vérifié.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-regular-ideal}
+\begin{reference}
+Variante de \cite[Corollary 1]{Vasconcelos}. Voir aussi
+\cite{Iyengar} et \cite{Ferrand-lci}.
+\end{reference}
+Soit $R$ un anneau noethérien. Soit $I \subset R$ un idéal
+de dimension projective finie tel que $I/I^2$ soit
+localement libre de type fini sur $R/I$. Alors $I$ est un idéal régulier
+(Compléments sur l'algèbre, définition \ref{more-algebra-definition-regular-ideal}).
+\end{proposition}
+
+\begin{proof}
+D'après Algèbre, lemme \ref{algebra-lemma-regular-sequence-in-neighbourhood},
+il suffit de montrer que $I_\mathfrak p \subset R_\mathfrak p$ est engendré
+par une suite régulière pour tout $\mathfrak p \supset I$. On peut donc
+supposer que $R$ est local. Si $I/I^2$ est de rang $r$, alors le
+lemme \ref{lemma-vasconcelos} fournit une suite régulière
+$x_1, \ldots, x_r \in I$ qui engendre $I/I^2$.
+D'après le lemme de Nakayama (Algèbre, lemme \ref{algebra-lemma-NAK}),
+on en déduit que $I$ est engendré par $x_1, \ldots, x_r$.
+\end{proof}
+
+\noindent
+Pour tout homomorphisme d'anneaux d'intersection complète locale $A \to B$,
+le complexe cotangent naïf $\NL_{B/A}$ est parfait
+d'amplitude de Tor dans $[-1, 0]$; voir
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-lci-NL}. À
+l'aide de ce qui précède, on peut montrer que cela
+caractérise parfois les homomorphismes d'intersection complète locale.
+
+\begin{lemma}
+\label{lemma-perfect-NL-lci}
+Soit $A \to B$ un homomorphisme d'anneaux parfait (Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-pseudo-coherent-perfect})
+entre anneaux noethériens. Les assertions suivantes sont alors équivalentes :
+\begin{enumerate}
+\item $\NL_{B/A}$ est d'amplitude de Tor dans $[-1, 0]$,
+\item $\NL_{B/A}$ est un objet parfait de $D(B)$
+d'amplitude de Tor dans $[-1, 0]$, et
+\item $A \to B$ est une intersection complète locale
+(Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-local-complete-intersection}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Écrivons $B = A[x_1, \ldots, x_n]/I$. Alors $\NL_{B/A}$ est représenté par
+le complexe
+$$
+I/I^2 \longrightarrow\bigoplus B \text{d}x_i
+$$
+de $B$-modules dans lequel $I/I^2$ est placé en degré $-1$. Puisque le terme
+de degré $0$ est libre de type fini, ce complexe est d'amplitude de Tor dans $[-1, 0]$ si et
+seulement si $I/I^2$ est un $B$-module plat ;
+voir Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-last-one-flat}.
+Comme $I/I^2$ est un $B$-module fini et que $B$ est noethérien, cela
+équivaut à ce que $I/I^2$ soit un $B$-module
+localement libre de type fini (Algèbre, lemme \ref{algebra-lemma-finite-projective}).
+L'équivalence de (1) et (2) est donc claire. En outre, l'équivalence
+de (1) et (3) résulte également de la
+proposition \ref{proposition-regular-ideal} (et
+du fait qu'un idéal régulier est à la fois un idéal régulier au sens
+de Koszul et un idéal quasi-régulier ; voir
+Compléments sur l'algèbre, section \ref{more-algebra-section-ideals}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-fp-NL-lci}
+Soit $A \to B$ un homomorphisme d'anneaux plat et de présentation finie.
+Les assertions suivantes sont alors équivalentes :
+\begin{enumerate}
+\item $\NL_{B/A}$ est d'amplitude de Tor dans $[-1, 0]$,
+\item $\NL_{B/A}$ est un objet parfait de $D(B)$
+d'amplitude de Tor dans $[-1, 0]$,
+\item $A \to B$ est
+syntomique (Algèbre, définition \ref{algebra-definition-lci}), et
+\item $A \to B$ est une intersection complète locale
+(Compléments sur l'algèbre, définition
+\ref{more-algebra-definition-local-complete-intersection}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (3) et (4) est établie dans Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-syntomic-lci}.
+
+\medskip\noindent
+Si $A \to B$ est syntomique, on peut trouver un diagramme cocartésien
+$$
+\xymatrix{
+B_0 \ar[r] & B \\
+A_0 \ar[r] \ar[u] & A \ar[u]
+}
+$$
+tel que $A_0 \to B_0$ soit syntomique et que $A_0$ soit noethérien ;
+voir Algèbre, lemmes \ref{algebra-lemma-limit-module-finite-presentation} et
+\ref{algebra-lemma-colimit-lci}. D'après le lemme \ref{lemma-perfect-NL-lci},
+on voit que $\NL_{B_0/A_0}$ est parfait d'amplitude de Tor dans $[-1, 0]$.
+D'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-base-change-NL-flat},
+on en déduit qu'il en va de même de
+$\NL_{B/A} = \NL_{B_0/A_0} \otimes_{B_0}^\mathbf{L} B$ (voir
+aussi Compléments sur l'algèbre, lemmes \ref{more-algebra-lemma-pull-tor-amplitude} et
+\ref{more-algebra-lemma-pull-perfect}).
+Ceci montre que (3) implique (2).
+
+\medskip\noindent
+Supposons (1). D'après Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-base-change-NL-flat}, pour tout
+homomorphisme d'anneaux $A \to k$, où
+$k$ est un corps, on voit que $\NL_{B \otimes_A k/k}$ est
+d'amplitude de Tor dans $[-1, 0]$ (voir
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-pull-tor-amplitude}).
+Le lemme \ref{lemma-perfect-NL-lci} montre donc que $k \to B \otimes_A k$ est
+un homomorphisme d'intersection complète locale. Ainsi, $A \to B$
+est syntomique par définition. Ceci montre que (1) implique (3)
+et achève la démonstration.
+\end{proof}
+
+
+
+
+
+\section{Complexes de Koszul et résolutions de Tate}
+\label{section-koszul-vs-tate}
+
+\noindent
+Dans cette section, nous « relevons » le résultat de
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-sequence-Koszul-complexes}, à la
+catégorie des algèbres différentielles graduées munies de puissances divisées
+compatibles avec la structure différentielle graduée (attention : nous représentons ici
+les complexes de Koszul comme des complexes de chaînes, tandis que dans la référence
+citée ils sont considérés comme des complexes de cochaînes).
+
+\medskip\noindent
+Soit $R$ un anneau. Soit $I \subset R$ l'idéal engendré
+par $f_1, \ldots, f_r \in R$. Pour $n \geq 1$, nous notons
+$$
+K_n = K_{n, \bullet} = R\langle\xi_1, \ldots, \xi_r\rangle
+$$
+l'algèbre différentielle graduée de Koszul, où $\xi_i$ est de degré $1$ et
+$\text{d}(\xi_i) = f_i^n$. Elle porte une unique structure de puissances divisées (au
+sens de la définition \ref{definition-divided-powers-dga}) ; voir
+l'exemple \ref{example-adjoining-odd}. Pour $m > n$, l'application de transition
+$K_m \to K_n$ est l'homomorphisme d'algèbres différentielles graduées compatible
+avec les puissances divisées qui envoie $\xi_i$ sur $f_i^{m - n}\xi_i$.
+
+\begin{lemma}
+\label{lemma-lift-tate-to-koszul}
+Dans la situation ci-dessus, si $R$ est noethérien,
+alors, pour tout $n$, il existe un entier $N \geq n$ et des applications
+$$
+K_N \to A \to R/(f_1^N, \ldots, f_r^N)\quad\text{et}\quad A \to K_n
+$$
+avec les propriétés suivantes
+\begin{enumerate}
+\item $(A, \text{d}, \gamma)$ est comme
+dans la définition \ref{definition-divided-powers-dga},
+\item $A \to R/(f_1^N, \ldots, f_r^N)$ est un quasi-isomorphisme,
+\item la composition $K_N \to A \to R/(f_1^N, \ldots, f_r^N)$
+est l'application canonique,
+\item la composition $K_N \to A \to K_n$ est l'application de transition,
+\item $A_0 = R \to R/(f_1^N, \ldots, f_r^N)$ est la
+surjection canonique,
+\item $A$ est une algèbre polynomiale graduée à puissances divisées sur $R$
+ayant un nombre fini de générateurs dans chaque degré ;
+\item $A \to K_n$ est un homomorphisme d'algèbres différentielles graduées sur $R$,
+compatible avec les puissances divisées, qui induit l'application canonique
+$R/(f_1^N, \ldots, f_r^N) \to R/(f_1^n, \ldots, f_r^n)$ en
+homologie de degré $0$.
+\end{enumerate}
+La condition (6) signifie que $A$ est construite à partir de $A_0$ en
+adjoignant successivement une famille finie de variables $T$ dans chaque degré
+$> 0$, comme dans l'exemple \ref{example-adjoining-odd} ou \ref{example-adjoining-even}.
+\end{lemma}
+
+\begin{proof}
+Fixons $n$. Si $r = 0$, nous pouvons simplement prendre $A = R$. Supposons $r > 0$.
+D'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-sequence-Koszul-complexes}
+(traduit dans le langage des complexes de chaînes), nous pouvons choisir
+$$
+n_{r} > n_{r - 1} > \ldots > n_1 > n_0 = n
+$$
+de telle sorte que les applications de transition $K_{n_{i + 1}} \to K_{n_i}$ entre
+algèbres de Koszul (définies ci-dessus) induisent l'application nulle en homologie dans les degrés $> 0$.
+Nous démontrerons le lemme en prenant $N = n_r$.
+
+\medskip\noindent
+Nous construisons $A$ exactement comme dans l'énoncé et la démonstration
+du lemme \ref{lemma-tate-resolution}. Nous aurons donc
+$$
+A = \colim A(m),\quad\text{et}\quad
+A(0) \to A(1) \to A(2) \to\ldots\to R/(f_1^N, \ldots, f_r^N)
+$$
+On obtient immédiatement les propriétés (1), (2), (5) et (6). Pour achever la
+démonstration, nous construirons les homomorphismes de $R$-algèbres
+$K_N \to A \to K_n$. Pour ce faire, nous allons construire
+\begin{enumerate}
+\item un isomorphisme $A(1) \to K_N = K_{n_r}$,
+\item une application $A(2) \to K_{n_{r - 1}}$,
+\item $\ldots$
+\item une application $A(r) \to K_{n_1}$,
+\item une application $A(r + 1) \to K_{n_0} = K_n$,
+\item une application $A \to K_n$.
+\end{enumerate}
+À chacune de ces étapes, l'application construite sera un
+homomorphisme entre algèbres différentielles graduées munies de puissances
+divisées compatibles ; elle sera compatible avec la
+précédente par l'intermédiaire des applications de transition entre
+algèbres de Koszul et induira l'application canonique évidente en
+homologie de degré $0$.
+
+\medskip\noindent
+Rappelons que $A(0) = R$. Pour $m = 1$, la démonstration
+du lemme \ref{lemma-tate-resolution}
+prend $A(1) = R\langle T_1, \ldots, T_r\rangle$, où
+$T_i$ est de degré $1$ et $\text{d}(T_i) = f_i^N$.
+En effet, les $f_i^N$ engendrent le noyau de
+$A(0) \to R/(f_1^N, \ldots, f_r^N)$.
+Pour définir $A(1) \to K_N = K_{n_r}$, nous utilisons donc l'application
+$$
+\varphi_1 : A(1) \longrightarrow K_{n_r},\quad T_i \longmapsto\xi_i
+$$
+qui est un isomorphisme.
+
+\medskip\noindent
+Pour $m = 2$, la construction dans la démonstration du lemme \ref{lemma-tate-resolution}
+choisit des générateurs $e_1, \ldots, e_t \in\Ker(\text{d} : A(1)_1 \to A(1)_0)$.
+Elle prend
+$A(2) = A(1)\langle T_1, \ldots, T_t\rangle$
+comme algèbre polynomiale à puissances divisées, avec $T_i$ de degré $2$
+et $\text{d}(T_i) = e_i$.
+Puisque $\varphi_1(e_i)$ est un cycle de $K_{n_r}$,
+son image dans $K_{n_{r - 1}}$ est un bord, par
+le choix de $n_r$ et $n_{r - 1}$ effectué
+ci-dessus. Nous pouvons donc construire le diagramme commutatif
+$$
+\xymatrix{
+A(1) \ar[d] \ar[r]_{\varphi_1} & K_{n_r} \ar[d] \\
+A(2) \ar[r]^{\varphi_2} & K_{n_{r - 1}}
+}
+$$
+en envoyant $T_i$ sur un élément de degré $2$ dont le bord est
+l'image de $\varphi_1(e_i)$. L'application $\varphi_2$ existe et est compatible avec
+la différentielle et les puissances divisées grâce à la propriété
+universelle de l'algèbre polynomiale à puissances divisées.
+
+\medskip\noindent
+L'algèbre $A(m)$ et l'application $\varphi_m : A(m) \to K_{n_{r + 1 - m}}$
+se construisent de la même manière pour $m = 2, \ldots, r$.
+
+\medskip\noindent
+Étant donnée l'application $A(r) \to K_{n_1}$, la composée
+$H_r(A(r)) \to H_r(K_{n_1}) \to H_r(K_{n_0}) \subset (K_{n_0})_r$
+est nulle. On peut donc la prolonger en une application $A(r + 1) \to K_{n_0} = K_n$
+en envoyant sur zéro les nouveaux générateurs polynomiaux de $A(r + 1)$.
+
+\medskip\noindent
+Une fois construite l'application $A(r + 1) \to K_{n_0} = K_n$, on la prolonge de
+l'unique manière possible à $A(r + 2), A(r + 3), \ldots$, en envoyant les
+nouveaux générateurs polynomiaux sur zéro. Ceci
+achève la démonstration.
+\end{proof}
+
+\begin{remark}
+\label{remark-pro-system-koszul}
+Dans la situation ci-dessus, si $R$ est noethérien,
+nous pouvons choisir par récurrence une
+suite d'entiers $1 = n_0 < n_1 < n_2 < \ldots$ telle que,
+pour $i = 1, 2, 3, \ldots$, il existe des applications
+$K_{n_i} \to A_i \to R/(f_1^{n_i}, \ldots, f_r^{n_i})$
+et $A_i \to K_{n_{i - 1}}$ comme dans le lemme \ref{lemma-lift-tate-to-koszul}.
+Notons $A_{i + 1} \to A_i$ la composée $A_{i + 1} \to K_{n_i} \to A_i$.
+Le diagramme
+$$
+\xymatrix{
+K_{n_1} \ar[d] &
+K_{n_2} \ar[d] \ar[l] &
+K_{n_3} \ar[d] \ar[l] &
+\ldots\ar[l] \\
+A_1 \ar[d] &
+A_2 \ar[l] \ar[d] &
+A_3 \ar[l] \ar[d] &
+\ldots\ar[l] \\
+K_1 &
+K_{n_1} \ar[l] &
+K_{n_2} \ar[l] &
+\ldots\ar[l]
+}
+$$
+est alors commutatif. On voit ainsi que les systèmes projectifs
+$(K_n)$ et $(A_n)$ sont pro-isomorphes dans la catégorie des algèbres
+différentielles graduées sur $R$ munies de puissances divisées compatibles.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-compute-cohomology-adjoin-variable}
+Soient $(A, \text{d}, \gamma)$, $d \geq 1$, $f \in A_{d - 1}$ et
+$A\langle T \rangle$ comme dans le lemme \ref{lemma-extend-differential}.
+\begin{enumerate}
+\item Si $d = 1$, il existe une suite exacte longue
+$$
+\ldots\to H_0(A) \xrightarrow{f} H_0(A) \to H_0(A\langle T \rangle) \to 0
+$$
+\item Pour $d = 2$, il existe une suite spectrale bornée
+$(E_1)_{i, j} = H_{j - i}(A) \cdot T^{[i]}$
+qui converge vers $H_{i + j}(A\langle T \rangle)$. La différentielle
+$(d_1)_{i, j} : H_{j - i}(A) \cdot T^{[i]} \to
+H_{j - i + 1}(A) \cdot T^{[i - 1]}$
+envoie $\xi\cdot T^{[i]}$ sur la classe de $f \xi\cdot T^{[i - 1]}$.
+\item On pourra compléter cet énoncé pour les autres degrés, si nécessaire.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour $d = 1$, nous avons une suite exacte courte de complexes
+$$
+0 \to A \to A\langle T \rangle\to A \cdot T \to 0
+$$
+et (1) en résulte immédiatement. Pour $d = 2$, nous considérons
+$A\langle T \rangle$ comme un complexe de chaînes filtré par les sous-complexes
+$$
+F^pA\langle T \rangle = \bigoplus\nolimits_{i \leq p} A \cdot T^{[i]}
+$$
+En appliquant la suite spectrale de
+Homologie, section \ref{homology-section-filtered-complex}
+(traduite en complexes de chaînes), on obtient (2).
+\end{proof}
+
+\noindent
+Le lemme suivant sera nécessaire plus tard.
+
+\begin{lemma}
+\label{lemma-construct-some-maps}
+Dans la situation ci-dessus, pour tous $n \geq t \geq 1$ il existe un $N > n$
+et une application
+$$
+K_t \longrightarrow K_n \otimes_R K_t
+$$
+dans la catégorie dérivée des $K_N$-modules
+différentiels gradués à gauche, dont la composée avec l'application de multiplication est l'application de
+transition (dans l'un ou l'autre sens).
+\end{lemma}
+
+\begin{proof}
+Commençons par le cas $r = 1$. Posons $f = f_1$.
+Écrivons $K_t = R\langle x \rangle$,
+$K_n = R\langle y \rangle$, $K_N = R\langle z \rangle$
+où $x$, $y$ et $z$ sont de degré $1$, et
+$\text{d}(x) = f^t$, $\text{d}(y) = f^n$,
+$\text{d}(z) = f^N$. Pour tout $N > t$, nous affirmons qu'il existe un quasi-isomorphisme
+$$
+B_{N, t} = R\langle x, z, u \rangle
+\longrightarrow
+K_t,\quad
+x \mapsto x,\quad
+z \mapsto f^{N - t}x,\quad
+u \mapsto 0
+$$
+Ici, le membre de gauche désigne l'algèbre polynomiale à puissances divisées
+aux variables $x$ et $z$ de degré $1$ et $u$ de degré $2$, munie de
+$\text{d}(x) = f^t$, $\text{d}(z) = f^N$,
+$\text{d}(u) = z - f^{N - t}x$. Pour démontrer
+l'assertion, remarquons que les trois sous-modules suivants de
+$H_*(R\langle x, z\rangle)$ sont les mêmes
+\begin{enumerate}
+\item le noyau de $H_*(R\langle x, z\rangle) \to H_*(K_t)$,
+\item l'image de
+$z - f^{N - t}x : H_*(R\langle x, z\rangle) \to H_*(R\langle x, z\rangle)$,
+\item le noyau de
+$z - f^{N - t}x : H_*(R\langle x, z\rangle) \to H_*(R\langle x, z\rangle)$.
+\end{enumerate}
+Cette observation résulte d'un calcul direct\footnote{Indication : en posant
+$z' = z - f^{N - t}x$, on voit que
+$R\langle x, z\rangle = R\langle x, z'\rangle$ avec $\text{d}(z') = 0$
+et que l'application $R\langle x, z'\rangle\to K_t$ est
+l'application qui annule $z'$.}, détail que nous omettons. On peut alors
+appliquer le lemme \ref{lemma-compute-cohomology-adjoin-variable},
+partie (2), pour conclure.
+
+\medskip\noindent
+Au moyen de l'homomorphisme $K_N \to B_{N, t}$ d'algèbres différentielles graduées sur $R$ qui
+envoie $z$ sur $z$, nous pouvons considérer $B_{N, t} \to K_t$ comme un
+quasi-isomorphisme de $K_N$-modules différentiels gradués à gauche. Pour définir la
+flèche de l'énoncé, nous utilisons l'homomorphisme
+$$
+B_{N, t} = R\langle x, z, u \rangle\to K_n \otimes_R K_t,\quad
+x \mapsto 1 \otimes x,\quad
+z \mapsto f^{N - n}y \otimes 1,\quad
+u \mapsto - f^{N - n - t}y \otimes x
+$$
+Cette définition a un sens dès que $N \geq n + t$. Un calcul
+simple montre que, dans l'un ou l'autre ordre de composition, la composée avec
+l'application de multiplication est l'application de transition.
+
+\medskip\noindent
+Pour $r > 1$, on écrit chacune des algèbres de Koszul comme un
+produit tensoriel d'algèbres de Koszul en $1$ variable, puis on
+applique la construction précédente. Autrement dit,
+$$
+K_t = R\langle x_1, \ldots, x_r\rangle =
+R\langle x_1\rangle\otimes_R \ldots\otimes_R R\langle x_r\rangle
+$$
+où $x_i$ est de degré $1$ et $\text{d}(x_i) = f_i^t$.
+Lorsque $r > 1$, nous utilisons alors
+$$
+B_{N, t} =
+R\langle x_1, z_1, u_1 \rangle
+\otimes_R \ldots\otimes_R
+R\langle x_r, z_r, u_r \rangle
+$$
+où $x_i, z_i$ sont de degré $1$ et $u_i$ est de degré $2$, avec
+$\text{d}(x_i) = f_i^t$, $\text{d}(z_i) = f_i^N$,
+$\text{d}(u_i) = z_i - f_i^{N - t}x_i$.
+L'application tensorielle $B_{N, t} \to K_t$ est un
+quasi-isomorphisme, car c'est un produit tensoriel de quasi-isomorphismes
+entre complexes de $R$-modules libres bornés inférieurement. Enfin, nous définissons l'application
+$$
+B_{N, t}
+\to
+K_n \otimes_R K_t =
+R\langle y_1, \ldots, y_r\rangle\otimes_R
+R\langle x_1, \ldots, x_r\rangle
+$$
+comme le produit tensoriel des applications construites dans le cas $r = 1$,
+ou directement par les règles $x_i \mapsto 1 \otimes x_i$,
+$z_i \mapsto f_i^{N - n}y_i \otimes 1$,
+$u_i \mapsto - f_i^{N - n - t}y_i \otimes x_i$, ce qui a
+un sens dès que $N \geq n + t$. Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

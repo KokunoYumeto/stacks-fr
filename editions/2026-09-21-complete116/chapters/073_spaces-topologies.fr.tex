@@ -1,0 +1,1406 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Topologies sur les espaces algébriques}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous introduisons quelques topologies sur la
+catégorie des espaces algébriques. Comparer avec le contenu de \cite{SGA1},
+\cite{Ner}, \cite{LM-B} et \cite{Kn}.
+Avant cela, signalons que
+de nombreux choix de sites (au sens de
+Sites, définition \ref{sites-definition-site}) donnent
+la même notion de faisceau sur la catégorie sous-jacente. Ainsi,
+nos choix peuvent différer légèrement de ceux des références,
+mais conduisent finalement aux mêmes groupes de cohomologie, etc.
+
+
+
+
+\section{Le procédé général}
+\label{section-procedure}
+
+\noindent
+Dans cette section, nous expliquons un procédé général pour construire les
+sites avec lesquels nous travaillerons. Cette discussion n'aura guère de
+sens si le lecteur n'a pas lu
+Topologies, section \ref{topologies-section-procedure}.
+
+\medskip\noindent
+Soit $S$ un schéma de base.
+Prenons une catégorie $\Sch_\alpha$ construite comme dans
+Ensembles, lemme \ref{sets-lemma-construct-category} en partant de
+$S$ et de tout ensemble de schémas sur $S$ que l'on souhaite inclure.
+Choisissons un ensemble quelconque de
+recouvrements $\text{Cov}_{fppf}$ sur $\Sch_\alpha$, comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site},
+en partant de la catégorie $\Sch_\alpha$ et de la classe des recouvrements fppf.
+Notons $\Sch_{fppf}$ le grand site fppf ainsi
+obtenu, et notons $(\Sch/S)_{fppf}$ le
+grand site fppf de $S$. (Tout ceci est exactement prescrit dans Topologies,
+section \ref{topologies-section-fppf}).
+
+\medskip\noindent
+Pour les choix ci-dessus, la catégorie des espaces algébriques sur $S$
+possède un ensemble de classes d'isomorphisme. Pour le voir, on peut utiliser le
+fait que tout espace algébrique sur $S$ est de la forme $U/R$ pour
+une certaine relation d'équivalence \'etale $j : R \to U \times_S U$ avec
+$U, R \in \Ob((\Sch/S)_{fppf})$, voir
+Espaces, lemme \ref{spaces-lemma-space-presentation}.
+On peut donc trouver une sous-catégorie pleine $\textit{Espaces}/S$ de la catégorie des
+espaces algébriques sur $S$ qui possède un ensemble d'objets
+tel que tout espace algébrique soit isomorphe à un objet de
+$\textit{Espaces}/S$. Nous fixons une telle catégorie.
+
+\medskip\noindent
+Dans les sections suivantes, pour une topologie $\tau$ donnée, le grand site
+$(\textit{Espaces}/S)_\tau$ (resp.\ le grand site $(\textit{Espaces}/X)_\tau$
+d'un espace algébrique $X$ sur $S$)
+a pour catégorie sous-jacente la catégorie $\textit{Espaces}/S$
+(resp.\ la sous-catégorie $\textit{Espaces}/X$ de $\textit{Espaces}/S$, voir
+Catégories, exemple \ref{categories-example-category-over-X}).
+Le procédé pour en faire un site consiste, comme d'habitude, à définir une
+classe de recouvrements $\tau$ et à utiliser
+Ensembles, lemme \ref{sets-lemma-coverings-site},
+pour choisir un ensemble suffisamment grand de recouvrements qui définit la topologie.
+
+\medskip\noindent
+Signalons que le {\it petit site \'etale $X_\etale$
+d'un espace algébrique $X$} a déjà été défini dans
+Propriétés des espaces, définition
+\ref{spaces-properties-definition-etale-site}.
+Ses objets sont les schémas \'etales sur $X$, qui sont nombreux
+par définition d'un espace algébrique. Cependant,
+un site plus naturel du point de vue de ce chapitre (comparer
+Topologies, définition \ref{topologies-definition-big-small-etale})
+est le site $X_{spaces, \etale}$ de
+Propriétés des espaces, définition
+\ref{spaces-properties-definition-spaces-etale-site}.
+Ces deux sites définissent le même topos ; voir
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-compare-etale-sites}.
+Nous ne les redéfinirons pas dans ce chapitre ; nous les
+utiliserons simplement.
+
+
+
+
+
+
+\section{Topologie de Zariski}
+\label{section-zariski}
+
+\noindent
+Dans
+Espaces, section \ref{spaces-section-Zariski}
+nous avons introduit la notion de recouvrement de Zariski d'un espace algébrique par
+des sous-espaces ouverts. Voici la notion correspondante, où les sous-espaces ouverts
+sont remplacés par des immersions ouvertes.
+
+\begin{definition}
+\label{definition-zariski-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Un {\it recouvrement de Zariski de $X$} est une famille de morphismes
+$\{f_i : X_i \to X\}_{i \in I}$ d'espaces algébriques sur $S$
+telle que chaque $f_i$ soit une immersion ouverte
+et telle que
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+c'est-à-dire que cette famille est surjective.
+\end{definition}
+
+\noindent
+Bien que les recouvrements de Zariski soient parfois utiles, la topologie correspondante
+sur la catégorie des espaces algébriques est beaucoup trop grossière et peu
+utile. Elle définit néanmoins un site.
+
+\begin{lemma}
+\label{lemma-zariski}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $X' \to X$ est un isomorphisme, alors $\{X' \to X\}$
+est un recouvrement de Zariski de $X$.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement de Zariski et si, pour chaque
+$i$, nous avons un recouvrement de Zariski $\{X_{ij} \to X_i\}_{j\in J_i}$, alors
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ est un recouvrement de Zariski.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement de Zariski
+et si $X' \to X$ est un morphisme d'espaces algébriques, alors
+$\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement de Zariski.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Topologie \'etale}
+\label{section-etale}
+
+\noindent
+Dans cette section, nous étudions la notion de recouvrement \'etale des
+espaces algébriques et définissons le grand site \'etale d'un
+espace algébrique. Comparer avec
+Topologies, section \ref{topologies-section-etale}.
+
+\begin{definition}
+\label{definition-etale-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Un {\it recouvrement \'etale de $X$} est une famille de morphismes
+$\{f_i : X_i \to X\}_{i \in I}$ d'espaces algébriques sur $S$
+telle que chaque $f_i$ soit \'etale
+et telle que
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+c'est-à-dire que la famille des morphismes est surjective.
+\end{definition}
+
+\noindent
+C'est exactement la même notion que celle de
+Topologies, définition \ref{topologies-definition-etale-covering}.
+En particulier, si $X$ et tous les $X_i$ sont des schémas, on retrouve la
+notion usuelle de recouvrement \'etale de schémas.
+
+\begin{lemma}
+\label{lemma-zariski-etale}
+Tout recouvrement de Zariski est un recouvrement \'etale.
+\end{lemma}
+
+\begin{proof}
+Cela découle immédiatement des définitions et du fait qu'une immersion ouverte
+est un morphisme \'etale (cela résulte de
+Morphismes, lemme \ref{morphisms-lemma-open-immersion-etale}, via
+Espaces, lemme
+\ref{spaces-lemma-representable-transformations-property-implication}
+puisque les immersions sont représentables).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $X' \to X$ est un isomorphisme, alors $\{X' \to X\}$
+est un recouvrement \'etale de $X$.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement \'etale et si, pour chaque
+$i$, nous avons un recouvrement \'etale $\{X_{ij} \to X_i\}_{j\in J_i}$, alors
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ est un recouvrement \'etale.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement \'etale
+et si $X' \to X$ est un morphisme d'espaces algébriques, alors
+$\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement \'etale.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\noindent
+Le lemme suivant montre que les sites
+$(\textit{Espaces}/X)_\etale$ et $(\textit{Espaces}/X)_{smooth}$
+ont la même catégorie de faisceaux.
+
+\begin{lemma}
+\label{lemma-etale-dominates-smooth}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Soit $\{X_i \to X\}_{i \in I}$ un recouvrement lisse de $X$.
+Alors il existe un recouvrement \'etale $\{U_j \to X\}_{j \in J}$
+de $X$ qui raffine $\{X_i \to X\}_{i \in I}$.
+\end{lemma}
+
+\begin{proof}
+Choisissons d'abord un schéma $U$ et un morphisme \'etale surjectif $U \to X$.
+Pour chaque $i$, choisissons un schéma $W_i$ et un morphisme \'etale surjectif
+$W_i \to X_i$. Alors $\{W_i \to X\}_{i \in I}$ est un recouvrement lisse
+qui raffine $\{X_i \to X\}_{i \in I}$. Ainsi,
+$\{W_i \times_X U \to U\}_{i \in I}$ est un recouvrement lisse de schémas.
+Par le lemme \ref{more-morphisms-lemma-etale-dominates-smooth} de Compléments sur les morphismes,
+nous pouvons choisir un recouvrement \'etale $\{U_j \to U\}$ qui raffine
+$\{W_i \times_X U \to U\}$. Alors $\{U_j \to X\}_{j \in J}$
+est un recouvrement \'etale qui raffine $\{X_i \to X\}_{i \in I}$.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-etale-site}
+Soit $S$ un schéma. On appelle grand site \'etale
+{\it $(\textit{Espaces}/S)_\etale$} tout site construit comme suit :
+\begin{enumerate}
+\item Choisissons un grand site \'etale $(\Sch/S)_\etale$ comme dans
+Topologies, section \ref{topologies-section-etale}.
+\item Prenons pour catégorie sous-jacente la catégorie $\textit{Espaces}/S$
+des espaces algébriques sur $S$ (voir la discussion de la
+section \ref{section-procedure} expliquant qu'il s'agit d'un ensemble).
+\item Choisissons un ensemble quelconque de recouvrements comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, en partant de la
+catégorie $\textit{Espaces}/S$ et de la classe des recouvrements \'etales
+de la définition \ref{definition-etale-covering}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Après cette définition, on peut localiser pour obtenir le site \'etale
+d'un espace algébrique.
+
+\begin{definition}
+\label{definition-big-small-etale}
+Soit $S$ un schéma. Soit $(\textit{Espaces}/S)_\etale$ comme dans
+la définition \ref{definition-big-etale-site}.
+Soit $X$ un espace algébrique sur $S$, c'est-à-dire un objet de
+$(\textit{Espaces}/S)_\etale$. Alors le grand site \'etale
+{\it $(\textit{Espaces}/X)_\etale$} de $X$
+est la localisation du site $(\textit{Espaces}/S)_\etale$
+en $X$, introduite dans Sites, section \ref{sites-section-localize}.
+\end{definition}
+
+\noindent
+Rappelons que, pour un espace algébrique $X$ sur $S$ comme dans
+la définition, nous avons déjà défini les petits sites \'etales
+$X_{spaces, \etale}$ et $X_\etale$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-etale-site}.
+Nous identifierons tacitement les topos correspondants au moyen du
+foncteur d'inclusion $X_\etale \subset X_{spaces, \etale}$
+(Propriétés des espaces, lemme \ref{spaces-properties-lemma-compare-etale-sites})
+et l'appellerons le petit topos \'etale de $X$.
+Nous établissons ensuite des relations entre les topos
+associés à ces sites.
+
+\begin{lemma}
+\label{lemma-put-in-T-etale}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme dans
+$(\textit{Espaces}/S)_\etale$. Le foncteur d'inclusion
+$Y_{spaces, \etale} \to (\textit{Espaces}/X)_\etale$
+est cocontinu et induit un morphisme de topos
+$$
+i_f :
+\Sh(Y_\etale)
+\longrightarrow
+\Sh((\textit{Espaces}/X)_\etale)
+$$
+Pour un faisceau $\mathcal{G}$ sur $(\textit{Espaces}/X)_\etale$
+nous avons la formule $(i_f^{-1}\mathcal{G})(U/Y) = \mathcal{G}(U/X)$.
+Le foncteur $i_f^{-1}$ possède également un adjoint à gauche $i_{f, !}$ qui commute
+aux produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Notons $u : Y_{spaces, \etale} \to (\textit{Espaces}/X)_\etale$ le foncteur.
+Autrement dit, étant donné un morphisme \'etale $j : U \to Y$ correspondant
+à un objet de $Y_{spaces, \etale}$, posons
+$u(U \to Y) = (f \circ j : U \to X)$.
+La catégorie $Y_{spaces, \etale}$
+possède des produits fibrés et des égalisateurs, et $u$ commute à ces constructions.
+Il est immédiat que $u$ est cocontinu.
+Le foncteur $u$ est également continu, car $u$ transforme les recouvrements en recouvrements et
+commute aux produits fibrés. Le lemme découle donc de
+Sites, lemmes \ref{sites-lemma-when-shriek}
+et \ref{sites-lemma-preserve-equalizers}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-at-the-bottom-etale}
+Soit $S$ un schéma. Soit $X$ un objet de $(\textit{Espaces}/S)_\etale$.
+Le foncteur d'inclusion $X_{spaces, \etale} \to (\textit{Espaces}/X)_\etale$
+satisfait aux hypothèses de Sites, lemme \ref{sites-lemma-bigger-site},
+et induit donc un morphisme de sites
+$$
+\pi_X :
+(\textit{Espaces}/X)_\etale
+\longrightarrow
+X_{spaces, \etale}
+$$
+et un morphisme de topos
+$$
+i_X :
+\Sh(X_\etale)
+\longrightarrow
+\Sh((\textit{Espaces}/X)_\etale)
+$$
+tel que $\pi_X \circ i_X = \text{id}$. De plus, $i_X = i_{\text{id}_X}$
+avec $i_{\text{id}_X}$ comme dans le lemme \ref{lemma-put-in-T-etale}.
+En particulier, le foncteur $i_X^{-1} = \pi_{X, *}$ est décrit par la règle
+$i_X^{-1}(\mathcal{G})(U/X) = \mathcal{G}(U/X)$.
+\end{lemma}
+
+\begin{proof}
+Dans ce cas, le foncteur
+$u : X_{spaces, \etale} \to (\textit{Espaces}/X)_\etale$,
+en plus des propriétés établies dans la démonstration du
+lemme \ref{lemma-put-in-T-etale} ci-dessus, est également pleinement fidèle
+et transforme l'objet final en objet final.
+Le lemme découle de Sites, lemme \ref{sites-lemma-bigger-site}.
+\end{proof}
+
+\begin{definition}
+\label{definition-restriction-small-etale}
+Dans la situation du lemme \ref{lemma-at-the-bottom-etale},
+le foncteur $i_X^{-1} = \pi_{X, *}$ est souvent
+appelé la {\it restriction au petit site \'etale}, et, pour un faisceau
+$\mathcal{F}$ sur le grand site \'etale, nous notons souvent
+$\mathcal{F}|_{X_\etale}$ cette restriction.
+\end{definition}
+
+\noindent
+Avec cette notation, nous avons, pour un faisceau $\mathcal{F}$ sur le
+grand site et un faisceau $\mathcal{G}$ sur le petit site,
+\begin{align*}
+\Mor_{\Sh(X_\etale)}(
+\mathcal{F}|_{X_\etale},
+\mathcal{G})
+& =
+\Mor_{\Sh((\textit{Espaces}/X)_\etale)}(
+\mathcal{F},
+i_{X, *}\mathcal{G}) \\
+\Mor_{\Sh(X_\etale)}(
+\mathcal{G},
+\mathcal{F}|_{X_\etale})
+& =
+\Mor_{\Sh((\textit{Espaces}/X)_\etale)}(
+\pi_X^{-1}\mathcal{G},
+\mathcal{F})
+\end{align*}
+De plus, $(i_{X, *}\mathcal{G})|_{X_\etale} = \mathcal{G}$
+et $(\pi_X^{-1}\mathcal{G})|_{X_\etale} = \mathcal{G}$.
+
+\begin{lemma}
+\label{lemma-morphism-big-etale}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme dans
+$(\textit{Espaces}/S)_\etale$. Le foncteur
+$$
+u :
+(\textit{Espaces}/Y)_\etale
+\longrightarrow
+(\textit{Espaces}/X)_\etale,
+\quad
+V/Y \longmapsto V/X
+$$
+est cocontinu et admet un adjoint à droite continu
+$$
+v :
+(\textit{Espaces}/X)_\etale
+\longrightarrow
+(\textit{Espaces}/Y)_\etale,
+\quad
+(U \to X) \longmapsto (U \times_X Y \to Y).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\textit{Espaces}/Y)_\etale)
+\longrightarrow
+\Sh((\textit{Espaces}/X)_\etale)
+$$
+Nous avons $f_{big}^{-1}(\mathcal{G})(U/Y) = \mathcal{G}(U/X)$.
+Nous avons $f_{big, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$.
+De plus, $f_{big}^{-1}$ possède un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs (détails omis ; comparer avec la démonstration du
+lemme \ref{lemma-put-in-T-etale}).
+Par conséquent,
+les lemmes de Sites \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et nous obtenons la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est adjoint à droite du foncteur précédent car, pour $U/Y$ et $V/X$,
+nous avons $\Mor_X(u(U), V) = \Mor_Y(U, V \times_X Y)$
+comme souhaité. Nous pouvons donc appliquer
+les lemmes de Sites \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule de $f_{big, *}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-big-small-etale}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme dans
+$(\textit{Espaces}/S)_\etale$.
+\begin{enumerate}
+\item Nous avons $i_f = f_{big} \circ i_Y$, avec $i_f$ comme dans
+le lemme \ref{lemma-put-in-T-etale} et $i_Y$ comme dans
+le lemme \ref{lemma-at-the-bottom-etale}.
+\item Le foncteur $X_{spaces, \etale} \to Y_{spaces, \etale}$,
+$(U \to X) \mapsto (U \times_X Y \to Y)$ est continu et induit
+un morphisme de sites
+$$
+f_{spaces, \etale} : Y_{spaces, \etale} \longrightarrow X_{spaces, \etale}
+$$
+Le morphisme correspondant de petits topos \'etales est noté
+$$
+f_{small} : \Sh(Y_\etale) \to \Sh(X_\etale)
+$$
+Nous avons $f_{small, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$.
+\item Nous avons un diagramme commutatif de morphismes de sites
+$$
+\xymatrix{
+Y_{spaces, \etale} \ar[d]_{f_{spaces, \etale}} &
+(\textit{Espaces}/Y)_\etale \ar[d]^{f_{big}} \ar[l]^-{\pi_Y}\\
+X_{spaces, \etale} &
+(\textit{Espaces}/X)_\etale \ar[l]_-{\pi_X}
+}
+$$
+de sorte que $f_{small} \circ \pi_Y = \pi_X \circ f_{big}$ comme morphismes de topos.
+\item Nous avons $f_{small} = \pi_X \circ f_{big} \circ i_Y = \pi_X \circ i_f$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'égalité $i_f = f_{big} \circ i_Y$ découle de l'égalité
+$i_f^{-1} = i_Y^{-1} \circ f_{big}^{-1}$, qui est claire d'après
+les descriptions de ces foncteurs ci-dessus.
+Nous obtenons ainsi (1).
+
+\medskip\noindent
+Le foncteur $u : X_{spaces, \etale} \to Y_{spaces, \etale}$,
+$u(U \to X) = (U \times_X Y \to Y)$ induit, comme on l'a montré,
+un morphisme de sites et le morphisme correspondant de petits
+topos \'etales ; voir
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-functoriality-etale-site}. La description
+de l'image directe est claire.
+
+\medskip\noindent
+La partie (3) découle du fait que $\pi_X$ et $\pi_Y$ sont donnés par les
+foncteurs d'inclusion, tandis que $f_{spaces, \etale}$ et $f_{big}$ sont donnés par les
+foncteurs de changement de base $U \mapsto U \times_X Y$.
+
+\medskip\noindent
+L'énoncé (4) découle de (3) par précomposition avec $i_Y$.
+\end{proof}
+
+\noindent
+Dans la situation du lemme, en utilisant la terminologie de
+la définition \ref{definition-restriction-small-etale},
+nous avons, pour $\mathcal{F}$ un faisceau sur le grand site \'etale de $Y$,
+$$
+(f_{big, *}\mathcal{F})|_{X_\etale} =
+f_{small, *}(\mathcal{F}|_{Y_\etale}),
+$$
+Cette égalité découle de la commutativité du diagramme de
+sites du lemme, puisque la restriction au petit site \'etale de
+$Y$, resp.\ $X$, est donnée par $\pi_{Y, *}$, resp.\ $\pi_{X, *}$.
+Une formule analogue faisant intervenir les images inverses et les restrictions est fausse.
+
+\begin{lemma}
+\label{lemma-composition-etale}
+Soit $S$ un schéma. Étant donnés des morphismes $f : X \to Y$, $g : Y \to Z$
+dans $(\textit{Espaces}/S)_\etale$, nous avons
+$g_{big} \circ f_{big} = (g \circ f)_{big}$ et
+$g_{small} \circ f_{small} = (g \circ f)_{small}$.
+\end{lemma}
+
+\begin{proof}
+Cela découle de la description explicite des foncteurs image directe
+et image inverse sur les grands sites donnée par le
+lemme \ref{lemma-morphism-big-etale}. Pour les foncteurs
+sur les petits sites, cela découle de la description des
+foncteurs image directe dans le lemme \ref{lemma-morphism-big-small-etale}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-big-small-cartesian-diagram-etale}
+Soit $S$ un schéma. Considérons un diagramme cartésien
+$$
+\xymatrix{
+Y' \ar[r]_{g'} \ar[d]_{f'} & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+dans $(\textit{Espaces}/S)_\etale$.
+$i_g^{-1} \circ f_{big, *} = f'_{small, *} \circ (i_{g'})^{-1}$
+et $g_{big}^{-1} \circ f_{big, *} = f'_{big, *} \circ (g'_{big})^{-1}$.
+\end{lemma}
+
+\begin{proof}
+Puisque le diagramme est cartésien, nous avons, pour $U'/X'$,
+$U' \times_{X'} Y' = U' \times_X Y$. Ainsi, les deux foncteurs
+$i_g^{-1} \circ f_{big, *}$ et $f'_{small, *} \circ (i_{g'})^{-1}$
+associent à tout faisceau $\mathcal{F}$ sur $(\textit{Espaces}/Y)_\etale$ le faisceau
+$U' \mapsto \mathcal{F}(U' \times_{X'} Y')$ sur $X'_\etale$
+(voir les lemmes \ref{lemma-put-in-T-etale} et \ref{lemma-morphism-big-etale}).
+La seconde égalité se démontre de la même manière ou peut être
+déduite du résultat très général de
+Sites, lemme \ref{sites-lemma-localize-morphism}.
+\end{proof}
+
+\begin{remark}
+\label{remark-change-topologies-ringed}
+Les sites $(\textit{Espaces}/X)_\etale$ et $X_{spaces, \etale}$
+sont munis de faisceaux structuraux. Pour le petit site \'etale, nous
+l'avons vu dans Propriétés des espaces, section
+\ref{spaces-properties-section-structure-sheaf}.
+Le faisceau structural $\mathcal{O}$ sur le grand site \'etale
+$(\textit{Espaces}/X)_\etale$ est défini en associant à un objet
+$U$ les sections globales du faisceau structural de $U$.
+Cela a un sens puisque $U$ est lui-même un espace algébrique
+et possède donc un faisceau structural. Comme $\mathcal{O}_U$
+est un faisceau sur le site \'etale de $U$, le préfaisceau $\mathcal{O}$
+ainsi défini satisfait à la condition de faisceau pour les recouvrements de $U$, c'est-à-dire que
+$\mathcal{O}$ est un faisceau.
+Nous pouvons munir les morphismes $i_f$, $\pi_X$, $i_X$, $f_{small}$ et
+$f_{big}$ définis ci-dessus de structures de morphismes de sites annelés, respectivement de topos annelés.
+Examinons-les successivement.
+\begin{enumerate}
+\item Dans le lemme \ref{lemma-put-in-T-etale}, notons $\mathcal{O}$
+le faisceau structural sur $(\textit{Espaces}/X)_\etale$.
+Nous avons $(i_f^{-1}\mathcal{O})(U/Y) = \mathcal{O}_U(U) = \mathcal{O}_Y(U)$
+par construction.
+On obtient ainsi un isomorphisme $i_f^\sharp : i_f^{-1}\mathcal{O} \to \mathcal{O}_Y$.
+\item Dans le lemme \ref{lemma-at-the-bottom-etale}, il a été noté
+que $i_X$ est un cas particulier de $i_f$ avec $f = \text{id}_X$ ;
+nous sommes donc ramenés au cas (1).
+\item Dans le lemme \ref{lemma-at-the-bottom-etale}, le morphisme
+$\pi_X$ vérifie $(\pi_{X, *}\mathcal{O})(U) = \mathcal{O}(U) =
+\mathcal{O}_X(U)$. Cette égalité permet de définir
+$\pi_X^\sharp : \mathcal{O}_X \to \pi_{X, *}\mathcal{O}$.
+\item Dans le lemme \ref{lemma-morphism-big-small-etale},
+l'extension de $f_{small}$ en un morphisme de topos annelés
+a été discutée dans Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-morphism-ringed-topoi}.
+\item Dans le lemme \ref{lemma-morphism-big-small-etale},
+le foncteur $f_{big}^{-1}$ est simplement la restriction
+via le foncteur d'inclusion
+$(\textit{Espaces}/Y)_\etale \to (\textit{Espaces}/X)_\etale$.
+Soit $\mathcal{O}_1$ le faisceau structural sur $(\textit{Espaces}/X)_\etale$
+et soit $\mathcal{O}_2$ le faisceau structural sur $(\textit{Espaces}/Y)_\etale$.
+Nous obtenons un isomorphisme canonique
+$f_{big}^\sharp : f_{big}^{-1}\mathcal{O}_1 \to \mathcal{O}_2$.
+\end{enumerate}
+De plus, ces définitions sont également compatibles avec les compositions.
+Nous omettons l'énoncé et la démonstration détaillés.
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{Topologie lisse}
+\label{section-smooth}
+
+\noindent
+Dans cette section, nous étudions la notion de recouvrement lisse
+d'espaces algébriques et définissons le grand site lisse d'un
+espace algébrique. Comparer avec
+Topologies, section \ref{topologies-section-smooth}.
+
+\begin{definition}
+\label{definition-smooth-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Un {\it recouvrement lisse de $X$} est une famille de morphismes
+$\{f_i : X_i \to X\}_{i \in I}$ d'espaces algébriques sur $S$
+telle que chaque $f_i$ soit lisse
+et telle que
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+c'est-à-dire que cette famille est surjective.
+\end{definition}
+
+\noindent
+C'est exactement la même notion que celle de
+Topologies, définition \ref{topologies-definition-smooth-covering}.
+En particulier, si $X$ et tous les $X_i$ sont des schémas, on retrouve la
+notion usuelle de recouvrement lisse de schémas.
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth}
+Tout recouvrement \'etale est un recouvrement lisse, et a fortiori,
+tout recouvrement de Zariski est un recouvrement lisse.
+\end{lemma}
+
+\begin{proof}
+Cela découle immédiatement des définitions, du fait qu'un morphisme \'etale
+est lisse (Morphismes des espaces, lemme
+\ref{spaces-morphisms-lemma-etale-smooth}) et du lemme
+\ref{lemma-zariski-etale}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $X' \to X$ est un isomorphisme, alors $\{X' \to X\}$
+est un recouvrement lisse de $X$.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement lisse et si, pour chaque
+$i$, nous avons un recouvrement lisse $\{X_{ij} \to X_i\}_{j\in J_i}$, alors
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ est un recouvrement lisse.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement lisse
+et si $X' \to X$ est un morphisme d'espaces algébriques, alors
+$\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement lisse.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\noindent
+À suivre...
+
+
+
+
+
+
+
+
+
+\section{Topologie syntomique}
+\label{section-syntomic}
+
+\noindent
+Dans cette section, nous étudions la notion de recouvrement syntomique
+d'espaces algébriques et définissons le grand site syntomique d'un
+espace algébrique. Comparer avec
+Topologies, section \ref{topologies-section-syntomic}.
+
+\begin{definition}
+\label{definition-syntomic-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Un {\it recouvrement syntomique de $X$} est une famille de morphismes
+$\{f_i : X_i \to X\}_{i \in I}$ d'espaces algébriques sur $S$
+telle que chaque $f_i$ soit syntomique
+et telle que
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+c'est-à-dire que cette famille est surjective.
+\end{definition}
+
+\noindent
+C'est exactement la même notion que celle de
+Topologies, définition \ref{topologies-definition-syntomic-covering}.
+En particulier, si $X$ et tous les $X_i$ sont des schémas, on retrouve la
+notion usuelle de recouvrement syntomique de schémas.
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic}
+Tout recouvrement lisse est un recouvrement syntomique, et a fortiori,
+tout recouvrement \'etale ou de Zariski est un recouvrement syntomique.
+\end{lemma}
+
+\begin{proof}
+Cela découle immédiatement des définitions, du fait qu'un morphisme lisse
+est syntomique (Morphismes des espaces, lemme
+\ref{spaces-morphisms-lemma-smooth-syntomic}) et du lemme
+\ref{lemma-zariski-etale-smooth}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-syntomic}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $X' \to X$ est un isomorphisme, alors $\{X' \to X\}$
+est un recouvrement syntomique de $X$.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement syntomique et si, pour chaque
+$i$, nous avons un recouvrement syntomique $\{X_{ij} \to X_i\}_{j\in J_i}$, alors
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ est un recouvrement syntomique.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement syntomique
+et si $X' \to X$ est un morphisme d'espaces algébriques, alors
+$\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement syntomique.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\noindent
+À suivre...
+
+
+
+
+
+
+
+
+
+
+\section{Topologie fppf}
+\label{section-fppf}
+
+\noindent
+Dans cette section, nous étudions la notion de recouvrement fppf d'espaces algébriques,
+et définissons le grand site fppf d'un espace algébrique. Comparer avec
+Topologies, section \ref{topologies-section-fppf}.
+
+\begin{definition}
+\label{definition-fppf-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Un {\it recouvrement fppf de $X$} est une famille de morphismes
+$\{f_i : X_i \to X\}_{i \in I}$ d'espaces algébriques sur $S$
+telle que chaque $f_i$ soit plat et localement de présentation finie
+et telle que
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+c'est-à-dire que cette famille est surjective.
+\end{definition}
+
+\noindent
+C'est exactement la même notion que celle de
+Topologies, définition \ref{topologies-definition-fppf-covering}.
+En particulier, si $X$ et tous les $X_i$ sont des schémas, on retrouve la notion usuelle
+de recouvrement fppf de schémas.
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic-fppf}
+Tout recouvrement syntomique est un recouvrement fppf, et a fortiori,
+tout recouvrement lisse, \'etale ou de Zariski est un recouvrement fppf.
+\end{lemma}
+
+\begin{proof}
+Cela découle des définitions et du fait qu'un morphisme syntomique
+est plat et localement de présentation finie
+(Morphismes des espaces, lemmes
+\ref{spaces-morphisms-lemma-syntomic-locally-finite-presentation} et
+\ref{spaces-morphisms-lemma-syntomic-flat}) et
+du lemme \ref{lemma-zariski-etale-smooth-syntomic}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fppf}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $X' \to X$ est un isomorphisme, alors $\{X' \to X\}$
+est un recouvrement fppf de $X$.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement fppf et si, pour chaque
+$i$, nous avons un recouvrement fppf $\{X_{ij} \to X_i\}_{j\in J_i}$, alors
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ est un recouvrement fppf.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement fppf
+et si $X' \to X$ est un morphisme d'espaces algébriques, alors
+$\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement fppf.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-refine-fppf-schemes}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Supposons que $\mathcal{U} = \{f_i : X_i \to X\}_{i \in I}$ soit un
+recouvrement fppf de $X$. Alors il existe un raffinement
+$\mathcal{V} = \{g_i : T_i \to X\}$ de $\mathcal{U}$ qui est un
+recouvrement fppf tel que chaque $T_i$ soit un schéma.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : pour chaque $i$, choisir un schéma $T_i$ et un morphisme \'etale surjectif
+$T_i \to X_i$. Vérifier ensuite que $\{T_i \to X\}$ est un recouvrement fppf.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fppf-covering-surjective}
+Soit $S$ un schéma.
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement fppf d'espaces algébriques
+sur $S$. Alors le morphisme de faisceaux
+$$
+\coprod X_i \longrightarrow X
+$$
+est surjectif.
+\end{lemma}
+
+\begin{proof}
+Cela découle du lemme
+\ref{spaces-lemma-surjective-flat-locally-finite-presentation} du chapitre Espaces.
+Voir également la remarque
+\ref{spaces-remark-warning} du chapitre Espaces
+si la signification de ce lemme vous semble obscure.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-fppf-site}
+Soit $S$ un schéma. On appelle grand site fppf
+{\it $(\textit{Espaces}/S)_{fppf}$} tout site construit comme suit :
+\begin{enumerate}
+\item Choisissons un grand site fppf $(\Sch/S)_{fppf}$ comme dans
+Topologies, section \ref{topologies-section-fppf}.
+\item Prenons pour catégorie sous-jacente la catégorie $\textit{Espaces}/S$
+des espaces algébriques sur $S$ (voir la discussion de la
+section \ref{section-procedure} expliquant qu'il s'agit d'un ensemble).
+\item Choisissons un ensemble quelconque de recouvrements comme dans
+Ensembles, lemme \ref{sets-lemma-coverings-site}, en partant de la
+catégorie $\textit{Espaces}/S$ et de la classe des recouvrements fppf
+de la définition \ref{definition-fppf-covering}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Après cette définition, on peut localiser pour obtenir le site fppf
+d'un espace algébrique.
+
+\begin{definition}
+\label{definition-big-small-fppf}
+Soit $S$ un schéma. Soit $(\textit{Espaces}/S)_{fppf}$ comme dans
+la définition \ref{definition-big-fppf-site}.
+Soit $X$ un espace algébrique sur $S$, c'est-à-dire un objet de
+$(\textit{Espaces}/S)_{fppf}$. Alors le grand site fppf
+{\it $(\textit{Espaces}/X)_{fppf}$} de $X$
+est la localisation du site $(\textit{Espaces}/S)_{fppf}$
+en $X$, introduite dans Sites, section \ref{sites-section-localize}.
+\end{definition}
+
+\noindent
+Nous établissons ensuite quelques relations entre les topos
+associés à ces sites.
+
+\begin{lemma}
+\label{lemma-morphism-big-fppf}
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$.
+Le foncteur
+$$
+u : (\textit{Espaces}/Y)_{fppf} \longrightarrow (\textit{Espaces}/X)_{fppf},
+\quad
+V/Y \longmapsto V/X
+$$
+est cocontinu et admet un adjoint à droite continu
+$$
+v : (\textit{Espaces}/X)_{fppf} \longrightarrow (\textit{Espaces}/Y)_{fppf},
+\quad
+(U \to X) \longmapsto (U \times_X Y \to Y).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\textit{Espaces}/Y)_{fppf})
+\longrightarrow
+\Sh((\textit{Espaces}/X)_{fppf})
+$$
+Nous avons $f_{big}^{-1}(\mathcal{G})(U/Y) = \mathcal{G}(U/X)$.
+Nous avons $f_{big, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$.
+De plus, $f_{big}^{-1}$ possède un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs. Par conséquent,
+les lemmes de Sites \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et nous obtenons la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est adjoint à droite du foncteur précédent car, pour $U/Y$ et $V/X$,
+nous avons $\Mor_X(u(U), V) = \Mor_Y(U, V \times_X Y)$
+comme souhaité. Nous pouvons donc appliquer
+les lemmes de Sites \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule de $f_{big, *}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-fppf}
+Soit $S$ un schéma. Étant donnés des morphismes $f : X \to Y$, $g : Y \to Z$
+d'espaces algébriques sur $S$, nous avons
+$g_{big} \circ f_{big} = (g \circ f)_{big}$.
+\end{lemma}
+
+\begin{proof}
+Cela découle de la description explicite des foncteurs image directe
+et image inverse sur les grands sites donnée par le
+lemme \ref{lemma-morphism-big-fppf}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{La topologie ph}
+\label{section-ph}
+
+\noindent
+Dans cette section, nous définissons la topologie ph. Il s'agit de la topologie
+engendrée par les recouvrements \'etales et les morphismes propres surjectifs ; voir
+le lemme \ref{lemma-characterize-sheaf}.
+
+\begin{definition}
+\label{definition-ph-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Un {\it recouvrement ph de $X$} est une famille
+de morphismes $\{f_i : X_i \to X\}_{i \in I}$ d'espaces algébriques sur $S$
+telle que chaque $f_i$ soit localement de type fini et telle que, pour tout
+$h : U \to X$ avec $U$ affine, il existe un recouvrement ph standard
+$\{g_j : U_j \to U\}_{j = 1, \ldots, m}$ qui raffine la famille
+$\{X_i \times_X U \to U\}_{i \in I}$.
+\end{definition}
+
+\noindent
+Autrement dit, il existe des indices $i_1, \ldots, i_m \in I$ et des
+morphismes $h_j : U_j \to X_{i_j}$ tels que
+$f_{i_j} \circ h_j = h \circ g_j$. Notons que, si $X$ et tous les $X_i$ sont
+représentables, il s'agit de la même notion qu'un recouvrement ph de schémas défini dans
+Topologies, définition \ref{topologies-definition-ph-covering}.
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic-fppf-ph}
+Tout recouvrement fppf est un recouvrement ph, et a fortiori,
+tout recouvrement syntomique, lisse, \'etale ou de Zariski est un recouvrement ph.
+\end{lemma}
+
+\begin{proof}
+Montrons qu'un recouvrement fppf est un recouvrement ph ; le
+reste découle alors du lemme \ref{lemma-zariski-etale-smooth-syntomic-fppf}.
+Soit $\{X_i \to X\}_{i \in I}$ un recouvrement fppf d'espaces algébriques
+sur un schéma de base $S$. Soit $U$ un schéma affine et soit
+$U \to X$ un morphisme. Nous pouvons raffiner le recouvrement fppf
+$\{X_i \times_X U \to U\}_{i \in I}$ par un recouvrement fppf
+$\{T_i \to U\}_{i \in I}$ où chaque $T_i$ est un schéma
+(lemme \ref{lemma-refine-fppf-schemes}).
+Nous pouvons alors trouver un recouvrement ph standard $\{U_j \to U\}_{j = 1, \ldots, m}$
+raffinant $\{T_i \to U\}_{i \in I}$, par le
+lemme \ref{more-morphisms-lemma-fppf-ph} de Compléments sur les morphismes
+(et par la définition des recouvrements ph pour les schémas).
+Ainsi, $\{X_i \to X\}_{i \in I}$ est un recouvrement ph par définition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-proper-ph}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme propre surjectif
+d'espaces algébriques sur $S$. Alors $\{Y \to X\}$ est un recouvrement ph.
+\end{lemma}
+
+\begin{proof}
+Soit $U \to X$ un morphisme, où $U$ est affine.
+Par le lemme de Chow (sous la forme faible donnée dans
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-weak-chow}),
+il existe un morphisme propre surjectif de schémas
+$V \to U$ qui se factorise par $Y \times_X U \to U$.
+En choisissant un recouvrement fini de $V$ par des ouverts affines, nous obtenons un
+recouvrement ph standard de $U$ qui raffine $\{Y \times_X U \to U\}$,
+comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ph}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $X' \to X$ est un isomorphisme, alors $\{X' \to X\}$
+est un recouvrement ph de $X$.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement ph et si, pour tout
+$i$, on a un recouvrement ph $\{X_{ij} \to X_i\}_{j\in J_i}$, alors
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ est un recouvrement ph.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement ph
+et si $X' \to X$ est un morphisme d'espaces algébriques, alors
+$\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement ph.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) est claire. Considérons $g : X' \to X$ et
+un recouvrement ph $\{X_i \to X\}_{i\in I}$ comme dans (3). Par le
+lemme \ref{spaces-morphisms-lemma-base-change-finite-type} de Morphismes des espaces,
+les morphismes $X' \times_X X_i \to X'$ sont localement de type fini.
+Si $h' : Z \to X'$ est un morphisme d'un schéma affine
+vers $X'$, posons $h = g \circ h' : Z \to X$. L'hypothèse
+sur $\{X_i \to X\}_{i\in I}$ signifie qu'il existe un recouvrement ph standard
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ et des morphismes $Z_j \to X_{i(j)}$ au-dessus de
+$h$, pour certains $i(j) \in I$. Par la propriété universelle du produit fibré,
+nous obtenons aussi des morphismes $Z_j \to X' \times_X X_{i(j)}$ au-dessus de $h'$.
+Ainsi, $\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement ph.
+Ceci démontre (3).
+
+\medskip\noindent
+Soient $\{X_i \to X\}_{i\in I}$ et $\{X_{ij} \to X_i\}_{j\in J_i}$ comme
+dans (2). Soit $h : Z \to X$ un morphisme d'un schéma affine vers $X$.
+Par hypothèse, il existe un recouvrement ph standard
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ et des morphismes $h_j : Z_j \to X_{i(j)}$
+au-dessus de $h$, pour certains indices $i(j) \in I$. Par hypothèse, il existe des
+recouvrements ph standard
+$\{Z_{j, l} \to Z_j\}_{l = 1, \ldots, n(j)}$
+et des morphismes $Z_{j, l} \to X_{i(j)j(l)}$ au-dessus de
+$h_j$, pour certains indices $j(l) \in J_{i(j)}$. Par le
+lemme \ref{topologies-lemma-refine-by-standard-ph} de Topologies,
+la famille $\{Z_{j, l} \to Z\}$ peut être raffinée par un recouvrement ph standard.
+Nous en concluons que $\{X_{ij} \to X\}_{i \in I, j\in J_i}$
+est un recouvrement ph.
+\end{proof}
+
+\begin{definition}
+\label{definition-big-ph-site}
+Soit $S$ un schéma. On appelle grand site ph {\it $(\textit{Espaces}/S)_{ph}$}
+tout site construit comme suit :
+\begin{enumerate}
+\item Choisissons un grand site ph $(\Sch/S)_{ph}$ comme dans
+Topologies, section \ref{topologies-section-ph}.
+\item Prenons pour catégorie sous-jacente la catégorie $\textit{Espaces}/S$
+des espaces algébriques sur $S$ (voir la discussion de la
+section \ref{section-procedure}, qui explique pourquoi il s'agit d'un ensemble).
+\item Choisissons un ensemble quelconque de recouvrements comme dans le
+lemme \ref{sets-lemma-coverings-site} d'Ensembles, en partant de la
+catégorie $\textit{Espaces}/S$ et de la classe des recouvrements ph
+de la définition \ref{definition-ph-covering}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Après cette définition, on peut localiser pour obtenir le site ph
+d'un espace algébrique.
+
+\begin{definition}
+\label{definition-big-small-ph}
+Soit $S$ un schéma. Soit $(\textit{Espaces}/S)_{ph}$ comme dans la
+définition \ref{definition-big-ph-site}.
+Soit $X$ un espace algébrique sur $S$, c'est-à-dire un objet de
+$(\textit{Espaces}/S)_{ph}$. Alors le grand site ph
+{\it $(\textit{Espaces}/X)_{ph}$} de $X$
+est la localisation du site $(\textit{Espaces}/S)_{ph}$
+en $X$, introduite dans Sites, section \ref{sites-section-localize}.
+\end{definition}
+
+\noindent
+Voici la caractérisation annoncée des faisceaux ph.
+
+\begin{lemma}
+\label{lemma-characterize-sheaf}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un préfaisceau sur $(\textit{Espaces}/X)_{ph}$.
+Alors $\mathcal{F}$ est un faisceau si et seulement si
+\begin{enumerate}
+\item $\mathcal{F}$ satisfait à la condition de faisceau pour les recouvrements \'etales, et
+\item si $f : V \to U$ est un morphisme propre surjectif de
+$(\textit{Espaces}/X)_{ph}$, alors
+$\mathcal{F}(U)$ s'envoie bijectivement sur l'égalisateur
+des deux applications $\mathcal{F}(V) \to \mathcal{F}(V \times_U V)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Montrons que, si (1) et (2) sont satisfaites, alors $\mathcal{F}$ est un faisceau.
+Soit $\{T_i \to T\}$ un recouvrement ph, c'est-à-dire un recouvrement dans
+$(\textit{Espaces}/X)_{ph}$.
+Vérifions la condition de faisceau pour ce recouvrement.
+Soient $s_i \in \mathcal{F}(T_i)$ des sections dont les restrictions sont égales
+sur $T_i \times_T T_{i'}$. Montrons qu'il existe une
+unique section $s \in \mathcal{F}$ dont la restriction est $s_i$ sur $T_i$.
+Soit $\{U_j \to T\}$ un recouvrement \'etale avec les $U_j$ affines.
+D'après la propriété (1), il suffit de produire des sections $s_j \in \mathcal{F}(U_j)$
+qui coïncident sur $U_j \cap U_{j'}$ afin de construire $s$.
+Considérons les recouvrements ph $\{T_i \times_T U_j \to U_j\}$.
+Alors les $s_{ji} = s_i|_{T_i \times_T U_j}$ sont des sections qui coïncident
+sur $(T_i \times_T U_j) \times_{U_j} (T_{i'} \times_T U_j)$.
+Choisissons un morphisme propre surjectif $V_j \to U_j$ et un recouvrement
+fini par des ouverts affines, $V_j = \bigcup V_{jk}$, tels que le recouvrement ph standard
+$\{V_{jk} \to U_j\}$ raffine $\{T_i \times_T U_j \to U_j\}$.
+Si $s_{jk} \in \mathcal{F}(V_{jk})$
+désigne l'image inverse de $s_{ji}$ sur $V_{jk}$ par les
+morphismes implicites, alors les $s_{jk}$ se recollent en une section
+$s'_j \in \mathcal{F}(V_j)$. En utilisant encore une fois leur coïncidence sur les intersections,
+nous voyons que $s'_j$ appartient à l'égalisateur des deux
+applications $\mathcal{F}(V_j) \to \mathcal{F}(V_j \times_{U_j} V_j)$.
+Par (2), la section $s'_j$ provient donc d'une unique section
+$s_j \in \mathcal{F}(U_j)$. Nous omettons de vérifier que ces
+sections $s_j$ possèdent toutes les propriétés voulues.
+\end{proof}
+
+\noindent
+Nous établissons ensuite quelques relations entre les topos
+associés à ces sites.
+
+\begin{lemma}
+\label{lemma-morphism-big-ph}
+Soit $S$ un schéma.
+Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$.
+Le foncteur
+$$
+u : (\textit{Espaces}/Y)_{ph} \longrightarrow (\textit{Espaces}/X)_{ph},
+\quad
+V/Y \longmapsto V/X
+$$
+est cocontinu et possède un adjoint à droite continu
+$$
+v : (\textit{Espaces}/X)_{ph} \longrightarrow (\textit{Espaces}/Y)_{ph},
+\quad
+(U \to X) \longmapsto (U \times_X Y \to Y).
+$$
+Ils induisent le même morphisme de topos
+$$
+f_{big} :
+\Sh((\textit{Espaces}/Y)_{ph})
+\longrightarrow
+\Sh((\textit{Espaces}/X)_{ph})
+$$
+Nous avons $f_{big}^{-1}(\mathcal{G})(U/Y) = \mathcal{G}(U/X)$.
+Nous avons $f_{big, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$.
+De plus, $f_{big}^{-1}$ possède un adjoint à gauche $f_{big!}$ qui commute aux
+produits fibrés et aux égalisateurs.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $u$ est cocontinu, continu et commute aux produits fibrés
+et aux égalisateurs. Par conséquent,
+les lemmes de Sites \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-preserve-equalizers}
+s'appliquent et nous en déduisons la formule
+pour $f_{big}^{-1}$ ainsi que l'existence de $f_{big!}$. De plus,
+le foncteur $v$ est un adjoint à droite car, pour $U/Y$ et $V/X$,
+nous avons $\Mor_X(u(U), V) = \Mor_Y(U, V \times_X Y)$,
+comme souhaité. Nous pouvons donc appliquer
+les lemmes de Sites \ref{sites-lemma-have-functor-other-way} et
+\ref{sites-lemma-have-functor-other-way-morphism} pour obtenir la
+formule de $f_{big, *}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-ph}
+Soit $S$ un schéma. Étant donnés des morphismes $f : X \to Y$, $g : Y \to Z$
+d'espaces algébriques sur $S$, nous avons
+$g_{big} \circ f_{big} = (g \circ f)_{big}$.
+\end{lemma}
+
+\begin{proof}
+Cela découle de la description simple des foncteurs image directe
+et image inverse sur les grands sites donnée par le
+lemme \ref{lemma-morphism-big-ph}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cech-enough}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $P$ une propriété des objets de $(\textit{Espaces}/X)_{fppf}$
+telle que, pour tout recouvrement $\{U_i \to U\}$ de
+$(\textit{Espaces}/X)_{fppf}$, l'implication suivante soit vérifiée :
+$$
+P(U_{i_0} \times_U \ldots \times_U U_{i_p})
+\text{ pour tous }
+p \geq 0,\ i_0, \ldots, i_p \in I
+\Rightarrow P(U)
+$$
+Si $P(U)$ est vraie pour tout $U$ affine, plat et localement de présentation finie sur $X$,
+alors $P(X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un espace algébrique séparé, plat et localement de présentation finie sur $X$.
+Nous pouvons choisir un recouvrement \'etale $\{U_i \to U\}_{i \in I}$ avec $U_i$
+affine. Comme $U$ est séparé, nous en concluons que
+$U_{i_0} \times_U \ldots \times_U U_{i_p}$ est toujours affine.
+Ainsi, $P(U_{i_0} \times_U \ldots \times_U U_{i_p})$ est toujours vraie.
+Par conséquent, $P(U)$ est vraie. Choisissons un schéma $U$ qui est une réunion disjointe de
+schémas affines et un morphisme \'etale surjectif $U \to X$.
+Alors $U \times_X \ldots \times_X U$ (avec $p + 1$ facteurs)
+est un espace algébrique séparé
+et \'etale sur $X$. D'après ce qui précède, $P(U \times_X \ldots \times_X U)$ est donc vraie.
+Nous en concluons que $P(X)$ est vraie.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Topologie fpqc}
+\label{section-fpqc}
+
+\noindent
+Nous étudions brièvement la notion de recouvrement fpqc d'espaces algébriques.
+Comparer avec
+Topologies, section \ref{topologies-section-fpqc}.
+Nous montrerons dans
+Descente sur les espaces,
+proposition \ref{spaces-descent-proposition-fpqc-descent-quasi-coherent},
+que les faisceaux quasi-cohérents satisfont à la descente relativement à de tels recouvrements.
+
+\begin{definition}
+\label{definition-fpqc-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Un {\it recouvrement fpqc de $X$} est une famille de morphismes
+$\{f_i : X_i \to X\}_{i \in I}$ d'espaces algébriques
+telle que chaque $f_i$ soit plat et que, pour tout schéma affine
+$Z$ et tout morphisme $h : Z \to X$, il existe un recouvrement fpqc standard
+$\{g_j : Z_j \to Z\}_{j = 1, \ldots, m}$ qui raffine la famille
+$\{X_i \times_X Z \to Z\}_{i \in I}$.
+\end{definition}
+
+\noindent
+Autrement dit, il existe des indices $i_1, \ldots, i_m \in I$ et des
+morphismes $h_j : Z_j \to X_{i_j}$ tels que
+$f_{i_j} \circ h_j = h \circ g_j$. Remarquons que, si $X$ et tous les $X_i$ sont
+représentables, cela revient à un recouvrement fpqc de schémas d'après le
+lemme \ref{topologies-lemma-fpqc-covering-affines-mapping-in} de Topologies.
+
+\begin{lemma}
+\label{lemma-zariski-etale-smooth-syntomic-fppf-fpqc}
+Tout recouvrement fppf est un recouvrement fpqc et a fortiori,
+tout recouvrement syntomique, lisse, \'etale ou de Zariski est un recouvrement fpqc.
+\end{lemma}
+
+\begin{proof}
+Montrons qu'un recouvrement fppf est un recouvrement fpqc ; le
+reste découle alors du
+lemme \ref{lemma-zariski-etale-smooth-syntomic-fppf}.
+Soit $\{f_i : U_i \to U\}_{i \in I}$ un
+recouvrement fppf d'espaces algébriques sur $S$.
+Par définition, les $f_i$ sont plats, ce qui vérifie la première
+condition de la définition \ref{definition-fpqc-covering}. Pour vérifier la
+seconde, soit $V \to U$ un morphisme avec $V$ affine.
+Nous pouvons choisir un recouvrement \'etale $\{V_{ij} \to V \times_U U_i\}$
+avec les $V_{ij}$ affines. Alors les composés
+$f_{ij} : V_{ij} \to V \times_U U_i \to V$ sont plats et localement de
+présentation finie, chacun étant composé de morphismes possédant ces propriétés
+(Morphismes des espaces, lemmes
+\ref{spaces-morphisms-lemma-composition-finite-presentation},
+\ref{spaces-morphisms-lemma-composition-flat},
+\ref{spaces-morphisms-lemma-etale-flat}, et
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation}).
+Ces morphismes sont donc ouverts
+(Morphismes des espaces, lemme \ref{spaces-morphisms-lemma-fppf-open}),
+et nous voyons que
+$|V| = \bigcup_{i \in I} \bigcup_{j \in J_i} f_{ij}(|V_{ij}|)$
+est un recouvrement ouvert de $|V|$.
+Comme $|V|$ est quasi-compact, ce recouvrement possède un
+raffinement fini.
+Disons que $V_{i_1j_1}, \ldots, V_{i_Nj_N}$ conviennent.
+Alors $\{V_{i_kj_k} \to V\}_{k = 1, \ldots, N}$ est
+un recouvrement fpqc standard de $V$ qui raffine la famille
+$\{U_i \times_U V \to V\}$.
+Ceci achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fpqc}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $X' \to X$ est un isomorphisme, alors $\{X' \to X\}$
+est un recouvrement fpqc de $X$.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement fpqc et si, pour tout
+$i$, on a un recouvrement fpqc $\{X_{ij} \to X_i\}_{j\in J_i}$, alors
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ est un recouvrement fpqc.
+\item Si $\{X_i \to X\}_{i\in I}$ est un recouvrement fpqc
+et si $X' \to X$ est un morphisme d'espaces algébriques, alors
+$\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement fpqc.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) est claire. Considérons $g : X' \to X$ et
+un recouvrement fpqc $\{X_i \to X\}_{i\in I}$ comme dans (3). Par le
+lemme \ref{spaces-morphisms-lemma-base-change-flat} de Morphismes des espaces,
+les morphismes $X' \times_X X_i \to X'$
+sont plats. Si $h' : Z \to X'$ est un morphisme d'un schéma affine
+vers $X'$, posons $h = g \circ h' : Z \to X$. L'hypothèse
+sur $\{X_i \to X\}_{i\in I}$ signifie qu'il existe un recouvrement fpqc standard
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ et des morphismes $Z_j \to X_{i(j)}$ au-dessus de
+$h$, pour certains $i(j) \in I$. Par la propriété universelle du produit fibré,
+nous obtenons aussi des morphismes $Z_j \to X' \times_X X_{i(j)}$ au-dessus de $h'$.
+Ainsi, $\{X' \times_X X_i \to X'\}_{i\in I}$ est un recouvrement fpqc.
+Ceci démontre (3).
+
+\medskip\noindent
+Soient $\{X_i \to X\}_{i\in I}$ et $\{X_{ij} \to X_i\}_{j\in J_i}$ comme
+dans (2). Soit $h : Z \to X$ un morphisme d'un schéma affine vers $X$.
+Par hypothèse, il existe un recouvrement fpqc standard
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ et des morphismes $h_j : Z_j \to X_{i(j)}$
+au-dessus de $h$, pour certains indices $i(j) \in I$. Par hypothèse, il existe des
+recouvrements fpqc standard
+$\{Z_{j, l} \to Z_j\}_{l = 1, \ldots, n(j)}$
+et des morphismes $Z_{j, l} \to X_{i(j)j(l)}$ au-dessus de
+$h_j$, pour certains indices $j(l) \in J_{i(j)}$. Par le
+lemme \ref{topologies-lemma-fpqc-affine-axioms} de Topologies,
+la famille $\{Z_{j, l} \to Z\}$ est un recouvrement fpqc standard.
+Nous en concluons que $\{X_{ij} \to X\}_{i \in I, j\in J_i}$
+est un recouvrement fpqc.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-recognize-fpqc-covering}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Supposons que $\{f_i : X_i \to X\}_{i \in I}$ soit une famille de morphismes
+d'espaces algébriques de but $X$. Soit $U \to X$ un morphisme
+\'etale surjectif d'un schéma vers $X$. Alors
+$\{f_i : X_i \to X\}_{i \in I}$ est un recouvrement fpqc de $X$ si et seulement
+si $\{U \times_X X_i \to U\}_{i \in I}$ est un recouvrement fpqc de $U$.
+\end{lemma}
+
+\begin{proof}
+Si $\{X_i \to X\}_{i \in I}$ est un recouvrement fpqc, il en va de même de
+$\{U \times_X X_i \to U\}_{i \in I}$ par le lemme \ref{lemma-fpqc}.
+Supposons que $\{U \times_X X_i \to U\}_{i \in I}$ soit un recouvrement fpqc.
+Soit $h : Z \to X$ un morphisme d'un schéma affine vers $X$.
+Alors $U \times_X Z \to Z$ est un morphisme \'etale surjectif
+de schémas, donc en particulier ouvert. Nous pouvons donc trouver un nombre fini d'ouverts affines
+$W_1, \ldots, W_t$ de $U \times_X Z$ dont les images recouvrent $Z$.
+Pour chaque $j$, nous pouvons appliquer la condition selon laquelle
+$\{U \times_X X_i \to U\}_{i \in I}$ est un recouvrement fpqc
+au morphisme $W_j \to U$, et obtenir un recouvrement fpqc standard
+$\{W_{jl} \to W_j\}$ qui raffine $\{W_j \times_X X_i \to W_j\}_{i \in I}$.
+Ainsi, $\{W_{jl} \to Z\}$ est un recouvrement fpqc standard de $Z$
+(voir le
+lemme \ref{topologies-lemma-fpqc-affine-axioms} de Topologies)
+qui raffine $\{Z \times_X X_i \to Z\}$, ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-refine-fpqc-schemes}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Supposons que $\mathcal{U} = \{f_i : X_i \to X\}_{i \in I}$ soit un
+recouvrement fpqc de $X$. Il existe alors un raffinement
+$\mathcal{V} = \{g_i : T_i \to X\}$ de $\mathcal{U}$ qui est un
+recouvrement fpqc tel que chaque $T_i$ soit un schéma.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : pour chaque $i$, choisir un schéma $T_i$ et un morphisme \'etale
+surjectif $T_i \to X_i$. Vérifier ensuite que $\{T_i \to X\}$ est un recouvrement fpqc.
+\end{proof}
+
+\noindent
+À suivre...
+
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

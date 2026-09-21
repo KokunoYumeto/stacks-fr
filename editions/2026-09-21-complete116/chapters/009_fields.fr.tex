@@ -1,0 +1,3792 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Corps}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudierons la théorie des corps. Rappelons qu'un
+{\it corps} est un anneau non nul dans lequel tout élément non nul est inversible.
+De manière équivalente, les deux seuls idéaux d'un corps sont $(0)$ et $(1)$,
+puisque tout élément non nul est une unité. Les corps constitueront donc les
+cas les plus simples d'une grande partie de la théorie développée ultérieurement.
+
+\medskip\noindent
+La théorie des extensions de corps présente un aspect différent de l'algèbre
+commutative classique puisque, par exemple, tout morphisme de corps est injectif.
+Il s'avère néanmoins que des questions portant sur les anneaux peuvent souvent
+se ramener à des questions sur les corps. Par exemple, tout anneau intègre se plonge dans un corps
+(son corps des fractions), et à tout {\it anneau local} (c'est-à-dire un anneau possédant un unique
+idéal maximal ; nous n'avons pas encore défini ce terme) est associé son
+corps résiduel (c'est-à-dire son quotient par l'idéal maximal).
+La connaissance des extensions de corps sera donc utile.
+
+
+
+
+\section{Définitions de base}
+\label{section-definitions}
+
+\noindent
+Comme nous avons placé ce chapitre avant celui consacré à l'algèbre
+commutative, nous devons introduire ici certaines définitions élémentaires
+avant de les étudier plus en détail dans les chapitres d'algèbre.
+
+\begin{definition}
+\label{definition-field}
+Un {\it corps} est un anneau non nul dont tout élément non nul est inversible.
+Étant donné un corps, un {\it sous-corps} est un sous-anneau qui est lui-même un corps.
+\end{definition}
+
+\noindent
+Pour un corps $k$, nous notons $k^*$ le sous-ensemble $k \setminus \{0\}$.
+Cette notation généralise la notation usuelle $R^*$ qui désigne le groupe des
+éléments inversibles d'un anneau $R$.
+
+\begin{definition}
+\label{definition-domain}
+Un {\it anneau intègre}, ou un {\it domaine d'intégrité}, est un anneau non nul dans lequel $0$
+est le seul diviseur de zéro.
+\end{definition}
+
+
+
+\section{Exemples de corps}
+\label{section-examples}
+
+\noindent
+Pour commencer, donnons plusieurs exemples de corps. Le lecteur se rappellera
+que, si $R$ est un anneau et $I \subset R$ un idéal, alors $R/I$ est un corps
+si et seulement si $I$ est un idéal maximal.
+
+\begin{example}[Nombres rationnels]
+\label{example-rational-numbers}
+Les nombres rationnels forment un corps. On l'appelle le
+{\it corps des nombres rationnels} et on le note $\mathbf{Q}$.
+\end{example}
+
+\begin{example}[Corps premiers]
+\label{example-prime-field}
+Si $p$ est un nombre premier, alors $\mathbf{Z}/(p)$ est un corps, noté
+$\mathbf{F}_p$. En effet, $(p)$ est un
+idéal maximal de $\mathbf{Z}$. Ainsi, un corps peut être fini : $\mathbf{F}_p$
+contient $p$ éléments.
+\end{example}
+
+\begin{example}
+\label{example-quotient-polymial-ring}
+Dans un anneau principal, tout idéal engendré par un élément irréductible
+est maximal. Or, si $k$ est un corps, l'anneau de polynômes $k[x]$ est un
+anneau principal. Il s'ensuit que, si $P \in k[x]$ est un polynôme irréductible
+(c'est-à-dire un polynôme non constant
+qui n'admet pas de factorisation en facteurs de degrés plus petits), alors
+$k[x]/(P)$ est un corps. Il contient naturellement une copie de $k$.
+C'est une méthode très générale pour construire des corps. Par exemple, les
+nombres complexes $\mathbf{C}$
+peuvent être construits sous la forme $\mathbf{R}[x]/(x^2 + 1)$.
+\end{example}
+
+\begin{example}[Corps des fractions]
+\label{example-quotient-field}
+Rappelons qu'étant donné un anneau intègre $A$, il existe un plongement $A \to F$ dans un
+corps $F$ construit à partir de $A$ exactement de la même manière que
+$\mathbf{Q}$ est construit à partir de $\mathbf{Z}$. Formellement, les éléments
+de $F$ sont des fractions $a/b$ (ou, plus précisément, leurs classes d'équivalence),
+$a, b \in A$, $b \not = 0$. Comme d'habitude, $a/b = a'/b'$ si et seulement si $ab' = ba'$.
+Le corps $F$ est appelé le {\it corps des fractions} de $A$ ; les calques
+{\it corps quotient} et {\it corps de fractions} ne seront pas employés.
+Le corps des fractions possède la propriété universelle suivante : pour tout
+morphisme injectif d'anneaux $\varphi : A \to K$ vers un corps $K$, il existe un unique
+morphisme $\psi : F \to K$ qui rende le diagramme
+$$
+\xymatrix{
+F \ar[r]_\psi & K \\
+A \ar[u] \ar[ru]_\varphi
+}
+$$
+commutatif. En effet, la façon de définir un tel morphisme est claire : on pose
+$\psi(a/b) = \varphi(a)\varphi(b)^{-1}$, l'injectivité de $\varphi$
+assurant que $\varphi(b) \not = 0$ si $ b \not = 0$.
+\end{example}
+
+\begin{example}[Corps des fonctions rationnelles]
+\label{example-field-of-rational-functions}
+Si $k$ est un corps, on peut considérer le corps $k(x)$ des fonctions
+rationnelles sur $k$. C'est le corps des fractions de l'anneau de polynômes
+$k[x]$. Autrement dit, c'est l'ensemble des quotients $F/G$ avec
+$F, G \in k[x]$, $G \not = 0$, muni de la relation d'équivalence évidente.
+\end{example}
+
+\begin{example}
+\label{example-field-of-meromorphic-functions}
+Soit $X$ une surface de Riemann. Notons $\mathbf{C}(X)$
+l'ensemble des fonctions méromorphes sur $X$. Alors $\mathbf{C}(X)$ est un anneau pour
+la multiplication et l'addition des fonctions. Il s'avère qu'en fait
+$\mathbf{C}(X)$ est un corps. En effet, si une fonction non nulle $f(z)$ est
+méromorphe, il en va de même de $1/f(z)$. Par exemple, soit $S^2$ la sphère
+de Riemann ; l'analyse complexe nous apprend que l'anneau des fonctions méromorphes
+$\mathbf{C}(S^2)$ est le corps des fonctions rationnelles $\mathbf{C}(z)$.
+\end{example}
+
+
+
+\section{Espaces vectoriels}
+\label{section-vector-spaces}
+
+\noindent
+L'une des raisons pour lesquelles les corps sont si commodes est que la théorie des modules sur un corps
+(c'est-à-dire des espaces vectoriels) est très simple.
+
+\begin{lemma}
+\label{lemma-vector-space-is-free}
+Si $k$ est un corps, tout $k$-module est libre.
+\end{lemma}
+
+\begin{proof}
+En effet, l'algèbre linéaire nous apprend qu'un $k$-module (c'est-à-dire un espace vectoriel)
+$V$ possède une {\it base} $\mathcal{B} \subset V$, laquelle définit un isomorphisme
+de l'espace vectoriel libre sur $\mathcal{B}$ vers $V$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-field-semi-simple}
+Toute suite exacte de modules sur un corps est scindée.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du Lemme \ref{lemma-vector-space-is-free}, puisque tout espace
+vectoriel est un module projectif.
+\end{proof}
+
+\noindent
+C'est une autre raison pour laquelle une grande partie de la théorie des chapitres ultérieurs dira
+peu de choses sur les corps, puisque les modules s'y comportent de manière si simple.
+Notons que le Lemme \ref{lemma-field-semi-simple} est un énoncé portant sur la
+{\it catégorie} des $k$-modules (où $k$ est un corps), car la notion
+d'exactitude est intrinsèquement de nature morphique, c'est-à-dire qu'elle ne fait intervenir que des notions
+catégoriques, et peut en fait se formuler dans ce que l'on appelle une {\it catégorie abélienne}.
+
+\medskip\noindent
+Désormais, puisque l'étude des modules sur un corps relève de l'algèbre linéaire et
+que la théorie des idéaux d'un corps présente peu d'intérêt, nous étudierons le véritable
+objet de ce chapitre : les {\it extensions} de corps.
+
+
+\section{La caractéristique d’un corps}
+\label{section-more-fields}
+
+\noindent
+Dans la catégorie des anneaux, il existe un {\it objet initial} $\mathbf{Z}$ : tout
+anneau $R$ reçoit un morphisme de $\mathbf{Z}$ d'une manière et d'une seule. Pour les corps,
+il n'existe pas d'objet initial.
+Il existe néanmoins une famille d'objets telle que tout corps reçoive d'une manière
+unique un morphisme provenant d'exactement l'un d'entre eux, et aucun morphisme provenant des autres.
+
+\medskip\noindent
+Soit $F$ un corps. Considérons $F$ comme un anneau afin d'obtenir un morphisme d'anneaux
+$f : \mathbf{Z} \to F$. L'image de ce morphisme d'anneaux est un anneau intègre
+(en tant que sous-anneau d'un corps) ; le noyau de $f$ est donc un idéal premier
+de $\mathbf{Z}$. Par conséquent, le noyau de $f$ est soit $(0)$, soit $(p)$ pour
+un certain nombre premier $p$.
+
+\medskip\noindent
+Dans le premier cas, $f$ est injectif, et nous considérons alors
+$\mathbf{Z}$ comme un sous-anneau de $F$. De plus, puisque tout
+élément non nul de $F$ est inversible, il est légitime de
+parler de $p/q \in F$ pour $p, q \in \mathbf{Z}$ avec $q \not = 0$.
+Dans ce cas, nous pouvons donc considérer, et nous considérons, $\mathbf{Q}$ comme un sous-anneau de $F$.
+On vérifie aisément que c'est alors le plus petit sous-corps de $F$.
+
+\medskip\noindent
+Dans le second cas, c'est-à-dire lorsque $\Ker(f) = (p)$, on voit que
+$\mathbf{Z}/(p) = \mathbf{F}_p$ est un sous-anneau de $F$. C'est manifestement le
+plus petit sous-corps de $F$.
+
+\medskip\noindent
+Ce raisonnement montre que tout corps contient un plus petit sous-corps,
+qui est soit $\mathbf{Q}$, soit le corps fini $\mathbf{F}_p$ pour un certain
+nombre premier $p$.
+
+\begin{definition}
+\label{definition-characteristic}
+La {\it caractéristique} d'un corps $F$ est $0$ si
+$\mathbf{Z} \subset F$, et est un nombre premier $p$ si $p = 0$ dans $F$.
+Le {\it sous-corps premier de $F$} est le plus petit sous-corps de $F$ ;
+il s'agit soit de $\mathbf{Q} \subset F$ si la caractéristique est nulle, soit de
+$\mathbf{F}_p \subset F$ si la caractéristique est $p > 0$.
+\end{definition}
+
+\noindent
+Il est facile de voir que, si $E \subset F$ est un sous-corps, la
+caractéristique de $E$ est la même que celle de $F$.
+
+\begin{example}
+\label{example-characteristic}
+La caractéristique de $\mathbf{F}_p$ est $p$, et celle de $\mathbf{Q}$ est $0$.
+\end{example}
+
+
+\section{Extensions de corps}
+\label{section-extensions}
+
+\noindent
+En général, cependant, ce ne sont pas tant les corps eux-mêmes qui nous intéressent que leurs
+{\it extensions}. Cette démarche est peut-être analogue à celle qui consiste à étudier non les anneaux,
+mais les {\it algèbres} sur un anneau fixé.
+Dans le cas des corps, la notion de ``corps sur un autre corps''
+redonne simplement celle d'extension de corps, comme le montre le résultat suivant.
+
+\begin{lemma}
+\label{lemma-field-maps-injective}
+Si $F$ est un corps et $R$ un anneau non nul, alors tout homomorphisme d'anneaux
+$\varphi : F \to R$ est injectif.
+\end{lemma}
+
+\begin{proof}
+En effet, soit $a \in \Ker(\varphi)$ un élément non nul. On a alors
+$\varphi(1) = \varphi(a^{-1} a) = \varphi(a^{-1}) \varphi(a) = 0$.
+Ainsi $1 = \varphi(1) = 0$, et $R$ est l'anneau nul.
+\end{proof}
+
+\begin{definition}
+\label{definition-extension}
+Si $F$ est un corps contenu dans un corps $E$, on dit que $E$ est
+une {\it extension de corps} de $F$. Nous écrirons $E/F$ pour indiquer
+que $E$ est une extension de $F$.
+\end{definition}
+
+\noindent
+Ainsi, si $F, F'$ sont des corps et $F \to F'$ un homomorphisme d'anneaux quelconque, le
+Lemme \ref{lemma-field-maps-injective} montre qu'il est injectif, et $F'$ peut être
+considéré comme une extension de $F$, par un léger abus de langage. De façon équivalente,
+une extension de corps de $F$ n'est autre qu'une $F$-algèbre qui est un corps.
+La situation est entièrement différente pour les anneaux généraux, puisqu'un
+homomorphisme d'anneaux n'est pas nécessairement injectif.
+
+\medskip\noindent
+Soit $k$ un corps. Il existe une {\it catégorie} des extensions de corps de $k$.
+Un objet de cette catégorie est une extension $E/k$, c'est-à-dire un
+morphisme de corps (nécessairement injectif)
+$$
+k \to E,
+$$
+tandis qu'un morphisme entre les extensions $E/k$ et $E'/k$ est un morphisme de
+$k$-algèbres $E \to E'$ ; de façon équivalente, c'est un diagramme commutatif
+$$
+\xymatrix{
+E \ar[rr] & & E' \\
+& k \ar[ru] \ar[lu] &
+}
+$$
+L'ensemble des morphismes $E \to E'$ dans la catégorie des extensions de $k$
+sera noté $\Mor_k(E, E')$.
+
+\begin{definition}
+\label{definition-tower}
+Une {\it tour} de corps $E_n/E_{n - 1}/\ldots/E_0$ consiste en une suite
+d'extensions de corps
+$E_n/E_{n - 1}$, $E_{n - 1}/E_{n - 2}$, $\ldots$, $E_1/E_0$.
+\end{definition}
+
+\noindent
+Donnons quelques exemples d'extensions de corps.
+
+\begin{example}
+\label{example-monogenic-extension}
+Soient $k$ un corps et $P \in k[x]$ un polynôme irréductible. Nous avons
+vu que $k[x]/(P)$ est un corps (Exemple \ref{example-quotient-polymial-ring}).
+Comme c'est aussi une $k$-algèbre de façon évidente, il s'agit d'une extension de $k$.
+\end{example}
+
+\begin{example}
+\label{example-field-of-meromorphic-functions-extension-C}
+Si $X$ est une surface de Riemann, le corps des fonctions méromorphes
+$\mathbf{C}(X)$ (Exemple \ref{example-field-of-meromorphic-functions})
+est une extension de corps de $\mathbf{C}$, car tout élément de $\mathbf{C}$
+définit sur $X$ une fonction constante méromorphe --- et même holomorphe.
+\end{example}
+
+\noindent
+Soit $F/k$ une extension de corps. Soit $S \subset F$ un sous-ensemble quelconque.
+Il existe alors une {\it plus petite} sous-extension de $F$ (c'est-à-dire un sous-corps de
+$F$ contenant $k$) qui contienne $S$. Pour le voir, considérons la famille des
+sous-corps de $F $ contenant $S$ et $k$, puis prenons leur intersection ; on
+vérifie qu'il s'agit d'un corps. Un argument classique montre en fait que
+c'est l'ensemble des éléments de $F$ que l'on peut obtenir au moyen d'un nombre fini
+d'opérations algébriques élémentaires (addition, multiplication, soustraction
+et division) portant sur des éléments de $k$ et de $S$.
+
+\begin{definition}
+\label{definition-generated-by}
+Soit $k$ un corps. Si $F/k$ est une extension de corps et
+$S \subset F$, nous notons $k(S)$ le plus petit sous-corps de $F$
+contenant $k$ et $S$. Nous dirons que $S$ {\it engendre
+l'extension de corps} $k(S)/k$. Si $S = \{\alpha\}$ est un singleton, nous
+écrirons $k(\alpha)$ au lieu de $k(\{\alpha\})$. On dit que $F/k$ est une
+{\it extension de corps de type fini} s'il existe un
+sous-ensemble fini $S \subset F$ tel que $F = k(S)$.
+\end{definition}
+
+\noindent
+Par exemple, $\mathbf{C}$ est engendré par $i$ sur $\mathbf{R}$.
+
+\begin{exercise}
+\label{exercise-C-not-countably-generated}
+Montrer que $\mathbf{C}$ ne possède pas de famille dénombrable de générateurs sur
+$\mathbf{Q}$.
+\end{exercise}
+
+\noindent
+Classifions maintenant les extensions engendrées par un élément.
+
+\begin{lemma}[Classification des extensions simples]
+\label{lemma-field-extension-generated-by-one-element}
+Si une extension de corps $F/k$ est engendrée par un élément, alors elle est
+$k$-isomorphe soit au corps des fonctions rationnelles $k(t)/k$, soit à l'une
+des extensions $k[t]/(P)$, où $P \in k[t]$ est irréductible.
+\end{lemma}
+
+\noindent
+Nous verrons que bon nombre des cas les plus importants d'extensions de corps sont
+engendrés par un élément ; ce résultat est donc effectivement utile.
+
+\begin{proof}
+Soit $\alpha \in F$ tel que $F = k(\alpha)$ ; par hypothèse, un tel
+$\alpha$ existe. Il existe un morphisme d'anneaux
+$$
+k[t] \to F
+$$
+qui envoie l'indéterminée $t$ sur $\alpha$. Son image est un anneau intègre, donc son
+noyau est un idéal premier. Celui-ci est donc soit $(0)$, soit $(P)$ pour un $P \in k[t]$
+irréductible.
+
+\medskip\noindent
+Si le noyau est $(P)$ pour un $P \in k[t]$ irréductible, le morphisme se factorise
+par $k[t]/(P)$ et induit un morphisme de corps $k[t]/(P) \to F$. Puisque
+l'image contient $\alpha$, on voit aisément que ce morphisme est surjectif, donc
+est un isomorphisme. Dans ce cas, $k[t]/(P) \simeq F$.
+
+\medskip\noindent
+Si le noyau est trivial, on obtient une injection $k[t] \to F$.
+On peut donc définir un morphisme du corps des fractions $k(t)$ dans $F$ ; à un
+quotient $R(t)/Q(t)$ avec $R(t), Q(t) \in k[t]$, on associe
+$R(\alpha)/Q(\alpha)$. L'hypothèse selon laquelle $k[t] \to F$ est injectif implique
+que $Q(\alpha) \neq 0$, sauf si $Q$ est le polynôme nul.
+Le corps des fractions de $k[t]$ est le corps des fonctions rationnelles $k(t)$ ; on obtient donc
+un morphisme $k(t) \to F$
+dont l'image contient $\alpha$. Il est par conséquent surjectif, donc est un isomorphisme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-common-extension-field}
+Soient $k$ un corps et $E/k$, $F/k$ des extensions de corps.
+Il existe alors une extension de corps commune $M/k$, c'est-à-dire une extension
+de corps telle qu'il existe des morphismes $E \to M$ et $F \to M$ d'extensions de $k$.
+\end{lemma}
+
+\begin{proof}
+Nous ne démontrons ce résultat que lorsque $E$ est une extension de corps de type fini
+de $k$ ; le cas général s'en déduit par un argument de type lemme de Zorn
+(les détails sont omis).
+
+\medskip\noindent
+Supposons d'abord que $E$ soit une extension simple de $k$. D'après le
+Lemme \ref{lemma-field-extension-generated-by-one-element},
+cela signifie soit que $E = k(t)$ est le corps des fonctions rationnelles,
+soit que $E = k[t]/(P)$ pour un certain polynôme irréductible $P \in k[t]$.
+Dans le premier cas, prenons pour $M = F(t)$ le corps des fonctions rationnelles,
+muni des morphismes évidents $E \to M$ et $F \to M$. Dans le second cas, nous
+choisissons un facteur irréductible $Q$ de l'image de $P$ dans $F[t]$
+et prenons $M = F[t]/(Q)$, muni des morphismes évidents $E \to M$ et $F \to M$.
+
+\medskip\noindent
+Si $E = k(\alpha_1, \ldots, \alpha_n)$, une récurrence sur $n$
+permet de trouver une extension $M/k$ et des morphismes $F \to M$ et
+$k(\alpha_1, \ldots, \alpha_{n - 1}) \to M$. En appliquant le cas simple
+étudié au paragraphe précédent,
+on trouve une extension $M'/k(\alpha_1, \ldots, \alpha_{n - 1})$
+et des morphismes $M \to M'$ et $k(\alpha_1, \ldots, \alpha_n) \to M'$.
+Alors $M'$, considéré comme une extension de $k$, convient.
+\end{proof}
+
+
+
+
+\section{Extensions finies}
+\label{section-finite-extensions}
+
+\noindent
+Si $F/E$ est une extension de corps, alors $F$ est aussi, de manière évidente, un espace vectoriel
+sur $E$ (l'action scalaire n'est autre que la multiplication dans $F$).
+
+\begin{definition}
+\label{definition-degree}
+Soit $F/E$ une extension de corps. La dimension de $F$, considéré comme un
+$E$-espace vectoriel, est appelée le {\it degré} de l'extension et est
+notée $[F : E]$. Si $[F : E] < \infty$, on dit que $F$ est une extension
+{\it finie} de $E$.
+\end{definition}
+
+\begin{example}
+\label{example-C-over-R}
+Le corps $\mathbf{C}$ est un espace vectoriel de dimension deux sur $\mathbf{R}$,
+de base $1, i$. Ainsi $\mathbf{C}$ est une extension finie de $\mathbf{R}$
+de degré 2.
+\end{example}
+
+\begin{lemma}
+\label{lemma-finite-goes-up}
+Soit $K/E/F$ une tour d'extensions algébriques de corps.
+Si $K$ est fini sur $F$, alors $K$ est fini sur $E$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte directement de la définition.
+\end{proof}
+
+\noindent
+Calculons maintenant le degré dans l'exemple particulier le plus important, celui
+fourni par le Lemme \ref{lemma-field-extension-generated-by-one-element}, au moyen
+des deux exemples suivants.
+
+\begin{example}[Degré d'un corps de fonctions rationnelles]
+\label{example-degree-rational-function-field}
+Si $k$ est un corps quelconque, le corps des fonctions rationnelles $k(t)$ n'est
+{\it pas} une extension finie. Par exemple, les éléments
+$\left\{t^n, n \in \mathbf{Z}\right\}$ sont linéairement indépendants sur $k$.
+
+\medskip\noindent
+En fait, si $k$ est non dénombrable, alors $k(t)$ est de dimension {\it non dénombrable}
+comme $k$-espace vectoriel. Pour le montrer, affirmons que la famille d'éléments
+$\{1/(t- \alpha), \alpha \in k\} \subset k(t)$ est linéairement indépendante sur
+$k$. Une relation non triviale entre eux conduirait à une contradiction : par
+exemple, si l'on travaille sur $\mathbf{C}$, cela résulte du fait que
+$\frac{1}{t-\alpha}$, considéré comme une fonction méromorphe sur
+$\mathbf{C}$, possède un pôle en $\alpha$ et nulle part ailleurs.
+Par conséquent, toute somme $\sum c_i \frac{1}{t - \alpha_i}$, où les $c_i \in k^*$
+et les $\alpha_i \in k$ sont distincts, aurait un pôle en chacun des $\alpha_i$.
+Elle ne pourrait notamment pas être nulle.
+
+\medskip\noindent
+Fait amusant, ceci donne une démonstration rapide du Nullstellensatz de Hilbert sur
+les nombres complexes. Pour un résultat légèrement plus général, voir
+Algèbre, Théorème \ref{algebra-theorem-uncountable-nullstellensatz}.
+\end{example}
+
+\begin{lemma}
+\label{lemma-finite-finitely-generated}
+Toute extension finie de corps est une extension de corps de type fini.
+La réciproque est fausse.
+\end{lemma}
+
+\begin{proof}
+Soit $F/E$ une extension finie de corps. Soient $\alpha_1, \ldots, \alpha_n$
+une base de $F$ comme espace vectoriel sur $E$. Alors
+$F = E(\alpha_1, \ldots, \alpha_n)$ ; ainsi $F/E$ est une extension de corps
+de type fini. La réciproque est fausse d'après
+l'Exemple \ref{example-degree-rational-function-field}.
+\end{proof}
+
+\begin{example}[Degré d'une extension algébrique simple]
+\label{example-degree-simple-algebraic-extension}
+Considérons une extension de corps monogène $E/k$ de la forme étudiée dans
+l'Exemple \ref{example-monogenic-extension}.
+Autrement dit, $E = k[t]/(P)$, où $P \in k[t]$ est un polynôme irréductible.
+Alors le degré $[E : k]$ est simplement le degré $d = \deg(P)$ du
+polynôme $P$. Écrivons en effet
+\begin{equation}
+\label{equation-P}
+P = a_d t^d + a_{d - 1} t^{d - 1} + \ldots + a_0.
+\end{equation}
+avec $a_d \not = 0$. Les images de $1, t, \ldots, t^{d - 1}$ dans
+$k[t]/(P)$ sont alors linéairement indépendantes sur $k$, car toute relation entre
+elles serait de degré strictement inférieur à celui de $P$, alors que $P$ est
+l'élément de plus petit degré de l'idéal $(P)$.
+
+\medskip\noindent
+Réciproquement, l'ensemble $S = \{1, t, \ldots, t^{d - 1}\}$ (ou, plus
+précisément, l'ensemble de leurs images) engendre $k[t]/(P)$ comme espace vectoriel.
+En effet, il résulte de (\ref{equation-P}) que $a_d t^d$ appartient au sous-espace engendré par $S$.
+Comme $a_d$ est inversible, on voit que $t^d$ appartient au sous-espace engendré par $S$.
+De même, la relation $t P(t) = 0$ montre que l'image de $t^{d + 1}$
+appartient au sous-espace engendré par $\{1, t, \ldots, t^d\}$ --- donc, d'après ce qui précède,
+au sous-espace engendré par $S$. Une récurrence ascendante montre alors
+que l'image de $t^n$, pour $n \geq d$, appartient au sous-espace engendré par $S$.
+\end{example}
+
+\noindent
+Ceci confirme, par exemple, que $[\mathbf{C}: \mathbf{R}] = 2$. Plus généralement,
+si $k$ est un corps et $\alpha \in k$ n'est pas un carré, le polynôme irréductible
+$x^2 - \alpha \in k[x]$ permet de construire une extension $k[x]/(x^2 - \alpha)$
+de degré deux.
+Nous noterons celle-ci $k(\sqrt{\alpha})$. De telles extensions seront dites
+{\it quadratiques,} pour des raisons évidentes.
+
+\medskip\noindent
+Le fait fondamental concernant le degré est qu'il est {\it multiplicatif dans les tours.}
+
+\begin{lemma}[Multiplicativité]
+\label{lemma-multiplicativity-degrees}
+Supposons donnée une tour de corps $F/E/k$. Alors
+$$
+[F:k] = [F:E][E:k]
+$$
+\end{lemma}
+
+\begin{proof}
+Soient $\alpha_1, \ldots, \alpha_n \in F$ une $E$-base de $F$, et
+$\beta_1, \ldots, \beta_m \in E$ une $k$-base de $E$. L'affirmation est
+que l'ensemble des produits
+$\{\alpha_i \beta_j, 1 \leq i \leq n, 1 \leq j \leq m\}$
+est une $k$-base de $F$. Vérifions d'abord qu'ils engendrent $F$ sur $k$.
+
+\medskip\noindent
+Par hypothèse, les $\{\alpha_i\}$ engendrent $F$ sur $E$. Ainsi, si
+$f \in F$, il existe des $a_i \in E$ tels que
+$$
+f = \sum\nolimits_i a_i \alpha_i,
+$$
+et, pour chaque $i$, on peut écrire $a_i = \sum b_{ij} \beta_j$ avec des
+$b_{ij} \in k$. En regroupant ces égalités, on obtient
+$$
+f = \sum\nolimits_{i,j} b_{ij} \alpha_i \beta_j,
+$$
+ce qui prouve que les $\{\alpha_i \beta_j\}$ engendrent $F$ sur $k$.
+
+\medskip\noindent
+Supposons maintenant qu'il existe une relation non triviale
+$$
+\sum\nolimits_{i,j} c_{ij} \alpha_i \beta_j = 0
+$$
+avec des $c_{ij} \in k$. On aurait alors
+$$
+\sum\nolimits_i \alpha_i \left( \sum\nolimits_j c_{ij} \beta_j \right) = 0,
+$$
+et les termes entre parenthèses appartiennent à $E$, puisque les $\beta_j$ y appartiennent.
+L'indépendance $E$-linéaire des $\{\alpha_i\}$ montre que toutes les sommes intérieures sont nulles.
+Puis l'indépendance $k$-linéaire des $\{\beta_j\}$ montre que tous les
+$c_{ij}$ sont nuls.
+\end{proof}
+
+\noindent
+Ouvrons une parenthèse pour donner une définition quelque peu tangente à notre propos.
+
+\begin{definition}
+\label{definition-number-field}
+On dit qu'un corps $K$ est un {\it corps de nombres} s'il est de caractéristique
+$0$ et si l'extension $K/\mathbf{Q}$ est finie.
+\end{definition}
+
+\noindent
+Les corps de nombres sont les objets fondamentaux de la théorie algébrique des nombres. Nous verrons
+plus loin que,
+pour l'analogue des entiers $\mathbf{Z}$ dans un corps de nombres, une propriété
+assez proche de la factorisation unique subsiste (bien qu'il n'y ait généralement
+pas de factorisation unique au sens strict !).
+
+
+\section{Extensions algébriques}
+\label{section-algebraic-extensions}
+
+\noindent
+Une classe importante d'extensions est formée de celles dans lesquelles chaque élément engendre
+une extension finie.
+
+\begin{definition}
+\label{definition-algebraic}
+Considérons une extension de corps $F/E$. Un élément $\alpha \in F$ est dit
+{\it algébrique} sur $E$ si $\alpha$ est racine d'un polynôme non nul
+à coefficients dans $E$. Si tous les éléments de $F$ sont algébriques, on dit que $F$ est
+une {\it extension algébrique} de $E$.
+\end{definition}
+
+\noindent
+D'après le Lemme \ref{lemma-field-extension-generated-by-one-element}, la
+sous-extension $E(\alpha)$ est isomorphe soit au corps des fonctions rationnelles
+$E(t)$, soit à un anneau quotient $E[t]/(P)$, où $P \in E[t]$ est un
+polynôme irréductible. Dans le second cas, $\alpha$ est algébrique sur
+$E$ (en fait, la preuve du
+Lemme \ref{lemma-field-extension-generated-by-one-element}
+montre que l'on peut choisir $P$ de sorte que $\alpha$ soit une racine de $P$) ;
+dans le premier cas, il ne l'est pas.
+
+\begin{example}
+\label{example-C-algebraic-over-R}
+Le corps $\mathbf{C}$ est algébrique sur $\mathbf{R}$. En effet, si
+$\alpha = a + ib$ dans $\mathbf{C}$, alors $\alpha^2 - 2a\alpha + a^2 + b^2 = 0$
+est une équation polynomiale satisfaite par $\alpha$ sur $\mathbf{R}$.
+\end{example}
+
+\begin{example}
+\label{example-compact-riemann-surface-is-finite-over-P1}
+Soient $X$ une surface de Riemann compacte et
+$f \in \mathbf{C}(X) - \mathbf{C}$ une fonction méromorphe non constante quelconque
+sur $X$ (voir l'Exemple \ref{example-field-of-meromorphic-functions}). On sait alors
+que $\mathbf{C}(X)$ est algébrique sur la sous-extension
+$\mathbf{C}(f)$ engendrée par $f$. Nous ne le démontrerons pas.
+\end{example}
+
+\begin{lemma}
+\label{lemma-algebraic-goes-up}
+Soit $K/E/F$ une tour d'extensions de corps.
+\begin{enumerate}
+\item Si $\alpha \in K$ est algébrique sur $F$, alors $\alpha$ est algébrique
+sur $E$.
+\item Si $K$ est algébrique sur $F$, alors $K$ est algébrique sur $E$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des définitions.
+\end{proof}
+
+\noindent
+Montrons à présent qu'il existe un lien étroit entre la finitude et le caractère
+algébrique.
+
+\begin{lemma}
+\label{lemma-finite-is-algebraic}
+Toute extension finie est algébrique. En fait, une extension $E/k$ est algébrique
+si et seulement si toute sous-extension $k(\alpha)/k$ engendrée par un
+$\alpha \in E$ est finie.
+\end{lemma}
+
+\noindent
+En général, il est tout à fait faux qu'une extension algébrique soit finie.
+
+\begin{proof}
+Soit $E/k$ finie, de degré $n$. Choisissons $\alpha \in E$. Les
+éléments $1, \alpha, \ldots, \alpha^n$ sont linéairement
+dépendants sur $k$, sans quoi on aurait nécessairement $[E : k] > n$. Une relation de
+dépendance linéaire fournit alors le polynôme recherché que $\alpha$ doit annuler.
+
+\medskip\noindent
+Pour la dernière assertion, remarquons qu'une extension monogène $k(\alpha)/k$ est
+finie si et seulement si $\alpha$ est algébrique sur $k$, d'après les
+Exemples \ref{example-degree-rational-function-field} et
+\ref{example-degree-simple-algebraic-extension}.
+Ainsi, si $E/k$ est algébrique, chaque $k(\alpha)/k$, pour $\alpha \in E$, est une extension
+finie, et réciproquement.
+\end{proof}
+
+\noindent
+Nous pouvons extraire un lemme de la preuve précédente (en réalité, des
+Exemples \ref{example-degree-rational-function-field} et
+\ref{example-degree-simple-algebraic-extension}) :
+une extension monogène est finie si et seulement si elle est algébrique.
+Nous utiliserons cette observation dans le résultat suivant.
+
+\begin{lemma}
+\label{lemma-algebraic-finitely-generated}
+\begin{slogan}
+Une extension algébrique de type fini est finie.
+\end{slogan}
+Soient $k$ un corps et $\alpha_1, \alpha_2, \ldots, \alpha_n$ des éléments
+d'un corps d'extension tels que chaque $\alpha_i$ soit algébrique sur $k$. Alors
+l'extension $k(\alpha_1, \ldots, \alpha_n)/k$ est finie.
+Autrement dit, une extension algébrique de type fini est finie.
+\end{lemma}
+
+\begin{proof}
+En effet, chaque extension
+$k(\alpha_{1}, \ldots, \alpha_{i+1})/k(\alpha_1, \ldots, \alpha_{i})$
+est engendrée par un élément et algébrique, donc finie.
+La multiplicativité du degré (Lemme \ref{lemma-multiplicativity-degrees})
+donne le résultat.
+\end{proof}
+
+\noindent
+L'ensemble des nombres complexes qui sont algébriques sur $\mathbf{Q}$ est simplement
+appelé l'ensemble des {\it nombres algébriques.} Par exemple, $\sqrt{2}$ est algébrique,
+$i$ est algébrique, mais $\pi$ ne l'est pas.
+C'est un fait fondamental que les nombres algébriques forment un corps, bien qu'il ne soit pas
+évident de le démontrer à partir de la définition selon laquelle un nombre est algébrique
+exactement lorsqu'il satisfait une équation polynomiale non nulle à coefficients
+rationnels (par exemple, en manipulant des équations polynomiales).
+
+\begin{lemma}
+\label{lemma-algebraic-elements}
+Soit $E/k$ une extension de corps. Les éléments de $E$ algébriques sur $k$
+forment une sous-extension de $E/k$.
+\end{lemma}
+
+\begin{proof}
+Soient $\alpha, \beta \in E$ algébriques sur $k$. Alors $k(\alpha, \beta)/k$
+est une extension finie d'après le Lemme \ref{lemma-algebraic-finitely-generated}.
+Il s'ensuit que $k(\alpha + \beta) \subset k(\alpha, \beta)$ est une extension
+finie, ce qui implique que $\alpha + \beta$ est algébrique d'après le
+Lemme \ref{lemma-finite-is-algebraic}. Il en va de même pour la différence,
+le produit et, lorsque $\beta \neq 0$, le quotient $\alpha/\beta$.
+\end{proof}
+
+\noindent
+De nombreuses propriétés remarquables des extensions de corps, tout comme celles des anneaux, sont
+préservées par les tours et les corps composés.
+
+\begin{lemma}
+\label{lemma-algebraic-permanence}
+Soient $E/k$ et $F/E$ des extensions algébriques de corps. Alors $F/k$ est une
+extension algébrique de corps.
+\end{lemma}
+
+\begin{proof}
+Choisissons $\alpha \in F$. Alors $\alpha$ est algébrique sur $E$.
+L'observation essentielle est que $\alpha$ est algébrique sur une
+sous-extension de type fini de $k$.
+Autrement dit, il existe un ensemble fini $S \subset E$ tel que $\alpha $ soit algébrique
+sur $k(S)$ : cela est clair, puisque le fait d'être algébrique signifie qu'il existe un
+polynôme de $E[x]$ annulé par $\alpha$, et l'on peut prendre pour $S$ l'ensemble des
+coefficients de ce polynôme. Il en résulte que $\alpha$ est algébrique sur
+$k(S)$. En particulier, l'extension $k(S, \alpha)/ k(S)$ est finie.
+Comme $S$ est un ensemble fini et que $k(S)/k$ est algébrique, le
+Lemme \ref{lemma-algebraic-finitely-generated} montre que
+$k(S)/k$ est finie. En utilisant la multiplicativité
+(Lemme \ref{lemma-multiplicativity-degrees}),
+on trouve que $k(S,\alpha)/k$ est finie ; ainsi $\alpha$ est algébrique sur $k$.
+\end{proof}
+
+\noindent
+La méthode de la preuve précédente --- le fait que la propriété d'être algébrique
+sur $E$ {\it descendait} à une sous-extension de type fini
+de $E$ --- est une idée récurrente en algèbre.
+Elle permet souvent, par exemple, de ramener des questions générales d'algèbre commutative
+au cas noethérien.
+
+\begin{lemma}
+\label{lemma-size-algebraic-extension}
+Soit $E/F$ une extension algébrique de corps. Alors le cardinal $|E|$
+de $E$ est au plus $\max(\aleph_0, |F|)$.
+\end{lemma}
+
+\begin{proof}
+Soit $S$ l'ensemble des polynômes non constants à coefficients dans $F$.
+Pour tout $P \in S$, l'ensemble des racines
+$r(P, E) = \{\alpha \in E \mid P(\alpha) = 0\}$
+est fini (les détails sont omis). De plus, le fait que $E$ soit algébrique
+sur $F$ implique que $E = \bigcup_{P \in S} r(P, E)$.
+Il est clair que le cardinal de $S$ est majoré par $\max(\aleph_0, |F|)$,
+car cet ensemble est une réunion dénombrable de produits finis de copies de $F$.
+Il en va donc de même pour $E$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-subalgebra-algebraic-extension-field}
+Soit $E/F$ une extension finie, ou plus généralement algébrique, de corps.
+Tout sous-anneau $F \subset R \subset E$ est un corps.
+\end{lemma}
+
+\begin{proof}
+Soit $\alpha \in R$ non nul. Alors $1, \alpha, \alpha^2, \ldots$
+appartiennent à $R$. D'après le Lemme \ref{lemma-finite-is-algebraic},
+il existe une relation non triviale
+$a_0 + a_1 \alpha + \ldots + a_d \alpha^d = 0$, avec $a_i \in F$.
+Nous pouvons supposer $a_0 \not = 0$, car sinon nous pouvons diviser la relation
+par $\alpha$ afin de diminuer $d$. On obtient alors
+$$
+a_0 = \alpha (- a_1  - \ldots - a_d \alpha^{d - 1})
+$$
+ce qui prouve que l'inverse de $\alpha$ est l'élément
+$a_0^{-1} (- a_1  - \ldots - a_d \alpha^{d - 1})$
+de $R$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraic-extension-self-map}
+Soit $E/F$ une extension algébrique de corps. Tout morphisme de $F$-algèbres
+$f : E \to E$ est un automorphisme.
+\end{lemma}
+
+\begin{proof}
+Si $E/F$ est finie, alors $f : E \to E$ est une application $F$-linéaire
+injective (Lemme \ref{lemma-field-maps-injective})
+entre espaces vectoriels de dimension finie, donc est bijective.
+Dans le cas général, on voit encore que $f$ est injective.
+Soit $\alpha \in E$, et soit $P \in F[x]$ un
+polynôme tel que $P(\alpha) = 0$.
+Soit $E' \subset E$ le sous-corps de $E$ engendré
+par les racines $\alpha = \alpha_1, \ldots, \alpha_n$ de $P$ dans $E$.
+Alors $E'$ est fini sur $F$ d'après le Lemme \ref{lemma-algebraic-finitely-generated}.
+Comme $f$ préserve l'ensemble des racines, on a
+$f|_{E'} : E' \to E'$. Ainsi $f|_{E'}$ est un isomorphisme
+d'après la première partie de la preuve, et l'on conclut que $\alpha$
+appartient à l'image de $f$.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Polynômes minimaux}
+\label{section-minimal-polynomials}
+
+\noindent
+Soient $E/k$ une extension de corps et $\alpha \in E$ algébrique sur $k$.
+Alors $\alpha$ satisfait une équation polynomiale (non triviale) dans $k[x]$.
+Considérons l'ensemble des polynômes $P \in k[x]$ tels que $P(\alpha) = 0$ ; par
+hypothèse, cet ensemble ne contient pas seulement le polynôme nul.
+On vérifie facilement que cet ensemble est un {\it idéal.} C'est en effet le noyau
+du morphisme
+$$
+k[x] \to E, \quad x \mapsto \alpha
+$$
+Puisque $k[x]$ est un anneau principal, il existe un {\it générateur} $P \in k[x]$ de cet
+idéal. Si l'on suppose, sans perte de généralité, que $P$ est unitaire, alors $P$ est
+déterminé de manière unique.
+
+\begin{definition}
+\label{definition-minimal-polynomial}
+Le polynôme $P$ ci-dessus est appelé le {\it polynôme minimal}
+de $\alpha$ sur $k$.
+\end{definition}
+
+\noindent
+Le polynôme minimal possède la caractérisation suivante : c'est le polynôme unitaire,
+de plus petit degré, qui annule $\alpha$. Tout multiple non constant de $P$
+sera de degré plus grand, et seuls les multiples de $P$ peuvent
+annuler $\alpha$. Cela explique le qualificatif {\it minimal}.
+
+\medskip\noindent
+Le polynôme minimal est manifestement {\it irréductible}. Cela équivaut à affirmer
+que l'idéal de $k[x]$ formé des polynômes qui annulent
+$\alpha$ est premier. Ce fait résulte de ce que le morphisme
+$k[x] \to E, x \mapsto \alpha$ prend ses valeurs dans un anneau intègre (et même dans un corps), de sorte que son
+noyau est un idéal premier.
+
+\begin{lemma}
+\label{lemma-degree-minimal-polynomial}
+Le degré du polynôme minimal est $[k(\alpha) : k]$.
+\end{lemma}
+
+\begin{proof}
+Il s'agit simplement d'une reformulation de l'argument donné dans le
+Lemme \ref{lemma-field-extension-generated-by-one-element} : l'observation
+est que, si $P$ est le polynôme minimal de $\alpha$, le morphisme
+$$
+k[x]/(P) \to k(\alpha), \quad x \mapsto \alpha
+$$
+est un isomorphisme comme dans la preuve précitée, et nous avons calculé le
+degré d'une telle extension (voir
+l'Exemple \ref{example-degree-simple-algebraic-extension}).
+\end{proof}
+
+\noindent
+L'observation de la preuve ci-dessus est donc que, si $\alpha \in E$ est algébrique,
+alors $k(\alpha) \subset E$ est isomorphe à $k[x]/(P)$.
+
+
+\section{Clôture algébrique}
+\label{section-algebraic-closure}
+
+\noindent
+Le ``théorème fondamental de l'algèbre'' affirme que $\mathbf{C}$ est
+algébriquement clos. Une belle démonstration de ce résultat utilise
+le théorème de Liouville en analyse complexe ; nous en donnerons une autre
+(voir le Lemme \ref{lemma-C-algebraically-closed}).
+
+\begin{definition}
+\label{definition-algebraically-closed}
+On dit qu'un corps $F$ est {\it algébriquement clos} si toute extension algébrique
+$E/F$ est triviale, c'est-à-dire si $E = F$.
+\end{definition}
+
+\noindent
+Ce n'est peut-être pas la définition retenue dans tous les ouvrages. Le lemme suivant
+la compare à l'autre définition usuelle.
+
+\begin{lemma}
+\label{lemma-algebraically-closed}
+Soit $F$ un corps. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $F$ est algébriquement clos,
+\item tout polynôme irréductible sur $F$ est de degré un,
+\item tout polynôme non constant sur $F$ possède une racine,
+\item tout polynôme non constant sur $F$ est un produit de facteurs de degré un.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Si $F$ est algébriquement clos, alors tout polynôme irréductible est de degré un.
+En effet, s'il existe un polynôme irréductible de degré $> 1$, celui-ci
+engendre une extension de corps finie non triviale (donc algébrique) ; voir
+l'Exemple \ref{example-degree-simple-algebraic-extension}.
+Ainsi (1) implique (2). Si tout polynôme irréductible
+est de degré un, alors tout polynôme irréductible possède une racine, et par conséquent tout
+polynôme non constant possède une racine. Ainsi (2) implique (3).
+
+\medskip\noindent
+Supposons que tout polynôme non constant possède une racine. Soit $P \in F[x]$
+non constant. Si $P(\alpha) = 0$ avec $\alpha \in F$, on voit alors
+que $P = (x - \alpha)Q$ pour un certain $Q \in F[x]$ (par division euclidienne).
+On peut donc raisonner par récurrence sur le degré pour écrire tout polynôme non constant
+sous la forme d'un produit $c \prod (x - \alpha_i)$.
+
+\medskip\noindent
+Supposons enfin que tout polynôme non constant sur $F$ soit un produit de
+facteurs de degré un. Soit $E/F$ une extension algébrique. Toutes les sous-extensions
+simples $F(\alpha)/F$ de $E$ sont alors nécessairement triviales (car, par
+hypothèse, les seuls polynômes irréductibles sont de degré un). Ainsi $E = F$.
+Nous voyons que (4) implique (1), ce qui achève la preuve.
+\end{proof}
+
+\noindent
+Nous voulons maintenant définir une extension algébrique ``universelle'' d'un corps.
+En réalité, il convient d'être prudent : la clôture algébrique n'est {\it pas} un
+objet universel. En effet, la clôture algébrique n'est pas unique à
+{\it unique} isomorphisme près : elle n'est unique qu'à isomorphisme près. Elle
+n'en sera pas moins très utile, bien que non fonctorielle.
+
+\begin{definition}
+\label{definition-algebraic-closure}
+Soit $F$ un corps. Une {\it clôture algébrique} de $F$ est un corps
+$\overline{F}$ contenant $F$ tel que :
+\begin{enumerate}
+\item $\overline{F}$ est algébrique sur $F$.
+\item $\overline{F}$ est algébriquement clos.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Si $F$ est algébriquement clos, alors $F$ est sa propre clôture algébrique.
+Démontrons maintenant le résultat fondamental d'existence.
+
+\begin{theorem}
+\label{theorem-existence-algebraic-closure}
+Tout corps possède une clôture algébrique.
+\end{theorem}
+
+\noindent
+La preuve sera pour l'essentiel sans rapport avec le reste du chapitre. Nous voudrons toutefois
+savoir qu'il est {\it possible} de plonger un corps dans un
+corps algébriquement clos, et nous supposerons souvent ce plongement effectué.
+
+\begin{proof}
+Soit $F$ un corps. D'après le Lemme \ref{lemma-size-algebraic-extension}, le
+cardinal d'une extension algébrique de $F$ est majoré par
+$\max(\aleph_0, |F|)$. Choisissons un ensemble $S$ contenant $F$ tel que
+$|S| > \max(\aleph_0, |F|)$. Considérons les triplets
+$(E, \sigma_E, \mu_E)$ où
+\begin{enumerate}
+\item $E$ est un ensemble tel que $F \subset E \subset S$, et
+\item $\sigma_E : E \times E \to E$ et $\mu_E : E \times E \to E$
+sont des applications d'ensembles telles que $(E, \sigma_E, \mu_E)$ définisse la structure
+d'une extension de corps de $F$ (en particulier, $\sigma_E(a, b) = a +_F b$
+pour $a, b \in F$, et de même pour $\mu_E$), et
+\item $E/F$ est une extension algébrique de corps.
+\end{enumerate}
+La collection de tous les triplets $(E, \sigma_E, \mu_E)$ forme un ensemble $I$.
+Pour $i \in I$, nous noterons $E_i = (E_i, \sigma_i, \mu_i)$ l'extension de corps
+de $F$ correspondante. Nous définissons un ordre partiel sur
+$I$ en déclarant que $i \leq i'$ si et seulement si $E_i \subset E_{i'}$
+(cela a un sens puisque $E_i$ et $E_{i'}$ sont des sous-ensembles du même ensemble $S$)
+et si $\sigma_i = \sigma_{i'}|_{E_i \times E_i}$ et
+$\mu_i = \mu_{i'}|_{E_i \times E_i}$ ; autrement dit, $E_{i'}$ est une extension de corps
+de $E_i$.
+
+\medskip\noindent
+Soit $T \subset I$ un sous-ensemble totalement ordonné. Il est alors clair que
+$E_T = \bigcup_{i \in T} E_i$, muni des applications induites $\sigma_T = \bigcup \sigma_i$
+et $\mu_T = \bigcup \mu_i$, est un autre élément de $I$. Autrement dit,
+tout sous-ensemble totalement ordonné de $I$ possède un majorant dans $I$. D'après le lemme de Zorn,
+il existe un élément maximal $(E, \sigma_E, \mu_E)$ de $I$. Nous affirmons que
+$E$ est une clôture algébrique. Puisque, par définition de $I$, l'extension
+$E/F$ est algébrique, il suffit de montrer que $E$ est algébriquement clos.
+
+\medskip\noindent
+Pour le voir, raisonnons par l'absurde. Supposons donc que $E$ ne soit pas
+algébriquement clos. Il existe alors un polynôme irréductible
+$P$ sur $E$ de degré $> 1$ ; voir le Lemme \ref{lemma-algebraically-closed}.
+D'après le Lemme \ref{lemma-finite-is-algebraic}, on obtient une extension finie
+non triviale $E' = E[x]/(P)$. Remarquons que $E'/F$ est algébrique d'après le
+Lemme \ref{lemma-algebraic-permanence}.
+Le cardinal de $E'$ est donc $\leq \max(\aleph_0, |F|)$.
+La théorie élémentaire des ensembles permet de prolonger l'injection donnée
+$E \subset S$ en une injection $E' \to S$. Autrement dit, nous pouvons
+considérer $E'$ comme un élément de notre ensemble $I$, ce qui contredit la
+maximalité de $E$. Cette contradiction achève la preuve.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-into-algebraic-closure}
+Soit $F$ un corps. Soit $\overline{F}$ une clôture algébrique de $F$.
+Soit $M/F$ une extension algébrique. Il existe alors un morphisme
+d'extensions de $F$, $M \to \overline{F}$.
+\end{lemma}
+
+\begin{proof}
+Considérons l'ensemble $I$ des couples $(E, \varphi)$, où $F \subset E \subset M$
+est une sous-extension et $\varphi : E \to \overline{F}$ un morphisme
+d'extensions de $F$. Munissons $I$ de l'ordre partiel défini en déclarant que
+$(E, \varphi) \leq (E', \varphi')$ si et seulement si $E \subset E'$ et
+$\varphi'|_E = \varphi$. Si $T = \{(E_t,  \varphi_t)\} \subset I$
+est un sous-ensemble totalement ordonné, alors
+$\bigcup \varphi_t : \bigcup E_t \to \overline{F}$ est un élément de $I$.
+Ainsi, tout sous-ensemble totalement ordonné de $I$ possède un majorant.
+Le lemme de Zorn assure l'existence d'un élément maximal $(E, \varphi)$ de $I$.
+Nous affirmons que $E = M$, ce qui achèvera la preuve. Sinon,
+choisissons $\alpha \in M$, $\alpha \not \in E$. Alors $\alpha$ est algébrique
+sur $E$ ; voir le Lemme \ref{lemma-algebraic-goes-up}.
+Soit $P$ le polynôme minimal de $\alpha$ sur $E$.
+Soit $P^\varphi$ l'image de $P$ par $\varphi$ dans $\overline{F}[x]$.
+Comme $\overline{F}$ est algébriquement clos, il existe une racine $\beta$
+de $P^\varphi$ dans $\overline{F}$. On peut alors prolonger $\varphi$ en
+$\varphi' : E(\alpha) = E[x]/(P) \to \overline{F}$ en envoyant
+$x$ sur $\beta$. Cela contredit la maximalité de $(E, \varphi)$,
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraic-closures-isomorphic}
+Deux clôtures algébriques quelconques d'un corps sont isomorphes.
+\end{lemma}
+
+\begin{proof}
+Soit $F$ un corps. Si $M$ et $\overline{F}$ sont des clôtures algébriques de
+$F$, il existe alors un morphisme d'extensions de $F$
+$\varphi : M \to \overline{F}$ d'après le
+Lemme \ref{lemma-map-into-algebraic-closure}.
+Or l'image $\varphi(M)$ est algébriquement close.
+D'autre part, l'extension $\varphi(M) \subset \overline{F}$
+est algébrique d'après le Lemme \ref{lemma-algebraic-goes-up}.
+Ainsi $\varphi(M) = \overline{F}$.
+\end{proof}
+
+
+
+
+
+\section{Polynômes premiers entre eux}
+\label{section-relatively-prime}
+
+\noindent
+Soit $K$ un corps algébriquement clos. L'anneau $K[x]$ possède alors une structure
+d'idéaux très simple, comme nous l'avons vu au Lemme \ref{lemma-algebraically-closed}.
+En particulier, tout polynôme $P \in K[x]$ peut s'écrire
+$$
+P = c(x - \alpha_1) \ldots (x - \alpha_n),
+$$
+où $c$ est le coefficient dominant et où les $\alpha_1, \ldots, \alpha_n \in K$
+sont les racines de $P$ (comptées avec multiplicité). Manifestement, les seuls polynômes
+irréductibles de $K[x]$ sont les polynômes de degré un $c(x - \alpha)$,
+$c, \alpha \in K$ (avec $c \neq 0$).
+
+\begin{definition}
+\label{definition-relatively-prime}
+Si $k$ est un corps quelconque, nous disons que deux polynômes de $k[x]$ sont
+{\it premiers entre eux} s'ils engendrent l'idéal unité de $k[x]$.
+\end{definition}
+
+\noindent
+Poursuivons la discussion précédente. Si $K$ est un corps algébriquement clos,
+deux polynômes de $K[x]$ sont premiers entre eux si et seulement s'ils n'ont aucune
+racine commune. Cela résulte du fait que les idéaux maximaux de $K[x]$ sont de la forme
+$(x - \alpha)$, $\alpha \in K$. Ainsi, si $F, G \in K[x]$ n'ont aucune racine commune,
+alors $(F, G)$ ne peut être contenu dans aucun $(x - \alpha)$ (car ils auraient alors
+une racine commune en $\alpha$).
+
+\medskip\noindent
+Si $k$ n'est {\it pas} algébriquement clos, ceci fournit encore des
+informations permettant de déterminer quand deux polynômes de $k[x]$ engendrent l'idéal unité.
+
+\begin{lemma}
+\label{lemma-relatively-prime-polynomials}
+Deux polynômes de $k[x]$ sont premiers entre eux si et seulement s'ils
+n'ont aucune racine commune dans une clôture algébrique $\overline{k}$ de $k$.
+\end{lemma}
+
+\begin{proof}
+L'affirmation est que deux polynômes quelconques $P, Q$ engendrent $(1)$ dans $k[x]$ si et
+seulement s'ils engendrent $(1)$ dans $\overline{k}[x]$. C'est une question
+d'algèbre linéaire : un système d'équations linéaires à coefficients dans $k$ possède
+une solution si et seulement s'il possède une solution dans une extension quelconque de $k$.
+On peut par conséquent se ramener au cas d'un corps algébriquement clos ; dans
+ce cas, le résultat découle clairement de ce qui précède.
+\end{proof}
+
+
+
+
+
+\section{Extensions algébriques séparables}
+\label{section-separable-extensions}
+
+\noindent
+En caractéristique $p$, un phénomène curieux se produit pour les polynômes irréductibles
+sur un corps. Le lemme suivant l'explique.
+
+\begin{lemma}
+\label{lemma-irreducible-polynomials}
+Soit $F$ un corps. Soit $P \in F[x]$ un polynôme irréductible sur $F$.
+Soit $P' = \text{d}P/\text{d}x$ le polynôme dérivé de $P$ par rapport
+à $x$. L'un des deux cas suivants se produit :
+\begin{enumerate}
+\item $P$ et $P'$ sont premiers entre eux, ou
+\item $P'$ est le polynôme nul.
+\end{enumerate}
+Le second cas ne peut se produire que si $F$ est de caractéristique $p > 0$.
+Dans ce cas, $P(x) = Q(x^q)$, où $q = p^f$ est une puissance de $p$ et
+$Q \in F[x]$ un polynôme irréductible tel que $Q$ et $Q'$ soient
+premiers entre eux.
+\end{lemma}
+
+\begin{proof}
+Remarquons que $P'$ est de degré $< \deg(P)$. Par conséquent, si $P$ et $P'$ ne sont pas premiers
+entre eux, alors $(P, P') = (R)$, où $R$ est un polynôme de degré $< \deg(P)$,
+ce qui contredit l'irréductibilité de $P$. Cela établit la dichotomie
+entre (1) et (2).
+
+\medskip\noindent
+Supposons que nous soyons dans le cas (2) et que $P = a_d x^d + \ldots + a_0$. Alors
+$P' = da_d x^{d - 1} + \ldots + a_1$. En caractéristique $0$, on voit
+que cela impose $a_d, \ldots, a_1 = 0$, ce qui signifierait que $P$ est constant,
+une contradiction. On conclut donc que la caractéristique $p$ est positive.
+Dans ce cas, la condition $P' = 0$ impose $a_i = 0$ chaque fois que $p$ ne
+divise pas $i$.
+Autrement dit, $P(x) = P_1(x^p)$ pour un certain polynôme non constant $P_1$.
+Manifestement, $P_1$ est lui aussi irréductible. Par récurrence sur le degré, on
+voit que $P_1(x) = Q(x^q)$ comme dans l'énoncé du lemme ; ainsi
+$P(x) = Q(x^{pq})$, et le lemme est démontré.
+\end{proof}
+
+\begin{definition}
+\label{definition-separable}
+Soit $F$ un corps. Soit $K/F$ une extension de corps.
+\begin{enumerate}
+\item On dit qu'un polynôme irréductible $P$ sur $F$ est {\it séparable}
+s'il est premier avec son polynôme dérivé.
+\item Étant donné $\alpha \in K$ algébrique sur $F$, on dit que $\alpha$ est
+{\it séparable} sur $F$ si son polynôme minimal est séparable sur $F$.
+\item Si $K$ est une extension algébrique de $F$, on dit que $K$ est
+{\it séparable}\footnote{Pour les extensions non algébriques,
+cette définition n'a pas de sens et n'est pas la bonne. Nous renvoyons
+le lecteur à Algèbre, sections \ref{algebra-section-separability} et
+\ref{algebra-section-separability-continued}.}
+sur $F$ si tout élément de $K$ est séparable sur $F$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+D'après le Lemme \ref{lemma-irreducible-polynomials}, en caractéristique $0$, tout
+polynôme irréductible est séparable, tout élément algébrique d'une extension
+est séparable et toute extension algébrique est séparable.
+
+\begin{lemma}
+\label{lemma-separable-goes-up}
+Soit $K/E/F$ une tour d'extensions algébriques de corps.
+\begin{enumerate}
+\item Si $\alpha \in K$ est séparable sur $F$, alors $\alpha$ est séparable
+sur $E$.
+\item Si $K$ est séparable sur $F$, alors $K$ est séparable sur $E$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons le Lemme \ref{lemma-irreducible-polynomials} sans le mentionner davantage.
+Soit $P$ le polynôme minimal de $\alpha$ sur $F$.
+Soit $Q$ le polynôme minimal de $\alpha$ sur $E$.
+Alors $Q$ divise $P$ dans l'anneau de polynômes $E[x]$, disons $P = QR$.
+Alors $P' = Q'R + QR'$. Ainsi, si $Q' = 0$, alors $Q$ divise $P$ et $P'$,
+donc $P' = 0$ d'après le lemme. Ceci démontre (1). L'assertion (2)
+découle immédiatement de (1) et des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-recognize-separable}
+Soit $F$ un corps. Un polynôme irréductible $P$ sur $F$
+est séparable si et seulement si $P$ possède des racines deux à deux distinctes dans une
+clôture algébrique de $F$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $\alpha \in \overline{F}$ soit une racine à la fois de $P$ et de $P'$.
+Alors $P = (x - \alpha)Q$ pour un certain polynôme $Q$. En dérivant,
+nous obtenons $P' = Q + (x - \alpha)Q'$. Ainsi $\alpha$ est une racine de $Q$.
+On voit donc que si $P$ et $P'$ ont une racine commune, alors $P$
+ne possède pas de racines deux à deux distinctes. Réciproquement, si $P$ possède
+une racine multiple, c'est-à-dire si $(x - \alpha)^2$ divise $P$, alors $\alpha$
+est une racine à la fois de $P$ et de $P'$. Conjointement avec le
+Lemme \ref{lemma-relatively-prime-polynomials}, ceci démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-nr-roots-unchanged}
+Soit $F$ un corps et soit $\overline{F}$ une clôture algébrique de $F$.
+Soit $p > 0$ la caractéristique de $F$. Soit $P$ un polynôme
+sur $F$. Alors les ensembles des racines de $P$ et de $P(x^p)$ dans $\overline{F}$
+ont le même cardinal (sans compter les multiplicités).
+\end{lemma}
+
+\begin{proof}
+Manifestement, $\alpha$ est une racine de $P(x^p)$ si et seulement si $\alpha^p$ est une
+racine de $P$. Autrement dit, les racines de $P(x^p)$ sont les racines de
+$x^p - \beta$, où $\beta$ est une racine de $P$. Il suffit donc de montrer
+que l'application $\overline{F} \to \overline{F}$, $\alpha \mapsto \alpha^p$
+est bijective. Elle est surjective, puisque $\overline{F}$ est algébriquement clos,
+ce qui signifie que tout élément possède une racine $p$-ième. Elle est injective car
+$\alpha^p = \beta^p$ implique $(\alpha - \beta)^p = 0$, puisque
+la caractéristique est $p$. Et bien sûr, dans un corps, $x^p = 0$ implique
+$x = 0$.
+\end{proof}
+
+\noindent
+Soit $F$ un corps et soit $P$ un polynôme irréductible sur $F$.
+Nous savons alors que $P = Q(x^q)$ pour un certain polynôme irréductible séparable $Q$
+(Lemme \ref{lemma-irreducible-polynomials}), où $q$ est une puissance de
+la caractéristique $p$ (et, si la caractéristique est nulle, alors
+$q = 1$\footnote{Une bonne convention pour ce chapitre consiste à poser $0^0 = 1$.}
+et $Q = P$). D'après le Lemme \ref{lemma-nr-roots-unchanged}, le nombre de
+racines de $P$ et de $Q$ dans toute clôture algébrique de $F$ est le même.
+D'après le Lemme \ref{lemma-recognize-separable}, ce nombre est égal au degré
+de $Q$.
+
+\begin{definition}
+\label{definition-separable-degree}
+Soit $F$ un corps. Soit $P$ un polynôme irréductible sur $F$.
+Le {\it degré séparable} de $P$ est le cardinal de
+l'ensemble des racines de $P$ dans toute clôture algébrique de $F$ (voir la discussion
+ci-dessus). Notation $\deg_s(P)$.
+\end{definition}
+
+\noindent
+Le degré séparable de $P$ divise toujours son degré, et le quotient
+est une puissance de la caractéristique. Si la caractéristique est nulle, alors
+$\deg_s(P) = \deg(P)$.
+
+\begin{situation}
+\label{situation-finitely-generated}
+Ici, $F$ est un corps et $K/F$ est une extension finie engendrée par des éléments
+$\alpha_1, \ldots, \alpha_n \in K$. Nous posons $K_0 = F$ et
+$$
+K_i = F(\alpha_1, \ldots, \alpha_i)
+$$
+pour obtenir une tour d'extensions finies
+$K = K_n / K_{n - 1} / \ldots / K_0 = F$.
+Notons $P_i$ le polynôme minimal de $\alpha_i$ sur $K_{i - 1}$.
+Enfin, fixons une clôture algébrique $\overline{F}$ de $F$.
+\end{situation}
+
+\noindent
+Soient $F$, $K$, les $\alpha_i$ et $\overline{F}$ comme dans la
+Situation \ref{situation-finitely-generated}.
+Supposons que $\varphi : K \to \overline{F}$ soit un morphisme d'extensions
+de $F$. Nous obtenons alors des applications $\varphi_i : K_i \to \overline{F}$.
+L'image de $P_i \in K_{i - 1}[x]$ par $\varphi_{i - 1}$
+est un polynôme $P_i^{\varphi_{i - 1}} \in \overline{F}[x]$
+et $\varphi(\alpha_i)$ est une racine de ce polynôme.
+
+\begin{lemma}
+\label{lemma-count-embeddings}
+Dans la Situation \ref{situation-finitely-generated}, la correspondance
+$$
+\Mor_F(K, \overline{F})
+\longrightarrow
+\{(\beta_1, \ldots, \beta_n)\text{ comme ci-dessous}\},
+\quad
+\varphi \longmapsto (\varphi(\alpha_1), \ldots, \varphi(\alpha_n))
+$$
+est une bijection. Ici, le membre de droite est l'ensemble des $n$-uplets
+$(\beta_1, \ldots, \beta_n)$ d'éléments de $\overline{F}$ possédant
+la propriété suivante :
+\begin{enumerate}
+\item $\beta_1 \in \overline{F}$ est une racine de $P_1$ ;
+soit $\varphi_1 : K_1 \to \overline{F}$ l'homomorphisme
+de $F$-algèbres qui envoie $\alpha_1$ sur $\beta_1$,
+\item $\beta_2 \in \overline{F}$ est une racine de $P_2^{\varphi_1}$ ;
+soit $\varphi_2 : K_2 \to \overline{F}$ l'homomorphisme
+qui prolonge $\varphi_1$ et envoie $\alpha_2$ sur $\beta_2$,
+\item et ainsi de suite jusqu'au dernier cas,
+\item $\beta_n \in \overline{F}$ est une racine de $P_n^{\varphi_{n - 1}}$.
+\end{enumerate}
+À chaque étape, l'homomorphisme $\varphi_i$ existe et est unique, car
+$K_i = K_{i - 1}[x]/(P_i)$ et $\beta_i$ est une racine de $P_i^{\varphi_{i - 1}}$.
+\end{lemma}
+
+\begin{proof}
+L'application de gauche à droite a été décrite avant le lemme.
+Soit $(\beta_1, \ldots, \beta_n)$ un élément du membre de droite.
+Nous définissons alors $\varphi : K = K_n \to \overline{F}$ comme l'unique homomorphisme
+qui prolonge $\varphi_{n - 1}$ et envoie $\alpha_n$ sur $\beta_n$.
+L'unicité implique que les deux constructions sont inverses l'une de l'autre.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-count-embeddings-explicitly}
+Dans la Situation \ref{situation-finitely-generated}, nous avons
+$|\Mor_F(K, \overline{F})| = \prod_{i = 1}^n \deg_s(P_i)$.
+\end{lemma}
+
+\begin{proof}
+Ceci découle immédiatement du Lemme \ref{lemma-count-embeddings}.
+Remarquons qu'un ingrédient essentiel que nous utilisons ici implicitement est le
+caractère bien défini du degré séparable d'un polynôme irréductible,
+qui a été constaté juste avant la
+Définition \ref{definition-separable-degree}.
+\end{proof}
+
+\noindent
+Nous utilisons maintenant le résultat précédent pour caractériser les extensions de corps séparables.
+
+\begin{lemma}
+\label{lemma-separably-generated-separable}
+Hypothèses et notations comme dans la Situation \ref{situation-finitely-generated}.
+Si chaque $P_i$ est séparable, c'est-à-dire si chaque $\alpha_i$ est séparable sur
+$K_{i - 1}$, alors
+$$
+|\Mor_F(K, \overline{F})| = [K : F]
+$$
+et l'extension de corps $K/F$ est séparable. Si l'un des $\alpha_i$ n'est
+pas séparable sur $K_{i - 1}$, alors
+$|\Mor_F(K, \overline{F})| < [K : F]$.
+\end{lemma}
+
+\begin{proof}
+Si $\alpha_i$ est séparable sur $K_{i - 1}$, alors
+$\deg_s(P_i) = \deg(P_i) = [K_i : K_{i - 1}]$
+(la dernière égalité résultant du Lemme \ref{lemma-degree-minimal-polynomial}).
+Par multiplicativité (Lemme \ref{lemma-multiplicativity-degrees}), nous avons
+$$
+[K : F] = \prod [K_i : K_{i - 1}] = \prod \deg(P_i) =
+\prod \deg_s(P_i) = |\Mor_F(K, \overline{F})|
+$$
+où la dernière égalité est le Lemme \ref{lemma-count-embeddings-explicitly}.
+Par exactement le même raisonnement, nous obtenons l'inégalité stricte
+$|\Mor_F(K, \overline{F})| < [K : F]$ si l'un des $\alpha_i$ n'est
+pas séparable sur $K_{i - 1}$.
+
+\medskip\noindent
+Supposons enfin, à nouveau, que chaque $\alpha_i$ soit séparable sur $K_{i - 1}$.
+Nous allons montrer que $K/F$ est séparable.
+Soit $\gamma = \gamma_1 \in K$ quelconque. Nous pouvons alors trouver des éléments supplémentaires
+$\gamma_2, \ldots, \gamma_m$ tels que
+$K = F(\gamma_1, \ldots, \gamma_m)$ (nous pourrions par exemple prendre
+$\gamma_2 = \alpha_1, \ldots, \gamma_{n + 1} = \alpha_n$).
+La dernière partie du lemme (déjà démontrée ci-dessus) montre alors
+que si $\gamma$ n'était pas séparable sur $F$, nous aurions l'inégalité
+stricte $|\Mor_F(K, \overline{F})| < [K : F]$,
+en contradiction avec la toute première partie du lemme (elle aussi déjà démontrée
+ci-dessus).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separable-equality}
+Soit $K/F$ une extension finie de corps. Soit $\overline{F}$ une
+clôture algébrique de $F$. Nous avons alors
+$$
+|\Mor_F(K, \overline{F})| \leq [K : F]
+$$
+avec égalité si et seulement si $K$ est séparable sur $F$.
+\end{lemma}
+
+\begin{proof}
+C'est un corollaire du Lemme \ref{lemma-separably-generated-separable}.
+En effet, puisque $K/F$ est finie, nous pouvons trouver un nombre fini d'éléments
+$\alpha_1, \ldots, \alpha_n \in K$ qui engendrent $K$ sur $F$ (nous pouvons par exemple
+choisir les $\alpha_i$ de manière à former une base de $K$ sur $F$).
+Si $K/F$ est séparable, alors chaque $\alpha_i$ est séparable sur
+$F(\alpha_1, \ldots, \alpha_{i - 1})$ d'après le Lemme \ref{lemma-separable-goes-up},
+et le Lemme \ref{lemma-separably-generated-separable} donne l'égalité.
+Réciproquement, si nous avons l'égalité, alors, quelle que soit la manière de choisir
+$\alpha_1, \ldots, \alpha_n$, le Lemme \ref{lemma-separably-generated-separable}
+montre que $\alpha_1$ est séparable sur $F$. Comme nous pouvons
+commencer la suite par un élément arbitraire de $K$, il s'ensuit
+que $K$ est séparable sur $F$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separable-permanence}
+Soient $E/k$ et $F/E$ des extensions algébriques séparables de corps. Alors $F/k$
+est une extension séparable de corps.
+\end{lemma}
+
+\begin{proof}
+Choisissons $\alpha \in F$. Alors $\alpha$ est algébrique séparable sur $E$.
+Soit $P = x^d + \sum_{i < d} a_i x^i$ le polynôme minimal de
+$\alpha$ sur $E$. Chaque $a_i$ est algébrique séparable sur $k$.
+Considérons la tour de corps
+$$
+k \subset k(a_0) \subset k(a_0, a_1) \subset \ldots \subset
+k(a_0, \ldots, a_{d - 1}) \subset k(a_0, \ldots, a_{d - 1}, \alpha)
+$$
+Puisque $a_i$ est algébrique séparable sur $k$, il est algébrique séparable
+sur $k(a_0, \ldots, a_{i - 1})$ d'après le Lemme \ref{lemma-separable-goes-up}.
+Enfin, $\alpha$ est algébrique séparable sur $k(a_0, \ldots, a_{d - 1})$
+car c'est une racine de $P$, qui est irréductible
+(puisqu'il est irréductible sur le corps éventuellement plus grand $E$)
+et séparable (puisqu'il est séparable sur $E$).
+Ainsi $k(a_0, \ldots, a_{d - 1}, \alpha)$ est séparable sur $k$
+d'après le Lemme \ref{lemma-separably-generated-separable},
+et nous concluons que $\alpha$ est séparable sur $k$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separable-elements}
+Soit $E/k$ une extension de corps. Alors les éléments de $E$ séparables
+sur $k$ forment une sous-extension de $E/k$.
+\end{lemma}
+
+\begin{proof}
+
+Soient $\alpha, \beta \in E$ séparables sur $k$. Alors $\beta$ est séparable
+sur $k(\alpha)$ d'après le Lemme \ref{lemma-separable-goes-up}.
+Le Lemme \ref{lemma-separably-generated-separable} (appliqué avec $n = 2$,
+$\alpha_1 = \alpha$ et $\alpha_2 = \beta$) montre que
+$k(\alpha, \beta)$ est séparable sur $k$.
+
+\end{proof}
+\section{Indépendance linéaire des caractères}
+\label{section-independence-characters}
+
+\noindent
+Voici l'énoncé.
+
+\begin{lemma}
+\label{lemma-independence-characters}
+Soit $L$ un corps. Soit $G$ un monoïde, par exemple un groupe.
+Soient
+$\chi_1, \ldots, \chi_n : G \to L$ des homomorphismes de monoïdes deux à deux
+distincts, où $L$ est considéré comme un monoïde pour la multiplication.
+Alors $\chi_1, \ldots, \chi_n$ sont linéairement indépendants sur $L$ :
+si $\lambda_1, \ldots, \lambda_n \in L$ ne sont pas tous nuls, alors
+$\sum \lambda_i\chi_i(g) \not = 0$ pour un certain $g \in G$.
+\end{lemma}
+
+\begin{proof}
+Si $n = 1$, cela résulte de $\chi_1(e) = 1$, où $e \in G$ est l'élément
+neutre (identité). Nous démontrons le résultat par récurrence pour $n > 1$.
+Supposons que $\lambda_1, \ldots, \lambda_n \in L$ ne soient pas tous nuls.
+Si $\lambda_i = 0$ pour un certain $i$, le résultat découle de la récurrence sur $n$.
+Puisque nous voulons montrer que $\sum \lambda_i\chi_i(g) \not = 0$
+pour un certain $g \in G$, nous pouvons, après division par $-\lambda_n$,
+supposer que $\lambda_n = -1$. La seule difficulté possible
+surviendrait si
+$$
+\chi_n(g) = \sum\nolimits_{i = 1, \ldots, n - 1} \lambda_i\chi_i(g)
+$$
+pour tout $g \in G$. Fixons $h \in G$. Nous aurions alors également
+\begin{align*}
+\chi_n(h)\chi_n(g) & = \chi_n(hg) \\
+& = \sum\nolimits_{i = 1, \ldots, n - 1} \lambda_i\chi_i(hg) \\
+& = \sum\nolimits_{i = 1, \ldots, n - 1} \lambda_i\chi_i(h) \chi_i(g)
+\end{align*}
+En multipliant la relation précédente par $\chi_n(h)$ puis en soustrayant, on obtient
+$$
+0 = \sum\nolimits_{i = 1, \ldots, n - 1}
+\lambda_i (\chi_n(h) - \chi_i(h)) \chi_i(g)
+$$
+pour tout $g \in G$. Comme $\lambda_i \not = 0$, la récurrence donne
+$\chi_n(h) = \chi_i(h)$ pour tout $i$.
+Le choix de $h$ étant arbitraire, nous en déduisons
+que $\chi_i = \chi_n$ pour $i \leq n - 1$, ce qui contredit
+l'hypothèse selon laquelle les caractères $\chi_i$ sont deux à deux distincts.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sums-of-powers}
+Soient $L$ un corps, $n \geq 1$ et $\alpha_1, \ldots, \alpha_n \in L$
+des éléments deux à deux distincts de $L$. Alors il existe un
+$e \geq 0$ tel que $\sum_{i = 1, \ldots, n} \alpha_i^e \not = 0$.
+\end{lemma}
+
+\begin{proof}
+Appliquons l'indépendance linéaire des caractères
+(Lemme \ref{lemma-independence-characters})
+aux homomorphismes de monoïdes $\mathbf{Z}_{\geq 0} \to L$,
+$e \mapsto \alpha_i^e$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-independence-embeddings}
+Soient $K/F$ et $L/F$ des extensions de corps. Soient
+$\sigma_1, \ldots, \sigma_n : K \to L$ des morphismes de $F$-extensions
+deux à deux distincts. Alors $\sigma_1, \ldots, \sigma_n$ sont linéairement
+indépendants sur $L$ : si $\lambda_1, \ldots, \lambda_n \in L$ ne sont pas
+tous nuls, alors $\sum \lambda_i\sigma_i(\alpha) \not = 0$
+pour un certain $\alpha \in K$.
+\end{lemma}
+
+\begin{proof}
+Appliquons le Lemme \ref{lemma-independence-characters} aux restrictions
+des $\sigma_i$ aux groupes des unités.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-separable-tensor-alg-closed}
+Soient $K/F$ et $L/F$ des extensions de corps, avec
+$K/F$ finie séparable et $L$ algébriquement clos.
+Alors l'application
+$$
+K \otimes_F L
+\longrightarrow
+\prod\nolimits_{\sigma \in \Hom_F(K, L)} L,\quad
+\alpha \otimes \beta \mapsto (\sigma(\alpha)\beta)_\sigma
+$$
+est un isomorphisme de $L$-algèbres.
+\end{lemma}
+
+\begin{proof}
+Choisissons une base $\alpha_1, \ldots, \alpha_n$ de $K$ comme espace vectoriel sur $F$.
+D'après le Lemme \ref{lemma-separable-equality} (et un petit argument omis), l'ensemble
+$\Hom_F(K, L)$ possède $n$ éléments, disons $\sigma_1, \ldots, \sigma_n$.
+En particulier, les deux membres ont la même dimension $n$ comme espaces
+vectoriels sur $L$. Ainsi, si l'application n'est pas un isomorphisme, son
+noyau est non nul. Autrement dit, il existerait des
+$\mu_j \in L$, $j = 1, \ldots, n$, non tous nuls,
+tels que $\sum \alpha_j \otimes \mu_j$ appartienne au noyau.
+Autrement dit, $\sum \sigma_i(\alpha_j)\mu_j = 0$ pour tout $i$.
+Cela signifierait que la matrice $n \times n$ de coefficients
+$\sigma_i(\alpha_j)$ n'est pas inversible. Nous pouvons donc trouver
+$\lambda_1, \ldots, \lambda_n \in L$, non tous nuls,
+tels que $\sum \lambda_i\sigma_i(\alpha_j) = 0$ pour tout $j$.
+Or tout élément $\alpha \in K$ peut s'écrire
+$\alpha = \sum \beta_j \alpha_j$ avec $\beta_j \in F$, et nous obtiendrions
+$$
+\sum \lambda_i\sigma_i(\alpha) =
+\sum \lambda_i\sigma_i(\sum \beta_j \alpha_j) =
+\sum \beta_j \sum \lambda_i\sigma_i(\alpha_j) = 0
+$$
+ce qui contredit le Lemme \ref{lemma-independence-embeddings}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Extensions purement inséparables}
+\label{section-purely-inseparable}
+
+\noindent
+Les extensions purement inséparables sont à l'opposé des extensions
+séparables définies à la section précédente. Elles n'apparaissent
+qu'en caractéristique positive.
+
+\begin{definition}
+\label{definition-purely-inseparable}
+Soit $F$ un corps de caractéristique $p > 0$. Soit $K/F$ une extension.
+\begin{enumerate}
+\item Un élément $\alpha \in K$ est dit {\it purement inséparable} sur $F$
+s'il existe une puissance $q$ de $p$ telle que $\alpha^q \in F$.
+\item L'extension $K/F$ est dite {\it purement inséparable}
+si et seulement si tout élément de $K$ est purement inséparable sur $F$.
+\end{enumerate}
+Si $L/M$ est une extension de corps (sans condition sur la caractéristique
+de $M$), nous dirons que l'extension est {\it purement inséparable}
+si $L = M$, ou si la caractéristique de $M$ est un nombre premier $p$
+et que $L/M$ est purement inséparable au sens défini ci-dessus.
+\end{definition}
+
+\noindent
+Observons qu'une extension purement inséparable est nécessairement algébrique.
+Soit $F$ un corps de caractéristique $p > 0$.
+On obtient un exemple d'extension purement inséparable en adjoignant
+la racine $p$-ième d'un élément $t \in F$ qui n'en possède pas encore. En effet,
+le lemme ci-dessous montre que $P = x^p - t$ est irréductible, et donc
+$$
+K = F[x]/(P) = F[t^{1/p}]
+$$
+est un corps. De plus, $K$ est purement inséparable sur $F$, car tout élément
+$$
+a_0 + a_1t^{1/p} + \ldots + a_{p - 1}t^{(p - 1)/p},\quad a_i \in F
+$$
+de $K$ a pour puissance $p$-ième
+$$
+(a_0 + a_1t^{1/p} + \ldots + a_{p - 1}t^{(p - 1)/p})^p =
+a_0^p + a_1^p t + \ldots + a_{p - 1}^pt^{p - 1} \in F
+$$
+Cette situation se présente pour le corps
+$\mathbf{F}_p(t)$ des fonctions rationnelles sur $\mathbf{F}_p$.
+
+\begin{lemma}
+\label{lemma-take-pth-root}
+Soit $p$ un nombre premier. Soit $F$ un corps de caractéristique $p$.
+Soit $t \in F$ un élément qui n'a pas de racine $p$-ième dans $F$.
+Alors le polynôme $x^p - t$ est irréductible sur $F$.
+\end{lemma}
+
+\begin{proof}
+Pour le voir, supposons donnée une factorisation
+$x^p - t = f g$. En dérivant, on obtient $f' g + f g' = 0$.
+Notons que ni $f' = 0$ ni $g' = 0$, puisque les degrés de $f$ et de $g$
+sont strictement inférieurs à $p$. En outre, $\deg(f') < \deg(f)$ et $\deg(g') < \deg(g)$.
+Nous en déduisons que $f$ et $g$ ont un facteur commun. Ainsi, si $x^p - t$
+est réductible, il est de la forme $x^p - t = c f^n$ pour un certain polynôme
+irréductible $f$, un certain $c \in F^*$ et un certain $n > 1$. Comme $p$ est premier,
+cela entraîne $n = p$ et $f$ linéaire, ce qui impliquerait que $x^p - t$ possède
+une racine dans $F$. Contradiction.
+\end{proof}
+
+\noindent
+Nous verrons que l'extraction de racines $p$-ièmes est une opération très importante
+en caractéristique $p$.
+
+\begin{lemma}
+\label{lemma-purely-inseparable-permanence}
+Soient $E/k$ et $F/E$ des extensions de corps purement inséparables. Alors $F/k$
+est une extension de corps purement inséparable.
+\end{lemma}
+
+\begin{proof}
+Si la caractéristique est nulle, les deux extensions sont triviales et il n'y a
+rien à démontrer. Supposons donc que la caractéristique de $k$ soit un nombre
+premier $p$. Choisissons $\alpha \in F$. Alors
+$\alpha^q \in E$ pour une certaine puissance de $p$, notée $q$. Dès lors, $(\alpha^q)^{q'} \in k$
+pour une certaine puissance de $p$, notée $q'$. Par conséquent, $\alpha^{qq'} \in k$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-purely-inseparable-elements}
+Soit $E/k$ une extension de corps. Alors les éléments de $E$ purement inséparables
+sur $k$ forment une sous-extension de $E/k$.
+\end{lemma}
+
+\begin{proof}
+Soit $p$ la caractéristique de $k$.
+Si celle-ci est nulle, l'assertion est immédiate, car tout élément purement
+inséparable appartient alors au corps de base. Supposons donc cette caractéristique
+positive.
+Soient $\alpha, \beta \in E$ purement inséparables sur $k$. Écrivons
+$\alpha^q \in k$ et $\beta^{q'} \in k$ pour certaines puissances de $p$, notées $q, q'$.
+Si $q''$ est une puissance de $p$, alors
+$(\alpha + \beta)^{q''} = \alpha^{q''} + \beta^{q''}$.
+Par conséquent, si $q'' \geq q, q'$, nous en déduisons que $\alpha + \beta$
+est purement inséparable sur $k$. Il en va de même de la différence,
+du produit et du quotient de $\alpha$ et $\beta$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-purely-inseparable}
+Soit $E/F$ une extension de corps finie purement inséparable de
+caractéristique $p > 0$. Alors il existe une suite d'éléments
+$\alpha_1, \ldots, \alpha_n \in E$ qui donne une tour
+de corps
+$$
+E = F(\alpha_1, \ldots, \alpha_n) \supset
+F(\alpha_1, \ldots, \alpha_{n - 1}) \supset
+\ldots
+\supset F(\alpha_1) \supset F
+$$
+telle que chaque extension intermédiaire soit de degré $p$ et s'obtienne
+par adjonction d'une racine $p$-ième. Plus précisément,
+$\alpha_i^p \in F(\alpha_1, \ldots, \alpha_{i - 1})$
+est un élément qui ne possède pas de racine $p$-ième dans
+$F(\alpha_1, \ldots, \alpha_{i - 1})$, pour $i = 1, \ldots, n$.
+\end{lemma}
+
+\begin{proof}
+Raisonnons par récurrence sur le degré de $E/F$. Si ce degré vaut $1$,
+le résultat est clair (avec $n = 0$). Sinon, choisissons
+$\alpha \in E$, $\alpha \not \in F$. Écrivons $\alpha^{p^r} \in F$ pour un certain
+$r > 0$. Prenons $r$ minimal et remplaçons $\alpha$ par $\alpha^{p^{r - 1}}$.
+Alors $\alpha \not \in F$, mais $\alpha^p \in F$. Ainsi $t = \alpha^p$ n'est pas
+une puissance $p$-ième dans $F$ (car cela entraînerait $\alpha \in F$, voir le
+Lemme \ref{lemma-nr-roots-unchanged} ou sa démonstration).
+Ainsi, $F \subset F(\alpha)$ est une sous-extension de degré $p$
+(Lemme \ref{lemma-take-pth-root}). Par récurrence, nous trouvons
+$\alpha_1, \ldots, \alpha_n \in E$ qui engendrent $E/F(\alpha)$
+et satisfont aux conclusions du lemme.
+La suite $\alpha, \alpha_1, \ldots, \alpha_n$ convient alors
+pour l'extension $E/F$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separable-first}
+\begin{slogan}
+Toute extension algébrique de corps est, de manière unique, une extension
+séparable suivie d'une extension purement inséparable.
+\end{slogan}
+Soit $E/F$ une extension algébrique de corps. Il existe une unique sous-extension
+$E/E_{sep}/F$ telle que $E_{sep}/F$ soit séparable et que $E/E_{sep}$ soit
+purement inséparable.
+\end{lemma}
+
+\begin{proof}
+Si la caractéristique est nulle, posons $E_{sep} = E$. Supposons désormais la caractéristique
+égale à $p > 0$. Soit $E_{sep}$ l'ensemble des éléments de $E$ qui sont séparables
+sur $F$. C'est une sous-extension d'après le Lemme \ref{lemma-separable-elements},
+et bien entendu $E_{sep}$ est séparable sur $F$. Étant donné $\alpha$ dans $E$,
+il existe une puissance de $p$, notée $q$, telle que $\alpha^q$ soit séparable sur $F$.
+En effet, $q$ est la puissance de $p$ telle que le polynôme minimal de
+$\alpha$ soit de la forme $P(x^q)$, où $P$ est un polynôme séparable, voir le
+Lemme \ref{lemma-irreducible-polynomials}. Ainsi $E/E_{sep}$ est purement
+inséparable. L'unicité est claire.
+\end{proof}
+
+\begin{definition}
+\label{definition-insep-degree}
+Soit $E/F$ une extension algébrique de corps. Soit $E_{sep}$ la sous-extension
+obtenue au Lemme \ref{lemma-separable-first}.
+\begin{enumerate}
+\item Le degré $[E_{sep} : F]$ est appelé le {\it degré séparable}
+de l'extension. Notation : $[E : F]_s$.
+\item Le degré $[E : E_{sep}]$ est appelé le {\it degré inséparable},
+ou le {\it degré d'inséparabilité} de l'extension.
+Notation : $[E : F]_i$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Bien entendu, en caractéristique $0$, on a $[E : F] = [E : F]_s$ et
+$[E : F]_i = 1$. Par multiplicativité
+(Lemme \ref{lemma-multiplicativity-degrees}), on a
+$$
+[E : F] = [E : F]_s [E : F]_i
+$$
+même lorsque certains de ces degrés sont infinis. En fait, le degré séparable
+et le degré inséparable sont eux aussi multiplicatifs (voir le
+Lemme \ref{lemma-multiplicativity-all-degrees}).
+
+\begin{lemma}
+\label{lemma-separable-degree}
+Soit $K/F$ une extension finie. Soit $\overline{F}$ une clôture algébrique
+de $F$. Alors $[K : F]_s = |\Mor_F(K, \overline{F})|$.
+\end{lemma}
+
+\begin{proof}
+Démontrons d'abord ce résultat lorsque $K/F$ est purement inséparable. Nous affirmons
+que, dans ce cas, il existe un unique $F$-plongement $K \to \overline{F}$. On peut le
+voir en choisissant une suite d'éléments $\alpha_1, \ldots, \alpha_n \in K$
+comme au Lemme \ref{lemma-finite-purely-inseparable}. Le polynôme irréductible
+de $\alpha_i$ sur $F(\alpha_1, \ldots, \alpha_{i - 1})$ est $x^p - \alpha_i^p$.
+En appliquant le Lemme \ref{lemma-count-embeddings-explicitly}, on voit que
+$|\Mor_F(K, \overline{F})| = 1$. D'autre part, $[K : F]_s = 1$
+dans ce cas, d'où l'égalité.
+
+\medskip\noindent
+Revenons à une extension finie générale $K/F$. Dans ce cas,
+choisissons $F \subset K_s \subset K$ comme au Lemme \ref{lemma-separable-first}.
+D'après le Lemme \ref{lemma-separable-equality}, on a
+$|\Mor_F(K_s, \overline{F})| = [K_s : F] = [K : F]_s$.
+D'autre part, tout morphisme de corps $\sigma' : K_s \to \overline{F}$
+se prolonge de manière unique en un morphisme de corps $\sigma : K \to \overline{F}$, d'après le
+résultat du paragraphe précédent. Autrement dit,
+$|\Mor_F(K, \overline{F})| = |\Mor_F(K_s, \overline{F})|$,
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}[Multiplicativité]
+\label{lemma-multiplicativity-all-degrees}
+Supposons donnée une tour d'extensions algébriques de corps $K/E/F$. Alors
+$$
+[K : F]_s = [K : E]_s [E : F]_s
+\quad\text{et}\quad
+[K : F]_i = [K : E]_i [E : F]_i
+$$
+\end{lemma}
+
+\begin{proof}
+Démontrons d'abord le résultat lorsque $K$ est fini sur $F$. Comme la
+multiplicativité vaut pour le degré usuel (d'après le
+Lemme \ref{lemma-multiplicativity-degrees}), il suffit de démontrer
+l'une des deux formules. D'après le Lemme \ref{lemma-separable-degree}, on a
+$[K : F]_s = |\Mor_F(K, \overline{F})|$. Par le même lemme,
+pour tout $\sigma \in \Mor_F(E, \overline{F})$, le nombre de prolongements
+de $\sigma$ en une application $\tau : K \to \overline{F}$ est $[K : E]_s$.
+En effet, via $E \cong \sigma(E) \subset \overline{F}$, nous pouvons considérer
+$\overline{F}$ comme une clôture algébrique de $E$. En combinant ceci avec le
+fait qu'il existe $[E : F]_s = |\Mor_F(E, \overline{F})|$ choix
+pour $\sigma$, on obtient le résultat.
+
+\medskip\noindent
+Nous omettons la démonstration lorsque les extensions sont infinies.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Extensions normales}
+\label{section-normal}
+
+\noindent
+Soit $P \in F[x]$ un polynôme non constant sur un corps $F$. Nous dirons que $P$
+{\it se décompose complètement en facteurs linéaires sur $F$} ou
+{\it est complètement décomposé sur $F$} s'il existe
+$c \in F^*$, $n \geq 1$, $\alpha_1, \ldots, \alpha_n \in F$ tels que
+$$
+P = c(x - \alpha_1) \ldots (x - \alpha_n)
+$$
+dans $F[x]$. Les extensions normales sont définies comme suit.
+
+\begin{definition}
+\label{definition-normal}
+Soit $E/F$ une extension algébrique de corps. Nous dirons que $E$ est {\it normale}
+sur $F$ si, pour tout $\alpha \in E$, le polynôme minimal $P$
+de $\alpha$ sur $F$ se décompose complètement en facteurs linéaires sur $E$.
+\end{definition}
+
+\noindent
+Comme pour les extensions séparables, l'établissement des propriétés
+fondamentales de cette notion demande un peu de travail.
+
+\begin{lemma}
+\label{lemma-normal-goes-up}
+Soit $K/E/F$ une tour d'extensions algébriques de corps.
+Si $K$ est normale sur $F$, alors $K$ est normale sur $E$.
+\end{lemma}
+
+\begin{proof}
+Soit $\alpha \in K$. Soit $P$ le polynôme minimal de $\alpha$ sur $F$.
+Soit $Q$ le polynôme minimal de $\alpha$ sur $E$.
+Alors $Q$ divise $P$ dans l'anneau de polynômes $E[x]$, disons $P = QR$.
+Par conséquent, si $P$ est complètement décomposé sur $K$, il en va de même de $Q$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-intersect-normal}
+Soit $F$ un corps. Soit $M/F$ une extension algébrique. Soient
+$M/E_i/F$, $i \in I$, une famille non vide de sous-extensions telles que
+$E_i/F$ soit normale. Alors $\bigcap E_i$ est normale sur $F$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte directement des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separable-first-normal}
+Soit $E/F$ une extension algébrique de corps normale. Alors la sous-extension
+$E/E_{sep}/F$ du Lemme \ref{lemma-separable-first} est normale.
+\end{lemma}
+
+\begin{proof}
+Si la caractéristique est nulle, alors $E_{sep} = E$, et le résultat
+est clair. Si la caractéristique vaut $p > 0$, alors $E_{sep}$
+est l'ensemble des éléments de $E$ qui sont séparables sur $F$.
+Alors, si $\alpha \in E_{sep}$ a pour polynôme minimal $P$,
+écrivons $P = c(x - \alpha)(x - \alpha_2) \ldots (x - \alpha_d)$
+avec $\alpha_2, \ldots, \alpha_d \in E$. Puisque
+$P$ est un polynôme séparable et que $\alpha_i$
+est une racine de $P$, nous en déduisons $\alpha_i \in E_{sep}$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-normal}
+Soit $E/F$ une extension algébrique de corps. Soit $\overline{F}$ une
+clôture algébrique de $F$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $E$ est normale sur $F$ ;
+\item pour toute paire $\sigma, \sigma' \in \Mor_F(E, \overline{F})$, on
+a $\sigma(E) = \sigma'(E)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{P}$ l'ensemble de tous les polynômes minimaux sur $F$
+de tous les éléments de $E$. Posons
+$$
+T =
+\{\beta \in \overline{F} \mid P(\beta) = 0\text{ pour un certain }P \in \mathcal{P}\}
+$$
+Il est clair que, si $E$ est normale sur $F$, alors $\sigma(E) = T$
+pour tout $\sigma \in \Mor_F(E, \overline{F})$. Nous voyons donc que (1)
+implique (2).
+
+\medskip\noindent
+Réciproquement, supposons (2). Choisissons $\beta \in T$.
+Nous pouvons trouver $\alpha \in E$ dont le polynôme minimal
+$P \in \mathcal{P}$ annule $\beta$. Puisque $F(\alpha) = F[x]/(P)$,
+nous pouvons trouver un élément $\sigma_0 \in \Mor_F(F(\alpha), \overline{F})$ qui envoie
+$\alpha$ sur $\beta$. D'après le Lemme \ref{lemma-map-into-algebraic-closure},
+nous pouvons prolonger $\sigma_0$ en un morphisme $\sigma \in \Mor_F(E, \overline{F})$.
+Nous voyons ainsi que $\beta$ appartient à l'image commune de tous les plongements
+$\sigma : E \to \overline{F}$. Il s'ensuit que $\sigma(E) = T$
+pour tout $\sigma$. Fixons un $\sigma$. Soit maintenant $P \in \mathcal{P}$. Alors nous
+pouvons écrire
+$$
+P = (x - \beta_1) \ldots (x - \beta_n)
+$$
+pour un certain $n$ et des $\beta_i \in \overline{F}$, d'après le
+Lemme \ref{lemma-algebraically-closed}. Observons que $\beta_i \in T$.
+Ainsi $\beta_i = \sigma(\alpha_i)$ pour un certain $\alpha_i \in E$. Par conséquent,
+$P = (x - \alpha_1) \ldots (x - \alpha_n)$ se décompose complètement sur $E$.
+Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normally-generated}
+Soit $E/F$ une extension algébrique de corps.
+Si $E$ est engendrée par les éléments $\alpha_i \in E$, $i \in I$,
+sur $F$, et si, pour tout $i$, le polynôme minimal
+de $\alpha_i$ sur $F$ se décompose complètement dans $E$, alors
+$E/F$ est normale.
+\end{lemma}
+
+\begin{proof}
+Soit $P_i$ le polynôme minimal de $\alpha_i$ sur $F$.
+Soient $\alpha_i = \alpha_{i, 1}, \alpha_{i, 2}, \ldots, \alpha_{i, d_i}$
+les racines de $P_i$ sur $E$. Étant donnés deux plongements
+$\sigma, \sigma' : E \to \overline{F}$ au-dessus de $F$, on voit que
+$$
+\{\sigma(\alpha_{i, 1}), \ldots, \sigma(\alpha_{i, d_i})\} =
+\{\sigma'(\alpha_{i, 1}), \ldots, \sigma'(\alpha_{i, d_i})\}
+$$
+car les deux membres sont égaux à l'ensemble des racines de $P_i$
+dans $\overline{F}$. Les éléments $\alpha_{i, j}$
+engendrent $E$ sur $F$, et l'on obtient $\sigma(E) = \sigma'(E)$.
+Ainsi $E/F$ est normale d'après le Lemme \ref{lemma-characterize-normal}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-maps}
+Soit $L/M/K$ une tour d'extensions algébriques.
+\begin{enumerate}
+\item Si $M/K$ est normale, alors tout automorphisme $\tau$ de $L/K$
+induit un automorphisme $\tau|_M : M \to M$.
+\item Si $L/K$ est normale, alors tout morphisme de $K$-algèbres $\sigma : M \to L$
+se prolonge en un automorphisme de $L$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons une clôture algébrique $\overline{L}$ de $L$
+(Théorème \ref{theorem-existence-algebraic-closure}).
+
+\medskip\noindent
+Soit $\tau$ comme en (1). Alors $\tau(M) = M$ comme sous-corps de $\overline{L}$
+d'après le Lemme \ref{lemma-characterize-normal}, et donc
+$\tau|_M : M \to M$ est un automorphisme.
+
+\medskip\noindent
+Soit $\sigma : M \to L$ comme en (2).
+D'après le Lemme \ref{lemma-map-into-algebraic-closure},
+nous pouvons prolonger $\sigma$ en une application
+$\tau : L \to \overline{L}$, c'est-à-dire de telle sorte que le diagramme
+$$
+\xymatrix{
+L \ar[r]_\tau & \overline{L} \\
+M \ar[u] \ar[ru]_\sigma & K \ar[l] \ar[u]
+}
+$$
+soit commutatif. D'après le Lemme \ref{lemma-characterize-normal}, on voit que
+$\tau(L) = L$. Ainsi $\tau : L \to L$ est un automorphisme qui
+prolonge $\sigma$.
+\end{proof}
+
+\begin{definition}
+\label{definition-automorphisms}
+Soit $E/F$ une extension de corps. Alors $\text{Aut}(E/F)$ ou
+$\text{Aut}_F(E)$ désigne le groupe des automorphismes de $E$ comme objet
+de la catégorie des $F$-extensions. Les éléments de $\text{Aut}(E/F)$
+sont appelés {\it automorphismes de $E$ sur $F$} ou
+{\it automorphismes de $E/F$}.
+\end{definition}
+
+\noindent
+Voici une caractérisation des extensions normales en termes d'automorphismes.
+
+\begin{lemma}
+\label{lemma-normal-and-automorphisms}
+Soit $E/F$ une extension finie. On a
+$$
+|\text{Aut}(E/F)| \leq [E : F]_s
+$$
+avec égalité si et seulement si $E$ est normale sur $F$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une clôture algébrique $\overline{F}$ de $F$. Rappelons que
+$[E : F]_s = |\Mor_F(E, \overline{F})|$. Choisissons un élément
+$\sigma_0 \in \Mor_F(E, \overline{F})$. Alors l'application
+$$
+\text{Aut}(E/F) \longrightarrow \Mor_F(E, \overline{F}),\quad
+\tau \longmapsto \sigma_0 \circ \tau
+$$
+est injective. D'où l'inégalité. S'il y a égalité, tout
+$\sigma \in \Mor_F(E, \overline{F})$ s'obtient en précomposant
+$\sigma_0$ par un automorphisme. Ainsi $\sigma(E) = \sigma_0(E)$.
+Donc $E$ est normale sur $F$ d'après le Lemme \ref{lemma-characterize-normal}.
+
+\medskip\noindent
+Réciproquement, supposons que $E/F$ est normale. Alors, d'après le
+Lemme \ref{lemma-characterize-normal}, on a $\sigma(E) = \sigma_0(E)$
+pour tout $\sigma \in \Mor_F(E, \overline{F})$.
+On obtient donc un automorphisme de $E$ sur $F$ en posant
+$\tau = \sigma_0^{-1} \circ \sigma$. Par conséquent, l'application ci-dessus
+est surjective.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-embeddings-differ-by-aut}
+Soit $L/K$ une extension algébrique normale de corps.
+Soit $E/K$ une extension de corps. Alors, soit
+il n'existe aucun $K$-plongement de $L$ dans $E$, soit
+il en existe un $\tau : L \to E$ et tout autre
+est de la forme $\tau \circ \sigma$, où $\sigma \in \text{Aut}(L/K)$.
+\end{lemma}
+
+\begin{proof}
+Étant donné $\tau$, remplaçons $L$ par $\tau(L) \subset E$ et appliquons le
+Lemme \ref{lemma-lift-maps}.
+\end{proof}
+
+
+
+
+
+\section{Corps de décomposition}
+\label{section-splitting-fieds}
+
+\noindent
+Le lemme suivant est un outil utile pour construire des extensions normales de corps.
+
+\begin{lemma}
+\label{lemma-splitting-field}
+Soit $F$ un corps. Soit $P \in F[x]$ un polynôme non constant.
+Il existe une plus petite extension de corps $E/F$ telle que $P$
+soit scindé sur $E$. De plus, l'extension de corps $E/F$ est normale
+et unique à isomorphisme près, cet isomorphisme n'étant pas nécessairement unique.
+\end{lemma}
+
+\begin{proof}
+Choisissons une clôture algébrique $\overline{F}$. Nous pouvons alors écrire
+$P = c (x - \beta_1) \ldots (x - \beta_n)$ dans $\overline{F}[x]$, voir le
+Lemme \ref{lemma-algebraically-closed}. Notons que $c \in F^*$. Posons
+$E = F(\beta_1, \ldots, \beta_n)$. Il est alors clair que $E$ est
+minimale sous la condition que $P$ soit scindé sur $E$.
+
+\medskip\noindent
+Soit ensuite $E'$ une autre extension minimale de $F$ telle que
+$P$ soit scindé sur $E'$. Écrivons
+$P = c (x - \alpha_1) \ldots (x - \alpha_n)$ avec $c \in F$ et
+$\alpha_i \in E'$. La minimalité entraîne de nouveau que
+$E' = F(\alpha_1, \ldots, \alpha_n)$. De plus, si nous choisissons
+un $\sigma : E' \to \overline{F}$ quelconque
+(Lemme \ref{lemma-map-into-algebraic-closure}),
+nous voyons immédiatement que $\sigma(\alpha_i) = \beta_{\tau(i)}$
+pour une certaine permutation $\tau : \{1, \ldots, n\} \to \{1, \ldots, n\}$.
+Ainsi $\sigma(E') = E$. Cela implique que $E'$ est une extension normale
+de $F$ d'après le Lemme \ref{lemma-characterize-normal},
+et que $E \cong E'$ comme extensions de $F$, ce qui achève la démonstration.
+\end{proof}
+
+\begin{definition}
+\label{definition-splitting-field}
+Soit $F$ un corps. Soit $P \in F[x]$ un polynôme non constant.
+L'extension de corps $E/F$ construite au Lemme \ref{lemma-splitting-field}
+est appelée le {\it corps de décomposition de $P$ sur $F$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-normal-closure}
+\begin{slogan}
+Existence de la clôture normale des extensions finies de corps.
+\end{slogan}
+Soit $E/F$ une extension finie de corps. Il existe une unique
+plus petite extension finie $K/E$ telle que $K$ soit normale sur $F$.
+\end{lemma}
+
+\begin{proof}
+Choisissons des générateurs $\alpha_1, \ldots, \alpha_n$ de $E$ sur $F$.
+Soient $P_1, \ldots, P_n$ les polynômes minimaux de
+$\alpha_1, \ldots, \alpha_n$ sur $F$. Posons $P = P_1 \ldots P_n$.
+Observons que $(x - \alpha_1) \ldots (x - \alpha_n)$ divise $P$, puisque
+chaque $(x - \alpha_i)$ divise $P_i$. Écrivons
+$P = (x - \alpha_1) \ldots (x - \alpha_n)Q$.
+Soit $K/E$ le corps de décomposition de $P$ sur $E$.
+Nous affirmons que $K$ est également le corps de décomposition de $P$ sur $F$
+(ce qui implique que $K$ est normale sur $F$).
+Cela est clair, car $K/E$ est engendrée par les racines de
+$Q$ sur $E$, tandis que $E$ est engendrée par les racines de
+$(x - \alpha_1) \ldots (x - \alpha_n)$ sur $F$ ; ainsi,
+$K$ est engendrée par les racines de $P$ sur $F$.
+
+\medskip\noindent
+Unicité. Supposons que $K'/E$ soit une seconde extension minimale telle que
+$K'/F$ soit normale. Choisissons une clôture algébrique $\overline{F}$ et un
+plongement $\sigma_0 : E \to \overline{F}$. D'après le
+Lemme \ref{lemma-map-into-algebraic-closure},
+nous pouvons prolonger $\sigma_0$ en $\sigma : K \to \overline{F}$ et en
+$\sigma' : K' \to \overline{F}$.
+D'après le Lemme \ref{lemma-intersect-normal}, on voit que
+$\sigma(K) \cap \sigma'(K')$ est normale sur $F$.
+La minimalité donne $\sigma(K) = \sigma'(K')$.
+Ainsi $\sigma^{-1} \circ \sigma' : K' \to K$ fournit un isomorphisme
+d'extensions de $E$.
+\end{proof}
+
+\begin{definition}
+\label{definition-normal-closure}
+Soit $E/F$ une extension finie de corps. L'extension de corps $K/E$
+construite au Lemme \ref{lemma-normal-closure}
+est appelée la {\it clôture normale de $E$ sur $F$}.
+\end{definition}
+
+\noindent
+On peut construire la clôture normale à l'intérieur de toute extension normale donnée.
+
+\begin{lemma}
+\label{lemma-normal-closure-inside-normal}
+Soit $L/K$ une extension algébrique normale.
+\begin{enumerate}
+\item Si $L/M/K$ est une sous-extension avec $M/K$ finie, alors il existe
+une tour $L/M'/M/K$ telle que $M'/K$ soit finie et normale.
+\item Si $L/M'/M/K$ est une tour telle que $M/K$ soit normale et $M'/M$ finie,
+alors il existe une tour $L/M''/M'/M/K$ telle que $M''/M$ soit
+finie et $M''/K$ normale.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Soit $M'$ la plus petite sous-extension de $L/K$ contenant $M$
+qui soit normale sur $K$. D'après le Lemme \ref{lemma-normal-closure},
+c'est la clôture normale de $M/K$, et elle est finie sur $K$.
+
+\medskip\noindent
+Démonstration de (2). Soient $\alpha_1, \ldots, \alpha_n \in M'$ des générateurs de $M'$ sur $M$.
+Soient $P_1, \ldots, P_n$ les polynômes minimaux de
+$\alpha_1, \ldots, \alpha_n$ sur $K$. Soient $\alpha_{i, j}$ les racines
+de $P_i$ dans $L$. Posons $M''  = M(\alpha_{i, j})$. Il résulte du
+Lemme \ref{lemma-normally-generated}
+(appliqué à l'ensemble de générateurs $M \cup \{\alpha_{i, j}\}$)
+que $M''$ est normale sur $K$.
+\end{proof}
+
+\noindent
+Le lemme suivant peut parfois servir à démontrer des propriétés
+de la clôture normale.
+
+\begin{lemma}
+\label{lemma-normal-closure-tensor-product}
+Soit $L/K$ une extension finie. Soit $M/L$ la clôture
+normale de $L$ sur $K$. Alors il existe une application surjective
+$$
+L \otimes_K L \otimes_K \ldots \otimes_K L \longrightarrow M
+$$
+de $K$-algèbres, où le nombre de facteurs tensoriels peut être pris égal à
+$[L : K]_s \leq [L : K]$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une clôture algébrique $\overline{K}$ de $K$.
+Posons $n = [L : K]_s = |\Mor_K(L, \overline{K})|$, l'égalité résultant du
+Lemme \ref{lemma-separable-degree}.
+Écrivons $\Mor_K(L, \overline{K}) = \{\sigma_1, \ldots, \sigma_n\}$.
+Soit $M' \subset \overline{K}$ la $K$-sous-algèbre
+engendrée par $\sigma_i(L)$, $i = 1, \ldots, n$. Alors $M'$ est
+un corps, car toute $K$-sous-algèbre de $\overline{K}$ est un corps.
+Tout morphisme de $K$-algèbres de $M'$ vers $\overline{K}$ permute les $\sigma_i$,
+et envoie donc le sous-corps $M'$ sur $M'$. Par construction, le corps $M'$
+est engendré par les conjugués d'éléments de $\sigma_1(L)$. Cela étant,
+il résulte du Lemme \ref{lemma-characterize-normal}
+que $M'$ est normale sur $K$ et qu'elle est la
+plus petite sous-extension normale de $\overline{K}$ contenant
+$\sigma_1(L)$. Par unicité de la clôture normale, on a $M \cong M'$.
+Enfin, il existe une application surjective
+$$
+L \otimes_K L \otimes_K \ldots \otimes_K L \longrightarrow M',
+\quad
+\lambda_1 \otimes \ldots \otimes \lambda_n \longmapsto
+\sigma_1(\lambda_1) \ldots \sigma_n(\lambda_n)
+$$
+et notons que $n \leq [L : K]$ par définition.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Racines de l’unité}
+\label{section-roots-of-1}
+
+\noindent
+Soit $F$ un corps. Pour un entier $n \geq 1$, posons
+$$
+\mu_n(F) = \{\zeta \in F \mid \zeta^n = 1\}
+$$
+On appelle cet ensemble le {\it groupe des racines $n$-ièmes de l'unité} ; ses
+éléments sont les {\it racines $n$-ièmes de $1$}. C'est un groupe abélien pour la multiplication,
+dont l'élément neutre est $1$.
+Observons que, dans un corps, le nombre de racines d'un polynôme de degré $d$
+est toujours au plus $d$. Ainsi $|\mu_n(F)| \leq n$,
+puisque cet ensemble est défini par une équation polynomiale de degré $n$.
+Bien entendu, tout élément de $\mu_n(F)$ est d'ordre divisant $n$.
+En outre, les sous-groupes
+$$
+\mu_d(F) \subset \mu_n(F),\quad d | n
+$$
+ont chacun au plus $d$ éléments. Cela implique que $\mu_n(F)$ est cyclique.
+
+\begin{lemma}
+\label{lemma-cyclic}
+Soit $A$ un groupe abélien d'exposant divisant $n$ tel que
+$\{x \in A \mid dx = 0\}$ soit de cardinal au plus $d$ pour tout $d | n$.
+Alors $A$ est cyclique d'ordre divisant $n$.
+\end{lemma}
+
+\begin{proof}
+Si $A$ est trivial, il n'y a rien à démontrer. Supposons désormais que $A$
+ne soit pas trivial.
+Les conditions impliquent que $|A| \leq n$ ; en particulier, $A$ est fini.
+La structure des groupes abéliens finis montre que
+$A = \mathbf{Z}/e_1\mathbf{Z} \oplus \ldots \oplus \mathbf{Z}/e_r\mathbf{Z}$
+pour des entiers $1 < e_1 | e_2 | \ldots | e_r$. Cela impliquerait
+que $\{x \in A \mid e_1 x = 0\}$ est de cardinal $e_1^r$. Par conséquent,
+$r = 1$.
+\end{proof}
+
+\noindent
+Appliqué au corps $\mathbf{F}_p$, ceci donne le célèbre résultat
+selon lequel le groupe $(\mathbf{Z}/p\mathbf{Z})^*$ est cyclique. Nous reviendrons sur
+cette question dans la section consacrée aux corps finis.
+
+\medskip\noindent
+Une autre observation est souvent utile : si $F$ est de caractéristique
+$p > 0$, alors $\mu_{p^n}(F) = \{1\}$. Cela tient à ce que l'élévation
+à la puissance $p$ est une application injective sur les corps de caractéristique $p$,
+comme nous l'avons vu dans la démonstration du Lemme \ref{lemma-nr-roots-unchanged}.
+(Bien entendu, cela résulte aussi de l'énoncé même de ce lemme.)
+
+
+
+
+
+
+\section{Corps finis}
+\label{section-finite}
+
+\noindent
+Soit $F$ un corps fini. Il est clair que $F$ est de caractéristique positive,
+car il ne peut exister d'injection $\mathbf{Q} \to F$. Supposons que la caractéristique
+de $F$ soit $p$. L'extension $\mathbf{F}_p \subset F$ est finie.
+Nous voyons ainsi que $F$ possède $q = p^f$ éléments pour un certain $f \geq 1$.
+
+\medskip\noindent
+Considérons le groupe des unités $F^*$. C'est un groupe abélien
+fini, il possède donc un certain exposant $e$. Alors $F^* = \mu_e(F)$, et la
+discussion de la section \ref{section-roots-of-1} montre que $F^*$
+est un groupe cyclique d'ordre $q - 1$. (A posteriori, il en résulte aussi que
+$e = q - 1$.) En particulier, si $\alpha \in F^*$ est un générateur,
+alors il est clair que
+$$
+F = \mathbf{F}_p(\alpha)
+$$
+Autrement dit, l'extension $F/\mathbf{F}_p$ est engendrée par un seul
+élément. Bien entendu, il en va de même de toute extension de corps finis
+$E/F$ (car $E$ est déjà engendré par un seul élément sur
+le corps premier).
+
+
+
+
+
+\section{Éléments primitifs}
+\label{section-primitive-element}
+
+\noindent
+Soit $E/F$ une extension finie de corps. Un élément $\alpha \in E$
+est appelé {\it élément primitif de $E$ sur $F$} si $E = F(\alpha)$.
+
+\begin{lemma}[Élément primitif]
+\label{lemma-primitive-element}
+Soit $E/F$ une extension finie de corps. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un élément primitif de $E$ sur $F$ ;
+\item il existe un nombre fini de sous-extensions $E/K/F$.
+\end{enumerate}
+De plus, (1) et (2) sont vérifiées si $E/F$ est séparable.
+\end{lemma}
+
+\begin{proof}
+Soit $\alpha \in E$ un élément primitif. Soit $P$ le polynôme minimal
+de $\alpha$ sur $F$. Soit ensuite $E/K/F$ une sous-extension.
+Soit $Q$ le polynôme minimal de $\alpha$ sur $K$. Observons que
+$\deg(Q) = [E : K]$. En écrivant $Q = x^d + \sum_{i < d} a_i x^i$, nous affirmons que
+$K$ est égal à $L = F(a_0, \ldots, a_{d - 1})$. En effet, $\alpha$ est de degré
+$d$ sur $L$ et $L \subset K$. Ainsi $[E : L] = [E : K]$, d'où
+$[K : L] = 1$, c'est-à-dire $K = L$.
+Il suffit donc de montrer qu'il n'existe qu'un nombre fini de possibilités
+pour le polynôme $Q$. Cela est clair, puisque nous avons une factorisation
+$P = QR$  dans $K[x]$, et en particulier dans $E[x]$. Comme la factorisation
+est unique dans $E[x]$, le polynôme $P$ n'a qu'un nombre fini de facteurs
+unitaires dans $E[x]$.
+
+\medskip\noindent
+Si $F$ est un corps fini (ce qui équivaut à dire que $E$ est un corps fini), alors
+$E/F$ possède un élément primitif d'après la discussion de la
+section \ref{section-finite}.
+Supposons ensuite $F$ infini et qu'il n'existe qu'un nombre fini de sous-corps
+propres $E/K/F$. Énumérons-les, disons $K_1, \ldots, K_N$. Alors
+chaque $K_i \subset E$ est un sous-espace vectoriel propre sur $F$. Comme $F$ est infini,
+nous pouvons trouver un vecteur $\alpha \in E$ tel que $\alpha \not \in K_i$ pour tout $i$
+(un espace vectoriel ne peut jamais être la réunion d'un nombre fini de sous-espaces propres ;
+nous omettons les détails). Alors $\alpha$ est un élément primitif de $E$ sur $F$.
+
+\medskip\noindent
+Après avoir établi l'équivalence de (1) et (2), démontrons maintenant
+la dernière assertion du lemme. Choisissons une clôture algébrique
+$\overline{F}$ de $F$. Énumérons les éléments
+$\sigma_1, \ldots, \sigma_n \in \Mor_F(E, \overline{F})$.
+Puisque $E/F$ est séparable, on a $n = [E : F]$ d'après le
+Lemme \ref{lemma-separable-equality}.
+Notons que, si $i \not = j$, alors
+$$
+V_{ij} = \Ker(\sigma_i - \sigma_j : E \longrightarrow \overline{F})
+$$
+n'est pas égal à $E$. En raisonnant comme au paragraphe précédent,
+nous pouvons donc trouver $\alpha \in E$ tel que $\alpha \not \in V_{ij}$ pour tous
+$i \not = j$. Il s'ensuit que $|\Mor_F(F(\alpha), \overline{F})| \geq n$.
+D'autre part, $[F(\alpha) : F] \leq [E : F]$. Il y a donc égalité
+d'après le Lemme \ref{lemma-separable-equality},
+et nous concluons que $E = F(\alpha)$.
+\end{proof}
+
+
+
+
+
+
+\section{Trace et norme}
+\label{section-trace-pairing}
+
+\noindent
+Soit $L/K$ une extension finie de corps. D'après le
+Lemme \ref{lemma-vector-space-is-free},
+nous pouvons choisir un isomorphisme $L \cong K^{\oplus n}$ de $K$-modules.
+Bien entendu, $n = [L : K]$ est le degré de l'extension de corps.
+À l'aide de cet isomorphisme, nous obtenons un morphisme de $K$-algèbres
+$$
+L \longrightarrow \text{Mat}(n \times n, K),\quad
+\alpha \longmapsto \text{matrice de la multiplication par }\alpha
+$$
+Ainsi, étant donné $\alpha \in L$, nous pouvons prendre la trace et le déterminant
+de la matrice correspondante. Bien entendu, ces quantités ne dépendent pas
+du choix de la base effectué ci-dessus. Plus canoniquement, en considérant simplement
+$L$ comme un espace vectoriel de dimension finie sur $K$, nous avons
+$\text{Trace}_K(\alpha : L \to L)$ et le déterminant
+$\det_K(\alpha : L \to L)$.
+
+\begin{definition}
+\label{definition-trace-norm}
+Soit $L/K$ une extension finie de corps. Pour $\alpha \in L$, nous définissons
+la {\it trace}
+$\text{Trace}_{L/K}(\alpha) = \text{Trace}_K(\alpha : L \to L)$
+et la {\it norme}
+$\text{Norm}_{L/K}(\alpha) = \det_K(\alpha : L \to L)$.
+\end{definition}
+
+\noindent
+Il résulte clairement de la définition que
+$\text{Trace}_{L/K}$ est $K$-linéaire et vérifie
+$\text{Trace}_{L/K}(\alpha) = [L : K]\alpha$ pour $\alpha \in K$.
+De même, $\text{Norm}_{L/K}$ est multiplicative et
+$\text{Norm}_{L/K}(\alpha) = \alpha^{[L : K]}$ pour $\alpha \in K$.
+C'est un cas particulier de la construction plus générale examinée
+dans les Exercices \ref{exercises-exercise-trace-det} et
+\ref{exercises-exercise-trace-det-rings}.
+
+\begin{lemma}
+\label{lemma-characteristic-vs-minimal-polynomial}
+Soit $L/K$ une extension finie de corps. Soit $\alpha \in L$, et soit $P$
+le polynôme minimal de $\alpha$ sur $K$. Alors le polynôme caractéristique
+de l'application $K$-linéaire $\alpha : L \to L$ est égal à
+$P^e$, avec $e \deg(P) = [L : K]$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une base $\beta_1, \ldots, \beta_e$ de $L$ sur $K(\alpha)$.
+Alors $e$ vérifie $e \deg(P) = [L : K]$ d'après les
+Lemmes \ref{lemma-degree-minimal-polynomial} et
+\ref{lemma-multiplicativity-degrees}.
+Nous voyons alors que $L = \bigoplus K(\alpha) \beta_i$ est une
+décomposition en somme directe de sous-espaces invariants par $\alpha$ ;
+le polynôme caractéristique de $\alpha : L \to L$
+est donc égal au polynôme caractéristique de
+$\alpha : K(\alpha) \to K(\alpha)$ élevé à la puissance $e$.
+
+\medskip\noindent
+Pour achever la démonstration, nous pouvons supposer que $L = K(\alpha)$.
+Dans ce cas, le théorème de Cayley-Hamilton montre que $\alpha$
+est une racine du polynôme caractéristique. Et puisque le
+polynôme caractéristique a le même degré que le polynôme
+minimal, nous obtenons l'égalité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-trace-and-norm-from-minimal-polynomial}
+Soit $L/K$ une extension finie de corps. Soit $\alpha \in L$, et soit
+$P = x^d + a_1 x^{d - 1} + \ldots + a_d$
+le polynôme minimal de $\alpha$ sur $K$. Alors
+$$
+\text{Norm}_{L/K}(\alpha) = (-1)^{[L : K]} a_d^e
+\quad\text{et}\quad
+\text{Trace}_{L/K}(\alpha) = - e a_1
+$$
+où $e d = [L : K]$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du Lemme \ref{lemma-characteristic-vs-minimal-polynomial}
+et des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-trace-and-norm-linear}
+Soit $L/K$ une extension finie de corps. Soit $V$ un espace vectoriel de dimension
+finie sur $L$. Soit $\varphi : V \to V$ une application $L$-linéaire.
+Alors
+$$
+\text{Trace}_K(\varphi : V \to V) =
+\text{Trace}_{L/K}(\text{Trace}_L(\varphi : V \to V))
+$$
+et
+$$
+\det\nolimits_K(\varphi : V \to V) =
+\text{Norm}_{L/K}(\det\nolimits_L(\varphi : V \to V))
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un isomorphisme $V = L^{\oplus n}$ de sorte que $\varphi$ corresponde
+à une matrice $n \times n$. Dans le cas des traces, les deux membres de la formule
+sont additifs en $\varphi$. Nous pouvons donc supposer que $\varphi$
+corresponde à la matrice dont l'unique coefficient non nul est en position $(i, j)$.
+Dans ce cas, un calcul direct montre que les deux membres sont égaux.
+
+\medskip\noindent
+Dans le cas des normes, les deux membres sont nuls si $\varphi$ possède un noyau non nul.
+Nous pouvons donc supposer que $\varphi$ corresponde à un élément de
+$\text{GL}_n(L)$. Les deux membres de la formule sont multiplicatifs en $\varphi$.
+Puisque tout élément de $\text{GL}_n(L)$ est un produit de matrices
+élémentaires, nous pouvons supposer que $\varphi$ soit de la forme
+$$
+E_{12}(\lambda) =
+\left(
+\begin{matrix}
+1 & \lambda & \ldots \\
+0 & 1 & \ldots \\
+\ldots & \ldots & \ldots
+\end{matrix}
+\right)
+\quad\text{ou}\quad
+E_1(a) =
+\left(
+\begin{matrix}
+a & 0 & \ldots \\
+0 & 1 & \ldots \\
+\ldots & \ldots & \ldots
+\end{matrix}
+\right)
+$$
+(car nous pouvons également permuter les éléments de la base à notre convenance).
+Dans les deux cas, la formule se vérifie aisément par un calcul direct.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-trace-and-norm-tower}
+Soit $M/L/K$ une tour d'extensions finies de corps. Alors
+$$
+\text{Trace}_{M/K} = \text{Trace}_{L/K} \circ \text{Trace}_{M/L}
+\quad\text{et}\quad
+\text{Norm}_{M/K} = \text{Norm}_{L/K} \circ \text{Norm}_{M/L}
+$$
+\end{lemma}
+
+\begin{proof}
+Considérons $M$ comme un espace vectoriel sur $L$ et appliquons le
+Lemme \ref{lemma-trace-and-norm-linear}.
+\end{proof}
+
+\noindent
+La forme trace se définit au moyen de la trace.
+
+\begin{definition}
+\label{definition-trace-pairing}
+Soit $L/K$ une extension finie de corps. La {\it forme trace}
+de $L/K$ est la forme $K$-bilinéaire symétrique
+$$
+Q_{L/K} : L \times L \longrightarrow K,\quad
+(\alpha, \beta) \longmapsto \text{Trace}_{L/K}(\alpha\beta)
+$$
+\end{definition}
+
+\noindent
+Il se trouve qu'une extension finie de corps est séparable si et seulement
+si la forme trace est non dégénérée.
+
+\begin{lemma}
+\label{lemma-separable-trace-pairing}
+Soit $L/K$ une extension finie de corps. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $L/K$ est séparable,
+\item $\text{Trace}_{L/K}$ n'est pas identiquement nulle, et
+\item la forme trace $Q_{L/K}$ est non dégénérée.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il est clair que (3) implique (2). Si (2) est vérifiée, choisissons $\gamma \in L$
+tel que $\text{Trace}_{L/K}(\gamma) \not = 0$. Alors, si $\alpha \in L$
+est non nul, nous voyons que $Q_{L/K}(\alpha, \gamma/\alpha) \not = 0$.
+Ainsi, $Q_{L/K}$ est non dégénérée. Cela démontre l'équivalence de
+(2) et (3).
+
+\medskip\noindent
+Supposons que $K$ soit de caractéristique $p$ et que $L = K(\alpha)$ avec
+$\alpha \not \in K$ et $\alpha^p \in K$. Alors $\text{Trace}_{L/K}(1) = p = 0$.
+Pour $i = 1, \ldots, p - 1$, nous voyons que $x^p - \alpha^{pi}$ est le polynôme
+minimal de $\alpha^i$ sur $K$, et nous obtenons
+$\text{Trace}_{L/K}(\alpha^i) = 0$ d'après le
+Lemme \ref{lemma-trace-and-norm-from-minimal-polynomial}.
+Ainsi, pour ce type d'extension purement inséparable de degré $p$,
+nous voyons que $\text{Trace}_{L/K}$ est identiquement nulle.
+
+\medskip\noindent
+Supposons que $L/K$ ne soit pas séparable. Il existe alors un corps intermédiaire
+$L/K'/K$ tel que $L/K'$ soit une extension purement inséparable de degré $p$
+comme au paragraphe précédent ; voir les
+Lemmes \ref{lemma-separable-first} et \ref{lemma-finite-purely-inseparable}.
+Ainsi, d'après le Lemme \ref{lemma-trace-and-norm-tower},
+nous voyons que $\text{Trace}_{L/K}$ est identiquement nulle.
+
+\medskip\noindent
+Supposons au contraire que $L/K$ soit séparable.
+Par récurrence sur le degré, nous allons montrer que
+$\text{Trace}_{L/K}$ n'est pas identiquement nulle.
+Ainsi, d'après le Lemme \ref{lemma-trace-and-norm-tower}, nous pouvons supposer que
+$L/K$ est engendrée par un seul élément $\alpha$ (utiliser le fait que, si
+la trace est non nulle, alors elle est surjective).
+Nous devons montrer que $\text{Trace}_{L/K}(\alpha^e)$
+est non nulle pour un certain $e \geq 0$.
+Soit $P = x^d + a_1 x^{d - 1} + \ldots + a_d$ le polynôme
+minimal de $\alpha$ sur $K$.
+Alors $P$ est aussi le polynôme caractéristique de l'application linéaire
+$\alpha : L \to L$ ; voir le
+Lemme \ref{lemma-characteristic-vs-minimal-polynomial}.
+Puisque $L/K$ est séparable, le Lemme \ref{lemma-recognize-separable} montre
+que $P$ a $d$ racines deux à deux distinctes $\alpha_1, \ldots, \alpha_d$
+dans une clôture algébrique $\overline{K}$ de $K$. Ce sont donc les
+valeurs propres de $\alpha : L \to L$.
+D'après l'algèbre linéaire, la trace de $\alpha^e$ est
+égale à $\alpha_1^e + \ldots + \alpha_d^e$.
+Nous concluons donc par le Lemme \ref{lemma-sums-of-powers}.
+\end{proof}
+
+\noindent
+Soit $K$ un corps et soit $Q : V \times V \to K$ une forme bilinéaire
+sur un espace vectoriel de dimension finie sur $K$. Posons $\dim_K(V) = n$.
+Alors $Q$ définit une application linéaire $Q : V \to V^*$, $v \mapsto Q(v, -)$,
+où $V^* = \Hom_K(V, K)$ est l'espace vectoriel dual. D'où une application linéaire
+$$
+\det(Q) : \wedge^n(V) \longrightarrow \wedge^n(V)^*
+$$
+Si nous choisissons un vecteur de base $\omega \in \wedge^n(V)$, nous pouvons
+écrire $\det(Q)(\omega) = \lambda \omega^*$, où $\omega^*$
+est le vecteur de base dual dans $\wedge^n(V)^*$. Si nous remplaçons notre
+choix de $\omega$ par $c \omega$ pour un certain $c \in K^*$, alors
+$\omega^*$ devient $c^{-1} \omega^*$ et, par conséquent,
+$\lambda$ devient $c^2 \lambda$. Ainsi, la classe de
+$\lambda$ dans $K/(K^*)^2$ est bien définie et s'appelle le
+{\it discriminant de $Q$}. En développant les définitions, nous voyons que
+$$
+\lambda = \det(Q(v_i, v_j)_{1 \leq i, j \leq n})
+$$
+si $\{v_1, \ldots, v_n\}$ est une base de $V$ sur $K$. Notons que
+le discriminant est non nul si et seulement si $Q$ est non dégénérée.
+
+\begin{definition}
+\label{definition-discriminant}
+Soit $L/K$ une extension finie de corps. Le
+{\it discriminant de $L/K$} est le discriminant de
+la forme trace $Q_{L/K}$.
+\end{definition}
+
+\noindent
+D'après la discussion ci-dessus et le Lemme \ref{lemma-separable-trace-pairing},
+nous voyons que le discriminant est non nul si et seulement
+si $L/K$ est séparable. Pour $a \in K$, nous disons souvent
+« le discriminant vaut $a$ » alors qu'il serait plus exact
+de dire que le discriminant est la classe de $a$ dans $K/(K^*)^2$.
+
+\begin{exercise}
+\label{exercise-quadratic-discriminant}
+Soit $L/K$ une extension de degré $2$. Montrer qu'il se produit exactement
+l'un des cas suivants :
+\begin{enumerate}
+\item le discriminant vaut $0$, la caractéristique de $K$ vaut $2$,
+et $L/K$ est purement inséparable et s'obtient en adjoignant une racine carrée
+d'un élément de $K$,
+\item le discriminant vaut $1$, la caractéristique de $K$ vaut $2$, et
+$L/K$ est séparable de degré $2$,
+\item le discriminant n'est pas un carré, la caractéristique de $K$
+n'est pas $2$, et $L$ s'obtient à partir de $K$ en adjoignant la racine carrée
+du discriminant.
+\end{enumerate}
+\end{exercise}
+
+
+
+
+
+
+
+\section{Théorie de Galois}
+\label{section-galois-theory}
+
+\noindent
+Voici la définition.
+
+\begin{definition}
+\label{definition-galois}
+Une extension de corps $E/F$ est dite {\it galoisienne} si elle est algébrique,
+séparable et normale.
+\end{definition}
+
+\noindent
+On verra qu'une extension finie est galoisienne si et seulement si elle possède
+le nombre « correct » d'automorphismes.
+
+\begin{lemma}
+\label{lemma-finite-Galois}
+Soit $E/F$ une extension finie de corps. Alors $E$ est galoisienne sur $F$
+si et seulement si $|\text{Aut}(E/F)| = [E : F]$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $|\text{Aut}(E/F)| = [E : F]$. D'après le
+Lemme \ref{lemma-normal-and-automorphisms}, cela implique
+que $E/F$ est séparable et normale, donc galoisienne.
+Réciproquement, si $E/F$ est séparable, alors $[E : F] = [E : F]_s$, et
+si $E/F$ est de plus normale, le
+Lemme \ref{lemma-normal-and-automorphisms} implique que
+$|\text{Aut}(E/F)| = [E : F]$.
+\end{proof}
+
+\noindent
+Motivés par le lemme précédent, nous introduisons le groupe de Galois comme suit.
+
+\begin{definition}
+\label{definition-galois-group}
+Si $E/F$ est une extension galoisienne, le groupe $\text{Aut}(E/F)$ est
+appelé le {\it groupe de Galois} et est noté $\text{Gal}(E/F)$.
+\end{definition}
+
+\noindent
+Si $L/K$ est une extension galoisienne infinie, il faut considérer le
+groupe de Galois comme un groupe topologique. Nous y reviendrons à la
+section \ref{section-infinite-galois}.
+
+\begin{lemma}
+\label{lemma-galois-goes-up}
+Soit $K/E/F$ une tour d'extensions algébriques de corps.
+Si $K$ est galoisienne sur $F$, alors $K$ est galoisienne sur $E$.
+\end{lemma}
+
+\begin{proof}
+Il suffit de combiner les Lemmes \ref{lemma-normal-goes-up} et \ref{lemma-separable-goes-up}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-closure-galois}
+Soit $L/K$ une extension finie séparable de corps.
+Soit $M$ la clôture normale de $L$ sur $K$
+(Définition \ref{definition-normal-closure}).
+Alors $M/K$ est galoisienne.
+\end{lemma}
+
+\begin{proof}
+L'extension intermédiaire $M/M_{sep}/K$ du Lemme \ref{lemma-separable-first}
+est normale d'après le Lemme \ref{lemma-separable-first-normal}.
+Puisque $L/K$ est séparable, nous avons $L \subset M_{sep}$.
+Par minimalité, $M = M_{sep}$, ce qui achève la démonstration.
+\end{proof}
+
+\noindent
+Soit $G$ un groupe agissant sur un corps $K$ (par automorphismes de corps).
+Nous emploierons souvent la notation
+$$
+K^G = \{x \in K \mid \sigma(x) = x \ \forall \sigma \in G\}
+$$
+et appellerons ce corps le {\it corps des invariants} de l'action de $G$ sur $K$.
+
+\begin{lemma}
+\label{lemma-galois-over-fixed-field}
+Soit $K$ un corps. Soit $G$ un groupe fini agissant fidèlement sur $K$.
+Alors l'extension $K/K^G$ est galoisienne, on a $[K : K^G] = |G|$,
+et le groupe de Galois de l'extension est $G$.
+\end{lemma}
+
+\begin{proof}
+Étant donné $\alpha \in K$, considérons l'orbite $G \cdot \alpha \subset K$
+de $\alpha$ sous l'action du groupe. Considérons le polynôme
+$$
+P = \prod\nolimits_{\beta \in G \cdot \alpha} (x - \beta) \in K[x]
+$$
+Le point clé de tout le lemme est que ce polynôme est invariant
+sous l'action de $G$ et possède donc ses coefficients dans $K^G$.
+En effet, pour $\tau \in G$, nous avons
+$$
+P^\tau = \prod\nolimits_{\beta \in G \cdot \alpha} (x - \tau(\beta)) =
+\prod\nolimits_{\beta \in G \cdot \alpha} (x - \beta) = P
+$$
+car l'application $\beta \mapsto \tau(\beta)$ est une permutation de
+l'orbite $G \cdot \alpha$. Ainsi $P \in K^G[x]$. De plus,
+$P(\alpha) = 0$, puisque $\alpha$ appartient à son orbite ;
+nous en concluons que l'extension $K/K^G$ est algébrique. En outre,
+le polynôme minimal $Q$ de $\alpha$ sur $K^G$ divise le
+polynôme $P$ que nous venons de construire. Par conséquent, $Q$ est séparable
+(par exemple d'après le Lemme \ref{lemma-recognize-separable}) et
+nous en concluons que $K/K^G$ est séparable. Ainsi $K/K^G$ est galoisienne.
+Pour achever la démonstration, il suffit de montrer que $[K : K^G] = |G|$,
+car alors $G$ sera le groupe de Galois d'après le
+Lemme \ref{lemma-finite-Galois}.
+
+\medskip\noindent
+Choisissons un nombre fini d'éléments $\alpha_i \in K$, $i = 1, \ldots, n$,
+de sorte que les égalités $\sigma(\alpha_i) = \alpha_i$ pour $i = 1, \ldots, n$ impliquent
+que $\sigma$ est l'élément neutre de $G$. Posons
+$$
+L = K^G(\{\sigma(\alpha_i); 1 \leq i \leq n, \sigma \in G\}) \subset K
+$$
+et observons que l'action de $G$ sur $K$ induit une action de $G$ sur $L$.
+Nous allons montrer que $L$ est de degré $|G|$ sur $K^G$. Cela achèvera la
+démonstration : en effet, si $L \subset K$ était stricte, nous pourrions ajouter un élément
+$\alpha \in K$, $\alpha \not \in L$, à notre liste d'éléments
+$\alpha_1, \ldots, \alpha_n$ sans agrandir $L$, ce qui est absurde.
+Nous sommes ainsi ramenés au cas où $K/K^G$ est finie, lequel est
+traité dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons $K/K^G$ finie. D'après le Lemme \ref{lemma-primitive-element},
+nous pouvons trouver $\alpha \in K$ tel que $K = K^G(\alpha)$.
+La construction du premier paragraphe de cette démonstration montre
+que $\alpha$ est de degré au plus $|G|$ sur $K^G$. Toutefois, ce
+degré ne peut être inférieur à $|G|$, puisque $G$ agit fidèlement sur
+$K^G(\alpha) = K$ par construction et en vertu de l'inégalité du
+Lemme \ref{lemma-normal-and-automorphisms}.
+\end{proof}
+
+\begin{theorem}[Théorème fondamental de la théorie de Galois]
+\label{theorem-galois-theory}
+Soit $L/K$ une extension galoisienne finie de groupe de Galois $G$.
+Alors $K = L^G$ et l'application
+$$
+\{\text{sous-groupes de }G\}
+\longrightarrow
+\{\text{extensions intermédiaires }L/M/K\},\quad
+H \longmapsto L^H
+$$
+est une bijection dont l'inverse envoie $M$ sur $\text{Gal}(L/M)$.
+Les sous-groupes normaux $H$ de $G$ correspondent exactement aux
+extensions intermédiaires $M$ telles que $M/K$ soit galoisienne.
+\end{theorem}
+
+\begin{proof}
+D'après le Lemme \ref{lemma-galois-goes-up}, pour toute extension intermédiaire $L/M/K$,
+l'extension $L/M$ est galoisienne. Bien entendu, $L/M$ est aussi finie
+(Lemme \ref{lemma-finite-goes-up}). Ainsi $|\text{Gal}(L/M)| = [L : M]$
+d'après le Lemme \ref{lemma-finite-Galois}.
+Réciproquement, si $H \subset G$ est un sous-groupe fini, alors
+$[L : L^H] = |H|$ d'après le Lemme \ref{lemma-galois-over-fixed-field}.
+Il résulte formellement de ces deux observations que nous obtenons
+la correspondance bijective annoncée dans le théorème.
+
+\medskip\noindent
+Si $H \subset G$ est normal, alors $L^H$ est stable sous l'action de
+$G$ et nous obtenons une application canonique $G/H \to \text{Aut}(L^H/K)$.
+Cette application est nécessairement injective puisque $\text{Gal}(L/L^H) = H$. Ainsi
+$|G/H| = [L^H : K]$ et $L^H$ est galoisienne d'après le
+Lemme \ref{lemma-finite-Galois}.
+
+\medskip\noindent
+Réciproquement, supposons que $K \subset M \subset L$ et que $M/K$ soit galoisienne.
+D'après le Lemme \ref{lemma-lift-maps}, tout
+élément $\tau \in \text{Gal}(L/K)$ induit un élément
+$\tau|_M \in \text{Gal}(M/K)$. On obtient ainsi un homomorphisme
+de groupes de Galois $\text{Gal}(L/K) \to \text{Gal}(M/K)$ dont le
+noyau est $H$. Ainsi $H$ est un sous-groupe normal.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ses-galois}
+Soit $L/M/K$ une tour de corps. Supposons $L/K$ et $M/K$ finies galoisiennes.
+Alors nous obtenons une suite exacte courte
+$$
+1 \to \text{Gal}(L/M) \to \text{Gal}(L/K) \to \text{Gal}(M/K) \to 1
+$$
+de groupes finis.
+\end{lemma}
+
+\begin{proof}
+En effet, d'après le Lemme \ref{lemma-lift-maps},
+nous voyons que tout élément $\tau \in \text{Gal}(L/K)$ induit un élément
+$\tau|_M \in \text{Gal}(M/K)$, ce qui fournit l'homomorphisme de
+droite. L'application de gauche identifie le groupe de gauche au noyau
+de la flèche de droite. La suite est exacte parce que les ordres
+des groupes coïncident comme il convient, par multiplicativité des degrés
+dans les tours d'extensions finies
+(Lemme \ref{lemma-multiplicativity-degrees}).
+On peut aussi appliquer directement le Lemme \ref{lemma-lift-maps}
+pour voir que l'application de droite est surjective.
+\end{proof}
+
+
+
+
+
+
+\section{Théorie de Galois infinie}
+\label{section-infinite-galois}
+
+\noindent
+Le groupe de Galois est muni d'une topologie canonique.
+
+\begin{lemma}
+\label{lemma-galois-profinite}
+Soit $E/F$ une extension galoisienne. Munissons $\text{Gal}(E/F)$ de la topologie
+la moins fine telle que
+$$
+\text{Gal}(E/F) \times E \longrightarrow E
+$$
+soit continue lorsque $E$ est muni de la topologie discrète. Alors
+\begin{enumerate}
+\item pour tout espace topologique $X$ et toute application $X \to \text{Gal}(E/F)$
+tels que l'action $X \times E \to E$ soit continue, l'application induite
+$X \to \text{Gal}(E/F)$ est continue,
+\item cette topologie fait de $\text{Gal}(E/F)$
+un groupe topologique profini.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans toute cette démonstration, nous considérons $E$ comme un espace topologique discret.
+Rappelons que la topologie compacte-ouverte sur l'ensemble des applications d'un ensemble dans lui-même
+$\text{Map}(E, E)$ est la topologie universelle telle que l'action
+$\text{Map}(E, E) \times E \to E$ soit continue. Voir
+Topologie, Exemple \ref{topology-example-automorphisms-of-a-set}
+pour un énoncé précis. La topologie du lemme sur
+$\text{Gal}(E/F)$ est la topologie induite par l'application injective
+$\text{Gal}(E/F) \to \text{Map}(E, E)$.
+La propriété universelle (1) découle donc de la propriété universelle
+correspondante de la topologie compacte-ouverte.
+Comme l'ensemble des applications bijectives de l'espace discret considéré, $\text{Aut}(E)$,
+muni de la topologie compacte-ouverte, forme un groupe topologique, voir
+Topologie, Exemple \ref{topology-example-automorphisms-of-a-set},
+et comme $\text{Gal}(E/F) = \text{Aut}(E/F) \to \text{Map}(E, E)$
+se factorise par $\text{Aut}(E)$, nous obtenons un groupe topologique.
+Autrement dit, nous utilisons l'injection
+$$
+\text{Gal}(E/F) \subset \text{Aut}(E)
+$$
+pour munir $\text{Gal}(E/F)$ de la structure induite de groupe topologique
+(voir Topologie, section \ref{topology-section-topological-groups})
+et, par construction, il s'agit de la structure de groupe topologique
+la moins fine pour laquelle l'action $\text{Gal}(E/F) \times E \to E$ est continue.
+
+\medskip\noindent
+Pour montrer que $\text{Gal}(E/F)$ est profini, nous raisonnons comme suit
+(notre argument est nécessairement non standard, car nous avons défini
+la topologie avant de montrer que le groupe de Galois est une limite
+projective de groupes finis).
+D'après Topologie, Lemme \ref{topology-lemma-profinite-group},
+il suffit de montrer que l'espace topologique
+sous-jacent à $\text{Gal}(E/F)$ est profini.
+Pour toute partie $S \subset E$, considérons l'ensemble
+$$
+G(S) = \{ f : S \to E \mid
+\begin{matrix}
+f(\alpha)\text{ est une racine du polynôme minimal}\\
+\text{de }\alpha\text{ sur }F\text{ pour tout }\alpha \in S
+\end{matrix}
+\}
+$$
+Comme un polynôme n'a qu'un nombre fini de racines, nous voyons que
+$G(S)$ est fini pour toute partie finie $S \subset E$. Si $S \subset S'$,
+la restriction fournit une application $G(S') \to G(S)$. Observons également
+que si $\alpha \in S \cap F$ et $f \in G(S)$, alors $f(\alpha) = \alpha$
+car le polynôme minimal est linéaire dans ce cas.
+Considérons l'espace topologique profini
+$$
+G = \lim_{S \subset E\text{ fini}} G(S)
+$$
+Considérons l'application canonique
+$$
+c : \text{Gal}(E/F) \longrightarrow G,\quad
+\sigma \longmapsto (\sigma|_S : S \to E)_S
+$$
+Elle est injective et, en explicitant les définitions, le lecteur constate
+que la topologie sur $\text{Gal}(E/F)$ définie ci-dessus
+est la topologie induite par $G$. Un élément $(f_S) \in G$ appartient à
+l'image de $c$ exactement lorsque
+(A) $f_S(\alpha) + f_S(\beta) = f_S(\alpha + \beta)$ et
+(M) $f_S(\alpha)f_S(\beta) = f_S(\alpha\beta)$ chaque fois que
+ces expressions ont un sens (c'est-à-dire lorsque
+$\alpha, \beta, \alpha + \beta, \alpha\beta \in S$).
+En effet, cela signifie que
+$\lim f_S : E \to E$ sera un morphisme de $F$-algèbres,
+et donc un automorphisme d'après le
+Lemme \ref{lemma-algebraic-extension-self-map}.
+Les conditions (A) et (M) pour un triplet donné
+$(S, \alpha, \beta)$ définissent un fermé de
+$G$ ; ainsi $\text{Gal}(E/F)$ est homéomorphe
+à un fermé d'un espace profini, et est donc lui-même profini.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-galois-infinite}
+Soit $L/M/K$ une tour de corps. Supposons que $L/K$ et
+$M/K$ soient toutes deux galoisiennes. Alors il existe un homomorphisme canonique
+continu surjectif $c : \text{Gal}(L/K) \to \text{Gal}(M/K)$.
+\end{lemma}
+
+\begin{proof}
+D'après le Lemme \ref{lemma-lift-maps}, pour $\tau : L \to L$ appartenant à
+$\text{Gal}(L/K)$, la restriction $\tau|_M : M \to M$
+est un élément de $\text{Gal}(M/K)$. Cela définit l'homomorphisme $c$.
+La continuité découle de la propriété universelle de la topologie :
+l'action
+$$
+\text{Gal}(L/K) \times M \longrightarrow M,\quad
+(\tau, x) \longmapsto \tau(x) = c(\tau)(x)
+$$
+est continue puisque $M \subset L$ et que l'action
+$\text{Gal}(L/K) \times L \to L$ est continue.
+La continuité de $c$ résulte donc de la partie (1) du
+Lemme \ref{lemma-galois-profinite}.
+Le Lemme \ref{lemma-lift-maps} montre également
+que l'application est surjective.
+\end{proof}
+
+\noindent
+Voici une manière plus classique de considérer
+le groupe de Galois d'une extension galoisienne infinie.
+
+\begin{lemma}
+\label{lemma-infinite-galois-limit}
+Soit $L/K$ une extension galoisienne de groupe de Galois $G$.
+Soit $\Lambda$ l'ensemble des extensions intermédiaires finies galoisiennes,
+c'est-à-dire que $\lambda \in \Lambda$ correspond à $L/L_\lambda/K$,
+où $L_\lambda/K$ est finie galoisienne de groupe de Galois $G_\lambda$.
+Définissons un ordre partiel sur $\Lambda$ par la règle
+$\lambda \geq \lambda'$ si et seulement si
+$L_\lambda \supset L_{\lambda'}$. Alors
+\begin{enumerate}
+\item $\Lambda$ est un ensemble ordonné filtrant,
+\item les $L_\lambda$ forment un système d'extensions de $K$ indexé par $\Lambda$
+et $L = \colim L_\lambda$,
+\item les $G_\lambda$ forment un système projectif de groupes finis indexé par $\Lambda$,
+les morphismes de transition sont surjectifs, et
+$$
+G = \lim_{\lambda \in \Lambda} G_\lambda
+$$
+comme groupe profini, et
+\item chacune des projections $G \to G_\lambda$ est continue et surjective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Tout sous-corps de $L$ contenant $K$ est séparable sur $K$
+(cela résulte immédiatement de la définition). Soit $S \subset L$
+une partie finie. Alors $K(S)/K$ est finie et il existe
+une tour $L/E/K(S)/K$ telle que $E/K$ soit finie galoisienne, voir le
+Lemme \ref{lemma-normal-closure-inside-normal}.
+Ainsi $E = L_\lambda$ pour un certain $\lambda \in \Lambda$.
+Cela implique en particulier que l'ensemble $\Lambda$ n'est pas vide.
+De plus, étant donnés $\lambda_1, \lambda_2 \in \Lambda$, nous pouvons
+écrire $L_{\lambda_i} = K(S_i)$ pour des ensembles finis
+$S_1, S_2 \subset L$ (Lemme \ref{lemma-finite-finitely-generated}).
+Il existe alors un $\lambda \in \Lambda$ tel que
+$K(S_1 \cup S_2) \subset L_\lambda$. Par conséquent,
+$\lambda \geq \lambda_1, \lambda_2$ et
+$\Lambda$ est filtrant (Catégories, Définition
+\ref{categories-definition-directed-system}).
+Enfin, puisque tout élément de $L$ appartient à
+$L_\lambda$ pour un certain $\lambda \in \Lambda$, il résulte
+de la description des limites inductives filtrantes dans
+Catégories, section \ref{categories-section-directed-colimits},
+que $\colim L_\lambda = L$.
+
+\medskip\noindent
+Si $\lambda \geq \lambda'$ dans $\Lambda$, nous obtenons une
+application canonique surjective $G_\lambda \to G_{\lambda'}$,
+$\sigma \mapsto \sigma|_{L_{\lambda'}}$,
+d'après le Lemme \ref{lemma-ses-galois}. Nous obtenons ainsi un système
+projectif de groupes finis dont les morphismes de transition sont surjectifs.
+
+\medskip\noindent
+Rappelons que $G = \text{Aut}(L/K)$. D'après le Lemme \ref{lemma-galois-infinite},
+la restriction $\sigma|_{L_\lambda}$ d'un $\sigma \in G$ à $L_\lambda$
+est un élément de $G_\lambda$. De plus, ce procédé fournit une surjection
+continue $G \to G_\lambda$. Puisque les morphismes de transition
+du système projectif des $G_\lambda$ sont eux aussi donnés par restriction,
+il est clair que nous obtenons une application continue canonique
+$$
+G \longrightarrow \lim_{\lambda \in \Lambda} G_\lambda
+$$
+La continuité résulte de la définition des limites dans la catégorie des groupes
+topologiques ; rappelons que ces limites commutent avec le foncteur d'oubli
+vers les catégories des ensembles et des espaces topologiques d'après
+Topologie, Lemme \ref{topology-lemma-topological-group-limits}.
+D'autre part, puisque $L = \colim L_\lambda$, il est clair
+que tout élément de la limite projective (considérée comme un ensemble) définit un
+automorphisme de $L$. L'application est donc bijective. Comme la topologie
+des deux membres est profinie et qu'une application continue bijective
+entre espaces profinis est un homéomorphisme
+(Topologie, Lemme \ref{topology-lemma-bijective-map}), la démonstration est achevée.
+\end{proof}
+
+\begin{theorem}[Théorème fondamental de la théorie de Galois infinie]
+\label{theorem-inifinite-galois-theory}
+Soit $L/K$ une extension galoisienne. Soit $G = \text{Gal}(L/K)$
+le groupe de Galois considéré comme un groupe topologique profini
+(Lemme \ref{lemma-galois-profinite}). Alors $K = L^G$ et l'application
+$$
+\{\text{sous-groupes fermés de }G\}
+\longrightarrow
+\{\text{extensions intermédiaires }L/M/K\},\quad
+H \longmapsto L^H
+$$
+est une bijection dont l'inverse envoie $M$ sur $\text{Gal}(L/M)$.
+Les extensions intermédiaires finies $M$ correspondent exactement aux sous-groupes
+ouverts $H \subset G$. Les sous-groupes fermés normaux $H$ de $G$
+correspondent exactement aux extensions intermédiaires $M$ galoisiennes sur $K$.
+\end{theorem}
+
+\begin{proof}
+Nous utiliserons le résultat de la théorie de Galois finie
+(Théorème \ref{theorem-galois-theory})
+sans autre mention.
+Soit $S \subset L$ une partie finie. Il existe une tour
+$L/E/K$ telle que $K(S) \subset E$ et que
+$E/K$ soit finie galoisienne, voir le Lemme \ref{lemma-normal-closure-inside-normal}.
+Autrement dit, $L/K$ est la réunion de ses extensions intermédiaires
+finies galoisiennes.
+Pour un tel $E$, d'après le Lemme \ref{lemma-galois-infinite},
+l'application $\text{Gal}(L/K) \to \text{Gal}(E/K)$ est surjective
+et continue, c'est-à-dire que son noyau est ouvert puisque la topologie
+sur $\text{Gal}(E/K)$ est discrète.
+En particulier, aucun élément de $L \setminus K$ n'est fixé par
+$\text{Gal}(L/K)$, car $E^{\text{Gal}(E/K)} = K$.
+Cela prouve que $L^G = K$.
+
+\medskip\noindent
+D'après le Lemme \ref{lemma-galois-goes-up}, pour toute extension intermédiaire $L/M/K$,
+l'extension $L/M$ est galoisienne. Il résulte immédiatement de la définition
+de la topologie sur $G$ que le sous-groupe $\text{Gal}(L/M)$ est fermé.
+En appliquant ce qui précède à $L/M$, nous voyons que $L^{\text{Gal}(L/M)} = M$.
+
+\medskip\noindent
+Réciproquement, soit $H \subset G$ un sous-groupe fermé. Nous affirmons que
+$H = \text{Gal}(L/L^H)$. L'inclusion $H \subset \text{Gal}(L/L^H)$
+est claire. Supposons que $g \in \text{Gal}(L/L^H)$. Soit $S \subset L$
+une partie finie. Nous allons montrer que le voisinage ouvert
+$U_S(g) = \{g' \in G \mid g'(s) = g(s)\text{ pour tout }s \in S\}$ de $g$ rencontre $H$.
+Cela implique que $g \in H$, puisque $H$ est fermé.
+Soit $L/E/K$ une extension intermédiaire finie galoisienne contenant $K(S)$,
+comme dans le premier paragraphe de la démonstration, et considérons l'homomorphisme
+$c : \text{Gal}(L/K) \to \text{Gal}(E/K)$.
+Alors $L^H \cap E = E^{c(H)}$. Puisque $g$ fixe $L^H$, il fixe
+$E^{c(H)}$ et donc $c(g) \in c(H)$ par la théorie de Galois finie.
+Choisissons $h \in H$ tel que $c(h) = c(g)$. Alors $h \in U_S(g)$, comme voulu.
+
+\medskip\noindent
+À ce stade, nous avons établi la correspondance entre sous-groupes fermés
+et extensions intermédiaires.
+
+\medskip\noindent
+Supposons $H \subset G$ ouvert. En raisonnant comme ci-dessus, nous voyons que
+$H$ contient $\text{Gal}(L/E)$ pour une extension intermédiaire finie
+galoisienne $E$ assez grande, et que $L^H$ est contenu
+dans $E$, donc fini sur $K$. Réciproquement, si $M$ est une extension
+intermédiaire finie, alors $M$ est engendré par une partie finie $S$,
+et le sous-groupe correspondant est l'ouvert $U_S(e)$,
+où $e \in G$ est l'élément neutre.
+
+\medskip\noindent
+Supposons que $K \subset M \subset L$ et que $M/K$ soit galoisienne.
+D'après le Lemme \ref{lemma-galois-infinite}, il existe un homomorphisme surjectif
+continu de groupes de Galois
+$\text{Gal}(L/K) \to \text{Gal}(M/K)$ dont le
+noyau est $\text{Gal}(L/M)$. Ainsi $\text{Gal}(L/M)$ est un sous-groupe
+fermé normal.
+
+\medskip\noindent
+Enfin, supposons $N \subset G$ normal et fermé. Pour toute
+extension intermédiaire $L/E/K$ comme dans le premier paragraphe de la démonstration, l'image
+$c(N) \subset \text{Gal}(E/K)$ est un sous-groupe normal.
+Par conséquent, $L^N = \bigcup E^{c(N)}$ est une réunion d'extensions galoisiennes
+de $K$ (par la théorie de Galois finie), et est donc galoisienne sur $K$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ses-infinite-galois}
+Soit $L/M/K$ une tour de corps. Supposons $L/K$ et $M/K$ galoisiennes.
+Alors nous obtenons une suite exacte courte
+$$
+1 \to \text{Gal}(L/M) \to \text{Gal}(L/K) \to \text{Gal}(M/K) \to 1
+$$
+de groupes topologiques profinis.
+\end{lemma}
+
+\begin{proof}
+C'est une reformulation du Lemme \ref{lemma-galois-infinite}.
+\end{proof}
+
+
+
+
+
+\section{Les nombres complexes}
+\label{section-complex-numbers}
+
+\noindent
+Le théorème fondamental de l'algèbre affirme que le corps des nombres complexes
+est algébriquement clos. Nous en discutons brièvement dans cette section.
+
+\medskip\noindent
+La première remarque que nous souhaitons faire est qu'il faut utiliser quelques
+résultats d'analyse pour le démontrer. Nous utiliserons le fait intuitivement
+clair que tout polynôme de degré impair à coefficients réels possède une racine réelle.
+En effet, soit
+$P(x) = a_{2k + 1} x^{2k + 1} + \ldots + a_0 \in \mathbf{R}[x]$
+pour un certain $k \geq 0$ et avec $a_{2k + 1} \not = 0$.
+Nous pouvons supposer, et supposons, que $a_{2k + 1} > 0$. Alors, pour
+$x \in \mathbf{R}$ positif et très grand, nous avons $P(x) > 0$, car le terme
+$a_{2k + 1} x^{2k + 1}$ domine tous les autres termes. De même,
+si $x \ll 0$, alors $P(x) < 0$ pour la même raison (et c'est ici
+que nous utilisons que le degré est impair). Le théorème des valeurs
+intermédiaires donne donc un $x \in \mathbf{R}$ tel que $P(x) = 0$.
+
+\medskip\noindent
+Une conséquence de ce qui précède est que $\mathbf{R}$ ne possède
+aucune extension de corps non triviale de degré impair, car les éléments de telles extensions
+auraient des polynômes minimaux de degré impair.
+
+\medskip\noindent
+Soit ensuite $K/\mathbf{R}$ une extension finie galoisienne de groupe de Galois $G$.
+Soit $P \subset G$ un $2$-sous-groupe de Sylow. Alors $K^P/\mathbf{R}$ est une
+extension de degré impair, donc $K^P = \mathbf{R}$ d'après ce qui précède,
+ce qui implique à son tour
+$G = P$. (Tous ces arguments reposent bien entendu sur la théorie de Galois.)
+Ainsi $G$ est un $2$-groupe. Si $G$ est non trivial, nous voyons alors que
+$\mathbf{C} \subset K$, puisque $\mathbf{C}$ est (à isomorphisme près) l'unique
+extension de degré $2$ de $\mathbf{R}$. Si $G$ avait plus de $2$ éléments,
+nous obtiendrions une extension quadratique de $\mathbf{C}$.
+C'est absurde, car tout nombre complexe possède une racine carrée.
+
+\medskip\noindent
+Conclusion : $\mathbf{C}$ est algébriquement clos. En effet, sinon
+nous obtiendrions une extension finie non triviale $K/\mathbf{C}$
+que nous pourrions supposer normale (donc galoisienne) sur $\mathbf{R}$ d'après le
+Lemme \ref{lemma-normal-closure}. Mais nous avons vu ci-dessus qu'alors
+$K = \mathbf{C}$.
+
+\begin{lemma}[Théorème fondamental de l'algèbre]
+\label{lemma-C-algebraically-closed}
+Le corps $\mathbf{C}$ est algébriquement clos.
+\end{lemma}
+
+\begin{proof}
+Voir la discussion ci-dessus.
+\end{proof}
+
+
+
+
+
+\section{Extensions de Kummer}
+\label{section-Kummer}
+
+\noindent
+Soit $K$ un corps. Soit $n \geq 2$ un entier tel que $K$ contienne
+une racine primitive $n$-ième de $1$. Soit $a \in K^*$. Soit $L$ une extension
+de $K$ obtenue en adjoignant une racine $b$ de l'équation $x^n = a$.
+Alors $L/K$ est galoisienne. Si $G = \text{Gal}(L/K)$ est le groupe de Galois,
+l'application
+$$
+G \longrightarrow \mu_n(K),\quad \sigma \longmapsto \sigma(b)/b
+$$
+est un homomorphisme injectif de groupes. En particulier, $G$ est cyclique
+et son ordre divise $n$, puisqu'il s'identifie à un sous-groupe du groupe cyclique $\mu_n(K)$.
+La théorie de Kummer fournit une réciproque.
+
+\begin{lemma}[Extensions de Kummer]
+\label{lemma-Kummer}
+Soit $L/K$ une extension galoisienne de corps dont le groupe de Galois est
+$\mathbf{Z}/n\mathbf{Z}$. Supposons de plus que la caractéristique de $K$
+soit première à $n$ et que $K$ contienne une racine primitive $n$-ième de $1$.
+Alors $L = K[z]$ avec $z^n \in K$.
+\end{lemma}
+
+\begin{proof}
+Soit $\zeta \in K$ une racine primitive $n$-ième de $1$.
+Soit $\sigma$ un générateur de $\text{Gal}(L/K)$.
+Considérons $\sigma : L \to L$ comme un opérateur $K$-linéaire.
+Notons que $\sigma^n - 1 = 0$ comme opérateur linéaire.
+En appliquant l'indépendance linéaire des caractères
+(Lemme \ref{lemma-independence-characters}), nous voyons
+qu'aucun polynôme sur $K$ de degré $< n$ ne peut
+annuler $\sigma$. Le polynôme minimal de $\sigma$
+comme opérateur linéaire est donc $x^n - 1$. 
+Puisque $\zeta$ est une racine de $x^n - 1$, l'algèbre linéaire
+donne un $0 \neq z \in L$ tel que $\sigma(z) = \zeta z$.
+Cet élément $z$ vérifie $z^n \in K$, car
+$\sigma(z^n) = (\zeta z)^n = z^n$. De plus, les éléments
+$z, \sigma(z), \ldots, \sigma^{n - 1}(z) =
+z, \zeta z, \ldots \zeta^{n - 1} z$ sont deux à deux distincts,
+ce qui garantit que $z$ engendre $L$ sur $K$.
+Ainsi $L = K[z]$, ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adjoint-pth-root-unity}
+Soit $K$ un corps, muni d'une clôture algébrique $\overline{K}$.
+Soit $p$ un nombre premier distinct de la caractéristique de $K$.
+Soit $\zeta \in \overline{K}$ une racine primitive $p$-ième
+de $1$. Alors $K(\zeta)/K$ est une extension galoisienne dont le degré divise $p - 1$.
+\end{lemma}
+
+\begin{proof}
+Le polynôme $x^p - 1$ se décompose entièrement sur
+$K(\zeta)$, ses racines étant $1, \zeta, \zeta^2, \ldots, \zeta^{p - 1}$.
+Ainsi, dans l'extension $K(\zeta)/K$, le corps supérieur est un corps de
+décomposition ; cette extension est donc normale.
+L'extension est séparable, car $x^p - 1$ est un polynôme séparable.
+Elle est donc galoisienne. Tout automorphisme de $K(\zeta)$ sur $K$
+envoie $\zeta$ sur $\zeta^i$ pour un certain $1 \leq i \leq p - 1$.
+Le groupe de Galois est donc un sous-groupe de $(\mathbf{Z}/p\mathbf{Z})^*$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-subfields-kummer}
+\begin{reference}
+\cite[Théorème 5.2]{Radical}
+\end{reference}
+Soit $K$ un corps. Soit $L/K$ une extension finie de degré $e$
+engendrée par un élément $\alpha$ tel que $a = \alpha^e \in K$.
+Si toute racine $e$-ième de l'unité appartenant à $L$ est contenue dans $K$, alors 
+toute extension intermédiaire $L/L'/K$ est engendrée par $\alpha^d$ pour un certain $d | e$.
+\end{lemma}
+
+\begin{proof}
+Observons que, pour $d | e$, le sous-corps $K(\alpha^d)$ vérifie
+$[K(\alpha^d) : K] = e/d$ et $[L : K(\alpha^d)] = d$.
+Soit $L/L'/K$ une extension intermédiaire. Posons $d = [L : L']$. Si $\alpha^d \in L'$,
+alors $L' = K(\alpha^d)$ pour des raisons de degré.
+Soit $P \in L'[x]$ le polynôme minimal de $\alpha$ sur $L'$.
+Alors $P$ divise $x^e - a$ et $P$ est de degré $d$.
+Écrivons
+$$
+x^e - a = \prod\nolimits_{i = 1, \ldots, e} (x - \zeta_i \alpha)
+$$
+dans un corps de décomposition de $x^e - a$ sur $L$. Les $\zeta_i$ sont des racines
+$e$-ièmes de l'unité et, après renumérotation, nous avons
+$$
+P = \prod\nolimits_{i = 1, \ldots, d} (x - \zeta_i \alpha)
+$$
+Le terme constant de $P$ est égal à
+$$
+c = (-1)^d(\prod\nolimits_{i = 1, \ldots, d} \zeta_i) \alpha^d
+$$
+et appartient à $L' \subset L$. Comme $\alpha \in L$, cela implique que
+$\zeta = \prod_{i = 1, \ldots, d} \zeta_i$ appartient à $L$, et donc à $K$ par
+notre hypothèse. Ainsi $\alpha^d = (-1)^d\zeta^{-1}c \in L'$, ce qui conclut.
+\end{proof}
+
+
+
+
+\section{Extensions d’Artin–Schreier}
+\label{section-Artin-Schreier}
+
+\noindent
+Soit $K$ un corps de caractéristique $p > 0$. Soit $a \in K$. Soit $L$ une
+extension de $K$ obtenue en adjoignant une racine $b$ de l'équation
+$x^p - x = a$. Alors $L/K$ est galoisienne. Si $G = \text{Gal}(L/K)$ est le groupe
+de Galois, alors l'application
+$$
+G \longrightarrow \mathbf{Z}/p\mathbf{Z},\quad
+\sigma \longmapsto \sigma(b) - b
+$$
+est un homomorphisme injectif de groupes. En particulier, $G$ est cyclique
+d'ordre divisant $p$ en tant que sous-groupe de $\mathbf{Z}/p\mathbf{Z}$.
+La théorie des extensions d'Artin–Schreier fournit une réciproque.
+
+\begin{lemma}[Extensions d'Artin–Schreier]
+\label{lemma-Artin-Schreier}
+Soit $L/K$ une extension galoisienne de corps de caractéristique $p > 0$
+de groupe de Galois $\mathbf{Z}/p\mathbf{Z}$. Alors $L = K[z]$ avec
+$z^p - z \in K$.
+\end{lemma}
+
+\begin{proof}
+Soit $\sigma$ un générateur de $\text{Gal}(L/K)$.
+Considérons $\sigma : L \to L$ comme un opérateur $K$-linéaire.
+Observons que $\sigma^p - 1 = 0$ comme opérateur linéaire.
+En appliquant l'indépendance linéaire des caractères
+(Lemme \ref{lemma-independence-characters}),
+aucun polynôme de degré $< p$ ne peut
+annuler $\sigma$. Nous en concluons que le polynôme minimal
+de $\sigma$ est $x^p - 1 = (x - 1)^p$.
+Cela implique qu'il existe $w \in L$ tel que
+$(\sigma - 1)^{p - 1}(w) = y$ soit non nul. Alors
+$\sigma(y) = y$, c'est-à-dire $y \in K$. Ainsi
+$z = y^{-1}(\sigma - 1)^{p - 2}(w)$ vérifie
+$\sigma(z) = z + 1$. Comme $z \not \in K$, nous avons $L = K[z]$.
+De plus, puisque $\sigma(z^p - z) = (z + 1)^p - (z + 1) = z^p - z$,
+nous voyons que $z^p - z \in K$, ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+\section{Transcendance}
+\label{section-transcendence}
+
+\noindent
+Rappelons les définitions usuelles.
+
+\begin{definition}
+\label{definition-transcendence}
+Soit $K/k$ une extension de corps.
+\begin{enumerate}
+\item Une famille d'éléments $\{x_i\}_{i \in I}$ de $K$ est dite
+{\it algébriquement indépendante} sur $k$ si l'application
+$$
+k[X_i; i\in I] \longrightarrow K
+$$
+qui envoie $X_i$ sur $x_i$ est injective.
+\item Le corps des fractions d'un anneau de polynômes
+$k[x_i; i \in I]$ est noté $k(x_i; i\in I)$.
+\item Une {\it extension transcendante pure} de $k$ est toute
+extension de corps $K/k$ isomorphe au corps des
+fractions d'un anneau de polynômes sur $k$.
+\item Une {\it base de transcendance} de $K/k$ est une
+famille d'éléments $\{x_i\}_{i \in I}$ qui sont
+algébriquement indépendants sur $k$ et tels que
+l'extension $K/k(x_i; i\in I)$ soit algébrique.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\label{example-pi-transcendental}
+Le corps $\mathbf{Q}(\pi)$ est une extension transcendante pure, car
+$\pi$ n'est racine d'aucun polynôme non nul à coefficients rationnels.
+En particulier, $\mathbf{Q}(\pi) \cong \mathbf{Q}(x)$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-transcendence-degree}
+Soit $E/F$ une extension de corps. Il existe une base de transcendance de $E$ sur $F$.
+Deux bases de transcendance quelconques ont même cardinal.
+\end{lemma}
+
+\begin{proof}
+Soit $A$ une partie algébriquement indépendante de $E$. Soit $G$ une partie
+de $E$ contenant $A$ qui engendre $E/F$. Nous affirmons qu'il existe une
+base de transcendance $B$ telle que $A \subset B \subset G$.
+Pour le démontrer, considérons l'ensemble $\mathcal{B}$ des parties
+algébriquement indépendantes qui sont des parties de $G$ contenant $A$.
+Ordonnons partiellement $\mathcal{B}$ par inclusion.
+Alors $\mathcal{B}$ contient au moins l'élément $A$.
+La réunion des éléments d'une partie totalement ordonnée $T$ de $\mathcal{B}$
+est une partie de $E$ algébriquement indépendante sur $F$, car toute relation
+de dépendance algébrique apparaîtrait déjà dans l'un des éléments de $T$
+(puisque les polynômes ne font intervenir qu'un nombre fini de variables). Cette réunion
+contient aussi $A$ et est contenue dans $G$. D'après le lemme de Zorn, il existe un
+élément maximal $B \in \mathcal{B}$. Nous affirmons maintenant que $E$ est algébrique sur $F(B)$.
+En effet, sinon il existerait un élément
+$f \in G$ transcendant sur $F(B)$, puisque $F(G) = E$. Alors
+$B \cup\{f\}$ serait algébriquement indépendante, contrairement à la
+maximalité de $B$. Ainsi $B$ est la base de transcendance recherchée.
+
+\medskip\noindent
+Soient $B$ et $B'$ deux bases de transcendance. Sans perte de généralité, nous
+pouvons supposer que $|B'| \leq |B|$. Divisons la démonstration en deux cas :
+le premier est celui où $B$ est un ensemble infini. Alors, pour chaque $\alpha \in B'$,
+il existe un ensemble fini $B_{\alpha} \subset B$ tel que $\alpha$ soit algébrique
+sur
+$F(B_{\alpha})$, puisque toute relation de dépendance algébrique n'utilise qu'un nombre fini
+d'indéterminées. Posons alors $B^* = \bigcup_{\alpha\in B'} B_{\alpha}$.
+Par construction, $B^* \subset B$, mais nous affirmons qu'en fait ces deux ensembles sont
+égaux. Pour le voir, supposons qu'ils ne le soient pas et qu'il existe, par exemple, un élément
+$\beta \in B \setminus B^*$. Nous savons que $\beta$ est algébrique sur $F(B')$, qui
+est algébrique sur $F(B^*)$. Par conséquent, $\beta$ est algébrique sur $F(B^*)$, ce qui est
+une contradiction. Ainsi $|B| \leq |\bigcup_{\alpha \in B'} B_{\alpha}|$.
+Si $B'$ est fini, alors $B$ l'est également ; nous pouvons donc supposer $B'$ infini.
+Il vient
+$$
+|B| \leq |\bigcup\nolimits_{\alpha \in B'} B_{\alpha}| = |B'|
+$$
+car chaque $B_\alpha$ est fini et $B'$ est infini. Par conséquent, dans le
+cas infini, $|B| = |B'|$.
+
+\medskip\noindent
+Il reste à étudier le cas où $B$ est fini.
+Dans ce cas, $B'$ est également fini ; écrivons
+$B = \{\alpha_1, \ldots, \alpha_n\}$ et
+$B' = \{\beta_1, \ldots, \beta_m\}$ avec $m \leq n$.
+Raisonnons par récurrence sur $m$ : si $m = 0$, alors $E/F$ est algébrique, donc
+$B = \emptyset$ et $n = 0$. Si $m > 0$, il existe un polynôme irréductible
+$f \in F[x, y_1, \ldots, y_n]$ tel que
+$f(\beta_1, \alpha_1, \ldots, \alpha_n) = 0$ et tel que $x$ intervienne dans $f$.
+Puisque $\beta_1$ n'est pas algébrique sur $F$, $f$ doit faire intervenir un certain $y_i$ ;
+sans perte de généralité, supposons que $f$ fasse intervenir $y_1$.
+Posons $B^* = \{\beta_1, \alpha_2, \ldots, \alpha_n\}$.
+Nous affirmons que $B^*$ est une base de transcendance de l'extension $E/F$. Pour le montrer, remarquons que
+nous avons une tour d'extensions algébriques
+$$
+E/ F(B^*, \alpha_1) / F(B^*)
+$$
+puisque $\alpha_1$ est algébrique sur $F(B^*)$.
+Nous affirmons maintenant que $B^*$ (en comptant les éléments avec multiplicité) est
+algébriquement indépendante sur $F$ : en effet, sinon, il existerait un
+polynôme irréductible $g\in F[x, y_2, \ldots, y_n]$ tel que
+$g(\beta_1, \alpha_2, \ldots, \alpha_n) = 0$,
+dans lequel $x$ devrait intervenir, rendant $\beta_1$
+algébrique sur $F(\alpha_2, \ldots, \alpha_n)$, ce qui rendrait $\alpha_1$
+algébrique sur $F(\alpha_2, \ldots, \alpha_n)$, chose impossible.
+Cela signifie donc que $\{\alpha_2, \ldots, \alpha_n\}$ et
+$\{\beta_2, \ldots, \beta_m\}$ sont des bases de transcendance de $E$ sur $F(\beta_1)$ ;
+par récurrence, $m = n$.
+\end{proof}
+
+\begin{definition}
+\label{definition-transcendence-degree}
+Soit $K/k$ une extension de corps.
+Le {\it degré de transcendance} de $K$ sur $k$ est
+le cardinal d'une base de transcendance de $K$ sur $k$.
+Il est noté $\text{trdeg}_k(K)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-transcendence-degree-tower}
+Soient $L/K/k$ des extensions de corps.
+Alors
+$$
+\text{trdeg}_k(L) =
+\text{trdeg}_K(L) +
+\text{trdeg}_k(K).
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons une base de transcendance $A \subset K$ de $K$ sur $k$.
+Choisissons une base de transcendance $B \subset L$ de $L$ sur $K$.
+Il est alors immédiat que $A \cup B$ est une base de transcendance
+de $L$ sur $k$.
+\end{proof}
+
+\begin{example}
+\label{example-pi-e-transcendental}
+Considérons l'extension de corps $\mathbf{Q}(e, \pi)$ obtenue en
+adjoignant les nombres $e$ et $\pi$. Cette extension de corps a un degré de transcendance
+au moins égal à $1$, puisque $e$ et $\pi$ sont tous deux transcendants sur les
+rationnels. Toutefois, cette extension de corps pourrait avoir un degré de transcendance
+égal à $2$ si $e$ et $\pi$ sont algébriquement indépendants. On ignore si
+c'est le cas ; le problème de la détermination de
+$\text{trdeg}(\mathbf{Q}(e, \pi))$ est donc ouvert.
+\end{example}
+
+\begin{example}
+\label{example-function-field-not-unique-transcendence-basis}
+Soit $F$ un corps et soit $E = F(t)$. Alors $\{t\}$ est une
+base de transcendance puisque $E = F(t)$. Toutefois, $\{t^2\}$
+est aussi une base de transcendance puisque $F(t)/F(t^2)$ est algébrique.
+Cela montre que, bien que nous puissions toujours décomposer une extension
+$E/F$ en une extension algébrique $E/F'$ et une
+extension transcendante pure $F'/F$, cette décomposition n'est pas unique et
+dépend du choix d'une base de transcendance.
+\end{example}
+
+\begin{example}
+\label{example-riemann-surface-transcendence}
+Soit $X$ une surface de Riemann compacte. Alors le corps des fonctions
+$\mathbf{C}(X)$ (voir Exemple \ref{example-field-of-meromorphic-functions})
+est de degré de transcendance un sur $\mathbf{C}$. En fait, {\it toute}
+extension de type fini de $\mathbf{C}$ de degré de transcendance
+un provient d'une surface de Riemann. Il existe même une équivalence de
+catégories entre la catégorie des surfaces de Riemann compactes et des
+applications holomorphes (non constantes), et l'opposée de la catégorie des extensions
+de type fini de $\mathbf{C}$ de degré de transcendance $1$
+et des morphismes de $\mathbf{C}$-algèbres. Voir \cite{Forster}.
+
+\medskip\noindent
+Il existe également une version algébrique de l'énoncé précédent. Étant donnée une
+courbe algébrique (irréductible) dans l'espace projectif sur un corps algébriquement
+clos $k$ (par exemple le corps des nombres complexes), on peut considérer son
+« corps des fonctions rationnelles » : il s'agit essentiellement des fonctions qui se présentent comme
+des quotients de polynômes, dont le dénominateur ne s'annule pas identiquement
+sur la courbe. Il existe une anti-équivalence analogue de catégories
+(Courbes algébriques, Théorème \ref{curves-theorem-curves-rational-maps})
+entre les courbes projectives lisses et
+les morphismes non constants de courbes, et les extensions de type fini de $k$ de
+degré de transcendance un. Voir \cite{H}.
+\end{example}
+
+\begin{definition}
+\label{definition-algebraically-closed-in}
+Soit $K/k$ une extension de corps.
+\begin{enumerate}
+\item La {\it clôture algébrique de $k$ dans $K$} est le sous-corps
+$k'$ de $K$ formé des éléments de $K$ qui sont algébriques sur $k$.
+\item Nous disons que $k$ est {\it algébriquement clos dans $K$} si
+tout élément de $K$ qui est algébrique sur $k$
+appartient à $k$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-purely-transcendental-degree}
+Soit $k'/k$ une extension finie de corps. Soit
+$k'(x_1, \ldots, x_r)/k(x_1, \ldots, x_r)$
+l'extension induite des extensions transcendantes pures.
+Alors $[k'(x_1, \ldots, x_r) : k(x_1, \ldots, x_r)] = [k' : k] < \infty$.
+\end{lemma}
+
+\begin{proof}
+Par multiplicativité des degrés des extensions
+(Lemme \ref{lemma-multiplicativity-degrees}),
+il suffit de le démontrer lorsque $k'$ est engendré par un unique élément
+$\alpha \in k'$ sur $k$. Soit $f \in k[T]$ le polynôme minimal
+de $\alpha$ sur $k$. Alors $k'(x_1, \ldots, x_r)$ est engendré
+par $\alpha, x_1, \ldots, x_r$ sur $k$, et donc $k'(x_1, \ldots, x_r)$
+est engendré par $\alpha$ sur $k(x_1, \ldots, x_r)$.
+Il suffit donc de montrer que $f$ reste irréductible comme
+élément de $k(x_1, \ldots, x_r)[T]$. Nous ne faisons qu'esquisser la démonstration.
+Il est clair que $f$ est irréductible comme élément de
+$k[x_1, \ldots, x_r, T]$, par exemple parce que $f$ est unitaire
+comme polynôme en $T$ et que toute factorisation éventuelle dans
+$k[x_1, \ldots, x_r, T]$ conduirait à une factorisation dans $k[T]$
+en posant les $x_i$ égaux à $0$. Le lemme de Gauss permet de conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraic-closure-in-finitely-generated}
+Soit $K/k$ une extension de corps de type fini.
+La clôture algébrique de $k$ dans $K$ est finie sur $k$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $x_1, \ldots, x_r \in K$ forment une base de transcendance de $K$
+sur $k$. Alors $n = [K : k(x_1, \ldots, x_r)] < \infty$.
+Supposons que $k \subset k' \subset K$ et que $k'/k$ soit finie.
+Dans ce cas,
+$[k'(x_1, \ldots, x_r) : k(x_1, \ldots, x_r)] = [k' : k] < \infty$, voir le
+Lemme \ref{lemma-purely-transcendental-degree}.
+Par conséquent,
+$$
+[k' : k] = [k'(x_1, \ldots, x_r) : k(x_1, \ldots, x_r)] \leq
+[K : k(x_1, \ldots, x_r)] = n.
+$$
+Autrement dit, les degrés des extensions intermédiaires finies sont bornés,
+et le lemme en résulte.
+\end{proof}
+
+
+
+
+
+
+\section{Extensions linéairement disjointes}
+\label{section-linearly-disjoint}
+
+\noindent
+Soit $k$ un corps, et soient $K$ et $L$ des extensions de corps de $k$.
+Supposons aussi que $K$ et $L$ soient plongés dans un corps plus grand $\Omega$.
+
+\begin{definition}
+\label{definition-compositum}
+Considérons un diagramme
+\begin{equation}
+\label{equation-inside-omega}
+\vcenter{
+\xymatrix{
+L \ar[r] & \Omega \\
+k \ar[r] \ar[u] & K \ar[u]
+}
+}
+\end{equation}
+d'extensions de corps. Le {\it composé de $K$ et $L$ dans $\Omega$},
+noté $KL$, est le plus petit sous-corps de $\Omega$ contenant à la fois
+$L$ et $K$.
+\end{definition}
+
+\noindent
+Il est clair que $KL$ est engendré par l'ensemble $K \cup L$ sur $k$,
+par l'ensemble $K$ sur $L$, et par l'ensemble $L$ sur $K$.
+
+\medskip\noindent
+{\bf Avertissement :} La classe d'isomorphisme du corps composé dépend du
+choix des plongements de $K$ et $L$ dans $\Omega$. Considérons par exemple
+les corps de nombres $K = \mathbf{Q}(2^{1/8}) \subset \mathbf{R}$ et
+$L = \mathbf{Q}(2^{1/12}) \subset \mathbf{R}$. Leur composé dans
+$\mathbf{R}$ est le corps $\mathbf{Q}(2^{1/24})$, de degré $24$ sur
+$\mathbf{Q}$. Toutefois, si nous plongeons $K = \mathbf{Q}[x]/(x^8 - 2)$ dans
+$\mathbf{C}$ en envoyant $x$ sur $2^{1/8}e^{2\pi i/8}$, alors le composé
+$\mathbf{Q}(2^{1/12}, 2^{1/8}e^{2\pi i/8})$ contient $i = e^{2\pi i/4}$ et est de
+degré $48$ sur $\mathbf{Q}$ (nous omettons de montrer que le degré vaut $48$, mais
+l'existence de $i$ prouve assurément que les deux composés ne sont pas isomorphes).
+
+\begin{definition}
+\label{definition-linearly-disjoint}
+Considérons un diagramme de corps comme dans (\ref{equation-inside-omega}).
+Nous disons que $K$ et $L$ sont {\it linéairement disjoints sur $k$ dans $\Omega$}
+si l'application
+$$
+K \otimes_k L \longrightarrow KL,\quad
+\sum x_i \otimes y_i \longmapsto \sum x_i y_i
+$$
+est injective.
+\end{definition}
+
+\noindent
+Le lemme suivant ne semble trouver sa place nulle part ailleurs.
+
+\begin{lemma}
+\label{lemma-normal-case}
+Soit $E/F$ une extension algébrique normale de corps. Il existe des extensions intermédiaires
+$E / E_{sep} /F$ et $E / E_{insep} / F$ telles que
+\begin{enumerate}
+\item $F \subset E_{sep}$ soit galoisienne et $E_{sep} \subset E$
+soit purement inséparable,
+\item $F \subset E_{insep}$ soit purement inséparable et $E_{insep} \subset E$
+soit galoisienne,
+\item l'application de multiplication $E_{sep} \otimes_F E_{insep} \longrightarrow E$
+est un isomorphisme.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous avons trouvé le sous-corps $E_{sep}$ dans le Lemme \ref{lemma-separable-first}.
+Nous posons $E_{insep} = E^{\text{Aut}(E/F)}$. Les détails sont omis.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Rappels}
+\label{section-algebraic}
+
+\noindent
+Dans cette section, nous récapitulons brièvement les résultats obtenus ci-dessus.
+
+\medskip\noindent
+Soit $K/k$ une extension de corps. Soit $\alpha \in K$. Les
+possibilités suivantes se présentent :
+\begin{enumerate}
+\item L'élément $\alpha$ est transcendant sur $k$.
+\item L'élément $\alpha$ est algébrique sur $k$. Notons
+$P(T) \in k[T]$ son {\it polynôme minimal}. C'est un polynôme unitaire
+$P(T) = T^d + a_1 T^{d - 1} + \ldots + a_d$ à coefficients dans
+$k$. Il est irréductible et $P(\alpha) = 0$. Ces propriétés
+déterminent $P$ de manière unique, et l'entier $d$ est appelé le
+{\it degré de $\alpha$ sur $k$}. Il existe deux sous-cas :
+\begin{enumerate}
+\item Le polynôme $\text{d}P/\text{d}T$ n'est pas identiquement nul.
+Cela équivaut à la condition
+$P(T) = \prod_{i = 1, \ldots, d} (T - \alpha_i)$ pour des
+éléments deux à deux distincts $\alpha_1, \ldots, \alpha_d$
+de la clôture algébrique de $k$.
+Dans ce cas, nous disons que $\alpha$ est {\it séparable} sur $k$.
+\item Le $\text{d}P/\text{d}T$ est identiquement nul. Dans ce cas, la
+caractéristique $p$ de $k$ est $ > 0$, et $P$ est en fait un polynôme
+en $T^p$. Il existe manifestement une plus grande puissance $q = p^e$ telle que $P$ soit
+un polynôme en $T^q$. Alors l'élément $\alpha^q$ est séparable sur $k$.
+\end{enumerate}
+\end{enumerate}
+
+\begin{definition}
+\label{definition-separable-algebraic}
+Extensions algébriques de corps.
+\begin{enumerate}
+\item Une extension de corps $K/k$ est dite {\it algébrique}
+si tout élément de $K$ est algébrique sur $k$.
+\item Une extension algébrique $k'/k$ est dite {\it séparable}
+si tout $\alpha \in k'$ est séparable sur $k$.
+\item Une extension algébrique
+$k'/k$ est dite {\it purement inséparable} si
+la caractéristique de $k$ est $p > 0$ et si, pour tout élément
+$\alpha \in k'$, il existe une puissance $q$ de $p$ telle que
+$\alpha^q \in k$.
+\item Une extension algébrique $k'/k$ est dite {\it normale}
+si, pour tout $\alpha \in k'$, le polynôme minimal $P(T) \in k[T]$
+de $\alpha$ sur $k$ se décompose entièrement en facteurs linéaires sur $k'$.
+\item Une extension algébrique $k'/k$ est dite {\it galoisienne}
+si elle est séparable et normale.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Le lemme suivant ne semble trouver sa place nulle part ailleurs.
+
+\begin{lemma}
+\label{lemma-pth-root}
+Soit $K$ un corps de caractéristique $p > 0$. Soit $L/K$ une extension
+algébrique séparable. Soit $\alpha \in L$.
+\begin{enumerate}
+\item Si les coefficients du polynôme minimal de $\alpha$
+sur $K$ sont des puissances $p$-ièmes dans $K$, alors $\alpha$ est une puissance
+$p$-ième dans $L$.
+\item Plus généralement, si $P \in K[T]$ est un polynôme tel que (a) $\alpha$
+soit une racine de $P$, (b) $P$ possède des racines deux à deux distinctes dans une clôture algébrique,
+et (c) tous les coefficients de $P$ soient des puissances $p$-ièmes, alors $\alpha$ est une
+puissance $p$-ième dans $L$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il résulte des définitions que (2) implique (1). Supposons que $P$ satisfasse aux hypothèses de (2).
+Écrivons $P(T) = \sum\nolimits_{i = 0}^d a_i T^{d - i}$ et $a_i = b_i^p$.
+Le polynôme $Q(T) = \sum\nolimits_{i = 0}^d b_i T^{d - i}$ possède lui aussi des
+racines distinctes dans une clôture algébrique, car les racines de $Q$
+sont les racines $p$-ièmes des racines de $P$. Si $\alpha$ n'est pas une puissance $p$-ième,
+alors $T^p - \alpha$ est un polynôme irréductible sur $L$
+(Lemme \ref{lemma-take-pth-root}).
+De plus, $Q$ et $T^p - \alpha$ ont une racine commune dans
+une clôture algébrique $\overline{L}$.
+Ainsi $Q$ et $T^p - \alpha$ ne sont pas premiers entre eux, ce qui
+implique que $T^p - \alpha | Q$ dans $L[T]$. Cela contredit le fait que
+les racines de $Q$ sont deux à deux distinctes.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

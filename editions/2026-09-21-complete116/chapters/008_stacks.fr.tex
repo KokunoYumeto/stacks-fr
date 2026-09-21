@@ -1,0 +1,3571 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Champs}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce très court chapitre, nous introduisons les champs et les
+champs en groupoïdes. Voir \cite{DM} et \cite{Vis2}.
+
+
+\section{Préfaisceaux de morphismes associés aux catégories fibrées}
+\label{section-morphisms}
+
+\noindent
+Soit $\mathcal{C}$ une catégorie.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée,
+voir Catégories, section \ref{categories-section-fibred-categories}.
+Supposons que $x, y\in \Ob(\mathcal{S}_U)$ soient des
+objets de la catégorie fibre au-dessus de $U$. Nous allons définir
+un foncteur
+$$
+\mathit{Mor}(x, y) : (\mathcal{C}/U)^{opp} \longrightarrow \textit{Ensembles}.
+$$
+Autrement dit, ce sera un préfaisceau sur $\mathcal{C}/U$, voir
+Sites, définition \ref{sites-definition-presheaf}.
+Faisons un choix d'images inverses comme dans
+Catégories,
+définition \ref{categories-definition-pullback-functor-fibred-category}.
+Alors, pour $f : V \to U$, nous posons
+$$
+\mathit{Mor}(x, y)(f : V \to U) =
+\Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y).
+$$
+Soit $f' : V' \to U$ un second objet de $\mathcal{C}/U$.
+Nous devons aussi définir l'application de restriction correspondant à un
+morphisme $g : V'/U  \to V/U$ dans $\mathcal{C}/U$,
+autrement dit $g : V' \to V$ et $f' = f \circ g$.
+Ce sera une application
+$$
+\Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y)
+\longrightarrow
+\Mor_{\mathcal{S}_{V'}}({f'}^\ast x, {f'}^\ast y), \quad
+\phi \longmapsto \phi|_{V'}
+$$
+Cette application sera essentiellement $g^\ast$, à ceci près qu'elle transforme
+un élément $\phi$ du membre de gauche en un élément
+$g^\ast \phi$
+de $\Mor_{\mathcal{S}_{V'}}(g^\ast f^\ast x, g^\ast f^\ast y)$.
+À ce stade, nous utilisons la transformation $\alpha_{g, f}$ du
+lemme \ref{categories-lemma-fibred} de Catégories.
+En formule, l'application de restriction est décrite par
+$$
+\phi|_{V'} =
+(\alpha_{g, f})_y^{-1} \circ
+g^\ast \phi \circ
+(\alpha_{g, f})_x.
+$$
+Bien entendu, personne ne conçoit cette application de restriction de cette
+manière. Nous ne le ferons qu'une fois, afin de vérifier le lemme suivant.
+
+\begin{lemma}
+\label{lemma-painful}
+Cela définit effectivement un préfaisceau.
+\end{lemma}
+
+\begin{proof}
+Soient $g : V'/U \to V/U$ comme ci-dessus et, de même,
+$g' : V''/U \to V'/U$ des morphismes de $\mathcal{C}/U$.
+Ainsi $f' = f \circ g$ et $f'' = f' \circ g' = f \circ g \circ g'$.
+Soit $\phi \in \Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y)$.
+Nous avons alors
+\begin{eqnarray*}
+& &
+(\alpha_{g \circ g', f})_y^{-1} \circ
+(g \circ g')^\ast \phi \circ
+(\alpha_{g \circ g', f})_x
+\\
+& = &
+(\alpha_{g \circ g', f})_y^{-1} \circ
+(\alpha_{g', g})_{f^*y}^{-1} \circ
+(g')^*g^\ast \phi \circ
+(\alpha_{g', g})_{f^*x} \circ
+(\alpha_{g \circ g', f})_x
+\\
+& = &
+(\alpha_{g', f'})_y^{-1} \circ
+(g')^*(\alpha_{g, f})_y^{-1} \circ
+(g')^* g^\ast \phi \circ
+(g')^*(\alpha_{g, f})_x
+\circ
+(\alpha_{g', f'})_x
+\\
+& = &
+(\alpha_{g', f'})_y^{-1} \circ
+(g')^*\Big(
+(\alpha_{g, f})_y^{-1} \circ
+g^\ast \phi \circ
+(\alpha_{g, f})_x
+\Big) \circ
+(\alpha_{g', f'})_x
+\end{eqnarray*}
+ce qui est précisément l'égalité voulue,
+$\phi|_{V''} = (\phi|_{V'})|_{V''}$.
+La première égalité vaut parce que
+$\alpha_{g', g}$ est une transformation de foncteurs, de sorte que
+$$
+\xymatrix{
+(g \circ g')^*f^*x
+\ar[rr]_{(g \circ g')^\ast \phi}
+\ar[d]_{(\alpha_{g', g})_{f^*x}} & &
+(g \circ g')^*f^*y
+\ar[d]^{(\alpha_{g', g})_{f^*y}} \\
+(g')^*g^*f^*x
+\ar[rr]^{(g')^*g^\ast \phi} & &
+(g')^*g^*f^*y
+}
+$$
+est commutatif. La deuxième égalité résulte de la propriété (d) d'un
+pseudo-foncteur, puisque $f' = f \circ g$ (voir
+Catégories, définition \ref{categories-definition-functor-into-2-category}).
+La dernière égalité découle du fait que $(g')^*$ est un foncteur.
+\end{proof}
+
+\noindent
+Désormais, nous omettrons souvent de mentionner les transformations
+$\alpha_{g, f}$ et identifierons simplement les foncteurs
+$g^* \circ f^*$ et $(f \circ g)^*$. En particulier,
+pour $g : V'/U \to V/U$, les applications de restriction
+du préfaisceau $\mathit{Mor}(x, y)$ seront parfois notées
+$\phi \mapsto g^*\phi$. Nous formalisons cette construction dans une définition.
+
+\begin{definition}
+\label{definition-mor-presheaf}
+Soit $\mathcal{C}$ une catégorie.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée,
+voir Catégories, section \ref{categories-section-fibred-categories}.
+Étant donnés un objet $U$ de $\mathcal{C}$ et des objets
+$x$, $y$ de la catégorie fibre, le {\it préfaisceau
+des morphismes de $x$ vers $y$} est le préfaisceau
+$$
+(f : V \to U) \longmapsto \Mor_{\mathcal{S}_V}(f^*x, f^*y)
+$$
+décrit ci-dessus. On le note $\mathit{Mor}(x, y)$.
+Le sous-préfaisceau $\mathit{Isom}(x, y)$ dont la valeur
+au-dessus de $V$ est l'ensemble des isomorphismes
+$f^*x \to f^*y$ dans la catégorie fibre $\mathcal{S}_V$
+est appelé le {\it préfaisceau des isomorphismes de $x$ vers $y$}.
+\end{definition}
+
+\noindent
+Si $\mathcal{S}$ est fibrée en groupoïdes, alors bien entendu
+$\mathit{Isom}(x, y) = \mathit{Mor}(x, y)$, et il est
+d'usage d'employer la notation $\mathit{Isom}$.
+
+\begin{lemma}
+\label{lemma-presheaf-mor-map-fibred-categories}
+Soit $F : \mathcal{S}_1 \to \mathcal{S}_2$ un $1$-morphisme de catégories
+fibrées au-dessus de la catégorie $\mathcal{C}$. Soient
+$U \in \Ob(\mathcal{C})$ et $x, y\in \Ob((\mathcal{S}_1)_U)$.
+Alors $F$ définit un morphisme canonique de préfaisceaux
+$$
+\mathit{Mor}_{\mathcal{S}_1}(x, y)
+\longrightarrow
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))
+$$
+sur $\mathcal{C}/U$.
+\end{lemma}
+
+\begin{proof}
+D'après la définition \ref{categories-definition-fibred-categories-over-C}
+de Catégories, le foncteur $F$ envoie les morphismes fortement cartésiens sur
+des morphismes fortement cartésiens. Ainsi, si $f : V \to U$ est un morphisme
+de $\mathcal{C}$, il existe des isomorphismes canoniques
+$\alpha_V : f^*F(x) \to F(f^*x)$,
+$\beta_V : f^*F(y) \to F(f^*y)$ tels que $f^*F(x) \to F(f^*x) \to F(x)$
+soit le morphisme canonique $f^*F(x) \to F(x)$, et de même pour $\beta_V$.
+Nous pouvons donc définir
+$$
+\xymatrix{
+\mathit{Mor}_{\mathcal{S}_1}(x, y)(f : V \to U) \ar@{=}[r] &
+\Mor_{\mathcal{S}_{1, V}}(f^\ast x, f^\ast y) \ar[d] \\
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))(f : V \to U) \ar@{=}[r] &
+\Mor_{\mathcal{S}_{2, V}}(f^\ast F(x), f^\ast F(y))
+}
+$$
+par $\phi \mapsto \beta_V^{-1} \circ F(\phi) \circ \alpha_V$.
+Nous omettons la vérification de la compatibilité avec les applications de
+restriction.
+\end{proof}
+
+\begin{remark}
+\label{remark-alternative}
+Supposons que $p : \mathcal{S} \to \mathcal{C}$ soit fibrée en groupoïdes.
+Dans ce cas, nous pouvons démontrer le lemme \ref{lemma-painful}
+à l'aide du lemme \ref{categories-lemma-fibred-strict} de Catégories,
+qui dit que $\mathcal{S} \to \mathcal{C}$ est équivalente à la catégorie
+associée à un foncteur contravariant
+$F : \mathcal{C} \to \textit{Groupoïdes}$.
+Dans le cas de la catégorie fibrée associée à $F$,
+nous avons exactement $g^* \circ f^* = (f \circ g)^*$,
+et il n'est pas nécessaire d'utiliser les applications $\alpha_{g, f}$.
+Dans ce cas, le lemme est (encore plus) trivial. Bien entendu, on utilise alors
+le fait que le préfaisceau $\mathit{Mor}(x, y)$ reste inchangé lorsque l'on
+passe à une catégorie fibrée équivalente, ce qui découle du
+lemme \ref{lemma-presheaf-mor-map-fibred-categories}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-isom-as-2-fibre-product}
+Soit $\mathcal{C}$ une catégorie.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée,
+voir Catégories, section \ref{categories-section-fibred-categories}.
+Soit $U \in \Ob(\mathcal{C})$ et soient $x, y \in \Ob(\mathcal{S}_U)$.
+Notons encore $x, y : \mathcal{C}/U \to \mathcal{S}$ les
+$1$-morphismes correspondants, voir
+Catégories, lemme \ref{categories-lemma-yoneda-2category}.
+Alors
+\begin{enumerate}
+\item le $2$-produit fibré
+$\mathcal{S} \times_{\mathcal{S} \times \mathcal{S}, (x, y)} \mathcal{C}/U$
+est fibré en setoïdes au-dessus de $\mathcal{C}/U$, et
+\item $\mathit{Isom}(x, y)$ est le préfaisceau d'ensembles correspondant
+à cette catégorie fibrée en setoïdes, voir
+Catégories, lemme \ref{categories-lemma-2-category-fibred-setoids}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : les objets du $2$-produit fibré sont
+$(a : V \to U, z, (\alpha, \beta))$, où
+$\alpha : z \to a^*x$ et $\beta : z \to a^*y$ sont des isomorphismes
+dans $\mathcal{S}_V$. Le lien avec $\mathit{Isom}(x, y)$
+s'obtient donc en associant à un tel objet l'isomorphisme
+$\beta \circ \alpha^{-1}$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Données de descente dans les catégories fibrées}
+\label{section-descent-data}
+
+\noindent
+Dans cette section, nous définissons la notion de donnée de descente
+dans le cadre abstrait d'une catégorie fibrée. Signalons auparavant qu'elle
+est entièrement analogue aux données de descente pour les faisceaux
+quasi-cohérents (Descente, section \ref{descent-section-equivalence})
+et aux données de descente pour les schémas au-dessus de schémas
+(Descente, section \ref{descent-section-descent-datum}).
+
+\medskip\noindent
+Nous adopterons la convention selon laquelle les projections
+$\text{pr}_i : X \times \ldots \times X \to X$
+sont numérotées à partir de $i = 0$. Ainsi, nous avons
+$\text{pr}_0, \text{pr}_1 : X \times X  \to X$,
+$\text{pr}_0, \text{pr}_1, \text{pr}_2 : X \times X \times X  \to X$,
+etc.
+
+\begin{definition}
+\label{definition-descent-data}
+Soit $\mathcal{C}$ une catégorie.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée.
+Faisons un choix d'images inverses comme dans Catégories,
+définition \ref{categories-definition-pullback-functor-fibred-category}.
+Soit $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+une famille de morphismes de $\mathcal{C}$. Supposons que tous les produits
+fibrés $U_i \times_U U_j$ et $U_i \times_U U_j \times_U U_k$ existent.
+\begin{enumerate}
+\item Une {\it donnée de descente $(X_i, \varphi_{ij})$ dans $\mathcal{S}$
+relative à la famille $\{f_i : U_i \to U\}$} consiste en un objet $X_i$
+de $\mathcal{S}_{U_i}$ pour chaque $i \in I$, et en un isomorphisme
+$\varphi_{ij} : \text{pr}_0^*X_i \to \text{pr}_1^*X_j$
+dans $\mathcal{S}_{U_i \times_U U_j}$ pour chaque paire $(i, j) \in I^2$,
+tels que, pour tout triplet d'indices $(i, j, k) \in I^3$, le diagramme
+$$
+\xymatrix{
+\text{pr}_0^*X_i \ar[rd]_{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} & &
+\text{pr}_2^*X_k \\
+& \text{pr}_1^*X_j \ar[ru]_{\text{pr}_{12}^*\varphi_{jk}} &
+}
+$$
+dans la catégorie $\mathcal{S}_{U_i \times_U U_j \times_U U_k}$
+soit commutatif. C'est ce qu'on appelle la {\it condition de cocycle}.
+\item Un {\it morphisme $\psi : (X_i, \varphi_{ij}) \to
+(X'_i, \varphi'_{ij})$ de données de descente} consiste en une famille
+$\psi = (\psi_i)_{i\in I}$ de morphismes
+$\psi_i : X_i \to X'_i$ dans $\mathcal{S}_{U_i}$
+telle que tous les diagrammes
+$$
+\xymatrix{
+\text{pr}_0^*X_i \ar[r]_{\varphi_{ij}} \ar[d]_{\text{pr}_0^*\psi_i}
+& \text{pr}_1^*X_j \ar[d]^{\text{pr}_1^*\psi_j} \\
+\text{pr}_0^*X'_i \ar[r]^{\varphi'_{ij}} &
+\text{pr}_1^*X'_j \\
+}
+$$
+dans les catégories $\mathcal{S}_{U_i \times_U U_j}$ soient commutatifs.
+\item La catégorie des données de descente relatives à
+$\mathcal{U}$ est notée $DD(\mathcal{U})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Les produits fibrés $U_i \times_U U_j$ et
+$U_i \times_U U_j \times_U U_k$ existent si chacun des morphismes
+$f_i : U_i \to U$ est {\it représentable}, voir
+Catégories, définition \ref{categories-definition-representable-morphism}.
+Rappelons que, dans un site, l'une des conditions imposées à un recouvrement
+$\{U_i \to U\}$ est que chacun des morphismes soit représentable, voir
+Sites, définition \ref{sites-definition-site}, partie (3).
+En fait, la définition ci-dessus présente surtout un intérêt lorsque
+$\mathcal{C}$ est un site et que $\{U_i \to U\}$ est un recouvrement de
+$\mathcal{C}$. Une donnée de descente n'est toutefois qu'une construction
+abstraite que l'on peut définir comme ci-dessus. C'est utile : par exemple,
+étant donnée une catégorie fibrée au-dessus de $\mathcal{C}$, on peut considérer
+l'ensemble des familles relativement auxquelles les données de descente sont
+effectives et tenter de les employer comme famille de recouvrements d'un site.
+
+\begin{remarks}
+\label{remarks-definition-descent-datum}
+Deux remarques au sujet de la définition \ref{definition-descent-data}
+s'imposent. Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée.
+Soient $\{f_i : U_i \to U\}_{i \in I}$ et $(X_i, \varphi_{ij})$
+comme dans la définition \ref{definition-descent-data}.
+\begin{enumerate}
+\item Il existe un morphisme diagonal $\Delta : U_i \to U_i \times_U U_i$.
+Nous pouvons tirer $\varphi_{ii}$ en arrière par ce morphisme et obtenir un
+automorphisme $\Delta^\ast \varphi_{ii} \in \text{Aut}_{U_i}(X_i)$.
+En tirant la condition de cocycle pour le triplet $(i, i, i)$ en arrière par
+$\Delta_{123} : U_i \to U_i \times_U U_i \times_U U_i$, nous déduisons que
+$\Delta^\ast \varphi_{ii} \circ \Delta^\ast \varphi_{ii} =
+\Delta^\ast \varphi_{ii}$ ; ainsi $\Delta^\ast \varphi_{ii} =
+\text{id}_{X_i}$.
+\item Il existe un morphisme
+$\Delta_{13}: U_i \times_U U_j \to U_i \times_U U_j \times_U U_i$,
+et nous pouvons tirer en arrière la condition de cocycle pour le triplet
+$(i, j, i)$ afin d'obtenir l'identité
+$(\sigma^\ast \varphi_{ji}) \circ \varphi_{ij} =
+\text{id}_{\text{pr}_0^\ast X_i}$, où
+$\sigma : U_i \times_U U_j \to U_j \times_U U_i$ est le morphisme de permutation.
+\end{enumerate}
+\end{remarks}
+
+\begin{lemma}
+\label{lemma-pullback}
+(Changement de base des données de descente.)
+Soit $\mathcal{C}$ une catégorie.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée.
+Faisons un choix d'images inverses comme dans Catégories,
+définition \ref{categories-definition-pullback-functor-fibred-category}.
+Soient $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$ et
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$
+des familles de morphismes de $\mathcal{C}$ ayant chacune un but fixé.
+Supposons que tous les produits fibrés
+$U_i \times_U U_{i'}$, $U_i \times_U U_{i'} \times_U U_{i''}$,
+$V_j \times_V V_{j'}$ et $V_j \times_V V_{j'} \times_V V_{j''}$ existent.
+Les données $\alpha : I \to J$, $h : U \to V$ et
+$g_i : U_i \to V_{\alpha(i)}$ définissent un morphisme de familles
+d'applications à but fixé, voir
+Sites, définition \ref{sites-definition-morphism-coverings}.
+\begin{enumerate}
+\item Soit $(Y_j, \varphi_{jj'})$ une donnée de descente relative à la
+famille $\{V_j \to V\}$. Le système
+$$
+\left(
+g_i^*Y_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')}
+\right)
+$$
+est une donnée de descente relative à $\mathcal{U}$.
+\item Cette construction définit un foncteur des données de descente relatives
+à $\mathcal{V}$ vers les données de descente relatives à $\mathcal{U}$.
+\item Étant donné un second morphisme de familles d'applications à but fixé
+formé de $\alpha' : I \to J$, $h' : U \to V$ et
+$g'_i : U_i \to V_{\alpha'(i)}$, si $h = h'$, alors les deux foncteurs
+obtenus entre catégories de données de descente sont canoniquement isomorphes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-functor}
+Avec $\mathcal{U} = \{U_i \to U\}_{i \in I}$,
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$,
+$\alpha : I \to J$, $h : U \to V$ et
+$g_i : U_i \to V_{\alpha(i)}$ comme dans le lemme \ref{lemma-pullback},
+le foncteur
+$$
+(Y_j, \varphi_{jj'}) \longmapsto
+(g_i^*Y_{\alpha(i)}, (g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')})
+$$
+construit dans ce lemme est appelé le {\it foncteur de changement de base}
+sur les données de descente.
+\end{definition}
+
+\noindent
+Étant donné $h : U \to V$, s'il existe un morphisme
+$\tilde h : \mathcal{U} \to \mathcal{V}$ au-dessus de $h$,
+alors $\tilde h^*$ ne dépend pas du choix de $\tilde h$, comme nous l'avons vu
+dans le lemme \ref{lemma-pullback}. Nous écrirons donc parfois simplement
+$h^*$ pour désigner le foncteur de changement de base.
+
+\begin{definition}
+\label{definition-effective-descent-datum}
+Soit $\mathcal{C}$ une catégorie.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée.
+Faisons un choix d'images inverses comme dans Catégories,
+définition \ref{categories-definition-pullback-functor-fibred-category}.
+Soit $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$ une famille de morphismes
+de but $U$. Supposons que tous les produits fibrés
+$U_i \times_U U_j$ et $U_i \times_U U_j \times_U U_k$ existent.
+\begin{enumerate}
+\item Étant donné un objet $X$ de $\mathcal{S}_U$, la {\it donnée de descente
+triviale} est la donnée de descente $(X, \text{id}_X)$ relative à la famille
+$\{\text{id}_U : U \to U\}$.
+\item Étant donné un objet $X$ de $\mathcal{S}_U$, nous obtenons une
+{\it donnée de descente canonique} sur la famille des objets $f_i^*X$ en
+tirant en arrière la donnée de descente triviale $(X, \text{id}_X)$ par
+l'application évidente
+$\{f_i : U_i \to U\} \to \{\text{id}_U : U \to U\}$.
+Nous notons cette donnée de descente $(f_i^*X, can)$.
+\item Une donnée de descente $(X_i, \varphi_{ij})$
+relative à $\{f_i : U_i \to U\}$ est dite {\it effective}
+s'il existe un objet $X$ de $\mathcal{S}_U$ tel que
+$(X_i, \varphi_{ij})$ soit isomorphe à $(f_i^*X, can)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Remarquons que la règle qui associe à $X \in \mathcal{S}_U$ sa donnée de
+descente canonique relative à $\mathcal{U}$ définit un foncteur
+$$
+\mathcal{S}_U \longrightarrow DD(\mathcal{U}).
+$$
+Une donnée de descente est effective si et seulement si elle appartient à
+l'image essentielle de ce foncteur. Explicitons maintenant la donnée de
+descente canonique.
+
+\begin{lemma}
+\label{lemma-trivial-cocycle}
+Dans la situation de la partie (2) de la
+définition \ref{definition-effective-descent-datum}, les applications
+$can_{ij} : \text{pr}_0^*f_i^*X \to \text{pr}_1^*f_j^*X$ sont égales à
+$(\alpha_{\text{pr}_1, f_j})_X \circ (\alpha_{\text{pr}_0, f_i})_X^{-1}$,
+où $\alpha_{\cdot, \cdot}$ est comme dans le
+lemme \ref{categories-lemma-fibred} de Catégories et où nous utilisons
+l'égalité $f_i \circ \text{pr}_0 = f_j \circ \text{pr}_1$
+des applications $U_i \times_U U_j \to U$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-descent-condition}
+Soit $\mathcal{C}$ une catégorie. Soit
+$\mathcal{V} = \{V_j \to U\}_{j \in J} \to
+\mathcal{U} = \{U_i \to U\}_{i \in I}$
+un morphisme de familles d'applications à but fixé de $\mathcal{C}$, donné par
+$\text{id} : U \to U$, $\alpha : J \to I$ et
+$f_j : V_j \to U_{\alpha(j)}$. Soit
+$p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée. Si
+\begin{enumerate}
+\item pour $0 \leq p \leq 3$ et $0 \leq q \leq 3$, avec $p + q \geq 2$,
+et pour $i_1, \ldots, i_p \in I$ et $j_1, \ldots, j_q \in J$,
+les produits fibrés $U_{i_1} \times_U \ldots \times_U U_{i_p} \times_U
+V_{j_1} \times_U \ldots \times_U V_{j_q}$ existent,
+\item le foncteur $\mathcal{S}_U \to DD(\mathcal{V})$
+est une équivalence,
+\item pour tout $i \in I$, le foncteur
+$\mathcal{S}_{U_i} \to DD(\mathcal{V}_i)$
+est pleinement fidèle, et
+\item pour tous $i, i' \in I$, le foncteur
+$\mathcal{S}_{U_i \times_U U_{i'}} \to DD(\mathcal{V}_{ii'})$
+est fidèle.
+\end{enumerate}
+Ici $\mathcal{V}_i = \{U_i \times_U V_j \to U_i\}_{j \in J}$ et
+$\mathcal{V}_{ii'} =
+\{U_i \times_U U_{i'} \times_U V_j \to U_i \times_U U_{i'}\}_{j \in J}$.
+Alors $\mathcal{S}_U \to DD(\mathcal{U})$ est une équivalence.
+\end{lemma}
+
+\begin{proof}
+La condition (1) garantit l'existence d'un nombre suffisant de produits fibrés
+pour que l'énoncé ait un sens. Nous allons montrer que le foncteur
+$\mathcal{S}_U \to DD(\mathcal{U})$ est essentiellement surjectif.
+Supposons donnée une donnée de descente $(X_i, \varphi_{ii'})$ relative à
+$\mathcal{U}$. D'après le lemme \ref{lemma-pullback}, nous pouvons la tirer en
+arrière en une donnée de descente $(X_j, \varphi_{jj'})$ pour $\mathcal{V}$.
+D'après l'hypothèse (2), cette donnée de descente est effective ; nous obtenons
+donc un objet $X$ de $\mathcal{S}_U$ tel que l'image inverse de la donnée de
+descente triviale $(X, \text{id}_X)$ par le morphisme
+$\mathcal{V} \to \{U \to U\}$ soit isomorphe à
+$(X_j, \varphi_{jj'})$. Observons ensuite que nous avons un diagramme
+$$
+\xymatrix{
+\mathcal{V}_i \ar[r] \ar[d] &
+\mathcal{V} \ar[r] &
+\mathcal{U} \ar[d] \\
+\{U_i \to U_i\} \ar[rr] \ar[rru] & &
+\{U \to U\}
+}
+$$
+de morphismes de familles d'applications à but fixé de $\mathcal{C}$.
+Ce diagramme n'est pas commutatif, mais, d'après le
+lemme \ref{lemma-pullback}, les foncteurs de changement de base ainsi obtenus
+sur les données de descente sont canoniquement isomorphes. Par conséquent,
+$(X, \text{id}_X)$ et $(X_i, \text{id}_{X_i})$ ont des images inverses
+isomorphes dans $DD(\mathcal{V}_i)$. L'hypothèse (3) fournit donc un
+isomorphisme $(U_i \to U)^*X \to X_i$ dans la catégorie
+$\mathcal{S}_{U_i}$. Nous omettons de vérifier que ces flèches sont compatibles
+avec les morphismes $\varphi_{ii'}$ ; indication : utiliser la fidélité des
+foncteurs de la condition (4). Nous omettons également de vérifier que le
+foncteur $\mathcal{S}_U \to DD(\mathcal{U})$ est pleinement fidèle.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Champs}
+\label{section-definition}
+
+\noindent
+Voici la définition d'un champ. Elle combine la notion de catégorie
+fibrée et celle de descente.
+
+\begin{definition}
+\label{definition-stack}
+Soit $\mathcal{C}$ un site. Un {\it champ} sur $\mathcal{C}$
+est une catégorie $p : \mathcal{S} \to \mathcal{C}$ au-dessus de $\mathcal{C}$ qui
+satisfait aux conditions suivantes :
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ est une catégorie fibrée, voir
+Catégories, définition \ref{categories-definition-fibred-category},
+\item pour tout $U \in \Ob(\mathcal{C})$ et tous $x, y \in \mathcal{S}_U$,
+le préfaisceau $\mathit{Mor}(x, y)$ (voir
+Définition \ref{definition-mor-presheaf}) est un faisceau sur
+le site $\mathcal{C}/U$, et
+\item pour tout recouvrement $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+du site $\mathcal{C}$, toute donnée de descente dans $\mathcal{S}$
+relativement à $\mathcal{U}$ est effective.
+\end{enumerate}
+\end{definition}
+
+\noindent
+La formulation ci-dessus nous paraît être la façon la plus commode de concevoir
+un champ. En effet, étant donné une catégorie au-dessus de $\mathcal{C}$, pour vérifier
+qu'il s'agit d'un champ, on vérifie les propriétés (1), (2) et
+(3), dans cet ordre. Bien entendu, les propriétés (2) et (3) n'ont pas de sens
+si la catégorie n'est pas fibrée. Sans (2), nous ne pouvons pas prouver que la
+descente de (3) est unique à un unique isomorphisme près et fonctorielle.
+
+\medskip\noindent
+Le lemme suivant fournit une autre définition.
+
+\begin{lemma}
+\label{lemma-stack-equivalences}
+Soit $\mathcal{C}$ un site.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée
+au-dessus de $\mathcal{C}$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{S}$ est un champ sur $\mathcal{C}$, et
+\item pour tout recouvrement $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+du site $\mathcal{C}$, le foncteur
+$$
+\mathcal{S}_U \longrightarrow DD(\mathcal{U})
+$$
+qui associe à un objet sa donnée de descente canonique est une équivalence.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-substack}
+Soit $p : \mathcal{S} \to \mathcal{C}$ un champ sur le site $\mathcal{C}$.
+Soit $\mathcal{S}'$ une sous-catégorie de $\mathcal{S}$.
+Supposons que
+\begin{enumerate}
+\item si $\varphi : y \to x$ est un morphisme fortement cartésien
+de $\mathcal{S}$ et si
+$x$ est un objet de $\mathcal{S}'$, alors $y$ est isomorphe à un
+objet de $\mathcal{S}'$,
+\item $\mathcal{S}'$ est une sous-catégorie pleine de $\mathcal{S}$, et
+\item si $\{f_i : U_i \to U\}$ est un recouvrement de $\mathcal{C}$
+et si $x$ est un objet de $\mathcal{S}$ au-dessus de $U$ tel que $f_i^*x$
+soit isomorphe à un objet de $\mathcal{S}'$ pour tout $i$,
+alors $x$ est isomorphe à un objet de $\mathcal{S}'$.
+\end{enumerate}
+Alors $\mathcal{S}' \to \mathcal{C}$ est un champ.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indications :
+la première condition garantit que $\mathcal{S}'$ est une catégorie fibrée.
+La deuxième garantit que les préfaisceaux $\mathit{Isom}$
+de $\mathcal{S}'$ sont des faisceaux (puisqu'ils sont identiques à leurs homologues
+dans $\mathcal{S}$). La troisième garantit que la condition de descente
+est satisfaite dans $\mathcal{S}'$, car nous pouvons d'abord effectuer la descente dans
+$\mathcal{S}$, puis (3) implique que l'objet obtenu est isomorphe à un objet de
+$\mathcal{S}'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-equivalent}
+Soit $\mathcal{C}$ un site.
+Soient $\mathcal{S}_1$, $\mathcal{S}_2$ des catégories au-dessus de $\mathcal{C}$.
+Supposons que $\mathcal{S}_1$ et $\mathcal{S}_2$ soient équivalentes
+comme catégories au-dessus de $\mathcal{C}$.
+Alors $\mathcal{S}_1$ est un champ sur $\mathcal{C}$ si et seulement si
+$\mathcal{S}_2$ est un champ sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Soient $F : \mathcal{S}_1 \to \mathcal{S}_2$,
+$G : \mathcal{S}_2 \to \mathcal{S}_1$ des foncteurs au-dessus de $\mathcal{C}$, et soient
+$i : F \circ G \to \text{id}_{\mathcal{S}_2}$,
+$j : G \circ F \to \text{id}_{\mathcal{S}_1}$ des isomorphismes de
+foncteurs au-dessus de $\mathcal{C}$. D'après
+Catégories, lemme \ref{categories-lemma-fibred-equivalent},
+nous voyons que $\mathcal{S}_1$ est fibrée si et seulement si $\mathcal{S}_2$
+est fibrée au-dessus de $\mathcal{C}$. Nous pouvons donc supposer que
+$\mathcal{S}_1$ et $\mathcal{S}_2$ sont toutes deux fibrées. De plus, la démonstration de
+Catégories, lemme \ref{categories-lemma-fibred-equivalent},
+montre que $F$ et $G$ envoient les morphismes fortement cartésiens sur des morphismes
+fortement cartésiens, c'est-à-dire que $F$ et $G$ sont des $1$-morphismes de catégories
+fibrées au-dessus de $\mathcal{C}$. Cela signifie que, étant donnés
+$U \in \Ob(\mathcal{C})$ et $x, y \in \mathcal{S}_{1, U}$, les préfaisceaux
+$$
+\mathit{Mor}_{\mathcal{S}_1}(x, y),
+\mathit{Mor}_{\mathcal{S}_1}(F(x), F(y)) :
+(\mathcal{C}/U)^{opp} \longrightarrow \textit{Ensembles}.
+$$
+s'identifient, voir
+lemme \ref{lemma-presheaf-mor-map-fibred-categories}. Par conséquent,
+le premier est un faisceau si et seulement si le second est un faisceau.
+Enfin, nous devons montrer que, si toute donnée de descente dans $\mathcal{S}_1$
+est effective, il en va de même de toute donnée de descente dans $\mathcal{S}_2$.
+Pour cela, soit $(X_i, \varphi_{ii'})$ une donnée de descente
+dans $\mathcal{S}_2$ relativement au recouvrement $\{U_i \to U\}$ du site
+$\mathcal{C}$. Alors $(G(X_i), G(\varphi_{ii'}))$ est une donnée de descente
+dans $\mathcal{S}_1$ relativement au recouvrement $\{U_i \to U\}$.
+Soit $X$ un objet de $\mathcal{S}_{1, U}$ tel que la
+donnée de descente $(f_i^*X, can)$ soit isomorphe à
+$(G(X_i), G(\varphi_{ii'}))$. Alors $F(X)$ est un objet de $\mathcal{S}_{2, U}$
+tel que la donnée de descente $(f_i^*F(X), can)$ soit isomorphe à
+$(F(G(X_i)), F(G(\varphi_{ii'})))$, laquelle est à son tour isomorphe à
+la donnée de descente initiale $(X_i, \varphi_{ii'})$ au moyen de $i$.
+\end{proof}
+
+\noindent
+La $2$-catégorie des champs sur $\mathcal{C}$
+est définie comme suit.
+
+\begin{definition}
+\label{definition-stacks-over-C}
+Soit $\mathcal{C}$ un site.
+La {\it $2$-catégorie des champs sur $\mathcal{C}$}
+est la sous-$2$-catégorie de la $2$-catégorie des catégories fibrées
+au-dessus de $\mathcal{C}$ (voir
+Catégories, définition \ref{categories-definition-fibred-categories-over-C})
+définie comme suit :
+\begin{enumerate}
+\item Ses objets sont les champs $p : \mathcal{S} \to \mathcal{C}$.
+\item Ses $1$-morphismes $(\mathcal{S}, p) \to (\mathcal{S}', p')$
+sont les foncteurs $G : \mathcal{S} \to \mathcal{S}'$ tels que
+$p' \circ G = p$ et tels que $G$ envoie les morphismes fortement cartésiens
+sur des morphismes fortement cartésiens.
+\item Ses $2$-morphismes $t : G \to H$, pour
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$,
+sont les morphismes de foncteurs
+tels que $p'(t_x) = \text{id}_{p(x)}$
+pour tout $x \in \Ob(\mathcal{S})$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-2-product-stacks}
+Soit $\mathcal{C}$ un site.
+La $(2, 1)$-catégorie des champs sur $\mathcal{C}$
+admet des 2-produits fibrés, et ceux-ci sont décrits comme dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}.
+\end{lemma}
+
+\begin{proof}
+Soient $f : \mathcal{X} \to \mathcal{S}$ et
+$g : \mathcal{Y} \to \mathcal{S}$ des
+$1$-morphismes de champs sur $\mathcal{C}$
+au sens de la définition ci-dessus. La catégorie
+$\mathcal{X} \times_\mathcal{S} \mathcal{Y}$
+décrite dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}, est une
+catégorie fibrée d'après
+Catégories, lemme \ref{categories-lemma-2-product-fibred-categories-over-C}.
+(C'est ici que nous utilisons le fait que $f$ et $g$ préservent les morphismes
+fortement cartésiens.) Il reste à montrer que les préfaisceaux de morphismes sont des faisceaux
+et que la descente relativement aux recouvrements de $\mathcal{C}$ est effective.
+
+\medskip\noindent
+Rappelons qu'un objet de $\mathcal{X} \times_\mathcal{S} \mathcal{Y}$
+est donné par un quadruplet $(U, x, y, \phi)$.
+Il se trouve au-dessus de l'objet
+$U$ de $\mathcal{C}$. Soit ensuite $(U, x', y', \phi')$ un second
+objet au-dessus de $U$.
+Rappelons que $\phi : f(x) \to g(y)$ et $\phi' : f(x') \to g(y')$
+sont des isomorphismes dans la catégorie $\mathcal{S}_U$. Utilisons ces
+isomorphismes pour identifier $z = f(x) = g(y)$ et
+$z' = f(x') = g(y')$. Avec ces identifications,
+il est clair que
+$$
+\mathit{Mor}((U, x, y, \phi), (U, x', y', \phi'))
+=
+\mathit{Mor}(x, x')
+\times_{\mathit{Mor}(z, z')}
+\mathit{Mor}(y, y')
+$$
+comme préfaisceaux. Or, puisque le produit fibré dans la catégorie des
+préfaisceaux préserve les faisceaux (Sites, lemme \ref{sites-lemma-limit-sheaf}),
+nous voyons que c'est un faisceau.
+
+\medskip\noindent
+Soit $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$ un recouvrement du site
+$\mathcal{C}$. Soit $(X_i, \chi_{ij})$ une donnée de descente
+dans $\mathcal{X} \times_\mathcal{S} \mathcal{Y}$ relativement à $\mathcal{U}$.
+Écrivons $X_i = (U_i, x_i, y_i, \phi_i)$ comme ci-dessus. Écrivons
+$\chi_{ij} = (\varphi_{ij}, \psi_{ij})$ comme dans la définition de
+la catégorie $\mathcal{X} \times_\mathcal{S} \mathcal{Y}$ (voir
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}).
+Il est clair que $(x_i, \varphi_{ij})$ est une donnée de descente dans
+$\mathcal{X}$ et que $(y_i, \psi_{ij})$ est une donnée de descente dans
+$\mathcal{Y}$. Puisque $\mathcal{X}$ et $\mathcal{Y}$ sont des champs, ces
+données de descente sont effectives. Nous obtenons donc
+$x \in \Ob(\mathcal{X}_U)$ et $y \in \Ob(\mathcal{Y}_U)$
+avec $x_i = x|_{U_i}$ et $y_i = y|_{U_i}$, de façon compatible avec les données de descente.
+Posons $z = f(x)$ et $z' = g(y)$, qui sont tous deux des objets de $\mathcal{S}_U$.
+Les morphismes $\phi_i$ sont des éléments de
+$\mathit{Isom}(z, z')(U_i)$ vérifiant
+$\phi_i|_{U_i \times_U U_j} = \phi_j|_{U_i \times_U U_j}$.
+Par la propriété de faisceau de $\mathit{Isom}(z, z')$,
+nous obtenons donc un isomorphisme $\phi : z = f(x) \to z' = g(y)$.
+Nous omettons la vérification que la donnée de descente canonique associée à
+l'objet $(U, x, y, \phi)$ de
+$(\mathcal{X} \times_\mathcal{S} \mathcal{Y})_U$ est isomorphe
+à la donnée de descente dont nous sommes partis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-ff}
+Soit $\mathcal{C}$ un site.
+Soient $\mathcal{S}_1$, $\mathcal{S}_2$ des champs sur $\mathcal{C}$.
+Soit $F : \mathcal{S}_1 \to \mathcal{S}_2$ un $1$-morphisme.
+Alors les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $F$ est pleinement fidèle,
+\item pour tout $U \in \Ob(\mathcal{C})$ et tous
+$x, y \in \Ob(\mathcal{S}_{1, U})$, l'application
+$$
+F :
+\mathit{Mor}_{\mathcal{S}_1}(x, y)
+\longrightarrow
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))
+$$
+est un isomorphisme de faisceaux sur $\mathcal{C}/U$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1). Pour $U, x, y$ comme dans (2), l'application affichée $F$ s'évalue en
+$F : \Mor_{\mathcal{S}_{1, V}}(x|_V, y|_V) \to
+\Mor_{\mathcal{S}_{2, V}}(F(x|_V), F(y|_V))$
+sur un objet $V$ de $\mathcal{C}$ au-dessus de $U$.
+Or, puisque $F$ est pleinement fidèle, l'application correspondante
+$\Mor_{\mathcal{S}_1}(x|_V, y|_V) \to \Mor_{\mathcal{S}_2}(F(x|_V), F(y|_V))$
+est une bijection. Les morphismes de la catégorie fibre $\mathcal{S}_{1, V}$ sont
+exactement les morphismes entre $x|_V$ et $y|_V$ dans $\mathcal{S}_1$ qui sont
+au-dessus de $\text{id}_V$. De même, les morphismes de la catégorie fibre
+$\mathcal{S}_{2, V}$ sont exactement les morphismes entre $F(x|_V)$ et
+$F(y|_V)$ dans $\mathcal{S}_2$ qui sont au-dessus de $\text{id}_V$. Nous constatons donc que $F$
+induit également une bijection entre ceux-ci. Par conséquent, (2) est satisfaite.
+
+\medskip\noindent
+Supposons (2). Soient $U$, $V$ des objets de $\mathcal{C}$, ainsi que
+$x \in \Ob(\mathcal{S}_{1, U})$ et
+$y \in \Ob(\mathcal{S}_{1, V})$. Pour montrer que $F$ est pleinement fidèle,
+il suffit de prouver qu'il induit une bijection sur les
+morphismes au-dessus d'un $f : U \to V$ fixé. Choisissons un morphisme fortement cartésien
+$f^*y \to y$ dans $\mathcal{S}_1$ au-dessus de $f$. Nous obtenons ainsi une
+bijection entre l'ensemble des morphismes $x \to y$ dans $\mathcal{S}_1$ au-dessus
+de $f$ et $\Mor_{\mathcal{S}_{1, U}}(x, f^*y)$. Puisque $F$ préserve
+les morphismes fortement cartésiens en tant que $1$-morphisme dans la $2$-catégorie
+des champs sur $\mathcal{C}$, nous obtenons également une bijection
+entre l'ensemble des morphismes $F(x) \to F(y)$ dans $\mathcal{S}_2$ au-dessus
+de $f$ et $\Mor_{\mathcal{S}_{2, U}}(F(x), F(f^*y))$.
+Comme $F$ induit une bijection
+$\Mor_{\mathcal{S}_{1, U}}(x, f^*y) \to
+\Mor_{\mathcal{S}_{2, U}}(F(x), F(f^*y))$,
+nous concluons que (1) est satisfaite.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-essentially-surjective-when-ff}
+Soit $\mathcal{C}$ un site.
+Soient $\mathcal{S}_1$, $\mathcal{S}_2$ des champs sur $\mathcal{C}$.
+Soit $F : \mathcal{S}_1 \to \mathcal{S}_2$ un $1$-morphisme
+pleinement fidèle. Alors les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $F$ est une équivalence,
+\item pour tout $U \in \Ob(\mathcal{C})$ et tout
+$x \in \Ob(\mathcal{S}_{2, U})$, il existe un recouvrement
+$\{f_i : U_i \to U\}$ tel que $f_i^*x$ appartienne à l'image essentielle
+du foncteur $F : \mathcal{S}_{1, U_i} \to \mathcal{S}_{2, U_i}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (1) $\Rightarrow$ (2) est immédiate.
+Pour voir que (2) implique (1), nous devons montrer que tout
+$x$ comme dans (2) appartient à l'image essentielle du foncteur $F$.
+Pour cela, choisissons un recouvrement comme dans (2),
+$x_i \in \Ob(\mathcal{S}_{1, U_i})$, et des
+isomorphismes $\varphi_i : F(x_i) \to f_i^*x$. Nous obtenons alors une donnée de
+descente pour $\mathcal{S}_1$ relativement à $\{f_i : U_i \to U\}$
+en prenant pour
+$$
+\varphi_{ij} :
+x_i|_{U_i \times_U U_j}
+\longrightarrow
+x_j|_{U_i \times_U U_j}
+$$
+la flèche telle que $F(\varphi_{ij}) = \varphi_j^{-1} \circ \varphi_i$.
+Cette donnée de descente est effective par les axiomes d'un champ ; nous
+obtenons donc un objet $x_1$ de $\mathcal{S}_1$ au-dessus de $U$. Nous omettons la
+vérification que $F(x_1)$ est isomorphe à $x$ au-dessus de $U$.
+\end{proof}
+
+\begin{remark}
+\label{remark-stack-make-small}
+(Réduction d'un « grand » champ pour obtenir un champ.)
+Soit $\mathcal{C}$ un site. Supposons que $p : \mathcal{S} \to \mathcal{C}$
+soit un foncteur d'une « grande » catégorie vers $\mathcal{C}$, c'est-à-dire supposons
+que la collection des objets de $\mathcal{S}$ forme une classe propre.
+Supposons enfin que $p : \mathcal{S} \to \mathcal{C}$ satisfasse
+aux conditions (1), (2), (3) de la
+Définition \ref{definition-stack}.
+En général, il n'existe aucun moyen de remplacer $p : \mathcal{S} \to \mathcal{C}$
+par une catégorie équivalente de façon à obtenir un champ. La raison en est qu'il
+peut arriver qu'une catégorie fibre $\mathcal{S}_U$ ait une classe propre
+de classes d'isomorphisme d'objets.
+Supposons en revanche que
+\begin{enumerate}
+\item[(4)] pour tout $U \in \Ob(\mathcal{C})$, il existe un ensemble
+$S_U \subset \Ob(\mathcal{S}_U)$ tel que tout objet de
+$\mathcal{S}_U$ soit isomorphe dans $\mathcal{S}_U$ à un élément de $S_U$.
+\end{enumerate}
+Dans ce cas, nous pouvons trouver une sous-catégorie pleine $\mathcal{S}_{small}$
+de $\mathcal{S}$ telle qu'en posant $p_{small} = p|_{\mathcal{S}_{small}}$,
+nous ayons
+\begin{enumerate}
+\item[(a)] le foncteur $p_{small} : \mathcal{S}_{small} \to \mathcal{C}$
+définit un champ, et
+\item[(b)] l'inclusion $\mathcal{S}_{small} \to \mathcal{S}$
+est pleinement fidèle et essentiellement surjective.
+\end{enumerate}
+(Indication : pour tout $U \in \Ob(\mathcal{C})$,
+notons $\alpha(U)$ le plus petit ordinal tel que
+$\Ob(\mathcal{S}_U) \cap V_{\alpha(U)}$ s'envoie surjectivement sur l'ensemble
+des classes d'isomorphisme de $\mathcal{S}_U$, et posons
+$\alpha = \sup_{U \in \Ob(\mathcal{C})} \alpha(U)$.
+Prenons alors
+$\Ob(\mathcal{S}_{small}) = \Ob(\mathcal{S}) \cap V_\alpha$.
+Pour les notations utilisées, voir Ensembles, section \ref{sets-section-sets-hierarchy}.)
+\end{remark}
+
+
+
+
+
+
+
+\section{Champs en groupoïdes}
+\label{section-stacks-in-groupoids}
+
+\noindent
+Parmi les champs, ceux qui sont fibrés en groupoïdes sont un peu plus faciles
+à appréhender. Nous les redéfinissons comme suit.
+
+\begin{definition}
+\label{definition-stack-in-groupoids}
+Un {\it champ en groupoïdes} sur un site $\mathcal{C}$ est une
+catégorie $p : \mathcal{S} \to \mathcal{C}$ au-dessus de $\mathcal{C}$
+telle que
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ est fibrée
+en groupoïdes au-dessus de $\mathcal{C}$ (voir
+Catégories, définition \ref{categories-definition-fibred-groupoids}),
+\item pour tout $U \in \Ob(\mathcal{C})$ et
+tous $x, y\in \Ob(\mathcal{S}_U)$, le préfaisceau
+$\mathit{Isom}(x, y)$ est un faisceau sur le site $\mathcal{C}/U$, et
+\item pour tout recouvrement $\mathcal{U} = \{U_i \to U\}$ dans $\mathcal{C}$,
+toute donnée de descente $(x_i, \phi_{ij})$ relative à $\mathcal{U}$ est effective.
+\end{enumerate}
+\end{definition}
+
+\noindent
+La troisième condition est généralement la plus difficile à vérifier.
+Voici le lemme qui compare cette notion à celle de champ.
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-stack}
+Soit $\mathcal{C}$ un site.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie au-dessus de $\mathcal{C}$.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{S}$ est un champ en groupoïdes sur $\mathcal{C}$,
+\item $\mathcal{S}$ est un champ sur $\mathcal{C}$ et toutes ses
+catégories fibres sont des groupoïdes, et
+\item $\mathcal{S}$ est fibrée en groupoïdes au-dessus de $\mathcal{C}$
+et est un champ sur $\mathcal{C}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise, mais voir Catégories, lemme \ref{categories-lemma-fibred-groupoids}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-gives-stack-groupoids}
+Soit $\mathcal{C}$ un site.
+Soit $p : \mathcal{S} \to \mathcal{C}$ un champ.
+Soit $p' : \mathcal{S}' \to \mathcal{C}$
+la catégorie fibrée en groupoïdes associée à $\mathcal{S}$,
+construite dans
+Catégories, lemme \ref{categories-lemma-fibred-gives-fibred-groupoids}.
+Alors $p' : \mathcal{S}' \to \mathcal{C}$ est un champ en groupoïdes.
+\end{lemma}
+
+\begin{proof}
+Rappelons que les morphismes de $\mathcal{S}'$ sont exactement les
+morphismes fortement cartésiens de $\mathcal{S}$ et que tout isomorphisme de
+$\mathcal{S}$ est un tel morphisme. Ainsi, les données de descente dans $\mathcal{S}'$
+sont exactement les mêmes que les données de descente dans $\mathcal{S}$. Appliquons maintenant le
+lemme \ref{lemma-stack-equivalences}. Certains détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-equivalent}
+Soit $\mathcal{C}$ un site.
+Soient $\mathcal{S}_1$, $\mathcal{S}_2$ des catégories au-dessus de $\mathcal{C}$.
+Supposons que $\mathcal{S}_1$ et $\mathcal{S}_2$ soient équivalentes
+comme catégories au-dessus de $\mathcal{C}$.
+Alors $\mathcal{S}_1$ est un champ en groupoïdes sur $\mathcal{C}$ si et seulement si
+$\mathcal{S}_2$ est un champ en groupoïdes sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la combinaison des
+lemmes \ref{lemma-stack-in-groupoids-stack} et \ref{lemma-stack-equivalent}.
+\end{proof}
+
+\noindent
+La $2$-catégorie des champs en groupoïdes sur $\mathcal{C}$
+est définie comme suit.
+
+\begin{definition}
+\label{definition-stacks-in-groupoids-over-C}
+Soit $\mathcal{C}$ un site.
+La {\it $2$-catégorie des champs en groupoïdes sur $\mathcal{C}$}
+est la sous-$2$-catégorie de la $2$-catégorie des champs
+sur $\mathcal{C}$ (voir Définition \ref{definition-stacks-over-C})
+définie comme suit :
+\begin{enumerate}
+\item Ses objets sont les champs en groupoïdes
+$p : \mathcal{S} \to \mathcal{C}$.
+\item Ses $1$-morphismes $(\mathcal{S}, p) \to (\mathcal{S}', p')$
+sont les foncteurs $G : \mathcal{S} \to \mathcal{S}'$ tels que
+$p' \circ G = p$. (Puisque tout morphisme est fortement cartésien,
+tout foncteur les préserve.)
+\item Ses $2$-morphismes $t : G \to H$, pour
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$,
+sont les morphismes de foncteurs
+tels que $p'(t_x) = \text{id}_{p(x)}$
+pour tout $x \in \Ob(\mathcal{S})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Remarquons que tout $2$-morphisme est automatiquement un isomorphisme, de sorte
+que la $2$-catégorie des champs en groupoïdes sur $\mathcal{C}$
+est en fait une $(2, 1)$-catégorie (stricte).
+
+\begin{lemma}
+\label{lemma-2-product-stacks-in-groupoids}
+Soit $\mathcal{C}$ une catégorie.
+La $2$-catégorie des champs en groupoïdes sur $\mathcal{C}$
+admet des 2-produits fibrés, et ceux-ci sont décrits comme dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de
+Catégories, lemme \ref{categories-lemma-2-product-fibred-categories},
+et des lemmes \ref{lemma-stack-in-groupoids-stack}
+et \ref{lemma-2-product-stacks}.
+\end{proof}
+
+
+
+
+\section{Champs en setoïdes}
+\label{section-stacks-in-setoids}
+
+\noindent
+Cette brève section se contente d'indiquer qu'un champ en ensembles
+est la même chose qu'un faisceau d'ensembles. Pour les notations, consulter
+Catégories, section \ref{categories-section-fibred-in-setoids}.
+
+\begin{definition}
+\label{definition-stack-in-sets}
+Soit $\mathcal{C}$ un site.
+\begin{enumerate}
+\item Un {\it champ en setoïdes} sur $\mathcal{C}$
+est un champ sur $\mathcal{C}$ dont toutes les catégories fibres sont des
+setoïdes.
+\item Un {\it champ en ensembles}, ou un {\it champ en catégories discrètes},
+est un champ sur $\mathcal{C}$ dont toutes les catégories fibres sont discrètes.
+\end{enumerate}
+\end{definition}
+
+\noindent
+D'après la discussion de la
+section \ref{section-stacks-in-groupoids},
+c'est la même chose qu'un champ en groupoïdes dont les catégories fibres
+sont des setoïdes (resp.\ discrètes). De plus, c'est aussi la même chose
+qu'une catégorie fibrée en setoïdes (resp.\ en ensembles) qui est un champ.
+
+\begin{lemma}
+\label{lemma-when-stack-in-sets}
+Soit $\mathcal{C}$ un site. Sous l'équivalence
+$$
+\left\{
+\begin{matrix}
+\text{la catégorie des préfaisceaux}\\
+\text{d'ensembles sur }\mathcal{C}
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{la catégorie des catégories}\\
+\text{fibrées en ensembles au-dessus de }\mathcal{C}
+\end{matrix}
+\right\}
+$$
+de
+Catégories, lemme \ref{categories-lemma-2-category-fibred-sets},
+les champs en ensembles correspondent précisément aux faisceaux.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : montrer que l'effectivité de la descente correspond exactement à
+la condition de faisceau.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-characterize}
+Soit $\mathcal{C}$ un site.
+Soit $\mathcal{S}$ une catégorie fibrée en setoïdes au-dessus de $\mathcal{C}$.
+Alors $\mathcal{S}$ est un champ en setoïdes si et seulement si l'unique
+catégorie $\mathcal{S}'$ fibrée en ensembles qui lui est équivalente (voir
+Catégories, lemme \ref{categories-lemma-setoid-fibres})
+est un champ en ensembles. Autrement dit, si et seulement si le préfaisceau
+$$
+U \longmapsto \Ob(\mathcal{S}_U)/\!\!\cong
+$$
+est un faisceau.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-equivalent}
+Soit $\mathcal{C}$ un site.
+Soient $\mathcal{S}_1$, $\mathcal{S}_2$ des catégories au-dessus de $\mathcal{C}$.
+Supposons que $\mathcal{S}_1$ et $\mathcal{S}_2$ soient équivalentes
+comme catégories au-dessus de $\mathcal{C}$.
+Alors $\mathcal{S}_1$ est un champ en setoïdes sur $\mathcal{C}$ si et seulement si
+$\mathcal{S}_2$ est un champ en setoïdes sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+D'après
+Catégories, lemme \ref{categories-lemma-setoid-fibres},
+nous voyons qu'une catégorie $\mathcal{S}$ au-dessus de $\mathcal{C}$ est fibrée en setoïdes
+au-dessus de $\mathcal{C}$ si et seulement si elle est équivalente au-dessus de $\mathcal{C}$
+à une catégorie fibrée en ensembles.
+Nous voyons donc que $\mathcal{S}_1$ est fibrée en setoïdes au-dessus de $\mathcal{C}$
+si et seulement si $\mathcal{S}_2$ est fibrée en setoïdes au-dessus de $\mathcal{C}$.
+Le lemme résulte alors du
+lemme \ref{lemma-stack-in-setoids-characterize}.
+\end{proof}
+
+\noindent
+La $2$-catégorie des champs en setoïdes sur $\mathcal{C}$
+est définie comme suit.
+
+\begin{definition}
+\label{definition-stacks-in-setoids-over-C}
+Soit $\mathcal{C}$ un site.
+La {\it $2$-catégorie des champs en setoïdes sur $\mathcal{C}$}
+est la sous-$2$-catégorie de la $2$-catégorie des champs
+sur $\mathcal{C}$ (voir Définition \ref{definition-stacks-over-C})
+définie comme suit :
+\begin{enumerate}
+\item Ses objets sont les champs en setoïdes
+$p : \mathcal{S} \to \mathcal{C}$.
+\item Ses $1$-morphismes $(\mathcal{S}, p) \to (\mathcal{S}', p')$
+sont les foncteurs $G : \mathcal{S} \to \mathcal{S}'$ tels que
+$p' \circ G = p$. (Puisque tout morphisme est fortement cartésien,
+tout foncteur les préserve.)
+\item Ses $2$-morphismes $t : G \to H$, pour
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$,
+sont les morphismes de foncteurs
+tels que $p'(t_x) = \text{id}_{p(x)}$
+pour tout $x \in \Ob(\mathcal{S})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Remarquons que tout $2$-morphisme est automatiquement un isomorphisme, de sorte
+que la $2$-catégorie des champs en setoïdes sur $\mathcal{C}$
+est en fait une $(2, 1)$-catégorie (stricte).
+
+\begin{lemma}
+\label{lemma-2-product-stacks-in-setoids}
+Soit $\mathcal{C}$ un site.
+La $2$-catégorie des champs en setoïdes sur $\mathcal{C}$
+admet des 2-produits fibrés, et ceux-ci sont décrits comme dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de
+Catégories, lemmes \ref{categories-lemma-2-product-fibred-categories} et
+\ref{categories-lemma-2-product-categories-fibred-setoids},
+ainsi que des
+lemmes \ref{lemma-stack-in-groupoids-stack} et
+\ref{lemma-2-product-stacks}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product-gives-stack-in-setoids}
+Soit $\mathcal{C}$ un site.
+Soient $\mathcal{S}, \mathcal{T}$ des champs en groupoïdes sur $\mathcal{C}$
+et soit $\mathcal{R}$ un champ en setoïdes sur $\mathcal{C}$.
+Soient $f : \mathcal{T} \to \mathcal{S}$ et $g : \mathcal{R} \to \mathcal{S}$
+des $1$-morphismes. Si $f$ est fidèle, alors le $2$-produit fibré
+$$
+\mathcal{T} \times_{f, \mathcal{S}, g} \mathcal{R}
+$$
+est un champ en setoïdes sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de la description explicite du $2$-produit fibré dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product-stacks-in-setoids-over-stack-in-groupoids}
+Soit $\mathcal{C}$ un site.
+Soit $\mathcal{S}$ un champ en groupoïdes sur $\mathcal{C}$ et
+soient $\mathcal{S}_i$, $i = 1, 2$, des champs en setoïdes sur $\mathcal{C}$.
+Soient $f_i : \mathcal{S}_i \to \mathcal{S}$ des $1$-morphismes.
+Alors le $2$-produit fibré
+$$
+\mathcal{S}_1 \times_{f_1, \mathcal{S}, f_2} \mathcal{S}_2
+$$
+est un champ en setoïdes sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du
+lemme \ref{lemma-2-fibre-product-gives-stack-in-setoids},
+car $f_2$ est fidèle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-faithful-descent}
+Soit $\mathcal{C}$ un site. Soit
+$$
+\xymatrix{
+\mathcal{T}_2 \ar[r] \ar[d]_{G'} & \mathcal{T}_1 \ar[d]^G \\
+\mathcal{S}_2 \ar[r]^F & \mathcal{S}_1
+}
+$$
+un diagramme $2$-cartésien de champs en groupoïdes sur $\mathcal{C}$.
+Supposons que
+\begin{enumerate}
+\item pour tout $U \in \Ob(\mathcal{C})$ et tout
+$x \in \Ob((\mathcal{S}_1)_U)$, il existe un recouvrement
+$\{U_i \to U\}$ tel que $x|_{U_i}$ appartienne à l'image
+essentielle de $F : (\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$, et
+\item $G'$ soit fidèle,
+\end{enumerate}
+alors $G$ est fidèle.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons supposer que $\mathcal{T}_2$ est la catégorie
+$\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$
+décrite dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}.
+D'après
+Catégories, lemme \ref{categories-lemma-equivalence-fibred-categories},
+la fidélité de $G, G'$ peut être vérifiée sur les catégories fibres.
+Supposons que $y, y'$ soient des objets de $\mathcal{T}_1$ au-dessus de l'objet $U$
+de $\mathcal{C}$. Soient $\alpha, \beta : y \to y'$ des morphismes de
+$(\mathcal{T}_1)_U$ tels que $G(\alpha) = G(\beta)$. Notre but est de
+montrer que $\alpha = \beta$. En considérant plutôt
+$\gamma = \alpha^{-1} \circ \beta$, nous voyons que $G(\gamma) = \text{id}_{G(y)}$
+et nous devons montrer que $\gamma = \text{id}_y$. Par hypothèse, nous
+pouvons trouver un recouvrement $\{U_i \to U\}$ tel que $G(y)|_{U_i}$ appartienne à
+l'image essentielle de $F :(\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$.
+Puisqu'il suffit de montrer que $\gamma|_{U_i} = \text{id}$ pour tout $i$,
+nous pouvons donc supposer qu'il existe
+$f : F(x) \to G(y)$ pour un objet $x$ de $\mathcal{S}_2$ au-dessus de $U$,
+la flèche $f$ étant un morphisme de $(\mathcal{S}_1)_U$. Dans ce cas, nous obtenons
+un morphisme
+$$
+(1, \gamma) : (U, x, y, f) \longrightarrow (U, x, y, f)
+$$
+dans la catégorie fibre de $\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$
+au-dessus de $U$, dont l'image par $G'$ dans $\mathcal{S}_1$ est $\text{id}_x$.
+Comme $G'$ est fidèle, nous concluons que $\gamma = \text{id}_y$, ce qui termine la preuve.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-descent}
+Soit $\mathcal{C}$ un site.
+Soit
+$$
+\xymatrix{
+\mathcal{T}_2 \ar[r] \ar[d] & \mathcal{T}_1 \ar[d]^G \\
+\mathcal{S}_2 \ar[r]^F & \mathcal{S}_1
+}
+$$
+un diagramme $2$-cartésien de champs en groupoïdes sur $\mathcal{C}$.
+Si
+\begin{enumerate}
+\item $F : \mathcal{S}_2 \to \mathcal{S}_1$ est pleinement fidèle,
+\item pour tout $U \in \Ob(\mathcal{C})$ et tout
+$x \in \Ob((\mathcal{S}_1)_U)$, il existe un recouvrement
+$\{U_i \to U\}$ tel que $x|_{U_i}$ appartienne à l'image essentielle
+de $F : (\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$, et
+\item $\mathcal{T}_2$ est un champ en setoïdes,
+\end{enumerate}
+alors $\mathcal{T}_1$ est un champ en setoïdes.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons supposer que $\mathcal{T}_2$ est la catégorie
+$\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$
+décrite dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}.
+Choisissons $U \in \Ob(\mathcal{C})$ et
+$y \in \Ob((\mathcal{T}_1)_U)$.
+Nous devons montrer que le faisceau $\mathit{Aut}(y)$ sur $\mathcal{C}/U$
+est trivial. Pour cela, nous pouvons remplacer $U$ par les membres d'un
+recouvrement de $U$. Par l'hypothèse (2), nous pouvons donc supposer
+qu'il existe un objet $x \in \Ob((\mathcal{S}_2)_U)$
+et un isomorphisme $f : F(x) \to G(y)$.
+Alors $y' = (U, x, y, f)$ est un objet de $\mathcal{T}_2$ au-dessus de $U$
+qui est envoyé sur $y$ par la projection $\mathcal{T}_2 \to \mathcal{T}_1$.
+Puisque $F$ est pleinement fidèle d'après (1), l'application
+$\mathit{Aut}(y') \to \mathit{Aut}(y)$ est surjective, comme le montre la description
+explicite des morphismes de $\mathcal{T}_2$ donnée dans
+Catégories, lemme \ref{categories-lemma-2-product-categories-over-C}.
+Puisque, par (3), le faisceau $\mathit{Aut}(y')$ est trivial,
+nous obtenons le résultat du lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-sheaf-over-stack-is-stack}
+Soit $\mathcal{C}$ un site. Soit $F : \mathcal{S} \to \mathcal{T}$
+un $1$-morphisme de catégories fibrées en groupoïdes au-dessus de $\mathcal{C}$.
+Supposons que
+\begin{enumerate}
+\item $\mathcal{T}$ soit un champ en groupoïdes sur $\mathcal{C}$,
+\item pour tout $U \in \Ob(\mathcal{C})$, le foncteur
+$\mathcal{S}_U \to \mathcal{T}_U$ entre catégories fibres soit fidèle,
+\item pour tout $U$ et tout $y \in \Ob(\mathcal{T}_U)$, le préfaisceau
+$$
+(h : V \to U)
+\longmapsto
+\{(x, f) \mid x \in \Ob(\mathcal{S}_V), f : F(x) \to f^*y\text{ au-dessus de }V\}/\cong
+$$
+soit un faisceau sur $\mathcal{C}/U$.
+\end{enumerate}
+Alors $\mathcal{S}$ est un champ en groupoïdes sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Nous devons démontrer la descente des morphismes et la descente des objets.
+
+\medskip\noindent
+Descente des morphismes. Soit $\{U_i \to U\}$ un recouvrement de $\mathcal{C}$.
+Soient $x, x'$ des objets de $\mathcal{S}$ au-dessus de $U$. Pour tout $i$,
+soit $\alpha_i : x|_{U_i} \to x'|_{U_i}$ un morphisme au-dessus de $U_i$
+tel que les restrictions de $\alpha_i$ et de $\alpha_j$ coïncident comme morphismes
+$x|_{U_i \times_U U_j} \to x'|_{U_i \times_U U_j}$.
+Puisque $\mathcal{T}$ est un champ en groupoïdes, il existe un morphisme
+$\beta : F(x) \to F(x')$ au-dessus de $U$ dont la restriction à $U_i$ est $F(\alpha_i)$.
+Nous pouvons alors considérer $\xi = (x, \beta)$ et $\xi' = (x', \text{id}_{F(x')})$
+comme des sections du préfaisceau associé à $y = F(x')$ au-dessus de $U$
+dans l'hypothèse (3). D'autre part, les restrictions de
+$\xi$ et $\xi'$ à $U_i$ sont $(x|_{U_i}, F(\alpha_i))$
+et $(x'|_{U_i}, \text{id}_{F(x'|_{U_i})})$.
+Elles sont isomorphes l'une à l'autre par le morphisme $\alpha_i$.
+Ainsi, $\xi$ et $\xi'$ sont isomorphes d'après l'hypothèse (3). Cela signifie qu'il existe un
+morphisme $\alpha : x \to x'$ au-dessus de $U$ tel que $F(\alpha) = \beta$.
+Puisque $F$ est fidèle sur les catégories fibres, nous obtenons
+$\alpha|_{U_i} = \alpha_i$.
+
+\medskip\noindent
+Descente des objets. Soit $\{U_i \to U\}$ un recouvrement de $\mathcal{C}$.
+Soit $(x_i, \varphi_{ij})$ une donnée de descente pour $\mathcal{S}$
+relativement au recouvrement donné. Puisque $\mathcal{T}$ est un champ en groupoïdes,
+il existe un objet $y$ de $\mathcal{T}_U$ et des isomorphismes
+$\beta_i : F(x_i) \to y|_{U_i}$ tels que
+$F(\varphi_{ij}) = \beta_j|_{U_i \times_U U_j} \circ
+(\beta_i|_{U_i \times_U U_j})^{-1}$.
+Alors les $(x_i, \beta_i)$ sont des sections du préfaisceau associé à
+$y$ au-dessus de $U$ défini dans l'hypothèse (3).
+De plus, $\varphi_{ij}$ définit un isomorphisme
+de la paire $(x_i, \beta_i)|_{U_i \times_U U_j}$ vers
+la paire $(x_j, \beta_j)|_{U_i \times_U U_j}$.
+Ainsi, d'après l'hypothèse (3), il existe une paire $(x, \beta)$ au-dessus de $U$
+dont la restriction à $U_i$ est isomorphe à $(x_i, \beta_i)$.
+Cela signifie qu'il existe des morphismes $\alpha_i : x_i \to x|_{U_i}$
+tels que $\beta_i = \beta|_{U_i} \circ F(\alpha_i)$.
+Puisque $F$ est fidèle sur les catégories fibres, un calcul montre
+que $\varphi_{ij} = \alpha_j|_{U_i \times_U U_j} \circ
+(\alpha_i|_{U_i \times_U U_j})^{-1}$. Cela achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Le champ d'inertie}
+\label{section-the-inertia-stack}
+
+\noindent
+Soient
+$p : \mathcal{S} \to \mathcal{C}$ et
+$p' : \mathcal{S}' \to \mathcal{C}$
+des catégories fibrées au-dessus de la catégorie $\mathcal{C}$.
+Soit $F : \mathcal{S} \to \mathcal{S}'$ un $1$-morphisme de
+catégories fibrées au-dessus de $\mathcal{C}$.
+Rappelons que nous avons défini dans
+Catégories, définition \ref{categories-definition-inertia-fibred-category},
+une {\it catégorie fibrée d'inertie relative}
+$\mathcal{I}_{\mathcal{S}/\mathcal{S}'} \to \mathcal{C}$ comme la
+catégorie dont les objets sont les paires $(x , \alpha)$ où
+$x \in \Ob(\mathcal{S})$ et $\alpha : x \to x$ vérifie
+$F(\alpha) = \text{id}_{F(x)}$. Il existe aussi une version absolue,
+à savoir l'{\it inertie} $\mathcal{I}_\mathcal{S}$ de $\mathcal{S}$.
+Ces catégories d'inertie sont en fait des champs sur $\mathcal{C}$ dès que
+$\mathcal{S}$ et $\mathcal{S}'$ sont des champs.
+
+\begin{lemma}
+\label{lemma-inertia}
+Soit $\mathcal{C}$ un site. Soient
+$p : \mathcal{S} \to \mathcal{C}$ et
+$p' : \mathcal{S}' \to \mathcal{C}$
+des champs sur le site $\mathcal{C}$.
+Soit $F : \mathcal{S} \to \mathcal{S}'$ un $1$-morphisme de
+champs sur $\mathcal{C}$.
+\begin{enumerate}
+\item Les inerties $\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ et
+$\mathcal{I}_\mathcal{S}$ sont des champs sur $\mathcal{C}$.
+\item Si $\mathcal{S}, \mathcal{S}'$ sont des champs en groupoïdes sur
+$\mathcal{C}$, alors $\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ et
+$\mathcal{I}_\mathcal{S}$ le sont également.
+\item Si $\mathcal{S}, \mathcal{S}'$ sont des champs en setoïdes sur $\mathcal{C}$,
+alors $\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ et
+$\mathcal{I}_\mathcal{S}$ le sont également.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les trois assertions résultent des
+lemmes \ref{lemma-2-product-stacks},
+\ref{lemma-2-product-stacks-in-groupoids} et
+\ref{lemma-2-product-stacks-in-setoids},
+ainsi que de l'équivalence de
+Catégories, lemme \ref{categories-lemma-inertia-fibred-category}, partie (1).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-stack-in-setoids}
+Soit $\mathcal{C}$ un site.
+Si $\mathcal{S}$ est un champ en groupoïdes, alors le
+$1$-morphisme canonique $\mathcal{I}_\mathcal{S} \to \mathcal{S}$
+est une équivalence si et seulement si $\mathcal{S}$ est un champ en setoïdes.
+\end{lemma}
+
+\begin{proof}
+Cela résulte directement de
+Catégories, lemme \ref{categories-lemma-characterize-fibred-setoids-inertia}.
+\end{proof}
+
+\section{Champification des catégories fibrées}
+\label{section-stackify}
+
+\noindent
+Le résultat de la procédure du lemme suivant sera appelé la
+{\it champification} d'une catégorie fibrée sur un site.
+
+\begin{lemma}
+\label{lemma-stackify}
+Soit $\mathcal{C}$ un site.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée sur $\mathcal{C}$.
+Il existe un champ $p' : \mathcal{S}' \to \mathcal{C}$ et un
+$1$-morphisme $G : \mathcal{S} \to \mathcal{S}'$
+de catégories fibrées sur $\mathcal{C}$ (voir
+Catégories, Définition \ref{categories-definition-fibred-categories-over-C})
+tels que
+\begin{enumerate}
+\item pour tout $U \in \Ob(\mathcal{C})$ et tous
+$x, y \in \Ob(\mathcal{S}_U)$, l'application
+$$
+\mathit{Mor}(x, y) \longrightarrow \mathit{Mor}(G(x), G(y))
+$$
+induite par $G$ identifie le membre de droite à la faisceautisation
+du membre de gauche, et
+\item pour tout $U \in \Ob(\mathcal{C})$ et tout
+$x' \in \Ob(\mathcal{S}'_U)$, il existe un recouvrement
+$\{U_i \to U\}_{i \in I}$ tel que, pour tout $i \in I$,
+l'objet $x'|_{U_i}$ appartienne à l'image essentielle du
+foncteur $G : \mathcal{S}_{U_i} \to \mathcal{S}'_{U_i}$.
+\end{enumerate}
+De plus, ces conditions déterminent le champ $\mathcal{S}'$ à un unique
+$2$-isomorphisme près.
+\end{lemma}
+
+\begin{proof}[Démonstration par la méthode naïve]
+Dans cette méthode de démonstration, nous procédons par étapes :
+
+\medskip\noindent
+Tout d'abord, étant donnés $x$ au-dessus de $U$ et un objet quelconque $y$ de
+$\mathcal{S}$, on dit que deux morphismes
+$a, b : x \to y$ de $\mathcal{S}$
+au-dessus d'une même flèche de $\mathcal{C}$
+sont {\it localement égaux}
+s'il existe un recouvrement $\{f_i : U_i \to U\}$ de $\mathcal{C}$
+tel que les composées
+$$
+f_i^*x \to x \xrightarrow{a} y,
+\quad
+f_i^*x \to x \xrightarrow{b} y
+$$
+soient égales. Cela définit une relation d'équivalence $\sim$
+sur les flèches de $\mathcal{S}$. Si $b \sim b'$, alors
+$a \circ b \circ c \sim a \circ b' \circ c$ (vérification omise).
+On peut donc quotienter par cette relation d'équivalence pour
+obtenir une nouvelle catégorie $\mathcal{S}^1$ sur $\mathcal{C}$,
+ainsi qu'un morphisme $G^1 : \mathcal{S} \to \mathcal{S}^1$.
+
+\medskip\noindent
+On vérifie que $G^1$ préserve les morphismes fortement cartésiens
+et que $\mathcal{S}^1$ est une catégorie fibrée sur $\mathcal{C}$.
+Les vérifications sont omises. On se ramène ainsi au cas où des
+morphismes localement égaux sont égaux.
+
+\medskip\noindent
+Ensuite, on ajoute des morphismes comme suit. Étant donnés
+$x$ au-dessus de $U$ et un objet quelconque $y$ au-dessus de $V$,
+un {\it morphisme de $x$ vers $y$ défini localement} consiste en
+\begin{enumerate}
+\item un morphisme $f : U \to V$,
+\item un recouvrement $\{f_i : U_i \to U\}$ de $U$, et
+\item des morphismes $a_i : f_i^*x \to y$ avec $p(a_i) = f \circ f_i$
+\end{enumerate}
+ayant la propriété que les composées
+$$
+(f_i \times f_j)^*x \to f_i^*x \xrightarrow{a_i} y,
+\quad
+(f_i \times f_j)^*x \to f_j^*x \xrightarrow{a_j} y
+$$
+sont égales. Remarquons qu'un morphisme usuel $a : x \to y$ fournit le
+morphisme défini localement $(p(a) : U \to V, \{\text{id}_U\}, a)$.
+On dit que deux morphismes définis localement
+$(f, \{f_i : U_i \to U\}, a_i)$ et $(g, \{g_j : U'_j \to U\}, b_j)$
+sont {\it égaux} si $f = g$ et si les composées
+$$
+(f_i \times g_j)^*x \to f_i^*x \xrightarrow{a_i} y,
+\quad
+(f_i \times g_j)^*x \to g_j^*x \xrightarrow{b_j} y
+$$
+sont égales (c'est la bonne condition puisque nous sommes dans le
+cas où des morphismes localement égaux sont égaux).
+Pour composer les morphismes définis localement
+$(f, \{f_i : U_i \to U\}, a_i)$ de $x$ vers $y$ et
+$(g, \{g_j : V_j \to V\}, b_j)$ de $y$ vers $z$ au-dessus de $W$,
+il suffit de prendre $g \circ f : U \to W$, le recouvrement
+$\{U_i \times_V V_j \to U\}$ et, comme applications, les composées
+$$
+x|_{U_i \times_V V_j}
+\xrightarrow{\text{pr}_0^*a_i}
+y|_{V_j}
+\xrightarrow{b_j}
+z
+$$
+Nous omettons la vérification qu'il s'agit d'un morphisme défini localement.
+
+\medskip\noindent
+On vérifie que $\mathcal{S}^2$, qui a les mêmes objets que
+$\mathcal{S}$ et pour morphismes les morphismes définis localement,
+est une catégorie sur $\mathcal{C}$, qu'il existe un foncteur
+$G^2 : \mathcal{S} \to \mathcal{S}^2$ sur $\mathcal{C}$,
+que ce foncteur préserve les objets fortement cartésiens
+et que $\mathcal{S}^2$ est une catégorie fibrée sur $\mathcal{C}$.
+Les vérifications sont omises. On se ramène ainsi au cas où tous les
+préfaisceaux de morphismes de $\mathcal{S}$ sont des faisceaux, en
+vérifiant que l'emploi de morphismes définis localement a pour effet de
+faisceautiser les préfaisceaux (séparés) de morphismes.
+
+\medskip\noindent
+Enfin, lorsque les préfaisceaux de morphismes sont tous des faisceaux,
+il faut ajouter des objets afin que les données de descente soient
+effectives dans le résultat final. La façon la plus simple consiste à
+considérer la catégorie $\mathcal{S}'$ dont les objets sont les
+paires $(\mathcal{U}, \xi)$ où
+$\mathcal{U} = \{U_i \to U\}$ est un recouvrement de $\mathcal{C}$ et
+$\xi = (X_i, \varphi_{ii'})$ est une donnée de descente relativement à $\mathcal{U}$.
+Supposons données deux telles données
+$(\mathcal{U}, \xi) = (\{f_i : U_i \to U\},  x_i, \varphi_{ii'})$ et
+$(\mathcal{V}, \eta) = (\{g_j : V_j \to V\},  y_j, \psi_{jj'})$.
+On définit
+$$
+\Mor_{\mathcal{S}'}((\mathcal{U}, \xi), (\mathcal{V}, \eta))
+$$
+comme l'ensemble des $(f, a_{ij})$, où $f : U \to V$ et
+$$
+a_{ij} :
+x_i|_{U_i \times_V V_j}
+\longrightarrow
+y_j
+$$
+sont des morphismes de $\mathcal{S}$ au-dessus de $U_i \times_V V_j \to V_j$.
+Ils doivent satisfaire la condition suivante : pour tous
+$i, i' \in I$ et $j, j' \in J$, posons
+$W = (U_i \times_U U_{i'}) \times_V (V_j \times_V V_{j'})$. Alors
+$$
+\xymatrix{
+x_i|_W \ar[r]_{a_{ij}|_W} \ar[d]_{\varphi_{ii'}|_W} &
+y_j|_W \ar[d]^{\psi_{jj'}|_W} \\
+x_{i'}|_W \ar[r]^{a_{i'j'}|_W} &
+y_{j'}|_W
+}
+$$
+est commutatif. Il faut alors vérifier les points suivants :
+\begin{enumerate}
+\item les morphismes ci-dessus admettent une composition bien définie,
+\item cela fait de $\mathcal{S}'$ une catégorie sur $\mathcal{C}$,
+\item il existe un foncteur $G : \mathcal{S} \to \mathcal{S}'$ sur $\mathcal{C}$,
+\item si $x, y$ sont des objets de $\mathcal{S}$, alors
+$\Mor_\mathcal{S}(x, y) = \Mor_{\mathcal{S}'}(G(x), G(y))$,
+\item tout objet de $\mathcal{S}'$ provient localement d'un objet de
+$\mathcal{S}$, autrement dit l'assertion (2) du lemme est satisfaite,
+\item $G$ préserve les morphismes fortement cartésiens,
+\item $\mathcal{S}'$ est une catégorie fibrée sur $\mathcal{C}$, et
+\item $\mathcal{S}'$ est un champ sur $\mathcal{C}$.
+\end{enumerate}
+Rien de tout cela n'est difficile, mais les vérifications sont nombreuses. Détails omis.
+\end{proof}
+
+\begin{proof}[Démonstration moins naïve]
+Voici une démonstration moins naïve.
+D'après Catégories, Lemme \ref{categories-lemma-fibred-strict},
+il existe une équivalence de
+catégories fibrées $\mathcal{S} \to \mathcal{S}'$ telle que $\mathcal{S}'$
+soit une catégorie fibrée scindée, c'est-à-dire une catégorie dans laquelle les foncteurs
+d'image inverse se composent au sens strict. Le lemme pour $\mathcal{S}'$
+implique évidemment le lemme pour $\mathcal{S}$. On peut donc considérer $\mathcal{S}$
+comme un préfaisceau en catégories.
+
+\medskip\noindent
+Considérons temporairement la $2$-catégorie $\textit{Cat}$ comme une
+catégorie, en oubliant les $2$-morphismes.
+Considérons une catégorie comme un quintuplet
+$(\text{Ob}, \text{Arrows}, s, t, \circ)$ comme dans
+Catégories, section \ref{categories-section-definition-categories}.
+Considérons le foncteur d'oubli
+$$
+forget : \textit{Cat} \to \textit{Ensembles} \times \textit{Ensembles}, \quad
+(\text{Ob}, \text{Arrows}, s, t, \circ)
+\mapsto
+(\text{Ob}, \text{Arrows}).
+$$
+Alors $forget$ est fidèle, $\textit{Cat}$ admet des limites et
+$forget$ commute à celles-ci, $\textit{Cat}$ admet des colimites filtrantes et
+$forget$ commute à celles-ci, et $forget$ reflète les isomorphismes.
+On peut faisceautiser les préfaisceaux à valeurs dans $\textit{Cat}$ et,
+par un argument analogue à celui de la première partie de
+Sites, section \ref{sites-section-sheaves-algebraic-structures},
+le résultat commute avec $forget$. En appliquant ceci à
+$\mathcal{S}$, on obtient une faisceautisation $\mathcal{S}^\#$
+qui possède un faisceau d'objets et un faisceau de morphismes,
+tous deux faisceautisations des préfaisceaux correspondants
+de $\mathcal{S}$. Dans ce cas, il est assez
+facile de voir que l'application $\mathcal{S} \to \mathcal{S}^\#$
+possède les propriétés (1) et (2) du lemme.
+
+\medskip\noindent
+Cependant, la catégorie $\mathcal{S}^\#$ n'est pas nécessairement encore un
+champ car, bien que le préfaisceau d'objets soit un faisceau,
+la condition de descente peut ne pas être satisfaite.
+Pour y remédier, il faut ajouter davantage d'objets. Mais l'argument
+ci-dessus nous ramène au cas où $\mathcal{S} = \mathcal{S}_F$
+pour un faisceau (!) de catégories
+$F : \mathcal{C}^{opp} \to \textit{Cat}$. Dans ce cas, considérons le foncteur
+$F' : \mathcal{C}^{opp} \to \textit{Cat}$ défini comme suit :
+\begin{enumerate}
+\item L'ensemble $\Ob(F'(U))$ est l'ensemble des paires
+$(\mathcal{U}, \xi)$ où $\mathcal{U} = \{U_i \to U\}$
+est un recouvrement de $U$ et $\xi = (x_i, \varphi_{ii'})$ est
+une donnée de descente relativement à $\mathcal{U}$.
+\item Un morphisme dans $F'(U)$ de
+$(\mathcal{U}, \xi)$ vers $(\mathcal{V}, \eta)$
+est un élément de
+$$
+\colim \Mor_{DD(\mathcal{W})}(a^*\xi, b^*\eta)
+$$
+où la colimite porte sur tous les raffinements communs
+$a : \mathcal{W} \to \mathcal{U}$, $b : \mathcal{W} \to \mathcal{V}$.
+Cette colimite est filtrante (vérification omise).
+La composition des morphismes dans $F(U)$ est donc définie en
+choisissant un raffinement commun puis en composant dans $DD(\mathcal{W})$.
+\item Étant donnés $h : V \to U$ et un objet
+$(\mathcal{U}, \xi)$ de $F'(U)$, on définit $F'(h)(\mathcal{U}, \xi)$
+comme $(V \times_U \mathcal{U}, \text{pr}_1^*\xi)$.
+Plus précisément, si $\mathcal{U} = \{U_i \to U\}$
+et $\xi = (x_i, \varphi_{ii'})$, alors
+$V \times_U \mathcal{U} = \{V \times_U U_i \to V\}$,
+muni d'un morphisme canonique
+$\text{pr}_1 : V \times_U \mathcal{U} \to \mathcal{U}$, et
+$\text{pr}_1^*\xi$ est l'image inverse de $\xi$ par
+ce morphisme (voir la Définition \ref{definition-pullback-functor}).
+\item Soient $h : V \to U$, des objets $(\mathcal{U}, \xi)$
+et $(\mathcal{V}, \eta)$, ainsi qu'un morphisme entre eux représenté par
+$a : \mathcal{W} \to \mathcal{U}$, $b : \mathcal{W} \to \mathcal{V}$
+et $\alpha : a^*\xi \to b^*\eta$ ; alors $F'(h)(\alpha)$ est
+représenté par
+$a' : V \times_U\mathcal{W} \to V \times_U\mathcal{U}$,
+$b' : V \times_U\mathcal{W} \to V \times_U\mathcal{V}$
+et l'image inverse $\alpha'$ du morphisme $\alpha$ par
+l'application $V \times_U \mathcal{W} \to \mathcal{W}$. Cela fonctionne
+car les images inverses dans $\mathcal{S}_F$ commutent au sens strict.
+\end{enumerate}
+Il existe une application $F \to F'$ qui associe à
+un objet $x$ de $F(U)$ l'objet $(\{U \to U\}, (x, triv))$ de
+$F'(U)$. Il reste alors à vérifier que le foncteur correspondant
+$\mathcal{S}_F \to \mathcal{S}_{F'}$ possède les propriétés (1)
+et (2) du lemme, et enfin que $\mathcal{S}_{F'}$ est
+un champ. Détails omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackify-universal-property}
+Soit $\mathcal{C}$ un site.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée sur $\mathcal{C}$.
+Soient $p' : \mathcal{S}' \to \mathcal{C}$ et $G : \mathcal{S} \to \mathcal{S}'$
+respectivement le champ et le $1$-morphisme construits dans le Lemme \ref{lemma-stackify}.
+Cette construction possède la propriété universelle suivante : étant donnés un champ
+$q : \mathcal{X} \to \mathcal{C}$ et un $1$-morphisme
+$F : \mathcal{S} \to \mathcal{X}$ de catégories fibrées sur $\mathcal{C}$,
+il existe un $1$-morphisme $H : \mathcal{S}' \to \mathcal{X}$
+tel que le diagramme
+$$
+\xymatrix{
+\mathcal{S} \ar[rr]_F \ar[rd]_G & & \mathcal{X} \\
+& \mathcal{S}' \ar[ru]_H
+}
+$$
+soit $2$-commutatif.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : supposons que $x' \in \Ob(\mathcal{S}'_U)$.
+D'après le Lemme \ref{lemma-stackify},
+il existe un recouvrement $\{U_i \to U\}_{i \in I}$
+tel que $x'|_{U_i} = G(x_i)$ pour un certain $x_i \in \Ob(\mathcal{S}_{U_i})$.
+De plus, il existe des recouvrements $\{U_{ijk} \to U_i \times_U U_j\}$
+et des isomorphismes $\alpha_{ijk} : x_i|_{U_{ijk}} \to x_j|_{U_{ijk}}$
+tels que $G(\alpha_{ijk}) = \text{id}_{x'|_{U_{ijk}}}$. Posons $y_i = F(x_i)$.
+On peut alors vérifier que les morphismes
+$$
+F(\alpha_{ijk}) : y_i|_{U_{ijk}} \to y_j|_{U_{ijk}}
+$$
+coïncident sur les intersections et définissent donc (puisque $\mathcal{X}$ est un champ)
+un morphisme $\beta_{ij} : y_i|_{U_i \times_U U_j} \to y_j|_{U_i \times_U U_j}$.
+On vérifie ensuite que les $\beta_{ij}$ définissent une donnée de descente. Comme
+$\mathcal{X}$ est un champ, ces données de descente sont effectives et l'on trouve
+un objet $y$ de $\mathcal{X}_U$ coïncidant avec $G(x_i)$ au-dessus de $U_i$.
+L'indication consiste à poser $H(x') = y$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackify-universal-property-more}
+Les notations et les hypothèses sont celles du
+Lemme \ref{lemma-stackify-universal-property}.
+Il existe une équivalence canonique de catégories
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, \mathcal{X})
+=
+\Mor_{\textit{Champs}/\mathcal{C}}(\mathcal{S}', \mathcal{X})
+$$
+donnée par les constructions de la démonstration du lemme précité.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackification-fibre-product-fibred-categories}
+Soit $\mathcal{C}$ un site.
+Soient $f : \mathcal{X} \to \mathcal{Y}$ et $g : \mathcal{Z} \to \mathcal{Y}$
+des morphismes de catégories fibrées sur $\mathcal{C}$.
+Alors la champification du $2$-produit fibré est le $2$-produit
+fibré des champifications.
+\end{lemma}
+
+\begin{proof}
+Notons $\mathcal{X}', \mathcal{Y}', \mathcal{Z}'$ les champifications
+et $\mathcal{W}$ la champification de
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$. La construction des $2$-produits
+fibrés fournit un $1$-morphisme canonique
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to
+\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$.
+Comme le second $2$-produit fibré est un champ (voir le
+Lemme \ref{lemma-2-product-stacks}),
+ce $1$-morphisme induit un $1$-morphisme
+$h : \mathcal{W} \to \mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+par la propriété universelle de la champification, voir le
+Lemme \ref{lemma-stackify-universal-property}.
+Or $h$ est un morphisme de champs, et l'on peut vérifier que c'est une
+équivalence à l'aide des
+Lemmes \ref{lemma-characterize-ff} et
+\ref{lemma-characterize-essentially-surjective-when-ff}.
+
+\medskip\noindent
+Montrons donc d'abord que $h$ induit des isomorphismes de faisceaux $\mathit{Mor}$.
+Soient $\xi, \xi'$ des objets de $\mathcal{W}$ au-dessus de
+$U \in \Ob(\mathcal{C})$. Nous voulons montrer que
+$$
+h : \mathit{Mor}(\xi, \xi') \longrightarrow \mathit{Mor}(h(\xi), h(\xi'))
+$$
+est un isomorphisme. Pour cela, on peut travailler localement sur $U$ (voir
+Sites, section \ref{sites-section-glueing-sheaves}).
+Par la construction de $\mathcal{W}$ (voir le
+Lemme \ref{lemma-stackify}),
+on peut donc supposer que $\xi, \xi'$ proviennent effectivement
+des objets $(x, z, \alpha)$ et $(x', z', \alpha')$
+de $\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ au-dessus de $U$.
+Le même lemme montre encore que, dans ce cas,
+$\mathit{Mor}(\xi, \xi')$ est la faisceautisation de
+$$
+V/U \longmapsto
+\Mor_{\mathcal{X}_V}(x|_V, x'|_V)
+\times_{\Mor_{\mathcal{Y}_V}(f(x)|_V, f(x')|_V)}
+\Mor_{\mathcal{Z}_V}(z|_V, z'|_V)
+$$
+et que $\mathit{Mor}(h(\xi), h(\xi'))$ est égal au produit fibré
+$$
+\mathit{Mor}(i(x), i(x'))
+\times_{\mathit{Mor}(j(f(x)), j(f(x'))}
+\mathit{Mor}(k(z), k(z'))
+$$
+où $i : \mathcal{X} \to \mathcal{X}'$,
+$j : \mathcal{Y} \to \mathcal{Y}'$ et
+$k : \mathcal{Z} \to \mathcal{Z}'$ sont les foncteurs canoniques.
+La première application affichée de ce paragraphe est donc un isomorphisme, car
+la faisceautisation est exacte (et la faisceautisation d'un produit fibré
+de préfaisceaux est par conséquent le produit fibré des faisceautisations).
+
+\medskip\noindent
+Enfin, il faut vérifier que tout objet de
+$\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+au-dessus de $U$ appartient localement sur $U$ à l'image essentielle de $h$.
+Écrivons un tel objet sous la forme d'un triplet $(x', z', \alpha)$.
+Alors $x'$ provient localement d'un objet de $\mathcal{X}$,
+$z'$ provient localement d'un objet de $\mathcal{Z}$ et,
+après avoir effectué des remplacements convenables de $x'$ et $z'$, le morphisme
+$\alpha$ de $\mathcal{Y}'_U$ provient localement d'un morphisme de
+$\mathcal{Y}$. Autrement dit, nous avons montré que tout objet de
+$\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+au-dessus de $U$ appartient localement sur $U$ à l'image essentielle de
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to
+\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$ ; il appartient donc
+a fortiori localement à l'image essentielle de $h$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackification-inertia}
+Soit $\mathcal{C}$ un site.
+Soit $\mathcal{X}$ une catégorie fibrée sur $\mathcal{C}$.
+La champification de la catégorie fibrée d'inertie $\mathcal{I}_\mathcal{X}$
+est l'inertie de la champification de $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du fait que la champification est compatible
+avec les $2$-produits fibrés d'après le
+Lemme \ref{lemma-stackification-fibre-product-fibred-categories},
+et du fait que l'inertie s'exprime en termes de
+$2$-produits fibrés de catégories sur $\mathcal{C}$, voir
+Catégories, Lemme \ref{categories-lemma-inertia-fibred-category}.
+\end{proof}
+
+
+
+
+
+
+\section{Champification des catégories fibrées en groupoïdes}
+\label{section-stackify-groupoids}
+
+\noindent
+Voici le résultat.
+
+\begin{lemma}
+\label{lemma-stackify-groupoids}
+Soit $\mathcal{C}$ un site.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie
+fibrée en groupoïdes sur $\mathcal{C}$.
+Il existe un champ en groupoïdes
+$p' : \mathcal{S}' \to \mathcal{C}$ et un
+$1$-morphisme $G : \mathcal{S} \to \mathcal{S}'$
+de catégories fibrées en groupoïdes sur $\mathcal{C}$ (voir
+Catégories, Définition
+\ref{categories-definition-categories-fibred-in-groupoids-over-C})
+tels que
+\begin{enumerate}
+\item pour tout $U \in \Ob(\mathcal{C})$ et tous
+$x, y \in \Ob(\mathcal{S}_U)$, l'application
+$$
+\mathit{Mor}(x, y) \longrightarrow \mathit{Mor}(G(x), G(y))
+$$
+induite par $G$ identifie le membre de droite à la faisceautisation
+du membre de gauche, et
+\item pour tout $U \in \Ob(\mathcal{C})$ et tout
+$x' \in \Ob(\mathcal{S}'_U)$, il existe un recouvrement
+$\{U_i \to U\}_{i \in I}$ tel que, pour tout $i \in I$,
+l'objet $x'|_{U_i}$ appartienne à l'image essentielle du
+foncteur $G : \mathcal{S}_{U_i} \to \mathcal{S}'_{U_i}$.
+\end{enumerate}
+De plus, ces conditions déterminent le champ en groupoïdes $\mathcal{S}'$
+à un unique $2$-isomorphisme près.
+\end{lemma}
+
+\begin{proof}
+Appliquons le Lemme \ref{lemma-stackify}. Le résultat est un
+champ en groupoïdes par le Lemme \ref{lemma-stack-in-groupoids-stack}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackify-groupoids-universal-property}
+Soit $\mathcal{C}$ un site.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie fibrée en groupoïdes
+sur $\mathcal{C}$. Soient $p' : \mathcal{S}' \to \mathcal{C}$ et
+$G : \mathcal{S} \to \mathcal{S}'$
+respectivement le champ en groupoïdes et le $1$-morphisme construits dans le
+Lemme \ref{lemma-stackify-groupoids}.
+Cette construction possède la propriété universelle suivante : étant donnés un champ
+en groupoïdes $q : \mathcal{X} \to \mathcal{C}$ et un $1$-morphisme
+$F : \mathcal{S} \to \mathcal{X}$ de catégories sur $\mathcal{C}$,
+il existe un $1$-morphisme $H : \mathcal{S}' \to \mathcal{X}$
+tel que le diagramme
+$$
+\xymatrix{
+\mathcal{S} \ar[rr]_F \ar[rd]_G & & \mathcal{X} \\
+& \mathcal{S}' \ar[ru]_H
+}
+$$
+soit $2$-commutatif.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du
+Lemme \ref{lemma-stackify-universal-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackification-fibre-product-categories-fibred-in-groupoids}
+Soit $\mathcal{C}$ un site.
+Soient $f : \mathcal{X} \to \mathcal{Y}$ et $g : \mathcal{Z} \to \mathcal{Y}$
+des morphismes de catégories fibrées en groupoïdes sur $\mathcal{C}$.
+Alors la champification du $2$-produit fibré est le $2$-produit
+fibré des champifications.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du
+Lemme \ref{lemma-stackification-fibre-product-fibred-categories}.
+\end{proof}
+
+
+
+
+
+\section{Topologies héritées}
+\label{section-topology}
+
+\noindent
+Il s'avère qu'une catégorie fibrée sur un site hérite d'une topologie
+canonique du site sous-jacent.
+
+\begin{lemma}
+\label{lemma-topology-inherited}
+Soit $\mathcal{C}$ un site. Soit $p : \mathcal{S} \to \mathcal{C}$
+une catégorie fibrée. Soit $\text{Cov}(\mathcal{S})$
+l'ensemble des familles $\{x_i \to x\}_{i \in I}$ de morphismes de $\mathcal{S}$
+de but fixé telles que (a) chaque $x_i \to x$ soit fortement cartésien
+et (b) $\{p(x_i) \to p(x)\}_{i \in I}$ soit un recouvrement de $\mathcal{C}$.
+Alors $(\mathcal{S}, \text{Cov}(\mathcal{S}))$ est un site.
+\end{lemma}
+
+\begin{proof}
+Il faut vérifier les trois conditions de
+Sites, Définition \ref{sites-definition-site}.
+\begin{enumerate}
+\item Si $x \to y$ est un isomorphisme de $\mathcal{S}$, alors
+il est fortement cartésien d'après
+Catégories, Lemme \ref{categories-lemma-composition-cartesian},
+et $p(x) \to p(y)$ est un isomorphisme de $\mathcal{C}$. Par conséquent,
+$\{p(x) \to p(y)\}$ est un recouvrement de $\mathcal{C}$, d'où
+$\{x \to y\} \in \text{Cov}(\mathcal{S})$.
+\item Si $\{x_i \to x\}_{i\in I} \in \text{Cov}(\mathcal{S})$ et si, pour tout
+$i$, on a $\{y_{ij} \to x_i\}_{j\in J_i} \in \text{Cov}(\mathcal{S})$, alors
+chaque composée $y_{ij} \to x$ est fortement cartésienne d'après
+Catégories, Lemme \ref{categories-lemma-composition-cartesian},
+et $\{p(y_{ij}) \to p(x)\}_{i \in I, j\in J_i} \in \text{Cov}(\mathcal{C})$.
+On a donc aussi $\{y_{ij} \to x\}_{i \in I, j\in J_i} \in \text{Cov}(\mathcal{S})$.
+\item Supposons $\{x_i \to x\}_{i\in I}\in \text{Cov}(\mathcal{S})$
+et soit $y \to x$ un morphisme de $\mathcal{S}$. Puisque $\{p(x_i) \to p(x)\}$
+est un recouvrement de $\mathcal{C}$, le produit fibré
+$p(x_i) \times_{p(x)} p(y)$ existe. Par conséquent,
+Catégories, Lemme \ref{categories-lemma-fibred-category-representable-goes-up}
+implique que $x_i \times_x y$ existe, que $p(x_i \times_x y) =
+p(x_i) \times_{p(x)} p(y)$ et que $x_i \times_x y \to y$ est
+fortement cartésien. Comme, de plus,
+$\{p(x_i) \times_{p(x)} p(y) \to p(y) \}_{i\in I} \in \text{Cov}(\mathcal{C})$,
+on en conclut que
+$\{x_i \times_x y \to y \}_{i\in I} \in \text{Cov}(\mathcal{S})$.
+\end{enumerate}
+Cela achève la démonstration.
+\end{proof}
+
+\noindent
+Notons que, si $p : \mathcal{S} \to \mathcal{C}$ est fibré en groupoïdes, alors
+les recouvrements du site $\mathcal{S}$ du
+Lemme \ref{lemma-topology-inherited}
+se caractérisent par
+$$
+\{x_i \to x\} \in \text{Cov}(\mathcal{S})
+\Leftrightarrow
+\{p(x_i) \to p(x)\} \in \text{Cov}(\mathcal{C})
+$$
+car tout morphisme de $\mathcal{S}$ est fortement cartésien.
+
+\begin{definition}
+\label{definition-topology-inherited}
+Soit $\mathcal{C}$ un site. Soit $p : \mathcal{S} \to \mathcal{C}$ une
+catégorie fibrée. On dit que $(\mathcal{S}, \text{Cov}(\mathcal{S}))$, comme dans le
+Lemme \ref{lemma-topology-inherited},
+est la {\it structure de site sur $\mathcal{S}$ héritée de $\mathcal{C}$}.
+On l'exprime parfois en disant que
+{\it $\mathcal{S}$ est munie de la topologie héritée de $\mathcal{C}$}.
+\end{definition}
+
+\noindent
+On obtient en particulier, dans cette situation, un topos de faisceaux
+$\Sh(\mathcal{S})$. Il s'avère que ce topos est fonctoriel par rapport
+aux $1$-morphismes de catégories fibrées.
+
+\begin{lemma}
+\label{lemma-topology-inherited-functorial}
+Soit $\mathcal{C}$ un site. Soit $F : \mathcal{X} \to \mathcal{Y}$
+un $1$-morphisme de catégories fibrées sur $\mathcal{C}$.
+Alors $F$ est un foncteur continu et cocontinu entre les structures
+de site héritées de $\mathcal{C}$. Ainsi, $F$ induit un morphisme de topos
+$f : \Sh(\mathcal{X}) \to \Sh(\mathcal{Y})$ avec
+$f_* = {}_sF = {}_pF$ et $f^{-1} = F^s = F^p$. En particulier,
+$f^{-1}(\mathcal{G})(x) = \mathcal{G}(F(x))$
+pour tout faisceau $\mathcal{G}$ sur $\mathcal{Y}$ et tout objet $x$ de $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Montrons d'abord que $F$ est continu.
+Soit $\{x_i \to x\}_{i \in I}$ un recouvrement de $\mathcal{X}$. D'après
+Catégories, Définition \ref{categories-definition-fibred-categories-over-C},
+le foncteur $F$ transforme les morphismes fortement cartésiens en morphismes
+fortement cartésiens ; ainsi, $\{F(x_i) \to F(x)\}_{i \in I}$ est un recouvrement
+de $\mathcal{Y}$. Cela prouve la partie (1) de
+Sites, Définition \ref{sites-definition-continuous}.
+De plus, soit $x' \to x$ un morphisme de $\mathcal{X}$. D'après
+Catégories, Lemme \ref{categories-lemma-fibred-category-representable-goes-up},
+le produit fibré $x_i \times_x x'$ existe et $x_i \times_x x' \to x'$
+est fortement cartésien. Ainsi, $F(x_i \times_x x') \to F(x')$ est fortement
+cartésien. D'après
+Catégories, Lemme \ref{categories-lemma-fibred-category-representable-goes-up},
+appliqué à $\mathcal{Y}$, cela signifie que
+$F(x_i \times_x x') = F(x_i) \times_{F(x)} F(x')$.
+Cela prouve la partie (2) de
+Sites, Définition \ref{sites-definition-continuous},
+et l'on en conclut que $F$ est continu.
+
+\medskip\noindent
+Montrons ensuite que $F$ est cocontinu.
+Soit $x \in \Ob(\mathcal{X})$ et soit $\{y_i \to F(x)\}_{i \in I}$
+un recouvrement de $\mathcal{Y}$. Notons $\{U_i \to U\}_{i \in I}$ le
+recouvrement correspondant de $\mathcal{C}$. Pour chaque $i$, choisissons un morphisme
+fortement cartésien $x_i \to x$ de $\mathcal{X}$ au-dessus de $U_i \to U$.
+Alors $F(x_i) \to F(x)$ et $y_i \to F(x)$ sont tous deux des morphismes
+fortement cartésiens de $\mathcal{Y}$ au-dessus de $U_i \to U$. Il existe donc
+un unique isomorphisme $F(x_i) \to y_i$ dans $\mathcal{Y}_{U_i}$ compatible
+avec les applications vers $F(x)$. Ainsi, $\{x_i \to x\}_{i \in I}$ est un recouvrement de
+$\mathcal{X}$ tel que $\{F(x_i) \to F(x)\}_{i \in I}$ soit isomorphe à
+$\{y_i \to F(x)\}_{i \in I}$. Le foncteur $F$ est donc cocontinu, voir
+Sites, Définition \ref{sites-definition-cocontinuous}.
+
+\medskip\noindent
+L'assertion finale découle des deux premières, voir
+Sites, Lemmes
+\ref{sites-lemma-cocontinuous-morphism-topoi},
+\ref{sites-lemma-pu-sheaf} et
+\ref{sites-lemma-when-shriek}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localizing}
+Soit $\mathcal{C}$ un site. Soit $p : \mathcal{X} \to \mathcal{C}$
+une catégorie fibrée en groupoïdes. Soit $x \in \Ob(\mathcal{X})$
+au-dessus de $U = p(x)$. Le foncteur $p$ induit une équivalence de sites
+$\mathcal{X}/x \to \mathcal{C}/U$, où $\mathcal{X}$ est munie de
+la topologie héritée de $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Ici, $\mathcal{C}/U$ est la localisation du site
+$\mathcal{C}$ en l'objet $U$, et de même pour $\mathcal{X}/x$.
+Il résulte de
+Catégories, Définition \ref{categories-definition-fibred-groupoids},
+que la règle $x'/x \mapsto p(x')/p(x)$ définit une équivalence de
+catégories $\mathcal{X}/x \to \mathcal{C}/U$. Il résulte alors de la
+Définition \ref{definition-topology-inherited}
+que les recouvrements de $x'$ dans $\mathcal{X}/x$ correspondent bijectivement
+aux recouvrements de $p(x')$ dans $\mathcal{C}/U$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-over-stack-in-groupoids}
+Soit $\mathcal{C}$ un site. Soient $p : \mathcal{X} \to \mathcal{C}$
+et $q : \mathcal{Y} \to \mathcal{C}$
+des champs en groupoïdes. Soit $F : \mathcal{X} \to \mathcal{Y}$
+un $1$-morphisme de catégories sur $\mathcal{C}$. Si $F$ fait de
+$\mathcal{X}$ une catégorie fibrée en groupoïdes sur $\mathcal{Y}$,
+alors $\mathcal{X}$ est un champ en groupoïdes sur $\mathcal{Y}$ (pour la
+topologie héritée de $\mathcal{C}$).
+\end{lemma}
+
+\begin{proof}
+Montrons la descente des objets. Soit $\{y_i \to y\}$ un recouvrement
+de $\mathcal{Y}$. Soit $(x_i, \varphi_{ij})$ une donnée de descente dans
+$\mathcal{X}$ relativement à ce recouvrement. Alors $(x_i, \varphi_{ij})$ est aussi une donnée
+de descente relativement au recouvrement $\{q(y_i) \to q(y)\}$ de
+$\mathcal{C}$. Comme $\mathcal{X}$ est un champ en groupoïdes, on obtient un
+objet $x$ au-dessus de $q(y)$ et des isomorphismes
+$\psi_i : x|_{q(y_i)} \to x_i$
+au-dessus de $q(y_i)$, compatibles avec les $\varphi_{ij}$, c'est-à-dire tels que
+$$
+\varphi_{ij} = \psi_j|_{q(y_i) \times_{q(y)} q(y_j)}
+\circ \psi_i^{-1}|_{q(y_i) \times_{q(y)} q(y_j)}.
+$$
+Considérons le faisceau $\mathit{I} = \mathit{Isom}_\mathcal{Y}(F(x), y)$
+sur $\mathcal{C}/p(x)$. Notons que $s_i = F(\psi_i) \in \mathit{I}(q(x_i))$
+car $F(x_i) = y_i$. Puisque $F(\varphi_{ij}) = \text{id}$ (car nous sommes partis
+d'une donnée de descente sur $\{y_i \to y\}$), la formule affichée montre
+que $s_i|_{q(y_i) \times_{q(y)} q(y_j)} = s_j|_{q(y_i) \times_{q(y)} q(y_j)}$.
+Les sections locales $s_i$ se recollent donc en $s : F(x) \to y$. Comme $F$ est fibré en
+groupoïdes, on voit que $x$ est isomorphe à un objet $x'$ tel que $F(x') = y$.
+Nous omettons de vérifier que $x'$, dans la catégorie fibre de $\mathcal{X}$
+au-dessus de $y$, résout le problème de descente posé par la donnée de descente
+$(x_i, \varphi_{ij})$. Nous omettons aussi la démonstration de la propriété de faisceau
+des préfaisceaux $\mathit{Isom}$ de $\mathcal{X}/\mathcal{Y}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-over-stack}
+Soit $\mathcal{C}$ un site. Soit $p : \mathcal{X} \to \mathcal{C}$
+un champ. Munissons $\mathcal{X}$ de la topologie héritée de
+$\mathcal{C}$ et soit $q : \mathcal{Y} \to \mathcal{X}$ un champ.
+Alors $\mathcal{Y}$ est un champ sur $\mathcal{C}$.
+Si $p$ et $q$ définissent des champs en groupoïdes, alors
+$\mathcal{Y}$ est un champ en groupoïdes sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Vérifions les trois conditions de la Définition \ref{definition-stack}
+pour montrer que $\mathcal{Y}$ est un champ sur $\mathcal{C}$.
+D'après Catégories, Lemme \ref{categories-lemma-fibred-over-fibred},
+$\mathcal{Y}$ est une catégorie fibrée sur $\mathcal{C}$.
+La condition (1) est donc satisfaite.
+
+\medskip\noindent
+Soit $U$ un objet de $\mathcal{C}$ et soient $y_1, y_2$ des objets
+de $\mathcal{Y}$ au-dessus de $U$. Notons $x_i = q(y_i)$ dans $\mathcal{X}$.
+Considérons l'application de préfaisceaux
+$$
+q : \mathit{Mor}_{\mathcal{Y}/\mathcal{C}}(y_1, y_2)
+\longrightarrow
+\mathit{Mor}_{\mathcal{X}/\mathcal{C}}(x_1, x_2)
+$$
+sur $\mathcal{C}/U$, voir le Lemme \ref{lemma-presheaf-mor-map-fibred-categories}.
+Soit $\{U_i \to U\}$ un recouvrement et soient les $\varphi_i$ des sections
+du préfaisceau de gauche sur les $U_i$, telles que $\varphi_i$ et
+$\varphi_j$ aient la même restriction sur $U_i \times_U U_j$.
+Il faut trouver un morphisme $\varphi : y_1 \to y_2$ dont la restriction soit $\varphi_i$.
+Notons que $q(\varphi_i) = \psi|_{U_i}$ pour un certain morphisme
+$\psi : x_1 \to x_2$ au-dessus de $U$, car le second préfaisceau est un faisceau
+(par hypothèse). Soit $y_{12} \to y_2$ le morphisme fortement
+$\mathcal{X}$-cartésien de $\mathcal{Y}$ au-dessus de $\psi$. Alors $\varphi_i$ correspond
+à un morphisme $\varphi'_i : y_1|_{U_i} \to y_{12}|_{U_i}$ au-dessus de $x_1|_{U_i}$.
+Autrement dit, les $\varphi'_i$ définissent maintenant des sections locales du préfaisceau
+$$
+\mathit{Mor}_{\mathcal{Y}/\mathcal{X}}(y_1, y_{12})
+$$
+sur les membres du recouvrement $\{x_1|_{U_i} \to x_1\}$. Par hypothèse, celles-ci
+se recollent en un unique morphisme $y_1 \to y_{12}$ qui, composé avec le morphisme
+donné $y_{12} \to y_2$, fournit le morphisme recherché $y_1 \to y_2$.
+
+\medskip\noindent
+Enfin, montrons que les données de descente sont effectives. Soit $\{f_i : U_i \to U\}$
+un recouvrement de $\mathcal{C}$ et soit $(y_i, \varphi_{ij})$ une donnée de descente
+relativement à ce recouvrement (Définition \ref{definition-descent-data}).
+En posant $x_i = q(y_i)$ et $\psi_{ij} = q(\varphi_{ij})$,
+on obtient une donnée de descente $(x_i, \psi_{ij})$ pour le recouvrement dans $\mathcal{X}$.
+Par l'hypothèse sur $\mathcal{X}$, on peut supposer que $x_i = x|_{U_i}$
+et que les $\psi_{ij}$ sont égaux à la donnée de descente canonique
+(Définition \ref{definition-effective-descent-datum}).
+Dans ce cas, $\{x|_{U_i} \to x\}$ est un recouvrement et l'on peut considérer
+$(y_i, \varphi_{ij})$ comme une donnée de descente relativement à ce recouvrement.
+Notre hypothèse selon laquelle $\mathcal{Y}$ est un champ sur $\mathcal{C}$
+montre qu'elle est effective, ce qui achève la démonstration de la condition (3).
+
+\medskip\noindent
+L'assertion finale résulte de ce que $\mathcal{Y}$ est un champ sur
+$\mathcal{C}$ et est fibrée en groupoïdes d'après
+Catégories, Lemme
+\ref{categories-lemma-fibred-in-groupoids-over-fibred-in-groupoids}.
+\end{proof}
+
+
+
+
+
+\section{Gerbes}
+\label{section-gerbes}
+
+\noindent
+Les gerbes sont une classe particulière de champs en groupoïdes.
+
+\begin{definition}
+\label{definition-gerbe}
+Une {\it gerbe} sur un site $\mathcal{C}$ est une catégorie
+$p : \mathcal{S} \to \mathcal{C}$ sur $\mathcal{C}$ telle que
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ soit un champ
+en groupoïdes sur $\mathcal{C}$ (voir la
+Définition \ref{definition-stack-in-groupoids}),
+\item pour tout $U \in \Ob(\mathcal{C})$, il existe
+un recouvrement $\{U_i \to U\}$ dans $\mathcal{C}$ tel que
+$\mathcal{S}_{U_i}$ soit non vide, et
+\item pour tout $U \in \Ob(\mathcal{C})$ et tous
+$x, y \in \Ob(\mathcal{S}_U)$, il existe
+un recouvrement $\{U_i \to U\}$ dans $\mathcal{C}$ tel que
+$x|_{U_i} \cong y|_{U_i}$ dans $\mathcal{S}_{U_i}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Autrement dit, une gerbe est un champ en groupoïdes dans lequel deux objets
+quelconques sont localement isomorphes et où des objets existent localement.
+
+\begin{lemma}
+\label{lemma-gerbe-equivalent}
+Soit $\mathcal{C}$ un site.
+Soient $\mathcal{S}_1$ et $\mathcal{S}_2$ des catégories sur $\mathcal{C}$.
+Supposons que $\mathcal{S}_1$ et $\mathcal{S}_2$ soient équivalentes
+en tant que catégories sur $\mathcal{C}$.
+Alors $\mathcal{S}_1$ est une gerbe sur $\mathcal{C}$ si et seulement si
+$\mathcal{S}_2$ est une gerbe sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Supposons que $\mathcal{S}_1$ soit une gerbe sur $\mathcal{C}$. D'après le
+Lemme \ref{lemma-stack-in-groupoids-equivalent},
+$\mathcal{S}_2$ est un champ en groupoïdes sur $\mathcal{C}$.
+Soient $F : \mathcal{S}_1 \to \mathcal{S}_2$ et
+$G : \mathcal{S}_2 \to \mathcal{S}_1$ des équivalences de catégories sur
+$\mathcal{C}$. Étant donné $U \in \Ob(\mathcal{C})$, il existe
+un recouvrement $\{U_i \to U\}$ tel que $(\mathcal{S}_1)_{U_i}$ soit
+non vide. En appliquant $F$, on voit que $(\mathcal{S}_2)_{U_i}$ est non vide.
+Étant donnés $U \in \Ob(\mathcal{C})$ et
+$x, y \in \Ob((\mathcal{S}_2)_U)$, il existe
+un recouvrement $\{U_i \to U\}$ dans $\mathcal{C}$ tel que
+$G(x)|_{U_i} \cong G(y)|_{U_i}$ dans $(\mathcal{S}_1)_{U_i}$. D'après
+Catégories, Lemme \ref{categories-lemma-equivalence-fibred-categories},
+cela implique que $x|_{U_i} \cong y|_{U_i}$ dans $(\mathcal{S}_2)_{U_i}$.
+\end{proof}
+
+\noindent
+Nous voulons généraliser quelque peu la définition des gerbes. Soit donc
+$F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de champs en groupoïdes
+sur un site $\mathcal{C}$. Nous voulons préciser ce que signifie
+pour $\mathcal{X}$ d'être une gerbe sur $\mathcal{Y}$. D'après la
+section \ref{section-topology},
+la catégorie $\mathcal{Y}$ hérite de $\mathcal{C}$ d'une structure de site.
+Une idée naïve serait d'exiger simplement que
+$\mathcal{X} \to \mathcal{Y}$ {\it soit} une gerbe au sens ci-dessus. Toutefois,
+la notion ainsi obtenue n'est pas invariante lorsque l'on remplace $\mathcal{X}$
+par un champ en groupoïdes équivalent sur $\mathcal{C}$ ; c'est même le
+cas de la propriété d'être fibrée en groupoïdes sur $\mathcal{Y}$.
+Il s'avère cependant que l'on peut remplacer $\mathcal{X}$ par un champ
+en groupoïdes équivalent sur $\mathcal{C}$ qui soit fibré en groupoïdes sur
+$\mathcal{Y}$, et que la propriété d'être une gerbe sur $\mathcal{Y}$
+est alors indépendante de ce choix. Voici l'énoncé précis.
+
+\begin{lemma}
+\label{lemma-when-gerbe}
+Soit $\mathcal{C}$ un site. Soient $p : \mathcal{X} \to \mathcal{C}$
+et $q : \mathcal{Y} \to \mathcal{C}$ des champs en groupoïdes.
+Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+sur $\mathcal{C}$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item Pour une certaine factorisation (de manière équivalente, pour toute factorisation)
+$F = F' \circ a$ où
+$a : \mathcal{X} \to \mathcal{X}'$ est une équivalence de catégories sur
+$\mathcal{C}$ et où $F'$ est fibré en groupoïdes, l'application
+$F' : \mathcal{X}' \to \mathcal{Y}$ est une gerbe (pour la topologie
+sur $\mathcal{Y}$ héritée de $\mathcal{C}$).
+\item Les deux conditions suivantes sont satisfaites :
+\begin{enumerate}
+\item pour tout $y \in \Ob(\mathcal{Y})$ au-dessus de
+$U \in \Ob(\mathcal{C})$, il existe un recouvrement
+$\{U_i \to U\}$ dans $\mathcal{C}$ et des objets $x_i$ de $\mathcal{X}$
+au-dessus de $U_i$ tels que $F(x_i) \cong y|_{U_i}$ dans $\mathcal{Y}_{U_i}$, et
+\item pour $U \in \Ob(\mathcal{C})$,
+$x, x' \in \Ob(\mathcal{X}_U)$ et $b : F(x) \to F(x')$ dans
+$\mathcal{Y}_U$, il existe
+un recouvrement $\{U_i \to U\}$ dans $\mathcal{C}$ et des morphismes
+$a_i : x|_{U_i} \to x'|_{U_i}$ dans $\mathcal{X}_{U_i}$ tels que
+$F(a_i) = b|_{U_i}$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après
+Catégories, Lemme
+\ref{categories-lemma-ameliorate-morphism-categories-fibred-groupoids},
+il existe une factorisation $F = F' \circ a$ où
+$a : \mathcal{X} \to \mathcal{X}'$ est une équivalence de catégories sur
+$\mathcal{C}$ et où $F'$ est fibré en groupoïdes. D'après
+Catégories, Lemme \ref{categories-lemma-amelioration-unique},
+étant données deux telles factorisations $F = F' \circ a = F'' \circ b$,
+on a une équivalence de $\mathcal{X}'$ et $\mathcal{X}''$ en tant que
+catégories sur $\mathcal{Y}$. Par conséquent, le
+Lemme \ref{lemma-gerbe-equivalent}
+garantit que la condition (1) ne dépend pas du choix de la
+factorisation. De plus, cela signifie que l'on peut supposer
+$\mathcal{X}' = \mathcal{X} \times_{F, \mathcal{Y}, \text{id}} \mathcal{Y}$
+comme dans la démonstration de
+Catégories, Lemme
+\ref{categories-lemma-ameliorate-morphism-categories-fibred-groupoids}.
+
+\medskip\noindent
+Montrons que (a) et (b) impliquent que $\mathcal{X}' \to \mathcal{Y}$
+est une gerbe. Tout d'abord, d'après le
+Lemme \ref{lemma-stack-in-groupoids-over-stack-in-groupoids},
+$\mathcal{X}' \to \mathcal{Y}$ est un champ en groupoïdes.
+Ensuite, soit $y$ un objet de $\mathcal{Y}$ au-dessus de
+$U \in \Ob(\mathcal{C})$. D'après (a), on peut trouver un recouvrement
+$\{U_i \to U\}$ dans $\mathcal{C}$, des objets $x_i$ de $\mathcal{X}$
+au-dessus de $U_i$ et des isomorphismes $f_i : F(x_i) \to y|_{U_i}$ dans
+$\mathcal{Y}_{U_i}$. Alors les $(U_i, x_i, y|_{U_i}, f_i)$ sont des objets
+de $\mathcal{X}'_{U_i}$ ; la deuxième condition de la
+Définition \ref{definition-gerbe}
+est donc satisfaite. Enfin, soient $(U, x, y, f)$ et $(U, x', y, f')$ des objets
+de $\mathcal{X}'$ au-dessus du même objet $y \in \Ob(\mathcal{Y})$.
+Posons $b = (f')^{-1} \circ f$. D'après la condition (b), on peut trouver un recouvrement
+$\{U_i \to U\}$ et des isomorphismes $a_i : x|_{U_i} \to x'|_{U_i}$
+dans $\mathcal{X}_{U_i}$ tels que $F(a_i) = b|_{U_i}$. Alors
+$$
+(a_i, \text{id}) : (U, x, y, f)|_{U_i} \to (U, x', y, f')|_{U_i}
+$$
+est un morphisme dans $\mathcal{X}'_{U_i}$ comme voulu. Cela prouve que
+(2) implique (1).
+
+\medskip\noindent
+Pour montrer que (1) implique (2), il suffit de lire à rebours les arguments
+du paragraphe précédent. Détails omis.
+\end{proof}
+
+\begin{definition}
+\label{definition-gerbe-over-stack-in-groupoids}
+Soit $\mathcal{C}$ un site. Soient $\mathcal{X}$
+et $\mathcal{Y}$ des champs en groupoïdes sur $\mathcal{C}$.
+Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+sur $\mathcal{C}$. On dit que $\mathcal{X}$ est une {\it gerbe sur} $\mathcal{Y}$
+si les conditions équivalentes du
+Lemme \ref{lemma-when-gerbe}
+sont satisfaites.
+\end{definition}
+
+\noindent
+Cette définition n'entre pas en conflit avec la
+Définition \ref{definition-gerbe}
+lorsque $\mathcal{Y} = \mathcal{C}$, car on peut alors prendre
+$\mathcal{X}' = \mathcal{X}$ dans la partie (1) du
+Lemme \ref{lemma-when-gerbe}.
+Notons que les conditions (2)(a) et (2)(b) du
+Lemme \ref{lemma-when-gerbe}
+sont très proches, dans leur esprit, des conditions (2) et (3) de la
+Définition \ref{definition-gerbe}.
+En effet, (2)(a) affirme que l'application des préfaisceaux de classes
+d'isomorphisme d'objets devient une surjection après faisceautisation.
+De plus, (2)(b) affirme que
+$$
+\mathit{Isom}_\mathcal{X}(x, x')
+\longrightarrow
+\mathit{Isom}_\mathcal{Y}(F(x), F(x'))
+$$
+est une surjection de faisceaux sur $\mathcal{C}/U$, pour tous $U$ et
+$x, x' \in \Ob(\mathcal{X}_U)$.
+
+\begin{lemma}
+\label{lemma-base-change-gerbe}
+Soit $\mathcal{C}$ un site. Soit
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_{G'} \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^G & \mathcal{Y}
+}
+$$
+un $2$-produit fibré de champs en groupoïdes sur $\mathcal{C}$.
+Si $\mathcal{X}$ est une gerbe sur $\mathcal{Y}$, alors
+$\mathcal{X}'$ est une gerbe sur $\mathcal{Y}'$.
+\end{lemma}
+
+\begin{proof}
+Par la propriété d'unicité d'un $2$-produit fibré, on peut supposer que
+$\mathcal{X}' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+comme dans
+Catégories, Lemme \ref{categories-lemma-2-product-categories-over-C}.
+Montrons les propriétés (2)(a) et (2)(b) du
+Lemme \ref{lemma-when-gerbe}
+pour $\mathcal{Y}' \times_\mathcal{Y} \mathcal{X} \to \mathcal{Y}'$.
+
+\medskip\noindent
+Soit $y'$ un objet de $\mathcal{Y}'$ au-dessus de l'objet $U$
+de $\mathcal{C}$. Par hypothèse, il existe
+un recouvrement $\{U_i \to U\}$ de $U$ et des objets
+$x_i \in \mathcal{X}_{U_i}$ munis d'isomorphismes
+$\alpha_i : G(y')|_{U_i} \to F(x_i)$.
+Alors $(U_i, y'|_{U_i}, x_i, \alpha_i)$ est un objet de
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$ au-dessus de $U_i$
+dont l'image dans $\mathcal{Y}'$ est $y'|_{U_i}$. La condition (2)(a) est donc satisfaite.
+
+\medskip\noindent
+Soit $U \in \Ob(\mathcal{C})$, soient $x'_1, x'_2$ des objets de
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$ au-dessus de $U$, et soit
+$b' : F'(x'_1) \to F'(x'_2)$ un morphisme dans $\mathcal{Y}'_U$.
+Écrivons $x'_i = (U, y'_i, x_i, \alpha_i)$. Notons que $F'(x'_i) = x_i$
+et $G'(x'_i) = y'_i$. Par hypothèse, il existe
+un recouvrement $\{U_i \to U\}$ dans $\mathcal{C}$ et des morphismes
+$a_i : x_1|_{U_i} \to x_2|_{U_i}$ dans $\mathcal{X}_{U_i}$ tels que
+$F(a_i) = G(b')|_{U_i}$. Alors $(b'|_{U_i}, a_i)$ est un morphisme
+$x'_1|_{U_i} \to x'_2|_{U_i}$ comme l'exige (2)(b).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-gerbe}
+Soit $\mathcal{C}$ un site. Soient
+$F : \mathcal{X} \to \mathcal{Y}$ et $G : \mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes de champs en groupoïdes sur $\mathcal{C}$.
+Si $\mathcal{X}$ est une gerbe sur $\mathcal{Y}$ et si
+$\mathcal{Y}$ est une gerbe sur $\mathcal{Z}$, alors
+$\mathcal{X}$ est une gerbe sur $\mathcal{Z}$.
+\end{lemma}
+
+\begin{proof}
+Montrons les propriétés (2)(a) et (2)(b) du
+Lemme \ref{lemma-when-gerbe}
+pour $\mathcal{X} \to \mathcal{Z}$.
+
+\medskip\noindent
+Soit $z$ un objet de $\mathcal{Z}$ au-dessus de l'objet $U$
+de $\mathcal{C}$. Par l'hypothèse sur $G$, il existe
+un recouvrement $\{U_i \to U\}$ de $U$ et des objets
+$y_i \in \mathcal{Y}_{U_i}$ tels que $G(y_i) \cong z|_{U_i}$.
+Par l'hypothèse sur $F$, il existe des recouvrements $\{U_{ij} \to U_i\}$
+et des objets $x_{ij} \in \mathcal{X}_{U_{ij}}$ tels que
+$F(x_{ij}) \cong y_i|_{U_{ij}}$.
+Alors $\{U_{ij} \to U\}$ est un recouvrement de $\mathcal{C}$
+et $(G \circ F)(x_{ij}) \cong z|_{U_{ij}}$. La condition (2)(a) est donc satisfaite.
+
+\medskip\noindent
+Soit $U \in \Ob(\mathcal{C})$, soient $x_1, x_2$ des objets de
+$\mathcal{X}$ au-dessus de $U$, et soit
+$c : (G \circ F)(x_1) \to (G \circ F)(x_2)$ un morphisme dans
+$\mathcal{Z}_U$. Par l'hypothèse sur $G$, il existe
+un recouvrement $\{U_i \to U\}$ de $U$ et des morphismes
+$b_i : F(x_1)|_{U_i} \to F(x_2)|_{U_i}$ dans $\mathcal{Y}_{U_i}$
+tels que $G(b_i) = c|_{U_i}$.
+Par l'hypothèse sur $F$, il existe des recouvrements $\{U_{ij} \to U_i\}$
+et des morphismes $a_{ij} : x_1|_{U_{ij}} \to x_2|_{U_{ij}}$ dans
+$\mathcal{X}_{U_{ij}}$ tels que $F(a_{ij}) = b_i|_{U_{ij}}$.
+Alors $\{U_{ij} \to U\}$ est un recouvrement de $\mathcal{C}$
+et $(G \circ F)(a_{ij}) = c|_{U_{ij}}$, comme l'exige (2)(b).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gerbe-descent}
+Soit $\mathcal{C}$ un site. Soit
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_{G'} \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^G & \mathcal{Y}
+}
+$$
+un diagramme $2$-cartésien de champs en groupoïdes sur $\mathcal{C}$.
+Si, pour tout $U \in \Ob(\mathcal{C})$ et tout
+$x \in \Ob(\mathcal{Y}_U)$, il existe un recouvrement
+$\{U_i \to U\}$ tel que $x|_{U_i}$ appartienne à l'image
+essentielle de $G : \mathcal{Y}'_{U_i} \to \mathcal{Y}_{U_i}$ et si
+$\mathcal{X}'$ est une gerbe sur $\mathcal{Y}'$, alors
+$\mathcal{X}$ est une gerbe sur $\mathcal{Y}$.
+\end{lemma}
+
+\begin{proof}
+Par la propriété d'unicité d'un $2$-produit fibré, on peut supposer que
+$\mathcal{X}' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+comme dans
+Catégories, Lemme \ref{categories-lemma-2-product-categories-over-C}.
+Montrons les propriétés (2)(a) et (2)(b) du
+Lemme \ref{lemma-when-gerbe}
+pour $\mathcal{X} \to \mathcal{Y}$.
+
+\medskip\noindent
+Soit $y$ un objet de $\mathcal{Y}$ au-dessus de l'objet $U$
+de $\mathcal{C}$. Par hypothèse, il existe
+un recouvrement $\{U_i \to U\}$ de $U$ et des objets
+$y'_i \in \mathcal{Y}'_{U_i}$ tels que $G(y'_i) \cong y|_{U_i}$.
+D'après (2)(a) pour $\mathcal{X}' \to \mathcal{Y}'$, il existe des
+recouvrements $\{U_{ij} \to U_i\}$ et des objets $x'_{ij}$ de
+$\mathcal{X}'$ au-dessus de $U_{ij}$ tels que $F'(x'_{ij})$ soit isomorphe
+à la restriction de $y'_i$ à $U_{ij}$. Alors
+$\{U_{ij} \to U\}$ est un recouvrement de $\mathcal{C}$ et les
+$G'(x'_{ij})$ sont des objets de $\mathcal{X}$ au-dessus de $U_{ij}$
+dont les images dans $\mathcal{Y}$ sont isomorphes aux restrictions
+$y|_{U_{ij}}$. Cela prouve (2)(a) pour $\mathcal{X} \to \mathcal{Y}$.
+
+\medskip\noindent
+Soit $U \in \Ob(\mathcal{C})$, soient $x_1, x_2$ des objets de
+$\mathcal{X}$ au-dessus de $U$, et soit $b : F(x_1) \to F(x_2)$ un morphisme
+dans $\mathcal{Y}_U$. Par hypothèse, on peut choisir un recouvrement
+$\{U_i \to U\}$ et des objets $y'_i$ de $\mathcal{Y}'$
+au-dessus de $U_i$ tels qu'il existe des isomorphismes
+$\alpha_i : G(y'_i) \to F(x_1)|_{U_i}$.
+On obtient alors des objets
+$$
+x'_{1i} = (U_i, y'_i, x_1|_{U_i}, \alpha_i)
+\quad\text{et}\quad
+x'_{2i} = (U_i, y'_i, x_2|_{U_i}, b|_{U_i} \circ \alpha_i)
+$$
+de $\mathcal{X}'$ au-dessus de $U_i$. Le morphisme identité de $y'_i$ est un
+morphisme $F'(x'_{1i}) \to F'(x'_{2i})$. D'après (2)(b) pour
+$\mathcal{X}' \to \mathcal{Y}'$, il existe des recouvrements
+$\{U_{ij} \to U_i\}$ et des morphismes
+$a'_{ij} : x'_{1i}|_{U_{ij}} \to x'_{2i}|_{U_{ij}}$
+tels que $F'(a'_{ij}) = \text{id}_{y'_i}|_{U_{ij}}$. En explicitant la définition
+des morphismes de $\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$,
+on voit que les $G'(a'_{ij}) : x_1|_{U_{ij}} \to x_2|_{U_{ij}}$ sont
+les morphismes recherchés, c'est-à-dire que (2)(b) est satisfaite pour
+$\mathcal{X} \to \mathcal{Y}$.
+\end{proof}
+
+\noindent
+Les gerbes dont tous les faisceaux d'automorphismes sont abéliens jouent un rôle
+important en géométrie algébrique.
+
+\begin{lemma}
+\label{lemma-gerbe-abelian-auts}
+Soit $p : \mathcal{S} \to \mathcal{C}$ une gerbe sur un site $\mathcal{C}$.
+Supposons que, pour tous $U \in \Ob(\mathcal{C})$ et $x \in \Ob(\mathcal{S}_U)$,
+le faisceau de groupes $\mathit{Aut}(x) = \mathit{Isom}(x, x)$ sur $\mathcal{C}/U$
+soit abélien. Alors il existe
+\begin{enumerate}
+\item un faisceau $\mathcal{G}$ de groupes abéliens sur $\mathcal{C}$,
+\item pour tout $U \in \Ob(\mathcal{C})$ et tout $x \in \Ob(\mathcal{S}_U)$,
+un isomorphisme $\mathcal{G}|_U \to \mathit{Aut}(x)$
+\end{enumerate}
+tel que, pour tout $U$ et tout morphisme $\varphi : x \to y$
+dans $\mathcal{S}_U$, le diagramme
+$$
+\xymatrix{
+\mathcal{G}|_U \ar[d] \ar@{=}[rr] & & \mathcal{G}|_U \ar[d] \\
+\mathit{Aut}(x)
+\ar[rr]^{\alpha \mapsto \varphi \circ \alpha \circ \varphi^{-1}} & &
+\mathit{Aut}(y)
+}
+$$
+soit commutatif.
+\end{lemma}
+
+\begin{proof}
+Soient $x, y$ deux objets de $\mathcal{S}$ avec $U = p(x) = p(y)$.
+
+\medskip\noindent
+S'il existe un morphisme $\varphi : x \to y$ au-dessus de $U$, c'est un
+isomorphisme et l'on obtient bien un isomorphisme
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$ qui envoie
+$\alpha$ sur $\varphi \circ \alpha \circ \varphi^{-1}$.
+De plus, comme on suppose $\mathit{Aut}(x)$
+commutatif, cet isomorphisme ne dépend pas du choix
+de $\varphi$, par un calcul immédiat : en effet, si $\psi$ est
+une seconde application de ce type, alors
+$$
+\varphi \circ \alpha \circ \varphi^{-1} =
+\psi \circ \psi^{-1} \circ \varphi \circ \alpha \circ \varphi^{-1} =
+\psi \circ \alpha \circ \psi^{-1} \circ \varphi \circ \varphi^{-1} =
+\psi \circ \alpha \circ \psi^{-1}
+$$
+Il en résulte un isomorphisme canonique de faisceaux
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$. En outre, s'il existe
+un troisième objet $z$ et un morphisme $y \to z$ (et donc
+aussi un morphisme $x \to z$), alors les
+isomorphismes canoniques $\mathit{Aut}(x) \to \mathit{Aut}(y)$,
+$\mathit{Aut}(y) \to \mathit{Aut}(z)$ et
+$\mathit{Aut}(x) \to \mathit{Aut}(z)$ sont compatibles au sens
+où le diagramme
+$$
+\xymatrix{
+\mathit{Aut}(x) \ar[rd] \ar[rr] & &  \mathit{Aut}(z) \\
+& \mathit{Aut}(y) \ar[ru]
+}
+$$
+est commutatif.
+
+\medskip\noindent
+S'il n'existe aucun morphisme de $x$ vers $y$ au-dessus de $U$, on peut
+choisir un recouvrement $\{U_i \to U\}$ tel qu'il existe des morphismes
+$x|_{U_i} \to y|_{U_i}$. On obtient ainsi des isomorphismes canoniques
+$$
+\mathit{Aut}(x)|_{U_i} \longrightarrow \mathit{Aut}(y)|_{U_i}
+$$
+qui coïncident sur $U_i \times_U U_j$ (par canonicité). Par recollement des
+faisceaux (Sites, Lemme \ref{sites-lemma-glue-maps}), on obtient un unique
+isomorphisme $\mathit{Aut}(x) \to \mathit{Aut}(y)$ dont la restriction
+à chaque $U_i$ est l'isomorphisme canonique du paragraphe précédent.
+Comme ci-dessus, ces isomorphismes canoniques satisfont une
+compatibilité en présence d'un troisième objet au-dessus de $U$.
+
+\medskip\noindent
+Que se passe-t-il si la catégorie fibre de $\mathcal{S}$ au-dessus de $U$ est vide ?
+Dans ce cas, on peut trouver un recouvrement $\{U_i \to U\}$
+et des objets $x_i$ de $\mathcal{S}$ au-dessus de $U_i$. Posons alors
+$\mathcal{G}_i = \mathit{Aut}(x_i)$. D'après ce qui précède, on obtient
+des isomorphismes canoniques
+$$
+\varphi_{ij} :
+\mathcal{G}_i|_{U_i \times_U U_j}
+\longrightarrow
+\mathcal{G}_j|_{U_i \times_U U_j}
+$$
+dont les restrictions à $U_i \times_U U_j \times_U U_k$ satisfont
+la condition de cocycle décrite dans Sites, section
+\ref{sites-section-glueing-sheaves}.
+D'après Sites, Lemme \ref{sites-lemma-glue-sheaves},
+on obtient un faisceau $\mathcal{G}$ sur $U$ dont la
+restriction à $U_i$ donne $\mathcal{G}_i$
+d'une manière compatible avec les applications de recollement $\varphi_{ij}$.
+
+\medskip\noindent
+Si $\mathcal{C}$ possède un objet final $U$, cela achève la démonstration,
+car on peut prendre pour $\mathcal{G}$ le faisceau que l'on vient de construire.
+Dans le cas général, il faut vérifier que les faisceaux $\mathcal{G}$
+construits sur les différents $U$ sont canoniquement compatibles.
+Cette vérification est omise.
+\end{proof}
+
+
+
+
+\section{Fonctorialité des champs}
+\label{section-inverse-image}
+
+\noindent
+Dans cette section, nous étudions ce qui se passe lorsque l'on veut changer
+le site de base d'un champ. Cette section peut être omise en première lecture.
+
+\medskip\noindent
+Soit $u : \mathcal{C} \to \mathcal{D}$ un foncteur entre catégories.
+Soit $p : \mathcal{S} \to \mathcal{D}$ une catégorie au-dessus de $\mathcal{D}$.
+Dans cette situation, nous notons $u^p\mathcal{S}$ la catégorie au-dessus de $\mathcal{C}$
+définie comme suit :
+\begin{enumerate}
+\item Un objet de $u^p\mathcal{S}$ est un couple $(U, y)$ formé
+d'un objet $U$ de $\mathcal{C}$ et d'un objet $y$ de $\mathcal{S}_{u(U)}$.
+\item Un morphisme $(a, \beta) : (U, y) \to (U', y')$ est donné par
+un morphisme $a : U \to U'$ de $\mathcal{C}$ et un morphisme $\beta : y \to y'$
+de $\mathcal{S}$ tels que $p(\beta) = u(a)$.
+\end{enumerate}
+Remarquons qu'avec ces définitions, la catégorie fibre de
+$u^p\mathcal{S}$ au-dessus de $U$ est égale à la catégorie fibre de
+$\mathcal{S}$ au-dessus de $u(U)$.
+
+\begin{lemma}
+\label{lemma-fibred-category-pushforward}
+Dans la situation ci-dessus, si $\mathcal{S}$ est une catégorie fibrée au-dessus de
+$\mathcal{D}$, alors $u^p\mathcal{S}$ est une catégorie fibrée au-dessus de $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Avant de lire cette démonstration, prière de se reporter à la discussion qui entoure
+Catégories, Définitions \ref{categories-definition-cartesian-over-C} et
+\ref{categories-definition-fibred-category}.
+Soit $(a, \beta) : (U, y) \to (U', y')$ un morphisme de $u^p\mathcal{S}$.
+Nous affirmons que $(a, \beta)$ est fortement cartésien si et seulement si
+$\beta$ est fortement cartésien. Supposons d'abord que $\beta$ soit fortement cartésien.
+Considérons un autre morphisme quelconque
+$(a_1, \beta_1) : (U_1, y_1) \to (U', y')$ de $u^p\mathcal{S}$. Alors
+\begin{align*}
+& \Mor_{u^p\mathcal{S}}((U_1, y_1), (U, y)) \\
+& =
+\Mor_\mathcal{C}(U_1, U)
+\times_{\Mor_\mathcal{D}(u(U_1), u(U))}
+\Mor_\mathcal{S}(y_1, y) \\
+& =
+\Mor_\mathcal{C}(U_1, U)
+\times_{\Mor_\mathcal{D}(u(U_1), u(U))}
+\Mor_\mathcal{S}(y_1, y')
+\times_{\Mor_\mathcal{D}(u(U_1), u(U'))}
+\Mor_\mathcal{D}(u(U_1), u(U)) \\
+& =
+\Mor_\mathcal{S}(y_1, y')
+\times_{\Mor_\mathcal{D}(u(U_1), u(U'))}
+\Mor_\mathcal{C}(U_1, U) \\
+& =
+\Mor_{u^p\mathcal{S}}((U_1, y_1), (U', y'))
+\times_{\Mor_\mathcal{C}(U_1, U')}
+\Mor_\mathcal{C}(U_1, U)
+\end{align*}
+la deuxième égalité résultant de ce que $\beta$ est fortement cartésien. Nous voyons donc
+que $(a, \beta)$ est bien fortement cartésien. Réciproquement, supposons que
+$(a, \beta)$ soit fortement cartésien. Choisissons un morphisme fortement cartésien
+$\beta' : y'' \to y'$ dans $\mathcal{S}$ tel que $p(\beta') = u(a)$.
+Alors les deux morphismes $(a, \beta) : (U, y) \to (U, y')$ et
+$(a, \beta') : (U, y'') \to (U, y)$ sont fortement cartésiens et
+relèvent $a$. Par l'unicité des morphismes fortement cartésiens
+(voir la discussion dans
+Catégories, section \ref{categories-section-fibred-categories}),
+il existe donc un isomorphisme $\iota : y \to y''$ dans $\mathcal{S}_{u(U)}$
+tel que $\beta = \beta' \circ \iota$, ce qui implique que
+$\beta$ est fortement cartésien dans $\mathcal{S}$ d'après
+Catégories, Lemme \ref{categories-lemma-composition-cartesian}.
+
+\medskip\noindent
+Enfin, il nous faut montrer
+qu'étant donnés $(U', y')$ et $U \to U'$, on peut trouver un morphisme
+fortement cartésien $(U, y) \to (U', y')$ dans $u^p\mathcal{S}$
+relevant le morphisme $U \to U'$. Cela résulte de ce qui précède puisque, par hypothèse,
+on peut trouver un morphisme fortement cartésien $y \to y'$ relevant le
+morphisme $u(U) \to u(U')$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-pushforward}
+Soit $u : \mathcal{C} \to \mathcal{D}$ un foncteur continu de sites.
+Soit $p : \mathcal{S} \to \mathcal{D}$ un champ sur $\mathcal{D}$.
+Alors $u^p\mathcal{S}$ est un champ sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Nous avons vu dans le
+Lemme \ref{lemma-fibred-category-pushforward}
+que $u^p\mathcal{S}$ est une catégorie fibrée au-dessus de $\mathcal{C}$.
+De plus, dans la démonstration de ce lemme, nous avons vu qu'un morphisme
+$(a, \beta)$ de $u^p\mathcal{S}$ est fortement cartésien si et seulement si
+$\beta$ est fortement cartésien dans $\mathcal{S}$. Ainsi, étant donné
+un morphisme $a : U \to U'$ de $\mathcal{C}$, non seulement
+avons-nous les égalités
+$(u^p\mathcal{S})_U = \mathcal{S}_U$ et
+$(u^p\mathcal{S})_{U'} = \mathcal{S}_{U'}$, mais, par ces
+égalités, les foncteurs de changement de base coïncident ; en formule,
+$a^*(U', y') = (U, u(a)^*y')$.
+
+\medskip\noindent
+Ceci étant dit, soit $\mathcal{U} = \{U_i \to U\}$ un recouvrement
+de $\mathcal{C}$. Comme $u$ est continu, nous voyons que
+$\mathcal{V} = \{u(U_i) \to u(U)\}$ est un recouvrement de $\mathcal{D}$,
+que $u(U_i \times_U U_j) = u(U_i) \times_{u(U)} u(U_j)$, et de même
+pour les produits fibrés triples $U_i \times_U U_j \times_U U_k$.
+Compte tenu des identifications des catégories fibres et des changements de base,
+les données de descente relatives à $\mathcal{U}$ sont identiques
+aux données de descente relatives à $\mathcal{V}$. Puisque, par hypothèse, la descente
+est effective dans $\mathcal{S}$, nous concluons qu'il en est de même dans
+$u^p\mathcal{S}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-pushforward}
+Soit $u : \mathcal{C} \to \mathcal{D}$ un foncteur continu de sites.
+Soit $p : \mathcal{S} \to \mathcal{D}$ un champ en groupoïdes
+sur $\mathcal{D}$. Alors $u^p\mathcal{S}$ est un champ en groupoïdes
+sur $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du
+Lemme \ref{lemma-stack-pushforward}
+et du fait que toutes les catégories fibres sont des groupoïdes.
+\end{proof}
+
+\begin{definition}
+\label{definition-pushforward-stack}
+Soit $f : \mathcal{D} \to \mathcal{C}$ un morphisme de sites
+donné par le foncteur continu $u : \mathcal{C} \to \mathcal{D}$.
+Soit $\mathcal{S}$ une catégorie fibrée au-dessus de $\mathcal{D}$.
+Dans ce cadre, nous notons {\it $f_*\mathcal{S}$} la catégorie
+fibrée $u^p\mathcal{S}$ définie ci-dessus. Nous disons que
+$f_*\mathcal{S}$ est l'{\it image directe de $\mathcal{S}$ par $f$}.
+\end{definition}
+
+\noindent
+D'après les résultats précédents, nous savons que $f_*\mathcal{S}$ est un champ (en groupoïdes)
+si $\mathcal{S}$ est un champ (en groupoïdes).
+Il est plus difficile de définir l'image inverse d'un champ (et notre construction
+particulière nécessitera des hypothèses supplémentaires -- le lecteur peut rédiger et
+soumettre une construction plus générale). Nous procédons en plusieurs étapes.
+
+\medskip\noindent
+Soit $u : \mathcal{C} \to \mathcal{D}$ un foncteur entre catégories.
+Soit $p : \mathcal{S} \to \mathcal{C}$ une catégorie au-dessus de $\mathcal{C}$.
+Dans ce cadre, nous définissons une catégorie $u_{pp}\mathcal{S}$ comme suit :
+\begin{enumerate}
+\item Un objet de $u_{pp}\mathcal{S}$ est un triplet
+$(U, \phi : V \to u(U), x)$ où $U \in \Ob(\mathcal{C})$,
+l'application $\phi : V \to u(U)$ est un morphisme de $\mathcal{D}$,
+et $x \in \Ob(\mathcal{S}_U)$.
+\item Un morphisme
+$$
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U_2, \phi_2 : V_2 \to u(U_2), x_2)
+$$
+de $u_{pp}\mathcal{S}$ est donné par un
+triplet $(a, b, \alpha)$ où $a : U_1 \to U_2$ est un morphisme de $\mathcal{C}$,
+$b : V_1 \to V_2$ est un morphisme de $\mathcal{D}$, et
+$\alpha : x_1 \to x_2$ est un morphisme de $\mathcal{S}$,
+tels que $p(\alpha) = a$ et que le diagramme
+$$
+\xymatrix{
+V_1 \ar[d]_{\phi_1} \ar[r]_b & V_2 \ar[d]^{\phi_2} \\
+u(U_1) \ar[r]^{u(a)} & u(U_2)
+}
+$$
+soit commutatif dans $\mathcal{D}$.
+\end{enumerate}
+Nous considérons $u_{pp}\mathcal{S}$ comme une catégorie au-dessus de $\mathcal{D}$ au moyen de
+$$
+p_{pp} : u_{pp}\mathcal{S} \longrightarrow \mathcal{D},
+\quad
+(U, \phi : V \to u(U), x) \longmapsto V.
+$$
+La catégorie fibre de $u_{pp}\mathcal{S}$ au-dessus d'un objet $V$ de $\mathcal{D}$
+n'admet pas de description simple.
+
+\begin{lemma}
+\label{lemma-right-multiplicative-system}
+Dans la situation ci-dessus, supposons que
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ soit une catégorie fibrée,
+\item $\mathcal{C}$ possède les limites finies non vides, et que
+\item $u : \mathcal{C} \to \mathcal{D}$ commute aux limites finies non vides.
+\end{enumerate}
+Considérons l'ensemble $R \subset \text{Flèches}(u_{pp}\mathcal{S})$ des morphismes
+de la forme
+$$
+(a, \text{id}_V, \alpha) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+où $\alpha$ est fortement cartésien. Alors $R$ est un système multiplicatif à droite.
+\end{lemma}
+
+\begin{proof}
+D'après
+Catégories, Définition \ref{categories-definition-multiplicative-system},
+nous devons vérifier RMS1, RMS2 et RMS3.
+La condition RMS1 est satisfaite, car une composée de morphismes fortement cartésiens est
+fortement cartésienne ; voir
+Catégories, Lemme \ref{categories-lemma-composition-cartesian}.
+
+\medskip\noindent
+Pour vérifier RMS2, supposons donnés un morphisme
+$$
+(a, b, \alpha) :
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+de $u_{pp}\mathcal{S}$ et un morphisme
+$$
+(c, \text{id}_V, \gamma) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+où $\gamma$ est fortement cartésien, appartenant à $R$. Dans cette situation, posons
+$U'_1 = U_1 \times_U U'$, et notons $a' : U'_1 \to U'$ et
+$c' : U'_1 \to U_1$ les projections.
+Puisque $u(U'_1) = u(U_1) \times_{u(U)} u(U')$,
+$\phi'_1 = (\phi_1, \phi') : V_1 \to u(U'_1)$ est
+un morphisme de $\mathcal{D}$. Soit $\gamma_1 : x_1' \to x_1$
+un morphisme fortement cartésien de $\mathcal{S}$ tel que
+$p(\gamma_1) = \phi'_1$ (il existe puisque $\mathcal{S}$ est une
+catégorie fibrée au-dessus de $\mathcal{C}$). Comme $\gamma : x' \to x$ est
+fortement cartésien, il existe alors un unique morphisme
+$\alpha' : x'_1 \to x'$ tel que $p(\alpha') = a'$.
+À ce stade, nous voyons que
+$$
+(a', b, \alpha') :
+(U_1, \phi_1 : V_1 \to u(U'_1), x'_1)
+\longrightarrow
+(U, \phi : V \to u(U'), x')
+$$
+est un morphisme et que
+$$
+(c', \text{id}_{V_1}, \gamma_1) :
+(U'_1, \phi'_1 : V_1 \to u(U'_1), x'_1)
+\longrightarrow
+(U_1, \phi : V_1 \to u(U_1), x_1)
+$$
+est un élément de $R$ ; ensemble, ces morphismes donnent une solution au problème
+d'existence posé par RMS2.
+
+\medskip\noindent
+Enfin, supposons que
+$$
+(a, b, \alpha), (a', b', \alpha') :
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+soient deux morphismes de $u_{pp}\mathcal{S}$ et supposons que
+$$
+(c, \text{id}_V, \gamma) :
+(U, \phi : V \to u(U), x)
+\longrightarrow
+(U', \phi : V \to u(U'), x')
+$$
+soit un élément de $R$ qui égalise les morphismes
+$(a, b, \alpha)$ et $(a', b', \alpha')$. Cela implique en particulier
+que $b = b'$. Soit $d : U_2 \to U_1$ l'égalisateur de $a, a'$, lequel
+existe (voir
+Catégories, Lemme \ref{categories-lemma-almost-finite-limits-exist}).
+En outre, $u(d) : u(U_2) \to u(U_1)$ est l'égalisateur de $u(a), u(a')$ ;
+il existe donc (puisque $b = b'$) un morphisme $\phi_2 : V_1 \to u(U_2)$ tel que
+$\phi_1 = u(d) \circ \phi_1$. Soit $\delta : x_2 \to x_1$ un morphisme fortement
+cartésien de $\mathcal{S}$ tel que $p(\delta) = u(d)$.
+Nous affirmons maintenant que $\alpha \circ \delta = \alpha' \circ \delta$.
+C'est vrai parce que
+$\gamma$ est fortement cartésien,
+$\gamma \circ \alpha \circ \delta = \gamma \circ \alpha' \circ \delta$, et
+$p(\alpha \circ \delta) = p(\alpha' \circ \delta)$.
+Par conséquent, la flèche
+$$
+(d, \text{id}_{V_1}, \delta) :
+(U_2, \phi_2 : V_1 \to u(U_2), x_2)
+\longrightarrow
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+$$
+est un élément de $R$ et égalise $(a, b, \alpha)$ et $(a', b', \alpha')$.
+Ainsi, $R$ satisfait également RMS3.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibred-category-pullback}
+Avec les notations et les hypothèses du
+Lemme \ref{lemma-right-multiplicative-system},
+posons $u_p\mathcal{S} = R^{-1}u_{pp}\mathcal{S}$ ; voir
+Catégories, section \ref{categories-section-localization}.
+Alors $u_p\mathcal{S}$ est une catégorie fibrée au-dessus de $\mathcal{D}$.
+\end{lemma}
+
+\begin{proof}
+Nous utilisons la description de $u_p\mathcal{S}$ donnée juste avant
+Catégories, Lemme \ref{categories-lemma-right-localization}.
+Remarquons que le foncteur $p_{pp} : u_{pp}\mathcal{S} \to \mathcal{D}$
+transforme tout élément de $R$ en un morphisme identité.
+Ainsi, d'après
+Catégories, Lemme \ref{categories-lemma-properties-right-localization},
+nous obtenons un foncteur canonique $p_p : u_p\mathcal{S} \to \mathcal{D}$
+qui prolonge le foncteur donné. C'est ainsi que nous considérons
+$u_p\mathcal{S}$ comme une catégorie au-dessus de $\mathcal{D}$.
+
+\medskip\noindent
+Nous voulons d'abord caractériser les morphismes fortement cartésiens au-dessus de $\mathcal{D}$
+dans $u_p\mathcal{S}$.
+Un morphisme $f : X \to Y$ de $u_p\mathcal{S}$ est la classe d'équivalence
+d'un couple $(f' : X' \to Y, r : X' \to X)$ avec $r \in R$.
+En effet, dans $u_p\mathcal{S}$, nous avons $f = (f', 1) \circ (r, 1)^{-1}$
+avec les notations évidentes.
+Remarquons qu'un isomorphisme est toujours fortement cartésien, de même qu'une
+composée de morphismes fortement cartésiens ; voir
+Catégories, Lemme \ref{categories-lemma-composition-cartesian}.
+Ainsi, $f$ est fortement cartésien si et seulement si $(f', 1)$ l'est.
+L'affirmation suivante caractérise donc complètement les morphismes fortement cartésiens.
+Affirmation : un morphisme
+$$
+(a, b, \alpha) :
+X_1 = (U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U_2, \phi_2 : V_2 \to u(U_2), x_2) = X_2
+$$
+de $u_{pp}\mathcal{S}$ a une image $f = ((a, b, \alpha), 1)$
+fortement cartésienne dans $u_p\mathcal{S}$ si et seulement si $\alpha$
+est un morphisme fortement cartésien de $\mathcal{S}$.
+
+\medskip\noindent
+Supposons $\alpha$ fortement cartésien.
+Soit $X = (U, \phi : V \to u(U), x)$ un autre objet, et soit
+$f_2 : X \to X_2$ un morphisme de $u_p\mathcal{S}$
+tel que $p_p(f_2) = b \circ b_1$ pour un certain $b_1 : U \to U_1$.
+Pour montrer que $f$ est fortement cartésien, nous devons montrer
+qu'il existe un unique morphisme $f_1 : X \to X_1$ dans $u_p\mathcal{S}$
+tel que $p_p(f_1) = b_1$ et $f_2 = f \circ f_1$ dans $u_p\mathcal{S}$.
+Écrivons $f_2 = (f'_2 : X' \to X_2, r : X' \to X)$. Là encore, nous pouvons écrire
+$f_2 = (f'_2, 1) \circ (r, 1)^{-1}$ dans $u_p\mathcal{S}$. Puisque $(r, 1)$
+est un isomorphisme dont l'image dans $\mathcal{D}$ est une identité, nous
+voyons que trouver un morphisme $f_1 : X \to X_1$ possédant les propriétés
+requises revient à trouver un morphisme $f'_1 : X' \to X_1$
+dans $u_p\mathcal{S}$ tel que $p(f'_1) = b_1$ et $f'_2 = f \circ f'_1$.
+Nous pouvons donc supposer que $f_2$ est de la forme
+$f_2 = ((a_2, b_2, \alpha_2), 1)$ avec $b_2 = b \circ b_1$. Voici
+un diagramme :
+$$
+\xymatrix{
+& & (U_1, V_1 \to u(U_1), x_1) \ar[d]^{(a, b, \alpha)} \\
+(U, V \to u(U), x) \ar[rr]^{(a_2, b_2, \alpha_2)} & &
+(U_2, V_2 \to u(U_2), x_2)
+}
+$$
+La construction du morphisme $f_1$ est maintenant claire.
+Posons en effet $U' = U \times_{U_2} U_1$, avec pour projections
+$c : U' \to U$ et $a_1 : U' \to U_1$.
+Choisissons un morphisme fortement cartésien $\gamma : x' \to x$
+relevant le morphisme $c$. Puisque $b_2 = b \circ b_1$
+et que $u(U') = u(U) \times_{u(U_2)} u(U_1)$, nous avons
+$\phi' = (\phi, \phi_1 \circ b_1) : V \to u(U')$. Comme
+$\alpha$ est fortement cartésien et que
+$a \circ a_1 = a_2 \circ c = p(\alpha_2 \circ \gamma)$,
+il existe un morphisme
+$\alpha_1 : x' \to x_1$ relevant $a_1$ tel que
+$\alpha \circ \alpha_1 = \alpha_2 \circ \gamma$.
+Posons $X' = (U', \phi' : V \to u(U'), x')$.
+Nous voyons ainsi que
+$$
+f_1 =
+((a_1, b_1, \alpha_1) : X' \to X_1, (c, \text{id}_V, \gamma) : X' \to X) :
+X \longrightarrow X_1
+$$
+convient ; en effet, le diagramme
+$$
+\xymatrix{
+(U', \phi' : V \to u(U'), x')
+\ar[d]_{(c, \text{id}_V, \gamma)}
+\ar[rr]_{(a_1, b_1, \alpha_1)}
+& & (U_1, V_1 \to u(U_1), x_1) \ar[d]^{(a, b, \alpha)} \\
+(U, V \to u(U), x) \ar[rr]^{(a_2, b_2, \alpha_2)} & &
+(U_2, V_2 \to u(U_2), x_2)
+}
+$$
+est commutatif par construction. Cela démontre l'existence.
+
+\medskip\noindent
+Démontrons ensuite l'unicité, toujours dans le cas particulier
+$f = ((a, b, \alpha), 1)$ et $f_2 = ((a_2, b_2, \alpha_2), 1)$.
+Nous recommandons vivement au lecteur de passer cette partie.
+Supposons que $g_1, g'_1 : X \to X_1$ soient deux morphismes de
+$u_p\mathcal{S}$ tels que $p_p(g_1) = p_p(g'_1) = b_1$ et
+$f_2 = f \circ g_1 = f \circ g'_1$. Notre but est de montrer que
+$g_1 = g'_1$. D'après
+Catégories, Lemme \ref{categories-lemma-morphisms-right-localization},
+nous pouvons représenter $g_1$ et $g'_1$ par les classes d'équivalence de
+$(f_1 : X' \to X_1, r : X' \to X)$ et
+$(f'_1 : X' \to X_1, r : X' \to X)$ pour un certain $r \in R$. D'après
+Catégories, Lemme \ref{categories-lemma-equality-morphisms-right-localization},
+l'égalité $f_2 = f \circ g_1 = f \circ g'_1$ signifie qu'il
+existe un morphisme $r' : X'' \to X'$ dans $u_{pp}\mathcal{S}$ tel que
+$r' \circ r \in R$ et
+$$
+(a, b, \alpha) \circ f_1 \circ r' =
+(a, b, \alpha) \circ f'_1 \circ r' =
+(a_2, b_2, \alpha_2) \circ r'
+$$
+dans $u_{pp}\mathcal{S}$. Remarquons que
+$g_1$ est maintenant représenté par $(f_1 \circ r', r \circ r')$ et
+de même pour $g'_1$. Nous pouvons donc supposer que
+$$
+(a, b, \alpha) \circ f_1 =
+(a, b, \alpha) \circ f'_1 =
+(a_2, b_2, \alpha_2).
+$$
+Écrivons $r = (c, \text{id}_V, \gamma) : (U', \phi' : V \to u(U'), x')$,
+$f_1 = (a_1, b_1, \alpha_1)$ et $f'_1 = (a'_1, b_1, \alpha'_1)$.
+Nous avons utilisé ici la condition $p_p(g_1) = p_p(g'_1)$.
+Les égalités précédentes équivalent maintenant à
+$a \circ a_1 = a \circ a'_1 = a_2 \circ c$ et
+$\alpha \circ \alpha_1 = \alpha \circ \alpha'_1 = \alpha_2 \circ \gamma$.
+Dans cette situation, il n'est pas nécessaire que $a_1 = a'_1$.
+Nous devons donc précomposer par un morphisme supplémentaire appartenant à $R$.
+Soit en effet $U'' = \text{Eq}(a_1, a'_1)$ l'égalisateur de
+$a_1$ et $a'_1$, qui est un sous-objet de $U'$. Notons
+$c' : U'' \to U'$ le monomorphisme canonique.
+En raison des relations entre les morphismes
+ci-dessus, nous voyons que $V \to u(U')$ se factorise par
+$u(U'') = u(\text{Eq}(a_1, a'_1)) = \text{Eq}(u(a_1), u(a'_1))$.
+Nous obtenons donc un nouvel objet $(U'', \phi'' : V \to u(U''), x'')$, où
+$\gamma' : x'' \to x'$ est un morphisme fortement cartésien relevant $\gamma$.
+Nous voyons alors que nous pouvons précomposer $f_1$ et $f'_1$ par l'élément
+$(c', \text{id}_V, \gamma')$ de $R$. Après cette opération, c'est-à-dire après avoir remplacé
+$(U', \phi' : V \to u(U'), x')$ par
+$(U'', \phi'' : V \to u(U''), x'')$, nous nous retrouvons dans la situation
+précédente, avec en outre $a_1 = a'_1$.
+Dans ce cas, il résulte formellement du fait que $\alpha$
+est fortement cartésien (!) que $\alpha_1 = \alpha'_1$.
+Cela montre que $g_1 = g'_1$, comme souhaité.
+
+\medskip\noindent
+Nous omettons la démonstration du fait que, pour tout morphisme fortement cartésien
+de $u_p\mathcal{S}$ de la forme $((a, b, \alpha), 1)$, le morphisme
+$\alpha$ est fortement cartésien dans $\mathcal{S}$.
+(Nous n'avons pas besoin de cette caractérisation des morphismes fortement cartésiens
+dans la suite de la démonstration, bien que nous l'utilisions plus loin dans cette section.)
+
+\medskip\noindent
+Soit $(U, \phi : V \to u(U), x)$ un objet de $u_p\mathcal{S}$.
+Soit $b : V' \to V$ un morphisme de $\mathcal{D}$. Alors le morphisme
+$$
+(\text{id}_U, b, \text{id}_x) :
+(U, \phi \circ b : V' \to u(U), x)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+est fortement cartésien d'après le résultat des paragraphes précédents, ce qui conclut la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibred-groupoids-category-pullback}
+Avec les notations et les hypothèses du
+Lemme \ref{lemma-fibred-category-pullback},
+si $\mathcal{S}$ est fibrée en groupoïdes, alors $u_p\mathcal{S}$ est fibrée
+en groupoïdes.
+\end{lemma}
+
+\begin{proof}
+D'après le
+Lemme \ref{lemma-fibred-category-pullback},
+nous savons que $u_p\mathcal{S}$ est une catégorie fibrée.
+Soit $f : X \to Y$ un morphisme de $u_p\mathcal{S}$ tel que
+$p_p(f) = \text{id}_V$. Il suffit de montrer que $f$ est inversible ; voir
+Catégories, Lemme \ref{categories-lemma-fibred-groupoids}.
+Écrivons $f$ comme la classe d'équivalence
+d'un couple $((a, b, \alpha), r)$ avec $r \in R$. Alors $p_p(r) = \text{id}_V$,
+donc $p_{pp}((a, b, \alpha)) = \text{id}_V$. Par conséquent, $b = \text{id}_V$.
+Or tout morphisme de $\mathcal{S}$ est fortement cartésien ; voir
+Catégories, Lemme \ref{categories-lemma-fibred-groupoids}.
+Ainsi, $(a, b, \alpha) \in R$ est inversible
+dans $u_p\mathcal{S}$, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adjointness-pullback-pushforward}
+Soit $u : \mathcal{C} \to \mathcal{D}$ un foncteur.
+Soient $p : \mathcal{S} \to \mathcal{C}$ et $q : \mathcal{T} \to \mathcal{D}$
+des catégories au-dessus de $\mathcal{C}$ et de $\mathcal{D}$. Supposons que
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ soit une catégorie fibrée,
+\item $q : \mathcal{T} \to \mathcal{D}$ soit une catégorie fibrée,
+\item $\mathcal{C}$ possède les limites finies non vides, et que
+\item $u : \mathcal{C} \to \mathcal{D}$ commute aux limites finies non vides.
+\end{enumerate}
+Alors nous avons une équivalence canonique de catégories
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+=
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+entre les catégories de morphismes.
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, nous employons la notation $x/U$ pour désigner un objet
+$x$ de $\mathcal{S}$ situé au-dessus de $U$ dans $\mathcal{C}$.
+De même, $y/V$ désigne un objet $y$ de $\mathcal{T}$
+situé au-dessus de $V$ dans $\mathcal{D}$. Dans le même esprit,
+$\alpha/a : x/U \to x'/U'$ désigne le morphisme
+$\alpha : x \to x'$ dont l'image est $a : U \to U'$ dans $\mathcal{C}$.
+
+\medskip\noindent
+Soit $G : u_p\mathcal{S} \to \mathcal{T}$ un $1$-morphisme de catégories fibrées
+au-dessus de $\mathcal{D}$. Notons $G' : u_{pp}\mathcal{S} \to \mathcal{T}$
+la composée de $G$ avec le foncteur canonique (de localisation)
+$u_{pp}\mathcal{S} \to u_p\mathcal{S}$. Considérons alors le foncteur
+$H : \mathcal{S} \to u^p\mathcal{T}$ donné par
+$$
+H(x/U) = (U, G'(U, \text{id}_{u(U)} : u(U) \to u(U), x))
+$$
+sur les objets et par
+$$
+H((\alpha, a) : x/U \to x'/U') = G'(a, u(a), \alpha)
+$$
+sur les morphismes. Comme $G$ transforme les morphismes fortement cartésiens
+en morphismes fortement cartésiens, nous voyons que, si $\alpha$ est fortement
+cartésien, alors $H(\alpha)$ est fortement cartésien.
+En effet, nous avons vu dans la démonstration du
+Lemme \ref{lemma-fibred-category-pullback}
+que, dans ce cas, l'application $(a, u(a), \alpha)$ devient
+fortement cartésienne dans $u_p\mathcal{S}$. Cette construction est manifestement
+fonctorielle en $G$, et nous obtenons un foncteur
+$$
+A :
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+\longrightarrow
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+$$
+
+\medskip\noindent
+Réciproquement, soit $H : \mathcal{S} \to u^p\mathcal{T}$ un $1$-morphisme
+de catégories fibrées. Rappelons qu'un objet de $u^p\mathcal{T}$ est
+un couple $(U, y)$ avec $y \in \Ob(\mathcal{T}_{u(U)})$. Notons
+$\text{pr} : u^p\mathcal{T} \to \mathcal{T}$ le foncteur $(U, y) \mapsto y$.
+Dans ce cas, nous définissons un foncteur
+$G' : u_{pp}\mathcal{S} \to \mathcal{T}$ par les règles
+$$
+G'(U, \phi : V \to u(U), x) = \phi^*\text{pr}(H(x))
+$$
+sur les objets et, sur les morphismes, par
+$$
+G'((a, b, \alpha) : (U, \phi : V \to u(U), x)
+\to (U', \phi' : V' \to u(U'), x'))
+=
+\beta
+$$
+où $\beta : \phi^*\text{pr}(H(x)) \to (\phi')^*\text{pr}(H(x'))$
+est l'unique morphisme
+tel que $q(\beta) = b$ et que le diagramme
+$$
+\xymatrix{
+\phi^*\text{pr}(H(x)) \ar[d] \ar[r]_-{\beta} &
+(\phi')^*\text{pr}(H(x')) \ar[d] \\
+\text{pr}(H(x)) \ar[r]^{\text{pr}(H(a, \alpha))} & \text{pr}(H(x'))
+}
+$$
+soit commutatif. Un tel morphisme existe et est unique parce que $\mathcal{T}$ est une catégorie
+fibrée.
+
+\medskip\noindent
+Vérifions que $G'(r)$ est un isomorphisme si $r \in R$.
+En effet, si
+$$
+(a, \text{id}_V, \alpha) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+avec $\alpha$ fortement cartésien est un élément du système multiplicatif à
+droite $R$ du
+Lemme \ref{lemma-right-multiplicative-system},
+alors $H(\alpha)$ est fortement cartésien, et
+$\text{pr}(H(\alpha))$ est fortement cartésien ; voir la démonstration du
+Lemme \ref{lemma-fibred-category-pushforward}.
+Dans ce cas, le morphisme $\beta$ vérifie donc $q(\beta) = \text{id}_V$
+et est fortement cartésien. Ainsi, $\beta$ est un isomorphisme d'après
+Catégories, Lemme \ref{categories-lemma-composition-cartesian}.
+Par conséquent, d'après
+Catégories, Lemme \ref{categories-lemma-properties-right-localization},
+nous obtenons un prolongement canonique $G : u_p\mathcal{S} \to \mathcal{T}$.
+
+\medskip\noindent
+Montrons ensuite que $G$ transforme les morphismes fortement cartésiens
+en morphismes fortement cartésiens.
+Supposons que $f : X \to Y$ soit fortement cartésien. D'après la caractérisation
+des morphismes fortement cartésiens dans $u_p\mathcal{S}$, nous pouvons écrire $f$ sous la forme
+$((a, b, \alpha) : X' \to Y, r : X' \to Y)$, où $r \in R$ et où
+$\alpha$ est fortement cartésien dans $\mathcal{S}$. D'après ce qui précède, il suffit
+de montrer que $G'(a, b \alpha)$ est fortement cartésien. Comme précédemment,
+la condition que $\alpha$ soit fortement cartésien implique que
+$\text{pr}(H(a, \alpha)) : \text{pr}(H(x)) \to \text{pr}(H(x'))$
+est fortement cartésien dans $\mathcal{T}$. Puisque, dans le carré commutatif
+ci-dessus, toutes les flèches sauf peut-être $\beta$ sont maintenant fortement cartésiennes,
+il s'ensuit que $\beta$ est lui aussi fortement cartésien, comme souhaité.
+La construction $H \mapsto G$ est manifestement fonctorielle en $H$, et nous
+obtenons un foncteur
+$$
+B :
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+\longrightarrow
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+Pour achever la démonstration du lemme, il faut montrer que les foncteurs
+$A$ et $B$ sont quasi-inverses l'un de l'autre. Nous omettons les vérifications.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-stack}
+Soit $f : \mathcal{D} \to \mathcal{C}$ un morphisme de sites
+donné par un foncteur continu $u : \mathcal{C} \to \mathcal{D}$
+qui satisfait les hypothèses et les conclusions de
+Sites, Proposition \ref{sites-proposition-get-morphism}.
+Soit $\mathcal{S}$ un champ sur $\mathcal{C}$.
+Dans ce cadre, nous notons {\it $f^{-1}\mathcal{S}$} la champification
+de la catégorie fibrée $u_p\mathcal{S}$ au-dessus de $\mathcal{D}$ construite
+ci-dessus. Nous disons que $f^{-1}\mathcal{S}$ est
+l'{\it image inverse de $\mathcal{S}$ par $f$}.
+\end{definition}
+
+\noindent
+Bien entendu, si $\mathcal{S}$ est un champ en groupoïdes, alors $f^{-1}\mathcal{S}$
+est un champ en groupoïdes d'après les
+Lemmes \ref{lemma-stackify-groupoids} et
+\ref{lemma-fibred-groupoids-category-pullback}.
+
+\begin{lemma}
+\label{lemma-adjointness-pullback-pushforward-stacks}
+Soit $f : \mathcal{D} \to \mathcal{C}$ un morphisme de sites
+donné par un foncteur continu $u : \mathcal{C} \to \mathcal{D}$
+qui satisfait les hypothèses et les conclusions de
+Sites, Proposition \ref{sites-proposition-get-morphism}.
+Soient $p : \mathcal{S} \to \mathcal{C}$ et
+$q : \mathcal{T} \to \mathcal{D}$ des champs.
+Alors nous avons une équivalence canonique de catégories
+$$
+\Mor_{\textit{Champs}/\mathcal{C}}(\mathcal{S}, f_*\mathcal{T})
+=
+\Mor_{\textit{Champs}/\mathcal{D}}(f^{-1}\mathcal{S}, \mathcal{T})
+$$
+entre les catégories de morphismes.
+\end{lemma}
+
+\begin{proof}
+Pour $i = 1, 2$, un $i$-morphisme de champs est la même chose qu'un
+$i$-morphisme de catégories fibrées ; voir la
+Définition \ref{definition-stacks-over-C}.
+D'après le
+Lemme \ref{lemma-adjointness-pullback-pushforward},
+nous avons déjà
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+=
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+Le résultat découle donc du
+Lemme \ref{lemma-stackify-universal-property-more},
+puisque $u^p\mathcal{T} = f_*\mathcal{T}$ et que $f^{-1}\mathcal{S}$ est la
+champification de $u_p\mathcal{S}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-technical-up}
+Soit $f : \mathcal{D} \to \mathcal{C}$ un morphisme de sites
+donné par un foncteur continu $u : \mathcal{C} \to \mathcal{D}$
+qui satisfait les hypothèses et les conclusions de
+Sites, Proposition \ref{sites-proposition-get-morphism}.
+Soit $\mathcal{S} \to \mathcal{C}$ une catégorie fibrée, et
+soit $\mathcal{S} \to \mathcal{S}'$ la champification de $\mathcal{S}$.
+Alors $f^{-1}\mathcal{S}'$ est la champification de
+$u_p\mathcal{S}$.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication :
+C'est l'analogue de Sites, Lemme \ref{sites-lemma-technical-up}.
+\end{proof}
+
+\noindent
+Le lemme suivant nous dit que la $2$-catégorie des champs
+sur $\Sch_{fppf}$ est une ``2-sous-catégorie pleine'' de la
+$2$-catégorie des champs sur $\Sch'_{fppf}$ dès que
+$\Sch'_{fppf}$ contient $\Sch_{fppf}$ (voir
+Topologies, section \ref{topologies-section-change-alpha}).
+
+\begin{lemma}
+\label{lemma-bigger-site}
+Soient $\mathcal{C}$ et $\mathcal{D}$ des sites.
+Soit $u : \mathcal{C} \to \mathcal{D}$ un foncteur satisfaisant aux
+hypothèses de
+Sites, Lemme \ref{sites-lemma-bigger-site}.
+Soit $f : \mathcal{D} \to \mathcal{C}$ le morphisme de sites
+correspondant. Alors
+\begin{enumerate}
+\item pour tout champ $p : \mathcal{S} \to \mathcal{C}$, le
+foncteur canonique $\mathcal{S} \to f_*f^{-1}\mathcal{S}$ est
+une équivalence de champs ;
+\item étant donnés des champs $\mathcal{S}, \mathcal{S}'$ sur $\mathcal{C}$,
+la construction $f^{-1}$
+induit une équivalence
+$$
+\Mor_{\textit{Champs}/\mathcal{C}}(\mathcal{S}, \mathcal{S}')
+\longrightarrow
+\Mor_{\textit{Champs}/\mathcal{D}}(f^{-1}\mathcal{S}, f^{-1}\mathcal{S}')
+$$
+entre les catégories de morphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Remarquons que, d'après le
+Lemme \ref{lemma-adjointness-pullback-pushforward-stacks},
+nous avons une équivalence de catégories
+$$
+\Mor_{\textit{Champs}/\mathcal{D}}(f^{-1}\mathcal{S}, f^{-1}\mathcal{S}')
+=
+\Mor_{\textit{Champs}/\mathcal{C}}(\mathcal{S}, f_*f^{-1}\mathcal{S}')
+$$
+Ainsi, (2) découle de (1).
+
+\medskip\noindent
+Pour démontrer (1), nous allons utiliser le
+Lemme \ref{lemma-characterize-essentially-surjective-when-ff}.
+Ce lemme nous dit qu'il faut montrer que
+$can : \mathcal{S} \to f_*f^{-1}\mathcal{S}$ est
+pleinement fidèle et que tous les objets de $f_*f^{-1}\mathcal{S}$
+sont localement dans l'image essentielle.
+
+\medskip\noindent
+Décrivons rapidement le foncteur $can$ ; voir la démonstration du
+Lemme \ref{lemma-adjointness-pullback-pushforward}.
+Pour ce faire, introduisons le foncteur
+$c'' : \mathcal{S} \to u_{pp}\mathcal{S}$ défini par
+$c''(x/U) = (U, \text{id} : u(U) \to u(U), x)$ et
+$c''(\alpha/a) = (a, u(a), \alpha)$. Nous définissons
+$c' : \mathcal{S} \to u_p\mathcal{S}$ comme la composée
+de $c''$ et du foncteur canonique $u_{pp}\mathcal{S} \to u_p\mathcal{S}$.
+Nous définissons $c : \mathcal{S} \to f^{-1}\mathcal{S}$ comme la composée
+de $c'$ et du foncteur canonique $u_p\mathcal{S} \to f^{-1}\mathcal{S}$.
+Alors $can : \mathcal{S} \to f_*f^{-1}\mathcal{S}$ est le foncteur
+qui associe à $x/U$ le couple $(U, c(x))$ et à
+$\alpha/a$ le morphisme $(a, c(\alpha))$.
+
+\medskip\noindent
+Pleine fidélité. Pour la démontrer, nous allons utiliser le
+Lemme \ref{lemma-characterize-ff}.
+Soit $U \in \Ob(\mathcal{C})$.
+Soient $x, y \in \mathcal{S}_U$.
+Tout d'abord, comme $u$ est pleinement fidèle, nous avons
+$$
+\Mor_{(f_*f^{-1}\mathcal{S})_U}(can(x), can(y))
+=
+\Mor_{(f^{-1}\mathcal{S})_{u(U)}}(c(x), c(y))
+$$
+directement par la définition de $f_*$. Il en va de même après
+changement de base à tout $U'/U$. Puisque $f^{-1}\mathcal{S}$ est la
+champification de $u_p\mathcal{S}$, et puisque $u$ est continu
+et cocontinu, le préfaisceau
+$$
+U'/U \longmapsto
+\Mor_{(f^{-1}\mathcal{S})_{u(U')}}(c(x|_{U'}), c(y|_{U'}))
+$$
+est le faisceau associé au préfaisceau
+$$
+U'/U \longmapsto
+\Mor_{(u_p\mathcal{S})_{u(U')}}(c'(x|_{U'}), c'(y|_{U'}))
+$$
+Ainsi, pour achever la démonstration de la pleine fidélité, il suffit
+de montrer que, quels que soient $U$ et $x, y$, l'application
+$$
+\Mor_{\mathcal{S}_U}(x, y)
+\longrightarrow
+\Mor_{(u_p\mathcal{S})_U}(c'(x), c'(y))
+$$
+est bijective. Un morphisme $f : x \to y$ dans $u_p\mathcal{S}$ au-dessus de $u(U)$
+est donné par une classe d'équivalence de diagrammes
+$$
+\xymatrix{
+(U', \phi : u(U) \to u(U'), x')
+\ar[d]_{(c, \text{id}_{u(U)}, \gamma)}
+\ar[r]_{(a, b, \alpha)} &
+(U, \text{id} : u(U) \to u(U), y)
+\\
+(U, \text{id} : u(U) \to u(U), x)
+}
+$$
+avec $\gamma$ fortement cartésien et $b = \text{id}_{u(U)}$.
+Mais, puisque $u$ est pleinement fidèle, nous pouvons écrire $\phi = u(c')$ pour un
+morphisme $c' : U \to U'$ ;
+nous voyons alors que $a \circ c' = \text{id}_U$ et
+$c \circ c' = \text{id}_{U'}$. Comme $\gamma$ est fortement cartésien,
+nous pouvons trouver un morphisme $\gamma' : x \to x'$ relevant $c'$ tel que
+$\gamma \circ \gamma' = \text{id}_x$. Par définition des classes
+d'équivalence qui définissent les morphismes dans $u_p\mathcal{S}$, il s'ensuit que
+le morphisme
+$$
+\xymatrix{
+(U, \text{id} : u(U) \to u(U), x)
+\ar[rr]_{(\text{id}, \text{id}, \alpha \circ \gamma')} & &
+(U, \text{id} : u(U) \to u(U), y)
+}
+$$
+de $u_{pp}\mathcal{S}$ induit le morphisme $f$ dans $u_p\mathcal{S}$.
+Cela prouve que l'application est surjective. Nous omettons la démonstration de son
+injectivité.
+
+\medskip\noindent
+Enfin, nous devons montrer que tout objet de $f_*f^{-1}\mathcal{S}$
+provient localement d'un objet de $\mathcal{S}$. Cela ressort des
+constructions (détails omis).
+\end{proof}
+
+
+
+
+\section{Champs et localisation}
+\label{section-localize}
+
+\noindent
+Soit $\mathcal{C}$ un site.
+Soit $U$ un objet de $\mathcal{C}$.
+Nous voulons interpréter les champs sur $\mathcal{C}/U$ comme des champs
+sur $\mathcal{C}$ munis d'un morphisme vers $U$.
+Le lemme suivant explique pourquoi cela est plus facile
+lorsque le préfaisceau $h_U$ est un faisceau.
+
+\begin{lemma}
+\label{lemma-when-localization-stack}
+Soit $\mathcal{C}$ un site. Soit $U \in \Ob(\mathcal{C})$.
+Alors $j_U : \mathcal{C}/U \to \mathcal{C}$ est un champ sur $\mathcal{C}$
+si et seulement si $h_U$ est un faisceau.
+\end{lemma}
+
+\begin{proof}
+Combiner le
+Lemme \ref{lemma-stack-in-setoids-characterize}
+avec
+Catégories,
+Exemple \ref{categories-example-fibred-category-from-functor-of-points}.
+\end{proof}
+
+\noindent
+Supposons que $\mathcal{C}$ soit un site
+et que $U$ soit un objet de $\mathcal{C}$ dont le préfaisceau représentable
+associé soit un faisceau. Nous notons $j : \mathcal{C}/U \to \mathcal{C}$
+le foncteur de localisation.
+
+\medskip\noindent
+{\bf Construction A.} Soit $p : \mathcal{S} \to \mathcal{C}/U$ un champ
+sur le site $\mathcal{C}/U$. Nous définissons un champ
+$j_!p : j_!\mathcal{S} \to \mathcal{C}$ comme suit :
+\begin{enumerate}
+\item En tant que catégorie, $j_!\mathcal{S} = \mathcal{S}$, et
+\item le foncteur $j_!p : j_!\mathcal{S} \to \mathcal{C}$
+est simplement la composée $j \circ p$.
+\end{enumerate}
+Nous omettons la vérification qu'il s'agit d'un champ (indication : utiliser le fait que
+$h_U$ est un faisceau pour recoller les morphismes vers $U$). Il existe un foncteur
+canonique
+$$
+j_!\mathcal{S} \longrightarrow \mathcal{C}/U
+$$
+à savoir le foncteur $p$, qui est un $1$-morphisme de champs sur $\mathcal{C}$.
+
+\medskip\noindent
+{\bf Construction B.}
+Soit $q : \mathcal{T} \to \mathcal{C}$ un champ sur $\mathcal{C}$
+muni d'un morphisme de champs $p : \mathcal{T} \to \mathcal{C}/U$
+sur $\mathcal{C}$. Alors $p : \mathcal{T} \to \mathcal{C}/U$
+est automatiquement un champ sur $\mathcal{C}/U$.
+
+\begin{lemma}
+\label{lemma-localize-stacks}
+Supposons que $\mathcal{C}$ soit un site
+et que $U$ soit un objet de $\mathcal{C}$ dont le préfaisceau représentable
+associé soit un faisceau. Les constructions A et B ci-dessus définissent
+des foncteurs de $2$-catégories mutuellement inverses (!)
+$$
+\left\{
+\begin{matrix}
+2\text{-catégorie des}\\
+\text{champs sur }\mathcal{C}/U
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+2\text{-catégorie des couples }(\mathcal{T}, p)
+\text{ constitués} \\
+\text{d'un champ }\mathcal{T}\text{ sur }\mathcal{C}\text{ et d'un morphisme} \\
+p : \mathcal{T} \to \mathcal{C}/U\text{ de champs sur }\mathcal{C}
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+C'est clair.
+\end{proof}
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,2666 @@
+\input{preamble}
+
+% OK, commencer ici.
+%
+\begin{document}
+
+\title{Champs algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+C'est ici que nous définissons les champs algébriques et formulons quelques
+observations très élémentaires. La philosophie générale consistera à n'imposer
+aucune condition de séparation et à ajouter les conditions nécessaires pour que
+les lemmes, propositions et théorèmes soient vrais/démontrables. Ainsi, les notions
+étudiées ici diffèrent légèrement de celles que l'on trouve ailleurs dans la littérature, par exemple
+\cite{LM-B}.
+
+\medskip\noindent
+Ce chapitre ne constitue pas une introduction aux champs algébriques.
+Pour une présentation informelle des champs algébriques, voir
+Introduction aux champs algébriques, section
+\ref{stacks-introduction-section-introduction}.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Les conventions utilisées dans ce chapitre sont les mêmes que dans le
+chapitre consacré aux espaces algébriques. Nous les rappelons ici par commodité.
+
+\medskip\noindent
+Nous travaillons dans un grand site fppf convenable $\Sch_{fppf}$
+comme dans Topologies, Définition \ref{topologies-definition-big-fppf-site}.
+Ainsi, sauf mention explicite du contraire, tous les schémas seront des objets
+de $\Sch_{fppf}$. Nous examinons les changements qu'entraîne le remplacement du grand
+site fppf dans la
+section \ref{section-change-big-site}.
+
+\medskip\noindent
+Nous travaillerons toujours relativement à une base $S$ contenue dans $\Sch_{fppf}$.
+Nous travaillerons alors avec le grand site fppf $(\Sch/S)_{fppf}$, voir
+Topologies, Définition \ref{topologies-definition-big-small-fppf}.
+On retrouve le cas absolu en prenant
+$S = \Spec(\mathbf{Z})$.
+
+\medskip\noindent
+Si $U, T$ sont des schémas sur $S$, nous notons
+$U(T)$ l'ensemble de ses points à valeurs dans $T$ {\it au-dessus de} $S$.
+En formule : $U(T) = \Mor_S(T, U)$.
+
+\medskip\noindent
+Notons que tout recouvrement fpqc est un épimorphisme effectif
+universel, voir
+Descente, Lemme \ref{descent-lemma-fpqc-universal-effective-epimorphisms}.
+Par conséquent, la topologie sur $\Sch_{fppf}$
+est moins fine que la topologie canonique et tous les préfaisceaux représentables
+sont des faisceaux.
+
+
+
+
+
+
+
+
+\section{Notations}
+\label{section-notation}
+
+\noindent
+Nous employons les lettres $S, T, U, V, X, Y$ pour désigner des schémas.
+Nous employons les lettres $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$ pour désigner des
+catégories (fibrées, fibrées en groupoïdes, champs, ...)
+au-dessus de $(\Sch/S)_{fppf}$. Nous employons les lettres minuscules
+$f$, $g$ pour les foncteurs tels que $f : \mathcal{X} \to \mathcal{Y}$
+au-dessus de $(\Sch/S)_{fppf}$.
+Nous employons les majuscules $F$, $G$, $H$ pour les espaces algébriques sur $S$, et plus
+généralement pour les préfaisceaux d'ensembles sur $(\Sch/S)_{fppf}$.
+(Dans les chapitres ultérieurs, nous emploierons de nouveau aussi $X$, $Y$, etc.
+pour les espaces algébriques.)
+
+\medskip\noindent
+Ces choix visent à distinguer clairement les différents
+types d'objets de ce chapitre, afin d'en établir les fondements.
+
+
+
+
+
+
+
+
+
+\section{Catégories fibrées en groupoïdes représentables}
+\label{section-representable}
+
+\noindent
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+L'objet d'étude fondamental de ce chapitre sera une
+catégorie fibrée en groupoïdes
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$, voir
+Catégories, Définition \ref{categories-definition-fibred-groupoids}.
+Nous dirons souvent simplement « soit $\mathcal{X}$ une catégorie fibrée
+en groupoïdes au-dessus de $(\Sch/S)_{fppf}$ » pour désigner
+cette situation. Un $1$-morphisme $\mathcal{X} \to \mathcal{Y}$ de catégories
+fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$ sera un $1$-morphisme
+dans la $2$-catégorie des catégories fibrées en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$, voir
+Catégories,
+Définition \ref{categories-definition-categories-fibred-in-groupoids-over-C}.
+Il s'agit simplement d'un foncteur $\mathcal{X} \to \mathcal{Y}$ au-dessus de
+$(\Sch/S)_{fppf}$.
+Rappelons qu'il s'agit en fait d'une $(2, 1)$-catégorie et que tous les $2$-produits fibrés
+existent.
+
+\medskip\noindent
+Soit $\mathcal{X}$ une catégorie fibrée en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$. Rappelons que $\mathcal{X}$
+est dite {\it représentable} s'il existe un
+schéma $U \in \Ob((\Sch/S)_{fppf})$ et une
+équivalence
+$$
+j : \mathcal{X} \longrightarrow (\Sch/U)_{fppf}
+$$
+de catégories au-dessus de $(\Sch/S)_{fppf}$, voir
+Catégories,
+Définition \ref{categories-definition-representable-fibred-category}.
+Nous dirons parfois que $\mathcal{X}$ est
+{\it représentable par un schéma} pour distinguer ce cas de celui où
+$\mathcal{X}$ est représentable par un espace algébrique (voir
+ci-dessous).
+
+\medskip\noindent
+Si $\mathcal{X}, \mathcal{Y}$ sont fibrées en groupoïdes et
+représentables par $U, V$, alors on a
+\begin{equation}
+\label{equation-morphisms-schemes}
+\Mor_{\textit{Cat}/(\Sch/S)_{fppf}}(\mathcal{X}, \mathcal{Y})
+\Big/
+2\text{-isomorphisme}
+=
+\Mor_{\Sch/S}(U, V)
+\end{equation}
+voir
+Catégories,
+Lemme \ref{categories-lemma-morphisms-representable-fibred-categories}.
+Plus précisément, tout $1$-morphisme $\mathcal{X} \to \mathcal{Y}$
+donne lieu à un morphisme $U \to V$. Réciproquement, étant donné un morphisme
+de schémas $U \to V$ au-dessus de $S$, il existe un $1$-morphisme
+$\phi : \mathcal{X} \to \mathcal{Y}$ qui donne lieu à $U \to V$
+et qui est unique à un unique $2$-isomorphisme près.
+
+
+
+
+
+
+\section{Le lemme de 2-Yoneda}
+\label{section-2-yoneda}
+
+\noindent
+Soient $U \in \Ob((\Sch/S)_{fppf})$ et $\mathcal{X}$ une
+catégorie fibrée en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Nous utiliserons fréquemment le lemme de $2$-Yoneda, voir
+Catégories, Lemme \ref{categories-lemma-yoneda-2category}.
+Techniquement, il affirme qu'il existe une équivalence de catégories
+$$
+\Mor_{\textit{Cat}/(\Sch/S)_{fppf}}(
+(\Sch/U)_{fppf}, \mathcal{X})
+\longrightarrow
+\mathcal{X}_U, \quad
+f \longmapsto f(U/U).
+$$
+Il affirme que les $1$-morphismes $(\Sch/U)_{fppf} \to \mathcal{X}$
+correspondent aux objets $x$ de la catégorie fibre $\mathcal{X}_U$.
+En effet, un $1$-morphisme $f : (\Sch/U)_{fppf} \to \mathcal{X}$
+donne l'objet $x = f(U/U) \in \Ob(\mathcal{X}_U)$.
+Réciproquement, étant donnés un choix d'images inverses pour $\mathcal{X}$ comme dans
+Catégories,
+Définition \ref{categories-definition-pullback-functor-fibred-category},
+et un objet $x$ de $\mathcal{X}_U$, on obtient un foncteur
+$(\Sch/U)_{fppf} \to \mathcal{X}$ défini sur les objets par la règle
+$$
+(\varphi : V \to U) \longmapsto \varphi^*x
+$$
+Par abus de notation, nous employons
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$
+pour désigner ce foncteur. Il vérifie bien $x(U/U) = x$
+et, de plus, pour tout autre foncteur $f$ tel que $f(U/U) = x$, il existe
+un unique $2$-isomorphisme $x \to f$. Autrement dit, le foncteur $x$
+est déterminé par l'objet $x$ à un unique $2$-isomorphisme près.
+
+\medskip\noindent
+Nous l'utiliserons désormais sans autre mention.
+
+
+
+
+
+\section{Morphismes représentables de catégories fibrées en groupoïdes}
+\sectionmark{Morphismes représentables de catégories fibrées}
+\label{section-representable-morphism}
+
+
+\noindent
+Soient $\mathcal{X}$, $\mathcal{Y}$ des catégories fibrées en groupoïdes
+au-dessus de $(\Sch/S)_{fppf}$. Soit $f : \mathcal{X} \to \mathcal{Y}$
+un {\it $1$-morphisme représentable}, voir
+Catégories, Définition
+\ref{categories-definition-representable-map-categories-fibred-in-groupoids}.
+Cela signifie que, pour tout $U \in \Ob((\Sch/S)_{fppf})$ et
+tout $y \in \Ob(\mathcal{Y}_U)$, le $2$-produit fibré
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$
+est représentable comme catégorie fibrée en groupoïdes au-dessus de
+$(\Sch/U)_{fppf}$. Choisissons un objet représentant $f_y : V_y \to U$
+et une équivalence
+$$
+(\Sch/V_y)_{fppf}
+\longrightarrow
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}.
+$$
+Le morphisme $f_y$ correspond à la projection
+$(\Sch/V_y)_{fppf} \to
+(\Sch/U)_{fppf} \times_\mathcal{Y} \mathcal{Y}
+\to (\Sch/U)_{fppf}$
+Voir section \ref{section-representable},
+Équation (\ref{equation-morphisms-schemes}). Nous représentons ceci par le diagramme
+\begin{equation}
+\label{equation-representable}
+\vcenter{
+\xymatrix{
+V_y \ar@{~>}[r] \ar[d]_{f_y} &
+(\Sch/V_y)_{fppf} \ar[d] \ar[r] &
+\mathcal{X} \ar[d]^f \\
+U \ar@{~>}[r] &
+(\Sch/U)_{fppf} \ar[r]^-y &
+\mathcal{Y}
+}
+}
+\end{equation}
+où les flèches ondulées représentent le plongement de $2$-Yoneda.
+Voici quelques lemmes sur cette notion, valables dans une grande généralité
+(plus précisément, ils valent pour les catégories fibrées en groupoïdes au-dessus de toute
+catégorie de base qui possède des produits fibrés).
+
+\begin{lemma}
+\label{lemma-morphism-schemes-gives-representable-transformation}
+Soit $f : X \to Y$ un morphisme de $(\Sch/S)_{fppf}$.
+Alors le $1$-morphisme induit par $f$
+$$
+(\Sch/X)_{fppf} \longrightarrow (\Sch/Y)_{fppf}
+$$
+est un $1$-morphisme représentable.
+\end{lemma}
+
+\begin{proof}
+C'est formel et ne repose que sur le fait que
+la catégorie $(\Sch/S)_{fppf}$ possède des produits fibrés.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-morphism-equivalent}
+Soit $S$ un objet de $\Sch_{fppf}$.
+Considérons un diagramme $2$-commutatif
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r] & \mathcal{Y}
+}
+$$
+de $1$-morphismes de catégories fibrées en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$.
+Supposons que les flèches horizontales soient des équivalences.
+Alors $f$ est représentable si et seulement si $f'$ est représentable.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-representable-transformations}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+des catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$
+Soient $f : \mathcal{X} \to \mathcal{Y}$, $g : \mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes représentables. Alors
+$$
+g \circ f : \mathcal{X} \longrightarrow \mathcal{Z}
+$$
+est un $1$-morphisme représentable.
+\end{lemma}
+
+\begin{proof}
+C'est entièrement formel et vaut dans toute catégorie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-transformations}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+des catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme représentable.
+Soit $g : \mathcal{Z} \to \mathcal{Y}$ un $1$-morphisme quelconque.
+Considérons le diagramme de produit fibré
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+Alors le changement de base $f'$ est un $1$-morphisme représentable.
+\end{lemma}
+
+\begin{proof}
+C'est entièrement formel et vaut dans toute catégorie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-transformations}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X}_i, \mathcal{Y}_i$ des catégories fibrées en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$, $i = 1, 2$.
+Soient $f_i : \mathcal{X}_i \to \mathcal{Y}_i$, $i = 1, 2$
+des $1$-morphismes représentables.
+Alors
+$$
+f_1 \times f_2 :
+\mathcal{X}_1 \times \mathcal{X}_2
+\longrightarrow
+\mathcal{Y}_1 \times \mathcal{Y}_2
+$$
+est un $1$-morphisme représentable.
+\end{lemma}
+
+\begin{proof}
+Écrivons $f_1 \times f_2$ comme le composé
+$\mathcal{X}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{Y}_2$.
+La première flèche est le changement de base de $f_1$ par l'application
+$\mathcal{Y}_1 \times \mathcal{X}_2 \to \mathcal{Y}_1$, et la seconde flèche
+est le changement de base de $f_2$ par l'application
+$\mathcal{Y}_1 \times \mathcal{Y}_2 \to \mathcal{Y}_2$.
+Ce lemme est donc une conséquence formelle des Lemmes
+\ref{lemma-composition-representable-transformations}
+et \ref{lemma-base-change-representable-transformations}.
+\end{proof}
+
+
+
+\section{Catégories fibrées en groupoïdes scindées}
+\label{section-split}
+
+\noindent
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Rappelons qu'étant donné un « préfaisceau de groupoïdes »
+$$
+F : (\Sch/S)_{fppf}^{opp} \longrightarrow \textit{Groupoïdes}
+$$
+on obtient une catégorie fibrée en groupoïdes $\mathcal{S}_F$ au-dessus de
+$(\Sch/S)_{fppf}$, voir
+Catégories, Exemple \ref{categories-example-functor-groupoids}.
+Toute catégorie fibrée en groupoïdes isomorphe (!) à l'une d'elles
+est appelée une {\it catégorie fibrée en groupoïdes scindée}.
+Toute catégorie fibrée en groupoïdes est équivalente à une catégorie scindée.
+
+\medskip\noindent
+Si $F$ est un préfaisceau d'ensembles, alors $\mathcal{S}_F$ est
+fibrée en ensembles, voir
+Catégories,
+Définition \ref{categories-definition-category-fibred-sets},
+et
+Catégories, Exemple \ref{categories-example-presheaf}.
+La règle $F \mapsto \mathcal{S}_F$ est en un certain sens pleinement fidèle
+sur les préfaisceaux, voir
+Catégories, Lemme \ref{categories-lemma-2-category-fibred-sets}.
+Si $F, G$ sont des préfaisceaux, alors
+$$
+\mathcal{S}_{F \times G}
+=
+\mathcal{S}_F \times_{(\Sch/S)_{fppf}} \mathcal{S}_G
+$$
+et si $F \to H$ et $G \to H$ sont des applications de préfaisceaux d'ensembles, alors
+$$
+\mathcal{S}_{F \times_H G} =
+\mathcal{S}_F \times_{\mathcal{S}_H} \mathcal{S}_G
+$$
+où les membres de droite sont des $2$-produits fibrés. Cela résulte immédiatement
+des définitions, puisque les catégories fibres de
+$\mathcal{S}_F, \mathcal{S}_G, \mathcal{S}_H$ ne possèdent que des morphismes identité.
+
+\medskip\noindent
+Un cas encore plus particulier est celui où $F = h_X$ est un préfaisceau
+représentable. Dans ce cas, on a
+$\mathcal{S}_{h_X} = (\Sch/X)_{fppf}$, voir
+Catégories,
+Exemple \ref{categories-example-fibred-category-from-functor-of-points}.
+
+\medskip\noindent
+Nous emploierons désormais la notation $\mathcal{S}_F$ sans autre mention.
+
+
+
+
+
+\section{Catégories fibrées en groupoïdes représentables par des espaces algébriques}
+\label{section-representable-by-algebraic-spaces}
+
+\noindent
+La représentabilité par des espaces algébriques, que nous étudions dans cette section,
+est une notion légèrement plus faible que la représentabilité.
+On aurait pu éviter cette discussion si nous avions travaillé avec une catégorie
+$\textit{Espaces}_{fppf}$ d'espaces algébriques plutôt qu'avec la catégorie
+$\Sch_{fppf}$. Il nous semble toutefois naturel de considérer la
+catégorie des schémas comme la collection naturelle d'« objets tests » au-dessus
+desquels sont définies les catégories fibres d'un champ algébrique.
+
+\medskip\noindent
+Par analogie avec Catégories, Définitions
+\ref{categories-definition-representable-fibred-category},
+nous posons la définition suivante.
+
+\begin{definition}
+\label{definition-representable-by-algebraic-space}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Une catégorie fibrée en groupoïdes $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+est dite {\it représentable par un espace algébrique sur $S$}
+s'il existe un espace algébrique $F$ sur $S$ et une équivalence
+$j : \mathcal{X} \to \mathcal{S}_F$
+de catégories au-dessus de $(\Sch/S)_{fppf}$.
+\end{definition}
+
+\noindent
+Nous poursuivons notre abus de notation en omettant l'équivalence $j$
+chaque fois que nous rencontrons une telle situation.
+Il résulte formellement de ce qui précède que, si $\mathcal{X}$ est
+représentable (par un schéma), elle est représentable par un
+espace algébrique. Voici l'analogue de
+Catégories,
+Lemme \ref{categories-lemma-characterize-representable-fibred-category}.
+
+\begin{lemma}
+\label{lemma-characterize-representable-by-space}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soit $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+une catégorie fibrée en groupoïdes.
+Alors $\mathcal{X}$ est représentable par un espace algébrique sur $S$
+si et seulement si les conditions suivantes sont satisfaites :
+\begin{enumerate}
+\item $\mathcal{X}$ est fibrée en setoïdes\footnote{Cela signifie qu'elle
+est fibrée en groupoïdes et que les objets des catégories fibres
+n'ont pas d'automorphismes non triviaux, voir Catégories,
+Définition \ref{categories-definition-category-fibred-setoids}.}, et
+\item le préfaisceau $U \mapsto \Ob(\mathcal{X}_U)/\!\!\cong$ est
+un espace algébrique.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis, mais voir Catégories,
+Lemme \ref{categories-lemma-characterize-representable-fibred-category}.
+\end{proof}
+
+\noindent
+Si $\mathcal{X}, \mathcal{Y}$ sont fibrées en groupoïdes et
+représentables par des espaces algébriques $F, G$ sur $S$, alors on a
+\begin{equation}
+\label{equation-morphisms-spaces}
+\Mor_{\textit{Cat}/(\Sch/S)_{fppf}}(\mathcal{X}, \mathcal{Y})
+\Big/
+2\text{-isomorphisme}
+=
+\Mor_{\Sch/S}(F, G)
+\end{equation}
+voir
+Catégories, Lemme \ref{categories-lemma-2-category-fibred-setoids}.
+Plus précisément, tout $1$-morphisme $\mathcal{X} \to \mathcal{Y}$
+donne lieu à un morphisme $F \to G$. Réciproquement, étant donné un morphisme
+de faisceaux $F \to G$ au-dessus de $S$, il existe un $1$-morphisme
+$\phi : \mathcal{X} \to \mathcal{Y}$ qui donne lieu à $F \to G$
+et qui est unique à un unique $2$-isomorphisme près.
+
+
+
+\section{Morphismes représentables par des espaces algébriques}
+\label{section-morphisms-representable-by-algebraic-spaces}
+
+\noindent
+Par analogie avec Catégories, Définition
+\ref{categories-definition-representable-map-categories-fibred-in-groupoids},
+nous posons la définition suivante.
+
+\begin{definition}
+\label{definition-representable-by-algebraic-spaces}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Un $1$-morphisme $f : \mathcal{X} \to \mathcal{Y}$ de
+catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$
+est dit {\it représentable par des espaces algébriques} si,
+pour tout $U \in \Ob((\Sch/S)_{fppf})$
+et tout $y : (\Sch/U)_{fppf} \to \mathcal{Y}$,
+la catégorie fibrée en groupoïdes
+$$
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}
+$$
+au-dessus de $(\Sch/U)_{fppf}$
+est représentable par un espace algébrique sur $U$.
+\end{definition}
+
+\noindent
+Choisissons un espace algébrique $F_y$ sur $U$ qui représente
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$.
+On peut considérer $F_y$ comme un espace algébrique sur $S$
+muni d'un morphisme canonique $f_y : F_y \to U$
+au-dessus de $S$, voir
+Espaces, section \ref{spaces-section-change-base-scheme}.
+Voici le diagramme
+\begin{equation}
+\label{equation-representable-by-algebraic-spaces}
+\vcenter{
+\xymatrix{
+F_y \ar[d]_{f_y} &
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}
+\ar@{~>}[l] \ar[d]_{\text{pr}_0} \ar[r]_-{\text{pr}_1} &
+\mathcal{X} \ar[d]^f \\
+U &
+(\Sch/U)_{fppf} \ar@{~>}[l] \ar[r]^-y &
+\mathcal{Y}
+}
+}
+\end{equation}
+où les flèches ondulées représentent la construction qui associe
+à un champ fibré en setoïdes le faisceau associé des classes d'isomorphie
+de ses objets. Le carré de droite est
+$2$-commutatif et est un carré $2$-cartésien.
+
+\medskip\noindent
+Voici l'analogue de Catégories,
+Lemme \ref{categories-lemma-criterion-representable-map-stack-in-groupoids}.
+
+\begin{lemma}
+\label{lemma-criterion-map-representable-spaces-fibred-in-groupoids}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Pour que $f$ soit représentable par des espaces algébriques, il faut et il
+suffit que les conditions suivantes soient satisfaites :
+\begin{enumerate}
+\item pour tout schéma $U/S$, le
+foncteur $f_U : \mathcal{X}_U \longrightarrow \mathcal{Y}_U$
+entre les catégories fibres est fidèle, et
+\item pour tout $U$ et tout $y \in \Ob(\mathcal{Y}_U)$, le préfaisceau
+$$
+(h : V \to U)
+\longmapsto
+\{(x, \phi) \mid x \in \Ob(\mathcal{X}_V), \phi : h^*y \to f(x)\}/\cong
+$$
+est un espace algébrique sur $U$.
+\end{enumerate}
+Nous avons choisi ici des images inverses pour $\mathcal{Y}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la description des catégories fibres des $2$-produits fibrés
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ donnée dans
+Catégories, Lemme \ref{categories-lemma-identify-fibre-product},
+combinée au
+Lemme \ref{lemma-characterize-representable-by-space}.
+\end{proof}
+
+\noindent
+Voici quelques lemmes sur cette notion, valables dans une grande généralité.
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-morphism-equivalent}
+Soit $S$ un objet de $\Sch_{fppf}$.
+Considérons un diagramme $2$-commutatif
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r] & \mathcal{Y}
+}
+$$
+de $1$-morphismes de catégories fibrées en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$.
+Supposons que les flèches horizontales soient des équivalences.
+Alors $f$ est représentable par des espaces algébriques
+si et seulement si $f'$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-spaces-gives-representable-by-spaces}
+Soit $S$ un objet de $\Sch_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$
+un $1$-morphisme de catégories fibrées en groupoïdes au-dessus de $S$.
+Si $\mathcal{X}$ et $\mathcal{Y}$ sont représentables par des
+espaces algébriques sur $S$, alors le $1$-morphisme $f$
+est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Omis. Cela ne repose que sur le fait que
+la catégorie des espaces algébriques sur $S$ possède des produits fibrés,
+voir Espaces, Lemme \ref{spaces-lemma-fibre-product-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-presheaves-representable-by-algebraic-spaces}
+Soit $S$ un objet de $\Sch_{fppf}$.
+Soit $a : F \to G$ un morphisme de préfaisceaux d'ensembles sur $(\Sch/S)_{fppf}$.
+Notons $a' : \mathcal{S}_F  \to \mathcal{S}_G$ le morphisme associé
+de catégories fibrées en ensembles.
+Alors $a$ est représentable par des espaces algébriques (voir
+Amorçage,
+Définition \ref{bootstrap-definition-morphism-representable-by-spaces})
+si et seulement si $a'$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-fibred-setoids-representable-algebraic-spaces}
+Soit $S$ un objet de $\Sch_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de
+catégories fibrées en setoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Soient $F$ et $G$ les préfaisceaux qui associent respectivement à $T$
+l'ensemble des classes d'isomorphie des objets de
+$\mathcal{X}_T$ et celui des objets de $\mathcal{Y}_T$.
+Soit $a : F \to G$ le morphisme de préfaisceaux correspondant à $f$.
+Alors $a$ est représentable par des espaces algébriques (voir
+Amorçage,
+Définition \ref{bootstrap-definition-morphism-representable-by-spaces})
+si et seulement si $f$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : combiner les
+Lemmes \ref{lemma-representable-by-spaces-morphism-equivalent}
+et \ref{lemma-map-presheaves-representable-by-algebraic-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-by-spaces}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+des catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+représentable par des espaces algébriques.
+Soit $g : \mathcal{Z} \to \mathcal{Y}$ un $1$-morphisme quelconque.
+Considérons le diagramme de produit fibré
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+Alors le changement de base $f'$ est un $1$-morphisme représentable par des
+espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+C'est formel.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-by-space-representable-by-space}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+des catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$
+Soient $f : \mathcal{X} \to \mathcal{Y}$,
+$g : \mathcal{Z} \to \mathcal{Y}$ des $1$-morphismes.
+Supposons que
+\begin{enumerate}
+\item $f$ soit représentable par des espaces algébriques, et
+\item $\mathcal{Z}$ soit représentable par un espace algébrique sur $S$.
+\end{enumerate}
+Alors le $2$-produit fibré
+$\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}$
+est représentable par un espace algébrique.
+\end{lemma}
+
+\begin{proof}
+C'est une reformulation de
+Amorçage, Lemme \ref{bootstrap-lemma-representable-by-spaces-over-space}.
+Notons d'abord que
+$\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}$
+est fibrée en setoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Elle est donc équivalente à $\mathcal{S}_F$ pour un certain préfaisceau
+$F$ sur $(\Sch/S)_{fppf}$, voir
+Catégories, Lemme \ref{categories-lemma-setoid-fibres}.
+De plus, soit $G$ un espace algébrique qui représente
+$\mathcal{Z}$. Le $1$-morphisme
+$\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \to \mathcal{Z}$
+est représentable par des espaces algébriques d'après le
+Lemme \ref{lemma-base-change-representable-by-spaces}.
+Et $\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \to \mathcal{Z}$
+correspond à un morphisme $F \to G$ d'après
+Catégories, Lemme \ref{categories-lemma-2-category-fibred-setoids}.
+Alors $F \to G$ est représentable par des espaces algébriques d'après le
+Lemme \ref{lemma-map-fibred-setoids-representable-algebraic-spaces}.
+Par conséquent,
+Amorçage, Lemme \ref{bootstrap-lemma-representable-by-spaces-over-space}
+implique que $F$ est un espace algébrique, comme souhaité.
+\end{proof}
+
+\noindent
+Soient $S$, $\mathcal{X}$, $\mathcal{Y}$, $\mathcal{Z}$, $f$, $g$ comme dans le
+Lemme \ref{lemma-base-change-by-space-representable-by-space}.
+Soient $F$ et $G$ des espaces algébriques sur $S$ tels que
+$F$ représente $\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}$
+et $G$ représente $\mathcal{Z}$. Le $1$-morphisme
+$f' : \mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \to \mathcal{Z}$
+correspond à un morphisme $f' : F \to G$ d'espaces algébriques
+d'après (\ref{equation-morphisms-spaces}).
+On a donc le diagramme suivant
+\begin{equation}
+\label{equation-representable-by-algebraic-spaces-on-space}
+\vcenter{
+\xymatrix{
+F \ar[d]_{f'} &
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}
+\ar@{~>}[l] \ar[d] \ar[r] &
+\mathcal{X} \ar[d]^f \\
+G &
+\mathcal{Z} \ar@{~>}[l] \ar[r]^-g &
+\mathcal{Y}
+}
+}
+\end{equation}
+où les flèches ondulées représentent la construction qui associe
+à un champ fibré en setoïdes le faisceau associé des classes d'isomorphie
+de ses objets.
+
+\begin{lemma}
+\label{lemma-composition-representable-by-spaces}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+des catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Si $f : \mathcal{X} \to \mathcal{Y}$, $g : \mathcal{Y} \to \mathcal{Z}$
+sont des $1$-morphismes représentables par des espaces algébriques, alors
+$$
+g \circ f : \mathcal{X} \longrightarrow \mathcal{Z}
+$$
+est un $1$-morphisme représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du
+Lemme \ref{lemma-base-change-by-space-representable-by-space}.
+Les détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-by-spaces}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X}_i, \mathcal{Y}_i$ des catégories fibrées en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$, $i = 1, 2$.
+Soient $f_i : \mathcal{X}_i \to \mathcal{Y}_i$, $i = 1, 2$
+des $1$-morphismes représentables par des espaces algébriques.
+Alors
+$$
+f_1 \times f_2 :
+\mathcal{X}_1 \times \mathcal{X}_2
+\longrightarrow
+\mathcal{Y}_1 \times \mathcal{Y}_2
+$$
+est un $1$-morphisme représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Écrivons $f_1 \times f_2$ comme le composé
+$\mathcal{X}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{Y}_2$.
+La première flèche est le changement de base de $f_1$ par l'application
+$\mathcal{Y}_1 \times \mathcal{X}_2 \to \mathcal{Y}_1$, et la seconde flèche
+est le changement de base de $f_2$ par l'application
+$\mathcal{Y}_1 \times \mathcal{Y}_2 \to \mathcal{Y}_2$.
+Ce lemme est donc une conséquence formelle des Lemmes
+\ref{lemma-composition-representable-by-spaces}
+et \ref{lemma-base-change-representable-by-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-get-a-stack}
+\begin{reference}
+Lemme figurant dans un courriel de Matthew Emerton daté du 15 juin 2016
+\end{reference}
+Soit $S$ un schéma contenu dans $\Sch_{fppf}$.
+Soient $\mathcal{X} \to \mathcal{Z}$ et $\mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes de catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Si $\mathcal{X} \to \mathcal{Z}$ est représentable par des espaces algébriques
+et si $\mathcal{Y}$ est un champ en groupoïdes, alors
+$\mathcal{X} \times_\mathcal{Z} \mathcal{Y}$ est un champ en groupoïdes.
+\end{lemma}
+
+\begin{proof}
+La propriété, pour un morphisme, d'être représentable par des espaces algébriques
+est préservée par changement de base
+(Lemme \ref{lemma-base-change-by-space-representable-by-space}) ;
+ainsi, en passant au changement de base
+$\mathcal{X} \times_\mathcal{Z} \mathcal{Y}$ au-dessus de $\mathcal{Y}$,
+on peut se ramener au cas d'un morphisme de catégories
+fibrées en groupoïdes $\mathcal{X} \to \mathcal{Y}$
+qui est représentable par des espaces algébriques et
+dont le but est un champ en groupoïdes ; il s'agit alors de démontrer
+que $\mathcal{X}$ est également un champ en groupoïdes.
+Cela résulte de Champs, Lemme
+\ref{stacks-lemma-relative-sheaf-over-stack-is-stack},
+dont les hypothèses sont satisfaites en vertu du
+Lemme \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Propriétés des morphismes représentables par des espaces algébriques}
+\label{section-representable-properties}
+
+\noindent
+Voici la définition qui permet de procéder.
+
+\begin{definition}
+\label{definition-relative-representable-property}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Supposons que $f$ soit représentable par des espaces algébriques.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques qui
+\begin{enumerate}
+\item est préservée par tout changement de base, et
+\item est locale pour la topologie fppf sur la base, voir
+Descente et espaces algébriques,
+Définition \ref{spaces-descent-definition-property-morphisms-local}.
+\end{enumerate}
+Dans ce cas, on dit que $f$ a la {\it propriété $\mathcal{P}$} si, pour tout
+$U \in \Ob((\Sch/S)_{fppf})$ et
+tout $y \in \mathcal{Y}_U$, le morphisme d'espaces algébriques qui en résulte
+$f_y : F_y \to U$, voir le
+diagramme (\ref{equation-representable-by-algebraic-spaces}),
+a la propriété $\mathcal{P}$.
+\end{definition}
+
+\noindent
+Il importe de noter que nous n'utiliserons cette définition que pour des
+propriétés de morphismes stables par changement de base et
+locales pour la topologie fppf sur le but. Ce n'est
+pas que la définition n'ait autrement aucun sens ; c'est plutôt
+que nous pourrions vouloir donner une autre définition qui soit
+mieux adaptée à la propriété envisagée.
+
+\begin{lemma}
+\label{lemma-property-morphism-equivalent}
+Soit $S$ un objet de $\Sch_{fppf}$.
+Soit $\mathcal{P}$ comme dans la
+Définition \ref{definition-relative-representable-property}.
+Considérons un diagramme $2$-commutatif
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r] & \mathcal{Y}
+}
+$$
+de $1$-morphismes de catégories fibrées en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$.
+Supposons que les flèches horizontales soient des équivalences et que $f$
+(ou, de manière équivalente, $f'$) soit représentable par des espaces algébriques.
+Alors $f$ a $\mathcal{P}$ si et seulement si $f'$ a $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Cet énoncé a bien un sens en vertu du
+Lemme \ref{lemma-representable-by-spaces-morphism-equivalent}.
+Démonstration omise.
+\end{proof}
+
+\noindent
+Voici un contrôle de cohérence.
+
+\begin{lemma}
+\label{lemma-map-presheaves-representable-by-spaces-transformation-property}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $a : F \to G$ une application de préfaisceaux sur $(\Sch/S)_{fppf}$.
+Soit $\mathcal{P}$ comme dans la
+Définition \ref{definition-relative-representable-property}.
+Supposons que $a$ soit représentable par des espaces algébriques.
+Alors $a : F \to G$ a la propriété $\mathcal{P}$ (voir
+Amorçage, Définition \ref{bootstrap-definition-property-transformation})
+si et seulement si le morphisme correspondant
+$\mathcal{S}_F \to \mathcal{S}_G$ de catégories fibrées en groupoïdes
+a la propriété $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+L'énoncé du lemme a bien un sens en vertu du
+Lemme \ref{lemma-map-presheaves-representable-by-algebraic-spaces}.
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-fibred-setoids-property}
+Soit $S$ un objet de $\Sch_{fppf}$. Soit $\mathcal{P}$ comme dans la
+Définition \ref{definition-relative-representable-property}.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de
+catégories fibrées en setoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Soient $F$ et $G$ les préfaisceaux qui associent respectivement à $T$
+l'ensemble des classes d'isomorphie des objets de
+$\mathcal{X}_T$ et celui des objets de $\mathcal{Y}_T$.
+Soit $a : F \to G$ l'application de préfaisceaux correspondant à $f$.
+Alors $a$ a $\mathcal{P}$ si et seulement si $f$ a $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+L'énoncé du lemme a bien un sens en vertu du
+Lemme \ref{lemma-map-fibred-setoids-representable-algebraic-spaces}.
+Le lemme résulte de la combinaison des
+Lemmes \ref{lemma-property-morphism-equivalent}
+et \ref{lemma-map-presheaves-representable-by-spaces-transformation-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-representable-transformations-property}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $\mathcal{X}$, $\mathcal{Y}$, $\mathcal{Z}$ des catégories fibrées
+en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Soit $\mathcal{P}$ une propriété comme dans la
+Définition \ref{definition-relative-representable-property}
+qui est stable par composition.
+Soient $f : \mathcal{X} \to \mathcal{Y}$ et
+$g : \mathcal{Y} \to \mathcal{Z}$ des $1$-morphismes
+représentables par des espaces algébriques.
+Si $f$ et $g$ ont la propriété $\mathcal{P}$, il en est de même de
+$g \circ f : \mathcal{X} \to \mathcal{Z}$.
+\end{lemma}
+
+\begin{proof}
+L'énoncé du lemme a bien un sens en vertu du
+Lemme \ref{lemma-composition-representable-by-spaces}.
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-transformations-property}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+des catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Soit $\mathcal{P}$ une propriété comme dans la
+Définition \ref{definition-relative-representable-property}.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+représentable par des espaces algébriques.
+Soit $g : \mathcal{Z} \to \mathcal{Y}$ un $1$-morphisme quelconque.
+Considérons le diagramme de $2$-produit fibré
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+Si $f$ a $\mathcal{P}$, alors le changement de base $f'$
+a $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+L'énoncé du lemme a bien un sens en vertu du
+Lemme \ref{lemma-base-change-representable-by-spaces}.
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-representable-transformations-property}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+des catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Soit $\mathcal{P}$ une propriété comme dans la
+Définition \ref{definition-relative-representable-property}.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+représentable par des espaces algébriques.
+Soit $g : \mathcal{Z} \to \mathcal{Y}$ un $1$-morphisme quelconque.
+Considérons le diagramme de produit fibré
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+Supposons que, pour tout schéma $U$ et tout objet $x$ de $\mathcal{Y}_U$,
+il existe un recouvrement fppf $\{U_i \to U\}$ tel que $x|_{U_i}$
+appartienne à l'image essentielle du foncteur
+$g : \mathcal{Z}_{U_i} \to \mathcal{Y}_{U_i}$.
+Dans ce cas, si $f'$ a $\mathcal{P}$, alors $f$ a $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : comparer avec la démonstration de
+Espaces,
+Lemme \ref{spaces-lemma-descent-representable-transformations-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-transformations-property}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{P}$ une propriété comme dans la
+Définition \ref{definition-relative-representable-property}
+qui est stable par composition.
+Soient $\mathcal{X}_i, \mathcal{Y}_i$ des catégories fibrées en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$, $i = 1, 2$.
+Soient $f_i : \mathcal{X}_i \to \mathcal{Y}_i$, $i = 1, 2$,
+des $1$-morphismes représentables par des espaces algébriques.
+Si $f_1$ et $f_2$ ont la propriété $\mathcal{P}$, il en est de même de
+$
+f_1 \times f_2 :
+\mathcal{X}_1 \times \mathcal{X}_2
+\to
+\mathcal{Y}_1 \times \mathcal{Y}_2
+$.
+\end{lemma}
+
+\begin{proof}
+L'énoncé du lemme a bien un sens en vertu du
+Lemme \ref{lemma-product-representable-by-spaces}.
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-transformations-property-implication}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $\mathcal{X}$, $\mathcal{Y}$ des catégories fibrées en groupoïdes
+au-dessus de $(\Sch/S)_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme représentable
+par des espaces algébriques.
+Soient $\mathcal{P}$, $\mathcal{P}'$ des propriétés comme dans la
+Définition \ref{definition-relative-representable-property}.
+Supposons que, pour tout morphisme d'espaces algébriques $a : F \to G$,
+on ait $\mathcal{P}(a) \Rightarrow \mathcal{P}'(a)$.
+Si $f$ a la propriété $\mathcal{P}$, alors
+$f$ a la propriété $\mathcal{P}'$.
+\end{lemma}
+
+\begin{proof}
+C'est formel.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fibred-category-is-full}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $j : \mathcal X \to \mathcal Y$ un $1$-morphisme de
+catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Supposons que $j$ soit représentable par des espaces algébriques et soit un monomorphisme
+(voir la
+Définition \ref{definition-relative-representable-property}
+et
+Descente et espaces algébriques, Lemme
+\ref{spaces-descent-lemma-descending-property-monomorphism}).
+Alors $j$ est pleinement fidèle sur les catégories fibres.
+\end{lemma}
+
+\begin{proof}
+Nous avons vu dans le
+Lemme \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}
+que $j$ est fidèle sur les catégories fibres. Considérons un schéma $U$,
+deux objets $u, v$ de $\mathcal{X}_U$ et un isomorphisme
+$t : j(u) \to j(v)$ dans $\mathcal{Y}_U$. Il faut construire un
+isomorphisme dans $\mathcal{X}_U$ entre $u$ et $v$.
+Par le lemme de $2$-Yoneda (voir section \ref{section-2-yoneda}),
+nous considérons $u$, $v$ comme des $1$-morphismes
+$u, v : (\Sch/U)_{fppf} \to \mathcal{X}$
+et considérons le $2$-produit fibré
+$$
+(\Sch/U)_{fppf} \times_{j \circ v, \mathcal{Y}} \mathcal{X}.
+$$
+Par hypothèse, celui-ci est représentable par un espace algébrique
+$F_{j \circ v}$ au-dessus de $U$, et le morphisme
+$F_{j \circ v} \to U$ est un monomorphisme.
+Mais puisque $(1_U, v, 1_{j(v)})$ donne un $1$-morphisme de
+$(\Sch/U)_{fppf}$ dans le $2$-produit fibré affiché,
+on voit que $F_{j \circ v} = U$ (on utilise ici
+que si $V \to U$ est un monomorphisme d'espaces algébriques qui possède une
+section, alors $V = U$). Par conséquent, le $1$-morphisme de projection sur
+la première coordonnée
+$$
+(\Sch/U)_{fppf} \times_{j \circ v, \mathcal{Y}} \mathcal{X}
+\to (\Sch/U)_{fppf}
+$$
+est une équivalence de catégories fibres.
+Puisque $(1_U, u, t)$ et $(1_U, v, 1_{j(v)})$ donnent deux
+objets de $((\Sch/U)_{fppf} \times_{j \circ v, \mathcal{Y}}
+\mathcal{X})_U$ qui ont la même première coordonnée, il doit
+exister entre eux un $2$-morphisme dans le $2$-produit fibré.
+C'est, par définition, un morphisme $\tilde t : u \to v$ tel que
+$j(\tilde t) = t$.
+\end{proof}
+
+\noindent
+Voici une caractérisation des catégories fibrées en groupoïdes
+dont la diagonale est représentable par des espaces algébriques.
+
+\begin{lemma}
+\label{lemma-representable-diagonal}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{X}$ une catégorie fibrée en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item la diagonale $\mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+est représentable par des espaces algébriques,
+\item pour tout schéma $U$ au-dessus de $S$ et tous
+$x, y \in \Ob(\mathcal{X}_U)$, le faisceau
+$\mathit{Isom}(x, y)$ est un espace algébrique au-dessus de $U$,
+\item pour tout schéma $U$ au-dessus de $S$ et tout $x \in \Ob(\mathcal{X}_U)$,
+le $1$-morphisme associé $x : (\Sch/U)_{fppf} \to \mathcal{X}$
+est représentable par des espaces algébriques,
+\item pour toute paire de schémas $T_1, T_2$ au-dessus de $S$ et tous
+$x_i \in \Ob(\mathcal{X}_{T_i})$, $i = 1, 2$, le $2$-produit fibré
+$(\Sch/T_1)_{fppf} \times_{x_1, \mathcal{X}, x_2}
+(\Sch/T_2)_{fppf}$
+est représentable par un espace algébrique,
+\item pour toute catégorie fibrée en groupoïdes représentable $\mathcal{U}$
+au-dessus de $(\Sch/S)_{fppf}$, tout $1$-morphisme
+$\mathcal{U} \to \mathcal{X}$ est représentable par des espaces algébriques,
+\item pour toute paire $\mathcal{T}_1, \mathcal{T}_2$ de catégories fibrées
+en groupoïdes représentables au-dessus de $(\Sch/S)_{fppf}$ et tous
+$1$-morphismes $x_i : \mathcal{T}_i \to \mathcal{X}$, $i = 1, 2$, le
+$2$-produit fibré $\mathcal{T}_1 \times_{x_1, \mathcal{X}, x_2} \mathcal{T}_2$
+est représentable par un espace algébrique,
+\item pour toute catégorie fibrée en groupoïdes $\mathcal{U}$
+au-dessus de $(\Sch/S)_{fppf}$ qui est
+représentable par un espace algébrique, tout $1$-morphisme
+$\mathcal{U} \to \mathcal{X}$ est représentable par des espaces algébriques,
+\item pour toute paire $\mathcal{T}_1, \mathcal{T}_2$ de catégories fibrées
+en groupoïdes au-dessus de $(\Sch/S)_{fppf}$ qui sont représentables
+par des espaces algébriques, et tous $1$-morphismes
+$x_i : \mathcal{T}_i \to \mathcal{X}$, le
+$2$-produit fibré $\mathcal{T}_1 \times_{x_1, \mathcal{X}, x_2} \mathcal{T}_2$
+est représentable par un espace algébrique.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) résulte du
+Lemme \ref{stacks-lemma-isom-as-2-fibre-product} de Champs
+et des définitions.
+Démontrons l'équivalence de (1) et (3).
+Posons $\mathcal{C} = (\Sch/S)_{fppf}$ pour la catégorie de base.
+Nous utiliserons certaines des observations de la démonstration de l'énoncé analogue
+Catégories, Lemme \ref{categories-lemma-representable-diagonal-groupoids}.
+Nous emploierons le symbole $\cong$ au sens d'« équivalence de catégories fibrées
+en groupoïdes au-dessus de $\mathcal{C} = (\Sch/S)_{fppf}$ ».
+Supposons (1). Soient $U$ et $x$ comme dans (3). Pour tout schéma $V$
+et tout $y \in \Ob(\mathcal{X}_V)$, on voit (comparer la référence ci-dessus) que
+$$
+\mathcal{C}/U
+\times_{x, \mathcal{X}, y}
+\mathcal{C}/V
+\cong
+(\mathcal{C}/U \times_S V)
+\times_{(x, y), \mathcal{X} \times \mathcal{X}, \Delta}
+\mathcal{X}
+$$
+qui est représentable par un espace algébrique par hypothèse. Réciproquement,
+supposons (3). Considérons un schéma $U$ quelconque au-dessus de $S$ et une paire $(x, x')$
+d'objets de $\mathcal{X}$ au-dessus de $U$. Il faut montrer que
+$\mathcal{X} \times_{\Delta, \mathcal{X} \times \mathcal{X}, (x, x')} U$
+est représentable par un espace algébrique. C'est clair, car
+(comparer la référence ci-dessus)
+$$
+\mathcal{X}
+\times_{\Delta, \mathcal{X} \times \mathcal{X}, (x, x')}
+\mathcal{C}/U
+\cong
+(\mathcal{C}/U \times_{x, \mathcal{X}, x'} \mathcal{C}/U)
+\times_{\mathcal{C}/U \times_S U, \Delta}
+\mathcal{C}/U
+$$
+et le membre de droite est représentable par un espace algébrique par hypothèse
+et parce que la catégorie des espaces algébriques au-dessus de $S$ admet des produits fibrés
+et contient $U$ et $S$.
+
+\medskip\noindent
+Les équivalences
+(3) $\Leftrightarrow$ (4),
+(5) $\Leftrightarrow$ (6)
+et
+(7) $\Leftrightarrow$ (8)
+sont formelles. Les équivalences
+(3) $\Leftrightarrow$ (5) et
+(4) $\Leftrightarrow$ (6)
+résultent du
+Lemme \ref{lemma-representable-by-spaces-morphism-equivalent}.
+Supposons (3), et soit $\mathcal{U} \to \mathcal{X}$ comme dans (7).
+Pour démontrer (7), il faut montrer que, pour tout schéma $V$ et tout $1$-morphisme
+$y : (\Sch/V)_{fppf} \to \mathcal{X}$, le $2$-produit fibré
+$(\Sch/V)_{fppf} \times_{y, \mathcal{X}} \mathcal{U}$
+est représentable par un espace algébrique. La propriété (3) nous dit
+que $y$ est représentable par des espaces algébriques ; par conséquent, le
+Lemme \ref{lemma-base-change-by-space-representable-by-space}
+donne l'assertion voulue. Enfin, (7) implique directement (3).
+\end{proof}
+
+\noindent
+Dans la situation du lemme, pour tout $1$-morphisme
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$ comme dans le lemme, il est légitime
+de dire que $x$ a la propriété $\mathcal{P}$, pour toute propriété comme dans la
+Définition \ref{definition-relative-representable-property}.
+Cela vaut en particulier pour
+$\mathcal{P} = $ « surjectif »,
+$\mathcal{P} = $ « lisse » et
+$\mathcal{P} = $ « \'etale »,
+voir
+Descente et espaces algébriques,
+Lemmes \ref{spaces-descent-lemma-descending-property-surjective},
+\ref{spaces-descent-lemma-descending-property-smooth} et
+\ref{spaces-descent-lemma-descending-property-etale}.
+Nous utiliserons ces trois cas dans les définitions
+des champs algébriques ci-dessous.
+
+
+
+
+
+
+
+
+\section{Champs en groupoïdes}
+\label{section-stacks}
+
+\noindent
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Rappelons qu'une catégorie $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+au-dessus de $(\Sch/S)_{fppf}$ est appelée un
+{\it champ en groupoïdes} (voir
+Champs, Définition \ref{stacks-definition-stack-in-groupoids})
+si et seulement si
+\begin{enumerate}
+\item $p : \mathcal{X} \to (\Sch/S)_{fppf}$ est fibrée
+en groupoïdes au-dessus de $(\Sch/S)_{fppf}$,
+\item pour tout $U \in \Ob((\Sch/S)_{fppf})$ et
+tous $x, y\in \Ob(\mathcal{X}_U)$, le préfaisceau
+$\mathit{Isom}(x, y)$ est un faisceau sur le site $(\Sch/U)_{fppf}$, et
+\item pour tout recouvrement $\mathcal{U} = \{U_i \to U\}$ de
+$(\Sch/S)_{fppf}$, toutes les données de descente $(x_i, \phi_{ij})$
+relatives à $\mathcal{U}$ sont effectives.
+\end{enumerate}
+Pour des exemples, voir
+Exemples de champs,
+section \ref{examples-stacks-section-examples-stacks-in-groupoids}
+et suivantes.
+
+
+
+
+
+
+
+
+
+
+\section{Champs algébriques}
+\label{section-algebraic-stacks}
+
+\noindent
+Voici la définition d'un champ algébrique. Remarquons que la condition
+(2) permet de donner un sens à la condition de la partie (3) selon laquelle
+$(\Sch/U)_{fppf} \to \mathcal{X}$
+est lisse et surjective ; voir la discussion qui suit le
+Lemme \ref{lemma-representable-diagonal}.
+
+\begin{definition}
+\label{definition-algebraic-stack}
+Soit $S$ un schéma de base appartenant à $\Sch_{fppf}$.
+Un {\it champ algébrique au-dessus de $S$} est une catégorie
+$$
+p : \mathcal{X} \to (\Sch/S)_{fppf}
+$$
+au-dessus de $(\Sch/S)_{fppf}$ qui possède les propriétés suivantes :
+\begin{enumerate}
+\item La catégorie $\mathcal{X}$ est un champ en groupoïdes au-dessus de
+$(\Sch/S)_{fppf}$.
+\item La diagonale
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+est représentable par des espaces algébriques.
+\item Il existe un schéma $U \in \Ob((\Sch/S)_{fppf})$
+et un $1$-morphisme $(\Sch/U)_{fppf} \to \mathcal{X}$
+qui est surjectif et lisse\footnote{Dans les chapitres ultérieurs, nous noterons
+simplement ce morphisme $U \to \mathcal{X}$, comme il est d'usage dans la littérature. Une autre
+bonne possibilité consisterait à formuler cette condition par l'existence d'une
+catégorie fibrée en groupoïdes représentable $\mathcal{U}$ et d'un $1$-morphisme
+lisse et surjectif $\mathcal{U} \to \mathcal{X}$.}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il existe quelques différences avec d'autres définitions de la littérature.
+
+\medskip\noindent
+La première est que nous exigeons que $\mathcal{X}$ soit un champ en groupoïdes
+pour la topologie fppf, tandis que de nombreuses références utilisent la topologie \'etale.
+La topologie fppf nous semble en quelque sorte être la topologie naturelle
+avec laquelle travailler. En définitive, la $2$-catégorie de champs algébriques
+ainsi obtenue est la même. Ceci est expliqué dans
+Critères de représentabilité, section \ref{criteria-section-stacks-etale}.
+
+\medskip\noindent
+La deuxième est que nous exigeons seulement que l'application diagonale de $\mathcal{X}$ soit
+représentable par des espaces algébriques, alors que la plupart des références imposent d'autres
+conditions. Notre point de vue consiste à essayer de démontrer un certain
+nombre des résultats qui suivent en supposant seulement que la diagonale
+de $\mathcal{X}$ soit représentable par des espaces algébriques, puis à ajouter simplement
+une hypothèse supplémentaire chaque fois que cela est nécessaire. Cela présente en outre
+l'avantage que tout espace algébrique (tel que défini dans
+Espaces, Définition \ref{spaces-definition-algebraic-space})
+donne lieu à un champ algébrique.
+
+\medskip\noindent
+La troisième est que certains articles exigent l'existence d'un
+schéma $U$ et d'un morphisme surjectif et \'etale $U \to \mathcal{X}$.
+Dans l'article fondateur \cite{DM}, où les champs algébriques furent introduits,
+Deligne et Mumford ont utilisé cette définition et montré que
+le champ de modules des courbes stables de genre $g > 1$ est un champ algébrique
+qui admet un recouvrement \'etale par un schéma. Michael Artin, voir
+\cite{ArtinVersal}, a compris que de nombreux
+résultats naturels sur les champs algébriques s'étendent au cas où l'on
+suppose seulement l'existence d'un recouvrement lisse par un schéma. D'où notre choix ci-dessus.
+Pour distinguer les deux cas, la littérature emploie les termes « champ de Deligne-Mumford »
+et « champ d'Artin ». Nous réserverons le terme
+« champ d'Artin » à un usage ultérieur (insérer ici une référence future), et continuerons
+d'employer « champ algébrique » ; en revanche, nous emploierons « champ de Deligne-Mumford »
+pour désigner les champs algébriques qui admettent un recouvrement \'etale par un
+schéma.
+
+\begin{definition}
+\label{definition-deligne-mumford}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{X}$ un champ algébrique au-dessus de $S$.
+On dit que $\mathcal{X}$ est un {\it champ de Deligne-Mumford} s'il existe
+un schéma $U$ et un morphisme \'etale surjectif
+$(\Sch/U)_{fppf} \to \mathcal{X}$.
+\end{definition}
+
+\noindent
+Nous comparerons plus loin notre notion de champ de Deligne-Mumford avec
+la notion définie dans l'article de Deligne et Mumford
+(voir insérer ici une référence future).
+
+\medskip\noindent
+La catégorie des champs algébriques au-dessus de $S$ forme une $2$-catégorie.
+En voici la définition précise.
+
+\begin{definition}
+\label{definition-morphism-algebraic-stacks}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+La {\it $2$-catégorie des champs algébriques au-dessus de $S$} est la
+sous-$2$-catégorie de la $2$-catégorie des catégories fibrées en
+groupoïdes au-dessus de $(\Sch/S)_{fppf}$ (voir
+Catégories,
+Définition \ref{categories-definition-categories-fibred-in-groupoids-over-C})
+définie comme suit :
+\begin{enumerate}
+\item Ses objets sont les catégories fibrées en groupoïdes
+au-dessus de $(\Sch/S)_{fppf}$ qui sont des champs algébriques au-dessus de $S$.
+\item Ses $1$-morphismes $f : \mathcal{X} \to \mathcal{Y}$ sont
+les foncteurs quelconques de catégories au-dessus de $(\Sch/S)_{fppf}$, comme dans
+Catégories, Définition \ref{categories-definition-categories-over-C}.
+\item Ses $2$-morphismes sont les transformations entre foncteurs
+au-dessus de $(\Sch/S)_{fppf}$, comme dans
+Catégories, Définition \ref{categories-definition-categories-over-C}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Autrement dit, cette $2$-catégorie est la sous-$2$-catégorie pleine de
+$\textit{Cat}/(\Sch/S)_{fppf}$ dont les objets sont les champs algébriques.
+Remarquons que tout $2$-morphisme est automatiquement un isomorphisme.
+Il s'agit donc en fait d'une $(2, 1)$-catégorie et non pas seulement d'une $2$-catégorie.
+
+\medskip\noindent
+Nous verrons plus loin (insérer ici une référence future) que cette $2$-catégorie
+admet des $2$-produits fibrés.
+
+\medskip\noindent
+Comme dans la remarque ci-dessus, la $2$-catégorie des champs algébriques au-dessus de $S$ est une
+sous-$2$-catégorie pleine de la $2$-catégorie des catégories fibrées en groupoïdes
+au-dessus de $(\Sch/S)_{fppf}$. Il se trouve qu'elle est stable par
+équivalences. En voici l'énoncé précis.
+
+\begin{lemma}
+\label{lemma-equivalent}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $\mathcal{X}$, $\mathcal{Y}$ des catégories au-dessus de $(\Sch/S)_{fppf}$.
+Supposons que $\mathcal{X}$, $\mathcal{Y}$ soient équivalentes comme catégories au-dessus de
+$(\Sch/S)_{fppf}$. Alors $\mathcal{X}$ est un champ algébrique si et
+seulement si $\mathcal{Y}$ est un champ algébrique. De même, $\mathcal{X}$
+est un champ de Deligne-Mumford si et seulement si $\mathcal{Y}$ est un champ de Deligne-Mumford.
+\end{lemma}
+
+\begin{proof}
+Supposons que $\mathcal{X}$ soit un champ algébrique (resp.\ un champ de Deligne-Mumford). Le
+Lemme \ref{stacks-lemma-stack-in-groupoids-equivalent} de Champs
+implique alors que $\mathcal{Y}$ est un champ en groupoïdes au-dessus de
+$\Sch_{fppf}$. Choisissons une équivalence $f : \mathcal{X} \to \mathcal{Y}$
+au-dessus de $\Sch_{fppf}$. Elle donne un diagramme $2$-commutatif
+$$
+\xymatrix{
+\mathcal{X} \ar[r]_f \ar[d]_{\Delta_\mathcal{X}} &
+\mathcal{Y} \ar[d]^{\Delta_\mathcal{Y}} \\
+\mathcal{X} \times \mathcal{X} \ar[r]^{f \times f} &
+\mathcal{Y} \times \mathcal{Y}
+}
+$$
+dont les flèches horizontales sont des équivalences. Cela implique que
+$\Delta_\mathcal{Y}$ est représentable par des espaces algébriques d'après le
+Lemme \ref{lemma-representable-by-spaces-morphism-equivalent}.
+Enfin, soit $U$ un schéma au-dessus de $S$, et soit
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$ un $1$-morphisme qui
+est surjectif et lisse (resp.\ \'etale). En considérant le diagramme
+$$
+\xymatrix{
+(\Sch/U)_{fppf} \ar[r]_{\text{id}} \ar[d]_x &
+(\Sch/U)_{fppf} \ar[d]^{f \circ x} \\
+\mathcal{X} \ar[r]^f &
+\mathcal{Y}
+}
+$$
+et en appliquant le
+Lemme \ref{lemma-property-morphism-equivalent},
+on conclut que $f \circ x$ est surjectif et lisse (resp.\ \'etale),
+comme voulu.
+\end{proof}
+
+
+
+
+
+\section{Champs algébriques et espaces algébriques}
+\label{section-stacks-spaces}
+
+\noindent
+Dans cette section, nous examinons quelques critères simples qui impliquent qu'un
+champ algébrique est un espace algébrique. Le résultat principal affirme que c'est
+exactement le cas lorsque les objets des catégories fibres n'ont aucun
+automorphisme non trivial. Ce n'est pas une trivialité ! Avant d'y venir,
+effectuons d'abord un contrôle de cohérence.
+
+\begin{lemma}
+\label{lemma-representable-algebraic}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+\begin{enumerate}
+\item Une catégorie fibrée en groupoïdes
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$
+qui est représentable par un espace algébrique est un champ de Deligne-Mumford.
+\item Si $F$ est un espace algébrique au-dessus de $S$, alors la
+catégorie fibrée en groupoïdes associée
+$p : \mathcal{S}_F \to (\Sch/S)_{fppf}$
+est un champ de Deligne-Mumford.
+\item Si $X \in \Ob((\Sch/S)_{fppf})$, alors
+$(\Sch/X)_{fppf} \to (\Sch/S)_{fppf}$ est
+un champ de Deligne-Mumford.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il est clair que (2) implique (3).
+Les parties (1) et (2) sont équivalentes par le Lemme \ref{lemma-equivalent}.
+Il suffit donc de démontrer (2).
+Tout d'abord, remarquons que $\mathcal{S}_F$ est un champ en ensembles puisque
+$F$ est un faisceau (Champs, Lemme
+\ref{stacks-lemma-stack-in-setoids-characterize}).
+A fortiori, c'est un champ en groupoïdes. Ensuite, le morphisme diagonal
+$\mathcal{S}_F \to \mathcal{S}_F  \times \mathcal{S}_F$
+est le même que le morphisme $\mathcal{S}_F \to \mathcal{S}_{F \times F}$
+qui provient de la diagonale de $F$. Il est donc représentable
+par des espaces algébriques d'après le
+Lemme \ref{lemma-morphism-spaces-gives-representable-by-spaces}.
+En fait, il est même représentable (par des schémas), puisque la diagonale d'un
+espace algébrique est représentable, mais nous n'en avons pas besoin.
+Soit $U$ un schéma et soit $h_U \to F$ un morphisme \'etale surjectif.
+Nous pouvons le considérer comme un morphisme \'etale surjectif d'espaces algébriques.
+Ainsi, par le
+Lemme
+\ref{lemma-map-presheaves-representable-by-spaces-transformation-property},
+le $1$-morphisme correspondant $(\Sch/U)_{fppf} \to \mathcal{S}_F$
+est surjectif et \'etale.
+\end{proof}
+
+\noindent
+Le résultat suivant affirme qu'un champ de Deligne-Mumford dont l'inertie
+est triviale « est » un espace algébrique. Ce lemme sera rendu caduc par la
+Proposition plus forte \ref{proposition-algebraic-stack-no-automorphisms}
+ci-dessous, qui affirme que cela vaut plus généralement pour les champs algébriques…
+
+\begin{lemma}
+\label{lemma-algebraic-stack-no-automorphisms}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{X}$ un champ algébrique au-dessus de $S$.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{X}$ est un champ de Deligne-Mumford et est un champ en setoïdes,
+\item $\mathcal{X}$ est un champ de Deligne-Mumford tel que le
+$1$-morphisme canonique $\mathcal{I}_\mathcal{X} \to \mathcal{X}$
+soit une équivalence, et
+\item $\mathcal{X}$ est représentable par un espace algébrique.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) résulte du
+Lemme \ref{stacks-lemma-characterize-stack-in-setoids} de Champs.
+L'implication (3) $\Rightarrow$ (1) résulte du
+Lemme \ref{lemma-representable-algebraic}.
+Enfin, supposons (1). Par le
+Lemme \ref{stacks-lemma-stack-in-setoids-characterize} de Champs,
+il existe un faisceau $F$ sur $(\Sch/S)_{fppf}$
+et une équivalence $j : \mathcal{X} \to \mathcal{S}_F$. D'après le
+Lemme \ref{lemma-map-presheaves-representable-by-algebraic-spaces},
+le fait que $\Delta_\mathcal{X}$ soit représentable par des espaces
+algébriques signifie que $\Delta_F : F \to F \times F$
+est représentable par des espaces algébriques.
+Soit $U$ un schéma et soit $x : (\Sch/U)_{fppf} \to \mathcal{X}$
+un morphisme \'etale surjectif. La composée
+$j \circ x : (\Sch/U)_{fppf} \to \mathcal{S}_F$
+correspond à un morphisme $h_U \to F$ de faisceaux. Par le
+Lemme \ref{bootstrap-lemma-representable-diagonal} de Amorçage,
+ce morphisme est représentable par des espaces algébriques.
+Ainsi, par le
+Lemme \ref{lemma-map-fibred-setoids-property},
+on conclut que $h_U \to F$ est surjectif et \'etale.
+Enfin, on applique le
+Théorème \ref{bootstrap-theorem-bootstrap} de Amorçage
+pour voir que $F$ est un espace algébrique.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-algebraic-stack-no-automorphisms}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{X}$ un champ algébrique au-dessus de $S$.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{X}$ est un champ en setoïdes,
+\item le $1$-morphisme canonique $\mathcal{I}_\mathcal{X} \to \mathcal{X}$
+est une équivalence, et
+\item $\mathcal{X}$ est représentable par un espace algébrique.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+L'équivalence de (1) et (2) résulte du
+Lemme \ref{stacks-lemma-characterize-stack-in-setoids} de Champs.
+L'implication (3) $\Rightarrow$ (1) résulte du
+Lemme \ref{lemma-algebraic-stack-no-automorphisms}.
+Enfin, supposons (1). Par le
+Lemme \ref{stacks-lemma-stack-in-setoids-characterize} de Champs,
+il existe une équivalence $j : \mathcal{X} \to \mathcal{S}_F$
+où $F$ est un faisceau sur $(\Sch/S)_{fppf}$.  D'après le
+Lemme \ref{lemma-map-presheaves-representable-by-algebraic-spaces},
+le fait que $\Delta_\mathcal{X}$ soit représentable par des espaces
+algébriques signifie que $\Delta_F : F \to F \times F$
+est représentable par des espaces algébriques.
+Soit $U$ un schéma et soit $x : (\Sch/U)_{fppf} \to \mathcal{X}$
+un morphisme lisse surjectif. La composée
+$j \circ x : (\Sch/U)_{fppf} \to \mathcal{S}_F$
+correspond à un morphisme $h_U \to F$ de faisceaux. Par le
+Lemme \ref{bootstrap-lemma-representable-diagonal} de Amorçage,
+ce morphisme est représentable par des espaces algébriques.
+Ainsi, par le
+Lemme \ref{lemma-map-fibred-setoids-property},
+on conclut que $h_U \to F$ est surjectif et lisse.
+En particulier, il est surjectif, plat et localement de présentation finie
+(par le
+Lemme \ref{lemma-representable-transformations-property-implication}
+et le fait qu'un morphisme lisse d'espaces algébriques est plat et
+localement de présentation finie, voir
+Morphismes d'espaces algébriques,
+Lemmes \ref{spaces-morphisms-lemma-smooth-locally-finite-presentation} et
+\ref{spaces-morphisms-lemma-smooth-flat}).
+Enfin, on applique le
+Théorème \ref{bootstrap-theorem-final-bootstrap} de Amorçage
+pour voir que $F$ est un espace algébrique.
+\end{proof}
+
+
+
+
+
+
+
+\section{2-produits fibrés de champs algébriques}
+\label{section-2-fibre-products}
+
+\noindent
+La $2$-catégorie des champs algébriques admet des produits et des $2$-produits fibrés.
+Le premier lemme est en réalité un cas particulier du
+Lemme \ref{lemma-2-fibre-product},
+mais sa démonstration est légèrement plus simple.
+
+\begin{lemma}
+\label{lemma-product-spaces}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $\mathcal{X}$, $\mathcal{Y}$ des champs algébriques au-dessus de $S$.
+Alors $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+est un champ algébrique, et est un produit dans la $2$-catégorie des
+champs algébriques au-dessus de $S$.
+\end{lemma}
+
+\begin{proof}
+Un objet de $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+au-dessus de $T$ est simplement une paire $(x, y)$, où $x$ est un objet de $\mathcal{X}_T$
+et $y$ un objet de $\mathcal{Y}_T$. Il résulte donc immédiatement
+des définitions que
+$\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$ est un
+champ en groupoïdes. Si $(x, y)$ et $(x', y')$ sont
+deux objets de $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+au-dessus de $T$, alors
+$$
+\mathit{Isom}((x, y), (x', y')) =
+\mathit{Isom}(x, x') \times \mathit{Isom}(y, y').
+$$
+Il résulte donc des équivalences du
+Lemme \ref{lemma-representable-diagonal}
+et du fait que la catégorie des espaces algébriques admet des produits
+que la diagonale de $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+est représentable par des espaces algébriques.
+Enfin, supposons que $U, V \in \Ob((\Sch/S)_{fppf})$,
+et soient $x, y$ des morphismes lisses surjectifs
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$,
+$y : (\Sch/V)_{fppf} \to \mathcal{Y}$.
+Remarquons que
+$$
+(\Sch/U \times_S V)_{fppf} =
+(\Sch/U)_{fppf}
+\times_{(\Sch/S)_{fppf}} (\Sch/V)_{fppf}.
+$$
+L'objet $(\text{pr}_U^*x, \text{pr}_V^*y)$ de
+$\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$ au-dessus de
+$(\Sch/U \times_S V)_{fppf}$ définit ainsi un $1$-morphisme
+$$
+(\Sch/U \times_S V)_{fppf}
+\longrightarrow
+\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}
+$$
+qui est la composée de changements de base de $x$ et de $y$, donc
+est surjectif et lisse, voir les
+Lemmes \ref{lemma-base-change-representable-transformations-property} et
+\ref{lemma-composition-representable-transformations-property}.
+On conclut que $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+est bien un champ algébrique. Nous omettons de vérifier qu'il
+est effectivement un produit.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product-general}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{Z}$ un champ en groupoïdes au-dessus de $(\Sch/S)_{fppf}$
+dont la diagonale est représentable par des espaces algébriques.
+Soient $\mathcal{X}$, $\mathcal{Y}$ des champs algébriques au-dessus de $S$.
+Soient $f : \mathcal{X} \to \mathcal{Z}$, $g : \mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes de champs en groupoïdes. Alors le $2$-produit fibré
+$\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$ est un champ algébrique.
+\end{lemma}
+
+\begin{proof}
+Il faut vérifier les conditions (1), (2) et (3) de la
+Définition \ref{definition-algebraic-stack}.
+La première condition résulte du
+Lemme \ref{stacks-lemma-2-product-stacks-in-groupoids} de Champs.
+
+\medskip\noindent
+La deuxième condition à vérifier est que les faisceaux $\mathit{Isom}$
+soient représentables par des espaces algébriques. Pour cela, supposons que
+$T$ soit un schéma au-dessus de $S$, et que $u, v$ soient des objets de
+$(\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y})_T$.
+D'après notre construction des $2$-produits fibrés (qui remonte jusqu'à
+Catégories, Lemme \ref{categories-lemma-2-product-categories-over-C}),
+nous pouvons écrire $u = (x, y, \alpha)$ et $v = (x', y', \alpha')$.
+Ici, $\alpha : f(x) \to g(y)$, et de même pour $\alpha'$.
+Il est alors clair que
+$$
+\xymatrix{
+\mathit{Isom}(u, v) \ar[d] \ar[rr] & &
+\mathit{Isom}(y, y') \ar[d]^{\phi \mapsto g(\phi) \circ \alpha} \\
+\mathit{Isom}(x, x') \ar[rr]^-{\psi \mapsto \alpha' \circ f(\psi)} & &
+\mathit{Isom}(f(x), g(y'))
+}
+$$
+est un diagramme cartésien de faisceaux sur $(\Sch/T)_{fppf}$.
+Puisque, par hypothèse, les faisceaux
+$\mathit{Isom}(y, y')$, $\mathit{Isom}(x, x')$, $\mathit{Isom}(f(x), g(y'))$
+sont des espaces algébriques (voir le
+Lemme \ref{lemma-representable-diagonal}),
+on voit que $\mathit{Isom}(u, v)$
+est un espace algébrique.
+
+\medskip\noindent
+Soient $U, V \in \Ob((\Sch/S)_{fppf})$,
+et soient $x, y$ des morphismes lisses surjectifs
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$,
+$y : (\Sch/V)_{fppf} \to \mathcal{Y}$.
+Considérons le morphisme
+$$
+(\Sch/U)_{fppf}
+\times_{f \circ x, \mathcal{Z}, g \circ y}
+(\Sch/V)_{fppf}
+\longrightarrow
+\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}.
+$$
+Comme la diagonale de $\mathcal{Z}$ est représentable par des espaces algébriques,
+la source de cette flèche est représentable par un espace algébrique $F$, voir le
+Lemme \ref{lemma-representable-diagonal}.
+De plus, le morphisme est la composée
+de changements de base de $x$ et de $y$, donc est surjectif et lisse, voir les
+Lemmes \ref{lemma-base-change-representable-transformations-property} et
+\ref{lemma-composition-representable-transformations-property}.
+En choisissant un schéma $W$ et un morphisme \'etale surjectif $W \to F$,
+on voit que la composée du $1$-morphisme affiché
+avec le $1$-morphisme correspondant
+$$
+(\Sch/W)_{fppf}
+\longrightarrow
+(\Sch/U)_{fppf}
+\times_{f \circ x, \mathcal{Z}, g \circ y}
+(\Sch/V)_{fppf}
+$$
+est surjective et lisse, ce qui démontre la dernière condition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$ des champs algébriques au-dessus de $S$.
+Soient $f : \mathcal{X} \to \mathcal{Z}$, $g : \mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes de champs algébriques. Alors le $2$-produit fibré
+$\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$ est un champ algébrique.
+C'est aussi le $2$-produit fibré dans la $2$-catégorie des champs algébriques
+au-dessus de $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Le fait que $\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$ soit un
+champ algébrique résulte du
+Lemme plus fort \ref{lemma-2-fibre-product-general}.
+Le fait que $\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$
+soit un $2$-produit fibré dans la $2$-catégorie des champs algébriques au-dessus de $S$
+résulte formellement du fait que la $2$-catégorie des champs algébriques
+au-dessus de $S$ est une sous-$2$-catégorie pleine de la $2$-catégorie des champs en
+groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Champs algébriques, nouvelle présentation}
+\label{section-overhaul}
+
+\noindent
+Quelques résultats fondamentaux sur les champs algébriques.
+
+\begin{lemma}
+\label{lemma-lift-morphism-presentations}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de champs
+algébriques au-dessus de $S$.
+Soit $V \in \Ob((\Sch/S)_{fppf})$.
+Soit $y : (\Sch/V)_{fppf} \to \mathcal{Y}$ surjectif et lisse.
+Alors il existe un objet $U \in \Ob((\Sch/S)_{fppf})$
+et un diagramme $2$-commutatif
+$$
+\xymatrix{
+(\Sch/U)_{fppf} \ar[r]_a \ar[d]_x &
+(\Sch/V)_{fppf} \ar[d]^y \\
+\mathcal{X} \ar[r]^f & \mathcal{Y}
+}
+$$
+où $x$ est surjectif et lisse.
+\end{lemma}
+
+\begin{proof}
+Choisissons d'abord $W \in \Ob((\Sch/S)_{fppf})$ et un $1$-morphisme
+lisse surjectif $z : (\Sch/W)_{fppf} \to \mathcal{X}$.
+Comme $\mathcal{Y}$ est un champ algébrique, on peut choisir une équivalence
+$$
+j :
+\mathcal{S}_F
+\longrightarrow
+(\Sch/W)_{fppf}
+\times_{f \circ z, \mathcal{Y}, y}
+(\Sch/V)_{fppf}
+$$
+où $F$ est un espace algébrique. Par le
+Lemme \ref{lemma-base-change-representable-transformations-property},
+le morphisme
+$\mathcal{S}_F \to (\Sch/W)_{fppf}$ est surjectif et lisse
+comme changement de base de $y$. Ainsi, par le
+Lemme \ref{lemma-composition-representable-transformations-property},
+on voit que $\mathcal{S}_F \to \mathcal{X}$ est surjectif et lisse.
+Choisissons un objet $U \in \Ob((\Sch/S)_{fppf})$
+et un morphisme \'etale surjectif $U \to F$. En appliquant alors
+une fois encore le Lemme \ref{lemma-composition-representable-transformations-property},
+on obtient les propriétés voulues.
+\end{proof}
+
+\noindent
+Ce lemme généralise la
+Proposition \ref{proposition-algebraic-stack-no-automorphisms}.
+
+\begin{lemma}
+\label{lemma-characterize-representable-by-algebraic-spaces}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de champs
+algébriques au-dessus de $S$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item pour tout $U \in \Ob((\Sch/S)_{fppf})$,
+le foncteur $f : \mathcal{X}_U \to \mathcal{Y}_U$ est fidèle,
+\item le foncteur $f$ est fidèle, et
+\item $f$ est représentable par des espaces algébriques.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les parties (1) et (2) sont équivalentes par les propriétés générales des $1$-morphismes
+de catégories fibrées en groupoïdes, voir
+Catégories, Lemme \ref{categories-lemma-equivalence-fibred-categories}.
+On voit que (3) implique (2) par le
+Lemme \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}.
+Enfin, supposons (2).
+Soit $U$ un schéma. Soit $y \in \Ob(\mathcal{Y}_U)$.
+Il faut démontrer que
+$$
+\mathcal{W} = (\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}
+$$
+est représentable par un espace algébrique au-dessus de $U$. Puisque
+$(\Sch/U)_{fppf}$ est un champ algébrique, il résulte du
+Lemme \ref{lemma-2-fibre-product}
+que $\mathcal{W}$ est un champ algébrique.
+D'autre part, la description explicite des objets de $\mathcal{W}$
+comme triplets $(V, x, \alpha : y(V) \to f(x))$ et le fait que $f$ soit
+fidèle montrent que les catégories fibres de $\mathcal{W}$ sont des setoïdes. Par conséquent, la
+Proposition \ref{proposition-algebraic-stack-no-automorphisms}
+garantit que $\mathcal{W}$ est représentable par un espace algébrique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-surjective-morphism-implies-algebraic}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $u : \mathcal{U} \to \mathcal{X}$ un $1$-morphisme de
+champs en groupoïdes au-dessus de $(\Sch/S)_{fppf}$. Si
+\begin{enumerate}
+\item $\mathcal{U}$ est représentable par un espace algébrique, et
+\item $u$ est représentable par des espaces algébriques, surjectif et lisse,
+\end{enumerate}
+alors $\mathcal X$ est un champ algébrique au-dessus de $S$.
+\end{lemma}
+
+\begin{proof}
+Il faut montrer que $\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+est représentable par des espaces algébriques, voir la
+Définition \ref{definition-algebraic-stack}.
+Étant donnés deux schémas $T_1$, $T_2$ au-dessus de $S$, notons
+$\mathcal{T}_i = (\Sch/T_i)_{fppf}$ les catégories fibrées représentables
+associées. Supposons donnés des $1$-morphismes
+$f_i : \mathcal{T}_i \to \mathcal{X}$.
+D'après le
+Lemme \ref{lemma-representable-diagonal},
+il suffit de démontrer que le $2$-produit
+fibré $\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$
+est représentable par un espace algébrique. Par le
+Lemme de Champs
+\ref{stacks-lemma-2-fibre-product-stacks-in-setoids-over-stack-in-groupoids},
+il s'agit en tout cas d'un champ en setoïdes. Ainsi,
+$\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$ correspond
+à un faisceau $F$ sur $(\Sch/S)_{fppf}$, voir
+Champs, Lemme \ref{stacks-lemma-stack-in-setoids-characterize}.
+Soit $U$ l'espace algébrique qui représente $\mathcal{U}$.
+Par hypothèse,
+$$
+\mathcal{T}_i' = \mathcal{U} \times_{u, \mathcal{X}, f_i} \mathcal{T}_i
+$$
+est représentable par un espace algébrique $T'_i$ au-dessus de $S$. Par conséquent,
+$\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2'$ est représentable
+par l'espace algébrique $T'_1 \times_U T'_2$.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+&
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[rr]\ar'[d][dd] & &
+\mathcal{T}_1 \ar[dd] \\
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[ur]\ar[rr]\ar[dd] & &
+\mathcal{T}_1' \ar[ur]\ar[dd] \\
+&
+\mathcal{T}_2 \ar'[r][rr] & &
+\mathcal X \\
+\mathcal{T}_2' \ar[rr]\ar[ur] & &
+\mathcal{U} \ar[ur] }
+$$
+Dans ce diagramme, le carré inférieur, le carré droit, le carré arrière et
+le carré avant sont des $2$-produits fibrés. Un argument formel montre alors
+que $\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \to
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2$
+est le « changement de base » de $\mathcal{U} \to \mathcal{X}$ ; plus précisément,
+le diagramme
+$$
+\xymatrix{
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[d] \ar[r] &
+\mathcal{U} \ar[d] \\
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[r] &
+\mathcal{X}
+}
+$$
+est un carré $2$-cartésien.
+Ainsi, $T'_1 \times_U T'_2 \to F$ est représentable par des espaces algébriques,
+lisse et surjectif, voir les
+Lemmes \ref{lemma-map-fibred-setoids-representable-algebraic-spaces},
+\ref{lemma-base-change-representable-by-spaces},
+\ref{lemma-map-fibred-setoids-property} et
+\ref{lemma-base-change-representable-transformations-property}.
+Par conséquent, $F$ est un espace algébrique par le
+Théorème \ref{bootstrap-theorem-final-bootstrap} de Amorçage,
+ce qui conclut.
+\end{proof}
+
+\noindent
+Une application du
+Lemme \ref{lemma-smooth-surjective-morphism-implies-algebraic}
+est que ce qui est un espace algébrique au-dessus d'un champ algébrique
+est un champ algébrique. C'est l'analogue du
+Lemme \ref{bootstrap-lemma-representable-by-spaces-over-space} de Amorçage.
+En fait, il suffit de supposer que le morphisme
+$\mathcal{X} \to \mathcal{Y}$ est « algébrique », comme nous le verrons dans
+Critères de représentabilité,
+Lemme \ref{criteria-lemma-algebraic-morphism-to-algebraic}.
+
+\begin{lemma}
+\label{lemma-representable-morphism-to-algebraic}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{X} \to \mathcal{Y}$ un morphisme de champs en groupoïdes
+au-dessus de $(\Sch/S)_{fppf}$. Supposons que
+\begin{enumerate}
+\item $\mathcal{X} \to \mathcal{Y}$ soit représentable par des espaces algébriques, et
+\item $\mathcal{Y}$ soit un champ algébrique au-dessus de $S$.
+\end{enumerate}
+Alors $\mathcal{X}$ est un champ algébrique au-dessus de $S$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{V} \to \mathcal{Y}$ un $1$-morphisme lisse surjectif
+d'un champ en groupoïdes représentable vers $\mathcal{Y}$. Il existe par la
+Définition \ref{definition-algebraic-stack}.
+Alors le $2$-produit fibré
+$\mathcal{U} = \mathcal{V} \times_{\mathcal Y} \mathcal X$
+est représentable par un espace algébrique d'après le
+Lemme \ref{lemma-base-change-by-space-representable-by-space}.
+Le $1$-morphisme $\mathcal{U} \to \mathcal X$ est représentable par des espaces
+algébriques, lisse et surjectif, voir les
+Lemmes \ref{lemma-base-change-representable-by-spaces} et
+\ref{lemma-base-change-representable-transformations-property}.
+Par le
+Lemme \ref{lemma-smooth-surjective-morphism-implies-algebraic},
+on conclut que $\mathcal{X}$ est un champ algébrique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fibred-category-is-algebraic}
+\begin{reference}
+La suppression de l'hypothèse selon laquelle $j$ est un monomorphisme a été signalée
+dans un courriel de Matthew Emerton daté du 15 juin 2016.
+\end{reference}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $j : \mathcal X \to \mathcal Y$ un $1$-morphisme de
+catégories fibrées en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+Supposons que $j$ soit représentable par des espaces algébriques.
+Alors, si $\mathcal{Y}$ est un champ en groupoïdes
+(resp.\ un champ algébrique), il en est de même de $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+L'assertion concernant les champs algébriques résulte de celle concernant les
+champs en groupoïdes par le Lemme \ref{lemma-representable-morphism-to-algebraic}.
+Si $j$ est représentable par des espaces algébriques, alors $j$ est
+fidèle sur les catégories fibres et, pour chaque $U$ et chaque
+$y \in \Ob(\mathcal{Y}_U)$, le préfaisceau
+$$
+(h : V \to U)
+\longmapsto
+\{(x, \phi) \mid x \in \Ob(\mathcal{X}_V), \phi : h^*y \to f(x)\}/\cong
+$$
+est un espace algébrique au-dessus de $U$. Voir le
+Lemme \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}.
+En particulier, ce préfaisceau est un faisceau, et la conclusion résulte du
+Lemme \ref{stacks-lemma-relative-sheaf-over-stack-is-stack} de Champs.
+\end{proof}
+
+
+
+\section{D'un champ algébrique à une présentation}
+\label{section-stack-to-presentation}
+
+\noindent
+Étant donné un champ algébrique au-dessus de $S$, on obtient un groupoïde en espaces algébriques
+au-dessus de $S$ dont le champ quotient associé est le champ algébrique.
+
+\medskip\noindent
+Rappelons que si $(U, R, s, t, c)$ est un groupoïde en espaces algébriques au-dessus de $S$,
+alors $[U/R]$ désigne le champ quotient associé à cette donnée, voir
+Groupoïdes in Espaces,
+Définition \ref{spaces-groupoids-definition-quotient-stack}.
+En général, $[U/R]$ n'est {\bf pas} un champ algébrique. En particulier, le
+champ $[U/R]$ qui apparaît dans le lemme suivant n'est en général pas
+algébrique.
+
+\begin{lemma}
+\label{lemma-map-space-into-stack}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{X}$ un champ algébrique au-dessus de $S$.
+Soit $\mathcal{U}$ un champ algébrique au-dessus de $S$ qui
+est représentable par un espace algébrique.
+Soit $f : \mathcal{U} \to \mathcal{X}$ un 1-morphisme. Alors
+\begin{enumerate}
+\item le $2$-produit fibré
+$\mathcal{R} = \mathcal{U} \times_{f, \mathcal{X}, f} \mathcal{U}$
+est représentable par un espace algébrique,
+\item il existe une équivalence canonique
+$$
+\mathcal{U} \times_{f, \mathcal{X}, f} \mathcal{U}
+\times_{f, \mathcal{X}, f} \mathcal{U} =
+\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R},
+$$
+\item la projection $\text{pr}_{02}$ induit, via (2), un $1$-morphisme
+$$
+\text{pr}_{02} :
+\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}
+\longrightarrow
+\mathcal{R}
+$$
+\item soient $U$, $R$ les espaces algébriques représentant
+$\mathcal{U}, \mathcal{R}$, et soient $t, s : R \to U$ et
+$c : R \times_{s, U, t} R \to R$ les morphismes correspondant
+aux $1$-morphismes
+$\text{pr}_0, \text{pr}_1 : \mathcal{R} \to \mathcal{U}$
+et au
+$\text{pr}_{02} :
+\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R} \to
+\mathcal{R}$ ci-dessus ; alors le quintuplet $(U, R, s, t, c)$ est un groupoïde en
+espaces algébriques au-dessus de $S$,
+\item le morphisme $f$ induit un $1$-morphisme canonique
+$f_{can} : [U/R] \to \mathcal{X}$
+de champs en groupoïdes au-dessus de $(\Sch/S)_{fppf}$, et
+\item le $1$-morphisme $f_{can} : [U/R] \to \mathcal{X}$ est pleinement fidèle.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Par définition, $\Delta_\mathcal{X}$ est représentable
+par des espaces algébriques ; le
+Lemme \ref{lemma-representable-diagonal}
+s'applique donc et montre que $\mathcal{U} \to \mathcal{X}$ est représentable
+par des espaces algébriques. Le résultat découle alors du
+Lemme \ref{lemma-base-change-by-space-representable-by-space}.
+
+\medskip\noindent
+Soit $T$ un schéma au-dessus de $S$. Par construction du $2$-produit fibré (voir
+Catégories, Lemme \ref{categories-lemma-2-product-categories-over-C}),
+on voit que les objets de la catégorie fibre $\mathcal{R}_T$
+sont les triplets $(a, b, \alpha)$ où $a, b \in \Ob(\mathcal{U}_T)$
+et où $\alpha : f(a) \to f(b)$
+est un morphisme de la catégorie fibre $\mathcal{X}_T$.
+
+\medskip\noindent
+Démonstration de (2). L'équivalence s'obtient en appliquant successivement
+Catégories, Lemmes \ref{categories-lemma-associativity-2-fibre-product} et
+\ref{categories-lemma-2-fibre-product-erase-factor}.
+Identifions
+$\mathcal{U} \times_\mathcal{X} \mathcal{U} \times_\mathcal{X} \mathcal{U}$
+à
+$(\mathcal{U} \times_\mathcal{X} \mathcal{U})
+\times_\mathcal{X} \mathcal{U}$.
+Si $T$ est un schéma au-dessus de $S$, alors, sur les catégories fibres au-dessus de $T$,
+cette équivalence envoie l'objet
+$((a, b, \alpha), c, \beta)$ du membre de gauche
+sur l'objet $((a, b, \alpha), (b, c, \beta))$ du membre de droite.
+
+\medskip\noindent
+Démonstration de (3). Le $1$-morphisme $\text{pr}_{02}$ est construit dans la démonstration de
+Catégories, Lemme \ref{categories-lemma-triple-2-fibre-product-pr02}.
+À l'aide de la description ci-dessus des objets de la catégorie fibre,
+on voit que $((a, b, \alpha), (b, c, \beta))$
+est envoyé sur $(a, c, \beta \circ \alpha)$.
+
+\medskip\noindent
+Malheureusement, cela n'est {\it pas compatible} avec nos conventions sur les
+groupoïdes, selon lesquelles on a toujours $j = (t, s) : R \to U$, et l'on « considère »
+un point à valeurs dans $T$, noté $r$, de $R$ comme un morphisme $r : s(r) \to t(r)$.
+Cela n'affecte toutefois pas la démonstration de (4), puisque l'opposé d'un
+groupoïde est un groupoïde. Mais, dans la démonstration de (5), cela explique
+les inverses dans la formule affichée ci-dessous.
+
+\medskip\noindent
+Démonstration de (4). Rappelons que le faisceau $U$ est isomorphe au faisceau
+$T \mapsto \Ob(\mathcal{U}_T)/\!\cong$, et
+de même pour $R$, voir le
+Lemme \ref{lemma-characterize-representable-by-space}.
+Il résulte du
+Lemme de Catégories
+\ref{categories-lemma-category-fibred-setoids-presheaves-products}
+que cette description est compatible aux $2$-produits fibrés ;
+on obtient donc une identification analogue de
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}$
+et de $R \times_{s, U, t} R$.
+Les morphismes $t, s : R \to U$ et $c : R \times_{s, U, t} R \to R$
+s'obtiennent à partir de l'égalité générale (\ref{equation-morphisms-spaces}).
+Explicitement, ces applications sont les transformations de foncteurs qui proviennent
+de l'action de $\text{pr}_0$, $\text{pr}_0$, $\text{pr}_{02}$
+sur les classes d'isomorphie d'objets des catégories fibres.
+Ainsi, pour montrer que l'on obtient un groupoïde en espaces
+algébriques, il suffit de montrer que, pour tout schéma $T$ au-dessus de $S$,
+la structure
+$$
+(\Ob(\mathcal{U}_T)/\!\cong,
+\Ob(\mathcal{R}_T)/\!\cong,
+\text{pr}_1, \text{pr}_0, \text{pr}_{02})
+$$
+est un groupoïde, ce qui est clair d'après notre description ci-dessus des objets de
+$\mathcal{R}_T$.
+
+\medskip\noindent
+Démonstration de (5). Nous appliquerons finalement
+Groupoïdes in Espaces,
+Lemme \ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+pour obtenir le foncteur $[U/R] \to \mathcal{X}$.
+Considérons le $1$-morphisme $f : \mathcal{U} \to \mathcal{X}$.
+Nous avons une $2$-flèche $\tau : f \circ \text{pr}_1 \to f \circ \text{pr}_0$
+par définition de $\mathcal{R}$ comme $2$-produit fibré.
+En effet, sur un objet $(a, b, \alpha)$ de $\mathcal{R}$ au-dessus de $T$, c'est
+l'application $\alpha^{-1} : b \to a$. Nous affirmons que
+$$
+\tau \circ \text{id}_{\text{pr}_{02}} =
+(\tau \star \text{id}_{\text{pr}_0})
+\circ
+(\tau \star \text{id}_{\text{pr}_1}).
+$$
+Cette identité dit qu'étant donné un objet
+$((a, b, \alpha), (b, c, \beta))$ de
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}$
+au-dessus de $T$, la composée de
+$$
+\xymatrix{
+c \ar[r]^{\beta^{-1}} & b \ar[r]^{\alpha^{-1}} & a
+}
+$$
+est la même que la flèche $(\beta \circ \alpha)^{-1} : a \to c$. C'est
+manifestement vrai, d'où l'affirmation. On voit ainsi que toutes les
+hypothèses du
+Lemme de Groupoïdes in Espaces
+\ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+sont satisfaites pour la structure
+$(\mathcal{U}, \mathcal{R}, \text{pr}_0, \text{pr}_1, \text{pr}_{02})$
+ainsi que le $1$-morphisme $f$ et le $2$-morphisme $\tau$.
+Cependant, pour appliquer le lemme, il faut démontrer cela
+pour la structure $(\mathcal{S}_U, \mathcal{S}_R, s, t, c)$
+munie de morphismes appropriés.
+
+\medskip\noindent
+Il devrait exister un argument général de théorie abstraite des catégories
+qui transfère ces données de l'une à l'autre, mais il semble
+assez long. Nous employons plutôt l'astuce suivante.
+Choisissons un quasi-inverse $j^{-1} : \mathcal{S}_U \to \mathcal{U}$
+de l'équivalence canonique $j : \mathcal{U} \to \mathcal{S}_U$ qui provient
+de $U(T) = \Ob(\mathcal{U}_T)/\!\!\cong$.
+Cela signifie simplement que, pour tout schéma $T/S$ et tout
+objet $a \in \mathcal{U}_T$, nous avons choisi un
+élément particulier de sa classe d'isomorphie, à savoir $j^{-1}(j(a))$.
+Grâce à $j^{-1}$, on peut donc considérer $\mathcal{S}_U$
+comme une sous-catégorie de $\mathcal{U}$. Cette sous-catégorie une fois choisie,
+on peut considérer les objets $(a, b, \alpha)$ de $\mathcal{R}_T$
+tels que $a, b$ soient des objets de $(\mathcal{S}_U)_T$, c'est-à-dire tels
+que $j^{-1}(j(a)) = a$ et $j^{-1}(j(b)) = b$. Il est alors clair qu'ils
+forment une sous-catégorie de $\mathcal{R}$ qui s'envoie isomorphiquement
+sur $\mathcal{S}_R$ par l'équivalence canonique
+$\mathcal{R} \to \mathcal{S}_R$. De plus, ceci est manifestement compatible
+avec la formation du $2$-produit fibré
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}$.
+On voit donc que l'on peut simplement restreindre
+$f$ à $\mathcal{S}_U$ et restreindre $\tau$ en une transformation
+entre foncteurs $\mathcal{S}_R \to \mathcal{X}$. Il est dès lors clair que
+l'égalité affichée du
+Lemme de Groupoïdes in Espaces
+\ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+est satisfaite, puisqu'elle l'est même comme égalité de transformations de foncteurs
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}
+\to \mathcal{X}$ avant restriction à la sous-catégorie
+$\mathcal{S}_{R \times_{s, U, t} R}$.
+
+\medskip\noindent
+Ceci démontre que le
+Lemme de Groupoïdes in Espaces
+\ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+s'applique et fournit le morphisme de champs recherché
+$f_{can} : [U/R] \to \mathcal{X}$. Précisons brièvement comment
+$f_{can}$ est défini dans ce cas particulier.
+Sur un objet $a$ de $\mathcal{S}_U$ au-dessus de $T$,
+on a $f_{can}(a) = f(a)$, où l'on considère
+$\mathcal{S}_U \subset \mathcal{U}$ par le plongement choisi ci-dessus.
+Si $a, b$ sont des objets de $\mathcal{S}_U$ au-dessus de $T$, alors un morphisme
+$\varphi : a \to b$ dans $[U/R]$ est, par définition, un objet de la
+forme $\varphi = (b, a, \alpha)$ de $\mathcal{R}$ au-dessus de $T$. (Noter
+l'interversion.) Et la règle de la démonstration du
+Lemme de Groupoïdes in Espaces
+\ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+est
+\begin{equation}
+\label{equation-on-morphisms}
+f_{can}(\varphi) = \Big(f(a) \xrightarrow{\alpha^{-1}} f(b)\Big).
+\end{equation}
+Démonstration de (6). $[U/R]$ et $\mathcal{X}$ sont tous deux des champs.
+Ainsi, étant donnés un schéma $T/S$ et des objets $a, b$ de $[U/R]$
+au-dessus de $T$, on obtient une transformation de faisceaux fppf
+$$
+\mathit{Isom}(a, b) \longrightarrow \mathit{Isom}(f_{can}(a), f_{can}(b))
+$$
+sur $(\Sch/T)_{fppf}$. Il faut montrer qu'il s'agit d'un
+isomorphisme. On peut travailler localement pour la topologie fppf sur $T$, et donc supposer que
+$a, b$ proviennent de morphismes $a, b : T \to U$. Par le plongement
+$\mathcal{S}_U \subset \mathcal{U}$ ci-dessus, on peut aussi considérer $a, b$ comme
+des objets de $\mathcal{U}$ au-dessus de $T$. Dans
+Groupoïdes in Espaces,
+Lemme \ref{spaces-groupoids-lemma-quotient-stack-morphisms},
+nous avons vu que le faisceau de gauche est représenté par l'espace algébrique
+$$
+R \times_{(t, s), U \times_S U, (b, a)} T
+$$
+au-dessus de $T$. D'autre part, le membre de droite est, par le
+Lemme \ref{stacks-lemma-isom-as-2-fibre-product} de Champs,
+égal au faisceau associé au champ en setoïdes suivant :
+$$
+\mathcal{X}
+\times_{\mathcal{X} \times \mathcal{X}, (f \circ b, f \circ a)} T =
+\mathcal{X}
+\times_{\mathcal{X} \times \mathcal{X}, (f, f)}
+(\mathcal{U} \times \mathcal{U})
+\times_{\mathcal{U} \times \mathcal{U}, (b, a)} T =
+\mathcal{R}
+\times_{(\text{pr}_0, \text{pr}_1), \mathcal{U} \times \mathcal{U}, (b, a)} T
+$$
+qui est représentable par le produit fibré affiché ci-dessus.
+À ce stade, nous avons montré que les deux faisceaux $\mathit{Isom}$
+sont isomorphes. Notre $1$-morphisme $f_{can} : [U/R] \to \mathcal{X}$ induit
+cet isomorphisme sur les faisceaux $\mathit{Isom}$ d'après
+l'Équation (\ref{equation-on-morphisms}).
+\end{proof}
+
+\noindent
+On peut utiliser le lemme très abstrait précédent pour produire des
+présentations.
+
+\begin{lemma}
+\label{lemma-stack-presentation}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $\mathcal{X}$ un champ algébrique au-dessus de $S$.
+Soit $U$ un espace algébrique au-dessus de $S$.
+Soit $f : \mathcal{S}_U \to \mathcal{X}$ un morphisme lisse surjectif.
+Soient $(U, R, s, t, c)$ le groupoïde en espaces algébriques
+et $f_{can} : [U/R] \to \mathcal{X}$ le résultat de l'application du
+Lemme \ref{lemma-map-space-into-stack}
+à $U$ et à $f$. Alors
+\begin{enumerate}
+\item les morphismes $s$, $t$ sont lisses, et
+\item le $1$-morphisme $f_{can} : [U/R] \to \mathcal{X}$
+est une équivalence.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les morphismes $s, t$ sont lisses par les
+Lemmes \ref{lemma-property-morphism-equivalent} et
+\ref{lemma-map-presheaves-representable-by-spaces-transformation-property}.
+Comme le $1$-morphisme $f$ est lisse et
+surjectif, il est clair que, pour tout schéma $T$ et tout objet
+$a \in \Ob(\mathcal{X}_T)$, il existe un morphisme lisse et surjectif
+$T' \to T$ tel que $a|_T'$ provienne d'un objet de
+$[U/R]_{T'}$. Puisque $f_{can} : [U/R] \to \mathcal{X}$
+est pleinement fidèle, on en déduit que
+$[U/R] \to \mathcal{X}$ est essentiellement surjectif, car
+les données de descente sur les objets sont effectives des deux côtés, voir
+Champs, Lemme \ref{stacks-lemma-characterize-essentially-surjective-when-ff}.
+\end{proof}
+
+\begin{remark}
+\label{remark-flat-fp-presentation}
+Si l'on suppose seulement que le morphisme $f : \mathcal{S}_U \to \mathcal{X}$ du
+Lemme \ref{lemma-stack-presentation}
+est surjectif, plat et localement de présentation finie, alors
+$f_{can} : [U/R] \to \mathcal{X}$ sera encore une
+équivalence. Dans ce cas, les morphismes $s$, $t$ seront plats et
+localement de présentation finie, mais ne seront bien sûr pas lisses en général.
+\end{remark}
+
+\noindent
+Le Lemme \ref{lemma-stack-presentation}
+suggère les définitions suivantes.
+
+\begin{definition}
+\label{definition-smooth-groupoid}
+Soit $S$ un schéma. Soit $B$ un espace algébrique au-dessus de $S$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $B$.
+On dit que $(U, R, s, t, c)$ est un {\it groupoïde lisse}\footnote{Cette terminologie
+peut prêter quelque peu à confusion : elle n'implique pas que $[U/R]$ soit lisse
+au-dessus de quoi que ce soit.}
+si $s, t : R \to U$ sont des morphismes lisses d'espaces algébriques.
+\end{definition}
+
+\begin{definition}
+\label{definition-presentation}
+Soit $\mathcal{X}$ un champ algébrique au-dessus de $S$.
+Une {\it présentation} de $\mathcal{X}$ est la donnée d'un groupoïde lisse
+$(U, R, s, t, c)$ en espaces algébriques au-dessus de $S$, et d'une
+équivalence $f : [U/R] \to \mathcal{X}$.
+\end{definition}
+
+\noindent
+Nous avons vu ci-dessus que tout champ algébrique admet une présentation.
+Notre tâche suivante consiste à montrer que tout groupoïde lisse en espaces
+algébriques au-dessus de $S$ donne lieu à un champ algébrique.
+
+
+\section{Le champ algébrique associé à un groupoïde lisse}
+\label{section-smooth-groupoid-gives-algebraic-stack}
+
+\noindent
+Dans cette section, nous partons d'un groupoïde lisse en espaces algébriques
+et montrons que le champ quotient associé est un champ algébrique.
+
+\begin{lemma}
+\label{lemma-diagonal-quotient-stack}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques au-dessus de $S$.
+Alors la diagonale de $[U/R]$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Il suffit de montrer que les faisceaux $\mathit{Isom}$ sont des espaces
+algébriques, voir le
+Lemme \ref{lemma-representable-diagonal}.
+Cela résulte du
+Lemme \ref{bootstrap-lemma-quotient-stack-isom} de Amorçage.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-quotient-smooth-presentation}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $(U, R, s, t, c)$ un groupoïde lisse en espaces algébriques au-dessus de $S$.
+Alors le morphisme $\mathcal{S}_U \to [U/R]$ est lisse et surjectif.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma et soit $x : (\Sch/T)_{fppf} \to [U/R]$
+un $1$-morphisme. Il faut montrer que la projection
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+\longrightarrow
+(\Sch/T)_{fppf}
+$$
+est surjective et lisse. Nous savons déjà que le membre de gauche
+est représentable par un espace algébrique $F$, voir les
+Lemmes \ref{lemma-diagonal-quotient-stack} et
+\ref{lemma-representable-diagonal}.
+Il faut donc montrer que le morphisme correspondant $F \to T$
+d'espaces algébriques est surjectif et lisse.
+Puisqu'il s'agit de propriétés de morphismes d'espaces algébriques
+qui sont locales pour la topologie fppf sur le but, nous
+pouvons les vérifier localement pour la topologie fppf sur $T$. Par construction, il existe
+un recouvrement fppf $\{T_i \to T\}$ de $T$ tel que
+$x|_{(\Sch/T_i)_{fppf}}$ provienne d'un morphisme
+$x_i : T_i \to U$. (Remarquons que $F \times_T T_i$ représente le
+$2$-produit fibré $\mathcal{S}_U \times_{[U/R]} (\Sch/T_i)_{fppf}$,
+de sorte que tout est compatible au changement de base par $T_i \to T$.)
+On peut donc supposer que $x$ provient de $x : T \to U$.
+Dans ce cas, on voit que
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+=
+(\mathcal{S}_U \times_{[U/R]} \mathcal{S}_U)
+\times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+=
+\mathcal{S}_R \times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+$$
+La première égalité résulte du
+Lemme \ref{categories-lemma-2-fibre-product-erase-factor} de Catégories,
+et la seconde du
+Lemme de Groupoïdes in Espaces
+\ref{spaces-groupoids-lemma-quotient-stack-2-cartesian}.
+Manifestement, le dernier $2$-produit fibré est représenté par l'espace
+algébrique $F = R \times_{s, U, x} T$, et la projection
+$R \times_{s, U, x} T \to T$ est lisse comme changement de base du
+morphisme lisse d'espaces algébriques $s : R \to U$.
+Elle est aussi surjective, car $s$ possède une section (à savoir l'identité
+$e : U \to R$ du groupoïde).
+Cela démontre le lemme.
+\end{proof}
+
+\noindent
+Voici le résultat principal de cette section.
+
+\begin{theorem}
+\label{theorem-smooth-groupoid-gives-algebraic-stack}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $(U, R, s, t, c)$ un groupoïde lisse en espaces algébriques au-dessus de $S$.
+Alors le champ quotient $[U/R]$ est un champ algébrique au-dessus de $S$.
+\end{theorem}
+
+\begin{proof}
+Vérifions les trois conditions de la
+Définition \ref{definition-algebraic-stack}.
+Par construction, $[U/R]$ est un champ en groupoïdes,
+ce qui est la première condition.
+
+\medskip\noindent
+La deuxième condition résulte du résultat plus fort qu'est le
+Lemme \ref{lemma-diagonal-quotient-stack}.
+
+\medskip\noindent
+Enfin, il faut montrer qu'il existe un schéma $W$ au-dessus de $S$
+et un $1$-morphisme lisse surjectif
+$(\Sch/W)_{fppf} \longrightarrow \mathcal{X}$.
+Choisissons d'abord $W \in \Ob((\Sch/S)_{fppf})$ et un
+morphisme \'etale surjectif $W \to U$. Remarquons que cela
+donne un morphisme \'etale surjectif $\mathcal{S}_W \to \mathcal{S}_U$
+de catégories fibrées en ensembles, voir le
+Lemme
+\ref{lemma-map-presheaves-representable-by-spaces-transformation-property}.
+Bien entendu, $\mathcal{S}_W \to \mathcal{S}_U$ est alors aussi surjectif et
+lisse, voir le
+Lemme \ref{lemma-representable-transformations-property-implication}.
+Ainsi, $\mathcal{S}_W \to \mathcal{S}_U \to [U/R]$ est surjectif
+et lisse par combinaison des
+Lemmes \ref{lemma-smooth-quotient-smooth-presentation} et
+\ref{lemma-composition-representable-transformations-property}.
+\end{proof}
+
+
+
+
+
+\section{Changement de grand site}
+\label{section-change-big-site}
+
+\noindent
+Dans cette section, nous examinons brièvement ce qui se passe lorsque l'on change de grand site.
+En substance, on peut toujours agrandir à volonté le grand site ; on peut donc
+supposer que tout ensemble de schémas que l'on souhaite considérer appartient au grand
+site fppf au-dessus duquel on considère notre espace algébrique.
+Nous invitons le lecteur à sauter cette section.
+
+\medskip\noindent
+Les images réciproques de champs sont définies dans
+Champs, section \ref{stacks-section-inverse-image}.
+
+\begin{lemma}
+\label{lemma-change-big-site}
+Supposons donnés de grands sites $\Sch_{fppf}$ et $\Sch'_{fppf}$.
+Supposons que $\Sch_{fppf}$ soit contenu dans $\Sch'_{fppf}$,
+voir Topologies, section \ref{topologies-section-change-alpha}.
+Soit $S$ un objet de $\Sch_{fppf}$.
+Soit $f : (\Sch'/S)_{fppf} \to (\Sch/S)_{fppf}$ le morphisme
+de sites correspondant au foncteur d'inclusion
+$u : (\Sch/S)_{fppf} \to (\Sch'/S)_{fppf}$.
+Soit $\mathcal{X}$ un champ en groupoïdes au-dessus de $(\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item si $\mathcal{X}$ est représentable par un
+$X \in \Ob((\Sch/S)_{fppf})$, alors
+$f^{-1}\mathcal{X}$ est aussi représentable ; il est même représenté par le
+même schéma $X$, considéré maintenant comme objet de $(\Sch'/S)_{fppf}$,
+\item si $\mathcal{X}$ est représentable par
+$F \in \Sh((\Sch/S)_{fppf})$, qui est
+un espace algébrique, alors $f^{-1}\mathcal{X}$ est représentable
+par l'espace algébrique $f^{-1}F$,
+\item si $\mathcal{X}$ est un champ algébrique, alors $f^{-1}\mathcal{X}$
+est un champ algébrique, et
+\item si $\mathcal{X}$ est un champ de Deligne-Mumford, alors $f^{-1}\mathcal{X}$
+est aussi un champ de Deligne-Mumford.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démontrons (3). Par le
+Lemme \ref{lemma-stack-presentation},
+on peut écrire $\mathcal{X} = [U/R]$ pour un groupoïde lisse
+en espaces algébriques $(U, R, s, t, c)$. Par le
+Lemme de Groupoïdes in Espaces
+\ref{spaces-groupoids-lemma-quotient-stack-change-big-site},
+on voit que $f^{-1}[U/R] = [f^{-1}U/f^{-1}R]$.
+Bien entendu, $(f^{-1}U, f^{-1}R, f^{-1}s, f^{-1}t, f^{-1}c)$
+est aussi un groupoïde lisse en espaces algébriques. Cela démontre (3).
+
+\medskip\noindent
+Les autres cas (1), (2), (4) signifient chacun que $\mathcal{X}$ possède
+une présentation $[U/R]$ d'un type particulier, et se traduisent donc par le
+même type de présentation de $f^{-1}\mathcal{X} = [f^{-1}U/f^{-1}R]$.
+Le lemme est ainsi démontré.
+\end{proof}
+
+\noindent
+Il n'est pas vrai, en général, que la restriction d'un espace algébrique
+sur le grand site le plus gros soit un espace algébrique sur le plus petit (pour de simples
+raisons de cardinalité). On ne peut donc utiliser un lemme simple de ce
+genre que pour agrandir la catégorie de base, jamais pour la rétrécir.
+
+\begin{lemma}
+\label{lemma-fully-faithful}
+Supposons que $\Sch_{fppf}$ soit contenu dans $\Sch'_{fppf}$.
+Soit $S$ un objet de $\Sch_{fppf}$. Notons
+$\textit{Algebraic-Champs}/S$ la $2$-catégorie des champs algébriques au-dessus de $S$
+définie à l'aide de $\Sch_{fppf}$. De même, notons
+$\textit{Algebraic-Champs}'/S$ la $2$-catégorie des champs algébriques au-dessus de $S$
+définie à l'aide de $\Sch'_{fppf}$. La règle
+$\mathcal{X} \mapsto f^{-1}\mathcal{X}$ du
+Lemme \ref{lemma-change-big-site}
+définit un foncteur de $2$-catégories
+$$
+\textit{Algebraic-Champs}/S \longrightarrow \textit{Algebraic-Champs}'/S
+$$
+qui définit des équivalences de catégories de morphismes
+$$
+\Mor_{\textit{Algebraic-Champs}/S}(\mathcal{X}, \mathcal{Y})
+\longrightarrow
+\Mor_{\textit{Algebraic-Champs}'/S}(f^{-1}\mathcal{X}, f^{-1}\mathcal{Y})
+$$
+pour tous objets $\mathcal{X}, \mathcal{Y}$ de
+$\textit{Algebraic-Champs}/S$. Un objet
+$\mathcal{X}'$ de $\textit{Algebraic-Champs}'/S$
+est équivalent à $f^{-1}\mathcal{X}$ pour un certain
+$\mathcal{X}$ de $\textit{Algebraic-Champs}/S$
+si et seulement s'il possède une présentation $\mathcal{X} = [U'/R']$
+où $U', R'$ sont isomorphes à $f^{-1}U$, $f^{-1}R$ pour certains
+$U, R \in \textit{Espaces}/S$.
+\end{lemma}
+
+\begin{proof}
+L'assertion concernant les catégories de morphismes résulte de l'énoncé plus général
+Champs, Lemme \ref{stacks-lemma-bigger-site}.
+La caractérisation de l'« image essentielle » découle de la description
+de $f^{-1}$ dans la démonstration du
+Lemme \ref{lemma-change-big-site}.
+\end{proof}
+
+
+\section{Changement de schéma de base}
+\label{section-change-base-scheme}
+
+\noindent
+Dans cette section, nous examinons brièvement ce qui se passe lorsque l'on change de schéma de base.
+En substance, étant donné un morphisme $S \to S'$ de schémas de base, tout champ
+algébrique au-dessus de $S$ peut être considéré comme un champ algébrique au-dessus de $S'$.
+
+\begin{lemma}
+\label{lemma-category-of-spaces-over-smaller-base-scheme}
+Soit $\Sch_{fppf}$ un grand site fppf.
+Soit $S \to S'$ un morphisme de ce site.
+Les constructions A et B de
+Champs, section \ref{stacks-section-localize}
+ci-dessus donnent des isomorphismes de $2$-catégories
+$$
+\left\{
+\begin{matrix}
+2\text{-catégorie des champs}\\
+\text{algébriques }\mathcal{X}\text{ au-dessus de }S
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+2\text{-catégorie des paires }(\mathcal{X}', f)\text{ formées d'un}\\
+\text{champ algébrique }\mathcal{X}'\text{ au-dessus de }S'\text{ et d'un morphisme}\\
+f : \mathcal{X}' \to (\Sch/S)_{fppf}\text{ de champs algébriques au-dessus de }S'
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+L'énoncé a bien un sens, car le foncteur
+$j : (\Sch/S)_{fppf} \to (\Sch/S')_{fppf}$
+est le foncteur de localisation associé à l'objet $S/S'$
+de $(\Sch/S')_{fppf}$. Par le
+Lemme \ref{stacks-lemma-localize-stacks} de Champs,
+il suffit de montrer que les constructions A et B
+préservent les sous-catégories de champs algébriques.
+Par exemple, si $\mathcal{X} = [U/R]$, alors la construction A
+appliquée à $\mathcal{X}$ produit simplement
+$\mathcal{X}' = \mathcal{X}$. Réciproquement, si $\mathcal{X}' = [U'/R']$,
+le morphisme $p$ induit des morphismes d'espaces algébriques
+$U' \to S$ et $R' \to S$, et alors $\mathcal{X} = [U'/R']$,
+mais considéré maintenant comme un champ au-dessus de $S$. Le lemme est donc clair.
+\end{proof}
+
+\begin{definition}
+\label{definition-viewed-as}
+Soit $\Sch_{fppf}$ un grand site fppf.
+Soit $S \to S'$ un morphisme de ce site.
+Si $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+est un champ algébrique au-dessus de $S$, alors
+$\mathcal{X}$ {\it considéré comme champ algébrique au-dessus de $S'$}
+est le champ algébrique
+$$
+\mathcal{X} \longrightarrow (\Sch/S')_{fppf}
+$$
+obtenu en appliquant la construction A du
+Lemme \ref{lemma-category-of-spaces-over-smaller-base-scheme}
+à $\mathcal{X}$.
+\end{definition}
+
+\noindent
+Réciproquement, que se passe-t-il si l'on part d'un champ algébrique $\mathcal{X}'$
+au-dessus de $S'$ et que l'on souhaite obtenir un champ algébrique au-dessus de $S$ ?
+On considère alors le $2$-produit fibré
+$$
+\mathcal{X}'_S
+=
+(\Sch/S)_{fppf} \times_{(\Sch/S')_{fppf}} \mathcal{X}'
+$$
+qui est un champ algébrique au-dessus de $S'$ d'après le
+Lemme \ref{lemma-2-fibre-product}.
+De plus, il est muni d'un $1$-morphisme naturel
+$p : \mathcal{X}'_S \to (\Sch/S)_{fppf}$ et, par le
+Lemme \ref{lemma-category-of-spaces-over-smaller-base-scheme},
+il correspond donc canoniquement à un champ algébrique au-dessus de $S$.
+
+\begin{definition}
+\label{definition-change-of-base}
+Soit $\Sch_{fppf}$ un grand site fppf.
+Soit $S \to S'$ un morphisme de ce site.
+Soit $\mathcal{X}'$ un champ algébrique au-dessus de $S'$.
+Le {\it changement de base de $\mathcal{X}'$} est le
+champ algébrique $\mathcal{X}'_S$ au-dessus de $S$ décrit ci-dessus.
+\end{definition}
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

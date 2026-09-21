@@ -1,0 +1,1512 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Schémas de Picard des courbes}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous nous bornons à construire le schéma de Picard
+d'une courbe projective non singulière sur un corps algébriquement clos.
+On trouvera dans \cite{Kleiman-Picard} un exposé plus approfondi ainsi que
+des indications historiques.
+
+\medskip\noindent
+Nous étudierons plus loin, dans le projet Champs, les foncteurs de Hilbert et de Quot
+dans un cadre beaucoup plus général.
+
+
+\section{Schéma de Hilbert des points}
+\label{section-hilbert-scheme-points}
+
+\noindent
+Soit $X \to S$ un morphisme de schémas. Soit $d \geq 0$ un entier.
+Pour tout schéma $T$ sur $S$, posons
+$$
+\Hilbfunctor^d_{X/S}(T) =
+\left\{
+\begin{matrix}
+Z \subset X_T\text{ sous-schéma fermé tel que }\\
+Z \to T\text{ soit fini localement libre de degré }d
+\end{matrix}
+\right\}
+$$
+Si $T' \to T$ est un morphisme de schémas sur $S$ et si
+$Z \in \Hilbfunctor^d_{X/S}(T)$, le changement de base
+$Z_{T'} \subset X_{T'}$ est un élément de $\Hilbfunctor^d_{X/S}(T')$.
+On obtient ainsi un foncteur
+$$
+\Hilbfunctor^d_{X/S} :
+(\Sch/S)^{opp} \longrightarrow \textit{Ensembles},\quad
+T \longrightarrow \Hilbfunctor^d_{X/S}(T)
+$$
+En général, $\Hilbfunctor^d_{X/S}$ est un espace algébrique
+(insérer ici une référence ultérieure). Dans cette section, nous
+montrerons que $\Hilbfunctor^d_{X/S}$ est représentable
+par un schéma si tout ensemble fini de points d'une fibre de
+$X \to S$ est contenu dans un ouvert affine.
+Lorsque $\Hilbfunctor^d_{X/S}$ est représentable par un schéma, nous
+notons souvent ce schéma $\underline{\Hilbfunctor}^d_{X/S}$.
+
+\begin{lemma}
+\label{lemma-hilb-d-sheaf}
+Soit $X \to S$ un morphisme de schémas. Le foncteur $\Hilbfunctor^d_{X/S}$
+est un faisceau pour la topologie fpqc
+(Topologies, définition \ref{topologies-definition-sheaf-property-fpqc}).
+\end{lemma}
+
+\begin{proof}
+Soit $\{T_i \to T\}_{i \in I}$ un recouvrement fpqc de schémas sur $S$.
+Posons $X_i = X_{T_i} = X \times_S T_i$.
+Notons que $\{X_i \to X_T\}_{i \in I}$ est un recouvrement fpqc de
+$X_T$ (Topologies, lemme \ref{topologies-lemma-fpqc})
+et que $X_{T_i \times_T T_{i'}} = X_i \times_{X_T} X_{i'}$.
+Soit $Z_i \in \Hilbfunctor^d_{X/S}(T_i)$ une famille
+d'éléments telle que $Z_i$ et $Z_{i'}$ aient la même image dans
+$\Hilbfunctor^d_{X/S}(T_i \times_T T_{i'})$. Par descente effective
+des immersions fermées (Descente, lemme \ref{descent-lemma-closed-immersion}),
+il existe une immersion fermée $Z \to X_T$ dont le changement de base par
+$X_i \to X_T$ est $Z_i \to X_i$. Le morphisme $Z \to T$
+a alors pour changement de base à $T_i$ le morphisme
+$Z_i \to T_i$. Par conséquent, $Z \to T$ est fini localement libre de degré $d$
+d'après Descente, lemme \ref{descent-lemma-descending-property-finite-locally-free}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-d-limit-preserving}
+Soit $X \to S$ un morphisme de schémas. Si $X \to S$ est
+de présentation finie, le foncteur $\Hilbfunctor^d_{X/S}$
+commute aux limites projectives (Limites, remarque \ref{limits-remark-limit-preserving}).
+\end{lemma}
+
+\begin{proof}
+Soit $T = \lim T_i$ une limite de schémas affines sur $S$. Il s'agit de montrer
+que $\Hilbfunctor^d_{X/S}(T) = \colim \Hilbfunctor^d_{X/S}(T_i)$.
+Si $Z \to X_T$ est un élément de $\Hilbfunctor^d_{X/S}(T)$,
+le morphisme $Z \to T$ est de présentation finie. Ainsi, d'après
+Limites, lemme \ref{limits-lemma-descend-finite-presentation},
+il existe un indice $i$, un schéma $Z_i$ de présentation finie sur $T_i$,
+et un morphisme $Z_i \to X_{T_i}$ sur $T_i$ dont le changement de base à $T$
+est $Z \to X_T$. Appliquons Limites, lemme
+\ref{limits-lemma-descend-closed-immersion-finite-presentation}
+pour voir que l'on peut supposer que $Z_i \to X_{T_i}$ est une immersion fermée
+quitte à augmenter $i$.
+Appliquons Limites, lemme \ref{limits-lemma-descend-finite-locally-free}
+pour voir que $Z_i \to T_i$ est fini localement libre de degré $d$
+quitte à augmenter encore $i$.
+Alors $Z_i \in \Hilbfunctor^d_{X/S}(T_i)$, comme voulu.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma. Soit $i : X \to Y$ une immersion fermée de schémas
+sur $S$. On dispose alors d'une transformation de foncteurs
+$$
+\Hilbfunctor^d_{X/S} \longrightarrow \Hilbfunctor^d_{Y/S}
+$$
+qui associe à un élément $Z \in \Hilbfunctor^d_{X/S}(T)$
+l'élément $i_T(Z) \subset Y_T$ de $\Hilbfunctor^d_{Y/S}$. Ici, $i_T : X_T \to Y_T$
+est le changement de base de $i$.
+
+\begin{lemma}
+\label{lemma-hilb-d-of-closed}
+Soit $S$ un schéma. Soit $i : X \to Y$ une immersion fermée de schémas.
+Si $\Hilbfunctor^d_{Y/S}$ est représentable par un schéma, il en est de même de
+$\Hilbfunctor^d_{X/S}$, et le morphisme de schémas correspondant
+$\underline{\Hilbfunctor}^d_{X/S} \to \underline{\Hilbfunctor}^d_{Y/S}$
+est une immersion fermée.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma sur $S$ et soit $Z \in \Hilbfunctor^d_{Y/S}(T)$.
+Montrons qu'il existe un sous-schéma fermé $T_X \subset T$ tel
+qu'un morphisme de schémas $T' \to T$ se factorise par $T_X$ si
+et seulement si $Z_{T'} \to Y_{T'}$ se factorise par $X_{T'}$.
+En appliquant ceci à un schéma $T_{univ}$ représentant $\Hilbfunctor^d_{Y/S}$ et à
+l'objet universel\footnote{Voir
+Catégories, section \ref{categories-section-opposite}}
+$Z_{univ} \in \Hilbfunctor^d_{Y/S}(T_{univ})$,
+on obtient un sous-schéma fermé $T_{univ, X} \subset T_{univ}$ tel que
+$Z_{univ, X} = Z_{univ} \times_{T_{univ}} T_{univ, X}$
+soit un sous-schéma fermé de $X \times_S T_{univ, X}$, donc
+définisse un élément de $\Hilbfunctor^d_{X/S}(T_{univ, X})$.
+Un argument formel montre alors que $T_{univ, X}$ est un schéma
+représentant $\Hilbfunctor^d_{X/S}$, d'objet universel $Z_{univ, X}$.
+
+\medskip\noindent
+Démontrons l'assertion. Considérons $Z' = X_T \times_{Y_T} Z$. Étant donné $T' \to T$,
+on voit que $Z_{T'} \to Y_{T'}$ se factorise par $X_{T'}$ si et
+seulement si $Z'_{T'} \to Z_{T'}$ est un isomorphisme. L'assertion résulte donc
+du résultat très général
+Compléments sur la platitude, lemme \ref{flat-lemma-Weil-restriction-closed-subschemes}.
+Dans ce cas particulier, on peut toutefois la démontrer directement comme
+suit : on se ramène d'abord au cas $T = \Spec(A)$ et $Z = \Spec(B)$.
+En restreignant encore $T$, on peut supposer qu'il existe un isomorphisme
+$\varphi : B \to A^{\oplus d}$ de $A$-modules. Alors $Z' = \Spec(B/J)$
+pour un idéal $J \subset B$. Soit $g_\beta \in J$ une famille de
+générateurs, et écrivons $\varphi(g_\beta) = (g_\beta^1, \ldots, g_\beta^d)$.
+Il est alors clair que $T_X$ est donné par $\Spec(A/(g_\beta^j))$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-d-separated}
+Soit $X \to S$ un morphisme de schémas. Si $X \to S$ est séparé et si
+$\Hilbfunctor^d_{X/S}$ est représentable,
+alors $\underline{\Hilbfunctor}^d_{X/S} \to S$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, tous les produits sans indice sont pris sur $S$.
+Posons $H = \underline{\Hilbfunctor}^d_{X/S}$ et soit
+$Z \in \Hilbfunctor^d_{X/S}(H)$ l'objet universel.
+Considérons les deux objets $Z_1, Z_2 \in \Hilbfunctor^d_{X/S}(H \times H)$
+obtenus en prenant l'image réciproque de $Z$ par les deux projections $H \times H \to H$.
+Alors $Z_1 = Z \times H \subset X_{H \times H}$ et $Z_2 = H \times Z
+\subset X_{H \times H}$. Puisque $H$ représente le foncteur
+$\Hilbfunctor^d_{X/S}$, le morphisme diagonal $\Delta : H \to H \times H$
+a la propriété universelle suivante : un morphisme de schémas
+$T \to H \times H$ se factorise par $\Delta$ si et seulement si
+$Z_{1, T} = Z_{2, T}$ en tant qu'éléments de $\Hilbfunctor^d_{X/S}(T)$.
+Posons $Z = Z_1 \times_{X_{H \times H}} Z_2$. On voit alors que
+$T \to H \times H$ se factorise par $\Delta$ si et seulement si
+les morphismes $Z_T \to Z_{1, T}$ et $Z_T \to Z_{2, T}$ sont des
+isomorphismes. Le résultat très général
+Compléments sur la platitude, lemme \ref{flat-lemma-Weil-restriction-closed-subschemes}
+montre que $\Delta$ est une immersion fermée. Dans la démonstration du
+lemme \ref{lemma-hilb-d-of-closed},
+le lecteur trouvera une autre démonstration, plus simple, du résultat nécessaire
+dans notre cas particulier.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-d-An}
+Soit $X \to S$ un morphisme de schémas affines. Soit $d \geq 0$. Alors
+$\Hilbfunctor^d_{X/S}$ est représentable.
+\end{lemma}
+
+\begin{proof}
+Écrivons $S = \Spec(R)$. On peut choisir une immersion fermée de $X$
+dans le spectre de $R[x_i; i \in I]$ pour un ensemble $I$ de cardinal
+assez grand. Ainsi, d'après le lemme \ref{lemma-hilb-d-of-closed},
+on peut supposer que $X = \Spec(A)$, où $A = R[x_i; i \in I]$.
+Nous utiliserons Schémas, lemme \ref{schemes-lemma-glue-functors} pour démontrer le
+lemme dans ce cas.
+
+\medskip\noindent
+La condition (1) du lemme résulte du lemme \ref{lemma-hilb-d-sheaf}.
+
+\medskip\noindent
+Pour toute partie $W \subset A$ de cardinal $d$, nous allons
+construire un sous-foncteur $F_W$ de $\Hilbfunctor^d_{X/S}$.
+(Il suffirait de considérer le cas où $W$ est formé de
+monômes en les $x_i$, mais cela ne nous sera pas nécessaire.)
+Nous dirons que $Z \in \Hilbfunctor^d_{X/S}(T)$ appartient à $F_W(T)$
+si et seulement si l'application $\mathcal{O}_T$-linéaire
+$$
+\bigoplus\nolimits_{f \in W} \mathcal{O}_T
+\longrightarrow
+(Z \to T)_*\mathcal{O}_Z,\quad
+(g_f) \longmapsto \sum g_f f|_Z
+$$
+est surjective (ou, ce qui revient au même, est un isomorphisme). Pour $f \in A$
+et $Z \in \Hilbfunctor^d_{X/S}(T)$, on note ici $f|_Z$ l'image réciproque de $f$
+par le morphisme $Z \to X_T \to X$.
+
+\medskip\noindent
+Ouverture, c'est-à-dire condition (2)(b) du lemme. Elle résulte de
+Algèbre, lemme \ref{algebra-lemma-cokernel-flat}.
+
+\medskip\noindent
+Recouvrement, c'est-à-dire condition (2)(c) du lemme. Puisque
+$$
+A \otimes_R \mathcal{O}_T =
+(X_T \to T)_*\mathcal{O}_{X_T} \to (Z \to T)_*\mathcal{O}_Z
+$$
+est surjective et que $(Z \to T)_*\mathcal{O}_Z$ est localement libre
+de rang $d$, on peut, pour tout point $t \in T$, trouver une partie finie
+$W \subset A$ de cardinal $d$ dont les images forment une base
+de l'espace vectoriel de dimension $d$ sur $\kappa(t)$
+$((Z \to T)_*\mathcal{O}_Z)_t \otimes_{\mathcal{O}_{T, t}} \kappa(t)$.
+Le lemme de Nakayama donne un voisinage ouvert $V \subset T$
+de $t$ tel que $Z_V \in F_W(V)$.
+
+\medskip\noindent
+Représentabilité, c'est-à-dire condition (2)(a) du lemme. Soit $W \subset A$
+de cardinal $d$. Nous affirmons que $F_W$ est représentable par un schéma
+affine sur $R$. Nous allons construire ce schéma affine, mais invitons
+le lecteur à en chercher lui-même la construction. Numérotons
+$f_1, \ldots, f_d$ les éléments de $W$. Nous construirons un élément
+universel $Z_{univ} = \Spec(B_{univ})$ de $F_W$ sur $T_{univ} = \Spec(R_{univ})$
+comme suit. Posons d'abord
+$$
+R_{univ} = R[c_{kl}^m, b^l, b_i^l]/\mathfrak a_{univ}
+$$
+pour un idéal $\mathfrak a_{univ}$ que nous décrirons ci-dessous.
+Les indices $k, l, m, i$ parcourent tous ici $\{1, \ldots, d\}$.
+Posons ensuite
+$$
+B_{univ} = R_{univ}e_1 \oplus R_{univ}e_2 \oplus \ldots \oplus R_{univ}e_d
+$$
+en tant que $R_{univ}$-module, muni de la structure d'algèbre donnée par
+$$
+e_ke_l = \sum c_{kl}^m e_m
+$$
+L'immersion fermée $Z_{univ} \to X_{T_{univ}}$ est donnée
+par l'homomorphisme de $R_{univ}$-algèbres
+$$
+\Psi : A \otimes_R R_{univ} \longrightarrow B_{univ}
+$$
+envoyant $1 \otimes 1$ sur $\sum b^le_l$ et $x_i$ sur $\sum b_i^le_l$
+(voir ci-dessous pour son existence). Quant à l'idéal $\mathfrak a_{univ}$,
+il doit satisfaire aux prescriptions suivantes :
+\begin{enumerate}
+\item la multiplication dans $B_{univ}$ est commutative, c'est-à-dire que
+l'on doit avoir $c_{lk}^m - c_{kl}^m \in \mathfrak a_{univ}$,
+\item la multiplication dans $B_{univ}$ est associative, c'est-à-dire que
+l'on doit avoir $c_{lk}^m c_{m n}^p - c_{lq}^p c_{kn}^q \in \mathfrak a_{univ}$,
+\item $\sum b^le_l$ est un élément unité $1$ de $B_{univ}$,
+autrement dit, on doit avoir $(\sum b^le_l)e_k = e_k$ pour tout $k$,
+ce qui signifie que $\sum b^lc_{lk}^m - \delta_{km} \in \mathfrak a_{univ}$
+(symbole de Kronecker).
+\end{enumerate}
+Puisque nous avons assuré que $B_{univ}$ est une
+$R_{univ}$-algèbre commutative dont l'unité $1$ est $\sum b^le_l$, l'homomorphisme $\Psi$
+existe. La dernière condition est la suivante :
+\begin{enumerate}
+\item[(4)] $f_l$ doit avoir pour image $e_l$ dans $B_{univ}$. Écrivons
+$\Psi(f_l) - e_l \equiv \sum h_l^me_m$ pour des
+$h_l^m \in R[c_{kl}^m, b^l, b_i^l]$ ;
+on doit alors avoir $h_l^m \in \mathfrak a_{univ}$.
+\end{enumerate}
+En prenant pour $\mathfrak a_{univ} \subset R[c_{kl}^m, b^l, b_i^l]$ l'idéal engendré
+par les éléments énumérés dans (1) -- (4),
+il est clair que $F_W$ est représenté par $\Spec(R_{univ})$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-hilb-d-representable}
+Soit $X \to S$ un morphisme de schémas. Soit $d \geq 0$. Supposons
+que pour tout $(s, x_1, \ldots, x_d)$, où $s \in S$ et
+$x_1, \ldots, x_d \in X_s$, il existe un ouvert affine $U \subset X$
+tel que $x_1, \ldots, x_d \in U$. Alors $\Hilbfunctor^d_{X/S}$ est
+représentable par un schéma.
+\end{proposition}
+
+\begin{proof}
+En utilisant soit le recollement relatif (Constructions, section
+\ref{constructions-section-relative-glueing}), soit
+le point de vue fonctoriel
+(Schémas, lemme \ref{schemes-lemma-glue-functors}),
+on se ramène au cas où $S$ est affine. Nous omettons les détails.
+
+\medskip\noindent
+Supposons $S$ affine. Pour un ouvert affine $U \subset X$, notons
+$F_U \subset \Hilbfunctor^d_{X/S}$ le sous-foncteur tel que,
+pour tout schéma $T/S$, un élément $Z \in \Hilbfunctor^d_{X/S}(T)$
+appartienne à $F_U(T)$ si et seulement si $Z \subset U_T$. Nous utiliserons
+Schémas, lemme \ref{schemes-lemma-glue-functors}
+et les sous-foncteurs $F_U$ pour conclure.
+
+\medskip\noindent
+La condition (1) est le lemme \ref{lemma-hilb-d-sheaf}.
+
+\medskip\noindent
+La condition (2)(a) résulte de ce que $F_U = \Hilbfunctor^d_{U/S}$
+et de sa représentabilité, donnée par le lemme \ref{lemma-hilb-d-An}.
+En effet, si $Z \in F_U(T)$, on peut regarder $Z$ comme un sous-schéma fermé
+de $U_T$, fini localement libre de degré $d$ sur $T$, d'où
+$Z \in \Hilbfunctor^d_{U/S}(T)$. Réciproquement, si $Z \in \Hilbfunctor^d_{U/S}(T)$,
+alors $Z \to U_T \to X_T$ est une immersion fermée\footnote{C'est clair
+si $X \to S$ est séparé, car dans ce cas Morphismes, lemme
+\ref{morphisms-lemma-image-proper-scheme-closed}
+montre que l'immersion $\varphi : Z \to X_T$ a une image fermée,
+et est donc une immersion fermée d'après
+Schémas, lemme \ref{schemes-lemma-immersion-when-closed}. Nous suggérons au
+lecteur de passer la suite de cette note, car nous ne connaissons aucun exemple
+où les hypothèses sur $X \to S$ soient satisfaites sans que $X \to S$ soit séparé.
+Dans le cas général, soit $x \in X_T$ un point de l'adhérence de
+$\varphi(Z)$. Il faut montrer que $x \in \varphi(Z)$. Soit $t \in T$ l'image
+de $x$. L'hypothèse sur $X \to S$ permet de choisir un ouvert affine
+$W \subset X_T$ contenant $x$ et $\varphi(Z_t)$. Alors $\varphi^{-1}(W)$
+est un ouvert contenant toute la fibre $Z_t$ et, puisque $Z \to T$ est fermé,
+on peut, en remplaçant $T$ par un voisinage ouvert de $t$, supposer que
+$Z = \varphi^{-1}(W)$. Alors $\varphi(Z) \subset W$ est fermé d'après le
+cas séparé (car $W \to T$ est séparé), d'où $x \in \varphi(Z)$.}
+et l'on peut regarder $Z$ comme un élément de $F_U(T)$.
+
+\medskip\noindent
+Soit $Z \in \Hilbfunctor^d_{X/S}(T)$ pour un schéma $T$ sur $S$. Posons
+$$
+B = (Z \to T)\left((Z \to X_T \to X)^{-1}(X \setminus U)\right)
+$$
+C'est une partie fermée de $T$, et il est clair que sur l'ouvert
+$T_{Z, U} = T \setminus B$, la restriction $Z_{T'}$ a son image dans $U_{T'}$.
+D'autre part, pour tout $b \in B$, la fibre $Z_b$ n'a pas son image
+dans $U$. Ainsi, étant donné un morphisme $T' \to T$, on
+a $Z_{T'} \in F_U(T')$ $\Leftrightarrow$ $T' \to T$ se factorise par
+l'ouvert $T_{Z, U}$. Cela démontre la condition (2)(b).
+
+\medskip\noindent
+La condition (2)(c) résulte de notre hypothèse sur $X/S$. Il suffit de
+montrer ceci : si $T$ est le spectre d'un corps
+et si $Z \subset X_T$ est un sous-schéma fermé, fini plat de degré
+$d$ sur $T$, alors $Z \to X_T \to X$ se factorise par un ouvert affine
+$U$ de $X$. C'est clair, car $Z$ a au plus $d$ points,
+dont les images sont toutes dans la fibre de $X$ au-dessus du point image
+de $T \to S$.
+\end{proof}
+
+\begin{remark}
+\label{remark-when-proposition-applies}
+Soit $f : X \to S$ un morphisme de schémas. L'hypothèse de la
+proposition \ref{proposition-hilb-d-representable}, et par
+suite sa conclusion, sont satisfaites dans chacun des cas suivants :
+\begin{enumerate}
+\item $X$ est quasi-affine,
+\item $f$ est quasi-affine,
+\item $f$ est quasi-projectif,
+\item $f$ est localement projectif,
+\item il existe un faisceau inversible ample sur $X$,
+\item il existe un faisceau inversible $f$-ample sur $X$, et
+\item il existe un faisceau inversible $f$-très ample sur $X$.
+\end{enumerate}
+En effet, dans chacun de ces cas, tout ensemble fini de points d'une
+fibre $X_s$ est contenu dans un ouvert quasi-compact $U$ de $X$
+qui est muni d'un faisceau inversible ample, est isomorphe
+à un ouvert d'un schéma affine, ou est isomorphe à un ouvert
+du $\text{Proj}$ d'un anneau gradué (dans chaque cas, cela résulte
+directement des définitions). L'existence d'ouverts affines convenables
+résulte donc de
+Propriétés, lemme \ref{properties-lemma-ample-finite-set-in-affine}.
+\end{remark}
+
+
+
+
+\section{Espaces de modules de diviseurs sur les courbes lisses}
+\label{section-divisors}
+
+\noindent
+Pour un morphisme lisse $X \to S$ de dimension relative $1$, le foncteur
+$\Hilbfunctor^d_{X/S}$ paramètre les diviseurs de Cartier effectifs relatifs
+au sens de
+Diviseurs, section \ref{divisors-section-effective-Cartier-morphisms}.
+
+\begin{lemma}
+\label{lemma-divisors-on-curves}
+Soit $X \to S$ un morphisme lisse de schémas de dimension relative $1$.
+Soit $D \subset X$ un sous-schéma fermé. Considérons les conditions suivantes :
+\begin{enumerate}
+\item $D \to S$ est fini localement libre,
+\item $D$ est un diviseur de Cartier effectif relatif sur $X/S$,
+\item $D \to S$ est localement quasi-fini, plat et
+localement de présentation finie, et
+\item $D \to S$ est localement quasi-fini et plat.
+\end{enumerate}
+On a toujours les implications
+$$
+(1) \Rightarrow (2) \Leftrightarrow (3) \Rightarrow (4)
+$$
+Si $S$ est localement noethérien, la dernière flèche est une équivalence.
+Si $X \to S$ est propre (et $S$ quelconque), la première flèche est
+une équivalence.
+\end{lemma}
+
+\begin{proof}
+Équivalence de (2) et (3). Elle résulte de
+Diviseurs, lemme \ref{divisors-lemma-fibre-Cartier},
+à condition de montrer l'équivalence de (2) et (3) lorsque
+$S$ est le spectre d'un corps $k$. Soit $x \in X$ un point fermé.
+Puisque $X$ est lisse de dimension relative $1$ sur $k$, on voit que
+$\mathcal{O}_{X, x}$ est un anneau local régulier de dimension $1$
+(voir Variétés, lemme \ref{varieties-lemma-smooth-regular}).
+Ainsi, $\mathcal{O}_{X, x}$ est un anneau de valuation discrète
+(Algèbre, lemme \ref{algebra-lemma-characterize-dvr}),
+donc un anneau principal. Il en résulte que tout faisceau d'idéaux
+$\mathcal{I} \subset \mathcal{O}_X$ non nul en tous
+les points génériques de $X$ est inversible
+(Diviseurs, lemme \ref{divisors-lemma-effective-Cartier-in-points}).
+Autrement dit, tout sous-schéma fermé de $X$ ne contenant
+aucun point générique est un diviseur de Cartier effectif.
+Il s'ensuit que (2) et (3) sont équivalentes.
+
+\medskip\noindent
+Si $S$ est noethérien, tout morphisme localement quasi-fini
+$D \to S$ est localement de présentation finie (Morphismes, lemme
+\ref{morphisms-lemma-noetherian-finite-type-finite-presentation}),
+d'où l'équivalence de (3) et (4).
+
+\medskip\noindent
+Si $X \to S$ est propre (et $S$ quelconque), alors $D \to S$ est
+également propre. Un morphisme propre localement quasi-fini étant fini
+(Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-characterize-finite})
+et un morphisme fini, plat et de présentation finie étant fini localement libre
+(Morphismes, lemme \ref{morphisms-lemma-finite-flat}), on voit que
+(1) et (2) sont équivalentes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sum-divisors-on-curves}
+Soit $X \to S$ un morphisme lisse de schémas de dimension relative $1$.
+Soient $D_1, D_2 \subset X$ des sous-schémas fermés finis localement libres de
+degrés $d_1$, $d_2$ sur $S$. Alors $D_1 + D_2$ est fini localement libre
+de degré $d_1 + d_2$ sur $S$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-divisors-on-curves}, les sous-schémas $D_1$
+et $D_2$ sont des diviseurs de Cartier effectifs relatifs sur $X/S$.
+Ainsi, $D = D_1 + D_2$ est un diviseur de Cartier effectif relatif
+sur $X/S$ d'après
+Diviseurs, lemme \ref{divisors-lemma-sum-relative-effective-Cartier-divisor}.
+Par conséquent, $D \to S$ est localement quasi-fini, plat et
+localement de présentation finie d'après le
+lemme \ref{lemma-divisors-on-curves}.
+En appliquant
+Morphismes, lemme \ref{morphisms-lemma-image-universally-closed-separated}
+au morphisme entier surjectif $D_1 \amalg D_2 \to D$,
+on voit que $D \to S$ est séparé. Alors
+Morphismes, lemme \ref{morphisms-lemma-image-proper-is-proper}
+montre que $D \to S$ est propre.
+Il en résulte que $D \to S$ est fini
+(Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-characterize-finite}),
+puis que $D \to S$ est fini localement libre
+(Morphismes, lemme \ref{morphisms-lemma-finite-flat}).
+Il suffit donc de montrer que le degré de $D \to S$ est $d_1 + d_2$.
+Pour cela, on peut effectuer un changement de base à une fibre de $X \to S$, donc
+supposer que $S = \Spec(k)$ pour un corps $k$.
+Dans ce cas, il existe un ensemble fini de points fermés
+$x_1, \ldots, x_n \in X$ tel que les supports de $D_1$ et $D_2$
+soient contenus dans $\{x_1, \ldots, x_n\}$.
+Il existe en fait des éléments non diviseurs de zéro $f_{i, j} \in \mathcal{O}_{X, x_i}$
+tels que
+$$
+D_1 = \coprod_{i = 1}^n \Spec(\mathcal{O}_{X, x_i}/(f_{i, 1}))
+\quad\text{et}\quad
+D_2 = \coprod_{i = 1}^n \Spec(\mathcal{O}_{X, x_i}/(f_{i, 2}))
+$$
+On voit alors que
+$$
+D = \coprod_{i = 1}^n \Spec(\mathcal{O}_{X, x_i}/(f_{i, 1}f_{i, 2}))
+$$
+On en déduit aisément que $D$ est de degré $d_1 + d_2$
+sur $k$ (au besoin, utiliser Algèbre, lemme \ref{algebra-lemma-ord-additive}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-difference-divisors-on-curves}
+Soit $X \to S$ un morphisme lisse de schémas de dimension relative $1$.
+Soient $D_1, D_2 \subset X$ des sous-schémas fermés finis localement libres de
+degrés $d_1$, $d_2$ sur $S$. Si $D_1 \subset D_2$ (comme sous-schémas fermés),
+il existe un sous-schéma fermé $D \subset X$ fini localement libre de
+degré $d_2 - d_1$ sur $S$ tel que $D_2 = D_1 + D$.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est presque identique à celle du
+lemme \ref{lemma-sum-divisors-on-curves}.
+D'après le lemme \ref{lemma-divisors-on-curves}, les sous-schémas $D_1$
+et $D_2$ sont des diviseurs de Cartier effectifs relatifs sur $X/S$.
+D'après Diviseurs, lemme
+\ref{divisors-lemma-difference-relative-effective-Cartier-divisor},
+il existe un diviseur de Cartier effectif relatif $D \subset X$
+tel que $D_2 = D_1 + D$. Ainsi, $D \to S$ est localement quasi-fini, plat et
+localement de présentation finie d'après le
+lemme \ref{lemma-divisors-on-curves}.
+Puisque $D$ est un sous-schéma fermé de $D_2$, on voit que
+$D \to S$ est fini. Il s'ensuit que $D \to S$ est fini localement libre
+(Morphismes, lemme \ref{morphisms-lemma-finite-flat}).
+Il suffit donc de montrer que le degré de $D \to S$ est $d_2 - d_1$.
+Cela résulte du lemme \ref{lemma-sum-divisors-on-curves}.
+\end{proof}
+
+\noindent
+Soit $X \to S$ un morphisme lisse de schémas de dimension relative $1$.
+D'après le lemme \ref{lemma-divisors-on-curves}, pour un schéma $T$ sur $S$ et
+$D \in \Hilbfunctor^d_{X/S}(T)$, on peut regarder $D$ comme un diviseur de Cartier
+effectif relatif sur $X_T/T$ tel que $D \to T$ soit fini
+localement libre de degré $d$. Par conséquent, le
+lemme \ref{lemma-sum-divisors-on-curves} donne une transformation
+de foncteurs
+$$
+\Hilbfunctor^{d_1}_{X/S} \times \Hilbfunctor^{d_2}_{X/S}
+\longrightarrow
+\Hilbfunctor^{d_1 + d_2}_{X/S},\quad
+(D_1, D_2) \longmapsto D_1 + D_2
+$$
+Si $\Hilbfunctor^d_{X/S}$ est représentable pour tout degré $d$, cette
+transformation de foncteurs correspond à un morphisme de schémas
+$$
+\underline{\Hilbfunctor}^{d_1}_{X/S}
+\times_S
+\underline{\Hilbfunctor}^{d_2}_{X/S}
+\longrightarrow
+\underline{\Hilbfunctor}^{d_1 + d_2}_{X/S}
+$$
+sur $S$. Notons que $\underline{\Hilbfunctor}^0_{X/S} = S$ et
+$\underline{\Hilbfunctor}^1_{X/S} = X$.
+Un cas particulier du morphisme précédent est le morphisme
+$$
+\underline{\Hilbfunctor}^d_{X/S} \times_S X
+\longrightarrow
+\underline{\Hilbfunctor}^{d + 1}_{X/S},\quad
+(D, x) \longmapsto D + x
+$$
+
+\begin{lemma}
+\label{lemma-universal-object}
+Soit $X \to S$ un morphisme lisse de schémas de dimension relative $1$
+tel que les foncteurs $\Hilbfunctor^d_{X/S}$ soient représentables. Le morphisme
+$\underline{\Hilbfunctor}^d_{X/S} \times_S X \to
+\underline{\Hilbfunctor}^{d + 1}_{X/S}$
+est fini localement libre de degré $d + 1$.
+\end{lemma}
+
+\begin{proof}
+Soit $D_{univ} \subset X \times_S \underline{\Hilbfunctor}^{d + 1}_{X/S}$
+l'objet universel. On a un diagramme commutatif
+$$
+\xymatrix{
+\underline{\Hilbfunctor}^d_{X/S} \times_S X \ar[rr] \ar[rd] & &
+D_{univ} \ar[ld] \ar@{^{(}->}[r] &
+\underline{\Hilbfunctor}^{d + 1}_{X/S} \times_S X \\
+& \underline{\Hilbfunctor}^{d + 1}_{X/S}
+}
+$$
+où la flèche horizontale supérieure envoie $(D', x)$ sur $(D' + x, x)$.
+Nous affirmons que ce morphisme est un isomorphisme,
+ce qui démontre le lemme. En effet, étant donné un schéma $T$ sur $S$,
+un $T$-point $\xi$ de $D_{univ}$ est donné par un couple $\xi = (D, x)$,
+où $D \subset X_T$ est un sous-schéma fermé fini localement libre
+de degré $d + 1$ sur $T$ et $x : T \to X$ est un morphisme dont
+le graphe $x : T \to X_T$ se factorise par $D$. D'après le
+lemme \ref{lemma-difference-divisors-on-curves},
+on peut alors écrire $D = D' + x$ pour un $D' \subset X_T$ fini localement
+libre de degré $d$ sur $T$. L'application qui associe à $\xi = (D, x)$ le couple
+$(D', x)$ est l'inverse cherché.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-d-smooth}
+Soit $X \to S$ un morphisme lisse de schémas de dimension relative $1$
+tel que les foncteurs $\Hilbfunctor^d_{X/S}$ soient représentables. Les
+schémas $\underline{\Hilbfunctor}^d_{X/S}$ sont lisses sur $S$ de
+dimension relative $d$.
+\end{lemma}
+
+\begin{proof}
+On a $\underline{\Hilbfunctor}^0_{X/S} = S$ et
+$\underline{\Hilbfunctor}^1_{X/S} = X$ ; le résultat est donc vrai pour $d = 0, 1$.
+Supposons le résultat établi pour $d$ ; alors
+$\underline{\Hilbfunctor}^d_{X/S} \times_S X$ est lisse sur $S$
+(Morphismes, lemme \ref{morphisms-lemma-base-change-smooth} et
+\ref{morphisms-lemma-composition-smooth}). Puisque
+$\underline{\Hilbfunctor}^d_{X/S} \times_S X \to
+\underline{\Hilbfunctor}^{d + 1}_{X/S}$
+est fini localement libre de degré $d + 1$ d'après le
+lemme \ref{lemma-universal-object},
+le résultat découle de
+Descente, lemme \ref{descent-lemma-smooth-permanence}.
+Nous omettons la vérification de la valeur annoncée de la dimension
+relative (on peut la faire en examinant les fibres, ou en
+suivant les dimensions dans le raisonnement précédent).
+\end{proof}
+
+\noindent
+Rassemblons les résultats obtenus jusqu'ici dans le cas
+d'une courbe propre et lisse sur un corps.
+
+\begin{proposition}
+\label{proposition-hilb-d}
+Soit $X$ une courbe propre, lisse et géométriquement irréductible sur un corps $k$.
+\begin{enumerate}
+\item Les foncteurs $\Hilbfunctor^d_{X/k}$ sont représentables par des variétés
+propres et lisses $\underline{\Hilbfunctor}^d_{X/k}$ de dimension
+$d$ sur $k$.
+\item Pour toute extension de corps $k'/k$, les points $k'$-rationnels
+de $\underline{\Hilbfunctor}^d_{X/k}$ sont en correspondance biunivoque
+avec les diviseurs de Cartier effectifs de degré $d$ sur $X_{k'}$.
+\item Pour $d_1, d_2 \geq 0$, il existe un morphisme
+$$
+\underline{\Hilbfunctor}^{d_1}_{X/k}
+\times_k
+\underline{\Hilbfunctor}^{d_2}_{X/k}
+\longrightarrow
+\underline{\Hilbfunctor}^{d_1 + d_2}_{X/k}
+$$
+qui est fini localement libre de degré ${d_1 + d_2 \choose d_1}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Les foncteurs $\Hilbfunctor^d_{X/k}$ sont représentables d'après la
+proposition \ref{proposition-hilb-d-representable}
+(voir aussi la remarque \ref{remark-when-proposition-applies})
+et le fait que $X$ est projectif
+(Variétés, lemme \ref{varieties-lemma-dim-1-proper-projective}).
+Les schémas $\underline{\Hilbfunctor}^d_{X/k}$ sont séparés
+sur $k$ d'après le lemme \ref{lemma-hilb-d-separated}.
+Les schémas $\underline{\Hilbfunctor}^d_{X/k}$ sont lisses
+sur $k$ d'après le lemme \ref{lemma-hilb-d-smooth}.
+Partant de $X = \underline{\Hilbfunctor}^1_{X/k}$,
+les morphismes du lemme \ref{lemma-universal-object}
+donnent par récurrence un morphisme
+$$
+X^d = X \times_k X \times_k \ldots \times_k X \longrightarrow
+\underline{\Hilbfunctor}^d_{X/k},\quad
+(x_1, \ldots, x_d) \longrightarrow x_1 + \ldots + x_d
+$$
+qui est fini localement libre de degré $d!$. Puisque $X$ est
+propre sur $k$, il en est de même de $X^d$, donc
+$\underline{\Hilbfunctor}^d_{X/k}$ est propre sur $k$ d'après
+Morphismes, lemme \ref{morphisms-lemma-image-proper-is-proper}.
+Puisque $X$ est géométriquement irréductible sur $k$, le produit
+$X^d$ est irréductible
+(Variétés, lemme \ref{varieties-lemma-bijection-irreducible-components}),
+donc son image est irréductible (et même géométriquement irréductible).
+Cela démontre (1). L'assertion (2) résulte des définitions. L'assertion (3) découle
+du diagramme commutatif
+$$
+\xymatrix{
+X^{d_1} \times_k X^{d_2} \ar[d] \ar@{=}[r] & X^{d_1 + d_2} \ar[d] \\
+\underline{\Hilbfunctor}^{d_1}_{X/k}
+\times_k
+\underline{\Hilbfunctor}^{d_2}_{X/k}
+\ar[r] &
+\underline{\Hilbfunctor}^{d_1 + d_2}_{X/k}
+}
+$$
+et de la multiplicativité des degrés des morphismes finis localement libres.
+\end{proof}
+
+\begin{remark}
+\label{remark-universal-object-hilb-d}
+Soit $X$ une courbe propre, lisse et géométriquement irréductible sur un corps $k$,
+comme dans la proposition \ref{proposition-hilb-d}. Soit $d \geq 0$. Le sous-schéma
+fermé universel est un diviseur effectif relatif
+$$
+D_{univ} \subset \underline{\Hilbfunctor}^{d + 1}_{X/k} \times_k X
+$$
+sur $\underline{\Hilbfunctor}^{d + 1}_{X/k}$ d'après le
+lemme \ref{lemma-divisors-on-curves}.
+En fait, $D_{univ}$ est isomorphe, en tant que schéma, à
+$\underline{\Hilbfunctor}^d_{X/k} \times_k X$, voir la démonstration du
+lemme \ref{lemma-universal-object}.
+En particulier, $D_{univ}$ est un diviseur de Cartier effectif et
+l'on obtient un module inversible
+$\mathcal{O}(D_{univ})$. Si $[D] \in \underline{\Hilbfunctor}^{d + 1}_{X/k}$
+désigne le point $k$-rationnel correspondant au diviseur de Cartier
+effectif $D \subset X$ de degré $d + 1$, la restriction
+de $\mathcal{O}(D_{univ})$ à la fibre $[D] \times X$ est
+$\mathcal{O}_X(D)$.
+\end{remark}
+
+
+\section{Le foncteur de Picard}
+\label{section-picard-functor}
+
+\noindent
+Pour tout schéma $X$, on note $\Pic(X)$ l'ensemble des classes
+d'isomorphisme de $\mathcal{O}_X$-modules inversibles.
+Voir Modules, définition \ref{modules-definition-pic}.
+Étant donné un morphisme $f : X \to Y$ de schémas, l'image réciproque définit
+un homomorphisme de groupes $\Pic(Y) \to \Pic(X)$.
+L'association
+$X \leadsto \Pic(X)$ est un foncteur contravariant de la catégorie
+des schémas dans celle des groupes abéliens. Ce foncteur n'est pas
+représentable, mais une variante relative de cette
+construction est parfois représentable.
+
+\medskip\noindent
+Définissons le foncteur de Picard d'un morphisme de schémas $f : X \to S$.
+L'idée de la construction consiste à prendre pour ce foncteur le faisceau
+$R^1f_*\mathbf{G}_m$, l'image directe supérieure étant calculée pour
+la topologie fppf. En explicitant les définitions, on obtient la définition
+plus directe suivante.
+
+\begin{definition}
+\label{definition-picard-functor}
+Soit $\Sch_{fppf}$ un grand site comme dans
+Topologies, définition \ref{topologies-definition-big-small-fppf}.
+Soit $f : X \to S$ un morphisme de ce site. Le {\it foncteur de Picard}
+$\Picardfunctor_{X/S}$ est le faisceau fppf associé au foncteur
+$$
+(\Sch/S)_{fppf} \longrightarrow \textit{Ensembles},\quad
+T \longmapsto \Pic(X_T)
+$$
+Si ce foncteur est représentable, on note
+$\underline{\Picardfunctor}_{X/S}$ un schéma qui le représente.
+\end{definition}
+
+\noindent
+Une remarque d'usage fréquent est que, si $T \in \Ob((\Sch/S)_{fppf})$, alors
+$\Picardfunctor_{X_T/T}$ est la restriction de $\Picardfunctor_{X/S}$ à
+$(\Sch/T)_{fppf}$.
+Déterminer la valeur de $\Picardfunctor_{X/S}$ sur les schémas
+$T$ sur $S$ n'est pas immédiat. Le lemme suivant facilite cette
+tâche.
+
+\begin{lemma}
+\label{lemma-flat-geometrically-connected-fibres}
+Soit $f : X \to S$ comme dans la définition \ref{definition-picard-functor}.
+Si $\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$ est un isomorphisme
+pour tout $T \in \Ob((\Sch/S)_{fppf})$, alors
+$$
+0 \to \Pic(T) \to \Pic(X_T) \to \Picardfunctor_{X/S}(T)
+$$
+est une suite exacte pour tout $T$.
+\end{lemma}
+
+\begin{proof}
+On peut remplacer $S$ par $T$ et $X$ par $X_T$, donc supposer $S = T$
+pour simplifier les notations. Soit $\mathcal{N}$ un
+$\mathcal{O}_S$-module inversible. Si $f^*\mathcal{N} \cong \mathcal{O}_X$, alors
+$f_*f^*\mathcal{N} \cong f_*\mathcal{O}_X \cong \mathcal{O}_S$
+par hypothèse. Puisque $\mathcal{N}$ est localement trivial, on voit que
+l'application canonique $\mathcal{N} \to f_*f^*\mathcal{N}$ est localement
+un isomorphisme (car $\mathcal{O}_S \to f_*f^*\mathcal{O}_S$
+est un isomorphisme par hypothèse). On en conclut que
+$\mathcal{N} \to f_*f^*\mathcal{N} \to \mathcal{O}_S$ est un isomorphisme,
+donc que $\mathcal{N}$ est trivial. Cela démontre que la première flèche
+est injective.
+
+\medskip\noindent
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible dont la classe appartient
+au noyau de $\Pic(X) \to \Picardfunctor_{X/S}(S)$. Il existe alors
+un recouvrement fppf $\{S_i \to S\}$ tel que l'image réciproque de $\mathcal{L}$
+soit le faisceau inversible trivial sur $X_{S_i}$. Choisissons une section
+trivialisante $s_i$. Alors $\text{pr}_0^*s_i$ et $\text{pr}_1^*s_j$ sont deux
+sections trivialisantes de $\mathcal{L}$ sur $X_{S_i \times_S S_j}$
+et diffèrent donc par multiplication par une unité
+$$
+f_{ij} \in
+\Gamma(X_{S_i \times_S S_j}, \mathcal{O}_{X_{S_i \times_S S_j}}^*) =
+\Gamma(S_i \times_S S_j, \mathcal{O}_{S_i \times_S S_j}^*)
+$$
+(l'égalité résulte de notre hypothèse sur l'image directe des faisceaux structuraux).
+Ces éléments satisfont évidemment à la condition de cocycle sur
+$S_i \times_S S_j \times_S S_k$, et définissent donc une donnée de descente
+de faisceaux inversibles pour le recouvrement fppf $\{S_i \to S\}$.
+D'après Descente, proposition \ref{descent-proposition-fpqc-descent-quasi-coherent},
+il existe un $\mathcal{O}_S$-module inversible $\mathcal{N}$
+muni de trivialisations sur les $S_i$ dont la donnée de descente associée est
+$\{f_{ij}\}$. Alors $f^*\mathcal{N} \cong \mathcal{L}$, car le
+foncteur des données de descente vers les modules est pleinement fidèle (voir la proposition
+citée ci-dessus).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-geometrically-connected-fibres-with-section}
+Soit $f : X \to S$ comme dans la définition \ref{definition-picard-functor}.
+Supposons que $f$ admette une section $\sigma$ et que
+$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$ soit un isomorphisme
+pour tout $T \in \Ob((\Sch/S)_{fppf})$. Alors
+$$
+0 \to \Pic(T) \to \Pic(X_T) \to \Picardfunctor_{X/S}(T) \to 0
+$$
+est une suite exacte scindée, le scindage étant donné par
+$\sigma_T^* : \Pic(X_T) \to \Pic(T)$.
+\end{lemma}
+
+\begin{proof}
+Notons $K(T) = \Ker(\sigma_T^* : \Pic(X_T) \to \Pic(T))$.
+Puisque $\sigma$ est une section de $f$, le groupe $\Pic(X_T)$ est la somme
+directe de $\Pic(T)$ et de $K(T)$.
+Le lemme \ref{lemma-flat-geometrically-connected-fibres} montre donc que
+$K(T) \subset \Picardfunctor_{X/S}(T)$ pour tout $T$. De plus, la construction
+montre clairement que $\Picardfunctor_{X/S}$ est le faisceau associé
+au préfaisceau $K$. Pour achever la démonstration, il suffit de montrer que
+$K$ satisfait à la condition de faisceau pour les recouvrements fppf, ce que nous faisons
+dans le paragraphe suivant.
+
+\medskip\noindent
+Soit $\{T_i \to T\}$ un recouvrement fppf. Soient $\mathcal{L}_i$ des
+éléments de $K(T_i)$ dont les images dans $K(T_i \times_T T_j)$ sont égales
+pour tous $i$ et $j$. Choisissons un isomorphisme
+$\alpha_i : \mathcal{O}_{T_i} \to \sigma_{T_i}^*\mathcal{L}_i$
+pour tout $i$. Choisissons un isomorphisme
+$$
+\varphi_{ij} :
+\mathcal{L}_i|_{X_{T_i \times_T T_j}}
+\longrightarrow
+\mathcal{L}_j|_{X_{T_i \times_T T_j}}
+$$
+Si l'application
+$$
+\alpha_j^{-1}|_{T_i \times_T T_j} \circ
+\sigma_{T_i \times_T T_j}^*\varphi_{ij} \circ
+\alpha_i|_{T_i \times_T T_j} :
+\mathcal{O}_{T_i \times_T T_j} \to \mathcal{O}_{T_i \times_T T_j}
+$$
+n'est pas la multiplication par $1$, mais par un élément $u_{ij}$, on peut multiplier
+$\varphi_{ij}$ par $u_{ij}^{-1}$ pour y remédier. Ceci fait, considérons
+l'endomorphisme
+$$
+\varphi_{ki}|_{X_{T_i \times_T T_j \times_T T_k}} \circ
+\varphi_{jk}|_{X_{T_i \times_T T_j \times_T T_k}} \circ
+\varphi_{ij}|_{X_{T_i \times_T T_j \times_T T_k}}
+\quad\text{de}\quad
+\mathcal{L}_i|_{X_{T_i \times_T T_j \times_T T_k}}
+$$
+qui est la multiplication par une fonction régulière $f_{ijk}$
+sur le schéma $X_{T_i \times_T T_j \times_T T_k}$.
+Par notre choix de $\varphi_{ij}$, l'image réciproque de
+cette application par $\sigma$ est la multiplication par $1$. D'après
+notre hypothèse sur les fonctions sur $X$, on voit que $f_{ijk} = 1$.
+On obtient ainsi une donnée de descente pour le recouvrement fppf
+$\{X_{T_i} \to X_T\}$. D'après
+Descente, proposition \ref{descent-proposition-fpqc-descent-quasi-coherent},
+il existe un $\mathcal{O}_{X_T}$-module inversible $\mathcal{L}$
+et un isomorphisme $\alpha : \mathcal{O}_T \to \sigma_T^*\mathcal{L}$
+dont l'image réciproque sur $X_{T_i}$ redonne $(\mathcal{L}_i, \alpha_i)$
+(nous omettons un petit détail). Ainsi, $\mathcal{L}$ définit un objet
+de $K(T)$, comme voulu.
+\end{proof}
+
+
+
+\section{Un critère de représentabilité}
+\label{section-representability}
+
+\noindent
+Pour démontrer que le foncteur de Picard est représentable, nous utiliserons le
+critère suivant.
+
+\begin{lemma}
+\label{lemma-criterion}
+Soit $k$ un corps. Soit $G : (\Sch/k)^{opp} \to \textit{Groupes}$ un
+foncteur. Avec la terminologie de
+Schémas, définition \ref{schemes-definition-representable-by-open-immersions},
+supposons que
+\begin{enumerate}
+\item $G$ soit un faisceau pour la topologie de Zariski,
+\item il existe un sous-foncteur $F \subset G$ tel que
+\begin{enumerate}
+\item $F$ soit représentable,
+\item $F \subset G$ soit représentable par une immersion ouverte,
+\item pour toute extension de corps $K$ de $k$ et tout $g \in G(K)$,
+il existe un $g' \in G(k)$ tel que $g'g \in F(K)$.
+\end{enumerate}
+\end{enumerate}
+Alors $G$ est représentable par un schéma en groupes sur $k$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de Schémas, lemme \ref{schemes-lemma-glue-functors}.
+En effet, prenons $I = G(k)$ et, pour $i = g' \in I$, prenons pour $F_i \subset G$
+le sous-foncteur qui associe à $T$ sur $k$ l'ensemble des éléments
+$g \in G(T)$ tels que $g'g \in F(T)$. Alors $F_i \cong F$ par multiplication
+par $g'$. L'application $F_i \to G$ est isomorphe à l'application $F \to G$
+par multiplication par $g'$, donc est représentable par des immersions ouvertes.
+Enfin, la famille $(F_i)_{i \in I}$ recouvre $G$ par l'hypothèse (2)(c).
+Le lemme cité ci-dessus s'applique donc, ce qui achève la démonstration.
+\end{proof}
+
+
+
+\section{Le schéma de Picard d'une courbe}
+\label{section-picard-curve}
+
+\noindent
+Dans cette section, nous appliquerons le lemme \ref{lemma-criterion} pour montrer que
+$\Picardfunctor_{X/k}$ est représentable lorsque $k$ est un corps algébriquement
+clos et $X$ une courbe projective lisse sur $k$. Pour cela,
+nous utiliserons quelques résultats de cohomologie et de changement de base développés dans
+le chapitre sur les catégories dérivées des schémas.
+
+\begin{lemma}
+\label{lemma-check-conditions}
+Soit $k$ un corps. Soit $X$ une courbe projective lisse sur $k$
+possédant un point $k$-rationnel. Alors les hypothèses du
+lemme \ref{lemma-flat-geometrically-connected-fibres-with-section}
+sont satisfaites.
+\end{lemma}
+
+\begin{proof}
+L'expression « possède un point $k$-rationnel » signifie exactement que
+le morphisme structural $f : X \to \Spec(k)$ admet une section, ce qui
+vérifie la première condition.
+D'après Variétés, lemme \ref{varieties-lemma-regular-functions-proper-variety},
+le corps $k' = H^0(X, \mathcal{O}_X)$ est une extension de $k$.
+Puisque $X$ possède un point $k$-rationnel, il existe un homomorphisme de $k$-algèbres
+$k' \to k$, d'où $k' = k$.
+Puisque $k$ est un corps, tout morphisme $T \to \Spec(k)$ est plat.
+Par cohomologie et changement de base
+(Cohomologie des schémas, lemme \ref{coherent-lemma-flat-base-change-cohomology}),
+on voit donc que $\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$ est un isomorphisme.
+Cela achève la démonstration.
+\end{proof}
+
+\noindent
+Soit $X$ une courbe projective lisse sur un corps $k$, munie d'un
+point $k$-rationnel $\sigma$. Alors le foncteur
+$$
+\Picardfunctor_{X/k, \sigma} : (\Sch/k)^{opp} \longrightarrow \textit{Ab},\quad
+T \longmapsto \Ker(\Pic(X_T) \xrightarrow{\sigma_T^*} \Pic(T))
+$$
+est isomorphe à $\Picardfunctor_{X/k}$ sur $(\Sch/k)_{fppf}$
+d'après les lemmes \ref{lemma-check-conditions} et
+\ref{lemma-flat-geometrically-connected-fibres-with-section}.
+Il suffira donc de démontrer que $\Picardfunctor_{X/k, \sigma}$
+est représentable. Nous emploierons la notation
+« $\mathcal{L} \in \Picardfunctor_{X/k, \sigma}(T)$ » pour signifier que
+$T$ est un schéma sur $k$ et que $\mathcal{L}$ est un
+$\mathcal{O}_{X_T}$-module inversible dont la restriction à $T$ par $\sigma_T$
+est isomorphe à $\mathcal{O}_T$.
+
+\begin{lemma}
+\label{lemma-define-open}
+Soit $k$ un corps. Soit $X$ une courbe projective lisse sur $k$
+munie d'un point $k$-rationnel $\sigma$. Pour tout schéma $T$ sur $k$,
+considérons la partie $F(T) \subset \Picardfunctor_{X/k, \sigma}(T)$ formée des
+$\mathcal{L}$ tels que $Rf_{T, *}\mathcal{L}$ soit isomorphe à un
+$\mathcal{O}_T$-module inversible placé en degré $0$. Alors
+$F \subset \Picardfunctor_{X/k, \sigma}$ est un sous-foncteur, et l'inclusion est
+représentable par des immersions ouvertes.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-open-where-cohomology-in-degree-i-rank-r-geometric},
+appliqué avec $i = 0$ et $r = 1$, et de
+Schémas, définition \ref{schemes-definition-representable-by-open-immersions}.
+\end{proof}
+
+\noindent
+Pour poursuivre, il convient de poser la définition suivante.
+
+\begin{definition}
+\label{definition-genus}
+Soit $k$ un corps. Soit $X$ une courbe projective lisse géométriquement irréductible
+sur $k$. Le {\it genre} de $X$ est $g = \dim_k H^1(X, \mathcal{O}_X)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-open-representable}
+Soit $k$ un corps. Soit $X$ une courbe projective lisse de genre $g$
+sur $k$, munie d'un point $k$-rationnel $\sigma$. Le sous-foncteur ouvert $F$ défini
+au lemme \ref{lemma-define-open} est représentable par un sous-schéma ouvert de
+$\underline{\Hilbfunctor}^g_{X/k}$.
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, les produits sans indice sont pris sur $\Spec(k)$.
+D'après la proposition \ref{proposition-hilb-d}, le schéma
+$H = \underline{\Hilbfunctor}^g_{X/k}$ existe.
+Considérons le diviseur universel $D_{univ} \subset H \times X$
+et le faisceau inversible associé $\mathcal{O}(D_{univ})$, voir
+la remarque \ref{remark-universal-object-hilb-d}.
+Nous le rigidifions par produit tensoriel à l'aide de l'image réciproque suivant
+$\sigma_H : H \to H \times X$, pour obtenir
+$$
+\mathcal{L}_H =
+\mathcal{O}(D_{univ})
+\otimes_{\mathcal{O}_{H \times X}}
+\text{pr}_H^*\sigma_H^*\mathcal{O}(D_{univ})^{\otimes -1}
+\in
+\Picardfunctor_{X/k, \sigma}(H)
+$$
+Par le lemme de Yoneda (Catégories, lemme \ref{categories-lemma-yoneda}),
+le faisceau inversible $\mathcal{L}_H$ définit une transformation naturelle
+$$
+h_H \longrightarrow \Picardfunctor_{X/k, \sigma}
+$$
+Puisque $F$ est un sous-foncteur ouvert, il existe un plus grand ouvert
+$W \subset H$ tel que $\mathcal{L}_H|_{W \times X}$ appartienne à
+$F(W)$. Cet ouvert n'est autre que le
+sous-schéma ouvert construit dans
+Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-open-where-cohomology-in-degree-i-rank-r-geometric},
+avec $i = 0$ et $r = 1$, pour le morphisme $H \times X \to H$ et le faisceau
+$\mathcal{F} = \mathcal{O}(D_{univ})$. En appliquant à nouveau le lemme de Yoneda,
+on obtient un diagramme commutatif
+$$
+\xymatrix{
+h_W \ar[d] \ar[r] & F \ar[d] \\
+h_H \ar[r] & \Picardfunctor_{X/k, \sigma}
+}
+$$
+Pour achever la démonstration, nous montrerons que la flèche horizontale supérieure est un
+isomorphisme.
+
+\medskip\noindent
+Soit $\mathcal{L} \in F(T) \subset \Picardfunctor_{X/k, \sigma}(T)$.
+Soit $\mathcal{N}$ le $\mathcal{O}_T$-module inversible
+tel que $Rf_{T, *}\mathcal{L} \cong \mathcal{N}[0]$.
+L'application d'adjonction
+$$
+f_T^*\mathcal{N} \longrightarrow \mathcal{L}
+\quad\text{correspond à une section }s\text{ de}\quad
+\mathcal{L} \otimes f_T^*\mathcal{N}^{\otimes -1}
+$$
+sur $X_T$. Assertion : le schéma des zéros de $s$ est un diviseur de Cartier effectif
+relatif $D$ sur $(T \times X)/T$, fini localement libre de degré $g$ sur $T$.
+
+\medskip\noindent
+Achevons la démonstration du lemme en admettant cette assertion.
+Le diviseur $D$ définit un morphisme $m : T \to H$ tel que $D$ soit l'image réciproque de
+$D_{univ}$. Alors
+$$
+(m \times \text{id}_X)^*\mathcal{O}(D_{univ}) \cong
+\mathcal{O}_{T \times X}(D)
+$$
+Puisque $\mathcal{O}_{T \times X}(D) \cong
+\mathcal{L} \otimes f_T^*\mathcal{N}^{\otimes -1}$,
+on en conclut que $(m \times \text{id}_X)^*\mathcal{L}_H$ et $\mathcal{L}$
+diffèrent par tensorisation avec l'image réciproque d'un module inversible sur $T$.
+Cela montre que $m : T \to H$ se factorise par l'ouvert $W \subset H$ ci-dessus.
+De plus, il s'ensuit que ces modules inversibles définissent, après rigidification
+par image réciproque suivant $\sigma_T$ comme ci-dessus, le même élément de
+$\Picardfunctor_{X/k, \sigma}(T)$. Une chasse au diagramme utilisant le lemme de Yoneda
+montre que $m \in h_W(T)$ a pour image $\mathcal{L} \in F(T)$. Nous omettons
+la vérification du fait que la règle $F(T) \to h_W(T)$,
+$\mathcal{L} \mapsto m$, définit un inverse de la transformation
+de foncteurs ci-dessus.
+
+\medskip\noindent
+Démonstration de l'assertion. Puisque $D$ est un sous-schéma fermé localement principal
+de $T \times X$, il suffit de montrer que les fibres de $D$ sur $T$ sont des
+diviseurs de Cartier effectifs, voir le lemme \ref{lemma-divisors-on-curves} et
+Diviseurs, lemme \ref{divisors-lemma-fibre-Cartier}. Puisque le calcul
+de la cohomologie de $\mathcal{L}$ commute au changement de base
+(Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}),
+on se ramène à $T = \Spec(K)$, où $K/k$ est une extension de corps.
+Alors $\mathcal{L}$ est un faisceau inversible sur $X_K$ tel que
+$H^0(X_K, \mathcal{L}) = K$ et $H^1(X_K, \mathcal{L}) = 0$. Ainsi,
+$$
+\deg(\mathcal{L}) = \chi(X_K, \mathcal{L}) - \chi(X_K, \mathcal{O}_{X_K})
+= 1 - (1 - g) = g
+$$
+Voir Variétés, définition \ref{varieties-definition-degree-invertible-sheaf}.
+Pour achever la démonstration, il faut montrer qu'une section non nulle de $\mathcal{L}$
+définit un diviseur de Cartier effectif sur $X_K$.
+C'est clair.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-twist-with-general-divisor}
+Soit $k$ un corps séparablement clos. Soit $X$ une courbe projective lisse
+de genre $g$ sur $k$. Soit $K/k$ une extension de corps et soit
+$\mathcal{L}$ un faisceau inversible sur $X_K$. Il existe alors un
+faisceau inversible $\mathcal{L}_0$ sur $X$ tel que
+$\dim_K H^0(X_K,
+\mathcal{L} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}_0|_{X_K}) = 1$ et
+$\dim_K H^1(X_K,
+\mathcal{L} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}_0|_{X_K}) = 0$.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est une variante de celle de
+Variétés, lemme \ref{varieties-lemma-general-degree-g-line-bundle}.
+Nous invitons le lecteur à lire d'abord cette dernière.
+
+\medskip\noindent
+Choisissons d'abord un faisceau inversible ample $\mathcal{L}_0$ et
+remplaçons $\mathcal{L}$ par
+$\mathcal{L} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}_0^{\otimes n}|_{X_K}$
+pour un $n \gg 0$. Nous pourrons ainsi supposer que
+$H^0(X_K, \mathcal{L}) \not = 0$ et $H^1(X_K, \mathcal{L}) = 0$.
+En effet, l'annulation résulte de Cohomologie des schémas, lemme
+\ref{coherent-lemma-vanshing-gives-ample}, et la non-annulation de ce que
+le degré du produit tensoriel est $\gg 0$.
+Nous achèverons la démonstration par récurrence descendante sur
+$t = \dim_K H^0(X_K, \mathcal{L})$. Le cas initial $t = 1$ est trivial.
+Supposons $t > 1$.
+
+\medskip\noindent
+Notons que, pour un point $k$-rationnel $x$ de $X$, le point $x_K$
+obtenu par changement de base est $K$-rationnel dans $X_K$. De plus, il existe une infinité de
+points $k$-rationnels d'après Variétés, lemme
+\ref{varieties-lemma-smooth-separable-closed-points-dense}. Par conséquent,
+les points $x_K$ forment une famille Zariski-dense de points de $X_K$.
+
+\medskip\noindent
+Soit $s \in H^0(X_K, \mathcal{L})$ non nul. Le paragraphe précédent
+montre qu'il existe un point $k$-rationnel
+$x$ tel que $s$ ne s'annule pas en $x_K$. Soit $\mathcal{I}$
+le faisceau d'idéaux de $i : x_K \to X_K$ comme dans
+Variétés, lemme \ref{varieties-lemma-regular-point-on-curve}. Considérons la
+suite exacte courte
+$$
+0 \to \mathcal{I} \otimes_{\mathcal{O}_{X_K}} \mathcal{L} \to
+\mathcal{L} \to i_*i^*\mathcal{L} \to 0
+$$
+Notons que $H^0(X_K, i_*i^*\mathcal{L}) = H^0(x_K, i^*\mathcal{L})$
+est de dimension $1$ sur $K$. Puisque $s$ ne s'annule pas en $x_K$, on en conclut que
+$$
+H^0(X_K, \mathcal{L}) \longrightarrow H^0(X_K, i_*i^*\mathcal{L})
+$$
+est surjective. Ainsi,
+$\dim_K H^0(X_K, \mathcal{I} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}) = t - 1$.
+Enfin, la suite exacte longue de cohomologie montre aussi que
+$H^1(X_K, \mathcal{I} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}) = 0$,
+ce qui achève l'étape de récurrence.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-pic-curve}
+Soit $k$ un corps séparablement clos. Soit $X$ une courbe projective lisse
+sur $k$. Le foncteur de Picard $\Picardfunctor_{X/k}$ est représentable.
+\end{proposition}
+
+\begin{proof}
+Puisque $k$ est séparablement clos, il existe un point $k$-rationnel $\sigma$
+de $X$, voir
+Variétés, lemme \ref{varieties-lemma-smooth-separable-closed-points-dense}.
+Comme on l'a vu ci-dessus, il suffit de montrer que le foncteur
+$\Picardfunctor_{X/k, \sigma}$ classifiant les modules inversibles triviaux le long de
+$\sigma$ est représentable. Pour cela, nous vérifierons les conditions (1),
+(2)(a), (2)(b) et (2)(c) du
+lemme \ref{lemma-criterion}.
+
+\medskip\noindent
+Le foncteur $\Picardfunctor_{X/k, \sigma}$ satisfait à la condition de faisceau
+pour la topologie fppf, car il est isomorphe à $\Picardfunctor_{X/k}$.
+Il serait plus exact de dire que nous avons démontré la condition de faisceau
+pour $\Picardfunctor_{X/k, \sigma}$ dans la démonstration du
+lemme \ref{lemma-flat-geometrically-connected-fibres-with-section},
+qui s'applique d'après le lemme \ref{lemma-check-conditions}.
+Cela démontre la condition (1).
+
+\medskip\noindent
+Prenons pour sous-foncteur $F$ celui du lemme \ref{lemma-define-open}.
+La condition (2)(b) en résulte.
+La condition (2)(a) est le lemme \ref{lemma-open-representable}.
+La condition (2)(c) est le lemme \ref{lemma-twist-with-general-divisor}.
+\end{proof}
+
+\noindent
+La démonstration précédente donne en fait des renseignements supplémentaires, que nous
+rassemblons ici.
+
+\begin{lemma}
+\label{lemma-picard-pieces}
+Soit $k$ un corps séparablement clos. Soit $X$ une courbe projective lisse
+de genre $g$ sur $k$.
+\begin{enumerate}
+\item $\underline{\Picardfunctor}_{X/k}$ est une réunion disjointe de variétés
+propres et lisses de dimension $g$, notées $\underline{\Picardfunctor}^d_{X/k}$,
+\item les points à valeurs dans $k$ de $\underline{\Picardfunctor}^d_{X/k}$
+correspondent aux $\mathcal{O}_X$-modules inversibles de degré $d$,
+\item $\underline{\Picardfunctor}^0_{X/k}$
+est un sous-schéma en groupes ouvert et fermé,
+\item pour $d \geq 0$, il existe un morphisme canonique
+$\gamma_d :
+\underline{\Hilbfunctor}^d_{X/k} \to \underline{\Picardfunctor}^d_{X/k}$
+\item les morphismes $\gamma_d$
+sont surjectifs pour $d \geq g$ et lisses pour $d \geq 2g - 1$,
+\item le morphisme
+$\underline{\Hilbfunctor}^g_{X/k} \to \underline{\Picardfunctor}^g_{X/k}$
+est birationnel.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un point $k$-rationnel $\sigma$ de $X$. Rappelons que $\Picardfunctor_{X/k}$
+est isomorphe au foncteur $\Picardfunctor_{X/k, \sigma}$. D'après
+Catégories dérivées des schémas, lemme
+\ref{perfect-lemma-chi-locally-constant-geometric},
+pour tout $d \in \mathbf{Z}$, il existe un sous-foncteur ouvert
+$$
+\Picardfunctor^d_{X/k, \sigma} \subset \Picardfunctor_{X/k, \sigma}
+$$
+dont la valeur sur un schéma $T$ sur $k$ est formée des
+$\mathcal{L} \in \Picardfunctor_{X/k, \sigma}(T)$ tels que
+$\chi(X_t, \mathcal{L}_t) = d + 1 - g$, et l'on a en outre
+$$
+\Picardfunctor_{X/k, \sigma} =
+\coprod\nolimits_{d \in \mathbf{Z}} \Picardfunctor^d_{X/k, \sigma}
+$$
+en tant que faisceaux fppf. Le schéma $\underline{\Picardfunctor}_{X/k}$
+(qui existe d'après la proposition \ref{proposition-pic-curve})
+admet donc une décomposition correspondante
+$$
+\underline{\Picardfunctor}_{X/k, \sigma} =
+\coprod\nolimits_{d \in \mathbf{Z}} \underline{\Picardfunctor}^d_{X/k, \sigma}
+$$
+où les points de $\underline{\Picardfunctor}^d_{X/k, \sigma}$ correspondent
+aux classes d'isomorphisme de modules inversibles de degré $d$ sur $X$.
+
+\medskip\noindent
+Fixons $d \geq 0$. Il existe un morphisme
+$$
+\gamma_d :
+\underline{\Hilbfunctor}^d_{X/k}
+\longrightarrow
+\underline{\Picardfunctor}^d_{X/k}
+$$
+provenant du faisceau inversible $\mathcal{O}(D_{univ})$ sur
+$\underline{\Hilbfunctor}^d_{X/k} \times_k X$
+(remarque \ref{remark-universal-object-hilb-d}) par le lemme de Yoneda
+(Catégories, lemme \ref{categories-lemma-yoneda}).
+Notre démonstration de la représentabilité du foncteur de Picard de $X/k$
+dans la proposition \ref{proposition-pic-curve} et le
+lemme \ref{lemma-open-representable} montre que $\gamma_g$
+induit une immersion ouverte sur un ouvert non vide de
+$\underline{\Hilbfunctor}^g_{X/k}$. De plus, la démonstration montre
+que les translatés de cet ouvert par les points $k$-rationnels du
+schéma en groupes $\underline{\Picardfunctor}_{X/k}$ définissent
+un recouvrement ouvert. Puisque
+$\underline{\Hilbfunctor}^g_{X/k}$ est lisse de dimension $g$
+(proposition \ref{proposition-hilb-d})
+sur $k$, on en conclut que le
+schéma en groupes $\underline{\Picardfunctor}_{X/k}$ est lisse de dimension $g$
+sur $k$.
+
+\medskip\noindent
+D'après Groupoïdes, lemme \ref{groupoids-lemma-group-scheme-over-field-separated},
+le schéma $\underline{\Picardfunctor}_{X/k}$ est séparé.
+Ainsi, pour tout $d \geq 0$, l'image de $\gamma_d$
+est une variété propre sur $k$
+(Morphismes, lemme \ref{morphisms-lemma-scheme-theoretic-image-is-proper}).
+
+\medskip\noindent
+Soit $d \geq g$. Pour toute extension de corps $K/k$ et tout
+$\mathcal{O}_{X_K}$-module inversible $\mathcal{L}$ de degré $d$, on a
+$\chi(X_K, \mathcal{L}) = d + 1 - g > 0$. Ainsi, $\mathcal{L}$ admet une
+section non nulle, et l'on en conclut que $\mathcal{L} = \mathcal{O}_{X_K}(D)$
+pour un diviseur $D \subset X_K$ de degré $d$. Il s'ensuit que
+$\gamma_d$ est surjectif.
+
+\medskip\noindent
+En combinant les faits précédents, on voit que
+$\underline{\Picardfunctor}^d_{X/k}$ est propre pour $d \geq g$.
+Cela achève la démonstration de (1), car nous savons maintenant que
+$\underline{\Picardfunctor}^d_{X/k}$ est propre pour $d \geq g$, et
+tous les $\underline{\Picardfunctor}^d_{X/k}$ sont alors propres par translation.
+
+\medskip\noindent
+Il reste à montrer que $\gamma_d$ est lisse pour $d \geq 2g - 1$.
+Considérons un $\mathcal{O}_X$-module inversible $\mathcal{L}$ de degré
+$d$. La fibre au-dessus du point correspondant à $\mathcal{L}$ est alors
+$$
+Z = \{D \subset X \mid \mathcal{O}_X(D) \cong \mathcal{L}\} \subset
+\underline{\Hilbfunctor}^d_{X/k}
+$$
+munie de sa structure naturelle de schéma. Puisque tout isomorphisme
+$\mathcal{O}_X(D) \to \mathcal{L}$ n'est déterminé qu'à
+multiplication par un scalaire non nul près, la section canonique
+$1 \in \mathcal{O}_X(D)$ a pour image une section
+$s \in \Gamma(X, \mathcal{L})$ bien définie à multiplication
+près par un scalaire non nul. On obtient ainsi un morphisme
+$$
+Z \longrightarrow
+\text{Proj}(\text{Sym}(\Gamma(X, \mathcal{L})^*))
+$$
+(le dual intervient en raison de nos conventions). Ce morphisme est un isomorphisme,
+car, étant donné une section de $\mathcal{L}$, on peut prendre le diviseur de Cartier
+effectif associé ; autrement dit, on peut construire un inverse du
+morphisme écrit ci-dessus. Nous omettons la formulation précise et la démonstration.
+Puisque $\dim H^0(X, \mathcal{L}) = d + 1 - g$ pour tout
+$\mathcal{L}$ de degré $d \geq 2g - 1$ d'après
+Variétés, lemme \ref{varieties-lemma-vanishing-degree-2g-and-1-line-bundle},
+on voit que $\text{Proj}(\text{Sym}(\Gamma(X, \mathcal{L})^*))
+\cong \mathbf{P}^{d - g}_k$.
+On en conclut que $\dim(Z) = \dim(\mathbf{P}^{d - g}_k) = d - g$.
+Ainsi, les fibres du morphisme $\gamma_d$ sont toutes
+de dimension égale à la différence des dimensions de
+$\underline{\Hilbfunctor}^d_{X/k}$ et de $\underline{\Picardfunctor}^d_{X/k}$.
+Il s'ensuit que $\gamma_d$ est plat, voir
+Algèbre, lemme \ref{algebra-lemma-CM-over-regular-flat}.
+Comme ses fibres sont en outre lisses, on en conclut que $\gamma_d$
+est lisse d'après Morphismes, lemme \ref{morphisms-lemma-smooth-flat-smooth-fibres}.
+\end{proof}
+
+
+
+
+
+\section{Quelques remarques sur les groupes de Picard}
+\label{section-remarks-picard}
+
+\noindent
+Cette section poursuit la discussion de
+Variétés, section \ref{varieties-section-picard-groups},
+qui sera prolongée dans
+Courbes algébriques, section \ref{curves-section-torsion-in-pic}.
+
+\begin{lemma}
+\label{lemma-pic-descends}
+Soit $k$ un corps. Soit $X$ un schéma quasi-compact et quasi-séparé
+sur $k$ tel que $H^0(X, \mathcal{O}_X) = k$. Si $X$ possède un point $k$-rationnel,
+alors, pour toute extension galoisienne $k'/k$, on a
+$$
+\Pic(X) = \Pic(X_{k'})^{\text{Gal}(k'/k)}
+$$
+De plus, l'action de $\text{Gal}(k'/k)$ sur $\Pic(X_{k'})$
+est continue.
+\end{lemma}
+
+\begin{proof}
+Puisque $\text{Gal}(k'/k) = \text{Aut}(k'/k)$, ce groupe opère (à droite)
+sur $\Spec(k')$, donc opère (à droite) sur
+$X_{k'} = X \times_{\Spec(k)} \Spec(k')$ ; comme $\Pic(-)$
+est un foncteur contravariant, il opère (à gauche) sur $\Pic(X_{k'})$.
+Si $k'/k$ est une extension galoisienne infinie, on écrit
+$k' = \colim k'_\lambda$ comme limite inductive filtrante d'extensions galoisiennes
+finies, voir Corps, lemme \ref{fields-lemma-infinite-galois-limit}.
+Alors $X_{k'} = \lim X_{k'_\lambda}$
+(comme dans Limites, section \ref{limits-section-limits})
+et l'on obtient
+$$
+\Pic(X_{k'}) = \colim \Pic(X_{k'_\lambda})
+$$
+d'après Limites, lemme \ref{limits-lemma-descend-invertible-modules}.
+De plus, les applications de transition de ce système de groupes abéliens
+sont injectives d'après Variétés, lemme \ref{varieties-lemma-change-fields-pic}.
+Il s'ensuit que tout élément de $\Pic(X_{k'})$ est fixé par
+l'un des sous-groupes ouverts $\text{Gal}(k'/k'_\lambda)$, ce qui signifie exactement
+que l'action est continue. L'injectivité des applications de transition
+montre qu'il suffit de démontrer l'assertion sur les points fixes dans le
+cas où $k'/k$ est une extension galoisienne finie.
+
+\medskip\noindent
+Supposons $k'/k$ galoisienne finie, de groupe de Galois $G = \text{Gal}(k'/k)$.
+Soit $\mathcal{L}$ un élément de $\Pic(X_{k'})$ fixé par $G$.
+Nous utiliserons la descente galoisienne (Descente, lemme \ref{descent-lemma-galois-descent})
+pour montrer que $\mathcal{L}$ est l'image réciproque d'un faisceau inversible sur $X$.
+Rappelons que $f_\sigma = \text{id}_X \times \Spec(\sigma) : X_{k'} \to X_{k'}$
+et que $\sigma$ opère sur $\Pic(X_{k'})$ par image réciproque suivant $f_\sigma$.
+Pour tout $\sigma \in G$, on peut donc choisir un isomorphisme
+$\varphi_\sigma : \mathcal{L} \to f_\sigma^*\mathcal{L}$,
+puisque $\mathcal{L}$ est fixé par l'action de $G$.
+La difficulté est que l'on ne sait pas si l'on peut choisir
+$\varphi_\sigma$ de manière à satisfaire à la condition de cocycle
+$\varphi_{\sigma\tau} = f_\sigma^*\varphi_\tau \circ \varphi_\sigma$.
+Pour voir que c'est possible, nous utilisons le fait que $X$ possède un point $k$-rationnel
+$x \in X(k)$. Bien entendu, $x$ détermine de même un point $k'$-rationnel
+$x' \in X_{k'}$ fixé par $f_\sigma$ pour tout $\sigma$.
+Choisissons un élément non nul $s$ de la fibre de $\mathcal{L}$ en $x'$ ;
+cette fibre est l'espace vectoriel de dimension $1$ sur $k' = \kappa(x')$
+$$
+\mathcal{L}_{x'} \otimes_{\mathcal{O}_{X_{k'}, x'}} \kappa(x').
+$$
+Alors $f_\sigma^*s$ est un élément non nul de la fibre de
+$f_\sigma^*\mathcal{L}$ en $x'$. Puisqu'on peut multiplier $\varphi_\sigma$
+par un élément de $(k')^*$, on peut supposer que $\varphi_\sigma$ envoie
+$s$ sur $f_\sigma^*s$. On voit alors que $\varphi_{\sigma\tau}$ et
+$f_\sigma^*\varphi_\tau \circ \varphi_\sigma$
+envoient tous deux $s$ sur $f_{\sigma\tau}^*s = f_\tau^*f_\sigma^*s$.
+Puisque $H^0(X_{k'}, \mathcal{O}_{X_{k'}}) = k'$, ces deux isomorphismes
+sont nécessairement égaux (l'un est le produit de l'autre par une unité globale
+et ils coïncident en $x'$), ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-torsion-descends}
+Soit $k$ un corps de caractéristique $p > 0$. Soit $X$ un
+schéma quasi-compact et quasi-séparé sur $k$ tel que
+$H^0(X, \mathcal{O}_X) = k$. Soit $n$ un entier premier à $p$.
+Alors l'application
+$$
+\Pic(X)[n] \longrightarrow \Pic(X_{k'})[n]
+$$
+est bijective pour toute extension purement inséparable $k'/k$.
+\end{lemma}
+
+\begin{proof}
+Notons d'abord que l'application $\Pic(X) \to \Pic(X_{k'})$
+est injective d'après Variétés, lemme \ref{varieties-lemma-change-fields-pic}.
+Il faut donc montrer que l'application du lemme est surjective.
+Soit $\mathcal{L}$ un $\mathcal{O}_{X_{k'}}$-module inversible
+dont la classe est d'ordre divisant $n$ dans $\Pic(X_{k'})$.
+Choisissons un isomorphisme
+$\alpha : \mathcal{L}^{\otimes n} \to \mathcal{O}_{X_{k'}}$
+de modules inversibles.
+Nous allons montrer que le couple $(\mathcal{L}, \alpha)$ descend
+à $X$.
+
+\medskip\noindent
+Posons $A = k' \otimes_k k'$. Puisque $k'/k$ est purement inséparable,
+le noyau de l'application de multiplication $A \to k'$ est un
+idéal localement nilpotent $I$ de $A$. Notons que
+$$
+X_A = X \times_{\Spec(k)} \Spec(A) = X_{k'} \times_X X_{k'}
+$$
+est muni de deux projections $\text{pr}_i : X_A \to X_{k'}$, $i = 0, 1$,
+qui coïncident sur $A/I$. Les modules inversibles
+$\mathcal{L}_i = \text{pr}_i^*\mathcal{L}$
+coïncident donc sur le sous-schéma fermé $X_{A/I} = X_{k'}$.
+Puisque $X_{A/I} \to X_A$ est un épaississement et que
+les $\mathcal{L}_i$ sont de $n$-torsion, il
+existe un isomorphisme $\varphi : \mathcal{L}_0 \to \mathcal{L}_1$ d'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-torsion-pic-thickening}.
+On peut choisir $\varphi$ dont la réduction modulo $I$ soit l'identité. En effet,
+$H^0(X, \mathcal{O}_X) = k$ entraîne
+$H^0(X_{k'}, \mathcal{O}_{X_{k'}}) = k'$ d'après
+Cohomologie des schémas, lemme \ref{coherent-lemma-flat-base-change-cohomology},
+et $A \to k'$ est surjective ; on peut donc ajuster $\varphi$ en le multipliant par
+une unité convenable de $A$. Considérons l'application
+$$
+\lambda : \mathcal{O}_{X_A}
+\xrightarrow{\text{pr}_0^*\alpha^{-1}}
+\mathcal{L}_0^{\otimes n}
+\xrightarrow{\varphi^{\otimes n}}
+\mathcal{L}_1^{\otimes n}
+\xrightarrow{\text{pr}_1^*\alpha}
+\mathcal{O}_{X_A}
+$$
+On peut regarder $\lambda$ comme un élément de $A$, car
+$H^0(X_A, \mathcal{O}_{X_A}) = A$ (même référence que ci-dessus).
+Puisque $\varphi$ se réduit à l'identité modulo $I$, on
+voit que $\lambda = 1 \bmod I$. Il existe alors une unique
+racine $n$-ième de $\lambda$ dans $1 + I$
+(Algèbre, lemme \ref{algebra-lemma-lift-nth-roots})
+et, en multipliant $\varphi$ par son inverse, on obtient $\lambda = 1$.
+Nous affirmons que $(\mathcal{L}, \varphi)$ est une donnée de descente
+pour le recouvrement fpqc $\{X_{k'} \to X\}$
+(Descente, définition \ref{descent-definition-descent-datum-quasi-coherent}).
+Si cette assertion est vraie, $\mathcal{L}$ est l'image réciproque d'un
+$\mathcal{O}_X$-module inversible $\mathcal{N}$ d'après
+Descente, proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+L'injectivité de l'application entre les groupes de Picard montre que $\mathcal{N}$
+est un élément de torsion de $\Pic(X)$ de même ordre que $\mathcal{L}$.
+
+\medskip\noindent
+Démonstration de l'assertion. Il faut vérifier que
+$$
+\text{pr}_{12}^*\varphi \circ
+\text{pr}_{01}^*\varphi =
+\text{pr}_{02}^*\varphi
+\quad\text{sur}\quad
+X_{k'} \times_X X_{k'} \times_X X_{k'} = X_{k' \otimes_k k' \otimes_k k'}
+$$
+Comme précédemment, le morphisme diagonal
+$\Delta : X_{k'} \to X_{k' \otimes_k k' \otimes_k k'}$
+est un épaississement. Les membres de gauche et de droite de l'égalité
+sont des applications $a, b : p_0^*\mathcal{L} \to p_2^*\mathcal{L}$ compatibles avec
+$p_0^*\alpha$ et $p_2^*\alpha$, où
+$p_i : X_{k' \otimes_k k' \otimes_k k'} \to X_{k'}$
+sont les morphismes de projection. Enfin, les images réciproques de $a, b$ par
+$\Delta$ sont égales.
+Localement sur des ouverts affines (dans des trivialisations locales), cela signifie que
+$a, b$ sont données par multiplication par des fonctions inversibles
+qui se réduisent à la même fonction modulo un idéal localement nilpotent
+et dont les puissances $n$-ièmes sont égales. Il résulte alors de
+Algèbre, lemme \ref{algebra-lemma-lift-nth-roots}
+que ces fonctions sont égales.
+\end{proof}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,71 +1,52 @@
-<!-- FRENCH-SOURCE-PROGRESS-20260919 -->
-# Stacks Project — French translation
+# Le projet Stacks — traduction française complète, 116 chapitres
 
-The French translation is **still in progress**. The released reader covers
-Chapters 1–15, with its PDF, direct full-text LaTeX and complete source archives.
-The available later chapter work is now preserved online as well:
+Cette édition réunit les **116 chapitres**, l’index général et la bibliographie
+dans un volume de **8 374 pages**. Elle traduit les sources anglaises du Stacks
+Project figées au commit `a04446e57ec1fbc252a871afcec7752fb2807b14`.
 
-- [Current editable chapter sources and honest progress table](source-progress/2026-09-19/)
-- [Current-source ZIP](source-progress/2026-09-19/French_Stacks_Current_Chapter_Sources_2026-09-19.zip)
-- [Verified reader release and direct LaTeX downloads](https://github.com/KokunoYumeto/stacks-fr/releases/tag/2026-08-27-parts-01-02)
-- [Zenodo edition with direct full-text LaTeX for both parts](https://doi.org/10.5281/zenodo.22839695)
+Il s’agit d’une **traduction indépendante réalisée avec l’assistance de l’IA**,
+et non d’une publication officielle ni d’une édition approuvée par les auteurs
+du Stacks Project. Les contrôles de compilation et de mise en page ne constituent
+pas une certification linguistique ou mathématique par des spécialistes humains.
+Toute relecture experte est bienvenue, notamment pour la terminologie et les
+choix de traduction discutables.
 
-All 116 chapter source positions are represented in the progress snapshot; this
-does **not** mean that all 116 have been translated. In-progress files are labelled,
-and no unverified cumulative PDF is presented as a finished French edition.
+## Accès à l’édition complète
 
----
-## Existing release documentation
+1. [Lire le PDF intégral (8 374 pages)](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/01_stacks_project_french_complete_116.pdf)
+2. [Télécharger le LaTeX cumulatif intégral](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/02_stacks_project_french_complete_116.tex)
+3. [Télécharger toutes les sources modifiables](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/03_stacks_project_french_complete_source.zip)
+4. [Télécharger les registres de traduction et les preuves de provenance](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/04_stacks_project_french_provenance_evidence.zip)
+5. [Télécharger les preuves des contrôles visuels](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/05_stacks_project_french_visual_qa.zip)
+6. [Lire la notice française](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/06_README_PUBLICATION.md)
+7. [Vérifier les empreintes SHA-256](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.21-complete116-r1/07_SHA256SUMS.txt)
 
-# Le projet Stacks — traduction française indépendante
+[Parcourir les 116 sources par chapitre](editions/2026-09-21-complete116/chapters/) · [Instructions de compilation et dépendances](editions/2026-09-21-complete116/COMPILATION.md)
 
-Ce dépôt est la lignée publique unique de la traduction française indépendante
-du Stacks Project. Il contient des lecteurs PDF, les sources TeX modifiables,
-les manifests de provenance et les preuves de contrôle déterministe.
+## Portée des vérifications et propositions de correction
 
-État de la première publication : 15 chapitres sur 116, fondés sur la révision
-amont figée `a04446e57ec1fbc252a871afcec7752fb2807b14`.
+Les reçus du producteur rapportent 21 449 labels distincts, 63 386 références
+résolues et aucune référence ou citation indéfinie. Les 8 374 pages ont subi
+les contrôles géométriques ; les 1 648 pages modifiées par rapport au lecteur
+antérieur ont été inspectées visuellement, ainsi que les deux dernières pages
+retouchées. Ces résultats ne prouvent pas que chaque choix de traduction soit
+irréprochable.
 
-| Partie | Chapitres | Pages | PDF SHA-256 | Archive source/provenance SHA-256 |
-|---|---:|---:|---|---|
-| 1 | 1–10 | 986 | `A07024FC128BF92A7E613364919FAD38939C92431BDF01C24658862E7B8C03EC` | `46AC4B292DE526EB9712CD5525368446532F3015E812E312DB5F86DEE4CF3E81` |
-| 2 | 11–15 | 748 | `020E23158E5657DEF3B4AE97008741C6C47CF12867F3B8B3C2E44DC4D106582A` | `13B75960E1B2A64F608FDC4888E645AF49D0EE6A7E37F412238F337D0998ACA9` |
+Les propositions d’errata concernant la source anglaise sont conservées comme
+éléments à examiner indépendamment. Elles ne constituent ni une acceptation
+par les auteurs du Stacks Project ni une modification de l’autorité anglaise
+figée. Les archives de preuve sont conservées telles que reçues ; certains
+documents techniques historiques peuvent être en anglais. Cela ne signifie pas
+que leurs notices et dossiers de relecture soient déjà entièrement localisés.
 
-Les fichiers publics sont distribués dans les releases GitHub et dans la
-lignée Zenodo liée au présent dépôt. La publication courante est
-[10.5281/zenodo.22839695](https://doi.org/10.5281/zenodo.22839695), dans la
-lignée conceptuelle permanente
-[10.5281/zenodo.22134072](https://doi.org/10.5281/zenodo.22134072). Les
-manifests exacts de chaque partie sont conservés sous `parts/`.
-Le reçu public de relecture anonyme est conservé sous `receipts/`.
+## Licence et versions antérieures
 
-## Autorité
+Le texte de la GNU Free Documentation License et la liste des contributeurs
+amont figurent dans l’archive des sources. La lignée de publication conserve
+la licence GNU FDL 1.2 ou ultérieure, sans sections invariantes ni textes de
+couverture. Cette notice ne remplace pas le texte de la licence.
 
-- Projet amont : <https://github.com/stacks/stacks-project>
-- Commit figé : `a04446e57ec1fbc252a871afcec7752fb2807b14`
-- Archive source figée, SHA-256 :
-  `4FC59A86F1CE43C7D608224D165CB99E7A13B92D4AE892A65DF9B4BF1C477B6F`
-- PDF officiel amont de 7 654 pages, SHA-256 :
-  `5B3A46C20A9CD3C42E7F6746A30B655367DD544AA0AC837626C01E0F44DEB409`
+Cette édition complète remplace les lecteurs partiels pour la lecture courante.
+Les versions antérieures restent publiques dans la même lignée GitHub et Zenodo.
 
-## Licence et indépendance
-
-La source et la traduction sont distribuées selon la GNU Free Documentation
-License 1.2, ou toute version ultérieure publiée par la Free Software
-Foundation, sans sections invariantes, sans texte de première de couverture et
-sans texte de quatrième de couverture. Voir `COPYING`.
-
-Cette traduction n'est ni produite ni approuvée par le Stacks Project. Les
-sources anglaises figées ne sont jamais modifiées dans la voie française. Les
-corrections nécessaires à une traduction lisible sont déclarées séparément,
-liées aux empreintes de l'autorité, et restent auditables dans les archives de
-provenance.
-
-## Contrôles
-
-Chaque partie publiée passe une reproduction de l'assemblage, une compilation
-TeX/BibTeX liée par `.fls`, la vérification des structures, formules, références,
-citations, polices, glyphes, extraction et liens, puis le rendu et l'inspection
-visuelle de chaque page. Les archives ZIP sont rouvertes et chaque membre est
-rejoué par nom, taille et SHA-256 avant publication, puis les octets publics sont
-relus anonymement après publication.
+[Éditions précédentes](https://github.com/KokunoYumeto/stacks-fr/releases) · [Lignée Zenodo](https://doi.org/10.5281/zenodo.22134072)

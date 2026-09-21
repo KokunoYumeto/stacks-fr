@@ -1,0 +1,3246 @@
+\input{preamble}
+
+% OK, commencer ici.
+%
+\begin{document}
+
+\title{Problèmes de déformation}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Le but de ce chapitre est de traiter des exemples de la théorie générale
+développée dans les chapitres Théorie formelle des déformations,
+Théorie des déformations et Le complexe cotangent.
+
+\medskip\noindent
+La section 3 de l'article \cite{Sch} de Schlessinger étudie elle aussi
+quelques exemples.
+
+
+
+
+
+
+\section{Exemples de problèmes de déformation}
+\label{section-examples}
+
+\noindent
+Liste des sujets qui devraient figurer ici :
+\begin{enumerate}
+\item Déformations de schémas :
+\begin{enumerate}
+\item La condition de Rim-Schlessinger.
+\item Calcul de l'espace tangent.
+\item Calcul des déformations infinitésimales.
+\item La catégorie de déformations d'une hypersurface affine.
+\end{enumerate}
+\item Déformations de faisceaux (par exemple, fixer $X/S$, un point $s$
+de type fini de $S$ et un faisceau quasi-cohérent $\mathcal{F}_s$ sur $X_s$).
+\item Déformations d'espaces algébriques (très semblables aux déformations
+de schémas ; peut-être même plus faciles ?).
+\item Déformations d'applications (par exemple de morphismes de schémas ; on peut fixer
+à la fois la source et le but, ou seulement l'un des deux).
+\item Ajouter d'autres sujets ici.
+\end{enumerate}
+
+
+
+
+
+\section{Plan général}
+\label{section-general}
+
+\noindent
+Cette section expose la démarche suivie pour étudier les exemples qui viennent.
+
+\medskip\noindent
+Étape I. Dans chaque section, on fixe un anneau noethérien $\Lambda$ et
+un morphisme fini d'anneaux $\Lambda \to k$, où $k$ est un corps.
+Comme d'habitude, on prend $\mathcal{C}_\Lambda = \mathcal{C}_{\Lambda, k}$
+pour catégorie de base ; voir Théorie formelle des déformations,
+définition \ref{formal-defos-definition-CLambda}.
+
+\medskip\noindent
+Étape II. Dans chaque section, on définit une catégorie $\mathcal{F}$
+cofibrée en groupoïdes sur $\mathcal{C}_\Lambda$. Il nous arrivera
+de considérer à la place un foncteur
+$F : \mathcal{C}_\Lambda \to \textit{Ensembles}$.
+
+\medskip\noindent
+Étape III. On explique dans quelle mesure $\mathcal{F}$ satisfait
+la condition de Rim-Schlessinger (RS) étudiée dans Théorie formelle
+des déformations, section \ref{formal-defos-section-RS-condition}.
+De même, on pourra étudier dans quelle mesure $\mathcal{F}$
+satisfait (S1) et (S2), ou dans quelle mesure $F$ satisfait
+les conditions correspondantes (H1) et (H2) de Schlessinger.
+Voir Théorie formelle des déformations, section
+\ref{formal-defos-section-schlessinger-conditions}.
+
+\medskip\noindent
+Étape IV. Soit $x_0$ un objet de $\mathcal{F}(k)$, autrement dit un objet
+de $\mathcal{F}$ sur $k$. Dans ce chapitre, on emploiera la notation
+$$
+\Deformationcategory_{x_0} = \mathcal{F}_{x_0}
+$$
+pour désigner la catégorie de prédéformations construite dans Théorie
+formelle des déformations, remarque
+\ref{formal-defos-remark-localize-cofibered-groupoid}.
+Si $\mathcal{F}$ satisfait (RS), alors
+$\Deformationcategory_{x_0}$ est une catégorie de déformations
+(Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-localize-RS})
+et satisfait (S1) et (S2)
+(Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-RS-implies-S1-S2}).
+Si (S1) et (S2) sont satisfaites, une question importante
+est de savoir si l'espace tangent
+$$
+T\Deformationcategory_{x_0} = T_{x_0}\mathcal{F} = T\mathcal{F}_{x_0}
+$$
+(voir Théorie formelle des déformations, remarque
+\ref{formal-defos-remark-tangent-space-cofibered-groupoid} et
+définition \ref{formal-defos-definition-tangent-space})
+est de dimension finie. En effet, cela garantit que
+$\Deformationcategory_{x_0}$ possède un objet formel versel
+(Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-versal-object-existence}).
+
+\medskip\noindent
+Étape V. Si $\mathcal{F}$ franchit l'étape IV, la question suivante est de savoir
+si le $k$-espace vectoriel
+$$
+\text{Inf}(\Deformationcategory_{x_0}) = \text{Inf}_{x_0}(\mathcal{F})
+$$
+des automorphismes infinitésimaux de $x_0$ est de dimension finie.
+Dans l'affirmative, cela implique que
+$\Deformationcategory_{x_0}$ admet une présentation par un
+groupoïde lisse proreprésentable en foncteurs sur $\mathcal{C}_\Lambda$ ; voir
+Théorie formelle des déformations, théorème
+\ref{formal-defos-theorem-presentation-deformation-groupoid}.
+
+
+
+
+
+\section{Modules projectifs de type fini}
+\label{section-finite-projective-modules}
+
+\noindent
+Cette section n'est qu'un échauffement. Bien entendu, les modules projectifs
+de type fini ne devraient avoir aucun « module » de paramètres.
+
+\begin{example}[Modules projectifs de type fini]
+\label{example-finite-projective-modules}
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un couple $(A, M)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$ et d'un $A$-module
+projectif de type fini $M$ ;
+\item un morphisme $(f, g) : (B, N) \to (A, M)$ est formé d'un
+morphisme $f : B \to A$ dans $\mathcal{C}_\Lambda$ et
+d'une application $g : N \to M$ qui est $f$-linéaire et induit
+un isomorphisme $N \otimes_{B, f} A \cong M$.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, M)$ sur $A$
+et $(f, g)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donné un $k$-espace vectoriel de dimension finie $V$,
+soit $x_0 = (k, V)$ l'objet correspondant de $\mathcal{F}(k)$.
+On pose
+$$
+\Deformationcategory_V = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\noindent
+Puisque tout module projectif de type fini sur un anneau local est libre
+de type fini (Algèbre, lemme \ref{algebra-lemma-finite-projective}), on a
+$$
+\begin{matrix}
+\text{classes d'isomorphisme} \\
+\text{des objets de }\mathcal{F}(A)
+\end{matrix}
+= \coprod\nolimits_{n \geq 0} \{*\}
+$$
+Bien que cela signifie que la théorie des déformations de $\mathcal{F}$
+est essentiellement triviale, on parcourt néanmoins les étapes décrites
+à la section \ref{section-general} afin de donner un exemple simple.
+
+\begin{lemma}
+\label{lemma-finite-projective-modules-RS}
+L'exemple \ref{example-finite-projective-modules}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_V$ est une catégorie de déformations
+pour tout espace vectoriel $V$ de dimension finie sur $k$.
+\end{lemma}
+
+\begin{proof}
+Soient $A_1 \to A$ et $A_2 \to A$ des morphismes de $\mathcal{C}_\Lambda$.
+Supposons $A_2 \to A$ surjectif. D'après Théorie formelle
+des déformations, lemme
+\ref{formal-defos-lemma-RS-2-categorical}
+il suffit de montrer que le foncteur
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+est une équivalence de catégories.
+
+\medskip\noindent
+Il faut donc montrer que la catégorie des modules projectifs de type fini
+sur $A_1 \times_A A_2$ est équivalente au produit fibré
+des catégories des modules projectifs de type fini sur $A_1$ et $A_2$
+au-dessus de la catégorie des modules projectifs de type fini sur $A$.
+C'est un cas particulier de Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-finitely-presented-module-over-fibre-product}.
+Rappelons que le foncteur inverse envoie le triplet
+$(M_1, M_2, \varphi)$, où
+$M_1$ est un $A_1$-module projectif de type fini,
+$M_2$ est un $A_2$-module projectif de type fini et
+$\varphi : M_1 \otimes_{A_1} A \to M_2 \otimes_{A_2} A$
+est un isomorphisme de $A$-modules, sur le $A_1 \times_A A_2$-module
+projectif de type fini $M_1 \times_\varphi M_2$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-projective-modules-TI}
+Dans l'exemple \ref{example-finite-projective-modules},
+soit $V$ un $k$-espace vectoriel de dimension finie. Alors
+$$
+T\Deformationcategory_V = (0)
+\quad\text{et}\quad
+\text{Inf}(\Deformationcategory_V) = \text{End}_k(V)
+$$
+sont de dimension finie.
+\end{lemma}
+
+\begin{proof}
+Avec $\mathcal{F}$ comme dans l'exemple \ref{example-finite-projective-modules},
+posons $x_0 = (k, V) \in \Ob(\mathcal{F}(k))$.
+Rappelons que $T\Deformationcategory_V = T_{x_0}\mathcal{F}$
+est l'ensemble des classes d'isomorphisme
+de couples $(x, \alpha)$ formés d'un objet $x$ de $\mathcal{F}$
+sur l'anneau des nombres duaux $k[\epsilon]$ et d'un morphisme
+$\alpha : x \to x_0$ de $\mathcal{F}$ au-dessus de $k[\epsilon] \to k$.
+
+\medskip\noindent
+À isomorphisme près, il existe un unique couple $(M, \alpha)$ formé d'un
+module projectif de type fini $M$ sur $k[\epsilon]$
+et d'une application $k[\epsilon]$-linéaire $\alpha : M \to V$
+qui induit un isomorphisme $M \otimes_{k[\epsilon]} k \to V$.
+Par exemple, si $V = k^{\oplus n}$, on prend
+$M = k[\epsilon]^{\oplus n}$ muni de l'application évidente $\alpha$.
+
+\medskip\noindent
+De même, $\text{Inf}(\Deformationcategory_V) = \text{Inf}_{x_0}(\mathcal{F})$
+est l'ensemble des automorphismes
+de la déformation triviale $x'_0$ de $x_0$ sur $k[\epsilon]$.
+Voir Théorie formelle des déformations, définition
+\ref{formal-defos-definition-infinitesimal-auts} pour plus de détails.
+
+\medskip\noindent
+Pour $(M, \alpha)$ comme au deuxième paragraphe, on voit qu'un élément de
+$\text{Inf}_{x_0}(\mathcal{F})$ est un automorphisme $\gamma : M \to M$ tel que
+$\gamma \bmod \epsilon = \text{id}$. On peut donc écrire
+$\gamma = \text{id}_M + \epsilon \psi$, où
+$\psi : M/\epsilon M \to M/\epsilon M$ est $k$-linéaire.
+Au moyen de $\alpha$, on peut voir $\psi$ comme un élément de
+$\text{End}_k(V)$, ce qui achève la démonstration.
+\end{proof}
+
+
+
+\section{Représentations d'un groupe}
+\label{section-representations}
+
+\noindent
+La théorie des déformations des représentations peut être très intéressante.
+
+\begin{example}[Représentations d'un groupe]
+\label{example-representations}
+Soit $\Gamma$ un groupe.
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un triplet $(A, M, \rho)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$, d'un $A$-module projectif de type fini $M$
+et d'un homomorphisme $\rho : \Gamma \to \text{GL}_A(M)$ ;
+\item un morphisme $(f, g) : (B, N, \tau) \to (A, M, \rho)$ est formé d'un
+morphisme $f : B \to A$ dans $\mathcal{C}_\Lambda$ et
+d'une application $g : N \to M$ qui est $f$-linéaire, $\Gamma$-équivariante
+et induit un isomorphisme $N \otimes_{B, f} A \cong M$.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, M, \rho)$
+sur $A$ et $(f, g)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donné un $k$-espace vectoriel de dimension finie $V$ et une représentation
+$\rho_0 : \Gamma \to \text{GL}_k(V)$,
+soit $x_0 = (k, V, \rho_0)$ l'objet correspondant de $\mathcal{F}(k)$.
+On pose
+$$
+\Deformationcategory_{V, \rho_0} = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\noindent
+Puisque tout module projectif de type fini sur un anneau local est libre
+de type fini (Algèbre, lemme \ref{algebra-lemma-finite-projective}),
+on a
+$$
+\begin{matrix}
+\text{classes d'isomorphisme} \\
+\text{des objets de }\mathcal{F}(A)
+\end{matrix}
+=
+\coprod\nolimits_{n \geq 0}\quad
+\begin{matrix}
+\text{GL}_n(A)\text{-orbites de conjugaison des}\\
+\text{homomorphismes }\rho : \Gamma \to \text{GL}_n(A)
+\end{matrix}
+$$
+C'est déjà plus intéressant que l'étude menée à la
+section \ref{section-finite-projective-modules}.
+
+\begin{lemma}
+\label{lemma-representations-RS}
+L'exemple \ref{example-representations}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_{V, \rho_0}$ est une catégorie de déformations
+pour toute représentation de dimension finie
+$\rho_0 : \Gamma \to \text{GL}_k(V)$.
+\end{lemma}
+
+\begin{proof}
+Soient $A_1 \to A$ et $A_2 \to A$ des morphismes de $\mathcal{C}_\Lambda$.
+Supposons $A_2 \to A$ surjectif. D'après Théorie formelle
+des déformations, lemme
+\ref{formal-defos-lemma-RS-2-categorical}
+il suffit de montrer que le foncteur
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+est une équivalence de catégories.
+
+\medskip\noindent
+Considérons un objet
+$$
+((A_1, M_1, \rho_1), (A_2, M_2, \rho_2), (\text{id}_A, \varphi))
+$$
+de la catégorie $\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$.
+Alors, comme on l'a vu dans la démonstration du lemme \ref{lemma-finite-projective-modules-RS},
+on peut considérer le $A_1 \times_A A_2$-module projectif
+de type fini $M_1 \times_\varphi M_2$.
+Puisque $\varphi$ est compatible aux actions données, on obtient
+$$
+\rho_1 \times \rho_2 : \Gamma \longrightarrow
+\text{GL}_{A_1 \times_A A_2}(M_1 \times_\varphi M_2)
+$$
+Alors $(M_1 \times_\varphi M_2, \rho_1 \times \rho_2)$
+est un objet de $\mathcal{F}(A_1 \times_A A_2)$.
+Cette construction détermine un quasi-inverse de notre foncteur.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representations-TI}
+Dans l'exemple \ref{example-representations}, soit
+$\rho_0 : \Gamma \to \text{GL}_k(V)$
+une représentation de dimension finie. Alors
+$$
+T\Deformationcategory_{V, \rho_0} = \Ext^1_{k[\Gamma]}(V, V) =
+H^1(\Gamma, \text{End}_k(V))
+\quad\text{et}\quad
+\text{Inf}(\Deformationcategory_{V, \rho_0}) = H^0(\Gamma, \text{End}_k(V))
+$$
+Ainsi, $\text{Inf}(\Deformationcategory_{V, \rho_0})$
+est toujours de dimension finie,
+et $T\Deformationcategory_{V, \rho_0}$ est de dimension finie
+si $\Gamma$ est de type fini.
+\end{lemma}
+
+\begin{proof}
+Traitons d'abord les automorphismes infinitésimaux.
+Soit $M = V \otimes_k k[\epsilon]$, muni de l'action induite
+$\rho_0' : \Gamma \to \text{GL}_n(M)$.
+Un automorphisme infinitésimal, c'est-à-dire un élément de
+$\text{Inf}(\Deformationcategory_{V, \rho_0})$,
+est alors donné par un automorphisme
+$\gamma = \text{id} + \epsilon \psi : M \to M$
+comme dans la démonstration du lemme \ref{lemma-finite-projective-modules-TI},
+où, de plus, $\psi$ doit commuter
+à l'action de $\Gamma$ (donnée par $\rho_0$).
+On voit donc que
+$$
+\text{Inf}(\Deformationcategory_{V, \rho_0}) = H^0(\Gamma, \text{End}_k(V))
+$$
+comme l'affirme le lemme.
+
+\medskip\noindent
+Ensuite, soit $(k[\epsilon], M, \rho)$ un objet de $\mathcal{F}$
+sur $k[\epsilon]$, et soit $\alpha : M \to V$ une application $\Gamma$-équivariante
+induisant un isomorphisme $M/\epsilon M \to V$.
+Puisque $M$ est libre comme $k[\epsilon]$-module, on obtient
+une extension de $\Gamma$-modules
+$$
+0 \to V \to M \xrightarrow{\alpha} V \to 0
+$$
+On omet la construction détaillée de l'application de gauche.
+Réciproquement, si l'on dispose d'une extension de $\Gamma$-modules comme
+ci-dessus, on peut l'utiliser pour définir une structure de $k[\epsilon]$-module
+sur $M$ et obtenir un objet de $\mathcal{F}(k[\epsilon])$
+ainsi qu'une application $\alpha$ comme ci-dessus.
+Il s'ensuit que
+$$
+T\Deformationcategory_{V, \rho_0} = \Ext^1_{k[\Gamma]}(V, V)
+$$
+comme l'affirme le lemme. Cet espace est égal à
+$H^1(\Gamma, \text{End}_k(V))$ d'après Cohomologie étale,
+lemme \ref{etale-cohomology-lemma-ext-modules-hom}.
+
+\medskip\noindent
+L'assertion sur les dimensions résulte de Cohomologie étale,
+lemme
+\ref{etale-cohomology-lemma-finite-dim-group-cohomology}.
+\end{proof}
+
+\noindent
+Dans l'exemple \ref{example-representations}, si $\Gamma$ est de type fini
+et si $(V, \rho_0)$ est une représentation de dimension finie de $\Gamma$
+sur $k$, alors $\Deformationcategory_{V, \rho_0}$
+admet une présentation par un groupoïde lisse proreprésentable en foncteurs
+sur $\mathcal{C}_\Lambda$
+et possède a fortiori un objet formel versel (minimal). Cela résulte
+des lemmes \ref{lemma-representations-RS} et \ref{lemma-representations-TI}
+ainsi que de la discussion générale de la section \ref{section-general}.
+
+\begin{lemma}
+\label{lemma-representations-hull}
+Dans l'exemple \ref{example-representations}, supposons $\Gamma$ de type fini.
+Soit $\rho_0 : \Gamma \to \text{GL}_k(V)$ une représentation de dimension finie.
+Supposons que $\Lambda$ soit un anneau local complet de corps résiduel $k$
+(cas classique). Alors le foncteur
+$$
+F : \mathcal{C}_\Lambda \longrightarrow \textit{Ensembles},\quad
+A \longmapsto \Ob(\Deformationcategory_{V, \rho_0}(A))/\cong
+$$
+des classes d'isomorphisme d'objets possède une enveloppe. Si
+$H^0(\Gamma, \text{End}_k(V)) = k$, alors $F$ est
+proreprésentable.
+\end{lemma}
+
+\begin{proof}
+L'existence d'une enveloppe résulte des lemmes \ref{lemma-representations-RS} et
+\ref{lemma-representations-TI} et
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-RS-implies-S1-S2}
+et remarque \ref{formal-defos-remark-compose-minimal-into-iso-classes}.
+
+\medskip\noindent
+Supposons $H^0(\Gamma, \text{End}_k(V)) = k$. Pour voir que $F$
+est proreprésentable, il suffit de montrer que $F$ est un
+foncteur de déformations ; voir Théorie formelle des déformations, théorème
+\ref{formal-defos-theorem-Schlessinger-prorepresentability}.
+Autrement dit, il faut montrer que $F$ satisfait (RS).
+On peut pour cela utiliser le critère de Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-RS-associated-functor}.
+La surjectivité requise des groupes d'automorphismes résultera de ce que
+l'on montre que
+$$
+A \cdot \text{id}_M =
+\text{End}_{A[\Gamma]}(M)
+$$
+pour tout objet $(A, M, \rho)$ de $\mathcal{F}$ tel que
+$M \otimes_A k$ soit isomorphe à $V$ comme représentation de $\Gamma$.
+Puisque le membre de gauche est contenu dans celui de droite,
+il suffit de montrer
+$\text{length}_A \text{End}_{A[\Gamma]}(M) \leq \text{length}_A A$.
+Choisissons des idéaux deux à deux distincts
+$(0) = I_n \subset \ldots \subset I_1 \subset A$
+avec $n = \text{length}(A)$. En filtrant $M$
+de façon correspondante, on voit qu'il suffit de prouver que $\Hom_{A[\Gamma]}(M, I_tM/I_{t + 1}M)$
+est de longueur $1$. Puisque $I_tM/I_{t + 1}M \cong M \otimes_A k$
+et que toute application de $A[\Gamma]$-modules $M \to M \otimes_A k$ se factorise
+de manière unique par l'application quotient $M \to M \otimes_A k$
+et donne ainsi un élément de
+$$
+\text{End}_{A[\Gamma]}(M \otimes_A k) = \text{End}_{k[\Gamma]}(V) = k
+$$
+on conclut.
+\end{proof}
+
+
+
+\section{Représentations continues}
+\label{section-continuous-representations}
+
+\noindent
+Une démarche particulièrement intéressante consiste à prendre un groupe de Galois
+infini et à étudier la théorie des déformations de ses représentations ; voir
+\cite{Mazur-deforming}.
+
+\begin{example}[Représentations d'un groupe topologique]
+\label{example-continuous-representations}
+Soit $\Gamma$ un groupe topologique.
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un triplet $(A, M, \rho)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$, d'un $A$-module projectif de type fini $M$
+et d'un homomorphisme continu $\rho : \Gamma \to \text{GL}_A(M)$,
+où $\text{GL}_A(M)$ est muni de la topologie discrète\footnote{Une autre possibilité
+serait d'exiger que le $A$-module $M$, muni de l'action de $G$ donnée par $\rho$,
+soit un $A\text{-}G$-module au sens de Cohomologie étale, définition
+\ref{etale-cohomology-definition-G-module-continuous}. Cependant,
+puisque $M$ est un $A$-module de type fini, ces conditions sont équivalentes.} ;
+\item un morphisme $(f, g) : (B, N, \tau) \to (A, M, \rho)$ est formé d'un
+morphisme $f : B \to A$ dans $\mathcal{C}_\Lambda$ et
+d'une application $g : N \to M$ qui est $f$-linéaire, $\Gamma$-équivariante
+et induit un isomorphisme $N \otimes_{B, f} A \cong M$.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, M, \rho)$
+sur $A$ et $(f, g)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donné un $k$-espace vectoriel de dimension finie $V$ et une
+représentation continue $\rho_0 : \Gamma \to \text{GL}_k(V)$,
+soit $x_0 = (k, V, \rho_0)$ l'objet correspondant de $\mathcal{F}(k)$.
+On pose
+$$
+\Deformationcategory_{V, \rho_0} = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\noindent
+Puisque tout module projectif de type fini sur un anneau local est libre
+de type fini (Algèbre, lemme \ref{algebra-lemma-finite-projective}),
+on a
+$$
+\begin{matrix}
+\text{classes d'isomorphisme} \\
+\text{des objets de }\mathcal{F}(A)
+\end{matrix}
+=
+\coprod\nolimits_{n \geq 0}\quad
+\begin{matrix}
+\text{GL}_n(A)\text{-orbites de conjugaison des}\\
+\text{homomorphismes continus }\rho : \Gamma \to \text{GL}_n(A)
+\end{matrix}
+$$
+
+\begin{lemma}
+\label{lemma-continuous-representations-RS}
+L'exemple \ref{example-continuous-representations}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_{V, \rho_0}$ est une catégorie de déformations
+pour toute représentation continue de dimension finie
+$\rho_0 : \Gamma \to \text{GL}_k(V)$.
+\end{lemma}
+
+\begin{proof}
+La démonstration est exactement la même que celle du
+lemme \ref{lemma-representations-RS}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-continuous-representations-TI}
+Dans l'exemple \ref{example-continuous-representations}, soit
+$\rho_0 : \Gamma \to \text{GL}_k(V)$ une représentation continue
+de dimension finie. Alors
+$$
+T\Deformationcategory_{V, \rho_0} = H^1(\Gamma, \text{End}_k(V))
+\quad\text{et}\quad
+\text{Inf}(\Deformationcategory_{V, \rho_0}) = H^0(\Gamma, \text{End}_k(V))
+$$
+Ainsi, $\text{Inf}(\Deformationcategory_{V, \rho_0})$
+est toujours de dimension finie,
+et $T\Deformationcategory_{V, \rho_0}$ est de dimension finie
+si $\Gamma$ est topologiquement de type fini.
+\end{lemma}
+
+\begin{proof}
+La démonstration est exactement la même que celle du
+lemme \ref{lemma-representations-TI}.
+\end{proof}
+
+\noindent
+Dans l'exemple \ref{example-continuous-representations}, si $\Gamma$
+est topologiquement de type fini
+et si $(V, \rho_0)$ est une représentation continue de dimension finie de $\Gamma$
+sur $k$, alors $\Deformationcategory_{V, \rho_0}$
+admet une présentation par un groupoïde lisse proreprésentable en foncteurs
+sur $\mathcal{C}_\Lambda$
+et possède a fortiori un objet formel versel (minimal). Cela résulte
+des lemmes \ref{lemma-continuous-representations-RS} et
+\ref{lemma-continuous-representations-TI}
+ainsi que de la discussion générale de la section \ref{section-general}.
+
+\begin{lemma}
+\label{lemma-continuous-representations-hull}
+Dans l'exemple \ref{example-continuous-representations}, supposons que $\Gamma$
+soit topologiquement de type fini.
+Soit $\rho_0 : \Gamma \to \text{GL}_k(V)$ une représentation de dimension finie.
+Supposons que $\Lambda$ soit un anneau local complet de corps résiduel $k$
+(cas classique). Alors le foncteur
+$$
+F : \mathcal{C}_\Lambda \longrightarrow \textit{Ensembles},\quad
+A \longmapsto \Ob(\Deformationcategory_{V, \rho_0}(A))/\cong
+$$
+des classes d'isomorphisme d'objets possède une enveloppe. Si
+$H^0(\Gamma, \text{End}_k(V)) = k$, alors $F$ est
+proreprésentable.
+\end{lemma}
+
+\begin{proof}
+La démonstration est exactement la même que celle du
+lemme \ref{lemma-representations-hull}.
+\end{proof}
+
+
+
+\section{Algèbres graduées}
+\label{section-graded-algebras}
+
+\noindent
+Nous utiliserons l'exemple de cette section dans la démonstration que le champ des
+schémas propres polarisés est un champ algébrique. Pour cette raison, nous
+considérerons des algèbres graduées commutatives dont les composantes homogènes sont
+des modules projectifs de type fini (parfois dits « localement finis »).
+
+\begin{example}[Algèbres graduées]
+\label{example-graded-algebras}
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un couple $(A, P)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$ et d'une $A$-algèbre graduée $P$
+tel que $P_d$ soit un $A$-module projectif de type fini pour tout $d \geq 0$ ;
+\item un morphisme $(f, g) : (B, Q) \to (A, P)$ est formé d'un
+morphisme $f : B \to A$ dans $\mathcal{C}_\Lambda$ et
+d'une application $g : Q \to P$ qui est $f$-linéaire et induit un
+isomorphisme $Q \otimes_{B, f} A \cong P$.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, P)$
+sur $A$ et $(f, g)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donnée une $k$-algèbre graduée $P$ telle que $\dim_k(P_d) < \infty$ pour tout
+$d \geq 0$, soit $x_0 = (k, P)$ l'objet correspondant de $\mathcal{F}(k)$.
+On pose
+$$
+\Deformationcategory_P = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-graded-algebras-RS}
+L'exemple \ref{example-graded-algebras}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_P$ est une catégorie de déformations
+pour toute $k$-algèbre graduée $P$.
+\end{lemma}
+
+\begin{proof}
+Soient $A_1 \to A$ et $A_2 \to A$ des morphismes de $\mathcal{C}_\Lambda$.
+Supposons $A_2 \to A$ surjectif. D'après Théorie formelle
+des déformations, lemme
+\ref{formal-defos-lemma-RS-2-categorical}
+il suffit de montrer que le foncteur
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+est une équivalence de catégories.
+
+\medskip\noindent
+Considérons un objet
+$$
+((A_1, P_1), (A_2, P_2), (\text{id}_A, \varphi))
+$$
+de la catégorie $\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$.
+Considérons alors $P_1 \times_\varphi P_2$. Comme
+$\varphi : P_1 \otimes_{A_1} A \to P_2 \otimes_{A_2} A$
+est un isomorphisme d'algèbres graduées, on voit que les composantes homogènes
+de $P_1 \times_\varphi P_2$ sont des $A_1 \times_A A_2$-modules projectifs de type fini ;
+voir la démonstration du lemme \ref{lemma-finite-projective-modules-RS}.
+Ainsi, $P_1 \times_\varphi P_2$ est un objet de $\mathcal{F}(A_1 \times_A A_2)$.
+Cette construction détermine un quasi-inverse de notre foncteur,
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-graded-algebras-TI}
+Dans l'exemple \ref{example-graded-algebras}, soit $P$ une $k$-algèbre graduée.
+Alors
+$$
+T\Deformationcategory_P
+\quad\text{et}\quad
+\text{Inf}(\Deformationcategory_P) = \text{Der}_k(P, P)
+$$
+sont de dimension finie si $P$ est de type fini sur $k$.
+\end{lemma}
+
+\begin{proof}
+Traitons d'abord les automorphismes infinitésimaux.
+Soit $Q = P \otimes_k k[\epsilon]$.
+Un élément de $\text{Inf}(\Deformationcategory_P)$
+est alors donné par un automorphisme
+$\gamma = \text{id} + \epsilon \delta : Q \to Q$
+comme ci-dessus, où maintenant $\delta : P \to P$.
+Le fait que $\gamma$ soit gradué implique que
+$\delta$ est homogène de degré $0$.
+Le fait que $\gamma$ soit $k$-linéaire implique que
+$\delta$ est $k$-linéaire.
+Le fait que $\gamma$ soit multiplicatif implique que
+$\delta$ est une $k$-dérivation.
+Réciproquement, toute $k$-dérivation $\delta : P \to P$
+homogène de degré $0$ fournit un automorphisme
+$\gamma = \text{id} + \epsilon \delta$ comme ci-dessus.
+On voit donc que
+$$
+\text{Inf}(\Deformationcategory_P) = \text{Der}_k(P, P)
+$$
+comme l'affirme le lemme.
+Manifestement, si $P$ est engendrée par les composantes $P_i$ de degrés
+$0 \leq i \leq N$, alors $\delta$ est déterminée par
+les applications linéaires $\delta_i : P_i \to P_i$ pour
+$0 \leq i \leq N$, et l'on voit que
+$$
+\dim_k \text{Der}_k(P, P) < \infty
+$$
+comme voulu.
+
+\medskip\noindent
+Pour achever la démonstration du lemme, montrons que l'espace des déformations
+est de dimension finie. À cette fin, choisissons
+une présentation
+$$
+k[X_1, \ldots, X_n]/(F_1, \ldots, F_m) \longrightarrow P
+$$
+de $k$-algèbres graduées, où $\deg(X_i) = d_i$ et où
+$F_j$ est homogène de degré $e_j$.
+Soit $Q$ une $k[\epsilon]$-algèbre graduée quelconque,
+libre de type fini en chaque degré, munie d'un isomorphisme
+$\alpha : Q/\epsilon Q \to P$ tel que $(Q, \alpha)$ définisse
+un élément de $T\Deformationcategory_P$.
+Choisissons un élément homogène $q_i \in Q$ de degré $d_i$
+dont l'image est celle de $X_i$ dans $P$.
+On obtient alors
+$$
+k[\epsilon][X_1, \ldots, X_n] \longrightarrow Q,\quad
+X_i \longmapsto q_i
+$$
+et, puisque $P = Q/\epsilon Q$, cette application est surjective d'après le lemme de Nakayama.
+Une chasse au diagramme élémentaire montre que l'on peut choisir des éléments homogènes
+$F_{\epsilon, j} \in k[\epsilon][X_1, \ldots, X_n]$ de degré $e_j$
+dont l'image dans $Q$ est nulle et dont l'image est $F_j$ dans $k[X_1, \ldots, X_n]$.
+Alors
+$$
+k[\epsilon][X_1, \ldots, X_n]/(F_{\epsilon, 1}, \ldots, F_{\epsilon, m})
+\longrightarrow Q
+$$
+est une présentation de $Q$, par platitude de $Q$ sur $k[\epsilon]$.
+Écrivons
+$$
+F_{\epsilon, j} =  F_j + \epsilon G_j
+$$
+Le vecteur $(G_1, \ldots, G_m)$ comporte une certaine ambiguïté.
+D'abord, en choisissant autrement les $F_{\epsilon, j}$,
+on peut modifier $G_j$ par un élément arbitraire de degré $e_j$
+du noyau de $k[X_1, \ldots, X_n] \to P$.
+Ainsi, au lieu de $(G_1, \ldots, G_m)$, nous retenons
+l'élément
+$$
+(g_1, \ldots, g_m) \in P_{e_1} \oplus \ldots \oplus P_{e_m}
+$$
+où $g_j$ est l'image de $G_j$ dans $P_{e_j}$.
+En outre, si l'on remplace le choix de $q_i$ par $q_i + \epsilon p_i$,
+où $p_i$ est de degré $d_i$, un calcul (omis) montre
+que $g_j$ devient
+$$
+g_j^{new} = g_j - \sum\nolimits_{i = 1}^n p_i \partial F_j / \partial X_i
+$$
+On conclut que la classe d'isomorphisme de $Q$ est déterminée par
+l'image du vecteur $(G_1, \ldots, G_m)$ dans le $k$-espace vectoriel
+$$
+W  = \Coker(P_{d_1} \oplus \ldots \oplus P_{d_n}
+\xrightarrow{(\frac{\partial F_j}{\partial X_i})}
+P_{e_1} \oplus \ldots \oplus P_{e_m})
+$$
+On obtient ainsi une injection
+$$
+T\Deformationcategory_P \longrightarrow W
+$$
+Puisque $W$ est manifestement de dimension finie, le lemme en résulte.
+\end{proof}
+
+\noindent
+Dans l'exemple \ref{example-graded-algebras}, si $P$ est une $k$-algèbre graduée
+de type fini, alors $\Deformationcategory_P$
+admet une présentation par un groupoïde lisse proreprésentable en foncteurs
+sur $\mathcal{C}_\Lambda$
+et possède a fortiori un objet formel versel (minimal). Cela résulte
+des lemmes \ref{lemma-graded-algebras-RS} et
+\ref{lemma-graded-algebras-TI}
+ainsi que de la discussion générale de la section \ref{section-general}.
+
+\begin{lemma}
+\label{lemma-graded-algebras-hull}
+Dans l'exemple \ref{example-graded-algebras}, supposons que $P$ soit une
+$k$-algèbre graduée de type fini. Supposons que $\Lambda$ soit un anneau local complet
+de corps résiduel $k$
+(cas classique). Alors le foncteur
+$$
+F : \mathcal{C}_\Lambda \longrightarrow \textit{Ensembles},\quad
+A \longmapsto \Ob(\Deformationcategory_P(A))/\cong
+$$
+des classes d'isomorphisme d'objets possède une enveloppe.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des lemmes \ref{lemma-graded-algebras-RS} et
+\ref{lemma-graded-algebras-TI} ainsi que de
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-RS-implies-S1-S2}
+et remarque \ref{formal-defos-remark-compose-minimal-into-iso-classes}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Anneaux}
+\label{section-rings}
+
+\noindent
+La théorie des déformations des anneaux est la même que celle des
+schémas affines. Pour les anneaux et les schémas, lorsque nous parlons de déformations,
+nous entendons des déformations {\it plates}.
+
+\begin{example}[Anneaux]
+\label{example-rings}
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un couple $(A, P)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$ et d'une $A$-algèbre plate $P$ ;
+\item un morphisme $(f, g) : (B, Q) \to (A, P)$ est formé d'un
+morphisme $f : B \to A$ dans $\mathcal{C}_\Lambda$ et
+d'une application $g : Q \to P$ qui est $f$-linéaire et induit un
+isomorphisme $Q \otimes_{B, f} A \cong P$.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, P)$
+sur $A$ et $(f, g)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donnée une $k$-algèbre $P$, soit $x_0 = (k, P)$ l'objet correspondant
+de $\mathcal{F}(k)$. On pose
+$$
+\Deformationcategory_P = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-rings-RS}
+L'exemple \ref{example-rings}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_P$ est une catégorie de déformations
+pour toute $k$-algèbre $P$.
+\end{lemma}
+
+\begin{proof}
+Soient $A_1 \to A$ et $A_2 \to A$ des morphismes de $\mathcal{C}_\Lambda$.
+Supposons $A_2 \to A$ surjectif. D'après Théorie formelle
+des déformations, lemme
+\ref{formal-defos-lemma-RS-2-categorical}
+il suffit de montrer que le foncteur
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+est une équivalence de catégories.
+C'est un cas particulier de Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-properties-algebras-over-fibre-product}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-rings-TI}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre. Alors
+$$
+T\Deformationcategory_P = \text{Ext}^1_P(\NL_{P/k}, P)
+\quad\text{et}\quad
+\text{Inf}(\Deformationcategory_P) = \text{Der}_k(P, P)
+$$
+\end{lemma}
+
+\begin{proof}
+Rappelons que $\text{Inf}(\Deformationcategory_P)$ est l'ensemble des
+automorphismes de la déformation triviale
+$P[\epsilon] = P \otimes_k k[\epsilon]$ de $P$ sur $k[\epsilon]$
+qui sont égaux à l'identité modulo $\epsilon$.
+D'après Théorie des déformations, lemme \ref{defos-lemma-huge-diagram},
+cet ensemble est égal à $\Hom_P(\Omega_{P/k}, P)$, qui est à son tour
+égal à $\text{Der}_k(P, P)$ d'après
+Algèbre, lemme \ref{algebra-lemma-universal-omega}.
+
+\medskip\noindent
+Rappelons que $T\Deformationcategory_P$ est l'ensemble des classes d'isomorphisme
+des déformations plates $Q$ de $P$ sur $k[\epsilon]$, plus précisément
+l'ensemble des classes d'isomorphisme de $\Deformationcategory_P(k[\epsilon])$.
+Rappelons qu'une $k[\epsilon]$-algèbre $Q$ telle que $Q/\epsilon Q = P$
+est plate sur $k[\epsilon]$ si et seulement si
+$$
+0 \to P \xrightarrow{\epsilon} Q \to P \to 0
+$$
+est exacte. Cela est démontré dans Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-deform}, et, plus généralement, dans
+Théorie des déformations, lemme \ref{defos-lemma-deform-module}.
+Nous pouvons donc appliquer
+Théorie des déformations, lemme \ref{defos-lemma-choices},
+pour voir que l'ensemble des classes d'isomorphisme de telles
+déformations est égal à $\text{Ext}^1_P(\NL_{P/k}, P)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre lisse. Alors
+$T\Deformationcategory_P = (0)$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-rings-TI}, il faut montrer que
+$\text{Ext}^1_P(\NL_{P/k}, P) = (0)$.
+Puisque $k \to P$ est lisse, $\NL_{P/k}$ est quasi-isomorphe au
+complexe constitué d'un
+$P$-module projectif de type fini placé en degré $0$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type-rings-TI}
+Dans le lemme \ref{lemma-rings-TI}, si $P$ est une $k$-algèbre de type fini, alors
+\begin{enumerate}
+\item $\text{Inf}(\Deformationcategory_P)$ est de dimension finie si et seulement si
+$\dim(P) = 0$ ;
+\item $T\Deformationcategory_P$ est de dimension finie si
+$\Spec(P) \to \Spec(k)$ est lisse sauf en un nombre fini de points.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). Considérons $\text{Der}_k(P, P)$ comme un $P$-module.
+S'il est de dimension finie sur $k$, il est alors de longueur finie
+comme $P$-module ; son support est donc contenu dans un nombre fini de
+points fermés de $\Spec(P)$
+(Algèbre, lemme \ref{algebra-lemma-simple-pieces}).
+Puisque $\text{Der}_k(P, P) = \Hom_P(\Omega_{P/k}, P)$,
+nous voyons que
+$\text{Der}_k(P, P)_\mathfrak p = \text{Der}_k(P_\mathfrak p, P_\mathfrak p)$
+pour tout idéal premier $\mathfrak p \subset P$
+(cela utilise Algèbre, lemmes
+\ref{algebra-lemma-differentials-localize},
+\ref{algebra-lemma-differentials-finitely-presented}, et
+\ref{algebra-lemma-hom-from-finitely-presented}).
+Soit $\mathfrak p$ un idéal premier minimal de $P$
+correspondant à une composante irréductible de dimension $d > 0$.
+Alors $P_\mathfrak p$ est un anneau local artinien
+essentiellement de type fini sur $k$, avec corps résiduel,
+et $\Omega_{P_\mathfrak p/k}$ est non nul, par exemple d'après
+Algèbre, lemme \ref{algebra-lemma-characterize-smooth-over-field}.
+Tout module fini non nul sur un anneau local artinien
+possède à la fois un sous-module et un module quotient isomorphes au corps résiduel.
+Nous trouvons ainsi que
+$\text{Der}_k(P_\mathfrak p, P_\mathfrak p) =
+\Hom_{P_\mathfrak p}(\Omega_{P_\mathfrak p/k}, P_\mathfrak p)$
+est lui aussi non nul. En combinant tout ce qui précède, nous obtenons (1).
+
+\medskip\noindent
+Preuve de (2). Pour un idéal premier $\mathfrak p$ de $P$, nous utiliserons l'égalité
+$\NL_{P_\mathfrak p/k} = (\NL_{P/k})_\mathfrak p$
+(Algèbre, lemme \ref{algebra-lemma-localize-NL})
+ainsi que
+l'égalité
+$\text{Ext}_P^1(\NL_{P/k}, P)_\mathfrak p =
+\text{Ext}_{P_\mathfrak p}^1(\NL_{P_\mathfrak p/k}, P_\mathfrak p)$
+(Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext}).
+Étant donné un idéal premier $\mathfrak p \subset P$,
+le morphisme $k \to P$ est lisse en $\mathfrak p$ si et seulement si
+$(\NL_{P/k})_\mathfrak p$ est quasi-isomorphe
+à un module projectif de type fini placé en degré $0$ (cela résulte
+immédiatement de la définition d'un homomorphisme d'anneaux lisse, mais aussi
+du résultat plus fort d'Algèbre, lemme \ref{algebra-lemma-smooth-at-point}).
+
+\medskip\noindent
+Supposons que $P$ soit lisse sur $k$ en dehors d'un nombre fini d'idéaux premiers.
+Ces idéaux premiers « mauvais » sont alors les idéaux maximaux
+$\mathfrak m_1, \ldots, \mathfrak m_n \subset P$, d'après
+Algèbre, lemme \ref{algebra-lemma-finite-type-algebra-finite-nr-primes},
+et parce que les idéaux premiers « mauvais » forment un fermé de $\Spec(P)$.
+Pour $\mathfrak p \not \in \{\mathfrak m_1, \ldots, \mathfrak m_n\}$,
+nous avons $\text{Ext}^1_P(\NL_{P/k}, P)_\mathfrak p = 0$ d'après ce qui précède.
+Ainsi, $\text{Ext}^1_P(\NL_{P/k}, P)$ est un $P$-module fini
+dont le support est contenu dans $\{\mathfrak m_1, \ldots, \mathfrak m_r\}$.
+D'après Algèbre, proposition
+\ref{algebra-proposition-minimal-primes-associated-primes}
+par exemple, nous trouvons que la dimension sur $k$ de
+$\text{Ext}^1_P(\NL_{P/k}, P)$ est une combinaison linéaire entière finie
+des $\dim_k \kappa(\mathfrak m_i)$ ; elle est donc finie d'après
+le théorème des zéros de Hilbert
+(Algèbre, théorème \ref{algebra-theorem-nullstellensatz}).
+\end{proof}
+
+\noindent
+Dans l'exemple \ref{example-rings}, soit $P$ une
+$k$-algèbre de type fini. Alors $\Deformationcategory_P$
+admet une présentation par un groupoïde lisse proreprésentable en foncteurs
+sur $\mathcal{C}_\Lambda$ si et seulement si $\dim(P) = 0$.
+De plus, $\Deformationcategory_P$ possède un objet
+formel versel si $\Spec(P) \to \Spec(k)$ n'a qu'un nombre fini de
+points singuliers. Cela résulte des lemmes \ref{lemma-rings-RS} et
+\ref{lemma-finite-type-rings-TI},
+ainsi que de la discussion générale de la section \ref{section-general}.
+
+\begin{lemma}
+\label{lemma-rings-hull}
+Dans l'exemple \ref{example-rings}, supposons que $P$ soit une
+$k$-algèbre de type fini telle que $\Spec(P) \to \Spec(k)$ soit lisse sauf
+en un nombre fini de points.
+Supposons que $\Lambda$ soit un anneau local complet de corps résiduel $k$
+(cas classique). Alors le foncteur
+$$
+F : \mathcal{C}_\Lambda \longrightarrow \textit{Ensembles},\quad
+A \longmapsto \Ob(\Deformationcategory_P(A))/\cong
+$$
+des classes d'isomorphisme d'objets possède une enveloppe.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des lemmes \ref{lemma-rings-RS} et
+\ref{lemma-finite-type-rings-TI}, ainsi que de
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-RS-implies-S1-S2}
+et remarque \ref{formal-defos-remark-compose-minimal-into-iso-classes}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localization}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Soit $S \subset P$ une partie multiplicative. Il existe un foncteur naturel
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{S^{-1}P}
+$$
+de catégories de déformations.
+\end{lemma}
+
+\begin{proof}
+Étant donnée une déformation de $P$, nous pouvons la localiser
+pour obtenir une déformation de la localisation ; cela est
+clair, et nous invitons le lecteur à omettre la démonstration. Plus précisément,
+soit $(A, Q) \to (k, P)$ un morphisme de $\mathcal{F}$, c'est-à-dire
+un objet de $\Deformationcategory_P$. Soit $S_Q \subset Q$ l'image
+réciproque de $S$. Alors
+Ainsi, $(A, S_Q^{-1}Q) \to (k, S^{-1}P)$
+est l'objet recherché de $\Deformationcategory_{S^{-1}P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-henselization}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Soit $J \subset P$ un idéal.
+Notons $(P^h, J^h)$ l'hensélisation du couple $(P, J)$.
+Il existe un foncteur naturel
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^h}
+$$
+de catégories de déformations.
+\end{lemma}
+
+\begin{proof}
+Étant donnée une déformation de $P$, nous pouvons en prendre l'hensélisation
+pour obtenir une déformation de l'hensélisé ; cela est
+clair, et nous invitons le lecteur à omettre la démonstration. Plus précisément,
+soit $(A, Q) \to (k, P)$ un morphisme de $\mathcal{F}$, c'est-à-dire
+un objet de $\Deformationcategory_P$. Notons $J_Q \subset Q$ l'image
+réciproque de $J$ dans $Q$. Soit $(Q^h, J_Q^h)$ l'hensélisation
+du couple $(Q, J_Q)$. Rappelons que $Q \to Q^h$ est plat
+(Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-henselization-flat})
+et que $Q^h$ est donc plat sur $A$.
+D'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-henselization-integral},
+nous voyons que l'application $Q^h \to P^h$ induit un isomorphisme
+$Q^h \otimes_A k = Q^h \otimes_Q P = P^h$.
+Ainsi, $(A, Q^h) \to (k, P^h)$ est l'objet recherché de
+$\Deformationcategory_{P^h}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-henselization}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Supposons que $P$ soit un anneau local et soit $P^{sh}$ un hensélisé strict de $P$.
+Il existe un foncteur naturel
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^{sh}}
+$$
+de catégories de déformations.
+\end{lemma}
+
+\begin{proof}
+Étant donnée une déformation de $P$, nous pouvons en prendre l'hensélisé strict
+pour obtenir une déformation de l'hensélisé strict ; cela est
+clair, et nous invitons le lecteur à omettre la démonstration. Plus précisément,
+soit $(A, Q) \to (k, P)$ un morphisme de $\mathcal{F}$, c'est-à-dire
+un objet de $\Deformationcategory_P$. Puisque le noyau de la surjection
+$Q \to P$ est nilpotent, nous trouvons que $Q$ est un anneau local de
+même corps résiduel que $P$. Soit $Q^{sh}$ l'hensélisé strict
+de $Q$. Rappelons que $Q \to Q^{sh}$ est plat
+(Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-dumb-properties-henselization})
+et que $Q^{sh}$ est donc plat sur $A$.
+D'après Algèbre, lemme \ref{algebra-lemma-quotient-strict-henselization},
+nous voyons que l'application $Q^{sh} \to P^{sh}$ induit un isomorphisme
+$Q^{sh} \otimes_A k = Q^{sh} \otimes_Q P = P^{sh}$.
+Ainsi, $(A, Q^{sh}) \to (k, P^{sh})$ est l'objet recherché de
+$\Deformationcategory_{P^{sh}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-completion}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Supposons $P$ noethérien et soit $J \subset P$ un idéal.
+Notons $P^\wedge$ le complété $J$-adique.
+Il existe un foncteur naturel
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^\wedge}
+$$
+de catégories de déformations.
+\end{lemma}
+
+\begin{proof}
+Étant donnée une déformation de $P$, nous pouvons en prendre le complété
+pour obtenir une déformation du complété ; cela est
+clair, et nous invitons le lecteur à omettre la démonstration. Plus précisément,
+soit $(A, Q) \to (k, P)$ un morphisme de $\mathcal{F}$, c'est-à-dire
+un objet de $\Deformationcategory_P$. Observons que $Q$ est un anneau
+noethérien : le noyau de l'homomorphisme surjectif d'anneaux $Q \to P$ est
+nilpotent et de type fini, et $P$ est noethérien ; appliquons
+Algèbre, lemme \ref{algebra-lemma-completion-Noetherian}.
+Notons $J_Q \subset Q$ l'image
+réciproque de $J$ dans $Q$. Soit $Q^\wedge$ le complété $J_Q$-adique de $Q$.
+Rappelons que $Q \to Q^\wedge$ est plat
+(Algèbre, lemme \ref{algebra-lemma-completion-flat})
+et que $Q^\wedge$ est donc plat sur $A$.
+L'application induite $Q^\wedge \to P^\wedge$ induit un isomorphisme
+$Q^\wedge \otimes_A k = Q^\wedge \otimes_Q P = P^\wedge$ d'après
+Algèbre, lemme \ref{algebra-lemma-completion-tensor}, par exemple.
+Ainsi, $(A, Q^\wedge) \to (k, P^\wedge)$
+est l'objet recherché de $\Deformationcategory_{P^\wedge}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-power-series-rings-TI}
+Dans le lemme \ref{lemma-rings-TI}, si $P = k[[x_1, \ldots, x_n]]/(f)$
+pour un certain $f \in (x_1, \ldots, x_n)^2$ non nul, alors
+\begin{enumerate}
+\item $\text{Inf}(\Deformationcategory_P)$ est de dimension finie
+si et seulement si $n = 1$ ;
+\item $T\Deformationcategory_P$ est de dimension finie si
+$$
+\sqrt{(f, \partial f/\partial x_1, \ldots,  \partial f/\partial x_n)} =
+(x_1, \ldots, x_n)
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). Considérons les dérivations $\partial/\partial x_i$ de
+$k[[x_1, \ldots, x_n]]$ sur $k$. Posons $f_i = \partial f/\partial x_i$.
+La dérivation
+$$
+\theta = \sum h_i \partial/\partial x_i
+$$
+de $k[[x_1, \ldots, x_n]]$
+induit une dérivation de $P = k[[x_1, \ldots, x_n]]/(f)$
+si et seulement si
+$\sum h_i f_i \in (f)$. De plus, la dérivation induite de $P$
+est nulle si et seulement si $h_i \in (f)$ pour $i = 1, \ldots, n$.
+Nous obtenons ainsi
+$$
+\Ker((f_1, \ldots, f_n) : P^{\oplus n} \longrightarrow P) \subset
+\text{Der}_k(P, P)
+$$
+Le membre de gauche n'est un $k$-espace vectoriel de dimension finie que si
+$n = 1$ ; nous omettons la démonstration. Nous laissons aussi au lecteur le soin de voir
+que le membre de droite est de dimension finie si $n = 1$.
+Cela démontre (1).
+
+\medskip\noindent
+Preuve de (2). Soit $Q$ une déformation plate de $P$ sur $k[\epsilon]$,
+comme dans la démonstration du lemme \ref{lemma-rings-TI}. Choisissons des relèvements $q_i \in Q$
+de l'image de $x_i$ dans $P$. Alors $Q$ est un anneau local complet
+dont l'idéal maximal est engendré par $q_1, \ldots, q_n$ et $\epsilon$
+(nous omettons un court argument). Nous obtenons ainsi une surjection
+$$
+k[\epsilon][[x_1, \ldots, x_n]] \longrightarrow Q,\quad
+x_i \longmapsto q_i
+$$
+Choisissons un élément de la forme
+$f + \epsilon g \in k[\epsilon][[x_1, \ldots, x_n]]$
+qui s'envoie sur zéro dans $Q$. Observons que $g$ est bien défini modulo $(f)$.
+Puisque $Q$ est plat sur $k[\epsilon]$, nous obtenons
+$$
+Q = k[\epsilon][[x_1, \ldots, x_n]]/(f + \epsilon g)
+$$
+Enfin, modifier le choix de $q_i$ revient à
+remplacer les coordonnées $x_i$ par $x_i + \epsilon h_i$
+pour certains $h_i \in k[[x_1, \ldots, x_n]]$. Alors
+$f + \epsilon g$ devient $f + \epsilon (g + \sum h_i f_i)$,
+où $f_i = \partial f/\partial x_i$. Nous voyons donc que la
+classe d'isomorphisme de la déformation $Q$ est déterminée
+par un élément de
+$$
+k[[x_1, \ldots, x_n]]/
+(f, \partial f/\partial x_1, \ldots,  \partial f/\partial x_n)
+$$
+Ce quotient est de dimension finie sur $k$ si et seulement si
+son support est le point fermé de $k[[x_1, \ldots, x_n]]$,
+si et seulement si
+$\sqrt{(f, \partial f/\partial x_1, \ldots,  \partial f/\partial x_n)} =
+(x_1, \ldots, x_n)$.
+\end{proof}
+
+
+
+
+
+
+\section{Schémas}
+\label{section-schemes}
+
+\noindent
+La théorie des déformations des schémas.
+
+\begin{example}[Schémas]
+\label{example-schemes}
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un couple $(A, X)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$ et d'un schéma $X$ plat sur $A$ ;
+\item un morphisme $(f, g) : (B, Y) \to (A, X)$ est formé d'un
+morphisme $f : B \to A$ dans $\mathcal{C}_\Lambda$ et
+d'un morphisme $g : X \to Y$ tel que
+$$
+\xymatrix{
+X \ar[r]_g \ar[d] & Y \ar[d] \\
+\Spec(A) \ar[r]^f & \Spec(B)
+}
+$$
+soit un diagramme commutatif cartésien de schémas.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, X)$
+sur $A$ et $(f, g)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donné un schéma $X$ sur $k$, soit $x_0 = (k, X)$ l'objet correspondant
+de $\mathcal{F}(k)$. On pose
+$$
+\Deformationcategory_X = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-schemes-RS}
+L'exemple \ref{example-schemes}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_X$ est une catégorie de déformations
+pour tout schéma $X$ sur $k$.
+\end{lemma}
+
+\begin{proof}
+Soient $A_1 \to A$ et $A_2 \to A$ des morphismes de $\mathcal{C}_\Lambda$.
+Supposons $A_2 \to A$ surjectif. D'après Théorie formelle
+des déformations, lemme
+\ref{formal-defos-lemma-RS-2-categorical}
+il suffit de montrer que le foncteur
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+est une équivalence de catégories.
+Observons que
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] & \Spec(A_2) \ar[d] \\
+\Spec(A_1) \ar[r] &
+\Spec(A_1 \times_A A_2)
+}
+$$
+est un diagramme cocartésien comme dans Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-pushout-along-thickening}.
+Le lemme est donc un cas particulier de Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-schemes-TI}
+Dans l'exemple \ref{example-schemes}, soit $X$ un schéma sur $k$. Alors
+$$
+\text{Inf}(\Deformationcategory_X) =
+\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)
+$$
+et
+$$
+T\Deformationcategory_X =
+\text{Ext}^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)
+$$
+\end{lemma}
+
+\begin{proof}
+Rappelons que $\text{Inf}(\Deformationcategory_X)$ est l'ensemble des
+automorphismes de la déformation triviale
+$X' = X \times_{\Spec(k)} \Spec(k[\epsilon])$ de $X$ sur $k[\epsilon]$
+qui sont égaux à l'identité modulo $\epsilon$.
+D'après Théorie des déformations, lemme \ref{defos-lemma-deform},
+cet ensemble est égal à $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$.
+L'égalité $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X)$ résulte de
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-netherlander-quasi-coherent}.
+L'égalité
+$\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+résulte de Morphismes, lemme
+\ref{morphisms-lemma-universal-derivation-universal}.
+
+\medskip\noindent
+Rappelons que $T_{x_0}\Deformationcategory_X$ est l'ensemble des classes d'isomorphisme
+des déformations plates $X'$ de $X$ sur $k[\epsilon]$, plus précisément
+l'ensemble des classes d'isomorphisme de $\Deformationcategory_X(k[\epsilon])$.
+La seconde assertion du lemme résulte donc de
+Théorie des déformations, lemme \ref{defos-lemma-deform}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-schemes-TI}
+Dans le lemme \ref{lemma-schemes-TI}, si $X$ est propre sur $k$, alors
+$\text{Inf}(\Deformationcategory_X)$ et $T\Deformationcategory_X$ sont
+de dimension finie.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme, il faut montrer que
+$\Ext^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ et
+$\Ext^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ sont de
+dimension finie. D'après Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-netherlander-fp}
+et le fait que $X$ est noethérien, nous voyons que
+$\NL_{X/k}$ a des faisceaux de cohomologie cohérents, nuls sauf
+en degrés $0$ et $-1$.
+D'après Catégories dérivées de schémas, lemme \ref{perfect-lemma-ext-finite},
+les groupes $\Ext$ affichés sont des $k$-espaces vectoriels de dimension finie,
+ce qui achève la démonstration.
+\end{proof}
+
+\noindent
+Dans l'exemple \ref{example-schemes}, si $X$ est un schéma propre sur $k$,
+alors $\Deformationcategory_X$
+admet une présentation par un groupoïde lisse proreprésentable en foncteurs
+sur $\mathcal{C}_\Lambda$
+et possède a fortiori un objet formel versel (minimal). Cela résulte
+des lemmes \ref{lemma-schemes-RS} et
+\ref{lemma-proper-schemes-TI},
+ainsi que de la discussion générale de la section \ref{section-general}.
+
+\begin{lemma}
+\label{lemma-schemes-hull}
+Dans l'exemple \ref{example-schemes}, supposons que $X$ soit un $k$-schéma propre.
+Supposons que $\Lambda$ soit un anneau local complet de corps résiduel $k$
+(cas classique). Alors le foncteur
+$$
+F : \mathcal{C}_\Lambda \longrightarrow \textit{Ensembles},\quad
+A \longmapsto \Ob(\Deformationcategory_X(A))/\cong
+$$
+des classes d'isomorphisme d'objets possède une enveloppe. Si
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$, alors
+$F$ est proreprésentable.
+\end{lemma}
+
+\begin{proof}
+L'existence d'une enveloppe résulte immédiatement des
+lemmes \ref{lemma-schemes-RS} et \ref{lemma-proper-schemes-TI}, ainsi que de
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-RS-implies-S1-S2}
+et remarque \ref{formal-defos-remark-compose-minimal-into-iso-classes}.
+
+\medskip\noindent
+Supposons $\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$. Alors
+$\Deformationcategory_X$ et $F$ sont équivalents d'après
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-infdef-trivial}.
+Ainsi, $F$ est un foncteur de déformations (car $\Deformationcategory_X$ est une
+catégorie de déformations) d'espace tangent de dimension finie, et nous pouvons appliquer
+Théorie formelle des déformations, théorème
+\ref{formal-defos-theorem-Schlessinger-prorepresentability}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open}
+Dans l'exemple \ref{example-schemes}, soit $X$ un schéma sur $k$.
+Soit $U \subset X$ un sous-schéma ouvert.
+Il existe un foncteur naturel
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_U
+$$
+de catégories de déformations.
+\end{lemma}
+
+\begin{proof}
+Étant donnée une déformation de $X$, nous pouvons en prendre l'ouvert correspondant
+pour obtenir une déformation de $U$. Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine}
+Dans l'exemple \ref{example-schemes}, soit $X = \Spec(P)$ un
+schéma affine sur $k$. Avec $\Deformationcategory_P$ comme dans
+l'exemple \ref{example-rings}, il existe une équivalence naturelle
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_P
+$$
+de catégories de déformations.
+\end{lemma}
+
+\begin{proof}
+Le foncteur envoie $(A, Y)$ sur $\Gamma(Y, \mathcal{O}_Y)$.
+Cette construction convient parce que
+toute déformation de $X$ est affine d'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-thickening-affine-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-local-ring}
+Dans l'exemple \ref{example-schemes}, soit $X$ un schéma sur $k$.
+Soit $p \in X$ un point. Avec $\Deformationcategory_{\mathcal{O}_{X, p}}$
+comme dans l'exemple \ref{example-rings}, il existe un foncteur naturel
+$$
+\Deformationcategory_X
+\longrightarrow
+\Deformationcategory_{\mathcal{O}_{X, p}}
+$$
+de catégories de déformations.
+\end{lemma}
+
+\begin{proof}
+Choisissons un ouvert affine $U = \Spec(P) \subset X$ contenant $p$.
+Alors $\mathcal{O}_{X, p}$ est une localisation de $P$. Composons
+les foncteurs des
+lemmes \ref{lemma-open}, \ref{lemma-affine} et \ref{lemma-localization}.
+\end{proof}
+
+\begin{situation}
+\label{situation-glueing}
+Soit $\Lambda \to k$ comme dans la section \ref{section-general}.
+Soit $X$ un schéma sur $k$ qui possède un recouvrement ouvert affine
+$X = U_1 \cup U_2$, où $U_{12} = U_1 \cap U_2$ est lui aussi affine.
+Écrivons $U_1 = \Spec(P_1)$, $U_2 = \Spec(P_2)$ et $U_{12} = \Spec(P_{12})$.
+Soient $\Deformationcategory_X$, $\Deformationcategory_{U_1}$,
+$\Deformationcategory_{U_2}$ et $\Deformationcategory_{U_{12}}$
+comme dans l'exemple \ref{example-schemes}, et soient
+$\Deformationcategory_{P_1}$, $\Deformationcategory_{P_2}$ et
+$\Deformationcategory_{P_{12}}$ comme dans l'exemple \ref{example-rings}.
+\end{situation}
+
+\begin{lemma}
+\label{lemma-glueing}
+Dans la situation \ref{situation-glueing},
+il existe une équivalence
+$$
+\Deformationcategory_X =
+\Deformationcategory_{P_1}
+\times_{\Deformationcategory_{P_{12}}}
+\Deformationcategory_{P_2}
+$$
+de catégories de déformations ; voir les exemples \ref{example-schemes} et
+\ref{example-rings}.
+\end{lemma}
+
+\begin{proof}
+Il suffit de montrer que les foncteurs du lemme \ref{lemma-open}
+définissent une équivalence
+$$
+\Deformationcategory_X \longrightarrow
+\Deformationcategory_{U_1}
+\times_{\Deformationcategory_{U_{12}}}
+\Deformationcategory_{U_2}
+$$
+car nous pouvons alors appliquer le lemme \ref{lemma-affine} pour passer aux anneaux.
+Pour cela, construisons un quasi-inverse. Notons
+$F_i : \Deformationcategory_{U_i} \to \Deformationcategory_{U_{12}}$
+le foncteur du lemme \ref{lemma-open}.
+Un objet du membre de droite est donné par un $A$ dans $\mathcal{C}_\Lambda$,
+des objets $(A, V_1) \to (k, U_1)$ et $(A, V_2) \to (k, U_2)$, et
+un morphisme
+$$
+g : F_1(A, V_1) \to F_2(A, V_2)
+$$
+Ici, $F_i(A, V_i) = (A, V_{i, 3 - i})$, où $V_{i, 3 - i} \subset V_i$
+est le sous-schéma ouvert dont le changement de base à $k$ est $U_{12} \subset U_i$.
+Le morphisme $g$ définit un isomorphisme
+$V_{1, 2} \to V_{2, 1}$ de schémas sur $A$, compatible
+avec $\text{id} : U_{12} \to U_{12}$ sur $k$.
+Ainsi, $(\{1, 2\}, V_i, V_{i, 3 - i}, g, g^{-1})$ est une donnée
+de recollement comme dans Schémas, section \ref{schemes-section-glueing-schemes}.
+Soit $Y$ le schéma recollé ; voir Schémas, lemme \ref{schemes-lemma-glue}.
+Alors $Y$ est un schéma sur $A$, et les
+compatibilités mentionnées ci-dessus montrent
+qu'il existe un isomorphisme canonique
+$Y \times_{\Spec(A)} \Spec(k) = X$.
+Ainsi, $(A, Y) \to (k, X)$ est un objet de $\Deformationcategory_X$.
+Nous omettons de vérifier que cette construction définit un foncteur
+quasi-inverse de celui qui était donné.
+\end{proof}
+
+
+
+
+
+
+\section{Morphismes de schémas}
+\label{section-schemes-morphisms}
+
+\noindent
+La théorie des déformations des morphismes de schémas.
+Il ne s'agit bien sûr que d'un exemple de
+déformations de diagrammes de schémas.
+
+\begin{example}[Morphismes de schémas]
+\label{example-schemes-morphisms}
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un couple $(A, X \to Y)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$ et d'un morphisme
+$X \to Y$ de schémas sur $A$, où $X$ et $Y$ sont tous deux plats sur $A$ ;
+\item un morphisme $(f, g, h) : (A', X' \to Y') \to (A, X \to Y)$ est formé d'un
+morphisme $f : A' \to A$ dans $\mathcal{C}_\Lambda$ et
+de morphismes de schémas $g : X \to X'$ et $h : Y \to Y'$ tels que
+$$
+\xymatrix{
+X \ar[r]_g \ar[d] & X' \ar[d] \\
+Y \ar[r]_h \ar[d] & Y' \ar[d] \\
+\Spec(A) \ar[r]^f & \Spec(A')
+}
+$$
+soit un diagramme commutatif de schémas dont les deux carrés sont cartésiens.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, X \to Y)$
+sur $A$ et $(f, g, h)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donné un morphisme de schémas $X \to Y$ sur $k$, soit $x_0 = (k, X \to Y)$
+l'objet correspondant de $\mathcal{F}(k)$. On pose
+$$
+\Deformationcategory_{X \to Y} = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-schemes-morphisms-RS}
+L'exemple \ref{example-schemes-morphisms}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_{X \to Y}$ est une catégorie de déformations
+pour tout morphisme de schémas $X \to Y$ sur $k$.
+\end{lemma}
+
+\begin{proof}
+Soient $A_1 \to A$ et $A_2 \to A$ des morphismes de $\mathcal{C}_\Lambda$.
+Supposons $A_2 \to A$ surjectif. D'après Théorie formelle
+des déformations, lemme
+\ref{formal-defos-lemma-RS-2-categorical}
+il suffit de montrer que le foncteur
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+est une équivalence de catégories.
+Observons que
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] & \Spec(A_2) \ar[d] \\
+\Spec(A_1) \ar[r] &
+\Spec(A_1 \times_A A_2)
+}
+$$
+est un diagramme cocartésien comme dans Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-pushout-along-thickening}.
+Le lemme résulte donc immédiatement de
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+car ce résultat décrit la catégorie des schémas plats sur $A_1 \times_A A_2$
+comme le produit fibré de la catégorie des schémas plats sur $A_1$
+et de la catégorie des schémas plats sur $A_2$ au-dessus de la catégorie des
+schémas plats sur $A$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-schemes-morphisms-TI}
+Dans l'exemple \ref{example-schemes}, soit $f : X \to Y$ un morphisme de schémas
+sur $k$. Il existe une suite exacte canonique de $k$-espaces vectoriels
+$$
+\xymatrix{
+0 \ar[r] &
+\text{Inf}(\Deformationcategory_{X \to Y}) \ar[r] &
+\text{Inf}(\Deformationcategory_X \times \Deformationcategory_Y) \ar[r] &
+\text{Der}_k(\mathcal{O}_Y, f_*\mathcal{O}_X) \ar[lld] \\
+& T\Deformationcategory_{X \to Y} \ar[r] &
+T(\Deformationcategory_X \times \Deformationcategory_Y) \ar[r] &
+\text{Ext}^1_{\mathcal{O}_X}(Lf^*\NL_{Y/k}, \mathcal{O}_X)
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Le morphisme évident de catégories de déformations
+$\Deformationcategory_{X \to Y} \to
+\Deformationcategory_X \times \Deformationcategory_Y$
+donne deux des flèches de la suite exacte du lemme.
+Rappelons que $\text{Inf}(\Deformationcategory_{X \to Y})$
+est l'ensemble des automorphismes de la déformation triviale
+$$
+f' :  X' = X \times_{\Spec(k)} \Spec(k[\epsilon])
+\xrightarrow{f \times \text{id}}
+Y' = Y \times_{\Spec(k)} \Spec(k[\epsilon])
+$$
+de $X \to Y$ sur $k[\epsilon]$ qui sont égaux à l'identité modulo $\epsilon$.
+Il s'agit clairement des couples
+$(\alpha, \beta) \in
+\text{Inf}(\Deformationcategory_X \times \Deformationcategory_Y)$
+d'automorphismes infinitésimaux de $X$ et $Y$ compatibles avec $f'$, c'est-à-dire
+tels que $f' \circ \alpha = \beta \circ f'$.
+D'après Théorie des déformations, lemme \ref{defos-lemma-huge-diagram-ringed-spaces},
+pour un couple arbitraire $(\alpha, \beta)$, la différence entre
+le morphisme $f' : X' \to Y'$ et le morphisme
+$\beta^{-1} \circ f' \circ \alpha : X' \to Y'$ définit un élément
+de
+$$
+\text{Der}_k(\mathcal{O}_Y, f_*\mathcal{O}_X) =
+\Hom_{\mathcal{O}_Y}(\Omega_{Y/k}, f_*\mathcal{O}_X)
+$$
+L'égalité résulte de Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-netherlander-quasi-coherent}.
+Cela définit la dernière flèche horizontale supérieure et montre l'exactitude
+aux deux premières places. Pour l'application
+$$
+\text{Der}_k(\mathcal{O}_Y, f_*\mathcal{O}_X)
+\to
+T\Deformationcategory_{X \to Y}
+$$
+interprétons les éléments de la source comme des morphismes
+$f_\epsilon : X' \to Y'$ sur $\Spec(k[\epsilon])$
+égaux à $f$ modulo $\epsilon$,
+à l'aide de Théorie des déformations, lemme \ref{defos-lemma-huge-diagram-ringed-spaces}.
+Nous envoyons $f_\epsilon$ sur la classe d'isomorphisme de
+$(f_\epsilon : X' \to Y')$ dans $T\Deformationcategory_{X \to Y}$.
+Notons que $(f_\epsilon : X' \to Y')$ est isomorphe à la
+déformation triviale $(f' : X' \to Y')$ exactement lorsque
+$f_\epsilon  = \beta^{-1} \circ f \circ \alpha$ pour un certain
+couple $(\alpha, \beta)$, ce qui implique l'exactitude à la troisième place.
+Clairement, si une déformation du premier ordre
+$(f_\epsilon : X_\epsilon \to Y_\epsilon)$
+s'envoie sur zéro dans $T(\Deformationcategory_X \times \Deformationcategory_Y)$,
+nous pouvons alors choisir des isomorphismes $X' \to X_\epsilon$ et $Y' \to Y_\epsilon$
+et nous concluons que nous sommes dans l'image de la flèche sud-ouest.
+Nous avons donc l'exactitude à la quatrième place.
+Enfin, étant données deux déformations du premier ordre $X_\epsilon$, $Y_\epsilon$
+de $X$, $Y$, il existe une obstruction dans
+$$
+ob(X_\epsilon, Y_\epsilon) \in
+\text{Ext}^1_{\mathcal{O}_X}(Lf^*\NL_{Y/k}, \mathcal{O}_X)
+$$
+qui s'annule si et seulement si $f : X \to Y$ se relève en
+$X_\epsilon \to Y_\epsilon$ ; voir
+Théorie des déformations, lemme \ref{defos-lemma-huge-diagram-ringed-spaces}.
+Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-schemes-morphisms-TI}
+Dans le lemme \ref{lemma-schemes-morphisms-TI}, si $X$ et $Y$ sont tous deux
+propres sur $k$, alors
+$\text{Inf}(\Deformationcategory_{X \to Y})$ et
+$T\Deformationcategory_{X \to Y}$ sont de dimension finie.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : raisonner comme dans le lemme \ref{lemma-proper-schemes-TI}
+et utiliser la suite exacte du lemme.
+\end{proof}
+
+\noindent
+Dans l'exemple \ref{example-schemes-morphisms},
+si $X \to Y$ est un morphisme de schémas propres sur $k$,
+alors $\Deformationcategory_{X \to Y}$
+admet une présentation par un groupoïde lisse proreprésentable en foncteurs
+sur $\mathcal{C}_\Lambda$
+et possède a fortiori un objet formel versel (minimal). Cela résulte
+des lemmes \ref{lemma-schemes-morphisms-RS} et
+\ref{lemma-proper-schemes-morphisms-TI},
+ainsi que de la discussion générale de la section \ref{section-general}.
+
+\begin{lemma}
+\label{lemma-schemes-morphisms-hull}
+Dans l'exemple \ref{example-schemes-morphisms}, supposons que $X \to Y$
+soit un morphisme de $k$-schémas propres.
+Supposons que $\Lambda$ soit un anneau local complet de corps résiduel $k$
+(cas classique). Alors le foncteur
+$$
+F : \mathcal{C}_\Lambda \longrightarrow \textit{Ensembles},\quad
+A \longmapsto \Ob(\Deformationcategory_{X \to Y}(A))/\cong
+$$
+des classes d'isomorphisme d'objets possède une enveloppe. Si
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_Y, \mathcal{O}_Y) = 0$, alors
+$F$ est proreprésentable.
+\end{lemma}
+
+\begin{proof}
+L'existence d'une enveloppe résulte immédiatement des
+lemmes \ref{lemma-schemes-morphisms-RS} et
+\ref{lemma-proper-schemes-morphisms-TI}, ainsi que de
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-RS-implies-S1-S2}
+et remarque \ref{formal-defos-remark-compose-minimal-into-iso-classes}.
+
+\medskip\noindent
+Supposons $\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_Y, \mathcal{O}_Y) = 0$. Alors
+la suite exacte du lemme \ref{lemma-schemes-morphisms-TI},
+combinée au lemme \ref{lemma-schemes-TI},
+montre que $\text{Inf}(\Deformationcategory_{X \to Y}) = 0$.
+Alors $\Deformationcategory_{X \to Y}$ et $F$ sont équivalents d'après
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-infdef-trivial}.
+Ainsi, $F$ est un foncteur de déformations (car
+$\Deformationcategory_{X \to Y}$ est une
+catégorie de déformations) d'espace tangent de dimension finie, et nous pouvons appliquer
+Théorie formelle des déformations, théorème
+\ref{formal-defos-theorem-Schlessinger-prorepresentability}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-schemes-morphisms-smooth-to-base}
+\begin{reference}
+Cette question est traitée dans \cite[Section 5.3]{Ravi-Murphys-Law} et
+\cite[Theorem 3.3]{Ran-deformations}.
+\end{reference}
+Dans l'exemple \ref{example-schemes}, soit $f : X \to Y$ un morphisme de schémas
+sur $k$. Si $f_*\mathcal{O}_X = \mathcal{O}_Y$ et $R^1f_*\mathcal{O}_X = 0$,
+alors le morphisme de catégories de déformations
+$$
+\Deformationcategory_{X \to Y} \to \Deformationcategory_X
+$$
+est une équivalence.
+\end{lemma}
+
+\begin{proof}
+Construisons un quasi-inverse du foncteur d'oubli du lemme.
+Plus précisément, supposons que $(A, U)$ soit un objet de $\Deformationcategory_X$.
+L'application donnée $X \to U$ est un épaississement d'ordre fini, que nous pouvons utiliser
+pour identifier les espaces topologiques sous-jacents à $U$ et $X$ ; voir
+Compléments sur les morphismes, section \ref{more-morphisms-section-thickenings}.
+Nous pouvons donc considérer, et considérerons, $\mathcal{O}_U$ comme un faisceau de
+$A$-algèbres sur $X$ ; de plus, la platitude de $U \to \Spec(A)$
+signifie que $\mathcal{O}_U$ est plat comme faisceau de $A$-modules.
+En particulier, nous avons une filtration
+$$
+0 = \mathfrak m_A^n\mathcal{O}_U \subset
+\mathfrak m_A^{n - 1}\mathcal{O}_U \subset \ldots \subset
+\mathfrak m_A^2\mathcal{O}_U \subset
+\mathfrak m_A\mathcal{O}_U \subset \mathcal{O}_U
+$$
+dont les sous-quotients sont égaux à
+$\mathcal{O}_X \otimes_k \mathfrak m_A^i/\mathfrak m_A^{i + 1}$
+par platitude ; voir Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-deform},
+ou, plus généralement, Théorie des déformations, lemme \ref{defos-lemma-deform-module}.
+Posons
+$$
+\mathcal{O}_V = f_*\mathcal{O}_U
+$$
+considéré comme un faisceau de $A$-algèbres sur $Y$. Puisque
+$R^1f_*\mathcal{O}_X = 0$, la description ci-dessus montre que
+$R^1f_*(\mathfrak m_A^i\mathcal{O}_U/\mathfrak m_A^{i + 1}\mathcal{O}_U) = 0$
+pour tout $i$. Il s'ensuit que les suites
+$$
+0 \to
+(f_*\mathcal{O}_X) \otimes_k \mathfrak m_A^i/\mathfrak m_A^{i + 1} \to
+f_*(\mathcal{O}_U/\mathfrak m_A^{i + 1}\mathcal{O}_U) \to
+f_*(\mathcal{O}_U/\mathfrak m_A^i\mathcal{O}_U) \to 0
+$$
+sont exactes pour tout $i$. En parcourant en sens inverse les références données ci-dessus
+(et en raisonnant par récurrence), nous trouvons que $\mathcal{O}_V$ est un faisceau plat
+de $A$-algèbres tel que
+$\mathcal{O}_V/\mathfrak m_A\mathcal{O}_V = \mathcal{O}_Y$.
+À l'aide de Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-first-order-thickening}
+nous trouvons que $(Y, \mathcal{O}_V)$ est un schéma, que nous notons $V$.
+L'égalité $\mathcal{O}_V = f_*\mathcal{O}_U$ définit un
+morphisme d'espaces annelés $U \to V$ dont on voit aisément qu'il est
+un morphisme de schémas. La platitude déjà établie
+achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+\section{Espaces algébriques}
+\label{section-algebraic-spaces}
+
+\noindent
+La théorie des déformations des espaces algébriques.
+
+\begin{example}[Espaces algébriques]
+\label{example-spaces}
+Soit $\mathcal{F}$ la catégorie définie comme suit :
+\begin{enumerate}
+\item un objet est un couple $(A, X)$ formé d'un
+objet $A$ de $\mathcal{C}_\Lambda$ et d'un espace algébrique
+$X$ plat sur $A$ ;
+\item un morphisme $(f, g) : (B, Y) \to (A, X)$ est formé d'un
+morphisme $f : B \to A$ dans $\mathcal{C}_\Lambda$ et
+d'un morphisme $g : X \to Y$ d'espaces algébriques sur $\Lambda$
+tel que
+$$
+\xymatrix{
+X \ar[r]_g \ar[d] & Y \ar[d] \\
+\Spec(A) \ar[r]^f & \Spec(B)
+}
+$$
+soit un diagramme commutatif cartésien d'espaces algébriques.
+\end{enumerate}
+Le foncteur $p : \mathcal{F} \to \mathcal{C}_\Lambda$ envoie $(A, X)$
+sur $A$ et $(f, g)$ sur $f$. Il est clair que $p$ est cofibré en groupoïdes.
+Étant donné un espace algébrique $X$ sur $k$, soit
+$x_0 = (k, X)$ l'objet correspondant de $\mathcal{F}(k)$. On pose
+$$
+\Deformationcategory_X = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-spaces-RS}
+L'exemple \ref{example-spaces}
+satisfait la condition de Rim-Schlessinger (RS).
+En particulier, $\Deformationcategory_X$ est une catégorie de déformations
+pour tout espace algébrique $X$ sur $k$.
+\end{lemma}
+
+\begin{proof}
+Soient $A_1 \to A$ et $A_2 \to A$ des morphismes de $\mathcal{C}_\Lambda$.
+Supposons $A_2 \to A$ surjectif. D'après Théorie formelle
+des déformations, lemme
+\ref{formal-defos-lemma-RS-2-categorical}
+il suffit de montrer que le foncteur
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+est une équivalence de catégories.
+Observons que
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] & \Spec(A_2) \ar[d] \\
+\Spec(A_1) \ar[r] &
+\Spec(A_1 \times_A A_2)
+}
+$$
+est un diagramme cocartésien comme dans Sommes amalgamées d'espaces, lemme
+\ref{spaces-pushouts-lemma-pushout-along-thickening}.
+Le lemme est donc un cas particulier de Sommes amalgamées d'espaces, lemme
+\ref{spaces-pushouts-lemma-equivalence-categories-spaces-pushout-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-spaces-TI}
+Dans l'exemple \ref{example-spaces}, soit $X$ un espace algébrique sur $k$. Alors
+$$
+\text{Inf}(\Deformationcategory_X) =
+\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)
+$$
+et
+$$
+T\Deformationcategory_X =
+\text{Ext}^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)
+$$
+\end{lemma}
+
+\begin{proof}
+Rappelons que $\text{Inf}(\Deformationcategory_X)$ est l'ensemble des
+automorphismes de la déformation triviale
+$X' = X \times_{\Spec(k)} \Spec(k[\epsilon])$ de $X$ sur $k[\epsilon]$
+qui sont égaux à l'identité modulo $\epsilon$.
+D'après Théorie des déformations, lemme \ref{defos-lemma-deform-spaces},
+cet ensemble est égal à $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$.
+L'égalité $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X)$ résulte de
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-netherlander-quasi-coherent}.
+L'égalité
+$\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+résulte de Compléments sur les morphismes d'espaces, définition
+\ref{spaces-more-morphisms-definition-sheaf-differentials}, et de
+Modules sur les sites, définition
+\ref{sites-modules-definition-module-differentials}.
+
+\medskip\noindent
+Rappelons que $T_{x_0}\Deformationcategory_X$ est l'ensemble des classes d'isomorphisme
+des déformations plates $X'$ de $X$ sur $k[\epsilon]$, plus précisément
+l'ensemble des classes d'isomorphisme de $\Deformationcategory_X(k[\epsilon])$.
+La seconde assertion du lemme résulte donc de
+Théorie des déformations, lemme \ref{defos-lemma-deform-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-spaces-TI}
+Dans le lemme \ref{lemma-spaces-TI}, si $X$ est propre sur $k$, alors
+$\text{Inf}(\Deformationcategory_X)$ et $T\Deformationcategory_X$ sont
+de dimension finie.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme, il faut montrer que
+$\Ext^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ et
+$\Ext^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ sont de
+dimension finie. D'après Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-netherlander-fp}
+et le fait que $X$ est noethérien, nous voyons que
+$\NL_{X/k}$ a des faisceaux de cohomologie cohérents, nuls sauf
+en degrés $0$ et $-1$.
+D'après Catégories dérivées d'espaces, lemme \ref{spaces-perfect-lemma-ext-finite},
+les groupes $\Ext$ affichés sont des $k$-espaces vectoriels de dimension finie,
+ce qui achève la démonstration.
+\end{proof}
+
+\noindent
+Dans l'exemple \ref{example-spaces}, si $X$ est un espace algébrique propre sur $k$,
+alors $\Deformationcategory_X$
+admet une présentation par un groupoïde lisse proreprésentable en foncteurs
+sur $\mathcal{C}_\Lambda$
+et possède a fortiori un objet formel versel (minimal). Cela résulte
+des lemmes \ref{lemma-spaces-RS} et
+\ref{lemma-proper-spaces-TI},
+ainsi que de la discussion générale de la section \ref{section-general}.
+
+\begin{lemma}
+\label{lemma-spaces-hull}
+Dans l'exemple \ref{example-spaces}, supposons que $X$ soit un espace algébrique propre sur $k$.
+Supposons que $\Lambda$ soit un anneau local complet de corps résiduel $k$
+(cas classique). Alors le foncteur
+$$
+F : \mathcal{C}_\Lambda \longrightarrow \textit{Ensembles},\quad
+A \longmapsto \Ob(\Deformationcategory_X(A))/\cong
+$$
+des classes d'isomorphisme d'objets possède une enveloppe. Si
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$, alors
+$F$ est proreprésentable.
+\end{lemma}
+
+\begin{proof}
+L'existence d'une enveloppe résulte immédiatement des
+lemmes \ref{lemma-spaces-RS} et \ref{lemma-proper-spaces-TI}, ainsi que de
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-RS-implies-S1-S2}
+et remarque \ref{formal-defos-remark-compose-minimal-into-iso-classes}.
+
+\medskip\noindent
+Supposons $\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$. Alors
+$\Deformationcategory_X$ et $F$ sont équivalents d'après
+Théorie formelle des déformations, lemme \ref{formal-defos-lemma-infdef-trivial}.
+Ainsi, $F$ est un foncteur de déformations (car $\Deformationcategory_X$ est une
+catégorie de déformations) d'espace tangent de dimension finie, et nous pouvons appliquer
+Théorie formelle des déformations, théorème
+\ref{formal-defos-theorem-Schlessinger-prorepresentability}.
+\end{proof}
+
+
+
+
+
+\section{Déformations des complétés}
+\label{section-compare}
+
+\noindent
+Dans cette section, nous comparons les problèmes de déformation posés
+par une algèbre et par son complété.
+Nous discutons d'abord de la « possibilité de relèvement ».
+
+\begin{lemma}
+\label{lemma-lift-equivalence-module-derived}
+Soit $A' \to A$ une surjection d'anneaux de noyau nilpotent.
+Soit $A' \to P'$ un homomorphisme d'anneaux plat.
+Posons $P = P' \otimes_{A'} A$.
+Soit $M$ un module plat sur $A$, muni d'une structure de $P$-module.
+Alors les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un module plat sur $A'$, muni d'une structure de $P'$-module, noté $M'$, tel que
+$M' \otimes_{P'} P = M$ ;
+\item il existe un objet $K' \in D^-(P')$ tel que
+$K' \otimes_{P'}^\mathbf{L} P = M$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que $M'$ soit comme dans (1). Alors
+$$
+M = M' \otimes_P P' = M' \otimes_{A'} A =
+M' \otimes_A^\mathbf{L} A' = M' \otimes_{P'}^\mathbf{L} P
+$$
+Les deux premières égalités sont claires, la troisième vaut parce que
+$M'$ est plat sur $A'$, et la quatrième résulte de
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-base-change-comparison}.
+Ainsi, (2) est vérifiée. Réciproquement, supposons $K'$ comme dans (2).
+Nous pouvons supposer, et supposons, $M$ non nul.
+Soit $t$ le plus grand entier tel que $H^t(K')$ soit non nul
+(il existe puisque $M$ est non nul).
+Alors $H^t(K') \otimes_{P'} P = H^t(K' \otimes_{P'}^\mathbf{L} P)$
+est nul si $t > 0$. Comme le noyau de $P' \to P$ est nilpotent,
+cela implique $H^t(K') = 0$ par le lemme de Nakayama, contradiction.
+Ainsi, $t = 0$ (le cas $t < 0$ est lui aussi absurde).
+Alors $M' = H^0(K')$ est un $P'$-module tel que $M = M' \otimes_{P'} P$,
+et la suite spectrale de Tor donne une application injective
+$$
+\text{Tor}_1^{P'}(M', P) \to H^{-1}(M' \otimes_{P'}^\mathbf{L} P) = 0
+$$
+Par la référence ci-dessus sur le changement de base dérivé,
+$0 = \text{Tor}_1^{P'}(M', P) = \text{Tor}_1^{A'}(M', A)$.
+Nous concluons que $M'$ est plat sur $A'$ d'après
+Algèbre, lemme \ref{algebra-lemma-what-does-it-mean}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-equivalence-module}
+Considérons un diagramme commutatif d'anneaux noethériens
+$$
+\xymatrix{
+A' \ar[d] \ar[r] &
+P' \ar[d] \ar[r] &
+Q' \ar[d] \\
+A \ar[r] &
+P \ar[r] &
+Q
+}
+$$
+dont les carrés sont cartésiens, les flèches horizontales plates et les
+flèches verticales surjectives, de noyaux nilpotents.
+Soit $J' \subset P'$ un idéal tel que $P'/J' = Q'/J'Q'$.
+Soit $M$ un module plat sur $A$, muni d'une structure de $P$-module.
+Supposons que, pour tout $g \in J'$, il existe un module plat sur $A'$ muni d'une structure de $(P')_g$-module
+relevant $M_g$. Alors les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $M$ possède un relèvement plat sur $A'$ muni d'une structure de $P'$-module ;
+\item $M \otimes_P Q$ possède un relèvement plat sur $A'$ muni d'une structure de $Q'$-module.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $I = \Ker(A' \to A)$. Par récurrence sur l'entier $n > 1$
+tel que $I^n = 0$, nous nous ramenons au cas où $I$ est un idéal
+de carré nul ; nous omettons les détails.
+Nous traduisons la condition de possibilité de relèvement de
+$M$ en le problème de trouver un objet de $D^-(P')$ comme dans le
+lemme \ref{lemma-lift-equivalence-module-derived}.
+L'obstruction à cette construction est l'élément
+$$
+\omega(M) \in \text{Ext}^2_P(M, M \otimes_P^\mathbf{L} IP) =
+\text{Ext}^2_P(M, M \otimes_P IP)
+$$
+construit dans
+Théorie des déformations, lemme \ref{defos-lemma-canonical-class-algebra}.
+L'égalité dans la formule affichée vaut car
+$M \otimes_P^\mathbf{L} IP = M \otimes_P IP$
+puisque $M$ et $P$ sont plats sur $A$\footnote{Choisissons une résolution
+$F_\bullet \to I$ par des $A$-modules libres. Puisque $A \to P$ est plat,
+$P \otimes_A F_\bullet$ est une résolution libre de $IP$.
+Ainsi, $M \otimes_P^\mathbf{L} IP$ est représenté par
+$M \otimes_P P \otimes_A F_\bullet = M \otimes_A F_\bullet$.
+Ce complexe n'a de cohomologie qu'en degré $0$, car $M$ est plat sur $A$.}.
+De même, l'obstruction au relèvement de $M \otimes_P Q$ est
+l'élément
+$$
+\omega(M \otimes_P Q) \in
+\text{Ext}^2_Q(M \otimes_P Q, (M \otimes_P Q) \otimes_Q IQ)
+$$
+qui est l'image de $\omega(M)$ par la fonctorialité
+de la construction $\omega(-)$ de
+Théorie des déformations, lemme \ref{defos-lemma-canonical-class-algebra}.
+D'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-base-change-RHom},
+nous avons
+$$
+\text{Ext}^2_Q(M \otimes_P Q, (M \otimes_P Q) \otimes_Q IQ) =
+\text{Ext}^2_P(M, M \otimes_P IP) \otimes_P Q
+$$
+où nous utilisons le fait que $P$ est noethérien et $M$ fini.
+Notre hypothèse sur $P' \to Q'$ garantit que, pour un $P$-module $E$,
+l'application $E \to E \otimes_P Q$ est bijective sur la partie annulée par une puissance de $J'$ ; voir
+Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-neighbourhood-equivalence}.
+Nous concluons donc qu'il suffit de montrer que $\omega(M)$
+est annulé par une puissance de $J'$. Autrement dit, il suffit de montrer que
+$\omega(M)$ s'annule dans
+$$
+\text{Ext}^2_P(M, M \otimes_P IP)_g =
+\text{Ext}^2_{P_g}(M_g, M_g \otimes_{P_g} IP_g)
+$$
+pour tout $g \in J'$. Cependant, par la compatibilité de la formation de $\omega(M)$
+au changement de base, nous concluons à nouveau que cela est vrai puisque $M_g$
+est supposé posséder un relèvement (il faut bien sûr utiliser de nouveau toute la
+chaîne d'équivalences).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-equivalence}
+Soit $A' \to A$ un homomorphisme surjectif d'anneaux noethériens de noyau nilpotent.
+Soit $A \to B$ un homomorphisme d'anneaux plat de type fini.
+Soit $\mathfrak b \subset B$ un idéal tel que
+$\Spec(B) \to \Spec(A)$ soit syntomique sur le complémentaire de $V(\mathfrak b)$.
+Alors $B$ possède un relèvement plat sur $A'$ si et seulement si le complété
+$\mathfrak b$-adique $B^\wedge$ possède un relèvement plat sur $A'$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une surjection de $A$-algèbres $P = A[x_1, \ldots, x_n] \to B$.
+Soit $\mathfrak p \subset P$ l'image réciproque de $\mathfrak b$.
+Posons $P' = A'[x_1, \ldots, x_n]$ et notons $\mathfrak p' \subset P'$
+l'image réciproque de $\mathfrak p$. (Bien sûr, $\mathfrak p$
+et $\mathfrak p'$ ne désignent pas ici des idéaux premiers.)
+Nous noterons $P^\wedge$ et $(P')^\wedge$ les complétés respectifs.
+
+\medskip\noindent
+Supposons que $A' \to B'$ soit un relèvement plat de $A \to B$, autrement dit
+que $A' \to B'$ soit plat et qu'il existe un isomorphisme de $A$-algèbres
+$B = B' \otimes_{A'} A$. Nous pouvons alors choisir un homomorphisme de $A'$-algèbres
+$P' \to B'$ relevant la surjection donnée $P \to B$.
+Par le lemme de Nakayama (Algèbre, lemme \ref{algebra-lemma-NAK}),
+nous trouvons que $B'$ est un quotient de $P'$. En particulier, nous trouvons
+que nous pouvons rendre $B'$ plat sur $A'$ comme $P'$-module,
+relevant $B$, qui est plat sur $A$, comme $P$-module.
+Réciproquement, si nous pouvons relever $B$ en un $P'$-module $M'$ plat sur $A'$,
+alors $M'$ est un module cyclique $M' \cong P'/J'$ (en utilisant de nouveau Nakayama),
+et, en posant $B' = P'/J'$, nous obtenons un relèvement plat de $B$ comme algèbre.
+
+\medskip\noindent
+Posons $C = B^\wedge$ et $\mathfrak c = \mathfrak bC$.
+Supposons que $A' \to C'$ soit un relèvement plat de $A \to C$.
+Alors $C'$ est complet pour l'image réciproque $\mathfrak c'$
+de $\mathfrak c$
+(Algèbre, lemme \ref{algebra-lemma-complete-modulo-nilpotent}).
+Choisissons un homomorphisme de $A'$-algèbres $P' \to C'$ relevant
+l'homomorphisme de $A$-algèbres $P \to C$. Ces homomorphismes se prolongent aux
+complétés et donnent des surjections $P^\wedge \to C$ et $(P')^\wedge \to C'$
+(pour la seconde, en utilisant de nouveau le lemme de Nakayama).
+En particulier, nous trouvons que $C'$ est plat sur $A'$ et peut être muni d'une structure de
+$(P')^\wedge$-module relevant $C$, plat sur $A$, comme $P^\wedge$-module.
+Réciproquement, si nous pouvons relever $C$ en un $(P')^\wedge$-module $N'$ plat sur $A'$,
+alors $N'$ est un module cyclique $N' \cong (P')^\wedge/\tilde J$
+(en utilisant de nouveau Nakayama) et, en posant $C' = (P')^\wedge/\tilde J$,
+nous obtenons un relèvement plat de $C$ comme algèbre.
+
+\medskip\noindent
+Observons que $P' \to (P')^\wedge$ est un homomorphisme d'anneaux plat qui
+induit un isomorphisme $P'/\mathfrak p' = (P')^\wedge/\mathfrak p'(P')^\wedge$.
+Nous concluons que notre lemme résulte du
+lemme \ref{lemma-lift-equivalence-module}, pourvu que nous puissions
+montrer que $B_g$ se relève en un module plat sur $A'$ muni d'une structure de $P'_g$-module pour
+$g \in \mathfrak p'$. Or l'homomorphisme d'anneaux $A \to B_g$ est syntomique
+et se relève donc en une $A'$-algèbre plate $B'$ d'après
+Lissage des homomorphismes d'anneaux, proposition \ref{smoothing-proposition-lift-smooth}.
+Puisque $A' \to P'_g$ est lisse, nous pouvons relever $P_g \to B_g$
+en une application surjective $P'_g \to B'$ comme ci-dessus, ce qui donne le résultat voulu.
+\end{proof}
+
+\noindent
+Notation. Soit $A \to B$ un homomorphisme d'anneaux. Soit $N$ un $B$-module.
+Nous notons $\text{Exal}_A(B, N)$ l'ensemble des classes d'isomorphisme
+des extensions
+$$
+0 \to N \to C \to B \to 0
+$$
+de $A$-algèbres telles que $N$ soit un idéal de carré nul dans $C$.
+Étant donnée une seconde extension $0 \to N \to C' \to B \to 0$ de ce type, un isomorphisme
+est un isomorphisme de $A$-algèbres $C \to C'$ tel que le diagramme
+$$
+\xymatrix{
+0 \ar[r] &
+N \ar[r] \ar[d]_{\text{id}} &
+C \ar[r] \ar[d] &
+B \ar[r] \ar[d]_{\text{id}} & 0 \\
+0 \ar[r] &
+N \ar[r] &
+C' \ar[r] &
+B \ar[r] & 0
+}
+$$
+soit commutatif. La correspondance $N \mapsto \text{Exal}_A(B, N)$
+est un foncteur qui transforme les produits en produits.
+C'est donc un foncteur additif, et $\text{Exal}_A(B, N)$
+possède une structure naturelle de $B$-module. En fait, d'après
+Théorie des déformations, lemme \ref{defos-lemma-choices},
+nous avons $\text{Exal}_A(B, N) = \text{Ext}^1_B(\NL_{B/A}, N)$.
+
+\begin{lemma}
+\label{lemma-first-order-completion}
+Soit $k$ un corps. Soit $B$ une $k$-algèbre de type fini.
+Soit $J \subset B$ un idéal tel que
+$\Spec(B) \to \Spec(k)$ soit lisse sur le complémentaire de $V(J)$.
+Soit $N$ un $B$-module fini.
+Alors il existe une bijection canonique
+$$
+\text{Exal}_k(B, N) \to \text{Exal}_k(B^\wedge, N^\wedge)
+$$
+Ici, $B^\wedge$ et $N^\wedge$ sont les complétés $J$-adiques.
+\end{lemma}
+
+\begin{proof}
+L'application est donnée par complétion : étant donné $0 \to N \to C \to B \to 0$
+dans $\text{Exal}_k(B, N)$, nous l'envoyons sur le complété $C^\wedge$
+de $C$ pour l'image réciproque de $J$. Comparer avec
+la démonstration du lemme \ref{lemma-completion}.
+
+\medskip\noindent
+Puisque $k \to B$ est de présentation finie, le complexe
+$\NL_{B/k}$ peut être représenté par un complexe
+$N^{-1} \to N^0$, où $N^i$ est un $B$-module fini ; voir
+Algèbre, section \ref{algebra-section-netherlander}, et
+en particulier
+Algèbre, lemme \ref{algebra-lemma-NL-homotopy}.
+Comme $B$ est noethérien, cela signifie que $\NL_{B/k}$
+est pseudo-cohérent. Pour $g \in J$, la $k$-algèbre $B_g$
+est lisse et donc $(\NL_{B/k})_g = \NL_{B_g/k}$
+est quasi-isomorphe à un $B$-module projectif de type fini placé en degré $0$.
+Ainsi, $\text{Ext}^i_B(\NL_{B/k}, N)_g = 0$ pour $i \geq 1$
+et tout $B$-module $N$. D'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-ext-annihilated-into},
+nous concluons que
+$$
+\text{Ext}^1_B(\NL_{B/k}, N) \longrightarrow
+\lim_n \text{Ext}^1_B(\NL_{B/k}, N/J^n N)
+$$
+est un isomorphisme pour tout $B$-module fini $N$.
+
+\medskip\noindent
+Injectivité de l'application.
+Supposons que $0 \to N \to C \to B \to 0$ appartienne à $\text{Exal}_k(B, N)$
+et s'envoie sur zéro dans $\text{Exal}_k(B^\wedge, N^\wedge)$.
+Choisissons un scindage $C^\wedge = B^\wedge \oplus N^\wedge$.
+Alors l'application induite $C \to C^\wedge \to N^\wedge$
+donne des applications $C \to N/J^nN$ pour tout $n$.
+Nous voyons donc que notre élément appartient au noyau des applications
+$$
+\text{Ext}^1_B(\NL_{B/k}, N) \to
+\text{Ext}^1_B(\NL_{B/k}, N/J^n N)
+$$
+pour tout $n$. Le paragraphe précédent montre que
+notre élément est nul.
+
+\medskip\noindent
+Surjectivité de l'application. Soit $0 \to N^\wedge \to C' \to B^\wedge \to 0$
+un élément de $\text{Exal}_k(B^\wedge, N^\wedge)$.
+Par image réciproque selon $B \to B^\wedge$, nous obtenons un élément
+$0 \to N^\wedge \to C'' \to B \to 0$ dans
+$\text{Exal}_k(B, N^\wedge)$.
+nous avons
+$$
+\text{Ext}^1_B(\NL_{B/k}, N^\wedge) =
+\text{Ext}^1_B(\NL_{B/k}, N) \otimes_B B^\wedge =
+\text{Ext}^1_B(\NL_{B/k}, N)
+$$
+La première égalité vaut puisque $N^\wedge = N \otimes_B B^\wedge$
+(Algèbre, lemme \ref{algebra-lemma-completion-tensor})
+et d'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-pseudo-coherence-and-ext}.
+La seconde égalité vaut parce que $\text{Ext}^1_B(\NL_{B/k}, N)$
+est annulé par une puissance de $J$ (voir ci-dessus), que $B \to B^\wedge$ est plat et induit
+un isomorphisme $B/J \to B^\wedge/JB^\wedge$, et d'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-neighbourhood-equivalence}.
+Nous pouvons donc trouver un $C \in \text{Exal}_k(B, N)$ s'envoyant sur $C''$ dans
+$\text{Exal}_k(B, N^\wedge)$.
+Ainsi,
+$$
+0 \to N^\wedge \to C' \to B^\wedge \to 0
+\quad\text{et}\quad
+0 \to N^\wedge \to C^\wedge \to B^\wedge \to 0
+$$
+ces suites sont deux éléments de $\text{Exal}_k(B^\wedge, N^\wedge)$
+qui s'envoient sur le même élément de $\text{Exal}_k(B, N^\wedge)$.
+En prenant leur différence, nous obtenons un élément
+$0 \to N^\wedge \to C' \to B^\wedge \to 0$ de
+$\text{Exal}_k(B^\wedge, N^\wedge)$
+dont l'image dans $\text{Exal}_k(B, N^\wedge)$ est nulle.
+Cela signifie qu'il existe
+$$
+\xymatrix{
+0 \ar[r] &
+N^\wedge \ar[r] &
+C' \ar[r] &
+B^\wedge \ar[r] & 0 \\
+& & B \ar[u]^\sigma \ar[ru]
+}
+$$
+Soit $J' \subset C'$ l'image réciproque de $JB^\wedge \subset B^\wedge$.
+Pour achever la démonstration, il suffit de noter que
+$\sigma$ est continue pour la topologie $J$-adique sur $B$
+et la topologie $J'$-adique sur $C'$, et que $C'$ est complet pour la topologie $J'$-adique d'après
+Algèbre, lemme \ref{algebra-lemma-complete-modulo-nilpotent}
+(nous utilisons aussi ici que $C'$ est noethérien ; un petit détail est omis).
+En effet, cela signifie que $\sigma$ se factorise par le
+complété $B^\wedge$ et que $C' = 0$ dans $\text{Exal}_k(B^\wedge, N^\wedge)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-completion}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Soit $J \subset P$ un idéal.
+Notons $P^\wedge$ le complété $J$-adique. Si
+\begin{enumerate}
+\item $k \to P$ est de type fini ;
+\item $\Spec(P) \to \Spec(k)$ est lisse sur le complémentaire de $V(J)$.
+\end{enumerate}
+alors le foncteur entre catégories de déformations du
+lemme \ref{lemma-completion}
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^\wedge}
+$$
+est lisse et induit un isomorphisme sur les espaces tangents.
+\end{lemma}
+
+\begin{proof}
+Nous savons que $\Deformationcategory_P$ et $\Deformationcategory_{P^\wedge}$
+sont des catégories de déformations d'après le lemme \ref{lemma-rings-RS}.
+Il suffit donc de vérifier que
+notre foncteur identifie les espaces tangents et les possibilités
+de relèvement ; voir Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-easy-check-smooth}.
+La propriété concernant les possibilités de relèvement est démontrée dans le
+lemme \ref{lemma-lift-equivalence},
+et l'isomorphisme sur les espaces tangents est le cas particulier du
+lemme \ref{lemma-first-order-completion} où $N = B$.
+\end{proof}
+
+
+
+\section{Déformations des localisations}
+\label{section-compare-localization}
+
+\noindent
+Dans cette section, nous comparons les problèmes de déformation posés
+par une algèbre et par sa localisation en une partie multiplicative.
+Nous discutons d'abord de la « possibilité de relèvement ».
+
+\begin{lemma}
+\label{lemma-lift-equivalence-localization}
+Soit $A' \to A$ un homomorphisme surjectif d'anneaux noethériens de noyau nilpotent.
+Soit $A \to B$ un homomorphisme d'anneaux plat de type fini.
+Soit $S \subset B$ une partie multiplicative telle que,
+si $\Spec(B) \to \Spec(A)$ n'est pas syntomique en $\mathfrak q$,
+alors $S \cap \mathfrak q = \emptyset$.
+Alors $B$ possède un relèvement plat sur $A'$ si et seulement si
+$S^{-1}B$ possède un relèvement plat sur $A'$.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est la même que celle du
+lemme \ref{lemma-lift-equivalence}, mais plus facile. Nous suggérons au
+lecteur de l'omettre.
+Choisissons une surjection de $A$-algèbres $P = A[x_1, \ldots, x_n] \to B$.
+Soit $S_P \subset P$ l'image réciproque de $S$.
+Posons $P' = A'[x_1, \ldots, x_n]$ et notons $S_{P'} \subset P'$
+l'image réciproque de $S_P$.
+
+\medskip\noindent
+Supposons que $A' \to B'$ soit un relèvement plat de $A \to B$, autrement dit
+que $A' \to B'$ soit plat et qu'il existe un isomorphisme de $A$-algèbres
+$B = B' \otimes_{A'} A$. Nous pouvons alors choisir un homomorphisme de $A'$-algèbres
+$P' \to B'$ relevant la surjection donnée $P \to B$.
+Par le lemme de Nakayama (Algèbre, lemme \ref{algebra-lemma-NAK}),
+nous trouvons que $B'$ est un quotient de $P'$. En particulier, nous trouvons
+que nous pouvons rendre $B'$ plat sur $A'$ comme $P'$-module,
+relevant $B$, qui est plat sur $A$, comme $P$-module.
+Réciproquement, si nous pouvons relever $B$ en un $P'$-module $M'$ plat sur $A'$,
+alors $M'$ est un module cyclique $M' \cong P'/J'$ (en utilisant de nouveau Nakayama),
+et, en posant $B' = P'/J'$, nous obtenons un relèvement plat de $B$ comme algèbre.
+
+\medskip\noindent
+Posons $C = S^{-1}B$. Supposons que $A' \to C'$ soit un relèvement plat de $A \to C$.
+Les éléments de $C'$ dont l'image dans $C$ est inversible sont inversibles.
+Choisissons un homomorphisme de $A'$-algèbres $P' \to C'$ relevant
+l'homomorphisme de $A$-algèbres $P \to C$. D'après la remarque précédente,
+ces homomorphismes se prolongent aux localisations et donnent des surjections
+$S_P^{-1}P \to C$ et $S_{P'}^{-1}P' \to C'$
+(pour la seconde, utiliser le lemme de Nakayama).
+En particulier, nous trouvons que $C'$ est plat sur $A'$ et peut être muni d'une structure de
+$S_{P'}^{-1}P'$-module relevant $C$, plat sur $A$, comme
+$S_P^{-1}P$-module. Réciproquement, si nous pouvons relever $C$ en un
+$S_{P'}^{-1}P'$-module $N'$ plat sur $A'$, alors $N'$
+est un module cyclique $N' \cong S_{P'}^{-1}P'/\tilde J$
+(en utilisant de nouveau Nakayama) et, en posant $C' = S_{P'}^{-1}P'/\tilde J$,
+nous obtenons un relèvement plat de $C$ comme algèbre.
+
+\medskip\noindent
+Le lieu syntomique d'un morphisme de schémas est ouvert par définition.
+Soit $J_B \subset B$ un idéal définissant l'ensemble des points
+de $\Spec(B)$ où $\Spec(B) \to \Spec(A)$ n'est pas syntomique.
+Notons $J_P \subset P$ et $J_{P'} \subset P'$ les idéaux
+correspondants. Observons que $P' \to S_{P'}^{-1}P'$ est un homomorphisme d'anneaux plat qui
+induit un isomorphisme $P'/J_{P'} = S_{P'}^{-1}P'/J_{P'}S_{P'}^{-1}P'$
+grâce à notre hypothèse sur $S$ dans le lemme ; plus précisément, l'hypothèse
+du lemme signifie exactement que $B/J_B = S^{-1}(B/J_B)$.
+Nous concluons que notre lemme résulte du
+lemme \ref{lemma-lift-equivalence-module}, pourvu que nous puissions
+montrer que $B_g$ se relève en un module plat sur $A'$ muni d'une structure de $P'_g$-module pour
+$g \in J_B$. Or l'homomorphisme d'anneaux $A \to B_g$ est syntomique
+et se relève donc en une $A'$-algèbre plate $B'$ d'après
+Lissage des homomorphismes d'anneaux, proposition \ref{smoothing-proposition-lift-smooth}.
+Puisque $A' \to P'_g$ est lisse, nous pouvons relever $P_g \to B_g$
+en une application surjective $P'_g \to B'$ comme ci-dessus, ce qui donne le résultat voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-first-order-localization}
+Soit $k$ un corps. Soit $B$ une $k$-algèbre de type fini.
+Soit $S \subset B$ une partie multiplicative telle que,
+si $\Spec(B) \to \Spec(k)$ n'est pas lisse en $\mathfrak q$,
+alors $S \cap \mathfrak q = \emptyset$.
+Soit $N$ un $B$-module fini.
+Alors il existe une bijection canonique
+$$
+\text{Exal}_k(B, N) \to \text{Exal}_k(S^{-1}B, S^{-1}N)
+$$
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est la même que celle du
+lemme \ref{lemma-first-order-completion}, mais plus facile. Nous suggérons au
+lecteur de l'omettre.
+L'application est donnée par localisation : étant donné $0 \to N \to C \to B \to 0$
+dans $\text{Exal}_k(B, N)$, nous l'envoyons sur la localisation $S_C^{-1}C$
+de $C$ en l'image réciproque $S_C \subset C$ de $S$.
+Comparer avec la démonstration du lemme \ref{lemma-localization}.
+
+\medskip\noindent
+Le lieu de lissité d'un morphisme de schémas est ouvert par définition.
+Soit $J \subset B$ un idéal définissant l'ensemble des points
+de $\Spec(B)$ où $\Spec(B) \to \Spec(A)$ n'est pas lisse.
+Puisque $k \to B$ est de présentation finie, le complexe
+$\NL_{B/k}$ peut être représenté par un complexe
+$N^{-1} \to N^0$, où $N^i$ est un $B$-module fini ; voir
+Algèbre, section \ref{algebra-section-netherlander}, et
+en particulier
+Algèbre, lemme \ref{algebra-lemma-NL-homotopy}.
+Comme $B$ est noethérien, cela signifie que $\NL_{B/k}$
+est pseudo-cohérent. Pour $g \in J$, la $k$-algèbre $B_g$
+est lisse et donc $(\NL_{B/k})_g = \NL_{B_g/k}$
+est quasi-isomorphe à un $B$-module projectif de type fini placé en degré $0$.
+Ainsi, $\text{Ext}^i_B(\NL_{B/k}, N)_g = 0$ pour $i \geq 1$
+et tout $B$-module $N$. Enfin, nous avons
+$$
+\text{Ext}^1_{S^{-1}B}(\NL_{S^{-1}B/k}, S^{-1}N) =
+\text{Ext}^1_B(\NL_{B/k}, N) \otimes_B S^{-1}B =
+\text{Ext}^1_B(\NL_{B/k}, N)
+$$
+La première égalité résulte de
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-base-change-RHom},
+et d'Algèbre, lemme \ref{algebra-lemma-localize-NL}.
+La seconde vaut parce que $\text{Ext}^1_B(\NL_{B/k}, N)$ est annulé par une puissance de $J$
+et que les éléments de $S$ agissent inversiblement sur les modules annulés par une puissance de $J$.
+Cela achève la démonstration grâce à la description de $\text{Exal}_A(B, N)$
+comme $\text{Ext}^1_B(\NL_{B/A}, N)$ donnée juste avant le
+lemme \ref{lemma-first-order-completion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-localization}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Soit $S \subset P$ une partie multiplicative. Si
+\begin{enumerate}
+\item $k \to P$ est de type fini ;
+\item $\Spec(P) \to \Spec(k)$ est lisse en tout point de
+$V(g)$ pour tout $g \in S$.
+\end{enumerate}
+alors le foncteur entre catégories de déformations du
+lemme \ref{lemma-localization}
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{S^{-1}P}
+$$
+est lisse et induit un isomorphisme sur les espaces tangents.
+\end{lemma}
+
+\begin{proof}
+Nous savons que $\Deformationcategory_P$ et $\Deformationcategory_{S^{-1}P}$
+sont des catégories de déformations d'après le lemme \ref{lemma-rings-RS}.
+Il suffit donc de vérifier que
+notre foncteur identifie les espaces tangents et les possibilités
+de relèvement ; voir Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-easy-check-smooth}.
+La propriété concernant les possibilités de relèvement est démontrée dans le
+lemme \ref{lemma-lift-equivalence-localization},
+et l'isomorphisme sur les espaces tangents est le cas particulier du
+lemme \ref{lemma-first-order-localization} où $N = B$.
+\end{proof}
+
+
+
+\section{Déformations des hensélisés}
+\label{section-compare-henselization}
+
+\noindent
+Dans cette section, nous comparons les problèmes de déformation posés
+par une algèbre et par son complété.
+Nous discutons d'abord de la « possibilité de relèvement ».
+
+\begin{lemma}
+\label{lemma-lift-equivalence-henselization}
+Soit $A' \to A$ un homomorphisme surjectif d'anneaux noethériens de noyau nilpotent.
+Soit $A \to B$ un homomorphisme d'anneaux plat de type fini.
+Soit $\mathfrak b \subset B$ un idéal tel que
+$\Spec(B) \to \Spec(A)$ soit syntomique sur le complémentaire de $V(\mathfrak b)$.
+Soit $(B^h, \mathfrak b^h)$ l'hensélisation du couple $(B, \mathfrak b)$.
+Alors $B$ possède un relèvement plat sur $A'$ si et seulement si $B^h$ possède un relèvement plat sur $A'$.
+\end{lemma}
+
+\begin{proof}[Première démonstration]
+Cette démonstration triche quelque peu. En effet, si $B$ possède un relèvement plat $B'$, alors,
+en prenant l'hensélisé $(B')^h$, nous obtenons un relèvement plat de $B^h$
+(comparer avec la démonstration du lemme \ref{lemma-henselization}).
+Réciproquement, supposons que $C'$ soit un relèvement plat sur $A'$ de $(B')^h$.
+Soit alors $\mathfrak c' \subset C'$ l'image réciproque de
+l'idéal $\mathfrak b^h$. Le complété $(C')^\wedge$ de
+$C'$ pour $\mathfrak c'$ est alors un relèvement de $B^\wedge$ (détails omis).
+Nous voyons donc que $B$ possède un relèvement plat d'après le
+lemme \ref{lemma-lift-equivalence}.
+\end{proof}
+
+\begin{proof}[Seconde démonstration]
+Choisissons une surjection de $A$-algèbres $P = A[x_1, \ldots, x_n] \to B$.
+Soit $\mathfrak p \subset P$ l'image réciproque de $\mathfrak b$.
+Posons $P' = A'[x_1, \ldots, x_n]$ et notons $\mathfrak p' \subset P'$
+l'image réciproque de $\mathfrak p$. (Bien sûr, $\mathfrak p$
+et $\mathfrak p'$ ne désignent pas ici des idéaux premiers.)
+Nous noterons $P^h$ et $(P')^h$ les hensélisés respectifs.
+Nous utiliserons la fonctorialité de l'hensélisation ainsi que le fait que
+l'hensélisé d'un quotient est le quotient correspondant
+de l'hensélisé ; voir
+Compléments sur l'algèbre, lemmes
+\ref{more-algebra-lemma-irreducible-henselian-pair-connected} et
+\ref{more-algebra-lemma-henselization-integral}.
+
+\medskip\noindent
+Supposons que $A' \to B'$ soit un relèvement plat de $A \to B$, autrement dit
+que $A' \to B'$ soit plat et qu'il existe un isomorphisme de $A$-algèbres
+$B = B' \otimes_{A'} A$. Nous pouvons alors choisir un homomorphisme de $A'$-algèbres
+$P' \to B'$ relevant la surjection donnée $P \to B$.
+Par le lemme de Nakayama (Algèbre, lemme \ref{algebra-lemma-NAK}),
+nous trouvons que $B'$ est un quotient de $P'$. En particulier, nous trouvons
+que nous pouvons rendre $B'$ plat sur $A'$ comme $P'$-module,
+relevant $B$, qui est plat sur $A$, comme $P$-module.
+Réciproquement, si nous pouvons relever $B$ en un $P'$-module $M'$ plat sur $A'$,
+alors $M'$ est un module cyclique $M' \cong P'/J'$ (en utilisant de nouveau Nakayama),
+et, en posant $B' = P'/J'$, nous obtenons un relèvement plat de $B$ comme algèbre.
+
+\medskip\noindent
+Posons $C = B^h$ et $\mathfrak c = \mathfrak bC$.
+Supposons que $A' \to C'$ soit un relèvement plat de $A \to C$.
+Alors $C'$ est hensélien pour l'image réciproque
+$\mathfrak c'$ de $\mathfrak c$
+(d'après Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-henselian-henselian-pair},
+et parce que le noyau de $C' \to C$ est nilpotent).
+Choisissons un homomorphisme de $A'$-algèbres $P' \to C'$ relevant
+l'homomorphisme de $A$-algèbres $P \to C$. Ces homomorphismes se prolongent aux
+hensélisés et donnent des surjections $P^h \to C$ et $(P')^h \to C'$
+(pour la seconde, en utilisant de nouveau le lemme de Nakayama).
+En particulier, nous trouvons que $C'$ est plat sur $A'$ et peut être muni d'une structure de
+$(P')^h$-module relevant $C$, plat sur $A$, comme $P^h$-module.
+Réciproquement, si nous pouvons relever $C$ en un $(P')^h$-module $N'$ plat sur $A'$,
+alors $N'$ est un module cyclique $N' \cong (P')^h/\tilde J$
+(en utilisant de nouveau Nakayama) et, en posant $C' = (P')^h/\tilde J$,
+nous obtenons un relèvement plat de $C$ comme algèbre.
+
+\medskip\noindent
+Observons que $P' \to (P')^h$ est un homomorphisme d'anneaux plat qui
+induit un isomorphisme $P'/\mathfrak p' = (P')^h/\mathfrak p'(P')^h$
+(Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-henselization-flat}).
+Nous concluons que notre lemme résulte du
+lemme \ref{lemma-lift-equivalence-module}, pourvu que nous puissions
+montrer que $B_g$ se relève en un module plat sur $A'$ muni d'une structure de $P'_g$-module pour
+$g \in \mathfrak p'$. Or l'homomorphisme d'anneaux $A \to B_g$ est syntomique
+et se relève donc en une $A'$-algèbre plate $B'$ d'après
+Lissage des homomorphismes d'anneaux, proposition \ref{smoothing-proposition-lift-smooth}.
+Puisque $A' \to P'_g$ est lisse, nous pouvons relever $P_g \to B_g$
+en une application surjective $P'_g \to B'$ comme ci-dessus, ce qui donne le résultat voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-first-order-henselization}
+Soit $k$ un corps. Soit $B$ une $k$-algèbre de type fini.
+Soit $J \subset B$ un idéal tel que
+$\Spec(B) \to \Spec(k)$ soit lisse sur le complémentaire de $V(J)$.
+Soit $N$ un $B$-module fini.
+Alors il existe une bijection canonique
+$$
+\text{Exal}_k(B, N) \to \text{Exal}_k(B^h, N^h)
+$$
+Ici, $(B^h, J^h)$ est l'hensélisation de $(B, J)$
+et $N^h = N \otimes_B B^h$.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration est la même que celle du
+lemme \ref{lemma-first-order-completion}, mais plus facile. Nous suggérons au
+lecteur de l'omettre.
+L'application est donnée par hensélisation : étant donné $0 \to N \to C \to B \to 0$
+dans $\text{Exal}_k(B, N)$, nous l'envoyons sur
+l'hensélisé $C^h$
+de $C$ pour l'image réciproque $J_C \subset C$ de $J$.
+Comparer avec la démonstration du lemme \ref{lemma-henselization}.
+
+\medskip\noindent
+Puisque $k \to B$ est de présentation finie, le complexe
+$\NL_{B/k}$ peut être représenté par un complexe
+$N^{-1} \to N^0$, où $N^i$ est un $B$-module fini ; voir
+Algèbre, section \ref{algebra-section-netherlander}, et
+en particulier
+Algèbre, lemme \ref{algebra-lemma-NL-homotopy}.
+Comme $B$ est noethérien, cela signifie que $\NL_{B/k}$
+est pseudo-cohérent. Pour $g \in J$, la $k$-algèbre $B_g$
+est lisse et donc $(\NL_{B/k})_g = \NL_{B_g/k}$
+est quasi-isomorphe à un $B$-module projectif de type fini placé en degré $0$.
+Ainsi, $\text{Ext}^i_B(\NL_{B/k}, N)_g = 0$ pour $i \geq 1$
+et tout $B$-module $N$. Enfin, nous avons
+\begin{align*}
+\text{Ext}^1_{B^h}(\NL_{B^h/k}, N^h)
+& =
+\text{Ext}^1_{B^h}(\NL_{B/k} \otimes_B B^h, N \otimes_B B^h) \\
+& =
+\text{Ext}^1_B(\NL_{B/k}, N) \otimes_B B^h \\
+& =
+\text{Ext}^1_B(\NL_{B/k}, N)
+\end{align*}
+La première égalité résulte de
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-henselization-NL}
+(ou plutôt de son analogue pour les hensélisations de couples).
+La deuxième résulte de
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-base-change-RHom}.
+La troisième vaut parce que $\text{Ext}^1_B(\NL_{B/k}, N)$ est annulé par une puissance de $J$,
+que l'application $B \to B^h$ est plate et induit un isomorphisme
+$B/J \to B^h/JB^h$ (Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-henselization-flat}), et d'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-neighbourhood-equivalence}.
+Cela achève la démonstration grâce à la description de $\text{Exal}_A(B, N)$
+comme $\text{Ext}^1_B(\NL_{B/A}, N)$ donnée juste avant le
+lemme \ref{lemma-first-order-completion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-henselization}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Soit $J \subset P$ un idéal.
+Notons $(P^h, J^h)$ l'hensélisation du couple $(P, J)$. Si
+\begin{enumerate}
+\item $k \to P$ est de type fini ;
+\item $\Spec(P) \to \Spec(k)$ est lisse sur le complémentaire de $V(J)$,
+\end{enumerate}
+alors le foncteur entre catégories de déformations du
+lemme \ref{lemma-henselization}
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^h}
+$$
+est lisse et induit un isomorphisme sur les espaces tangents.
+\end{lemma}
+
+\begin{proof}
+Nous savons que $\Deformationcategory_P$ et $\Deformationcategory_{P^h}$
+sont des catégories de déformations d'après le lemme \ref{lemma-rings-RS}.
+Il suffit donc de vérifier que
+notre foncteur identifie les espaces tangents et les possibilités
+de relèvement ; voir Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-easy-check-smooth}.
+La propriété concernant les possibilités de relèvement est démontrée dans le
+lemme \ref{lemma-lift-equivalence-henselization},
+et l'isomorphisme sur les espaces tangents est le cas particulier du
+lemme \ref{lemma-first-order-henselization} où $N = B$.
+\end{proof}
+
+
+
+\section{Application aux singularités isolées}
+\label{section-isolated}
+
+\noindent
+Nous appliquons la discussion précédente à l'étude de la théorie des déformations
+d'une algèbre de type fini qui ne possède qu'un nombre fini de points singuliers.
+
+\begin{lemma}
+\label{lemma-isolated}
+Dans l'exemple \ref{example-rings}, soit $P$ une $k$-algèbre.
+Supposons que $k \to P$ soit de type fini et que $\Spec(P) \to \Spec(k)$
+soit lisse sauf aux idéaux maximaux
+$\mathfrak m_1, \ldots, \mathfrak m_n$ de $P$.
+Soient $P_{\mathfrak m_i}$, $P_{\mathfrak m_i}^h$, $P_{\mathfrak m_i}^\wedge$
+l'anneau local, l'hensélisé et le complété.
+Alors les applications de catégories de déformations
+$$
+\Deformationcategory_P \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}} \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}^h} \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}^\wedge}
+$$
+sont lisses et induisent des isomorphismes sur leurs espaces tangents
+de dimension finie.
+\end{lemma}
+
+\begin{proof}
+L'espace tangent est de dimension finie d'après le
+lemme \ref{lemma-finite-type-rings-TI}.
+Les foncteurs entre les catégories sont construits
+dans les lemmes \ref{lemma-localization}, \ref{lemma-henselization} et
+\ref{lemma-completion} (nous omettons certaines vérifications du type :
+le complété de l'hensélisé est le complété).
+
+\medskip\noindent
+Posons $J = \mathfrak m_1 \cap \ldots \cap \mathfrak m_n$ et appliquons le
+lemme \ref{lemma-smooth-completion} pour obtenir que
+$\Deformationcategory_P \to \Deformationcategory_{P^\wedge}$
+est lisse et induit un isomorphisme sur les espaces tangents,
+où $P^\wedge$ est le complété $J$-adique de $P$.
+Cependant, puisque $P^\wedge = \prod P_{\mathfrak m_i}^\wedge$,
+nous voyons que l'application $\Deformationcategory_P \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}^\wedge}$
+est lisse et induit un isomorphisme sur les espaces tangents.
+
+\medskip\noindent
+Soit $(P^h, J^h)$ l'hensélisation du couple $(P, J)$.
+Alors $P^h = \prod P_{\mathfrak m_i}^h$ (considérer les idempotents
+et utiliser Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-characterize-henselian-pair}).
+Nous pouvons donc appliquer le lemme \ref{lemma-smooth-henselization}
+et conclure comme dans le cas du complété.
+
+\medskip\noindent
+Pour obtenir le dernier cas, il suffit de montrer que
+$\Deformationcategory_{P_{\mathfrak m_i}} \to
+\Deformationcategory_{P_{\mathfrak m_i}^\wedge}$
+est lisse et induit des isomorphismes sur les espaces tangents pour chaque $i$ séparément.
+Pour cela, nous pouvons remplacer $P$ par une localisation principale
+dont l'unique point singulier est un idéal maximal $\mathfrak m$
+(correspondant à $\mathfrak m_i$ dans le $P$ initial).
+Nous pouvons alors appliquer le
+lemme \ref{lemma-smooth-localization}
+à la partie multiplicative $S = P \setminus \mathfrak m$ pour conclure.
+Les détails mineurs sont omis.
+\end{proof}
+
+
+
+
+
+
+\section{Problèmes de déformation non obstrués}
+\label{section-unobstructed}
+
+\noindent
+Soit $p : \mathcal{F} \to \mathcal{C}_\Lambda$ une
+catégorie cofibrée en groupoïdes. Rappelons que nous disons que $\mathcal{F}$
+est {\it lisse} ou {\it non obstruée} si $p$ est lisse.
+Cela signifie qu'étant données une surjection $\varphi : A' \to A$ dans
+$\mathcal{C}_\Lambda$ et $x \in \Ob(\mathcal{F}(A))$,
+il existe un morphisme $f : x' \to x$ dans $\mathcal{F}$
+tel que $p(f) = \varphi$.
+Voir Théorie formelle des déformations, section \ref{formal-defos-section-smooth}.
+Dans cette section, nous donnons quelques exemples géométriquement significatifs.
+
+\begin{lemma}
+\label{lemma-lci-unobstructed}
+Dans l'exemple \ref{example-rings}, soit $P$ une intersection complète
+locale sur $k$ (Algèbre, définition \ref{algebra-definition-lci-field}).
+Alors $\Deformationcategory_P$ est non obstruée.
+\end{lemma}
+
+\begin{proof}
+Soit $(A, Q) \to (k, P)$ un objet de $\Deformationcategory_P$.
+Alors nous voyons que $A \to Q$ est un homomorphisme d'anneaux syntomique d'après
+Algèbre, définition \ref{algebra-definition-lci}.
+Ainsi, pour toute surjection $A' \to A$ dans $\mathcal{C}_\Lambda$,
+nous voyons qu'il existe un morphisme $(A', Q') \to (A, Q)$
+relevant $A' \to A$ d'après
+Lissage des homomorphismes d'anneaux, proposition \ref{smoothing-proposition-lift-smooth}.
+Cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-smooth}
+Dans la situation \ref{situation-glueing}, si $U_{12} \to \Spec(k)$ est lisse,
+alors le morphisme
+$$
+\Deformationcategory_X
+\longrightarrow
+\Deformationcategory_{U_1} \times \Deformationcategory_{U_2} =
+\Deformationcategory_{P_1} \times \Deformationcategory_{P_2}
+$$
+est lisse. Si, de plus,
+$U_1$ est une intersection complète locale sur $k$, alors
+$$
+\Deformationcategory_X
+\longrightarrow
+\Deformationcategory_{U_2} = \Deformationcategory_{P_2}
+$$
+est lisse.
+\end{lemma}
+
+\begin{proof}
+Les signes d'égalité sont justifiés par le lemme \ref{lemma-affine}.
+Considérons $\mathcal{C}_\Lambda$ comme une catégorie de
+déformations sur $\mathcal{C}_\Lambda$, comme dans
+Théorie formelle des déformations, section \ref{formal-defos-section-smooth}.
+Alors
+$$
+\Deformationcategory_{P_1} \times \Deformationcategory_{P_2} =
+\Deformationcategory_{P_1}
+\times_{\mathcal{C}_\Lambda}
+\Deformationcategory_{P_2},
+$$
+voir Théorie formelle des déformations, remarques
+\ref{formal-defos-remarks-cofibered-groupoids}
+(\ref{formal-defos-item-product}).
+En utilisant le
+lemme \ref{lemma-glueing},
+la première assertion revient à dire que le foncteur
+$$
+\Deformationcategory_{P_1}
+\times_{\Deformationcategory_{P_{12}}}
+\Deformationcategory_{P_2}
+\longrightarrow
+\Deformationcategory_{P_1}
+\times_{\mathcal{C}_\Lambda}
+\Deformationcategory_{P_2}
+$$
+est lisse. Cela résulte de Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-map-fibre-products-smooth}, pourvu que
+nous puissions montrer que $T\Deformationcategory_{P_{12}} = (0)$.
+Cette annulation résulte du lemme \ref{lemma-smooth},
+puisque $P_{12}$ est lisse sur $k$.
+Pour la seconde assertion, il suffit de montrer que
+$\Deformationcategory_{P_1} \to \mathcal{C}_\Lambda$
+est lisse ; voir Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-smooth-properties}.
+Autrement dit, il faut montrer que $\Deformationcategory_{P_1}$
+est non obstruée, ce qui est le lemme \ref{lemma-lci-unobstructed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-curve-isolated}
+Dans l'exemple \ref{example-schemes}, soit $X$ un schéma sur $k$. Supposons que
+\begin{enumerate}
+\item $X$ soit séparé, de type fini sur $k$ et $\dim(X) \leq 1$ ;
+\item $X \to \Spec(k)$ soit lisse sauf aux
+points fermés $p_1, \ldots, p_n \in X$.
+\end{enumerate}
+Soient $\mathcal{O}_{X, p_1}$, $\mathcal{O}_{X, p_1}^h$,
+$\mathcal{O}_{X, p_1}^\wedge$ l'anneau local, l'hensélisé et le complété.
+Considérons les applications de catégories de déformations
+$$
+\Deformationcategory_X
+\longrightarrow
+\prod \Deformationcategory_{\mathcal{O}_{X, p_i}}
+\longrightarrow
+\prod \Deformationcategory_{\mathcal{O}_{X, p_i}^h}
+\longrightarrow
+\prod \Deformationcategory_{\mathcal{O}_{X, p_i}^\wedge}
+$$
+La première flèche est lisse, et les deuxième et troisième flèches
+sont lisses et induisent des isomorphismes sur les espaces tangents.
+\end{lemma}
+
+\begin{proof}
+Choisissons un ouvert affine $U_2 \subset X$ contenant
+$p_1, \ldots, p_n$ et le point générique de toute composante
+irréductible de $X$. Cela est possible d'après
+Variétés, lemme \ref{varieties-lemma-dim-1-quasi-projective},
+et Propriétés, lemme \ref{properties-lemma-ample-finite-set-in-affine}.
+Alors $X \setminus U_2$ est fini, et nous pouvons choisir un ouvert affine
+$U_1 \subset X \setminus \{p_1, \ldots, p_n\}$ tel que
+$X = U_1 \cup U_2$. Posons $U_{12} = U_1 \cap U_2$.
+Alors $U_1$ et $U_{12}$ sont des schémas affines lisses sur $k$.
+Nous concluons que
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_{U_2}
+$$
+est lisse d'après le lemme \ref{lemma-glueing-smooth}.
+Le résultat découle des lemmes \ref{lemma-affine} et \ref{lemma-isolated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-curve-isolated-lci}
+Dans l'exemple \ref{example-schemes}, soit $X$ un schéma sur $k$. Supposons que
+\begin{enumerate}
+\item $X$ soit séparé, de type fini sur $k$ et $\dim(X) \leq 1$ ;
+\item $X$ soit une intersection complète locale sur $k$ ;
+\item $X \to \Spec(k)$ soit lisse sauf en un nombre fini de points.
+\end{enumerate}
+Alors $\Deformationcategory_X$ est non obstruée.
+\end{lemma}
+
+\begin{proof}
+Soient $p_1, \ldots, p_n \in X$ les points où $X \to \Spec(k)$
+n'est pas lisse. Choisissons un ouvert affine $U_2 \subset X$ contenant
+$p_1, \ldots, p_n$ et le point générique de toute composante
+irréductible de $X$. Cela est possible d'après
+Variétés, lemme \ref{varieties-lemma-dim-1-quasi-projective},
+et Propriétés, lemme \ref{properties-lemma-ample-finite-set-in-affine}.
+Alors $X \setminus U_2$ est fini, et nous pouvons choisir un ouvert affine
+$U_1 \subset X \setminus \{p_1, \ldots, p_n\}$ tel que
+$X = U_1 \cup U_2$. Posons $U_{12} = U_1 \cap U_2$.
+Alors $U_1$ et $U_{12}$ sont des schémas affines lisses sur $k$.
+Nous concluons que
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_{U_2}
+$$
+est lisse d'après le lemme \ref{lemma-glueing-smooth}.
+Le résultat découle des lemmes \ref{lemma-affine} et \ref{lemma-lci-unobstructed}.
+\end{proof}
+
+
+
+
+\section{Lissages}
+\label{section-smoothing}
+
+\noindent
+Soit donné un schéma ou espace algébrique de type fini $X$ sur un corps $k$.
+Il est souvent utile de trouver un morphisme plat de type fini $Y \to \Spec(k[[t]])$
+dont la fibre générique est lisse et la fibre spéciale isomorphe à $X$.
+Un tel objet est appelé un lissage de $X$. Dans cette section, nous trouverons
+un lissage en dimension $1$ pour un espace séparé $X$ qui possède des singularités
+isolées d'intersection complète locale.
+
+\begin{lemma}
+\label{lemma-criterion-smoothing}
+Soit $k$ un corps. Posons $S = \Spec(k[[t]])$ et
+$S_n = \Spec(k[t]/(t^n))$. Soit $Y \to S$ un morphisme propre et plat
+de schémas dont la fibre spéciale $X$ est de Cohen-Macaulay et
+équidimensionnelle de dimension $d$. Notons $X_n = Y \times_S S_n$.
+Si, pour un certain $n \geq 1$, le $d$-ième idéal de Fitting de $\Omega_{X_n/S_n}$
+contient $t^{n - 1}$, alors la fibre générique de $Y \to S$ est lisse.
+\end{lemma}
+
+\begin{proof}
+D'après Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-flat-finite-presentation-CM-open}
+nous voyons que $Y \to S$ est un morphisme de Cohen-Macaulay.
+D'après Morphismes, lemme
+\ref{morphisms-lemma-flat-finite-presentation-CM-fibres-relative-dimension}
+nous voyons que $Y \to S$ est de dimension relative $d$.
+D'après Diviseurs, lemme \ref{divisors-lemma-d-fitting-ideal-omega-smooth},
+le $d$-ième idéal de Fitting $\mathcal{I} \subset \mathcal{O}_Y$
+de $\Omega_{Y/S}$ définit le lieu singulier du morphisme $Y \to S$.
+Autrement dit, $V(\mathcal{I}) \subset Y$ est le sous-ensemble fermé
+des points où $Y \to S$ n'est pas lisse.
+D'après Diviseurs, lemme \ref{divisors-lemma-base-change-and-fitting-ideal-omega},
+la formation de cet idéal de Fitting commute au changement de base.
+Par hypothèse, nous voyons que $t^{n - 1}$ est une section de
+$\mathcal{I} + t^n\mathcal{O}_Y$. Ainsi, pour tout
+$x \in X = V(t) \subset Y$, nous concluons que
+$t^{n - 1} \in \mathcal{I}_x$, où $\mathcal{I}_x$ est le germe en $x$.
+Cela implique que $V(\mathcal{I}) \subset V(t)$ dans un
+voisinage ouvert de $X$ dans $Y$. Puisque $Y \to S$
+est propre, il s'ensuit que $V(\mathcal{I}) \subset V(t)$,
+comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-jouanolou-type-thing}
+Soit $k$ un corps. Soient $1 \leq c \leq n$ des entiers.
+Soient $f_1, \ldots, f_c \in k[x_1, \ldots x_n]$ des éléments.
+Soient $a_{ij}$, $0 \leq i \leq n$, $1 \leq j \leq c$ des
+indéterminées. Considérons
+$$
+g_j = f_j + a_{0j} + a_{1j}x_1 + \ldots + a_{nj}x_n \in
+k[a_{ij}][x_1, \ldots, x_n]
+$$
+Notons $Y \subset \mathbf{A}^{n + c(n + 1)}_k$
+le sous-schéma fermé défini par $g_1, \ldots, g_c$.
+Notons $\pi : Y \to \mathbf{A}^{c(n + 1)}_k$ la projection
+sur l'espace affine d'indéterminées $a_{ij}$.
+Alors il existe un ouvert de Zariski non vide
+de $\mathbf{A}^{c(n + 1)}_k$ au-dessus duquel $\pi$ est lisse.
+\end{lemma}
+
+\begin{proof}
+Rappelons que l'ensemble des points où $\pi$ est lisse est ouvert.
+Son complémentaire, c'est-à-dire le lieu singulier, est donc fermé.
+D'après le théorème de Chevalley (sous la forme de
+Morphismes, lemme \ref{morphisms-lemma-chevalley}),
+l'image du lieu singulier est constructible.
+Par conséquent, si le point générique de $\mathbf{A}^{c(n + 1)}_k$
+n'appartient pas à l'image du lieu singulier, alors
+le lemme en découle (par exemple d'après Topologie, lemme
+\ref{topology-lemma-generic-point-in-constructible}).
+Il faut donc montrer qu'il n'existe aucun point
+$y \in Y$ où $\pi$ ne soit pas lisse et qui s'envoie sur
+le point générique de $\mathbf{A}^{c(n + 1)}_k$.
+Considérons la matrice des dérivées partielles
+$$
+(\frac{\partial g_j}{\partial x_i}) =
+(\frac{\partial f_j}{\partial x_i} + a_{ij})
+$$
+L'image de cette matrice dans $\kappa(y)$ doit être de rang $< c$,
+car sinon $\pi$ serait lisse en $y$ ; voir la discussion dans
+Lissage des homomorphismes d'anneaux, section \ref{smoothing-section-singular-ideal}.
+Nous pouvons donc trouver $\lambda_1, \ldots, \lambda_c \in \kappa(y)$,
+non tous nuls, tels que le vecteur $(\lambda_1, \ldots, \lambda_c)$
+appartienne au noyau de cette matrice.
+Après renumérotation, nous pouvons supposer $\lambda_1 \not = 0$.
+En divisant par $\lambda_1$, nous pouvons supposer que notre vecteur est
+de la forme $(1, \lambda_2, \ldots, \lambda_c)$.
+Nous obtenons alors
+$$
+a_{i1} = -
+\frac{\partial f_j}{\partial x_1} -
+\sum\nolimits_{j = 2, \ldots, c} \lambda_j(\frac{\partial f_j}{\partial x_i} + a_{ij})
+$$
+dans $\kappa(y)$ pour $i = 1, \ldots, n$. De plus, puisque $y \in Y$, nous avons aussi
+l'égalité
+$$
+a_{0j} = -f_j - a_{1j}x_1 - \ldots - a_{nj}x_n
+$$
+dans $\kappa(y)$. Cela signifie que le sous-corps de $\kappa(y)$
+engendré par $a_{ij}$ est contenu dans le sous-corps de $\kappa(y)$
+engendré par les images de $x_1, \ldots, x_n, \lambda_2, \ldots, \lambda_c$,
+et par les $a_{ij}$ autres que $a_{i1}$ et $a_{0j}$.
+En comptant, nous voyons que son degré de transcendance est
+au plus $c(n + 1) - 1$. Ainsi, $y$ ne peut pas s'envoyer sur le point générique,
+comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-affine-lci}
+Soit $k$ un corps. Soit $A$ une intersection complète globale
+sur $k$. Il existe un homomorphisme d'anneaux plat de type fini
+$k[[t]] \to B$ tel que $B/tB \cong A$ et que
+$B[1/t]$ soit lisse sur $k((t))$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $A = k[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$ comme dans
+Algèbre, définition \ref{algebra-definition-lci-field}.
+Nous allons choisir
+$a_{ij} \in (t) \subset k[[t]]$ et poser
+$$
+g_j = f_j + a_{0j} + a_{1j}x_1 + \ldots + a_{nj}x_n \in
+k[[t]][x_1, \ldots, x_n]
+$$
+Après ce choix, nous prenons
+$B = k[[t]][x_1, \ldots, x_n]/(g_1, \ldots, g_c)$.
+Nous affirmons que $k[[t]] \to B$ est plat en tout idéal premier
+au-dessus de $(t)$. En effet, les éléments $f_1, \ldots, f_c$
+forment une suite régulière dans l'anneau local en tout idéal premier
+$\mathfrak p$ de $k[x_1, \ldots, x_n]$ contenant $f_1, \ldots, f_c$
+(Algèbre, lemme \ref{algebra-lemma-lci}). Ainsi, $g_1, \ldots, g_c$
+est localement un relèvement d'une suite régulière, et nous pouvons appliquer
+Algèbre, lemme \ref{algebra-lemma-grothendieck-regular-sequence}.
+La platitude aux idéaux premiers au-dessus de $(0) \subset k[[t]]$ est automatique,
+car $k((t)) = k[[t]]_{(0)}$ est un corps. Ainsi, $B$ est plat
+sur $k[[t]]$.
+
+\medskip\noindent
+Il reste seulement à montrer que, pour des choix convenables
+des $a_{ij}$, la fibre générique $B_{(0)}$ est lisse sur
+$k((t))$. Pour cela, nous devons montrer que nous pouvons choisir
+nos $a_{ij}$ de sorte que le morphisme induit
+$$
+(a_{ij}) : \Spec(k[[t]]) \longrightarrow \mathbf{A}^{c(n + 1)}_k
+$$
+s'envoie dans l'ouvert de Zariski non vide du
+lemme \ref{lemma-jouanolou-type-thing}.
+Cela est clair, car aucun polynôme non nul en les
+$a_{ij}$ ne s'annule sur $(t)^{\oplus c(n + 1)}$.
+(Nous laissons cela en exercice au lecteur.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-artinian-lci}
+Soit $k$ un corps. Soit $A$ une $k$-algèbre de dimension finie
+qui est une intersection complète locale sur $k$. Alors il existe
+une $k[[t]]$-algèbre finie et plate $B$ telle que $B/tB \cong A$
+et $B[1/t]$ soit \'etale sur $k((t))$.
+\end{lemma}
+
+\begin{proof}
+Puisque $A$ est artinien
+(Algèbre, lemme \ref{algebra-lemma-finite-dimensional-algebra}),
+nous pouvons écrire $A$ comme un produit d'anneaux locaux artiniens
+(Algèbre, lemme \ref{algebra-lemma-artinian-finite-length}).
+Il suffit donc de démontrer le lemme lorsque $A$ est local
+(nous utilisons ici que la propriété d'être une intersection complète locale
+est préservée par localisation principale ; voir
+Algèbre, lemme \ref{algebra-lemma-localize-lci}).
+Dans ce cas, $A$ est une intersection complète globale.
+Considérons l'algèbre $B$ construite dans le
+lemme \ref{lemma-smoothing-affine-lci}.
+Alors $k[[t]] \to B$ est quasi-fini en l'unique idéal premier de $B$
+au-dessus de $(t)$ (Algèbre, définition \ref{algebra-definition-quasi-finite}).
+Observons que $k[[t]]$ est un anneau local hensélien
+(Algèbre, lemme \ref{algebra-lemma-complete-henselian}).
+Ainsi, $B = B' \times C$, où $B'$ est fini sur $k[[t]]$
+et $C$ n'a aucun idéal premier au-dessus de $(t)$ ; voir
+Algèbre, lemme \ref{algebra-lemma-characterize-henselian}.
+Alors $B'$ est l'anneau recherché
+(rappelons que \'etale signifie la même chose que
+lisse de dimension relative $0$).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-at-lci-point}
+Soit $k$ un corps. Soit $A$ une $k$-algèbre. Supposons que
+\begin{enumerate}
+\item $A$ soit un anneau local essentiellement de type fini sur $k$ ;
+\item $A$ soit une intersection complète sur $k$
+(Algèbre, définition \ref{algebra-definition-lci-local-ring}).
+\end{enumerate}
+Posons $d = \dim(A) + \text{trdeg}_k(\kappa)$, où $\kappa$
+est le corps résiduel de $A$. Alors il existe un entier $n$
+et un homomorphisme d'anneaux plat, essentiellement de type fini,
+$k[[t]] \to B$ tel que $B/tB \cong A$ et que $t^n$ appartienne au
+$d$-ième idéal de Fitting de $\Omega_{B/k[[t]]}$.
+\end{lemma}
+
+\begin{proof}
+D'après Algèbre, lemme \ref{algebra-lemma-lci-local}, nous pouvons écrire $A$ comme la
+localisation en un idéal premier $\mathfrak p$ d'une intersection complète globale $P$
+sur $k$. Observons que $\dim(P) = d$ d'après
+Algèbre, lemme \ref{algebra-lemma-dimension-at-a-point-finite-type-field}.
+D'après le lemme \ref{lemma-smoothing-affine-lci}, nous pouvons trouver un
+homomorphisme d'anneaux plat de type fini $k[[t]] \to Q$ tel que $P \cong Q/tQ$ et
+tel que $k((t)) \to Q[1/t]$ soit lisse. Il résulte de la construction
+de $Q$ dans le lemme que $k[[t]] \to Q$ est un morphisme
+d'intersection complète globale, de dimension relative $d$ ; autrement dit,
+Algèbre, lemme \ref{algebra-lemma-syntomic}, nous dit que $Q$ ou une
+localisation principale convenable de $Q$ est une telle intersection complète globale.
+Ainsi, d'après Diviseurs, lemme \ref{divisors-lemma-d-fitting-ideal-omega-smooth},
+le $d$-ième idéal de Fitting $I \subset Q$ de $\Omega_{Q/k[[t]]}$
+définit le lieu singulier de $\Spec(Q) \to \Spec(k[[t]])$.
+Ainsi, $t^n \in I$ pour un certain $n$.
+Soit $\mathfrak q \subset Q$
+l'image réciproque de $\mathfrak p$. Posons $B = Q_\mathfrak q$.
+Le lemme est démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-proper-curve-isolated-lci}
+Soit $X$ un schéma sur un corps $k$. Supposons que
+\begin{enumerate}
+\item $X$ soit propre sur $k$ ;
+\item $X$ soit une intersection complète locale sur $k$ ;
+\item $X$ soit de dimension $\leq 1$ ;
+\item $X \to \Spec(k)$ soit lisse sauf en un nombre fini de points.
+\end{enumerate}
+Alors il existe un morphisme projectif plat $Y \to \Spec(k[[t]])$
+dont la fibre générique est lisse et la fibre spéciale
+est isomorphe à $X$.
+\end{lemma}
+
+\begin{proof}
+Observons que $X$ est de Cohen-Macaulay ; voir
+Algèbre, lemme \ref{algebra-lemma-lci-CM}.
+Ainsi, $X = X' \amalg X''$ avec $\dim(X') = 0$,
+et $X''$ est équidimensionnel de dimension $1$ ; voir Morphismes, lemme
+\ref{morphisms-lemma-flat-finite-presentation-CM-fibres-relative-dimension}.
+Puisque $X'$ est fini sur $k$ (Variétés, lemme
+\ref{varieties-lemma-algebraic-scheme-dim-0})
+nous pouvons trouver $Y' \to \Spec(k[[t]])$ dont la fibre
+spéciale est $X'$ et la fibre générique est lisse d'après le
+lemme \ref{lemma-smoothing-artinian-lci}.
+Il suffit donc de démontrer le lemme pour $X''$.
+Après avoir remplacé $X$ par $X''$, le schéma $X$ est
+de Cohen-Macaulay et équidimensionnel de dimension $1$.
+
+\medskip\noindent
+Nous allons utiliser la théorie des déformations dans la situation $\Lambda = k \to k$.
+Soient $p_1, \ldots, p_r \in X$ les points singuliers fermés de $X$, c'est-à-dire
+les points où $X \to \Spec(k)$ n'est pas lisse. Pour chaque $i$, choisissons
+un entier $n_i$ et un homomorphisme d'anneaux plat, essentiellement de type fini,
+$$
+k[[t]] \longrightarrow B_i
+$$
+tel que $B_i/tB_i \cong \mathcal{O}_{X, p_i}$ et que
+$t^{n_i}$ appartienne au $1$er idéal de Fitting de $\Omega_{B_i/k[[t]]}$.
+Cela est possible d'après le lemme \ref{lemma-smoothing-at-lci-point}.
+Observons que le système $(B_i/t^nB_i)$ définit un objet formel de
+$\Deformationcategory_{\mathcal{O}_{X, p_i}}$ sur $k[[t]]$.
+D'après le lemme \ref{lemma-curve-isolated}, l'application
+$$
+\Deformationcategory_X
+\longrightarrow
+\prod\nolimits_{i = 1, \ldots, r} \Deformationcategory_{\mathcal{O}_{X, p_i}}
+$$
+est une application lisse entre catégories de déformations. Ainsi, d'après
+Théorie formelle des déformations, lemme
+\ref{formal-defos-lemma-smooth-morphism-essentially-surjective}
+il existe un objet formel $(X_n)$ dans $\Deformationcategory_X$
+qui s'envoie sur l'objet formel $\prod_i (B_i/t^n)$ par la flèche ci-dessus.
+D'après Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-formal-algebraic-space-proper-reldim-1}
+il existe un schéma projectif $Y$ sur $k[[t]]$ et des isomorphismes compatibles
+$Y \times_{\Spec(k[[t]])} \Spec(k[t]/(t^n)) \cong X_n$.
+D'après Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-check-flatness-on-infinitesimal-nbhds}
+nous voyons que $Y \to \Spec(k[[t]])$ est plat.
+Puisque $X$ est de Cohen-Macaulay et équidimensionnel de dimension $1$,
+nous pouvons appliquer le lemme \ref{lemma-criterion-smoothing}
+pour vérifier que $Y$ a une fibre générique lisse\footnote{Attention : en général, il n'est
+{\bf pas} vrai que l'anneau local de $Y$ au point
+$p_i$ soit isomorphe à $B_i$. Nous savons seulement que cela devient vrai après
+quotient par $t^n$ des deux côtés !}.
+Choisissons $n$ strictement supérieur au maximum des entiers $n_i$ trouvés ci-dessus.
+Si nous pouvons montrer que $t^{n - 1}$ appartient au premier idéal de Fitting de
+$\Omega_{X_n/S_n}$, où $S_n = \Spec(k[t]/(t^n))$, la démonstration est achevée.
+Pour cela, il suffit de le démontrer dans chacun
+des anneaux locaux de $X_n$ aux points fermés $p$.
+Cependant, si $p$ correspond à un point lisse de $X \to \Spec(k)$,
+alors $\Omega_{X_n/S_n, p}$ est libre de rang $1$ et le premier idéal de Fitting
+est égal à l'anneau local. Si $p = p_i$ pour un certain $i$, alors
+$$
+\Omega_{X_n/S_n, p_i} =
+\Omega_{(B_i/t^nB_i)/(k[t]/(t^n))} =
+\Omega_{B_i/k[[t]]}/t^n\Omega_{B_i/k[[t]]}
+$$
+Puisque la formation des idéaux de Fitting commute au changement de base
+(nous avons déjà utilisé ce fait, mais, dans ce cadre algébrique,
+il résulte de Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-fitting-ideal-basics}),
+et puisque $n - 1 \geq n_i$, nous voyons que $t^{n - 1}$ appartient
+à l'idéal de Fitting de ce module sur $B_i/t^nB_i$, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-curve-isolated-lci}
+Soit $k$ un corps et soit $X$ un schéma sur $k$. Supposons que
+\begin{enumerate}
+\item $X$ soit séparé, de type fini sur $k$ et $\dim(X) \leq 1$ ;
+\item $X$ soit une intersection complète locale sur $k$ ;
+\item $X \to \Spec(k)$ soit lisse sauf en un nombre fini de points.
+\end{enumerate}
+Alors il existe un morphisme plat, séparé et de type fini $Y \to \Spec(k[[t]])$
+dont la fibre générique est lisse et la fibre spéciale
+est isomorphe à $X$.
+\end{lemma}
+
+\begin{proof}
+Si $X$ est réduit, nous pouvons choisir une immersion
+$X \subset \overline{X}$ comme dans
+Variétés, lemme \ref{varieties-lemma-reduced-dim-1-projective-completion}.
+En écrivant $X = \overline{X} \setminus \{x_1, \ldots, x_n\}$,
+nous voyons que $\mathcal{O}_{\overline{X}, x_i}$ est un anneau de
+valuation discrète, donc en particulier une intersection complète locale
+(Algèbre, définition \ref{algebra-definition-lci-local-ring}).
+Ainsi, $\overline{X}$ est une intersection complète locale
+sur $k$, car cette propriété vaut sur l'ouvert $X$ et
+aux points $x_i$ d'après Algèbre, lemme \ref{algebra-lemma-lci-local}.
+Nous pouvons donc appliquer le lemme \ref{lemma-smoothing-proper-curve-isolated-lci}
+pour trouver un morphisme projectif plat $\overline{Y} \to \Spec(k[[t]])$
+dont la fibre générique est lisse et la fibre spéciale
+est $\overline{X}$. Nous retirons alors $x_1, \ldots, x_n$
+de $\overline{Y}$ pour obtenir $Y$.
+
+\medskip\noindent
+Dans le cas général, écrivons $X = X' \amalg X''$, où
+$\dim(X') = 0$ et $X''$ est équidimensionnel de dimension $1$.
+Alors $X''$ est réduit et le premier paragraphe s'y applique.
+D'autre part, $X'$ peut être traité
+comme dans la démonstration du lemme \ref{lemma-smoothing-proper-curve-isolated-lci}.
+Certains détails sont omis.
+\end{proof}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

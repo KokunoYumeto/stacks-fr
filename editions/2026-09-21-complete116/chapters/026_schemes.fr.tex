@@ -1,0 +1,4914 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Schémas}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce document, nous définissons les schémas.
+Une référence fondamentale est \cite{EGA}.
+
+
+
+
+
+
+
+
+
+\section{Espaces annelés en anneaux locaux}
+\label{section-locally-ringed-spaces}
+
+\noindent
+Rappelons que nous avons défini les espaces annelés
+dans Faisceaux, section \ref{sheaves-section-ringed-spaces}.
+En bref, un espace annelé est un couple $(X, \mathcal{O}_X)$ constitué
+d'un espace topologique $X$ et d'un faisceau d'anneaux $\mathcal{O}_X$.
+Un morphisme d'espaces annelés $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+est donné par une application continue $f : X \to Y$ et un $f$-morphisme de faisceaux
+d'anneaux $f^\sharp : \mathcal{O}_Y \to \mathcal{O}_X$. On peut
+considérer $f^\sharp$ comme un morphisme $\mathcal{O}_Y \to f_*\mathcal{O}_X$; voir
+Faisceaux, définition \ref{sheaves-definition-f-map} et le
+lemme \ref{sheaves-lemma-f-map}.
+
+\medskip\noindent
+Un bon exemple géométrique à garder à l'esprit est celui des
+variétés $\mathcal{C}^\infty$ et des morphismes de
+variétés $\mathcal{C}^\infty$. En effet, si $M$ est une
+variété $\mathcal{C}^\infty$, alors le faisceau $\mathcal{C}^\infty_M$
+des fonctions lisses est un faisceau d'anneaux sur $M$. Et toute
+application $f : M \to N$ entre variétés est lisse si et seulement si
+pour toute section locale $h$ de $\mathcal{C}^\infty_N$
+la composée $h \circ f$ est une section locale de $\mathcal{C}^\infty_M$.
+Ainsi, une application lisse $f$ définit naturellement un morphisme
+d'espaces annelés
+$$
+f : (M , \mathcal{C}^\infty_M) \longrightarrow (N, \mathcal{C}^\infty_N)
+$$
+voir Faisceaux, exemple \ref{sheaves-example-continuous-map-ringed}.
+Il est instructif d'examiner ce qui arrive aux fibres. Soit donc
+$m \in M$ d'image $f(m) = n \in N$. Rappelons que la fibre
+$\mathcal{C}^\infty_{M, m}$ est l'anneau des germes de fonctions lisses
+en $m$; voir
+Faisceaux, exemple \ref{sheaves-example-germs-functions}.
+L'anneau des germes de fonctions sur $(M, m)$ est un anneau local dont l'idéal
+maximal est formé des fonctions qui s'annulent en $m$.
+Il en va de même pour $\mathcal{C}^\infty_{N, n}$. L'application sur les fibres
+$f^\sharp : \mathcal{C}^\infty_{N, n} \to \mathcal{C}^\infty_{M, m}$
+envoie l'idéal maximal dans l'idéal maximal, tout simplement
+parce que $f(m) = n$.
+
+\medskip\noindent
+En géométrie algébrique, nous étudions les schémas. Sur un schéma, le faisceau d'anneaux
+n'est pas déterminé par une propriété intrinsèque de l'espace.
+Le spectre d'un anneau $R$
+(voir Algèbre, section \ref{algebra-section-spectrum-ring}) muni
+d'un faisceau d'anneaux construit à partir de $R$ (voir ci-dessous),
+sera notre brique de base. Il apparaîtra que
+les fibres de $\mathcal{O}$ sur $\Spec(R)$ sont les anneaux locaux
+de $R$ en ses idéaux premiers. Il y a deux raisons d'introduire
+les espaces annelés en anneaux locaux dans ce contexte : (1) Il n'existe en général
+aucun mécanisme associant à une application continue entre spectres un
+homomorphisme entre les anneaux correspondants. C'est pourquoi nous ajoutons comme donnée
+supplémentaire le morphisme $f^\sharp$. (2) Si nous considérons les morphismes
+de ces spectres dans la catégorie des espaces annelés, alors les
+homomorphismes sur les fibres peuvent ne pas être locaux. Puisque notre
+intuition géométrique exige qu'ils le soient, nous introduisons les espaces annelés en anneaux locaux
+comme suit.
+
+\begin{definition}
+\label{definition-locally-ringed-space}
+Espaces annelés en anneaux locaux.
+\begin{enumerate}
+\item Un {\it espace annelé en anneaux locaux $(X, \mathcal{O}_X)$}
+est un couple formé d'un
+espace topologique $X$ et d'un faisceau d'anneaux $\mathcal{O}_X$ dont toutes les fibres
+sont des anneaux locaux.
+\item Étant donné un espace annelé en anneaux locaux $(X, \mathcal{O}_X)$, nous disons que
+$\mathcal{O}_{X, x}$ est {\it l'anneau local de $X$ en $x$}.
+Nous notons $\mathfrak{m}_{X, x}$ ou simplement $\mathfrak{m}_x$
+l'idéal maximal de $\mathcal{O}_{X, x}$. En outre, le
+{\it corps résiduel de $X$ en $x$} est le corps résiduel
+$\kappa(x) = \mathcal{O}_{X, x}/\mathfrak{m}_x$.
+\item Un {\it morphisme d'espaces annelés en anneaux locaux}
+$(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+est un morphisme d'espaces annelés tel que, pour tout $x \in X$,
+l'homomorphisme d'anneaux induit $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ soit un
+homomorphisme local.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous omettrons habituellement le faisceau d'anneaux $\mathcal{O}_X$
+de la notation lorsque nous parlerons d'espaces annelés en anneaux locaux. Nous dirons
+simplement « l'espace annelé en anneaux locaux $X$ ».
+Par abus de notation, nous identifierons aussi $X$ à
+son espace topologique sous-jacent. Enfin, nous appellerons
+le faisceau d'anneaux correspondant
+$\mathcal{O}_X$ le {\it faisceau structural de $X$}.
+De plus, il est d'usage de noter l'idéal maximal
+de l'anneau local $\mathcal{O}_{X, x}$ par
+$\mathfrak{m}_{X, x}$ ou simplement $\mathfrak{m}_x$.
+Nous dirons « soit $f : X \to Y$ un morphisme d'espaces annelés en anneaux
+locaux », en omettant ainsi encore davantage les faisceaux structuraux.
+Dans ce cas, par abus de notation, nous identifierons aussi $f : X\to Y$
+à l'application continue sous-jacente entre espaces topologiques.
+Le $f$-morphisme correspondant à $f$ sera habituellement
+noté $f^\sharp$. La condition que $f$ soit un morphisme
+d'espaces annelés en anneaux locaux s'exprime alors en disant que,
+pour tout $x\in X$, l'homomorphisme sur les fibres
+$$
+f^\sharp_x : \mathcal{O}_{Y, f(x)} \longrightarrow \mathcal{O}_{X, x}
+$$
+envoie l'idéal maximal $\mathfrak m_{Y, f(x)}$ dans
+$\mathfrak m_{X, x}$.
+
+\medskip\noindent
+Employons ces conventions de notation pour montrer que la
+collection des espaces annelés en anneaux locaux et de leurs morphismes
+forme une catégorie. Pour le voir, il nous faut
+montrer que la composée de morphismes d'espaces annelés en anneaux locaux
+est un morphisme d'espaces annelés en anneaux locaux. Soient donc
+$f : X \to Y$ et $g : Y \to Z$ des morphismes d'espaces annelés en anneaux
+locaux. La composée de $f$ et de $g$ est définie dans
+Faisceaux, définition \ref{sheaves-definition-composition-maps-ringed-spaces}.
+Soit $x \in X$. D'après
+Faisceaux, lemme \ref{sheaves-lemma-compose-f-maps-stalks},
+la composée
+$$
+\mathcal{O}_{Z, g(f(x))}
+\xrightarrow{g^\sharp}
+\mathcal{O}_{Y, f(x)}
+\xrightarrow{f^\sharp}
+\mathcal{O}_{X, x}
+$$
+est l'homomorphisme associé sur les fibres du morphisme $g \circ f$.
+Le résultat découle de ce que la composée d'homomorphismes locaux
+est un homomorphisme local.
+
+\medskip\noindent
+Un trait agréable de la définition est que le foncteur
+$$
+\textit{Espaces annelés en anneaux locaux}
+\longrightarrow
+\textit{Espaces annelés}
+$$
+reflète les isomorphismes (et même davantage).
+Voici un énoncé moins abstrait.
+
+\begin{lemma}
+\label{lemma-isomorphism-locally-ringed}
+\begin{slogan}
+Un isomorphisme d'espaces annelés entre espaces annelés en anneaux locaux est un
+isomorphisme d'espaces annelés en anneaux locaux.
+\end{slogan}
+Soient $X$, $Y$ des espaces annelés en anneaux locaux.
+Si $f : X \to Y$ est un isomorphisme d'espaces annelés,
+alors $f$ est un isomorphisme
+d'espaces annelés en anneaux locaux.
+\end{lemma}
+
+\begin{proof}
+Cela découle immédiatement du fait algébrique correspondant :
+soient $A$, $B$ des anneaux locaux. Tout isomorphisme d'anneaux
+$A \to B$ est un isomorphisme d'anneaux locaux.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Immersions ouvertes d'espaces annelés en anneaux locaux}
+\label{section-open-immersion}
+
+\begin{definition}
+\label{definition-immersion-locally-ringed-spaces}
+Soit $f : X \to Y$ un morphisme d'espaces annelés en anneaux locaux.
+Nous disons que $f$ est une {\it immersion ouverte} si
+$f$ est un homéomorphisme de $X$ sur un sous-ensemble ouvert
+de $Y$, et que l'application $f^{-1}\mathcal{O}_Y \to \mathcal{O}_X$
+est un isomorphisme.
+\end{definition}
+
+\noindent
+La construction suivante est parallèle à
+Faisceaux, définition \ref{sheaves-definition-restriction} (3).
+
+\begin{example}
+\label{example-open-subspace}
+Soit $X$ un espace annelé en anneaux
+locaux. Soit $U \subset X$ un ouvert.
+Soit $\mathcal{O}_U = \mathcal{O}_X|_U$
+la restriction de $\mathcal{O}_X$ à $U$. Pour $u
+\in U$, la fibre $\mathcal{O}_{U, u}$ est égale
+à la fibre $\mathcal{O}_{X, u}$, et est donc un anneau local.
+Ainsi $(U, \mathcal{O}_U)$ est un espace annelé en anneaux
+locaux et le morphisme $j : (U, \mathcal{O}_U) \to (X, \mathcal{O}_X)$ est
+une immersion ouverte.
+\end{example}
+
+\begin{definition}
+\label{definition-open-subspace}
+Soit $X$ un espace annelé en anneaux
+locaux. Soit $U \subset X$ un ouvert.
+L'espace annelé en anneaux locaux $(U, \mathcal{O}_U)$
+de l'exemple \ref{example-open-subspace} ci-dessus
+est le sous-espace ouvert {\it de $X$ associé à $U$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-open-immersion}
+Soit $f : X \to Y$ une immersion ouverte d'espaces
+annelés en anneaux locaux. Soit $j : V = f(X)
+\to Y$ le sous-espace ouvert de $Y$ associé à l'image de $f$. Il
+existe un isomorphisme unique $f' : X \cong V$ d'espaces
+annelés en anneaux locaux tel que $f = j \circ f'$.
+\end{lemma}
+
+\begin{proof}
+Soit $f'$ l'homéomorphisme entre $X$ et $V$ induit par $f$. Alors $f = j \circ
+f'$ en tant qu'applications d'espaces topologiques. Comme il
+existe un isomorphisme de
+faisceaux $f^\sharp : f^{-1}(\mathcal{O}_Y) \to \mathcal{O}_X$, il existe un isomorphisme
+d'anneaux
+$f^\sharp : \Gamma(U, f^{-1}(\mathcal{O}_Y)) \to \Gamma(U, \mathcal{O}_X)$
+pour chaque ouvert $U \subset X$. Puisque
+$\mathcal{O}_V = j^{-1}\mathcal{O}_Y$ et $f^{-1} = f'^{-1} j^{-1}$ (Faisceaux,
+lemme \ref{sheaves-lemma-pullback-composition}) nous voyons que
+$f^{-1}\mathcal{O}_Y = f'^{-1}\mathcal{O}_V$, donc $\Gamma(U,
+f'^{-1}(\mathcal{O}_V)) \to \Gamma(U, f^{-1}(\mathcal{O}_Y))$ est un isomorphisme
+pour chaque $U
+\subset X$ ouvert. En composant ces derniers, nous obtenons un isomorphisme d'anneaux
+$$
+\Gamma(U, f'^{-1}(\mathcal{O}_V)) \to \Gamma(U, \mathcal{O}_X)
+$$
+pour chaque ouvert $U \subset X$, et donc un isomorphisme de faisceaux $f^{-1}(\mathcal{O}_V)
+\to \mathcal{O}_X$. En d'autres termes, nous avons un isomorphisme
+$f'^{\sharp} : f'^{-1}(\mathcal{O}_V) \to \mathcal{O}_X$ et donc un isomorphisme
+d'espaces annelés en anneaux locaux $(f', f'^{\sharp})
+: (X, \mathcal{O}_X) \to (V, \mathcal{O}_V)$ (utilisez le lemme
+\ref{lemma-isomorphism-locally-ringed}). Notez que $f =
+j \circ f'$ en tant que morphismes d'espaces annelés en anneaux locaux
+par construction.
+
+\medskip\noindent
+Supposons que nous ayons un autre
+morphisme $f'' : (X, \mathcal{O}_X) \to (V, \mathcal{O}_V)$ tel que $f = j \circ f''$. En
+tout point $x \in X$, nous avons $j(f'(x)) = j(f''(x))$ d'où il découle que $f'(x) =
+f''(x)$ puisque $j$ est l'application d'inclusion ; par conséquent $f'$ et $f''$ sont les
+mêmes en tant que morphismes d'espaces topologiques. Sur les faisceaux structuraux,
+pour chaque ouvert $U \subset X$ nous avons un diagramme commutatif
+$$
+\xymatrix @R=5em{
+\Gamma(U, f^{-1}(\mathcal{O}_Y)) \ar[d]_\cong\ar[r]^\cong &
+\Gamma(U, \mathcal{O}_X) \\
+\Gamma(U, f'^{-1}(\mathcal{O}_V)) \ar@/^/[ru]^{f'^\sharp}
+\ar@/_/[ru]_{f''^\sharp} &
+}
+$$
+d'où nous voyons que $f'^\sharp$ et $f''^\sharp$ définissent
+le même morphisme de faisceaux.
+\end{proof}
+
+\noindent
+Dorénavant, nous ne distinguons plus entre les ouverts
+et leurs sous-espaces associés.
+
+\begin{lemma}
+\label{lemma-restrict-map-to-opens}
+Soit $f : X \to Y$ un morphisme d'espaces annelés en anneaux
+locaux. Soient $U \subset X$ et $V \subset Y$ des ouverts.
+Supposons que $f(U) \subset V$. Il existe un unique morphisme
+d'espaces annelés en anneaux locaux $f|_U : U \to V$ tel que
+le diagramme suivant soit un carré commutatif d'espaces
+annelés en anneaux locaux
+$$
+\xymatrix{
+U \ar[d]_{f|_U} \ar[r] & X \ar[d]^f \\ V
+\ar[r] & Y
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\noindent
+Dans ce qui suit, nous utiliserons sans autre mention le fait suivant
+qui découle du lemme ci-dessus. Étant donné un morphisme $f :
+Y \to X$ d'espaces annelés en anneaux locaux, et tout ouvert
+$U \subset X$ tel que $f(Y) \subset U$, alors il existe un unique
+morphisme d'espaces annelés en anneaux locaux $Y \to U$ tel
+que la composée $Y \to U \to X$ soit égale à $f$. En fait, nous
+écrirons même par abus de langage $f : Y \to U$ puisque ceci donne
+rarement lieu à confusion.
+
+
+
+
+
+
+
+
+
+\section{Immersions fermées d'espaces annelés en anneaux locaux}
+\label{section-closed-immersion}
+
+\noindent
+Nous suivons nos conventions introduites
+dans Modules, définition \ref{modules-definition-closed-immersion}.
+
+\begin{definition}
+\label{definition-closed-immersion-locally-ringed-spaces}
+Soit $i : Z \to X$ un morphisme d'espaces annelés en anneaux locaux.
+Nous disons que $i$ est une {\it immersion fermée} si :
+\begin{enumerate}
+\item L'application $i$ est un homéomorphisme de $Z$ sur un sous-ensemble fermé
+de $X$. \item L'application $\mathcal{O}_X \to i_*\mathcal{O}_Z$ est
+surjective ; notons $\mathcal{I}$ le noyau.
+\item Le $\mathcal{O}_X$-module $\mathcal{I}$ est
+localement engendré par des sections.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-closed-local-target}
+Soit $f : Z \to X$ un morphisme d'espaces annelés en anneaux
+locaux. Pour que $f$ soit une immersion fermée, il suffit
+qu'il existe un recouvrement ouvert $X = \bigcup U_i$ tel que
+chaque $f : f^{-1}U_i \to U_i$ soit une immersion fermée.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{example}
+\label{example-closed-subspace}
+Soit $X$ un espace annelé en anneaux
+locaux. Soit $\mathcal{I} \subset \mathcal{O}_X$ un faisceau
+d'idéaux qui est localement engendré par des sections en tant
+que faisceau de $\mathcal{O}_X$-modules. Soit $Z$ le support
+du faisceau d'anneaux $\mathcal{O}_X/\mathcal{I}$. Il
+s'agit d'un sous-ensemble fermé de
+$X$, d'après Modules, lemme \ref{modules-lemma-support-sheaf-rings-closed}.
+On note $i : Z \to X$ l'application
+d'inclusion. D'après Modules, lemme \ref{modules-lemma-i-star-exact},
+il existe un unique faisceau d'anneaux $\mathcal{O}_Z$
+sur $Z$ avec $i_*\mathcal{O}_Z = \mathcal{O}_X/\mathcal{I}$.
+Pour tout $z \in Z$, la fibre $\mathcal{O}_{Z,
+z}$ est égale à un quotient $\mathcal{O}_{X, i(z)}/\mathcal{I}_{i(z)}$ d'un
+anneau local et non nul, donc un anneau local. Ainsi,
+$i : (Z, \mathcal{O}_Z) \to (X, \mathcal{O}_X)$ est une
+immersion fermée d'espaces annelés en anneaux locaux.
+\end{example}
+
+\begin{definition}
+\label{definition-closed-subspace}
+Soit $X$ un espace annelé en anneaux
+locaux. Soit $\mathcal{I}$ un faisceau d'idéaux sur
+$X$ qui est localement engendré par des
+sections. L'espace annelé en anneaux locaux $(Z,
+\mathcal{O}_Z)$ de l'exemple \ref{example-closed-subspace}
+ci-dessus est le sous-espace fermé {\it de $X$ associé
+au faisceau d'idéaux $\mathcal{I}$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-closed-immersion}
+Soit $f : X \to Y$ une immersion fermée d'espaces
+annelés en anneaux locaux. Soit $\mathcal{I}$
+le noyau de l'application $\mathcal{O}_Y \to f_*\mathcal{O}_X$.
+Soit $i : Z \to Y$ le sous-espace fermé de $Y$
+associé à $\mathcal{I}$. Il
+existe un isomorphisme unique $f' : X \cong Z$ d'espaces
+annelés en anneaux locaux tel que $f = i \circ f'$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-closed-subspace}
+Soient $X$, $Y$ des espaces annelés en anneaux
+locaux. Soit $\mathcal{I} \subset \mathcal{O}_X$ un faisceau d'idéaux localement
+engendré par des sections. Soit $i : Z \to X$ le sous-espace fermé associé.
+Un morphisme $f : Y \to X$ se factorise par $Z$ si et seulement si
+l'application $f^*\mathcal{I} \to f^*\mathcal{O}_X = \mathcal{O}_Y$
+est nulle. Si tel est le cas, le morphisme $g : Y \to
+Z$ tel que $f = i \circ g$ est unique.
+\end{lemma}
+
+\begin{proof}
+De toute évidence, si $f$ se factorise en $Y \to Z \to X$
+alors l'application $f^*\mathcal{I} \to \mathcal{O}_Y$ est nulle.
+Inversement, supposons que $f^*\mathcal{I} \to \mathcal{O}_Y$
+soit nulle. Choisissez un $y \in Y$ et considérez
+l'application d'anneaux $f^\sharp_y : \mathcal{O}_{X, f(y)} \to
+\mathcal{O}_{Y, y}$.
+Puisque la composée $\mathcal{I}_{f(y)} \to \mathcal{O}_{X, f(y)} \to
+\mathcal{O}_{Y, y}$ est nulle par hypothèse et puisque
+$f^\sharp_y(1) = 1$, nous voyons que $1 \not \in \mathcal{I}_{f(y)}$,
+c'est-à-dire $\mathcal{I}_{f(y)} \not = \mathcal{O}_{X, f(y)}$.
+Nous en concluons que $f(Y) \subset Z = \text{Supp}(\mathcal{O}_X/\mathcal{I})$.
+Ainsi, $f = i \circ g$ où $g : Y \to Z$ est
+continue. Considérons l'application $f^\sharp : \mathcal{O}_X \to
+f_*\mathcal{O}_Y$. L'hypothèse que $f^*\mathcal{I} \to \mathcal{O}_Y$ est nulle implique
+que la composée $\mathcal{I} \to \mathcal{O}_X \to f_*\mathcal{O}_Y$ est
+nulle par adjonction de $f_*$ et $f^*$. En
+d'autres termes, nous obtenons un morphisme de faisceaux
+d'anneaux $\overline{f^\sharp} : \mathcal{O}_X/\mathcal{I} \to f_*\mathcal{O}_Y$.
+Notez que $f_*\mathcal{O}_Y = i_*g_*\mathcal{O}_Y$ et que
+$\mathcal{O}_X/\mathcal{I} = i_*\mathcal{O}_Z$. D'après
+Faisceaux, lemme \ref{sheaves-lemma-equivalence-categories-closed-structures}, nous obtenons
+un morphisme unique de faisceaux d'anneaux $g^\sharp
+: \mathcal{O}_Z \to g_*\mathcal{O}_Y$ dont l'image directe sous $i$
+est $\overline{f^\sharp}$. Nous omettons la vérification que $(g, g^\sharp)$
+définit un morphisme d'espaces annelés en anneaux locaux et
+que $f = i \circ g$ en tant que morphisme d'espaces annelés en anneaux
+locaux. L'unicité de $(g, g^\sharp)$ a été signalée ci-dessus.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restrict-map-to-closed}
+Soit $f : X \to Y$ un morphisme d'espaces annelés en anneaux
+locaux. Soit $\mathcal{I} \subset \mathcal{O}_Y$ un faisceau
+d'idéaux qui est localement engendré par des
+sections. Soit $i : Z \to Y$ le sous-espace fermé associé au
+faisceau d'idéaux $\mathcal{I}$. Soit
+$\mathcal{J}$ l'image de l'application
+$f^*\mathcal{I} \to f^*\mathcal{O}_Y = \mathcal{O}_X$. Alors
+cet idéal est localement engendré par des sections. De
+plus, soit $i' : Z' \to X$ le sous-espace fermé associé
+de $X$. Il existe un unique morphisme
+d'espaces annelés en anneaux locaux $f' : Z' \to Z$ tel que le
+diagramme suivant soit un carré commutatif d'espaces
+annelés en anneaux locaux
+$$
+\xymatrix{
+Z' \ar[d]_{f'} \ar[r]_{i'} & X \ar[d]^f \\ Z
+\ar[r]^{i} & Y
+}
+$$
+De plus, ce diagramme est un carré cartésien dans la catégorie des espaces
+annelés en anneaux locaux.
+\end{lemma}
+
+\begin{proof}
+L'idéal $\mathcal{J}$ est localement engendré par des sections
+d'après Modules, lemme \ref{modules-lemma-pullback-locally-generated}.
+Le reste du lemme découle de la caractérisation, dans le lemme
+\ref{lemma-characterize-closed-subspace} ci-dessus, de ce
+que signifie qu'un morphisme se factorise à travers un sous-espace
+fermé.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Schémas affines}
+\label{section-affine-schemes}
+
+\noindent
+Soit $R$ un anneau. Considérons l'espace topologique $\Spec(R)$
+associé à $R$, voir Algèbre, section \ref{algebra-section-spectrum-ring}.
+Nous munirons cet espace d'un faisceau d'anneaux $\mathcal{O}_{\Spec(R)}$
+et la paire résultante $(\Spec(R), \mathcal{O}_{\Spec(R)})$
+sera un schéma affine.
+
+\medskip\noindent
+Rappelons que $\Spec(R)$ possède une base d'ouverts $D(f)$,
+$f \in R$ que nous appelons ouverts standards, voir
+Algèbre, définition \ref{algebra-definition-Zariski-topology}.
+De plus, l'intersection de deux ouverts standards est un autre
+ouvert standard : $D(f) \cap D(g) = D(fg)$, $f, g\in R$.
+
+\begin{lemma}
+\label{lemma-standard-open}
+Soit $R$ un anneau. Soit $f \in R$.
+\begin{enumerate}
+\item Si $g\in R$ et $D(g) \subset D(f)$, alors
+\begin{enumerate}
+\item $f$ est inversible dans $R_g$,
+\item $g^e = af$ pour certains $e \geq 1$ et $a \in R$, \item
+il existe un morphisme d'anneaux canonique $R_f \to R_g$, et
+\item il existe un morphisme de $R_f$-modules canonique
+$M_f \to M_g$ pour tout $R$-module $M$.
+\end{enumerate}
+\item Tout recouvrement ouvert de $D(f)$ peut être affiné en un
+recouvrement ouvert fini de la forme $D(f) = \bigcup_{i = 1}^n D(g_i)$.
+\item Si $g_1, \ldots, g_n \in R$, alors $D(f) \subset \bigcup D(g_i)$
+si et seulement si $g_1, \ldots, g_n$ engendrent l'idéal unité dans $R_f$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Rappelons que $D(g) = \Spec(R_g)$ (voir
+Algèbre, lemme \ref{algebra-lemma-standard-open}). Ainsi
+(a) est valable parce que l'image
+de $f$ dans $R_g$ n'appartient à aucun
+idéal premier, et est donc inversible, voir Algèbre, lemme
+\ref{algebra-lemma-Zariski-topology}. Écrivons l’inverse de $f$
+dans $R_g$ comme $a/g^d$. Cela signifie que $g^d -
+af$ est annihilé par une puissance de $g$, d’où (b). Pour (c), l’application
+$R_f \to R_g$ existe par (a) à cause de la propriété universelle de la localisation,
+ou nous pouvons la définir en envoyant $b/f^n$ sur
+$a^nb/g^{ne}$. L’égalité $M_f = M \otimes_R R_f$ peut être utilisée
+pour obtenir l’application sur les modules, ou nous
+pouvons définir $M_f \to M_g$ en envoyant
+$x/f^n$ sur $a^nx/g^{ne}$.
+
+\medskip\noindent
+Rappelons que $D(f)$ est quasi-compact, voir
+Algèbre, lemme \ref{algebra-lemma-qc-open}.
+Ainsi, la deuxième affirmation découle directement
+du fait que les ouverts standards forment
+une base pour la topologie.
+
+\medskip\noindent
+La troisième affirmation découle directement
+d'Algèbre, lemme \ref{algebra-lemma-Zariski-topology}.
+\end{proof}
+
+\noindent
+Dans Faisceaux, section \ref{sheaves-section-bases}, nous avons
+défini la notion de faisceau sur une base, et nous avons montré qu'elle
+est essentiellement équivalente à la notion de faisceau sur l'espace,
+voir Faisceaux, lemmes \ref{sheaves-lemma-extend-off-basis} et
+\ref{sheaves-lemma-extend-off-basis-structures}. De plus, nous avons
+montré dans
+Faisceaux, lemme \ref{sheaves-lemma-cofinal-systems-coverings-standard-case} qu'il
+suffit de vérifier la condition de faisceau sur
+un système cofinal de recouvrements ouverts pour chaque ouvert
+standard. Par le lemme ci-dessus, il suffit de vérifier sur les
+recouvrements finis par des ouverts standards.
+
+\begin{definition}
+\label{definition-standard-covering}
+Soit $R$ un anneau.
+\begin{enumerate}
+\item Un {\it recouvrement ouvert standard} de $\Spec(R)$
+est un recouvrement $\Spec(R) = \bigcup_{i = 1}^n D(f_i)$,
+où $f_1, \ldots, f_n \in R$.
+\item Supposons que $D(f) \subset \Spec(R)$ soit un ouvert
+standard. Un {\it recouvrement ouvert standard} de $D(f)$
+est un recouvrement $D(f) = \bigcup_{i = 1}^n
+D(g_i)$, où $g_1, \ldots, g_n \in R$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Soit $R$ un anneau. Soit $M$ un $R$-module. Nous définirons un préfaisceau
+$\widetilde M$ sur la base des ouverts standards. Supposons que
+$U \subset \Spec(R)$ soit un ouvert standard. Si $f, g \in R$
+sont tels que $D(f) = D(g)$, alors par le lemme
+\ref{lemma-standard-open} ci-dessus, il existe des applications canoniques $M_f
+\to M_g$ et $M_g \to M_f$ qui sont mutuellement inverses. Par conséquent,
+nous pouvons choisir n'importe quel $f$ tel que $U = D(f)$
+et définir
+$$
+\widetilde M(U) = M_f.
+$$
+Notez que si $D(g) \subset D(f)$, alors par le lemme
+\ref{lemma-standard-open} ci-dessus, nous avons une
+application canonique
+$$
+\widetilde M(D(f)) = M_f \longrightarrow M_g = \widetilde M(D(g)).
+$$
+Clairement, cela définit un préfaisceau de groupes abéliens sur la base
+des ouverts standards. Si $M = R$, alors $\widetilde R$ est un préfaisceau
+d'anneaux sur la base des ouverts standards.
+
+\medskip\noindent
+Calculons la fibre de $\widetilde M$ en un point $x \in \Spec(R)$. Supposons
+que $x$ corresponde à l'idéal premier $\mathfrak p \subset R$. Par
+définition de la fibre, nous voyons que
+$$
+\widetilde M_x = \colim_{f\in R, f\not\in \mathfrak p} M_f
+$$
+Ici, l'ensemble $\{f \in R, f \not \in \mathfrak p\}$ est préordonné par
+la règle $f \geq f' \Leftrightarrow D(f) \subset D(f')$.
+Si $f_1, f_2 \in R \setminus \mathfrak p$, alors nous avons
+$f_1f_2 \geq f_1$ dans cet ordre. Ainsi, par
+Algèbre, lemme \ref{algebra-lemma-localization-colimit},
+nous concluons que
+$$
+\widetilde M_x = M_{\mathfrak p}.
+$$
+
+\medskip\noindent
+Ensuite, nous vérifions la condition de faisceau pour les recouvrements ouverts
+standards. Si $D(f) = \bigcup_{i = 1}^n D(g_i)$, alors la condition
+de faisceau pour ce recouvrement est équivalente à l’exactitude de
+la suite
+$$
+0 \to M_f \to \bigoplus M_{g_i} \to \bigoplus M_{g_ig_j}.
+$$
+Notez que $D(g_i) = D(fg_i)$, et donc nous pouvons réécrire
+cette suite comme la suite
+$$
+0 \to M_f \to \bigoplus M_{fg_i} \to \bigoplus M_{fg_ig_j}.
+$$
+De plus, d'après le lemme \ref{lemma-standard-open} ci-dessus,
+nous voyons que $g_1, \ldots, g_n$ engendrent l'idéal unité
+dans $R_f$. Nous pouvons donc
+appliquer Algèbre, lemme \ref{algebra-lemma-cover-module},
+au module $M_f$ sur $R_f$ et aux éléments $g_1, \ldots, g_n$. Nous en
+concluons que la suite est exacte. D'après les remarques faites
+ci-dessus, nous voyons que $\widetilde M$ est un faisceau
+sur la base des ouverts standards.
+
+\medskip\noindent
+Ainsi, nous concluons à partir des résultats
+de Faisceaux, section \ref{sheaves-section-bases}
+qu'il existe un unique
+faisceau d'anneaux $\mathcal{O}_{\Spec(R)}$ qui
+coïncide avec $\widetilde R$ sur les ouverts standards. Notez que
+d'après notre calcul des fibres ci-dessus, toutes les
+fibres de ce faisceau d'anneaux sont des anneaux locaux.
+
+\medskip\noindent
+De même, pour tout $R$-module $M$, il existe un
+unique faisceau de $\mathcal{O}_{\Spec(R)}$-modules
+$\mathcal{F}$ qui coïncide avec $\widetilde M$ sur les
+ouverts standards, voir
+Faisceaux, lemme \ref{sheaves-lemma-extend-off-basis-module}.
+
+\begin{definition}
+\label{definition-structure-sheaf}
+Soit $R$ un anneau.
+\begin{enumerate}
+\item Le {\it faisceau structural $\mathcal{O}_{\Spec(R)}$ du spectre
+de $R$} est l'unique faisceau d'anneaux $\mathcal{O}_{\Spec(R)}$ dont la
+restriction à la base des ouverts standards coïncide avec $\widetilde
+R$. \item L'espace annelé en
+anneaux locaux $(\Spec(R), \mathcal{O}_{\Spec(R)})$
+est appelé le {\it spectre} de $R$ et désigné $\Spec(R)$.
+\item Le faisceau de $\mathcal{O}_{\Spec(R)}$-modules
+étendant $\widetilde M$ à tous les ouverts de
+$\Spec(R)$ est appelé le faisceau de $\mathcal{O}_{\Spec(R)}$-modules
+associé à $M$. Ce faisceau est également noté $\widetilde
+M$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous résumons les résultats obtenus jusqu'à présent.
+
+\begin{lemma}
+\label{lemma-spec-sheaves}
+Soit $R$ un anneau. Soit $M$ un $R$-module. Soit $\widetilde M$
+le faisceau de $\mathcal{O}_{\Spec(R)}$-modules
+associé à $M$.
+\begin{enumerate}
+\item Nous avons $\Gamma(\Spec(R), \mathcal{O}_{\Spec(R)}) = R$. \item
+Nous avons $\Gamma(\Spec(R), \widetilde M) = M$ en tant que $R$-module.
+\item Pour chaque $f \in R$ nous avons
+$\Gamma(D(f), \mathcal{O}_{\Spec(R)}) = R_f$.
+\item Pour chaque $f\in R$ nous avons $\Gamma(D(f), \widetilde M) = M_f$ en
+tant que $R_f$-module.
+\item Chaque fois que $D(g) \subset D(f)$, les applications de
+restriction sur $\mathcal{O}_{\Spec(R)}$ et $\widetilde
+M$ sont
+les applications $R_f \to R_g$ et $M_f \to M_g$
+du lemme \ref{lemma-standard-open}.
+\item Soit $\mathfrak p$ un idéal premier de $R$, et soit $x \in
+\Spec(R)$ le point correspondant. Nous
+avons $\mathcal{O}_{\Spec(R), x} = R_{\mathfrak
+p}$. \item Soit $\mathfrak p$ un idéal premier de $R$, et soit $x \in \Spec(R)$
+le point correspondant. Nous avons $\widetilde M_x = M_{\mathfrak p}$ en
+tant que $R_{\mathfrak p}$-module.
+\end{enumerate}
+De plus, toutes ces identifications sont fonctorielles par rapport
+au $R$-module $M$. En particulier, le foncteur $M \mapsto \widetilde
+M$ est un foncteur exact de la catégorie des $R$-modules
+à la catégorie des $\mathcal{O}_{\Spec(R)}$-modules.
+\end{lemma}
+
+\begin{proof}
+Les assertions (1) - (7) sont claires d'après la discussion
+ci-dessus. L'exactitude du foncteur $M \mapsto \widetilde
+M$ découle du fait que le foncteur $M \mapsto M_{\mathfrak p}$ est exact
+et du fait que l'exactitude des suites exactes courtes peut
+être vérifiée sur les fibres, voir
+Modules, lemme \ref{modules-lemma-abelian}.
+\end{proof}
+
+\begin{definition}
+\label{definition-affine-scheme}
+Un {\it schéma affine} est un espace annelé en anneaux locaux isomorphe en
+tant qu'espace annelé en anneaux locaux à $\Spec(R)$ pour un certain anneau
+$R$. Un {\it morphisme de schémas affines} est un morphisme dans la catégorie des
+espaces annelés en anneaux locaux.
+\end{definition}
+
+\noindent
+Il s'avère que les schémas affines jouent un rôle particulier
+parmi tous les espaces annelés en anneaux locaux, ce dont traite
+la section suivante.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{La catégorie des schémas affines}
+\label{section-category-affine-schemes}
+
+\noindent
+Notez que si $Y$ est un schéma affine, alors ses points
+sont en bijection canonique $1-1$ (une correspondance biunivoque)
+avec les idéaux premiers de $\Gamma(Y, \mathcal{O}_Y)$.
+
+\begin{lemma}
+\label{lemma-morphism-into-affine-where-point-goes}
+Soit $X$ un espace annelé en anneaux locaux.
+Soit $Y$ un schéma affine. Soit $f
+\in \Mor(X, Y)$ un morphisme d'espaces annelés
+en anneaux locaux. Étant donné un point $x \in X$, considérons
+les homomorphismes d'anneaux
+$$
+\Gamma(Y, \mathcal{O}_Y) \xrightarrow{f^\sharp}
+\Gamma(X, \mathcal{O}_X) \to \mathcal{O}_{X, x}
+$$
+Soit $\mathfrak p \subset \Gamma(Y, \mathcal{O}_Y)$ l'image
+réciproque de $\mathfrak m_x$. Soit $y \in Y$ le point
+correspondant. Alors $f(x) = y$.
+\end{lemma}
+
+\begin{proof}
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+\Gamma(X, \mathcal{O}_X) \ar[r] &
+\mathcal{O}_{X, x} \\
+\Gamma(Y, \mathcal{O}_Y) \ar[r] \ar[u] &
+\mathcal{O}_{Y, f(x)} \ar[u]
+}
+$$
+(voir la discussion des $f$-morphismes qui
+suit Faisceaux, définition \ref{sheaves-definition-f-map}).
+Puisque la flèche verticale de droite est locale,
+nous voyons que $\mathfrak m_{f(x)}$ est
+l'image réciproque de $\mathfrak m_x$. Le résultat
+s'ensuit.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-f-open}
+Soit $X$ un espace annelé en anneaux locaux.
+Soit $f \in \Gamma(X, \mathcal{O}_X)$.
+L'ensemble
+$$
+D(f) = \{x \in X \mid \text{l'image de }f \not\in \mathfrak m_x\}
+$$
+est ouvert. De plus, $f|_{D(f)}$ est inversible.
+\end{lemma}
+
+\begin{proof}
+Ceci est un cas particulier de Modules, lemme \ref{modules-lemma-s-open}, mais
+nous donnons également une
+démonstration directe. Supposons que $U \subset X$ et $V
+\subset X$ soient deux sous-ensembles ouverts tels que
+$f|_U$ ait un inverse $g$ et que $f|_V$ ait un inverse
+$h$. Alors clairement $g|_{U\cap V} = h|_{U\cap
+V}$. Il suffit donc de montrer que $f$ est inversible dans un
+voisinage ouvert de tout $x \in D(f)$. Cela est
+clair car $f \not \in \mathfrak m_x$ implique que $f \in \mathcal{O}_{X,
+x}$ a un inverse $g \in \mathcal{O}_{X, x}$, ce qui signifie qu'il
+existe un certain voisinage ouvert $x \in U \subset
+X$ tel que $g \in \mathcal{O}_X(U)$ et $g\cdot f|_U = 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-f-open-affine}
+Dans le lemme \ref{lemma-f-open} ci-dessus, si $X$ est un schéma
+affine, alors l'ouvert $D(f)$ correspond à l'ouvert standard
+$D(f)$ défini précédemment
+(en Algèbre, définition \ref{algebra-definition-spectrum-ring}).
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-into-affine}
+\begin{reference}
+Une référence pour ce fait est \cite[II, Err 1, Prop. 1.8.1]{EGA}
+où il est attribué à J. Tate.
+\end{reference}
+Soit $X$ un espace annelé en anneaux locaux.
+Soit $Y$ un schéma affine.
+L'application
+$$
+\Mor(X, Y)
+\longrightarrow
+\Hom(\Gamma(Y, \mathcal{O}_Y), \Gamma(X, \mathcal{O}_X))
+$$
+qui envoie $f$ sur $f^\sharp$ (au niveau des sections globales) est bijective.
+\end{lemma}
+
+\begin{proof}
+Étant donné que $Y$ est affine,
+nous avons $(Y, \mathcal{O}_Y) \cong (\Spec(R), \mathcal{O}_{\Spec(R)})$ pour
+un certain anneau $R$.
+Au cours de la démonstration, nous utiliserons des faits
+sur $Y$ et son faisceau structural qui sont des conséquences directes de ce
+que nous savons sur le spectre d'un anneau, voir par exemple\ 
+lemme \ref{lemma-spec-sheaves}.
+
+\medskip\noindent
+Motivés par les lemmes ci-dessus, nous construisons l'application inverse.
+Soit $\psi_Y : \Gamma(Y, \mathcal{O}_Y) \to \Gamma(X, \mathcal{O}_X)$ un morphisme
+d'anneaux. Tout d'abord, nous définissons l'application correspondante des
+espaces
+$$
+\Psi : X \longrightarrow Y
+$$
+selon la règle
+du lemme \ref{lemma-morphism-into-affine-where-point-goes}. En
+d'autres termes, étant donné $x \in X$, nous définissons
+$\Psi(x)$ comme le point de $Y$ correspondant à l'idéal
+premier dans $\Gamma(Y, \mathcal{O}_Y)$ qui est
+l'image réciproque de $\mathfrak m_x$ par la composée
+$
+\Gamma(Y, \mathcal{O}_Y) \xrightarrow{\psi_Y}
+\Gamma(X, \mathcal{O}_X) \to
+\mathcal{O}_{X, x}
+$.
+
+\medskip\noindent
+Nous affirmons que l'application $\Psi : X \to Y$ est continue.
+Les ouverts standards $D(g)$, pour $g \in \Gamma(Y, \mathcal{O}_Y)$
+sont une base pour la topologie de $Y$. Ainsi, il suffit de prouver
+que $\Psi^{-1}(D(g))$ est ouvert. Par construction de $\Psi$,
+l'image inverse $\Psi^{-1}(D(g))$ est exactement l'ensemble
+$D(\psi_Y(g)) \subset X$ qui est ouvert par le lemme \ref{lemma-f-open}. Par
+conséquent, $\Psi$ est continue.
+
+\medskip\noindent
+Ensuite, nous construisons un $\Psi$-morphisme de
+faisceaux de $\mathcal{O}_Y$ à $\mathcal{O}_X$.
+Par Faisceaux, lemme \ref{sheaves-lemma-f-map-basis-below-structures}, il
+suffit de définir des homomorphismes
+d'anneaux $\psi_{D(g)} : \Gamma(D(g), \mathcal{O}_Y)
+\to \Gamma(\Psi^{-1}(D(g)), \mathcal{O}_X)$
+compatibles avec les applications de
+restriction. Nous avons un isomorphisme
+canonique $\Gamma(D(g), \mathcal{O}_Y) = \Gamma(Y, \mathcal{O}_Y)_g$,
+car $Y$ est un schéma affine. Comme
+$\psi_Y(g)$ est inversible sur $D(\psi_Y(g))$, nous voyons
+qu'il existe une application canonique
+$$
+\Gamma(Y, \mathcal{O}_Y)_g
+\longrightarrow
+\Gamma(\Psi^{-1}(D(g)), \mathcal{O}_X)
+=
+\Gamma(D(\psi_Y(g)), \mathcal{O}_X)
+$$
+en étendant l'application $\psi_Y$
+par la propriété universelle de la localisation.
+Notez qu'il n'y a pas d'autre choix que de prendre l'application canonique
+ici ! Après l'identification
+canonique $\Gamma(D(g), \mathcal{O}_Y)
+= \Gamma(Y, \mathcal{O}_Y)_g$, nous prenons cette application pour
+définir $\psi_{D(g)}$. Cela est compatible avec la localisation puisque les
+applications de restriction sur les schémas affines sont également
+définies en termes des propriétés universelles de la localisation,
+voir les lemmes \ref{lemma-spec-sheaves} et \ref{lemma-standard-open}.
+
+\medskip\noindent
+Ainsi, nous avons défini un morphisme d'espaces annelés $(\Psi,
+\psi) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ induisant $\psi_Y$
+sur les sections globales. Pour montrer qu'il s'agit d'un morphisme
+d'espaces annelés en anneaux locaux, nous devons démontrer que les
+applications induites sur les anneaux locaux
+$$
+\psi_x : \mathcal{O}_{Y, \Psi(x)} \longrightarrow \mathcal{O}_{X, x}
+$$
+sont locales. Cela découle immédiatement du diagramme commutatif de
+la démonstration du lemme \ref{lemma-morphism-into-affine-where-point-goes}
+et de la définition de $\Psi$.
+
+\medskip\noindent
+Enfin, nous devons montrer que les constructions
+$(\Psi, \psi) \mapsto \psi_Y$ et la construction $\psi_Y
+\mapsto (\Psi, \psi)$ sont inverses l'une de l'autre. Clairement,
+$\psi_Y \mapsto (\Psi, \psi) \mapsto \psi_Y$. Par conséquent,
+la seule chose à prouver est que, étant donné $\psi_Y$,
+il existe au plus une paire $(\Psi, \psi)$ donnant
+lieu à celle-ci. L'unicité de $\Psi$ a été montrée dans
+le lemme \ref{lemma-morphism-into-affine-where-point-goes}
+et étant donné l'unicité de $\Psi$, l'unicité de l'application
+$\psi$ a été soulignée au cours de la démonstration
+ci-dessus.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-category-affine-schemes}
+La catégorie des schémas affines est équivalente à l'opposée de la
+catégorie des anneaux. L'équivalence est donnée par le foncteur qui associe à un
+schéma affine les sections globales de son faisceau structural.
+\end{lemma}
+
+\begin{proof}
+Cela découle maintenant clairement de la définition \ref{definition-affine-scheme}
+et du lemme \ref{lemma-morphism-into-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-standard-open-affine}
+Soit $Y$ un schéma affine. Soit
+$f \in \Gamma(Y, \mathcal{O}_Y)$. Le
+sous-espace ouvert $D(f)$ est un schéma affine.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons supposer que $Y = \Spec(R)$ et $f \in R$.
+Considérons le morphisme de schémas affines
+$\phi : U = \Spec(R_f) \to \Spec(R) = Y$ induit par l'homomorphisme
+d'anneaux $R \to R_f$. D'après Algèbre, lemme \ref{algebra-lemma-standard-open},
+nous savons que c'est un homéomorphisme sur $D(f)$.
+D'autre part, l'application $\phi^{-1}\mathcal{O}_Y \to \mathcal{O}_U$ est un
+isomorphisme sur les fibres, donc un isomorphisme. Ainsi, nous voyons
+que $\phi$ est une immersion ouverte. Nous concluons que $D(f)$
+est isomorphe à $U$ d'après le lemme \ref{lemma-open-immersion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-product-affine-schemes}
+La catégorie des schémas affines a des produits finis et des produits fibrés. En d'autres
+termes, elle possède des limites finies. De plus, les produits et
+produits fibrés dans la catégorie des schémas affines sont les mêmes
+que dans la catégorie des espaces annelés en anneaux locaux.
+Formellement, nous avons (dans la catégorie des espaces annelés en anneaux locaux)
+$$
+\Spec(R) \times \Spec(S) =
+\Spec(R \otimes_{\mathbf{Z}} S)
+$$
+et étant donné des homomorphismes d'anneaux $R \to A$, $R \to B$ nous avons
+$$
+\Spec(A) \times_{\Spec(R)} \Spec(B) =
+\Spec(A
+\otimes_R B).
+$$
+\end{lemma}
+
+\begin{proof}
+Ceci est simplement une application du lemme \ref{lemma-morphism-into-affine}. Tout
+d'abord, d'après ce lemme, le schéma affine
+$\Spec(\mathbf{Z})$ est l'objet final dans la catégorie des espaces
+annelés en anneaux locaux. Ainsi, la première formule affichée découle
+de la seconde. Pour prouver la seconde, notez que pour tout
+espace annelé en anneaux locaux $X$, nous avons
+\begin{eqnarray*}
+\Mor(X, \Spec(A \otimes_R B)) &
+= &
+\Hom(A \otimes_R B, \mathcal{O}_X(X)) \\ &
+= &
+\Hom(A, \mathcal{O}_X(X))
+\times_{\Hom(R, \mathcal{O}_X(X))}
+\Hom(B, \mathcal{O}_X(X)) \\ &
+= &
+\Mor(X, \Spec(A))
+\times_{\Mor(X, \Spec(R))}
+\Mor(X, \Spec(B))
+\end{eqnarray*}
+Cela prouve la formule. Voir
+Catégories, section \ref{categories-section-fibre-products} pour les
+définitions pertinentes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-disjoint-union-affines}
+Soit $X$ un espace annelé en anneaux
+locaux. Supposons $X = U \amalg V$ avec $U$ et $V$ ouverts et
+tels que $U$, $V$ soient des schémas affines. Alors $X$ est un schéma affine.
+\end{lemma}
+
+\begin{proof}
+Fixez $R = \Gamma(X, \mathcal{O}_X)$.
+Notez que $R = \mathcal{O}_X(U) \times \mathcal{O}_X(V)$ par la
+propriété du faisceau. Par le lemme \ref{lemma-morphism-into-affine}, il
+existe un morphisme canonique d'espaces annelés en anneaux
+locaux $X \to \Spec(R)$. Par Algèbre, lemme \ref{algebra-lemma-spec-product},
+nous voyons que comme espace topologique
+$\Spec(\mathcal{O}_X(U)) \amalg \Spec(\mathcal{O}_X(V)) =
+\Spec(R)$
+avec les applications provenant des homomorphismes d'anneaux
+$R \to \mathcal{O}_X(U)$ et $R \to \mathcal{O}_X(V)$.
+Cela signifie bien sûr que $\Spec(R)$ est également le coproduit
+dans la catégorie des espaces annelés en anneaux
+locaux. Par hypothèse, le morphisme $X \to \Spec(R)$ induit un isomorphisme
+de $\Spec(\mathcal{O}_X(U))$ avec $U$ et de même pour $V$.
+Par conséquent, $X \to \Spec(R)$ est un isomorphisme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Faisceaux quasi-cohérents sur les schémas affines}
+\label{section-quasi-coherent-affine}
+
+\noindent
+Rappelons que nous avons défini la notion abstraite de faisceau quasi-cohérent
+dans Modules, définition \ref{modules-definition-quasi-coherent}.
+Dans cette section, nous montrons que tout faisceau quasi-cohérent sur
+un schéma affine $\Spec(R)$ correspond au faisceau $\widetilde M$ associé à
+un $R$-module $M$.
+
+\begin{lemma}
+\label{lemma-compare-constructions}
+Soit $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+un schéma affine. Soit $M$ un $R$-module. Il existe un isomorphisme
+canonique entre le faisceau $\widetilde M$ associé au $R$-module $M$
+(définition \ref{definition-structure-sheaf}) et le faisceau
+$\mathcal{F}_M$ associé au $R$-module $M$ (Modules,
+définition \ref{modules-definition-sheaf-associated}). Cet isomorphisme
+est fonctoriel en $M$. En particulier, les
+faisceaux $\widetilde M$ sont quasi-cohérents. De plus, ils sont
+caractérisés par la propriété universelle suivante
+$$
+\Hom_{\mathcal{O}_X}(\widetilde M, \mathcal{F}) =
+\Hom_R(M,
+\Gamma(X, \mathcal{F}))
+$$
+pour tout faisceau de $\mathcal{O}_X$-modules $\mathcal{F}$. Ici,
+une application $\alpha : \widetilde M \to \mathcal{F}$ correspond à
+son effet sur les sections globales.
+\end{lemma}
+
+\begin{proof}
+Par Modules, lemme \ref{modules-lemma-construct-quasi-coherent-sheaves}, nous
+avons un morphisme $\mathcal{F}_M \to \widetilde M$ correspondant à
+l'application $M \to \Gamma(X, \widetilde M) = M$. Soit $x \in X$
+correspondant à l'idéal premier $\mathfrak p \subset
+R$. L'homomorphisme induit sur les fibres
+est le morphisme $\mathcal{O}_{X, x} \otimes_R M \to
+M_{\mathfrak p}$ qui est un isomorphisme
+car $R_{\mathfrak p} \otimes_R M = M_{\mathfrak
+p}$. Par conséquent, l'application $\mathcal{F}_M \to \widetilde M$
+est un isomorphisme. La propriété universelle découle de celle
+des faisceaux $\mathcal{F}_M$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-widetilde-constructions}
+Soit $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$ un
+schéma affine. Il existe des isomorphismes canoniques
+\begin{enumerate}
+\item
+$
+\widetilde{M \otimes_R N}
+\cong
+\widetilde M \otimes_{\mathcal{O}_X} \widetilde N $,
+voir
+Modules, section \ref{modules-section-tensor-product}.
+\item $
+\widetilde{\text{T}^n(M)}
+\cong
+\text{T}^n(\widetilde
+M) $,
+$
+\widetilde{\text{Sym}^n(M)}
+\cong
+\text{Sym}^n(\widetilde
+M)
+$, et $
+\widetilde{\wedge^n(M)}
+\cong
+\wedge^n(\widetilde
+M)
+$,
+voir
+Modules, section \ref{modules-section-symmetric-exterior}.
+\item si $M$ est un $R$-module de présentation finie, alors
+$
+\SheafHom_{\mathcal{O}_X}(\widetilde M, \widetilde N)
+\cong
+\widetilde{\Hom_R(M, N)}
+$,
+voir
+Modules, section \ref{modules-section-internal-hom}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}[Première démonstration]
+En utilisant le lemme \ref{lemma-compare-constructions}
+et Modules, lemme \ref{modules-lemma-construct-quasi-coherent-sheaves}, nous
+voyons que le foncteur $M \mapsto \widetilde M$ peut être vu comme
+$\pi^*$ pour un morphisme $\pi$ d'espaces annelés. Le foncteur
+image inverse sur les modules commute avec les constructions
+tensorielles d'après Modules, lemmes \ref{modules-lemma-tensor-product-pullback}
+et \ref{modules-lemma-pullback-tensor-algebra}.
+Le morphisme $\pi : (X, \mathcal{O}_X) \to (\{*\}, R)$ est plat
+par exemple parce que les fibres de $\mathcal{O}_X$ sont des
+localisations de $R$ (lemme \ref{lemma-spec-sheaves}) et donc
+plates sur $R$. Ainsi, l'image inverse par $\pi$ commute avec le
+faisceau Hom interne si le premier module est de présentation finie,
+d'après Modules, lemme \ref{modules-lemma-pullback-internal-hom}.
+\end{proof}
+
+\begin{proof}[Deuxième démonstration]
+Démonstration de (1). D'après le lemme \ref{lemma-compare-constructions}, pour
+donner une application $\widetilde{M
+\otimes_R N}$ vers $\widetilde M \otimes_{\mathcal{O}_X}
+\widetilde N$, nous devons donner une
+application sur les sections
+globales $M \otimes_R N \to \Gamma(X, \widetilde M \otimes_{\mathcal{O}_X}
+\widetilde N)$ qui existe par définition du produit
+tensoriel des faisceaux de modules. Pour voir que cette
+application est un isomorphisme, il suffit de vérifier qu'elle est
+un isomorphisme sur les fibres. Et cela découle de la
+description des fibres de $\widetilde{M}$ (soit dans le lemme \ref{lemma-spec-sheaves}
+ou dans Modules, lemme \ref{modules-lemma-construct-quasi-coherent-sheaves}),
+du fait que le produit tensoriel commute avec la
+localisation (Algèbre, lemme \ref{algebra-lemma-tensor-product-localization})
+et Modules, lemme \ref{modules-lemma-stalk-tensor-product}.
+
+\medskip\noindent
+Démonstration de (2). C'est similaire à la preuve de (1), en
+utilisant Algèbre, lemme \ref{algebra-lemma-tensor-algebra-localization}
+et Modules, lemme \ref{modules-lemma-stalk-tensor-algebra}.
+
+\medskip\noindent
+Démonstration de (3). Puisque la construction $M \mapsto \widetilde{M}$ est fonctorielle,
+il existe une application
+$R$-linéaire $\Hom_R(M, N) \to \Hom_{\mathcal{O}_X}(\widetilde{M}, \widetilde{N})$.
+La cible de cette application est le module des sections
+globales de $\SheafHom_{\mathcal{O}_X}(\widetilde M, \widetilde
+N)$. Ainsi, par le lemme \ref{lemma-compare-constructions}, nous
+obtenons une application de $\mathcal{O}_X$-modules $\widetilde{\Hom_R(M,
+N)} \to \SheafHom_{\mathcal{O}_X}(\widetilde M, \widetilde
+N)$. Nous vérifions que c'est un isomorphisme en comparant les
+fibres. Si $M$ est de présentation finie en tant que
+$R$-module, alors $\widetilde M$ a une présentation globale finie
+en tant que $\mathcal{O}_X$-module. Ainsi, nous concluons
+en utilisant Algèbre, lemme \ref{algebra-lemma-hom-from-finitely-presented}
+et Modules, lemme \ref{modules-lemma-stalk-internal-hom}.
+\end{proof}
+
+\begin{proof}[Troisième démonstration de la partie (1)]
+Pour tout $\mathcal{O}_X$-module $\mathcal{F}$,
+nous avons les isomorphismes suivants fonctoriels en $M$, $N$, et $\mathcal{F}$
+\begin{align*}
+\Hom_{\mathcal{O}_X}(\widetilde{M} \otimes _{\mathcal{O} _X} \widetilde{N},
+\mathcal{F}) &
+=
+\Hom_{\mathcal{O}_X}(\widetilde{M},
+\SheafHom_{\mathcal{O} _X} (\widetilde{N}, \mathcal{F})) \\ &
+=
+\Hom_R(M, \Gamma(X,
+\SheafHom_{\mathcal{O}_X}(\widetilde{N}, \mathcal{F}))) \\ &
+=
+\Hom_R(M, \Hom_{\mathcal{O}_X}(\widetilde{N}, \mathcal{F})) \\ &
+=
+\Hom_R(M, \Hom_R(N, \Gamma(X, \mathcal{F}))) \\
+& =
+\Hom_R(M \otimes_R N, \Gamma(X, \mathcal{F})) \\
+& =
+\Hom_{\mathcal{O}_X}(\widetilde{M \otimes_R N}, \mathcal{F})
+\end{align*}
+La première égalité est Modules, lemme \ref{modules-lemma-internal-hom}. La
+deuxième égalité est la propriété universelle de $\widetilde{M}$, voir
+lemme \ref{lemma-compare-constructions}. La troisième égalité vaut par
+définition de $\SheafHom$. La quatrième égalité est la propriété universelle
+de $\widetilde{N}$. La cinquième égalité est
+Algèbre, lemme \ref{algebra-lemma-hom-from-tensor-product}.
+L'égalité finale est la propriété universelle de
+$\widetilde{M \otimes_R N}$. Par
+le lemme de Yoneda (Catégories, lemme \ref{categories-lemma-yoneda}) nous
+obtenons (1).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-widetilde-pullback}
+Soient
+$(X, \mathcal{O}_X) = (\Spec(S), \mathcal{O}_{\Spec(S)})$,
+$(Y, \mathcal{O}_Y) = (\Spec(R), \mathcal{O}_{\Spec(R)})$ des
+schémas affines.
+Soit $\psi : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ un morphisme
+de schémas affines, correspondant à l'homomorphisme d'anneaux
+$\psi^\sharp : R \to S$ (voir lemme \ref{lemma-category-affine-schemes}).
+\begin{enumerate}
+\item Nous avons $\psi^* \widetilde M = \widetilde{S \otimes_R M}$
+fonctoriellement par rapport au $R$-module $M$.
+\item Nous avons $\psi_* \widetilde N = \widetilde{N_R}$ fonctoriellement par
+rapport au $S$-module $N$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La première assertion découle de l'identification dans
+le lemme \ref{lemma-compare-constructions}
+et du résultat des Modules, lemme \ref{modules-lemma-restrict-quasi-coherent}.
+La deuxième assertion découle du fait
+que $\psi^{-1}(D(f)) = D(\psi^\sharp(f))$ et donc
+$$
+\psi_* \widetilde N(D(f)) = \widetilde N(D(\psi^\sharp(f))) =
+N_{\psi^\sharp(f)} = (N_R)_f = \widetilde{N_R}(D(f))
+$$
+comme voulu.
+\end{proof}
+
+\noindent
+Le lemme \ref{lemma-widetilde-pullback} ci-dessus dit en particulier que
+si vous restreignez le
+faisceau $\widetilde M$ à un sous-espace ouvert affine standard
+$D(f)$, alors vous obtenez $\widetilde{M_f}$. Nous utiliserons ceci à partir
+de maintenant sans autre mention.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-affine}
+Soit $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+un schéma affine. Soit $\mathcal{F}$ un
+$\mathcal{O}_X$-module quasi-cohérent.
+Alors $\mathcal{F}$ est isomorphe au faisceau associé
+au $R$-module $\Gamma(X, \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent. Comme chaque
+ouvert standard $D(f)$ est quasi-compact, nous voyons que $X$ est
+localement quasi-compact, c’est-à-dire que chaque point possède un système
+fondamental de voisinages quasi-compacts, voir Topologie,
+définition \ref{topology-definition-locally-quasi-compact}. Ainsi, d’après
+Modules, lemme \ref{modules-lemma-quasi-coherent-module}, pour chaque idéal
+premier $\mathfrak p \subset R$ correspondant à $x \in X$, il existe un
+voisinage ouvert $x \in U \subset X$ tel que $\mathcal{F}|_U$ soit isomorphe
+au faisceau quasi-cohérent associé à un certain
+$\mathcal{O}_X(U)$-module $M$. En d’autres termes, nous obtenons un
+recouvrement ouvert par des $U$ possédant cette propriété. Par le lemme
+\ref{lemma-standard-open}, par exemple, nous pouvons affiner ce recouvrement en un
+recouvrement ouvert standard. Ainsi, nous obtenons
+un recouvrement $\Spec(R) = \bigcup D(f_i)$ et des
+$R_{f_i}$-modules $M_i$ et des isomorphismes $\varphi_i
+: \mathcal{F}|_{D(f_i)} \to \mathcal{F}_{M_i}$ pour un certain
+$R_{f_i}$-module $M_i$. Sur les intersections, nous obtenons
+des isomorphismes
+$$
+\xymatrix{
+\mathcal{F}_{M_i}|_{D(f_if_j)}
+\ar[rr]^{\varphi_i^{-1}|_{D(f_if_j)}} &
+&
+\mathcal{F}|_{D(f_if_j)}
+\ar[rr]^{\varphi_j|_{D(f_if_j)}} &
+&
+\mathcal{F}_{M_j}|_{D(f_if_j)}.
+}
+$$
+Notons-les $\psi_{ij}$. Il est clair que nous
+avons la condition de cocycle
+$$
+\psi_{jk}|_{D(f_if_jf_k)}
+\circ
+\psi_{ij}|_{D(f_if_jf_k)}
+=
+\psi_{ik}|_{D(f_if_jf_k)}
+$$
+sur les triples intersections.
+
+\medskip\noindent
+Rappelons que chacun des sous-espaces ouverts $D(f_i)$, $D(f_if_j)$,
+$D(f_if_jf_k)$ est un schéma affine. Par conséquent, les faisceaux $\mathcal{F}_{M_i}$
+sont isomorphes aux faisceaux $\widetilde M_i$ d'après le lemme
+\ref{lemma-compare-constructions} ci-dessus. En particulier, nous voyons que
+$\mathcal{F}_{M_i}(D(f_if_j)) = (M_i)_{f_j}$, etc. De plus,
+d'après le lemme \ref{lemma-compare-constructions} ci-dessus, nous
+voyons que $\psi_{ij}$ correspond à un unique isomorphisme de $R_{f_if_j}$-modules
+$$
+\psi_{ij} : (M_i)_{f_j} \longrightarrow (M_j)_{f_i}
+$$
+à savoir, l'effet de $\psi_{ij}$ sur les sections au-dessus de $D(f_if_j)$. De
+plus, celles-ci satisfont alors la condition de cocycle selon laquelle
+$$
+\xymatrix{
+(M_i)_{f_jf_k}
+\ar[rd]_{\psi_{ij}}
+\ar[rr]^{\psi_{ik}} &
+&
+(M_k)_{f_if_j} \\
+&
+(M_j)_{f_if_k} \ar[ru]_{\psi_{jk}}
+}
+$$
+commute (pour tout triple $i, j, k$).
+
+\medskip\noindent
+Algèbre, lemme \ref{algebra-lemma-glue-modules} montre
+qu'il existe un $R$-module $M$ et des identifications $M_i
+= M_{f_i}$ compatibles avec les morphismes $\psi_{ij}$. Considérons
+$\mathcal{F}_M = \widetilde M$. À ce stade, c'est une formalité
+de montrer que $\widetilde M$ est isomorphe au faisceau
+quasi-cohérent $\mathcal{F}$ avec lequel nous avons commencé. À
+savoir, les faisceaux $\mathcal{F}$ et $\widetilde M$ donnent lieu
+à des ensembles de données de recollement de faisceaux de $\mathcal{O}_X$-modules
+isomorphes par rapport au recouvrement $X = \bigcup D(f_i)$,
+voir Faisceaux, section \ref{sheaves-section-glueing-sheaves}
+et en particulier le lemme \ref{sheaves-lemma-mapping-property-glue}.
+Explicitement, dans la situation actuelle, cela se ramène à
+l'argument suivant : construisons un homomorphisme de $R$-modules
+$$
+M \longrightarrow \Gamma(X, \mathcal{F}).
+$$
+À savoir, étant donné $m \in M$, nous obtenons $m_i = m/1 \in M_{f_i}
+= M_i$ par la construction de $M$. Par la construction de $M_i$, cela
+correspond à une section $s_i \in \mathcal{F}(U_i)$. (À savoir, $\varphi^{-1}_i(m_i)$.)
+Nous affirmons que $s_i|_{D(f_if_j)} = s_j|_{D(f_if_j)}$.
+Cela résulte de la construction de $M$, qui donne $\psi_{ij}(m_i) = m_j$, et
+de celle des $\psi_{ij}$. Par la condition de faisceau de $\mathcal{F}$,
+cette collection de sections donne lieu à une section unique $s$ de
+$\mathcal{F}$ sur $X$. Nous laissons au lecteur le soin de montrer que $m
+\mapsto s$ est un morphisme de $R$-modules. Par le
+lemme \ref{lemma-compare-constructions}, nous obtenons un morphisme de
+$\mathcal{O}_X$-modules associé
+$$
+\widetilde M \longrightarrow \mathcal{F}.
+$$
+Par construction, ce morphisme se réduit aux isomorphismes
+$\varphi_i^{-1}$ sur chaque $D(f_i)$ et est donc un isomorphisme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-quasi-coherent}
+Soit $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$ un
+schéma affine. Les
+foncteurs $M \mapsto \widetilde M$ et $\mathcal{F}
+\mapsto \Gamma(X, \mathcal{F})$ définissent des équivalences
+quasi-inverses de catégories
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_X)
+\ar@<1ex>[r]
+&
+\text{Mod}_R
+\ar@<1ex>[l]
+}
+$$
+entre la catégorie des $\mathcal{O}_X$-modules quasi-cohérents
+et la catégorie des $R$-modules.
+\end{lemma}
+
+\begin{proof}
+Voir les lemmes \ref{lemma-compare-constructions}
+et \ref{lemma-quasi-coherent-affine} ci-dessus.
+\end{proof}
+
+\noindent
+Dorénavant, nous ne distinguerons pas entre les faisceaux quasi-cohérents
+sur les schémas affines et les faisceaux de la forme $\widetilde M$.
+
+\begin{lemma}
+\label{lemma-kernel-cokernel-quasi-coherent}
+Soit $X = \Spec(R)$ un schéma affine. Les
+noyaux et conoyaux des morphismes de $\mathcal{O}_X$-modules
+quasi-cohérents sont quasi-cohérents.
+\end{lemma}
+
+\begin{proof}
+Cela découle de l'exactitude du foncteur $\widetilde{\ }$ puisque d'après
+le lemme \ref{lemma-compare-constructions}, nous savons que tout morphisme
+$\psi : \widetilde{M} \to \widetilde{N}$ provient d'un
+morphisme de $R$-modules $\varphi : M \to N$. (Ainsi
+nous avons $\Ker(\psi) = \widetilde{\Ker(\varphi)}$
+et $\Coker(\psi) = \widetilde{\Coker(\varphi)}$.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-quasi-coherent}
+Soit $X = \Spec(R)$ un schéma affine. La somme
+directe d'une collection quelconque de faisceaux quasi-cohérents sur $X$
+est quasi-cohérente. Il en va de même pour les colimites.
+\end{lemma}
+
+\begin{proof}
+Supposons que les $\mathcal{F}_i$, $i \in I$, forment une collection de faisceaux
+quasi-cohérents sur $X$. D'après le lemme \ref{lemma-equivalence-quasi-coherent}
+ci-dessus, nous pouvons écrire $\mathcal{F}_i = \widetilde{M_i}$ pour un certain $R$-module
+$M_i$. Posons $M = \bigoplus M_i$. Considérons le faisceau $\widetilde{M}$.
+Pour chaque ouvert standard $D(f)$, nous avons
+$$
+\widetilde{M}(D(f)) = M_f =
+\left(\bigoplus M_i\right)_f =
+\bigoplus M_{i, f}.
+$$
+Ainsi nous voyons que le $\mathcal{O}_X$-module quasi-cohérent
+$\widetilde{M}$ est la somme directe des faisceaux $\mathcal{F}_i$. Un argument
+similaire fonctionne pour les colimites générales.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extension-quasi-coherent}
+Soit $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+un schéma affine. Supposons que
+$$
+0 \to
+\mathcal{F}_1 \to
+\mathcal{F}_2 \to
+\mathcal{F}_3 \to
+0
+$$
+soit une suite exacte courte de faisceaux de $\mathcal{O}_X$-modules. Si
+deux sur trois sont quasi-cohérents, alors le troisième l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Cela est clair dans le cas où à la fois $\mathcal{F}_1$ et $\mathcal{F}_2$
+sont quasi-cohérents car le foncteur $M \mapsto \widetilde M$ est
+exact, voir le lemme \ref{lemma-spec-sheaves}. De
+même dans le cas où à la fois $\mathcal{F}_2$ et $\mathcal{F}_3$ sont
+quasi-cohérents. Maintenant, supposons que $\mathcal{F}_1 = \widetilde M_1$ et
+$\mathcal{F}_3 = \widetilde M_3$ soient quasi-cohérents.
+Posons $M_2 = \Gamma(X, \mathcal{F}_2)$. Nous affirmons qu'il suffit de montrer
+que la suite
+$$
+0 \to M_1 \to M_2 \to M_3 \to 0
+$$
+est exacte. En effet, si tel est le cas, alors (en utilisant la propriété
+universelle du lemme \ref{lemma-compare-constructions}) nous obtenons un diagramme
+commutatif
+$$
+\xymatrix{
+0 \ar[r] &
+\widetilde M_1 \ar[r] \ar[d] &
+\widetilde M_2 \ar[r] \ar[d] &
+\widetilde M_3 \ar[r] \ar[d] & 0
+\\ 0
+\ar[r] &
+\mathcal{F}_1 \ar[r] &
+\mathcal{F}_2 \ar[r] &
+\mathcal{F}_3 \ar[r] &
+0
+}
+$$
+et le lemme du serpent permet alors de conclure.
+
+\medskip\noindent
+L'argument ``correct'' ici serait de montrer d'abord que
+$H^1(X, \mathcal{F}) = 0$ pour tout faisceau quasi-cohérent $\mathcal{F}$. Cela n'est
+en fait pas si difficile, mais il est peut-être préférable de le reporter à plus
+tard. À la place, nous utilisons une petite astuce.
+
+\medskip\noindent
+Choisissez $m \in M_3 = \Gamma(X, \mathcal{F}_3)$.
+Considérons l'ensemble suivant
+$$
+I = \{ f \in R \mid \text{l'élément }fm\text{ provient de }M_2\}.
+$$
+Clairement, il s'agit d'un idéal. Il suffit de montrer $1 \in I$.
+Par conséquent, il suffit de montrer que pour tout idéal premier
+$\mathfrak p$, il existe un $f \in I$, $f \not\in \mathfrak
+p$. Soit $x \in X$ le point correspondant à $\mathfrak p$. Comme
+la surjectivité peut être vérifiée sur les fibres,
+il existe un voisinage ouvert $U$ de $x$ tel que $m|_U$
+provienne d'une section locale $s \in \mathcal{F}_2(U)$. En fait, nous
+pouvons supposer que $U = D(f)$ est un ouvert standard, c’est-à-dire
+$f \in R$, $f \not \in \mathfrak p$. Nous allons montrer
+que pour un certain $N \gg 0$ nous avons $f^N \in I$, ce
+qui terminera la preuve.
+
+\medskip\noindent
+Prenons un point quelconque $z \in V(f)$, disons correspondant
+à l'idéal premier $\mathfrak q \subset R$. Nous pouvons également
+trouver un $g \in R$, $g \not \in \mathfrak q$ tel que
+$m|_{D(g)}$ se relève en un certain $s' \in
+\mathcal{F}_2(D(g))$. Considérons la différence $s|_{D(fg)}
+- s'|_{D(fg)}$. C'est un élément $m'$ de $\mathcal{F}_1(D(fg)) =
+(M_1)_{fg}$. Pour un certain entier $n = n(z)$, l'élément $f^n m'$
+provient d'un certain $m'_1 \in (M_1)_g$.
+Nous voyons que $f^n s$ s'étend à une section $\sigma$ de $\mathcal{F}_2$ sur $D(f) \cup
+D(g)$ parce qu'elle coïncide avec la restriction
+de $f^n s' + m'_1$ sur $D(f) \cap D(g) = D(fg)$.
+De plus, l'image de $\sigma$ est la restriction de $f^n
+m$ à $D(f) \cup D(g)$.
+
+\medskip\noindent
+Étant donné que $V(f)$ est quasi-compact, il existe une liste
+finie d'éléments $g_1, \ldots, g_m \in R$ telle que
+$V(f) \subset \bigcup D(g_j)$, un entier $n > 0$ et des sections
+$\sigma_j \in \mathcal{F}_2(D(f) \cup D(g_j))$ telles que
+$\sigma_j|_{D(f)} = f^n s$ et que chaque $\sigma_j$ ait pour image la section
+$f^nm|_{D(f) \cup D(g_j)}$ de $\mathcal{F}_3$.
+Considérons les différences
+$$
+\sigma_j|_{D(f) \cup D(g_jg_k)}
+-
+\sigma_k|_{D(f) \cup D(g_jg_k)}.
+$$
+Cela correspond à des sections de $\mathcal{F}_1$ sur
+$D(f) \cup D(g_jg_k)$ qui sont nulles sur
+$D(f)$. En particulier, leurs images dans
+$\mathcal{F}_1(D(g_jg_k)) = (M_1)_{g_jg_k}$ sont
+nulles dans $(M_1)_{g_jg_kf}$. Ainsi,
+une certaine puissance élevée de $f$ annule chacune d'entre elles.
+En d'autres termes, les éléments $f^N \sigma_j$, pour un certain $N
+\gg 0$, satisfont à la condition de recollement du faisceau et
+donnent lieu à une section $\sigma $ de $\mathcal{F}_2$
+sur $\bigcup (D(f) \cup D(g_j)) = X$ comme souhaité.
+\end{proof}
+
+
+
+
+
+
+
+\section{Sous-espaces fermés des schémas affines}
+\label{section-closed-in-affine}
+
+\begin{example}
+\label{example-closed-immersion-affines}
+Soit $R$ un anneau.
+Soit $I \subset R$ un idéal. Considérons
+le morphisme de schémas affines $i : Z =
+\Spec(R/I) \to \Spec(R) = X$. D'après Algèbre,
+lemme \ref{algebra-lemma-spec-closed}, il s'agit
+d'un homéomorphisme de $Z$ sur un sous-ensemble fermé
+de $X$. De plus, si $I \subset \mathfrak p \subset R$ est un idéal
+premier correspondant à un point $x = i(z)$, $x \in X$, $z \in Z$,
+alors sur les fibres, on obtient l'application
+$$
+\mathcal{O}_{X, x} = R_{\mathfrak p}
+\longrightarrow
+R_{\mathfrak p}/IR_{\mathfrak p} = \mathcal{O}_{Z, z}
+$$
+Ainsi, nous voyons que $i$ est une immersion fermée d'espaces annelés en
+anneaux locaux, voir la définition \ref{definition-closed-immersion-locally-ringed-spaces}.
+Clairement, cela est (isomorphe) au sous-espace fermé associé
+au faisceau quasi-cohérent d'idéaux $\widetilde I$, comme dans
+l'exemple \ref{example-closed-subspace}.
+\end{example}
+
+\begin{lemma}
+\label{lemma-closed-immersion-affine-case}
+\begin{slogan}
+Pour les schémas affines, les immersions fermées correspondent aux idéaux.
+\end{slogan}
+Soit $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$ un
+schéma affine. Soit $i : Z \to X$ une quelconque immersion fermée
+d'espaces annelés en anneaux locaux. Alors il existe un unique
+idéal $I \subset R$ tel que le morphisme $i : Z \to X$ puisse être identifié
+avec l'immersion fermée $\Spec(R/I) \to \Spec(R)$
+construite dans l'exemple \ref{example-closed-immersion-affines} ci-dessus.
+\end{lemma}
+
+\begin{proof}
+La vérification est immédiate : d'après le lemme \ref{lemma-closed-immersion},
+nous pouvons identifier $Z \to X$ avec le sous-espace fermé associé à
+un faisceau d'idéaux $\mathcal{I} \subset \mathcal{O}_X$ comme dans
+la définition \ref{definition-closed-subspace} et
+l'exemple \ref{example-closed-subspace}. Selon
+nos conventions, ce faisceau d'idéaux est localement engendré par
+des sections en tant que faisceau de $\mathcal{O}_X$-modules.
+Par conséquent, le faisceau quotient $\mathcal{O}_X /
+\mathcal{I}$ est localement sur $X$
+le conoyau d'une application $\bigoplus_{j \in J} \mathcal{O}_U \to
+\mathcal{O}_U$. Ainsi, par définition, $\mathcal{O}_X / \mathcal{I}$ est
+quasi-cohérent. D'après nos résultats de la section \ref{section-quasi-coherent-affine},
+il est de la forme $\widetilde S$ pour un certain
+$R$-module $S$. De plus, comme $\mathcal{O}_X = \widetilde R \to \widetilde
+S$ est surjectif, nous voyons d'après le lemme \ref{lemma-extension-quasi-coherent}
+que $\mathcal{I}$ est également quasi-cohérent, disons $\mathcal{I} =
+\widetilde I$. Bien sûr, $I \subset R$ et $S = R/I$ et tout est clair.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Schémas}
+\label{section-schemes}
+
+\begin{definition}
+\label{definition-scheme}
+\begin{history}
+Dans \cite{EGA1} ce que nous appelons un schéma était appelé un ``pré-schéma''
+et le nom ``schéma'' était réservé pour ce qui est un schéma séparé
+dans le projet Stacks. Dans la deuxième édition \cite{EGA1-second} la terminologie
+a été remplacée par celle qui est désormais standard. Cependant, on
+peut parfois rencontrer la terminologie ``préschéma'', par exemple dans
+\cite{Murre-lectures}.
+\end{history}
+Un {\it schéma} est un espace annelé en anneaux locaux avec la propriété
+que chaque point possède un voisinage ouvert qui est un schéma affine.
+Un {\it morphisme de schémas} est un morphisme d'espaces
+annelés en anneaux locaux. La catégorie des schémas sera notée
+$\Sch$.
+\end{definition}
+
+\noindent
+Soit $X$ un schéma. Nous
+utiliserons le (très léger) abus de langage suivant. Nous
+dirons que $U \subset X$ est une {\it partie ouverte affine}, ou un {\it ouvert
+affine}, si le sous-espace ouvert $U$ est un schéma affine. Nous
+écrirons souvent $U = \Spec(R)$ pour indiquer que $U$ est
+isomorphe à $\Spec(R)$ et de plus que nous identifierons (temporairement)
+$U$ et $\Spec(R)$.
+
+\begin{lemma}
+\label{lemma-open-subspace-scheme}
+Soit $X$ un schéma. Soit $j : U \to X$ une immersion ouverte d'espaces
+annelés en anneaux locaux. Alors $U$ est un schéma. En particulier, tout
+sous-espace ouvert de $X$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+Soit $U \subset X$. Soit $u \in U$.
+Choisissez un voisinage ouvert affine $u \in V \subset X$.
+Comme les ouverts standards de $V$ forment une base de la
+topologie sur $V$, nous voyons qu'il existe un $f\in \mathcal{O}_V(V)$
+tel que $u \in D(f) \subset U$. Et $D(f)$ est un schéma affine
+d'après le lemme \ref{lemma-standard-open-affine}. Cela prouve que chaque point
+de $U$ possède un voisinage ouvert qui est affine.
+\end{proof}
+
+\noindent
+De toute évidence, le lemme (ou sa preuve) montre que tout
+schéma $X$ a une base (voir Topologie, section \ref{topology-section-bases})
+pour la topologie constituée d'ouverts affines.
+
+\begin{example}
+\label{example-not-affine}
+Soit $k$ un corps. Un
+exemple de schéma qui n'est pas affine est donné
+par le sous-espace ouvert $U
+= \Spec(k[x, y]) \setminus \{ (x, y)\}$ du
+schéma affine $X =\Spec(k[x, y])$. Il est
+recouvert par deux ouverts affines, à savoir $D(x) = \Spec(k[x, y, 1/x])$
+et $D(y) = \Spec(k[x, y, 1/y])$ dont l'intersection est
+$D(xy) = \Spec(k[x, y, 1/xy])$. Par la propriété du faisceau
+pour $\mathcal{O}_U$, il existe une suite exacte
+$$
+0 \to
+\Gamma(U, \mathcal{O}_U) \to
+k[x, y, 1/x] \times k[x, y, 1/y] \to
+k[x, y, 1/xy]
+$$
+Nous concluons que l'application $k[x, y] \to \Gamma(U, \mathcal{O}_U)$
+(provenant du morphisme $U \to X$) est un isomorphisme. Par
+conséquent, $U$ ne peut pas être affine puisqu'alors, d'après
+le lemme \ref{lemma-category-affine-schemes}, nous aurions $U \cong X$.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+\section{Immersions de schémas}
+\label{section-immersions}
+
+\noindent
+Dans le lemme \ref{lemma-open-subspace-scheme}, nous avons vu que tout sous-espace ouvert
+d'un schéma est un schéma. Ci-dessous, nous prouverons que la même chose vaut
+pour un sous-espace fermé d'un schéma.
+
+\medskip\noindent
+Notez que la notion de faisceau quasi-cohérent de $\mathcal{O}_X$-modules est définie
+pour tout espace annelé $X$, en particulier lorsque $X$ est un schéma. D'après
+les résultats de la section \ref{section-quasi-coherent-affine}, nous
+savons qu'un tel faisceau sur tout ouvert affine $U \subset X$ est
+de la forme $\widetilde M$ pour un certain $\mathcal{O}_X(U)$-module $M$.
+
+\begin{lemma}
+\label{lemma-closed-subspace-scheme}
+Soit $X$ un schéma. Soit $i : Z \to X$ une immersion fermée d'espaces
+annelés en anneaux locaux.
+\begin{enumerate}
+\item L'espace annelé en anneaux locaux $Z$ est un
+schéma, \item Le noyau $\mathcal{I}$ de l'application
+$\mathcal{O}_X \to i_*\mathcal{O}_Z$ est un faisceau
+quasi-cohérent
+d'idéaux, \item pour tout ouvert affine $U = \Spec(R)$ de
+$X$ le morphisme $i^{-1}(U) \to U$ peut être identifié à
+$\Spec(R/I) \to \Spec(R)$ pour un certain idéal $I \subset R$, et
+\item nous avons $\mathcal{I}|_U = \widetilde I$.
+\end{enumerate}
+En particulier, tout faisceau d'idéaux localement engendré par des sections
+est un faisceau quasi-cohérent d'idéaux (et réciproquement),
+et tout sous-espace fermé de $X$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+Soit $i : Z \to X$ une immersion fermée. Soit
+$z \in Z$ un point. Choisissez un voisinage ouvert
+affine $i(z) \in U \subset X$ quelconque. Disons $U =
+\Spec(R)$. D'après le lemme \ref{lemma-closed-immersion-affine-case},
+nous savons que $i^{-1}(U) \to U$ peut être identifié au
+morphisme de schémas affines $\Spec(R/I) \to
+\Spec(R)$. Tout d'abord, cela implique que $z \in i^{-1}(U) \subset Z$
+est un voisinage affine de $z$. Ainsi, $Z$ est un schéma.
+Deuxièmement, cela implique que $\mathcal{I}|_U$ est $\widetilde
+I$. En d'autres termes, pour chaque point $x \in i(Z)$, il
+existe un voisinage ouvert tel que $\mathcal{I}$ soit quasi-cohérent
+dans ce voisinage. Notez que $\mathcal{I}|_{X \setminus i(Z)}
+\cong \mathcal{O}_{X \setminus i(Z)}$. Ainsi, la restriction du
+faisceau d'idéaux est quasi-cohérente sur $X \setminus i(Z)$
+également. Nous concluons que $\mathcal{I}$ est quasi-cohérent.
+\end{proof}
+
+\begin{definition}
+\label{definition-immersion}
+Soit $X$ un schéma.
+\begin{enumerate}
+\item Un morphisme de schémas est appelé une {\it immersion ouverte}
+s'il s'agit d'une immersion ouverte d'espaces annelés en anneaux
+locaux (voir la définition \ref{definition-immersion-locally-ringed-spaces}).
+\item Un {\it sous-schéma ouvert} de $X$ est un sous-espace ouvert
+de $X$ au sens de la définition \ref{definition-open-subspace} ; un sous-schéma ouvert
+de $X$ est un schéma d'après le lemme \ref{lemma-open-subspace-scheme}.
+\item Un morphisme de schémas est appelé une {\it immersion fermée}
+s'il s'agit d'une immersion fermée d'espaces annelés en anneaux
+locaux (voir la définition \ref{definition-closed-immersion-locally-ringed-spaces}).
+\item Un {\it sous-schéma fermé} de $X$ est un sous-espace fermé
+de $X$ au sens de la définition \ref{definition-closed-subspace} ; un sous-schéma fermé est
+un schéma d'après le lemme \ref{lemma-closed-subspace-scheme}.
+\item Un morphisme de schémas $f : X \to Y$ est appelé une {\it immersion}, ou une
+{\it immersion localement fermée} s'il peut se factoriser sous la
+forme $j \circ i$ où $i$ est une immersion fermée et $j$ est une immersion
+ouverte.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Il résulte des lemmes des sections \ref{section-open-immersion} et
+\ref{section-closed-immersion} que toute immersion ouverte (resp. \ fermée) de
+schémas est isomorphe à l'inclusion d'un sous-schéma ouvert (resp. \ fermé)
+de la cible.
+
+\medskip\noindent
+Notre définition d'une immersion fermée se situe à mi-chemin entre Hartshorne
+et l'EGA. Hartshorne définit une immersion fermée comme un morphisme $f : X \to Y$ de
+schémas qui induit un homéomorphisme de $X$ sur un sous-ensemble fermé de $Y$
+et tel que l'application $f^\# : \mathcal{O}_Y \to f_*\mathcal{O}_X$ soit surjective,
+voir \cite[Page 85]{H}. Nous montrerons que cela est équivalent à notre
+notion dans le lemme \ref{lemma-characterize-closed-immersions}. Dans
+\cite{EGA}, Grothendieck et Dieudonné définissent d'abord les sous-schémas
+fermés via la construction de l'exemple \ref{example-closed-subspace}
+en utilisant des faisceaux quasi-cohérents d'idéaux, puis définissent une
+immersion fermée comme un morphisme $f : X \to Y$ qui induit un isomorphisme
+avec un sous-schéma fermé. Il découle du lemme \ref{lemma-closed-subspace-scheme}
+que cela correspond à notre notion.
+
+\medskip\noindent
+D'un point de vue pédagogique, la définition ci-dessus est un désastre/cauchemar.
+Lors de l'enseignement de ce matériel aux étudiants, nous
+avons souvent trouvé pratique de définir une immersion fermée comme
+un morphisme affine $f : X \to Y$ de schémas tel que $f^\# : \mathcal{O}_Y \to
+f_*\mathcal{O}_X$ soit surjectif. En effet, il s’avère que la notion de
+morphisme affine (Morphismes, section \ref{morphisms-section-affine})
+est assez naturelle et facile à comprendre.
+
+\medskip\noindent
+Pour plus d'informations sur les immersions fermées, nous suggérons au lecteur
+de consulter Morphismes, sections \ref{morphisms-section-closed-immersions}
+et \ref{morphisms-section-closed-immersions-quasi-coherent}.
+
+\medskip\noindent
+Nous discuterons des sous-schémas localement fermés et des immersions
+à la fin de cette section.
+
+\begin{remark}
+\label{remark-not-reverse-open-closed}
+Si $f : X \to Y$ est une immersion de schémas, il n'est généralement pas
+possible de factoriser $f$ en une immersion ouverte suivie
+d'une immersion fermée. Voir Morphismes, exemple \ref{morphisms-example-thibaut}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-immersion-when-closed}
+Soit $f : Y \to X$ une immersion de schémas. Alors $f$ est une immersion
+fermée si et seulement si $f(Y) \subset X$ est un sous-ensemble fermé.
+\end{lemma}
+
+\begin{proof}
+Si $f$ est une immersion fermée, alors $f(Y)$ est fermé par définition.
+Réciproquement, supposons que $f(Y)$ soit fermé. Par
+définition, il existe un sous-schéma ouvert $U \subset X$ tel que $f$ soit la composée
+d'une immersion fermée $i : Y \to U$ et de l'immersion ouverte
+$j : U \to X$. Soit $\mathcal{I} \subset \mathcal{O}_U$ le
+faisceau d'idéaux quasi-cohérent associé à l'immersion fermée $i$. Notez
+$\mathcal{I}|_{U
+\setminus i(Y)} = \mathcal{O}_{U
+\setminus i(Y)} = \mathcal{O}_{X
+\setminus i(Y)}|_{U \setminus i(Y)}$. Ainsi, nous pouvons
+recoller (voir Faisceaux, section \ref{sheaves-section-glueing-sheaves}) $\mathcal{I}$
+et $\mathcal{O}_{X \setminus i(Y)}$ en un faisceau d'idéaux
+$\mathcal{J} \subset \mathcal{O}_X$. Puisque chaque point de
+$X$ possède un voisinage où $\mathcal{J}$ est quasi-cohérent,
+nous voyons que $\mathcal{J}$ est quasi-cohérent (en particulier
+localement engendré par des sections). Par
+construction, $\mathcal{O}_X/\mathcal{J}$ est supporté sur $U$
+et sa restriction à cet ouvert est égale à $\mathcal{O}_U/\mathcal{I}$.
+Ainsi, nous voyons que les sous-espaces fermés associés à $\mathcal{I}$
+et $\mathcal{J}$ sont canoniquement isomorphes,
+voir l'exemple \ref{example-closed-subspace}.
+En particulier, le sous-espace fermé de $U$ associé à $\mathcal{I}$
+est isomorphe à un sous-espace fermé de $X$.
+Puisque $Y \to U$ est identifié avec le sous-espace fermé
+associé à $\mathcal{I}$, voir le lemme \ref{lemma-closed-immersion}, nous
+concluons que $Y \to U \to X$ est
+une immersion fermée.
+\end{proof}
+
+\noindent
+Soit $f : Y \to X$ une immersion. Soit
+$Z = \overline{f(Y)} \setminus f(Y)$ qui est un sous-ensemble fermé de $X$. Soit $U
+= X \setminus Z$. Le lemme
+implique que $U$ est le plus grand sous-espace ouvert de $X$ tel que $f
+: Y \to X$ se factorise par une immersion fermée dans $U$. Nous définissons
+un {\it sous-schéma localement fermé de $X$} comme une paire $(Z, U)$
+constituée d'un sous-schéma fermé $Z$ d'un sous-schéma ouvert $U$ de $X$ tel
+qu'en outre $\overline{Z} \cup U = X$. Nous disons généralement simplement «
+soit $Z$ un sous-schéma localement fermé de $X$ » puisque nous pouvons récupérer
+$U$ à partir du morphisme $Z \to X$. Ce qui précède
+montre alors que toute immersion $f : Y \to X$ se factorise de manière
+unique en $Y \to Z \to X$ où $Z$ est un sous-schéma localement fermé de
+$X$ et $Y \to Z$ est un isomorphisme.
+
+\medskip\noindent
+L'intérêt de ceci est que la collection de sous-schémas localement fermés de $X$ forme
+un ensemble. Nous pouvons définir un ordre partiel sur cet ensemble, que
+nous appelons inclusion pour des raisons évidentes. Pour être précis, si
+$Z \to X$ et $Z' \to X$ sont deux sous-schémas localement fermés de $X$, alors nous
+disons que {\it $Z$ est contenu dans $Z'$} simplement si le morphisme $Z
+\to X$ se factorise à travers $Z'$. Si c’est le cas, alors bien sûr $Z$ est identifié à
+un sous-schéma localement fermé unique de $Z'$, et ainsi de suite.
+
+\medskip\noindent
+Pour plus d’informations sur les immersions, nous renvoyons le lecteur
+à Morphismes, section \ref{morphisms-section-immersions}.
+
+
+
+
+
+
+
+
+
+
+\section{Topologie de Zariski des schémas}
+\label{section-topology}
+
+\noindent
+Voir Topologie, section \ref{topology-section-introduction} pour
+quelques notions de base en topologie adaptées à la topologie de
+Zariski des schémas.
+
+\begin{lemma}
+\label{lemma-scheme-sober}
+Soit $X$ un schéma. Tout
+sous-ensemble fermé irréductible de $X$ a un point générique unique.
+En d'autres termes, $X$ est un espace topologique sobre,
+voir Topologie, définition \ref{topology-definition-generic-point}.
+\end{lemma}
+
+\begin{proof}
+Soit $Z \subset X$ un sous-ensemble fermé irréductible.
+Pour chaque ouvert affine $U \subset X$, $U = \Spec(R)$,
+nous savons que $Z \cap U = V(I)$ pour un idéal
+radical unique $I \subset R$. Notez que $Z \cap U$ est soit vide,
+soit irréductible. Dans le second cas (qui se produit pour
+au moins un $U$), nous voyons que $I = \mathfrak p$ est
+un idéal premier, qui est un point générique $\xi$ de $Z \cap U$. Il
+s'ensuit que $Z = \overline{\{\xi\}}$, en d'autres termes $\xi$
+est un point générique de $Z$. Si $\xi'$ était un deuxième
+point générique, alors $\xi' \in Z \cap U$ et il en découle
+immédiatement que $\xi' = \xi$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-basis-affine-opens}
+Soit $X$ un schéma. La collection des ouverts affines
+de $X$ forme une base pour la topologie sur $X$.
+\end{lemma}
+
+\begin{proof}
+Cela découle de la discussion sur les sous-schémas ouverts
+dans la section \ref{section-schemes}.
+\end{proof}
+
+\begin{remark}
+\label{remark-intersection-affine-opens}
+En général, l'intersection de deux ouverts affines dans $X$
+n'est pas un ouvert affine. Voir l'exemple \ref{example-affine-space-zero-doubled}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-locally-quasi-compact}
+L'espace topologique sous-jacent de tout schéma est
+localement quasi-compact, voir
+Topologie, définition \ref{topology-definition-locally-quasi-compact}.
+\end{lemma}
+
+\begin{proof}
+Cela découle du lemme \ref{lemma-basis-affine-opens} ci-dessus
+et du fait que le spectre d'un anneau est quasi-compact, voir
+Algèbre, lemme \ref{algebra-lemma-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-standard-open-two-affines}
+Soit $X$ un schéma.
+Soient $U, V$ des ouverts affines de $X$, et soit $x \in U \cap V$.
+Il existe un voisinage ouvert affine $W$ de $x$ tel que
+$W$ soit un ouvert standard à la fois de $U$ et de $V$.
+\end{lemma}
+
+\begin{proof}
+Posons $U = \Spec(A)$ et $V = \Spec(B)$. Supposons
+que $x$ corresponde aux idéaux premiers $\mathfrak p \subset
+A$ et $\mathfrak q \subset B$. Nous pouvons
+choisir un $f \in A$, $f \not \in \mathfrak p$ tel que $D(f) \subset
+U \cap V$. Remarquons que tout ouvert standard de $D(f)$ est un ouvert
+standard de $\Spec(A) = U$. Ainsi, nous pouvons supposer que $U
+\subset V$. En d'autres termes, maintenant nous pouvons considérer
+$U$ comme un ouvert affine de $V$. Ensuite, nous
+choisissons un $g \in B$, $g \not \in \mathfrak
+q$ tel que $D(g) \subset U$. Dans ce cas, nous voyons que $D(g) =
+D(g_A)$ où $g_A \in A$ désigne l'image de $g$ par l'application $B \to A$.
+Ainsi le lemme est prouvé.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-good-subcover}
+Soit $X$ un schéma.
+Soit $X = \bigcup_i U_i$ un recouvrement ouvert affine.
+Soit $V \subset X$ un ouvert affine.
+Il existe un recouvrement ouvert standard
+$V = \bigcup_{j = 1, \ldots, m} V_j$ (voir
+définition \ref{definition-standard-covering})
+tel que chaque $V_j$ soit un ouvert standard de l'un des $U_i$.
+\end{lemma}
+
+\begin{proof}
+Choisissez $v \in V$. Alors $v \in U_i$ pour un certain
+$i$. D'après le lemme \ref{lemma-standard-open-two-affines} ci-dessus, il existe un
+ouvert $v \in W_v \subset V \cap U_i$ tel que
+$W_v$ soit un ouvert standard à la fois dans $V$ et
+$U_i$. Comme $V$ est quasi-compact, le lemme s'ensuit.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sheaf-on-affines}
+Soit $X$ un schéma. Soit $\mathcal{B}$ l'ensemble des ouverts affines de $X$. Soit
+$\mathcal{F}$ un préfaisceau d'ensembles sur $\mathcal{B}$, voir
+Faisceaux, définition \ref{sheaves-definition-presheaf-basis}. Les énoncés suivants
+sont équivalents
+\begin{enumerate}
+\item $\mathcal{F}$ est la restriction d'un faisceau sur $X$ à $\mathcal{B}$, \item
+$\mathcal{F}$ est un faisceau sur $\mathcal{B}$, et
+\item $\mathcal{F}(\emptyset)$ est un singleton et chaque
+fois que $U = V \cup W$ avec $U, V, W \in \mathcal{B}$ et $V,
+W \subset U$ ouverts standards
+(Algèbre, définition \ref{algebra-definition-Zariski-topology})
+l'application
+$$
+\mathcal{F}(U) \longrightarrow \mathcal{F}(V) \times \mathcal{F}(W)
+$$
+est injective avec pour image l'ensemble des paires $(s,
+t)$ telles que $s|_{V \cap W} = t|_{V \cap W}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) est Faisceaux,
+lemme \ref{sheaves-lemma-restrict-basis-equivalence}. Il est clair
+que (2) implique (3). Par conséquent,
+il suffit de prouver que (3) implique (2). D'après
+Faisceaux, lemme \ref{sheaves-lemma-cofinal-systems-coverings-standard-case}, et le
+lemme \ref{lemma-standard-open} ci-dessus, il suffit de prouver que la condition
+de faisceau est satisfaite pour les recouvrements
+ouverts standards (définition
+\ref{definition-standard-covering}) des éléments
+de $\mathcal{B}$. Soit $U = U_1 \cup \ldots \cup U_n$ un recouvrement
+ouvert standard avec $U \subset X$
+ouvert affine. Nous prouverons la
+condition de faisceau pour ce recouvrement par
+récurrence sur $n$. Si $n = 0$, alors $U$ est vide et nous obtenons
+la condition de faisceau par hypothèse. Si $n = 1$, alors il
+n'y a rien à prouver. Si $n = 2$, alors il
+s'agit de l'hypothèse (3). Si $n > 2$, alors nous écrivons $U_i = D(f_i)$ pour $f_i \in
+A = \mathcal{O}_X(U)$. Supposons que les $s_i \in \mathcal{F}(U_i)$
+soient des sections telles que $s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}$ pour tout
+$1 \leq i < j \leq n$. Comme $U = U_1 \cup \ldots
+\cup U_n$, nous avons $1 = \sum_{i = 1, \ldots, n} a_i f_i$ dans $A$ pour certains
+$a_i \in A$, voir Algèbre, lemme \ref{algebra-lemma-Zariski-topology}.
+Posons $g = \sum_{i = 1, \ldots,
+n - 1} a_if_i$. Alors $U = D(g)
+\cup D(f_n)$. Remarquons que $D(g) = D(gf_1) \cup \ldots \cup D(gf_{n
+- 1})$ est un recouvrement ouvert standard. Par récurrence, il existe une
+section unique $s' \in \mathcal{F}(D(g))$ qui
+concorde avec $s_i|_{D(gfi)}$ pour $i = 1, \ldots,
+n - 1$. Nous affirmons que $s'$ et $s_n$ ont la même restriction
+à $D(gf_n)$. Cela est vrai par récurrence, en utilisant le
+recouvrement $D(gf_n) = D(gf_nf_1) \cup \ldots \cup D(gf_nf_{n
+- 1})$. Ainsi, il existe une section unique $s \in \mathcal{F}(U)$
+dont la restriction à $D(g)$ est $s'$ et dont la restriction
+à $D(f_n)$ est $s_n$. Nous omettons la vérification que
+$s$ se restreint à $s_i$ sur $D(f_i)$ pour $i = 1, \ldots, n - 1$
+et nous omettons la vérification que $s$ est unique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-scheme-finite-discrete-affine}
+Soit $X$ un schéma dont l'espace topologique sous-jacent est
+un ensemble discret fini.
+Alors $X$ est affine.
+\end{lemma}
+
+\begin{proof}
+Prenons $X = \{x_1, \ldots, x_n\}$. Alors $U_i = \{x_i\}$ est un voisinage ouvert de
+$x_i$. Par le
+lemme \ref{lemma-basis-affine-opens} il est
+affine. Par conséquent, $X$ est une union disjointe finie de schémas affines, et
+est donc affine par
+le lemme \ref{lemma-disjoint-union-affines}.
+\end{proof}
+
+\begin{example}
+\label{example-scheme-without-closed-points}
+Il existe un schéma sans points fermés. À savoir,
+soit $R$ un anneau local intègre dont le spectre ressemble
+à $(0) =
+\mathfrak p_0 \subset \mathfrak p_1 \subset \mathfrak p_2 \subset \ldots
+\subset \mathfrak m$. Alors le sous-schéma ouvert $\Spec(R) \setminus
+\{\mathfrak m\}$ n'a pas de point fermé. Pour voir qu'un
+tel anneau $R$ existe, nous utilisons le fait que pour tout groupe
+totalement ordonné $(\Gamma, \geq)$, il existe un anneau
+de valuation $A$ dont le groupe de valuation est $(\Gamma, \geq)$, voir \cite{Krull}.
+Voir Algèbre, section \ref{algebra-section-valuation-rings} pour la notation. Nous
+prenons $\Gamma =
+\mathbf{Z}x_1 \oplus \mathbf{Z}x_2 \oplus \mathbf{Z}x_3 \oplus \ldots$ et nous définissons
+$\sum_i a_i x_i \geq 0$ si et seulement si le premier $a_i$ non
+nul est $> 0$, ou si tous les coefficients satisfont $a_i =
+0$. Donc $x_1 \geq x_2 \geq x_3 \geq \ldots \geq 0$.
+Les sous-ensembles $x_i + \Gamma_{\geq 0}$ sont des idéaux
+premiers de $(\Gamma, \geq)$, voir Algèbre, notation
+au-dessus du lemme \ref{algebra-lemma-ideals-valuation-ring}. Ceux-ci,
+ainsi que $\emptyset$ et $\Gamma_{\geq 0}$, sont les seuls idéaux premiers.
+Par conséquent, $A$ est un exemple d'un anneau avec la structure donnée
+de son spectre,
+selon Algèbre, lemme \ref{algebra-lemma-ideals-valuation-ring}.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Schémas réduits}
+\label{section-reduced}
+
+\begin{definition}
+\label{definition-reduced}
+Soit $X$ un schéma. Nous disons que $X$ est {\it réduit} si chaque anneau local
+$\mathcal{O}_{X, x}$ est réduit.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-reduced}
+Un schéma $X$ est réduit si et seulement si $\mathcal{O}_X(U)$ est
+un anneau réduit pour tout $U \subset X$ ouvert.
+\end{lemma}
+
+\begin{proof}
+Supposons que $X$ soit réduit.
+Soit $f \in \mathcal{O}_X(U)$ une section telle que $f^n = 0$. Alors
+l'image de $f$ dans $\mathcal{O}_{U, u}$ est nulle pour tout $u
+\in U$. Par conséquent, $f$ est nul, voir
+Faisceaux, lemme \ref{sheaves-lemma-sheaf-subset-stalks}.
+Inversement, supposons que $\mathcal{O}_X(U)$ soit réduit
+pour tous les ouverts $U$. Prenez un élément non nul $f \in \mathcal{O}_{X, x}$.
+Tout représentant $(U, f \in \mathcal{O}(U))$ de $f$ est non nul et donc non
+nilpotent. Par conséquent, $f$ n'est pas nilpotent dans $\mathcal{O}_{X, x}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-reduced}
+Un schéma affine $\Spec(R)$ est réduit si
+et seulement si $R$ est réduit.
+\end{lemma}
+
+\begin{proof}
+L'implication directe suit immédiatement du lemme
+\ref{lemma-reduced} ci-dessus. Dans
+l'autre sens, cela découle du fait que toute localisation d'un
+anneau réduit est réduite, et en particulier que les anneaux locaux
+d'un anneau réduit sont réduits.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduced-closed-subscheme}
+Soit $X$ un schéma. Soit $T \subset X$ un sous-ensemble fermé.
+Il existe un sous-schéma fermé unique $Z \subset X$ possédant
+les propriétés suivantes : (a) l'espace topologique
+sous-jacent de $Z$ est égal à $T$, et (b) $Z$ est réduit.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{I} \subset \mathcal{O}_X$ le sous-préfaisceau
+défini par la règle
+$$
+\mathcal{I}(U) = \{f \in \mathcal{O}_X(U) \mid
+f(t) = 0\text{ pour tout }t \in T\cap U\}
+$$
+Ici, nous utilisons $f(t)$ pour indiquer l'image
+de $f$ dans le corps résiduel $\kappa(t)$ de $X$ en $t$.
+En raison de la nature locale de la condition, il est
+clair que $\mathcal{I}$ est un faisceau d'idéaux. De plus,
+soit $U = \Spec(R)$ un ouvert affine. Nous
+pouvons écrire $T \cap U = V(I)$ pour un idéal radical
+unique $I \subset R$. Étant donné un $\mathfrak p \in V(I)$
+premier correspondant à $t \in T \cap U$ et un élément $f \in R$, nous avons
+$f(t) = 0 \Leftrightarrow f \in \mathfrak p$.
+Ainsi $\mathcal{I}(U) = \bigcap_{\mathfrak p \in V(I)} \mathfrak p = I$ par
+Algèbre, lemme \ref{algebra-lemma-Zariski-topology}. De plus, pour
+tout ouvert standard $D(g) \subset \Spec(R) = U$, nous avons
+$\mathcal{I}(D(g)) = I_g$ par le même raisonnement. Ainsi $\widetilde
+I$ et $\mathcal{I}|_U$ coïncident (en tant qu'idéaux) sur
+une base d'ouverts et sont donc égaux. Par conséquent,
+$\mathcal{I}$ est un faisceau quasi-cohérent d'idéaux.
+
+\medskip\noindent
+À ce stade, nous pouvons définir $Z$ comme le sous-espace fermé
+associé au faisceau d'idéaux $\mathcal{I}$. Pour chaque ouvert
+affine $U = \Spec(R)$ de $X$, nous voyons que $Z \cap
+U = \Spec(R/I)$ où $I$ est un idéal radical et donc $Z$ est
+réduit (d'après le lemme \ref{lemma-affine-reduced} ci-dessus). Par construction,
+le sous-ensemble fermé sous-jacent de $Z$ est $T$. Par conséquent,
+nous avons trouvé un sous-schéma fermé avec les propriétés (a) et (b).
+
+\medskip\noindent
+Soit $Z' \subset X$ un second sous-schéma fermé avec les propriétés (a) et (b). Pour
+chaque ouvert affine $U = \Spec(R)$ de $X$, nous voyons que $Z'
+\cap U = \Spec(R/I')$ pour un certain idéal $I' \subset R$.
+D'après le lemme \ref{lemma-affine-reduced}, l'anneau $R/I'$ est
+réduit et donc $I'$ est radical. Puisque $V(I') = T \cap U = V(I)$, nous
+en déduisons que $I = I'$ d'après
+Algèbre, lemme \ref{algebra-lemma-Zariski-topology}. Par
+conséquent, $Z'$ et $Z$ sont définis par le même faisceau d'idéaux
+et donc sont égaux.
+\end{proof}
+
+\begin{definition}
+\label{definition-reduced-induced-scheme}
+Soit $X$ un schéma. Soit $Z \subset X$ un sous-ensemble fermé. Une
+{\it structure de schéma sur $Z$} est donnée par un sous-schéma fermé $Z'$
+de $X$ dont l'ensemble sous-jacent est égal à $Z$. Nous disons
+souvent « soit $(Z, \mathcal{O}_Z)$ une structure de schéma sur
+$Z$ » pour indiquer cela. La {\it structure de schéma réduite
+induite} sur $Z$ est celle construite dans le lemme \ref{lemma-reduced-closed-subscheme}.
+La {\it réduction $X_{red}$ de $X$} est la structure de schéma réduite
+induite sur $X$ lui-même.
+\end{definition}
+
+\noindent
+Souvent, lorsque nous disons « soit $Z \subset X$ une composante irréductible de $X$ »,
+nous pensons à $Z$ comme à un sous-schéma fermé réduit de $X$ en utilisant la structure de schéma
+réduite induite.
+
+\begin{remark}
+\label{remark-reduced-induced-locally-closed}
+Soit $X$ un schéma. Soit $T \subset X$ un sous-ensemble localement fermé.
+Dans cette situation, nous utilisons parfois aussi l'expression
+« structure de schéma réduite induite sur $T$ ». Cela se
+réfère à la structure de schéma réduite induite
+de la définition \ref{definition-reduced-induced-scheme}
+lorsque nous considérons $T$ comme un sous-ensemble fermé du
+sous-schéma ouvert $X \setminus \partial T$ de
+$X$. Ici, $\partial T = \overline{T} \setminus T$ est la « frontière » de
+$T$ dans l'espace topologique de $X$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-map-into-reduction}
+Soit $X$ un schéma. Soit
+$Z \subset X$ un sous-schéma fermé. Soit $Y$
+un schéma réduit. Un morphisme
+$f : Y \to X$ se factorise à travers $Z$ si et seulement si $f(Y)
+\subset Z$ (au sens des ensembles). En particulier, tout
+morphisme $Y \to X$ se factorise comme $Y \to X_{red} \to X$.
+\end{lemma}
+
+\begin{proof}
+Supposons $f(Y) \subset Z$ (au sens des ensembles).
+Soit $\mathcal{I} \subset \mathcal{O}_X$ le faisceau d'idéaux de $Z$.
+Pour tous ouverts affines $U \subset X$ et $\Spec(B) = V \subset Y$
+tels que $f(V) \subset U$, et pour tout $g \in \mathcal{I}(U)$,
+l'image inverse $b = f^\sharp(g) \in \Gamma(V, \mathcal{O}_Y) =
+B$ a une image nulle dans le corps résiduel de tout $y \in
+V$. En d'autres termes $b \in \bigcap_{\mathfrak p \subset B} \mathfrak
+p$. Cela implique $b = 0$ puisque $B$ est réduit (lemme \ref{lemma-reduced} et
+Algèbre, lemme \ref{algebra-lemma-Zariski-topology}). Ainsi
+$f$ se factorise à travers
+$Z$ selon le lemme \ref{lemma-characterize-closed-subspace}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Points des schémas}
+\label{section-points}
+
+\noindent
+Étant donné un schéma $X$, nous pouvons définir un foncteur
+$$
+h_X : \Sch^{opp}
+\longrightarrow
+\textit{Ensembles}, \quad
+T \longmapsto \Mor(T, X).
+$$
+Voir Catégories, exemple \ref{categories-example-hom-functor}. On l'appelle
+le foncteur des points {\it de $X$}. Un aspect intéressant
+de la théorie des schémas est de trouver des descriptions de
+la géométrie interne de $X$ en termes de ce foncteur $h_X$. Dans cette
+section, nous trouvons une manière simple de décrire les
+points de $X$.
+
+\medskip\noindent
+Soit $X$ un schéma. Soit $R$ un anneau local avec un idéal maximal
+$\mathfrak m \subset R$. Supposons que $f : \Spec(R) \to
+X$ soit un morphisme de schémas. Soit $x \in X$ l'image du point fermé
+$\mathfrak m \in \Spec(R)$. Alors nous obtenons un homomorphisme
+local d'anneaux
+$$
+f^\sharp :
+\mathcal{O}_{X, x}
+\longrightarrow
+\mathcal{O}_{\Spec(R), \mathfrak m} = R.
+$$
+
+\begin{lemma}
+\label{lemma-morphism-from-spec-local-ring}
+Soit $X$ un schéma. Soit $R$ un anneau local. La
+construction ci-dessus donne une correspondance bijective
+entre les morphismes $\Spec(R) \to X$ et les
+paires $(x, \varphi)$ constituées d'un point $x \in X$
+et d'un homomorphisme local d'anneaux $\varphi : \mathcal{O}_{X, x} \to R$.
+\end{lemma}
+
+\begin{proof}
+Soit $A$ un anneau. Pour tout homomorphisme d'anneaux $\psi : A \to
+R$, il existe un idéal premier unique $\mathfrak p \subset A$
+et une factorisation $A \to A_{\mathfrak p} \to R$ où la dernière
+application est un homomorphisme local d'anneaux. À savoir,
+$\mathfrak p = \psi^{-1}(\mathfrak m)$. Via
+le lemme \ref{lemma-morphism-into-affine},
+cela prouve que le lemme est vrai si $X$ est un schéma affine.
+
+\medskip\noindent
+Soit $X$ un schéma général. Tout $x \in X$ est contenu dans
+un ouvert affine $U \subset X$. Par le cas affine, nous concluons que
+chaque paire $(x, \varphi)$ résulte de la construction qui
+précède le lemme.
+
+\medskip\noindent
+Pour terminer la preuve, il suffit de montrer que tout morphisme
+$f : \Spec(R) \to X$ a son image contenue dans tout
+ouvert affine contenant l'image $x$ du point
+fermé de $\Spec(R)$. En fait, soit $x \in V \subset X$
+un voisinage ouvert quelconque contenant $x$.
+Alors $f^{-1}(V) \subset \Spec(R)$ est un ouvert
+contenant le point fermé unique et donc égal à $\Spec(R)$.
+\end{proof}
+
+\noindent
+Comme cas particulier du lemme ci-dessus, nous obtenons pour tout
+point $x$ d'un schéma $X$ un morphisme canonique
+\begin{equation}
+\label{equation-canonical-morphism}
+\Spec(\mathcal{O}_{X, x}) \longrightarrow X
+\end{equation}
+correspondant à l'application identité sur l'anneau local de $X$ en $x$.
+On peut reformuler le lemme ci-dessus en disant que pour tout
+morphisme $f : \Spec(R) \to X$, il existe un point unique $x
+\in X$ tel que $f$ se factorise comme
+$\Spec(R) \to \Spec(\mathcal{O}_{X, x}) \to X$ où
+la première application provient d'un homomorphisme local
+$\mathcal{O}_{X, x} \to R$.
+
+\medskip\noindent
+Dans le cas où nous avons un morphisme de schémas $f : X \to S$,
+et un point $x$ dont l'image est un point $s \in S$, nous obtenons
+un diagramme commutatif
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, x}) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(\mathcal{O}_{S, s}) \ar[r] & S
+}
+$$
+où l'application verticale gauche correspond à l'homomorphisme local
+$f^\sharp_x : \mathcal{O}_{S, s} \to \mathcal{O}_{X, x}$.
+
+\begin{lemma}
+\label{lemma-specialize-points}
+Soit $X$ un schéma.
+Soient $x, x' \in X$ des points de $X$.
+Alors $x' \in X$ est une générisation de $x$ si et seulement
+si $x'$ est dans l'image du morphisme canonique
+$\Spec(\mathcal{O}_{X, x}) \to X$.
+\end{lemma}
+
+\begin{proof}
+Une application continue préserve la relation de spécialisation/générisation.
+Puisque chaque point de $\Spec(\mathcal{O}_{X, x})$ est une
+générisation du point fermé, nous voyons que chaque point dans l'image
+de $\Spec(\mathcal{O}_{X, x}) \to X$ est une générisation de $x$.
+Inversement, supposons que $x'$ soit une générisation de $x$.
+Choisissez un voisinage ouvert affine $U = \Spec(R)$ de $x$.
+Alors $x' \in U$. Disons que $\mathfrak p \subset R$ et
+$\mathfrak p' \subset R$ sont les idéaux premiers
+correspondant à $x$ et $x'$. Puisque $x'$ est une générisation
+de $x$, nous voyons que $\mathfrak p' \subset \mathfrak p$. Cela
+signifie que $\mathfrak p'$ est dans l'image du morphisme
+$\Spec(\mathcal{O}_{X, x}) = \Spec(R_{\mathfrak p})
+\to \Spec(R) = U \subset X$ comme voulu.
+\end{proof}
+
+\noindent
+Maintenant, discutons des morphismes provenant des spectres des
+corps. Soit $(R, \mathfrak m, \kappa)$ un anneau local
+avec un idéal maximal $\mathfrak m$ et un corps résiduel $\kappa$.
+Soit $K$ un corps. Un homomorphisme local $R \to K$, par définition, se
+factorise comme $R \to \kappa \to K$, c'est-à-dire qu'il revient à un
+morphisme $\kappa \to K$. Ainsi, nous voyons que les morphismes
+$$
+\Spec(K) \longrightarrow X
+$$
+correspondent à des paires $(x, \kappa(x) \to K)$. Nous pouvons
+définir un préordre sur les morphismes des spectres
+des corps vers $X$ en disant que $\Spec(K) \to
+X$ domine $\Spec(L) \to X$ si $\Spec(K)
+\to X$ se factorise par $\Spec(L) \to X$. Cela
+suggère la notion suivante : disons temporairement
+que deux morphismes $p : \Spec(K) \to X$ et
+$q : \Spec(L) \to X$ sont {\it équivalents} s'il existe un
+troisième corps $\Omega$ et un diagramme commutatif
+$$
+\xymatrix{
+\Spec(\Omega) \ar[r] \ar[d] &
+\Spec(L) \ar[d]^q \\
+\Spec(K) \ar[r]^p &
+X
+}
+$$
+Bien sûr, cela implique immédiatement que les points uniques des
+trois schémas $\Spec(K)$, $\Spec(L)$ et
+$\Spec(\Omega)$ se projettent sur
+le même $x \in X$. Ainsi, un diagramme (d'après les remarques ci-dessus)
+correspond à un point $x \in X$ et à un diagramme commutatif
+$$
+\xymatrix{
+\Omega &
+L \ar[l] \\
+K \ar[u] &
+\kappa(x) \ar[l] \ar[u]
+}
+$$
+de corps. Cela définit une relation d'équivalence, car étant donné un
+ensemble d'extensions de corps $K_i/\kappa$, il existe
+une extension de corps $\Omega/\kappa$ telle que toutes
+les extensions de corps $K_i$ soient contenues dans l'extension $\Omega$.
+
+\begin{lemma}
+\label{lemma-characterize-points}
+Soit $X$ un schéma. Les points de $X$ correspondent bijectivement
+aux classes d'équivalence de morphismes des spectres
+de corps dans $X$. De plus, chaque classe d'équivalence contient
+un élément minimal (unique à isomorphisme unique près)
+$\Spec(\kappa(x)) \to X$.
+\end{lemma}
+
+\begin{proof}
+Cela découle de la discussion ci-dessus.
+\end{proof}
+
+\noindent
+Bien sûr, les morphismes $\Spec(\kappa(x)) \to X$ se
+factorisent par les morphismes canoniques
+$\Spec(\mathcal{O}_{X, x}) \to X$. Et le
+contenu du lemme \ref{lemma-specialize-points} est, dans ce cadre,
+que le morphisme $\Spec(\kappa(x')) \to X$ se factorise comme
+$\Spec(\kappa(x'))
+\to \Spec(\mathcal{O}_{X, x}) \to X$ chaque fois que
+$x'$ est une générisation de $x$. Dans le cas où
+nous avons un morphisme de schémas $f : X \to S$, et un
+point $x$ dont l'image est un point $s \in S$, nous obtenons
+un diagramme commutatif
+$$
+\xymatrix{
+\Spec(\kappa(x)) \ar[r] \ar[d] &
+\Spec(\mathcal{O}_{X, x}) \ar[r] \ar[d] & X
+\ar[d] \\
+\Spec(\kappa(s)) \ar[r] &
+\Spec(\mathcal{O}_{S, s}) \ar[r] &
+S.
+}
+$$
+
+
+
+
+
+
+
+
+
+
+\section{Recollement de schémas}
+\label{section-glueing-schemes}
+
+\noindent
+Soit $I$ un ensemble.
+Pour chaque $i \in I$, soit $(X_i, \mathcal{O}_i)$ un
+espace annelé en anneaux locaux. (En réalité, la construction qui
+suit fonctionne tout aussi bien pour les espaces annelés.)
+Pour chaque paire $i, j \in I$ soit $U_{ij} \subset X_i$
+un sous-espace ouvert.
+Pour chaque paire $i, j \in I$, soit
+$$
+\varphi_{ij} : U_{ij} \to U_{ji}
+$$
+un isomorphisme d'espaces annelés en anneaux locaux.
+Pour plus de commodité, nous supposons que $U_{ii} = X_i$.
+Pour chaque triple $i, j, k \in I$, supposons que
+\begin{enumerate}
+\item nous avons
+$\varphi_{ij}^{-1}(U_{ji} \cap U_{jk}) = U_{ij} \cap U_{ik}$, et
+\item le diagramme
+$$
+\xymatrix{
+U_{ij} \cap U_{ik} \ar[rr]_{\varphi_{ik}} \ar[rd]_{\varphi_{ij}} & &
+U_{ki} \cap U_{kj} \\
+& U_{ji} \cap U_{jk} \ar[ru]_{\varphi_{jk}}
+}
+$$
+est commutatif.
+\end{enumerate}
+(En particulier, il en découle que $\varphi_{ii} = \text{id}_{X_i}$.)
+Appelons une collection $(I,
+(X_i)_{i\in I}, (U_{ij})_{i, j\in I}, (\varphi_{ij})_{i, j\in I})$ satisfaisant
+les conditions ci-dessus des données de recollement.
+
+\begin{lemma}
+\label{lemma-glue}
+\begin{slogan}
+Si deux espaces annelés en anneaux locaux possèdent des sous-espaces
+isomorphes, alors on peut les recoller pour former un grand
+espace annelé en anneaux locaux.
+\end{slogan}
+Étant donnée une famille de données de recollement d'espaces annelés en
+anneaux locaux, il existe un espace annelé en anneaux locaux $X$ et
+des sous-espaces ouverts $U_i \subset X$ avec des
+isomorphismes $\varphi_i : X_i \to U_i$ d'espaces annelés en anneaux locaux tels que
+\begin{enumerate}
+\item $X=\bigcup_{i\in I} U_i$,
+\item $\varphi_i(U_{ij}) = U_i \cap U_j$, et
+\item $\varphi_{ij} =
+\varphi_j^{-1}|_{U_i \cap U_j} \circ \varphi_i|_{U_{ij}}$.
+\end{enumerate}
+L'espace annelé en anneaux locaux $X$ est caractérisé par les propriétés universelles
+suivantes : étant donné un espace annelé en anneaux locaux $Y$, nous avons
+\begin{eqnarray*}
+\Mor(X, Y) & = & \{ (f_i)_{i\in I} \mid
+f_i : X_i \to Y, \ f_j \circ \varphi_{ij} = f_i|_{U_{ij}}\} \\ f
+& \mapsto & (f|_{U_i} \circ \varphi_i)_{i \in I} \\
+\Mor(Y, X) & = &
+\left\{
+\begin{matrix}
+\text{recouvrement ouvert }Y = \bigcup\nolimits_{i \in I} V_i\text{ et
+} (g_i : V_i \to X_i)_{i \in
+I} \text{ tels que}\\
+g_i^{-1}(U_{ij}) = V_i \cap V_j
+\text{ et
+} g_j|_{V_i \cap V_j} = \varphi_{ij} \circ g_i|_{V_i \cap V_j}
+\end{matrix}
+\right\} \\
+g & \mapsto &
+V_i = g^{-1}(U_i), \ g_i = \varphi_i^{-1} \circ g|_{V_i}
+\end{eqnarray*}
+\end{lemma}
+
+\begin{proof}
+Nous construisons $X$ en plusieurs étapes.
+Comme ensemble, nous prenons
+$$
+X = (\coprod X_i) / \sim.
+$$
+Ici, étant donné $x \in X_i$ et $x' \in X_j$, nous
+disons $x \sim x'$ si et seulement si $x \in U_{ij}$, $x' \in
+U_{ji}$ et $\varphi_{ij}(x) = x'$. Il s'agit d'une relation
+d'équivalence car si $x \in X_i$, $x' \in X_j$, $x'' \in X_k$, $x \sim x'$ et $x'
+\sim x''$, alors $x' \in U_{ji} \cap U_{jk}$, donc, d'après la condition (1) des
+données de recollement, $x \in U_{ij} \cap U_{ik}$ et $x''
+\in U_{ki} \cap U_{kj}$ ; d'après la condition (2),
+nous voyons que $\varphi_{ik}(x) = x''$. (La réflexivité et la symétrie
+découlent de nos hypothèses que $U_{ii} = X_i$ et
+$\varphi_{ii} = \text{id}_{X_i}$.) On
+note $\varphi_i : X_i \to X$ les
+applications naturelles. On note $U_i = \varphi_i(X_i) \subset X$.
+Notez que $\varphi_i : X_i \to U_i$ est une bijection.
+
+\medskip\noindent
+La topologie sur $X$ est définie par la règle selon
+laquelle $U \subset X$ est ouvert si et seulement si $\varphi_i^{-1}(U)$
+est ouvert pour tout $i$. Nous laissons au lecteur le soin
+de vérifier que cela définit effectivement une
+topologie. Notez qu'en particulier $U_i$ est ouvert puisque $\varphi_j^{-1}(U_i)
+= U_{ji}$ qui est ouvert dans $X_j$ pour tout
+$j$. De plus, pour tout ensemble ouvert $W \subset X_i$,
+l'image $\varphi_i(W) \subset U_i$ est ouverte
+parce que $\varphi_j^{-1}(\varphi_i(W)) = \varphi_{ji}^{-1}(W \cap U_{ij})$.
+Par conséquent, $\varphi_i : X_i \to U_i$ est un homéomorphisme.
+
+\medskip\noindent
+Pour obtenir un espace annelé en anneaux locaux, nous devons construire
+le faisceau d'anneaux $\mathcal{O}_X$. Nous le faisons en recollant
+les faisceaux d'anneaux $\mathcal{O}_{U_i} := \varphi_{i, *} \mathcal{O}_i$. Plus
+précisément, dans le diagramme commutatif
+$$
+\xymatrix{
+U_{ij} \ar[rr]_{\varphi_{ij}} \ar[rd]_{\varphi_i|_{U_{ij}}} &
+&
+U_{ji} \ar[ld]^{\varphi_j|_{U_{ji}}} \\ &
+U_i \cap U_j &
+}
+$$
+la flèche du haut est un isomorphisme d'espaces annelés et, par
+conséquent, nous obtenons des isomorphismes uniques de faisceaux d'anneaux
+$$
+\mathcal{O}_{U_i}|_{U_i \cap U_j}
+\longrightarrow
+\mathcal{O}_{U_j}|_{U_i \cap U_j}.
+$$
+Ces isomorphismes satisfont une condition de cocycle comme
+dans Faisceaux, section \ref{sheaves-section-glueing-sheaves}.
+D'après les résultats de cette section, nous obtenons un faisceau
+d'anneaux $\mathcal{O}_X$ sur $X$ tel que $\mathcal{O}_X|_{U_i}$
+soit isomorphe à $\mathcal{O}_{U_i}$ de manière compatible
+avec les morphismes de recollement affichés
+ci-dessus. En particulier, $(X, \mathcal{O}_X)$ est un espace
+annelé en anneaux locaux puisque les fibres de $\mathcal{O}_X$
+sont égales aux fibres de $\mathcal{O}_i$ aux points
+correspondants.
+
+\medskip\noindent
+La démonstration des propriétés universelles est omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-schemes}
+\begin{slogan}
+Les schémas peuvent être recollés pour donner de nouveaux schémas.
+\end{slogan}
+Dans le lemme \ref{lemma-glue} ci-dessus, supposons que tous les
+$X_i$ soient des schémas. Alors l'espace annelé en anneaux locaux
+résultant $X$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+Cela est clair puisque chacun des $U_i$ est un schéma
+et donc chaque $x \in X$ possède un voisinage affine.
+\end{proof}
+
+\noindent
+Il est d'usage de considérer $X_i$ comme un sous-espace ouvert de
+$X$ via les isomorphismes $\varphi_i$. Nous ferons cela dans les
+deux exemples suivants.
+
+\begin{example}[Espace affine à origine dédoublée]
+\label{example-affine-space-zero-doubled}
+Soit $k$ un corps. Soit $n \geq 1$.
+Soit $X_1 = \Spec(k[x_1, \ldots, x_n])$, soit
+$X_2 = \Spec(k[y_1, \ldots, y_n])$. Soit
+$0_1 \in X_1$ le point correspondant à l'idéal maximal $(x_1, \ldots,
+x_n) \subset k[x_1, \ldots, x_n]$. Soit $0_2 \in
+X_2$ le point correspondant à l'idéal maximal $(y_1, \ldots, y_n)
+\subset k[y_1, \ldots, y_n]$. Soit $U_{12} = X_1 \setminus
+\{0_1\}$ et soit $U_{21} = X_2 \setminus
+\{0_2\}$. Soit $\varphi_{12} : U_{12} \to
+U_{21}$ l'isomorphisme provenant de l'isomorphisme des
+$k$-algèbres $k[y_1, \ldots, y_n] \to k[x_1,
+\ldots, x_n]$ envoyant $y_i$ sur $x_i$ (ce qui
+induit $X_1 \cong X_2$ envoyant $0_1$ sur $0_2$). Soit $X$ le schéma
+obtenu à partir
+des données de recollement $(X_1, X_2, U_{12}, U_{21},
+\varphi_{12}, \varphi_{21} = \varphi_{12}^{-1})$.
+Par le léger abus de notation introduit ci-dessus dans
+l'exemple, nous considérons $X_1, X_2 \subset X$ comme
+des sous-schémas ouverts. Il existe un
+morphisme $f : X \to \Spec(k[t_1, \ldots, t_n])$ qui sur $X_1$
+(resp. \ $X_2$) correspond à l'homomorphisme de $k$-algèbres
+$k[t_1, \ldots, t_n] \to k[x_1, \ldots, x_n]$ (resp.
+\ $k[t_1, \ldots, t_n] \to k[y_1, \ldots, y_n]$) envoyant
+$t_i$ vers $x_i$ (resp. \ $t_i$ vers $y_i$). Il
+est facile de voir que ce morphisme identifie $k[t_1,
+\ldots, t_n]$ avec $\Gamma(X, \mathcal{O}_X)$. Puisque $f(0_1)
+= f(0_2)$, nous voyons que $X$ n'est pas affine.
+
+\medskip\noindent
+Notez que $X_1$ et $X_2$ sont des ouverts affines de
+$X$. Mais, si $n = 2$, alors $X_1 \cap X_2$ est le schéma
+décrit dans l'exemple \ref{example-not-affine} et donc pas affine.
+Ainsi, en général, l'intersection des ouverts affines d'un schéma
+n'est pas affine. (Ce fait vaut plus généralement pour tout $n > 1$.)
+
+\medskip\noindent
+Une autre caractéristique curieuse de cet exemple est la suivante.
+Si $n > 1$ il y a de nombreux sous-ensembles fermés irréductibles $T \subset
+X$ (prenez par exemple l'adhérence de tout point non fermé dans $X_1$).
+Mais à moins que $T = \{0_1\}$, ou $T = \{0_2\}$ nous avons
+$0_1 \in T \Leftrightarrow 0_2 \in T$. Démonstration omise.
+\end{example}
+
+\begin{example}[Droite projective]
+\label{example-projective-line}
+Soit $k$ un corps.
+Soit $X_1 = \Spec(k[x])$,
+soit $X_2 = \Spec(k[y])$.
+Soit $0 \in X_1$ le point correspondant à l'idéal maximal $(x) \subset
+k[x]$. Soit $\infty
+\in X_2$ le point correspondant à l'idéal maximal $(y) \subset k[y]$.
+Soit $U_{12} = X_1
+\setminus \{0\} = D(x) = \Spec(k[x, 1/x])$ et soit $U_{21} = X_2
+\setminus \{\infty\} = D(y) = \Spec(k[y, 1/y])$. Soit $\varphi_{12} :
+U_{12} \to U_{21}$ l'isomorphisme provenant de l'isomorphisme
+des $k$-algèbres $k[y, 1/y] \to k[x, 1/x]$
+envoyant $y$ sur $1/x$. Soit $\mathbf{P}^1_k$ le
+schéma obtenu à partir des données de recollement $(X_1, X_2, U_{12},
+U_{21}, \varphi_{12}, \varphi_{21} =
+\varphi_{12}^{-1})$. Via le léger abus de notation introduit ci-dessus
+dans l'exemple, nous considérons $X_i \subset
+\mathbf{P}^1_k$ comme des sous-schémas ouverts. Dans ce cas, nous
+voyons que $\Gamma(\mathbf{P}^1_k, \mathcal{O}) = k$ car les seuls
+polynômes $g(x)$ en $x$ tels que $g(1/y)$ soit également un
+polynôme en $y$ sont des polynômes constants. Puisque
+$\mathbf{P}^1_k$ est infini, nous voyons que $\mathbf{P}^1_k$ n'est pas affine.
+
+\medskip\noindent
+Nous affirmons qu'il existe un ouvert affine $U \subset \mathbf{P}^1_k$
+qui contient à la fois $0$ et $\infty$. À savoir,
+soit $U = \mathbf{P}^1_k \setminus \{1\}$, où $1$ est le point
+de $X_1$ correspondant à l'idéal maximal $(x - 1)$ et
+également le point de $X_2$ correspondant à l'idéal
+maximal $(y - 1)$. Il est alors facile de voir que
+$s = 1/(x - 1) = y/(1 - y) \in \Gamma(U, \mathcal{O}_U)$. En
+fait, vous pouvez montrer que $\Gamma(U, \mathcal{O}_U)$
+est égal à l'anneau de polynômes $k[s]$ et que le
+morphisme correspondant $U \to \Spec(k[s])$
+est un isomorphisme de schémas. Détails omis.
+\end{example}
+
+
+
+
+\section{Un critère de représentabilité}
+\label{section-representable}
+
+\noindent
+Dans cette section, nous reformulons le lemme de recollement
+de la section \ref{section-glueing-schemes} en termes
+de foncteurs. Nous rappelons certains résultats de
+Catégories, section \ref{categories-section-opposite}. Rappelons
+qu'étant donné un schéma $X$, nous pouvons
+définir un foncteur
+$$
+h_X : \Sch^{opp}
+\longrightarrow
+\textit{Ensembles}, \quad
+T \longmapsto \Mor(T, X).
+$$
+On l'appelle le foncteur des points {\it de $X$}.
+
+\medskip\noindent
+Soit $F$ un foncteur contravariant de la catégorie des schémas
+vers la catégorie des ensembles. Dans une formule
+$$
+F : \Sch^{opp}
+\longrightarrow
+\textit{Ensembles}.
+$$
+Nous utiliserons la même terminologie que dans Sites,
+section \ref{sites-section-presheaves}. À savoir, étant donné
+un schéma $T$, un élément $\xi \in F(T)$ et un morphisme $f : T'
+\to T$, nous noterons $f^*\xi$ l'élément $F(f)(\xi)$, et parfois
+nous utiliserons même la notation $\xi|_{T'}$
+
+\begin{definition}
+\label{definition-representable-functor}
+(Voir Catégories, définition \ref{categories-definition-representable-functor}.) Soit
+$F$ un foncteur contravariant de la catégorie des schémas
+vers la catégorie des ensembles (comme ci-dessus).
+Nous disons que $F$ est {\it représentable par un
+schéma} ou {\it représentable} s'il existe un schéma
+$X$ tel que $h_X \cong F$.
+\end{definition}
+
+\noindent
+Supposons que $F$ soit représentable par le schéma $X$ et que $s : h_X
+\to F$ soit un isomorphisme. D'après le
+lemme de Yoneda (Catégories, lemme \ref{categories-lemma-yoneda}),
+la paire $(X, s : h_X \to F)$ est unique à isomorphisme
+unique près si elle existe. De
+plus, le lemme de Yoneda affirme que pour
+tout foncteur contravariant $F$ comme ci-dessus
+et tout schéma $Y$, nous avons une bijection
+$$
+\Mor_{\text{Fun}(\Sch^{opp}, \textit{Ensembles})} (h_Y, F)
+\longrightarrow
+F(Y), \quad
+s \longmapsto s(\text{id}_Y).
+$$
+Voici la construction inverse. Étant donné un $\xi \in F(Y)$,
+la transformation de foncteurs $s_\xi : h_Y \to
+F$ associe à tout morphisme $f : T \to Y$
+l'élément $f^*\xi \in F(T)$.
+
+\medskip\noindent
+En particulier, dans le cas où $F$ est représentable, il existe un schéma
+$X$ et un élément $\xi \in F(X)$ tels que le morphisme correspondant
+$h_X \to F$ soit un isomorphisme. Dans ce
+cas, nous disons aussi {\it que la paire $(X, \xi)$ représente $F$}.
+L'élément $\xi \in F(X)$ est
+souvent appelé la {\it ``famille universelle''} pour des raisons qui deviendront
+plus claires lorsque nous parlerons des champs algébriques (insérer référence
+future ici). Pour le moment, observons simplement que, si la paire $(X, \xi)$
+représente $F$, alors tout élément $\xi' \in F(T)$ pour tout $T$ est de
+la forme $\xi' = f^*\xi$ pour un morphisme unique $f : T \to X$.
+
+\begin{example}
+\label{example-global-sections}
+Considérons la règle qui associe à chaque schéma $T$ l'ensemble $F(T) =
+\Gamma(T, \mathcal{O}_T)$. Nous pouvons en faire un foncteur contravariant en
+utilisant, pour un morphisme $f : T' \to T$, l'homomorphisme d'image inverse
+$f^\sharp : \Gamma(T, \mathcal{O}_T) \to \Gamma(T', \mathcal{O}_{T'})$. Étant
+donné un anneau $R$ et un élément $t \in R$, il existe un unique homomorphisme
+d'anneaux $\mathbf{Z}[x] \to R$ qui envoie $x$ sur $t$. Ainsi, en
+utilisant le lemme \ref{lemma-morphism-into-affine}, nous constatons que
+$$
+\Mor(T, \Spec(\mathbf{Z}[x])) =
+\Hom(\mathbf{Z}[x], \Gamma(T, \mathcal{O}_T)) =
+\Gamma(T, \mathcal{O}_T).
+$$
+Cela donne effectivement
+un isomorphisme $h_{\Spec(\mathbf{Z}[x])} \to F$.
+Quelle est la « famille universelle » $\xi$ ? Pour l'obtenir, nous
+devons appliquer les identifications ci-dessus à $\text{id}_{\Spec(\mathbf{Z}[x])}$.
+Clairement, sous les identifications ci-dessus,
+cela
+donne que $\xi = x \in \Gamma(\Spec(\mathbf{Z}[x]),
+\mathcal{O}_{\Spec(\mathbf{Z}[x])}) = \mathbf{Z}[x]$
+comme prévu.
+\end{example}
+
+\begin{definition}
+\label{definition-representable-by-open-immersions}
+Soit $F$ un foncteur contravariant sur la catégorie des
+schémas à valeurs dans les ensembles.
+\begin{enumerate}
+\item On dit que $F$ {\it satisfait la propriété de faisceau pour la
+topologie de Zariski} si pour tout schéma $T$ et tout recouvrement ouvert
+$T = \bigcup_{i \in I} U_i$, et pour toute collection d'éléments
+$\xi_i \in F(U_i)$ telle que $\xi_i|_{U_i \cap U_j} =
+\xi_j|_{U_i \cap U_j}$, il existe un élément unique $\xi \in
+F(T)$ tel que $\xi_i = \xi|_{U_i}$ dans $F(U_i)$. \item Un {\it
+sous-foncteur $H \subset F$} est une règle qui associe à chaque schéma
+$T$ un sous-ensemble $H(T) \subset F(T)$ tel que les applications
+$F(f) : F(T) \to F(T')$ envoient $H(T)$ dans $H(T')$
+pour tous les morphismes de schémas $f : T' \to T$.
+\item Soit $H \subset F$ un sous-foncteur. On dit que $H
+\subset F$ est {\it représentable par des immersions ouvertes}
+si pour tous les couples $(T, \xi)$, où $T$ est un schéma et $\xi \in
+F(T)$, il existe un sous-schéma ouvert $U_\xi \subset T$ avec la propriété
+suivante :
+\begin{itemize}
+\item[(*)] Un morphisme $f : T' \to T$ se factorise à travers $U_\xi$ si et seulement
+si $f^*\xi \in H(T')$.
+\end{itemize}
+\item Soit $I$ un ensemble. Pour chaque $i \in I$, soit $H_i \subset
+F$ un sous-foncteur. Nous disons que la collection $(H_i)_{i \in I}$
+{\it recouvre $F$} si et seulement si pour chaque $\xi \in
+F(T)$, il existe un recouvrement ouvert $T = \bigcup U_i$ tel que
+$\xi|_{U_i} \in H_i(U_i)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Dans la condition (4), si $H_i \subset F$ est représentable par des immersions ouvertes
+pour tous les $i$, alors pour vérifier que $(H_i)_{i \in I}$ recouvre $F$, il suffit
+de vérifier $F(T) = \bigcup H_i(T)$ chaque fois que $T$ est le spectre d'un corps.
+
+\begin{lemma}
+\label{lemma-glue-functors}
+Soit $F$ un foncteur contravariant sur la catégorie des schémas à
+valeurs dans la catégorie des ensembles. Supposons que
+\begin{enumerate}
+\item $F$ satisfasse la propriété de faisceau pour la topologie de Zariski.
+\item il existe un ensemble $I$ et une collection de sous-foncteurs
+$F_i \subset F$ tels que
+\begin{enumerate}
+\item chaque $F_i$ est représentable,
+\item chaque $F_i \subset F$ est représentable par des immersions ouvertes,
+et \item la collection $(F_i)_{i \in I}$ recouvre $F$.
+\end{enumerate}
+\end{enumerate}
+Alors $F$ est représentable.
+\end{lemma}
+
+\begin{proof}
+Soit $X_i$ un schéma représentant $F_i$ et soit $\xi_i
+\in F_i(X_i) \subset F(X_i)$ la ``famille universelle''. Puisque $F_j
+\subset F$ est représentable par des immersions ouvertes, il
+existe un ouvert $U_{ij} \subset X_i$ tel que $T \to X_i$
+se factorise par $U_{ij}$ si et seulement si $\xi_i|_T
+\in F_j(T)$. En particulier $\xi_i|_{U_{ij}}
+\in F_j(U_{ij})$ et donc nous obtenons un morphisme canonique
+$\varphi_{ij} : U_{ij} \to X_j$ tel que $\varphi_{ij}^*\xi_j =
+\xi_i|_{U_{ij}}$. Par définition de $U_{ji}$, cela implique que $\varphi_{ij}$
+se factorise par $U_{ji}$. Comme $(\varphi_{ij} \circ
+\varphi_{ji})^*\xi_j =\varphi_{ji}^*(\varphi_{ij}^*\xi_j)
+= \varphi_{ji}^*\xi_i = \xi_j$, nous
+concluons que $\varphi_{ij} \circ \varphi_{ji} =
+\text{id}_{U_{ji}}$ parce que le couple $(X_j, \xi_j)$ représente
+$F_j$. En particulier, les applications $\varphi_{ij}
+: U_{ij} \to U_{ji}$ sont des isomorphismes de schémas.
+Ensuite, nous devons montrer que
+$\varphi_{ij}^{-1}(U_{ji}
+\cap U_{jk}) = U_{ij} \cap U_{ik}$. Cela est vrai parce que (a)
+$U_{ji} \cap U_{jk}$ est le plus grand ouvert de $U_{ji}$ tel que
+$\xi_j$ se restreigne à un élément de $F_k$, (b) $U_{ij} \cap U_{ik}$
+est le plus grand ouvert de $U_{ij}$ tel que $\xi_i$
+se restreigne à un élément de $F_k$, et (c) $\varphi_{ij}^*\xi_j
+= \xi_i$. De plus, la condition de cocycle dans la section
+\ref{section-glueing-schemes} suit parce que $\varphi_{jk}|_{U_{ji}
+\cap U_{jk}} \circ
+\varphi_{ij}|_{U_{ij} \cap U_{ik}}$ et
+$\varphi_{ik}|_{U_{ij} \cap U_{ik}}$ ont tous deux
+pour image inverse de $\xi_k$ l'élément $\xi_i$. Ainsi,
+nous pouvons appliquer le
+lemme \ref{lemma-glue-schemes} pour obtenir un schéma
+$X$ avec un recouvrement ouvert $X =
+\bigcup U_i$ et des isomorphismes $\varphi_i : X_i \to U_i$ avec des propriétés
+comme dans le lemme \ref{lemma-glue}. Soit
+$\xi_i' = (\varphi_i^{-1})^* \xi_i$. Les conditions
+du lemme \ref{lemma-glue} impliquent que $\xi_i'|_{U_i
+\cap U_j} = \xi_j'|_{U_i \cap U_j}$. Par conséquent,
+d'après la condition que $F$ satisfait la condition de
+faisceau dans la topologie de Zariski, nous voyons
+qu'il existe un élément $\xi' \in F(X)$ tel que $\xi_i
+= \varphi_i^*\xi'|_{U_i}$ pour tout $i$. Puisque
+$\varphi_i$ est un isomorphisme, nous obtenons également
+que $(U_i, \xi'|_{U_i})$ représente le foncteur $F_i$.
+
+\medskip\noindent
+Nous affirmons que la paire $(X, \xi')$ représente le foncteur $F$. Pour
+le montrer, soit $T$ un schéma et soit $\xi \in F(T)$. Nous
+allons construire un morphisme unique $g : T \to X$ tel que $g^*\xi'
+= \xi$. À savoir, d’après la condition que les sous-foncteurs $F_i$
+couvrent $F$, il existe un recouvrement ouvert $T = \bigcup V_i$ tel que
+pour chaque $i$, la restriction $\xi|_{V_i} \in F_i(V_i)$. De plus, comme
+chacune des inclusions $F_i \subset F$ est représentable par des immersions ouvertes,
+nous pouvons supposer que chaque $V_i \subset T$ est le plus grand ouvert
+possédant cette propriété.
+Puisque $(U_i, \xi'|_{U_i})$ représente le foncteur $F_i$, nous obtenons
+un morphisme unique $g_i : V_i \to U_i$ tel que
+$g_i^*\xi'|_{U_i} = \xi|_{V_i}$. Sur les intersections $V_i \cap V_j$, les
+morphismes $g_i$ et $g_j$ coïncident, par exemple parce qu'ils ont tous deux
+pour image inverse de $\xi'|_{U_i \cap U_j} \in F_i(U_i \cap
+U_j)$ le même élément. Ainsi les morphismes $g_i$ se recollent en un unique morphisme
+$T \to X$ comme souhaité.
+\end{proof}
+
+\begin{remark}
+\label{remark-representable-locally-ringed}
+Supposons que le foncteur $F$ soit défini sur tous les espaces annelés en anneaux
+locaux, et que les conditions du lemme \ref{lemma-glue-functors} soient remplacées
+par ce qui suit :
+\begin{enumerate}
+\item $F$ satisfait la propriété de faisceau sur la catégorie des espaces annelés en
+anneaux
+locaux, \item il existe un ensemble $I$ et une collection de sous-foncteurs
+$F_i \subset F$ tels que
+\begin{enumerate}
+\item chaque $F_i$ soit représentable par un schéma, \item
+chaque $F_i \subset F$ soit représentable par des immersions ouvertes sur
+la catégorie des espaces annelés en anneaux locaux, et
+\item la collection $(F_i)_{i \in I}$ recouvre $F$ en tant que
+foncteur sur la catégorie des espaces annelés en anneaux locaux.
+\end{enumerate}
+\end{enumerate}
+Nous laissons au lecteur le soin de développer cela davantage.
+Le résultat final est alors que le foncteur $F$ est
+représentable dans la catégorie des espaces annelés en anneaux
+locaux et que l'objet représentant est un schéma.
+\end{remark}
+
+
+
+\section{Existence des produits fibrés de schémas}
+\label{section-existence-fibre-products}
+
+\noindent
+Une question élémentaire est de savoir si les produits et les
+produits fibrés existent dans la catégorie des schémas. Nous
+prouvons d'abord leur existence de manière abstraite ;
+dans la section suivante, nous en donnons une
+description concrète.
+
+\begin{lemma}
+\label{lemma-fibre-products}
+La catégorie des schémas possède un objet final, des produits et des produits
+fibrés. En d'autres termes, la catégorie des schémas a des limites finies,
+voir Catégories, lemme \ref{categories-lemma-finite-limits-exist}.
+\end{lemma}
+
+\begin{proof}
+On peut omettre cette démonstration. Il est plus important
+d'apprendre à travailler avec le produit fibré, qui est expliqué dans
+la section suivante.
+
+\medskip\noindent
+D'après le lemme \ref{lemma-morphism-into-affine},
+le schéma $\Spec(\mathbf{Z})$ est un objet final
+dans la catégorie des espaces annelés en anneaux locaux. Ainsi,
+il suffit de prouver que les produits fibrés existent.
+
+\medskip\noindent
+Soient $f : X \to S$ et $g : Y \to S$ des morphismes de schémas. Nous devons montrer
+que le foncteur
+\begin{eqnarray*}
+F : \Sch^{opp} & \longrightarrow & \textit{Ensembles}
+\\ T & \longmapsto
+& \Mor(T, X) \times_{\Mor(T, S)} \Mor(T, Y)
+\end{eqnarray*}
+est représentable. Nous affirmons que le lemme \ref{lemma-glue-functors}
+s'applique au foncteur $F$. Si nous prouvons cela, alors le lemme est prouvé.
+
+\medskip\noindent
+Tout d'abord, nous montrons que $F$ satisfait la propriété de
+faisceau pour la topologie de Zariski. À savoir, supposons que $T$
+soit un schéma, $T = \bigcup_{i \in I} U_i$ soit un
+recouvrement ouvert, et $\xi_i \in
+F(U_i)$ tel que $\xi_i|_{U_i \cap U_j} = \xi_j|_{U_i \cap
+U_j}$ pour toutes les paires $i, j$. Par définition, $\xi_i$
+correspond à une paire $(a_i, b_i)$ où $a_i : U_i \to X$ et $b_i : U_i \to
+Y$ sont des morphismes de schémas tels que $f \circ a_i = g \circ b_i$.
+La condition de recollement dit
+que $a_i|_{U_i \cap U_j} = a_j|_{U_i \cap U_j}$ et
+$b_i|_{U_i
+\cap U_j} = b_j|_{U_i \cap U_j}$. Ainsi,
+en recollant les morphismes $a_i$, nous obtenons un morphisme
+d'espaces annelés en anneaux locaux (c'est-à-dire un morphisme
+de schémas) $a : T \to X$ et de même $b : T \to Y$ (voir par
+exemple la propriété universelle du lemme \ref{lemma-glue}). De plus,
+sur les éléments d'un recouvrement ouvert, les compositions
+$f \circ a$ et $g \circ b$ coïncident. Par
+conséquent, $f \circ a = g \circ b$ et la paire $(a, b)$ définit
+un élément de $F(T)$ qui se restreint aux paires
+$(a_i, b_i)$ sur chaque $U_i$. La condition de faisceau est vérifiée.
+
+\medskip\noindent
+Ensuite, nous construisons la famille de sous-foncteurs.
+Choisissez un recouvrement ouvert par des
+ouverts affines $S = \bigcup\nolimits_{i \in
+I} U_i$. Pour chaque $i \in I$, choisissez des recouvrements
+ouverts par des ouverts affines $f^{-1}(U_i) = \bigcup\nolimits_{j
+\in J_i} V_j$ et $g^{-1}(U_i) = \bigcup\nolimits_{k \in
+K_i} W_k$. Notez que $X = \bigcup_{i \in I} \bigcup_{j \in J_i}
+V_j$ est un recouvrement ouvert et de même pour
+$Y$. Pour tout $i \in I$ et chaque paire $(j, k) \in J_i \times K_i$,
+nous avons un diagramme commutatif
+$$
+\xymatrix{
+& W_k \ar[d] \ar[rd] & \\ V_j
+\ar[rd] \ar[r] & U_i \ar[rd] & Y \ar[d]
+\\ & X \ar[r] & S
+}
+$$
+où toutes les flèches obliques sont des immersions ouvertes. Pour un tel
+triple, nous obtenons un foncteur
+\begin{eqnarray*}
+F_{i, j, k} : \Sch^{opp} & \longrightarrow & \textit{Ensembles}
+\\ T & \longmapsto
+& \Mor(T, V_j) \times_{\Mor(T, U_i)} \Mor(T, W_k).
+\end{eqnarray*}
+Il existe une transformation évidente de foncteurs $F_{i, j, k} \to F$
+(provenant du grand diagramme commutatif ci-dessus) qui est
+injective, donc nous pouvons considérer $F_{i, j, k}$ comme un sous-foncteur
+de $F$.
+
+\medskip\noindent
+Nous vérifions la condition (2)(a) du lemme \ref{lemma-glue-functors}. Cela
+découle directement du lemme \ref{lemma-fibre-product-affine-schemes}. (Notez que nous
+utilisons ici le fait que les produits fibrés dans la catégorie des schémas affines
+sont également des produits fibrés dans la catégorie tout entière des espaces annelés en
+anneaux locaux.)
+
+\medskip\noindent
+Nous vérifions la condition (2)(b) du lemme \ref{lemma-glue-functors}.
+Soit $T$ un schéma et soit $\xi \in F(T)$. En d'autres termes,
+$\xi = (a, b)$ où $a : T \to X$ et $b : T \to Y$ sont des
+morphismes de schémas tels que $f \circ a = g \circ b$. Posons
+$V_{i, j, k} = a^{-1}(V_j) \cap b^{-1}(W_k)$. Pour tout autre
+morphisme $h : T' \to T$ nous avons $h^*\xi
+= (a \circ h, b \circ h)$. Par conséquent, nous voyons que
+$h^*\xi \in F_{i, j, k}(T')$ si et seulement si
+$a(h(T')) \subset V_j$ et $b(h(T')) \subset W_k$. En
+d'autres termes, si et seulement si $h(T') \subset V_{i, j, k}$.
+Cela prouve la condition (2)(b).
+
+\medskip\noindent
+Nous vérifions la condition (2)(c) du lemme \ref{lemma-glue-functors}.
+Soit $T$ un schéma et soit $\xi = (a, b) \in F(T)$ comme ci-dessus. Posons
+$V_{i, j, k} = a^{-1}(V_j) \cap b^{-1}(W_k)$ comme ci-dessus. La
+condition (2)(c) signifie simplement que $T = \bigcup V_{i, j, k}$ ce
+qui est évident. Ainsi, le lemme est prouvé et les produits fibrés
+existent.
+\end{proof}
+
+\begin{remark}
+\label{remark-fibre-product-schemes-locally-ringed}
+En utilisant la remarque \ref{remark-representable-locally-ringed},
+on peut montrer que le produit fibré de morphismes de schémas existe
+dans la catégorie des espaces annelés en anneaux locaux et est un
+schéma.
+\end{remark}
+
+
+
+
+\section{Produits fibrés de schémas}
+\label{section-fibre-products}
+
+\noindent
+Voici un rappel de la définition générale, même si nous
+avons déjà montré que les produits fibrés de schémas existent.
+
+\begin{definition}
+\label{definition-fibre-product}
+Étant donnés des morphismes de schémas $f : X \to S$ et $g : Y
+\to S$, le {\it produit fibré} est un schéma $X \times_S Y$ muni
+des morphismes de projection $p : X \times_S Y \to X$
+et $q : X \times_S Y \to Y$ qui s'insèrent dans le diagramme
+commutatif suivant
+$$
+\xymatrix{
+X \times_S Y \ar[r]_q \ar[d]_p & Y \ar[d]^g \\ X
+\ar[r]^f & S
+}
+$$
+et qui est universel parmi tous les diagrammes de ce
+type, voir Catégories, définition \ref{categories-definition-fibre-products}.
+\end{definition}
+
+\noindent
+En d'autres termes, étant donné tout diagramme commutatif de morphismes de schémas dont
+les flèches pleines sont fixées
+$$
+\xymatrix{ T
+\ar[rrrd] \ar@{-->}[rrd] \ar[rrdd] & & \\
+&
+&
+X
+\times_S
+Y
+\ar[d] \ar[r] & Y
+\ar[d]
+\\
+&
+&
+X
+\ar[r]
+&
+S
+}
+$$
+il existe une flèche pointillée unique faisant commuter le diagramme.
+Nous allons prouver quelques lemmes qui nous aideront à comprendre les
+produits fibrés.
+
+\begin{lemma}
+\label{lemma-fibre-product-affines}
+Soient $f : X \to S$ et $g : Y \to S$ des morphismes de schémas
+ayant la même cible. Si $X, Y, S$ sont tous affines alors
+$X \times_S Y$ est affine.
+\end{lemma}
+
+\begin{proof}
+Supposons que $X = \Spec(A)$, $Y = \Spec(B)$ et $S
+= \Spec(R)$. D'après le lemme \ref{lemma-fibre-product-affine-schemes}, le
+schéma affine $\Spec(A \otimes_R B)$ est le produit
+fibré $X \times_S Y$ dans la catégorie des espaces
+annelés en anneaux locaux. Par conséquent, il est a fortiori
+le produit fibré dans la catégorie des schémas.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fibre-product}
+Soient $f : X \to S$ et $g : Y \to S$ des morphismes de schémas
+ayant la même cible. Soient $X \times_S Y$, $p$, $q$ le produit fibré.
+Supposons que $U \subset S$, $V
+\subset X$, $W \subset Y$ soient des sous-schémas
+ouverts tels que $f(V) \subset U$ et $g(W) \subset
+U$. Alors le morphisme canonique
+$V \times_U W \to X \times_S Y$ est une immersion
+ouverte qui identifie $V \times_U W$ avec $p^{-1}(V) \cap q^{-1}(W)$.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma.
+Supposons que $a : T \to V$ et $b : T \to W$ soient des
+morphismes tels que $f \circ a = g \circ b$ comme morphismes dans
+$U$. Alors ils coïncident comme morphismes
+dans $S$. Par la propriété universelle du produit fibré,
+nous obtenons un morphisme unique $T \to X \times_S Y$. Bien sûr, ce
+morphisme a son image contenue dans l'ouvert $p^{-1}(V) \cap
+q^{-1}(W)$. Ainsi $p^{-1}(V) \cap q^{-1}(W)$ est un produit
+fibré de $V$ et $W$ au-dessus de $U$. Le résultat découle de l'unicité
+des produits fibrés, voir Catégories, section
+\ref{categories-section-fibre-products}.
+\end{proof}
+
+\noindent
+En particulier, cela montre que $V \times_U W = V \times_S W$ dans
+la situation du lemme. De plus, si $U, V, W$ sont tous affines, alors
+nous savons que $V \times_U W$ est affine. Et bien sûr, nous pouvons
+recouvrir $X \times_S Y$ par de tels ouverts affines $V \times_U W$. Nous
+formulons cela comme un lemme.
+
+\begin{lemma}
+\label{lemma-affine-covering-fibre-product}
+\begin{slogan}
+Construction explicite des produits fibrés : un recouvrement ouvert affine d'un
+produit fibré de schémas peut être assemblé à partir de recouvrements
+ouverts affines compatibles des facteurs.
+\end{slogan}
+Soient $f : X \to S$ et $g : Y \to S$ des morphismes de schémas
+ayant la même cible. Soit $S = \bigcup U_i$ un recouvrement ouvert
+affine quelconque de $S$. Pour chaque $i \in I$,
+soit $f^{-1}(U_i) = \bigcup_{j \in J_i} V_j$ un recouvrement ouvert
+affine de $f^{-1}(U_i)$ et
+soit $g^{-1}(U_i) = \bigcup_{k \in K_i} W_k$ un recouvrement ouvert affine
+de $g^{-1}(U_i)$. Alors
+$$
+X \times_S Y =
+\bigcup\nolimits_{i \in I}
+\bigcup\nolimits_{j \in J_i, \ k \in K_i}
+V_j \times_{U_i} W_k
+$$
+est un recouvrement ouvert affine de $X \times_S Y$.
+\end{lemma}
+
+\begin{proof}
+Voir la discussion qui précède le lemme.
+\end{proof}
+
+\noindent
+En d'autres termes, nous aurions pu utiliser le lemme précédent pour construire
+le produit fibré directement
+en recollant les schémas affines. (Ce qui est bien sûr exactement
+ce que nous avons fait dans la preuve du lemme \ref{lemma-fibre-products}.)
+Voici une manière de décrire l'ensemble des points d'un produit fibré de schémas.
+
+\begin{lemma}
+\label{lemma-points-fibre-product}
+Soient $f : X \to S$ et $g : Y \to S$ des morphismes de schémas
+ayant la même cible. Les points $z$ de $X \times_S Y$ sont en correspondance
+bijective avec les quadruples
+$$
+(x, y, s, \mathfrak p)
+$$
+où $x \in X$, $y \in Y$, $s \in S$ sont des points tels
+que $f(x) = s$, $g(y) = s$ et $\mathfrak p$ est un idéal premier
+de l'anneau $\kappa(x) \otimes_{\kappa(s)} \kappa(y)$.
+Le corps résiduel de $z$ correspond au
+corps résiduel de l'idéal premier $\mathfrak p$.
+\end{lemma}
+
+\begin{proof}
+Soit $z$ un point de $X \times_S Y$ et construisons un quadruple comme
+ci-dessus. Rappelons que nous pouvons considérer $z$ comme un morphisme
+$\Spec(\kappa(z)) \to X \times_S Y$, voir le
+lemme \ref{lemma-characterize-points}. Ce morphisme correspond aux
+morphismes $a : \Spec(\kappa(z)) \to X$ et $b :
+\Spec(\kappa(z)) \to Y$ tels que $f \circ a = g \circ
+b$. Par le même lemme, nous obtenons à nouveau les
+points $x \in X$, $y \in Y$ au-dessus du même point $s \in S$ ainsi
+que les homomorphismes de corps $\kappa(x) \to \kappa(z)$, $\kappa(y)
+\to \kappa(z)$ tels que les compositions $\kappa(s) \to
+\kappa(x) \to \kappa(z)$ et $\kappa(s) \to
+\kappa(y)
+\to \kappa(z)$ soient les mêmes. En
+d'autres termes, nous obtenons un homomorphisme d'anneaux
+$\kappa(x) \otimes_{\kappa(s)} \kappa(y) \to \kappa(z)$. Nous
+notons $\mathfrak p$ le noyau de cette application.
+
+\medskip\noindent
+Inversement, étant donné un quadruple $(x, y, s, \mathfrak p)$, nous obtenons un diagramme
+commutatif aux flèches pleines
+$$
+\xymatrix{
+X \times_S Y
+\ar@/_/[dddr] \ar@/^/[rrrd] &
+& & \\
+&
+\Spec(\kappa(x) \otimes_{\kappa(s)} \kappa(y)/\mathfrak p)
+\ar[r] \ar[d] \ar@{-->}[lu] &
+\Spec(\kappa(y))
+\ar[d] \ar[r] & Y
+\ar[dd] \\ &
+\Spec(\kappa(x))
+\ar[r] \ar[d] &
+\Spec(\kappa(s)) \ar[rd] & \\ &
+X
+\ar[rr]
+&
+&
+S
+}
+$$
+voir la discussion dans la section \ref{section-points}. Ainsi, nous obtenons
+la flèche en pointillés. Le point correspondant $z$ de $X \times_S Y$
+est l'image du point générique de
+$\Spec(\kappa(x) \otimes_{\kappa(s)} \kappa(y)/\mathfrak p)$. Nous
+omettons la vérification que les deux constructions sont réciproques
+l'une de l'autre.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-product-immersion}
+Soient $f : X \to S$ et $g : Y \to S$ des morphismes de schémas
+ayant la même cible.
+\begin{enumerate}
+\item Si $f : X \to S$ est une immersion fermée,
+alors $X \times_S Y \to Y$ est une immersion fermée.
+De plus, si $X \to S$ correspond au faisceau quasi-cohérent
+d'idéaux $\mathcal{I} \subset \mathcal{O}_S$, alors $X
+\times_S Y \to Y$ correspond au faisceau d'idéaux
+$\Im(g^*\mathcal{I} \to \mathcal{O}_Y)$. \item Si $f
+: X \to S$ est une immersion ouverte, alors
+$X \times_S Y \to Y$ est une immersion ouverte.
+\item Si $f : X \to S$ est une immersion,
+alors $X \times_S Y \to Y$ est une immersion.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que $X \to S$ soit une immersion fermée correspondant
+au faisceau quasi-cohérent d'idéaux $\mathcal{I} \subset \mathcal{O}_S$. D'après le
+lemme \ref{lemma-restrict-map-to-closed}, le sous-espace fermé $Z \subset
+Y$ défini par le faisceau d'idéaux $\Im(g^*\mathcal{I}
+\to \mathcal{O}_Y)$ est le produit fibré dans la catégorie
+des espaces annelés en anneaux locaux. D'après
+le lemme \ref{lemma-closed-subspace-scheme}, $Z$ est un schéma. Par
+conséquent, $Z = X \times_S Y$ et la première affirmation en
+découle. La deuxième découle par exemple du lemme \ref{lemma-open-fibre-product}.
+La troisième est une combinaison des
+deux premières.
+\end{proof}
+
+\begin{definition}
+\label{definition-inverse-image-closed-subscheme}
+Soit $f : X \to Y$ un morphisme de schémas. Soit $Z \subset Y$ un
+sous-schéma fermé de $Y$. L'{\it image réciproque $f^{-1}(Z)$ du sous-schéma
+fermé $Z$} est le sous-schéma fermé $Z \times_Y X$ de $X$.
+Voir le lemme \ref{lemma-fibre-product-immersion} ci-dessus.
+\end{definition}
+
+\noindent
+Nous pouvons également utiliser occasionnellement cette terminologie pour les sous-schémas localement
+fermés et ouverts.
+
+
+
+
+
+
+
+
+
+\section{Changement de base en géométrie algébrique}
+\label{section-base-change}
+
+\noindent
+Une motivation pour l'introduction du langage des schémas est qu'il
+donne une notion très précise de ce que signifie définir une variété
+sur un corps particulier. Par exemple, une variété $X$ sur $\mathbf{Q}$
+est, par définition (Variétés,
+définition \ref{varieties-definition-variety}), un schéma muni d'un
+morphisme $X \to \Spec(\mathbf{Q})$ de type fini et séparé,
+et qui est lui-même irréductible et réduit\footnote{Bien sûr, les géomètres
+algébriques discutent encore pour savoir s'il faut exiger que $X$
+soit géométriquement irréductible sur $\mathbf{Q}$.}. Dans tous les cas, l'idée
+est plus généralement de travailler avec des schémas sur un {\it schéma de
+base} donné, souvent noté $S$. Nous dirons « soit $X$ un schéma sur $S$ » pour
+signifier simplement que $X$ est muni d'un morphisme $X \to S$. Dans les
+diagrammes, nous représenterons le {\it morphisme structural} $X \to S$
+par une flèche descendante de $X$ vers $S$. Nous
+nous intéressons souvent davantage aux propriétés de $X$ relativement
+à $S$ qu'à la géométrie interne de $X$. Par exemple,
+nous aimerions connaître des choses sur les fibres de $X \to S$, ce qui se passe
+pour $X$ après changement de base, et ainsi de suite.
+
+\medskip\noindent
+Nous introduisons une partie du langage couramment utilisé. Bien
+sûr, ce langage n'est qu'un cas particulier de réflexion sur
+la catégorie des objets au-dessus d'un objet donné dans une catégorie,
+voir Catégories, exemple \ref{categories-example-category-over-X}.
+
+\begin{definition}
+\label{definition-base-change}
+Soit $S$ un schéma.
+\begin{enumerate}
+\item Nous disons que $X$ est un {\it schéma sur $S$} si $X$ est
+muni d'un morphisme de schémas $X \to S$. Le morphisme
+$X \to S$ est parfois appelé le {\it morphisme
+structural}. \item Si $R$ est
+un anneau, nous disons que $X$
+est un schéma {\it sur $R$} pour dire que
+$X$ est un schéma sur $\Spec(R)$.
+\item Un {\it morphisme $f : X \to Y$ de schémas sur $S$}
+est un morphisme de schémas tel que la composée $X
+\to Y \to S$ de $f$ avec le morphisme structural de $Y$ soit égale
+au morphisme structural de $X$. \item
+Nous notons $\Mor_S(X, Y)$ l'ensemble de tous les morphismes
+de $X$ vers $Y$ sur $S$.
+\item Soit $X$ un schéma sur $S$. Soit $S' \to S$ un morphisme
+de schémas. Le {\it changement de base} de $X$
+est le schéma $X_{S'} = S' \times_S X$ sur $S'$. \item
+Soit $f : X \to Y$ un morphisme de schémas sur $S$. Soit $S' \to S$ un
+morphisme de schémas. Le {\it changement de base} de $f$ est le
+morphisme induit $f' : X_{S'} \to Y_{S'}$ (à savoir le morphisme
+$\text{id}_{S'} \times_{\text{id}_S} f$). \item
+Soit $R$ un anneau. Soit $X$ un schéma sur $R$. Soit $R \to
+R'$ un morphisme d'anneaux. Le {\it changement de base} $X_{R'}$
+est le schéma $\Spec(R') \times_{\Spec(R)} X$
+sur $R'$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Voici un résultat typique.
+
+\begin{lemma}
+\label{lemma-base-change-immersion}
+Soit $S$ un schéma. Soit $f : X \to Y$ une immersion
+(resp. \ immersion fermée, resp. immersion ouverte) de
+schémas sur $S$. Alors tout changement de base de $f$ est une
+immersion (resp. \ immersion fermée, resp. immersion ouverte).
+\end{lemma}
+
+\begin{proof}
+On peut penser au changement de base de $f$ via le morphisme $S'
+\to S$ comme la flèche verticale en haut à gauche dans le diagramme
+commutatif suivant :
+$$
+\xymatrix{
+X_{S'} \ar[r] \ar[d] & X \ar[d] \ar@/^4ex/[dd] \\
+Y_{S'} \ar[r] \ar[d] & Y \ar[d] \\
+S' \ar[r] & S
+}
+$$
+Le diagramme implique $X_{S'} \cong Y_{S'} \times_Y
+X$, et le lemme découle du lemme \ref{lemma-fibre-product-immersion}.
+\end{proof}
+
+\noindent
+En fait, ce type de résultat est tellement typique qu'il
+existe une expression pour l'indiquer. La voici.
+
+\begin{definition}
+\label{definition-preserved-by-base-change}
+Propriétés et changement de base.
+\begin{enumerate}
+\item Soit $\mathcal{P}$ une propriété des schémas sur une base. On dit
+que $\mathcal{P}$ est {\it préservée par un changement de base arbitraire}, ou simplement
+que $\mathcal{P}$ est {\it préservée par changement de base} si, chaque
+fois que $X/S$ possède
+$\mathcal{P}$, tout changement de base $X_{S'}/S'$ possède $\mathcal{P}$.
+\item Soit $\mathcal{P}$ une propriété des morphismes de schémas sur une base. On dit
+que $\mathcal{P}$ est {\it préservée par un changement de base arbitraire}, ou simplement
+qu'elle est {\it préservée par changement de base} si, chaque fois
+que $f : X \to Y$ sur $S$ possède $\mathcal{P}$, tout changement de
+base $f' : X_{S'} \to Y_{S'}$ sur $S'$ possède $\mathcal{P}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+À ce stade, nous pouvons dire que la propriété « être une immersion fermée » est
+préservée par un changement de base arbitraire.
+
+\begin{definition}
+\label{definition-fibre}
+Soit $f : X \to S$ un morphisme de schémas. Soit
+$s \in S$ un point. La {\it
+fibre schématique $X_s$ de $f$ au-dessus de $s$}, ou simplement
+la {\it fibre de $f$ au-dessus de $s$}, est
+le schéma qui s'insère dans le diagramme de produit fibré suivant
+$$
+\xymatrix{
+X_s = \Spec(\kappa(s)) \times_S X \ar[r] \ar[d] & X
+\ar[d] \\
+\Spec(\kappa(s)) \ar[r] &
+S
+}
+$$
+Nous considérons toujours la fibre $X_s$ comme un schéma sur $\kappa(s)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-fibre-topological}
+Soit $f : X \to S$ un morphisme de schémas.
+Considérons les diagrammes
+$$
+\vcenter{
+\xymatrix{
+X_s \ar[r] \ar[d] & X \ar[d] \\
+\Spec(\kappa(s)) \ar[r] & S
+}
+}
+\quad\text{et}\quad
+\vcenter{
+\xymatrix{
+\Spec(\mathcal{O}_{S, s}) \times_S X \ar[r] \ar[d] & X \ar[d] \\
+\Spec(\mathcal{O}_{S, s}) \ar[r] & S
+}
+}
+$$
+Dans les deux cas, ces diagrammes induisent des carrés fibrés d'espaces
+topologiques et en particulier, la flèche horizontale supérieure est un homéomorphisme
+sur son image.
+\end{lemma}
+
+\begin{proof}
+Choisissez un ouvert affine $U \subset S$ qui contient $s$. Les
+morphismes horizontaux inférieurs se factorisent par $U$, voir
+le lemme \ref{lemma-morphism-from-spec-local-ring} par exemple. Ainsi,
+nous pouvons supposer que $S$ est affine. Si $X$ est également affine,
+alors le résultat découle d'
+Algèbre, remarque \ref{algebra-remark-fundamental-diagram}. Dans
+le cas général, le résultat découle en recouvrant $X$ par des ouverts affines.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-local-ring-fibre}
+Soit $f : X \to S$ un morphisme de schémas. Soit $x \in X$ avec
+image $s \in S$. En considérant $x$ comme un point de $X_s$ (voir
+le lemme \ref{lemma-fibre-topological}), nous avons
+$$
+\mathcal{O}_{X_s, x} \cong
+\mathcal{O}_{X, x}/\mathfrak m_s\mathcal{O}_{X, x} \cong
+\mathcal{O}_{X, x} \otimes_{\mathcal{O}_{S, s}} \kappa(s)
+$$
+\end{lemma}
+
+\begin{proof}
+Comme dans la preuve du lemme \ref{lemma-fibre-topological}, cela se
+réduit au cas où $X$ et $S$ sont affines. Dans le cas affine, l'énoncé se
+traduit par Algèbre, remarque \ref{algebra-remark-local-ring-fibre}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Morphismes quasi-compacts}
+\label{section-quasi-compact}
+
+\noindent
+Un schéma est {\it quasi-compact} si son espace topologique sous-jacent est
+quasi-compact. Il existe une notion relative qui est définie comme suit.
+
+\begin{definition}
+\label{definition-quasi-compact}
+Un morphisme de schémas est dit {\it quasi-compact} si
+l'application continue sous-jacente entre espaces topologiques
+est quasi-compacte,
+voir Topologie, définition \ref{topology-definition-quasi-compact}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-quasi-compact-affine}
+Soit $f : X \to S$ un morphisme de schémas. Les
+énoncés suivants sont équivalents
+\begin{enumerate}
+\item $f : X \to S$ est quasi-compact,
+\item l'image réciproque de chaque ouvert affine est quasi-compacte,
+et \item il existe un recouvrement ouvert affine $S = \bigcup_{i \in I} U_i$
+tel que $f^{-1}(U_i)$ soit quasi-compact pour tout $i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons donné un recouvrement $S = \bigcup_{i \in I} U_i$ comme dans
+(3). Tout d'abord, soit $U \subset S$ un ouvert affine quelconque. Pour
+tout $u \in U$, nous pouvons trouver un indice $i(u) \in I$ tel que $u
+\in U_{i(u)}$. Comme les ouverts standards forment une base pour la topologie sur
+$U_{i(u)}$, nous pouvons trouver $W_u \subset U \cap U_{i(u)}$ qui est un ouvert
+standard dans $U_{i(u)}$. Par quasi-compacité, nous pouvons trouver un nombre fini de
+points $u_1, \ldots, u_n \in U$ tels que $U = \bigcup_{j = 1}^n W_{u_j}$.
+Pour chaque $j$, écrivons $f^{-1}U_{i(u_j)} = \bigcup_{k \in K_j}
+V_{jk}$ comme une union finie d'ouverts affines. Puisque $W_{u_j} \subset U_{i(u_j)}$
+est un ouvert standard, nous voyons que $f^{-1}(W_{u_j}) \cap V_{jk}$
+est un ouvert standard de $V_{jk}$, voir Algèbre, lemme \ref{algebra-lemma-spec-functorial}.
+Ainsi $f^{-1}(W_{u_j}) \cap V_{jk}$ est affine, et
+donc $f^{-1}(W_{u_j})$ est une union finie d'ouverts affines. Cela prouve que
+l'image réciproque de tout ouvert affine est une union finie d'ouverts affines.
+
+\medskip\noindent
+Ensuite, supposons que l'image réciproque de tout ouvert affine soit une union
+finie d'ouverts affines. Soit
+$K \subset S$ un ouvert quasi-compact quelconque. Comme $S$ a une base de la
+topologie constituée d'ouverts affines, nous voyons que $K$ est une union finie
+d'ouverts affines. Par conséquent, l'image réciproque de $K$ est une union finie
+d'ouverts affines. Par conséquent, $f$ est quasi-compact.
+
+\medskip\noindent
+Enfin, supposons que $f$ soit quasi-compact. Dans ce cas, l'argument du
+paragraphe précédent montre que l'image réciproque de tout ouvert affine est
+une union finie d'ouverts affines.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-preserved-base-change}
+Être quasi-compact est une propriété des morphismes de schémas
+sur une base qui est préservée par tout changement de base.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-quasi-compact}
+Le composé de morphismes quasi-compacts est quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Cela découle des définitions et de
+Topologie, lemme \ref{topology-lemma-composition-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-immersion-quasi-compact}
+Une immersion fermée est quasi-compacte.
+\end{lemma}
+
+\begin{proof}
+Cela découle des définitions et de
+Topologie, lemme \ref{topology-lemma-closed-in-quasi-compact}.
+\end{proof}
+
+\begin{example}
+\label{example-open-immersion-not-quasi-compact}
+Une immersion ouverte n'est généralement pas
+quasi-compacte. L'exemple standard de ceci est le sous-espace
+ouvert $U \subset X$, où $X = \Spec(k[x_1, x_2, x_3,
+\ldots])$, où $U$ est $X \setminus \{0\}$, et où $0$ est le point
+de $X$ correspondant à l'idéal maximal
+$(x_1, x_2, x_3, \ldots)$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-image-quasi-compact-closed}
+Soit $f : X \to S$ un morphisme quasi-compact de schémas. Les affirmations
+suivantes sont équivalentes
+\begin{enumerate}
+\item $f(X) \subset S$ est fermé, et
+\item $f(X) \subset S$ est stable par spécialisation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous avons (1) $\Rightarrow$ (2) par
+Topologie, lemme \ref{topology-lemma-open-closed-specialization}.
+Supposons (2). Soit $U \subset S$ un ouvert affine. Il suffit de prouver que
+$f(X) \cap U$ est fermé. Puisque $U \cap f(X)$ est stable par
+spécialisations dans $U$, nous avons réduit au cas où $S$ est affine. Comme $f$ est
+quasi-compact, nous en déduisons que $X = f^{-1}(S)$ est quasi-compact
+puisque $S$ est affine. Ainsi nous pouvons écrire
+$X = \bigcup_{i = 1}^n U_i$ avec $U_i \subset X$ ouvert affine.
+Disons $S = \Spec(R)$
+et $U_i = \Spec(A_i)$ pour une certaine $R$-algèbre
+$A_i$. Alors $f(X) = \Im(\Spec(A_1 \times \ldots \times
+A_n) \to \Spec(R))$. Le résultat découle donc
+d'Algèbre, lemme \ref{algebra-lemma-image-stable-specialization-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-closed}
+Soit $f : X \to S$ un morphisme quasi-compact de schémas. Alors
+$f$ est fermé si et seulement si les spécialisations se relèvent
+le long de $f$,
+voir Topologie, définition \ref{topology-definition-lift-specializations}.
+\end{lemma}
+
+\begin{proof}
+D'après Topologie,
+lemme \ref{topology-lemma-closed-open-map-specialization}, si $f$ est
+fermé, alors les spécialisations se relèvent le long de $f$.
+Inversement, supposons que les spécialisations se relèvent le long de
+$f$. Soit $Z \subset X$ un sous-ensemble fermé. Nous pouvons
+considérer $Z$ comme un schéma avec la structure de schéma réduite
+induite, voir définition \ref{definition-reduced-induced-scheme}.
+Puisque $Z \subset X$ est fermé, la restriction
+de $f$ à $Z$ est toujours quasi-compacte. De plus, les spécialisations se
+relèvent également le long de $Z
+\to S$, voir Topologie, lemme \ref{topology-lemma-lift-specialization-composition}.
+Par conséquent, il suffit de prouver que $f(X)$ est fermé si les spécialisations se relèvent
+le long de $f$. En particulier, $f(X)$ est stable par spécialisation,
+voir Topologie, lemme \ref{topology-lemma-lift-specializations-images}.
+Ainsi $f(X)$ est fermé
+par le lemme \ref{lemma-image-quasi-compact-closed}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Critère valuatif de fermeture universelle}
+\label{section-valuative-criterion-universal-closedness}
+
+\noindent
+Topologie, section \ref{topology-section-proper}, étudie les applications
+propres comme des applications fermées entre espaces topologiques dont toutes
+les fibres sont quasi-compactes, ou comme des applications telles que tous
+les changements de base sont des applications fermées. Voici la notion correspondante
+en géométrie algébrique.
+
+\begin{definition}
+\label{definition-universally-closed}
+Un morphisme de schémas $f : X \to S$ est dit {\it
+universellement fermé} si chaque changement de base
+$f' : X_{S'} \to S'$ est fermé.
+\end{definition}
+
+\noindent
+En fait, l’adjectif « universel » est souvent utilisé de cette manière. En
+d’autres termes, étant donné une propriété $\mathcal{P}$ des morphismes,
+on dit que « $X \to S$ est universellement $\mathcal{P}$ » si et
+seulement si chaque changement de base $X_{S'} \to S'$ possède $\mathcal{P}$.
+
+\medskip\noindent
+Voir Morphismes, section \ref{morphisms-section-proper}, pour une
+discussion plus détaillée des propriétés des morphismes universellement fermés.
+Dans cette section, nous limitons la discussion à la relation entre les
+morphismes universellement fermés et les morphismes satisfaisant
+la partie d'existence du critère valuatif.
+
+\begin{lemma}
+\label{lemma-specializations-lift}
+Soit $f : X \to S$ un morphisme de schémas.
+\begin{enumerate}
+\item Si $f$ est universellement fermé, alors les spécialisations se relèvent
+le long de tout changement de base de
+$f$, voir Topologie, définition \ref{topology-definition-lift-specializations}. \item
+Si $f$ est quasi-compact et que les spécialisations se relèvent le
+long de tout changement de base de $f$, alors $f$ est universellement fermé.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) est une conséquence directe
+de Topologie, lemme \ref{topology-lemma-closed-open-map-specialization}.
+La partie (2) découle
+des lemmes \ref{lemma-quasi-compact-closed}
+et \ref{lemma-quasi-compact-preserved-base-change}.
+\end{proof}
+
+\begin{definition}
+\label{definition-valuative-criterion}
+Soit $f : X \to S$ un morphisme de schémas. Nous disons que $f$ {\it
+satisfait la partie d'existence du critère valuatif} si, étant donné tout diagramme
+commutatif dont les flèches pleines sont données
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & S
+}
+$$
+où $A$ est un anneau de valuation avec corps des fractions $K$, la
+flèche pointillée existe. Nous disons que $f$ {\it satisfait la
+partie d'unicité du critère valuatif} s'il existe au plus une flèche
+pointillée pour tout diagramme comme ci-dessus (sans exiger
+l'existence bien sûr).
+\end{definition}
+
+\noindent
+Un {\it anneau de valuation} est un anneau local intègre maximal pour la relation
+de domination dans son corps des fractions,
+voir Algèbre, définition \ref{algebra-definition-valuation-ring}.
+Par conséquent, le spectre d'un anneau de valuation possède un point générique
+unique $\eta$ et un point fermé unique $0$, et bien sûr nous avons la
+spécialisation $\eta \leadsto 0$.
+L'importance des anneaux de valuation réside dans le fait que toute spécialisation
+de points dans tout schéma est l'image de $\eta \leadsto
+0$ sous un certain morphisme du spectre d'un certain anneau de valuation.
+Voici le résultat précis.
+
+\begin{lemma}
+\label{lemma-points-specialize}
+\begin{slogan}
+Les spécialisations se réalisent au moyen d'anneaux de valuation.
+\end{slogan}
+Soit $S$ un schéma. Soit $s' \leadsto s$ une spécialisation de points de $S$.
+Alors
+\begin{enumerate}
+\item il existe un anneau de valuation $A$ et un morphisme
+$f : \Spec(A) \to S$ tels que le point générique $\eta$ de
+$\Spec(A)$ ait pour image $s'$ et le point fermé pour image $s$, et \item
+étant donnée une extension de corps $K/\kappa(s')$,
+on peut faire en sorte que l'extension
+$\kappa(\eta)/\kappa(s')$ induite par
+$f$ soit isomorphe à l'extension donnée.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $s' \leadsto s$ une spécialisation dans $S$, et soit
+$K/\kappa(s')$ une extension de corps. D'après le lemme
+\ref{lemma-specialize-points} et la
+discussion suivant le lemme
+\ref{lemma-characterize-points}, cela conduit
+à des homomorphismes d'anneaux $\mathcal{O}_{S, s} \to \kappa(s') \to
+K$. Soit $A \subset K$ un quelconque anneau de valuation dont le corps des
+fractions est $K$ et qui domine l'image de $\mathcal{O}_{S, s} \to K$, voir
+Algèbre, lemme \ref{algebra-lemma-dominate}.
+L'homomorphisme d'anneaux $\mathcal{O}_{S, s} \to A$ induit le morphisme
+$f : \Spec(A) \to S$, voir
+lemme \ref{lemma-morphism-from-spec-local-ring}. Ce
+morphisme possède toutes les propriétés souhaitées par construction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-specializations-valuative}
+Soit $f : X \to S$ un morphisme de schémas. Les
+énoncés suivants sont équivalents :
+\begin{enumerate}
+\item Les spécialisations se relèvent par tout changement de
+base de $f$. \item Le morphisme $f$ satisfait la partie d'existence
+du critère valuatif.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que (1) soit vrai. Considérons un diagramme
+dont les flèches pleines sont données, comme dans la définition
+\ref{definition-valuative-criterion}. Pour trouver la flèche en
+pointillés, nous pouvons remplacer $X \to S$ par
+$X_{\Spec(A)} \to \Spec(A)$ puisque, après tout,
+l’hypothèse est stable par changement de base.
+Ainsi, nous pouvons supposer $S = \Spec(A)$. Soit $x' \in
+X$ l’image de $\Spec(K) \to X$, de sorte que
+nous avons $\kappa(x') \subset K$, voir le
+lemme \ref{lemma-characterize-points}. D’après l’hypothèse, il existe
+une spécialisation $x' \leadsto x$ dans $X$ telle que $x$ ait pour image
+le point fermé de $S = \Spec(A)$. Nous obtenons un morphisme d’anneaux
+locaux $A \to \mathcal{O}_{X, x}$ et un morphisme
+d’anneaux $\mathcal{O}_{X, x} \to \kappa(x')$, voir le lemme
+\ref{lemma-specialize-points} et la discussion qui suit le lemme
+\ref{lemma-characterize-points}. La composée $A \to \mathcal{O}_{X, x}
+\to \kappa(x') \to K$ est l'injection donnée $A \to K$. Comme $A \to
+\mathcal{O}_{X, x}$ est local, l'image de $\mathcal{O}_{X,
+x} \to K$ domine $A$ et est donc égale à $A$,
+d'après Algèbre, définition \ref{algebra-definition-valuation-ring}.
+Ainsi, nous obtenons un homomorphisme d'anneaux $\mathcal{O}_{X,
+x} \to A$ et donc un morphisme $\Spec(A)
+\to X$ (voir le lemme \ref{lemma-morphism-from-spec-local-ring}
+et la discussion qui suit). Cela prouve (2).
+
+\medskip\noindent
+En revanche, supposons que (2) soit vérifié. Il est immédiat
+que la partie d'existence du critère valuatif est vérifiée
+pour tout changement de base $X_{S'} \to S'$ de $f$ en considérant
+le diagramme commutatif suivant
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X_{S'} \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] \ar@{-->}[rru] & S' \ar[r] & S
+}
+$$
+En d'autres termes, la flèche pointillée la plus horizontale donnera
+l'autre par définition du produit fibré. Il suffit donc de montrer
+que les spécialisations se relèvent le long de $f$. Soit
+$s' \leadsto s$ une spécialisation dans $S$, et soit $x' \in
+X$ un point situé au-dessus de $s'$. Appliquons
+le lemme \ref{lemma-points-specialize}
+à $s' \leadsto s$ et à l'extension de corps $K =
+\kappa(x')/\kappa(s')$. Nous
+obtenons un diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[rr] \ar[d] & & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[rru] &
+\Spec(\mathcal{O}_{S, s}) \ar[r] & S
+}
+$$
+et, par la condition (2), nous obtenons la flèche
+pointillée. L'image $x$ du point fermé de $\Spec(A)$ dans
+$X$ sera une solution à notre problème, c'est-à-dire que
+$x$ est une spécialisation de $x'$ et a pour image $s$.
+\end{proof}
+
+\begin{proposition}[Critère valuatif de fermeture universelle]
+\label{proposition-characterize-universally-closed}
+Soit $f$ un morphisme quasi-compact de schémas.
+Alors $f$ est universellement fermé si et seulement
+si $f$ satisfait la partie d'existence du critère valuatif.
+\end{proposition}
+
+\begin{proof}
+Ceci est une conséquence formelle
+des lemmes \ref{lemma-specializations-lift} et
+\ref{lemma-lift-specializations-valuative} ci-dessus.
+\end{proof}
+
+\begin{example}
+\label{example-projective-line-universally-closed}
+Soit $k$ un corps. Considérons le morphisme structural $p
+: \mathbf{P}^1_k \to \Spec(k)$ de la droite projective
+sur $k$, voir l'exemple \ref{example-projective-line}. Utilisons
+le critère valuatif ci-dessus pour prouver que $p$ est universellement
+fermé. Par
+construction, $\mathbf{P}^1_k$ est recouvert par deux ouverts
+affines et donc $p$ est quasi-compact. Supposons
+qu'un diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r]_\xi \ar[d] & \mathbf{P}^1_k \ar[d] \\
+\Spec(A) \ar[r]^\varphi & \Spec(k)
+}
+$$
+soit donné, où $A$ est un anneau de valuation et $K$ est son corps
+des fractions. Rappelons que $\mathbf{P}^1_k$ est obtenu en recollant
+$\Spec(k[x])$ à $\Spec(k[y])$ en identifiant $D(x)$
+à $D(y)$ via $x = y^{-1}$ (ou plus symétriquement $xy = 1$). Pour montrer
+qu'il existe un morphisme $\Spec(A) \to \mathbf{P}^1_k$ s'insérant
+en diagonale dans le diagramme ci-dessus, nous pouvons supposer que $\xi$
+ait son image dans l'ouvert $\Spec(k[x])$ (par symétrie). Cela donne le diagramme
+commutatif d'anneaux suivant
+$$
+\xymatrix{
+K & k[x] \ar[l]^{\xi^\sharp} \\
+A \ar[u] & k \ar[u] \ar[l]_{\varphi^\sharp}
+}
+$$
+Par Algèbre, lemme \ref{algebra-lemma-valuation-ring-x-or-x-inverse}, nous voyons
+que soit $\xi^\sharp(x)
+\in A$, soit $\xi^\sharp(x)^{-1} \in A$. Dans le premier
+cas, nous obtenons un morphisme d'anneaux
+$$
+k[x] \to A,
+\ \lambda \mapsto \varphi^\sharp(\lambda),
+\ x \mapsto \xi^\sharp(x)
+$$
+s'insérant dans le diagramme d'anneaux ci-dessus, ce qui conclut. Dans
+le deuxième cas, nous voyons que nous obtenons un morphisme d'anneaux
+$$
+k[y] \to A,
+\ \lambda \mapsto \varphi^\sharp(\lambda),
+\ y \mapsto \xi^\sharp(x)^{-1}.
+$$
+Cela donne un morphisme
+$\Spec(A) \to \Spec(k[y]) \to \mathbf{P}^1_k$ qui
+s'insère en diagonale dans le diagramme commutatif initial de cet exemple
+(vérification omise).
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Axiomes de séparation}
+\label{section-separation-axioms}
+
+\noindent
+Un espace topologique $X$ est séparé si et seulement si la
+diagonale $\Delta \subset X \times X$ est un sous-ensemble fermé.
+L'analogue en géométrie algébrique est, étant donné un schéma $X$ sur
+un schéma de base $S$, de considérer le
+morphisme diagonal
+$$
+\Delta_{X/S} : X \longrightarrow X \times_S X.
+$$
+C'est le morphisme unique de schémas tel que
+$\text{pr}_1 \circ \Delta_{X/S} = \text{id}_X$ et
+$\text{pr}_2 \circ \Delta_{X/S} = \text{id}_X$ (il existe dans toute
+catégorie avec produits fibrés).
+
+\begin{lemma}
+\label{lemma-diagonal-affines-closed}
+Le morphisme diagonal d'un morphisme entre schémas affines est fermé.
+\end{lemma}
+
+\begin{proof}
+Le morphisme diagonal associé au morphisme $\Spec(S) \to
+\Spec(R)$ est le morphisme entre spectres correspondant
+à l'homomorphisme d'anneaux
+$S \otimes_R S \to S$, $a \otimes b \mapsto ab$. Cette
+application est clairement surjective, donc $S \cong S \otimes_R S/J$
+pour un certain idéal $J \subset S \otimes_R S$. Par
+conséquent, $\Delta$ est une immersion fermée
+selon l'exemple \ref{example-closed-immersion-affines}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonal-immersion}
+\begin{slogan}
+Le morphisme diagonal d'un schéma relatif est une immersion.
+\end{slogan}
+Soit $X$ un schéma sur $S$. Le
+morphisme diagonal $\Delta_{X/S}$ est une immersion.
+\end{lemma}
+
+\begin{proof}
+Rappelons que si $V \subset X$ est ouvert affine et se projette
+dans $U \subset S$ ouvert affine, alors $V \times_U V$ est ouvert
+affine dans $X \times_S X$, voir les lemmes \ref{lemma-fibre-product-affines}
+et \ref{lemma-open-fibre-product}.
+Considérons le sous-schéma ouvert $W$ de $X \times_S X$
+qui est l'union de ces ouverts affines $V \times_U V$.
+D'après le lemme \ref{lemma-closed-local-target}, il suffit
+de montrer que chaque morphisme
+$\Delta_{X/S}^{-1}(V \times_U V) \to V \times_U V$ est
+une immersion fermée. Comme $V = \Delta_{X/S}^{-1}(V \times_U V)$,
+nous vérifions simplement que $\Delta_{V/U}$ est une immersion
+fermée, ce qui est le lemme \ref{lemma-diagonal-affines-closed}.
+\end{proof}
+
+\begin{definition}
+\label{definition-separated}
+Soit $f : X \to S$ un morphisme de schémas.
+\begin{enumerate}
+\item Nous disons que $f$ est {\it séparé} si le morphisme diagonal $\Delta_{X/S}$
+est une immersion
+fermée. \item On dit que $f$ est {\it quasi-séparé} si le morphisme
+diagonal $\Delta_{X/S}$ est un morphisme quasi-compact.
+\item On dit qu'un schéma $Y$ est {\it séparé} si le
+morphisme $Y \to \Spec(\mathbf{Z})$ est séparé.
+\item On dit qu'un schéma $Y$ est {\it quasi-séparé} si le morphisme
+$Y \to \Spec(\mathbf{Z})$ est quasi-séparé.
+\end{enumerate}
+\end{definition}
+
+\noindent
+D'après les lemmes \ref{lemma-diagonal-immersion} et \ref{lemma-immersion-when-closed}, nous
+voyons que $\Delta_{X/S}$ est une immersion fermée si et seulement si
+$\Delta_{X/S}(X) \subset X \times_S X$ est un sous-ensemble fermé. De plus, d'après le
+lemme \ref{lemma-closed-immersion-quasi-compact}, nous voyons qu'un morphisme
+séparé est quasi-séparé. La raison d'introduire les morphismes quasi-séparés est
+que les morphismes non séparés apparaissent naturellement dans l'étude des variétés
+algébriques (en particulier lorsqu'on étudie les problèmes de modules, les champs
+algébriques, etc.). Mais le plus souvent, ils restent tout de même quasi-séparés.
+
+\begin{example}
+\label{example-not-quasi-separated}
+Voici un exemple de morphisme non quasi-séparé. Supposons
+$X = X_1 \cup X_2 \to S = \Spec(k)$ avec $X_1
+= X_2 = \Spec(k[t_1, t_2, t_3, \ldots])$ recollés
+le long du complément de $\{0\} = \{(t_1, t_2, t_3, \ldots)\}$
+(recollés comme dans l'exemple \ref{example-affine-space-zero-doubled}).
+Dans ce cas, l'image inverse du schéma affine
+$X_1 \times_S X_2$ sous $\Delta_{X/S}$ est le schéma
+$\Spec(k[t_1, t_2, t_3, \ldots]) \setminus \{0\}$
+qui n'est pas quasi-compact.
+\end{example}
+
+\begin{lemma}
+\label{lemma-where-are-they-equal}
+Soient $X$, $Y$ des schémas sur $S$.
+Soient $a, b : X \to Y$ des morphismes de schémas sur
+$S$. Il existe un plus grand sous-schéma localement
+fermé $Z \subset X$ tel que $a|_Z = b|_Z$. En fait, $Z$
+est l'égalisateur de $(a, b)$. De plus, si $Y$ est séparé
+sur $S$, alors $Z$ est un sous-schéma fermé.
+\end{lemma}
+
+\begin{proof}
+L'égalisateur de $(a, b)$ est, pour des raisons catégoriques,
+le produit fibré $Z$ dans le diagramme suivant.
+$$
+\xymatrix{
+Z = Y \times_{(Y \times_S Y)} X \ar[r] \ar[d] &
+ X \ar[d]^{(a , b)} \\
+Y \ar[r]^-{\Delta_{Y/S}} & Y \times_S Y
+}
+$$
+Ainsi, le lemme découle des lemmes
+\ref{lemma-base-change-immersion}, \ref{lemma-diagonal-immersion} et de la
+définition \ref{definition-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-quasi-separated}
+Soit $f : X \to S$ un morphisme de schémas. Les affirmations
+suivantes sont équivalentes :
+\begin{enumerate}
+\item Le morphisme $f$ est quasi-séparé. \item
+Pour chaque paire d'ouverts affines $U, V \subset X$ qui se
+projettent dans un ouvert affine commun de $S$, l'intersection $U
+\cap V$ est une union finie d'ouverts affines de $X$. \item
+Il existe un recouvrement par ouverts affines $S = \bigcup_{i \in I} U_i$
+et pour chaque $i$ un recouvrement par ouverts affines $f^{-1}U_i = \bigcup_{j \in I_i}
+V_j$ tel que pour chaque $i$ et chaque paire $j, j' \in I_i$
+l'intersection $V_j \cap V_{j'}$ soit une union finie d'ouverts
+affines de $X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Prouvons que (3) implique (1). D'après
+le lemme \ref{lemma-affine-covering-fibre-product},
+le recouvrement $X \times_S X = \bigcup_i \bigcup_{j, j'} V_j \times_{U_i} V_{j'}$
+est un recouvrement par ouverts affines de $X
+\times_S X$. De plus, $\Delta_{X/S}^{-1}(V_j \times_{U_i} V_{j'}) = V_j \cap
+V_{j'}$. Ainsi, l'implication découle du lemme \ref{lemma-quasi-compact-affine}.
+
+\medskip\noindent
+L'implication (1) $\Rightarrow$ (2) découle du fait que,
+sous les hypothèses de (2), le produit fibré $U
+\times_S V$ est un ouvert affine de $X \times_S X$.
+L'implication (2) $\Rightarrow$ (3) est triviale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-separated}
+Soit $f : X \to S$ un morphisme de schémas.
+\begin{enumerate}
+\item Si $f$ est séparé alors pour chaque paire d'ouverts affines
+$(U, V)$ de $X$ qui se projettent dans un
+ouvert affine commun de $S$ nous avons
+\begin{enumerate}
+\item l'intersection $U \cap V$ est affine. \item
+l'homomorphisme
+d'anneaux $\mathcal{O}_X(U) \otimes_{\mathbf{Z}} \mathcal{O}_X(V)
+\to \mathcal{O}_X(U \cap V)$
+est surjectif.
+\end{enumerate}
+\item Si toute paire de points $x_1, x_2 \in X$ au-dessus d'un point commun
+$s \in S$ est contenue dans des ouverts affines $x_1 \in U$, $x_2
+\in V$ qui se projettent dans un ouvert affine commun de $S$ tels
+que (a), (b) sont vérifiés, alors $f$ est séparé.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons $f$ séparé. Supposons que $(U, V)$ soit une paire comme
+dans (1). Soit $W = \Spec(R)$ un ouvert affine de $S$ contenant
+à la fois $f(U)$ et $f(V)$. Notons $U = \Spec(A)$
+et $V = \Spec(B)$ pour les $R$-algèbres $A$ et
+$B$. D'après le lemme \ref{lemma-open-fibre-product}, on
+voit que $U \times_S V = U \times_W V = \Spec(A \otimes_R
+B)$ est un ouvert affine de $X \times_S X$. Par
+conséquent, d'après le lemme \ref{lemma-closed-subspace-scheme},
+on voit que $\Delta^{-1}(U \times_S V) \to U
+\times_S V$ peut être identifié à $\Spec((A \otimes_R B)/J) \to \Spec(A \otimes_R
+B)$ pour un certain idéal $J \subset A \otimes_R
+B$. Ainsi $U \cap V = \Delta^{-1}(U \times_S V)$ est affine.
+L'assertion (1)(b) est vérifiée
+car $A \otimes_{\mathbf{Z}} B \to (A \otimes_R B)/J$ est surjective.
+
+\medskip\noindent
+Supposons que l'hypothèse formulée en (2) soit vérifiée.
+Il est clair que la collection d'ouverts affines $U \times_S
+V$ pour les paires $(U, V)$ comme en (2) forme un recouvrement affine
+ouvert de $X \times_S X$ (voir par exemple\ le lemme \ref{lemma-affine-covering-fibre-product}).
+Il suffit donc de montrer que chaque morphisme
+$U \cap V = \Delta_{X/S}^{-1}(U \times_S V) \to U \times_S V$ est une
+immersion fermée, voir le lemme \ref{lemma-closed-local-target}. D'après
+l'hypothèse (a), nous avons $U \cap V = \Spec(C)$ pour un certain anneau $C$. Après
+avoir choisi un ouvert affine $W = \Spec(R)$ de $S$ dans
+lequel les images de $U$ et de $V$ sont contenues et en écrivant $U =
+\Spec(A)$, $V = \Spec(B)$, nous voyons que l'hypothèse (b)
+signifie que la composée
+$$
+A \otimes_{\mathbf{Z}} B \to A \otimes_R B \to C
+$$
+est surjective. Ainsi $A \otimes_R B \to C$ est surjective et nous
+concluons que $\Spec(C) \to \Spec(A \otimes_R B)$ est
+une immersion fermée.
+\end{proof}
+
+\begin{example}
+\label{example-projective-line-separated}
+Soit $k$ un corps. Considérons le morphisme structural $p
+: \mathbf{P}^1_k \to \Spec(k)$ de la droite projective
+sur $k$, voir l'exemple \ref{example-projective-line}. Utilisons
+le lemme ci-dessus pour prouver que $p$ est
+séparé. Par construction, $\mathbf{P}^1_k$ est recouvert par deux ouverts
+affines $U = \Spec(k[x])$ et $V = \Spec(k[y])$ avec
+intersection $U \cap V = \Spec(k[x, y]/(xy - 1))$ (en utilisant
+la notation évidente). Il suffit donc de vérifier que les
+conditions (2)(a) et (2)(b) du lemme \ref{lemma-characterize-separated} sont
+vérifiées pour les paires d'ouverts affines $(U, U)$, $(U, V)$, $(V, U)$
+et $(V, V)$. Pour les paires $(U, U)$ et $(V, V)$, c'est trivial. Pour
+la paire $(U, V)$, cela revient à prouver que $U
+\cap V$ est affine, ce qui est vrai, et que l'homomorphisme d'anneaux
+$$
+k[x] \otimes_{\mathbf{Z}} k[y] \longrightarrow k[x, y]/(xy - 1)
+$$
+est surjectif. C'est évident car tout élément du côté
+droit peut être écrit comme la somme d'un polynôme en
+$x$ et d'un polynôme en $y$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-fibre-product-after-map}
+Soient $f : X \to T$ et $g : Y \to T$ des morphismes de schémas
+ayant la même cible. Soit $h : T \to S$ un morphisme de schémas.
+Alors le morphisme induit $i : X \times_T Y \to X \times_S Y$ est
+une immersion. Si $T \to S$ est séparé, alors $i$ est une immersion
+fermée. Si $T \to S$ est quasi-séparé, alors $i$ est un
+morphisme quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Par la théorie générale des catégories, le diagramme suivant
+$$
+\xymatrix{
+X \times_T Y \ar[r] \ar[d] & X \times_S Y \ar[d] \\
+T \ar[r]^{\Delta_{T/S}} \ar[r] & T \times_S T
+}
+$$
+est un diagramme de produit fibré. Le lemme
+découle des lemmes \ref{lemma-diagonal-immersion},
+\ref{lemma-fibre-product-immersion} et
+\ref{lemma-quasi-compact-preserved-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-semi-diagonal}
+Soit $g : X \to Y$ un morphisme de schémas sur $S$. Le
+morphisme $i : X \to X \times_S Y$ est une immersion.
+Si $Y$ est séparé sur $S$, c'est une immersion fermée.
+Si $Y$ est quasi-séparé sur $S$, ce morphisme est quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Il s'agit d'un cas particulier du lemme \ref{lemma-fibre-product-after-map}
+appliqué au morphisme $X = X \times_Y Y \to X \times_S Y$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-section-immersion}
+Soit $f : X \to S$ un morphisme de schémas.
+Soit $s : S \to X$ une section de $f$ (dans une formule $f \circ s = \text{id}_S$).
+Alors $s$ est une immersion.
+Si $f$ est séparé, alors $s$ est une immersion fermée.
+Si $f$ est quasi-séparé, alors $s$ est quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Il s'agit d'un cas particulier du lemme \ref{lemma-semi-diagonal} appliqué
+à $g =s$, donc au morphisme $i = s : S \to S \times_S X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separated-permanence}
+Propriétés de permanence.
+\begin{enumerate}
+\item Le composé de deux morphismes séparés est séparé.
+\item Le composé de deux morphismes quasi-séparés est quasi-séparé.
+\item Le changement de base d'un morphisme séparé est séparé.
+\item Le changement de base d'un morphisme quasi-séparé est quasi-séparé.
+\item Un produit (fibré) de morphismes séparés est séparé.
+\item Un produit (fibré) de morphismes quasi-séparés est quasi-séparé.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soient $X \to Y \to Z$ des morphismes. Supposons que $X \to Y$
+et $Y \to Z$ soient séparés. Le composé
+$$
+X \to X \times_Y X \to X \times_Z X
+$$
+est fermée parce que le premier morphisme l'est par hypothèse et le
+second d'après le lemme \ref{lemma-fibre-product-after-map}. Le même argument
+fonctionne pour « quasi-séparé » (avec les mêmes références).
+
+\medskip\noindent
+Soit $f : X \to Y$ un morphisme de schémas sur une base $S$. Soit
+$S' \to S$ un morphisme de schémas. Soit $f' : X_{S'} \to Y_{S'}$ le
+changement de base de $f$. Alors le morphisme diagonal de
+$f'$ est un morphisme
+$$
+\Delta_{f'} :
+X_{S'} = S' \times_S X
+\longrightarrow
+X_{S'} \times_{Y_{S'}} X_{S'} = S' \times _S (X \times_Y X)
+$$
+qui est facilement vu comme étant le changement de base de
+$\Delta_f$. Ainsi (3) et (4) découlent du fait que
+les immersions fermées et les morphismes quasi-compacts sont
+préservés par tout changement de base
+(Lemmes \ref{lemma-fibre-product-immersion}
+et \ref{lemma-quasi-compact-preserved-base-change}).
+
+\medskip\noindent
+Si $f : X \to Y$ et $g : U \to V$ sont des morphismes de schémas sur une base $S$,
+alors $f \times g$ est le composé de $X \times_S U \to X \times_S V$ (un
+changement de base de $g$) et $X \times_S V \to Y \times_S V$ (un changement de
+base de $f$). Ainsi, (5) et (6) suivent de (1) -- (4).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compose-after-separated}
+\begin{slogan}
+Les morphismes séparés et quasi-séparés satisfont la propriété de simplification.
+\end{slogan}
+Soient $f : X \to Y$ et $g : Y \to Z$ des morphismes de schémas. Si $g
+\circ f$ est séparé, alors $f$ l'est aussi. Si
+$g \circ f$ est quasi-séparé, alors $f$ l'est également.
+\end{lemma}
+
+\begin{proof}
+Supposons que $g \circ f$ soit séparé.
+Considérons la factorisation $X \to X \times_Y X \to X \times_Z X$ du morphisme
+diagonal de $g \circ f$. D'après le lemme
+\ref{lemma-fibre-product-after-map}, le dernier
+morphisme est une immersion. D'après l'hypothèse, l'image de $X$ dans
+$X \times_Z X$ est fermée. Par conséquent, elle est aussi fermée
+dans $X \times_Y X$. Ainsi, nous voyons que $X \to X \times_Y X$
+est une immersion fermée selon le lemme \ref{lemma-immersion-when-closed}.
+
+\medskip\noindent
+Supposons que $g \circ f$ soit quasi-séparé. Soit $V
+\subset Y$ un ouvert affine dont l'image est contenue dans un ouvert affine
+de $Z$. Soient $U_1, U_2 \subset X$ des ouverts affines dont les images
+sont contenues dans $V$. Alors $U_1 \cap U_2$ est une union finie d'ouverts
+affines car $U_1, U_2$ ont leurs images dans un ouvert affine commun
+de $Z$. Puisque nous pouvons recouvrir $Y$ par des ouverts affines
+comme $V$, nous déduisons le lemme du lemme \ref{lemma-characterize-quasi-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-permanence}
+Soient $f : X \to Y$ et $g : Y \to Z$ des morphismes de schémas.
+Si $g \circ f$ est quasi-compact et $g$ est quasi-séparé,
+alors $f$ est quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Ceci est vrai parce que $f$ est égal au composé
+$(1, f) : X \to X \times_Z Y \to Y$. La première application
+est quasi-compacte d'après le lemme \ref{lemma-section-immersion}
+car elle est une section du morphisme quasi-séparé $X \times_Z Y \to X$ (un changement
+de base de $g$, voir le lemme \ref{lemma-separated-permanence}). La
+deuxième application est quasi-compacte car
+elle est le changement de base de $g \circ f$,
+voir le lemme \ref{lemma-quasi-compact-preserved-base-change}.
+Et les composés de morphismes
+quasi-compacts sont quasi-compactes, voir le lemme \ref{lemma-composition-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-separated}
+Un schéma affine est séparé. Un morphisme d'un schéma affine
+vers un autre schéma est séparé.
+\end{lemma}
+
+\begin{proof}
+Soit $U = \Spec(A)$ un schéma affine. Alors $U \to \Spec(\mathbf{Z})$ a une
+diagonale fermée d'après le lemme \ref{lemma-diagonal-affines-closed}.
+Ainsi $U$ est séparé selon la définition \ref{definition-separated}.
+Si $U \to X$ est un morphisme de schémas, alors nous pouvons
+appliquer le lemme \ref{lemma-compose-after-separated}
+aux morphismes $U \to X \to \Spec(\mathbf{Z})$ pour
+conclure que $U \to X$ est séparé.
+\end{proof}
+
+\noindent
+Vous vous êtes peut-être demandé si la condition de ne
+considérer que des paires d'ouverts affines dont l'image est contenue dans un
+ouvert affine est vraiment nécessaire pour pouvoir conclure que leur
+intersection est affine. Souvent, ce n'est pas le cas !
+
+\begin{lemma}
+\label{lemma-curiosity}
+Soit $f : X \to S$ un morphisme.
+Supposons que $f$ soit séparé et que $S$ soit un schéma séparé.
+Supposons que $U \subset X$ et $V \subset X$ soient des ouverts
+affines. Alors $U \cap V$ est affine (et un sous-schéma fermé de $U \times V$).
+\end{lemma}
+
+\begin{proof}
+Dans ce cas, $X$ est séparé par le lemme \ref{lemma-separated-permanence}.
+Ainsi, $U \cap V$ est affine en
+appliquant le lemme \ref{lemma-characterize-separated} au
+morphisme $X \to \Spec(\mathbf{Z})$.
+\end{proof}
+
+\noindent
+D'autre part, l'exemple suivant montre que nous ne pouvons pas nous attendre
+à ce que l'image d'un ouvert affine soit contenue dans un ouvert affine.
+
+\begin{example}
+\label{example-image-affine-projective}
+Considérons le schéma non affine
+$U = \Spec(k[x, y]) \setminus \{(x, y)\}$ de
+l'exemple \ref{example-not-affine}. D'autre part, considérons le
+schéma
+$$
+\mathbf{GL}_{2, k} = \Spec(k[a, b, c, d, 1/ad - bc]).
+$$
+Il existe un morphisme $\mathbf{GL}_{2, k} \to U$ correspondant
+à l'homomorphisme d'anneaux $x \mapsto a$, $y \mapsto b$. Il est facile
+de voir qu'il s'agit d'un morphisme surjectif, et donc l'image n'est
+contenue dans aucun ouvert affine de $U$. En fait, le schéma
+affine $\mathbf{GL}_{2, k}$ surjecte également sur $\mathbf{P}^1_k$,
+et $\mathbf{P}^1_k$ n'admet même d'immersion dans {\it aucun} schéma affine.
+\end{example}
+
+\begin{remark}
+\label{remark-quasi-compact-and-quasi-separated}
+Soit $P$ l'une des $4$ propriétés suivantes : «
+quasi-séparé », « séparé », «
+quasi-compact et quasi-séparé » ou « quasi-compact et séparé ». Alors les
+énoncés suivants sont vrais
+\begin{enumerate}
+\item Tout schéma affine est $P$.
+\item Étant donné un morphisme $f : X \to Y$ de schémas où $Y$ est $P$, alors
+$f$ est $P$ si et seulement si $X$ est
+$P$. \item Si $X \to Y$ et $Z \to Y$ sont des morphismes de
+schémas et $X$, $Y$, $Z$ ont $P$, alors $X \times_Y Z$ a $P$.
+\end{enumerate}
+L'énoncé (1) est clair.
+Soit $f : X \to Y$ comme dans (2). Si $f$ a $P$, alors $X$ l'a aussi
+par les lemmes \ref{lemma-separated-permanence} et
+\ref{lemma-composition-quasi-compact} appliqués à
+$X \to Y \to \Spec(\mathbf{Z})$. Si $X$ a $P$, alors $f$ l'a aussi par les
+lemmes \ref{lemma-compose-after-separated} et
+\ref{lemma-quasi-compact-permanence} appliqués à $X
+\to Y \to \Spec(\mathbf{Z})$. Soient
+$X \to Y$ et $Z \to Y$ comme dans (3). Alors
+la projection $X \times_Y Z \to Z$ a $P$ comme changement de base de
+la flèche $X \to Y$ qui a $P$ par (2), voir les lemmes
+\ref{lemma-separated-permanence} et
+\ref{lemma-quasi-compact-preserved-base-change}. Par
+conséquent, $X \times_Y Z$ a $P$ par (2).
+\end{remark}
+
+
+
+
+
+\section{Critère valuatif de séparation}
+\label{section-valuative-separatedness}
+
+\begin{lemma}
+\label{lemma-separated-implies-valuative}
+Soit $f : X \to S$ un morphisme de schémas.
+Si $f$ est séparé, alors $f$ satisfait à la partie
+d'unicité du critère valuatif.
+\end{lemma}
+
+\begin{proof}
+Soit un diagramme comme dans la définition \ref{definition-valuative-criterion}
+donné. Supposons qu'il existe deux morphismes
+$a, b : \Spec(A) \to X$ s'insérant dans le diagramme.
+Soit $Z \subset \Spec(A)$ l'égalisateur de $a$ et $b$. D'après le
+lemme \ref{lemma-where-are-they-equal}, ceci est un sous-schéma
+fermé de $\Spec(A)$. Par hypothèse, il contient le point
+générique de $\Spec(A)$. Comme $A$ est un anneau intègre, cela
+implique $Z = \Spec(A)$. Par conséquent, $a = b$ comme voulu.
+\end{proof}
+
+\begin{lemma}[Critère valuatif de séparation]
+\label{lemma-valuative-criterion-separatedness}
+\begin{reference}
+\cite[II Proposition 7.2.3]{EGA}
+\end{reference}
+Soit $f : X \to S$ un morphisme.
+Supposons
+\begin{enumerate}
+\item le morphisme $f$ est quasi-séparé, et
+\item le morphisme $f$ satisfait la partie
+d'unicité du critère valuatif.
+\end{enumerate}
+Alors $f$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Par l'hypothèse (1),
+la proposition \ref{proposition-characterize-universally-closed}, et
+les lemmes \ref{lemma-diagonal-immersion} et \ref{lemma-immersion-when-closed},
+nous voyons qu'il suffit de prouver que le
+morphisme $\Delta_{X/S} : X \to X \times_S X$ satisfait la partie
+d'existence du critère valuatif.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & X \times_S X
+}
+$$
+dont les flèches pleines sont données. La flèche en bas à droite
+correspond à une paire de morphismes $a, b : \Spec(A) \to X$ au-dessus
+de $S$. Par (2), nous voyons que $a = b$. Ainsi, $a$ fournit la flèche
+pointillée cherchée.
+\end{proof}
+
+
+
+
+
+\section{Monomorphismes}
+\label{section-monomorphisms}
+
+\begin{definition}
+\label{definition-monomorphism}
+Un morphisme de schémas est appelé {\it monomorphisme} s'il est
+un monomorphisme dans la catégorie des schémas,
+voir Catégories, définition \ref{categories-definition-mono-epi}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-monomorphism}
+\begin{slogan}
+Un morphisme de schémas est un monomorphisme si et seulement si sa diagonale est un isomorphisme.
+\end{slogan}
+Soit $j : X \to Y$ un morphisme de schémas. Alors
+$j$ est un monomorphisme si et seulement si le
+morphisme diagonal $\Delta_{X/Y} : X \to X \times_Y X$ est
+un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Ceci est vrai dans toute catégorie avec des produits fibrés.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-separated}
+Un monomorphisme de schémas est séparé.
+\end{lemma}
+
+\begin{proof}
+Cela découle du fait qu'un isomorphisme est une immersion fermée et
+du lemme \ref{lemma-monomorphism} ci-dessus.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-monomorphism}
+Le composé de monomorphismes est un monomorphisme.
+\end{lemma}
+
+\begin{proof}
+Vrai dans toute catégorie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-monomorphism}
+Le changement de base d'un monomorphisme est un monomorphisme.
+\end{lemma}
+
+\begin{proof}
+Vrai dans toute catégorie avec des produits fibrés.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-injective-points}
+Soit $j : X \to Y$ un morphisme de schémas. Si
+$j$ est injectif sur les points, alors $j$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Soit $z$ un point de $X \times_Y X$. Alors $x = \text{pr}_1(z)$ et
+$\text{pr}_2(z)$ sont les mêmes parce que $j$ envoie ces points sur le
+même point $y$ de $Y$. Alors nous pouvons choisir un voisinage
+ouvert affine $V \subset Y$ de $y$ et un voisinage ouvert
+affine $U \subset X$ de $x$ avec $j(U) \subset V$. Alors $z
+\in U \times_V U \subset X \times_Y X$. Ainsi $X
+\times_Y X$ est l'union des ouverts affines $U
+\times_V U$. Puisque $\Delta_{X/Y}^{-1}(U \times_V U) = U$ et puisque $U
+\to U \times_V U$ est une immersion fermée, nous concluons que
+$\Delta_{X/Y}$ est une immersion fermée (voir l'argument dans la
+démonstration du lemme \ref{lemma-diagonal-immersion}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-injective-points-surjective-stalks}
+Soit $j : X \to Y$ un morphisme de schémas.
+Si
+\begin{enumerate}
+\item $j$ est injectif sur les points, et
+\item pour tout $x \in X$ l'homomorphisme
+d'anneaux $j^\sharp_x : \mathcal{O}_{Y, j(x)} \to \mathcal{O}_{X, x}$
+est surjectif,
+\end{enumerate}
+alors $j$ est un monomorphisme.
+\end{lemma}
+
+\begin{proof}
+Soient $a, b : Z \to X$ deux morphismes de schémas tels que $j \circ
+a = j \circ b$. Alors (1)
+implique $a = b$ en tant qu'applications
+continues sous-jacentes entre espaces topologiques.
+Pour tout $z \in Z$, nous
+avons $a^\sharp_z \circ j^\sharp_{a(z)} = b^\sharp_z \circ j^\sharp_{b(z)}$ en
+tant qu'applications $\mathcal{O}_{Y, j(a(z))} \to \mathcal{O}_{Z,
+z}$. La surjectivité des applications
+$j^\sharp_x$ impose $a^\sharp_z = b^\sharp_z$, $\forall z \in Z$. Cela
+implique que $a^\sharp = b^\sharp$. Ainsi,
+nous concluons $a = b$ en tant que morphismes de schémas
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersions-monomorphisms}
+Une immersion de schémas est un monomorphisme.
+En particulier, toute immersion est séparée.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons le vérifier en constatant que le critère du
+lemme \ref{lemma-injective-points-surjective-stalks} s'applique. Plus
+élégamment peut-être, nous pouvons utiliser que
+les lemmes \ref{lemma-restrict-map-to-opens} et
+\ref{lemma-characterize-closed-subspace} impliquent que les
+immersions ouvertes et fermées sont des monomorphismes et donc que
+toute immersion (qui est un composé de celles-ci)
+est un monomorphisme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-subscheme-of-separated-scheme}
+Soit $f : X \to S$ un morphisme séparé. Tout
+sous-schéma localement fermé $Z \subset X$ est séparé sur $S$.
+\end{lemma}
+
+\begin{proof}
+Résulte du lemme \ref{lemma-immersions-monomorphisms}
+et du fait que le composé de morphismes séparés est séparé
+(lemme \ref{lemma-separated-permanence}).
+\end{proof}
+
+\begin{example}
+\label{example-Q-over-Z}
+Le morphisme $\Spec(\mathbf{Q}) \to \Spec(\mathbf{Z})$ est
+un monomorphisme. Cela est vrai parce que
+$\mathbf{Q} \otimes_{\mathbf{Z}} \mathbf{Q} = \mathbf{Q}$.
+Plus généralement, pour tout schéma $S$ et tout point $s \in S$, le
+morphisme canonique
+$$
+\Spec(\mathcal{O}_{S, s}) \longrightarrow S
+$$
+est un monomorphisme.
+\end{example}
+
+\begin{lemma}
+\label{lemma-mono-towards-spec-field}
+Soient $k_1, \ldots, k_n$ des corps.
+Pour tout monomorphisme de schémas
+$X \to \Spec(k_1 \times \ldots \times k_n)$,
+il existe un sous-ensemble $I \subset \{1, \ldots, n\}$ tel
+que $X \cong \Spec(\prod_{i \in I} k_i)$ en tant
+que schémas sur $\Spec(k_1 \times \ldots \times k_n)$.
+Plus généralement, si $X = \coprod_{i \in I} \Spec(k_i)$ est
+une union disjointe de spectres de corps et que $Y \to X$ est un monomorphisme,
+alors il existe un sous-ensemble $J \subset I$ tel
+que $Y = \coprod_{i \in J} \Spec(k_i)$.
+\end{lemma}
+
+\begin{proof}
+Réduisons d'abord au cas $n = 1$ (ou $\# I = 1$) en
+prenant les images inverses des sous-schémas
+ouverts et fermés $\Spec(k_i)$. Dans ce cas,
+$X$ n'a qu'un seul point, donc il est affine. Le problème
+algébrique correspondant est le suivant : si $k
+\to R$ est un homomorphisme d'algèbres
+avec $R \otimes_k R \cong R$, alors $R \cong k$ ou $R = 0$. Ceci
+est vrai pour des raisons de dimension.
+Voir
+également Algèbre, lemme \ref{algebra-lemma-epimorphism-over-field}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Fonctorialité pour les modules quasi-cohérents}
+\label{section-quasi-coherent}
+
+\noindent
+Soit $X$ un schéma. Nous notons $\QCoh(\mathcal{O}_X)$ la
+catégorie des $\mathcal{O}_X$-modules quasi-cohérents telle qu'elle est définie dans
+Modules, définition \ref{modules-definition-quasi-coherent}. Nous
+avons vu dans
+la section \ref{section-quasi-coherent-affine}
+que la catégorie $\QCoh(\mathcal{O}_X)$ a de nombreuses bonnes propriétés
+lorsque $X$ est affine. Puisque la propriété d'être quasi-cohérent est
+locale sur $X$, ces propriétés sont héritées par la catégorie des
+faisceaux quasi-cohérents sur tout schéma $X$. Nous les énumérons ici.
+\begin{enumerate}
+\item Un faisceau de $\mathcal{O}_X$-modules $\mathcal{F}$ est
+quasi-cohérent si et seulement si la restriction de $\mathcal{F}$ à
+chaque ouvert affine $U = \Spec(R)$ est de la forme
+$\widetilde M$ pour un certain $R$-module $M$.
+\item Un faisceau de $\mathcal{O}_X$-modules $\mathcal{F}$ est
+quasi-cohérent si et seulement si la restriction de $\mathcal{F}$ à
+chacun des membres d'un recouvrement ouvert affine est quasi-cohérente. \item
+Toute somme directe de faisceaux quasi-cohérents est quasi-cohérente.
+\item Toute colimite de faisceaux quasi-cohérents est quasi-cohérente.
+\item
+\label{item-kernel}
+Le noyau et le conoyau d'un morphisme de faisceaux quasi-cohérents sont
+quasi-cohérents.
+\item Étant donné une suite exacte courte de $\mathcal{O}_X$-modules
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$, si
+deux des trois sont quasi-cohérents, le troisième l'est aussi.
+\item Étant donné un morphisme de schémas $f : Y \to X$, l'image
+inverse d'un $\mathcal{O}_X$-module quasi-cohérent est un
+$\mathcal{O}_Y$-module quasi-cohérent.
+Voir Modules, lemme \ref{modules-lemma-pullback-quasi-coherent}.
+\item Étant donné deux $\mathcal{O}_X$-modules quasi-cohérents,
+le produit tensoriel est quasi-cohérent,
+voir Modules, lemme \ref{modules-lemma-tensor-product-permanence}.
+\item Étant donné un $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$,
+les algèbres tensorielle, symétrique et extérieure sur $\mathcal{F}$
+sont quasi-cohérentes,
+voir Modules, lemme \ref{modules-lemma-whole-tensor-algebra-permanence}.
+\item Étant donné deux $\mathcal{O}_X$-modules quasi-cohérents
+$\mathcal{F}$ et $\mathcal{G}$ tels que $\mathcal{F}$
+soit de présentation finie, le faisceau Hom
+interne $\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$
+est quasi-cohérent,
+voir Modules, lemme \ref{modules-lemma-internal-hom-locally-kernel-direct-sum}
+et (\ref{item-kernel}) ci-dessus.
+\end{enumerate}
+En revanche, l'image directe d'un module
+quasi-cohérent n'est pas quasi-cohérente en général.
+Voici un cas où elle l'est.
+
+\begin{lemma}
+\label{lemma-push-forward-quasi-coherent}
+Soit $f : X \to S$ un morphisme de schémas.
+Si $f$ est quasi-compact et quasi-séparé, alors
+$f_*$ envoie les $\mathcal{O}_X$-modules quasi-cohérents
+en $\mathcal{O}_S$-modules quasi-cohérents.
+\end{lemma}
+
+\begin{proof}
+La question est locale sur $S$ et donc nous pouvons supposer que
+$S$ est affine. Comme $X$ est quasi-compact, nous pouvons
+écrire $X = \bigcup_{i = 1}^n U_i$ avec chaque $U_i$ ouvert affine.
+Comme $f$ est quasi-séparé, nous pouvons
+écrire $U_i \cap U_j = \bigcup_{k = 1}^{n_{ij}} U_{ijk}$ pour des
+ouverts affines $U_{ijk}$, voir le lemme \ref{lemma-characterize-quasi-separated}.
+On note $f_i : U_i \to S$ et $f_{ijk} : U_{ijk} \to S$ les
+restrictions de $f$. Pour tout ouvert $V$ de $S$ et tout faisceau
+$\mathcal{F}$ sur $X$, nous avons
+\begin{eqnarray*}
+f_*\mathcal{F}(V) & = & \mathcal{F}(f^{-1}V) \\ &
+= &
+\Ker\left(
+\bigoplus\nolimits_i \mathcal{F}(f^{-1}V \cap U_i)
+\to
+\bigoplus\nolimits_{i, j, k} \mathcal{F}(f^{-1}V \cap U_{ijk})\right) \\
+& = &
+\Ker\left(
+\bigoplus\nolimits_i f_{i, *}(\mathcal{F}|_{U_i})(V)
+\to
+\bigoplus\nolimits_{i, j, k} f_{ijk, *}(\mathcal{F}|_{U_{ijk}})(V)\right) \\
+& = &
+\Ker\left(
+\bigoplus\nolimits_i f_{i, *}(\mathcal{F}|_{U_i})
+\to
+\bigoplus\nolimits_{i, j, k} f_{ijk, *}(\mathcal{F}|_{U_{ijk}})\right)(V)
+\end{eqnarray*}
+En d'autres termes, il existe une suite exacte de faisceaux
+$$
+0 \to f_*\mathcal{F}
+\to \bigoplus f_{i, *}\mathcal{F}_i
+\to \bigoplus f_{ijk, *}\mathcal{F}_{ijk}
+$$
+où $\mathcal{F}_i, \mathcal{F}_{ijk}$ désignent les
+restrictions de $\mathcal{F}$ à l'ouvert correspondant. Si
+$\mathcal{F}$ est un $\mathcal{O}_X$-module quasi-cohérent alors
+$\mathcal{F}_i$ est un $\mathcal{O}_{U_i}$-module quasi-cohérent et
+$\mathcal{F}_{ijk}$ est un $\mathcal{O}_{U_{ijk}}$-module quasi-cohérent. Ainsi, par le
+lemme \ref{lemma-widetilde-pullback}, nous voyons que le deuxième et le
+troisième terme de la suite exacte sont des $\mathcal{O}_S$-modules
+quasi-cohérents. Nous concluons donc que
+$f_*\mathcal{F}$ est un $\mathcal{O}_S$-module quasi-cohérent.
+\end{proof}
+
+\noindent
+En utilisant cela, nous pouvons caractériser les immersions (fermées) de schémas
+comme suit.
+
+\begin{lemma}
+\label{lemma-characterize-closed-immersions}
+Soit $f : X \to Y$ un morphisme de schémas.
+Supposons que
+\begin{enumerate}
+\item $f$ induise un homéomorphisme de $X$ sur un
+sous-ensemble fermé de $Y$,
+et \item $f^\sharp : \mathcal{O}_Y \to f_*\mathcal{O}_X$
+soit surjectif.
+\end{enumerate}
+Alors $f$ est une immersion fermée de schémas.
+\end{lemma}
+
+\begin{proof}
+Supposons (1) et (2). D'après (1), le morphisme $f$ est quasi-compact
+(voir Topologie, lemme \ref{topology-lemma-closed-in-quasi-compact}).
+Les conditions (1) et (2) impliquent les conditions (1) et (2)
+du lemme \ref{lemma-injective-points-surjective-stalks}.
+Par conséquent, $f : X \to Y$ est un monomorphisme. En particulier,
+$f$ est séparé, voir le lemme \ref{lemma-monomorphism-separated}.
+Ainsi, le lemme \ref{lemma-push-forward-quasi-coherent}
+ci-dessus s'applique et nous concluons que $f_*\mathcal{O}_X$ est un
+$\mathcal{O}_Y$-module quasi-cohérent. Par conséquent, le noyau
+de $\mathcal{O}_Y \to f_*\mathcal{O}_X$ est quasi-cohérent
+selon le lemme \ref{lemma-extension-quasi-coherent}. Comme un faisceau
+quasi-cohérent est localement engendré par des
+sections (voir Modules, définition \ref{modules-definition-quasi-coherent}),
+cela implique que $f$ est une immersion fermée,
+voir définition \ref{definition-closed-immersion-locally-ringed-spaces}.
+\end{proof}
+
+\noindent
+Nous pouvons utiliser ce lemme pour démontrer le lemme suivant.
+
+\begin{lemma}
+\label{lemma-composition-immersion}
+Le composé d'immersions de schémas est une immersion, le
+composé d'immersions fermées de schémas est une immersion fermée, et le
+composé d'immersions ouvertes de schémas est une immersion ouverte.
+\end{lemma}
+
+\begin{proof}
+Cela est évident dans le cas des immersions ouvertes puisqu'un sous-espace ouvert d'un
+sous-espace ouvert est également un sous-espace ouvert.
+
+\medskip\noindent
+Supposons que $a : Z \to Y$ et $b : Y \to X$ soient des immersions fermées de schémas.
+Nous allons vérifier que $c = b \circ a$ est également une immersion
+fermée. L'hypothèse implique que $a$ et $b$ sont des homéomorphismes sur des sous-ensembles
+fermés, et donc $c = b \circ a$ est aussi un homéomorphisme sur un sous-ensemble
+fermé. De plus, l'application $\mathcal{O}_X \to c_*\mathcal{O}_Z$ est surjective
+puisqu'elle se factorise comme la composée des applications
+surjectives $\mathcal{O}_X \to b_*\mathcal{O}_Y$
+et $b_*\mathcal{O}_Y \to b_*a_*\mathcal{O}_Z$ (surjectives car $b_*$ est exact,
+voir Modules, lemme \ref{modules-lemma-i-star-exact}). Ainsi,
+d'après le lemme \ref{lemma-characterize-closed-immersions}
+ci-dessus, $c$ est une immersion fermée.
+
+\medskip\noindent
+Enfin, nous arrivons au cas des immersions. Supposons
+que $a : Z \to Y$ et $b : Y \to X$ soient des immersions de schémas. Cela
+signifie qu’il existe des sous-schémas ouverts
+$V \subset Y$ et $U \subset X$ tels que $a(Z)
+\subset V$, $b(Y) \subset U$ et $a : Z \to V$ et $b : Y \to U$
+soient des immersions fermées. Puisque la
+topologie sur $Y$ est induite à partir de la topologie sur $U$, nous
+pouvons trouver un ouvert $U' \subset U$ tel que $V =
+b^{-1}(U')$. Ensuite, nous voyons que $Z \to
+V = b^{-1}(U') \to U'$ est un composé d’immersions
+fermées et est donc une immersion fermée. Cela prouve
+que $Z \to X$ est une immersion, ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

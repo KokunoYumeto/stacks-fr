@@ -1,0 +1,3213 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Propriétés des champs algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Voir
+Champs algébriques, section \ref{algebraic-section-introduction},
+pour une brève introduction aux champs algébriques, et lire
+une partie de ce chapitre pour connaître les fondements que nous adoptons.
+Dans ce chapitre-là, nous nous attachons à distinguer soigneusement
+les schémas, les espaces algébriques et les champs algébriques ; à partir
+du présent chapitre, nous emploierons l'abus de langage usuel selon lequel
+toutes ces notions s'emploient indifféremment.
+
+\medskip\noindent
+L'objectif de ce chapitre est d'introduire quelques notions et
+propriétés fondamentales des champs algébriques. Une référence
+essentielle pour le cas des champs algébriques quasi-séparés à diagonale
+représentable est \cite{LM-B}.
+
+
+
+\section{Conventions et abus de langage}
+\label{section-conventions}
+
+\noindent
+Fixons un grand site fppf $\Sch_{fppf}$.
+Tous les schémas appartiennent à $\Sch_{fppf}$.
+Et tous les anneaux $A$ considérés ont la propriété que
+$\Spec(A)$ est (isomorphe) à un objet de ce grand site.
+
+\medskip\noindent
+Fixons également un schéma de base $S$, qui, d'après les conventions ci-dessus, est un élément
+de $\Sch_{fppf}$. Le lecteur qui ne s'intéresse qu'au
+cas absolu peut prendre $S = \Spec(\mathbf{Z})$.
+
+\medskip\noindent
+Voici nos conventions concernant les champs algébriques :
+\begin{enumerate}
+\item Lorsque nous dirons {\it champ algébrique}, nous entendrons un champ
+algébrique au-dessus de $S$, c'est-à-dire une catégorie fibrée en groupoïdes
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$
+qui satisfait aux conditions de
+Champs algébriques, Définition \ref{algebraic-definition-algebraic-stack}.
+\item Nous dirons que $f : \mathcal{X} \to \mathcal{Y}$ est un
+{\it morphisme de champs algébriques} pour désigner un $1$-morphisme
+de champs algébriques au-dessus de $S$, c'est-à-dire un $1$-morphisme de catégories fibrées
+en groupoïdes au-dessus de $(\Sch/S)_{fppf}$, voir
+Champs algébriques,
+Définition \ref{algebraic-definition-morphism-algebraic-stacks}.
+\item Un {\it $2$-morphisme} $\alpha : f \to g$ désignera
+un $2$-morphisme dans la $2$-catégorie des champs algébriques au-dessus de
+$S$, voir
+Champs algébriques,
+Définition \ref{algebraic-definition-morphism-algebraic-stacks}.
+\item Étant donnés des morphismes $\mathcal{X} \to \mathcal{Z}$
+et $\mathcal{Y} \to \mathcal{Z}$ de champs algébriques,
+nous appelons abusivement le $2$-produit fibré
+$\mathcal{X} \times_\mathcal{Z} \mathcal{Y}$ le {\it produit fibré}.
+\item Nous noterons $\mathcal{X} \times_S \mathcal{Y}$ le
+produit des champs algébriques $\mathcal{X}$, $\mathcal{Y}$.
+\item Nous abuserons souvent de la notation et dirons que deux champs algébriques
+$\mathcal{X}$ et $\mathcal{Y}$ sont {\it isomorphes} s'ils sont
+équivalents dans cette $2$-catégorie.
+\end{enumerate}
+Voici nos conventions concernant les espaces algébriques.
+\begin{enumerate}
+\item Si nous disons que $X$ est un {\it espace algébrique}, nous entendons que
+$X$ est un espace algébrique au-dessus de $S$, c'est-à-dire que $X$ est un préfaisceau sur
+$(\Sch/S)_{fppf}$ qui satisfait aux conditions de
+Espaces, Définition \ref{spaces-definition-algebraic-space}.
+\item Un {\it morphisme d'espaces algébriques} $f :X \to Y$ est un morphisme
+d'espaces algébriques au-dessus de $S$ tel que défini dans
+Espaces, Définition \ref{spaces-definition-morphism-algebraic-spaces}.
+\item Nous ne distinguerons {\bf pas} un espace algébrique $X$
+du champ algébrique $\mathcal{S}_X \to (\Sch/S)_{fppf}$
+auquel il donne lieu, voir
+Champs algébriques, Lemme \ref{algebraic-lemma-representable-algebraic}.
+\item En particulier, un {\it morphisme} $f : X \to \mathcal{Y}$ de $X$
+vers un champ algébrique $\mathcal{Y}$ désigne un morphisme
+$f : \mathcal{S}_X \to \mathcal{Y}$ de champs algébriques.
+Il en va de même pour les morphismes $\mathcal{Y} \to X$.
+\item De plus, étant donné un champ algébrique $\mathcal{X}$, nous dirons que
+{\it $\mathcal{X}$ est un espace algébrique} pour indiquer que $\mathcal{X}$
+est représentable par un espace algébrique, voir
+Champs algébriques,
+Définition \ref{algebraic-definition-representable-by-algebraic-space}.
+\item Nous emploierons la convention de notation suivante : si nous
+désignons un champ algébrique par une majuscule romaine
+(telle que $X, Y, Z, A, B, \ldots$), son
+champ d'inertie sera trivial, et ce sera donc un espace algébrique, voir
+Champs algébriques,
+Proposition \ref{algebraic-proposition-algebraic-stack-no-automorphisms}.
+\end{enumerate}
+Voici nos conventions concernant les schémas.
+\begin{enumerate}
+\item Si nous disons que $X$ est un {\it schéma}, nous entendons que
+$X$ est un schéma au-dessus de $S$, c'est-à-dire que $X$ est un objet de $(\Sch/S)_{fppf}$.
+\item Par {\it morphisme de schémas}, nous entendons un morphisme de schémas au-dessus de $S$.
+\item Nous ne distinguerons {\bf pas} un schéma $X$ du
+champ algébrique $\mathcal{S}_X \to (\Sch/S)_{fppf}$ auquel il donne lieu,
+voir
+Champs algébriques, Lemme \ref{algebraic-lemma-representable-algebraic}.
+\item En particulier, un {\it morphisme} $f : X \to \mathcal{Y}$ d'un
+schéma $X$ vers un champ algébrique $\mathcal{Y}$ désigne un morphisme
+$f : \mathcal{S}_X \to \mathcal{Y}$ de champs algébriques.
+Il en va de même pour les morphismes $\mathcal{Y} \to X$.
+\item De plus, étant donné un champ algébrique $\mathcal{X}$, nous dirons que
+{\it $\mathcal{X}$ est un schéma} pour indiquer que $\mathcal{X}$
+est représentable, voir
+Champs algébriques, section \ref{algebraic-section-representable}.
+\end{enumerate}
+Voici nos conventions concernant les morphismes de champs algébriques :
+\begin{enumerate}
+\item Un morphisme $f : \mathcal{X} \to \mathcal{Y}$
+de champs algébriques est {\it représentable}, ou
+{\it représentable par des schémas}, si, pour tout schéma
+$T$ et tout morphisme $T \to \mathcal{Y}$, le produit fibré
+$T \times_\mathcal{Y} \mathcal{X}$ est un schéma.
+Voir
+Champs algébriques, section \ref{algebraic-section-representable-morphism}.
+\item Un morphisme $f : \mathcal{X} \to \mathcal{Y}$
+de champs algébriques est {\it représentable par des espaces algébriques}
+si, pour tout schéma $T$ et tout morphisme $T \to \mathcal{Y}$, le produit fibré
+$T \times_\mathcal{Y} \mathcal{X}$ est un espace algébrique.
+Voir Champs algébriques,
+Définition \ref{algebraic-definition-representable-by-algebraic-spaces}.
+Dans ce cas, $Z \times_\mathcal{Y} \mathcal{X}$ est un espace
+algébrique dès que $Z \to \mathcal{Y}$ est un morphisme dont la source est
+un espace algébrique, voir
+Champs algébriques,
+Lemme \ref{algebraic-lemma-base-change-by-space-representable-by-space}.
+\item Nous pourrons abuser du langage et dire qu'un diagramme de champs algébriques
+commute si le diagramme est $2$-commutatif dans la $2$-catégorie des
+champs algébriques.
+\end{enumerate}
+Remarquons que tout morphisme $X \to \mathcal{Y}$ d'un espace algébrique
+vers un champ algébrique est représentable par des espaces algébriques, voir
+Champs algébriques, Lemme \ref{algebraic-lemma-representable-diagonal}.
+Nous utiliserons ce résultat fondamental sans plus le rappeler.
+
+
+
+
+\section{Propriétés des morphismes représentables par des espaces algébriques}
+\label{section-properties-morphisms}
+
+\noindent
+Nous étudierons les propriétés des morphismes (quelconques) de champs algébriques
+dans un chapitre qui leur est propre. Pour les morphismes représentables par des espaces algébriques, nous savons ce que
+signifie être surjectif, lisse, ou \'etale, etc. Cela s'applique en particulier
+aux morphismes $X \to \mathcal{Y}$ des espaces algébriques vers les champs algébriques.
+Dans cette section, nous rappelons le fonctionnement de cette notion, nous dressons la liste des propriétés
+auxquelles elle s'applique et nous démontrons quelques lemmes faciles.
+
+\medskip\noindent
+Notre premier lemme affirme qu'un morphisme est représentable par des espaces algébriques
+s'il le devient après un changement de base par un morphisme plat,
+localement de présentation finie et surjectif.
+
+\begin{lemma}
+\label{lemma-check-representable-covering}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Soit $W$ un espace algébrique et soit $W \to \mathcal{Y}$ un morphisme surjectif,
+localement de présentation finie et plat. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est représentable par des espaces algébriques, et
+\item $W \times_\mathcal{Y} \mathcal{X}$ est un espace algébrique.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (1) $\Rightarrow$ (2) est
+Champs algébriques,
+Lemme \ref{algebraic-lemma-base-change-by-space-representable-by-space}.
+Réciproquement, soit $W \to \mathcal{Y}$ comme en (2). Pour démontrer (1), il
+suffit de montrer que $f$ est fidèle sur les catégories fibres, voir
+Champs algébriques,
+Lemme \ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}.
+L'hypothèse (2) implique en particulier que
+$W \times_\mathcal{Y} \mathcal{X} \to W$ est fidèle.
+La fidélité de $f$ résulte donc de
+Champs, Lemme \ref{stacks-lemma-faithful-descent}.
+\end{proof}
+
+\noindent
+Soit $P$ une propriété des morphismes d'espaces algébriques qui est
+locale pour la topologie fppf sur le but et préservée par tout changement de base.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+représentable par des espaces algébriques. Nous disons alors que
+{\it $f$ possède la propriété $P$} si et seulement si, pour tout schéma $T$
+et tout morphisme $T \to \mathcal{Y}$, le morphisme d'espaces algébriques
+$T \times_\mathcal{Y} \mathcal{X} \to T$ possède la propriété $P$, voir
+Champs algébriques,
+Définition \ref{algebraic-definition-relative-representable-property}.
+
+\medskip\noindent
+Il se trouve que si $f : \mathcal{X} \to \mathcal{Y}$ est représentable
+par des espaces algébriques et possède la propriété $P$, alors, pour tout morphisme de champs algébriques
+$\mathcal{Y}' \to \mathcal{Y}$, le changement de base
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X} \to \mathcal{Y}'$
+possède la propriété $P$, voir
+Champs algébriques,
+Lemmes \ref{algebraic-lemma-base-change-representable-by-spaces} et
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+Si la propriété $P$ est préservée par composition, cela vaut
+également pour les morphismes de champs algébriques représentables par
+des espaces algébriques, voir
+Champs algébriques,
+Lemmes \ref{algebraic-lemma-composition-representable-by-spaces} et
+\ref{algebraic-lemma-composition-representable-transformations-property}.
+En outre, dans ce cas, les produits
+$\mathcal{X}_1 \times \mathcal{X}_2 \to \mathcal{Y}_1 \times \mathcal{Y}_2$
+de morphismes représentables par des espaces algébriques et possédant la propriété $\mathcal{P}$
+possèdent la propriété $\mathcal{P}$, voir
+Champs algébriques, Lemme
+\ref{algebraic-lemma-product-representable-transformations-property}.
+
+\medskip\noindent
+Enfin, si nous avons deux propriétés $P, P'$ de morphismes d'espaces algébriques
+qui sont locales pour la topologie fppf sur le but et préservées par tout changement de base,
+et si $P(f) \Rightarrow P'(f)$ pour tout morphisme $f$, alors la même
+implication vaut pour les propriétés correspondantes des morphismes de champs algébriques
+représentables par des espaces algébriques, voir
+Champs algébriques, Lemme
+\ref{algebraic-lemma-representable-transformations-property-implication}.
+Nous l'utiliserons {\it sans autre mention} ci-dessous et dans les
+chapitres suivants.
+
+\medskip\noindent
+La discussion ci-dessus s'applique à chacune des propriétés suivantes des
+morphismes d'espaces algébriques :
+\begin{enumerate}
+\item quasi-compact, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-quasi-compact}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-quasi-compact},
+\item quasi-séparé, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-separated}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-quasi-separated},
+\item universellement fermé, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-universally-closed}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-universally-closed},
+\item universellement ouvert, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-universally-open}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-universally-open},
+\item universellement submersif, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-universally-submersive}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-universally-submersive},
+\item un homéomorphisme universel, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-universal-homeomorphism}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-universal-homeomorphism},
+\item surjectif, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-surjective}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-surjective},
+\item universellement injectif, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-universally-injective}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-universally-injective},
+\item localement de type fini, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-finite-type}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-locally-finite-type},
+\item localement de présentation finie, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-finite-presentation}
+et
+Descente sur les espaces, Lemme
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation},
+\item de type fini, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-finite-type}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-finite-type},
+\item de présentation finie, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-finite-presentation}
+et
+Descente sur les espaces, Lemme
+\ref{spaces-descent-lemma-descending-property-finite-presentation},
+\item plat, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-flat}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-flat},
+\item une immersion ouverte, voir
+Morphismes d'espaces,
+section \ref{spaces-morphisms-section-immersions}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-open-immersion},
+\item un isomorphisme, voir
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-isomorphism},
+\item affine, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-affine}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-affine},
+\item une immersion fermée, voir
+Morphismes d'espaces, section \ref{spaces-morphisms-section-immersions}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-closed-immersion},
+\item séparé, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-separated}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-separated},
+\item propre, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-proper}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-proper},
+\item quasi-affine, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-quasi-affine}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-quasi-affine},
+\item entier, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-integral}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-integral},
+\item fini, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-integral}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-finite},
+\item quasi-fini (localement), voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-quasi-finite}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-quasi-finite},
+\item syntomique, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-syntomic}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-syntomic},
+\item lisse, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-smooth}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-smooth},
+\item non ramifié, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-unramified}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-unramified},
+\item \'etale, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-etale}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-etale},
+\item fini localement libre, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-finite-locally-free}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-finite-locally-free},
+\item un monomorphisme, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-monomorphism}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-property-monomorphism},
+\item une immersion, voir
+Morphismes d'espaces, section \ref{spaces-morphisms-section-immersions}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-fppf-property-immersion},
+\item localement séparé, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-separated}
+et
+Descente sur les espaces,
+Lemme \ref{spaces-descent-lemma-descending-fppf-property-locally-separated},
+\end{enumerate}
+
+\begin{lemma}
+\label{lemma-property-spaces-too}
+Soit $P$ une propriété des morphismes d'espaces algébriques comme ci-dessus.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+représentable par des espaces algébriques. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ possède $P$,
+\item pour tout espace algébrique $Z$ et tout morphisme $Z \to \mathcal{Y}$,
+le morphisme $Z \times_\mathcal{Y} \mathcal{X} \to Z$ possède $P$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (2) $\Rightarrow$ (1) est immédiate. Supposons (1).
+Soit $Z \to \mathcal{Y}$ comme en (2). Choisissons un schéma $U$ et un
+morphisme \'etale surjectif $U \to Z$. Par hypothèse, le morphisme
+$U \times_\mathcal{Y} \mathcal{X} \to U$ possède $P$. Mais le diagramme
+$$
+\xymatrix{
+U \times_\mathcal{Y} \mathcal{X} \ar[d] \ar[r] &
+Z \times_\mathcal{Y} \mathcal{X} \ar[d] \\
+U \ar[r] & Z
+}
+$$
+est cartésien; la flèche verticale de droite possède donc $P$, puisque
+$\{U \to Z\}$ est un recouvrement fppf.
+\end{proof}
+
+\noindent
+Le lemme suivant nous dit qu'il suffit de vérifier $P$
+après un changement de base par un morphisme surjectif, plat et localement
+de présentation finie.
+
+\begin{lemma}
+\label{lemma-check-property-covering}
+Soit $P$ une propriété des morphismes d'espaces algébriques comme ci-dessus.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+représentable par des espaces algébriques.
+Soit $W$ un espace algébrique et soit $W \to \mathcal{Y}$ un morphisme surjectif,
+localement de présentation finie et plat.
+Posons $V = W \times_\mathcal{Y} \mathcal{X}$. Alors
+$$
+(f\text{ possède }P) \Leftrightarrow (\text{la projection }V \to W\text{ possède }P).
+$$
+\end{lemma}
+
+\begin{proof}
+L'implication de gauche à droite résulte du
+Lemme \ref{lemma-property-spaces-too}.
+Supposons que $V \to W$ possède $P$. Soit $T$ un schéma et soit
+$T \to \mathcal{Y}$ un morphisme. Considérons le diagramme commutatif
+$$
+\xymatrix{
+T \times_\mathcal{Y} \mathcal{X} \ar[d] &
+T \times_\mathcal{Y} V \ar[d] \ar[l] \ar[r] &
+V \ar[d] \\
+T & T \times_\mathcal{Y} W \ar[l] \ar[r] & W
+}
+$$
+d'espaces algébriques. Les carrés sont cartésiens.
+Le morphisme inférieur de gauche est un morphisme surjectif et plat, localement de
+présentation finie; $\{T \times_\mathcal{Y} V \to T\}$ est donc un
+recouvrement fppf. Par conséquent, le fait que la flèche verticale de droite possède la propriété
+$P$ implique que la flèche verticale de gauche possède la propriété $P$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-property-weak-covering}
+Soit $P$ une propriété des morphismes d'espaces algébriques comme ci-dessus.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+représentable par des espaces algébriques.
+Soit $\mathcal{Z} \to \mathcal{Y}$ un morphisme de champs algébriques qui
+est représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie.
+Posons $\mathcal{W} = \mathcal{Z} \times_\mathcal{Y} \mathcal{X}$. Alors
+$$
+(f\text{ possède }P) \Leftrightarrow
+(\text{la projection }\mathcal{W} \to \mathcal{Z}\text{ possède }P).
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un espace algébrique $W$ et un morphisme
+$W \to \mathcal{Z}$ qui soit surjectif, plat et localement de présentation
+finie. D'après la discussion ci-dessus, le composé
+$W \to \mathcal{Y}$ est aussi surjectif, plat et localement de présentation
+finie. Notons
+$V = W \times_\mathcal{Z} \mathcal{W} = V \times_\mathcal{Y} \mathcal{X}$.
+Par le
+Lemme \ref{lemma-check-property-covering},
+nous voyons que $f$ possède $\mathcal{P}$ si et seulement si $V \to W$ la possède,
+et que $\mathcal{W} \to \mathcal{Z}$ possède $\mathcal{P}$ si et seulement
+si $V \to W$ la possède. Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-property-after-precomposing}
+Soit $P$ une propriété des morphismes d'espaces algébriques comme ci-dessus.
+Soit $\tau \in \{\etale, smooth, syntomic, fppf\}$.
+Soient $\mathcal{X} \to \mathcal{Y}$ et $\mathcal{Y} \to \mathcal{Z}$
+des morphismes de champs algébriques représentables par des espaces algébriques.
+Supposons que
+\begin{enumerate}
+\item $\mathcal{X} \to \mathcal{Y}$ soit surjectif et
+\'etale, lisse, syntomique, ou plat et localement de présentation finie,
+\item le composé possède $P$, et
+\item $P$ soit locale sur la source pour la topologie $\tau$.
+\end{enumerate}
+Alors $\mathcal{Y} \to \mathcal{Z}$ possède la propriété $P$.
+\end{lemma}
+
+\begin{proof}
+Soit $Z$ un schéma et soit $Z \to \mathcal{Z}$ un morphisme.
+Posons $X = \mathcal{X} \times_\mathcal{Z} Z$,
+$Y = \mathcal{Y} \times_\mathcal{Z} Z$. D'après (1), $\{X \to Y\}$
+est un recouvrement pour la topologie $\tau$ d'espaces algébriques, et, d'après (2), $X \to Z$ possède la propriété
+$P$. D'après (3), il en résulte que $Y \to Z$ possède la propriété $P$,
+ce qui conclut la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-in-terms-presentations}
+Soit $g : \mathcal{X}' \to \mathcal{X}$ un morphisme de champs algébriques
+qui soit représentable par des espaces algébriques. Soit $[U/R] \to \mathcal{X}$
+une présentation. Posons $U' = U \times_\mathcal{X} \mathcal{X}'$,
+et $R' = R \times_\mathcal{X} \mathcal{X}'$.
+Il existe alors un groupoïde en espaces algébriques de la forme
+$(U', R', s', t', c')$, une présentation $[U'/R'] \to \mathcal{X}'$,
+et le diagramme
+$$
+\xymatrix{
+[U'/R'] \ar[d]_{[\text{pr}]} \ar[r] & \mathcal{X}' \ar[d]^g \\
+[U/R] \ar[r] & \mathcal{X}
+}
+$$
+est $2$-commutatif, où le morphisme $[\text{pr}]$ provient d'un
+morphisme de groupoïdes
+$\text{pr} : (U', R', s', t', c') \to (U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+Puisque $U \to \mathcal{Y}$ est surjectif et lisse, voir
+Champs algébriques,
+Lemme \ref{algebraic-lemma-smooth-quotient-smooth-presentation},
+le changement de base $U' \to \mathcal{X}'$ est aussi surjectif et lisse.
+Par suite, d'après
+Champs algébriques,
+Lemme \ref{algebraic-lemma-stack-presentation},
+il suffit de montrer que $R' = U' \times_{\mathcal{X}'} U'$ afin
+d'obtenir un groupoïde lisse $(U', R', s', t', c')$ et une présentation
+$[U'/R'] \to \mathcal{X}'$.
+Comme $R = V \times_\mathcal{Y} V$ (voir
+Groupoïdes en espaces,
+Lemme \ref{spaces-groupoids-lemma-quotient-stack-2-cartesian}),
+cela résulte de
+$$
+R' =
+U \times_\mathcal{X} U \times_\mathcal{X} \mathcal{X}' =
+(U \times_\mathcal{X} \mathcal{X}')
+\times_{\mathcal{X}'}
+(U \times_\mathcal{X} \mathcal{X}')
+$$
+voir
+Catégories, Lemmes \ref{categories-lemma-associativity-2-fibre-product} et
+\ref{categories-lemma-2-fibre-product-erase-factor}.
+Il est clair que les morphismes de projection $U' \to U$ et $R' \to R$ donnent le
+morphisme de groupoïdes désiré
+$\text{pr} : (U', R', s', t', c') \to (U, R, s, t, c)$.
+On obtient donc le morphisme $[\text{pr}]$ des champs quotients grâce à
+Groupoïdes en espaces,
+Lemme \ref{spaces-groupoids-lemma-quotient-stack-functorial}.
+
+\medskip\noindent
+Il nous reste à montrer que le diagramme est $2$-commutatif.
+Il est clair que le diagramme
+$$
+\xymatrix{
+U' \ar[d]_{\text{pr}_U} \ar[r]_{f'} & \mathcal{X}' \ar[d]^g \\
+U \ar[r]^f & \mathcal{X}
+}
+$$
+est $2$-commutatif, où $\text{pr}_U : U' \to U$ est la projection.
+Il existe une $2$-flèche canonique
+$\tau : f \circ t \to f \circ s$ dans $\Mor(R, \mathcal{X})$
+provenant de $R = U \times_\mathcal{X} U$, $t = \text{pr}_0$, et
+$s = \text{pr}_1$. En utilisant l'isomorphisme
+$R' \to U' \times_{\mathcal{X}'} U'$, nous obtenons de même un isomorphisme
+$\tau' : f' \circ t' \to f' \circ s'$. Remarquons que
+$g \circ f' \circ t' = f \circ t \circ \text{pr}_R$ et
+$g \circ f' \circ s' = f \circ s \circ \text{pr}_R$, où
+$\text{pr}_R : R' \to R$ est la projection. Il est donc légitime de se demander
+si
+\begin{equation}
+\label{equation-verify}
+\tau \star \text{id}_{\text{pr}_R} = \text{id}_g \star \tau'.
+\end{equation}
+Nous avançons maintenant deux assertions : (1) si l'équation (\ref{equation-verify}) est satisfaite,
+alors le diagramme est $2$-commutatif, et (2) l'équation (\ref{equation-verify}) est satisfaite.
+Nous omettons la démonstration de ces deux assertions. Indications : la partie (1) résulte de la
+construction de $f = f_{can}$ et $f' = f'_{can}$ dans
+Champs algébriques, Lemme \ref{algebraic-lemma-map-space-into-stack}.
+La partie (2) résulte d'un examen attentif des définitions.
+\end{proof}
+
+\begin{remark}
+\label{remark-representable-over}
+Soit $\mathcal{Y}$ un champ algébrique. Considérons la
+$2$-catégorie suivante :
+\begin{enumerate}
+\item un objet est un morphisme $f : \mathcal{X} \to \mathcal{Y}$
+représentable par des espaces algébriques,
+\item un $1$-morphisme
+$(g, \beta) :
+(f_1 : \mathcal{X}_1 \to \mathcal{Y})
+\to
+(f_2 : \mathcal{X}_2 \to \mathcal{Y})$
+consiste en un morphisme $g : \mathcal{X}_1 \to \mathcal{X}_2$ et un
+$2$-morphisme $\beta : f_1 \to f_2 \circ g$, et
+\item un $2$-morphisme entre
+$(g, \beta), (g', \beta') :
+(f_1 : \mathcal{X}_1 \to \mathcal{Y})
+\to
+(f_2 : \mathcal{X}_2 \to \mathcal{Y})$
+est un $2$-morphisme $\alpha : g \to g'$ tel que
+$(\text{id}_{f_2} \star \alpha) \circ \beta = \beta'$.
+\end{enumerate}
+Notons cette $2$-catégorie $\textit{Espaces}/\mathcal{Y}$, par
+analogie avec la notation de
+Topologies sur les espaces, section \ref{spaces-topologies-section-procedure}.
+Nous affirmons que, dans cette $2$-catégorie, les catégories de morphismes
+$$
+\Mor_{\textit{Espaces}/\mathcal{Y}}(
+(f_1 : \mathcal{X}_1 \to \mathcal{Y}),
+(f_2 : \mathcal{X}_2 \to \mathcal{Y}))
+$$
+sont toutes des setoïdes. En effet, un $2$-morphisme $\alpha$ est une règle qui, à tout
+objet $x_1$ de $\mathcal{X}_1$, associe un isomorphisme
+$\alpha_{x_1} : g(x_1) \longrightarrow g'(x_1)$
+dans la catégorie fibre correspondante de $\mathcal{X}_2$, de telle sorte que le diagramme
+$$
+\xymatrix{
+& f_2(x_1) \ar[ld]_{\beta_{x_1}} \ar[rd]^{\beta'_{x_1}} \\
+f_2(g(x_1)) \ar[rr]^{f_2(\alpha_{x_1})} & &
+f_2(g'(x_1))
+}
+$$
+commute. Mais, puisque $f_2$ est fidèle (voir
+Champs algébriques,
+Lemme \ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}),
+cela signifie que, si $\alpha_{x_1}$ existe, il est unique ! Autrement dit, la
+$2$-catégorie $\textit{Espaces}/\mathcal{Y}$ est très proche d'être
+une catégorie. Plus précisément, si nous remplaçons les $1$-morphismes par les classes
+d'isomorphisme de $1$-morphismes, nous obtenons une catégorie. Nous effectuerons souvent
+ce remplacement sans autre mention.
+\end{remark}
+
+
+
+
+\section{Points des champs algébriques}
+\label{section-points}
+
+\noindent
+Soit $\mathcal{X}$ un champ algébrique. Soient $K, L$ deux corps,
+et soient $p : \Spec(K) \to \mathcal{X}$ et
+$q : \Spec(L) \to \mathcal{X}$ des morphismes.
+Nous disons que $p$ et $q$ sont {\it équivalents} s'il existe un
+corps $\Omega$ et un diagramme $2$-commutatif
+$$
+\xymatrix{
+\Spec(\Omega) \ar[r] \ar[d] &
+\Spec(L) \ar[d]^q \\
+\Spec(K) \ar[r]^p &
+\mathcal{X}.
+}
+$$
+
+\begin{lemma}
+\label{lemma-equivalence}
+La notion ci-dessus définit bien une relation d'équivalence sur les
+morphismes des spectres de corps vers le champ algébrique $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Il est clair que la relation est réflexive et symétrique.
+Il reste donc à montrer qu'elle est transitive. Cela revient
+à ceci : étant donné un diagramme
+$$
+\xymatrix{
+\Spec(\Omega) \ar[r]_b \ar[d]_a &
+\Spec(L) \ar[d]^q & \Spec(\Omega') \ar[l]^{b'} \ar[d]^{a'} \\
+\Spec(K) \ar[r]^p &
+\mathcal{X} &
+\Spec(K') \ar[l]_{p'}
+}
+$$
+dont les deux carrés sont $2$-commutatifs, nous devons montrer que $p$ est équivalent à
+$p'$. Par le lemme de $2$-Yoneda (voir
+Champs algébriques, section \ref{algebraic-section-2-yoneda}),
+les morphismes $p$, $p'$ et $q$ sont donnés par des objets
+$x$, $x'$ et $y$ dans les catégories fibres de $\mathcal{X}$ au-dessus de
+$\Spec(K)$, $\Spec(K')$ et $\Spec(L)$. La
+$2$-commutativité des carrés signifie qu'il existe des isomorphismes
+$\alpha : a^*x \to b^*y$ et $\alpha' : (a')^*x' \to (b')^*y$
+dans les catégories fibres
+de $\mathcal{X}$ au-dessus de $\Spec(\Omega)$ et $\Spec(\Omega')$.
+Choisissons un corps $\Omega''$ et des plongements
+$\Omega \to \Omega''$ et $\Omega' \to \Omega''$ coïncidant sur $L$.
+Nous pouvons alors prolonger le diagramme ci-dessus en
+$$
+\xymatrix{
+& \Spec(\Omega'') \ar[ld]_c \ar[d]^{q'} \ar[rd]^{c'} \\
+\Spec(\Omega) \ar[r]_b \ar[d]_a &
+\Spec(L) \ar[d]^q & \Spec(\Omega') \ar[l]^{b'} \ar[d]^{a'} \\
+\Spec(K) \ar[r]^p &
+\mathcal{X} &
+\Spec(K') \ar[l]_{p'}
+}
+$$
+avec des triangles commutatifs, et
+$$
+(q')^*(\alpha')^{-1} \circ (q')^*\alpha :
+(a \circ c)^*x
+\longrightarrow
+(a' \circ c')^*x'
+$$
+est un isomorphisme dans la catégorie fibre au-dessus de $\Spec(\Omega'')$.
+Ainsi, $p$ est équivalent à $p'$, comme souhaité.
+\end{proof}
+
+\begin{definition}
+\label{definition-points}
+Soit $\mathcal{X}$ un champ algébrique.
+Un {\it point} de $\mathcal{X}$ est une classe d'équivalence de morphismes
+de spectres de corps vers $\mathcal{X}$.
+L'ensemble des points de $\mathcal{X}$ est noté $|\mathcal{X}|$.
+\end{definition}
+
+\noindent
+Cela concorde avec notre définition des points des espaces algébriques, voir
+Propriétés des espaces, Définition \ref{spaces-properties-definition-points}.
+De plus, pour un schéma, nous retrouvons la notion usuelle de point, voir
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-scheme-points}.
+Si $f : \mathcal{X} \to \mathcal{Y}$ est un morphisme de champs algébriques,
+il existe une application induite $|f| : |\mathcal{X}| \to |\mathcal{Y}|$ qui
+envoie un représentant $x : \Spec(K) \to \mathcal{X}$ sur le
+représentant $f \circ x : \Spec(K) \to \mathcal{Y}$. Celle-ci est
+bien définie : en effet, lorsqu'ils sont $2$-isomorphes, des $1$-morphismes restent $2$-isomorphes après
+pré- ou postcomposition par un $1$-morphisme, car on peut les pré- ou postcomposer horizontalement
+par l'identité du $1$-morphisme donné. Cela vaut
+dans toute $(2, 1)$-catégorie (stricte). Si
+$$
+\xymatrix{
+\mathcal{X} \ar[d] \ar[r] & \mathcal{Y} \ar[d] \\
+\mathcal{W} \ar[r] & \mathcal{Z}
+}
+$$
+est un diagramme $2$-commutatif de champs algébriques, alors le diagramme
+d'ensembles
+$$
+\xymatrix{
+|\mathcal{X}| \ar[d] \ar[r] & |\mathcal{Y}| \ar[d] \\
+|\mathcal{W}| \ar[r] & |\mathcal{Z}|
+}
+$$
+est commutatif.
+En particulier, si $\mathcal{X} \to \mathcal{Y}$ est une équivalence,
+alors $|\mathcal{X}| \to |\mathcal{Y}|$ est une bijection.
+
+\begin{lemma}
+\label{lemma-points-cartesian}
+Soit
+$$
+\xymatrix{
+\mathcal{Z} \times_\mathcal{Y} \mathcal{X} \ar[r] \ar[d] &
+\mathcal{X} \ar[d] \\
+\mathcal{Z} \ar[r] & \mathcal{Y}
+}
+$$
+un produit fibré de champs algébriques. Alors l'application d'ensembles
+de points
+$$
+|\mathcal{Z} \times_\mathcal{Y} \mathcal{X}|
+\longrightarrow
+|\mathcal{Z}| \times_{|\mathcal{Y}|} |\mathcal{X}|
+$$
+est surjective.
+\end{lemma}
+
+\begin{proof}
+En effet, supposons donnés des corps $K$, $L$ et des morphismes
+$\Spec(K) \to \mathcal{X}$, $\Spec(L) \to \mathcal{Z}$.
+L'hypothèse qu'ils coïncident comme éléments de $|\mathcal{Y}|$ signifie alors
+qu'il existe une extension commune $M/K$ et $M/L$
+telle que
+$\Spec(M) \to \Spec(K) \to \mathcal{X} \to \mathcal{Y}$ et
+$\Spec(M) \to \Spec(L) \to \mathcal{Z} \to \mathcal{Y}$
+soient $2$-isomorphes. Et c'est exactement la condition qui donne un
+morphisme $\Spec(M) \to \mathcal{Z} \times_\mathcal{Y} \mathcal{X}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-surjective}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+représentable par des espaces algébriques. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $|f| : |\mathcal{X}| \to |\mathcal{Y}|$ est surjective, et
+\item $f$ est surjectif
+(au sens de la section \ref{section-properties-morphisms}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1). Soit $T \to \mathcal{Y}$ un morphisme dont la source est un schéma.
+Pour démontrer (2), nous devons montrer que le morphisme d'espaces algébriques
+$T \times_\mathcal{Y} \mathcal{X} \to T$ est surjectif. D'après
+Morphismes d'espaces, Définition \ref{spaces-morphisms-definition-surjective},
+cela signifie que nous devons montrer que
+$|T \times_\mathcal{Y} \mathcal{X}| \to |T|$ est surjective.
+En appliquant le
+Lemme \ref{lemma-points-cartesian},
+nous voyons que cela résulte de (1).
+
+\medskip\noindent
+Réciproquement, supposons (2). Soit $y : \Spec(K) \to \mathcal{Y}$ un
+morphisme du spectre d'un corps vers $\mathcal{Y}$. Par hypothèse, le
+morphisme
+$\Spec(K) \times_{y, \mathcal{Y}} \mathcal{X} \to \Spec(K)$
+d'espaces algébriques est surjectif. D'après
+Morphismes d'espaces, Définition \ref{spaces-morphisms-definition-surjective},
+cela signifie qu'il existe une extension de corps
+$K'/K$ et un morphisme
+$\Spec(K') \to \Spec(K) \times_{y, \mathcal{Y}} \mathcal{X}$
+tels que le carré de gauche du diagramme
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] &
+\Spec(K) \times_{y, \mathcal{Y}} \mathcal{X} \ar[d] \ar[r] &
+\mathcal{X} \ar[d]
+\\
+\Spec(K) \ar@{=}[r] &
+\Spec(K) \ar[r]^-y &
+\mathcal{Y}
+}
+$$
+soit commutatif. Cela montre que $|X| \to |\mathcal{Y}|$ est surjective.
+\end{proof}
+
+\noindent
+Voici un lemme qui explique comment calculer l'ensemble des points à partir
+d'une présentation.
+
+\begin{lemma}
+\label{lemma-points-presentation}
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $\mathcal{X} = [U/R]$ une présentation de $\mathcal{X}$, voir
+Champs algébriques, Définition \ref{algebraic-definition-presentation}.
+Alors l'image de $|R| \to |U| \times |U|$ est une relation d'équivalence
+et $|\mathcal{X}|$ est le quotient de $|U|$ par cette relation d'équivalence.
+\end{lemma}
+
+\begin{proof}
+L'hypothèse signifie que nous avons un groupoïde lisse $(U, R, s, t, c)$
+en espaces algébriques, et une équivalence $f : [U/R] \to \mathcal{X}$.
+Nous pouvons supposer que $\mathcal{X} = [U/R]$.
+Le morphisme induit $p : U \to \mathcal{X}$ est lisse et surjectif, voir
+Champs algébriques,
+Lemme \ref{algebraic-lemma-smooth-quotient-smooth-presentation}.
+Par conséquent, $|U| \to |\mathcal{X}|$ est surjective d'après le
+Lemme \ref{lemma-characterize-surjective}.
+Remarquons que $R = U \times_\mathcal{X} U$, voir
+Groupoïdes en espaces,
+Lemme \ref{spaces-groupoids-lemma-quotient-stack-2-cartesian}.
+Le
+Lemme \ref{lemma-points-cartesian}
+implique donc que l'application
+$$
+|R| \longrightarrow |U| \times_{|\mathcal{X}|} |U|
+$$
+est surjective. L'image de $|R| \to |U| \times |U|$ est donc
+exactement l'ensemble des couples $(u_1, u_2) \in |U| \times |U|$
+tels que $u_1$ et $u_2$ aient la même image dans $|\mathcal{X}|$.
+En combinant ces deux assertions, nous obtenons le résultat du lemme.
+\end{proof}
+
+\begin{remark}
+\label{remark-more-general-presentation}
+Le résultat du
+Lemme \ref{lemma-points-presentation}
+se généralise comme suit.
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $U$ un espace algébrique et soit $f : U \to \mathcal{X}$ un morphisme surjectif
+(ce qui a un sens d'après la
+section \ref{section-properties-morphisms}).
+Soit $R = U \times_\mathcal{X} U$, soit $(U, R, s, t, c)$ le groupoïde
+en espaces algébriques et soit $f_{can} : [U/R] \to \mathcal{X}$ le
+morphisme canonique construit dans
+Champs algébriques, Lemme \ref{algebraic-lemma-map-space-into-stack}.
+Alors l'image de $|R| \to |U| \times |U|$ est une relation d'équivalence
+et $|\mathcal{X}| = |U|/|R|$. La démonstration du
+Lemme \ref{lemma-points-presentation}
+s'applique sans changement. (Bien entendu, en général, $[U/R]$ n'est pas un champ
+algébrique et, en général, $f_{can}$ n'est pas un isomorphisme.)
+\end{remark}
+
+\begin{lemma}
+\label{lemma-topology-points}
+Il existe une unique topologie sur les ensembles de points
+des champs algébriques qui possède les propriétés suivantes :
+\begin{enumerate}
+\item pour tout morphisme de champs algébriques $\mathcal{X} \to \mathcal{Y}$,
+l'application $|\mathcal{X}| \to |\mathcal{Y}|$ est continue, et
+\item pour tout morphisme $U \to \mathcal{X}$ qui est plat et localement
+de présentation finie, où $U$ est un espace algébrique,
+l'application d'espaces topologiques $|U| \to |\mathcal{X}|$ est continue et ouverte.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un morphisme $p : U \to \mathcal{X}$ qui soit
+surjectif, plat et localement de présentation finie,
+où $U$ est un espace algébrique. Un tel morphisme existe par définition d'un champ
+algébrique, puisqu'un morphisme lisse est plat et localement de présentation finie
+(voir
+Morphismes d'espaces,
+Lemmes \ref{spaces-morphisms-lemma-smooth-locally-finite-presentation} et
+\ref{spaces-morphisms-lemma-smooth-flat}).
+Nous définissons une topologie sur $|\mathcal{X}|$ par la règle suivante :
+$W \subset |\mathcal{X}|$ est ouvert si et seulement si $|p|^{-1}(W)$ est ouvert
+dans $|U|$. Pour montrer que cette définition est indépendante du choix de $p$, soit
+$p' : U' \to \mathcal{X}$ un autre morphisme surjectif, plat et
+localement de présentation finie d'un espace algébrique vers
+$\mathcal{X}$. Posons $U'' = U \times_\mathcal{X} U'$,
+de sorte que nous avons un diagramme $2$-commutatif
+$$
+\xymatrix{
+U'' \ar[r] \ar[d] & U' \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+Puisque $U \to \mathcal{X}$ et $U' \to \mathcal{X}$ sont surjectifs, plats et
+localement de présentation finie, nous voyons que $U'' \to U'$ et $U'' \to U$
+sont surjectifs, plats et localement de présentation finie, voir
+Lemme \ref{lemma-property-spaces-too}.
+Par conséquent, les applications $|U''| \to |U'|$ et $|U''| \to |U|$ sont continues, ouvertes
+et surjectives, voir
+Morphismes d'espaces,
+Définition \ref{spaces-morphisms-definition-surjective} et
+Lemme \ref{spaces-morphisms-lemma-fppf-open}.
+Cela implique clairement que notre définition est indépendante du choix
+de $p : U \to \mathcal{X}$.
+
+\medskip\noindent
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+D'après
+Champs algébriques, Lemme \ref{algebraic-lemma-lift-morphism-presentations},
+nous pouvons trouver un diagramme $2$-commutatif
+$$
+\xymatrix{
+U \ar[d]_x \ar[r]_a & V \ar[d]^y \\
+\mathcal{X} \ar[r]^f & \mathcal{Y}
+}
+$$
+dont les flèches verticales sont lisses et surjectives.
+Considérons le diagramme commutatif associé
+$$
+\xymatrix{
+|U| \ar[d]_{|x|} \ar[r]_{|a|} & |V| \ar[d]^{|y|} \\
+|\mathcal{X}| \ar[r]^{|f|} & |\mathcal{Y}|
+}
+$$
+d'ensembles. Si $W \subset |\mathcal{Y}|$ est ouvert, alors, par la définition
+ci-dessus, cela signifie exactement que $|y|^{-1}(W)$ est ouvert dans $|V|$. Puisque
+$|a|$ est continue, nous en concluons que
+$|a|^{-1}|y|^{-1}(W) = |x|^{-1}|f|^{-1}(W)$ est ouvert dans $|W|$, ce qui signifie,
+par définition, que $|f|^{-1}(W)$ est ouvert dans $|\mathcal{X}|$.
+Ainsi, $|f|$ est continue.
+
+\medskip\noindent
+Enfin, nous devons montrer que si $U$ est un espace algébrique et si
+$U \to \mathcal{X}$ est plat et localement de présentation finie, alors
+$|U| \to |\mathcal{X}|$ est ouverte. Soit $V \to \mathcal{X}$ un morphisme surjectif,
+plat et localement de présentation finie, où $V$ est un espace algébrique.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+|U \times_\mathcal{X} V| \ar[r]_e \ar[rd]_f &
+|U| \times_{|\mathcal{X}|} |V| \ar[d]_c \ar[r]_d &
+|V| \ar[d]^b \\
+& |U| \ar[r]^a & |\mathcal{X}|
+}
+$$
+Le morphisme $U \times_\mathcal{X} V \to U$ est surjectif, c'est-à-dire que
+$f : |U \times_\mathcal{X} V| \to |U|$ est surjective.
+La flèche horizontale supérieure de gauche est surjective, voir
+Lemme \ref{lemma-points-cartesian}.
+Le morphisme $U \times_\mathcal{X} V \to V$ est plat et localement de présentation
+finie; $d \circ e : |U \times_\mathcal{X} V| \to |V|$ est donc ouverte,
+voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-fppf-open}.
+Choisissons un ouvert $W \subset |U|$. Les propriétés ci-dessus impliquent que
+$b^{-1}(a(W)) = (d \circ e)(f^{-1}(W))$ est ouvert, ce qui, par construction, signifie
+que $a(W)$ est ouvert, comme souhaité.
+\end{proof}
+
+\begin{definition}
+\label{definition-topological-space}
+Soit $\mathcal{X}$ un champ algébrique.
+L'{\it espace topologique} sous-jacent à $\mathcal{X}$ est l'ensemble des points
+$|\mathcal{X}|$ muni de la topologie construite dans le
+Lemme \ref{lemma-topology-points}.
+\end{definition}
+
+\noindent
+Cette définition n'entre pas en conflit avec la topologie déjà existante
+sur $|\mathcal{X}|$ lorsque $\mathcal{X}$ est un espace algébrique.
+
+\begin{lemma}
+\label{lemma-space-locally-quasi-compact}
+Soit $\mathcal{X}$ un champ algébrique.
+Tout point de $|\mathcal{X}|$ possède un système fondamental de
+voisinages ouverts quasi-compacts.
+En particulier, $|\mathcal{X}|$ est localement quasi-compact au sens de
+Topologie, Définition \ref{topology-definition-locally-quasi-compact}.
+\end{lemma}
+
+\begin{proof}
+Cela résulte formellement du fait qu'il existe un schéma
+$U$ et une application surjective, ouverte et continue $U \to |\mathcal{X}|$
+d'espaces topologiques. En effet, si $U \to \mathcal{X}$ est surjectif et
+lisse, alors le
+Lemme \ref{lemma-topology-points}
+garantit que $|U| \to |\mathcal{X}|$ est continue, surjective et ouverte.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Morphismes surjectifs}
+\label{section-surjective}
+
+\noindent
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+représentable par des espaces algébriques. Dans la
+section \ref{section-properties-morphisms},
+nous avons déjà défini ce que signifie pour $f$ d'être surjectif. Dans le
+Lemme \ref{lemma-characterize-surjective},
+nous avons vu que cela équivaut à demander que
+$|f| : |\mathcal{X}| \to |\mathcal{Y}|$ soit surjective.
+Cela ouvre la voie à la définition suivante.
+
+\begin{definition}
+\label{definition-surjective}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Nous disons que $f$ est {\it surjectif} si l'application
+$|f| : |\mathcal{X}| \to |\mathcal{Y}|$ des espaces topologiques associés
+est surjective.
+\end{definition}
+
+\noindent
+Voici quelques lemmes.
+
+\begin{lemma}
+\label{lemma-composition-surjective}
+Le composé de morphismes surjectifs est surjectif.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-surjective}
+Tout changement de base d'un morphisme surjectif est surjectif.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : utiliser le
+Lemme \ref{lemma-points-cartesian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-surjective}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Soit $\mathcal{Y}' \to \mathcal{Y}$ un morphisme surjectif de champs
+algébriques. Si le changement de base $f' : \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}
+\to \mathcal{Y}'$ de $f$ est surjectif, alors $f$ est surjectif.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du
+Lemme \ref{lemma-points-cartesian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-permanence}
+Soient $\mathcal{X} \to \mathcal{Y} \to \mathcal{Z}$ des morphismes de
+champs algébriques. Si $\mathcal{X} \to \mathcal{Z}$ est surjectif,
+alors $\mathcal{Y} \to \mathcal{Z}$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Immédiat.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Champs algébriques quasi-compacts}
+\label{section-quasi-compact}
+
+\noindent
+La définition suivante équivaut à la définition pour les espaces
+algébriques d'après
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-quasi-compact-space}.
+
+\begin{definition}
+\label{definition-quasi-compact}
+Soit $\mathcal{X}$ un champ algébrique.
+Nous disons que $\mathcal{X}$ est {\it quasi-compact}
+si et seulement si $|\mathcal{X}|$ est quasi-compact.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-quasi-compact-stack}
+Soit $\mathcal{X}$ un champ algébrique.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{X}$ est quasi-compact,
+\item il existe un morphisme lisse surjectif $U \to \mathcal{X}$,
+où $U$ est un schéma affine,
+\item il existe un morphisme lisse surjectif $U \to \mathcal{X}$,
+où $U$ est un schéma quasi-compact,
+\item il existe un morphisme lisse surjectif $U \to \mathcal{X}$,
+où $U$ est un espace algébrique quasi-compact, et
+\item il existe un morphisme surjectif $\mathcal{U} \to \mathcal{X}$
+de champs algébriques tel que $\mathcal{U}$ soit quasi-compact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons le
+Lemme \ref{lemma-characterize-surjective}.
+Supposons que $\mathcal{U}$ et $\mathcal{U} \to \mathcal{X}$ soient comme en (5).
+Puisque $|\mathcal{U}| \to |\mathcal{X}|$ est surjective et
+continue, nous en concluons que $|\mathcal{X}|$ est quasi-compact.
+Ainsi, (5) implique (1). Les implications
+(2) $\Rightarrow$ (3) $\Rightarrow$ (4) $\Rightarrow$ (5)
+sont immédiates. Supposons (1), c'est-à-dire que $\mathcal{X}$ est quasi-compact, c'est-à-dire que
+$|\mathcal{X}|$ est quasi-compact. Choisissons un schéma $U$ et un morphisme lisse
+surjectif $U \to \mathcal{X}$. Puisque $|U| \to |\mathcal{X}|$
+est ouverte, nous voyons qu'il existe un ouvert quasi-compact $U' \subset U$
+tel que $|U'| \to |X|$ soit surjective (et toujours lisse).
+Choisissons un recouvrement ouvert affine fini $U' = U_1 \cup \ldots \cup U_n$.
+Alors $U_1 \amalg \ldots \amalg U_n \to \mathcal{X}$
+est un morphisme lisse surjectif dont la source est un
+schéma affine (Schémas, Lemme \ref{schemes-lemma-disjoint-union-affines}).
+Ainsi, (2) est satisfaite.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-disjoint-quasi-compact}
+Une réunion disjointe finie de champs algébriques quasi-compacts est
+un champ algébrique quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Cela résulte clairement du fait topologique correspondant.
+\end{proof}
+
+
+\section{Propriétés des champs algébriques définies par des propriétés des schémas}
+\label{section-types-properties}
+
+\noindent
+Toute propriété des schémas locale pour la topologie lisse donne naissance à une
+propriété correspondante des champs algébriques grâce au lemme suivant. Remarquons qu'une
+propriété des schémas qui est locale pour la topologie lisse est aussi locale pour la topologie \'etale,
+puisque tout recouvrement \'etale est aussi un recouvrement lisse. Ainsi, pour une propriété $P$
+des schémas locale pour la topologie lisse, nous savons ce que signifie dire qu'un
+espace algébrique possède $P$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-types-properties}.
+
+\begin{lemma}
+\label{lemma-type-property}
+Soit $\mathcal{P}$ une propriété des schémas qui est locale pour la topologie
+lisse, voir
+Descente, Définition \ref{descent-definition-property-local}.
+Soit $\mathcal{X}$ un champ algébrique. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un schéma $U$ et un morphisme lisse surjectif
+$U \to \mathcal{X}$ tels que le schéma $U$ possède la propriété $\mathcal{P}$,
+\item pour tout schéma $U$ et tout morphisme lisse $U \to \mathcal{X}$,
+le schéma $U$ possède la propriété $\mathcal{P}$,
+\item il existe un espace algébrique $U$ et un morphisme lisse surjectif
+$U \to \mathcal{X}$ tels que l'espace algébrique $U$ possède la propriété $\mathcal{P}$, et
+\item pour tout espace algébrique $U$ et tout morphisme lisse
+$U \to \mathcal{X}$, l'espace algébrique $U$ possède la propriété $\mathcal{P}$.
+\end{enumerate}
+Si $\mathcal{X}$ est un schéma $U$, cela équivaut à $\mathcal{P}(U)$.
+Si $\mathcal{X}$ est un espace algébrique $X$, cela équivaut à ce que
+$X$ possède la propriété $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Soit $U \to \mathcal{X}$ un morphisme surjectif et lisse, où $U$ est un espace algébrique.
+Soit $V \to \mathcal{X}$ un morphisme lisse, où $V$ est un espace algébrique.
+Choisissons des schémas $U'$ et $V'$ et des morphismes \'etales surjectifs
+$U' \to U$ et $V' \to V$. Enfin, choisissons un schéma $W$ et un
+morphisme \'etale surjectif $W \to V' \times_\mathcal{X} U'$.
+Alors $W \to V'$ et $W \to U'$ sont des morphismes lisses de schémas,
+car ce sont des composés de morphismes \'etales et lisses d'espaces algébriques, voir
+Morphismes d'espaces, Lemmes \ref{spaces-morphisms-lemma-etale-smooth} et
+\ref{spaces-morphisms-lemma-composition-smooth}.
+De plus, $W \to V'$ est surjectif puisque $U' \to \mathcal{X}$ est surjectif.
+Nous avons donc
+$$
+\mathcal{P}(U) \Leftrightarrow
+\mathcal{P}(U') \Rightarrow
+\mathcal{P}(W) \Rightarrow
+\mathcal{P}(V') \Leftrightarrow \mathcal{P}(V)
+$$
+où les équivalences résultent de la définition de la propriété $\mathcal{P}$ pour les
+espaces algébriques, et les deux implications résultent de
+Descente, Définition \ref{descent-definition-property-local}.
+Cela démontre (3) $\Rightarrow$ (4).
+
+\medskip\noindent
+Les implications (2) $\Rightarrow$ (1), (1) $\Rightarrow$ (3),
+et (4) $\Rightarrow$ (2) sont immédiates.
+\end{proof}
+
+\begin{definition}
+\label{definition-type-property}
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $\mathcal{P}$ une propriété des schémas qui est
+locale pour la topologie lisse.
+Nous disons que $\mathcal{X}$ {\it possède la propriété $\mathcal{P}$}
+si l'une quelconque des conditions équivalentes du
+Lemme \ref{lemma-type-property}
+est satisfaite.
+\end{definition}
+
+\begin{remark}
+\label{remark-list-properties-local-smooth-topology}
+Voici une liste de propriétés qui sont locales pour la topologie lisse
+(gardons à l'esprit que les topologies fpqc, fppf et syntomique sont
+plus fines que la topologie lisse) :
+\begin{enumerate}
+\item localement noethérien, voir
+Descente, Lemme \ref{descent-lemma-Noetherian-local-fppf},
+\item de Jacobson, voir
+Descente, Lemme \ref{descent-lemma-Jacobson-local-fppf},
+\item localement noethérien et $(S_k)$, voir
+Descente, Lemme \ref{descent-lemma-Sk-local-syntomic},
+\item Cohen-Macaulay, voir
+Descente, Lemme \ref{descent-lemma-CM-local-syntomic},
+\item réduit, voir
+Descente, Lemme \ref{descent-lemma-reduced-local-smooth},
+\item normal, voir
+Descente, Lemme \ref{descent-lemma-normal-local-smooth},
+\item localement noethérien et $(R_k)$, voir
+Descente, Lemme \ref{descent-lemma-Rk-local-smooth},
+\item régulier, voir
+Descente, Lemme \ref{descent-lemma-regular-local-smooth},
+\item de Nagata, voir
+Descente, Lemme \ref{descent-lemma-Nagata-local-smooth}.
+\end{enumerate}
+\end{remark}
+
+\noindent
+Toute propriété des germes de schémas locale pour la topologie lisse donne naissance à une
+propriété correspondante des champs algébriques. Remarquons qu'une propriété des germes locale pour la topologie lisse
+est aussi locale pour la topologie \'etale. Ainsi, pour une propriété $P$ des germes de
+schémas locale pour la topologie lisse, nous savons ce que signifie dire qu'un espace algébrique $X$ possède
+la propriété $P$ en $x \in |X|$, voir
+Propriétés des espaces, section \ref{section-types-properties}.
+
+\begin{lemma}
+\label{lemma-local-source-target-at-point}
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $x \in |\mathcal{X}|$ un point de $\mathcal{X}$.
+Soit $\mathcal{P}$ une propriété des germes de schémas locale pour la topologie lisse, voir
+Descente, Définition \ref{descent-definition-local-at-point}.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item pour tout morphisme lisse $U \to \mathcal{X}$, où $U$ est un schéma,
+et tout $u \in U$ tel que $a(u) = x$, on a $\mathcal{P}(U, u)$,
+\item il existe un morphisme lisse $U \to \mathcal{X}$, où $U$ est un schéma,
+et un $u \in U$ tel que $a(u) = x$, pour lesquels on a $\mathcal{P}(U, u)$,
+\item pour tout morphisme lisse $U \to \mathcal{X}$, où $U$ est un espace algébrique,
+et tout $u \in |U|$ tel que $a(u) = x$, l'espace algébrique $U$ possède la propriété
+$\mathcal{P}$ en $u$, et
+\item il existe un morphisme lisse $U \to \mathcal{X}$, où $U$ est un
+espace algébrique, et un $u \in |U|$ tel que $a(u) = x$, tels que l'espace algébrique
+$U$ possède la propriété $\mathcal{P}$ en $u$.
+\end{enumerate}
+Si $\mathcal{X}$ est représentable, cela équivaut à
+$\mathcal{P}(\mathcal{X}, x)$. Si $\mathcal{X}$ est un espace algébrique, alors
+cela équivaut à ce que $\mathcal{X}$ possède la propriété $\mathcal{P}$ en $x$.
+\end{lemma}
+
+\begin{proof}
+Soient $a : U \to \mathcal{X}$ et $u \in |U|$ comme en (3). Soit
+$b : V \to \mathcal{X}$ un autre morphisme lisse, où $V$ est un espace
+algébrique, et soit $v \in |V|$ tel que $b(v) = x$ également.
+Choisissons un schéma $U'$, un morphisme \'etale $U' \to U$ et $u' \in U'$
+d'image $u$. Choisissons un schéma $V'$, un morphisme \'etale $V' \to V$
+et $v' \in V'$ d'image $v$. D'après le
+Lemme \ref{lemma-points-cartesian},
+il existe un point $\overline{w} \in |V' \times_\mathcal{X} U'|$
+d'images $u'$ et $v'$. Choisissons un schéma $W$ et un morphisme \'etale surjectif
+$W \to V' \times_\mathcal{X} U'$. Nous pouvons choisir un
+$w \in |W|$ d'image $\overline{w}$ (voir
+Propriétés des espaces,
+Lemme \ref{spaces-properties-lemma-characterize-surjective}).
+Alors $W \to V'$ et $W \to U'$ sont des morphismes lisses de schémas,
+car ce sont des composés de morphismes \'etales et lisses d'espaces algébriques, voir
+Morphismes d'espaces, Lemmes \ref{spaces-morphisms-lemma-etale-smooth} et
+\ref{spaces-morphisms-lemma-composition-smooth}.
+Par conséquent,
+$$
+\mathcal{P}(U, u)
+\Leftrightarrow
+\mathcal{P}(U', u')
+\Leftrightarrow
+\mathcal{P}(W, w)
+\Leftrightarrow
+\mathcal{P}(V', v')
+\Leftrightarrow
+\mathcal{P}(V, v)
+$$
+Les deux équivalences extérieures résultent de
+Propriétés des espaces,
+Définition \ref{spaces-properties-definition-property-at-point},
+et les deux autres de la définition d'une propriété locale pour la topologie lisse
+des germes de schémas. Cela démontre (4) $\Rightarrow$ (3).
+
+\medskip\noindent
+Les implications (1) $\Rightarrow$ (2), (2) $\Rightarrow$ (4),
+et (3) $\Rightarrow$ (1) sont immédiates.
+\end{proof}
+
+\begin{definition}
+\label{definition-property-at-point}
+Soit $\mathcal{P}$ une propriété des germes de schémas qui est
+locale pour la topologie lisse. Soit $\mathcal{X}$ un champ algébrique.
+Soit $x \in |\mathcal{X}|$.
+Nous disons que $\mathcal{X}$ {\it possède la propriété $\mathcal{P}$ en $x$}
+si l'une quelconque des conditions équivalentes du
+Lemme \ref{lemma-local-source-target-at-point}
+est satisfaite.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+\section{Monomorphismes de champs algébriques}
+\label{section-monomorphisms}
+
+\noindent
+Nous définissons comme suit un monomorphisme de champs algébriques.
+Nous verrons dans le
+Lemme \ref{lemma-monomorphism}
+que cela est compatible avec la notion $2$-catégorique correspondante.
+
+\begin{definition}
+\label{definition-monomorphism}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Nous disons que $f$ est un {\it monomorphisme}
+s'il est représentable par des espaces algébriques et est un monomorphisme au sens de la
+section \ref{section-properties-morphisms}.
+\end{definition}
+
+\noindent
+Commençons par quelques lemmes élémentaires.
+
+\begin{lemma}
+\label{lemma-base-change-monomorphism}
+Soit $\mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Soit $\mathcal{Z} \to \mathcal{Y}$ un monomorphisme.
+Alors $\mathcal{Z} \times_\mathcal{Y} \mathcal{X} \to \mathcal{X}$
+est un monomorphisme.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la discussion générale de la
+section \ref{section-properties-morphisms}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-monomorphism}
+Les composés de monomorphismes de champs algébriques sont des monomorphismes.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la discussion générale de la
+section \ref{section-properties-morphisms}
+et de
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-composition-monomorphism}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est un monomorphisme,
+\item $f$ est pleinement fidèle,
+\item la diagonale
+$\Delta_f : \mathcal{X} \to \mathcal{X} \times_\mathcal{Y} \mathcal{X}$
+est une équivalence, et
+\item il existe un espace algébrique $W$ et un morphisme surjectif et plat
+$W \to \mathcal{Y}$, localement de présentation finie, tels que
+$V = \mathcal{X} \times_\mathcal{Y} W$ soit un espace algébrique et que le
+morphisme $V \to W$ soit un monomorphisme d'espaces algébriques.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (4) résulte de la discussion générale de la
+section \ref{section-properties-morphisms},
+et en particulier des
+Lemmes \ref{lemma-check-representable-covering} et
+\ref{lemma-check-property-covering}.
+
+\medskip\noindent
+L'équivalence de (2) et (3) est
+Catégories, Lemme \ref{categories-lemma-fully-faithful-diagonal-equivalence}.
+
+\medskip\noindent
+Supposons satisfaites les conditions équivalentes (2) et (3). Alors $f$ est représentable
+par des espaces algébriques d'après
+Champs algébriques,
+Lemme \ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}.
+En outre, le lemme de $2$-Yoneda, combiné à la pleine fidélité,
+implique que, pour tout schéma $T$, le foncteur
+$$
+\Mor(T, \mathcal{X})
+\longrightarrow
+\Mor(T, \mathcal{Y})
+$$
+est pleinement fidèle. Étant donné un morphisme $y : T \to \mathcal{Y}$, il existe donc,
+à un unique $2$-isomorphisme près, au plus un morphisme $x : T \to \mathcal{X}$,
+tel que $y \cong f \circ x$. En particulier, étant donné un morphisme de schémas
+$h : T' \to T$, il existe au plus un relèvement
+$\tilde h : T' \to T \times_\mathcal{Y} \mathcal{X}$ de $h$.
+Ainsi, $T \times_\mathcal{Y} \mathcal{X} \to T$ est un monomorphisme
+d'espaces algébriques, ce qui démontre (1).
+
+\medskip\noindent
+Enfin, supposons (1). Alors, pour tout schéma $T$ et tout morphisme
+$y : T \to \mathcal{Y}$, le produit fibré $T \times_\mathcal{Y} \mathcal{X}$
+est un espace algébrique, et $T \times_\mathcal{Y} \mathcal{X} \to T$
+est un monomorphisme. Il existe donc exactement un couple, à isomorphisme unique près,
+$(x, \alpha)$, où $x : T \to \mathcal{X}$ est un morphisme
+et $\alpha : f \circ x \to y$ est un $2$-morphisme. En appliquant
+le lemme de $2$-Yoneda, cela signifie exactement que $f$ est pleinement fidèle, c'est-à-dire
+que (2) est satisfaite.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-injective-points}
+\begin{slogan}
+Les monomorphismes de champs sont injectifs sur les points.
+\end{slogan}
+Un monomorphisme de champs algébriques induit une application injective entre les
+ensembles de points.
+\end{lemma}
+
+\begin{proof}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un monomorphisme de champs algébriques.
+Supposons que $x_i : \Spec(K_i) \to \mathcal{X}$ soient des morphismes tels que
+$f \circ x_1$ et $f \circ x_2$ définissent le même élément de $|\mathcal{Y}|$.
+En appliquant la définition, nous trouvons une extension commune $\Omega$ munie des
+morphismes correspondants $c_i : \Spec(\Omega) \to \Spec(K_i)$ et d'un
+$2$-isomorphisme $\beta : f \circ x_1 \circ c_1 \to f \circ x_1 \circ c_2$.
+Comme $f$ est pleinement fidèle, voir
+Lemme \ref{lemma-monomorphism},
+nous pouvons relever $\beta$ en un isomorphisme
+$\alpha : x_1 \circ c_1 \to x_1 \circ c_2$.
+Ainsi, $x_1$ et $x_2$ définissent le même point de $|\mathcal{X}|$,
+comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-diagonal}
+Soient $\mathcal{X} \to \mathcal{X}' \to \mathcal{Y}$ des morphismes
+de champs algébriques. Si $\mathcal{X} \to \mathcal{X}'$ est un monomorphisme,
+alors le diagramme canonique
+$$
+\xymatrix{
+\mathcal{X} \ar[r] \ar[d] &
+\mathcal{X} \times_\mathcal{Y} \mathcal{X} \ar[d] \\
+\mathcal{X}' \ar[r] &
+\mathcal{X}' \times_\mathcal{Y} \mathcal{X}'
+}
+$$
+est un carré cartésien.
+\end{lemma}
+
+\begin{proof}
+Nous avons $\mathcal{X} = \mathcal{X} \times_{\mathcal{X}'} \mathcal{X}$
+d'après le Lemme \ref{lemma-monomorphism}. Le résultat en découle alors en appliquant
+Catégories, Lemme \ref{categories-lemma-fibre-product-after-map}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Immersions de champs algébriques}
+\label{section-immersions}
+
+\noindent
+Les immersions de champs algébriques sont définies comme suit.
+
+\begin{definition}
+\label{definition-immersion}
+Immersions.
+\begin{enumerate}
+\item Un morphisme de champs algébriques est appelé une {\it immersion ouverte}
+s'il est représentable et est une immersion ouverte
+au sens de la
+section \ref{section-properties-morphisms}.
+\item Un morphisme de champs algébriques est appelé une {\it immersion fermée}
+s'il est représentable et est une immersion fermée
+au sens de la
+section \ref{section-properties-morphisms}.
+\item Un morphisme de champs algébriques est appelé une {\it immersion}
+s'il est représentable et est une immersion
+au sens de la
+section \ref{section-properties-morphisms}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Ce n'est pas pour nous la manière la plus commode de concevoir les immersions.
+Il nous est un peu plus commode de considérer une immersion
+comme un morphisme de champs algébriques représentable par des espaces
+algébriques et qui est une immersion au sens de la
+section \ref{section-properties-morphisms}.
+Il en va de même pour les immersions fermées et ouvertes.
+Comme cela équivaut clairement à la notion qui vient d'être définie, nous
+utiliserons cette caractérisation sans autre mention.
+Nous démontrons quelques lemmes simples sur cette notion.
+
+\begin{lemma}
+\label{lemma-base-change-immersion}
+Soit $\mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Soit $\mathcal{Z} \to \mathcal{Y}$ une immersion
+(fermée, resp.\ ouverte).
+Alors $\mathcal{Z} \times_\mathcal{Y} \mathcal{X} \to \mathcal{X}$
+est une immersion (fermée, resp.\ ouverte).
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la discussion générale de la
+section \ref{section-properties-morphisms}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-immersion}
+Les composés d'immersions de champs algébriques sont des immersions.
+Il en va de même des immersions fermées et des immersions ouvertes.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la discussion générale de la
+section \ref{section-properties-morphisms}
+et de
+Espaces, Lemme \ref{spaces-lemma-composition-immersions}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-immersion-covering}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Soit $W$ un espace algébrique et soit $W \to \mathcal{Y}$ un morphisme surjectif
+et plat, localement de présentation finie. Les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item $f$ est une immersion (ouverte, resp.\ fermée), et
+\item $V = W \times_\mathcal{Y} \mathcal{X}$ est un espace algébrique, et
+$V \to W$ est une immersion (ouverte, resp.\ fermée).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la discussion générale de la
+section \ref{section-properties-morphisms}
+et en particulier des
+Lemmes \ref{lemma-check-representable-covering} et
+\ref{lemma-check-property-covering}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersion-monomorphism}
+Une immersion est un monomorphisme.
+\end{lemma}
+
+\begin{proof}
+Voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-immersions-monomorphisms}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-subspace-induced-topology}
+Si $f : \mathcal{X} \to \mathcal{Y}$ est une immersion, alors
+$|f| : |\mathcal{X}| \to |\mathcal{Y}|$ est un homéomorphisme
+sur une partie localement fermée. Si $f$ est une immersion fermée, resp.\ ouverte,
+alors $|f|$ est fermée, resp.\ ouverte.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\noindent
+Les deux lemmes suivants expliquent comment considérer les
+immersions à l'aide de présentations.
+
+\begin{lemma}
+\label{lemma-immersion-into-presentation}
+Soit $(U, R, s, t, c)$ un groupoïde lisse en espaces algébriques.
+Soit $i : \mathcal{Z} \to [U/R]$ une immersion.
+Il existe alors un sous-espace localement fermé $R$-invariant
+$Z \subset U$ et une présentation $[Z/R_Z] \to \mathcal{Z}$,
+où $R_Z$ est la restriction de $R$ à $Z$, tels que
+$$
+\xymatrix{
+[Z/R_Z] \ar[dr] \ar[rr] & & \mathcal{Z} \ar[ld]^i \\
+& [U/R]
+}
+$$
+soit $2$-commutatif. Si $i$ est une immersion fermée (resp.\ ouverte),
+alors $Z$ est un sous-espace fermé (resp.\ ouvert) de $U$.
+\end{lemma}
+
+\begin{proof}
+D'après le
+Lemme \ref{lemma-representable-in-terms-presentations},
+nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+[U'/R'] \ar[dr] \ar[rr] & & \mathcal{Z} \ar[ld] \\
+& [U/R]
+}
+$$
+où $U' = \mathcal{Z} \times_{[U/R]} U$ et
+$R' = \mathcal{Z} \times_{[U/R]} R$.
+Puisque $\mathcal{Z} \to [U/R]$ est une immersion, nous voyons que
+$U' \to U$ est une immersion d'espaces algébriques. Soit $Z \subset U$
+le sous-espace localement fermé tel que $U' \to U$ se factorise par
+$Z$ et induise un isomorphisme $U' \to Z$.
+Il ressort clairement de la construction de $R'$ que
+$R' = U' \times_{U, t} R = R \times_{s, U} U'$.
+Cela implique que $Z \cong U'$ est $R$-invariant et que l'image de
+$R' \to R$ identifie $R'$ à la restriction
+$R_Z = s^{-1}(Z) = t^{-1}(Z)$ de $R$ à $Z$. Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersion-presentation}
+Soit $(U, R, s, t, c)$ un groupoïde lisse en espaces algébriques.
+Soit $\mathcal{X} = [U/R]$ le champ algébrique associé, voir
+Champs algébriques,
+Théorème \ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+Soit $Z \subset U$ un sous-espace localement fermé $R$-invariant. Alors
+$$
+[Z/R_Z] \longrightarrow [U/R]
+$$
+est une immersion de champs algébriques, où $R_Z$ est la restriction
+de $R$ à $Z$. Si $Z \subset U$ est ouvert (resp.\ fermé), alors le morphisme
+est une immersion ouverte (resp.\ fermée) de champs algébriques.
+\end{lemma}
+
+\begin{proof}
+Rappelons que, d'après
+Groupoïdes en espaces,
+Définition \ref{spaces-groupoids-definition-invariant-open}
+(voir aussi la discussion qui suit la définition),
+on a $R_Z = s^{-1}(Z) = t^{-1}(Z)$ comme sous-espaces localement fermés
+de $R$. Les deux morphismes $R_Z \to Z$ sont donc lisses comme changements de base
+de $s$ et $t$. Par conséquent,
+$(Z, R_Z, s|_{R_Z}, t|_{R_Z}, c|_{R_Z \times_{s, Z, t} R_Z})$ est
+un groupoïde lisse en espaces algébriques, et l'on voit que
+$[Z/R_Z]$ est un champ algébrique, voir
+Champs algébriques,
+Théorème \ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+Les hypothèses de
+Groupoïdes en espaces,
+Lemme \ref{spaces-groupoids-lemma-criterion-fibre-product}
+sont toutes satisfaites; il en résulte que l'on a un carré $2$-cartésien
+$$
+\xymatrix{
+Z \ar[d] \ar[r] & [Z/R_Z] \ar[d] \\
+U \ar[r] & [U/R]
+}
+$$
+Il résulte de ceci et du
+Lemme \ref{lemma-check-representable-covering}
+que $[Z/R_Z] \to [U/R]$ est représentable par des espaces algébriques;
+alors, il résulte du
+Lemme \ref{lemma-check-property-covering}
+que la flèche verticale de droite est une immersion (resp.\ une immersion fermée,
+resp.\ une immersion ouverte) si et seulement si la flèche verticale de gauche l'est.
+\end{proof}
+
+\noindent
+Nous pouvons définir les sous-champs ouverts, fermés et localement fermés comme suit.
+
+\begin{definition}
+\label{definition-substacks}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item Un {\it sous-champ ouvert} de $\mathcal{X}$ est une sous-catégorie strictement pleine
+$\mathcal{X}' \subset \mathcal{X}$ telle que $\mathcal{X}'$ soit un champ
+algébrique et que $\mathcal{X}' \to \mathcal{X}$ soit une immersion ouverte.
+\item Un {\it sous-champ fermé} de $\mathcal{X}$ est une sous-catégorie strictement pleine
+$\mathcal{X}' \subset \mathcal{X}$ telle que $\mathcal{X}'$ soit un champ
+algébrique et que $\mathcal{X}' \to \mathcal{X}$ soit une immersion fermée.
+\item Un {\it sous-champ localement fermé} de $\mathcal{X}$ est une sous-catégorie
+strictement pleine $\mathcal{X}' \subset \mathcal{X}$ telle que $\mathcal{X}'$
+soit un champ algébrique et que $\mathcal{X}' \to \mathcal{X}$ soit une immersion.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Cette définition doit être employée avec précaution. En effet, si
+$f : \mathcal{X} \to \mathcal{Y}$ est une équivalence de champs algébriques
+et si $\mathcal{X}' \subset \mathcal{X}$ est un sous-champ ouvert, la sous-catégorie
+$f(\mathcal{X}')$ n'est pas nécessairement un sous-champ ouvert de $\mathcal{Y}$.
+Le problème vient de ce qu'elle peut ne pas être une sous-catégorie {\it strictement}
+pleine; mais c'est aussi le seul problème.
+Voici un énoncé formel.
+
+\begin{lemma}
+\label{lemma-substack-image}
+Pour toute immersion $i : \mathcal{Z} \to \mathcal{X}$, il existe un
+unique sous-champ localement fermé $\mathcal{X}' \subset \mathcal{X}$
+tel que $i$ se factorise en la composée d'une
+équivalence $i' : \mathcal{Z} \to \mathcal{X}'$
+et du morphisme d'inclusion $\mathcal{X}' \to \mathcal{X}$.
+Si $i$ est une immersion fermée (resp.\ ouverte), alors $\mathcal{X}'$
+est un sous-champ fermé (resp.\ ouvert) de $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-substacks-presentation}
+Soit $[U/R] \to \mathcal{X}$ une présentation d'un champ algébrique.
+Il existe une bijection canonique
+$$
+\text{sous-champs localement fermés }\mathcal{Z}\text{ de }\mathcal{X}
+\longrightarrow
+R\text{-invariants parmi les sous-espaces localement fermés }Z\text{ de }U
+$$
+qui envoie $\mathcal{Z}$ sur $U \times_\mathcal{X} \mathcal{Z}$.
+De plus, un morphisme de champs algébriques $f : \mathcal{Y} \to \mathcal{X}$
+se factorise par $\mathcal{Z}$ si et seulement si
+$\mathcal{Y} \times_\mathcal{X} U \to U$ se factorise par $Z$.
+Il en va de même des sous-champs fermés et des sous-champs ouverts.
+\end{lemma}
+
+\begin{proof}
+D'après les Lemmes \ref{lemma-immersion-into-presentation} et
+\ref{lemma-immersion-presentation},
+l'application est une bijection.
+Si $\mathcal{Y} \to \mathcal{X}$ se factorise par $\mathcal{Z}$,
+le changement de base $\mathcal{Y} \times_\mathcal{X} U \to U$
+se factorise bien sûr par $Z$. Réciproquement, supposons que $\mathcal{Y} \to \mathcal{X}$
+soit un morphisme tel que $\mathcal{Y} \times_\mathcal{X} U \to U$
+se factorise par $Z$. Nous allons montrer que, pour tout schéma $T$ et tout
+morphisme $T \to \mathcal{Y}$,
+donné par un objet $y$ de la catégorie fibre de $\mathcal{Y}$ au-dessus de $T$,
+l'objet $y$ appartient en fait à la catégorie fibre de $\mathcal{Z}$ au-dessus de $T$.
+En effet, le produit fibré $T \times_\mathcal{X} U$ est un espace
+algébrique et $T \times_\mathcal{X} U \to T$ est un morphisme lisse surjectif.
+Il existe donc un recouvrement fppf $\{T_i \to T\}$ tel que
+$T_i \to T$ se factorise par $T \times_\mathcal{X} U \to T$ pour tout $i$.
+Alors $T_i \to \mathcal{X}$ se factorise par $\mathcal{Y} \times_\mathcal{X} U$,
+et donc par $Z \subset U$. Ainsi, $y|_{T_i}$ est un objet de
+$\mathcal{Z}$ (car $Z$ est le produit fibré de $U$ et de
+$\mathcal{Z}$ au-dessus de $\mathcal{X}$).
+Puisque $\mathcal{Z}$ est un sous-champ strictement plein, nous concluons
+que $y$ est un objet de $\mathcal{Z}$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-substacks}
+Soit $\mathcal{X}$ un champ algébrique. La règle
+$\mathcal{U} \mapsto |\mathcal{U}|$ définit une bijection qui préserve les inclusions
+entre les sous-champs ouverts de $\mathcal{X}$ et les parties ouvertes
+de $|\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une présentation $[U/R] \to \mathcal{X}$, voir
+Champs algébriques, Lemme \ref{algebraic-lemma-stack-presentation}.
+D'après le
+Lemme \ref{lemma-substacks-presentation},
+les sous-champs ouverts correspondent aux sous-schémas ouverts $R$-invariants
+de $U$. D'autre part, les
+Lemmes \ref{lemma-points-presentation} et \ref{lemma-topology-points}
+assurent que ceux-ci correspondent bijectivement aux parties ouvertes de $|\mathcal{X}|$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-image-substack}
+Soit $\mathcal X$ un champ algébrique. Soit $U$ un espace algébrique et
+$U \to \mathcal X$ un morphisme lisse surjectif. Pour une immersion ouverte
+$V \hookrightarrow U$, il existe un champ algébrique $\mathcal Y$, une
+immersion ouverte $\mathcal Y \to \mathcal X$ et un morphisme lisse
+surjectif $V \to \mathcal Y$.
+\end{lemma}
+
+\begin{proof}
+Nous définissons une catégorie fibrée en groupoïdes $\mathcal Y$ en prenant pour catégorie
+fibre $\mathcal{Y}_T$ au-dessus d'un objet $T$ de $(\Sch/S)_{fppf}$
+la sous-catégorie pleine de $\mathcal{X}_T$ formée de tous les
+$y \in \Ob(\mathcal{X}_T)$ tels que le morphisme de projection
+$V \times_{\mathcal X, y} T \to T$ soit surjectif. Or, pour tout morphisme
+$x : T \to \mathcal X$, le produit $2$-fibré
+$T \times_{x, \mathcal X} \mathcal Y$ a pour catégorie fibre au-dessus de $T'$ celle formée
+des triplets $(f : T' \to T, y \in \mathcal{X}_{T'}, f^*x \simeq y)$ tels que
+$V \times_{\mathcal X, y} T' \to T'$ soit surjectif.
+Remarquons que $T \times_{x, \mathcal X} \mathcal Y$ est fibré en setoïdes puisque
+$\mathcal Y \to \mathcal X$ est fidèle (voir
+Champs, Lemme \ref{stacks-lemma-2-fibre-product-gives-stack-in-setoids}).
+L'isomorphisme $f^*x \simeq y$ donne alors le diagramme
+$$
+\xymatrix{
+V \times_{\mathcal X, y} T' \ar[d] \ar[r] &
+V \times_{\mathcal X, x} T \ar[r] \ar[d] &
+V \ar[d] \\
+T' \ar[r]^f &
+T \ar[r]^x &
+\mathcal X
+}
+$$
+où les deux carrés sont cartésiens. Le morphisme
+$V \times_{\mathcal X, x} T \to T$ est lisse par changement de base, et donc ouvert.
+Soit $T_0 \subset T$ son image. Les carrés cartésiens montrent que
+$V \times_{\mathcal X, y} T' \to T'$ est surjectif si et seulement si $f$ se factorise
+par $T_0$. Par conséquent, $T \times_{x, \mathcal X} \mathcal Y$ est représentable par
+$T_0$, de sorte que l'inclusion $\mathcal Y \to \mathcal X$ est une immersion ouverte.
+D'après
+Champs algébriques, Lemme \ref{algebraic-lemma-open-fibred-category-is-algebraic},
+nous concluons que $\mathcal{Y}$ est un champ algébrique.
+Enfin, si nous désignons le morphisme $V \to \mathcal X$ par $g$, alors
+$V \times_{\mathcal X} V \to V$ est surjectif (la diagonale fournit une
+section). Ainsi, $g$ appartient à l'image de $\mathcal{Y}_V \to \mathcal{X}_V$, c'est-à-dire
+que l'on obtient un morphisme $g' : V \to \mathcal{Y}$ s'inscrivant dans le
+diagramme commutatif
+$$
+\xymatrix{
+V \ar[r] \ar[d]^{g'} & U \ar[d] \\
+\mathcal{Y} \ar[r] & \mathcal{X}
+}
+$$
+Puisque $V \times_{g, \mathcal X} \mathcal Y \to V$ est un
+monomorphisme, c'est en fait un isomorphisme car $(1, g')$ en définit une section.
+Par conséquent, $g' : V \to \mathcal Y$ est un morphisme lisse, puisqu'il est le
+changement de base du morphisme lisse $g : V \to \mathcal{X}$.
+Il est surjectif par notre construction de $\mathcal{Y}$, ce qui achève
+la démonstration du lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-union-open-substacks}
+Soit $\mathcal X$ un champ algébrique et soient $\mathcal{X}_i \subset \mathcal X$
+une famille de sous-champs ouverts indexée par $i \in I$. Il existe alors un
+sous-champ ouvert, que nous notons
+$\bigcup_{i\in I} \mathcal{X}_i \subset \mathcal X$, tel que
+les $\mathcal{X}_i$ soient des sous-champs ouverts qui le recouvrent.
+\end{lemma}
+
+\begin{proof}
+Nous définissons une sous-catégorie fibrée
+$\mathcal{X}' = \bigcup_{i \in I} \mathcal{X}_i$
+en prenant pour catégorie fibre au-dessus d'un objet $T$ de $(\Sch/S)_{fppf}$
+la sous-catégorie pleine de $\mathcal{X}_T$ formée de tous les
+$x \in \Ob(\mathcal{X}_T)$ tels que le morphisme
+$\coprod_{i \in I} (\mathcal{X}_i \times_{\mathcal X} T) \to T$
+soit surjectif. Soit $x_i \in \Ob((\mathcal{X}_i)_T)$.
+Alors $(x_i, 1)$ définit une section de
+$\mathcal{X}_i \times_{\mathcal X} T \to T$, et donc un isomorphisme. Ainsi,
+$\mathcal{X}_i \subset \mathcal{X}'$ est une sous-catégorie pleine.
+Soit maintenant $x \in \Ob(\mathcal{X}_T)$. Alors
+$\mathcal{X}_i \times_{\mathcal X} T$ est représentable
+par un sous-schéma ouvert $T_i \subset T$. Le produit $2$-fibré
+$\mathcal{X}' \times_{\mathcal X} T$ a pour fibre au-dessus de $T'$ les
+$(y \in \mathcal{X}_{T'}, f : T' \to T, f^*x \simeq y)$ tels que
+$\coprod (\mathcal{X}_i \times_{\mathcal X, y} T') \to T'$ soit surjectif.
+L'isomorphisme $f^*x \simeq y$ induit un isomorphisme
+$\mathcal{X}_i \times_{\mathcal X, y} T' \simeq T_i \times_T T'$.
+Alors les $T_i \times_T T'$ recouvrent $T'$ si et seulement si $f$ se factorise par
+$\bigcup T_i$. Nous avons donc un diagramme
+$$
+\xymatrix{
+T_i \ar[r] \ar[d] &
+\bigcup T_i \ar[r] \ar[d] &
+T \ar[d] \\
+\mathcal{X}_i \ar[r] &
+\mathcal{X}' \ar[r] &
+\mathcal{X}
+}
+$$
+dont les deux carrés sont cartésiens. D'après
+Champs algébriques, Lemme \ref{algebraic-lemma-open-fibred-category-is-algebraic},
+nous concluons que $\mathcal{X'} \subset \mathcal{X}$ est algébrique et constitue un
+sous-champ ouvert. Il ressort aussi des carrés cartésiens ci-dessus que le
+morphisme $\coprod_{i \in I} \mathcal{X}_i \to \mathcal{X}'$ est surjectif, ce
+qui achève la démonstration du lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-finite-subcover}
+Soit $\mathcal X$ un champ algébrique et soit $\mathcal X' \subset \mathcal X$
+un sous-champ ouvert quasi-compact. Supposons donnée une famille de sous-
+champs ouverts $\mathcal{X}_i \subset \mathcal X$ indexée par $i \in I$ telle
+que $\mathcal{X}' \subset \bigcup_{i \in I} \mathcal{X}_i$,
+où la réunion est définie comme au Lemme \ref{lemma-union-open-substacks}.
+Il existe alors une partie finie $I' \subset I$ telle que
+$\mathcal{X}' \subset \bigcup_{i \in I'} \mathcal{X}_i$.
+\end{lemma}
+
+\begin{proof}
+Puisque $\mathcal X$ est algébrique, il existe un schéma $U$ muni d'un morphisme
+lisse surjectif $U \to \mathcal X$. Soit $U_i \subset U$ le sous-schéma ouvert
+représentant $\mathcal{X}_i \times_{\mathcal X} U$, et $U' \subset U$ le
+sous-schéma ouvert représentant $\mathcal{X}' \times_{\mathcal X} U$. Par
+hypothèse, $U'\subset \bigcup_{i\in I} U_i$. D'après la démonstration du
+Lemme \ref{lemma-quasi-compact-stack},
+il existe un ouvert quasi-compact $V \subset U'$ tel que $V \to \mathcal{X}'$
+soit un morphisme lisse surjectif. Il existe donc une partie finie
+$I' \subset I$ telle que $V \subset \bigcup_{i \in I'}
+U_i$. Nous affirmons que $\mathcal{X}' \subset \bigcup_{i \in I'} \mathcal{X}_i$.
+Prenons $x \in \Ob(\mathcal{X}'_T)$ pour
+$T \in \Ob((\Sch/S)_{fppf})$.
+Comme $\mathcal{X}' \to \mathcal{X}$ est un monomorphisme, nous avons les carrés
+cartésiens
+$$
+\xymatrix{
+V \times_\mathcal{X} T \ar[r] \ar[d] &
+T \ar[d]^x \ar@{=}[r] &
+T \ar[d]^x \\
+V \ar[r] &
+\mathcal{X}' \ar[r] &
+\mathcal X
+}
+$$
+Par changement de base, $V \times_{\mathcal X} T \to T$ est surjectif. Par conséquent,
+$\bigcup_{i \in I'} U_i \times_{\mathcal X} T \to T$ est lui aussi surjectif.
+Soit $T_i \subset T$ le sous-schéma ouvert représentant
+$\mathcal{X}_i \times_{\mathcal X} T$.
+Un argument formel donne le carré cartésien
+$$
+\xymatrix{
+U_i \times_{\mathcal{X}_i} T_i \ar[r] \ar[d] &
+U \times_{\mathcal X} T \ar[d] \\
+T_i \ar[r] & T
+}
+$$
+où les flèches verticales sont surjectives par changement de base. Puisque
+$U_i \times_{\mathcal{X}_i} T_i \simeq U_i \times_{\mathcal X} T$,
+nous obtenons $\bigcup_{i \in I'} T_i = T$. Ainsi,
+$x$ est un objet de $(\bigcup_{i\in I'} \mathcal{X}_i)_T$ par
+définition de la réunion. Observons que l'inclusion
+$\mathcal{X}' \subset \bigcup_{i \in I'} \mathcal{X}_i$
+est automatiquement un sous-champ ouvert.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zariski-open-cover-stack-is-space}
+Soit $\mathcal X$ un champ algébrique.
+Soit $\mathcal{X}_i$, $i \in I$, une famille de sous-champs ouverts de $\mathcal{X}$.
+Supposons que
+\begin{enumerate}
+\item $\mathcal{X} = \bigcup_{i \in I} \mathcal{X}_i$, et que
+\item chaque $\mathcal{X}_i$ soit un espace algébrique.
+\end{enumerate}
+Alors $\mathcal{X}$ est un espace algébrique.
+\end{lemma}
+
+\begin{proof}
+Appliquons
+Champs, Lemme \ref{stacks-lemma-stack-in-setoids-descent}
+au morphisme $\coprod_{i \in I} \mathcal{X}_i \to \mathcal{X}$
+et au morphisme $\text{id} : \mathcal{X} \to \mathcal{X}$ pour
+voir que $\mathcal{X}$ est un champ en setoïdes.
+Ainsi, $\mathcal{X}$ est un espace algébrique, voir
+Champs algébriques,
+Proposition \ref{algebraic-proposition-algebraic-stack-no-automorphisms}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zariski-open-cover-stack-is-scheme}
+Soit $\mathcal X$ un champ algébrique.
+Soit $\mathcal{X}_i$, $i \in I$, une famille de sous-champs ouverts de $\mathcal{X}$.
+Supposons que
+\begin{enumerate}
+\item $\mathcal{X} = \bigcup_{i \in I} \mathcal{X}_i$, et que
+\item chaque $\mathcal{X}_i$ soit un schéma.
+\end{enumerate}
+Alors $\mathcal{X}$ est un schéma.
+\end{lemma}
+
+\begin{proof}
+D'après le
+Lemme \ref{lemma-zariski-open-cover-stack-is-space},
+on voit que $\mathcal{X}$ est un espace algébrique. Comme tout espace
+algébrique possède un plus grand sous-espace ouvert qui soit un schéma, voir
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-subscheme},
+on voit que $\mathcal{X}$ est un schéma.
+\end{proof}
+
+
+\noindent
+Le lemme suivant est l'analogue de
+Compléments sur les groupoïdes, Lemme \ref{more-groupoids-lemma-local-source}.
+
+\begin{lemma}
+\label{lemma-local-source}
+Soient $\mathcal{P}, \mathcal{Q}, \mathcal{R}$ des propriétés de morphismes
+d'espaces algébriques. Supposons que
+\begin{enumerate}
+\item $\mathcal{P}, \mathcal{Q}, \mathcal{R}$ soient locales pour la topologie fppf sur le but
+et stables par tout changement de base,
+\item $\text{lisse} \Rightarrow \mathcal{R}$,
+\item pour tout morphisme $f : X \to Y$ qui possède $\mathcal{Q}$, il existe un
+plus grand sous-espace ouvert $W(\mathcal{P}, f) \subset X$ tel que
+$f|_{W(\mathcal{P}, f)}$ possède $\mathcal{P}$, et
+\item pour tout morphisme $f : X \to Y$ qui possède $\mathcal{Q}$,
+et tout morphisme $Y' \to Y$ qui possède $\mathcal{R}$, on ait
+$Y' \times_Y W(\mathcal{P}, f) = W(\mathcal{P}, f')$, où
+$f' : X_{Y'} \to Y'$ est le changement de base de $f$.
+\end{enumerate}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+représentable par des espaces algébriques. Supposons que $f$ possède $\mathcal{Q}$. Alors
+\begin{enumerate}
+\item[(A)] il existe un plus grand sous-champ ouvert
+$\mathcal{X}' \subset \mathcal{X}$ tel que $f|_{\mathcal{X}'}$ possède
+$\mathcal{P}$, et
+\item[(B)] si $\mathcal{Z} \to \mathcal{Y}$ est un morphisme de champs
+algébriques représentable par des espaces algébriques qui possède $\mathcal{R}$,
+alors $\mathcal{Z} \times_\mathcal{Y} \mathcal{X}'$ est le plus grand sous-champ
+ouvert de $\mathcal{Z} \times_\mathcal{Y} \mathcal{X}$ au-dessus duquel
+le changement de base $\text{id}_\mathcal{Z} \times f$ possède la propriété $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme lisse surjectif $V \to \mathcal{Y}$.
+Posons $U = V \times_\mathcal{Y} \mathcal{X}$ et soit $f' : U \to V$ le
+changement de base de $f$. Le morphisme d'espaces algébriques $f' : U \to V$ possède
+la propriété $\mathcal{Q}$. L'hypothèse (3) fournit donc l'ouvert $W(\mathcal{P}, f') \subset U$.
+Remarquons que
+$U \times_\mathcal{X} U =
+(V \times_\mathcal{Y} V) \times_\mathcal{Y} \mathcal{X}$,
+si bien que le morphisme $f'' : U \times_\mathcal{X} U \to V \times_\mathcal{Y} V$
+est le changement de base de $f$ par l'une ou l'autre projection
+$V \times_\mathcal{Y} V \to V$. Par notre choix de $V$, ces projections
+sont lisses, et possèdent donc la propriété $\mathcal{R}$ d'après (2). Ainsi, (4) montre
+que les images inverses de $W(\mathcal{P}, f')$ par les deux projections
+$\text{pr}_i : U \times_\mathcal{X} U \to U$ coïncident. Autrement dit,
+$W(\mathcal{P}, f')$ est un sous-espace $R$-invariant de $U$ (où
+$R = U \times_\mathcal{X} U$). Soit $\mathcal{X}'$ le sous-champ ouvert de
+$\mathcal{X}$ qui correspond à $W(\mathcal{P}, f)$ par le
+Lemme \ref{lemma-immersion-into-presentation}.
+Par construction, $W(\mathcal{P}, f') = \mathcal{X}' \times_\mathcal{Y} V$,
+donc $f|_{\mathcal{X}'}$ possède la propriété $\mathcal{P}$ d'après le
+Lemme \ref{lemma-check-property-covering}.
+De plus, $\mathcal{X}'$ est le plus grand sous-champ ouvert
+tel que $f|_{\mathcal{X}'}$ possède $\mathcal{P}$, puisque la même maximalité vaut
+pour $W(\mathcal{P}, f)$. Cela prouve (A).
+
+\medskip\noindent
+Enfin, si $\mathcal{Z} \to \mathcal{Y}$ est un
+morphisme de champs algébriques représentable par des espaces algébriques qui possède
+$\mathcal{R}$, posons $T = V \times_\mathcal{Y} \mathcal{Z}$; on voit alors que
+$T \to V$ est un morphisme d'espaces algébriques possédant
+la propriété $\mathcal{R}$. Soit $f'_T : T \times_V U \to T$ le changement de base
+de $f'$. De nouveau, (4) montre que $W(\mathcal{P}, f'_T)$
+est l'image inverse de $W(\mathcal{P}, f)$ dans $T \times_V U$. Cela implique
+(B); nous omettons certains détails.
+\end{proof}
+
+\begin{remark}
+\label{remark-local-source-warning}
+Avertissement :
+Le Lemme \ref{lemma-local-source}
+doit être utilisé avec précaution. Par exemple, il s'applique à
+$\mathcal{P}=$``plat'', $\mathcal{Q}=$``vide'',
+et $\mathcal{R}=$``plat et localement de présentation finie''. Mais, étant donné un
+morphisme d'espaces algébriques $f : X \to Y$, le plus grand sous-
+espace ouvert $W \subset X$ tel que $f|_W$ soit plat n'est {\it pas} l'ensemble des points
+où $f$ est plat !
+\end{remark}
+
+\begin{remark}
+\label{remark-local-source-apply}
+Malgré l'avertissement de la
+Remarque \ref{remark-local-source-warning},
+il existe des cas où le
+Lemme \ref{lemma-local-source}
+peut être utilisé sans ambiguïté.
+Nous en donnons une liste. Dans chaque cas, nous omettons la vérification des
+hypothèses (1) et (2), et donnons des références qui impliquent
+(3) et (4). Voici la liste :
+\begin{enumerate}
+\item
+\label{item-rel-dim-leq-d}
+$\mathcal{Q} = $``localement de type fini'', $\mathcal{R} = \emptyset$,
+et $\mathcal{P} =$``dimension relative $\leq d$''.
+Voir
+Morphismes d'espaces,
+Définition \ref{spaces-morphisms-definition-relative-dimension}
+et
+Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-openness-bounded-dimension-fibres} et
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}.
+\item
+\label{item-loc-quasi-finite}
+$\mathcal{Q} =$``localement de type fini'', $\mathcal{R} = \emptyset$,
+et $\mathcal{P} =$``localement quasi-fini''.
+Il s'agit du cas $d = 0$ du point précédent, voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+D'autre part, les propriétés (3) et (4) sont explicitées dans
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part}.
+\item
+\label{item-unramified}
+$\mathcal{Q} = $``localement de type fini'', $\mathcal{R} = \emptyset$,
+et $\mathcal{P} =$``non ramifié''. C'est le
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-where-unramified}.
+\item
+\label{item-flat}
+$\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P} =$``plat''. Voir
+Compléments sur les morphismes d'espaces, Théorème
+\ref{spaces-more-morphisms-theorem-openness-flatness} et
+Lemme \ref{spaces-more-morphisms-lemma-flat-locus-base-change}.
+Remarquons qu'ici $W(\mathcal{P}, f)$ est toujours exactement l'ensemble des points
+où le morphisme $f$ est plat, car nous ne considérons cet ouvert que
+lorsque $f$ possède $\mathcal{Q}$ (voir loc. cit.).
+\item
+\label{item-etale}
+$\mathcal{Q} =$``localement de présentation finie'',
+$\mathcal{R} =$``plat et localement de présentation finie'', et
+$\mathcal{P}=$``\'etale''. Cela résulte de la combinaison de
+(\ref{item-unramified}) et (\ref{item-flat}), puisqu'un morphisme non ramifié
+qui est plat et localement de présentation finie est \'etale, voir
+Morphismes d'espaces,
+Lemme \ref{spaces-morphisms-lemma-unramified-flat-lfp-etale}.
+\item Ajouter ici d'autres cas selon les besoins (comparer avec la liste plus longue de
+Compléments sur les groupoïdes, Remarque \ref{more-groupoids-remark-local-source-apply}).
+\end{enumerate}
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+\section{Champs algébriques réduits}
+\label{section-reduced}
+
+\noindent
+Nous avons déjà défini les champs algébriques réduits dans la
+section \ref{section-types-properties}.
+
+\begin{lemma}
+\label{lemma-reduced-closed-substack}
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $T \subset |\mathcal{X}|$ une partie fermée.
+Il existe un unique sous-champ fermé $\mathcal{Z} \subset \mathcal{X}$
+possédant les propriétés suivantes :
+(a) on a $|\mathcal{Z}| = T$, et (b) $\mathcal{Z}$ est réduit.
+\end{lemma}
+
+\begin{proof}
+Soit $U \to \mathcal{X}$ un morphisme lisse surjectif, où $U$ est un
+espace algébrique. Posons $R = U \times_\mathcal{X} U$; on a alors une
+présentation $[U/R] \to \mathcal{X}$, voir
+Champs algébriques, Lemme \ref{algebraic-lemma-stack-presentation}.
+Comme d'habitude, nous notons $s, t : R \to U$ les deux morphismes de projection lisses.
+D'après le Lemme \ref{lemma-points-presentation},
+on voit que $T$ correspond à une partie fermée $T' \subset |U|$ telle
+que $|s|^{-1}(T') = |t|^{-1}(T')$.
+Soit $Z \subset U$ l'espace algébrique obtenu en munissant
+$T'$ de la structure réduite induite, voir
+Propriétés des espaces,
+Définition \ref{spaces-properties-definition-reduced-induced-space}.
+Les produits fibrés
+$Z \times_{U, t} R$ et $R \times_{s, U} Z$ sont des sous-espaces fermés
+de $R$
+(Espaces, Lemme \ref{spaces-lemma-base-change-immersions}).
+Les projections $Z \times_{U, t} R \to Z$ et
+$R \times_{s, U} Z \to Z$ sont lisses d'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-base-change-smooth}.
+Ainsi, puisque $Z$ est réduit, il s'ensuit que
+$Z \times_{U, t} R$ et $R \times_{s, U} Z$ sont réduits, voir
+Remarque \ref{remark-list-properties-local-smooth-topology}.
+Comme
+$$
+|Z \times_{U, t} R| = |t|^{-1}(T') = |s|^{-1}(T') = R \times_{s, U} Z
+$$
+l'unicité de
+Propriétés des espaces,
+Lemme \ref{spaces-properties-lemma-reduced-closed-subspace}
+entraîne que $Z \times_{U, t} R = R \times_{s, U} Z$.
+Ainsi, $Z$ est un sous-espace fermé $R$-invariant de $U$.
+Par la correspondance du
+Lemme \ref{lemma-substacks-presentation},
+nous obtenons un sous-champ fermé $\mathcal{Z} \subset \mathcal{X}$
+tel que $Z = \mathcal{Z} \times_\mathcal{X} U$. Alors
+$[Z/R_Z] \to \mathcal{Z}$ est une présentation
+(Lemme \ref{lemma-immersion-into-presentation}).
+Enfin, $|\mathcal{Z}| = |Z|/|R_Z| = |T'|/\sim$ est la
+partie fermée donnée $T$. Nous omettons la démonstration de l'unicité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduced-stack-determined-by-points}
+Soit $\mathcal{X}$ un champ algébrique.
+Si $\mathcal{X}' \subset \mathcal{X}$
+est un sous-champ fermé, si $\mathcal{X}$ est réduit et si
+$|\mathcal{X}'| = |\mathcal{X}|$, alors $\mathcal{X}' = \mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une présentation $[U/R] \to \mathcal{X}$ avec $U$ un schéma.
+Comme $\mathcal{X}$ est réduit, $U$ est réduit (par définition
+des champs algébriques réduits). D'après le
+Lemme \ref{lemma-substacks-presentation},
+$\mathcal{X}'$ correspond à un sous-schéma fermé $R$-invariant $Z \subset U$.
+Mais $|Z| \subset |U|$ est l'image inverse de $|\mathcal{X}'|$, et
+donc $|Z| = |U|$. Ainsi, $Z$ est un sous-schéma fermé de $U$ dont les ensembles
+de points sous-jacents coïncident. D'après
+Schémas, Lemme \ref{schemes-lemma-map-into-reduction},
+l'application $\text{id}_U : U \to U$ se factorise par $Z \to U$, et donc
+$Z = U$, c'est-à-dire $\mathcal{X}' = \mathcal{X}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-into-reduction}
+Soient $\mathcal{X}$, $\mathcal{Y}$ des champs algébriques.
+Soit $\mathcal{Z} \subset \mathcal{X}$ un sous-champ fermé.
+Supposons $\mathcal{Y}$ réduit.
+Un morphisme $f : \mathcal{Y} \to \mathcal{X}$ se factorise par
+$\mathcal{Z}$ si et seulement si
+$f(|\mathcal{Y}|) \subset |\mathcal{Z}|$.
+\end{lemma}
+
+\begin{proof}
+Supposons $f(|\mathcal{Y}|) \subset |\mathcal{Z}|$. Considérons
+$\mathcal{Y} \times_\mathcal{X} \mathcal{Z} \to \mathcal{Y}$.
+Il existe une équivalence
+$\mathcal{Y} \times_\mathcal{X} \mathcal{Z} \to \mathcal{Y}'$
+où $\mathcal{Y}'$ est un sous-champ fermé de $\mathcal{Y}$, voir les
+Lemmes \ref{lemma-base-change-immersion} et
+\ref{lemma-substack-image}.
+À l'aide des
+Lemmes \ref{lemma-points-cartesian},
+\ref{lemma-monomorphism-injective-points} et
+\ref{lemma-immersion-monomorphism},
+on voit que $|\mathcal{Y}'| = |\mathcal{Y}|$. Le lemme est donc ramené au
+Lemme \ref{lemma-reduced-stack-determined-by-points}.
+\end{proof}
+
+\begin{definition}
+\label{definition-reduced-induced-stack}
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $Z \subset |\mathcal{X}|$ une partie fermée.
+Une {\it structure de champ algébrique sur $Z$} est donnée par un sous-champ fermé
+$\mathcal{Z}$ de $\mathcal{X}$ tel que $|\mathcal{Z}|$ soit égal à $Z$.
+La {\it structure de champ algébrique réduite induite}
+sur $Z$ est celle construite au
+Lemme \ref{lemma-reduced-closed-substack}.
+La {\it réduction $\mathcal{X}_{red}$ de $\mathcal{X}$}
+est la structure de champ algébrique réduite induite sur $|\mathcal{X}|$.
+\end{definition}
+
+
+\noindent
+En fait, cela permet de définir la structure de champ algébrique réduite
+induite sur une partie localement fermée.
+
+\begin{remark}
+\label{remark-stack-structure-locally-closed-subset}
+Soit $X$ un champ algébrique.
+Soit $T \subset |\mathcal{X}|$ une partie localement fermée.
+Soit $\partial T$ la frontière de $T$ dans
+l'espace topologique $|\mathcal{X}|$. En formule,
+$$
+\partial T = \overline{T} \setminus T.
+$$
+Soit $\mathcal{U} \subset \mathcal{X}$ le sous-champ ouvert de $X$ tel que
+$|\mathcal{U}| = |\mathcal{X}| \setminus \partial T$, voir
+Lemme \ref{lemma-open-substacks}.
+Soit $\mathcal{Z}$ le sous-champ fermé réduit de $\mathcal{U}$ tel que
+$|\mathcal{Z}| = T$, obtenu en prenant la structure réduite induite
+de sous-espace fermé, voir
+Définition \ref{definition-reduced-induced-stack}.
+Par construction, $\mathcal{Z} \to \mathcal{U}$ est une immersion fermée de
+champs algébriques et $\mathcal{U} \to \mathcal{X}$ est une immersion ouverte;
+ainsi, $\mathcal{Z} \to \mathcal{X}$ est une immersion de champs algébriques d'après le
+Lemme \ref{lemma-composition-immersion}.
+Remarquons que $\mathcal{Z}$ est un champ algébrique réduit et que
+$|\mathcal{Z}| = T$ comme parties de $|X|$. On dit parfois que
+$\mathcal{Z}$ est la {\it structure de sous-champ réduite induite} sur $T$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Gerbes résiduelles}
+\label{section-residual-gerbe}
+
+\noindent
+Dans le projet Champs, nous voudrions définir la {\it gerbe résiduelle}
+d'un champ algébrique $\mathcal{X}$ en un point $x \in |\mathcal{X}|$
+comme un monomorphisme de champs algébriques
+$m_x : \mathcal{Z}_x \to \mathcal{X}$ où $\mathcal{Z}_x$ est un champ
+algébrique réduit ayant un unique point, envoyé par $m_x$ sur $x$.
+Il s'avère que cette notion soulève de nombreuses difficultés; l'existence n'est pas
+claire en général, pas plus que l'unicité.
+Nous résolvons le problème d'unicité en imposant une condition légèrement plus forte
+aux champs algébriques $\mathcal{Z}_x$.
+Nous examinons cela plus en détail au moyen de quelques lemmes simples
+sur les champs algébriques réduits ayant un unique point.
+
+\begin{lemma}
+\label{lemma-flat-cover-by-field}
+Soit $\mathcal{Z}$ un champ algébrique. Soit $k$ un corps et soit
+$\Spec(k) \to \mathcal{Z}$ un morphisme plat surjectif. Alors tout
+morphisme $\Spec(k') \to \mathcal{Z}$, où $k'$ est un corps, est
+plat et surjectif.
+\end{lemma}
+
+\begin{proof}
+Considérons le carré fibré
+$$
+\xymatrix{
+T \ar[d] \ar[r] & \Spec(k) \ar[d] \\
+\Spec(k') \ar[r] & \mathcal{Z}
+}
+$$
+Remarquons que $T \to \Spec(k')$ est plat et surjectif; ainsi, $T$
+n'est pas vide. D'autre part, $T \to \Spec(k)$ est plat puisque
+$k$ est un corps. Il s'ensuit que $T \to \mathcal{Z}$ est plat et surjectif.
+D'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-flat-permanence}
+(via la discussion de la
+section \ref{section-properties-morphisms}),
+on en déduit que $\Spec(k') \to \mathcal{Z}$ est plat. Il est clairement
+surjectif puisque, par hypothèse, $|\mathcal{Z}|$ est réduit à un point.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-unique-point}
+Soit $\mathcal{Z}$ un champ algébrique. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{Z}$ est réduit et $|\mathcal{Z}|$ est réduit à un point,
+\item il existe un morphisme plat surjectif $\Spec(k) \to \mathcal{Z}$,
+où $k$ est un corps, et
+\item il existe un morphisme localement de type fini, surjectif et plat
+$\Spec(k) \to \mathcal{Z}$, où $k$ est un corps.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1). Soit $W$ un schéma et
+soit $W \to \mathcal{Z}$ un morphisme lisse surjectif. Alors $W$ est
+un schéma réduit. Soit $\eta \in W$ un point générique d'une composante
+irréductible de $W$. Comme $W$ est réduit, on a
+$\mathcal{O}_{W, \eta} = \kappa(\eta)$. Il s'ensuit que le morphisme canonique
+$\eta = \Spec(\kappa(\eta)) \to W$ est plat. On voit que le
+composé $\eta \to \mathcal{Z}$ est plat (voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-composition-flat}).
+Il est aussi surjectif puisque $|\mathcal{Z}|$ est réduit à un point. Autrement dit,
+(2) est vérifiée.
+
+\medskip\noindent
+Supposons (2). Soit $W$ un schéma et
+soit $W \to \mathcal{Z}$ un morphisme lisse surjectif. Choisissons un corps
+$k$ et un morphisme plat surjectif $\Spec(k) \to \mathcal{Z}$.
+Alors $W \times_\mathcal{Z} \Spec(k)$ est un espace algébrique lisse
+sur $k$, donc régulier (voir
+Espaces sur les corps, Lemme \ref{spaces-over-fields-lemma-smooth-regular})
+et en particulier réduit. Comme $W \times_\mathcal{Z} \Spec(k) \to W$
+est plat et surjectif, nous concluons que $W$ est réduit
+(Descente sur les espaces, Lemme \ref{spaces-descent-lemma-descend-reduced}).
+Autrement dit, (1) est vérifiée.
+
+\medskip\noindent
+Il est clair que (3) implique (2). Enfin, supposons (2). Prenons un schéma affine
+non vide $W$ et un morphisme lisse $W \to \mathcal{Z}$. Prenons un point fermé
+$w \in W$ et posons $k = \kappa(w)$. Le composé
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow \mathcal{Z}
+$$
+est localement de type fini d'après
+Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-composition-finite-type} et
+\ref{spaces-morphisms-lemma-smooth-locally-finite-type}.
+Il est aussi plat et surjectif d'après le
+Lemme \ref{lemma-flat-cover-by-field}.
+Ainsi, (3) est vérifiée.
+\end{proof}
+
+\noindent
+Le lemme suivant distingue une classe légèrement meilleure de champs algébriques
+réduits à un point que celle du lemme précédent.
+
+\begin{lemma}
+\label{lemma-unique-point-better}
+Soit $\mathcal{Z}$ un champ algébrique. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{Z}$ est réduit, localement noethérien, et $|\mathcal{Z}|$
+est réduit à un point, et
+\item il existe un morphisme localement de présentation finie, surjectif et plat
+$\Spec(k) \to \mathcal{Z}$, où $k$ est un corps.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (2). D'après le
+Lemme \ref{lemma-unique-point},
+on voit que $\mathcal{Z}$ est réduit et que $|\mathcal{Z}|$ est réduit à un point.
+Soit $W$ un schéma et soit $W \to \mathcal{Z}$ un morphisme lisse
+surjectif. Choisissons un corps $k$ et un morphisme localement de présentation finie,
+surjectif et plat $\Spec(k) \to \mathcal{Z}$.
+Alors $W \times_\mathcal{Z} \Spec(k)$ est un espace algébrique
+lisse sur $k$, donc localement noethérien (voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Comme $W \times_\mathcal{Z} \Spec(k) \to W$
+est plat, surjectif et localement de présentation finie, on voit
+que $\{W \times_\mathcal{Z} \Spec(k) \to W\}$ est un recouvrement fppf,
+et nous concluons que $W$ est localement noethérien
+(Descente sur les espaces, Lemme
+\ref{spaces-descent-lemma-descend-locally-Noetherian}).
+Autrement dit, (1) est vérifiée.
+
+\medskip\noindent
+Supposons (1). Prenons un schéma affine non vide $W$ et un morphisme lisse
+$W \to \mathcal{Z}$. Prenons un point fermé $w \in W$ et posons
+$k = \kappa(w)$. Comme $W$ est localement noethérien, le morphisme
+$w : \Spec(k) \to W$ est de présentation finie, voir
+Morphismes, Lemme \ref{morphisms-lemma-closed-immersion-finite-presentation}.
+Le composé
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow \mathcal{Z}
+$$
+est donc localement de présentation finie d'après
+Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-composition-finite-presentation} et
+\ref{spaces-morphisms-lemma-smooth-locally-finite-presentation}.
+Il est aussi plat et surjectif d'après le
+Lemme \ref{lemma-flat-cover-by-field}.
+Ainsi, (2) est vérifiée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-into-point}
+Soit $\mathcal{Z}' \to \mathcal{Z}$ un monomorphisme de champs algébriques.
+Supposons qu'il existe un corps $k$ et un morphisme localement de présentation finie,
+surjectif et plat $\Spec(k) \to \mathcal{Z}$. Alors soit $\mathcal{Z}'$
+est vide, soit $\mathcal{Z}' \to \mathcal{Z}$ est une équivalence.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons supposer que $\mathcal{Z}'$ est non vide. Dans ce cas, le
+produit fibré $T = \mathcal{Z}' \times_\mathcal{Z} \Spec(k)$
+est non vide, voir
+Lemme \ref{lemma-points-cartesian}.
+Or $T$ est un espace algébrique et la projection $T \to \Spec(k)$
+est un monomorphisme. Ainsi, $T = \Spec(k)$, voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-monomorphism-toward-field}.
+Nous concluons que $\Spec(k) \to \mathcal{Z}$ se factorise par
+$\mathcal{Z}'$. Supposons que le morphisme $z : \Spec(k) \to \mathcal{Z}$
+soit donné par l'objet $\xi$ au-dessus de $\Spec(k)$. Nous venons de voir que
+$\xi$ est isomorphe à un objet $\xi'$ de $\mathcal{Z}'$ au-dessus de
+$\Spec(k)$. Puisque $z$
+est surjectif, plat et localement de présentation finie, on voit que
+tout objet de $\mathcal{Z}$ au-dessus d'un schéma quelconque est localement pour fppf isomorphe
+à un tiré en arrière de $\xi$, et donc aussi à un tiré en arrière de $\xi'$. Par descente des
+objets pour les champs en groupoïdes, cela implique que
+$\mathcal{Z}' \to \mathcal{Z}$ est essentiellement surjectif (et aussi
+pleinement fidèle, voir
+Lemme \ref{lemma-monomorphism}).
+D'où le résultat.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-improve-unique-point}
+Soit $\mathcal{Z}$ un champ algébrique. Supposons que $\mathcal{Z}$ satisfasse
+aux conditions équivalentes du
+Lemme \ref{lemma-unique-point}.
+Il existe alors une unique sous-catégorie strictement pleine
+$\mathcal{Z}' \subset \mathcal{Z}$ telle que
+$\mathcal{Z}'$ soit un champ algébrique satisfaisant aux conditions équivalentes du
+Lemme \ref{lemma-unique-point-better}.
+Le morphisme d'inclusion $\mathcal{Z}' \to \mathcal{Z}$ est un monomorphisme
+de champs algébriques.
+\end{lemma}
+
+\begin{proof}
+La dernière assertion résulte immédiatement de la première et du
+Lemme \ref{lemma-monomorphism}.
+Choisissons un corps $k$ et un morphisme $\Spec(k) \to \mathcal{Z}$
+qui soit surjectif, plat et localement de type fini.
+Posons $U = \Spec(k)$ et $R = U \times_\mathcal{Z} U$.
+Les projections $s, t : R \to U$ sont localement de type fini.
+Comme $U$ est le spectre d'un corps, il s'ensuit que
+$s, t$ sont plates et localement de présentation finie (d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-noetherian-finite-type-finite-presentation}).
+On voit que $\mathcal{Z}' = [U/R]$ est un champ algébrique d'après
+Critères de représentabilité,
+Théorème \ref{criteria-theorem-flat-groupoid-gives-algebraic-stack}.
+D'après
+Champs algébriques, Lemme \ref{algebraic-lemma-map-space-into-stack},
+nous obtenons un morphisme canonique
+$$
+f : \mathcal{Z}' \longrightarrow \mathcal{Z}
+$$
+qui est pleinement fidèle. Ce morphisme est donc représentable par des
+espaces algébriques, voir
+Champs algébriques, Lemme
+\ref{algebraic-lemma-characterize-representable-by-algebraic-spaces},
+et c'est un monomorphisme, voir
+Lemme \ref{lemma-monomorphism}.
+D'après
+Critères de représentabilité,
+Lemme \ref{criteria-lemma-flat-quotient-flat-presentation},
+le morphisme $U \to \mathcal{Z}'$ est surjectif, plat et localement de
+présentation finie. Ainsi, $\mathcal{Z}'$ est un champ algébrique qui satisfait
+aux conditions équivalentes du
+Lemme \ref{lemma-unique-point-better}.
+D'après
+Champs algébriques, Lemme \ref{algebraic-lemma-equivalent},
+nous pouvons remplacer $\mathcal{Z}'$ par son image essentielle dans $\mathcal{Z}$.
+Nous avons donc prouvé toutes les assertions du lemme, à l'exception de
+l'unicité de $\mathcal{Z}' \subset \mathcal{Z}$. Supposons que
+$\mathcal{Z}'' \subset \mathcal{Z}$ soit un second champ algébrique de ce type.
+Alors les projections
+$$
+\mathcal{Z}'
+\longleftarrow
+\mathcal{Z}' \times_\mathcal{Z} \mathcal{Z}''
+\longrightarrow
+\mathcal{Z}''
+$$
+sont des monomorphismes. Le champ algébrique du milieu est non vide d'après le
+Lemme \ref{lemma-points-cartesian}.
+Les deux projections sont donc des isomorphismes d'après le
+Lemme \ref{lemma-monomorphism-into-point},
+d'où le résultat.
+\end{proof}
+
+
+\begin{example}
+\label{example-distinct}
+Voici un exemple où le morphisme construit dans le
+Lemme \ref{lemma-improve-unique-point}
+n'est pas un isomorphisme. Cet exemple montre qu'il est nécessaire d'imposer
+aux gerbes résiduelles d'être localement noethériennes dans la
+Définition \ref{definition-residual-gerbe}.
+En fait, l'exemple est même un espace algébrique !
+Soit $\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$ le groupe de
+Galois absolu de $\mathbf{Q}$ muni de la topologie profinie.
+Soit
+$$
+U =
+\Spec(\overline{\mathbf{Q}})
+\times_{\Spec(\mathbf{Q})}
+\Spec(\overline{\mathbf{Q}}) =
+\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q}) \times
+\Spec(\overline{\mathbf{Q}})
+$$
+(nous omettons une explication précise du sens du dernier signe égal).
+Notons $G$ le groupe de Galois absolu
+$\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$ muni de la topologie
+discrète, considéré comme un schéma en groupes constant sur
+$\Spec(\overline{\mathbf{Q}})$, voir
+Groupoïdes, Exemple \ref{groupoids-example-constant-group}.
+Alors $G$ agit librement et transitivement sur $U$.
+Soit $X = U/G$, voir
+Espaces, Définition \ref{spaces-definition-quotient}.
+Alors $X$ est un espace algébrique réduit non noethérien ayant exactement un point.
+De plus, $X$ possède un point (localement) de type fini :
+$$
+x :
+\Spec(\overline{\mathbf{Q}}) \longrightarrow
+U \longrightarrow X
+$$
+En effet, tout point de $U$ est en fait fermé !
+Comme $X$ est un espace algébrique sur $\overline{\mathbf{Q}}$,
+il s'ensuit que $x$ est un monomorphisme. Ainsi, $x$ est le morphisme
+construit dans le
+Lemme \ref{lemma-improve-unique-point},
+mais $x$ n'est pas un isomorphisme. En fait,
+$\Spec(\overline{\mathbf{Q}}) \to X$ est la gerbe résiduelle de $X$ en $x$.
+\end{example}
+
+\noindent
+Nous verrons plus loin que, sous des hypothèses modérées sur le champ algébrique
+$\mathcal{X}$, les conditions équivalentes du lemme suivant sont satisfaites
+pour tout point $x \in |\mathcal{X}|$ (voir Morphismes de champs, section
+\ref{stacks-morphisms-section-existence-residual-gerbes}).
+
+\begin{lemma}
+\label{lemma-residual-gerbe}
+Soit $\mathcal{X}$ un champ algébrique. Soit $x \in |\mathcal{X}|$ un point.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un champ algébrique $\mathcal{Z}$ et un monomorphisme
+$\mathcal{Z} \to \mathcal{X}$ tels que $|\mathcal{Z}|$ soit réduit à un point
+et que l'image de $|\mathcal{Z}|$ dans $|\mathcal{X}|$ soit $x$,
+\item il existe un champ algébrique réduit $\mathcal{Z}$ et un monomorphisme
+$\mathcal{Z} \to \mathcal{X}$ tels que $|\mathcal{Z}|$ soit réduit à un point
+et que l'image de $|\mathcal{Z}|$ dans $|\mathcal{X}|$ soit $x$,
+\item il existe un champ algébrique $\mathcal{Z}$, un monomorphisme
+$f : \mathcal{Z} \to \mathcal{X}$ et un morphisme plat surjectif
+$z : \Spec(k) \to \mathcal{Z}$, où $k$ est un corps tel que
+$x = f(z)$.
+\end{enumerate}
+De plus, si ces conditions sont satisfaites, il existe une unique
+sous-catégorie strictement pleine $\mathcal{Z}_x \subset \mathcal{X}$
+telle que $\mathcal{Z}_x$ soit un champ algébrique réduit et localement
+noethérien, et que $|\mathcal{Z}_x|$ soit réduit à un point envoyé sur $x$
+par l'application $|\mathcal{Z}_x| \to |\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+Si $\mathcal{Z} \to \mathcal{X}$ est comme en (1), alors
+$\mathcal{Z}_{red} \to \mathcal{X}$ est comme en (2). (Voir la
+section \ref{section-reduced}
+pour la notion de réduction d'un champ algébrique.)
+Ainsi, (1) implique (2).
+Il est immédiat que (2) implique (1).
+L'équivalence de (2) et (3) résulte immédiatement du
+Lemme \ref{lemma-unique-point}.
+
+\medskip\noindent
+À ce stade, nous avons établi l'équivalence de (1) -- (3).
+Choisissons un monomorphisme $f : \mathcal{Z} \to \mathcal{X}$ comme en (2).
+Remarquons qu'il en résulte que $f$ est pleinement fidèle, voir
+Lemme \ref{lemma-monomorphism}.
+Notons $\mathcal{Z}' \subset \mathcal{X}$ l'image essentielle du foncteur
+$f$. Alors $f : \mathcal{Z} \to \mathcal{Z}'$ est une équivalence, et donc
+$\mathcal{Z}'$ est un champ algébrique, voir
+Champs algébriques, Lemme \ref{algebraic-lemma-equivalent}.
+Appliquons le
+Lemme \ref{lemma-improve-unique-point}
+pour obtenir une sous-catégorie strictement pleine $\mathcal{Z}_x \subset \mathcal{Z}'$
+comme dans l'énoncé du lemme.
+Cela prouve toutes les assertions du lemme, sauf l'unicité.
+
+\medskip\noindent
+Pour prouver l'unicité, supposons que
+$\mathcal{Z}_x \subset \mathcal{X}$
+et
+$\mathcal{Z}'_x \subset \mathcal{X}$
+soient deux sous-catégories strictement pleines comme dans l'énoncé du lemme.
+Alors les projections
+$$
+\mathcal{Z}'_x
+\longleftarrow
+\mathcal{Z}'_x \times_\mathcal{X} \mathcal{Z}_x
+\longrightarrow
+\mathcal{Z}_x
+$$
+sont des monomorphismes. Le champ algébrique du milieu est non vide d'après le
+Lemme \ref{lemma-points-cartesian}.
+Les deux projections sont donc des isomorphismes d'après le
+Lemme \ref{lemma-monomorphism-into-point},
+d'où le résultat.
+\end{proof}
+
+\noindent
+Ces explications nous permettent maintenant de poser la définition suivante.
+
+\begin{definition}
+\label{definition-residual-gerbe}
+Soit $\mathcal{X}$ un champ algébrique. Soit $x \in |\mathcal{X}|$.
+\begin{enumerate}
+\item On dit que la {\it gerbe résiduelle de $\mathcal{X}$ en $x$ existe}
+si les conditions équivalentes (1), (2) et (3) du
+Lemme \ref{lemma-residual-gerbe}
+sont satisfaites.
+\item Si la gerbe résiduelle de $\mathcal{X}$ en $x$ existe, la
+{\it gerbe résiduelle de $\mathcal{X}$ en $x$}\footnote{Cela entre en conflit avec
+\cite{LM-B} dans l'esprit, mais non en fait. Plus précisément, au chapitre 11, ils associent
+à tout point de tout champ algébrique quasi-séparé une gerbe (pas nécessairement
+algébrique), qu'ils appellent la gerbe résiduelle. Nous verrons dans
+Morphismes de champs, Lemme
+\ref{stacks-morphisms-lemma-every-point-residual-gerbe}
+que, sur un champ algébrique quasi-séparé, tout point
+possède une gerbe résiduelle en notre sens, qui est alors équivalente à la leur. Pour
+plus de renseignements sur ce sujet, voir
+\cite[Annexe B]{rydh_etale_devissage}.}
+est la sous-catégorie strictement pleine
+$\mathcal{Z}_x \subset \mathcal{X}$ construite au
+Lemme \ref{lemma-residual-gerbe}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+En particulier, nous savons que $\mathcal{Z}_x$ (si elle existe) est un
+champ algébrique localement noethérien et réduit, et qu'il existe un
+corps et un morphisme surjectif, plat et localement de présentation finie
+$$
+\Spec(k) \longrightarrow \mathcal{Z}_x.
+$$
+Nous verrons dans
+Morphismes de champs, Lemme
+\ref{stacks-morphisms-lemma-noetherian-singleton-stack-gerbe}
+que $\mathcal{Z}_x$ est une gerbe. L'existence des gerbes résiduelles est
+étudiée dans Morphismes de champs, section
+\ref{stacks-morphisms-section-existence-residual-gerbes}.
+
+\begin{example}
+\label{example-residual-gerbe}
+Soit $X$ un schéma et soit $x \in X$ un point. Alors le monomorphisme
+$x \to X$ est la gerbe résiduelle de $X$ en $x$, où, comme d'habitude, nous identifions
+$x$ au schéma $x = \Spec(\kappa(x))$. Si $X$ est un espace algébrique
+et $x \in |X|$, alors la gerbe résiduelle en $x$ (appelée
+l'espace résiduel) existe toujours, voir
+Espaces décents, section \ref{decent-spaces-section-singleton}.
+\end{example}
+
+\noindent
+La gerbe résiduelle, si elle existe, est un champ algébrique régulier
+d'après le lemme suivant.
+
+\begin{lemma}
+\label{lemma-residual-gerbe-regular}
+Un champ algébrique réduit et localement noethérien $\mathcal{Z}$ tel que
+$|\mathcal{Z}|$ soit réduit à un point est régulier.
+\end{lemma}
+
+\begin{proof}
+Soit $W \to \mathcal{Z}$ un morphisme lisse surjectif, où $W$ est un schéma.
+Soit $k$ un corps et soit $\Spec(k) \to \mathcal{Z}$ un morphisme surjectif,
+plat et localement de présentation finie (voir
+Lemme \ref{lemma-unique-point-better}).
+L'espace algébrique $T = W \times_\mathcal{Z} \Spec(k)$ est
+lisse sur $k$, donc en particulier régulier, voir
+Espaces sur les corps, Lemme \ref{spaces-over-fields-lemma-smooth-regular}.
+Comme $T \to W$ est localement de présentation finie, plat et surjectif, il
+s'ensuit que $W$ est régulier, voir
+Descente sur les espaces, Lemme \ref{spaces-descent-lemma-descend-regular}.
+Par définition, cela signifie que $\mathcal{Z}$ est régulier.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-points}
+Soit $\mathcal{X}$ un champ algébrique. Soit $x \in |\mathcal{X}|$.
+Supposons que la gerbe résiduelle $\mathcal{Z}_x$ de $\mathcal{X}$ existe.
+Soit $f : \Spec(K) \to \mathcal{X}$ un morphisme, où $K$ est un corps,
+dans la classe d'équivalence de $x$. Alors $f$ se factorise par le morphisme
+d'inclusion $\mathcal{Z}_x \to \mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un corps $k$ et un morphisme surjectif, plat et localement de présentation finie
+$\Spec(k) \to \mathcal{Z}_x$. Posons
+$T = \Spec(K) \times_\mathcal{X} \mathcal{Z}_x$. D'après le
+Lemme \ref{lemma-points-cartesian},
+on voit que $T$ est non vide. Comme $\mathcal{Z}_x \to \mathcal{X}$
+est un monomorphisme, on voit que $T \to \Spec(K)$ est un monomorphisme.
+Ainsi, d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-monomorphism-toward-field},
+on voit que $T = \Spec(K)$, ce qui prouve le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-unique}
+Soit $\mathcal{X}$ un champ algébrique. Soit $x \in |\mathcal{X}|$.
+Soit $\mathcal{Z}$ un champ algébrique satisfaisant aux conditions équivalentes du
+Lemme \ref{lemma-unique-point-better},
+et soit $\mathcal{Z} \to \mathcal{X}$ un monomorphisme tel que l'image
+de $|\mathcal{Z}| \to |\mathcal{X}|$ soit $x$. Alors la gerbe résiduelle
+$\mathcal{Z}_x$ de $\mathcal{X}$ en $x$ existe, et
+$\mathcal{Z} \to \mathcal{X}$ se factorise sous la forme
+$\mathcal{Z} \to \mathcal{Z}_x \to \mathcal{X}$, où la première flèche
+est une équivalence.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{Z}_x \subset \mathcal{X}$ la sous-catégorie pleine correspondant
+à l'image essentielle du foncteur $\mathcal{Z} \to \mathcal{X}$.
+Alors $\mathcal{Z} \to \mathcal{Z}_x$ est une équivalence, donc
+$\mathcal{Z}_x$ est un champ algébrique, voir
+Champs algébriques, Lemme \ref{algebraic-lemma-equivalent}.
+Comme $\mathcal{Z}_x$ hérite de toutes les propriétés de $\mathcal{Z}$ par
+cette équivalence, il résulte clairement de l'unicité du
+Lemme \ref{lemma-residual-gerbe}
+que $\mathcal{Z}_x$ est la gerbe résiduelle de $\mathcal{X}$ en $x$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-functorial}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Soit $x \in |\mathcal{X}|$, d'image $y \in |\mathcal{Y}|$.
+Si les gerbes résiduelles $\mathcal{Z}_x \subset \mathcal{X}$
+et $\mathcal{Z}_y \subset \mathcal{Y}$ de $x$ et de $y$ existent,
+alors $f$ induit un diagramme commutatif
+$$
+\xymatrix{
+\mathcal{X} \ar[d]_f & \mathcal{Z}_x \ar[l] \ar[d] \\
+\mathcal{Y} & \mathcal{Z}_y \ar[l]
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un corps $k$ et un morphisme surjectif, plat et localement de présentation finie
+$\Spec(k) \to \mathcal{Z}_x$. Le morphisme
+$\Spec(k) \to \mathcal{Y}$ se factorise par $\mathcal{Z}_y$ d'après le
+Lemme \ref{lemma-residual-gerbe-points}.
+Ainsi, $\mathcal{Z}_x \times_\mathcal{Y} \mathcal{Z}_y$
+est un sous-champ non vide de $\mathcal{Z}_x$,
+donc égal à $\mathcal{Z}_x$ d'après le Lemme \ref{lemma-monomorphism-into-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-isomorphic}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Soit $x \in |\mathcal{X}|$ dont l'image est $y \in |\mathcal{Y}|$.
+Supposons que les gerbes résiduelles $\mathcal{Z}_x \subset \mathcal{X}$
+et $\mathcal{Z}_y \subset \mathcal{Y}$ de $x$ et de $y$ existent
+et qu'il existe un morphisme $\Spec(k) \to \mathcal{X}$
+dans la classe d'équivalence de $x$ tel que
+$$
+\Spec(k) \times_\mathcal{X} \Spec(k)
+\longrightarrow
+\Spec(k) \times_\mathcal{Y} \Spec(k)
+$$
+soit un isomorphisme. Alors $\mathcal{Z}_x \to \mathcal{Z}_y$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Soit $k'/k$ une extension de corps. Alors
+$$
+\Spec(k') \times_\mathcal{X} \Spec(k')
+\longrightarrow
+\Spec(k') \times_\mathcal{Y} \Spec(k')
+$$
+est le changement de base du morphisme du lemme par le
+morphisme fidèlement plat $\Spec(k' \otimes k') \to \Spec(k \otimes k)$.
+Ainsi, la propriété décrite dans le lemme ne dépend pas du
+choix du morphisme $\Spec(k) \to \mathcal{X}$ dans la
+classe d'équivalence de $x$. Ainsi, nous pouvons supposer que
+$\Spec(k) \to \mathcal{Z}_x$ est surjectif, plat et
+localement de présentation finie. Dans cette situation, nous avons
+$$
+\mathcal{Z}_x = [\Spec(k)/R]
+$$
+où $R = \Spec(k) \times_\mathcal{X} \Spec(k)$. Voir la
+démonstration du Lemme \ref{lemma-improve-unique-point}.
+Comme on a aussi $R = \Spec(k) \times_\mathcal{Y} \Spec(k)$,
+nous concluons que le morphisme $\mathcal{Z}_x \to \mathcal{Z}_y$
+du Lemme \ref{lemma-residual-gerbe-functorial}
+est pleinement fidèle d'après le
+Lemme sur les champs algébriques \ref{algebraic-lemma-map-space-into-stack}.
+On conclut, par exemple, à l'aide du Lemme \ref{lemma-residual-gerbe-unique}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Dimension d'un champ}
+\label{section-dimension}
+
+\noindent
+Nous pouvons définir la dimension d'un champ algébrique $\mathcal{X}$
+en un point $x$ à l'aide de la notion de dimension d'un espace algébrique
+en un point (Propriétés des espaces, Définition
+\ref{spaces-properties-definition-dimension-at-point}).
+Dans le lemme suivant, le résultat peut être $\infty$, soit parce que
+$\mathcal{X}$ n'est pas quasi-compact, soit parce que nous rencontrons le
+phénomène décrit dans Exemples, section
+\ref{examples-section-Noetherian-infinite-dimension}.
+
+\begin{lemma}
+\label{lemma-dimension-at-point-well-defined}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien sur un schéma $S$.
+Soit $x \in |\mathcal{X}|$ un point de $\mathcal{X}$.
+Soit $[U/R] \to \mathcal{X}$ une présentation
+(Champs algébriques, Définition \ref{algebraic-definition-presentation})
+où $U$ est un schéma. Soit $u \in U$ un point dont l'image est $x$.
+Soit $e : U \to R$ le morphisme « identité » et soit $s : R \to U$ le
+morphisme « source », qui est un morphisme lisse d'espaces algébriques. Soit $R_u$
+la fibre de $s : R \to U$ au-dessus de $u$. L'élément
+$$
+\dim_x(\mathcal{X}) = \dim_u(U) - \dim_{e(u)}(R_u) \in \mathbf{Z} \cup \infty
+$$
+est indépendant du choix de la présentation et du point $u$ au-dessus de $x$.
+\end{lemma}
+
+\begin{proof}
+Puisque $R \to U$ est lisse, le schéma $R_u$ est lisse sur $\kappa(u)$
+et est donc de dimension finie. D'autre part, le schéma $U$
+est localement noethérien, mais cela ne garantit pas que
+$\dim_u(U)$ soit finie. Ainsi, la différence est un élément de
+$\mathbf{Z} \cup \{\infty\}$.
+
+\medskip\noindent
+Soient $[U'/R'] \to \mathcal{X}$ et $u' \in U'$ une seconde présentation
+où $U'$ est un schéma et où l'image de $u'$ est $x$. Considérons l'espace
+algébrique $P = U \times_\mathcal{X} U'$. D'après le
+Lemme \ref{lemma-points-cartesian}, il existe $p \in |P|$ dont les images sont
+$u$ et $u'$. Comme $P \to U$ et $P \to U'$ sont lisses, on voit que
+$\dim_p(P) = \dim_u(U) + \dim_p(P_u)$ et
+$\dim_p(P) = \dim_{u'}(U') + \dim_p(P_{u'})$; voir le
+Lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-smoothness-dimension-spaces}.
+Notons que
+$$
+R'_{u'} = \Spec(\kappa(u')) \times_\mathcal{X} U'
+\quad\text{et}\quad
+P_u = \Spec(\kappa(u)) \times_\mathcal{X} U'
+$$
+Représentons $p \in |P|$ par un morphisme $\Spec(\Omega) \to P$.
+Comme $p$ s'envoie à la fois sur $u$ et sur $u'$, il induit un $2$-morphisme
+entre les composées
+$\Spec(\Omega) \to \Spec(\kappa(u')) \to \mathcal{X}$ et
+$\Spec(\Omega) \to \Spec(\kappa(u)) \to \mathcal{X}$,
+qui définit à son tour un isomorphisme
+$$
+\Spec(\Omega) \times_{\Spec(\kappa(u'))} R'_{u'}
+\cong
+\Spec(\Omega) \times_{\Spec(\kappa(u))} P_u
+$$
+d'espaces algébriques sur $\Spec(\Omega)$ envoyant le point $\Omega$-rationnel
+$(1, e'(u'))$ sur $(1, p)$ (certains détails sont omis). On en déduit que
+$$
+\dim_{e'(u')}(R'_{u'}) = \dim_p(P_u)
+$$
+d'après le Lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}.
+Par symétrie, on a
+$\dim_{e(u)}(R_u) = \dim_p(P_{u'})$.
+En réunissant toutes ces égalités, on obtient l'indépendance des choix.
+\end{proof}
+
+\noindent
+Nous pouvons utiliser le lemme précédent pour poser la définition suivante.
+
+\begin{definition}
+\label{definition-dimension-at-point}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien sur un schéma $S$.
+Soit $x \in |\mathcal{X}|$ un point de $\mathcal{X}$.
+Soit $[U/R] \to \mathcal{X}$ une présentation
+(Champs algébriques, Définition \ref{algebraic-definition-presentation})
+où $U$ est un schéma,
+et soit $u \in U$ un point dont l'image est $x$.
+Nous définissons la {\it dimension de $\mathcal{X}$ en $x$} comme
+l'élément $\dim_x(\mathcal{X}) \in \mathbf{Z} \cup \infty$
+tel que 
+$$
+\dim_x(\mathcal{X}) = \dim_u(U)-\dim_{e(u)}(R_u).
+$$
+Les notations sont celles du Lemme \ref{lemma-dimension-at-point-well-defined}.
+\end{definition}
+
+\noindent
+La dimension d'un champ en un point coïncide avec la notion usuelle
+lorsque $\mathcal{X}$ est un schéma (Topologie, Définition
+\ref{topology-definition-Krull}),
+ou, plus généralement, lorsque $\mathcal{X}$ est un espace algébrique localement noethérien
+(Propriétés des espaces, Définition
+\ref{spaces-properties-definition-dimension-at-point}).
+
+\begin{definition}
+\label{definition-dimension}
+Soit $S$ un schéma. Soit $\mathcal{X}$
+un champ algébrique localement noethérien sur $S$.
+La {\it dimension} $\dim(\mathcal{X})$ de $\mathcal{X}$ est définie par
+$$
+\dim(\mathcal{X}) = \sup\nolimits_{x \in |\mathcal{X}|} \dim_x(\mathcal{X})
+$$
+\end{definition}
+
+\noindent
+Cette définition de la dimension coïncide avec la notion usuelle
+si $\mathcal{X}$ est un schéma
+(Propriétés, Lemme \ref{properties-lemma-dimension})
+ou un espace algébrique (Propriétés des espaces, Définition
+\ref{spaces-properties-definition-dimension}).
+
+\begin{remark}
+\label{remark-dimension-empty-stack}
+Si $\mathcal{X}$ est un champ non vide de type fini sur un corps,
+alors $\dim(\mathcal{X})$ est un entier. Pour un champ algébrique
+localement noethérien quelconque $\mathcal{X}$,
+$\dim(\mathcal{X})$ appartient à $Z\cup \{\pm \infty\}$,
+et $\dim(\mathcal{X}) = -\infty$ si et seulement si $\mathcal{X}$
+est vide.
+\end{remark}
+
+\begin{example}
+\label{example-dimension-quotient-stack}
+Soit $X$ un schéma de type fini sur un corps $k$, et soit $G$
+un schéma en groupes de type fini sur $k$ qui opère sur $X$.
+Alors la dimension du champ quotient $[X/G]$ est égale à
+$\dim(X)-\dim(G)$. En particulier, la dimension du champ classifiant
+$BG=[\Spec(k)/G]$ est $-\dim(G)$. Ainsi, la dimension d'un champ algébrique
+peut être un entier négatif, contrairement à ce qui se produit pour les schémas
+ou les espaces algébriques.
+\end{example}
+
+
+
+
+
+
+\section{Irréductibilité locale}
+\label{section-irreducible-local-ring}
+
+\noindent
+Nous avons défini le nombre de branches géométriques d'un schéma en un point
+dans Propriétés, section \ref{properties-section-unibranch},
+et celui d'un espace algébrique en un point dans Propriétés des espaces, section
+\ref{spaces-properties-section-irreducible-local-ring}.
+Soit $n \in \mathbf{N}$. Pour un anneau local $A$, posons
+$$
+P_n(A) = \text{le nombre de branches géométriques de }A\text{ vaut }n
+$$
+Pour un homomorphisme lisse d'anneaux $A \to B$ et un idéal premier $\mathfrak q$
+de $B$ situé au-dessus de $\mathfrak p$ de $A$, on a
+$$
+P_n(A_\mathfrak p) \Leftrightarrow P_n(B_\mathfrak q)
+$$
+d'après le Lemme de Compléments d'algèbre
+\ref{more-algebra-lemma-invariance-number-branches-smooth}.
+Comme dans Propriétés des espaces, Remarque
+\ref{spaces-properties-remark-list-properties-local-ring-local-etale-topology},
+nous pouvons utiliser $P_n$ pour définir une propriété locale pour la topologie \'etale $\mathcal{P}_n$
+des germes $(U, u)$ de schémas en posant
+$\mathcal{P}_n(U, u) = P_n(\mathcal{O}_{U, u})$.
+La propriété correspondante $\mathcal{P}_n$
+d'un espace algébrique $X$ en un point $x$
+(voir Propriétés des espaces, Définition
+\ref{spaces-properties-definition-property-at-point})
+est précisément la propriété
+``le nombre de branches géométriques de $X$ en $x$ est $n$''; voir
+Propriétés des espaces, Définition
+\ref{spaces-properties-definition-number-of-geometric-branches}.
+De plus, la propriété $\mathcal{P}_n$ est locale pour la topologie lisse; voir
+Descente, Définition \ref{descent-definition-local-at-point}.
+Cela résulte soit de l'équivalence affichée ci-dessus,
+soit du Lemme de Compléments sur les morphismes
+\ref{more-morphisms-lemma-number-of-branches-and-smooth}.
+Ainsi, la Définition \ref{definition-property-at-point}
+s'applique et nous obtenons une notion pour les champs algébriques en un point.
+
+\begin{definition}
+\label{definition-number-of-geometric-branches}
+Soit $\mathcal{X}$ un champ algébrique. Soit $x \in |\mathcal{X}|$.
+\begin{enumerate}
+\item Le {\it nombre de branches géométriques de $\mathcal{X}$ en $x$}
+vaut soit $n \in \mathbf{N}$ si les conditions équivalentes du
+Lemme \ref{lemma-local-source-target-at-point} sont satisfaites pour
+$\mathcal{P}_n$ définie ci-dessus, soit $\infty$.
+\item Nous disons que $\mathcal{X}$ est {\it géométriquement unibranche en $x$}
+si le nombre de branches géométriques de $\mathcal{X}$ en $x$ vaut $1$.
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+\section{Conditions de finitude et points}
+\label{section-points-conditions}
+
+\noindent
+Cette section est l'analogue de
+Espaces décents, section \ref{decent-spaces-section-points-monomorphisms}
+pour les points des champs algébriques.
+
+\begin{lemma}
+\label{lemma-UR-quasi-compact-above-x}
+Soit $\mathcal{X}$ un champ algébrique. Soit $x \in |\mathcal{X}|$
+un point. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item un morphisme $\Spec(k) \to \mathcal{X}$ dans la classe d'équivalence
+de $x$ est quasi-compact, et
+\item tout morphisme $\Spec(k) \to \mathcal{X}$ dans la classe d'équivalence
+de $x$ est quasi-compact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $\Spec(k) \to \mathcal{X}$ dans la classe d'équivalence
+de $x$. Soit $k'/k$ une extension de corps.
+Nous devons alors montrer que $\Spec(k) \to \mathcal{X}$ est
+quasi-compact si et seulement si $\Spec(k') \to \mathcal{X}$
+est quasi-compact. Cela résulte du
+Lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-surjection-from-quasi-compact}
+et du principe donné par le Lemme de Champs algébriques
+\ref{algebraic-lemma-representable-transformations-property-implication}.
+\end{proof}
+
+\noindent
+On dit parfois qu'un point $x \in |\mathcal{X}|$ satisfaisant
+aux conditions équivalentes du Lemme \ref{lemma-UR-quasi-compact-above-x}
+est un ``{\it point quasi-compact}''.
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

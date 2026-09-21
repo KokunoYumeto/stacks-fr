@@ -1,0 +1,2966 @@
+\input{preamble}
+
+% OK, commencez ici.
+%
+\begin{document}
+
+\title{Sommes amalgamées d'espaces algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Le but de ce chapitre est d'étudier les sommes amalgamées dans la catégorie des espaces algébriques, sous diverses hypothèses. Une construction assez générale est donnée dans \cite{Temkin-Tyomkin} : l'un des morphismes est affine et l'autre est une immersion fermée. Nous étudions un cas particulier de cette construction dans la section \ref{section-pushouts} où nous supposons que l'un des morphismes est affine et l'autre est un épaississement, situation qui apparaît souvent en théorie des déformations.
+
+\medskip\noindent
+Dans les sections \ref{section-formal-glueing} et
+\ref{section-formal-glueing-spaces} nous discutons des diagrammes
+$$
+\xymatrix{
+f^{-1}(X \setminus Z) \ar[r] \ar[d] & Y \ar[d]^f \\
+X \setminus Z \ar[r] & X
+}
+$$
+où $f$ est un morphisme quasi-compact et quasi-séparé d'espaces algébriques, $Z \to X$ est une immersion fermée de présentation finie, le morphisme $f^{-1}(Z) \to Z$ est un isomorphisme, et $f$ est plat le long de $f^{-1}(Z)$. Dans cette situation, nous recollons des modules quasi-cohérents sur $X \setminus Z$ et $Y$
+(dans la section \ref{section-formal-glueing}) à des modules quasi-cohérents sur $X$
+et nous recollons des espaces algébriques sur $X \setminus Z$ et sur $Y$
+(dans la section \ref{section-formal-glueing-spaces}) à des espaces algébriques sur $X$.
+
+\medskip\noindent
+Dans la section \ref{section-coequalizer-glue}, nous discutons de la manière dont les morphismes birationnels propres des espaces algébriques noethériens donnent lieu à des diagrammes de coégalisation dans la catégorie des espaces algébriques, en un sens précisé plus loin.
+
+\medskip\noindent
+Dans la section \ref{section-compactifications}, nous utilisons la construction
+des carrés distingués élémentaires
+dans la section \ref{section-elementary-dsitnguished-squares}
+pour prouver le théorème de Nagata sur les compactifications dans le cadre
+des espaces algébriques.
+
+
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Notre convention permanente est que tous les schémas sont contenus dans
+un grand site fppf $\Sch_{fppf}$. Tous les anneaux $A$ considérés
+ont la propriété que $\Spec(A)$ est (isomorphe) à un
+objet de ce grand site.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Dans ce chapitre et le suivant, nous écrirons $X \times_S X$
+pour le produit de $X$ avec lui-même (dans la catégorie des espaces algébriques sur $S$), au lieu de $X \times X$.
+
+
+
+
+\section{Limites inductives des espaces algébriques}
+\label{section-pushouts-generalities}
+
+\noindent
+Nous discutons brièvement des limites inductives des espaces algébriques. Soit $S$ un schéma.
+Soit $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+un diagramme (voir Catégories, section \ref{categories-section-limits}).
+Pour chaque $i$, nous pouvons considérer le petit site \'etale $X_{i, \etale}$
+dont les objets sont des schémas \'etales sur $X_i$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-etale-site}.
+Pour chaque morphisme $i \to j$ de $\mathcal{I}$, nous avons le morphisme
+$X_i \to X_j$ et donc un foncteur de changement de base
+$X_{j, \etale} \to X_{i, \etale}$.
+Ainsi, nous obtenons un pseudo-foncteur de $\mathcal{I}^{opp}$ dans
+la $2$-catégorie des catégories. Désignons
+$$
+\lim_i X_{i, \etale}
+$$
+la $2$-limite (voir la référence future à insérer ici). Qu'est-ce que cela signifie
+concrètement ? Un objet de cette limite est un système de morphismes \'etales
+$U_i \to X_i$ sur $\mathcal{I}$ tel que pour chaque $i \to j$ dans $\mathcal{I}$ le diagramme
+$$
+\xymatrix{
+U_i \ar[r] \ar[d] & U_j \ar[d] \\
+X_i \ar[r] & X_j
+}
+$$
+est cartésien. Les morphismes entre les objets sont définis de manière évidente.
+Supposons que $f_i : X_i \to T$ soit une famille de morphismes telle que
+pour chaque $i \to j$, la composition $X_i \to X_j \to T$ soit égale à $f_i$.
+Alors nous obtenons un foncteur $T_\etale \to \lim X_{i, \etale}$.
+Avec ces notations, nous pouvons formuler notre lemme.
+
+\begin{lemma}
+\label{lemma-colimit-agrees}
+Soit $S$ un schéma. Soit $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+un diagramme de schémas sur $S$ comme ci-dessus. Supposons que
+\begin{enumerate}
+\item $X = \colim X_i$ existe dans la catégorie des schémas,
+\item $\coprod X_i \to X$ est surjectif,
+\item si $U \to X$ est \'etale et $U_i = X_i \times_X U$, alors
+$U = \colim U_i$ dans la catégorie des schémas, et
+\item chaque objet $(U_i \to X_i)$ de $\lim X_{i, \etale}$
+avec $U_i \to X_i$ séparé est dans l'image essentielle du
+foncteur $X_\etale \to \lim X_{i, \etale}$.
+\end{enumerate}
+Alors $X = \colim X_i$ également dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Soit $Z$ un espace algébrique sur $S$. Supposons que $f_i : X_i \to Z$ soit
+une famille de morphismes telle que pour chaque $i \to j$ la composition
+$X_i \to X_j \to Z$ soit égale à $f_i$. Nous devons construire un morphisme
+d'espaces algébriques $f : X \to Z$ tel que nous puissions retrouver $f_i$ comme
+la composition $X_i \to X \to Z$. Soit $W \to Z$ un morphisme
+\'etale surjectif d'un schéma vers $Z$. Nous pouvons supposer que $W$ est une
+union disjointe d'affines et en particulier nous pouvons supposer que
+$W \to Z$ est séparé. Pour chaque $i$, posons
+$U_i = W \times_{Z, f_i} X_i$ et notons $h_i : U_i \to W$ la projection.
+Alors $U_i \to X_i$ forme un objet de $\lim X_{i, \etale}$
+avec $U_i \to X_i$ séparé. Par
+l'hypothèse (4), nous pouvons trouver un morphisme \'etale $U \to X$ et des isomorphismes (fonctoriels) $U_i = X_i \times_X U$. D'après l'hypothèse (3), il existe un morphisme $h : U \to W$ tel que les compositions $U_i \to U \to W$ soient $h_i$. Soit $g : U \to Z$ la composée de $h$ avec le morphisme $W \to Z$. Pour terminer la preuve, nous devons montrer que $g : U \to Z$ provient d'un morphisme $X \to Z$. Pour ce faire, considérons le morphisme $(h, h) : U \times_X U \to W \times_S W$. En composant avec $U_i \times_{X_i} U_i \to U \times_X U$, nous obtenons $(h_i, h_i)$ qui se factorise par $W \times_Z W$. Comme $U \times_X U$ est la limite inductive des schémas $U_i \times_{X_i} U_i$ par (3), nous voyons que $(h, h)$ se factorise par $W \times_Z W$. Ainsi, les deux compositions $U \times_X U \to U \to W \to Z$ sont égales. Comme chaque $U_i \to X_i$ est surjectif et que, d'après l'hypothèse (2), $U \to X$ est surjectif, le fait que $Z$ soit un faisceau pour la topologie \'etale montre que $g : U \to Z$ provient d'un morphisme $f : X \to Z$ comme voulu.
+\end{proof}
+
+\noindent
+La propriété, pour un cocône, d'être une limite inductive se vérifie localement pour la topologie fpqc sur le cocône.
+
+\begin{lemma}
+\label{lemma-pushout-fpqc-local}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+un diagramme d'espaces algébriques sur $B$. Soit $(X, X_i \to X)$
+un cocône pour le diagramme dans la catégorie des espaces algébriques sur $B$
+(Catégories, Remarque \ref{categories-remark-cones-and-cocones}).
+S'il existe un recouvrement fpqc $\{U_a \to X\}_{a \in A}$ tel que
+\begin{enumerate}
+\item pour tout $a \in A$ nous avons
+$U_a = \colim X_i \times_X U_a$
+dans la catégorie des espaces algébriques sur $B$, et
+\item pour tout $a, b \in A$ nous avons
+$U_a \times_X U_b = \colim X_i \times_X U_a \times_X U_b$
+dans la catégorie des espaces algébriques sur $B$,
+\end{enumerate}
+alors $X = \colim X_i$ dans la catégorie des espaces algébriques sur $B$.
+\end{lemma}
+
+\begin{proof}
+En effet, pour un espace algébrique $Y$ sur $B$, un morphisme $X \to Y$ sur $B$
+est la même chose qu'une collection de morphismes $U_a \to Y$ qui coïncident sur
+les intersections $U_a \times_X U_b$ pour tout $a, b \in A$, voir
+Descente sur les espaces, Lemme
+\ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}.
+\end{proof}
+
+\noindent
+Nous allons trouver une généralisation partielle commune des
+Lemmes \ref{lemma-colimit-agrees} et \ref{lemma-pushout-fpqc-local}
+qui peut en particulier être utilisée pour réduire une construction de limite inductive à une
+sous-catégorie de la catégorie de tous les espaces algébriques.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $B$ un espace algébrique sur $S$. Soit
+$\mathcal{I}$ une catégorie d'indices et soit $i \mapsto X_i$
+un diagramme dans la catégorie des espaces algébriques sur $B$,
+voir Catégories, section \ref{categories-section-limits}.
+Pour chaque $i$ nous pouvons considérer le petit site \'etale
+$X_{i, spaces, \etale}$
+dont les objets sont les espaces algébriques \'etales sur $X_i$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-etale-site}.
+Pour chaque morphisme $i \to j$ de $\mathcal{I}$ nous avons le morphisme
+$X_i \to X_j$ et donc un foncteur d'image inverse
+$X_{j, spaces, \etale} \to X_{i, spaces, \etale}$.
+Ainsi nous obtenons un pseudo-foncteur de $\mathcal{I}^{opp}$ vers
+la $2$-catégorie des catégories. Notons
+$$
+\lim_i X_{i, spaces, \etale}
+$$
+la $2$-limite (voir la référence future à insérer ici). Que signifie ceci
+concrètement ? Un objet de cette limite est un diagramme $i \mapsto (U_i \to X_i)$ dans la catégorie des flèches des espaces algébriques sur $B$ tel que pour chaque $i \to j$ dans $\mathcal{I}$ le diagramme $$
+\xymatrix{
+U_i \ar[r] \ar[d] & U_j \ar[d] \\
+X_i \ar[r] & X_j
+}
+$$ soit cartésien. Les morphismes entre les objets sont définis de manière évidente. Supposons que $f_i : X_i \to Z$ soit une famille de morphismes d'espaces algébriques sur $B$ telle que, pour chaque $i \to j$, la composée $X_i \to X_j \to Z$ soit égale à $f_i$. Alors nous obtenons un foncteur $Z_{spaces, \etale} \to \lim X_{i, spaces, \etale}$. Avec ces notations, nous pouvons formuler le lemme suivant.
+
+\begin{lemma}
+\label{lemma-colimit-check-etale-locally}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+un diagramme d'espaces algébriques sur $B$. Soit $(X, X_i \to X)$
+un cocône pour le diagramme dans la catégorie des espaces algébriques sur $B$
+(Catégories, Remarque \ref{categories-remark-cones-and-cocones}).
+Supposons que
+\begin{enumerate}
+\item le foncteur de changement de base
+$X_{spaces, \'etale} \to \lim X_{i, spaces, \etale}$,
+envoyant $U$ à $U_i = X_i \times_X U$ est une équivalence,
+\item si l'on se donne
+\begin{enumerate}
+\item $B'$ affine et \'etale sur $B$,
+\item $Z$ un schéma affine sur $B'$,
+\item $U \to X \times_B B'$ un morphisme \'etale d'espaces algébriques
+avec $U$ affine,
+\item $f_i : U_i \to Z$ un cocône sur $B'$ du diagramme
+$i \mapsto U_i = U \times_X X_i$,
+\end{enumerate}
+il existe un morphisme unique $f : U \to Z$ sur $B'$
+tel que $f_i$ soit égal à la composition $U_i \to U \to Z$.
+\end{enumerate}
+Alors $X = \colim X_i$ dans la catégorie de tous les espaces algébriques sur $B$.
+\end{lemma}
+
+\begin{proof}
+Dans ce paragraphe, nous réduisons au cas où $B$ est un schéma affine.
+Soit $B' \to B$ un morphisme \'etale d'espaces algébriques.
+Remarquons que les conditions (1) et (2) sont préservées si nous remplaçons
+$B$, $X_i$, $X$ par $B'$, $X_i \times_B B'$, $X \times_B B'$.
+Soit $\{B_a \to B\}_{a \in A}$ un recouvrement \'etale avec $B_a$
+affine, voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-cover-by-union-affines}.
+Pour $a \in A$, notons $X_a$, $X_{a, i}$ les changements de base de $X$ et le
+diagramme vers $B_a$. Pour $a, b \in A$, notons
+$X_{a, b}$ et $X_{a, b, i}$ les changements de base de $X$ et le
+diagramme vers $B_a \times_B B_b$.
+D'après le Lemme \ref{lemma-pushout-fpqc-local}
+il suffit de prouver que $X_a = \colim X_{a, i}$ et
+$X_{a, b} = \colim X_{a, b, i}$.
+Cela nous réduit au cas où $B = B_a$ (un schéma affine) ou $B = B_a \times_B B_b$ (un schéma séparé). En répétant l'argument une fois de plus, nous concluons que nous pouvons supposer que $B$ est un schéma affine (cela utilise le fait que l'intersection d'ouverts affines dans un schéma séparé est affine).
+
+\medskip\noindent
+Supposons que $B$ soit un schéma affine. Soit $Z$ un espace algébrique sur $B$.
+Nous devons montrer que
+$$
+\Mor_B(X, Z) \longrightarrow \lim \Mor_B(X_i, Z)
+$$
+est une bijection.
+
+\medskip\noindent
+Preuve de l'injectivité. Soit $f, g : X \to Z$ des morphismes tels que les composées $f_i, g_i : X_i \to Z$ soient les mêmes pour tous les $i$. Choisissons un schéma affine $Z'$ et un morphisme \'etale $Z' \to Z$. Par Propriétés des espaces, Lemme \ref{spaces-properties-lemma-cover-by-union-affines}, nous savons que nous pouvons recouvrir $Z$ par de tels schémas affines. Posons $U = X \times_{f, Z} Z'$ et $U' = X \times_{g, Z} Z'$ et notons $p : U \to X$ et $p' : U' \to X$ les projections. Comme $f_i = g_i$ pour tous les $i$, nous voyons que $$
+U_i = X_i \times_{f_i, Z} Z' = X_i \times_{g_i, Z} Z' = U'_i
+$$ est compatible avec les morphismes de transition. Par (1) il existe un unique isomorphisme $\epsilon : U \to U'$ comme espaces algébriques sur $X$, c'est-à-dire avec $p = p' \circ \epsilon$ qui est compatible avec les identifications affichées. Choisissons un recouvrement \'etale $\{h_a : U_a \to U\}$ avec $U_a$ affine. Par (2) nous voyons que $f \circ p \circ h_a = g \circ p' \circ \epsilon \circ h_a =
+g \circ p \circ h_a$. Puisque $\{h_a : U_a \to U\}$ est un recouvrement \'etale, nous concluons $f \circ p = g \circ p$. Puisque la collection de morphismes $p : U \to X$ que nous obtenons de cette manière est un recouvrement \'etale, nous concluons que $f = g$.
+
+\medskip\noindent
+Preuve de la surjectivité. Soit $f_i : X_i \to Z$ un élément du membre de droite de la flèche affichée dans le premier paragraphe de la preuve. Il suffit de trouver un recouvrement \'etale $\{U_c \to X\}_{c \in C}$ tel que les familles $f_{c, i} \in \lim_i \Mor_B(X_i \times_X U_c, Z)$ proviennent de morphismes $f_c : U_c \to Z$. En effet, par l'unicité prouvée ci-dessus, les morphismes $f_c$ coïncideront sur $U_c \times_X U_b$ et se recolleront donc en le morphisme souhaité $f : X \to Z$. Pour construire ce recouvrement, choisissons d'abord un recouvrement \'etale $\{g_a : Z_a \to Z\}_{a \in A}$ où chaque $Z_a$ est affine. Posons ensuite $U_{a, i} = X_i \times_{f_i, Z} Z_a$. Par (1), il existe des espaces algébriques $U_a$, \'etales sur $X$, tels que $U_{a, i} = X_i \times_X U_a$. Choisissons enfin un recouvrement \'etale $\{U_{a, b} \to U_a\}_{b \in B_a}$ avec $U_{a, b}$ affine et considérons les morphismes $$
+U_{a, b, i} = X_i \times_X U_{a, b} \to
+X_i \times_X U_a = X_i \times_{f_i, Z} Z_a \to Z_a
+$$. Par (2), nous obtenons des morphismes $f_{a, b} : U_{a, b} \to Z_a$ compatibles avec ceux-ci. Posons $C = \coprod_{a \in A} B_a$ et, si $c \in C$ correspond à $b \in B_a$, posons $U_c = U_{a, b}$ et $f_c = g_a \circ f_{a, b} : U_c \to Z$. Cela conclut la preuve.
+\end{proof}
+
+\noindent
+Voici une application de ces idées pour réduire le cas général au cas des espaces algébriques séparés.
+
+\begin{lemma}
+\label{lemma-colimit-separated-enough}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+un diagramme d'espaces algébriques sur $B$. Supposons que
+\begin{enumerate}
+\item chaque $X_i$ est séparé sur $B$,
+\item $X = \colim X_i$ existe dans la catégorie des
+espaces algébriques séparés sur $B$,
+\item $\coprod X_i \to X$ est surjectif,
+\item si $U \to X$ est un morphisme \'etale séparé d'espaces algébriques et
+$U_i = X_i \times_X U$, alors $U = \colim U_i$ dans
+la catégorie des espaces algébriques séparés sur $B$, et
+\item chaque objet $(U_i \to X_i)$ de $\lim X_{i, spaces, \etale}$
+avec $U_i \to X_i$ séparé est de la forme $U_i = X_i \times_X U$
+pour un certain morphisme \'etale séparé d'espaces algébriques $U \to X$.
+\end{enumerate}
+Alors $X = \colim X_i$ dans la catégorie de tous les espaces algébriques sur $B$.
+\end{lemma}
+
+\begin{proof}
+Nous encourageons le lecteur à consulter plutôt
+le Lemme \ref{lemma-colimit-check-etale-locally}
+et sa démonstration.
+
+\medskip\noindent
+Soit $Z$ un espace algébrique sur $B$. Supposons que $f_i : X_i \to Z$ soit
+une famille de morphismes telle que pour chaque $i \to j$, la composition
+$X_i \to X_j \to Z$ soit égale à $f_i$. Nous devons construire un morphisme
+d'espaces algébriques $f : X \to Z$ sur $B$ de sorte que nous puissions retrouver $f_i$ comme
+la composition $X_i \to X \to Z$. Soit $W \to Z$ un morphisme surjectif
+\'etale d'un schéma vers $Z$. Nous pouvons supposer que $W$ est une
+union disjointe d'affines et en particulier nous pouvons supposer que
+$W \to Z$ est séparé et que $W$ est séparé sur $B$. Pour chaque $i$, posons
+$U_i = W \times_{Z, f_i} X_i$ et notons $h_i : U_i \to W$ la projection.
+Alors $U_i \to X_i$ forme un objet de $\lim X_{i, spaces, \etale}$
+avec $U_i \to X_i$ séparé. Par l'hypothèse (5) nous pouvons trouver un morphisme \'etale séparé $U \to X$ d'espaces algébriques et des isomorphismes (fonctoriels) $U_i = X_i \times_X U$.  
+D'après l'hypothèse (4), il existe un morphisme $h : U \to W$ sur $B$ tel que les compositions $U_i \to U \to W$ soient $h_i$.  
+Soit $g : U \to Z$ la composée de $h$ avec le morphisme $W \to Z$. Pour finir la démonstration, nous devons montrer que $g : U \to Z$ provient d'un morphisme $X \to Z$. Pour ce faire, considérons le morphisme $(h, h) : U \times_X U \to W \times_S W$.  
+En composant avec $U_i \times_{X_i} U_i \to U \times_X U$ nous obtenons $(h_i, h_i)$ qui se factorise par $W \times_Z W$. Comme $U \times_X U$ est la limite inductive des espaces algébriques $U_i \times_{X_i} U_i$ dans la catégorie des espaces algébriques séparés sur $B$, d'après (4), nous voyons que $(h, h)$ se factorise par $W \times_Z W$. Ainsi, les deux compositions $U \times_X U \to U \to W \to Z$ sont égales. Comme chaque $U_i \to X_i$ est surjectif et que, d'après l'hypothèse (2), $U \to X$ est surjectif, le fait que $Z$ soit un faisceau pour la topologie \'etale montre que $g : U \to Z$ provient d'un morphisme $f : X \to Z$ comme voulu. 
+\end{proof}
+
+
+
+
+
+\section{Descente des faisceaux \'etales}
+\label{section-glueing-etale}
+
+\noindent
+Cette section est l'analogue pour les espaces algébriques de
+Cohomologie \'etale, section \ref{etale-cohomology-section-glueing-etale}.
+
+\medskip\noindent
+Afin d'exprimer commodément nos résultats, nous avons besoin de quelques notations.
+Soit $S$ un schéma.
+Soit $\mathcal{U} = \{f_i : X_i \to X\}$
+une famille de morphismes d'espaces algébriques sur $S$ de même but.
+Une {\it donnée de descente} pour les faisceaux \'etales par rapport à
+$\mathcal{U}$ est une famille
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$ où
+\begin{enumerate}
+\item $\mathcal{F}_i$ est dans $\Sh(X_{i, \etale})$, et
+\item $\varphi_{ij} :
+\text{pr}_{0, small}^{-1} \mathcal{F}_i
+\longrightarrow
+\text{pr}_{1, small}^{-1} \mathcal{F}_j$
+est un isomorphisme dans $\Sh((X_i \times_X X_j)_\etale)$
+\end{enumerate}
+et telle que la {\it condition de cocycle} soit satisfaite : les diagrammes
+$$
+\xymatrix{
+\text{pr}_{0, small}^{-1}\mathcal{F}_i
+\ar[dr]_{\text{pr}_{02, small}^{-1}\varphi_{ik}}
+\ar[rr]^{\text{pr}_{01, small}^{-1}\varphi_{ij}} & &
+\text{pr}_{1, small}^{-1}\mathcal{F}_j
+\ar[dl]^{\text{pr}_{12, small}^{-1}\varphi_{jk}} \\
+& \text{pr}_{2, small}^{-1}\mathcal{F}_k
+}
+$$
+commutent dans $\Sh((X_i \times_X X_j \times_X X_k)_\etale)$.
+Il existe une notion évidente de {\it morphismes de données de descente}
+et nous obtenons une catégorie de données de descente.
+Une donnée de descente
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$
+est dite {\it effective} s'il existe un objet
+$\mathcal{F}$ de $\Sh(X_\etale)$ et des isomorphismes
+$\varphi_i : f_{i, small}^{-1} \mathcal{F} \to \mathcal{F}_i$
+dans $\Sh(X_{i, \etale})$ compatibles avec les $\varphi_{ij}$, c'est-à-dire
+$$
+\varphi_{ij} =
+\text{pr}_{1, small}^{-1} (\varphi_j) \circ
+\text{pr}_{0, small}^{-1} (\varphi_i^{-1})
+$$
+Une autre façon de le dire est la suivante. Étant donné un objet $\mathcal{F}$
+de $\Sh(X_\etale)$, nous obtenons la {\it donnée de descente canonique}
+$(f_{i, small}^{-1}\mathcal{F}, c_{ij})$ où $c_{ij}$
+est l'isomorphisme canonique
+$$
+c_{ij} : \text{pr}_{0, small}^{-1} f_{i, small}^{-1}\mathcal{F}
+\longrightarrow
+\text{pr}_{1, small}^{-1} f_{j, small}^{-1}\mathcal{F}
+$$
+La donnée de descente
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$
+est effective si et seulement si elle est isomorphe à la donnée de descente canonique associée à un objet $\mathcal{F}$ dans $\Sh(X_\etale)$.
+
+\medskip\noindent
+Si la famille consiste en un seul morphisme $\{X \to Y\}$,
+alors nous considérons une donnée de descente comme une paire $(\mathcal{F}, \varphi)$
+où $\mathcal{F}$ est un objet de $\Sh(X_\etale)$ et
+$\varphi$ est un isomorphisme
+$$
+\text{pr}_{0, small}^{-1} \mathcal{F}
+\longrightarrow
+\text{pr}_{1, small}^{-1} \mathcal{F}
+$$
+dans $\Sh((X \times_Y X)_\etale)$ tel que la condition de cocycle soit satisfaite :
+$$
+\xymatrix{
+\text{pr}_{0, small}^{-1}\mathcal{F}
+\ar[dr]_{\text{pr}_{02, small}^{-1}\varphi}
+\ar[rr]^{\text{pr}_{01, small}^{-1}\varphi} & &
+\text{pr}_{1, small}^{-1}\mathcal{F}
+\ar[dl]^{\text{pr}_{12, small}^{-1}\varphi} \\
+& \text{pr}_{2, small}^{-1}\mathcal{F}
+}
+$$
+commute dans $\Sh((X \times_Y X \times_Y X)_\etale)$.
+Il existe une notion de morphismes de données de descente et d'effectivité
+exactement comme auparavant.
+
+\begin{lemma}
+\label{lemma-glue-etale-sheaf-etale}
+Soit $S$ un schéma. Soit $\{f_i : X_i \to X\}$ un recouvrement \'etale d'espaces algébriques. Le foncteur
+$$
+\Sh(X_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{f_i : X_i \to X\}
+$$
+est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Dans Propriétés des espaces, section \ref{spaces-properties-section-etale-site}
+nous avons défini un site $X_{spaces, \etale}$ dont les objets
+sont des espaces algébriques \'etales sur $X$ avec des recouvrements \'etales.
+De plus, nous avons des identifications
+$\Sh(X_\etale) = \Sh(X_{spaces, \etale})$ compatibles
+avec les morphismes d'espaces algébriques, c'est-à-dire compatibles avec
+les images directes et les images inverses. Par conséquent, l'énoncé du lemme découle
+de la discussion beaucoup plus générale dans
+Sites, section \ref{sites-section-glueing-sheaves}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduce-to-scheme-base}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$. Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement \'etale d'espaces algébriques. Si pour chaque $i \in I$ le foncteur $$
+\Sh(Y_{i, \etale})
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{X \times_Y Y_i \to Y_i\}
+$$ est une équivalence de catégories et pour chaque $i, j \in I$ le foncteur $$
+\Sh((Y_i \times_Y Y_j)_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }
+\{X \times_Y Y_i \times_Y Y_j \to Y_i \times_Y Y_j\}
+$$ est une équivalence de catégories, alors $$
+\Sh(Y_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{X \to Y\}
+$$ est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Conséquence formelle du Lemme \ref{lemma-glue-etale-sheaf-etale}
+et des définitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-case}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$. Supposons que $f$ soit représentable (par des schémas) et que $f$ possède l'une des propriétés suivantes :
+surjectif et entier,
+surjectif et propre, ou
+surjectif, plat et localement de présentation finie.
+Alors
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{X \to Y\}
+$$
+est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Chacune des propriétés des morphismes d'espaces algébriques
+mentionnées dans l'énoncé du lemme est préservée par
+un changement de base arbitraire, voir les listes dans
+Espaces, section \ref{spaces-section-lists}.
+Ainsi, nous pouvons appliquer le Lemme \ref{lemma-reduce-to-scheme-base}
+pour voir que nous pouvons travailler \'etale localement sur $Y$.
+De cette manière, nous réduisons au cas où $Y$ est un schéma ;
+certains détails sont omis. Dans ce cas, $X$ est également un schéma
+et le résultat découle de Cohomologie \'etale, Lemme
+\ref{etale-cohomology-lemma-glue-etale-sheaf-integral-surjective},
+\ref{etale-cohomology-lemma-glue-etale-sheaf-proper-surjective}, ou
+\ref{etale-cohomology-lemma-glue-etale-sheaf-fppf-cover}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduce-to-scheme-source}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$. Soit $\pi : X' \to X$ un morphisme d'espaces algébriques. Supposons
+\begin{enumerate}
+\item $f \circ \pi$ est représentable (par des schémas),
+\item $f \circ \pi$ possède l'une des propriétés suivantes :
+surjectif et intégral,
+surjectif et propre, ou
+surjectif, plat et localement de présentation finie.
+\end{enumerate}
+Alors
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{X \to Y\}
+$$
+est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Conséquence formelle du Lemme \ref{lemma-representable-case}
+et de Champs, Lemme \ref{stacks-lemma-compare-descent-condition}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-etale-sheaf-proper-surjective}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$ qui possède l'une des propriétés suivantes : surjectif et intégral, surjectif et propre, ou surjectif, plat et localement de présentation finie. Alors le foncteur $$
+\Sh(Y_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{X \to Y\}
+$$ est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Remarquons que le changement de base d'un morphisme propre et surjectif est
+propre et surjectif, voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-base-change-proper}
+et \ref{spaces-morphisms-lemma-base-change-surjective}.
+Ainsi, d'après le Lemme \ref{lemma-reduce-to-scheme-base}
+nous pouvons travailler \'etale localement sur $Y$. Ainsi
+nous nous ramenons au cas où $Y$ est un schéma affine ; quelques détails sont omis.
+
+\medskip\noindent
+Supposons que $Y$ soit affine. D'après le Lemme \ref{lemma-reduce-to-scheme-source},
+il suffit de trouver un morphisme $X' \to X$, où $X'$ est un schéma, tel que $X' \to Y$ soit surjectif et entier, surjectif et propre, ou surjectif, plat et localement de présentation finie.
+
+\medskip\noindent
+Dans le cas où $X \to Y$ est entier et surjectif, nous pouvons prendre $X' = X$,
+puisqu'un morphisme entier est représentable.
+
+\medskip\noindent
+Si $f$ est propre et surjectif, alors l'espace algébrique
+$X$ est quasi-compact et séparé, voir
+Morphismes d'espaces, section \ref{spaces-morphisms-section-quasi-compact} et
+Lemme \ref{spaces-morphisms-lemma-separated-over-separated}.
+Choisissons un schéma $X'$ et un morphisme fini surjectif $X' \to X$, voir
+Limites d'espaces, Proposition
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}.
+Alors $X' \to Y$ est surjectif et propre.
+
+\medskip\noindent
+Enfin, si $X \to Y$ est surjectif et plat et localement de présentation finie, alors nous pouvons prendre un recouvrement \'etale affine $\{U_i \to X\}$ et définir $X'$ comme la réunion disjointe $\coprod U_i$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-etale-sheaf-fppf}
+Soit $S$ un schéma.
+Soit $\{f_i : X_i \to X\}$ un recouvrement fppf d'espaces algébriques sur $S$.
+Le foncteur
+$$
+\Sh(X_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{f_i : X_i \to X\}
+$$
+est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Nous avons le Lemme \ref{lemma-glue-etale-sheaf-proper-surjective}
+pour le morphisme $f : \coprod X_i \to X$.
+Alors un argument formel montre que les données de descente pour $f$
+reviennent aux données de descente pour le recouvrement ; comparer
+avec Descente, Lemme \ref{descent-lemma-family-is-one}.
+Détails omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-etale-sheaf-modification}
+Soit $S$ un schéma. Soit $f : Y' \to Y$ un morphisme propre d'espaces algébriques sur $S$. Soit $i : Z \to Y$ une immersion fermée. Posons $E = Z \times_Y Y'$. Considérons le diagramme
+$$
+\xymatrix{
+E \ar[d]_g \ar[r]_j & Y' \ar[d]^f \\
+Z \ar[r]^i & Y
+}
+$$
+Si $f$ est un isomorphisme sur $Y \setminus Z$, alors le foncteur $$
+\Sh(Y_\etale)
+\longrightarrow
+\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)
+$$ est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Observons que $X = Y' \coprod Z \to Y$ est un morphisme propre surjectif.
+Ainsi, il suffit de construire une équivalence de catégories
+$$
+\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)
+\longrightarrow
+\text{données de descente pour les faisceaux \'etales relativement à }\{X \to Y\}
+$$
+compatible avec les foncteurs d'image inverse issus de $Y$
+car ensuite nous pouvons utiliser le Lemme \ref{lemma-glue-etale-sheaf-proper-surjective}
+pour conclure. Soit donc $(\mathcal{G}', \mathcal{G}, \alpha)$ un
+objet de $\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)$ avec
+les notations de Catégories, Exemple
+\ref{categories-example-2-fibre-product-categories}.
+Nous pouvons alors considérer le faisceau $\mathcal{F}$ sur $X$ défini
+en prenant $\mathcal{G}'$ sur la composante $Y'$ et $\mathcal{G}$
+sur la composante $Z$. Nous avons
+$$
+X \times_Y X = Y' \times_Y Y' \amalg
+Y' \times_Y Z \amalg Z \times_Y Y' \amalg Z \times_Y Z =
+Y' \times_Y Y' \amalg E \amalg E \amalg Z
+$$
+Les isomorphismes des deux images inverses de $\mathcal{F}$ sur cet espace algébrique sont évidents sur les composantes $E$, $E$, $Z$. La partie intéressante de la preuve est de trouver un isomorphisme
+$\text{pr}_{0, small}^{-1}\mathcal{G}' \to
+\text{pr}_{1, small}^{-1}\mathcal{G}'$
+sur $Y' \times_Y Y'$ satisfaisant la condition de cocycle. Cependant, l'hypothèse que $Y' \to Y$ soit un isomorphisme sur $Y \setminus Z$ implique que $$
+h : Y' \coprod E \times_Z E \longrightarrow Y' \times_Y Y'
+$$ est un morphisme propre surjectif. (C'est en fait un morphisme fini car il s'agit de l'union disjointe de deux immersions fermées.) Par conséquent, il suffit de construire un isomorphisme des images inverses de $\text{pr}_{0, small}^{-1}\mathcal{G}'$ et $\text{pr}_{1, small}^{-1}\mathcal{G}'$ par $h_{small}$ satisfaisant une certaine condition de cocycle. Pour la diagonale, il est clair comment procéder. Sur $E \times_Z E$, nous utilisons le fait que les images inverses des deux faisceaux s'identifient à l'image inverse de $\mathcal{G}$ par le morphisme $E \times_Z E \to Z$. Nous omettons les détails. 
+\end{proof}
+
+
+
+
+
+
+\section{Descente des morphismes \'etales d'espaces algébriques}
+\label{section-descending-etale}
+
+\noindent
+Dans cette section, nous combinons les résultats de recollement pour les faisceaux \'etales donnés dans la section \ref{section-glueing-etale} avec la flexibilité des espaces algébriques afin d'obtenir certaines affirmations de descente pour les morphismes \'etales d'espaces algébriques.
+
+\begin{lemma}
+\label{lemma-descend-etale-proper-surjective}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme propre et surjectif
+d'espaces algébriques sur $S$. Toute donnée de descente $(U/X, \varphi)$ relative à $f$
+(Descente sur les espaces, Définition \ref{spaces-descent-definition-descent-datum})
+avec $U$ \'etale sur $X$ est effective
+(Descente sur les espaces, Définition \ref{spaces-descent-definition-effective}).
+Plus précisément, il existe un morphisme \'etale $V \to Y$ d'espaces algébriques
+dont la donnée de descente canonique correspondante est isomorphe à $(U/X, \varphi)$.
+\end{lemma}
+
+\begin{proof}
+Rappelons que $U$ donne lieu à un faisceau représentable
+$\mathcal{F} = h_U$ dans $\Sh(X_{spaces, \etale}) = \Sh(X_\etale)$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-etale-site}.
+La donnée de descente sur $U$ relative à $f$
+donne exactement une donnée de descente $(\mathcal{F}, \varphi)$
+pour les faisceaux \'etales relativement à $\{X \to Y\}$.
+D'après le Lemme \ref{lemma-glue-etale-sheaf-proper-surjective}
+cette donnée de descente est effective.
+Soit $\mathcal{G}$ le faisceau correspondant sur $Y_\etale$.
+D'après Propriétés des espaces, Lemme \ref{spaces-properties-lemma-sheaf-gives-space}
+nous obtenons un morphisme \'etale $V \to Y$ d'espaces algébriques
+correspondant à $\mathcal{G}$ ; nous omettons la vérification de
+la condition ensembliste\footnote{Cela découle du fait que $\mathcal{F}$ satisfait la condition correspondante.}.
+L'isomorphisme donné $\mathcal{F} \to f_{small}^{-1}\mathcal{G}$
+correspond à un isomorphisme $U \to V \times_Y X$ compatible avec la donnée de descente.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-etale-space-modification}
+Soit $S$ un schéma. Soit $f : Y' \to Y$ un morphisme propre d'espaces algébriques sur $S$. Soit $i : Z \to Y$ une immersion fermée. Posons $E = Z \times_Y Y'$. Considérons le diagramme
+$$
+\xymatrix{
+E \ar[d]_g \ar[r]_j & Y' \ar[d]^f \\
+Z \ar[r]^i & Y
+}
+$$
+Si $f$ est un isomorphisme sur $Y \setminus Z$, alors le foncteur $$
+Y_{spaces, \etale}
+\longrightarrow
+Y'_{spaces, \etale} \times_{E_{spaces, \etale}} Z_{spaces, \etale}
+$$ est une équivalence de catégories.
+\end{lemma}
+
+\begin{proof}
+Soit $(V' \to Y', W \to Z, \alpha)$ un objet du membre de droite.
+Rappelons que $V'$ et $W$ donnent lieu respectivement à des faisceaux représentables
+$\mathcal{G}' = h_{V'}$ dans $\Sh(Y'_{spaces, \etale}) = \Sh(Y'_\etale)$,
+et $\mathcal{G} = h_W$
+dans $\Sh(Z_{spaces, \etale}) = \Sh(Z_\etale)$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-etale-site}.
+L'isomorphisme $\alpha : V' \times_{Y'} E \to W \times_Z E$
+détermine un isomorphisme
+$j_{small}^{-1}\mathcal{G}' \to g_{small}^{-1}\mathcal{G}$ de
+faisceaux sur $E$.
+Par le Lemme \ref{lemma-glue-etale-sheaf-modification},
+nous obtenons un unique faisceau $\mathcal{F}$ sur $Y$ dont les images inverses s'identifient
+à $\mathcal{G}'$ et $\mathcal{G}$ de manière compatible avec l'isomorphisme.
+D'après Propriétés des espaces, Lemme \ref{spaces-properties-lemma-sheaf-gives-space},
+nous obtenons un morphisme \'etale $V \to Y$ d'espaces algébriques
+correspondant à $\mathcal{F}$ ; nous omettons la vérification de
+la condition ensembliste\footnote{Cela découle du fait que $\mathcal{G}$ et $\mathcal{G}'$ satisfont la condition correspondante.}.
+Les isomorphismes donnés $\mathcal{G}' \to f_{small}^{-1}\mathcal{F}$
+et $\mathcal{G} \to i_{small}^{-1}\mathcal{F}$
+correspondent aux isomorphismes $V' \to V \times_Y Y'$
+et $W \to V \times_Y Z$ compatibles
+avec $\alpha$ comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Sommes amalgamées le long d'épaississements et de morphismes affines}
+\label{section-pushouts}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur les morphismes, section \ref{more-morphisms-section-pushouts}.
+
+\begin{lemma}
+\label{lemma-pushout-along-thickening-schemes}
+Soit $S$ un schéma. Soit $X \to X'$ un épaississement de schémas sur $S$ et soit $X \to Y$ un morphisme affine de schémas sur $S$.
+Soit $Y' = Y \amalg_X X'$ la somme amalgamée dans la catégorie des schémas (voir
+Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-pushout-along-thickening}).
+Alors $Y'$ est aussi une somme amalgamée dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Ceci est une conséquence immédiate du Lemme \ref{lemma-colimit-agrees} et
+Compléments sur les morphismes, Lemmes
+\ref{more-morphisms-lemma-pushout-along-thickening},
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}, et
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushout-along-thickening}
+Soit $S$ un schéma. Soit $X \to X'$ un épaississement d'espaces algébriques sur $S$ et soit $X \to Y$ un morphisme affine d'espaces algébriques sur $S$.
+Alors il existe une somme amalgamée
+$$
+\xymatrix{
+X \ar[r] \ar[d]_f
+&
+X' \ar[d]^{f'}
+\\
+Y \ar[r]
+&
+Y \amalg_X X'
+}
+$$
+dans la catégorie des espaces algébriques sur $S$. De plus, $Y' = Y \amalg_X X'$
+est un épaississement de $Y$ et
+$$
+\mathcal{O}_{Y'} = \mathcal{O}_Y \times_{f_*\mathcal{O}_X} f'_*\mathcal{O}_{X'}
+$$
+comme faisceaux sur $Y_\etale = (Y')_\etale$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Définissons $U = V \times_Y X$. Il s'agit d'un schéma affine sur $V$ avec un morphisme \'etale surjectif $U \to X$. D'après Compléments sur les morphismes d'espaces, Lemme \ref{spaces-more-morphisms-lemma-thickening-equivalence}
+il existe un $U' \to X'$ \'etale surjectif avec $U = U' \times_{X'} X$. En particulier, le morphisme de schémas $U \to U'$ est aussi un épaississement. Appliquons Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-pushout-along-thickening}
+pour obtenir une somme amalgamée $V' = V \amalg_U U'$ dans la catégorie des schémas.
+
+\medskip\noindent
+Nous répétons cette procédure pour construire une somme amalgamée
+$$
+\xymatrix{
+U \times_X U \ar[d] \ar[r] & U' \times_{X'} U' \ar[d] \\
+V \times_Y V \ar[r] & R'
+}
+$$
+dans la catégorie des schémas. Considérons les morphismes
+$$
+U \times_X U \to U \to V',\quad
+U' \times_{X'} U' \to U' \to V',\quad
+V \times_Y V \to V \to V'
+$$
+où nous utilisons la première projection dans chaque cas. Il est clair que ceux-ci se recollent pour donner un morphisme $t' : R' \to V'$ qui est \'etale d'après
+Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+De même, nous obtenons $s' : R' \to V'$ \'etale.
+Le morphisme $j' = (t', s') : R' \to V' \times_S V'$ est non ramifié
+(puisque $t'$ est \'etale) et un monomorphisme lorsqu'on le restreint au sous-schéma fermé $V \times_Y V \subset R'$. Comme $V \times_Y V \subset R'$ est
+un épaississement, il s'ensuit que $j'$ est également un monomorphisme. Enfin, $j'$
+définit également une relation d'équivalence, car nous pouvons utiliser la fonctorialité des sommes amalgamées
+de schémas pour construire un morphisme $c' : R' \times_{s', V', t'} R' \to R'$
+(détails omis). À ce stade, nous posons $Y' = V'/R'$, voir
+Espaces, Théorème \ref{spaces-theorem-presentation}.
+
+\medskip\noindent
+Nous avons des morphismes $X' = U'/U' \times_{X'} U' \to V'/R' = Y'$ et
+$Y = V/V \times_Y V \to V'/R' = Y'$.
+Par construction, ceux-ci s'insèrent dans le diagramme commutatif
+$$
+\xymatrix{
+X \ar[r] \ar[d]_f & X' \ar[d]^{f'} \\
+Y \ar[r] & Y'
+}
+$$
+Puisque $Y \to Y'$ est un épaississement, nous avons
+$Y_\etale = (Y')_\etale$, voir Compléments sur les morphismes d'espaces,
+Lemme \ref{spaces-more-morphisms-lemma-thickening-equivalence}.
+La commutativité du diagramme fournit un morphisme de faisceaux
+$$
+\mathcal{O}_{Y'}
+\longrightarrow
+\mathcal{O}_Y \times_{f_*\mathcal{O}_X} f'_*\mathcal{O}_{X'}
+$$
+sur ce site. D'après Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-pushout-along-thickening}
+ce morphisme est un isomorphisme lorsqu'on le restreint au
+schéma $V'$, donc c'est un isomorphisme.
+
+\medskip\noindent
+Pour terminer la preuve, nous montrons que le diagramme ci-dessus est une somme amalgamée dans la catégorie des espaces algébriques. Pour voir cela, soit $Z$ un espace algébrique et soient $a' : X' \to Z$ et $b : Y \to Z$ des morphismes d'espaces algébriques. Par le Lemme \ref{lemma-pushout-along-thickening-schemes}, nous obtenons un morphisme unique $h : V' \to Z$ s'insérant dans les diagrammes commutatifs $$
+\vcenter{
+\xymatrix{
+U' \ar[d] \ar[r] & V' \ar[d]^h \\
+X' \ar[r]^{a'} & Z
+}
+}
+\quad\text{et}\quad
+\vcenter{
+\xymatrix{
+V \ar[r] \ar[d] & V' \ar[d]^h \\
+Y \ar[r]^b & Z
+}
+}
+$$. L'unicité montre que $h \circ t' = h \circ s'$. Ainsi, $h$ se factorise de manière unique sous la forme $V' \to Y' \to Z$, ce qui conclut.
+\end{proof}
+
+\noindent
+Dans le lemme suivant, nous utilisons le produit fibré de catégories au sens de
+Catégories, Exemple \ref{categories-example-2-fibre-product-categories}.
+
+\begin{lemma}
+\label{lemma-categories-spaces-over-pushout}
+Soit $S$ un schéma de base. Soit $X \to X'$ un épaississement d'espaces algébriques sur $S$ et soit $X \to Y$ un morphisme affine d'espaces algébriques sur $S$.
+Soit $Y' = Y \amalg_X X'$ la somme amalgamée (voir
+Lemme \ref{lemma-pushout-along-thickening}). Le changement de base donne un foncteur
+$$
+F :
+(\textit{Espaces}/Y')
+\longrightarrow
+(\textit{Espaces}/Y) \times_{(\textit{Espaces}/Y')} (\textit{Espaces}/X')
+$$
+défini par $V' \longmapsto (V' \times_{Y'} Y, V' \times_{Y'} X', 1)$, qui
+envoie $(\Sch/Y')$ dans $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$.
+Le foncteur $F$ a un adjoint à gauche
+$$
+G :
+(\textit{Espaces}/Y) \times_{(\textit{Espaces}/Y')} (\textit{Espaces}/X')
+\longrightarrow
+(\textit{Espaces}/Y')
+$$
+qui envoie le triple $(V, U', \varphi)$ vers la somme amalgamée
+$V \amalg_{(V \times_Y X)} U'$ dans la catégorie des espaces algébriques sur $S$.
+Le foncteur $G$ envoie $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$ dans $(\Sch/Y')$.
+\end{lemma}
+
+\begin{proof} La preuve est complètement formelle. Puisque les morphismes $X \to X'$ et $X \to Y$ sont représentables, il est clair que $F$ envoie $(\Sch/Y')$ dans $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$.
+
+\medskip\noindent
+Construisons $G$. Soit $(V, U', \varphi)$ un objet de la catégorie du produit fibré. Posons $U = U' \times_{X'} X$. Notons que $U \to U'$ est un épaississement. Puisque $\varphi : V \times_Y X \to U' \times_{X'} X = U$ est un isomorphisme, nous avons un morphisme $U \to V$ sur $X \to Y$ qui identifie $U$ avec le produit fibré $X \times_Y V$. En particulier, $U \to V$ est affine, voir Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-base-change-affine}. 
+Ainsi, nous pouvons appliquer le Lemme \ref{lemma-pushout-along-thickening} pour obtenir une somme amalgamée $V' = V \amalg_U U'$. La propriété cocartésienne de $V'$ et les morphismes $V \to Y$ et $U' \to X'$, qui coïncident sur $U$ comme morphismes vers $Y'$, définissent un morphisme $V' \to Y'$. En posant $G(V, U', \varphi) = V'$, on obtient le foncteur $G$.
+
+\medskip\noindent
+Si $(V, U', \varphi)$ est un objet de $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$
+alors $U = U' \times_{X'} X$ est aussi un schéma et nous pouvons former la somme amalgamée
+$V' = V \amalg_U U'$ dans la catégorie des schémas par
+Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-pushout-along-thickening}.
+D'après le Lemme \ref{lemma-pushout-along-thickening-schemes}
+c'est aussi une somme amalgamée dans la catégorie des espaces algébriques, donc
+$G$ envoie $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$ dans $(\Sch/Y')$.
+
+\medskip\noindent
+Prouvons que $G$ est un adjoint à gauche de $F$. Soit $Z$ un espace algébrique sur $Y'$. Il nous faut montrer que
+$$
+\Mor(V', Z) = \Mor((V, U', \varphi), F(Z))
+$$
+où les ensembles de morphismes sont pris dans leurs catégories respectives.
+Soit $g' : V' \to Z$ un morphisme. Notons $\tilde g$ et $\tilde f'$ les composées de $g'$ avec les morphismes $V \to V'$ et $U' \to V'$, respectivement.
+Effectuons les changements de base de $\tilde g$ et $\tilde f'$ le long de $Y \to Y'$ et $X' \to Y'$, respectivement, pour obtenir des morphismes $g : V \to Z \times_{Y'} Y$ et $f' : U' \to Z \times_{Y'} X'$. Alors $(g, f')$ est un élément du membre de droite de l'équation ci-dessus (détails omis).
+Inversement, supposons que $(g, f') : (V, U', \varphi) \to F(Z)$ soit un élément du membre de droite. Nous pouvons considérer les composées $\tilde g : V \to Z$ et $\tilde f' : U' \to Z$ de $g$ avec $Z \times_{Y'} Y \to Z$ et de $f'$ avec $Z \times_{Y'} X' \to Z$, respectivement. Alors $\tilde g$ et $\tilde f'$ coïncident comme morphismes de $U$ vers $Z$. Par la propriété universelle du carré cocartésien, nous obtenons un morphisme $g' : V' \to Z$, c'est-à-dire un élément du membre de gauche. Nous omettons la vérification que ces constructions sont mutuellement inverses. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagram}
+Soit $S$ un schéma. Soit
+$$
+\xymatrix{
+A \ar[r] \ar[d] & C \ar[d] \ar[r] & E \ar[d] \\
+B \ar[r] & D \ar[r] & F
+}
+$$
+un diagramme commutatif d'espaces algébriques sur $S$.
+Supposons que $A, B, C, D$ et $A, B, E, F$ forment des carrés cartésiens
+et que $B \to D$ soit \'etale surjectif.
+Alors $C, D, E, F$ est un carré cartésien.
+\end{lemma}
+
+\begin{proof}
+Ceci est formel.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-categories-spaces-over-pushout}
+Dans le cas du Lemme \ref{lemma-categories-spaces-over-pushout}
+le foncteur $F \circ G$ est isomorphe au foncteur identité.
+\end{lemma}
+
+\begin{proof}
+Nous allons prouver que $F \circ G$ est isomorphe à l'identité en
+réduisant cela à l'énoncé correspondant de
+Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}.
+
+\medskip\noindent
+Choisissons un schéma $Y_1$ et un morphisme \'etale surjectif $Y_1 \to Y$. Posons $X_1 = Y_1 \times_Y X$. C'est un schéma affine sur $Y_1$ muni d'un morphisme \'etale surjectif $X_1 \to X$. D'après Compléments sur les morphismes d'espaces, Lemme \ref{spaces-more-morphisms-lemma-thickening-equivalence}, il existe un morphisme \'etale surjectif $X'_1 \to X'$ tel que $X_1 = X_1' \times_{X'} X$. En particulier, le morphisme de schémas $X_1 \to X_1'$ est également un épaississement. Appliquons Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-pushout-along-thickening}, pour obtenir une somme amalgamée $Y_1' = Y_1 \amalg_{X_1} X_1'$ dans la catégorie des schémas. Dans la preuve du Lemme \ref{lemma-pushout-along-thickening}, nous avons construit $Y'$ comme quotient d'une relation d'équivalence \'etale sur $Y_1'$, d'où un diagramme commutatif 
+\begin{equation}
+\label{equation-cube}
+\vcenter{
+\xymatrix{
+& X \ar[rr] \ar'[d][dd] & & X' \ar[dd] \\
+X_1 \ar[rr] \ar[dd] \ar[ru] & & X_1' \ar[dd] \ar[ru] & \\
+& Y \ar'[r][rr] & & Y' \\
+Y_1 \ar[rr] \ar[ru] & & Y_1' \ar[ru]
+}
+}
+\end{equation} où tous les carrés, sauf les carrés avant et arrière, sont cartésiens (les carrés avant et arrière sont des sommes amalgamées), et où les flèches vers le nord-est
+sont \'etales et surjectives. Notons $F_1$, $G_1$ les
+foncteurs construits dans
+Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}
+pour la face avant. Alors le diagramme de catégories
+$$
+\xymatrix{
+(\Sch/Y_1') \ar@<-1ex>[r]_-{F_1} \ar[d] &
+(\Sch/Y_1) \times_{(\Sch/Y_1')} (\Sch/X_1') \ar[d] \ar@<-1ex>[l]_-{G_1} \\
+(\textit{Espaces}/Y') \ar@<-1ex>[r]_-F &
+(\textit{Espaces}/Y) \times_{(\textit{Espaces}/Y')} (\textit{Espaces}/X')
+\ar@<-1ex>[l]_-G
+}
+$$
+est commutatif par des considérations simples sur les foncteurs de changement de base
+et parce que les sommes amalgamées dans les schémas coïncident avec les sommes amalgamées dans
+les espaces du Lemme \ref{lemma-pushout-along-thickening-schemes}.
+
+\medskip\noindent
+Soit $(V, U', \varphi)$ un objet de
+$(\textit{Espaces}/Y) \times_{(\textit{Espaces}/Y')} (\textit{Espaces}/X')$.
+Notons $U = U' \times_{X'} X$ de sorte que $G(V, U', \varphi) = V \amalg_U U'$.
+Choisissons un schéma $V_1$ et un morphisme \'etale surjectif
+$V_1 \to Y_1 \times_Y V$. Posons $U_1 = V_1 \times_Y X$. Alors
+$$
+U_1 = V_1 \times_Y X
+\longrightarrow
+(Y_1 \times_Y V) \times_Y X =
+X_1 \times_Y V = X_1 \times_X X \times_Y V = X_1 \times_X U
+$$
+est lui aussi \'etale et surjectif. Par
+Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-thickening-equivalence}
+il existe un épaississement $U_1 \to U_1'$ et un morphisme \'etale surjectif
+$U_1' \to X_1' \times_{X'} U'$ dont le changement de base à $X_1 \times_X U$ est le
+morphisme affiché. À ce stade $(V_1, U'_1, \varphi_1)$ est un objet de
+$(\Sch/Y_1) \times_{(\Sch/Y_1')} (\Sch/X_1')$. Dans la preuve du
+Lemme \ref{lemma-pushout-along-thickening} nous avons construit
+$G(V, U', \varphi) = V \amalg_U U'$ comme un quotient d'une relation
+d'équivalence \'etale sur $G_1(V_1, U_1', \varphi_1) = V_1 \amalg_{U_1} U_1'$
+de sorte que nous obtenons un diagramme commutatif
+\begin{equation}
+\label{equation-cube-over}
+\vcenter{
+\xymatrix{
+& U \ar[rr] \ar'[d][dd] & & U' \ar[dd] \\
+U_1 \ar[rr] \ar[dd] \ar[ru] & & U_1' \ar[dd] \ar[ru] & \\
+& V \ar'[r][rr] & & G(V, U', \varphi) \\
+V_1 \ar[rr] \ar[ru] & & G_1(V_1, U_1', \varphi_1) \ar[ru]
+}
+}
+\end{equation}
+où tous les carrés sauf les carrés avant et arrière sont cartésiens (les carrés avant et arrière sont des sommes amalgamées), et où les flèches vers le nord-est sont \'etales et surjectives. En particulier, $$
+G_1(V_1, U_1', \varphi_1) \to G(V, U', \varphi)
+$$ est \'etale et surjectif.
+
+\medskip\noindent
+Enfin, démontrons le lemme. Nous devons montrer que le morphisme d'adjonction $(V, U', \varphi) \to F(G(V, U', \varphi))$ est un isomorphisme. Nous savons que $(V_1, U_1', \varphi_1) \to F_1(G_1(V_1, U_1', \varphi_1))$ est un isomorphisme d'après Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}. Rappelons que $F$ et $F_1$ sont donnés par changement de base. En utilisant les propriétés de (\ref{equation-cube-over}) et le Lemme \ref{lemma-diagram}, nous voyons que $V \to G(V, U', \varphi) \times_{Y'} Y$ et $U' \to G(V, U', \varphi) \times_{Y'} X'$ sont des isomorphismes, c'est-à-dire que $(V, U', \varphi) \to F(G(V, U', \varphi))$ est un isomorphisme. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-space-over-pushout-flat-modules}
+Soit $S$ un schéma de base.
+Soit $X \to X'$ un épaississement d'espaces algébriques sur $S$
+et soit $X \to Y$ un morphisme affine d'espaces algébriques sur $S$.
+Soit $Y' = Y \amalg_X X'$ la somme amalgamée
+(voir le Lemme \ref{lemma-pushout-along-thickening}).
+Soit $V' \to Y'$ un morphisme d'espaces algébriques sur $S$. Posons
+$V = Y \times_{Y'} V'$, $U' = X' \times_{Y'} V'$, et $U = X \times_{Y'} V'$.
+Il existe une équivalence de catégories entre
+\begin{enumerate}
+\item $\mathcal{O}_{V'}$-modules quasi-cohérents plats sur $Y'$, et
+\item la catégorie des triplets $(\mathcal{G}, \mathcal{F}', \varphi)$ où
+\begin{enumerate}
+\item $\mathcal{G}$ est un $\mathcal{O}_V$-module quasi-cohérent plat sur $Y$,
+\item $\mathcal{F}'$ est un $\mathcal{O}_{U'}$-module quasi-cohérent plat
+sur $X'$, et
+\item $\varphi : (U \to V)^*\mathcal{G} \to (U \to U')^*\mathcal{F}'$ est un isomorphisme de $\mathcal{O}_U$-modules.
+\end{enumerate}
+\end{enumerate}
+L'équivalence envoie $\mathcal{G}'$ sur
+$((V \to V')^*\mathcal{G}', (U' \to V')^*\mathcal{G}', can)$.
+Supposons que $\mathcal{G}'$ corresponde au triple
+$(\mathcal{G}, \mathcal{F}', \varphi)$. Alors
+\begin{enumerate}
+\item[(a)] $\mathcal{G}'$ est un $\mathcal{O}_{V'}$-module de type fini si et seulement si $\mathcal{G}$ et $\mathcal{F}'$ sont des $\mathcal{O}_V$- et $\mathcal{O}_{U'}$-modules de type fini.
+\item[(b)] si $V' \to Y'$ est localement de présentation finie, alors $\mathcal{G}'$ est un $\mathcal{O}_{V'}$-module de présentation finie si et seulement si $\mathcal{G}$ et $\mathcal{F}'$ sont des $\mathcal{O}_V$- et $\mathcal{O}_{U'}$-modules de présentation finie.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Un foncteur quasi-inverse associe au triple
+$(\mathcal{G}, \mathcal{F}', \varphi)$ le produit fibré
+$$
+(V \to V')_*\mathcal{G}
+\times_{(U \to V')_*\mathcal{F}}
+(U' \to V')_*\mathcal{F}'
+$$
+où $\mathcal{F} = (U \to U')^*\mathcal{F}'$. Cette construction convient car, sur
+les objets affines \'etales sur $V'$ et sur $Y'$, nous retrouvons l'équivalence de
+Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-relative-flat-module-over-fibre-product}.
+Détails omis.
+
+\medskip\noindent
+Les parties (a) et (b) se réduisent par la localisation \'etale
+(Propriétés des espaces, section
+\ref{spaces-properties-section-properties-modules})
+au cas où $V'$ et $Y'$ sont affines, auquel cas le résultat
+suit de
+Compléments d'algèbre, Lemmes
+\ref{more-algebra-lemma-relative-finite-module-over-fibre-product} et
+\ref{more-algebra-lemma-relative-finitely-presented-module-over-fibre-product}.
+\end{proof}
+
+
+\begin{lemma}
+\label{lemma-equivalence-categories-spaces-pushout-flat}
+Dans la situation du
+Lemme \ref{lemma-equivalence-categories-spaces-over-pushout},
+Si $V' = G(V, U', \varphi)$ pour un certain triple $(V, U', \varphi)$, alors
+\begin{enumerate}
+\item $V' \to Y'$ est localement de type fini si et seulement si $V \to Y$ et
+$U' \to X'$ sont localement de type fini,
+\item $V' \to Y'$ est plat si et seulement si $V \to Y$ et $U' \to X'$ sont plats,
+\item $V' \to Y'$ est plat et localement de présentation finie si et seulement si
+$V \to Y$ et $U' \to X'$ sont plats et localement de présentation finie,
+\item $V' \to Y'$ est lisse si et seulement si $V \to Y$ et $U' \to X'$ sont lisses,
+\item $V' \to Y'$ est \'etale si et seulement si $V \to Y$ et $U' \to X'$
+sont \'etales, et
+\item ajouter plus ici si nécessaire.
+\end{enumerate}
+Si $W'$ est plat sur $Y'$, alors le morphisme d'adjonction $G(F(W')) \to W'$ est un isomorphisme. Par conséquent, $F$ et $G$ définissent des foncteurs quasi-inverses mutuels entre la catégorie des espaces algébriques plats sur $Y'$ et la catégorie des triples $(V, U', \varphi)$ avec $V \to Y$ et $U' \to X'$ plats. 
+\end{lemma}
+
+\begin{proof}
+Choisissons un diagramme (\ref{equation-cube}) comme dans la démonstration du
+Lemme \ref{lemma-equivalence-categories-spaces-over-pushout}.
+
+\medskip\noindent
+Preuve de (1) -- (5). Soit $(V, U', \varphi)$ un objet de
+$(\textit{Espaces}/Y) \times_{(\textit{Espaces}/Y')} (\textit{Espaces}/X')$.
+Construisons un diagramme (\ref{equation-cube-over}) comme dans la preuve du
+Lemme \ref{lemma-equivalence-categories-spaces-over-pushout}.
+Alors le changement de base de $G(V, U', \varphi) \to Y'$ à
+$Y'_1$ est $G_1(V_1, U_1', \varphi_1) \to Y_1'$. Par conséquent, (1) -- (5)
+suivent immédiatement des énoncés correspondants de Compléments sur les morphismes, Lemme
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+pour les schémas.
+
+\medskip\noindent
+Supposons que $W' \to Y'$ soit plat. Choisissons un schéma $W'_1$ et un morphisme \'etale surjectif $W'_1 \to Y_1' \times_{Y'} W'$. Observons que $W'_1 \to W'$ est \'etale et surjectif comme composée de morphismes \'etales et surjectifs. Nous savons que $G_1(F_1(W_1')) \to W_1'$ est un isomorphisme par Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}, appliqué à $W'_1$ sur $Y'_1$ et à la face avant du diagramme (avec les foncteurs $G_1$ et $F_1$ comme dans la preuve du Lemme \ref{lemma-equivalence-categories-spaces-over-pushout}).
+Alors la construction de $G(F(W'))$ (comme somme amalgamée, c'est-à-dire par la construction du Lemme \ref{lemma-pushout-along-thickening}) montre que $G_1(F_1(W'_1)) \to G(F(W'))$ est \'etale et surjectif. Nous en concluons que $G(F(W')) \to W'$ est \'etale, voir par exemple Propriétés des espaces, Lemme \ref{spaces-properties-lemma-etale-local}.
+Mais $G(F(W')) \to W'$ induit un isomorphisme entre les espaces algébriques réduits associés (par construction), donc c'est un isomorphisme.
+\end{proof}
+
+
+
+
+
+
+
+\section{Sommes amalgamées le long d'immersions fermées et de morphismes entiers}
+\label{section-pushouts-II}
+
+\noindent
+Cette section est l'analogue de
+Compléments sur les morphismes, section \ref{more-morphisms-section-pushouts-II}.
+
+\begin{lemma}
+\label{lemma-pushout-along-closed-immersion-and-integral}
+Dans Compléments sur les morphismes, Situation
+\ref{more-morphisms-situation-pushout-along-closed-immersion-and-integral}
+soit $Y \amalg_Z X$ la somme amalgamée dans la catégorie des schémas
+(Compléments sur les morphismes, Proposition
+\ref{more-morphisms-proposition-pushout-along-closed-immersion-and-integral}).
+Alors $Y \amalg_Z X$
+est également une somme amalgamée dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Ceci est une conséquence du Lemme \ref{lemma-colimit-agrees}, de la proposition mentionnée dans le lemme, ainsi que de Compléments sur les morphismes, Lemmes \ref{more-morphisms-lemma-pushout-functor} et \ref{more-morphisms-lemma-pushout-functor-equivalence-flat}.
+Les conditions (1) et (2) du Lemme \ref{lemma-colimit-agrees} suivent immédiatement. Pour voir (3) et (4), remarquons qu'un morphisme \'etale est localement quasi-fini et utilisons le fait que l'équivalence de catégories de Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-pushout-functor-equivalence-flat}, est construite à l'aide de la construction de la somme amalgamée de Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-pushout-functor}.
+Détails mineurs omis.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Sommes amalgamées et catégories dérivées}
+\label{section-pushouts-derived}
+
+\noindent
+Dans cette section, nous discutons du comportement de la catégorie dérivée des modules lors des sommes amalgamées.
+
+\begin{lemma}
+\label{lemma-pushout-along-thickening-derived}
+Soit $S$ un schéma. Considérons une somme amalgamée
+$$
+\xymatrix{
+X \ar[r]_i \ar[d]_f & X' \ar[d]^{f'}
+\\
+Y \ar[r]^j & Y'
+}
+$$
+dans la catégorie des espaces algébriques sur $S$
+comme dans le Lemme \ref{lemma-pushout-along-thickening}.
+Supposons que $i$ soit un épaississement. Alors l'image essentielle du foncteur\footnote{Tous les foncteurs sont donnés par l'image inverse dérivée.}
+$$
+D(\mathcal{O}_{Y'}) \longrightarrow
+D(\mathcal{O}_Y) \times_{D(\mathcal{O}_X)} D(\mathcal{O}_{X'})
+$$
+contient tout triplet $(M, K', \alpha)$ où $M \in D(\mathcal{O}_Y)$
+et $K' \in D(\mathcal{O}_{X'})$ sont pseudo-cohérents.
+\end{lemma}
+
+\begin{proof}
+Soit $(M, K', \alpha)$ un objet de la cible du foncteur
+du lemme. Ici $\alpha : Lf^*M \to Li^*K'$
+est un isomorphisme adjoint à un morphisme $\beta : M \to Rf_*Li^*K'$.
+Ainsi nous obtenons des morphismes
+$$
+Rj_*M \xrightarrow{Rj_*\beta}
+Rj_*Rf_*Li^*K' = Rf'_*Ri_*Li^*K' \leftarrow Rf'_*K'
+$$
+où la flèche pointant vers la gauche provient de $K' \to Ri_*Li^*K'$.
+Choisissons un triangle distingué
+$$
+M' \to Rj_*M \oplus Rf'_*K' \to Rj_*Rf_*Li^*K' \to M'[1]
+$$
+dans $D(\mathcal{O}_{Y'})$. La première flèche définit des morphismes canoniques
+$Lj^*M' \to M$ et $L(f')^*M' \to K'$ compatibles avec $\alpha$.
+Ainsi, il suffit de montrer que les morphismes
+$Lj^*M' \to M$ et $L(f')^*M' \to K'$ sont des isomorphismes.
+Cette assertion se vérifie localement pour la topologie \'etale sur $Y'$, donc nous pouvons
+supposer que $Y'$ est affine.
+
+\medskip\noindent
+Supposons que $Y'$ soit affine et que $M \in D(\mathcal{O}_Y)$
+et $K' \in D(\mathcal{O}_{X'})$ soient pseudo-cohérents.
+Supposons que notre somme amalgamée corresponde au produit fibré
+$$
+\xymatrix{
+B & B' \ar[l] \\
+A \ar[u] & A' \ar[l] \ar[u]
+}
+$$
+d'anneaux où $B' \to B$ est surjectif avec un noyau localement nilpotent $I$
+(et donc $A' \to A$ est également surjectif avec un noyau localement nilpotent $I$).
+Les hypothèses sur $M$ et $K'$ impliquent que $M$ provient d'un objet pseudo-cohérent de $D(A)$ et que $K'$ provient d'un objet pseudo-cohérent de $D(B')$, voir
+Catégories dérivées des espaces, Lemmes
+\ref{spaces-perfect-lemma-pseudo-coherent},
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}, et
+\ref{spaces-perfect-lemma-descend-pseudo-coherent}
+et
+Catégories dérivées des schémas, Lemme
+\ref{perfect-lemma-affine-compare-bounded} et
+\ref{perfect-lemma-pseudo-coherent-affine}.
+De plus, les foncteurs image directe et image inverse dérivée coïncident avec les
+opérations correspondantes sur les catégories dérivées de modules, voir Catégories dérivées des espaces, Remarque
+\ref{spaces-perfect-remark-match-total-direct-images}
+et
+Catégories dérivées des schémas, Lemmes
+\ref{perfect-lemma-quasi-coherence-pushforward} et
+\ref{perfect-lemma-quasi-coherence-pullback}.
+Cela nous ramène à l'énoncé formulé dans le paragraphe suivant.
+(Pour vérifier que ces références montrent que l'objet $M'$ appartient à
+$D_\QCoh(\mathcal{O}_{Y'})$, on utilise le fait qu'il s'agit d'une
+sous-catégorie triangulée de $D(\mathcal{O}_{Y'})$.)
+
+\medskip\noindent
+Étant donné un diagramme d'anneaux comme ci-dessus et un triple
+$(M, K', \alpha)$ où $M \in D(A)$, $K' \in D(B')$ sont
+pseudo-cohérents et
+$\alpha : M \otimes_A^\mathbf{L} B \to K' \otimes_{B'}^\mathbf{L} B$
+est un isomorphisme, supposons que nous ayons un triangle distingué
+$$
+M' \to M \oplus K' \to K' \otimes_{B'}^\mathbf{L} B \to M'[1]
+$$
+dans $D(A')$. Il s'agit de montrer que les morphismes induits
+$M' \otimes_{A'}^\mathbf{L} A \to M$ et
+$M' \otimes_{A'}^\mathbf{L} B' \to K'$ sont des isomorphismes.
+Pour ce faire, choisissons un complexe borné supérieurement
+$E^\bullet$ de $A$-modules libres finis représentant $M$.
+Puisque $(B', I)$ est une paire hensélienne
+(Compléments d'algèbre, Lemme \ref{more-algebra-lemma-locally-nilpotent-henselian})
+avec $B = B'/I$, nous pouvons appliquer Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-lift-complex-finite-projectives}
+pour voir qu'il existe un complexe borné supérieurement $P^\bullet$
+de $B'$-modules libres tel que $\alpha$ soit représenté
+par un isomorphisme $E^\bullet \otimes_A B \cong P^\bullet \otimes_{B'} B$.
+Ensuite, nous pouvons considérer la suite exacte courte
+$$
+0 \to L^\bullet \to
+E^\bullet \oplus P^\bullet \to P^\bullet \otimes_{B'} B \to 0
+$$
+de complexes de $A'$-modules.  
+Compléments d'algèbre, Lemme  
+\ref{more-algebra-lemma-finitely-presented-module-over-fibre-product}  
+implique que $L^\bullet$ est un complexe borné supérieurement de  
+$A'$-modules projectifs finis  
+(en fait, il est assez facile de montrer directement que $L^n$ est libre fini  
+dans notre cas) et que nous avons  
+$L^\bullet \otimes_{A'} A = E^\bullet$ et  
+$L^\bullet \otimes_{A'} B' = P^\bullet$.  
+La suite exacte courte donne un triangle distingué  
+$$
+L^\bullet \to M \oplus K' \to K' \otimes_{B'}^\mathbf{L} B \to (L^\bullet)[1]
+$$  
+dans $D(A')$ (Catégories dérivées, section  
+\ref{derived-section-canonical-delta-functor}) qui est isomorphe  
+au triangle distingué donné par les propriétés générales des  
+catégories triangulées (Catégories dérivées, section  
+\ref{derived-section-elementary-results}). En d'autres termes, $L^\bullet$  
+représente $M'$ de manière compatible avec les morphismes donnés. Ainsi, les morphismes  
+$M' \otimes_{A'}^\mathbf{L} A \to M$ et  
+$M' \otimes_{A'}^\mathbf{L} B' \to K'$ sont  
+des isomorphismes parce que nous venons de voir que l'assertion correspondante est vraie pour $L^\bullet$.  
+\end{proof}
+
+
+
+
+
+
+
+\section{Construction de carrés distingués élémentaires}
+\label{section-elementary-dsitnguished-squares}
+
+\noindent
+Les carrés distingués élémentaires ont été définis dans
+Catégories dérivées des espaces, section \ref{spaces-perfect-section-induction}.
+
+\begin{lemma}
+\label{lemma-elementary-distinguished-square-pushout}
+Soit $S$ un schéma. Soit $(U \subset W, f : V \to W)$ un carré distingué élémentaire. Alors
+$$
+\xymatrix{
+U \times_W V \ar[r] \ar[d] &
+V \ar[d]^f \\
+U \ar[r] & W
+}
+$$
+est un carré cocartésien dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Observons que $U \amalg V \to W$ est un morphisme \'etale surjectif.
+Le produit fibré
+$$
+(U \amalg V) \times_W (U \amalg V)
+$$
+est la réunion disjointe de quatre composantes, à savoir
+$U = U \times_W U$, $U \times_W V$, $V \times_W U$,
+et $V \times_W V$.
+Il existe un morphisme \'etale surjectif
+$$
+V \amalg (U \times_W V) \times_U (U \times_W V) \longrightarrow V \times_W V
+$$
+car $f$ induit un isomorphisme sur $W \setminus U$
+(faisant partie de la définition d'un carré distingué élémentaire).
+Soit $B$ un espace algébrique sur $S$ et soit
+$g : V \to B$ et $h : U \to B$ des morphismes sur
+$S$ qui coïncident après restriction à $U \times_W V$.
+Alors la description de
+$(U \amalg V) \times_W (U \amalg V)$ donnée ci-dessus
+montre que $h \amalg g : U \amalg V \to B$
+égalise les deux projections. Comme $B$ est un faisceau
+pour la topologie \'etale, nous obtenons une factorisation unique
+de $h \amalg g$ par $W$ comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-construct-elementary-distinguished-square}
+Soit $S$ un schéma. Soient $V$, $U$ des espaces algébriques sur $S$.
+Soit $V' \subset V$ un sous-espace ouvert et soit $f' : V' \to U$ un
+morphisme \'etale séparé d'espaces algébriques sur $S$.
+Alors il existe une somme amalgamée
+$$
+\xymatrix{
+V' \ar[r] \ar[d] &
+V \ar[d]^f \\
+U \ar[r] & W
+}
+$$
+dans la catégorie des espaces algébriques sur $S$ et de plus
+$(U \subset W, f : V \to W)$ est un carré distingué élémentaire.
+\end{lemma}
+
+\begin{proof}
+Nous allons construire $W$ comme le quotient d'une relation d'équivalence \'etale $R$ sur $U \amalg V$. Un tel quotient est un espace algébrique, par exemple par Amorçage, Théorème \ref{bootstrap-theorem-final-bootstrap}.
+De plus, la démonstration du Lemme \ref{lemma-elementary-distinguished-square-pushout} nous indique de prendre $$
+R = U \amalg V' \amalg V' \amalg V \amalg
+(V' \times_U V' \setminus \Delta_{V'/U}(V'))
+$$.
+Puisque nous avons supposé que $V' \to U$ est séparé, l'image de $\Delta_{V'/U}$ est fermée et donc le complémentaire est un sous-espace ouvert. Le morphisme $j : R \to (U \amalg V) \times_S (U \amalg V)$ est donné par $$
+u,\ v',\ v',\ v,\ (v'_1, v'_2) \mapsto
+(u, u),\ (f'(v'), v'),\ (v', f'(v')),\ (v, v),\ (v'_1, v'_2)
+$$ avec une notation évidente. On vérifie immédiatement qu'il s'agit d'un monomorphisme et d'une relation d'équivalence, et que les morphismes induits $s, t : R \to U \amalg V$ sont \'etales. Soit $W = (U \amalg V)/R$ l'espace algébrique quotient.
+Nous obtenons un diagramme commutatif comme dans l'énoncé du lemme.
+Pour terminer la démonstration, il suffit de montrer que ce diagramme est un carré distingué élémentaire, car alors le
+Lemme \ref{lemma-elementary-distinguished-square-pushout} implique qu'il s'agit d'une somme amalgamée.  
+Ainsi, nous devons montrer que $U \to W$ est ouvert et que  
+$f$ est \'etale et induit un isomorphisme sur $W \setminus U$.  
+Cela découle du choix de $R$ ; nous omettons les détails.  
+\end{proof}
+
+
+
+
+
+
+\section{Recollement formel de modules quasi-cohérents}
+\label{section-formal-glueing}
+
+\noindent
+Cette section est l'analogue de
+Compléments d'algèbre, section \ref{more-algebra-section-formal-glueing}.
+Dans le cas des morphismes de schémas, le résultat se trouve dans
+l'article de Joyet \cite{Joyet} ; c'est un bon point de départ pour la lecture.
+Pour une discussion des applications aux problèmes de descente pour les champs, voir
+l'article de Moret-Bailly \cite{MB}. Dans le cas d'un morphisme affine de schémas, on trouve un énoncé dans l'appendice de l'article
+\cite{Ferrand-Raynaud}, mais il est nécessaire d'ajouter l'hypothèse
+que le sous-schéma fermé est défini par un idéal de type fini (comme dans l'article de Joyet), sans quoi l'énoncé est faux.
+Une généralisation de ce matériel aux catégories dérivées supérieures, avec d'éventuelles applications à des situations non plates,
+se trouve dans \cite[section 5]{Bhatt-Algebraize}.
+
+\medskip\noindent
+Nous commençons par un lemme sur les faisceaux abéliens supportés sur des sous-ensembles fermés.
+
+\begin{lemma}
+\label{lemma-stalk-pushforward-with-support}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques
+sur $S$. Soit $Z \subset X$ un sous-espace fermé tel que $f^{-1}Z \to Z$ soit
+intégral et universellement injectif. Soit $\overline{y}$ un point géométrique
+de $Y$ et $\overline{x} = f(\overline{y})$. Nous avons
+$$
+(Rf_*Q)_{\overline{x}} = Q_{\overline{y}}
+$$
+dans $D(\textit{Ab})$ pour tout objet $Q$ de $D(Y_\etale)$ supporté
+sur $|f^{-1}Z|$.
+\end{lemma}
+
+\begin{proof}
+Considérons le diagramme commutatif des espaces algébriques
+$$
+\xymatrix{
+f^{-1}Z \ar[r]_{i'} \ar[d]_{f'} & Y \ar[d]_f \\
+Z \ar[r]^i & X
+}
+$$
+D'après Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-complexes-with-support-on-closed} nous pouvons écrire
+$Q = Ri'_*K'$ pour un certain objet $K'$ de $D(f^{-1}Z_\etale)$.
+D'après Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-integral-universally-injective-push-pull}
+nous avons $K' = (f')^{-1}K$ avec $K = Rf'_*K'$.
+Alors nous avons $Rf_*Q = Rf_*Ri'_*K' = Ri_*Rf'_*K' = Ri_*K$.
+Soit $\overline{z}$ le point géométrique de $Z$ correspondant à $\overline{x}$ et soit $\overline{z}'$ le point géométrique de $f^{-1}Z$ correspondant à $\overline{y}$. Nous obtenons alors le résultat du lemme comme suit
+$$
+Q_{\overline{y}} = (Ri'_*K')_{\overline{y}} = K'_{\overline{z}'} =
+(f')^{-1}K_{\overline{z}'} = K_{\overline{z}} = Ri_*K_{\overline{x}} =
+Rf_*Q_{\overline{x}}
+$$
+L'égalité du milieu tient grâce à la description de la fibre d'une image inverse donnée dans Propriétés des espaces, Lemme \ref{spaces-properties-lemma-stalk-pullback}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalk-formal-glueing}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$. Soit $Z \subset X$ un sous-espace fermé tel que $f^{-1}Z \to Z$ soit intégral et universellement injectif. Soit $\overline{y}$ un point géométrique de $Y$ et $\overline{x} = f(\overline{y})$. Soit $\mathcal{G}$ un faisceau abélien sur $Y$. Alors le morphisme entre les complexes à deux termes $$
+\left(f_*\mathcal{G}_{\overline{x}} \to
+(f \circ j')_*(\mathcal{G}|_V)_{\overline{x}}\right)
+\longrightarrow
+\left(\mathcal{G}_{\overline{y}} \to j'_*(\mathcal{G}|_V)_{\overline{y}}\right)
+$$ induit un isomorphisme sur les noyaux et une injection sur les conoyaux. Ici $V = Y \setminus f^{-1}Z$ et $j' : V \to Y$ est l'inclusion.
+\end{lemma}
+
+\begin{proof}
+Choisissons un triangle distingué
+$$
+\mathcal{G} \to Rj'_*\mathcal{G}|_V \to Q \to \mathcal{G}[1]
+$$
+dans $D(Y_\etale)$. Les faisceaux de cohomologie de $Q$
+sont supportés sur $|f^{-1}Z|$. Nous appliquons $Rf_*$ et nous obtenons
+$$
+Rf_*\mathcal{G} \to Rf_*Rj'_*\mathcal{G}|_V \to Rf_*Q
+\to Rf_*\mathcal{G}[1]
+$$
+En prenant les fibres en $\overline{x}$ nous obtenons une suite exacte
+$$
+0 \to
+(R^{-1}f_*Q)_{\overline{x}} \to
+f_*\mathcal{G}_{\overline{x}} \to
+(f \circ j')_*(\mathcal{G}|_V)_{\overline{x}} \to
+(R^0f_*Q)_{\overline{x}}
+$$
+Nous pouvons comparer ceci avec la suite exacte
+$$
+0 \to
+H^{-1}(Q)_{\overline{y}} \to
+\mathcal{G}_{\overline{y}} \to
+j'_*(\mathcal{G}|_V)_{\overline{y}} \to
+H^0(Q)_{\overline{y}}
+$$
+Ainsi, nous voyons que le lemme en découle car
+$Q_{\overline{y}} = Rf_*Q_{\overline{x}}$ par
+Lemme \ref{lemma-stalk-pushforward-with-support}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalk-of-pushforward}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $f : Y \to X$ un morphisme quasi-compact et quasi-séparé.
+Soit $\overline{x}$ un point géométrique de $X$ et soit
+$\Spec(\mathcal{O}_{X, \overline{x}}) \to X$
+le morphisme canonique. Pour un module quasi-cohérent
+$\mathcal{G}$ sur $Y$, nous avons
+$$
+f_*\mathcal{G}_{\overline{x}} =
+\Gamma(Y \times_X \Spec(\mathcal{O}_{X, \overline{x}}), p^*\mathcal{G})
+$$
+où $p : Y \times_X \Spec(\mathcal{O}_{X, \overline{x}}) \to Y$
+est la projection.
+\end{lemma}
+
+\begin{proof}
+Observons que $f_*\mathcal{G}_{\overline{x}} =
+\Gamma(\Spec(\mathcal{O}_{X, \overline{x}}), h^*f_*\mathcal{G})$
+où $h : \Spec(\mathcal{O}_{X, \overline{x}}) \to X$.
+Par conséquent, le résultat est vrai car $h$ est plat, si bien que
+Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}
+s'applique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalk-of-module-with-support}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $i : Z \to X$ une immersion fermée de présentation finie.
+Soit $Q \in D_\QCoh(\mathcal{O}_X)$ supporté sur $|Z|$.
+Soit $\overline{x}$ un point géométrique de $X$ et soit
+$I_{\overline{x}} \subset \mathcal{O}_{X, \overline{x}}$ le germe du
+faisceau d'idéaux de $Z$. Alors les modules de cohomologie
+$H^n(Q_{\overline{x}})$ sont constitués d'éléments annulés par une puissance de $I_{\overline{x}}$
+(voir Compléments d'algèbre, Définition
+\ref{more-algebra-definition-f-power-torsion}).
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma affine $U$ et un morphisme \'etale $U \to X$ tel que $\overline{x}$ se relève en un point géométrique $\overline{u}$ de $U$. Ensuite, nous pouvons remplacer $X$ par $U$, $Z$ par $U \times_X Z$, $Q$ par la restriction $Q|_U$, et $\overline{x}$ par $\overline{u}$. Ainsi, nous pouvons supposer que $X = \Spec(A)$ est affine. Soit $I \subset A$ l'idéal définissant $Z$. Puisque $i : Z \to X$ est de présentation finie, l'idéal $I = (f_1, \ldots, f_r)$ est de type fini. L'objet $Q$ provient d'un complexe de $A$-modules $M^\bullet$, voir Catégories dérivées des espaces, Lemme \ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site} et Catégories dérivées des schémas, Lemme \ref{perfect-lemma-affine-compare-bounded}. Puisque les faisceaux de cohomologie de $Q$ sont supportés sur $Z$, nous voyons que la localisation $M^\bullet_f$ est acyclique pour chaque $f \in I$. Prenons $x \in H^p(M^\bullet)$. D'après ce qui précède, nous pouvons trouver un entier $n_i$ tel que $f_i^{n_i} x = 0$ dans $H^p(M^\bullet)$ pour chaque $i$. Ensuite, en posant $n = \sum n_i$, nous voyons que $I^n$ annule $x$. Ainsi, tout élément de $H^p(M^\bullet)$ est annulé par une puissance de $I$. Comme l'homomorphisme d'anneaux $A \to \mathcal{O}_{X, \overline{x}}$ est plat et comme $I_{\overline{x}} = I\mathcal{O}_{X, \overline{x}}$, nous concluons. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-formal-glueing-on-closed}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques sur $S$. Soit $Z \subset X$ un sous-espace fermé. Supposons que $f^{-1}Z \to Z$ soit un isomorphisme et que $f$ soit plat en chaque point de $f^{-1}Z$. Pour tout $Q$ dans $D_\QCoh(\mathcal{O}_Y)$ supporté sur $|f^{-1}Z|$, nous avons $Lf^*Rf_*Q = Q$.
+\end{lemma}
+
+\begin{proof}
+Nous montrons que le morphisme canonique $Lf^*Rf_*Q \to Q$ est un isomorphisme
+en vérifiant sur les germes en $\overline{y}$. Si $\overline{y}$ n'est pas
+dans $f^{-1}Z$, alors les deux côtés sont nuls et le résultat est vrai.
+Supposons que l'image $\overline{x}$ de $\overline{y}$ soit dans $Z$.
+D'après le Lemme \ref{lemma-stalk-pushforward-with-support} nous avons
+$Rf_*Q_{\overline{x}} = Q_{\overline{y}}$ et puisque $f$ est plat
+en $\overline{y}$, nous voyons que
+$$
+(Lf^*Rf_*Q)_{\overline{y}} =
+(Rf_*Q)_{\overline{x}}
+\otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}} =
+Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}
+$$
+Ainsi, nous devons vérifier que le morphisme canonique
+$$
+Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}
+\longrightarrow Q_{\overline{y}}
+$$
+est un isomorphisme dans la catégorie dérivée. Soit
+$I_{\overline{x}} \subset \mathcal{O}_{X, \overline{x}}$ le
+germe du faisceau d'idéaux définissant $Z$. Puisque $Z \to X$ est localement de
+présentation finie, cet idéal est de type fini et les
+groupes de cohomologie de $Q_{\overline{y}}$
+sont constitués d'éléments annulés par une puissance de $I_{\overline{y}} = I_{\overline{x}}\mathcal{O}_{Y, \overline{y}}$ d'après le Lemme \ref{lemma-stalk-of-module-with-support} appliqué à $Q$ sur $Y$. Il s'ensuit qu'ils sont également constitués d'éléments annulés par une puissance de $I_{\overline{x}}$. 
+L'homomorphisme d'anneaux 
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}}$ 
+est plat et induit un isomorphisme après passage aux quotients par 
+$I_{\overline{x}}$ et $I_{\overline{y}}$ car nous avons supposé que 
+$f^{-1}Z \to Z$ est un isomorphisme. Par conséquent, nous voyons que 
+les modules de cohomologie de 
+$Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}$ 
+sont égaux aux modules de cohomologie de $Q_{\overline{y}}$ d'après 
+Compléments d'algèbre, Lemme \ref{more-algebra-lemma-neighbourhood-isomorphism} 
+ce qui termine la démonstration. 
+\end{proof}
+
+\begin{situation}
+\label{situation-formal-glueing}
+Ici $S$ est un schéma de base, $f : Y \to X$ est un morphisme quasi-compact et quasi-séparé d'espaces algébriques sur $S$, et $Z \to X$ est une immersion fermée de présentation finie. Nous supposons que $f^{-1}(Z) \to Z$ est un isomorphisme et que $f$ est plat en tout point $y \in |f^{-1}Z|$. Nous posons $U = X \setminus Z$ et $V = Y \setminus f^{-1}(Z)$.
+Considérons le diagramme
+$$
+\xymatrix{
+V \ar[r]_{j'} \ar[d]_{f|_V} & Y \ar[d]^f \\
+U \ar[r]^j & X
+}
+$$
+\end{situation}
+
+\noindent
+Dans la situation \ref{situation-formal-glueing}, nous définissons
+$\textit{QCoh}(Y \to X, Z)$ comme la catégorie des
+triplets $(\mathcal{H}, \mathcal{G}, \varphi)$ où
+$\mathcal{H}$ est un faisceau quasi-cohérent de
+$\mathcal{O}_U$-modules, $\mathcal{G}$ est un faisceau quasi-cohérent
+de $\mathcal{O}_Y$-modules, et
+$\varphi : f^*\mathcal{H} \to \mathcal{G}|_V$ est un isomorphisme
+de $\mathcal{O}_V$-modules. Il existe un foncteur canonique
+\begin{equation}
+\label{equation-formal-glueing-modules}
+\QCoh(\mathcal{O}_X) \longrightarrow \textit{QCoh}(Y \to X, Z)
+\end{equation}
+qui associe $\mathcal{F}$ au système
+$(\mathcal{F}|_U, f^*\mathcal{F}, can)$.
+Par analogie avec la preuve donnée dans le cas affine, nous construisons
+un foncteur dans la direction opposée. À un objet
+$(\mathcal{H}, \mathcal{G}, \varphi)$, nous associons le $\mathcal{O}_X$-module
+\begin{equation}
+\label{equation-reverse}
+\Ker(j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V)
+\end{equation}.
+Remarquons que $j$ et $j'$ sont des morphismes quasi-compacts car
+$Z \to X$ est de présentation finie. Par conséquent, $f_*$, $j_*$ et $(f \circ j')_*$
+transforment les modules quasi-cohérents en modules quasi-cohérents (Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-pushforward}). Ainsi, le module (\ref{equation-reverse}) est quasi-cohérent.
+
+\begin{lemma}
+\label{lemma-adjoint}
+Dans la situation \ref{situation-formal-glueing}.
+Le foncteur (\ref{equation-reverse}) est adjoint à droite du
+foncteur (\ref{equation-formal-glueing-modules}).
+\end{lemma}
+
+\begin{proof}
+Cela découle facilement de l'adjonction de $f^*$ à $f_*$
+et de $j^*$ à $j_*$. Détails omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reverse-commutes-with-flat-base-change}
+Dans la situation \ref{situation-formal-glueing}.
+Soit $X' \to X$ un morphisme plat d'espaces algébriques.
+Posons $Z' = X' \times_X Z$ et $Y' = X' \times_X Y$.
+Les images inverses $\QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_{X'})$
+et $\QCoh(Y \to X, Z) \to \QCoh(Y' \to X', Z')$ sont compatibles
+avec les foncteurs (\ref{equation-reverse}) et
+(\ref{equation-formal-glueing-modules}).
+\end{lemma}
+
+\begin{proof}
+Ceci est vrai parce que les images inverses commutent entre elles et parce que l'image inverse par un morphisme plat commute à l'image directe le long de morphismes quasi-compacts et quasi-séparés, voir Cohomologie des espaces, Lemme \ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-formal-glueing-modules}
+Dans la situation \ref{situation-formal-glueing}, le foncteur
+(\ref{equation-formal-glueing-modules}) est une équivalence
+avec un quasi-inverse donné par (\ref{equation-reverse}).
+\end{proposition}
+
+\begin{proof}
+Nous traitons d'abord le cas particulier où $X$ et $Y$ sont des schémas affines
+et où le morphisme $f$ est plat. Écrivons $X = \Spec(R)$ et $Y = \Spec(S)$.
+Alors $f$ correspond à un homomorphisme d'anneaux plat $R \to S$. De plus, $Z \subset X$
+est découpé par un idéal de type fini $I \subset R$. Choisissons des générateurs $f_1, \ldots, f_t \in I$.
+D'après la description des modules quasi-cohérents
+en termes de modules
+(Schémas, section \ref{schemes-section-quasi-coherent-affine}),
+nous voyons que la catégorie $\textit{QCoh}(Y \to X, Z)$
+est canoniquement équivalente à la catégorie
+$\text{Glue}(R \to S, f_1, \ldots, f_t)$
+de Compléments d'algèbre, Remarque \ref{more-algebra-remark-glueing-data}
+de telle sorte que les foncteurs
+(\ref{equation-formal-glueing-modules}) et (\ref{equation-reverse})
+correspondent aux foncteurs $\text{Can}$ et $H^0$.
+Ainsi, le résultat suit de
+Compléments d'algèbre, Proposition \ref{more-algebra-proposition-equivalence}
+dans ce cas.
+
+\medskip\noindent
+Nous revenons au cas général.
+Soit $\mathcal{F}$ un module quasi-cohérent sur $X$.
+Nous allons montrer que
+$$
+\alpha :
+\mathcal{F}
+\longrightarrow
+\Ker\left(j_*\mathcal{F}|_U \oplus f_*f^*\mathcal{F} \to
+(f \circ j')_*f^*\mathcal{F}|_V\right)
+$$
+est un isomorphisme. Soit $(\mathcal{H}, \mathcal{G}, \varphi)$
+un objet de $\QCoh(Y \to X, Z)$. Nous allons montrer que
+$$
+\beta :
+f^*\Ker\left(
+j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V
+\right)
+\longrightarrow
+\mathcal{G}
+$$
+et
+$$
+\gamma :
+j^*\Ker\left(
+j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V
+\right)
+\longrightarrow
+\mathcal{H}
+$$
+sont des isomorphismes. Pour voir que ces affirmations sont vraies, il suffit de
+examiner les germes. Soit $\overline{y}$ un point géométrique de $Y$ s'envoyant
+sur le point géométrique $\overline{x}$ de $X$.
+
+\medskip\noindent
+Fixons un objet $(\mathcal{H}, \mathcal{G}, \varphi)$ de $\QCoh(Y \to X, Z)$.
+Par le Lemme \ref{lemma-stalk-formal-glueing}
+et une vérification de diagramme (omise), le morphisme canonique
+$$
+\Ker(j_*\mathcal{H} \oplus f_*\mathcal{G} \to
+(f \circ j')_*\mathcal{G}|_V)_{\overline{x}}
+\longrightarrow
+\Ker(
+j_*\mathcal{H}_{\overline{x}} \oplus \mathcal{G}_{\overline{y}}
+\to
+j'_*\mathcal{G}_{\overline{y}}
+)
+$$
+est un isomorphisme.
+
+\medskip\noindent
+En particulier, si $\overline{y}$ est un point géométrique de $V$, alors
+nous voyons que $j'_*\mathcal{G}_{\overline{y}} = \mathcal{G}_{\overline{y}}$
+et donc que ce noyau est égal à $\mathcal{H}_{\overline{x}}$.
+Cela implique facilement que $\alpha_{\overline{x}}$, $\gamma_{\overline{x}}$,
+et $\beta_{\overline{y}}$ sont des isomorphismes dans ce cas.
+
+\medskip\noindent
+Ensuite, supposons que $\overline{y}$ soit un point de $f^{-1}Z$.
+Soient $I_{\overline{x}} \subset \mathcal{O}_{X, \overline{x}}$ et
+$I_{\overline{y}} \subset \mathcal{O}_{Y, \overline{y}}$ les germes des idéaux
+définissant respectivement $Z$ et $f^{-1}Z$.
+Alors $I_{\overline{x}}$ est un idéal de type fini,
+$I_{\overline{y}} = I_{\overline{x}}\mathcal{O}_{Y, \overline{y}}$,
+et $\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}}$
+est un homomorphisme local plat induisant un isomorphisme
+$\mathcal{O}_{X, \overline{x}}/I_{\overline{x}} =
+\mathcal{O}_{Y, \overline{y}}/I_{\overline{y}}$.
+À ce stade, nous pouvons conclure à l'aide du diagramme de catégories
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_X) \ar[r]_-{(\ref{equation-formal-glueing-modules})} \ar[d] &
+\QCoh(Y \to X, Z) \ar[d] \ar@/_2pc/[l]^{(\ref{equation-reverse})} \\
+\text{Mod}_{\mathcal{O}_{X, \overline{x}}} \ar[r]^-{\text{Can}} &
+\text{Glue}(\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}},
+f_1, \ldots, f_t) \ar@/^2pc/[l]_{H^0}
+}
+$$
+En effet, comme dans le premier paragraphe de la démonstration, nous identifions
+$$
+\text{Glue}(\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}},
+f_1, \ldots, f_t)
+=
+\QCoh(\Spec(\mathcal{O}_{Y, \overline{y}}) \to
+\Spec(\mathcal{O}_{X, \overline{x}}), V(I_{\overline{x}}))
+$$
+Le foncteur vertical droit est donné par l'image inverse, et il est clair que
+le carré intérieur est commutatif. Notre calcul du germe du
+noyau dans le troisième paragraphe de la démonstration combiné avec
+le Lemme \ref{lemma-stalk-of-pushforward} implique que
+le carré extérieur (en utilisant les flèches courbes) commute. Nous concluons alors en appliquant le cas d'un morphisme plat de schémas affines traité dans le premier paragraphe de la démonstration. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-derived-equivalent}
+Dans la situation \ref{situation-formal-glueing}, le foncteur
+$Rf_*$ induit une équivalence entre $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$
+et $D_{\QCoh, |Z|}(\mathcal{O}_X)$ avec quasi-inverse donné par
+$Lf^*$.
+\end{lemma}
+
+\begin{proof}  
+Puisque $f$ est quasi-compact et quasi-séparé, nous voyons que $Rf_*$  
+définit un foncteur de $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$  
+vers $D_{\QCoh, |Z|}(\mathcal{O}_X)$, voir  
+Catégories dérivées des espaces, Lemme  
+\ref{spaces-perfect-lemma-quasi-coherence-direct-image}.  
+D'après Catégories dérivées des espaces, Lemme  
+\ref{spaces-perfect-lemma-quasi-coherence-pullback}  
+nous voyons que $Lf^*$ transforme $D_{\QCoh, |Z|}(\mathcal{O}_X)$  
+en $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$.  
+Dans le Lemme \ref{lemma-formal-glueing-on-closed}, nous avons vu que  
+$Lf^*Rf_*Q = Q$ pour $Q$ dans $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$.  
+Par l'énoncé dual de Catégories dérivées, Lemme  
+\ref{derived-lemma-fully-faithful-adjoint-kernel-zero}  
+pour terminer la preuve, il suffit de montrer que $Lf^*K = 0$  
+implique $K = 0$ pour $K$ dans $D_{\QCoh, |Z|}(\mathcal{O}_X)$.  
+Ceci découle du fait que $f$ est plat en tous les points de  
+$f^{-1}Z$ et que $f^{-1}Z \to Z$ est surjectif.  
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dominate-by-fpqc-covering}
+Dans la situation \ref{situation-formal-glueing}, il existe un
+recouvrement fpqc $\{X_i \to X\}_{i \in I}$ affinant la
+famille $\{U \to X, Y \to X\}$.
+\end{lemma}
+
+\begin{proof}
+Pour la définition et les propriétés générales des recouvrements fpqc, nous renvoyons à
+Topologies, section \ref{topologies-section-fpqc}. En particulier, nous pouvons
+d'abord choisir un recouvrement \'etale $\{X_i \to X\}$ avec $X_i$ affine et en
+changeant $Y$, $Z$ et $U$ de base par chaque $X_i$, nous nous ramenons au cas où
+$X$ est affine. Dans ce cas, $U$ est quasi-compact et donc une union finie
+$U = U_1 \cup \ldots \cup U_n$ d'ouverts affines.
+Alors $Z$ est quasi-compact donc aussi $f^{-1}Z$ est quasi-compact.
+Ainsi nous pouvons choisir un schéma affine $W$ et un morphisme \'etale
+$h : W \to Y$ tel que $h^{-1}f^{-1}Z \to f^{-1}Z$ soit surjectif.
+Écrivons $W = \Spec(B)$ et $h^{-1}f^{-1}Z = V(J)$ où $J \subset B$
+est un idéal de type fini.
+Par Cohomologie pro-\'etale, Lemme \ref{proetale-lemma-localization}, il existe une localisation $B \to B'$ telle que les points de $\Spec(B')$ correspondent exactement aux points de $W = \Spec(B)$ se spécialisant en $h^{-1}f^{-1}Z = V(J)$. Il s'ensuit que le morphisme composé $\Spec(B') \to \Spec(B) = W \to Y \to X$ est plat car, par hypothèse, $f : Y \to X$ est plat en tous les points de $f^{-1}Z$. Ensuite, $\{\Spec(B') \to X, U_1 \to X, \ldots, U_n \to X\}$ est un recouvrement fpqc d'après Topologies, Lemme \ref{topologies-lemma-recognize-fpqc-covering}. 
+\end{proof}
+
+
+
+
+\section{Recollement formel d'espaces algébriques}
+\label{section-formal-glueing-spaces}
+
+\noindent
+Dans la situation \ref{situation-formal-glueing}, nous considérons la catégorie
+$\textit{Espaces}(Y \to X, Z)$
+des diagrammes commutatifs d'espaces algébriques sur $S$ de la forme
+$$
+\xymatrix{
+U' \ar[d] & V' \ar[l] \ar[d] \ar[r] & Y' \ar[d] \\
+U & V \ar[l] \ar[r] & Y
+}
+$$
+où les deux carrés sont cartésiens. Il existe un foncteur canonique
+\begin{equation}
+\label{equation-formal-glueing-spaces}
+\textit{Espaces}/X \longrightarrow \textit{Espaces}(Y \to X, Z)
+\end{equation}
+qui envoie $X' \to X$ sur les morphismes
+$U \times_X X' \leftarrow V \times_X X' \rightarrow Y \times_X X'$.
+
+\begin{lemma}
+\label{lemma-equivalence-on-affine}
+Dans la situation \ref{situation-formal-glueing}, le foncteur
+(\ref{equation-formal-glueing-spaces}) se restreint à une
+équivalence
+\begin{enumerate}
+\item de la catégorie des espaces algébriques affines sur $X$
+vers la sous-catégorie pleine de $\textit{Espaces}(Y \to X, Z)$ consistant
+en $(U' \leftarrow V' \rightarrow Y')$ avec $U' \to U$, $V' \to V$,
+et $Y' \to Y$ affines,
+\item de la catégorie des immersions fermées $X' \to X$
+vers la sous-catégorie pleine de $\textit{Espaces}(Y \to X, Z)$ consistant
+en $(U' \leftarrow V' \rightarrow Y')$ avec $U' \to U$, $V' \to V$,
+et $Y' \to Y$ immersions fermées, et
+\item même énoncé que dans (2) pour les morphismes finis.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La catégorie des espaces algébriques affines sur $X$ est équivalente à la
+catégorie des faisceaux quasi-cohérents $\mathcal{A}$ de $\mathcal{O}_X$-algèbres.
+La sous-catégorie pleine de $\textit{Espaces}(Y \to X, Z)$ consistant en
+$(U' \leftarrow V' \rightarrow Y')$ avec $U' \to U$, $V' \to V$,
+et $Y' \to Y$ affines est équivalente à la catégorie des
+objets en algèbres de $\QCoh(Y \to X, Z)$. Dans les deux cas, cela découle
+de Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-affine-equivalence-algebras}
+avec un quasi-inverse donné par la construction du spectre relatif
+(Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-relative-spec})
+qui commute à tout changement de base. Ainsi, la partie (1) du
+lemme découle de la Proposition \ref{proposition-formal-glueing-modules}.
+
+\medskip\noindent
+La pleine fidélité dans la partie (2) découle de la partie (1). Pour la surjectivité essentielle, on réduit par la partie (1) à prouver que $X' \to X$ est une immersion fermée si et seulement si à la fois $U \times_X X' \to U$ et $Y \times_X X' \to Y$ sont des immersions fermées. Par le Lemme \ref{lemma-dominate-by-fpqc-covering}, $\{U \to X, Y \to X\}$ peut être raffiné par un recouvrement fpqc. Par conséquent, le résultat découle de Descente sur les espaces, Lemme \ref{spaces-descent-lemma-descending-property-closed-immersion}.
+
+\medskip\noindent
+Pour (3), le même argument que pour (2), joint à
+Descente sur les espaces, Lemme
+\ref{spaces-descent-lemma-descending-property-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reflects-isomorphisms}
+Dans la situation \ref{situation-formal-glueing}, le foncteur
+(\ref{equation-formal-glueing-spaces}) reflète les isomorphismes.
+\end{lemma}
+
+\begin{proof}
+Par un argument formel de changement de base, cela se réduit à l'assertion suivante : un morphisme $a : X' \to X$ d'espaces algébriques pour lequel $U \times_X X' \to U$ et $Y \times_X X' \to Y$ sont des isomorphismes est lui-même un isomorphisme. La famille $\{U \to X, Y \to X\}$ peut être affinée par un recouvrement fpqc d'après le Lemme \ref{lemma-dominate-by-fpqc-covering}. 
+Par conséquent, le résultat découle de
+Descente sur les espaces, Lemme \ref{spaces-descent-lemma-descending-property-isomorphism}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fully-faithful-on-separated}
+Dans la situation \ref{situation-formal-glueing}, le foncteur
+(\ref{equation-formal-glueing-spaces}) est pleinement fidèle
+sur les espaces algébriques séparés sur $X$. Plus précisément, il induit
+une bijection
+$$
+\Mor_X(X'_1, X'_2)
+\longrightarrow
+\Mor_{\textit{Espaces}(Y \to X, Z)}(F(X'_1), F(X'_2))
+$$
+lorsque $X'_2 \to X$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Puisque $X'_2 \to X$ est séparé, le graphe $i : X'_1 \to X'_1 \times_X X'_2$
+d'un morphisme $X'_1 \to X'_2$ sur $X$ est une immersion fermée, voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-semi-diagonal}.
+De plus, une immersion fermée $i : T \to X'_1 \times_X X'_2$ est le graphe d'un
+morphisme si et seulement si $\text{pr}_1 \circ i$ est un isomorphisme.
+Il en est de même pour
+\begin{enumerate}
+\item le graphe d'un morphisme $U \times_X X'_1 \to U \times_X X'_2$ sur $U$,
+\item le graphe d'un morphisme $V \times_X X'_1 \to V \times_X X'_2$ sur $V$,
+et
+\item le graphe d'un morphisme $Y \times_X X'_1 \to Y \times_X X'_2$ sur $Y$.
+\end{enumerate}
+De plus, si des morphismes comme dans (1), (2), (3) se recollent pour former un
+morphisme dans la catégorie $\textit{Espaces}(Y \to X, Z)$, alors ces
+graphes se recollent pour donner un objet de
+$\textit{Espaces}(Y \times_X (X'_1 \times_X X'_2) \to X'_1 \times_X X'_2,
+Z \times_X (X'_1 \times_X X'_2))$
+dont les trois morphismes sont des immersions fermées. La preuve est terminée en appliquant les Lemmes \ref{lemma-equivalence-on-affine} et \ref{lemma-reflects-isomorphisms}. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Recollement et le théorème de Beauville-Laszlo}
+\label{section-glueing-beauville-laszlo}
+
+\noindent
+Soit $R \to R'$ un homomorphisme d'anneaux et soit $f \in R$ un élément tel que
+$$
+0 \to R \to R_f \oplus R' \to R'_f \to 0
+$$
+soit une suite exacte courte. Cela implique que $R/f^nR \cong R'/f^nR'$
+pour tout $n$ et que $(R \to R', f)$ est une paire de recollement au sens de
+Compléments d'algèbre, section \ref{more-algebra-section-beauville-laszlo}.
+Posons $X = \Spec(R)$, $U = \Spec(R_f)$, $X' = \Spec(R')$ et
+$U' = \Spec(R'_f)$. Considérons le diagramme
+$$
+\xymatrix{
+U' \ar[r] \ar[d] & X' \ar[d] \\
+U \ar[r] & X
+}
+$$
+Dans cette situation, nous pouvons considérer la catégorie
+$\textit{Espaces}(U \leftarrow U' \to X')$ dont les objets
+sont des diagrammes commutatifs
+$$
+\xymatrix{
+V \ar[d] & V' \ar[l] \ar[d] \ar[r] & Y' \ar[d] \\
+U & U' \ar[l] \ar[r] & X'
+}
+$$
+d'espaces algébriques avec les deux carrés cartésiens et dont les morphismes
+sont définis de manière évidente. Un objet de cette catégorie sera
+noté $(V, V', Y')$ en omettant les flèches.
+Il existe un foncteur
+\begin{equation}
+\label{equation-beauville-laszlo-glueing-spaces}
+\textit{Espaces}/X
+\longrightarrow
+\textit{Espaces}(U \leftarrow U' \to X')
+\end{equation}
+donné par le changement de base : $Y \mapsto (U \times_X Y, U' \times_X Y, X' \times_X Y)$.
+
+\medskip\noindent
+Nous avons vu dans
+Compléments d'algèbre, section \ref{more-algebra-section-beauville-laszlo}
+que les données de recollement ne permettent pas de retrouver tout $R$-module $M$ à partir de ses
+données de recollement. De même, le foncteur
+(\ref{equation-beauville-laszlo-glueing-spaces})
+ne sera pas pleinement fidèle sur la catégorie de tous les espaces sur $X$.
+Afin de dégager une sous-catégorie appropriée d'espaces algébriques sur $X$, nous avons besoin d'un lemme.
+
+\begin{lemma}
+\label{lemma-glueable}
+Soit $(R \to R', f)$ une paire de recollement, voir ci-dessus. Soit $Y$ un espace algébrique sur $X$. Les énoncés suivants sont équivalents
+\begin{enumerate}
+\item il existe un recouvrement \'etale $\{Y_i \to Y\}_{i \in I}$
+avec $Y_i$ affine et $\Gamma(Y_i, \mathcal{O}_{Y_i})$
+recollable comme $R$-module,
+\item pour tout morphisme \'etale $W \to Y$ avec $W$ affine
+$\Gamma(W, \mathcal{O}_W)$ est un $R$-module recollable.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il est immédiat que (2) implique (1). Supposons que $\{Y_i \to Y\}$
+soit comme dans (1) et soit $W \to Y$ comme dans (2). Alors
+$\{Y_i \times_Y W \to W\}_{i \in I}$ est un recouvrement \'etale,
+que nous pouvons affiner par un recouvrement \'etale
+$\{W_j \to W\}_{j = 1, \ldots, m}$ avec $W_j$ affine
+(Topologies, Lemme \ref{topologies-lemma-etale-affine}).
+Ainsi, pour terminer la démonstration, il suffit de montrer
+les trois assertions algébriques suivantes :
+\begin{enumerate}
+\item si $R \to A \to B$ sont des homomorphismes d'anneaux avec $A \to B$ \'etale
+et $A$ est recollable en tant que $R$-module, alors $B$ est recollable en tant que
+$R$-module,
+\item les produits finis de $R$-modules recollables sont recollables,
+\item si $R \to A \to B$ sont des homomorphismes d'anneaux avec $A \to B$ \'etale et fidèlement plat
+et $B$ est recollable en tant que $R$-module, alors $A$ est recollable en tant que $R$-module.  
+\end{enumerate}
+  
+En effet, le premier énoncé implique que $\Gamma(W_j, \mathcal{O}_{W_j})$ est un $R$-module recollable, le deuxième que $\prod \Gamma(W_j, \mathcal{O}_{W_j})$ est un $R$-module recollable, et le troisième que $\Gamma(W, \mathcal{O}_W)$ est un $R$-module recollable.
+
+\medskip\noindent
+Considérons un homomorphisme \'etale de $R$-algèbres $A \to B$. Posons $A' = A \otimes_R R'$ et $B' = B \otimes_R R' = A' \otimes_A B$.
+Les affirmations (1) et (3) découlent alors des faits suivants :
+(a) $A$, respectivement $B$, est recollable si et seulement si la suite $$
+0 \to A \to A_f \oplus A' \to A'_f \to 0,
+\quad\text{respectivement}\quad
+0 \to B \to B_f \oplus B' \to B'_f \to 0,
+$$
+est exacte, (b) la seconde suite s'obtient en appliquant à la première le foncteur $- \otimes_A B$, et (c) la platitude, respectivement la fidèle platitude, de $A \to B$. Nous omettons la démonstration de (2).
+\end{proof}
+
+\noindent
+Soit $(R \to R', f)$ une paire de recollement, voir ci-dessus.
+Nous dirons qu'un espace algébrique $Y$ sur $X = \Spec(R)$
+est {\it recollable pour $(R \to R', f)$}
+si les conditions équivalentes du Lemme \ref{lemma-glueable}
+sont satisfaites.
+
+\begin{lemma}
+\label{lemma-glueing-affines}
+Soit $(R \to R', f)$ une paire de recollement, voir ci-dessus.
+Le foncteur (\ref{equation-beauville-laszlo-glueing-spaces})
+se restreint à une équivalence entre la catégorie des objets affines
+$Y/X$ qui sont recollables pour $(R \to R', f)$ et la
+sous-catégorie pleine des objets $(V, V', Y')$ de
+$\textit{Espaces}(U \leftarrow U' \to X')$
+avec $V$, $V'$, $Y'$ affines.
+\end{lemma}
+
+\begin{proof}
+Soit $(V, V', Y')$ un objet de
+$\textit{Espaces}(U \leftarrow U' \to X')$
+avec $V$, $V'$, $Y'$ affines.
+Écrivons $V = \Spec(A_1)$ et $Y' = \Spec(A')$. D'après notre définition de la
+catégorie $\textit{Espaces}(U \leftarrow U' \to X')$, nous trouvons que
+$V'$ est le spectre de $A_1 \otimes_{R_f} R'_f = A_1 \otimes_R R'$
+et le spectre de $A'_f$. Ainsi, nous obtenons un isomorphisme
+$\varphi : A'_f \to A_1 \otimes_R R'$ de $R'_f$-algèbres.
+D'après Compléments d'algèbre, Théorème \ref{more-algebra-theorem-BL-glueing}
+il existe un unique $R$-module recollable $A$ et des isomorphismes
+$A_f \to A_1$ et $A \otimes_R R' \to A'$ de modules compatibles avec
+$\varphi$. Puisque la suite
+$$
+0 \to A \to A_1 \oplus A' \to A'_f \to 0
+$$
+est exacte courte, les multiplications sur $A_1$ et $A'$ définissent
+une structure de $R$-algèbre unique sur $A$ telle que les morphismes $A \to A_1$
+et $A \to A'$ sont des homomorphismes d'anneaux. Nous omettons la vérification que cette construction définit un quasi-inverse au foncteur
+(\ref{equation-beauville-laszlo-glueing-spaces})
+restreint aux sous-catégories mentionnées dans l'énoncé du lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-affines-etale}
+Soit $P$ l'une des propriétés suivantes des morphismes :
+``fini'', ``immersion fermée'', ``plat'', ``de type fini'',
+``plat et de présentation finie'', ``\'etale''.
+Sous l'équivalence du Lemme \ref{lemma-glueing-affines}
+les morphismes ayant $P$ correspondent à des morphismes de triples
+dont les composantes ont $P$.
+\end{lemma}
+
+\begin{proof}
+Soit $P'$ l'une des propriétés suivantes des homomorphismes d'anneaux :
+``fini'', ``surjectif'', ``plat'', ``de type fini'',
+``plat et de présentation finie'', ``\'etale''.
+En termes algébriques, l'énoncé signifie ce qui suit :
+Si $A \to B$ est un homomorphisme de $R$-algèbres et que $A$ et $B$
+sont recollables pour $(R \to R', f)$, alors
+$A_f \to B_f$ et $A \otimes_R R' \to B \otimes_R R'$ ont $P'$
+si et seulement si $A \to B$ a $P'$.
+
+\medskip\noindent
+Par Compléments d'algèbre, Lemmes \ref{more-algebra-lemma-faithful-descent}
+et \ref{more-algebra-lemma-BL-flat} l'énoncé algébrique
+est vrai lorsque $P'$ est « fini » ou « plat ».
+
+\medskip\noindent
+Si $A_f \to B_f$ et $A \otimes_R R' \to B \otimes_R R'$ sont surjectifs,
+alors le conoyau $N = B/A$ est un $R$-module avec $N_f = 0$ et $N \otimes_R R' = 0$ et
+par conséquent est nul d'après Compléments d'algèbre, Lemme
+\ref{more-algebra-lemma-BL-faithful}. Ainsi $A \to B$ est surjectif.
+
+\medskip\noindent
+Si $A_f \to B_f$ et $A \otimes_R R' \to B \otimes_R R'$ sont de type fini,
+alors nous pouvons choisir un homomorphisme de $A$-algèbres $A[x_1, \ldots, x_n] \to B$
+tel que $A_f[x_1, \ldots, x_n] \to B_f$ et
+$(A \otimes_R R')[x_1, \ldots, x_n] \to B \otimes_R R'$ sont surjectifs
+(détail mineur omis). Nous en concluons que $A[x_1, \ldots, x_n] \to B$
+est surjectif d'après le résultat précédent. Ainsi $A \to B$ est de type fini.
+
+\medskip\noindent
+Si $A_f \to B_f$ et $A \otimes_R R' \to B \otimes_R R'$ sont plats et de présentation finie, alors nous savons que $A \to B$ est plat et de type fini grâce à ce que nous avons déjà démontré. Choisissons une surjection $A[x_1, \ldots, x_n] \to B$ et notons $I$ son noyau. Par la platitude de $B$ sur $A$, nous voyons que $I_f$ est le noyau de $A_f[x_1, \ldots, x_n] \to B_f$ et que $I \otimes_R R'$ est le noyau de $A \otimes_R R'[x_1, \ldots, x_n] \to B \otimes_R R'$. Ainsi, $I_f$ est un $A_f[x_1, \ldots, x_n]$-module de type fini et $I \otimes_R R'$ est un $(A \otimes_R R')[x_1, \ldots, x_n]$-module de type fini. D'après Compléments d'algèbre, Lemme \ref{more-algebra-lemma-faithful-descent}, appliqué à $I$ considéré comme module sur $A[x_1, \ldots, x_n]$, nous concluons que $I$ est un idéal de type fini, puis que $A \to B$ est plat et de présentation finie.
+
+\medskip\noindent
+Si $A_f \to B_f$ et $A \otimes_R R' \to B \otimes_R R'$ sont \'etales,
+alors nous savons que $A \to B$ est plat et de présentation finie d'après ce que
+nous avons déjà montré. Puisque les fibres de $\Spec(B) \to \Spec(A)$
+sont isomorphes aux fibres de $\Spec(B_f) \to \Spec(A_f)$ ou
+de $\Spec(B/fB) \to \Spec(A/fA)$, nous concluons que $A \to B$ est non ramifié,
+voir Morphismes, Lemmes \ref{morphisms-lemma-unramified-over-field}
+et \ref{morphisms-lemma-unramified-etale-fibres}.
+Nous concluons que $A \to B$ est \'etale d'après
+Morphismes, Lemme \ref{morphisms-lemma-flat-unramified-etale} par exemple.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-f}
+Soit $(R \to R', f)$ une paire de recollement, voir ci-dessus.
+Le foncteur (\ref{equation-beauville-laszlo-glueing-spaces})
+est fidèle sur la sous-catégorie pleine des
+espaces algébriques $Y/X$ recollables pour $(R \to R', f)$.
+\end{lemma}
+
+\begin{proof}
+Soient $f, g : Y \to Z$ deux morphismes d'espaces algébriques sur $X$
+avec $Y$ et $Z$ recollables pour $(R \to R', f)$ de telle sorte que $f$ et $g$ soient envoyés
+sur le même morphisme dans la catégorie $\textit{Espaces}(U \leftarrow U' \to X')$.
+Nous devons montrer que l'égaliseur $E \to Y$ de $f$ et $g$ est un isomorphisme.
+En travaillant \'etale localement sur $Y$, nous pouvons supposer que $Y$ est un schéma affine.
+Alors $E$ est un schéma et le morphisme $E \to Y$ est un monomorphisme
+et localement quasi-fini, voir Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-properties-diagonal}.
+De plus, le changement de base de $E \to Y$ vers $U$ et vers $X'$ est
+un isomorphisme. Comme l'espace topologique sous-jacent à $Y$ est la réunion disjointe de l'ouvert affine
+$V = U \times_X Y$ et du fermé affine $V(f) \times_X Y$, nous concluons que $E$ est l'union disjointe de leurs images inverses isomorphes.  
+Il s'ensuit en particulier que $E$ est quasi-compact.  
+Par le théorème principal de Zariski (Compléments sur les morphismes, Lemme \ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite})  
+nous concluons que $E$ est quasi-affine.  
+Posons $B = \Gamma(E, \mathcal{O}_E)$ et $A = \Gamma(Y, \mathcal{O}_Y)$  
+de sorte que nous ayons un homomorphisme de $R$-algèbres $A \to B$.  
+Puisque $E \to Y$ devient un isomorphisme après changement de base vers $U$ et $X'$,  
+nous obtenons des morphismes d'anneaux $B \to A_f$ et $B \to A \otimes_R R'$  
+qui coïncident comme morphismes vers $A \otimes_R R'_f$. Puisque $A$ est recollable  
+par rapport à $(R \to R', f)$, nous obtenons un morphisme d'anneaux $B \to A$ qui est l'inverse à gauche  
+du morphisme $A \to B$. Le morphisme correspondant $Y = \Spec(A) \to \Spec(B)$  
+a son image ensembliste contenue dans le sous-schéma ouvert $E \subset \Spec(B)$ car  
+cela est vrai après changement de base vers $U$ et $X'$. Ainsi, nous obtenons un morphisme $Y \to E$ sur $Y$. Puisque $E \to Y$ est un monomorphisme, nous en concluons que $Y \to E$ est un isomorphisme comme voulu. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-ff}
+Soit $(R \to R', f)$ une paire de recollement, voir ci-dessus.
+Le foncteur (\ref{equation-beauville-laszlo-glueing-spaces})
+est pleinement fidèle sur la sous-catégorie pleine des
+espaces algébriques $Y/X$ qui sont (a) recollables pour $(R \to R', f)$
+et (b) ont une diagonale affine $Y \to Y \times_X Y$.
+\end{lemma}
+
+\begin{proof}
+Soient $Y, Z$ deux espaces algébriques sur $X$ qui sont tous deux recollables pour
+$(R \to R', f)$ et supposons que la diagonale de $Z$ soit affine. Soient
+$a : U \times_X Y \to U \times_X Z$ sur $U$ et
+$b : X' \times_X Y \to X' \times_X Z$ sur $X'$ deux morphismes
+d'espaces algébriques
+qui induisent le même morphisme $c : U' \times_X Y \to U' \times_X Z$
+sur $U'$.
+Nous voulons construire un morphisme $f : Y \to Z$ sur $X$
+qui induise les morphismes $a$ et $b$ après changement de base à $U$ et à $X'$.
+Par la fidélité du Lemme \ref{lemma-glueing-f}, il suffit de construire
+le morphisme $f$ \'etale localement sur $Y$ (détails omis).
+Ainsi, nous pouvons supposer que $Y$ est affine.
+
+\medskip\noindent
+Soit $y \in |Y|$ un point. Si $y$ s'envoie dans l'ouvert $U \subset X$,
+alors $U \times_X Y$ est un ouvert de $Y$ sur lequel le morphisme $f$
+est défini (nous pouvons simplement prendre $a$).
+Ainsi nous pouvons supposer que $y$ s'envoie dans le sous-ensemble fermé
+$V(f)$ de $X$. Puisque $R/fR = R'/fR'$ il existe un point unique
+$y' \in |X' \times_X Y|$ s'envoyant sur $y$. On note
+$z' = b(y') \in |X' \times_X Z|$ et $z \in |Z|$ les images de $y'$.
+Choisissons un voisinage \'etale $(W, w) \to (Z, z)$
+avec $W$ affine. Remarquons que
+$$
+(U \times_X W) \times_{U \times_X Z, a} (U \times_X Y),\quad
+(U' \times_X W) \times_{U' \times_X Z, c} (U' \times_X Y),
+$$
+et
+$$
+(X' \times_X W) \times_{X' \times_X Z, b} (X' \times_X Y)
+$$
+forment un objet de $\textit{Espaces}(U \leftarrow U' \to X')$
+dont les composantes sont affines (c'est ici que nous utilisons le fait que $Z$ a une diagonale affine).
+Ainsi, par le Lemme \ref{lemma-glueing-affines}
+il existe un schéma affine unique $V$ recollable pour $(R \to R', f)$ tel que
+$$
+(U \times_X V, U' \times_X V, X' \times_X V)
+$$
+est le triple affiché ci-dessus. Par la pleine fidélité dans le cas affine (Lemme \ref{lemma-glueing-affines}), nous obtenons deux morphismes uniques $V \to W$ et $V \to Y$ coïncidant avec les morphismes donnés par la première et la seconde projection sur $U$ et $X'$ dans la construction ci-dessus. Par le Lemme \ref{lemma-glueing-affines-etale}, le morphisme $V \to Y$ est \'etale. Pour terminer la preuve, il suffit de montrer qu'il existe un point $v \in |V|$ se projetant sur $y$ (car alors $f$ est défini sur un voisinage \'etale de $y$, à savoir $V$). Il existe un point unique $w' \in |X' \times_X W|$ s'envoyant sur $w$. Par unicité, $w'$ s'envoie sur $z'$ par le morphisme $|X' \times_X W| \to |X' \times_X Z|$. Considérons alors le diagramme cartésien $$
+\xymatrix{
+X' \times_X V \ar[r] \ar[d] & X' \times_X W \ar[d] \\
+X' \times_X Y \ar[r] & X' \times_X Z
+}
+$$
+pour voir qu'il existe un point $v' \in |X' \times_X V|$ s'envoyant sur $y'$ et $w'$, voir Propriétés des espaces, Lemme \ref{spaces-properties-lemma-points-cartesian}. Bien sûr, l'image $v$ de $v'$ dans $|V|$ s'envoie bien sur $y$ et la preuve est complète. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-quasi-affines}
+Soit $(R \to R', f)$ une paire de recollement, voir ci-dessus. Tout objet
+$(V, V', Y')$ de $\textit{Espaces}(U \leftarrow U' \to X')$
+avec $V$, $V'$, $Y'$ quasi-affine est isomorphe à
+l'image sous le foncteur (\ref{equation-beauville-laszlo-glueing-spaces})
+d'un espace algébrique séparé $Y$ sur $X$.
+\end{lemma}
+
+\begin{proof}
+Choisissons $n'$, $T' \to Y'$ et $n_1$, $T_1 \to V$ comme dans
+Propriétés, Lemme \ref{properties-lemma-quasi-affine-presentation}.
+Considérons le diagramme
+$$
+\xymatrix{
+& &
+T_1 \times_V V' \times_Y T' \ar[ld] \ar[rd] \\
+T_1 \ar[d] &
+T_1 \times_V V' \ar[l] \ar[dr] & &
+V' \times_{Y'} T' \ar[r] \ar[dl] &
+T' \ar[d] \\
+V & &
+V' \ar[rr] \ar[ll] & &
+Y'
+}
+$$
+Observons que $T_1 \times_V V'$ et $V' \times_{Y'} T'$
+sont affines (les morphismes $V' \to V$ et $V' \to Y'$
+sont affines comme changements de base des morphismes affines $U' \to U$
+et $U' \to X'$). Par construction, nous voyons que
+$$
+\mathbf{A}^{n'}_{T_1 \times_V V'} \cong
+T_1 \times_V V' \times_{Y'} T' \cong
+\mathbf{A}^{n_1}_{V' \times_{Y'} T'}
+$$
+En d'autres termes, les schémas affines $\mathbf{A}^{n'}_{T_1}$
+et $\mathbf{A}^{n_1}_{T'}$ font partie d'un triple formant un objet affine de
+$\textit{Espaces}(U \leftarrow U' \to X')$.
+D'après le Lemme \ref{lemma-glueing-affines}
+il existe un morphisme de schémas affines $T \to X$
+et des isomorphismes $U \times_X T \cong \mathbf{A}^{n'}_{T_1}$
+et $X' \times_X T \cong \mathbf{A}^{n_1}_{T'}$ compatibles
+avec les isomorphismes affichés ci-dessus.
+Ces isomorphismes produisent des morphismes
+$$
+U \times_X T \longrightarrow V
+\quad\text{et}\quad
+X' \times_X T \longrightarrow Y'
+$$
+satisfaisant la propriété de
+Propriétés, Lemme \ref{properties-lemma-quasi-affine-presentation}, avec $n = n' + n_1$, et définissant en outre un morphisme du triple $(U \times_X T, U' \times_X T, X' \times_X T)$ vers notre triple $(V, V', Y')$ dans la catégorie $\textit{Espaces}(U \leftarrow U' \to X')$.
+
+\medskip\noindent
+Par le Lemme \ref{lemma-glueing-affines} il existe un schéma affine $W$ dont
+l'image dans $\textit{Espaces}(U \leftarrow U' \to X')$ est isomorphe au
+triple
+$$
+((U \times_X T) \times_V (U \times_X T),
+(U' \times_X T) \times_{V'} (U' \times_X T),
+(X' \times_X T) \times_{Y'} (X' \times_X T))
+$$
+Par la pleine fidélité de cette construction, nous obtenons
+deux morphismes $p_0, p_1 : W \to T$ dont les changements de base
+à $U, U', X'$ sont les morphismes de projection.
+Par le Lemme \ref{lemma-glueing-affines-etale}
+les morphismes $p_0, p_1$ sont plats et de présentation finie et
+le morphisme $(p_0, p_1) : W \to T \times_X T$ est une immersion fermée.
+En fait, $W \to T \times_X T$ définit une relation d'équivalence : par les lemmes
+démontrés ci-dessus, nous pouvons vérifier la symétrie, la réflexivité et la transitivité
+après changement de base à $U$ et $X'$, car elles y sont évidentes (détails omis).
+Ainsi, le faisceau quotient
+$$
+Y = T/W
+$$
+est un espace algébrique par exemple par
+Amorçage, Théorème \ref{bootstrap-theorem-final-bootstrap}. Par construction, $Y/X$ est envoyé sur le triple $(V, V', Y')$. Le changement de base de la diagonale $\Delta : Y \to Y \times_X Y$ par le morphisme plat, quasi-compact et surjectif $T \times_X T \to Y \times_X Y$ est l'immersion fermée $W \to T \times_X T$. Ainsi $\Delta$ est une immersion fermée par Descente sur les espaces, Lemme \ref{spaces-descent-lemma-descending-property-closed-immersion}. Il s'ensuit que l'espace algébrique $Y$ est séparé et la preuve est complète. 
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Coégalisateurs et recollement}
+\label{section-coequalizer-glue}
+
+\noindent
+Soit $X$ un espace algébrique noethérien et $Z \to X$ une immersion fermée.
+Soit $X' \to X$ l'éclatement dans $Z$. Dans cette section, nous montrons que
+$X$ peut être reconstitué à partir de $X'$, $Z_n$ et des données de recollement, où $Z_n$
+est le $n$-ième voisinage infinitésimal de $Z$ dans $X$.
+
+\begin{lemma}
+\label{lemma-coequalizer}
+Soit $S$ un schéma. Soit
+$$
+g : Y \longrightarrow X
+$$
+un morphisme d'espaces algébriques sur $S$. Supposons que $X$ soit localement noethérien,
+et que $g$ soit propre. Soit $R = Y \times_X Y$ avec des morphismes de projection
+$t, s : R \to Y$. Il existe un coégalisateur $X'$ de $s, t : R \to Y$
+dans la catégorie des espaces algébriques sur $S$. De plus
+\begin{enumerate}
+\item Le morphisme $X' \to X$ est fini.
+\item Le morphisme $Y \to X'$ est propre.
+\item Le morphisme $Y \to X'$ est surjectif.
+\item Le morphisme $X' \to X$ est universellement injectif.
+\item Si $g$ est surjectif, le morphisme $X' \to X$
+est un homéomorphisme universel.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Notons $h : R \to X$ la composée de $s$ (ou de $t$)
+avec $g$. Alors $h$ est propre par Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-base-change-proper} et
+\ref{spaces-morphisms-lemma-composition-proper}.
+Les faisceaux
+$$
+g_*\mathcal{O}_Y
+\quad\text{et}\quad
+h_*\mathcal{O}_R
+$$
+sont des $\mathcal{O}_X$-algèbres cohérentes par Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}.
+Les $X$-morphismes $s$, $t$ induisent des homomorphismes de $\mathcal{O}_X$-algèbres
+$s^\sharp, t^\sharp$ de la première à la seconde.
+Posons
+$$
+\mathcal{A} = \text{Égalisateur}\left(s^\sharp, t^\sharp :
+g_*\mathcal{O}_Y \longrightarrow h_*\mathcal{O}_R\right)
+$$
+Alors $\mathcal{A}$ est une $\mathcal{O}_X$-algèbre cohérente et nous pouvons
+définir
+$$
+X' = \underline{\Spec}_X(\mathcal{A})
+$$
+comme dans Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-relative-spec}.
+Par Morphismes d'espaces, Remarque
+\ref{spaces-morphisms-remark-factorization-quasi-compact-quasi-separated}
+et par fonctorialité de la construction $\underline{\Spec}$
+il existe une factorisation
+$$
+Y \longrightarrow X' \longrightarrow X
+$$
+et le morphisme $g' : Y \to X'$ égalise $s$ et $t$.
+
+\medskip\noindent
+Avant de montrer que $X'$ est le coégalisateur de $s$ et $t$, nous montrons que $Y \to X'$ et $X' \to X$ ont les propriétés souhaitées. Puisque $\mathcal{A}$ est un $\mathcal{O}_X$-module cohérent, il est clair que $X' \to X$ est un morphisme fini d'espaces algébriques. Cela prouve (1).
+Le morphisme $Y \to X'$ est propre d'après Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-universally-closed-permanence}. Cela prouve (2).
+Notons $Y \to Y' \to X$, avec $Y' = \underline{\Spec}_X(g_*\mathcal{O}_Y)$, la factorisation de Stein de $g$ ; voir Compléments sur les morphismes d'espaces, Théorème \ref{spaces-more-morphisms-theorem-stein-factorization-Noetherian}.
+Bien sûr, nous obtenons des morphismes $Y \to Y' \to X' \to X$ correspondant aux morphismes étudiés ci-dessus.
+Puisque $\mathcal{O}_{X'} \subset g_*\mathcal{O}_Y$ est une extension finie, nous voyons que $Y' \to X'$ est fini et surjectif.
+Quelques détails omis ; indice : utiliser Algèbre, Lemme \ref{algebra-lemma-integral-overring-surjective}, et réduire au cas affine par localisation \'etale. Puisque $Y \to Y'$ est surjectif (avec des fibres géométriquement connexes), nous concluons que $Y \to X'$ est surjectif. Cela prouve (3). Pour montrer que $X' \to X$ est universellement injectif, nous devons montrer que $X' \to X' \times_X X'$ est surjectif, voir Morphismes d'espaces, Définition \ref{spaces-morphisms-definition-universally-injective} et Lemme \ref{spaces-morphisms-lemma-universally-injective}. Puisque $Y \to X'$ est surjectif (voir ci-dessus) et que les changements de base et les compositions de morphismes surjectifs sont surjectifs d'après Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-base-change-surjective} et \ref{spaces-morphisms-lemma-composition-surjective}, nous voyons que $Y \times_X Y \to X' \times_X X'$ est surjectif. Cependant, puisque $Y \to X'$ égalise $s$ et $t$, nous voyons que $Y \times_X Y \to X' \times_X X'$ se factorise par $X' \to X' \times_X X'$ et nous concluons que ce dernier morphisme est surjectif. Cela prouve (4). Enfin, si $g$ est surjectif, alors puisque $g$ se factorise par $X' \to X$, nous voyons que $X' \to X$ est surjectif. Comme un morphisme surjectif, universellement injectif et fini est un homéomorphisme universel (car il est universellement bijectif et universellement fermé), cela prouve (5).
+
+\medskip\noindent
+Dans le reste de la preuve, nous montrons que $Y \to X'$ est le coégalisateur de $s$ et $t$ dans la catégorie des espaces algébriques sur $S$. Observons que $X'$ est localement noethérien (Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}). Observons aussi que $Y \times_{X'} Y \to Y \times_X Y$ est un isomorphisme car $Y \to X'$ égalise $s$ et $t$ (c'est une assertion catégorique). Ainsi, afin de prouver que $Y \to X'$ est le coégalisateur de $s$ et $t$, nous pouvons supposer, et supposons, que $X = X'$. En d'autres termes, $\mathcal{O}_X$ est l'égaliseur des morphismes $s^\sharp, t^\sharp : g_*\mathcal{O}_Y \to h_*\mathcal{O}_R$.
+
+\medskip\noindent
+Soit $X_1 \to X$ un morphisme plat d'espaces algébriques sur $S$ avec $X_1$ localement noethérien. Notons $g_1 : Y_1 \to X_1$, $h_1 : R_1 \to X_1$ et $s_1, t_1 : R_1 \to Y_1$ les changements de base de $g, h, s, t$ à $X_1$.
+Bien sûr, $g_1$ est propre et $R_1 = Y_1 \times_{X_1} Y_1$.
+Par le théorème de changement de base plat pour les images directes de modules quasi-cohérents, Cohomologie des espaces, Lemme \ref{spaces-cohomology-lemma-flat-base-change-cohomology}, nous voyons que $\mathcal{O}_{X_1}$ est l'égaliseur des morphismes $s_1^\sharp, t_1^\sharp : g_{1, *}\mathcal{O}_{Y_1} \to
+h_{1, *}\mathcal{O}_{R_1}$. Ainsi, toutes les hypothèses que nous avons sont préservées par ce changement de base.
+
+\medskip\noindent
+À ce stade, nous allons vérifier les conditions (1) et (2) du
+Lemme \ref{lemma-colimit-check-etale-locally}. La condition (1)
+suit du Lemme \ref{lemma-descend-etale-proper-surjective}
+et du fait que $g$ est propre et surjectif (parce que $X = X'$).
+Pour vérifier la condition (2), compte tenu des remarques sur le changement de base ci-dessus,
+nous revenons à l'énoncé discuté et prouvé dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons que $S = \Spec(A)$ soit un schéma affine, que $X = X'$ soit un schéma affine, et que $Z$ soit un schéma affine sur $S$. Nous devons montrer que $$
+\Mor_S(X, Z) \longrightarrow
+\text{Égalisateur}(s, t : \Mor_S(Y, Z) \to \Mor_S(R, Z))
+$$
+est bijectif. Cela est toutefois clair puisque $X = X'$, ce qui implique que $\mathcal{O}_X$ est l'égaliseur des morphismes $s^\sharp, t^\sharp : g_*\mathcal{O}_Y \to h_*\mathcal{O}_R$, et entraîne à son tour $$
+\Gamma(X, \mathcal{O}_X) =
+\text{Égalisateur}\left(
+s^\sharp, t^\sharp : \Gamma(Y, \mathcal{O}_Y) \to
+\Gamma(R, \mathcal{O}_R)
+\right)
+$$. En effet, nous avons $$
+\Mor_S(X, Z) = \Hom_A(\Gamma(Z, \mathcal{O}_Z), \Gamma(X, \mathcal{O}_X))
+$$ et de même pour $Y$ et $R$, voir Propriétés des espaces, Lemme \ref{spaces-properties-lemma-morphism-to-affine-scheme}. 
+\end{proof}
+
+\noindent
+Nous travaillerons dans la situation suivante.
+
+\begin{situation}
+\label{situation-coequalizer-glue}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soit $Z \to X$ une immersion fermée et soit $U \subset X$ le sous-espace ouvert complémentaire. Enfin, soit $f : X' \to X$ un morphisme propre d'espaces algébriques tel que $f^{-1}(U) \to U$ soit un isomorphisme.
+\end{situation}
+
+\begin{lemma}
+\label{lemma-coequalizer-glue}
+Dans la situation \ref{situation-coequalizer-glue}, soit $Y = X' \amalg Z$ et
+$R = Y \times_X Y$ avec des projections $t, s : R \to Y$. Il existe un
+coégalisateur $X_1$ de $s, t : R \to Y$ dans la catégorie des espaces algébriques
+sur $S$. Le morphisme $X_1 \to X$ est un homéomorphisme universel fini,
+un isomorphisme sur $U$, et $Z \to X$ admet un relèvement à $X_1$.
+\end{lemma}
+
+\begin{proof}
+L'existence de $X_1$ et le fait que $X_1 \to X$ est un homéomorphisme universel fini sont un cas particulier du Lemme \ref{lemma-coequalizer}.
+La formation de $X_1$ commute avec la localisation \'etale sur $X$ (voir la preuve du Lemme \ref{lemma-coequalizer}).
+Ainsi, le morphisme $X_1 \to X$ est un isomorphisme sur $U$.
+Il résulte immédiatement de la construction que $Z \to X$ admet un relèvement à $X_1$.
+\end{proof}
+
+\noindent
+Dans la situation \ref{situation-coequalizer-glue} pour $n \geq 1$, soit
+$Z_n \subset X$ le voisinage infinitésimal d'ordre $n$ de $Z$ dans $X$, c'est-à-dire le sous-espace fermé défini par la $n$-ième puissance du faisceau d'idéaux coupant $Z$. Considérons $Y_n = X' \amalg Z_n$
+et $R_n = Y_n \times_X Y_n$ et le coégalisateur
+$$
+\xymatrix{
+R_n \ar@<1ex>[r] \ar@<-1ex>[r] & Y_n \ar[r] & X_n \ar[r] & X
+}
+$$
+comme dans le Lemme \ref{lemma-coequalizer-glue}. Les morphismes $Y_n \to Y_{n + 1}$
+et $R_n \to R_{n + 1}$ induisent des morphismes
+\begin{equation}
+\label{equation-system-coequalizers}
+X_1 \to X_2 \to X_3 \to \ldots \to X
+\end{equation}
+Chacun de ces morphismes est un homéomorphisme universel puisque les morphismes
+$X_n \to X$ sont des homéomorphismes universels.
+
+\begin{lemma}
+\label{lemma-essentially-constant}
+Dans la situation \ref{situation-coequalizer-glue}, supposons que $X$ soit quasi-compact.
+Dans (\ref{equation-system-coequalizers}), pour tout $n$ suffisamment grand, il existe un entier $m$ tel que $X_n \to X_{n + m}$ se factorise par une immersion fermée $X \to X_{n + m}$.
+\end{lemma}
+
+\begin{proof}
+Examinons de plus près la construction de $X_n$
+et comment elle change lorsque nous augmentons $n$. Nous avons
+$X_n = \underline{\Spec}(\mathcal{A}_n)$
+où $\mathcal{A}_n$ est l'égaliseur de $s_n^\sharp$ et $t_n^\sharp$
+allant de $g_{n, *}\mathcal{O}_{Y_n}$ à $h_{n, *}\mathcal{O}_{R_n}$.
+Ici $g_n : Y_n = X' \amalg Z_n \to X$ et $h_n : R_n = Y_n \times_X Y_n \to X$
+sont les morphismes donnés. Soit $\mathcal{I} \subset \mathcal{O}_X$ le
+faisceau cohérent d'idéaux correspondant à $Z$. Alors
+$$
+g_{n, *}\mathcal{O}_{Y_n} =
+f_*\mathcal{O}_{X'} \times \mathcal{O}_X/\mathcal{I}^n
+$$
+De même, nous avons une décomposition
+$$
+R_n = X' \times_X X' \amalg X' \times_X Z_n \amalg
+Z_n \times_X X' \amalg Z_n \times_X Z_n
+$$
+Comme $Z_n \to X$ est un monomorphisme, nous voyons que
+$X' \times_X Z_n = Z_n \times_X X'$ et que cette identification
+est compatible avec les deux morphismes vers $X$, avec les deux morphismes vers
+$X'$, et avec les deux morphismes vers $Z_n$.
+Notons $f_n : X' \times_X Z_n \to X$ le morphisme vers $X$.
+Posons
+$$
+\mathcal{A} = \text{Égalisateur}(
+\xymatrix{
+f_*\mathcal{O}_{X'} \ar@<1ex>[r] \ar@<-1ex>[r] &
+(f \times f)_*\mathcal{O}_{X' \times_X X'}
+}
+)
+$$
+Par les remarques ci-dessus, nous trouvons que
+$$
+\mathcal{A}_n =
+\text{Égalisateur}(
+\xymatrix{
+\mathcal{A} \times \mathcal{O}_X/\mathcal{I}^n \ar@<1ex>[r] \ar@<-1ex>[r] &
+f_{n, *}\mathcal{O}_{X' \times_X Z_n}
+}
+)
+$$
+Nous avons des morphismes canoniques
+$$
+\mathcal{O}_X \to \ldots \to \mathcal{A}_3 \to \mathcal{A}_2 \to \mathcal{A}_1
+$$
+de $\mathcal{O}_X$-algèbres cohérentes. L'énoncé du lemme signifie que
+pour $n$ suffisamment grand, il existe un $m \geq 0$ tel que l'image de
+$\mathcal{A}_{n + m} \to \mathcal{A}_n$ soit isomorphe à $\mathcal{O}_X$.
+Cette assertion se vérifie localement pour la topologie \'etale sur $X$. Ainsi, d'après Propriétés des espaces,
+Lemme \ref{spaces-properties-lemma-quasi-compact-affine-cover}
+nous pouvons supposer que $X$ est un schéma noethérien affine.
+
+\medskip\noindent
+Puisque $X_n \to X$ est un isomorphisme sur $U$, nous voyons que le noyau de $\mathcal{O}_X \to \mathcal{A}_n$ est supporté sur $|Z|$.
+Puisque $X$ est noethérien, la suite des noyaux $\mathcal{J}_n = \Ker(\mathcal{O}_X \to \mathcal{A}_n)$ se stabilise (Cohomologie des espaces, Lemme \ref{spaces-cohomology-lemma-acc-coherent}).
+Écrivons $\mathcal{J}_{n_0} = \mathcal{J}_{n_0 + 1} = \ldots = \mathcal{J}$.
+D'après Cohomologie des espaces, Lemme \ref{spaces-cohomology-lemma-power-ideal-kills-sheaf} nous trouvons que $\mathcal{I}^t \mathcal{J} = 0$ pour un entier $t \geq 0$.
+D'autre part, il existe un homomorphisme de $\mathcal{O}_X$-algèbres $\mathcal{A}_n \to \mathcal{O}_X/\mathcal{I}^n$ et donc $\mathcal{J} \subset \mathcal{I}^n$ pour tout $n$.
+Par Artin-Rees (Cohomologie des espaces, Lemme \ref{spaces-cohomology-lemma-Artin-Rees}), nous trouvons que $\mathcal{J} \cap \mathcal{I}^n \subset \mathcal{I}^{n - c}\mathcal{J}$ pour un entier $c \geq 0$ et tout $n \gg 0$. Nous concluons que $\mathcal{J} = 0$.
+
+\medskip\noindent
+Choisissons $n \geq n_0$ comme dans le paragraphe précédent. Ensuite
+$\mathcal{O}_X \to \mathcal{A}_n$ est injectif. Par conséquent, il suffit maintenant de trouver $m \geq 0$ tel que l'image de
+$\mathcal{A}_{n + m} \to \mathcal{A}_n$ soit égale à l'image de $\mathcal{O}_X$. Observons que $\mathcal{A}_n$
+s'insère dans une suite exacte courte
+$$
+0 \to \Ker(\mathcal{A} \to f_{n, *}\mathcal{O}_{X' \times_X Z_n})
+\to \mathcal{A}_n \to \mathcal{O}_X/\mathcal{I}^n \to 0
+$$
+et de même pour $\mathcal{A}_{n + m}$. Par conséquent, il suffit de montrer
+$$
+\Ker(\mathcal{A} \to f_{n + m, *}\mathcal{O}_{X' \times_X Z_{n + m}})
+\subset
+\Im(\mathcal{I}^n \to \mathcal{A})
+$$
+pour un entier $m \geq 0$. Pour ce faire, nous pouvons travailler \'etale localement sur
+$X$ et puisque $X$ est noethérien, nous pouvons supposer que $X$ est
+un schéma affine noethérien. Écrivons $X = \Spec(R)$ et $\mathcal{I}$
+correspond à l'idéal $I \subset R$. Soit $\mathcal{A} = \widetilde{A}$
+pour une $R$-algèbre finie $A$. Soit $f_*\mathcal{O}_{X'} = \widetilde{B}$
+pour une $R$-algèbre finie $B$. Alors $R \to A \subset B$ et ces homomorphismes deviennent des isomorphismes en inversant n'importe quel élément de $I$.
+
+\medskip\noindent
+Notons que $f_{n, *}\mathcal{O}_{X' \times_X Z_n}$
+est égal à $f_*(\mathcal{O}_{X'}/I^n\mathcal{O}_{X'})$
+dans la notation utilisée dans Cohomologie des espaces, section
+\ref{spaces-cohomology-section-theorem-formal-functions}.
+D'après la Cohomologie des espaces, Lemme
+\ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal}
+nous voyons qu'il existe un entier $c \geq 0$ tel que
+$$
+\Ker(B \to \Gamma(X, f_*(\mathcal{O}_{X'}/I^{n + m + c}\mathcal{O}_{X'})))
+$$
+est contenu dans $I^{n + m}B$. D'autre part, comme $R \to B$ est
+fini et un isomorphisme après inversion de tout élément de $I$
+nous voyons que $I^{n + m}B \subset \Im(I^n \to B)$ pour $m$ assez grand
+(peut être choisi indépendamment de $n$). Cela termine la preuve puisque $A \subset B$.
+\end{proof}
+
+\begin{remark}
+\label{remark-essentially-constant}
+La signification du Lemme \ref{lemma-essentially-constant}
+est que le système $X_1 \to X_2 \to X_3 \to \ldots$ est essentiellement
+constant de valeur $X$. Voir Catégories, Définition
+\ref{categories-definition-essentially-constant-diagram}.
+\end{remark}
+
+
+
+
+
+
+\section{Compactifications}
+\label{section-compactifications}
+
+\noindent
+Cette section est l'analogue de Compléments sur la platitude, section
+\ref{flat-section-compactifications}. Le théorème de cette
+section est le théorème principal de \cite{CLO}.
+
+\medskip\noindent
+Soit $B$ un espace algébrique quasi-compact et quasi-séparé sur un schéma de base $S$. Nous dirons qu'un espace algébrique $X$ sur $B$ {\it a une compactification sur $B$} ou {\it est compactifiable sur $B$} s'il existe une immersion ouverte quasi-compacte $X \to \overline{X}$ dans un espace algébrique $\overline{X}$ propre sur $B$. Si $X$ a une compactification sur $B$, alors $X \to B$ est séparé et de type fini. Le théorème principal de cette section est que la réciproque est également vraie.
+
+\begin{lemma}
+\label{lemma-check-separated}
+Soit $S$ un schéma. Soit $X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Si $(U \subset X, f : V \to X)$ est un carré distingué élémentaire
+tel que $U \to Y$ et $V \to Y$ soient séparés et que
+$U \times_X V \to U \times_Y V$ soit fermé, alors $X \to Y$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Nous devons vérifier que $\Delta : X \to X \times_Y X$ est une immersion fermée.
+Il existe un recouvrement \'etale de $X \times_Y X$ donné par les quatre composantes
+$U \times_Y U$, $U \times_Y V$, $V \times_Y U$ et $V \times_Y V$.
+Observons que
+$(U \times_Y U) \times_{(X \times_Y X), \Delta} X  = U$,
+$(U \times_Y V) \times_{(X \times_Y X), \Delta} X = U \times_X V$,
+$(V \times_Y U) \times_{(X \times_Y X), \Delta} X = V \times_X U$ et
+$(V \times_Y V) \times_{(X \times_Y X), \Delta} X = V$.
+Ainsi, les hypothèses du lemme
+nous disent exactement que $\Delta$ est une immersion fermée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separate-disjoint-locally-closed-by-blowing-up}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique quasi-compact et quasi-séparé sur $S$.
+Soit $U \subset X$ un ouvert quasi-compact.
+\begin{enumerate}
+\item Si $Z_1, Z_2 \subset X$ sont des sous-espaces fermés de présentation finie tels que $Z_1 \cap Z_2 \cap U = \emptyset$, alors
+il existe un éclatement $U$-admissible $X' \to X$
+tel que les transformées strictes de $Z_1$ et $Z_2$ soient disjointes.
+\item Si $T_1, T_2 \subset |U|$ sont des sous-ensembles constructibles fermés disjoints, alors il existe un éclatement $U$-admissible $X' \to X$
+tel que les adhérences de $T_1$ et $T_2$ soient disjointes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). L'hypothèse que $Z_i \to X$ est de présentation finie signifie que le faisceau d'idéaux quasi-cohérent $\mathcal{I}_i$ de $Z_i$ est de type fini, voir 
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}.
+Notons $Z \subset X$ le sous-espace fermé défini par le produit $\mathcal{I}_1 \mathcal{I}_2$.
+Observons que $Z \cap U$ est la réunion disjointe de $Z_1 \cap U$ et $Z_2 \cap U$. D'après Diviseurs sur les espaces, Lemme
+\ref{spaces-divisors-lemma-separate-disjoint-opens-by-blowing-up}
+il existe un éclatement $U \cap Z$-admissible $Z' \to Z$ tel que les transformées strictes de $Z_1$ et $Z_2$ soient disjointes.
+Notons $Y \subset Z$ le centre de cet éclatement.
+Alors $Y \to X$ est une immersion fermée de présentation finie comme composée de $Y \to Z$ et $Z \to X$ (Diviseurs sur les espaces, Définition
+\ref{spaces-divisors-definition-admissible-blowup} et
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-composition-finite-presentation}). Ainsi, l'éclatement $X' \to X$ de $Y$ est un éclatement $U$-admissible. D'après les propriétés générales des transformées strictes, les transformées strictes de $Z_1$ et $Z_2$ par rapport à $X' \to X$ sont les mêmes que leurs transformées strictes par rapport à $Z' \to Z$, voir Diviseurs sur les espaces, Lemme \ref{spaces-divisors-lemma-strict-transform}. Ainsi, (1) est démontré.
+
+\medskip\noindent
+Preuve de (2). Par Limites d'espaces, Lemme
+\ref{spaces-limits-lemma-quasi-coherent-finite-type-ideals}
+il existe un faisceau quasi-cohérent d'idéaux de type fini
+$\mathcal{J}_i \subset \mathcal{O}_U$ tel que
+$T_i = V(\mathcal{J}_i)$ (au sens ensembliste).
+Par Limites d'espaces, Lemme \ref{spaces-limits-lemma-extend}
+il existe un faisceau quasi-cohérent d'idéaux de type fini $\mathcal{I}_i \subset \mathcal{O}_X$
+dont la restriction à $U$ est $\mathcal{J}_i$.
+Appliquons le résultat de la partie (1) aux sous-espaces fermés $Z_i = V(\mathcal{I}_i)$ pour conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowup-iso-along}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme propre d'espaces algébriques quasi-compacts et quasi-séparés sur $S$. Soit $V \subset Y$ un ouvert quasi-compact et $U = f^{-1}(V)$. Soit $T \subset |V|$ un sous-ensemble fermé tel que $f|_U : U \to V$ soit un isomorphisme sur un voisinage ouvert de $T$ dans $V$. Alors il existe un éclatement $V$-admissible $Y' \to Y$ tel que la transformée stricte $f' : X' \to Y'$ de $f$ soit un isomorphisme sur un voisinage ouvert de l'adhérence de $T$ dans $|Y'|$.
+\end{lemma}
+
+\begin{proof}
+Soit $T' \subset |V|$ le complément de l'ouvert maximal sur lequel
+$f|_U$ est un isomorphisme. Alors $T', T$ sont fermés dans $|V|$ et
+$T \cap T' = \emptyset$. Comme $|V|$ est un espace topologique spectral
+(Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral})
+nous pouvons trouver des sous-ensembles constructibles fermés $T_c, T'_c$ de $|V|$
+avec $T \subset T_c$, $T' \subset T'_c$ tels que
+$T_c \cap T'_c = \emptyset$ (choisir un ouvert quasi-compact
+$W$ de $|V|$ qui contient $T'$ et ne rencontre pas $T$
+et poser $T_c = |V| \setminus W$, puis choisir un ouvert quasi-compact
+$W'$ de $|V|$ qui contient $T_c$ et ne rencontre pas $T'$
+et poser $T'_c = |V| \setminus W'$).
+D'après le Lemme \ref{lemma-separate-disjoint-locally-closed-by-blowing-up}
+nous pouvons, après avoir remplacé $Y$ par un éclatement $V$-admissible, supposer que $T_c$ et $T'_c$ ont des adhérences disjointes dans $|Y|$.  
+Soit $Y_0$ le sous-espace ouvert de $Y$ correspondant à l'ouvert $|Y| \setminus \overline{T}'_c$ et posons $V_0 = V \cap Y_0$, $U_0 = U \times_V V_0$ et $X_0 = X \times_Y Y_0$.  
+Comme $U_0 \to V_0$ est un isomorphisme, nous pouvons trouver un éclatement $V_0$-admissible $Y'_0 \to Y_0$ tel que la transformée stricte $X'_0$ de $X_0$ s'envoie isomorphiquement sur $Y'_0$, voir Compléments sur les morphismes d'espaces, Lemme \ref{spaces-more-morphisms-lemma-zariski-after-blowup}.  
+D'après Diviseurs sur les espaces, Lemme \ref{spaces-divisors-lemma-extend-admissible-blowups} il existe un éclatement $V$-admissible $Y' \to Y$ dont la restriction à $Y_0$ est $Y'_0 \to Y_0$. Si $f' : X' \to Y'$ désigne la transformée stricte de $f$, alors l'assertion voulue est vraie puisque $f'$ se restreint à un isomorphisme sur $Y'_0$.  
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowup-etale-along}
+Soit $S$ un schéma. Considérons un diagramme
+$$
+\xymatrix{
+X \ar[d]_f & U \ar[l] \ar[d]_{f|_U} & A \ar[d] \ar[l] \\
+Y & V \ar[l] & B \ar[l]
+}
+$$
+d'espaces algébriques quasi-compacts et quasi-séparés sur $S$.
+Supposons que
+\begin{enumerate}
+\item $f$ soit propre,
+\item $V$ soit un ouvert quasi-compact de $Y$, $U = f^{-1}(V)$,
+\item $B \subset V$ et $A \subset U$ soient des sous-espaces fermés,
+\item $f|_A : A \to B$ soit un isomorphisme, et que
+$f$ soit \'etale en chaque point de $A$.
+\end{enumerate}
+Alors il existe un éclatement $V$-admissible $Y' \to Y$ tel que la transformée stricte
+$f' : X' \to Y'$ ait la propriété suivante : pour chaque point géométrique
+$\overline{a}$ de l'adhérence de $|A|$ dans $|X'|$
+il existe un quotient $\mathcal{O}_{X', \overline{a}} \to \mathcal{O}$
+tel que $\mathcal{O}_{Y', f'(\overline{a})} \to \mathcal{O}$
+soit fini et plat.
+\end{lemma}
+
+\noindent
+Comme le montre la preuve, un résultat plus fort est vrai, mais cet énoncé, déjà assez long, suffira par la suite.
+
+\begin{proof}
+Soit $T' \subset |U|$ le complément de l'ouvert maximal sur lequel
+$f|_U$ est \'etale. Alors $T'$ est fermé dans $|U|$ et disjoint de $|A|$.
+Comme $|U|$ est un espace topologique spectral (Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral})
+nous pouvons trouver des sous-ensembles constructibles fermés $T_c, T'_c$ de $|U|$
+avec $|A| \subset T_c$, $T' \subset T'_c$ tels que
+$T_c \cap T'_c = \emptyset$ (voir la preuve du Lemme \ref{lemma-blowup-iso-along}).
+D'après le Lemme \ref{lemma-separate-disjoint-locally-closed-by-blowing-up}
+il existe un éclatement $U$-admissible $X_1 \to X$ tel que
+$T_c$ et $T'_c$ aient des adhérences disjointes dans $|X_1|$.
+Soit $X_{1, 0}$ le sous-espace ouvert de $X_1$ correspondant à l'ouvert
+$|X_1| \setminus \overline{T}'_c$ et posons $U_0 = U \cap X_{1, 0}$.
+Remarquons que l'image schématique $\overline{A}_1 \subset X_1$ de $A$ est contenue dans $X_{1, 0}$ par construction.
+
+\medskip\noindent
+Après avoir remplacé $Y$ par un éclatement $V$-admissible et pris les transformées strictes, nous pouvons supposer que $X_{1, 0} \to Y$ est plat, quasi-fini et de présentation finie, voir
+Compléments sur les morphismes d'espaces, Lemmes
+\ref{spaces-more-morphisms-lemma-flat-after-blowing-up} et
+\ref{spaces-more-morphisms-lemma-flat-fp-dimension-over-dense-open}.
+Considérons le diagramme commutatif
+$$
+\vcenter{
+\xymatrix{
+X_1 \ar[rr] \ar[rd] & & X \ar[ld] \\
+& Y
+}
+}
+\quad\text{et le diagramme}\quad
+\vcenter{
+\xymatrix{
+\overline{A}_1 \ar[rr] \ar[rd] & & \overline{A} \ar[ld] \\
+& \overline{B}
+}
+}
+$$
+d'images schématiques. Le morphisme $\overline{A}_1 \to \overline{A}$
+est surjectif : comme il est propre, l'image schématique de $\overline{A}_1 \to \overline{A}$ est $\overline{A}$, et nous pouvons alors appliquer Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-scheme-theoretic-image-is-proper}.
+L'énoncé sur les anneaux locaux strictement henséliens s'obtient
+en relevant le point géométrique $\overline{a}$
+en un point géométrique $\overline{a}_1$ de $\overline{A}_1$ et en posant
+$\mathcal{O} = \mathcal{O}_{X_1, \overline{a}_1}$. En effet, puisque
+$X_1 \to Y$ est plat et quasi-fini sur
+$X_{1, 0} \supset \overline{A}_1$, l'homomorphisme
+$\mathcal{O}_{Y', f'(\overline{a})} \to \mathcal{O}_{X_1, \overline{a}_1}$ est fini et plat, voir Algèbre, Lemme \ref{algebra-lemma-quasi-finite-strict-henselization} et \ref{algebra-lemma-characterize-henselian}. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-replaced-by-strict-transform}
+Soit $S$ un schéma. Soient $X \to B$ et $Y \to B$ des morphismes d'espaces algébriques sur $S$. Soit $U \subset X$ un sous-espace ouvert. Soit $V \to X \times_B Y$ un morphisme quasi-compact dont la composée avec la première projection a son image dans $U$. Soit $Z \subset X \times_B Y$ l'image schématique de $V \to X \times_B Y$. Soit $X' \to X$ un éclatement $U$-admissible. Alors l'image schématique de $V \to X' \times_B Y$ est la transformée stricte de $Z$ par rapport à cet éclatement.
+\end{lemma}
+
+\begin{proof}
+Notons $Z' \to Z$ la transformée stricte. Le morphisme $Z' \to X'$
+induit un morphisme $Z' \to X' \times_B Y$ qui est une immersion fermée
+(car $Z'$ est un sous-espace fermé de $X' \times_X Z$ par définition).
+Ainsi, pour terminer la preuve, il suffit de montrer que l'image schématique $Z''$ de $V \to Z'$ est $Z'$. Observons que $Z'' \subset Z'$
+est un sous-espace fermé tel que $V \to Z'$ se factorise par $Z''$.
+Comme $V \to X \times_B Y$ et $V \to X' \times_B Y$ sont tous deux
+quasi-compacts (pour le second, cela découle de Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-quasi-compact-permanence}
+et du fait que $X' \times_B Y \to X \times_B Y$ est séparé
+comme un changement de base d'un morphisme propre), d'après Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}
+nous voyons que $Z \cap (U \times_B Y) = Z'' \cap (U \times_B Y)$.
+Ainsi, le morphisme d'inclusion $Z'' \to Z'$ est un isomorphisme loin du diviseur exceptionnel $E$ de $Z' \to Z$. Cependant, le faisceau structural de $Z'$ n'a pas de sections non nulles supportées sur $E$ (par définition des transformées strictes) et nous concluons que la surjection $\mathcal{O}_{Z'} \to \mathcal{O}_{Z''}$ doit être un isomorphisme. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compactification-dominates}
+Soit $S$ un schéma. Soit $B$ un espace algébrique quasi-compact et quasi-séparé sur $S$. Soit $U$ un espace algébrique de type fini et séparé sur $B$. Soit $V \to U$ un morphisme \'etale. Si $V$ possède une compactification $V \subset Y$ sur $B$, alors il existe un éclatement $V$-admissible $Y' \to Y$ et un ouvert $V \subset V' \subset Y'$ tel que $V \to U$ s'étende en un morphisme propre $V' \to U$.
+\end{lemma}
+
+\begin{proof}
+Considérons l'image schématique $Z \subset Y \times_B U$
+du morphisme ``diagonal'' $V \to Y \times_B U$. Si nous remplaçons
+$Y$ par un éclatement $V$-admissible, alors $Z$ est remplacé par
+la transformée stricte par rapport à cet éclatement, voir
+Lemme \ref{lemma-replaced-by-strict-transform}. Ainsi, d'après
+Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-zariski-after-blowup},
+nous pouvons supposer que $Z \to Y$
+est une immersion ouverte. Si $V' \subset Y$ désigne l'image, alors nous
+voyons que le morphisme induit $V' \to U$ est propre car la
+projection $Y \times_B U \to U$ est propre et $V' \cong Z$
+est un sous-espace fermé de $Y \times_B U$.
+\end{proof}
+
+\noindent
+Le lemme suivant est formulé pour des espaces algébriques séparés de type fini sur un espace algébrique de type fini sur $\mathbf{Z}$. La version pour les espaces algébriques quasi-compacts et quasi-séparés est également vraie (avec essentiellement la même démonstration), mais sera trivialement impliquée par le théorème principal de cette section. Nous encourageons vivement le lecteur à lire d'abord la démonstration de ce lemme dans le cas des schémas.
+
+\begin{lemma}
+\label{lemma-two-compactifications}
+Soit $B$ un espace algébrique de type fini sur $\mathbf{Z}$.
+Soit $U$ un espace algébrique de type fini et séparé sur $B$.
+Soit $(U_2 \subset U, f : U_1 \to U)$ un carré distingué élémentaire. Supposons que $U_1$ et $U_2$ possèdent des compactifications sur $B$ et que $U_1 \times_U U_2 \to U$ ait une image dense.
+Alors $U$ a une compactification sur $B$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une compactification $U_i \subset X_i$ sur $B$ pour $i = 1, 2$. Nous pouvons supposer que $U_i$ est schématiquement dense dans $X_i$. Nous pouvons supposer qu'il existe un ouvert $V_i \subset X_i$ et un morphisme propre $\psi_i : V_i \to U$ prolongeant $U_i \to U$, voir le Lemme \ref{lemma-compactification-dominates}. Considérons le diagramme
+$$
+\xymatrix{
+U_i \ar[r] \ar[d] & V_i \ar[r] \ar[dl]^{\psi_i} & X_i \\
+U
+}
+$$
+Notons $Z_1 \subset U$ le sous-espace fermé réduit correspondant au sous-ensemble fermé $|U| \setminus |U_2|$. Rappelons que $f^{-1}Z_1$ est un sous-espace fermé de $U_1$ s'envoyant isomorphiquement sur $Z_1$. Notons $Z_2 \subset U$ le sous-espace fermé réduit correspondant au sous-ensemble fermé $|U| \setminus \Im(|f|) =
+|U_2| \setminus \Im(|U_1 \times_U U_2| \to |U_2|)$. Ainsi nous avons
+$$
+U = U_2 \amalg Z_1 = Z_2 \amalg \Im(f) =
+Z_2 \amalg \Im(U_1 \times_U U_2 \to U_2) \amalg Z_1
+$$
+au sens ensembliste. Notons $Z_{i, i} \subset V_i$ l'image inverse de $Z_i$ par $\psi_i$. Observons que $\psi_2$ est un isomorphisme sur un voisinage ouvert de $Z_2$. Observons que $Z_{1, 1} = \psi_1^{-1}Z_1 = f^{-1}Z_1 \amalg T$ pour un certain sous-espace fermé $T \subset V_1$ disjoint de $f^{-1}Z_1$ et que $\psi_1$ est en outre \'etale le long de $f^{-1}Z_1$.  
+Notons $Z_{i, j} \subset V_i$ l'image inverse de $Z_j$ par $\psi_i$.  
+Observons que $\psi_i : Z_{i, j} \to Z_j$ est un morphisme propre.  
+Puisque $Z_i$ et $Z_j$ sont des sous-espaces fermés disjoints de $U$, on voit que $Z_{i, i}$ et $Z_{i, j}$ sont des sous-espaces fermés disjoints de $V_i$.
+
+\medskip\noindent
+Notons $\overline{Z}_{i, i}$ et $\overline{Z}_{i, j}$ les images schématiques de $Z_{i, i}$ et $Z_{i, j}$ dans $X_i$.
+Rappelons que $|Z_{i, j}|$ est dense dans $|\overline{Z}_{i, j}|$, voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-quasi-compact-immersion}.
+Après avoir remplacé $X_i$ par un éclatement $V_i$-admissible, nous pouvons supposer que $\overline{Z}_{i, i}$ et $\overline{Z}_{i, j}$ sont disjoints, voir
+Lemme \ref{lemma-separate-disjoint-locally-closed-by-blowing-up}.
+Nous supposons que cela vaut pour $X_1$ et $X_2$.
+Remarquons que cette propriété est préservée si nous remplaçons $X_i$ par un autre éclatement $V_i$-admissible. Par conséquent, nous pouvons remplacer $X_1$ par un autre éclatement $V_1$-admissible et supposer que $|\overline{Z}_{1, 1}|$ est la réunion disjointe des adhérences de $|T|$ et $|f^{-1}Z_1|$ dans $|X_1|$.
+
+\medskip\noindent
+Soit $V_{12} = V_1 \times_U V_2$. Nous avons une immersion
+$V_{12} \to X_1 \times_B X_2$ qui est la composée de l'immersion fermée $V_{12} = V_1 \times_U V_2 \to V_1 \times_B V_2$
+(Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-fibre-product-after-map})
+et de l'immersion ouverte $V_1 \times_B V_2 \to X_1 \times_B X_2$.
+Soit $X_{12} \subset X_1 \times_B X_2$ l'image schématique de $V_{12} \to X_1 \times_B X_2$. Les morphismes de projection
+$$
+p_1 : X_{12} \to X_1
+\quad\text{et}\quad
+p_2 : X_{12} \to X_2
+$$
+sont propres car $X_1$ et $X_2$ sont propres sur $B$. Si nous remplaçons $X_1$ par un
+éclatement $V_1$-admissible, alors $X_{12}$ est remplacé par
+la transformée stricte par rapport à cet éclatement, voir
+Lemme \ref{lemma-replaced-by-strict-transform}.
+
+\medskip\noindent  
+Notons $\psi : V_{12} \to U$ les composées  
+$\psi = \psi_1 \circ p_1|_{V_{12}} = \psi_2 \circ p_2|_{V_{12}}$.  
+Considérons le sous-espace fermé  
+$$
+Z_{12, 2} =
+(p_1|_{V_{12}})^{-1}Z_{1, 2} =
+(p_2|_{V_{12}})^{-1}Z_{2, 2} =
+\psi^{-1}Z_2 \subset V_{12}
+$$.  
+Le morphisme $p_1|_{V_{12}} : V_{12} \to V_1$ est un isomorphisme  
+sur un voisinage ouvert de $Z_{1, 2}$ parce que $\psi_2 : V_2 \to U$  
+est un isomorphisme sur un voisinage ouvert de $Z_2$ et  
+$V_{12} = V_1 \times_U V_2$. Par le Lemme \ref{lemma-blowup-iso-along}  
+il existe un éclatement $V_1$-admissible $X_1' \to X_1$  
+tel que la transformée stricte $p'_1 : X'_{12} \to X'_1$  
+de $p_1$ soit un isomorphisme sur un voisinage ouvert de  
+l'adhérence de $|Z_{1, 2}|$ dans $|X'_1|$.  
+Après avoir remplacé $X_1$ par $X'_1$ et $X_{12}$ par $X'_{12}$  
+nous pouvons supposer que $p_1$ est un isomorphisme sur un voisinage ouvert de $|\overline{Z}_{1, 2}|$.
+
+\medskip\noindent
+Le résultat du paragraphe précédent nous dit que
+$$
+X_{12} \cap (\overline{Z}_{1, 2} \times_B \overline{Z}_{2, 1}) = \emptyset
+$$
+où l'intersection est prise dans $X_1 \times_B X_2$. En effet, l'image inverse
+$p_1^{-1}\overline{Z}_{1, 2}$ dans $X_{12}$ s'envoie isomorphiquement
+à $\overline{Z}_{1, 2}$. En particulier, nous voyons que $|Z_{12, 2}|$
+est dense dans $|p_1^{-1}\overline{Z}_{1, 2}|$. Ainsi, $p_2$ envoie
+$|p_1^{-1}\overline{Z}_{1, 2}|$ dans $|\overline{Z}_{2, 2}|$.
+Puisque $|\overline{Z}_{2, 2}| \cap |\overline{Z}_{2, 1}| = \emptyset$
+nous concluons.
+
+\medskip\noindent
+Il s'avère que nous devons effectuer un éclatement supplémentaire avant de pouvoir conclure l'argument. En effet, soit $V_2 \subset W_2 \subset X_2$ le sous-espace ouvert dont l'espace topologique sous-jacent est $$
+|W_2| =
+|V_2| \cup (|X_2| \setminus |\overline{Z}_{2, 1}|) =
+|X_2| \setminus \left(|\overline{Z}_{2, 1}| \setminus |Z_{2, 1}|\right)
+$$. Puisque $p_2(p_1^{-1}\overline{Z}_{1, 2})$ est contenu dans $W_2$ (voir ci-dessus), nous voyons que remplacer $X_2$ par un éclatement $W_2$-admissible et $X_{12}$ par la transformée stricte correspondante préserve la propriété de $p_1$ d'être un isomorphisme sur un voisinage ouvert de $\overline{Z}_{1, 2}$. Puisque $\overline{Z}_{2, 1} \cap W_2 = \overline{Z}_{2, 1} \cap V_2 = Z_{2, 1}$, nous voyons que $Z_{2, 1}$ est un sous-espace fermé de $W_2$ et $V_2$. Remarquons que $V_{12} = V_1 \times_U V_2 = p_1^{-1}(V_1) = p_2^{-1}(V_2)$ comme sous-espaces ouverts de $X_{12}$ puisqu'il s'agit du plus grand sous-espace ouvert de $X_{12}$ sur lequel le morphisme $\psi : V_{12} \to U$ se prolonge ; détails omis\footnote{En effet, $V_1 \times_U V_2$ est propre sur $U$ donc si $\psi$ s'étend à un ouvert plus grand de $X_{12}$, alors $V_1 \times_U V_2$ serait fermé dans cet ouvert par Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-universally-closed-permanence}. Ensuite, nous obtenons l'égalité car $V_{12} \subset X_{12}$ est dense.}. Nous avons les égalités suivantes de sous-espaces fermés de $V_{12}$ : $$
+p_2^{-1}Z_{2, 1} = p_2^{-1} \psi_2^{-1} Z_1 =
+p_1^{-1} \psi_1^{-1} Z_1= p_1^{-1}Z_{1, 1} =
+p_1^{-1}f^{-1}Z_1 \amalg p_1^{-1}T
+$$. Ici et ci-dessous, nous utilisons le léger abus de notation consistant à écrire $p_2$ au lieu de la restriction de $p_2$ à $V_{12}$, etc. Puisque $p_2^{-1}(Z_{2, 1})$ est un sous-espace fermé de $p_2^{-1}(W_2)$ et que $Z_{2, 1}$ est un sous-espace fermé de $W_2$, nous concluons que $p_1^{-1}f^{-1}Z_1$ est également un sous-espace fermé de $p_2^{-1}(W_2)$. Enfin, le morphisme $p_2 : X_{12} \to X_2$ est \'etale aux points de $p_1^{-1}f^{-1}Z_1$ car $\psi_1$ est \'etale le long de $f^{-1}Z_1$ et $V_{12} = V_1 \times_U V_2$. Ainsi, nous pouvons appliquer le Lemme \ref{lemma-blowup-etale-along} au morphisme $p_2 : X_{12} \to X_2$, à l'ouvert $W_2$, au sous-espace fermé $Z_{2, 1} \subset W_2$ et au sous-espace fermé $p_1^{-1}f^{-1}Z_1 \subset p_2^{-1}(W_2)$. Par conséquent, après avoir remplacé $X_2$ par un éclatement $W_2$-admissible et $X_{12}$ par la transformée stricte correspondante, nous obtenons pour chaque point géométrique $\overline{y}$ de l'adhérence de $|p_1^{-1}f^{-1}Z_1|$ un homomorphisme local d'anneaux $\mathcal{O}_{X_{12}, \overline{y}} \to \mathcal{O}$ tel que $\mathcal{O}_{X_2, p_2(\overline{y})} \to \mathcal{O}$ soit fini et plat.
+
+\medskip\noindent
+Considérons l'espace algébrique
+$$
+W_2 = U \coprod\nolimits_{U_2} (X_2 \setminus \overline{Z}_{2, 1}),
+$$
+et, avec $T \subset V_1$ comme dans le premier paragraphe, l'espace algébrique
+$$
+W_1 = U \coprod\nolimits_{U_1}
+(X_1 \setminus \overline{Z}_{1, 2} \cup \overline{T}),
+$$
+Ces deux espaces sont obtenus par somme amalgamée, voir
+Lemme \ref{lemma-construct-elementary-distinguished-square}.
+Appliquons le Lemme \ref{lemma-check-separated}
+pour voir que $W_i \to B$ est séparé. Tout d'abord,
+$U \to B$ et $X_i \to B$ sont séparés. Vérifions que l'immersion quasi-compacte $U_i \to U \times_B (X_i \setminus \overline{Z}_{i, j})$
+est fermée en utilisant le critère valuatif, voir Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}.
+Choisissons un anneau de valuation $A$ sur $B$ avec corps des fractions $K$ et
+morphismes compatibles $(u, x_i) : \Spec(A) \to U \times_B X_i$ et
+$u_i : \Spec(K) \to U_i$. Puisque $\psi_i$ est propre, nous
+pouvons trouver un unique $v_i : \Spec(A) \to V_i$ compatible avec
+$u$ et $u_i$. Puisque $X_i$ est propre sur $B$ nous voyons que $x_i = v_i$. Si $v_i$ ne se factorise pas par $U_i \subset V_i$, alors nous concluons que $x_i$ envoie le point fermé de $\Spec(A)$ dans $Z_{i, j}$ ou $T$ lorsque $i = 1$. Cela termine la démonstration car nous avons supprimé $\overline{Z}_{i, j}$ et $\overline{T}$ dans la construction de $W_i$.
+
+\medskip\noindent
+D'autre part, pour tout anneau de valuation $A$ sur $B$ avec
+corps des fractions $K$ et tout morphisme
+$$
+\gamma : \Spec(K) \to \Im(U_1 \times_U U_2 \to U)
+$$
+sur $B$, nous affirmons qu'après avoir remplacé $A$ par une extension d'anneaux de valuation, il existe un $i$ et un prolongement de $\gamma$ en un morphisme $h_i : \Spec(A) \to W_i$. En effet, nous étendons d'abord $\gamma$ à un morphisme $g_2 : \Spec(A) \to X_2$ en utilisant le critère valuatif de propreté. Si l'image de $g_2$ ne rencontre pas $\overline{Z}_{2, 1}$, alors nous obtenons notre morphisme vers $W_2$.
+Sinon, notons $\overline{z} \in \overline{Z}_{2, 1}$ un point géométrique situé au-dessus de l'image par $g_2$ du point fermé. Nous pouvons le relever en un point géométrique $\overline{y}$ de $X_{12}$
+dans l'adhérence de $|p_1^{-1}f^{-1}Z_1|$ car l'application continue $|p_1^{-1}f^{-1}Z_1| \to |\overline{Z}_{2, 1}|$ est fermée, avec une image contenant l'ouvert dense $|Z_{2, 1}|$. Après avoir remplacé $A$ par sa hensélisation stricte (Compléments d'algèbre, Lemme \ref{more-algebra-lemma-henselization-valuation-ring}), nous obtenons le diagramme suivant $$
+\xymatrix{
+A \ar@{..>}[rr] & & A' \\
+\mathcal{O}_{X_2, \overline{z}} \ar[r] \ar[u] &
+\mathcal{O}_{X_{12}, \overline{y}} \ar[r] &
+\mathcal{O} \ar@{..>}[u]
+}
+$$ où $\mathcal{O}_{X_{12}, \overline{y}} \to \mathcal{O}$ est l'homomorphisme que nous avons trouvé au cinquième paragraphe de la preuve. Puisque la composée horizontale est finie et plate, nous pouvons trouver une extension d'anneaux de valuation $A'/A$ et une flèche pointillée rendant le diagramme commutatif. Après avoir remplacé $A$ par $A'$, cela signifie que nous obtenons un relèvement $g_{12} : \Spec(A) \to X_{12}$ dont le point fermé s'envoie dans l'adhérence de $|p_1^{-1}f^{-1}Z_1|$. Alors $g_1 = p_1 \circ g_{12} : \Spec(A) \to X_1$ est un morphisme dont le point fermé s'envoie dans l'adhérence de $|f^{-1}Z_1|$. Puisque l'adhérence de $|f^{-1}Z_1|$ est disjointe de l'adhérence de $|T|$ et contenue dans $|\overline{Z}_{1, 1}|$ qui est disjoint de $|\overline{Z}_{1, 2}|$, nous en concluons que $g_1$ définit un morphisme $h_1 : \Spec(A) \to W_1$ comme voulu.
+
+\medskip\noindent
+Considérons un diagramme
+$$
+\xymatrix{
+W_1' \ar[d] \ar[r] & W & W_2' \ar[l] \ar[d] \\
+W_1 & U \ar[l] \ar[lu] \ar[u] \ar[ru] \ar[r] & W_2
+}
+$$
+comme dans Compléments sur les morphismes d'espaces, Lemme
+\ref{spaces-more-morphisms-lemma-find-common-blowups}.
+D'après le paragraphe précédent, pour tout diagramme dont les flèches pleines forment le diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r]_\gamma  \ar[d] & W \ar[d] \\
+\Spec(A) \ar@{..>}[ru] \ar[r] & B
+}
+$$
+où $\Im(\gamma) \subset \Im(U_1 \times_U U_2 \to U)$,
+il existe un $i$ et une extension $h_i : \Spec(A) \to W_i$ de $\gamma$
+après avoir éventuellement remplacé $A$ par une extension d'anneaux de valuation.
+En utilisant le critère valuatif de propreté pour $W'_i \to W_i$,
+nous pouvons alors relever $h_i$ en $h'_i : \Spec(A) \to W'_i$.
+Ainsi, la flèche en pointillés dans le diagramme existe après
+avoir éventuellement étendu $A$. Puisque $W$ est séparé sur $B$,
+nous voyons que le choix de l'extension n'est pas nécessaire et que la flèche est également unique, voir
+Morphismes d'espaces, Lemmes \ref{spaces-morphisms-lemma-usual-enough}
+et \ref{spaces-morphisms-lemma-separated-implies-valuative}.
+Enfin, l'existence de la flèche en pointillés
+implique que $W \to B$ est universellement fermé par Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-refined-valuative-criterion-universally-closed}. Comme $W \to B$ est déjà de type fini et séparé, le résultat s'ensuit. 
+\end{proof}
+
+\begin{lemma}
+\label{lemma-filter-Noetherian-space}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $U \subset X$ un sous-espace ouvert dense, proprement contenu dans l'espace ambiant. Alors il existe un
+schéma affine $V$ et un morphisme \'etale $V \to X$ tel que
+\begin{enumerate}
+\item le sous-espace ouvert $W = U \cup \Im(V \to X)$ est strictement plus grand
+que $U$,
+\item $(U \subset W, V \to W)$ est un carré distingué, et
+\item $U \times_W V \to U$ a une image dense.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons une stratification
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+et des morphismes $f_p : V_p \to U_p$ comme dans Espaces décents, Lemme
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}.
+Soit $p$ le plus petit entier tel que $U_p \not \subset U$
+(cela est possible car $U \not = X$). Choisissons un ouvert affine $V \subset V_p$
+tel que le morphisme \'etale $f = f_p|_V : V \to X$ ne se factorise pas par $U$.
+Considérons l'ouvert $W = U \cup \Im(V \to X)$ et notons $Z \subset W$ le sous-espace fermé réduit tel que $|Z| = |W| \setminus |U|$.
+Alors $f^{-1}Z \to Z$ est un isomorphisme car nous avons la
+propriété correspondante pour le morphisme $f_p$, voir le lemme cité ci-dessus.
+Ainsi $(U \subset W, f : V \to W)$ est un carré distingué.
+Il se peut que l'ouvert $I = \Im(U \times_W V \to U)$
+ne soit pas dense dans $U$. L'espace algébrique $U' \subset U$ dont l'ensemble
+sous-jacent est $|U| \setminus \overline{|I|}$ est noethérien, et donc nous pouvons trouver un sous-schéma ouvert dense $U'' \subset U'$, voir par exemple Propriétés des espaces, Proposition \ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}. Ensuite, nous pouvons trouver un ouvert affine dense $U''' \subset U''$, voir Propriétés, Lemme \ref{properties-lemma-Noetherian-irreducible-components} et \ref{properties-lemma-maximal-points-affine}. Après avoir remplacé $f$ par $V \amalg U''' \to X$, tout est clair. 
+\end{proof}
+
+\begin{theorem}
+\label{theorem-nagata}
+\begin{reference}
+\cite{CLO}
+\end{reference}
+Soit $S$ un schéma. Soit $B$ un espace algébrique quasi-compact et
+quasi-séparé sur $S$. Soit $X \to B$ un morphisme séparé de type fini.
+Alors $X$ admet une compactification sur $B$.
+\end{theorem}
+
+\begin{proof}
+Nous réduisons d'abord au cas noethérien. Nous conseillons vivement au lecteur de passer ce paragraphe. Tout d'abord, nous pouvons remplacer $S$ par $\Spec(\mathbf{Z})$ ; voir Espaces, section \ref{spaces-section-change-base-scheme}, et Propriétés des espaces, Définition \ref{spaces-properties-definition-separated}. Il existe une immersion fermée $X \to X'$ avec $X' \to B$ de présentation finie et séparée ; voir Limites d'espaces, Proposition \ref{spaces-limits-proposition-separated-closed-in-finite-presentation}. Si nous trouvons une compactification de $X'$ sur $B$, alors l'adhérence schématique de $X$ dans celle-ci donnera une compactification de $X$ sur $B$. Ainsi, nous pouvons supposer que $X \to B$ est séparé et de présentation finie. Nous pouvons écrire $B = \lim B_i$ comme une limite projective d'un système filtrant d'espaces algébriques noethériens de type fini sur $\Spec(\mathbf{Z})$, à morphismes de transition affines ; voir Limites des espaces, Proposition \ref{spaces-limits-proposition-approximate}.  
+Nous pouvons choisir un $i$ et un morphisme $X_i \to B_i$ de présentation finie dont le changement de base à $B$ est $X \to B$, voir Limites des espaces, Lemme \ref{spaces-limits-lemma-descend-finite-presentation}.  
+Après avoir remplacé $i$ par un indice plus grand, nous pouvons supposer que $X_i \to B_i$ est séparé, voir Limites des espaces, Lemme \ref{spaces-limits-lemma-descend-separated-morphism}.  
+Si nous pouvons trouver une compactification de $X_i$ sur $B_i$, alors son changement de base à $B$ sera une compactification de $X$ sur $B$.  
+Cela nous ramène au cas discuté dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons que $B$ soit de type fini sur $\mathbf{Z}$ en plus d'être quasi-compact et quasi-séparé. Soit $U \to X$ un morphisme \'etale d'espaces algébriques tel que $U$ possède une compactification $Y$ sur $\Spec(\mathbf{Z})$. Le morphisme $$
+U \longrightarrow B \times_{\Spec(\mathbf{Z})} Y
+$$ est séparé et quasi-fini d'après Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite} (le morphisme affiché se factorise en une immersion, donc c'est un monomorphisme). Par conséquent, d'après le théorème principal de Zariski (Compléments sur les morphismes d'espaces, Lemme \ref{spaces-more-morphisms-lemma-quasi-finite-separated-pass-through-finite}), il existe une immersion ouverte de $U$ dans un espace algébrique $Y'$ fini sur $B \times_{\Spec(\mathbf{Z})} Y$. Alors $Y' \to B$ est propre comme composée $Y' \to B \times_{\Spec(\mathbf{Z})} Y \to B$ de deux morphismes propres (utiliser Morphismes d'espaces, Lemmes \ref{spaces-morphisms-lemma-finite-proper}, \ref{spaces-morphisms-lemma-composition-proper} et \ref{spaces-morphisms-lemma-base-change-proper}). Nous concluons que $U$ a une compactification sur $B$.
+
+\medskip\noindent
+Il existe un sous-espace ouvert et dense $U \subset X$ qui est un schéma
+(Propriétés des espaces, Proposition \ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}).
+En fait, nous pouvons choisir $U$ de façon que ce soit un schéma affine
+(Propriétés, Lemme \ref{properties-lemma-Noetherian-irreducible-components} et \ref{properties-lemma-maximal-points-affine}).
+Ainsi, $U$ possède une compactification sur $\Spec(\mathbf{Z})$;
+cela se démontre facilement directement mais découle aussi du
+théorème pour les schémas, voir
+Compléments sur la platitude, Théorème \ref{flat-theorem-nagata}.
+D'après le paragraphe précédent, $U$ possède une compactification sur $B$.
+Par induction noethérienne, nous pouvons trouver un sous-espace ouvert et dense maximal
+$U \subset X$ qui possède une compactification sur $B$. Nous allons montrer
+que l'hypothèse que $U \not = X$ mène à une contradiction.
+En effet, d'après le Lemme \ref{lemma-filter-Noetherian-space}
+nous pouvons trouver un ouvert strictement plus grand $U \subset W \subset X$ et un carré distingué $(U \subset W, f : V \to W)$ avec $V$ affine et $U \times_W V$ ayant une image dense dans $U$. Puisque $V$ est affine, comme précédemment, il possède une compactification sur $B$. Ainsi, le Lemme \ref{lemma-two-compactifications} s'applique pour montrer que $W$ possède une compactification sur $B$, ce qui est la contradiction désirée. 
+\end{proof}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

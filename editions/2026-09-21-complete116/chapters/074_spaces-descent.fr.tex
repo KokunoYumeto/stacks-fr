@@ -1,0 +1,3679 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Descente et espaces algébriques}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans le chapitre consacré aux topologies sur les espaces algébriques (voir
+Topologies sur les espaces, section \ref{spaces-topologies-section-introduction})
+nous avons introduit les recouvrements \'etales, fppf, lisses, syntomiques et fpqc des
+espaces algébriques.
+Dans ce chapitre, nous étudions les structures sur les espaces algébriques
+dont la descente est possible relativement à de tels recouvrements.
+Voir par exemple \cite{Gr-I}, \cite{Gr-II}, \cite{Gr-III},
+\cite{Gr-IV}, \cite{Gr-V} et \cite{Gr-VI}.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+L'hypothèse permanente est que tous les schémas appartiennent à
+un grand site fppf $\Sch_{fppf}$. De plus, tous les anneaux $A$ considérés
+sont tels que $\Spec(A)$ est isomorphe à un
+objet de ce grand site.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Dans ce chapitre et dans le suivant, nous écrirons $X \times_S X$
+pour le produit de $X$ avec lui-même (dans la catégorie des espaces algébriques
+sur $S$), au lieu de $X \times X$.
+
+
+
+
+
+
+\section{Données de descente pour les faisceaux quasi-cohérents}
+\label{section-equivalence}
+
+\noindent
+Cette section est l'analogue de
+Descente, section \ref{descent-section-equivalence}
+pour les espaces algébriques.
+Il est naturel de lire d'abord cette dernière.
+
+\begin{definition}
+\label{definition-descent-datum-quasi-coherent}
+Soit $S$ un schéma. Soit $\{f_i : X_i \to X\}_{i \in I}$ une famille
+de morphismes d'espaces algébriques sur $S$ à cible fixée $X$.
+\begin{enumerate}
+\item Une {\it donnée de descente $(\mathcal{F}_i, \varphi_{ij})$
+pour les faisceaux quasi-cohérents} relativement à la famille donnée
+consiste en la donnée d'un faisceau quasi-cohérent $\mathcal{F}_i$ sur $X_i$ pour
+chaque $i \in I$, et d'un isomorphisme de
+$\mathcal{O}_{X_i \times_X X_j}$-modules quasi-cohérents
+$\varphi_{ij} : \text{pr}_0^*\mathcal{F}_i \to \text{pr}_1^*\mathcal{F}_j$
+pour chaque paire $(i, j) \in I^2$
+tel que, pour tout triplet d'indices $(i, j, k) \in I^3$, le
+diagramme
+$$
+\xymatrix{
+\text{pr}_0^*\mathcal{F}_i \ar[rd]_{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} & &
+\text{pr}_2^*\mathcal{F}_k \\
+& \text{pr}_1^*\mathcal{F}_j \ar[ru]_{\text{pr}_{12}^*\varphi_{jk}} &
+}
+$$
+de $\mathcal{O}_{X_i \times_X X_j \times_X X_k}$-modules
+est commutatif. C'est la {\it condition de cocycle}.
+\item Un {\it morphisme $\psi : (\mathcal{F}_i, \varphi_{ij}) \to
+(\mathcal{F}'_i, \varphi'_{ij})$ de données de descente} est donné
+par une famille $\psi = (\psi_i)_{i\in I}$ de morphismes de
+$\mathcal{O}_{X_i}$-modules $\psi_i : \mathcal{F}_i \to \mathcal{F}'_i$
+telle que tous les diagrammes
+$$
+\xymatrix{
+\text{pr}_0^*\mathcal{F}_i \ar[r]_{\varphi_{ij}} \ar[d]_{\text{pr}_0^*\psi_i}
+& \text{pr}_1^*\mathcal{F}_j \ar[d]^{\text{pr}_1^*\psi_j} \\
+\text{pr}_0^*\mathcal{F}'_i \ar[r]^{\varphi'_{ij}} &
+\text{pr}_1^*\mathcal{F}'_j \\
+}
+$$
+soient commutatifs.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-map-families}
+Soit $S$ un schéma.
+Soient $\mathcal{U} = \{U_i \to U\}_{i \in I}$ et
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$
+des familles de morphismes d'espaces algébriques sur $S$ à cibles fixées.
+Soit $(g, \alpha : I \to J, (g_i)) : \mathcal{U} \to \mathcal{V}$
+un morphisme de familles de morphismes à cible fixée, voir
+Sites, définition \ref{sites-definition-morphism-coverings}.
+Soit $(\mathcal{F}_j, \varphi_{jj'})$ une donnée de descente
+pour les faisceaux quasi-cohérents relativement à la
+famille $\{V_j \to V\}_{j \in J}$. Alors
+\begin{enumerate}
+\item Le système
+$$
+\left(g_i^*\mathcal{F}_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')}\right)
+$$
+est une donnée de descente relativement à la famille $\{U_i \to U\}_{i \in I}$.
+\item Cette construction est fonctorielle en la donnée de descente
+$(\mathcal{F}_j, \varphi_{jj'})$.
+\item Étant donné un second morphisme
+$(g', \alpha' : I \to J, (g'_i))$
+de familles de morphismes à cible fixée
+tel que $g = g'$, il existe un isomorphisme fonctoriel de données de descente
+$$
+(g_i^*\mathcal{F}_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')})
+\cong
+((g'_i)^*\mathcal{F}_{\alpha'(i)},
+(g'_i \times g'_{i'})^*\varphi_{\alpha'(i)\alpha'(i')}).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Indication : les morphismes
+$g_i^*\mathcal{F}_{\alpha(i)} \to (g'_i)^*\mathcal{F}_{\alpha'(i)}$
+qui donnent l'isomorphisme de données de descente en (3)
+sont les images réciproques des morphismes $\varphi_{\alpha(i)\alpha'(i)}$ par les
+morphismes $(g_i, g'_i) : U_i \to V_{\alpha(i)} \times_V V_{\alpha'(i)}$.
+\end{proof}
+
+\noindent
+Soit $g : U \to V$ un morphisme d'espaces algébriques.
+Le lemme ci-dessus montre qu'il existe un foncteur image réciproque bien défini
+entre les catégories de données de descente relatives à des familles de
+morphismes ayant respectivement $V$ et $U$ pour buts, pourvu qu'il existe entre ces
+familles un morphisme qui ``vit au-dessus de $g$''.
+
+\begin{definition}
+\label{definition-descent-datum-effective-quasi-coherent}
+Soit $S$ un schéma.
+Soit $\{U_i \to U\}_{i \in I}$ une famille de morphismes d'espaces algébriques
+sur $S$ à cible fixée.
+\begin{enumerate}
+\item Soit $\mathcal{F}$ un $\mathcal{O}_U$-module quasi-cohérent.
+L'unique donnée de descente portée par $\mathcal{F}$ relativement au recouvrement
+$\{U \to U\}$ est appelée la {\it donnée de descente triviale}.
+\item L'image réciproque de la donnée de descente triviale relativement à
+la famille $\{U_i \to U\}$ est appelée la {\it donnée de descente canonique}.
+Notation : $(\mathcal{F}|_{U_i}, can)$.
+\item Une donnée de descente $(\mathcal{F}_i, \varphi_{ij})$
+pour les faisceaux quasi-cohérents relativement à la famille donnée
+est dite {\it effective} s'il existe un faisceau quasi-cohérent
+$\mathcal{F}$ sur $U$ tel que $(\mathcal{F}_i, \varphi_{ij})$
+soit isomorphe à $(\mathcal{F}|_{U_i}, can)$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zariski-descent-effective}
+Soit $S$ un schéma. Soit $U$ un espace algébrique sur $S$.
+Soit $\{U_i \to U\}$ un recouvrement de Zariski de $U$, voir
+Topologies sur les espaces,
+définition \ref{spaces-topologies-definition-zariski-covering}.
+Toute donnée de descente pour les faisceaux quasi-cohérents
+relativement à la famille $\mathcal{U} = \{U_i \to U\}$ est
+effective. De plus, le foncteur de la catégorie des
+$\mathcal{O}_U$-modules quasi-cohérents vers la catégorie
+des données de descente relativement à $\{U_i \to U\}$ est pleinement fidèle.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Descente fpqc des faisceaux quasi-cohérents}
+\label{section-fpqc-descent-quasi-coherent}
+
+\noindent
+La principale application de la descente plate des modules est
+l'énoncé de descente correspondant pour les faisceaux quasi-cohérents
+relativement aux recouvrements fpqc.
+
+\begin{proposition}
+\label{proposition-fpqc-descent-quasi-coherent}
+Soit $S$ un schéma.
+Soit $\{X_i \to X\}$ un recouvrement fpqc d'espaces algébriques sur $S$, voir
+Topologies sur les espaces,
+définition \ref{spaces-topologies-definition-fpqc-covering}.
+Toute donnée de descente pour les faisceaux quasi-cohérents
+relativement à $\{X_i \to X\}$ est effective.
+De plus, le foncteur de la catégorie des
+$\mathcal{O}_X$-modules quasi-cohérents vers la catégorie
+des données de descente relativement à $\{X_i \to X\}$ est pleinement fidèle.
+\end{proposition}
+
+\begin{proof}
+C'est, à peu de chose près, une conséquence formelle du
+résultat correspondant pour les schémas, voir
+Descente, proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+Voici une stratégie de démonstration :
+\begin{enumerate}
+\item Le fait que $\{X_i \to X\}$ soit un raffinement du recouvrement trivial
+$\{X \to X\}$ donne, via
+le lemme \ref{lemma-map-families},
+un foncteur $\QCoh(\mathcal{O}_X) \to DD(\{X_i \to X\})$ de la
+catégorie des $\mathcal{O}_X$-modules quasi-cohérents vers la catégorie des
+données de descente pour la famille donnée.
+\item Afin de démontrer la proposition, nous allons construire un
+foncteur quasi-inverse
+$back : DD(\{X_i \to X\}) \to \QCoh(\mathcal{O}_X)$.
+\item En appliquant à nouveau
+le lemme \ref{lemma-map-families}
+nous voyons qu'il existe un foncteur
+$DD(\{X_i \to X\}) \to DD(\{T_j \to X\})$
+si $\{T_j \to X\}$ est un raffinement de la famille donnée.
+Ainsi, pour construire le foncteur $back$, nous pouvons supposer que
+chaque $X_i$ est un schéma, voir
+Topologies sur les espaces,
+lemme \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+Cela nous ramène au cas où tous les $X_i$ sont des schémas.
+\item Un faisceau quasi-cohérent sur $X$ est, par définition, un
+$\mathcal{O}_X$-module quasi-cohérent sur $X_\etale$. Pour tout
+$U \in \Ob(X_\etale)$, on obtient alors un recouvrement fppf
+$\{U_i \times_X X_i \to U\}$ par des schémas et un morphisme
+$g : \{U_i \times_X X_i \to U\} \to \{X_i \to X\}$ de recouvrements
+au-dessus de $U \to X$. Étant donnée une donnée de descente
+$\xi = (\mathcal{F}_i, \varphi_{ij})$, on obtient un
+$\mathcal{O}_U$-module quasi-cohérent $\mathcal{F}_{\xi, U}$ correspondant
+à l'image réciproque $g^*\xi$ fournie par le
+lemme \ref{lemma-map-families}
+sur le recouvrement de $U$, puis on applique l'effectivité de la descente
+pour les recouvrements fppf de schémas, voir Descente, proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+\item Vérifier que $\xi \mapsto \mathcal{F}_{\xi, U}$ est fonctorielle en $\xi$.
+Vérification omise.
+\item Vérifier que $\xi \mapsto \mathcal{F}_{\xi, U}$ est compatible
+avec les morphismes $U \to U'$ du site $X_\etale$, de sorte que
+le système de faisceaux $\mathcal{F}_{\xi, U}$ corresponde à un faisceau quasi-cohérent
+$\mathcal{F}_\xi$ sur $X_\etale$, voir
+Propriétés des espaces,
+lemme \ref{spaces-properties-lemma-characterize-quasi-coherent-small-etale}.
+Détails omis.
+\item Vérifier que $back : \xi \mapsto \mathcal{F}_\xi$ est quasi-inverse
+du foncteur construit en (1). Vérification omise.
+\end{enumerate}
+La démonstration est ainsi achevée.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Modules quasi-cohérents et schémas affines}
+\label{section-alternative-quasi-coherent}
+
+\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Rappelons que $X_{affine, \etale}$ est la sous-catégorie pleine de $X_\etale$
+dont les objets sont les schémas affines; on la munit d'une structure de site en prenant
+pour recouvrements les recouvrements \'etales standards. Voir Propriétés des espaces, définition
+\ref{spaces-properties-definition-affine-etale-site}.
+D'après Propriétés des espaces, lemme \ref{spaces-properties-lemma-alternative},
+on a une équivalence de topos
+$g : \Sh(X_{affine, \etale}) \to \Sh(X_\etale)$
+dont le foncteur image réciproque est donné par la restriction.
+Rappelons que $\mathcal{O}_X$ désigne le faisceau structural sur
+$X_\etale$. Nous obtenons alors une équivalence
+\begin{equation}
+\label{equation-alternative-small-ringed}
+(\Sh(X_{affine, \etale}), \mathcal{O}_X|_{X_{affine, \etale}})
+\longrightarrow
+(\Sh(X_\etale), \mathcal{O}_X)
+\end{equation}
+de topos annelés. Nous écrirons souvent $\mathcal{O}_X$
+au lieu de $\mathcal{O}_X|_{X_{affine, \etale}}$.
+Cela permet également de comparer les modules quasi-cohérents.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-alternative-small}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un préfaisceau de $\mathcal{O}_X$-modules
+sur $X_{affine, \etale}$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item pour tout morphisme $U \to U'$ de $X_{affine, \etale}$ la flèche
+$\mathcal{F}(U') \otimes_{\mathcal{O}_X(U')} \mathcal{O}_X(U)
+\to \mathcal{F}(U)$ est un isomorphisme,
+\item $\mathcal{F}$ est un module quasi-cohérent sur le site annelé
+$(X_{affine, \etale}, \mathcal{O}_X)$ au sens de
+Modules sur les sites, définition \ref{sites-modules-definition-site-local},
+\item $\mathcal{F}$ correspond à un module quasi-cohérent sur $X$
+via l'équivalence (\ref{equation-alternative-small-ringed}),
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons que (1) soit satisfaite. Pour montrer que $\mathcal{F}$ est un faisceau, soit
+$\mathcal{U} = \{U_i \to U\}_{i = 1, \ldots, n}$ un recouvrement
+de $X_{affine, \etale}$. La condition de faisceau pour $\mathcal{F}$
+et $\mathcal{U}$, par notre hypothèse sur $\mathcal{F}$,
+se réduit à montrer que
+$$
+0 \to \mathcal{F}(U) \to
+\prod \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{O}_X(U_i) \to
+\prod \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{O}_X(U_i \times_U U_j)
+$$
+Cette suite est exacte, car $\mathcal{O}_X(U) \to \prod \mathcal{O}_X(U_i)$
+est fidèlement plat
+(d'après Descente, lemme \ref{descent-lemma-standard-covering-Cech}, et parce que
+les recouvrements de $X_{affine, \etale}$ sont les recouvrements \'etales
+standards); on peut alors appliquer Descente, lemme \ref{descent-lemma-ff-exact}.
+Ensuite, nous montrons que $\mathcal{F}$ est quasi-cohérent sur $X_{affine, \etale}$.
+En effet, pour $U$ dans $X_{affine, \etale}$, posons $R = \mathcal{O}_X(U)$
+et choisissons une présentation
+$$
+\bigoplus\nolimits_{k \in K} R
+\longrightarrow
+\bigoplus\nolimits_{l \in L} R
+\longrightarrow
+\mathcal{F}(U)
+\longrightarrow 0
+$$
+par des $R$-modules libres. D'après la propriété (1) et l'exactitude à droite du produit tensoriel,
+nous voyons que, pour tout morphisme $U' \to U$ dans $X_{affine, \etale}$,
+on obtient une présentation
+$$
+\bigoplus\nolimits_{k \in K} \mathcal{O}_X(U')
+\longrightarrow
+\bigoplus\nolimits_{l \in L} \mathcal{O}_X(U')
+\longrightarrow
+\mathcal{F}(U')
+\longrightarrow 0
+$$
+Autrement dit, la restriction de $\mathcal{F}$
+à la catégorie localisée $X_{affine, etale}/U$ possède une présentation
+$$
+\bigoplus\nolimits_{k \in K} \mathcal{O}_X|_{X_{affine, \etale}/U}
+\longrightarrow
+\bigoplus\nolimits_{l \in L} \mathcal{O}_X|_{X_{affine, \etale}/U}
+\longrightarrow
+\mathcal{F}|_{X_{affine, \etale}/U}
+\longrightarrow 0
+$$
+ce qui est la présentation requise pour montrer que $\mathcal{F}$ est quasi-cohérent.
+Toutes nos excuses pour cette horrible notation; cela achève la démonstration
+que (1) implique (2).
+
+\medskip\noindent
+Puisque la notion de module quasi-cohérent est intrinsèque
+(Modules sur les sites, lemme \ref{sites-modules-lemma-special-locally-free})
+nous voyons que l'équivalence (\ref{equation-alternative-small-ringed})
+induit une équivalence entre les catégories de modules quasi-cohérents.
+Ainsi, (2) et (3) sont équivalentes.
+
+\medskip\noindent
+Supposons (3) et démontrons (1). Soit
+$\mathcal{G}$ un module quasi-cohérent sur $X$ correspondant à $\mathcal{F}$.
+Soit $h : U \to U' \to X$ un morphisme de $X_{affine, \etale}$.
+Notons $f : U \to X$ et $f' : U' \to X$ les morphismes structuraux,
+de sorte que $f = f' \circ h$. Nous avons
+$\mathcal{F}(U') = \Gamma(U', (f')^*\mathcal{G})$ et
+$\mathcal{F}(U) = \Gamma(U, f^*\mathcal{G}) = \Gamma(U, h^*(f')^*\mathcal{G})$.
+Ainsi, (1) résulte de Schémas, lemme \ref{schemes-lemma-widetilde-pullback}.
+\end{proof}
+% preserved blank authority line 391
+% preserved blank authority line 392
+% preserved blank authority line 393
+% preserved blank authority line 394
+% preserved blank authority line 395
+\section{Descente des propriétés de finitude des modules}
+\label{section-descent-finiteness}
+
+\noindent
+Cette section est, pour les espaces algébriques, l'analogue de
+Descente, section \ref{descent-section-descent-finiteness}.
+Nous voulons montrer que certaines conditions de finitude portant sur un module
+quasi-cohérent peuvent se vérifier sur les membres d'un
+recouvrement. Nous utiliserons à plusieurs reprises le schéma de démonstration suivant.
+Supposons que $X$ soit un espace algébrique et que $\{X_i \to X\}$
+soit un recouvrement fppf (resp.\ fpqc). Soit $U \to X$ un morphisme \'etale
+surjectif tel que $U$ soit un schéma. Il existe alors un
+recouvrement fppf (resp.\ fpqc) $\{Y_j \to X\}$ tel que
+\begin{enumerate}
+\item $\{Y_j \to X\}$ est un raffinement de $\{X_i \to X\}$,
+\item chaque $Y_j$ est un schéma, et
+\item chaque morphisme $Y_j \to X$ se factorise par $U$, et
+\item $\{Y_j \to U\}$ est un recouvrement fppf (resp.\ fpqc) de $U$.
+\end{enumerate}
+En effet, raffinons d'abord $\{X_i \to X\}$ par un recouvrement fppf (resp.\ fpqc)
+tel que chaque $X_i$ soit un schéma, voir
+Topologies sur les espaces, lemme \ref{spaces-topologies-lemma-refine-fppf-schemes},
+resp.\ le lemme \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+Posons alors $Y_i = U \times_X X_i$. Un module quasi-cohérent
+sur $\mathcal{O}_X$, noté $\mathcal{F}$, est de type fini, de
+présentation finie, etc., si et seulement si le module quasi-cohérent
+sur $\mathcal{O}_U$, noté $\mathcal{F}|_U$, est de type fini, de
+présentation finie, etc. L'existence du
+raffinement $\{Y_j \to X\}$ permet donc de ramener la démonstration des
+lemmes suivants au cas des schémas. Nous l'indiquerons en disant
+que « {\it le résultat se déduit du cas des schémas par
+localisation \'etale} ».
+
+\begin{lemma}
+\label{lemma-finite-type-descends}
+Soit $X$ un espace algébrique sur un schéma $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement fpqc tel que
+chaque $f_i^*\mathcal{F}$ soit un $\mathcal{O}_{X_i}$-module de type fini.
+Alors $\mathcal{F}$ est un $\mathcal{O}_X$-module de type fini.
+\end{lemma}
+
+\begin{proof}
+Ce résultat se déduit du cas des schémas, voir
+Descente, lemme \ref{descent-lemma-finite-type-descends},
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-presentation-descends}
+Soit $X$ un espace algébrique sur un schéma $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement fpqc tel que
+chaque $f_i^*\mathcal{F}$ soit un $\mathcal{O}_{X_i}$-module de présentation
+finie. Alors $\mathcal{F}$ est un $\mathcal{O}_X$-module
+de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Ce résultat se déduit du cas des schémas, voir
+Descente, lemme \ref{descent-lemma-finite-presentation-descends},
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-descends}
+Soit $X$ un espace algébrique sur un schéma $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement fpqc tel que
+chaque $f_i^*\mathcal{F}$ soit un $\mathcal{O}_{X_i}$-module plat.
+Alors $\mathcal{F}$ est un $\mathcal{O}_X$-module plat.
+\end{lemma}
+
+\begin{proof}
+Ce résultat se déduit du cas des schémas, voir
+Descente, lemme \ref{descent-lemma-flat-descends},
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-locally-free-descends}
+Soit $X$ un espace algébrique sur un schéma $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement fpqc tel que
+chaque $f_i^*\mathcal{F}$ soit un $\mathcal{O}_{X_i}$-module localement libre de type fini.
+Alors $\mathcal{F}$ est un $\mathcal{O}_X$-module localement libre de type fini.
+\end{lemma}
+
+\begin{proof}
+Ce résultat se déduit du cas des schémas, voir
+Descente, lemme \ref{descent-lemma-finite-locally-free-descends},
+par localisation \'etale.
+\end{proof}
+
+\noindent
+La définition d'un faisceau quasi-cohérent localement projectif se trouve dans
+Propriétés des espaces, section
+\ref{spaces-properties-section-locally-projective}.
+Il y est également démontré que cette notion est stable par image réciproque.
+
+\begin{lemma}
+\label{lemma-locally-projective-descends}
+Soit $X$ un espace algébrique sur un schéma $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement fpqc tel que
+chaque $f_i^*\mathcal{F}$ soit un $\mathcal{O}_{X_i}$-module localement projectif.
+Alors $\mathcal{F}$ est un $\mathcal{O}_X$-module localement projectif.
+\end{lemma}
+
+\begin{proof}
+Ce résultat se déduit du cas des schémas, voir
+Descente, lemme \ref{descent-lemma-locally-projective-descends},
+par localisation \'etale.
+\end{proof}
+
+\noindent
+Ajoutons ici deux résultats liés aux précédents, mais
+de nature légèrement différente.
+
+\begin{lemma}
+\label{lemma-finite-over-finite-module}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Supposons que $f$ soit fini.
+Alors $\mathcal{F}$ est un $\mathcal{O}_X$-module de type fini
+si et seulement si $f_*\mathcal{F}$ est un $\mathcal{O}_Y$-module de type
+fini.
+\end{lemma}
+
+\begin{proof}
+Puisque $f$ est fini, il est représentable. Choisissons un schéma $V$ et un
+morphisme \'etale surjectif $V \to Y$. Alors $U = V \times_Y X$ est un schéma muni d'un
+morphisme \'etale surjectif vers $X$ et d'un morphisme fini
+$\psi : U \to V$ (le changement de base de $f$). Puisque
+$\psi_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$,
+l'assertion se déduit immédiatement de la version pour les schémas,
+c'est-à-dire du
+lemme \ref{descent-lemma-finite-over-finite-module} de Descente.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-finitely-presented-module}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Supposons que $f$ soit fini et de présentation finie.
+Alors $\mathcal{F}$ est un $\mathcal{O}_X$-module de présentation finie
+si et seulement si $f_*\mathcal{F}$ est un $\mathcal{O}_Y$-module de présentation
+finie.
+\end{lemma}
+
+\begin{proof}
+Puisque $f$ est fini, il est représentable. Choisissons un schéma $V$ et un
+morphisme \'etale surjectif $V \to Y$. Alors $U = V \times_Y X$ est un schéma muni d'un
+morphisme \'etale surjectif vers $X$ et d'un morphisme fini
+$\psi : U \to V$ (le changement de base de $f$). Puisque
+$\psi_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$,
+l'assertion se déduit immédiatement de la version pour les schémas,
+c'est-à-dire du
+lemme \ref{descent-lemma-finite-finitely-presented-module} de Descente.
+\end{proof}
+
+
+
+
+
+
+\section{Recouvrements fpqc}
+\label{section-fpqc}
+
+\noindent
+Cette section est l'analogue de la
+section \ref{descent-section-fpqc-universal-effective-epimorphisms} de Descente.
+Nous ne savons pas actuellement si tous les résultats valables pour les
+recouvrements fpqc de schémas le sont aussi pour les espaces algébriques.
+
+\begin{lemma}
+\label{lemma-open-fpqc-covering}
+Soit $S$ un schéma.
+Soit $\{f_i : T_i \to T\}_{i \in I}$ un recouvrement fpqc
+d'espaces algébriques sur $S$.
+Pour chaque $i$, soit $W_i \subset T_i$ un sous-espace ouvert,
+et supposons que, pour tous $i, j \in I$,
+$\text{pr}_0^{-1}(W_i) = \text{pr}_1^{-1}(W_j)$ en tant que sous-espaces ouverts
+de $T_i \times_T T_j$. Alors il existe un unique sous-espace ouvert
+$W \subset T$ tel que $W_i = f_i^{-1}(W)$ pour chaque $i$.
+\end{lemma}
+
+\begin{proof}
+D'après le
+lemme \ref{spaces-topologies-lemma-refine-fpqc-schemes} de Topologies sur les espaces,
+nous pouvons supposer que chaque $T_i$ est un schéma.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to T$.
+Alors $\{T_i \times_T U \to U\}$ est un recouvrement fpqc de $U$
+et $T_i \times_T U$ est un schéma pour chaque $i$. La famille
+des ouverts $W_i \times_T U$ provient donc d'un unique
+sous-schéma ouvert $W' \subset U$, d'après le
+lemme \ref{descent-lemma-open-fpqc-covering} de Descente.
+Comme $U \to X$ est ouvert, nous pouvons définir $W \subset X$ comme l'ouvert de Zariski
+image de $W'$; voir
+Propriétés des espaces, section \ref{spaces-properties-section-points}.
+Nous omettons de vérifier que cette construction convient, c'est-à-dire que
+$W_i$ est l'image réciproque de $W$ pour chaque $i$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fpqc-universal-effective-epimorphisms}
+Soit $S$ un schéma. Soit $\{T_i \to T\}$ un recouvrement fpqc d'espaces algébriques
+sur $S$; voir Topologies sur les espaces, définition
+\ref{spaces-topologies-definition-fpqc-covering}.
+Alors, pour tout espace algébrique $B$ sur $S$, la suite
+$$
+\xymatrix{
+\Mor_S(T, B) \ar[r] &
+\prod\nolimits_i \Mor_S(T_i, B) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\prod\nolimits_{i, j} \Mor_S(T_i \times_T T_j, B)
+}
+$$
+est un diagramme égalisateur.
+Autrement dit, tout foncteur représentable sur la catégorie des
+espaces algébriques sur $S$ vérifie la condition de faisceau pour les
+recouvrements fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous savons que l'assertion est vraie si $\{T_i \to T\}$ est un recouvrement fpqc de
+schémas, voir Propriétés des espaces, proposition
+\ref{spaces-properties-proposition-sheaf-fpqc}.
+C'est le point essentiel; nous invitons le lecteur à omettre la suite
+de cette démonstration, qui est formelle. Choisissons un schéma $U$ et un
+morphisme \'etale surjectif
+$U \to T$. Choisissons un schéma $U_i$ et un morphisme $U_i \to T_i \times_T U$
+\'etale surjectif. Alors $\{U_i \to U\}$ est un
+recouvrement fpqc. Cela découle de
+Topologies sur les espaces, lemmes \ref{spaces-topologies-lemma-fpqc} et
+\ref{spaces-topologies-lemma-recognize-fpqc-covering}.
+Ce qui précède donne le résultat pour $\{U_i \to U\}$.
+
+\medskip\noindent
+Concrètement, supposons que les $b_i : T_i \to B$
+forment une famille de morphismes telle que
+$b_i \circ \text{pr}_0 = b_j \circ \text{pr}_1$ comme morphismes
+$T_i \times_T T_j \to B$. Définissons $a_i : U_i \to B$ comme le
+composé obtenu en faisant suivre $U_i \to T_i$ de $b_i$. D'après ce qui précède,
+il existe un unique morphisme $a : U \to B$ tel que
+$a_i$ soit le composé de $a$ avec $U_i \to U$.
+L'unicité assure que $a \circ \text{pr}_0 = a \circ \text{pr}_1$
+comme morphismes $U \times_T U \to B$. Puisque $T = U/(U \times_T U)$
+comme faisceau, $a$ provient d'un unique morphisme $b : T \to B$.
+Une chasse au diagramme montre que $b$ est le morphisme recherché.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Descente des propriétés de finitude et de lissité des morphismes}
+\sectionmark{Descente : finitude et lissité}
+\label{section-descent-finiteness-morphisms}
+
+\noindent
+Un lemme du type suivant est parfois utile.
+
+\begin{lemma}
+\label{lemma-curiosity}
+Soit $S$ un schéma. Soient $X \to Y \to Z$ des morphismes d'espaces algébriques.
+Soit $P$ l'une des propriétés suivantes pour un morphisme d'espaces algébriques
+sur $S$ :
+être plat, être localement de type fini ou être localement de présentation finie.
+Supposons que $X \to Z$ vérifie $P$ et que
+$X \to Y$ soit une surjection de faisceaux sur $(\Sch/S)_{fppf}$.
+Alors $Y \to Z$ vérifie $P$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $W$ et un morphisme \'etale surjectif $W \to Z$.
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to W \times_Z Y$.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to V \times_Y X$.
+Par hypothèse, il existe un recouvrement fppf $\{V_i \to V\}$ et des
+relèvements $V_i \to X$ du morphisme $V_i \to Y$. Comme $U \to X$ est surjectif
+\'etale, nous voyons que, sur les membres du recouvrement fppf
+$\{V_i \times_X U \to V\}$, il existe des relèvements dans $U$. Par conséquent, $U \to V$ induit
+une surjection de faisceaux sur $(\Sch/S)_{fppf}$.
+D'après la définition de la propriété $P$ pour un
+morphisme d'espaces algébriques (voir
+Morphismes d'espaces,
+définition \ref{spaces-morphisms-definition-flat},
+définition \ref{spaces-morphisms-definition-locally-finite-type}, et
+définition \ref{spaces-morphisms-definition-locally-finite-presentation})
+nous savons que $U \to W$ vérifie $P$, et il reste à montrer que $V \to W$ vérifie $P$.
+La question est ainsi ramenée au cas des morphismes de schémas
+traité dans le
+lemme \ref{descent-lemma-curiosity} de Descente.
+\end{proof}
+
+\noindent
+Un cas plus usuel du lemme précédent est le suivant.
+(La version « plate » découle de
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-flat-permanence}.)
+
+\begin{lemma}
+\label{lemma-flat-finitely-presented-permanence}
+Soit $S$ un schéma. Considérons le diagramme suivant
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+de morphismes d'espaces algébriques sur $S$, supposé commutatif.
+Supposons que $f$ soit surjectif, plat et localement de présentation finie
+et que $p$ soit localement de présentation finie (resp.\ localement
+de type fini). Alors $q$ est localement de présentation finie
+(resp.\ localement de type fini).
+\end{lemma}
+
+\begin{proof}
+Puisque $\{X \to Y\}$ est un recouvrement fppf, il induit une surjection de
+faisceaux fppf (Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-fppf-covering-surjective}); le
+lemme est donc un cas particulier du lemme \ref{lemma-curiosity}.
+On peut aussi le déduire plus directement de
+l'analogue pour les schémas. La question est en effet locale pour la topologie \'etale
+sur $B$ et sur $Y$ (Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-finite-type-local} et
+\ref{spaces-morphisms-lemma-finite-presentation-local}).
+Nous pouvons donc supposer que $B$ et $Y$ sont des
+schémas affines. Comme l'application $|X| \to |Y|$ est ouverte
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-fppf-open}),
+nous pouvons choisir un
+schéma affine $U$ et un morphisme \'etale $U \to X$ tel que le
+morphisme composé $U \to Y$ soit surjectif. Dans ce cas, le résultat
+se déduit de Descente, lemme
+\ref{descent-lemma-flat-finitely-presented-permanence}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-syntomic-smooth-etale-permanence}
+Soit $S$ un schéma. Considérons le diagramme suivant
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+de morphismes d'espaces algébriques sur $S$, supposé commutatif.
+Supposons que
+\begin{enumerate}
+\item $f$ soit surjectif et syntomique (resp.\ lisse, resp.\ \'etale),
+\item $p$ soit syntomique (resp.\ lisse, resp.\ \'etale).
+\end{enumerate}
+Alors $q$ est syntomique (resp.\ lisse, resp.\ \'etale).
+\end{lemma}
+
+\begin{proof}
+Le résultat se déduit de l'analogue pour les schémas.
+La question est en effet locale pour la topologie \'etale sur $B$ et sur $Y$
+(Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-syntomic-local},
+\ref{spaces-morphisms-lemma-smooth-local}, et
+\ref{spaces-morphisms-lemma-etale-local}).
+Nous pouvons donc supposer que $B$ et $Y$ sont des
+schémas affines. Comme l'application $|X| \to |Y|$ est ouverte
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-fppf-open}),
+nous pouvons choisir un
+schéma affine $U$ et un morphisme \'etale $U \to X$ tel que le
+morphisme composé $U \to Y$ soit surjectif. Dans ce cas, le résultat
+se déduit de Descente, lemme
+\ref{descent-lemma-syntomic-smooth-etale-permanence}.
+\end{proof}
+
+\noindent
+En fait, ce résultat peut être renforcé comme suit.
+
+\begin{lemma}
+\label{lemma-smooth-permanence}
+Soit $S$ un schéma. Considérons le diagramme suivant
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+de morphismes d'espaces algébriques sur $S$, supposé commutatif. Supposons que
+\begin{enumerate}
+\item $f$ soit surjectif, plat et localement de présentation finie,
+\item $p$ soit lisse (resp.\ \'etale).
+\end{enumerate}
+Alors $q$ est lisse (resp.\ \'etale).
+\end{lemma}
+
+\begin{proof}
+Le résultat se déduit de l'analogue pour les schémas.
+La question est en effet locale pour la topologie \'etale sur $B$ et sur $Y$
+(Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-smooth-local} et
+\ref{spaces-morphisms-lemma-etale-local}).
+Nous pouvons donc supposer que $B$ et $Y$ sont des
+schémas affines. Comme l'application $|X| \to |Y|$ est ouverte
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-fppf-open}),
+nous pouvons choisir un
+schéma affine $U$ et un morphisme \'etale $U \to X$ tel que le
+morphisme composé $U \to Y$ soit surjectif. Dans ce cas, le résultat
+se déduit de Descente, lemme
+\ref{descent-lemma-smooth-permanence}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-syntomic-permanence}
+Soit $S$ un schéma. Considérons le diagramme suivant
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+de morphismes d'espaces algébriques sur $S$, supposé commutatif. Supposons que
+\begin{enumerate}
+\item $f$ soit surjectif, plat et localement de présentation finie,
+\item $p$ soit syntomique.
+\end{enumerate}
+Alors $q$ et $f$ sont tous deux syntomiques.
+\end{lemma}
+
+\begin{proof}
+Le résultat se déduit de l'analogue pour les schémas.
+La question est en effet locale pour la topologie \'etale sur $B$ et sur $Y$
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-syntomic-local}).
+Nous pouvons donc supposer que $B$ et $Y$ sont des
+schémas affines. Comme l'application $|X| \to |Y|$ est ouverte
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-fppf-open}),
+nous pouvons choisir un
+schéma affine $U$ et un morphisme \'etale $U \to X$ tel que le
+morphisme composé $U \to Y$ soit surjectif. Dans ce cas, le résultat
+se déduit de Descente, lemme
+\ref{descent-lemma-syntomic-permanence}.
+\end{proof}
+% preserved blank authority line 843
+% preserved blank authority line 844
+% preserved blank authority line 845
+% preserved blank authority line 846
+% preserved blank authority line 847
+% preserved blank authority line 848
+
+
+
+
+\section{Descente de propriétés des espaces}
+\label{section-descending-properties-spaces}
+
+\noindent
+Dans cette section, nous rassemblons quelques résultats du type suivant.
+
+\begin{lemma}
+\label{lemma-descend-unibranch}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $x \in |X|$.
+Si $f$ est plat en $x$ et si $X$ est géométriquement unibranche en $x$, alors $Y$ est
+géométriquement unibranche en $f(x)$.
+\end{lemma}
+
+\begin{proof}
+Considérons l'homomorphisme d'anneaux strictement locaux
+$\mathcal{O}_{Y, f(\overline{x})} \to \mathcal{O}_{X, \overline{x}}$.
+Par
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-flat-at-point-etale-local-rings}
+celui-ci est plat. Ainsi, si $\mathcal{O}_{X, \overline{x}}$ possède un unique idéal premier minimal,
+il en va de même de $\mathcal{O}_{Y, f(\overline{x})}$ (par le théorème de descente des idéaux premiers, voir
+Algèbre, lemme \ref{algebra-lemma-flat-going-down}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-reduced}
+\begin{slogan}
+Un morphisme plat et surjectif d'espaces algébriques dont la source est réduite
+a un but réduit.
+\end{slogan}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Si $f$ est plat et surjectif et si $X$ est réduit, alors $Y$ est réduit.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif
+$U \to X \times_Y V$. Comme $f$ est surjectif et plat, le morphisme de
+schémas $U \to V$ est surjectif et plat. Nous nous ramenons ainsi
+au cas des schémas (le caractère réduit de $X$ et de $Y$ étant défini
+en termes du caractère réduit de $U$ et de $V$, voir
+Propriétés des espaces,
+section \ref{spaces-properties-section-types-properties}).
+Le cas des schémas est traité dans
+Descente, lemme \ref{descent-lemma-descend-reduced}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-locally-Noetherian}
+Soit $f : X \to Y$ un morphisme d'espaces algébriques.
+Si $f$ est localement de présentation finie, plat et surjectif et si
+$X$ est localement noethérien, alors $Y$ est localement noethérien.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif
+$U \to X \times_Y V$. Comme $f$ est surjectif, plat et localement de
+présentation finie, le morphisme de schémas $U \to V$ est surjectif, plat et
+localement de présentation finie. Nous nous ramenons ainsi
+au cas des schémas (la propriété, pour $X$ et $Y$, d'être localement noethériens
+étant définie par la même propriété pour $U$ et $V$, voir
+Propriétés des espaces,
+section \ref{spaces-properties-section-types-properties}).
+Dans le cas des schémas, le résultat découle de
+Descente, lemme \ref{descent-lemma-Noetherian-local-fppf}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-regular}
+Soit $f : X \to Y$ un morphisme d'espaces algébriques.
+Si $f$ est localement de présentation finie, plat et surjectif et si
+$X$ est régulier, alors $Y$ est régulier.
+\end{lemma}
+
+\begin{proof}
+Par
+le lemme \ref{lemma-descend-locally-Noetherian}
+nous savons que $Y$ est localement noethérien.
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Il suffit de montrer que tous les anneaux locaux de $V$ sont réguliers ;
+voir
+Propriétés, lemme \ref{properties-lemma-characterize-regular}.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif
+$U \to X \times_Y V$. Comme $f$ est surjectif et plat, le morphisme de schémas
+$U \to V$ est surjectif et plat. Par hypothèse, $U$ est un schéma régulier
+et, en particulier, tous ses anneaux locaux sont réguliers (d'après le lemme ci-dessus).
+Le lemme découle donc de
+Algèbre, lemme \ref{algebra-lemma-flat-under-regular}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduced-local-smooth}
+Soit $f : X \to Y$ un morphisme lisse d'espaces algébriques.
+Si $Y$ est réduit, alors $X$ est réduit. Si $f$ est surjectif
+et si $X$ est réduit, alors $Y$ est réduit.
+\end{lemma}
+
+\begin{proof}
+Choisissons un diagramme commutatif
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+où $U$ et $V$ sont des schémas, les flèches verticales sont surjectives et
+\'etales, et $U \to X \times_Y V$ est surjectif et \'etale. Observons que $X$ est
+un espace algébrique réduit si et seulement si $U$ est un schéma réduit
+par notre définition des espaces algébriques réduits dans
+Propriétés des espaces, section \ref{spaces-properties-section-types-properties}.
+De même pour $Y$ et $V$. 
+Le morphisme $U \to V$ est un morphisme lisse de schémas, voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-smooth-local}.
+Puisque le caractère réduit est local pour la topologie lisse dans la catégorie des
+schémas (Descente, lemme \ref{descent-lemma-reduced-local-smooth}),
+il s'ensuit que $U$ est réduit si $V$ est réduit.
+D'autre part, si $X \to Y$ est surjectif, alors $U \to V$ est
+surjectif et, dans ce cas, si $U$ est réduit, alors $V$ est réduit.
+\end{proof}
+
+
+
+
+
+
+
+\section{Descente de propriétés des morphismes}
+\label{section-descending-properties-morphisms}
+
+\noindent
+Dans cette section, nous définissons ce que signifie, pour une propriété des morphismes
+d'espaces algébriques, être locale sur le but pour une topologie. Comparer avec
+Descente, section \ref{descent-section-descending-properties-morphisms}.
+
+\begin{definition}
+\label{definition-property-morphisms-local}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$.
+Soit $\tau \in \{fpqc, fppf, syntomic, smooth, \etale\}$.
+On dit que $\mathcal{P}$ est {\it $\tau$-locale sur la base}, ou
+{\it $\tau$-locale sur le but}, ou
+{\it locale sur la base pour la topologie $\tau$} si, pour tout
+$\tau$-recouvrement $\{Y_i \to Y\}_{i \in I}$ d'espaces algébriques
+et tout morphisme d'espaces algébriques $f : X \to Y$, on
+a
+$$
+f \text{ vérifie }\mathcal{P}
+\Leftrightarrow
+\text{chaque }Y_i \times_Y X \to Y_i\text{ vérifie }\mathcal{P}.
+$$
+\end{definition}
+
+\noindent
+Bien entendu, puisque les isomorphismes sont toujours des recouvrements,
+on voit (ou l'on exige) que la propriété $\mathcal{P}$ est vérifiée par $X \to Y$
+si et seulement si toute flèche $X' \to Y'$ isomorphe à $X \to Y$ la vérifie.
+Si une propriété est $\tau$-locale sur le but, elle est préservée
+par changement de base le long de morphismes figurant dans des $\tau$-recouvrements. Voici
+un énoncé formel.
+
+\begin{lemma}
+\label{lemma-pullback-property-local-target}
+Soit $S$ un schéma.
+Soit $\tau \in \{fpqc, fppf, syntomic, smooth, \etale\}$.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$
+qui est $\tau$-locale sur le but. Soit $f : X \to Y$ un morphisme vérifiant la propriété
+$\mathcal{P}$. Pour tout morphisme $Y' \to Y$ qui est
+plat, resp.\ plat et localement de présentation finie, resp.\ syntomique,
+resp.\ \'etale, le changement de base
+$f' : Y' \times_Y X \to Y'$ de $f$ vérifie la propriété $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que l'on peut compléter $Y' \to Y$ en une famille de
+morphismes qui constitue un $\tau$-recouvrement.
+\end{proof}
+
+\noindent
+Une conséquence simple et souvent utilisée de ce qui précède est la suivante. Si
+$f : X \to Y$ vérifie la propriété $\mathcal{P}$, laquelle est $\tau$-locale
+sur le but, et si $f(X) \subset V$
+pour un certain sous-espace ouvert $V \subset Y$, alors le morphisme induit
+$X \to V$ vérifie encore $\mathcal{P}$. Démonstration : le changement de base de
+$f$ par $V \to Y$ donne $X \to V$.
+
+\begin{lemma}
+\label{lemma-largest-open-of-the-base}
+Soit $S$ un schéma.
+Soit $\tau \in \{fppf, syntomic, smooth, \etale\}$.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$
+qui est $\tau$-locale sur le but. Pour tout morphisme d'espaces algébriques
+$f : X \to Y$ sur $S$, il existe un plus grand sous-espace ouvert
+$W(f) \subset Y$ tel que la restriction $X_{W(f)} \to W(f)$ vérifie
+$\mathcal{P}$. En outre,
+\begin{enumerate}
+\item si $g : Y' \to Y$ est un morphisme d'espaces algébriques qui est
+plat et localement de présentation finie, syntomique, lisse ou \'etale,
+et si le changement de base $f' : X_{Y'} \to Y'$ vérifie $\mathcal{P}$, alors
+$g$ se factorise par $W(f)$,
+\item si $g : Y' \to Y$ est plat et localement de présentation finie,
+syntomique, lisse ou \'etale, alors $W(f') = g^{-1}(W(f))$, et
+\item si $\{g_i : Y_i \to Y\}$ est un $\tau$-recouvrement, alors
+$g_i^{-1}(W(f)) = W(f_i)$, où $f_i$ est le changement de base de $f$
+par $Y_i \to Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Considérons la réunion $W_{set} \subset |Y|$ des images
+$g(|Y'|) \subset |Y|$ des morphismes $g : Y' \to Y$ satisfaisant aux conditions suivantes :
+\begin{enumerate}
+\item $g$ est plat et localement de présentation finie, syntomique,
+lisse ou \'etale, et
+\item le changement de base $Y' \times_{g, Y} X \to Y'$ vérifie la propriété
+$\mathcal{P}$.
+\end{enumerate}
+Comme un tel morphisme $g$ est ouvert (voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-fppf-open}),
+on voit que $W_{set}$ est une partie ouverte de $|Y|$. Notons $W \subset Y$
+le sous-espace ouvert dont l'ensemble de points est $W_{set}$, voir
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-open-subspaces}.
+Comme $\mathcal{P}$ est locale pour la topologie $\tau$, la restriction
+$X_W \to W$ vérifie la propriété $\mathcal{P}$, car on dispose d'un recouvrement
+$\{Y' \to W\}$ de $W$ tel que les changements de base vérifient $\mathcal{P}$.
+Cela établit l'existence et montre que $W(f)$ satisfait à (1).
+Pour établir (2), remarquons que $W(f') \supset g^{-1}(W(f))$, car
+$\mathcal{P}$ est stable par changement de base le long de morphismes plats et localement de
+présentation finie, syntomiques, lisses ou \'etales ; voir
+le lemme \ref{lemma-pullback-property-local-target}.
+Réciproquement, si $Y'' \subset Y'$ est un ouvert tel que
+$X_{Y''} \to Y''$ vérifie la propriété $\mathcal{P}$, alors $Y'' \to Y$ se factorise
+par $W$ en vertu de la construction, c'est-à-dire $Y'' \subset g^{-1}(W(f))$. Cela
+prouve (2). L'assertion (3) découle de (2), car chaque morphisme
+$Y_i \to Y$ est plat et localement de présentation finie, syntomique,
+lisse ou \'etale d'après notre définition d'un $\tau$-recouvrement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-properties-morphisms}
+Soit $S$ un schéma. Soit $\mathcal{P}$ une propriété des morphismes
+d'espaces algébriques sur $S$. Supposons que
+\begin{enumerate}
+\item si les morphismes $X_i \to Y_i$, $i = 1, 2$, vérifient la propriété $\mathcal{P}$, alors
+$X_1 \amalg X_2 \to Y_1 \amalg Y_2$ la vérifie aussi,
+\item un morphisme d'espaces algébriques $f : X \to Y$ vérifie la propriété
+$\mathcal{P}$ si et seulement si, pour tout schéma affine $Z$ et tout
+morphisme $Z \to Y$, le changement de base $Z \times_Y X \to Z$ de $f$
+vérifie la propriété $\mathcal{P}$, et
+\item pour tout morphisme plat et surjectif de schémas affines
+$Z' \to Z$ sur $S$ et tout morphisme $f : X \to Z$ d'un espace algébrique
+vers $Z$, on a
+$$
+f' : Z' \times_Z X \to Z'\text{ vérifie }\mathcal{P}
+\Rightarrow
+f\text{ vérifie }\mathcal{P}.
+$$
+\end{enumerate}
+Alors $\mathcal{P}$ est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Si $\mathcal{P}$ satisfait à la condition (2), elle est automatiquement
+stable par tout changement de base. L'implication directe de la
+définition \ref{definition-property-morphisms-local} est donc acquise.
+
+\medskip\noindent
+Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement fpqc d'espaces algébriques sur $S$.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Supposons que chaque changement de base $f_i : Y_i \times_Y X \to Y_i$ vérifie la propriété
+$\mathcal{P}$. Nous voulons montrer que $f$ vérifie $\mathcal{P}$.
+Soit $Z$ un schéma affine et soit $Z \to Y$ un morphisme.
+D'après (2), il suffit de montrer que le morphisme d'espaces algébriques
+$Z \times_Y X \to Z$ vérifie $\mathcal{P}$.
+Puisque $\{Y_i \to Y\}_{i \in I}$ est un recouvrement fpqc, il existe
+un recouvrement fpqc standard $\{Z_j \to Z\}_{j = 1, \ldots , n}$
+et des morphismes $Z_j \to Y_{i_j}$ au-dessus de $Y$, pour des indices convenables $i_j \in I$.
+Puisque $f_{i_j}$ vérifie $\mathcal{P}$, on voit que
+$$
+Z_j \times_Y X
+=
+Z_j \times_{Y_{i_j}} (Y_{i_j} \times_Y X)
+\longrightarrow
+Z_j
+$$
+vérifie $\mathcal{P}$, car c'est un changement de base de $f_{i_j}$ (voir la première remarque de la
+démonstration). Posons $Z' = \coprod_{j = 1, \ldots, n} Z_j$ ; alors $Z' \to Z$ est
+un morphisme plat et surjectif de schémas affines sur $S$. D'après (1),
+on conclut que $Z' \times_Y X \to Z'$ vérifie la propriété $\mathcal{P}$.
+Comme il s'agit du changement de base du morphisme $Z \times_Y X \to Z$
+par le morphisme $Z' \to Z$, on conclut que
+$Z \times_Y X \to Z$ vérifie la propriété $\mathcal{P}$, comme souhaité.
+\end{proof}
+	
+	
+\section{Descente de propriétés des morphismes pour la topologie fpqc}
+\sectionmark{Descente de propriétés pour la topologie fpqc}
+\label{section-descending-properties-morphisms-fpqc}
+
+
+\noindent
+Dans cette section, nous montrons qu'un grand nombre de propriétés
+de morphismes d'espaces algébriques sont locales sur la base
+pour la topologie fpqc. Comparer avec
+Descente, section \ref{descent-section-descending-properties-morphisms-fpqc}
+pour le cas des morphismes de schémas.
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-compact}
+Soit $S$ un schéma.
+La propriété $\mathcal{P}(f) =$``$f$ est quasi-compact''
+est locale sur la base pour la topologie fpqc dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-quasi-compact-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit quasi-compact. Il faut
+montrer que $f$ est quasi-compact. Il résulte de nouveau de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-quasi-compact-local},
+qu'il suffit de montrer que, pour tout schéma affine $Y$ et tout
+morphisme $Y \to Z$, le produit fibré $Y \times_Z X$ est quasi-compact.
+Voici le diagramme correspondant :
+\begin{equation}
+\label{equation-cube}
+\vcenter{
+\xymatrix{
+Y \times_Z Z' \times_Z X \ar[dd] \ar[rr] \ar[rd] & &
+Z' \times_Z X \ar'[d][dd]^{f'} \ar[rd] \\
+& Y \times_Z X \ar[dd] \ar[rr] & & X \ar[dd]^f \\
+Y \times_Z Z' \ar'[r][rr] \ar[rd] & & Z' \ar[rd] \\
+& Y \ar[rr] & & Z
+}
+}
+\end{equation}
+Tous les carrés sont cartésiens, et le carré inférieur est formé
+de schémas affines. L'hypothèse selon laquelle $f'$ est quasi-compact, jointe au
+fait que $Y \times_Z Z'$ est affine, implique que
+$Y \times_Z Z' \times_Z X$ est quasi-compact. Comme
+$$
+Y \times_Z Z' \times_Z X \longrightarrow Y \times_Z X
+$$
+est surjectif, puisqu'il s'obtient par changement de base à partir de $Z' \to Z$,
+on en conclut que $Y \times_Z X$ est quasi-compact ; voir
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-surjection-from-quasi-compact}.
+Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-separated}
+Soit $S$ un schéma.
+La propriété $\mathcal{P}(f) =$``$f$ est quasi-séparé''
+est locale sur la base pour la topologie fpqc dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Tout changement de base d'un morphisme quasi-séparé est quasi-séparé ; voir
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-separated}.
+On obtient donc le sens direct de la
+définition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement fpqc d'espaces algébriques sur $S$.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Supposons que chaque changement de base $X_i := Y_i \times_Y X \to Y_i$ soit quasi-séparé.
+Cela signifie que chacun des morphismes
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+est quasi-compact. Le changement de base d'un recouvrement fpqc est un recouvrement fpqc ; voir
+Topologies sur les espaces, Lemme \ref{spaces-topologies-lemma-fpqc} ;
+ainsi, $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+est un recouvrement fpqc d'espaces algébriques. De plus, chaque
+$\Delta_i$ est le changement de base du morphisme
+$\Delta : X \to X \times_Y X$. Il résulte donc du
+lemme \ref{lemma-descending-property-quasi-compact}
+que $\Delta$ est quasi-compact, c'est-à-dire que $f$ est quasi-séparé.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-closed}
+Soit $S$ un schéma.
+La propriété $\mathcal{P}(f) =$``$f$ est universellement fermé''
+est locale sur la base pour la topologie fpqc dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-universally-closed-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit universellement fermé.
+Il faut montrer que $f$ est universellement fermé. Il résulte de nouveau de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-universally-closed-local},
+qu'il suffit de montrer que, pour tout schéma affine $Y$ et tout
+morphisme $Y \to Z$, l'application $|Y \times_Z X| \to |Y|$ est fermée.
+Considérons le cube (\ref{equation-cube}).
+L'hypothèse selon laquelle $f'$ est universellement fermé implique que
+$|Y \times_Z Z' \times_Z X| \to |Y \times_Z Z'|$ est fermée.
+Comme $Y \times_Z Z' \to Y$ est quasi-compact, surjectif et plat,
+puisqu'il s'obtient par changement de base à partir de $Z' \to Z$,
+l'application $|Y \times_Z Z'| \to |Y|$ est submersive ; voir
+Morphismes, Lemme \ref{morphisms-lemma-fpqc-quotient-topology}.
+De plus, l'application
+$$
+|Y \times_Z Z' \times_Z X|
+\longrightarrow
+|Y \times_Z Z'| \times_{|Y|} |Y \times_Z X|
+$$
+est surjective ; voir
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-points-cartesian}.
+Il résulte de la topologie élémentaire que $|Y \times_Z X| \to |Y|$ est fermée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-open}
+Soit $S$ un schéma.
+La propriété $\mathcal{P}(f) =$``$f$ est universellement ouvert''
+est locale sur la base pour la topologie fpqc dans la catégorie des espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+La démonstration est identique à celle du
+lemme \ref{lemma-descending-property-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-submersive}
+La propriété $\mathcal{P}(f) =$``$f$ est universellement submersif''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+La démonstration est identique à celle du
+lemme \ref{lemma-descending-property-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-surjective}
+La propriété $\mathcal{P}(f) =$``$f$ est surjectif''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. (Indication : utiliser
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-points-cartesian}.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-injective}
+La propriété $\mathcal{P}(f) =$``$f$ est universellement injectif''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-universally-closed-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines
+sur $S$, et soit $f : X \to Z$ un morphisme d'un espace algébrique vers $Z$.
+Supposons que le changement de base $f' : X' \to Z'$ soit universellement injectif.
+Soit $K$ un corps, et soient $a, b : \Spec(K) \to X$
+deux morphismes tels que $f \circ a = f \circ b$.
+Comme $Z' \to Z$ est surjectif, il existe une extension de corps
+$K'/K$ et un morphisme
+$\Spec(K') \to Z'$
+de sorte que le diagramme suivant, où les flèches pleines sont données, soit commutatif :
+$$
+\xymatrix{
+\Spec(K') \ar[rrd] \ar@{-->}[rd]_{a', b'} \ar[dd] \\
+ &
+X' \ar[r] \ar[d] &
+Z' \ar[d] \\
+\Spec(K) \ar[r]^{a, b} &
+X \ar[r] &
+Z
+}
+$$
+Comme le carré est cartésien, on obtient les deux flèches pointillées $a'$, $b'$ qui rendent le
+diagramme commutatif. Puisque $X' \to Z'$ est universellement injectif, on a $a' = b'$.
+Cela entraîne $a = b$, car $\{\Spec(K') \to \Spec(K)\}$
+est un recouvrement fpqc ; voir
+Propriétés des espaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc}.
+Ainsi, $f$ est universellement injectif, ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universal-homeomorphism}
+La propriété $\mathcal{P}(f) =$``$f$ est un homéomorphisme universel''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+On peut le démontrer exactement de la même manière que dans le
+lemme \ref{lemma-descending-property-universally-closed}.
+On peut aussi utiliser le fait qu'une application d'espaces topologiques est un
+homéomorphisme si et seulement si elle est injective, surjective et ouverte.
+Ainsi, un homéomorphisme universel équivaut à un morphisme
+surjectif, universellement injectif et universellement ouvert.
+Voir Morphismes des espaces, Lemme
+\ref{spaces-morphisms-lemma-base-change-surjective} et
+Morphismes des espaces, Définitions
+\ref{spaces-morphisms-definition-universally-injective},
+\ref{spaces-morphisms-definition-surjective},
+\ref{spaces-morphisms-definition-open},
+\ref{spaces-morphisms-definition-universal-homeomorphism}.
+Le lemme résulte donc des
+lemmes \ref{lemma-descending-property-surjective},
+\ref{lemma-descending-property-universally-injective} et
+\ref{lemma-descending-property-universally-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-locally-finite-type}
+La propriété $\mathcal{P}(f) =$``$f$ est localement de type fini''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-finite-type-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit localement de type fini.
+Il faut montrer que $f$ est localement de type fini. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-finite-type-local},
+il suffit encore de montrer que $U \to Z$ est localement de type fini.
+Puisque $f'$ est localement de type fini et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est localement de type fini.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est localement de type fini d'après
+Descente, Lemme \ref{descent-lemma-descending-property-locally-finite-type},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-locally-finite-presentation}
+La propriété $\mathcal{P}(f) =$``$f$ est localement de présentation finie''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-finite-presentation-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit localement de
+présentation finie.
+Il faut montrer que $f$ est localement de présentation finie. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-finite-presentation-local},
+il suffit encore de montrer que $U \to Z$ est localement de présentation finie.
+Puisque $f'$ est localement de présentation finie et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est localement de présentation finie.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est localement de présentation finie d'après
+Descente,
+Lemme \ref{descent-lemma-descending-property-locally-finite-presentation},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite-type}
+La propriété $\mathcal{P}(f) =$``$f$ est de type fini''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Il suffit de combiner les lemmes \ref{lemma-descending-property-quasi-compact}
+et \ref{lemma-descending-property-locally-finite-type}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite-presentation}
+La propriété $\mathcal{P}(f) =$``$f$ est de présentation finie''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Il suffit de combiner les lemmes \ref{lemma-descending-property-quasi-compact},
+\ref{lemma-descending-property-quasi-separated} et
+\ref{lemma-descending-property-locally-finite-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-flat}
+La propriété $\mathcal{P}(f) =$``$f$ est plat''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-flat-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit plat.
+Il faut montrer que $f$ est plat. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-flat-local},
+il suffit encore de montrer que $U \to Z$ est plat.
+Puisque $f'$ est plat et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est plat.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est plat d'après
+Descente, Lemme \ref{descent-lemma-descending-property-flat},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-open-immersion}
+La propriété $\mathcal{P}(f) =$``$f$ est une immersion ouverte''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-closed-immersion-local}.
+Considérons un diagramme cartésien
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+d'espaces algébriques sur $S$
+où $Z' \to Z$ est un morphisme plat et surjectif de schémas affines
+et $X' \to Z'$ une immersion ouverte. Il faut montrer que $X \to Z$
+est une immersion ouverte. L'ouvert $|X'| \subset |Z'|$ correspond à un
+sous-schéma ouvert $U' \subset Z'$ (isomorphe à $X'$)
+tel que $\text{pr}_0^{-1}(U') = \text{pr}_1^{-1}(U')$
+comme sous-schémas ouverts de $Z' \times_Z Z'$. Il existe donc un
+sous-schéma ouvert $U \subset Z$ tel que $X' = (Z' \to Z)^{-1}(U)$ ; voir
+Descente, Lemme \ref{descent-lemma-open-fpqc-covering}.
+D'après Propriétés des espaces,
+Proposition \ref{spaces-properties-proposition-sheaf-fpqc},
+on voit que $X$ vérifie la condition de faisceau pour la topologie fpqc.
+Nous avons maintenant le recouvrement fpqc $\mathcal{U} = \{U' \to U\}$
+et l'élément $U' \to X' \to X \in \check{H}^0(\mathcal{U}, X)$.
+La condition de faisceau fournit un morphisme $U \to X$ tel que
+$$
+\xymatrix{
+U' \ar[r] \ar[d]^{\cong} \ar@/_3ex/[dd] & U \ar[d] \ar@/^3ex/[dd] \\
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+soit commutatif. D'autre part, pour tout schéma $T$ sur $S$
+et tout point à valeurs dans $T$, c'est-à-dire tout morphisme $T \to X$, le composé $T \to X \to Z$ est un
+morphisme tel que $Z' \times_Z T \to Z'$ se factorise par $U'$. Cela
+signifie que $T \to Z$ se factorise par $U$. Autrement dit, le morphisme
+de faisceaux $U \to X$ est bijectif, ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-isomorphism}
+La propriété $\mathcal{P}(f) =$``$f$ est un isomorphisme''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Il suffit de combiner les lemmes \ref{lemma-descending-property-surjective}
+et \ref{lemma-descending-property-open-immersion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-affine}
+La propriété $\mathcal{P}(f) =$``$f$ est affine''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-affine-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit affine.
+Soit $X'$ un schéma représentant $Z' \times_Z X$.
+On obtient un isomorphisme canonique
+$$
+\varphi : X' \times_Z Z' \longrightarrow Z' \times_Z X'
+$$
+car les deux schémas représentent l'espace algébrique $Z' \times_Z Z' \times_Z X$.
+C'est une donnée de descente pour $X'/Z'/Z$ ; voir
+Descente, Définition \ref{descent-definition-descent-datum}
+(vérification omise ; comparer avec
+Descente, Lemme \ref{descent-lemma-descent-data-sheaves}).
+Puisque $X' \to Z'$ est affine, cette donnée de descente est effective ; voir
+Descente, Lemme \ref{descent-lemma-affine}.
+Il existe donc un schéma $Y \to Z$ sur $Z$, ainsi qu'un
+isomorphisme $\psi : Z' \times_Z Y \to X'$ compatible avec les données de descente.
+Bien entendu, $Y \to Z$ est affine (par construction ou d'après
+Descente, Lemme \ref{descent-lemma-descending-property-affine}).
+Remarquons que $\mathcal{Y} = \{Z' \times_Z Y \to Y\}$ est un
+recouvrement fpqc. En interprétant $\psi$ comme un élément de
+$X(Z' \times_Z Y)$, on voit que $\psi \in \check{H}^0(\mathcal{Y}, X)$.
+La condition de faisceau pour $X$ relativement à ce recouvrement (voir
+Propriétés des espaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc})
+fournit un morphisme $Y \to X$.
+Par construction, le changement de base de ce morphisme par $Z'$ est un isomorphisme ; le morphisme lui-même est donc
+un isomorphisme d'après le
+lemme \ref{lemma-descending-property-isomorphism}.
+Cela prouve que $X$ est représentable par un schéma affine, ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-closed-immersion}
+La propriété $\mathcal{P}(f) =$``$f$ est une immersion fermée''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-closed-immersion-local}.
+Considérons un diagramme cartésien
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+d'espaces algébriques sur $S$
+où $Z' \to Z$ est un morphisme plat et surjectif de schémas affines
+et $X' \to Z'$ une immersion fermée. Il faut montrer que $X \to Z$
+est une immersion fermée. Le morphisme $X' \to Z'$ est affine. D'après le
+lemme \ref{lemma-descending-property-affine},
+on voit que $X$ est un schéma et que $X \to Z$ est affine.
+Il résulte de
+Descente, Lemme \ref{descent-lemma-descending-property-closed-immersion},
+que $X \to Z$ est une immersion fermée, ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-separated}
+La propriété $\mathcal{P}(f) =$``$f$ est séparé''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Tout changement de base d'un morphisme séparé est séparé ; voir
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-base-change-separated}.
+Cela donne donc l'implication directe de la
+définition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement fpqc d'espaces algébriques sur $S$.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Supposons que chaque changement de base $X_i := Y_i \times_Y X \to Y_i$ soit séparé.
+Cela signifie que chacun des morphismes
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+est une immersion fermée. Le changement de base d'un recouvrement fpqc est un
+recouvrement fpqc ; voir
+Topologies sur les espaces, Lemme \ref{spaces-topologies-lemma-fpqc} ;
+ainsi, $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+est un recouvrement fpqc d'espaces algébriques. De plus, chaque
+$\Delta_i$ est le changement de base du morphisme
+$\Delta : X \to X \times_Y X$. Il résulte donc du
+lemme \ref{lemma-descending-property-closed-immersion}
+que $\Delta$ est une immersion fermée, c'est-à-dire que $f$ est séparé.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-proper}
+La propriété $\mathcal{P}(f) =$``$f$ est propre''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Le lemme résulte de la combinaison des
+lemmes \ref{lemma-descending-property-universally-closed},
+\ref{lemma-descending-property-separated}
+et \ref{lemma-descending-property-finite-type}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-affine}
+La propriété $\mathcal{P}(f) =$``$f$ est quasi-affine''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-quasi-affine-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit quasi-affine.
+Soit $X'$ un schéma représentant $Z' \times_Z X$.
+On obtient un isomorphisme canonique
+$$
+\varphi : X' \times_Z Z' \longrightarrow Z' \times_Z X'
+$$
+car les deux schémas représentent l'espace algébrique $Z' \times_Z Z' \times_Z X$.
+C'est une donnée de descente pour $X'/Z'/Z$ ; voir
+Descente, Définition \ref{descent-definition-descent-datum}
+(vérification omise ; comparer avec
+Descente, Lemme \ref{descent-lemma-descent-data-sheaves}).
+Puisque $X' \to Z'$ est quasi-affine, cette donnée de descente est effective ; voir
+Descente, Lemme \ref{descent-lemma-quasi-affine}.
+Il existe donc un schéma $Y \to Z$ sur $Z$, ainsi qu'un
+isomorphisme $\psi : Z' \times_Z Y \to X'$ compatible avec les données de descente.
+Bien entendu, $Y \to Z$ est quasi-affine (par construction ou d'après
+Descente, Lemme \ref{descent-lemma-descending-property-quasi-affine}).
+Remarquons que $\mathcal{Y} = \{Z' \times_Z Y \to Y\}$ est un
+recouvrement fpqc. En interprétant $\psi$ comme un élément de
+$X(Z' \times_Z Y)$, on voit que $\psi \in \check{H}^0(\mathcal{Y}, X)$.
+La condition de faisceau pour $X$ (voir
+Propriétés des espaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc})
+fournit un morphisme $Y \to X$.
+Par construction, le changement de base de ce morphisme par $Z'$ est un isomorphisme ; il est donc
+un isomorphisme d'après le
+lemme \ref{lemma-descending-property-isomorphism}.
+Cela prouve que $X$ est représentable par un schéma quasi-affine, ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-compact-immersion}
+La propriété $\mathcal{P}(f) =$``$f$ est une immersion quasi-compacte''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemmes \ref{spaces-morphisms-lemma-closed-immersion-local} et
+\ref{spaces-morphisms-lemma-quasi-compact-local}.
+Considérons un diagramme cartésien
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+d'espaces algébriques sur $S$
+où $Z' \to Z$ est un morphisme plat et surjectif de schémas affines
+et $X' \to Z'$ une immersion quasi-compacte. Il faut montrer que $X \to Z$
+est une immersion quasi-compacte. Le morphisme $X' \to Z'$ est quasi-affine. D'après le
+lemme \ref{lemma-descending-property-quasi-affine},
+on voit que $X$ est un schéma et que $X \to Z$ est quasi-affine.
+Il résulte de
+Descente, Lemme \ref{descent-lemma-descending-property-quasi-compact-immersion},
+que $X \to Z$ est une immersion quasi-compacte, ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-integral}
+La propriété $\mathcal{P}(f) =$``$f$ est entier''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Un morphisme est entier si et seulement s'il est affine et
+universellement fermé. Voir
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-integral-universally-closed}.
+Le lemme résulte donc de la combinaison des
+lemmes \ref{lemma-descending-property-universally-closed}
+et \ref{lemma-descending-property-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite}
+La propriété $\mathcal{P}(f) =$``$f$ est fini''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Un morphisme est fini si et seulement s'il est entier
+et localement de type fini. Voir
+Morphismes des espaces, Lemme \ref{spaces-morphisms-lemma-finite-integral}.
+Le lemme résulte donc de la combinaison des
+lemmes \ref{lemma-descending-property-locally-finite-type}
+et \ref{lemma-descending-property-integral}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-finite}
+Les propriétés
+$\mathcal{P}(f) =$``$f$ est localement quasi-fini''
+et
+$\mathcal{P}(f) =$``$f$ est quasi-fini''
+sont locales sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous avons déjà vu que la propriété ``quasi-compact'' est locale sur la base pour la topologie fpqc ; voir
+Lemme \ref{lemma-descending-property-quasi-compact}. Il suffit donc
+de démontrer le lemme pour ``localement quasi-fini''. Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-quasi-finite-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit localement quasi-fini.
+Il faut montrer que $f$ est localement quasi-fini. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-quasi-finite-local},
+il suffit encore de montrer que $U \to Z$ est localement quasi-fini.
+Puisque $f'$ est localement quasi-fini et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est localement quasi-fini.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est localement quasi-fini d'après
+Descente, Lemme \ref{descent-lemma-descending-property-quasi-finite},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-syntomic}
+La propriété $\mathcal{P}(f) =$``$f$ est syntomique''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-syntomic-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit syntomique.
+Il faut montrer que $f$ est syntomique. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-syntomic-local},
+il suffit encore de montrer que $U \to Z$ est syntomique.
+Puisque $f'$ est syntomique et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est syntomique.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est syntomique d'après
+Descente, Lemme \ref{descent-lemma-descending-property-syntomic},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-smooth}
+La propriété $\mathcal{P}(f) =$``$f$ est lisse''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-smooth-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit lisse.
+Il faut montrer que $f$ est lisse. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-smooth-local},
+il suffit encore de montrer que $U \to Z$ est lisse.
+Puisque $f'$ est lisse et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est lisse.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est lisse d'après
+Descente, Lemme \ref{descent-lemma-descending-property-smooth},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-unramified}
+La propriété $\mathcal{P}(f) =$``$f$ est non ramifié''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-unramified-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit non ramifié.
+Il faut montrer que $f$ est non ramifié. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-unramified-local},
+il suffit encore de montrer que $U \to Z$ est non ramifié.
+Puisque $f'$ est non ramifié et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est non ramifié.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est non ramifié d'après
+Descente, Lemme \ref{descent-lemma-descending-property-unramified},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-etale}
+La propriété $\mathcal{P}(f) =$``$f$ est étale''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Nous appliquerons le
+lemme \ref{lemma-descending-properties-morphisms}.
+Ses hypothèses (1) et (2) résultent de
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-etale-local}.
+Soit $Z' \to Z$ un morphisme plat et surjectif de schémas affines sur $S$.
+Soit $f : X \to Z$ un morphisme d'espaces algébriques, et supposons
+que le changement de base $f' : Z' \times_Z X \to Z'$ soit étale.
+Il faut montrer que $f$ est étale. Soit $U$ un schéma
+et soit $U \to X$ un morphisme étale surjectif. D'après
+Morphismes des espaces,
+Lemme \ref{spaces-morphisms-lemma-etale-local},
+il suffit encore de montrer que $U \to Z$ est étale.
+Puisque $f'$ est étale et que $Z' \times_Z U$ est un
+schéma étale sur $Z' \times_Z X$, on déduit encore du même lemme que
+$Z' \times_Z U \to Z'$ est étale.
+Comme $\{Z' \to Z\}$ est un recouvrement fpqc, on en conclut que
+$U \to Z$ est étale d'après
+Descente, Lemme \ref{descent-lemma-descending-property-etale},
+ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite-locally-free}
+La propriété $\mathcal{P}(f) =$``$f$ est fini localement libre''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Un morphisme est fini localement libre si et seulement s'il est
+fini, plat et localement de présentation finie
+(Morphismes des espaces, Lemme \ref{spaces-morphisms-lemma-finite-flat}).
+Le résultat découle donc des lemmes
+\ref{lemma-descending-property-finite},
+\ref{lemma-descending-property-flat} et
+\ref{lemma-descending-property-locally-finite-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-monomorphism}
+La propriété $\mathcal{P}(f) =$``$f$ est un monomorphisme''
+est locale sur la base pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+Soit $f : X \to Y$ un morphisme d'espaces algébriques.
+Soit $\{Y_i \to Y\}$ un recouvrement fpqc, et supposons
+que chacun des changements de base $f_i : X_i \to Y_i$ de $f$ soit
+un monomorphisme. Il faut montrer que $f$ est un monomorphisme.
+
+\medskip\noindent
+Première démonstration. Le morphisme $f$ est un monomorphisme si et seulement si
+$\Delta : X \to X \times_Y X$ est un isomorphisme. En appliquant ce critère aux
+$f_i$, on voit que chacun des morphismes
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+est un isomorphisme. Le changement de base d'un recouvrement fpqc est un recouvrement fpqc ; voir
+Topologies sur les espaces, Lemme \ref{spaces-topologies-lemma-fpqc} ;
+ainsi, $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+est un recouvrement fpqc d'espaces algébriques. De plus, chaque
+$\Delta_i$ est le changement de base du morphisme
+$\Delta : X \to X \times_Y X$. Il résulte donc du
+lemme \ref{lemma-descending-property-isomorphism}
+que $\Delta$ est un isomorphisme, c'est-à-dire que $f$ est un monomorphisme.
+
+\medskip\noindent
+Seconde démonstration.
+Soit $V$ un schéma et soit $V \to Y$ un morphisme étale surjectif.
+Si l'on peut montrer que $V \times_Y X \to V$ est un monomorphisme, alors
+$X \to Y$ est un monomorphisme. En effet, dans tout
+diagramme cartésien de faisceaux
+$$
+\vcenter{
+\xymatrix{
+\mathcal{F} \ar[r]_a \ar[d]_b & \mathcal{G} \ar[d]^c \\
+\mathcal{H} \ar[r]^d & \mathcal{I}
+}
+}
+\quad
+\quad
+\mathcal{F} = \mathcal{H} \times_\mathcal{I} \mathcal{G}
+$$
+si $c$ est un morphisme surjectif de faisceaux et si $a$ est injectif, alors
+$d$ est lui aussi injectif. Cela ramène le problème au cas où $Y$ est
+un schéma. En outre, dans ce cas, on peut supposer que les espaces algébriques
+$Y_i$ sont des schémas, puisqu'on peut toujours raffiner le recouvrement afin de se
+ramener à cette situation ; voir
+Topologies sur les espaces, Lemme \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+
+\medskip\noindent
+Supposons que $\{Y_i \to Y\}$ soit un recouvrement fpqc de schémas.
+Soient $a, b : T \to X$ deux morphismes
+tels que $f \circ a = f \circ b$. Il faut montrer que $a = b$.
+Puisque $f_i$ est un monomorphisme, on a $a_i = b_i$, où
+$a_i, b_i : Y_i \times_Y T \to X_i$ sont
+les changements de base. En particulier, les composés
+$Y_i \times_Y T \to T \to X$ sont égaux.
+Comme $\{Y_i \times_Y T \to T\}$ est un recouvrement fpqc,
+on déduit que $a = b$ d'après Propriétés des espaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc}.
+\end{proof}
+
+
+
+% preserved blank authority line 2020
+\section{Descente des propriétés des morphismes pour la topologie fppf}
+\label{section-descending-properties-morphisms-fppf}
+
+\noindent
+Nous établissons dans cette section certaines propriétés des morphismes d'espaces
+algébriques dont nous n'avons pas (encore) pu montrer qu'elles sont locales sur
+la base pour la topologie fpqc, mais qui sont locales sur la base
+pour la topologie fppf.
+
+\begin{lemma}
+\label{lemma-descending-fppf-property-immersion}
+La propriété $\mathcal{P}(f) =$``$f$ est une immersion''
+est locale sur la base pour la topologie fppf.
+\end{lemma}
+
+\begin{proof}
+Soit $f : X \to Y$ un morphisme d'espaces algébriques.
+Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement fppf de $Y$.
+Soit $f_i : X_i \to Y_i$ le changement de base de $f$.
+
+\medskip\noindent
+Si $f$ est une immersion, alors chaque $f_i$ est une immersion d'après
+Espaces, lemme \ref{spaces-lemma-base-change-immersions}.
+Cela démontre l'implication directe de la
+définition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Réciproquement, supposons que chaque $f_i$ soit une immersion. D'après
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-immersions-monomorphisms},
+chaque $f_i$ est alors séparé. D'après
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-immersion-quasi-finite},
+chaque $f_i$ est alors localement quasi-fini.
+Les lemmes \ref{lemma-descending-property-separated}
+et \ref{lemma-descending-property-quasi-finite} montrent donc que
+$f$ est localement quasi-fini et séparé.
+D'après
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable},
+il s'ensuit que $f$ est représentable !
+
+\medskip\noindent
+D'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-closed-immersion-local},
+il suffit de montrer que, pour tout schéma $Z$ et tout morphisme $Z \to Y$,
+le changement de base $Z \times_Y X \to Z$ est une immersion. D'après
+Topologies sur les espaces, lemme \ref{spaces-topologies-lemma-refine-fppf-schemes},
+on peut trouver un recouvrement fppf $\{Z_i \to Z\}$ par des schémas qui raffine
+le changement de base du recouvrement $\{Y_i \to Y\}$ à $Z$.
+Par conséquent, $Z \times_Y X \to Z$ (qui est un morphisme de schémas
+d'après le résultat du paragraphe précédent) devient une immersion
+après changement de base par chacun des morphismes d'un recouvrement fppf de $Z$ formé de schémas.
+Ainsi, $Z \times_Y X \to Z$ est une immersion d'après le résultat pour les schémas ; voir
+Descente, lemme \ref{descent-lemma-descending-fppf-property-immersion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-fppf-property-locally-separated}
+La propriété $\mathcal{P}(f) =$``$f$ est localement séparé''
+est locale sur la base pour la topologie fppf.
+\end{lemma}
+
+\begin{proof}
+Tout changement de base d'un morphisme localement séparé est localement séparé ; voir
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-base-change-separated}.
+Cela établit l'implication directe de la
+définition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement fppf d'espaces algébriques sur $S$.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Supposons que chaque changement de base $X_i := Y_i \times_Y X \to Y_i$ soit localement séparé.
+Cela signifie que chacun des morphismes
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+est une immersion. Tout changement de base d'un recouvrement fppf est un
+recouvrement fppf ; voir
+Topologies sur les espaces, lemme \ref{spaces-topologies-lemma-fppf}.
+Par conséquent, $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+est un recouvrement fppf d'espaces algébriques. De plus, chaque
+$\Delta_i$ est le changement de base du morphisme
+$\Delta : X \to X \times_Y X$. Il résulte donc du
+lemme \ref{lemma-descending-fppf-property-immersion}
+que $\Delta$ est une immersion, c'est-à-dire que $f$ est localement séparé.
+\end{proof}
+
+
+
+
+
+\section{Application de la descente des propriétés des morphismes}
+\label{section-application-descending-properties-morphisms}
+
+\noindent
+Cette section est l'analogue de Descente, section
+\ref{descent-section-application-descending-properties-morphisms}.
+
+\begin{lemma}
+\label{lemma-descending-property-ample}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soit $\{g_i : Y_i \to Y\}_{i \in I}$ un recouvrement fpqc.
+Soit $f_i : X_i \to Y_i$ le changement de base de $f$, et soit $\mathcal{L}_i$
+l'image inverse de $\mathcal{L}$ sur $X_i$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{L}$ est ample sur $X/Y$ ; et
+\item $\mathcal{L}_i$ est ample sur $X_i/Y_i$
+pour tout $i \in I$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (1) $\Rightarrow$ (2) résulte de
+Diviseurs sur les espaces, lemme \ref{spaces-divisors-lemma-ample-base-change}.
+Supposons (2). Pour vérifier que $\mathcal{L}$ est ample sur $X/Y$, on peut
+travailler localement pour la topologie \'etale sur $Y$ ; voir
+Diviseurs sur les espaces, lemme \ref{spaces-divisors-lemma-relatively-ample-local}.
+On peut donc supposer que $Y$ est un schéma, puis que
+chaque $Y_i$ est également un schéma ; voir
+Topologies sur les espaces, lemme \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+Autrement dit, on peut supposer que
+$\{Y_i \to Y\}$ est un recouvrement fpqc de schémas.
+
+\medskip\noindent
+D'après Diviseurs sur les espaces, lemme
+\ref{spaces-divisors-lemma-relatively-ample-properties},
+$X_i \to Y_i$ est représentable (c'est-à-dire que $X_i$ est un schéma),
+quasi-compact et séparé. Les lemmes
+\ref{lemma-descending-property-quasi-compact} et
+\ref{lemma-descending-property-separated} montrent donc que $f$ est quasi-compact et séparé.
+Cela signifie que
+$\mathcal{A} = \bigoplus_{d \geq 0} f_*\mathcal{L}^{\otimes d}$
+est une algèbre graduée quasi-cohérente sur $\mathcal{O}_Y$
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-pushforward}).
+De plus, la formation de $\mathcal{A}$ commute aux
+changements de base plats d'après
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+En particulier, si l'on pose
+$\mathcal{A}_i = \bigoplus_{d \geq 0} f_{i, *}\mathcal{L}_i^{\otimes d}$,
+alors $\mathcal{A}_i = g_i^*\mathcal{A}$.
+Il s'ensuit que les morphismes naturels
+$\psi_d : f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}$
+de $\mathcal{O}_X$-modules
+deviennent, après image inverse, les morphismes naturels
+$\psi_{i, d} : f_i^*(\mathcal{A}_i)_d \to \mathcal{L}_i^{\otimes d}$
+de $\mathcal{O}_{X_i}$-modules. Puisque $\mathcal{L}_i$ est ample sur $X_i/Y_i$,
+pour tout point $x_i \in X_i$, il existe un $d \geq 1$
+tel que $f_i^*(\mathcal{A}_i)_d \to \mathcal{L}_i^{\otimes d}$
+soit surjectif sur la fibre en $x_i$. Cela résulte soit directement
+de la définition d'un module relativement ample, soit de
+Morphismes, lemme \ref{morphisms-lemma-characterize-relatively-ample}.
+Si $x \in |X|$, on peut choisir un $i$ et un $x_i \in X_i$
+dont l'image est $x$. Comme
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{X_i, \overline{x}_i}$
+est plat, donc fidèlement plat, on conclut que, pour tout $x \in |X|$,
+il existe un $d \geq 1$ tel que
+$f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}$
+soit surjectif sur la fibre en $x$.
+Il s'ensuit que l'ouvert $U(\psi) \subset X$ du
+lemme de Diviseurs sur les espaces
+\ref{spaces-divisors-lemma-invertible-map-into-relative-proj}
+correspondant au morphisme
+$\psi : f^*\mathcal{A} \to \bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$
+d'algèbres graduées sur $\mathcal{O}_X$
+est égal à $X$. Considérons le morphisme correspondant
+$$
+r_{\mathcal{L}, \psi} : X \longrightarrow \underline{\text{Proj}}_Y(\mathcal{A})
+$$
+Il ressort clairement de ce qui précède que le changement de base de
+$r_{\mathcal{L}, \psi}$ à $Y_i$ est le morphisme
+$r_{\mathcal{L}_i, \psi_i}$, qui est une immersion ouverte d'après
+Morphismes, lemme \ref{morphisms-lemma-characterize-relatively-ample}.
+Ainsi, $r_{\mathcal{L}, \psi}$ est une immersion ouverte
+d'après le lemme \ref{lemma-descending-property-open-immersion}.
+Par conséquent, $X$ est un schéma,
+et l'on conclut que $\mathcal{L}$ est ample sur $X/Y$ d'après
+Morphismes, lemme \ref{morphisms-lemma-characterize-relatively-ample}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-in-neighbourhood}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme propre d'espaces algébriques sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Il existe un sous-espace ouvert $V \subset Y$ caractérisé par
+la propriété suivante :
+Un morphisme $Y' \to Y$ d'espaces algébriques se factorise
+par $V$ si et seulement si l'image inverse $\mathcal{L}'$
+de $\mathcal{L}$ sur $X' = Y' \times_Y X$ est ample sur $X'/Y'$
+(au sens de Diviseurs sur les espaces, définition
+\ref{spaces-divisors-definition-relatively-ample}).
+\end{lemma}
+
+\begin{proof}
+Supposons le lemme établi lorsque $Y$ est un schéma.
+Soit $U$ un schéma et soit $U \to Y$ un morphisme \'etale surjectif.
+Soit $R = U \times_Y U$, avec les projections $t, s : R \to U$.
+Notons $X_U = U \times_Y X$ et désignons par $\mathcal{L}_U$ l'image inverse correspondante.
+On obtient alors un sous-schéma ouvert $V' \subset U$ comme dans le lemme
+pour $(X_U \to U, \mathcal{L}_U)$. La caractérisation fonctorielle donne
+$s^{-1}(V') = t^{-1}(V')$.
+Il existe donc un sous-espace ouvert $V \subset Y$ tel que
+$V'$ soit l'image inverse de $V$ dans $U$.
+En particulier, $V' \to V$ est \'etale et surjectif, et l'on
+conclut que $\mathcal{L}_V$ est ample sur $X_V/V$
+(Diviseurs sur les espaces, lemme \ref{spaces-divisors-lemma-relatively-ample-local}).
+Maintenant, si $Y' \to Y$ est un morphisme tel que
+$\mathcal{L}'$ soit ample sur $X'/Y'$, alors
+$U \times_Y Y' \to Y'$ doit se factoriser par $V'$,
+et l'on conclut que $Y' \to Y$ se factorise par $V$.
+Ainsi, $V \subset Y$ possède la propriété énoncée dans le lemme.
+On est ainsi ramené au cas traité au
+paragraphe suivant.
+
+\medskip\noindent
+Supposons que $Y$ soit un schéma. La question étant locale sur $Y$,
+on peut supposer que $Y$ est un schéma affine. Montrons
+l'assertion suivante :
+\begin{enumerate}
+\item[(A)] Si $\Spec(k) \to Y$ est un morphisme tel que
+$\mathcal{L}_k$ soit ample sur $X_k/k$, alors il existe un
+voisinage ouvert $V \subset Y$ de l'image de $\Spec(k) \to Y$
+tel que $\mathcal{L}_V$ soit ample sur $X_V/V$.
+\end{enumerate}
+Il est clair que (A) entraîne le lemme.
+
+\medskip\noindent
+Soient $X \to Y$, $\mathcal{L}$ et $\Spec(k) \to Y$ comme dans (A).
+D'après le lemme \ref{lemma-descending-property-ample},
+on peut supposer que $k = \kappa(y)$ est le corps résiduel d'un point $y$
+de $Y$.
+
+\medskip\noindent
+Comme $Y$ est affine, on peut trouver un ensemble préordonné filtrant $I$ et un
+système projectif de morphismes $X_i \to Y_i$ d'espaces algébriques,
+où $Y_i$ est de présentation finie sur $\mathbf{Z}$, où les
+morphismes de transition $X_i \to X_{i'}$ et $Y_i \to Y_{i'}$ sont affines,
+où $X_i \to Y_i$ est propre et de présentation finie, et tel que
+$X \to Y = \lim (X_i \to Y_i)$. Voir Limites d'espaces, lemme
+\ref{spaces-limits-lemma-proper-limit-of-proper-finite-presentation-noetherian}.
+Quitte à remplacer $I$ par une partie cofinale, on peut supposer que $Y_i$ est un schéma (affine) pour tout $i$ ;
+voir Limites d'espaces, lemme \ref{spaces-limits-lemma-limit-is-affine}.
+Quitte encore à remplacer $I$ par une partie cofinale, on peut supposer disposer d'un système compatible de
+$\mathcal{O}_{X_i}$-modules inversibles $\mathcal{L}_i$
+dont l'image inverse est $\mathcal{L}$ ; voir
+Limites d'espaces, lemme \ref{spaces-limits-lemma-descend-invertible-modules}.
+Soit $y_i \in Y_i$ l'image de $y$.
+Alors $\kappa(y) = \colim \kappa(y_i)$.
+Par conséquent, $X_y = \lim X_{i, y_i}$ et, quitte à remplacer $I$ par une partie cofinale,
+on peut supposer que $X_{i, y_i}$ est un schéma pour tout $i$ ; voir
+Limites d'espaces, lemme \ref{spaces-limits-lemma-limit-is-scheme}.
+Il existe donc un $i$ tel que $\mathcal{L}_{i, y_i}$
+soit ample sur $X_{i, y_i}$, d'après
+Limites, lemme \ref{limits-lemma-limit-ample}.
+D'après Diviseurs sur les espaces, lemme \ref{spaces-divisors-lemma-ample-in-neighbourhood},
+on trouve un voisinage ouvert
+$V_i \subset Y_i$ de $y_i$ tel que
+la restriction de $\mathcal{L}_i$ à $f_i^{-1}(V_i)$
+soit ample relativement à $V_i$.
+On achève la démonstration en prenant pour $V \subset Y$ l'image inverse de
+$V_i$ (indications : utiliser
+Morphismes, lemme \ref{morphisms-lemma-ample-base-change},
+le fait que $X \to Y \times_{Y_i} X_i$ est affine,
+et le fait que l'image inverse d'un
+faisceau inversible ample par un morphisme affine est ample, d'après
+Morphismes, lemme \ref{morphisms-lemma-pullback-ample-tensor-relatively-ample}).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Propriétés des morphismes locales sur la source}
+\label{section-properties-morphisms-local-source}
+
+\noindent
+Dans cette section, nous définissons ce que signifie, pour une propriété des morphismes
+d'espaces algébriques, être locale sur la source. Comparer avec
+Descente, section \ref{descent-section-properties-morphisms-local-source}.
+
+\begin{definition}
+\label{definition-property-morphisms-local-source}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$.
+Soit $\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$. Nous disons que $\mathcal{P}$ est
+{\it $\tau$-locale sur la source}, ou
+{\it locale sur la source pour la topologie $\tau$}, si, pour
+tout morphisme $f : X \to Y$ d'espaces algébriques sur $S$ et tout
+$\tau$-recouvrement $\{X_i \to X\}_{i \in I}$ d'espaces algébriques, on a
+$$
+f \text{ vérifie }\mathcal{P}
+\Leftrightarrow
+\text{chaque }X_i \to Y\text{ vérifie }\mathcal{P}.
+$$
+\end{definition}
+
+\noindent
+Précisons que, puisque les isomorphismes sont toujours couvrants,
+on voit (ou l'on exige) que la propriété $\mathcal{P}$ est vérifiée par $X \to Y$
+si et seulement si elle est vérifiée par toute flèche $X' \to Y'$ isomorphe à $X \to Y$.
+Si une propriété est $\tau$-locale sur la source, elle reste vérifiée après
+précomposition par tout morphisme figurant dans un $\tau$-recouvrement. Voici
+un énoncé formel.
+
+\begin{lemma}
+\label{lemma-precompose-property-local-source}
+Soit $S$ un schéma.
+Soit $\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$
+qui est $\tau$-locale sur la source. Supposons que $f : X \to Y$ vérifie la propriété
+$\mathcal{P}$. Pour tout morphisme $a : X' \to X$ qui est respectivement
+plat, plat et localement de présentation finie, syntomique,
+lisse ou \'etale, la composée $f \circ a : X' \to Y$ vérifie
+la propriété $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du fait que l'on peut compléter $X' \to X$ en une famille de
+morphismes formant un recouvrement pour la topologie $\tau$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-transfer-from-schemes}
+Soit $S$ un schéma.
+Soit $\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$.
+Supposons que $\mathcal{P}$ soit une propriété des morphismes de schémas sur $S$
+qui soit locale sur la source et le but pour la topologie \'etale. Notons $\mathcal{P}_{spaces}$
+la propriété correspondante des morphismes d'espaces algébriques sur $S$ ; voir
+Morphismes d'espaces, définition \ref{spaces-morphisms-definition-P}.
+Si $\mathcal{P}$ est locale sur la source pour la topologie $\tau$, alors
+$\mathcal{P}_{spaces}$ est locale sur la source pour la topologie $\tau$.
+\end{lemma}
+
+\begin{proof}
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\{X_i \to X\}_{i \in I}$ un recouvrement d'espaces algébriques pour la topologie $\tau$.
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $U \to X \times_Y V$.
+Pour chaque $i$, choisissons un schéma $U_i$ et un morphisme \'etale surjectif
+$U_i \to X_i \times_X U$.
+
+\medskip\noindent
+Remarquons que $\{X_i \times_X U \to U\}_{i \in I}$ est un recouvrement pour la topologie $\tau$.
+Remarquons que chacune des familles $\{U_i \to X_i \times_X U\}$ est un recouvrement \'etale,
+donc un recouvrement pour la topologie $\tau$. Ainsi, $\{U_i \to U\}_{i \in I}$ est un
+recouvrement pour la topologie $\tau$ dans la catégorie des espaces algébriques sur $S$. Mais puisque $U$ et chaque $U_i$
+sont des schémas, $\{U_i \to U\}_{i \in I}$ est un
+recouvrement pour la topologie $\tau$ dans la catégorie des schémas sur $S$.
+
+\medskip\noindent
+On a maintenant
+\begin{align*}
+f \text{ vérifie }\mathcal{P}_{spaces}
+& \Leftrightarrow
+U \to V \text{ vérifie }\mathcal{P} \\
+& \Leftrightarrow
+\text{chaque }U_i \to V \text{ vérifie }\mathcal{P} \\
+& \Leftrightarrow
+\text{chaque }X_i \to Y\text{ vérifie }\mathcal{P}_{spaces}.
+\end{align*}
+La première et la dernière équivalence résultent de la définition de
+$\mathcal{P}_{spaces}$, tandis que l'équivalence intermédiaire résulte de l'hypothèse
+selon laquelle $\mathcal{P}$ est locale sur la source pour la topologie $\tau$.
+\end{proof}
+% preserved blank authority line 2405
+% preserved blank authority line 2406
+% preserved blank authority line 2407
+% preserved blank authority line 2408
+% preserved blank authority line 2409
+% preserved blank authority line 2410
+\section{Propriétés des morphismes locales sur la source pour la topologie fpqc}
+\label{section-fpqc-local-source}
+
+\noindent
+Voici quelques propriétés des morphismes qui sont locales sur la source pour la topologie fpqc.
+
+\begin{lemma}
+\label{lemma-flat-fpqc-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est plat'' est locale sur la source pour la topologie fpqc.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces, définition \ref{spaces-morphisms-definition-flat}
+et
+Descente, lemme \ref{descent-lemma-flat-fpqc-local-source}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Propriétés des morphismes locales sur la source pour la topologie fppf}
+\label{section-fppf-local-source}
+
+\noindent
+Voici quelques propriétés des morphismes qui sont locales sur la source pour la topologie fppf.
+
+\begin{lemma}
+\label{lemma-locally-finite-presentation-fppf-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est localement de présentation finie''
+est locale sur la source pour la topologie fppf.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces,
+définition \ref{spaces-morphisms-definition-locally-finite-presentation}
+et
+Descente,
+lemme \ref{descent-lemma-locally-finite-presentation-fppf-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-finite-type-fppf-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est localement de type fini''
+est locale sur la source pour la topologie fppf.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces,
+définition \ref{spaces-morphisms-definition-locally-finite-type}
+et
+Descente, lemme \ref{descent-lemma-locally-finite-type-fppf-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fppf-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est ouvert''
+est locale sur la source pour la topologie fppf.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces, définition \ref{spaces-morphisms-definition-open}
+et
+Descente, lemme \ref{descent-lemma-open-fppf-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universally-open-fppf-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est universellement ouvert''
+est locale sur la source pour la topologie fppf.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces, définition \ref{spaces-morphisms-definition-open}
+et
+Descente, lemme \ref{descent-lemma-universally-open-fppf-local-source}.
+\end{proof}
+
+
+
+\section{Propriétés des morphismes locales sur la source pour la topologie syntomique}
+\label{section-syntomic-local-source}
+
+\noindent
+Voici quelques propriétés des morphismes qui sont locales sur la source pour la topologie syntomique.
+
+\begin{lemma}
+\label{lemma-syntomic-syntomic-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est syntomique''
+est locale sur la source pour la topologie syntomique.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces, définition \ref{spaces-morphisms-definition-syntomic}
+et
+Descente, lemme \ref{descent-lemma-syntomic-syntomic-local-source}.
+\end{proof}
+
+
+
+
+\section{Propriétés des morphismes locales sur la source pour la topologie lisse}
+\label{section-smooth-local-source}
+
+\noindent
+Voici quelques propriétés des morphismes qui sont locales sur la source pour la topologie lisse.
+
+\begin{lemma}
+\label{lemma-smooth-smooth-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est lisse''
+est locale sur la source pour la topologie lisse.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces, définition \ref{spaces-morphisms-definition-smooth}
+et
+Descente, lemme \ref{descent-lemma-smooth-smooth-local-source}.
+\end{proof}
+
+
+
+\section{Propriétés des morphismes locales sur la source pour la topologie \'etale}
+\label{section-etale-local-source}
+
+\noindent
+Voici quelques propriétés des morphismes qui sont locales sur la source pour la topologie \'etale.
+
+\begin{lemma}
+\label{lemma-etale-etale-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est \'etale''
+est locale sur la source pour la topologie \'etale.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces,
+définition \ref{spaces-morphisms-definition-etale}
+et
+Descente, lemme \ref{descent-lemma-etale-etale-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-quasi-finite-etale-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est localement quasi-fini''
+est locale sur la source pour la topologie \'etale.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces,
+définition \ref{spaces-morphisms-definition-locally-quasi-finite}
+et
+Descente, lemme \ref{descent-lemma-locally-quasi-finite-etale-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-unramified-etale-local-source}
+La propriété $\mathcal{P}(f)=$``$f$ est non ramifié''
+est locale sur la source pour la topologie \'etale.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du
+lemme \ref{lemma-transfer-from-schemes}
+en utilisant
+Morphismes d'espaces, définition \ref{spaces-morphisms-definition-unramified}
+et
+Descente, lemme \ref{descent-lemma-unramified-etale-local-source}.
+\end{proof}
+
+
+% preserved blank authority line 2612
+% preserved blank authority line 2613
+\section{Propriétés des morphismes locales pour la topologie lisse sur la source et le but}
+\sectionmark{Propriétés locales pour la topologie lisse}
+\label{section-properties-local-source-target}
+
+\noindent
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques. La phrase
+« $\mathcal{P}$ est locale pour la topologie lisse sur la
+source et le but » possède un sens intuitif. Toutefois, cette notion ne revient
+pas à demander que $\mathcal{P}$ soit à la fois locale pour la topologie lisse
+sur la source et locale pour la topologie lisse sur le but.
+Nous avons étudié très en détail un phénomène analogue (pour la topologie \'etale
+et la catégorie des schémas) dans
+Descente, section \ref{descent-section-properties-etale-local-source-target}
+(pour un aperçu rapide, voir
+Descente, remarque \ref{descent-remark-compare-definitions}).
+Il existe toutefois une différence importante entre le cas de la topologie lisse
+et celui de la topologie \'etale. Pour la saisir, nous invitons le lecteur
+à comparer
+Descente, lemme \ref{descent-lemma-local-source-target-implies}
+et
+le lemme \ref{lemma-local-source-target-implies},
+ainsi qu'à comparer
+Descente, lemme \ref{descent-lemma-local-source-target-characterize}
+et
+le lemme \ref{lemma-local-source-target-characterize}.
+En effet, dans le cadre étale, le choix du « recouvrement » étale du
+but est indifférent, tandis qu'il ne l'est pas dans le cadre lisse.
+
+\begin{definition}
+\label{definition-local-source-target}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$.
+Nous disons que $\mathcal{P}$ est {\it locale pour la topologie lisse sur la source et le but} si
+\begin{enumerate}
+\item (stabilité par précomposition par des morphismes lisses)
+si $f : X \to Y$ est lisse et si $g : Y \to Z$ vérifie $\mathcal{P}$,
+alors $g \circ f$ vérifie $\mathcal{P}$,
+\item (stabilité par changement de base lisse)
+si $f : X \to Y$ vérifie $\mathcal{P}$ et si $Y' \to Y$ est lisse, alors
+le changement de base $f' : Y' \times_Y X \to Y'$ vérifie $\mathcal{P}$, et
+\item (caractère local) pour un morphisme $f : X \to Y$, les conditions suivantes sont
+équivalentes :
+\begin{enumerate}
+\item $f$ vérifie $\mathcal{P}$,
+\item pour tout $x \in |X|$, il existe un diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+dont les flèches verticales sont lisses et pour lequel il existe $u \in |U|$ tel que $a(u) = x$ et que
+$h$ vérifie $\mathcal{P}$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+Ce qui précède nous sert de définition. Dans les lemmes ci-dessous, nous montrerons que
+cela équivaut à ce que $\mathcal{P}$ soit locale pour la topologie lisse sur le but,
+locale pour la topologie lisse sur la source et stable par postcomposition par des morphismes lisses.
+
+\begin{lemma}
+\label{lemma-local-source-target-implies}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$
+qui est locale pour la topologie lisse sur la source et le but. Alors :
+\begin{enumerate}
+\item $\mathcal{P}$ est locale pour la topologie lisse sur la source,
+\item $\mathcal{P}$ est locale pour la topologie lisse sur le but,
+\item $\mathcal{P}$ est stable par postcomposition par des morphismes lisses :
+si $f : X \to Y$ vérifie $\mathcal{P}$ et si $g : Y \to Z$ est lisse, alors
+$g \circ f$ vérifie $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Écrivons tous les détails.
+
+\medskip\noindent
+Preuve de (1). Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\{X_i \to X\}_{i \in I}$ un recouvrement lisse de $X$. Si chaque composé
+$h_i : X_i \to Y$ vérifie $\mathcal{P}$, alors, pour tout $|x| \in X$, on peut trouver
+un indice $i \in I$ et un point $x_i \in |X_i|$ qui s'envoie sur $x$. Alors
+$(X_i, x_i) \to (X, x)$ est un morphisme lisse de couples,
+$\text{id}_Y : Y \to Y$ est un morphisme lisse et $h_i$ est comme dans la partie (3) de la
+définition \ref{definition-local-source-target}.
+On voit donc que $f$ vérifie $\mathcal{P}$.
+Réciproquement, si $f$ vérifie $\mathcal{P}$, alors chaque $X_i \to Y$ vérifie
+$\mathcal{P}$ d'après la
+partie (1) de la définition \ref{definition-local-source-target}.
+
+\medskip\noindent
+Preuve de (2). Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement lisse de $Y$.
+Notons $X_i = Y_i \times_Y X$ et $h_i : X_i \to Y_i$ le changement de base
+de $f$. Si chaque $h_i : X_i \to Y_i$ vérifie $\mathcal{P}$, alors, pour tout
+$x \in |X|$, choisissons un indice $i \in I$ et un point $x_i \in |X_i|$ qui s'envoie sur $x$.
+Alors $(X_i, x_i) \to (X, x)$ est un morphisme lisse de couples, $Y_i \to Y$ est
+lisse et $h_i$ est comme dans la partie (3) de la
+définition \ref{definition-local-source-target}.
+On voit donc que $f$ vérifie $\mathcal{P}$.
+Réciproquement, si $f$ vérifie $\mathcal{P}$, alors chaque $X_i \to Y_i$ vérifie
+$\mathcal{P}$ d'après la
+partie (2) de la définition \ref{definition-local-source-target}.
+
+\medskip\noindent
+Preuve de (3). Supposons que $f : X \to Y$ vérifie $\mathcal{P}$ et que $g : Y \to Z$ soit
+lisse. Pour tout $x \in |X|$, considérons $(X, x) \to (X, x)$ comme un
+morphisme lisse de couples ; $Y \to Z$ est un morphisme lisse, et $h = f$ est comme
+dans la partie (3) de la
+définition \ref{definition-local-source-target}.
+On voit donc que $g \circ f$ vérifie $\mathcal{P}$.
+\end{proof}
+
+\noindent
+Le lemme suivant est l'analogue de
+Morphismes, lemme \ref{morphisms-lemma-locally-P-characterize}.
+
+\begin{lemma}
+\label{lemma-local-source-target-characterize}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$
+qui est locale pour la topologie lisse sur la source et le but. Soit $f : X \to Y$ un morphisme
+d'espaces algébriques sur $S$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item[(a)] $f$ vérifie la propriété $\mathcal{P}$,
+\item[(b)] pour tout $x \in |X|$, il existe un morphisme lisse de couples
+$a : (U, u) \to (X, x)$, un morphisme lisse $b : V \to Y$ et
+un morphisme $h : U \to V$ tel que $f \circ a = b \circ h$ et que
+$h$ vérifie $\mathcal{P}$,
+\item[(c)] pour un certain diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+où $a$ et $b$ sont lisses et $a$ est surjectif, le morphisme $h$ vérifie $\mathcal{P}$,
+\item[(d)] pour tout diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+où $b$ est lisse et $U \to X \times_Y V$ est lisse,
+le morphisme $h$ vérifie $\mathcal{P}$,
+\item[(e)] il existe un recouvrement lisse $\{Y_i \to Y\}_{i \in I}$ tel
+que chaque changement de base $Y_i \times_Y X \to Y_i$ vérifie $\mathcal{P}$,
+\item[(f)] il existe un recouvrement lisse $\{X_i \to X\}_{i \in I}$ tel
+que chaque composé $X_i \to Y$ vérifie $\mathcal{P}$,
+\item[(g)] il existe un recouvrement lisse $\{Y_i \to Y\}_{i \in I}$ et,
+pour chaque $i \in I$, un recouvrement lisse
+$\{X_{ij} \to Y_i \times_Y X\}_{j \in J_i}$ tel que chaque morphisme
+$X_{ij} \to Y_i$ vérifie $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (a) et (b) fait partie de la
+définition \ref{definition-local-source-target}.
+L'équivalence de (a) et (e) est donnée par la
+partie (2) du lemme \ref{lemma-local-source-target-implies}.
+L'équivalence de (a) et (f) est donnée par la
+partie (1) du lemme \ref{lemma-local-source-target-implies}.
+Puisque (a) est maintenant équivalente à (e) et à (f), il s'ensuit que
+(a) est équivalente à (g).
+
+\medskip\noindent
+Il est clair que (c) implique (b). Si (b) est vérifiée, alors, pour tout
+$x \in |X|$, nous pouvons choisir un morphisme lisse de couples
+$a_x : (U_x, u_x) \to (X, x)$, un morphisme lisse $b_x : V_x \to Y$ et
+un morphisme $h_x : U_x \to V_x$ tel que $f \circ a_x = b_x \circ h_x$ et que
+$h_x$ vérifie $\mathcal{P}$. Alors $h = \coprod h_x : \coprod U_x \to \coprod V_x$
+forme, avec $a = \coprod a_x$ et $b = \coprod b_x$, un diagramme comme en (c).
+(Remarquons que $h$ vérifie la propriété $\mathcal{P}$, puisque $\{V_x \to \coprod V_x\}$
+est un recouvrement lisse et que $\mathcal{P}$ est locale pour la topologie lisse sur le but.)
+Ainsi, (b) et (c) sont équivalentes.
+
+\medskip\noindent
+Nous savons maintenant que (a), (b), (c), (e), (f) et (g) sont équivalentes.
+Supposons (a) vérifiée. Soient $U, V, a, b, h$ comme en (d). Alors
+$X \times_Y V \to V$ vérifie $\mathcal{P}$ puisque $\mathcal{P}$ est stable par
+changement de base lisse ; il s'ensuit que $U \to V$ vérifie $\mathcal{P}$ puisque $\mathcal{P}$
+est stable par précomposition par des morphismes lisses. Réciproquement, si (d)
+est vérifiée, prendre $U = X$ et $V = Y$ montre que $f$ vérifie $\mathcal{P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-local-source-target}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$.
+Supposons que
+\begin{enumerate}
+\item $\mathcal{P}$ soit locale pour la topologie lisse sur la source,
+\item $\mathcal{P}$ soit locale pour la topologie lisse sur le but, et
+\item $\mathcal{P}$ soit stable par postcomposition par des morphismes lisses :
+si $f : X \to Y$ vérifie $\mathcal{P}$ et si $Y \to Z$ est un morphisme lisse,
+alors $X \to Z$ vérifie $\mathcal{P}$.
+\end{enumerate}
+Alors $\mathcal{P}$ est locale pour la topologie lisse sur la source et le but.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques qui
+satisfait aux conditions (1), (2) et (3) du lemme. D'après le
+lemme \ref{lemma-precompose-property-local-source},
+on voit que $\mathcal{P}$ est stable par précomposition par des
+morphismes lisses. D'après le
+lemme \ref{lemma-pullback-property-local-target},
+on voit que $\mathcal{P}$ est stable par changement de base lisse.
+Il suffit donc de prouver que la partie (3) de la
+définition \ref{definition-local-source-target}
+est vérifiée.
+
+\medskip\noindent
+Plus précisément, supposons que $f : X \to Y$ soit un morphisme
+d'espaces algébriques sur $S$ qui vérifie la
+partie (3)(b) de la définition \ref{definition-local-source-target}.
+Autrement dit, pour tout $x \in X$, il existe un morphisme lisse
+$a_x : U_x \to X$, un point $u_x \in |U_x|$ qui s'envoie sur $x$,
+un morphisme lisse $b_x : V_x \to Y$ et un morphisme $h_x : U_x \to V_x$
+tels que $f \circ a_x = b_x \circ h_x$ et que $h_x$ vérifie $\mathcal{P}$.
+Pour achever la preuve du lemme, il suffit de montrer que $f$ vérifie $\mathcal{P}$.
+Posons $U = \coprod U_x$, $a = \coprod a_x$, $V = \coprod V_x$,
+$b = \coprod b_x$ et $h = \coprod h_x$. Nous obtenons un
+diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+où $a$ et $b$ sont lisses et $a$ est surjectif. Remarquons que $h$ vérifie $\mathcal{P}$
+puisque chaque $h_x$ la vérifie et que $\mathcal{P}$ est locale pour la topologie lisse sur le but.
+Comme $a$ est surjectif et que $\mathcal{P}$ est locale pour la topologie lisse sur la source,
+il suffit de prouver que $b \circ h$ vérifie $\mathcal{P}$.
+Cela résulte de l'hypothèse selon laquelle $\mathcal{P}$ est stable par
+postcomposition par un morphisme lisse et du fait que $b$ est lisse.
+\end{proof}
+
+\begin{remark}
+\label{remark-list-local-source-target}
+À l'aide du
+lemme \ref{lemma-smooth-local-source-target}
+et des résultats établis dans les sections précédentes de ce chapitre, on dresse aisément
+une liste de types de morphismes dont la propriété est locale pour la topologie lisse sur la
+source et le but. Dans chaque cas, nous indiquons le lemme qui implique que
+la propriété est locale pour la topologie lisse sur la source et celui qui implique qu'elle
+est locale pour la topologie lisse sur le but. Dans chaque cas, la troisième hypothèse
+du
+lemme \ref{lemma-smooth-local-source-target}
+se vérifie immédiatement ; nous l'omettons. Voici la liste :
+\begin{enumerate}
+\item plat, voir les
+lemmes \ref{lemma-flat-fpqc-local-source} et
+\ref{lemma-descending-property-flat},
+\item localement de présentation finie, voir les
+lemmes \ref{lemma-locally-finite-presentation-fppf-local-source} et
+\ref{lemma-descending-property-locally-finite-presentation},
+\item localement de type fini, voir les
+lemmes \ref{lemma-locally-finite-type-fppf-local-source} et
+\ref{lemma-descending-property-locally-finite-type},
+\item universellement ouvert, voir les
+lemmes \ref{lemma-universally-open-fppf-local-source} et
+\ref{lemma-descending-property-universally-open},
+\item syntomique, voir les
+lemmes \ref{lemma-syntomic-syntomic-local-source} et
+\ref{lemma-descending-property-syntomic},
+\item lisse, voir les
+lemmes \ref{lemma-smooth-smooth-local-source} et
+\ref{lemma-descending-property-smooth},
+\item ajouter ici d'autres cas au besoin.
+\end{enumerate}
+\end{remark}
+
+
+
+
+
+
+% CH074 slice boundary 2895
+\section{Propriétés des morphismes locales pour la topologie \'etale sur la source et la topologie lisse sur le but}
+\sectionmark{Topologie \'etale sur la source, lisse sur le but}
+\label{section-properties-etale-smooth-local-source-target}
+
+\noindent
+Cette section est l'analogue de la
+section \ref{section-properties-local-source-target}
+pour les propriétés des morphismes qui sont locales pour la topologie \'etale
+sur la source et pour la topologie lisse sur le but.
+Nous donnons à cette propriété un nom ridiculement long
+afin de ne pas avoir à l'employer trop souvent.
+
+\begin{definition}
+\label{definition-etale-smooth-local-source-target}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$.
+Nous disons que $\mathcal{P}$ est {\it locale pour la topologie \'etale sur la source et pour la topologie lisse sur le but} si
+\begin{enumerate}
+\item (stabilité par précomposition par des morphismes \'etales)
+si $f : X \to Y$ est \'etale et si $g : Y \to Z$ vérifie $\mathcal{P}$,
+alors $g \circ f$ vérifie $\mathcal{P}$,
+\item (stabilité par changement de base lisse)
+si $f : X \to Y$ vérifie $\mathcal{P}$ et si $Y' \to Y$ est lisse, alors
+le changement de base $f' : Y' \times_Y X \to Y'$ vérifie $\mathcal{P}$, et
+\item (caractère local) pour un morphisme $f : X \to Y$, les conditions suivantes sont
+équivalentes :
+\begin{enumerate}
+\item $f$ vérifie $\mathcal{P}$,
+\item pour tout $x \in |X|$, il existe un diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+où $b$ est lisse, où $U \to X \times_Y V$ est \'etale
+et où il existe $u \in |U|$ tel que $a(u) = x$ et que
+$h$ vérifie $\mathcal{P}$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+Ce qui précède nous sert de définition. Dans les lemmes ci-dessous, nous montrerons que
+cela équivaut à ce que $\mathcal{P}$ soit locale pour la topologie \'etale sur le but,
+locale pour la topologie lisse sur la source et stable par postcomposition par des
+morphismes \'etales.
+
+\begin{lemma}
+\label{lemma-etale-smooth-local-source-target-implies}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$
+qui est locale pour la topologie \'etale sur la source et pour la topologie lisse sur le but. Alors :
+\begin{enumerate}
+\item $\mathcal{P}$ est locale pour la topologie \'etale sur la source,
+\item $\mathcal{P}$ est locale pour la topologie lisse sur le but,
+\item $\mathcal{P}$ est stable par postcomposition par des morphismes \'etales :
+si $f : X \to Y$ vérifie $\mathcal{P}$ et si $g : Y \to Z$ est \'etale, alors
+$g \circ f$ vérifie $\mathcal{P}$, et
+\item $\mathcal{P}$ possède la propriété de permanence suivante : si $f : X \to Y$ et
+$g : Y \to Z$ est \'etale et si $g \circ f$ vérifie $\mathcal{P}$, alors
+$f$ vérifie $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Écrivons tous les détails.
+
+\medskip\noindent
+Preuve de (1). Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\{X_i \to X\}_{i \in I}$ un recouvrement \'etale de $X$. Si chaque composé
+$h_i : X_i \to Y$ vérifie $\mathcal{P}$, alors, pour tout $|x| \in X$, on peut trouver
+un indice $i \in I$ et un point $x_i \in |X_i|$ qui s'envoie sur $x$. Alors
+$(X_i, x_i) \to (X, x)$ est un morphisme \'etale de couples,
+$\text{id}_Y : Y \to Y$ est un morphisme lisse et $h_i$ est comme dans la partie (3) de la
+définition \ref{definition-etale-smooth-local-source-target}.
+On voit donc que $f$ vérifie $\mathcal{P}$.
+Réciproquement, si $f$ vérifie $\mathcal{P}$, alors chaque $X_i \to Y$ vérifie
+$\mathcal{P}$ d'après la
+partie (1) de la définition \ref{definition-etale-smooth-local-source-target}.
+
+\medskip\noindent
+Preuve de (2). Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\{Y_i \to Y\}_{i \in I}$ un recouvrement lisse de $Y$.
+Notons $X_i = Y_i \times_Y X$ et $h_i : X_i \to Y_i$ le changement de base
+de $f$. Si chaque $h_i : X_i \to Y_i$ vérifie $\mathcal{P}$, alors, pour tout
+$x \in |X|$, choisissons un indice $i \in I$ et un point $x_i \in |X_i|$ qui s'envoie sur $x$.
+Alors $X_i \to X \times_Y Y_i$ est un morphisme \'etale
+(puisque c'est un isomorphisme), $Y_i \to Y$ est
+lisse et $h_i$ est comme dans la partie (3) de la
+définition \ref{definition-local-source-target}.
+On voit donc que $f$ vérifie $\mathcal{P}$.
+Réciproquement, si $f$ vérifie $\mathcal{P}$, alors chaque $X_i \to Y_i$ vérifie
+$\mathcal{P}$ d'après la
+partie (2) de la définition \ref{definition-local-source-target}.
+
+\medskip\noindent
+Preuve de (3). Supposons que $f : X \to Y$ vérifie $\mathcal{P}$ et que $g : Y \to Z$ soit
+\'etale. Le morphisme $X \to Y \times_Z X$ est \'etale en tant que morphisme
+entre des espaces algébriques \'etales sur $X$ (
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-etale-permanence}).
+De plus, $Y \to Z$ est \'etale, donc lisse.
+Ainsi, le diagramme
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+X \ar[r]^{g \circ f} & Z
+}
+$$
+convient, pour tout $x \in |X|$, dans la partie (3) de la
+définition \ref{definition-local-source-target},
+et nous concluons que $g \circ f$ vérifie $\mathcal{P}$.
+
+\medskip\noindent
+Preuve de (4). Soient $f : X \to Y$ un morphisme et $g : Y \to Z$ \'etale
+tels que $g \circ f$ vérifie $\mathcal{P}$. Alors, d'après la
+partie (2) de la définition \ref{definition-etale-smooth-local-source-target},
+on voit que $\text{pr}_Y : Y \times_Z X \to Y$ vérifie $\mathcal{P}$. Mais
+le morphisme $(f, 1) : X \to Y \times_Z X$ est \'etale, car c'est une section de la
+projection \'etale $\text{pr}_X : Y \times_Z X \to X$ ; voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-etale-permanence}.
+Ainsi, $f = \text{pr}_Y \circ (f, 1)$ vérifie $\mathcal{P}$ d'après la
+partie (1) de la définition \ref{definition-etale-smooth-local-source-target}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-smooth-local-source-target-characterize}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$
+qui est locale pour la topologie étale sur la source et pour la topologie lisse sur le but.
+Soit $f : X \to Y$ un morphisme
+d'espaces algébriques sur $S$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item[(a)] $f$ vérifie la propriété $\mathcal{P}$,
+\item[(b)] pour tout $x \in |X|$, il existe un morphisme lisse $b : V \to Y$,
+un morphisme \'etale $a : U \to V \times_Y X$ et un point $u \in |U|$
+qui s'envoie sur $x$, de telle sorte que $U \to V$ vérifie $\mathcal{P}$,
+\item[(c)] pour un certain diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+où $b$ est lisse, $U \to V \times_Y X$ est \'etale et $a$ est surjectif,
+le morphisme $h$ vérifie $\mathcal{P}$,
+\item[(d)] pour tout diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+où $b$ est lisse et $U \to X \times_Y V$ est \'etale, le morphisme $h$
+vérifie $\mathcal{P}$,
+\item[(e)] il existe un recouvrement lisse $\{Y_i \to Y\}_{i \in I}$ tel
+que chaque changement de base $Y_i \times_Y X \to Y_i$ vérifie $\mathcal{P}$,
+\item[(f)] il existe un recouvrement \'etale $\{X_i \to X\}_{i \in I}$ tel
+que chaque composé $X_i \to Y$ vérifie $\mathcal{P}$,
+\item[(g)] il existe un recouvrement lisse $\{Y_i \to Y\}_{i \in I}$ et,
+pour chaque $i \in I$, un recouvrement \'etale
+$\{X_{ij} \to Y_i \times_Y X\}_{j \in J_i}$ tel que chaque morphisme
+$X_{ij} \to Y_i$ vérifie $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (a) et (b) fait partie de la
+définition \ref{definition-etale-smooth-local-source-target}.
+L'équivalence de (a) et (e) est donnée par la
+partie (2) du lemme \ref{lemma-etale-smooth-local-source-target-implies}.
+L'équivalence de (a) et (f) est donnée par la
+partie (1) du lemme \ref{lemma-etale-smooth-local-source-target-implies}.
+Puisque (a) est maintenant équivalente à (e) et à (f), il s'ensuit que
+(a) est équivalente à (g).
+
+\medskip\noindent
+Il est clair que (c) implique (b). Si (b) est vérifiée, alors, pour tout
+$x \in |X|$, nous pouvons choisir un morphisme lisse
+$b_x : V_x \to Y$, un morphisme \'etale $U_x \to V_x \times_Y X$,
+et un point $u_x \in |U_x|$ qui s'envoie sur $x$,
+de telle sorte que $U_x \to V_x$ vérifie $\mathcal{P}$.
+Alors $h = \coprod h_x : \coprod U_x \to \coprod V_x$
+forme, avec $a = \coprod a_x$ et $b = \coprod b_x$, un diagramme comme en (c).
+(Remarquons que $h$ vérifie la propriété $\mathcal{P}$, puisque $\{V_x \to \coprod V_x\}$
+est un recouvrement lisse et que $\mathcal{P}$ est locale pour la topologie lisse sur le but.)
+Ainsi, (b) et (c) sont équivalentes.
+
+\medskip\noindent
+Nous savons maintenant que (a), (b), (c), (e), (f) et (g) sont équivalentes.
+Supposons (a) vérifiée. Soient $U, V, a, b, h$ comme en (d). Alors
+$X \times_Y V \to V$ vérifie $\mathcal{P}$ puisque $\mathcal{P}$ est stable par
+changement de base lisse ; il s'ensuit que $U \to V$ vérifie $\mathcal{P}$ puisque $\mathcal{P}$
+est stable par précomposition par des morphismes \'etales. Réciproquement, si (d)
+est vérifiée, prendre $U = X$ et $V = Y$ montre que $f$ vérifie $\mathcal{P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-smooth-local-source-target}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques sur $S$.
+Supposons que
+\begin{enumerate}
+\item $\mathcal{P}$ soit locale pour la topologie \'etale sur la source,
+\item $\mathcal{P}$ soit locale pour la topologie lisse sur le but, et
+\item $\mathcal{P}$ soit stable par postcomposition par des immersions ouvertes :
+si $f : X \to Y$ vérifie $\mathcal{P}$ et si $Y \subset Z$ est une immersion ouverte,
+alors $X \to Z$ vérifie $\mathcal{P}$.
+\end{enumerate}
+Alors $\mathcal{P}$ est locale pour la topologie \'etale sur la source et pour la topologie lisse sur le but.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques qui
+satisfait aux conditions (1), (2) et (3) du lemme. D'après le
+lemme \ref{lemma-precompose-property-local-source},
+on voit que $\mathcal{P}$ est stable par précomposition par des
+morphismes \'etales. D'après le
+lemme \ref{lemma-pullback-property-local-target},
+on voit que $\mathcal{P}$ est stable par changement de base lisse.
+Il suffit donc de prouver que la partie (3) de la
+définition \ref{definition-local-source-target}
+est vérifiée.
+
+\medskip\noindent
+Plus précisément, supposons que $f : X \to Y$ soit un morphisme
+d'espaces algébriques sur $S$ qui vérifie la
+partie (3)(b) de la définition \ref{definition-local-source-target}.
+Autrement dit, pour tout $x \in X$, il existe
+un morphisme lisse $b_x : V_x \to Y$,
+un morphisme \'etale $U_x \to V_x \times_Y X$ et
+un point $u_x \in |U_x|$ qui s'envoie sur $x$
+de telle sorte que $h_x : U_x \to V_x$ vérifie $\mathcal{P}$.
+Pour achever la preuve du lemme, il suffit de montrer que $f$ vérifie $\mathcal{P}$.
+
+\medskip\noindent
+Soit $a_x : U_x \to X$ le composé $U_x \to V_x \times_Y X \to X$.
+Posons $U = \coprod U_x$, $a = \coprod a_x$, $V = \coprod V_x$,
+$b = \coprod b_x$ et $h = \coprod h_x$. Nous obtenons un
+diagramme commutatif
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+où $b$ est lisse, $U \to V \times_Y X$ est \'etale et $a$ est surjectif.
+Remarquons que $h$ vérifie $\mathcal{P}$ puisque chaque $h_x$ la vérifie et que $\mathcal{P}$
+est locale pour la topologie lisse sur le but. Au paragraphe suivant, nous montrons
+que l'on peut supposer que $U, V, X, Y$ sont des schémas ; nous invitons le lecteur
+à passer ce paragraphe.
+
+\medskip\noindent
+Soient $X, Y, U, V, a, b, f, h$ comme au paragraphe précédent. Il faut
+montrer que $f$ vérifie $\mathcal{P}$. Soit $X' \to X$ un morphisme \'etale surjectif
+avec $X_i$ un schéma. Posons $U' = X' \times_X U$. Alors
+$U' \to X'$ est surjectif et $U' \to X' \times_Y V$ est \'etale.
+Comme $\mathcal{P}$ est locale pour la topologie \'etale sur la source, on voit que
+$U' \to V$ vérifie $\mathcal{P}$ et qu'il suffit de montrer que
+$X' \to Y$ vérifie $\mathcal{P}$. Autrement dit, on peut supposer
+que $X$ est un schéma. Choisissons ensuite un morphisme \'etale surjectif
+$Y' \to Y$, où $Y'$ est un schéma. Posons $V' = V \times_Y Y'$,
+$X' = X \times_Y Y'$ et $U' = U \times_Y Y'$. Alors
+$U' \to X'$ est surjectif et $U' \to X' \times_{Y'} V'$ est \'etale.
+Comme $\mathcal{P}$ est locale pour la topologie lisse sur le but, on voit que $U' \to V'$ vérifie
+$\mathcal{P}$ et qu'il suffit de prouver que $X' \to Y'$ vérifie $\mathcal{P}$.
+Ainsi, on peut supposer que $X$ et $Y$ sont tous deux des schémas.
+Choisissons un morphisme \'etale surjectif $V' \to V$
+avec $V'$ un schéma. Posons $U' = U \times_V V'$.
+Alors $U' \to X$ est surjectif et $U' \to X \times_Y V'$ est \'etale.
+Comme $\mathcal{P}$ est locale pour la topologie lisse sur la source, on voit que
+$U' \to V'$ vérifie $\mathcal{P}$. Nous pouvons donc remplacer $U, V$ par
+$U', V'$ et supposer que $X, Y, V$ sont des schémas.
+Enfin, remplaçons $U$ par un schéma muni d'un morphisme \'etale surjectif vers $U$ ;
+on voit alors que l'on peut supposer que $U, V, X, Y$ sont tous des schémas.
+
+\medskip\noindent
+Si $U, V, X, Y$ sont des schémas, alors $f$ vérifie $\mathcal{P}$
+d'après Descente, lemme \ref{descent-lemma-etale-tau-local-source-target}.
+\end{proof}
+
+\begin{remark}
+\label{remark-list-etale-smooth-local-source-target}
+À l'aide du lemme \ref{lemma-etale-smooth-local-source-target}
+et des résultats établis dans les sections précédentes de ce chapitre, on dresse aisément
+une liste de types de morphismes dont la propriété est locale pour la topologie lisse sur la
+source et le but. Dans chaque cas, nous indiquons le lemme qui implique que
+la propriété est locale pour la topologie étale sur la source et celui qui implique qu'elle
+est locale pour la topologie lisse sur le but. Dans chaque cas, la troisième hypothèse
+du lemme \ref{lemma-etale-smooth-local-source-target}
+se vérifie immédiatement ; nous l'omettons. Voici la liste :
+\begin{enumerate}
+\item \'etale, voir les
+lemmes \ref{lemma-etale-etale-local-source} et
+\ref{lemma-descending-property-etale},
+\item localement quasi-fini, voir les
+lemmes \ref{lemma-locally-quasi-finite-etale-local-source} et
+\ref{lemma-descending-property-quasi-finite},
+\item non ramifié, voir les
+lemmes \ref{lemma-unramified-etale-local-source} et
+\ref{lemma-descending-property-unramified}, et
+\item ajouter ici d'autres cas au besoin.
+\end{enumerate}
+Bien entendu, toute propriété énumérée dans la
+remarque \ref{remark-list-local-source-target}
+est a fortiori un exemple que l'on pourrait faire figurer ici.
+\end{remark}
+
+
+
+
+
+
+% CH074 slice boundary 3208
+\section{Données de descente pour des espaces au-dessus d'espaces}
+\label{section-descent-datum}
+
+\noindent
+Cette section est l'analogue de Descente, section
+\ref{descent-section-descent-datum}, dans le cas des espaces algébriques.
+La plupart des arguments de cette section sont formels et ne reposent
+que sur la définition d'une donnée de descente.
+
+\begin{definition}
+\label{definition-descent-datum}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques
+au-dessus de $S$.
+\begin{enumerate}
+\item Soit $V \to Y$ un morphisme d'espaces algébriques.
+Une {\it donnée de descente pour $V/Y/X$} est un isomorphisme
+$\varphi : V \times_X Y \to Y \times_X V$ d'espaces algébriques au-dessus de
+$Y \times_X Y$ satisfaisant à la {\it condition de cocycle} suivante : le diagramme
+$$
+\xymatrix{
+V \times_X Y \times_X Y \ar[rd]^{\varphi_{01}} \ar[rr]_{\varphi_{02}} &
+&
+Y \times_X Y \times_X V\\
+&
+Y \times_X V \times_X Y \ar[ru]^{\varphi_{12}}
+}
+$$
+est commutatif (avec les notations évidentes).
+\item On dit également que le couple $(V/Y, \varphi)$ est
+une {\it donnée de descente relativement à $Y \to X$}.
+\item Un {\it morphisme $f : (V/Y, \varphi) \to (V'/Y, \varphi')$ de données
+de descente relativement à $Y \to X$} est un morphisme
+$f : V \to V'$ d'espaces algébriques au-dessus de $Y$ tel que
+le diagramme
+$$
+\xymatrix{
+V \times_X Y \ar[r]_{\varphi} \ar[d]_{f \times \text{id}_Y} &
+Y \times_X V \ar[d]^{\text{id}_Y \times f} \\
+V' \times_X Y \ar[r]^{\varphi'} & Y \times_X V'
+}
+$$
+soit commutatif.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-easier}
+Soit $S$ un schéma.
+Soit $Y \to X$ un morphisme d'espaces algébriques au-dessus de $S$.
+Soit $(V/Y, \varphi)$ une donnée de descente relativement à $Y \to X$.
+On peut considérer l'isomorphisme $\varphi$ comme un isomorphisme
+$$
+(Y \times_X Y) \times_{\text{pr}_0, Y} V
+\longrightarrow
+(Y \times_X Y) \times_{\text{pr}_1, Y} V
+$$
+d'espaces algébriques au-dessus de $Y \times_X Y$. Ainsi, de manière informelle, on peut
+considérer $\varphi$ comme une application
+$\varphi : \text{pr}_0^*V \to \text{pr}_1^*V$\footnote{Malheureusement,
+nous avons choisi ici le « mauvais » sens pour notre flèche. Dans les
+définitions \ref{definition-descent-datum} et
+\ref{definition-descent-datum-for-family-of-morphisms}
+il faudrait prendre le sens opposé à celui adopté dans la
+définition \ref{definition-descent-datum-quasi-coherent},
+selon le principe général que les « fonctions » et les « espaces » sont duaux.}.
+La condition de cocycle exprime alors que
+$\text{pr}_{02}^*\varphi =
+\text{pr}_{12}^*\varphi \circ \text{pr}_{01}^*\varphi$.
+Elle est ainsi très semblable à celle d'une donnée de descente sur des
+faisceaux quasi-cohérents.
+\end{remark}
+
+\noindent
+Voici la définition lorsqu'on dispose d'une famille de morphismes
+à cible fixée.
+
+\begin{definition}
+\label{definition-descent-datum-for-family-of-morphisms}
+Soit $S$ un schéma.
+Soit $\{X_i \to X\}_{i \in I}$ une famille de morphismes
+ d'espaces algébriques au-dessus de $S$, à cible fixée $X$.
+\begin{enumerate}
+\item Une {\it donnée de descente $(V_i, \varphi_{ij})$ relativement à la
+famille $\{X_i \to X\}$} est constituée d'un espace algébrique $V_i$ au-dessus de $X_i$
+pour chaque $i \in I$, et d'un isomorphisme
+$\varphi_{ij} : V_i \times_X X_j \to X_i \times_X V_j$
+d'espaces algébriques au-dessus de $X_i \times_X X_j$, pour chaque couple $(i, j) \in I^2$,
+tel que, pour tout triplet d'indices $(i, j, k) \in I^3$,
+le diagramme
+$$
+\xymatrix{
+V_i \times_X X_j \times_X X_k
+\ar[rd]^{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} &
+&
+X_i \times_X X_j \times_X V_k\\
+&
+X_i \times_X V_j \times_X X_k
+\ar[ru]^{\text{pr}_{12}^*\varphi_{jk}}
+}
+$$
+d'espaces algébriques au-dessus de $X_i \times_X X_j \times_X X_k$ soit commutatif
+(avec les notations évidentes).
+\item Un {\it morphisme
+$\psi : (V_i, \varphi_{ij}) \to (V'_i, \varphi'_{ij})$
+de données de descente} est constitué d'une famille $\psi = (\psi_i)_{i \in I}$
+de morphismes $\psi_i : V_i \to V'_i$ d'espaces algébriques au-dessus de $X_i$
+telle que tous les diagrammes
+$$
+\xymatrix{
+V_i \times_X X_j \ar[r]_{\varphi_{ij}} \ar[d]_{\psi_i \times \text{id}} &
+X_i \times_X V_j \ar[d]^{\text{id} \times \psi_j} \\
+V'_i \times_X X_j \ar[r]^{\varphi'_{ij}} & X_i \times_X V'_j
+}
+$$
+soient commutatifs.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-easier-family}
+Soit $S$ un schéma.
+Soit $\{X_i \to X\}_{i \in I}$ une famille de morphismes
+ d'espaces algébriques au-dessus de $S$, à cible fixée $X$.
+Soit $(V_i, \varphi_{ij})$ une donnée de descente relativement à
+$\{X_i \to X\}$. On peut considérer les isomorphismes $\varphi_{ij}$
+comme des isomorphismes
+$$
+(X_i \times_X X_j) \times_{\text{pr}_0, X_i} V_i
+\longrightarrow
+(X_i \times_X X_j) \times_{\text{pr}_1, X_j} V_j
+$$
+d'espaces algébriques au-dessus de $X_i \times_X X_j$. Ainsi, de manière informelle, on peut
+considérer $\varphi_{ij}$ comme un isomorphisme
+$\text{pr}_0^*V_i \to \text{pr}_1^*V_j$ au-dessus de $X_i \times_X X_j$.
+La condition de cocycle exprime alors que
+$\text{pr}_{02}^*\varphi_{ik} =
+\text{pr}_{12}^*\varphi_{jk} \circ \text{pr}_{01}^*\varphi_{ij}$.
+Elle est ainsi très semblable à celle d'une donnée de descente sur des
+faisceaux quasi-cohérents.
+\end{remark}
+
+\noindent
+La raison pour laquelle nous travaillerons habituellement avec une famille réduite
+à un seul morphisme est le lemme suivant.
+
+\begin{lemma}
+\label{lemma-family-is-one}
+Soit $S$ un schéma.
+Soit $\{X_i \to X\}_{i \in I}$ une famille de morphismes
+ d'espaces algébriques au-dessus de $S$, à cible fixée $X$.
+Posons $Y = \coprod_{i \in I} X_i$.
+Il existe une équivalence canonique de catégories
+$$
+\begin{matrix}
+\text{catégorie des données de descente } \\
+\text{relativement à la famille } \{X_i \to X\}_{i \in I}
+\end{matrix}
+\longrightarrow
+\begin{matrix}
+\text{ catégorie des données de descente} \\
+\text{ relativement à } Y/X
+\end{matrix}
+$$
+qui envoie $(V_i, \varphi_{ij})$ sur $(V, \varphi)$, où
+$V = \coprod_{i\in I} V_i$ et $\varphi = \coprod \varphi_{ij}$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que $Y \times_X Y = \coprod_{ij} X_i \times_X X_j$
+et de même pour les produits fibrés itérés.
+Se donner un morphisme $V \to Y$ revient exactement à
+se donner une famille $V_i \to X_i$. De même, se donner une donnée de descente
+$\varphi$ revient exactement à se donner une famille $\varphi_{ij}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback}
+Changement de base des données de descente. Soit $S$ un schéma.
+\begin{enumerate}
+\item Soit
+$$
+\xymatrix{
+Y' \ar[r]_f \ar[d]_{a'} & Y \ar[d]^a \\
+X' \ar[r]^h & X
+}
+$$
+soit un diagramme commutatif d'espaces algébriques au-dessus de $S$.
+La construction
+$$
+(V \to Y, \varphi) \longmapsto f^*(V \to Y, \varphi) = (V' \to Y', \varphi')
+$$
+où $V' = Y' \times_Y V$ et où
+$\varphi'$ est définie comme la composée
+$$
+\xymatrix{
+V' \times_{X'} Y' \ar@{=}[r] &
+(Y' \times_Y V) \times_{X'} Y' \ar@{=}[r] &
+(Y' \times_{X'} Y') \times_{Y \times_X Y} (V \times_X Y)
+\ar[d]^{\text{id} \times \varphi} \\
+Y' \times_{X'} V' \ar@{=}[r] &
+Y' \times_{X'} (Y' \times_Y V) &
+(Y' \times_X Y') \times_{Y \times_X Y} (Y \times_X V) \ar@{=}[l]
+}
+$$
+définit un foncteur de la catégorie des données de descente
+relativement à $Y \to X$ vers la catégorie des données de descente
+relativement à $Y' \to X'$.
+\item Étant donnés deux morphismes $f_i : Y' \to Y$, $i = 0, 1$, rendant le
+diagramme commutatif, les foncteurs $f_0^*$ et $f_1^*$ sont
+canoniquement isomorphes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous omettons la démonstration de (1), mais remarquons que le morphisme
+$\varphi'$ est le morphisme $(f \times f)^*\varphi$ dans les
+notations introduites dans la remarque \ref{remark-easier}.
+Pour (2), indiquons quel morphisme
+$f_0^*V \to f_1^*V$ fournit l'isomorphisme fonctoriel. En effet,
+puisque $f_0$ et $f_1$ s'insèrent tous deux dans le diagramme commutatif,
+il existe un unique morphisme $r : Y' \to Y \times_X Y$
+tel que $f_i = \text{pr}_i \circ r$. Prenons alors
+\begin{eqnarray*}
+f_0^*V & = &
+Y' \times_{f_0, Y} V \\
+& = &
+Y' \times_{\text{pr}_0 \circ r, Y} V \\
+& = &
+Y' \times_{r, Y \times_X Y} (Y \times_X Y) \times_{\text{pr}_0, Y} V \\
+& \xrightarrow{\varphi} &
+Y' \times_{r, Y \times_X Y} (Y \times_X Y) \times_{\text{pr}_1, Y} V \\
+& = &
+Y' \times_{\text{pr}_1 \circ r, Y} V \\
+& = &
+Y' \times_{f_1, Y} V \\
+& = & f_1^*V
+\end{eqnarray*}
+Nous omettons la vérification.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-functor}
+Avec $S, X, X', Y, Y', f, a, a', h$ comme dans le lemme \ref{lemma-pullback},
+le foncteur
+$$
+(V, \varphi) \longmapsto f^*(V, \varphi)
+$$
+construit dans ce lemme est appelé le {\it foncteur de changement de base} des données de descente.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-pullback-family}
+Soit $S$ un schéma. Soient $\mathcal{U}' = \{X'_i \to X'\}_{i \in I'}$ et
+$\mathcal{U} = \{X_j \to X\}_{i \in I}$ des familles de morphismes à
+cible fixée. Soient $\alpha : I' \to I$, $g : X' \to X$ et les morphismes
+$g_i : X'_i \to X_{\alpha(i)}$ les composantes d'un morphisme de familles
+de morphismes à cible fixée, voir
+Sites, définition \ref{sites-definition-morphism-coverings}.
+\begin{enumerate}
+\item Soit $(V_i, \varphi_{ij})$ une donnée de descente relativement à la
+famille $\mathcal{U}$. Le système
+$$
+\left(
+g_i^*V_{\alpha(i)}, (g_i \times g_j)^*\varphi_{\alpha(i) \alpha(j)}
+\right)
+$$
+(avec les notations de la remarque \ref{remark-easier-family})
+est une donnée de descente relativement à $\mathcal{U}'$.
+\item Cette construction définit un foncteur de la catégorie des
+données de descente relativement à $\mathcal{U}$ vers la catégorie des
+données de descente relativement à $\mathcal{U}'$.
+\item Soient aussi $\beta : I' \to I$, $h : X' \to X$ et les morphismes
+$h'_i : X'_i \to X_{\beta(i)}$ les composantes d'un second morphisme de familles
+de morphismes à cible fixée. Si $g = h$, alors les deux foncteurs obtenus
+entre les catégories de données de descente sont canoniquement isomorphes.
+\item Via le lemme \ref{lemma-family-is-one}, ces foncteurs coïncident
+avec les foncteurs de changement de base construits dans le lemme \ref{lemma-pullback}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du lemme \ref{lemma-pullback} au moyen de la
+correspondance du lemme \ref{lemma-family-is-one}.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-functor-family}
+Avec $\mathcal{U}' = \{X'_i \to X'\}_{i \in I'}$,
+$\mathcal{U} = \{X_i \to X\}_{i \in I}$, $\alpha : I' \to I$,
+$g : X' \to X$ et $g_i : X'_i \to X_{\alpha(i)}$ comme dans le
+lemme \ref{lemma-pullback-family}, le foncteur
+$$
+(V_i, \varphi_{ij}) \longmapsto
+(g_i^*V_{\alpha(i)}, (g_i \times g_j)^*\varphi_{\alpha(i) \alpha(j)})
+$$
+construit dans ce lemme
+est appelé le {\it foncteur de changement de base} des données de descente.
+\end{definition}
+
+\noindent
+Si $\mathcal{U}$ et $\mathcal{U}'$ ont la même cible $X$,
+et si $\mathcal{U}'$ raffine $\mathcal{U}$ (voir
+Sites, définition \ref{sites-definition-morphism-coverings}),
+mais qu'aucun couple explicite $(\alpha, g_i)$ n'est donné, nous pouvons néanmoins
+parler du foncteur de changement de base, puisque le
+lemme \ref{lemma-pullback-family} montre que le choix du couple n'importe pas
+(à isomorphisme canonique près).
+
+\begin{definition}
+\label{definition-effective}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques au-dessus de
+$S$.
+\begin{enumerate}
+\item À tout espace algébrique $U$ au-dessus de $X$ est associée la
+{\it donnée de descente triviale} de $U$ relativement à $\text{id} : X \to X$, à savoir
+le morphisme identité de $U$.
+\item Le lemme \ref{lemma-pullback} fournit alors une
+{\it donnée de descente canonique} sur $Y \times_X U$
+relativement à $Y \to X$, obtenue par changement de base de la donnée de descente
+triviale par $f$. Cette donnée de descente est souvent
+notée $(Y \times_X U, can)$.
+\item Une donnée de descente $(V, \varphi)$ relativement à $Y/X$
+est dite {\it effective} si $(V, \varphi)$
+est isomorphe à la donnée de descente canonique
+$(Y \times_X U, can)$ pour un espace algébrique $U$ au-dessus de $X$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Ainsi, l'effectivité signifie qu'il existe un espace algébrique $U$
+au-dessus de $X$ et un isomorphisme $\psi : V \to Y \times_X U$
+au-dessus de $Y$ tels que $\varphi$ soit égale à la composée
+$$
+V \times_X Y \xrightarrow{\psi \times \text{id}_Y}
+Y \times_X U \times_S Y =
+Y \times_X Y \times_X U
+\xrightarrow{\text{id}_Y \times \psi^{-1}}
+Y \times_X V
+$$
+Il existe ici une légère difficulté : cette définition
+(dans son esprit) entre en conflit avec celle donnée dans
+Descente, définition \ref{descent-definition-effective},
+lorsque $Y$ et $X$ sont des schémas. Cependant, le contexte permettra toujours
+de savoir laquelle des deux est visée.
+
+\begin{definition}
+\label{definition-effective-family}
+Soit $S$ un schéma.
+Soit $\{X_i \to X\}$ une famille de morphismes d'espaces algébriques au-dessus de $S$,
+à cible fixée $X$.
+\begin{enumerate}
+\item Étant donné un espace algébrique $U$ au-dessus de $X$,
+il existe une {\it donnée de descente canonique} sur la famille des
+espaces algébriques $X_i \times_X U$, obtenue par changement de base de la donnée de descente
+triviale de $U$ relativement à $\{\text{id} : S \to S\}$.
+Nous notons cette donnée de descente $(X_i \times_X U, can)$.
+\item Une donnée de descente $(V_i, \varphi_{ij})$
+relativement à $\{X_i \to S\}$ est dite {\it effective}
+s'il existe un espace algébrique $U$ au-dessus de $X$ tel que
+$(V_i, \varphi_{ij})$ soit isomorphe à $(X_i \times_X U, can)$.
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+\section{Données de descente en termes de faisceaux}
+\label{section-descent-data-sheaves}
+
+\noindent
+Cette section est l'analogue de Descente, section
+\ref{descent-section-descent-data-sheaves}.
+Elle diffère légèrement, puisque les espaces algébriques sont déjà des faisceaux.
+
+\begin{lemma}
+\label{lemma-descent-data-sheaves}
+Soit $S$ un schéma. Soit $\{X_i \to X\}_{i \in I}$ un recouvrement fppf
+d'espaces algébriques au-dessus de $S$ (Topologies sur les espaces,
+définition \ref{spaces-topologies-definition-fppf-covering}).
+Il existe une équivalence de catégories
+$$
+\left\{
+\begin{matrix}
+\text{données de descente }(V_i, \varphi_{ij})\\
+\text{relativement à }\{X_i \to X\}
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{faisceaux }F\text{ sur }(\Sch/S)_{fppf}\text{ munis}\\
+\text{d'un morphisme }F \to X\text{ tel que chaque}\\
+X_i \times_X F\text{ soit un espace algébrique}
+\end{matrix}
+\right\}.
+$$
+De plus,
+\begin{enumerate}
+\item l'espace algébrique $X_i \times_X F$ du membre de droite
+correspond à $V_i$ du membre de gauche, et
+\item le faisceau $F$ est un espace algébrique\footnote{Nous verrons
+plus loin que c'est toujours le cas si $I$ n'est pas trop grand, voir
+Amorçage, lemme \ref{bootstrap-lemma-descend-algebraic-space}.}
+si et seulement si la
+donnée de descente $(X_i, \varphi_{ij})$ correspondante est effective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Construisons le foncteur de droite à gauche.
+Soit $F \to X$ un morphisme de faisceaux sur $(\Sch/S)_{fppf}$ tel que chaque
+$V_i = X_i \times_X F$ soit un espace algébrique. Nous disposons de la
+projection $V_i \to X_i$.
+Alors $V_i \times_X X_j$ et $X_i \times_X V_j$
+représentent tous deux le faisceau $X_i \times_X F \times_X X_j$ ;
+nous obtenons donc un isomorphisme
+$$
+\varphi_{ii'} : V_i \times_X X_j \to X_i \times_X V_j
+$$
+Il est immédiat que les applications $\varphi_{ij}$
+sont des morphismes au-dessus de $X_i \times_X X_j$ et satisfont à la
+condition de cocycle. Le foncteur de droite à gauche est donné
+par cette construction $F \mapsto (V_i, \varphi_{ij})$.
+
+\medskip\noindent
+Construisons maintenant un foncteur de gauche à droite.
+Les isomorphismes $\varphi_{ij}$ fournissent des isomorphismes
+$$
+\varphi_{ij} : V_i \times_X X_j \longrightarrow X_i \times_X V_j
+$$
+au-dessus de $X_i \times X_j$. Posons $F$ égal au coégalisateur du
+diagramme suivant :
+$$
+\xymatrix{
+\coprod_{i, i'} V_i \times_X X_j
+\ar@<1ex>[rr]^-{\text{pr}_0}
+\ar@<-1ex>[rr]_-{\text{pr}_1 \circ \varphi_{ij}}
+& &
+\coprod_i V_i \ar[r]
+&
+F
+}
+$$
+La condition de cocycle assure que $F$ est muni d'un morphisme
+$F \to X$ et que $X_i \times_X F$ est isomorphe à $V_i$.
+Le foncteur de gauche à droite est donné
+par cette construction $(V_i, \varphi_{ij}) \mapsto F$.
+
+\medskip\noindent
+Nous omettons de vérifier que ces constructions
+sont des foncteurs quasi-inverses l'un de l'autre. Les derniers énoncés
+(1) et (2) résultent des constructions.
+\end{proof}
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+
+\end{document}

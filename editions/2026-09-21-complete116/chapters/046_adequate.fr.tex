@@ -1,0 +1,3003 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Modules adéquats}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Pour tout schéma $X$, la catégorie $\QCoh(\mathcal{O}_X)$
+des modules quasi-cohérents est abélienne et est une sous-catégorie
+de Serre faible de la catégorie abélienne de tous les $\mathcal{O}_X$-modules.
+Il en va de même pour la catégorie des modules quasi-cohérents sur
+un espace algébrique $X$, considérée comme sous-catégorie de la catégorie
+de tous les $\mathcal{O}_X$-modules sur le petit site étale de $X$.
+De plus, pour un morphisme quasi-compact et quasi-séparé
+$f : X \to Y$, l'image directe $f_*$ et les images directes supérieures
+préservent la quasi-cohérence.
+
+\medskip\noindent
+Soit ensuite $X$ un schéma et soit $\mathcal{O}$ le faisceau structural
+sur l'un des grands sites de $X$, par exemple le grand site fppf.
+La catégorie des $\mathcal{O}$-modules quasi-cohérents est abélienne
+(elle est en fait équivalente à la catégorie usuelle des
+$\mathcal{O}_X$-modules quasi-cohérents sur le schéma $X$ mentionnée plus haut),
+mais son plongement dans $\textit{Mod}(\mathcal{O})$ n'est pas exact.
+Un exemple est l'application de modules quasi-cohérents
+$$
+\mathcal{O}_{\mathbf{A}^1_k}
+\longrightarrow
+\mathcal{O}_{\mathbf{A}^1_k}
+$$
+sur $\mathbf{A}^1_k = \Spec(k[x])$ donnée par la multiplication par $x$.
+Dans la catégorie abélienne des faisceaux quasi-cohérents, cette application
+est injective, tandis que, dans la catégorie abélienne de tous les
+$\mathcal{O}$-modules sur le grand site de $\mathbf{A}^1_k$, elle possède
+un noyau non trivial, comme on le voit en l'évaluant sur les sections au-dessus
+de $\Spec(k[x]/(x)) = \Spec(k)$. De plus, pour un morphisme
+quasi-compact et quasi-séparé $f : X \to Y$, le foncteur $f_{big, *}$
+ne préserve pas la quasi-cohérence.
+
+\medskip\noindent
+Dans ce chapitre, nous introduisons la catégorie de ce que nous appellerons
+les modules adéquats, étroitement apparentés aux modules quasi-cohérents,
+qui « résout » les deux problèmes mentionnés ci-dessus. Une autre solution,
+que nous mettrons en œuvre lorsque nous traiterons des modules quasi-cohérents
+sur les champs algébriques, consiste à considérer les $\mathcal{O}$-modules
+qui sont localement quasi-cohérents et satisfont la propriété de changement
+de base plat. Voir Cohomologie des champs, section
+\ref{stacks-cohomology-section-loc-qcoh-flat-base-change},
+Cohomologie des champs, remarque
+\ref{stacks-cohomology-remark-bousfield-colocalization}, et
+Catégories dérivées des champs, section
+\ref{stacks-perfect-section-derived}.
+
+
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Dans ce chapitre, nous fixons
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$
+et un grand $\tau$-site $\Sch_\tau$ comme dans
+Topologies, section \ref{topologies-section-procedure}.
+Tous les schémas seront des objets de $\Sch_\tau$.
+En particulier, pour tout schéma $S$, nous obtenons les sites
+$(\textit{Aff}/S)_\tau \subset (\Sch/S)_\tau$.
+Le faisceau structural $\mathcal{O}$ sur ces sites est défini par
+la règle $\mathcal{O}(T) = \Gamma(T, \mathcal{O}_T)$.
+
+\medskip\noindent
+Tous les anneaux $A$ seront tels que $\Spec(A)$ soit (isomorphe à) un
+objet de $\Sch_\tau$. Étant donné un anneau $A$, nous notons
+$\textit{Alg}_A$ la catégorie des $A$-algèbres dont les objets sont les
+$A$-algèbres $B$ de la forme $B = \Gamma(U, \mathcal{O}_U)$,
+où $U$ est un objet affine de $\Sch_\tau$. Ainsi, pour tout
+schéma affine $S = \Spec(A)$, le foncteur
+$$
+(\textit{Aff}/S)_\tau \longrightarrow \textit{Alg}_A,
+\quad
+U \longmapsto \mathcal{O}(U)
+$$
+est une équivalence.
+
+
+
+
+
+\section{Foncteurs adéquats}
+\label{section-quasi-coherent}
+
+\noindent
+Dans cette section, nous étudions un sujet étroitement lié aux
+images directes des faisceaux quasi-cohérents. La majeure partie de ce qui suit
+est tirée de l'article \cite{Jaffe}.
+
+\begin{definition}
+\label{definition-module-valued-functor}
+Soit $A$ un anneau. Un {\it foncteur à valeurs dans les modules} est un foncteur
+$F : \textit{Alg}_A \to \textit{Ab}$ tel que
+\begin{enumerate}
+\item pour tout objet $B$ de $\textit{Alg}_A$, le groupe
+$F(B)$ soit muni d'une structure de $B$-module, et
+\item pour tout morphisme $B \to B'$ de $\textit{Alg}_A$, l'application
+$F(B) \to F(B')$ soit $B$-linéaire.
+\end{enumerate}
+Un {\it morphisme de foncteurs à valeurs dans les modules} est une transformation
+de foncteurs $\varphi : F \to G$ telle que $F(B) \to G(B)$ soit $B$-linéaire
+pour tout $B \in \Ob(\textit{Alg}_A)$.
+\end{definition}
+
+\noindent
+Soit $S = \Spec(A)$ un schéma affine.
+La catégorie des foncteurs à valeurs dans les modules sur $\textit{Alg}_A$
+est équivalente à la catégorie
+$\textit{PMod}((\textit{Aff}/S)_\tau, \mathcal{O})$
+des préfaisceaux de $\mathcal{O}$-modules. L'équivalence est donnée
+par la règle qui associe au foncteur à valeurs dans les modules $F$ le
+préfaisceau $\mathcal{F}$ défini par
+$\mathcal{F}(U) = F(\mathcal{O}(U))$.
+Cela résulte immédiatement de l'équivalence
+$(\textit{Aff}/S)_\tau \to \textit{Alg}_A$, $U \mapsto \mathcal{O}(U)$
+donnée dans la section \ref{section-conventions}.
+Le quasi-inverse pose $F(B) = \mathcal{F}(\Spec(B))$.
+
+\medskip\noindent
+Un cas particulier important de foncteur à valeurs dans les modules
+s'obtient comme suit. Soit $M$ un $A$-module. Nous noterons alors
+$\underline{M}$ le foncteur à valeurs dans les modules $B \mapsto M \otimes_A B$
+(muni de la structure évidente de $B$-module). Remarquons que si $M \to N$
+est une application de $A$-modules, il lui est associé un morphisme
+$\underline{M} \to \underline{N}$ de foncteurs à valeurs dans les modules.
+Réciproquement, tout morphisme de foncteurs à valeurs dans les modules
+$\underline{M} \to \underline{N}$ provient d'une application de $A$-modules
+$M \to N$, comme on le voit en l'évaluant en $B = A$. Autrement dit,
+$\text{Mod}_A$ est une sous-catégorie pleine de la catégorie des foncteurs
+à valeurs dans les modules sur $\textit{Alg}_A$.
+
+\medskip\noindent
+Étant donnée une application de $A$-modules $\varphi : M \to N$, on a
+$\Coker(\underline{M} \to \underline{N}) =
+\underline{Q}$ où $Q = \Coker(M \to N)$, car $\otimes$
+est exact à droite. Mais il n'en va pas ainsi
+du noyau en général : par exemple, une application injective de
+$A$-modules ne reste pas nécessairement injective après changement de base.
+La définition suivante est donc naturelle.
+
+\begin{definition}
+\label{definition-adequate-functor}
+Soit $A$ un anneau. Un foncteur à valeurs dans les modules $F$ sur
+$\textit{Alg}_A$ est dit
+\begin{enumerate}
+\item {\it adéquat} s'il existe une
+application de $A$-modules $M \to N$ telle que $F$ soit isomorphe à
+$\Ker(\underline{M} \to \underline{N})$ ;
+\item {\it linéairement adéquat} si $F$ est isomorphe au
+noyau d'une application $\underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Remarquons que $F$ est adéquat si et seulement s'il existe une
+suite exacte $0 \to F \to \underline{M} \to \underline{N}$, et que
+$F$ est linéairement adéquat si et seulement s'il existe une suite exacte
+$0 \to F \to \underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$.
+
+\medskip\noindent
+Soit $A$ un anneau. Dans cette section, nous montrerons que la catégorie
+des foncteurs adéquats sur $\textit{Alg}_A$ est abélienne
+(lemmes \ref{lemma-cokernel-adequate} et \ref{lemma-kernel-adequate})
+et possède un ensemble de générateurs
+(lemme \ref{lemma-adequate-surjection-from-linear}).
+Nous verrons aussi qu'elle est une sous-catégorie de Serre faible de la catégorie
+de tous les foncteurs à valeurs dans les modules sur $\textit{Alg}_A$
+(lemme \ref{lemma-extension-adequate})
+et qu'elle admet des limites inductives arbitraires
+(lemme \ref{lemma-colimit-adequate}).
+
+\begin{lemma}
+\label{lemma-adequate-finite-presentation}
+Soit $A$ un anneau.
+Soit $F$ un foncteur adéquat sur $\textit{Alg}_A$.
+Si $B = \colim B_i$ est une limite inductive filtrante de
+$A$-algèbres, alors $F(B) = \colim F(B_i)$.
+\end{lemma}
+
+\begin{proof}
+Cela tient à ce que, pour tout $A$-module $M$, on a
+$M \otimes_A B = \colim M \otimes_A B_i$ (voir
+Algèbre, lemme \ref{algebra-lemma-tensor-products-commute-with-limits})
+et à ce que les limites inductives filtrantes commutent aux suites exactes, voir
+Algèbre, lemme \ref{algebra-lemma-directed-colimit-exact}.
+\end{proof}
+
+\begin{remark}
+\label{remark-settheoretic}
+Considérons la catégorie $\textit{Alg}_{fp, A}$ dont les objets sont les
+$A$-algèbres $B$ de la forme $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+et dont les morphismes sont les applications de $A$-algèbres. Toute
+$A$-algèbre $B$ est limite inductive filtrante de $A$-algèbres de présentation
+finie, c'est-à-dire limite inductive filtrante d'objets de
+$\textit{Alg}_{fp, A}$. D'après le
+lemme \ref{lemma-adequate-finite-presentation},
+nous en concluons que tout foncteur adéquat $F$ est déterminé par sa restriction
+à $\textit{Alg}_{fp, A}$. Pour certaines questions, nous pouvons donc nous
+restreindre aux foncteurs sur $\textit{Alg}_{fp, A}$. Par exemple, la catégorie
+des foncteurs adéquats ne dépend pas du choix du grand $\tau$-site
+fait à la
+section \ref{section-conventions}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-adequate-flat}
+Soit $A$ un anneau.
+Soit $F$ un foncteur adéquat sur $\textit{Alg}_A$.
+Si $B \to B'$ est plat, alors $F(B) \otimes_B B' \to F(B')$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Choisissons une suite exacte $0 \to F \to \underline{M} \to \underline{N}$.
+Elle donne le diagramme
+$$
+\xymatrix{
+0 \ar[r] & F(B) \otimes_B B' \ar[r] \ar[d] &
+(M \otimes_A B)\otimes_B B' \ar[r] \ar[d] &
+(N \otimes_A B)\otimes_B B' \ar[d] \\
+0 \ar[r] & F(B') \ar[r] &
+M \otimes_A B' \ar[r] &
+N \otimes_A B'
+}
+$$
+dont les lignes sont exactes (celle du haut parce que $B \to B'$ est plat).
+Puisque les deux flèches verticales de droite sont des isomorphismes, celle
+de gauche en est également un.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-surjection-from-linear}
+Soit $A$ un anneau.
+Soit $F$ un foncteur adéquat sur $\textit{Alg}_A$. Il existe alors une
+surjection $L \to F$, où $L$ est une somme directe de foncteurs linéairement adéquats.
+\end{lemma}
+
+\begin{proof}
+Choisissons une suite exacte $0 \to F \to \underline{M} \to \underline{N}$,
+où $\underline{M} \to \underline{N}$ est donnée par
+$\varphi : M \to N$. D'après le
+lemme \ref{lemma-adequate-finite-presentation},
+il suffit de construire $L \to F$ de sorte que $L(B) \to F(B)$ soit surjective
+pour toute $A$-algèbre de présentation finie $B$. Il suffit donc, étant donnés
+une $A$-algèbre de présentation finie $B$ et un élément $\xi \in F(B)$,
+de construire une application $L \to F$, avec $L$ linéairement adéquat, telle que $\xi$
+appartienne à l'image de $L(B) \to F(B)$.
+(En effet, les classes d'isomorphisme de tels couples $(B, \xi)$ forment un ensemble.)
+
+\medskip\noindent
+Pour cela, notons $\sum_{i = 1, \ldots, n} m_i \otimes b_i$ l'image de
+$\xi$ dans $\underline{M}(B) = M \otimes_A B$. Nous savons que
+$\sum \varphi(m_i) \otimes b_i = 0$ dans $N \otimes_A B$.
+Comme $N$ est une limite inductive filtrante de $A$-modules de présentation finie,
+on peut trouver un $A$-module de présentation finie $N'$ et un diagramme commutatif
+de $A$-modules
+$$
+\xymatrix{
+A^{\oplus n} \ar[r] \ar[d]_{m_1, \ldots, m_n} & N' \ar[d] \\
+M \ar[r] & N
+}
+$$
+tels que $(b_1, \ldots, b_n)$ ait une image nulle dans $N' \otimes_A B$.
+Choisissons une présentation $A^{\oplus l} \to A^{\oplus k} \to N' \to 0$.
+Choisissons un relèvement $A^{\oplus n} \to A^{\oplus k}$ de l'application
+$A^{\oplus n} \to N'$ du diagramme. On voit alors qu'il existe
+$(c_1, \ldots, c_l) \in B^{\oplus l}$ tel que
+$(b_1, \ldots, b_n, c_1, \ldots, c_l)$ ait une image nulle dans $B^{\oplus k}$
+par l'application $B^{\oplus n} \oplus B^{\oplus l} \to B^{\oplus k}$.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+A^{\oplus n} \oplus A^{\oplus l} \ar[r] \ar[d] & A^{\oplus k} \ar[d] \\
+M \ar[r] & N
+}
+$$
+où la flèche verticale de gauche est nulle sur le facteur direct $A^{\oplus l}$.
+On voit alors que le noyau $L$ de $\underline{A^{\oplus n + l}}
+\to \underline{A^{\oplus k}}$ convient, car l'élément
+$(b_1, \ldots, b_n, c_1, \ldots, c_l) \in L(B)$ a pour image $\xi$.
+\end{proof}
+
+\noindent
+Considérons une $A$-algèbre graduée $B = \bigoplus_{d \geq 0} B_d$. Il existe alors
+deux homomorphismes de $A$-algèbres $p, a : B \to B[t, t^{-1}]$, à savoir
+$p : b \mapsto b$ et $a : b \mapsto t^{\deg(b)} b$, où $b$ est homogène.
+Si $F$ est un foncteur à valeurs dans les modules sur $\textit{Alg}_A$, posons
+\begin{equation}
+\label{equation-weight-k}
+F(B)^{(k)} = \{\xi \in F(B) \mid t^k F(p)(\xi) = F(a)(\xi)\}.
+\end{equation}
+Pour les foncteurs qui se comportent bien relativement aux extensions plates
+d'anneaux, cela donne une décomposition en somme directe. Cela revient au fait
+que les représentations de $\mathbf{G}_m$ sont complètement réductibles.
+
+\begin{lemma}
+\label{lemma-flat-functor-split}
+Soit $A$ un anneau.
+Soit $F$ un foncteur à valeurs dans les modules sur $\textit{Alg}_A$.
+Supposons que, pour $B \to B'$ plat, l'application
+$F(B) \otimes_B B' \to F(B')$ soit un isomorphisme.
+Soit $B$ une $A$-algèbre graduée. Alors
+\begin{enumerate}
+\item $F(B) = \bigoplus_{k \in \mathbf{Z}} F(B)^{(k)}$, et
+\item l'application $B \to B_0 \to B$ induit une application $F(B) \to F(B)$
+dont l'image est contenue dans $F(B)^{(0)}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $x \in F(B)$. L'application $p : B \to B[t, t^{-1}]$ est libre,
+donc nous savons que
+$$
+F(B[t, t^{-1}]) =
+\bigoplus\nolimits_{k \in \mathbf{Z}} F(p)(F(B)) \cdot t^k =
+\bigoplus\nolimits_{k \in \mathbf{Z}} F(B) \cdot t^k
+$$
+comme indiqué, nous omettons $F(p)$ dans la suite de la démonstration.
+Écrivons $F(a)(x) = \sum t^k x_k$, avec $x_k \in F(B)$.
+Notons $\epsilon : B[t, t^{-1}] \to B$
+l'homomorphisme de $B$-algèbres $t \mapsto 1$. Notons que les composés
+$\epsilon \circ p, \epsilon \circ a : B \to B[t, t^{-1}] \to B$ sont
+l'identité. On a donc
+$$
+x = F(\epsilon)(F(a)(x)) = F(\epsilon)(\sum t^k x_k) = \sum x_k.
+$$
+D'autre part, nous affirmons que $x_k \in F(B)^{(k)}$. Considérons en effet
+le diagramme commutatif
+$$
+\xymatrix{
+B \ar[r]_a \ar[d]_{a'} &
+B[t, t^{-1}] \ar[d]^f \\
+B[s, s^{-1}] \ar[r]^-g &
+B[t, s, t^{-1}, s^{-1}]
+}
+$$
+où $a'(b) = s^{\deg(b)}b$, $f(b) = b$, $f(t) = st$,
+$g(b) = t^{\deg(b)}b$ et $g(s) = s$. Alors
+$$
+F(g)(F(a'))(x) = F(g)(\sum s^k x_k) =
+\sum s^k F(a)(x_k)
+$$
+et, en suivant l'autre chemin, on obtient
+$$
+F(f)(F(a))(x) = F(f)(\sum t^k x_k) = \sum (st)^k x_k.
+$$
+{\emergencystretch=2em
+Puisque $B \to B[s, t, s^{-1}, t^{-1}]$ est libre, on a
+$F(B[t, s, t^{-1}, s^{-1}]) =
+\bigoplus_{k, l \in \mathbf{Z}} F(B) \cdot t^ks^l$ ;
+en comparant les coefficients dans les expressions ci-dessus, on trouve
+$F(a)(x_k) = t^k x_k$, comme voulu.\par}
+
+\medskip\noindent
+Enfin, l'image de $F(B_0) \to F(B)$ est contenue dans $F(B)^{(0)}$
+car $B_0 \to B \xrightarrow{a} B[t, t^{-1}]$ est égal à
+$B_0 \to B \xrightarrow{p} B[t, t^{-1}]$.
+\end{proof}
+
+\noindent
+Comme cas particulier du
+lemme \ref{lemma-flat-functor-split},
+notons que
+$$
+\underline{M}(B)^{(k)} = M \otimes_A B_k
+$$
+où $B_k$ est la composante de degré $k$ de la $A$-algèbre graduée $B$.
+
+\begin{lemma}
+\label{lemma-lift-map}
+Soit $A$ un anneau. Étant donné un diagramme en traits pleins
+$$
+\xymatrix{
+0 \ar[r] &
+L \ar[d]_\varphi \ar[r] &
+\underline{A^{\oplus n}} \ar[r] \ar@{..>}[ld] &
+\underline{A^{\oplus m}} \\
+& \underline{M}
+}
+$$
+de foncteurs à valeurs dans les modules sur $\textit{Alg}_A$
+dont la ligne est exacte, il existe une flèche pointillée rendant le diagramme commutatif.
+\end{lemma}
+
+\begin{proof}
+Supposons que l'application $A^{\oplus n} \to A^{\oplus m}$ soit donnée par la
+matrice de taille $m \times n$ notée $(a_{ij})$. Considérons l'anneau
+$B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$. L'élément
+$(x_1, \ldots, x_n) \in \underline{A^{\oplus n}}(B)$ a une image nulle dans
+$\underline{A^{\oplus m}}(B)$ ; il est donc l'image d'un unique élément
+$\xi \in L(B)$. Notons que $\xi$ possède la propriété universelle suivante :
+pour toute $A$-algèbre $C$ et tout $\xi' \in L(C)$, il existe un homomorphisme de
+$A$-algèbres $B \to C$ tel que $\xi$ ait pour image $\xi'$ par $L(B) \to L(C)$.
+
+\medskip\noindent
+Notons que $B$ est une $A$-algèbre graduée ; les
+lemmes \ref{lemma-flat-functor-split} et \ref{lemma-adequate-flat}
+permettent donc de décomposer les valeurs de nos foncteurs en $B$ en composantes graduées.
+Notons que $\xi \in L(B)^{(1)}$, puisque $(x_1, \ldots, x_n)$ est un élément
+de degré un de $\underline{A^{\oplus n}}(B)$. On voit donc que
+$\varphi(\xi) \in \underline{M}(B)^{(1)} = M \otimes_A B_1$.
+Puisque $B_1$ est engendré par $x_1, \ldots, x_n$ comme $A$-module,
+on peut écrire $\varphi(\xi) = \sum m_i \otimes x_i$. Considérons l'application
+$A^{\oplus n} \to M$ qui envoie le $i$-ième vecteur de base sur $m_i$.
+Par construction, l'application associée
+$\underline{A^{\oplus n}} \to \underline{M}$
+envoie l'élément $\xi$ sur $\varphi(\xi)$. La propriété
+universelle mentionnée ci-dessus entraîne que le diagramme commute.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cokernel-into-module}
+Soit $A$ un anneau.
+Soit $\varphi : F \to \underline{M}$ une application de foncteurs à valeurs dans les modules
+sur $\textit{Alg}_A$, avec $F$ adéquat.
+Alors $\Coker(\varphi)$ est adéquat.
+\end{lemma}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-adequate-surjection-from-linear},
+on peut supposer que $F = \bigoplus L_i$ est une somme directe de foncteurs
+linéairement adéquats. Choisissons des suites exactes
+$0 \to L_i \to \underline{A^{\oplus n_i}} \to \underline{A^{\oplus m_i}}$.
+Pour chaque $i$, choisissons une application $A^{\oplus n_i} \to M$ comme dans le
+lemme \ref{lemma-lift-map}.
+Considérons le diagramme
+$$
+\xymatrix{
+0 \ar[r] &
+\bigoplus L_i  \ar[r] \ar[d] &
+\bigoplus \underline{A^{\oplus n_i}} \ar[r] \ar[ld] &
+\bigoplus \underline{A^{\oplus m_i}} \\
+& \underline{M}
+}
+$$
+Considérons les $A$-modules
+$$
+Q =
+\Coker(\bigoplus A^{\oplus n_i} \to M \oplus \bigoplus A^{\oplus m_i})
+\quad\text{et}\quad
+P = \Coker(\bigoplus A^{\oplus n_i} \to \bigoplus A^{\oplus m_i}).
+$$
+On voit alors que $\Coker(\varphi)$ est isomorphe au
+noyau de $\underline{Q} \to \underline{P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cokernel-adequate}
+\begin{slogan}
+Le conoyau d'une application de foncteurs adéquats sur la catégorie des algèbres
+sur un anneau est adéquat.
+\end{slogan}
+Soit $A$ un anneau.
+Soit $\varphi : F \to G$ une application de foncteurs adéquats sur $\textit{Alg}_A$.
+Alors $\Coker(\varphi)$ est adéquat.
+\end{lemma}
+
+\begin{proof}
+Choisissons une injection $G \to \underline{M}$.
+On a alors une injection $G/F \to \underline{M}/F$. D'après le
+lemme \ref{lemma-cokernel-into-module},
+$\underline{M}/F$ est adéquat ; on peut donc trouver une injection
+$\underline{M}/F \to \underline{N}$.
+Par composition, on obtient une injection $G/F \to \underline{N}$. D'après le
+lemme \ref{lemma-cokernel-into-module},
+le conoyau de l'application induite $G \to \underline{N}$ est adéquat ;
+on peut donc trouver une injection $\underline{N}/G \to \underline{K}$.
+La suite $0 \to G/F \to \underline{N} \to \underline{K}$ est alors exacte,
+ce qui conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kernel-adequate}
+Soit $A$ un anneau.
+Soit $\varphi : F \to G$ une application de foncteurs adéquats sur $\textit{Alg}_A$.
+Alors $\Ker(\varphi)$ est adéquat.
+\end{lemma}
+
+\begin{proof}
+Choisissons une injection $F \to \underline{M}$ et une injection
+$G \to \underline{N}$. Notons $F \to \underline{M \oplus N}$
+l'application diagonale, de sorte que
+$$
+\xymatrix{
+F \ar[d] \ar[r] & G \ar[d] \\
+\underline{M \oplus N} \ar[r] & \underline{N}
+}
+$$
+commute. D'après le
+lemme \ref{lemma-cokernel-adequate},
+on peut trouver une application de modules $M \oplus N \to K$ telle que
+$F$ soit le noyau de $\underline{M \oplus N} \to \underline{K}$.
+Alors $\Ker(\varphi)$ est le noyau de
+$\underline{M \oplus N} \to \underline{K \oplus N}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-adequate}
+Soit $A$ un anneau.
+Une somme directe arbitraire de foncteurs adéquats sur $\textit{Alg}_A$
+est adéquate. Une limite inductive de foncteurs adéquats est adéquate.
+\end{lemma}
+
+\begin{proof}
+L'assertion relative aux sommes directes est immédiate.
+Une limite inductive quelconque peut s'écrire comme noyau d'une application entre
+sommes directes ; voir
+Catégories, lemme \ref{categories-lemma-colimits-coproducts-coequalizers}.
+L'assertion résulte donc du
+lemme \ref{lemma-kernel-adequate}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-linear-functor}
+Soit $A$ un anneau.
+Soient $F, G$ des foncteurs à valeurs dans les modules sur $\textit{Alg}_A$.
+Soit $\varphi : F \to G$ une transformation de foncteurs. Supposons que
+\begin{enumerate}
+\item $\varphi$ soit additive,
+\item pour toute $A$-algèbre $B$, tout $\xi \in F(B)$ et toute unité
+$u \in B^*$, on ait $\varphi(u\xi) = u\varphi(\xi)$ dans $G(B)$, et
+\item pour tout homomorphisme plat d'anneaux $B \to B'$, on ait
+$G(B) \otimes_B B' = G(B')$.
+\end{enumerate}
+Alors $\varphi$ est un morphisme de foncteurs à valeurs dans les modules.
+\end{lemma}
+
+\begin{proof}
+Soient $B$ une $A$-algèbre, $\xi \in F(B)$ et $b \in B$. Il faut montrer
+que $\varphi(b \xi) = b \varphi(\xi)$. Considérons l'homomorphisme d'anneaux
+$$
+B \to B' = B[x, y, x^{-1}, y^{-1}]/(x + y - b).
+$$
+Cet homomorphisme est fidèlement plat, donc $G(B) \subset G(B')$. D'autre
+part,
+$$
+\varphi(b\xi) = \varphi((x + y)\xi) =
+\varphi(x\xi) + \varphi(y\xi) = x\varphi(\xi) + y\varphi(\xi)
+= (x + y)\varphi(\xi) = b\varphi(\xi)
+$$
+car $x, y$ sont des unités de $B'$. Cela conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extension-adequate-key}
+Soit $A$ un anneau.
+Soit $0 \to \underline{M} \to G \to L \to 0$ une suite exacte courte
+de foncteurs à valeurs dans les modules sur $\textit{Alg}_A$, avec $L$ linéairement adéquat.
+Alors $G$ est adéquat.
+\end{lemma}
+
+\begin{proof}
+Remarquons d'abord que, pour tout homomorphisme plat de $A$-algèbres
+$B \to B'$, l'application $G(B) \otimes_B B' \to G(B')$ est un isomorphisme.
+Cela vaut en effet pour $\underline{M}$ et $L$, voir le
+lemme \ref{lemma-adequate-flat},
+et en résulte pour $G$ par le lemme des cinq. En particulier, le
+lemme \ref{lemma-flat-functor-split}
+montre que $G(B) = \bigoplus_{k \in \mathbf{Z}} G(B)^{(k)}$
+pour toute $A$-algèbre graduée $B$.
+
+\medskip\noindent
+Choisissons une suite exacte
+$0 \to L \to \underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$.
+Supposons que l'application $A^{\oplus n} \to A^{\oplus m}$ soit donnée par la
+matrice de taille $m \times n$ notée $(a_{ij})$. Considérons la $A$-algèbre graduée
+$B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$. L'élément
+$(x_1, \ldots, x_n) \in \underline{A^{\oplus n}}(B)$ a une image nulle dans
+$\underline{A^{\oplus m}}(B)$ ; il est donc l'image d'un unique élément
+$\xi \in L(B)$. Observons que $\xi \in L(B)^{(1)}$. L'application
+$$
+\Hom_A(B, C) \longrightarrow L(C), \quad
+f \longmapsto L(f)(\xi)
+$$
+définit un isomorphisme de foncteurs. En effet, $f$ est
+déterminé par les images $c_i = f(x_i) \in C$, qui doivent
+satisfaire aux relations $\sum a_{ij}c_j = 0$. Or $L(C)$ est
+l'ensemble des $n$-uplets $(c_1, \ldots, c_n)$ satisfaisant aux relations
+$\sum a_{ij} c_j = 0$.
+
+\medskip\noindent
+Puisque la valeur de chacun des foncteurs $\underline{M}$, $G$, $L$
+en $B$ est la somme directe de ses espaces de poids (d'après le lemme
+mentionné ci-dessus), l'exactitude de $0 \to \underline{M} \to G \to L \to 0$ entraîne
+celle de la suite $0 \to \underline{M}(B)^{(1)} \to G(B)^{(1)} \to L(B)^{(1)} \to 0$.
+On peut donc choisir un élément $\theta \in G(B)^{(1)}$ ayant pour image
+$\xi$.
+
+\medskip\noindent
+Considérons la $A$-algèbre graduée
+$$
+C = A[x_1, \ldots, x_n, y_1, \ldots, y_n]/
+(\sum a_{ij}x_j, \sum a_{ij}y_j)
+$$
+Il existe trois homomorphismes de $A$-algèbres graduées $p_1, p_2, m : B \to C$
+définis par les règles
+$$
+p_1(x_i) = x_i, \quad
+p_1(x_i) = y_i, \quad
+m(x_i) = x_i + y_i.
+$$
+Nous montrerons que l'élément
+$$
+\tau = G(m)(\theta) - G(p_1)(\theta) - G(p_2)(\theta) \in G(C)
+$$
+est nul. Tout d'abord, un calcul direct montre que $\tau$ a une image nulle dans $L(C)$.
+Ainsi, $\tau$ est un élément de $\underline{M}(C)$.
+De plus, puisque $m$, $p_1$, $p_2$ sont des homomorphismes d'algèbres graduées,
+on voit que $\tau \in G(C)^{(1)}$ ; comme $\underline{M} \subset G$,
+on en conclut que
+$$
+\tau \in \underline{M}(C)^{(1)} = M \otimes_A C_1.
+$$
+On peut écrire de manière unique
+$\tau = \underline{M}(p_1)(\tau_1) + \underline{M}(p_2)(\tau_2)$, avec
+$\tau_i \in M \otimes_A B_1 = \underline{M}(B)^{(1)}$, car
+$C_1 = p_1(B_1) \oplus p_2(B_1)$.
+Considérons l'homomorphisme d'anneaux $q_1 : C \to B$ défini par $x_i \mapsto x_i$ et
+$y_i \mapsto 0$. Alors
+$\underline{M}(q_1)(\tau) =
+\underline{M}(q_1)(\underline{M}(p_1)(\tau_1) + \underline{M}(p_2)(\tau_2)) =
+\tau_1$.
+D'autre part, puisque
+$q_1 \circ m = q_1 \circ p_1$, on voit que
+$G(q_1)(\tau) = - G(q_1 \circ p_2)(\tau)$. Comme $q_1 \circ p_2$ se factorise en
+$B \to A \to B$, on voit que $G(q_1 \circ p_2)(\tau)$ appartient à
+$G(B)^{(0)}$ ; voir le
+lemme \ref{lemma-flat-functor-split}.
+Ainsi $\tau_1 = 0$, car cet élément appartient à
+$G(B)^{(0)} \cap \underline{M}(B)^{(1)} \subset
+G(B)^{(0)} \cap G(B)^{(1)} = 0$.
+De même $\tau_2 = 0$, d'où $\tau = 0$.
+
+\medskip\noindent
+Puisque $\theta \in G(B)$, on obtient une transformation de foncteurs
+$$
+\psi : L(-) = \Hom_A(B, - ) \longrightarrow G(-)
+$$
+en envoyant $f : B \to C$ sur $G(f)(\theta)$. Puisque $\theta$ est un relèvement de
+$\xi$, l'application $\psi$ est un inverse à droite de $G \to L$. En termes de
+$\psi$, les assertions démontrées ci-dessus signifient ceci :
+$\tau = 0$ signifie que $\psi$ est additive, et
+$\theta \in G(B)^{(1)}$ entraîne que, pour toute $A$-algèbre $D$, on a
+$\psi(ul) = u\psi(l)$ dans $G(D)$ pour $l \in L(D)$ et toute unité $u \in D^*$.
+Cela entraîne que $\psi$ est un morphisme de foncteurs à valeurs dans les modules ; voir le
+lemme \ref{lemma-flat-linear-functor}.
+Il en résulte clairement que $G \cong \underline{M} \oplus L$, ce qui conclut.
+\end{proof}
+
+\begin{remark}
+\label{remark-linearly-adequate}
+Soit $A$ un anneau.
+La démonstration du
+lemme \ref{lemma-extension-adequate-key}
+montre que toute extension $0 \to \underline{M} \to E \to L \to 0$
+de foncteurs à valeurs dans les modules sur $\textit{Alg}_A$,
+avec $L$ linéairement adéquat, est scindée. Elle n'utilise que les propriétés suivantes
+du foncteur à valeurs dans les modules $F = \underline{M}$ :
+\begin{enumerate}
+\item $F(B) \otimes_B B' \to F(B')$ est un isomorphisme
+pour un homomorphisme plat d'anneaux $B \to B'$, et
+\item
+$F(C)^{(1)} = F(p_1)(F(B)^{(1)}) \oplus F(p_2)(F(B)^{(1)})$,
+où $B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$ et
+$C = A[x_1, \ldots, x_n, y_1, \ldots, y_n]/
+(\sum a_{ij}x_j, \sum a_{ij}y_j)$.
+\end{enumerate}
+Ces deux propriétés valent pour tout foncteur adéquat $F$ ; nous omettons les détails.
+On voit donc que $L$ est un objet projectif de la catégorie abélienne des
+foncteurs adéquats.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-extension-adequate}
+Soit $A$ un anneau.
+Soit $0 \to F \to G \to H \to 0$ une suite exacte courte de
+foncteurs à valeurs dans les modules sur $\textit{Alg}_A$.
+Si $F$ et $H$ sont adéquats, $G$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Choisissons une suite exacte $0 \to F \to \underline{M} \to \underline{N}$.
+Si l'on peut montrer que $(\underline{M} \oplus G)/F$ est adéquat, alors
+$G$ est le noyau de l'application de foncteurs adéquats
+$(\underline{M} \oplus G)/F \to \underline{N}$, donc est
+adéquat d'après le
+lemme \ref{lemma-kernel-adequate}.
+On peut donc supposer que $F = \underline{M}$.
+
+\medskip\noindent
+On peut choisir une surjection $L \to H$, où $L$ est une somme directe de
+foncteurs linéairement adéquats ; voir le
+lemme \ref{lemma-adequate-surjection-from-linear}.
+Si l'on peut montrer que le produit fibré $G \times_H L$ est adéquat, alors
+$G$ est le conoyau de l'application $\Ker(L \to H) \to G \times_H L$,
+donc est adéquat d'après le
+lemme \ref{lemma-cokernel-adequate}.
+On peut donc supposer que $H = \bigoplus L_i$ est une somme directe de
+foncteurs linéairement adéquats. D'après le
+lemme \ref{lemma-extension-adequate-key},
+chacun des produits fibrés $G \times_H L_i$ est adéquat. D'après le
+lemme \ref{lemma-colimit-adequate},
+on voit que $\bigoplus G \times_H L_i$ est adéquat.
+Alors $G$ est le conoyau de
+$$
+\bigoplus\nolimits_{i \not = i'} F \longrightarrow
+\bigoplus G \times_H L_i
+$$
+où $\xi$, dans le facteur direct $(i, i')$, a pour image
+$(0, \ldots, 0, \xi, 0, \ldots, 0, -\xi, 0, \ldots, 0)$,
+avec des composantes non nulles dans les facteurs directs $i$ et $i'$.
+Ainsi $G$ est adéquat d'après le
+lemme \ref{lemma-cokernel-adequate}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-adequate}
+Soit $A \to A'$ un homomorphisme d'anneaux. Si $F$ est un foncteur adéquat sur
+$\textit{Alg}_A$, sa restriction $F'$ à
+$\textit{Alg}_{A'}$ est également adéquate.
+\end{lemma}
+
+\begin{proof}
+Choisissons une suite exacte $0 \to F \to \underline{M} \to \underline{N}$.
+Alors $F'(B') = F(B') = \Ker(M \otimes_A B' \to N \otimes_A B')$.
+Puisque $M \otimes_A B' = M \otimes_A A' \otimes_{A'} B'$, et de même
+pour $N$, on voit que $F'$ est le noyau de
+$\underline{M \otimes_A A'} \to \underline{N \otimes_A A'}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward-adequate}
+Soit $A \to A'$ un homomorphisme d'anneaux. Si $F'$ est un foncteur adéquat sur
+$\textit{Alg}_{A'}$, le foncteur à valeurs dans les modules
+$F : B \mapsto F'(A' \otimes_A B)$ sur $\textit{Alg}_A$ est également adéquat.
+\end{lemma}
+
+\begin{proof}
+Choisissons une suite exacte $0 \to F' \to \underline{M'} \to \underline{N'}$.
+Alors
+\begin{align*}
+F(B) & = F'(A' \otimes_A B) \\
+& = \Ker(M' \otimes_{A'} (
+A' \otimes_A B) \to N' \otimes_{A'} (A' \otimes_A B)) \\
+& = \Ker(M' \otimes_A B \to N' \otimes_A B)
+\end{align*}
+Ainsi $F$ est le noyau de
+$\underline{M} \to \underline{N}$,
+où $M = M'$ et $N = N'$ sont considérés comme $A$-modules.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-product}
+Soit $A = A_1 \times \ldots \times A_n$ un produit d'anneaux.
+Se donner un foncteur adéquat sur $A$ revient à se donner une suite
+$F_1, \ldots, F_n$ de foncteurs adéquats $F_i$ sur $A_i$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce qu'une $A$-algèbre $B$ est canoniquement un produit
+$B_1 \times \ldots \times B_n$, et qu'il en va de même des $A$-modules.
+La correspondance est donnée par $F(B) = \coprod F_i(B_i)$.
+Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-descent}
+Soient $A \to A'$ un homomorphisme d'anneaux et $F$ un foncteur à valeurs dans les modules sur
+$\textit{Alg}_A$ tel que
+\begin{enumerate}
+\item la restriction $F'$ de $F$ à la catégorie des $A'$-algèbres soit
+adéquate, et
+\item pour toute $A$-algèbre $B$, la suite
+$$
+0 \to F(B) \to F(B \otimes_A A') \to F(B \otimes_A A' \otimes_A A')
+$$
+soit exacte.
+\end{enumerate}
+Alors $F$ est adéquat.
+\end{lemma}
+
+\begin{proof}
+Les foncteurs $B \to F(B \otimes_A A')$ et
+$B \mapsto F(B \otimes_A A' \otimes_A A')$ sont adéquats ; voir les
+lemmes \ref{lemma-pushforward-adequate} et
+\ref{lemma-base-change-adequate}.
+Ainsi $F$, noyau d'une application de foncteurs adéquats, est adéquat ; voir le
+lemme \ref{lemma-kernel-adequate}.
+\end{proof}
+
+
+
+
+
+
+\section{Groupes Ext supérieurs des foncteurs adéquats}
+\label{section-higher-ext}
+
+\noindent
+Soit $A$ un anneau. Dans le
+lemme \ref{lemma-extension-adequate},
+nous avons vu que toute extension de foncteurs adéquats dans la catégorie
+des foncteurs à valeurs dans les modules sur $\textit{Alg}_A$ est adéquate. Dans cette
+section, nous montrons que la même propriété vaut pour les groupes Ext supérieurs.
+
+\begin{lemma}
+\label{lemma-adjoint}
+Soit $A$ un anneau.
+Pour tout foncteur à valeurs dans les modules $F$ sur $\textit{Alg}_A$,
+il existe un morphisme $Q(F) \to F$ de foncteurs à valeurs dans les modules sur
+$\textit{Alg}_A$ tel que (1) $Q(F)$ soit adéquat et (2) pour tout
+foncteur adéquat $G$, l'application $\Hom(G, Q(F)) \to \Hom(G, F)$
+soit bijective.
+\end{lemma}
+
+\begin{proof}
+Choisissons un ensemble $\{L_i\}_{i \in I}$ de foncteurs linéairement adéquats tel que
+tout foncteur linéairement adéquat soit isomorphe à l'un des $L_i$.
+C'est possible. Supposons que l'on puisse trouver $Q(F) \to F$ satisfaisant à (1) et à la condition
+(2)' pour tout $i \in I$, l'application $\Hom(L_i, Q(F)) \to \Hom(L_i, F)$
+est bijective. Alors (2) est vérifiée. En effet, en combinant les
+lemmes \ref{lemma-adequate-surjection-from-linear} et
+\ref{lemma-kernel-adequate},
+on voit que tout foncteur adéquat $G$ s'insère dans une suite exacte
+$$
+K \to L \to G \to 0
+$$
+où $K$ et $L$ sont des sommes directes de foncteurs linéairement adéquats. Ainsi (2)'
+entraîne que
+$\Hom(L, Q(F)) \to \Hom(L, F)$
+et
+$\Hom(K, Q(F)) \to \Hom(K, F)$
+sont bijectives, d'où la même assertion pour $G$.
+
+\medskip\noindent
+Considérons la catégorie $\mathcal{I}$ dont les objets sont les couples
+$(i, \varphi)$, où $i \in I$ et où $\varphi : L_i \to F$ est un morphisme.
+Un morphisme $(i, \varphi) \to (i', \varphi')$ est une application
+$\psi : L_i \to L_{i'}$ telle que $\varphi' \circ \psi = \varphi$.
+Posons
+$$
+Q(F) = \colim_{(i, \varphi) \in \Ob(\mathcal{I})} L_i
+$$
+Il existe une application naturelle $Q(F) \to F$ ; d'après le
+lemme \ref{lemma-colimit-adequate},
+ce foncteur est adéquat et, par construction, il possède la propriété (2)'.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-enough-injectives}
+Soit $A$ un anneau. Notons $\mathcal{P}$ la catégorie des foncteurs à valeurs
+dans les modules sur $\textit{Alg}_A$ et $\mathcal{A}$ la catégorie des foncteurs
+adéquats sur $\textit{Alg}_A$. Notons $i : \mathcal{A} \to \mathcal{P}$
+le foncteur d'inclusion. Notons $Q : \mathcal{P} \to \mathcal{A}$
+la construction du lemme \ref{lemma-adjoint}.
+Alors
+\begin{enumerate}
+\item $i$ est pleinement fidèle, exact, et son image est une sous-catégorie de Serre faible,
+\item $\mathcal{P}$ possède suffisamment d'injectifs,
+\item le foncteur $Q$ est adjoint à droite de $i$, donc exact à gauche,
+\item $Q$ transforme les objets injectifs en objets injectifs,
+\item $\mathcal{A}$ possède suffisamment d'injectifs.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Ce lemme rassemble simplement des faits déjà établis.
+L'assertion (1) résulte des définitions, de la caractérisation des
+sous-catégories de Serre faibles (voir
+Homologie, lemme \ref{homology-lemma-characterize-weak-serre-subcategory})
+et des
+lemmes \ref{lemma-cokernel-adequate}, \ref{lemma-kernel-adequate}
+et \ref{lemma-extension-adequate}.
+Rappelons que $\mathcal{P}$ est équivalente à la catégorie
+$\textit{PMod}((\textit{Aff}/\Spec(A))_\tau, \mathcal{O})$.
+D'où (2), d'après
+Injectifs, proposition \ref{injectives-proposition-presheaves-modules}.
+L'assertion (3) résulte du
+lemme \ref{lemma-adjoint}
+et de
+Catégories, lemme \ref{categories-lemma-adjoint-exact}.
+Les assertions (4) et (5) résultent de
+Homologie, lemmes \ref{homology-lemma-adjoint-preserve-injectives} et
+\ref{homology-lemma-adjoint-enough-injectives}.
+\end{proof}
+
+\noindent
+Soit $A$ un anneau. Comme dans
+Théorie des déformations formelles, section
+\ref{formal-defos-section-tangent-spaces-functors},
+étant donnés une $A$-algèbre $B$ et un $B$-module $N$, nous notons $B[N]$
+la $R$-algèbre dont le $B$-module sous-jacent est $B \oplus N$ et dont la multiplication
+est donnée par $(b, m)(b', m ') = (bb', bm' + b'm)$. Notons que cette construction
+est fonctorielle par rapport au couple $(B, N)$, un morphisme $(B, N) \to (B', N')$
+étant donné par un homomorphisme de $A$-algèbres $B \to B'$ et une application de $B$-modules
+$N \to N'$. En un certain sens, le foncteur $TF$ sur les couples, défini dans le lemme
+suivant, est l'espace tangent de $F$.
+Ci-dessous, nous ne considérerons que des couples $(B, N)$ tels que
+$B[N]$ soit un objet de $\textit{Alg}_A$.
+
+\begin{lemma}
+\label{lemma-tangent-functor}
+Soit $A$ un anneau. Soit $F$ un foncteur à valeurs dans les modules.
+Pour tout $B \in \Ob(\textit{Alg}_A)$ et tout $B$-module $N$,
+il existe une décomposition canonique
+$$
+F(B[N]) = F(B) \oplus TF(B, N)
+$$
+caractérisée par les propriétés suivantes
+\begin{enumerate}
+\item $TF(B, N) = \Ker(F(B[N]) \to F(B))$,
+\item il existe une structure de $B$-module sur $TF(B, N)$
+compatible avec la structure de $B[N]$-module sur $F(B[N])$,
+\item $TF$ est un foncteur défini sur la catégorie des couples $(B, N)$,
+\item
+\label{item-mult-map}
+il existe des applications canoniques $N \otimes_B F(B) \to TF(B, N)$
+induisant une transformation entre foncteurs définis sur la catégorie
+des couples $(B, N)$,
+\item $TF(B, 0) = 0$, et l'application $TF(B, N) \to TF(B, N')$ est
+nulle lorsque $N \to N'$ est l'application nulle.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Puisque $B \to B[N] \to B$ est l'identité, on voit que $F(B) \to F(B[N])$
+est un facteur direct dont le supplémentaire est $TF(N, B)$, défini en (1).
+Cette construction est fonctorielle par rapport au couple $(B, N)$, simplement parce que,
+étant donné un morphisme de couples $(B, N) \to (B', N')$, on obtient un diagramme
+commutatif
+$$
+\xymatrix{
+B' \ar[r] & B'[N'] \ar[r] & B' \\
+B \ar[r] \ar[u] & B[N] \ar[r] \ar[u] & B \ar[u]
+}
+$$
+dans $\textit{Alg}_A$. La structure de $B$-module provient de la structure de $B[N]$-module
+et de l'homomorphisme d'anneaux $B \to B[N]$. L'application de (4) est le
+composé
+$$
+N \otimes_B F(B) \longrightarrow
+B[N] \otimes_{B[N]} F(B[N]) \longrightarrow F(B[N])
+$$
+dont l'image est contenue dans $TF(B, N)$. (La première flèche utilise les inclusions
+$N \to B[N]$ et $F(B) \to F(B[N])$, et la seconde est l'application
+de multiplication.) Si $N = 0$, alors $B = B[N]$,
+donc $TF(B, 0) = 0$. Si $N \to N'$ est nulle, elle se factorise en
+$N \to 0 \to N'$ ; l'application induite est donc nulle puisque $TF(B, 0) = 0$.
+\end{proof}
+
+\noindent
+Soit $A$ un anneau. Soit $M$ un $A$-module. Le foncteur à valeurs dans les modules
+$\underline{M}$ a pour espace tangent $T\underline{M}$, défini par la règle
+$T\underline{M}(B, N) = N \otimes_A M$. En particulier, pour $B$ donné, le
+foncteur $N \mapsto T\underline{M}(B, N)$ est additif et exact à droite. Il se trouve
+que cela vaut également pour les foncteurs injectifs à valeurs dans les modules.
+
+\begin{lemma}
+\label{lemma-tangent-injective}
+Soit $A$ un anneau. Soit $I$ un objet injectif de la catégorie
+des foncteurs à valeurs dans les modules. Alors, pour tout $B \in \Ob(\textit{Alg}_A)$
+et toute suite exacte courte
+$0 \to N_1 \to N \to N_2 \to 0$
+de $B$-modules, la suite
+$$
+TI(B, N_1) \to TI(B, N) \to TI(B, N_2) \to 0
+$$
+est exacte.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons les résultats du
+lemme \ref{lemma-tangent-functor}
+sans le mentionner à nouveau.
+Notons $h : \textit{Alg}_A \to \textit{Ensembles}$ le foncteur donné par
+$h(C) = \Mor_A(B[N], C)$. De même pour $h_1$ et $h_2$.
+L'application $B[N] \to B[N_2]$ correspondant à la surjection $N \to N_2$
+est surjective. Il lui correspond une application $h_2 \to h$ telle que
+$h_2(C) \to h(C)$ soit injective pour toutes les $A$-algèbres $C$. D'autre
+part, il existe deux applications $p, q : h \to h_1$, correspondant à
+l'application nulle $N_1 \to N$ et à l'injection $N_1 \to N$. Notons que
+$$
+\xymatrix{
+h_2 \ar[r] & h \ar@<1ex>[r] \ar@<-1ex>[r] & h_1
+}
+$$
+est un diagramme de noyau de la double flèche. Notons $\mathcal{O}_h$ le foncteur à valeurs dans les modules
+$C \mapsto \bigoplus_{h(C)} C$. De même pour $\mathcal{O}_{h_1}$ et
+$\mathcal{O}_{h_2}$. Notons que
+$$
+\Hom_\mathcal{P}(\mathcal{O}_h, F) = F(B[N])
+$$
+où $\mathcal{P}$ est la catégorie des foncteurs à valeurs dans les modules sur
+$\textit{Alg}_A$. Nous affirmons qu'il existe un diagramme de noyau de la double flèche
+$$
+\xymatrix{
+\mathcal{O}_{h_2} \ar[r] &
+\mathcal{O}_h \ar@<1ex>[r] \ar@<-1ex>[r] &
+\mathcal{O}_{h_1}
+}
+$$
+dans $\mathcal{P}$. En effet, supposons que $C \in \Ob(\textit{Alg}_A)$
+et que $\xi = \sum_{i = 1, \ldots, n} c_i \cdot f_i$, où $c_i \in C$ et
+$f_i : B[N] \to C$, soit un élément de
+$\mathcal{O}_h(C)$. Si $p(\xi) = q(\xi)$, alors
+on voit que
+$$
+\sum c_i \cdot f_i \circ z = \sum c_i \cdot f_i \circ y
+$$
+où $z, y : B[N_1] \to B[N]$ sont les applications $z : (b, m_1) \mapsto (b, 0)$
+et $y : (b, m_1) \mapsto (b, m_1)$. Cela signifie que, pour tout $i$,
+il existe un $j$ tel que $f_j \circ z = f_i \circ y$. Il en résulte clairement
+que $f_i(N_1) = 0$, c'est-à-dire que $f_i$ se factorise par une unique application
+$\overline{f}_i : B[N_2] \to C$. Ainsi $\xi$ est l'image de
+$\overline{\xi} = \sum c_i \cdot \overline{f}_i$.
+Puisque $I$ est injectif, il transforme ce diagramme de noyau de la double flèche
+en un diagramme de conoyau de la double flèche
+$$
+\xymatrix{
+I(B[N_1]) \ar@<1ex>[r] \ar@<-1ex>[r] &
+I(B[N]) \ar[r] &
+I(B[N_2])
+}
+$$
+Ce diagramme est compatible avec les décompositions en somme directe
+$I(B[N]) = I(B) \oplus TI(B, N)$ et $I(B[N_i]) = I(B) \oplus TI(B, N_i)$.
+L'application nulle $N \to N_1$ induit l'application nulle $TI(B, N) \to TI(B, N_1)$.
+On voit ainsi que la propriété de conoyau de la double flèche
+ci-dessus signifie que l'on a une suite exacte
+$TI(B, N_1) \to TI(B, N) \to TI(B, N_2) \to 0$,
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-exactness-implies}
+Soit $A$ un anneau. Soit $F$ un foncteur à valeurs dans les modules
+tel que, pour tout $B \in \Ob(\textit{Alg}_A)$, le
+foncteur $TF(B, -)$ sur les $B$-modules transforme une suite exacte courte
+de $B$-modules en une suite exacte à droite. Alors
+\begin{enumerate}
+\item $TF(B, N_1 \oplus N_2) = TF(B, N_1) \oplus TF(B, N_2)$,
+\item il existe une seconde structure fonctorielle de $B$-module sur $TF(B, N)$,
+définie en posant $x \cdot b = TF(B, b\cdot 1_N)(x)$ pour $x \in TF(B, N)$
+et $b \in B$,
+\item
+\label{item-mult-map-linear}
+l'application canonique $N \otimes_B F(B) \to TF(B, N)$ du
+lemme \ref{lemma-tangent-functor}
+est $B$-linéaire également pour la seconde structure de $B$-module,
+\item
+\label{item-tangent-right-exact}
+étant donné un $B$-module de présentation finie $N$, il existe un
+isomorphisme canonique $TF(B, B) \otimes_B N \to TF(B, N)$, où le produit
+tensoriel utilise la seconde structure de $B$-module sur $TF(B, B)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons les résultats du
+lemme \ref{lemma-tangent-functor}
+sans le mentionner à nouveau.
+Les applications $N_1 \to N_1 \oplus N_2$ et $N_2 \to N_1 \oplus N_2$ donnent
+une application $TF(B, N_1) \oplus TF(B, N_2) \to TF(B, N_1 \oplus N_2)$,
+qui est injective puisque les applications $N_1 \oplus N_2 \to N_1$ et
+$N_1 \oplus N_2 \to N_2$ induisent un inverse.
+Puisque $TF$ est exact à droite, on voit que
+$TF(B, N_1) \to TF(B, N_1 \oplus N_2) \to TF(B, N_2) \to 0$ est exacte.
+Ainsi $TF(B, N_1) \oplus TF(B, N_2) \to TF(B, N_1 \oplus N_2)$ est un
+isomorphisme. Cela démontre (1).
+
+\medskip\noindent
+Pour (2), il suffit de montrer que
+$x \cdot (b_1 + b_2) = x \cdot b_1 + x \cdot b_2$.
+(L'associativité et l'additivité sont claires.) Pour cela, considérons
+$$
+N \xrightarrow{(b_1, b_2)} N \oplus N \xrightarrow{+} N
+$$
+et appliquons $TF(B, -)$.
+
+\medskip\noindent
+L'assertion (3) résulte immédiatement de ce que
+$N \otimes_B F(B) \to TF(B, N)$ est fonctorielle par rapport au couple $(B, N)$.
+
+\medskip\noindent
+Supposons que $N$ soit un $B$-module de présentation finie. Choisissons une présentation
+$B^{\oplus m} \to B^{\oplus n} \to N \to 0$. Elle donne une suite
+exacte
+$$
+TF(B, B^{\oplus m}) \to TF(B, B^{\oplus n}) \to TF(B, N) \to 0
+$$
+par exactitude à droite de $TF(B, -)$. D'après (1), on peut écrire
+$TF(B, B^{\oplus m}) = TF(B, B)^{\oplus m}$ et
+$TF(B, B^{\oplus n}) = TF(B, B)^{\oplus n}$. Supposons ensuite que
+$B^{\oplus m} \to B^{\oplus n}$ soit donnée par la matrice $T = (b_{ij})$.
+Alors l'application induite $TF(B, B)^{\oplus m} \to TF(B, B)^{\oplus n}$
+est donnée par la matrice de coefficients $TF(B, b_{ij} \cdot 1_B)$.
+Ce fait, joint à l'exactitude à droite de $\otimes$, démontre (4).
+\end{proof}
+
+\begin{example}
+\label{example-module-structure-different}
+Soit $F$ un foncteur à valeurs dans les modules comme dans le
+lemme \ref{lemma-exactness-implies}.
+Les deux structures de module sur
+$TF(B, N)$ ne coïncident pas toujours. En voici un exemple. Supposons que $A = \mathbf{F}_p$,
+où $p$ est un nombre premier. Posons $F(B) = B$, mais avec la structure de $B$-module
+donnée par $b \cdot x = b^px$. Alors $TF(B, N) = N$, avec la structure de $B$-module
+donnée par $b \cdot x = b^px$ pour $x \in N$. Cependant, la seconde structure de $B$-module
+est donnée par $x \cdot b = bx$. Notons que, dans ce cas, l'application canonique
+$N \otimes_B F(B) \to TF(B, N)$ est nulle, car élever un élément
+$n \in B[N]$ à la puissance $p$ donne zéro.
+\end{example}
+
+\noindent
+Dans le lemme suivant, nous utiliserons fréquemment l'observation suivante :
+si $0 \to F \to G \to H \to 0$ est une suite exacte de foncteurs à valeurs dans les modules
+sur $\textit{Alg}_A$, alors, pour tout couple $(B, N)$, la
+suite $0 \to TF(B, N) \to TG(B, N) \to TH(B, N) \to 0$ est exacte.
+Cela résulte de ce que $0 \to F(B[N]) \to G(B[N]) \to H(B[N]) \to 0$
+est exacte.
+
+\begin{lemma}
+\label{lemma-exactness-permanence}
+Soit $A$ un anneau. Pour un foncteur à valeurs dans les modules $F$ sur $\textit{Alg}_A$,
+disons que $(*)$ est vérifiée si, pour tout $B \in \Ob(\textit{Alg}_A)$, le
+foncteur $TF(B, -)$ sur les $B$-modules transforme une suite exacte courte
+de $B$-modules en une suite exacte à droite. Soit
+$0 \to F \to G \to H \to 0$ une suite exacte courte de
+foncteurs à valeurs dans les modules sur $\textit{Alg}_A$.
+\begin{enumerate}
+\item Si $(*)$ est vérifiée pour $F, G$, alors $(*)$ est vérifiée pour $H$.
+\item Si $(*)$ est vérifiée pour $F, H$, alors $(*)$ est vérifiée pour $G$.
+\item Si $H' \to H$ est un morphisme de foncteurs à valeurs dans les modules sur $\textit{Alg}_A$
+et si $(*)$ est vérifiée pour $F$, $G$, $H$ et $H'$, alors $(*)$ est vérifiée pour
+$G \times_H H'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $B$ donné. Soit $0 \to N_1 \to N_2 \to N_3 \to 0$ une suite exacte
+courte de $B$-modules. L'assertion (1) résulte d'une chasse dans le
+diagramme
+$$
+\xymatrix{
+0 \ar[r] &
+TF(B, N_1) \ar[r] \ar[d] &
+TG(B, N_1) \ar[r] \ar[d] &
+TH(B, N_1) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_2) \ar[r] \ar[d] &
+TG(B, N_2) \ar[r] \ar[d] &
+TH(B, N_2) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_3) \ar[r] \ar[d] &
+TG(B, N_3) \ar[r] \ar[d] &
+TH(B, N_3) \ar[r] & 0 \\
+& 0 & 0
+}
+$$
+dont les lignes horizontales et les colonnes faisant intervenir $TF$ et $TG$ sont exactes.
+Pour démontrer (2), on effectue une chasse dans le diagramme
+$$
+\xymatrix{
+0 \ar[r] &
+TF(B, N_1) \ar[r] \ar[d] &
+TG(B, N_1) \ar[r] \ar[d] &
+TH(B, N_1) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_2) \ar[r] \ar[d] &
+TG(B, N_2) \ar[r] \ar[d] &
+TH(B, N_2) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_3) \ar[r] \ar[d] &
+TG(B, N_3) \ar[r] &
+TH(B, N_3) \ar[r] \ar[d] & 0 \\
+& 0 & & 0
+}
+$$
+dont les lignes horizontales et les colonnes faisant intervenir $TF$ et $TH$ sont exactes.
+L'assertion (3) résulte de (2), puisque $G \times_H H'$ s'insère dans la suite exacte
+$0 \to F \to G \times_H H' \to H' \to 0$.
+\end{proof}
+
+\noindent
+L'essentiel du travail de cette section a été accompli pour démontrer le
+résultat d'annulation fondamental suivant.
+
+\begin{lemma}
+\label{lemma-ext-group-zero-key}
+Soit $A$ un anneau. Soient $M$, $P$ des $A$-modules, avec $P$ de présentation
+finie. Alors
+$\Ext^i_\mathcal{P}(\underline{P}, \underline{M}) = 0$
+pour $i > 0$, où $\mathcal{P}$ est la catégorie des foncteurs à valeurs dans les modules
+sur $\textit{Alg}_A$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une résolution injective $\underline{M} \to I^\bullet$ dans
+$\mathcal{P}$ ; voir le
+lemme \ref{lemma-enough-injectives}.
+D'après
+Catégories dérivées, lemme \ref{derived-lemma-compute-ext-resolutions},
+tout élément de $\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$
+provient d'un morphisme $\varphi : \underline{P} \to I^i$ tel que
+$d^i \circ \varphi = 0$. Nous montrerons que
+l'extension de Yoneda
+$$
+E : 0 \to \underline{M} \to I^0 \to \ldots \to
+I^{i - 1} \times_{\Ker(d^i)} \underline{P} \to \underline{P} \to 0
+$$
+de $\underline{P}$ par $\underline{M}$
+associée à $\varphi$ est triviale, ce qui démontrera le lemme d'après
+Catégories dérivées, lemme \ref{derived-lemma-yoneda-extension}.
+
+\medskip\noindent
+Pour un foncteur à valeurs dans les modules $F$ sur $\textit{Alg}_A$,
+disons que $(*)$ est vérifiée si, pour tout $B \in \Ob(\textit{Alg}_A)$, le
+foncteur $TF(B, -)$ sur les $B$-modules transforme une suite exacte courte
+de $B$-modules en une suite exacte à droite.
+Rappelons que les foncteurs à valeurs dans les modules $\underline{M}, I^n, \underline{P}$
+possèdent chacun la propriété $(*)$ ; voir le
+lemme \ref{lemma-tangent-injective}
+et les remarques qui le précèdent.
+En décomposant $0 \to \underline{M} \to I^\bullet$ en suites exactes
+courtes, on trouve que chacun des foncteurs
+$\Im(d^{n - 1}) = \Ker(d^n) \subset I^n$ possède la propriété $(*)$ d'après le
+lemme \ref{lemma-exactness-permanence},
+et que $I^{i - 1} \times_{\Ker(d^i)} \underline{P}$ possède également la propriété
+$(*)$.
+
+\medskip\noindent
+On peut donc supposer que l'extension de Yoneda est donnée sous la forme
+$$
+E : 0 \to \underline{M} \to F_{i - 1} \to \ldots \to
+F_0 \to \underline{P} \to 0
+$$
+où chacun des foncteurs à valeurs dans les modules $F_j$ possède la propriété $(*)$.
+Posons $G_j(B) = TF_j(B, B)$, considéré comme $B$-module au moyen de la {\it seconde}
+structure de $B$-module définie dans le
+lemme \ref{lemma-exactness-implies}.
+Puisque $TF_j$ est un foncteur sur les couples, on voit que $G_j$ est un foncteur
+à valeurs dans les modules sur $\textit{Alg}_A$. De plus, puisque $E$ est une suite exacte,
+la suite $G_{j + 1} \to G_j \to G_{j - 1}$ est exacte (voir la remarque
+précédant le
+lemme \ref{lemma-exactness-permanence}).
+Observons que $T\underline{M}(B, B) = M \otimes_A B = \underline{M}(B)$
+et que les deux structures de $B$-module y coïncident.
+On obtient ainsi une extension de Yoneda
+$$
+E' :  0 \to \underline{M} \to G_{i - 1} \to \ldots \to
+G_0 \to \underline{P} \to 0
+$$
+De plus, les applications canoniques
+$$
+F_j(B) = B \otimes_B F_j(B) \longrightarrow TF_j(B, B) = G_j(B)
+$$
+du
+lemme \ref{lemma-tangent-functor} (\ref{item-mult-map})
+sont $B$-linéaires d'après le
+lemme \ref{lemma-exactness-implies} (\ref{item-mult-map-linear})
+et fonctorielles en $B$. On a donc une application
+$$
+\xymatrix{
+0 \ar[r] &
+\underline{M} \ar[r] \ar[d]^1 &
+F_{i - 1} \ar[r] \ar[d] &
+\ldots \ar[r] &
+F_0 \ar[r] \ar[d] &
+\underline{P} \ar[r] \ar[d]^1 & 0 \\
+0 \ar[r] &
+\underline{M} \ar[r] &
+G_{i - 1} \ar[r] &
+\ldots \ar[r] &
+G_0 \ar[r] &
+\underline{P} \ar[r] & 0
+}
+$$
+d'extensions de Yoneda. En particulier, on voit que $E$ et $E'$ ont la
+même classe dans $\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$,
+d'après le lemme sur les Ext de Yoneda mentionné ci-dessus. Enfin, soit $N$ un
+$A$-module de présentation finie. On voit alors que
+$$
+0 \to T\underline{M}(A, N) \to TF_{i - 1}(A, N) \to \ldots \to
+TF_0(A, N) \to T\underline{P}(A, N) \to 0
+$$
+est exacte. D'après le
+lemme \ref{lemma-exactness-implies} (\ref{item-tangent-right-exact}),
+avec $B = A$, cela se traduit par l'exactitude de la suite de
+$A$-modules
+$$
+0 \to M \otimes_A N \to G_{i - 1}(A) \otimes_A N \to \ldots \to
+G_0(A) \otimes_A N \to P \otimes_A N \to 0
+$$
+Ainsi la suite de $A$-modules
+$0 \to M \to G_{i - 1}(A) \to \ldots \to G_0(A) \to P \to 0$
+est universellement exacte, au sens où elle reste exacte après tensorisation
+par tout $A$-module de présentation finie $N$. Posons
+$K = \Ker(G_0(A) \to P)$, de sorte que l'on a des suites exactes
+$$
+0 \to K \to G_0(A) \to P \to 0
+\quad\text{et}\quad
+G_2(A) \to G_1(A) \to K \to 0
+$$
+En tensorisant la seconde suite par $N$, on obtient
+$K \otimes_A N = \Coker(G_2(A) \otimes_A N \to G_1(A) \otimes_A N)$.
+L'exactitude de $G_2(A) \otimes_A N \to G_1(A) \otimes_A N \to G_0(A) \otimes_A N$
+entraîne alors que $K \otimes_A N \to G_0(A) \otimes_A N$ est injective.
+D'après
+Algèbre, théorème \ref{algebra-theorem-universally-exact-criteria},
+cela signifie que l'extension de $A$-modules $0 \to K \to G_0(A) \to P \to 0$
+est exacte ; puisque $P$ est supposé de présentation finie, cela signifie
+que la suite est scindée ; voir
+Algèbre, lemme \ref{algebra-lemma-universally-exact-split}.
+Tout scindage $P \to G_0(A)$ définit une application $\underline{P} \to G_0$
+qui scinde la surjection $G_0 \to \underline{P}$. Ainsi
+l'extension de Yoneda $E'$ est équivalente à l'extension de Yoneda triviale,
+ce qui conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ext-group-zero}
+Soit $A$ un anneau. Soit $M$ un $A$-module. Soit $L$ un foncteur linéairement
+adéquat sur $\textit{Alg}_A$. Alors
+$\Ext^i_\mathcal{P}(L, \underline{M}) = 0$
+pour $i > 0$, où $\mathcal{P}$ est la catégorie des foncteurs à valeurs dans les modules
+sur $\textit{Alg}_A$.
+\end{lemma}
+
+\begin{proof}
+Puisque $L$ est linéairement adéquat, il existe une suite exacte
+$$
+0 \to L \to \underline{A^{\oplus m}} \to \underline{A^{\oplus n}} \to
+\underline{P} \to 0
+$$
+Ici $P = \Coker(A^{\oplus m} \to A^{\oplus n})$ est le conoyau
+de l'application de $A$-modules libres de rang fini donnée par la définition
+des foncteurs linéairement adéquats. D'après le
+lemme \ref{lemma-ext-group-zero-key},
+on a l'annulation de
+$\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$
+et de
+$\Ext^i_\mathcal{P}(\underline{A}, \underline{M})$
+pour $i > 0$.
+Posons $K = \Ker(\underline{A^{\oplus n}} \to \underline{P})$.
+La suite exacte longue des groupes Ext associée à la suite exacte
+$0 \to K \to \underline{A^{\oplus n}} \to \underline{P} \to 0$
+permet de conclure que
+$\Ext^i_\mathcal{P}(K, \underline{M}) = 0$ pour $i > 0$.
+En répétant l'argument avec la suite
+$0 \to L \to \underline{A^{\oplus m}} \to K \to 0$,
+on conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-RQ-zero}
+Avec les notations du
+lemme \ref{lemma-enough-injectives},
+on a $R^pQ(F) = 0$ pour tout $p > 0$ et tout foncteur adéquat $F$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une suite exacte $0 \to F \to \underline{M^0} \to \underline{M^1}$.
+Posons $M^2 = \Coker(M^0 \to M^1)$, de sorte que
+$0 \to F \to \underline{M^0} \to \underline{M^1}
+\to \underline{M^2} \to 0$ est une résolution. D'après
+Catégories dérivées, lemme \ref{derived-lemma-two-ss-complex-functor},
+on obtient une suite spectrale
+$$
+R^pQ(\underline{M^q}) \Rightarrow R^{p + q}Q(F)
+$$
+Puisque $Q(\underline{M^q}) = \underline{M^q}$, il suffit de démontrer
+$R^pQ(\underline{M}) = 0$, $p > 0$, pour tout $A$-module $M$.
+
+\medskip\noindent
+Choisissons une résolution injective $\underline{M} \to I^\bullet$ dans
+la catégorie $\mathcal{P}$. Supposons que $R^iQ(\underline{M})$ soit non nul.
+Alors $\Ker(Q(I^i) \to Q(I^{i + 1}))$ contient strictement
+l'image de $Q(I^{i - 1}) \to Q(I^i)$. Ainsi, d'après le
+lemme \ref{lemma-adequate-surjection-from-linear},
+il existe un foncteur linéairement adéquat $L$ et une application
+$\varphi : L \to Q(I^i)$ à valeurs dans le noyau de $Q(I^i) \to Q(I^{i + 1})$
+qui ne se factorise pas par l'image de $Q(I^{i - 1}) \to Q(I^i)$.
+Puisque $Q$ est adjoint à gauche du foncteur d'inclusion, l'application
+$\varphi$ correspond à une application $\varphi' : L \to I^i$ ayant les mêmes propriétés.
+Ainsi $\varphi'$ donne un élément non nul de
+$\Ext^i_\mathcal{P}(L, \underline{M})$, en contradiction avec le
+lemme \ref{lemma-ext-group-zero}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Modules adéquats}
+\label{section-adequate}
+
+\noindent
+Dans
+Descente, section \ref{descent-section-quasi-coherent-sheaves},
+nous avons vu que les modules quasi-cohérents sur un schéma $S$
+s'identifient aux modules quasi-cohérents sur n'importe lequel des grands
+sites $(\Sch/S)_\tau$ associés à $S$. Nous avons vu que cette
+identification présente deux difficultés :
+\begin{enumerate}
+\item $\QCoh(\mathcal{O}_S) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$,
+$\mathcal{F} \mapsto \mathcal{F}^a$ n'est pas exact en général
+(Descente, lemme \ref{descent-lemma-equivalence-quasi-coherent-limits}), et
+\item étant donné un morphisme quasi-compact et quasi-séparé $f : X \to S$,
+le foncteur $f_*$ ne préserve pas en général les faisceaux quasi-cohérents sur les
+grands sites (Descente, proposition
+\ref{descent-proposition-equivalence-quasi-coherent-functorial}).
+\end{enumerate}
+L'assertion (1) signifie que l'on ne peut pas définir une sous-catégorie triangulée
+de $D(\mathcal{O})$ constituée des complexes dont les faisceaux de cohomologie
+sont quasi-cohérents. L'assertion (2) signifie que $Rf_*\mathcal{F}$ n'est pas un
+complexe à faisceaux de cohomologie quasi-cohérents, même lorsque $\mathcal{F}$
+est quasi-cohérent et que $f$ est quasi-compact et quasi-séparé.
+De plus, les exemples donnés dans les démonstrations de
+Descente, lemme
+\ref{descent-lemma-equivalence-quasi-coherent-limits},
+et de
+Descente, proposition
+\ref{descent-proposition-equivalence-quasi-coherent-functorial},
+ne sont pas de nature pathologique.
+
+\medskip\noindent
+Dans cette section, nous étudions une catégorie légèrement plus grande
+de $\mathcal{O}$-modules sur $(\Sch/S)_\tau$, qui contient les
+modules quasi-cohérents, est abélienne et est préservée par $f_*$ lorsque
+$f$ est quasi-compact et quasi-séparé.
+Pour cela, supposons que $S$ soit un schéma. Soit $\mathcal{F}$ un préfaisceau
+de $\mathcal{O}$-modules sur $(\Sch/S)_\tau$.
+Pour tout objet affine $U = \Spec(A)$ de $(\Sch/S)_\tau$,
+on peut restreindre $\mathcal{F}$ à $(\textit{Aff}/U)_\tau$ pour obtenir
+un préfaisceau de $\mathcal{O}$-modules sur ce site. Le foncteur correspondant
+à valeurs dans les modules, voir la
+section \ref{section-quasi-coherent},
+sera noté
+$$
+F = F_{\mathcal{F}, A} :
+\textit{Alg}_A \longrightarrow \textit{Ab},
+\quad
+B \longmapsto \mathcal{F}(\Spec(B))
+$$
+La correspondance $\mathcal{F} \mapsto F_{\mathcal{F}, A}$ est un foncteur exact
+de catégories abéliennes.
+
+\begin{definition}
+\label{definition-adequate}
+Un faisceau de $\mathcal{O}$-modules $\mathcal{F}$ sur $(\Sch/S)_\tau$ est
+{\it adéquat} s'il existe un $\tau$-recouvrement
+$\{\Spec(A_i) \to S\}_{i \in I}$ tel que $F_{\mathcal{F}, A_i}$ soit
+adéquat pour tout $i \in I$.
+\end{definition}
+
+\noindent
+Nous verrons ci-dessous que la catégorie des $\mathcal{O}$-modules adéquats
+est indépendante de la topologie $\tau$ choisie.
+
+\begin{lemma}
+\label{lemma-adequate-local}
+Soit $S$ un schéma. Soit $\mathcal{F}$ un $\mathcal{O}$-module adéquat sur
+$(\Sch/S)_\tau$. Pour tout schéma affine $\Spec(A)$ au-dessus de $S$,
+le foncteur $F_{\mathcal{F}, A}$ est adéquat.
+\end{lemma}
+
+\begin{proof}
+Soit $\{\Spec(A_i) \to S\}_{i \in I}$ un $\tau$-recouvrement
+tel que $F_{\mathcal{F}, A_i}$ soit adéquat pour tout $i \in I$.
+On peut trouver un $\tau$-recouvrement affine standard
+$\{\Spec(A'_j) \to \Spec(A)\}_{j = 1, \ldots, m}$
+tel que $\Spec(A'_j) \to \Spec(A) \to S$ se factorise
+par $\Spec(A_{i(j)})$ pour un certain $i(j) \in I$. On voit alors que
+$F_{\mathcal{F}, A'_j}$ est la restriction de
+$F_{\mathcal{F}, A_{i(j)}}$ à la catégorie des $A'_j$-algèbres.
+Ainsi $F_{\mathcal{F}, A'_j}$ est adéquat d'après le
+lemme \ref{lemma-base-change-adequate}.
+D'après le
+lemme \ref{lemma-adequate-product},
+la suite
+$F_{\mathcal{F}, A'_j}$ correspond à un foncteur « produit » adéquat
+$F'$ sur $A' = A'_1 \times \ldots \times A'_m$. Comme $\mathcal{F}$ est un
+faisceau (pour la topologie de Zariski), ce foncteur produit $F'$ est égal
+à $F_{\mathcal{F}, A'}$, c'est-à-dire à la restriction de $F$ aux $A'$-algèbres.
+Enfin, $\{\Spec(A') \to \Spec(A)\}$ est un $\tau$-recouvrement.
+Il résulte du
+lemme \ref{lemma-adequate-descent}
+que $F_{\mathcal{F}, A}$ est adéquat.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-affine}
+Soit $S = \Spec(A)$ un schéma affine. La catégorie des
+$\mathcal{O}$-modules adéquats sur $(\Sch/S)_\tau$ est équivalente à la
+catégorie des foncteurs adéquats à valeurs dans les modules sur $\textit{Alg}_A$.
+\end{lemma}
+
+\begin{proof}
+Étant donné un module adéquat $\mathcal{F}$, le foncteur $F_{\mathcal{F}, A}$
+est adéquat d'après le lemme \ref{lemma-adequate-local}.
+Étant donné un foncteur adéquat $F$, choisissons une suite exacte
+$0 \to F \to \underline{M} \to \underline{N}$ et considérons
+le $\mathcal{O}$-module $\mathcal{F} = \Ker(M^a \to N^a)$, où
+$M^a$ désigne le $\mathcal{O}$-module quasi-cohérent sur
+$(\Sch/S)_\tau$ associé au faisceau quasi-cohérent
+$\widetilde{M}$ sur $S$. Notons que $F = F_{\mathcal{F}, A}$ ; en particulier,
+le module $\mathcal{F}$ est adéquat par définition.
+Nous omettons la démonstration du fait que ces constructions définissent des équivalences
+de catégories inverses l'une de l'autre.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-adequate}
+Soit $f : T \to S$ un morphisme de schémas.
+L'image inverse $f^*\mathcal{F}$ d'un $\mathcal{O}$-module adéquat
+$\mathcal{F}$ sur $(\Sch/S)_\tau$ est un
+$\mathcal{O}$-module adéquat sur $(\Sch/T)_\tau$.
+\end{lemma}
+
+\begin{proof}
+Le foncteur d'image inverse
+$f^* : \textit{Mod}((\Sch/S)_\tau, \mathcal{O}) \to
+\textit{Mod}((\Sch/T)_\tau, \mathcal{O})$
+est donné par restriction, c'est-à-dire que $f^*\mathcal{F}(V) = \mathcal{F}(V)$
+pour tout schéma $V$ au-dessus de $T$. Ce lemme résulte donc immédiatement du
+lemme \ref{lemma-adequate-local}
+et de la définition.
+\end{proof}
+
+\noindent
+Voici une caractérisation de la catégorie des $\mathcal{O}$-modules adéquats.
+Pour en comprendre la portée, considérons une application $\mathcal{G} \to \mathcal{H}$
+de $\mathcal{O}_S$-modules quasi-cohérents sur un schéma $S$.
+Le conoyau de l'application associée $\mathcal{G}^a \to \mathcal{H}^a$
+de $\mathcal{O}$-modules est quasi-cohérent, car il est égal à
+$(\mathcal{H}/\mathcal{G})^a$. Mais le noyau de
+$\mathcal{G}^a \to \mathcal{H}^a$ n'est pas quasi-cohérent
+en général. Il est toutefois adéquat.
+
+\begin{lemma}
+\label{lemma-adequate-characterize}
+Soit $S$ un schéma. Soit $\mathcal{F}$ un $\mathcal{O}$-module sur
+$(\Sch/S)_\tau$. Les conditions suivantes sont équivalentes
+\begin{enumerate}
+\item $\mathcal{F}$ est adéquat,
+\item il existe un recouvrement ouvert affine $S = \bigcup S_i$ et des
+applications de $\mathcal{O}_{S_i}$-modules quasi-cohérents
+$\mathcal{G}_i \to \mathcal{H}_i$
+telles que $\mathcal{F}|_{(\Sch/S_i)_\tau}$ soit le
+noyau de $\mathcal{G}_i^a \to \mathcal{H}_i^a$
+\item il existe un $\tau$-recouvrement $\{S_i \to S\}_{i \in I}$ et des
+applications de $\mathcal{O}_{S_i}$-modules quasi-cohérents
+$\mathcal{G}_i \to \mathcal{H}_i$
+telles que $\mathcal{F}|_{(\Sch/S_i)_\tau}$ soit le
+noyau de $\mathcal{G}_i^a \to \mathcal{H}_i^a$,
+\item il existe un $\tau$-recouvrement $\{f_i : S_i \to S\}_{i \in I}$
+tel que chaque $f_i^*\mathcal{F}$ soit adéquat,
+\item pour tout schéma affine $U$ au-dessus de $S$, la restriction
+$\mathcal{F}|_{(\Sch/U)_\tau}$ est le noyau
+d'une application $\mathcal{G}^a \to \mathcal{H}^a$ de
+$\mathcal{O}_U$-modules quasi-cohérents.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $U = \Spec(A)$ un schéma affine au-dessus de $S$.
+Posons $F = F_{\mathcal{F}, A}$. Par définition, le foncteur
+$F$ est adéquat si et seulement s'il existe une application de $A$-modules
+$M \to N$ telle que $F = \Ker(\underline{M} \to \underline{N})$.
+En combinant cela avec les
+lemmes \ref{lemma-adequate-local} et
+\ref{lemma-adequate-affine},
+on voit que (1) et (5) sont équivalentes.
+
+\medskip\noindent
+Il est clair que (5) entraîne (2) et que (2) entraîne (3).
+Si (3) est vérifiée, on peut raffiner le recouvrement
+$\{S_i \to S\}$ de sorte que chaque $S_i = \Spec(A_i)$ soit affine.
+Les remarques préliminaires de la démonstration montrent alors que
+$F_{\mathcal{F}, A_i}$ est adéquat. Ainsi $\mathcal{F}$
+est adéquat par définition. Donc (3) entraîne (1).
+
+\medskip\noindent
+Enfin, (4) est équivalente à (1) : on utilise le
+lemme \ref{lemma-pullback-adequate}
+dans un sens, et le fait qu'un
+composé de $\tau$-recouvrements est un $\tau$-recouvrement dans l'autre.
+\end{proof}
+
+\noindent
+Tout comme pour les faisceaux quasi-cohérents, la catégorie des
+modules adéquats est indépendante de la topologie.
+
+\begin{lemma}
+\label{lemma-adequate-fpqc}
+Soit $\mathcal{F}$ un $\mathcal{O}$-module adéquat sur
+$(\Sch/S)_\tau$. Pour tout morphisme plat surjectif
+$\Spec(B) \to \Spec(A)$ de schémas affines au-dessus de $S$,
+le complexe de {\v C}ech augmenté
+$$
+0 \to \mathcal{F}(\Spec(A)) \to
+\mathcal{F}(\Spec(B)) \to
+\mathcal{F}(\Spec(B \otimes_A B)) \to \ldots
+$$
+est exact. En particulier, $\mathcal{F}$ satisfait à la condition de faisceau
+pour les recouvrements fpqc, et c'est un faisceau de $\mathcal{O}$-modules
+sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Avec $A \to B$ comme dans le lemme, posons $F = F_{\mathcal{F}, A}$. Ce foncteur
+est adéquat d'après le
+lemme \ref{lemma-adequate-local}.
+D'après le
+lemme \ref{lemma-adequate-flat},
+puisque $A \to B$, $A \to B \otimes_A B$, etc., sont plats, on voit que
+$F(B) = F(A) \otimes_A B$,
+$F(B \otimes_A B) = F(A) \otimes_A B \otimes_A B$, etc.
+L'exactitude résulte de
+Descente, lemme \ref{descent-lemma-ff-exact}.
+
+\medskip\noindent
+Ainsi $\mathcal{F}$ satisfait à la condition de faisceau pour les
+$\tau$-recouvrements (en particulier les recouvrements de Zariski) et pour tout
+recouvrement fidèlement plat d'un schéma affine par un schéma affine. En raisonnant
+comme dans les démonstrations de Descente, lemme \ref{descent-lemma-standard-fpqc-covering},
+et de
+Descente, proposition \ref{descent-proposition-fpqc-descent-quasi-coherent},
+on conclut que $\mathcal{F}$ satisfait à la condition de faisceau pour tous les
+recouvrements fpqc (constitués d'objets de $(\Sch/S)_\tau$).
+Nous omettons les détails.
+\end{proof}
+
+\noindent
+Le lemme \ref{lemma-adequate-fpqc} montre en particulier que,
+pour tout couple de topologies $\tau, \tau'$, les collections
+des modules adéquats pour la topologie $\tau$ et pour la topologie $\tau'$
+sont identiques (comme préfaisceaux de modules sur la catégorie sous-jacente $\Sch/S$).
+
+\begin{definition}
+\label{definition-category-adequate-modules}
+Soit $S$ un schéma. La catégorie des $\mathcal{O}$-modules adéquats sur
+$(\Sch/S)_\tau$ est notée {\it $\textit{Adeq}(\mathcal{O})$} ou
+{\it $\textit{Adeq}((\Sch/S)_\tau, \mathcal{O})$}. Si l'on veut considérer
+la catégorie abélienne des modules adéquats sans choisir de
+topologie, on écrit simplement {\it $\textit{Adeq}(S)$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-same-cohomology-adequate}
+Soit $S$ un schéma. Soit $\mathcal{F}$ un
+$\mathcal{O}$-module adéquat sur $(\Sch/S)_\tau$.
+\begin{enumerate}
+\item La restriction $\mathcal{F}|_{S_{Zar}}$ est un
+$\mathcal{O}_S$-module quasi-cohérent sur le schéma $S$.
+\item La restriction $\mathcal{F}|_{S_\etale}$ est le
+module quasi-cohérent associé à $\mathcal{F}|_{S_{Zar}}$.
+\item Pour tout schéma affine $U$ au-dessus de $S$, on a $H^q(U, \mathcal{F}) = 0$
+pour tout $q > 0$.
+\item Il existe un isomorphisme canonique
+$$
+H^q(S, \mathcal{F}|_{S_{Zar}}) =
+H^q((\Sch/S)_\tau, \mathcal{F}).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-adequate-flat}
+et le
+lemme \ref{lemma-adequate-local},
+pour tout morphisme plat de schémas affines $U \to V$ au-dessus de $S$,
+on a
+$\mathcal{F}(U) = \mathcal{F}(V) \otimes_{\mathcal{O}(V)} \mathcal{O}(U)$.
+Cela vaut en particulier si $U \subset V \subset S$ sont des ouverts affines de
+$S$ ; ainsi $\mathcal{F}|_{S_{Zar}}$ est quasi-cohérent.
+On obtient donc (1).
+
+\medskip\noindent
+Soit $S' \to S$ un morphisme étale de schémas.
+Pour un ouvert affine $U \subset S'$ dont l'image est contenue dans un ouvert affine
+$V \subset S$, on voit alors que
+$\mathcal{F}(U) = \mathcal{F}(V) \otimes_{\mathcal{O}(V)} \mathcal{O}(U)$,
+car $U \to V$ est étale, donc plat. Par conséquent,
+$\mathcal{F}|_{S'_{Zar}}$ est l'image inverse de $\mathcal{F}|_{S_{Zar}}$.
+Cela démontre (2).
+
+\medskip\noindent
+Nous allons appliquer
+Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-cech-vanish-collection},
+au site $(\Sch/S)_\tau$, avec
+$\mathcal{B}$ l'ensemble des schémas affines au-dessus de $S$ et
+$\text{Cov}$ l'ensemble des $\tau$-recouvrements affines standard.
+L'hypothèse (3) du lemme est satisfaite d'après
+Descente, lemme \ref{descent-lemma-standard-covering-Cech},
+et le
+lemme \ref{lemma-adequate-fpqc}
+pour le cas d'un recouvrement par un seul schéma affine.
+On en conclut que $H^p(U, \mathcal{F}) = 0$ pour tout
+schéma affine $U$ au-dessus de $S$. Cela démontre (3).
+Exactement comme dans la démonstration de
+Descente, proposition \ref{descent-proposition-same-cohomology-quasi-coherent},
+cela entraîne l'égalité des cohomologies (4).
+\end{proof}
+
+\begin{remark}
+\label{remark-compare}
+Soit $S$ un schéma. On dispose de foncteurs
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+et
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$.
+Le foncteur $u : \mathcal{F} \mapsto \mathcal{F}^a$
+consiste à prendre le $\mathcal{O}$-module associé, qui est
+adéquat d'après le
+lemme \ref{lemma-adequate-characterize}.
+Réciproquement, le foncteur $v$ est donné par restriction,
+$v : \mathcal{G} \mapsto \mathcal{G}|_{S_{Zar}}$ ; voir le
+lemme \ref{lemma-same-cohomology-adequate}.
+Puisque $\mathcal{F}^a$ peut être décrit comme l'image inverse de
+$\mathcal{F}$ par un morphisme de topos annelés
+$((\Sch/S)_\tau, \mathcal{O}) \to (S_{Zar}, \mathcal{O}_S)$, voir
+Descente, remarque \ref{descent-remark-change-topologies-ringed-sites},
+et puisque la restriction est l'image directe, on voit que $u$ et $v$
+sont adjoints comme suit
+$$
+\SheafHom_{\mathcal{O}_S}(\mathcal{F}, v\mathcal{G})
+=
+\SheafHom_\mathcal{O}(u\mathcal{F}, \mathcal{G})
+$$
+où $\mathcal{O}$ désigne le faisceau structural sur le grand site.
+La description montre immédiatement que le morphisme d'adjonction
+$\mathcal{F} \to vu\mathcal{F}$ est un isomorphisme pour tout faisceau
+quasi-cohérent.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-sheafification-adequate}
+{\emergencystretch=1em
+Soit $S$ un schéma. Soit $\mathcal{F}$ un préfaisceau de $\mathcal{O}$-modules
+sur $(\Sch/S)_\tau$. Si, pour tout schéma affine
+$\Spec(A)$ au-dessus de $S$, le foncteur $F_{\mathcal{F}, A}$ est
+adéquat, alors le faisceau associé à $\mathcal{F}$ est un
+$\mathcal{O}$-module adéquat.\par}
+\end{lemma}
+
+\begin{proof}
+Soit $U = \Spec(A)$ un schéma affine au-dessus de $S$.
+Posons $F = F_{\mathcal{F}, A}$.
+Le faisceau associé est $\mathcal{F}^\# = (\mathcal{F}^+)^+$ ; voir
+Sites, section \ref{sites-section-sheafification}.
+Par construction,
+$$
+(\mathcal{F})^+(U) =
+\colim_\mathcal{U} \check{H}^0(\mathcal{U}, \mathcal{F})
+$$
+où la limite inductive porte sur les recouvrements dans le site $(\Sch/S)_\tau$.
+Puisque $U$ est affine, il suffit de prendre la limite inductive sur les
+$\tau$-recouvrements affines standard
+$\mathcal{U} = \{U_i \to U\}_{i \in I} =
+\{\Spec(A_i) \to \Spec(A)\}_{i \in I}$ de $U$.
+Puisque chaque $A \to A_i$ et chaque $A \to A_i \otimes_A A_j$ est plat, on voit que
+$$
+\check{H}^0(\mathcal{U}, \mathcal{F}) =
+\Ker(\prod F(A) \otimes_A A_i \to \prod F(A) \otimes_A A_i \otimes_A A_j)
+$$
+d'après le
+lemme \ref{lemma-adequate-flat}.
+Puisque $A \to \prod A_i$ est fidèlement plat, ce module
+est toujours canoniquement isomorphe à $F(A)$ d'après
+Descente, lemme \ref{descent-lemma-ff-exact}.
+Ainsi le préfaisceau $(\mathcal{F})^+$ a la même valeur que
+$\mathcal{F}$ sur tous les schémas affines au-dessus de $S$. En répétant une fois
+l'argument, on en déduit la même assertion pour $\mathcal{F}^\# = ((\mathcal{F})^+)^+$.
+Ainsi $F_{\mathcal{F}, A} = F_{\mathcal{F}^\#, A}$, et l'on conclut
+que $\mathcal{F}^\#$ est adéquat.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian-adequate}
+Soit $S$ un schéma.
+\begin{enumerate}
+\item La catégorie $\textit{Adeq}(\mathcal{O})$ est abélienne.
+\item Le foncteur
+$\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+est exact.
+\item Si $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+est une suite exacte courte de $\mathcal{O}$-modules et si
+$\mathcal{F}_1$ et $\mathcal{F}_3$ sont adéquats, alors
+$\mathcal{F}_2$ est adéquat.
+\item La catégorie $\textit{Adeq}(\mathcal{O})$ admet des limites inductives, et
+le foncteur
+$\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+commute à ces limites.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $\varphi : \mathcal{F} \to \mathcal{G}$ une application de
+$\mathcal{O}$-modules adéquats. Pour démontrer (1) et (2), il suffit de montrer que
+$\mathcal{K} = \Ker(\varphi)$ et
+$\mathcal{Q} = \Coker(\varphi)$, calculés dans
+$\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$, sont adéquats.
+Soit $U = \Spec(A)$ un schéma affine au-dessus de $S$.
+Posons $F = F_{\mathcal{F}, A}$ et $G = F_{\mathcal{G}, A}$.
+D'après les
+lemmes \ref{lemma-kernel-adequate} et
+\ref{lemma-cokernel-adequate},
+le noyau $K$ et le conoyau $Q$ de l'application induite
+$F \to G$ sont des foncteurs adéquats.
+Comme le noyau se calcule au niveau des préfaisceaux, on voit
+que $K = F_{\mathcal{K}, A}$, et l'on conclut que $\mathcal{K}$ est adéquat.
+Pour démontrer le résultat pour le conoyau, notons $\mathcal{Q}'$ le conoyau
+préfaisceautique de $\varphi$. Alors $Q = F_{\mathcal{Q}', A}$ et
+$\mathcal{Q} = (\mathcal{Q}')^\#$. Ainsi $\mathcal{Q}$
+est adéquat d'après le
+lemme \ref{lemma-sheafification-adequate}.
+
+\medskip\noindent
+Soit $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+une suite exacte courte de $\mathcal{O}$-modules, avec
+$\mathcal{F}_1$ et $\mathcal{F}_3$ adéquats.
+Soit $U = \Spec(A)$ un schéma affine au-dessus de $S$.
+Posons $F_i = F_{\mathcal{F}_i, A}$. La suite de foncteurs
+$$
+0 \to F_1 \to F_2 \to F_3 \to 0
+$$
+est exacte, car, pour $V = \Spec(B)$ affine au-dessus de $U$, on a
+$H^1(V, \mathcal{F}_1) = 0$ d'après le
+lemme \ref{lemma-same-cohomology-adequate}.
+Puisque $F_1$ et $F_3$ sont des foncteurs adéquats d'après le
+lemme \ref{lemma-adequate-local},
+on voit que $F_2$ est adéquat d'après le
+lemme \ref{lemma-extension-adequate}.
+Ainsi $\mathcal{F}_2$ est adéquat.
+
+\medskip\noindent
+Soit $\mathcal{I} \to \textit{Adeq}(\mathcal{O})$, $i \mapsto \mathcal{F}_i$,
+un diagramme. Notons $\mathcal{F} = \colim_i \mathcal{F}_i$
+la limite inductive calculée dans
+$\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$.
+Pour démontrer (4), il suffit de montrer que $\mathcal{F}$ est adéquat.
+Soit $\mathcal{F}' = \colim_i \mathcal{F}_i$ la limite inductive calculée
+dans les préfaisceaux de $\mathcal{O}$-modules. Alors
+$\mathcal{F} = (\mathcal{F}')^\#$.
+Soit $U = \Spec(A)$ un schéma affine au-dessus de $S$.
+Posons $F_i = F_{\mathcal{F}_i, A}$. D'après le
+lemme \ref{lemma-colimit-adequate},
+le foncteur $\colim_i F_i = F_{\mathcal{F}', A}$ est adéquat.
+Le lemme \ref{lemma-sheafification-adequate}
+montre que $\mathcal{F}$ est adéquat.
+\end{proof}
+
+\noindent
+Le lemme suivant affirme que l'image directe totale
+$Rf_*\mathcal{F}$ d'un module adéquat par un morphisme quasi-compact et
+quasi-séparé est un complexe dont les faisceaux de cohomologie
+sont adéquats.
+
+\begin{lemma}
+\label{lemma-direct-image-adequate}
+Soit $f : T \to S$ un morphisme quasi-compact et quasi-séparé
+de schémas. Pour tout $\mathcal{O}_T$-module adéquat sur
+$(\Sch/T)_\tau$, l'image directe
+$f_*\mathcal{F}$ et les images directes supérieures $R^if_*\mathcal{F}$
+sont des $\mathcal{O}_S$-modules adéquats sur $(\Sch/S)_\tau$.
+\end{lemma}
+
+\begin{proof}
+Expliquons d'abord comment calculer les images directes supérieures.
+Choisissons une résolution injective $\mathcal{F} \to \mathcal{I}^\bullet$.
+Alors $R^if_*\mathcal{F}$ est le $i$-ième faisceau de cohomologie du
+complexe $f_*\mathcal{I}^\bullet$.
+Ainsi $R^if_*\mathcal{F}$ est le faisceau associé au préfaisceau
+qui associe à un objet $U/S$ de $(\Sch/S)_\tau$
+le module
+\begin{align*}
+\frac{\Ker(f_*\mathcal{I}^i(U) \to f_*\mathcal{I}^{i + 1}(U))}
+{\Im(f_*\mathcal{I}^{i - 1}(U) \to f_*\mathcal{I}^i(U))}
+& =
+\frac{\Ker(\mathcal{I}^i(U \times_S T) \to
+\mathcal{I}^{i + 1}(U \times_S T))}
+{\Im(\mathcal{I}^{i - 1}(U \times_S T) \to \mathcal{I}^i(U \times_S T))}
+\\
+& =
+H^i(U \times_S T, \mathcal{F}) \\
+& = H^i((\Sch/U \times_S T)_\tau,
+\mathcal{F}|_{(\Sch/U \times_S T)_\tau}) \\
+& = H^i(U \times_S T, \mathcal{F}|_{(U \times_S T)_{Zar}})
+\end{align*}
+La première égalité résulte de
+Topologies, lemme \ref{topologies-lemma-morphism-big-fppf}
+(et de ses analogues pour les autres topologies),
+la deuxième de la définition de la cohomologie de $\mathcal{F}$
+au-dessus d'un objet de $(\Sch/T)_\tau$,
+la troisième de
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-cohomology-of-open},
+et la dernière du
+lemme \ref{lemma-same-cohomology-adequate}.
+Ainsi, d'après le
+lemme \ref{lemma-sheafification-adequate},
+il suffit de démontrer l'assertion énoncée dans le paragraphe suivant.
+
+\medskip\noindent
+Soit $A$ un anneau. Soit $T$ un schéma quasi-compact et quasi-séparé
+sur $A$. Soit $\mathcal{F}$ un $\mathcal{O}_T$-module adéquat sur
+$(\Sch/T)_\tau$. Pour une $A$-algèbre $B$, posons
+$T_B = T \times_{\Spec(A)} \Spec(B)$ et notons
+$\mathcal{F}_B = \mathcal{F}|_{(T_B)_{Zar}}$ la restriction de
+$\mathcal{F}$ au petit site de Zariski de $T_B$.
+(Rappelons qu'il s'agit d'un faisceau quasi-cohérent « usuel » sur le schéma
+$T_B$ ; voir le
+lemme \ref{lemma-same-cohomology-adequate}.)
+Assertion : le foncteur
+$$
+B \longmapsto H^q(T_B, \mathcal{F}_B)
+$$
+est adéquat. Nous démontrerons le lemme par la méthode usuelle
+consistant à découper $T$ en morceaux.
+
+\medskip\noindent
+Cas I : $T$ est affine. Dans ce cas, les schémas $T_B$ sont tous affines
+et $H^q(T_B, \mathcal{F}_B) = 0$ pour tout $q \geq 1$.
+Le foncteur $B \mapsto H^0(T_B, \mathcal{F}_B)$ est adéquat d'après le
+lemme \ref{lemma-pushforward-adequate}.
+
+\medskip\noindent
+Cas II : $T$ est séparé. Soit $n$ le nombre minimal d'ouverts affines nécessaires
+pour recouvrir $T$. Raisonnons par récurrence sur $n$. Le cas initial est le cas I.
+Choisissons un recouvrement ouvert affine $T = V_1 \cup \ldots \cup V_n$.
+Posons $V = V_1 \cup \ldots \cup V_{n - 1}$ et $U = V_n$. Observons que
+$$
+U \cap V = (V_1 \cap V_n) \cup \ldots \cup (V_{n - 1} \cap V_n)
+$$
+est également une réunion de $n - 1$ ouverts affines, puisque $T$ est séparé ; voir
+Schémas, lemme \ref{schemes-lemma-characterize-separated}.
+Notons que, pour chaque $B$, les changements de base $U_B$, $V_B$ et
+$(U \cap V)_B = U_B \cap V_B$ se comportent de la même manière. Ainsi,
+pour chaque $B$, on a une suite exacte longue
+$$
+0 \to
+H^0(T_B, \mathcal{F}_B) \to
+H^0(U_B, \mathcal{F}_B) \oplus H^0(V_B, \mathcal{F}_B) \to
+H^0((U \cap V)_B, \mathcal{F}_B) \to
+H^1(T_B, \mathcal{F}_B) \to \ldots
+$$
+fonctorielle en $B$ ; voir
+Cohomologie, lemme \ref{cohomology-lemma-mayer-vietoris}.
+Par l'hypothèse de récurrence, les foncteurs
+$B \mapsto H^q(U_B, \mathcal{F}_B)$,
+$B \mapsto H^q(V_B, \mathcal{F}_B)$ et
+$B \mapsto H^q((U \cap V)_B, \mathcal{F}_B)$
+sont adéquats. Les
+lemmes \ref{lemma-kernel-adequate} et
+\ref{lemma-cokernel-adequate}
+montrent que notre foncteur $B \mapsto H^q(T_B, \mathcal{F}_B)$ est le
+terme médian d'une suite exacte courte dont les termes extrêmes sont adéquats.
+L'assertion résulte donc du
+lemme \ref{lemma-extension-adequate}.
+
+\medskip\noindent
+Cas III : cas général quasi-compact et quasi-séparé.
+La démonstration se fait encore par récurrence sur le nombre $n$ d'ouverts affines
+nécessaires pour recouvrir $T$. Le cas initial $n = 1$ est le cas I.
+Choisissons un recouvrement ouvert affine $T = V_1 \cup \ldots \cup V_n$.
+Posons $V = V_1 \cup \ldots \cup V_{n - 1}$ et $U = V_n$. Notons que,
+puisque $T$ est quasi-séparé, $U \cap V$ est un ouvert quasi-compact d'un
+schéma affine ; le cas II s'y applique donc. La suite de l'argument
+se déroule exactement comme dans le paragraphe précédent, et nous
+l'omettons.
+\end{proof}
+
+
+
+
+
+
+
+\section{Modules adéquats parasites}
+\label{section-parasitic}
+
+\noindent
+Dans cette section, nous commençons à comparer les modules adéquats et les modules
+quasi-cohérents sur un schéma $S$. Rappelons qu'il existe des foncteurs
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+et
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$
+satisfaisant à l'adjonction
+$$
+\SheafHom_{\QCoh(\mathcal{O}_S)}(\mathcal{F}, v\mathcal{G})
+=
+\SheafHom_{\textit{Adeq}(\mathcal{O})}(u\mathcal{F}, \mathcal{G})
+$$
+et tels que $\mathcal{F} \to vu\mathcal{F}$ soit un isomorphisme pour
+tout faisceau quasi-cohérent $\mathcal{F}$ ; voir la
+remarque \ref{remark-compare}.
+Ainsi $u$ est un plongement pleinement fidèle, et l'on peut identifier
+$\QCoh(\mathcal{O}_S)$ à une sous-catégorie pleine de
+$\textit{Adeq}(\mathcal{O})$.
+Le foncteur $v$ est exact, mais $u$ n'est pas exact à gauche en général.
+Le noyau de $v$ est la sous-catégorie des modules adéquats parasites.
+
+\medskip\noindent
+Dans Descente, définition \ref{descent-definition-parasitic},
+nous donnons la définition d'un module parasite.
+Pour les modules adéquats, cette notion ne dépend pas
+de la topologie choisie.
+
+\begin{lemma}
+\label{lemma-parasitic-adequate}
+Soit $S$ un schéma.
+Soit $\mathcal{F}$ un $\mathcal{O}$-module adéquat sur
+$(\Sch/S)_\tau$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $v\mathcal{F} = 0$,
+\item $\mathcal{F}$ est parasite,
+\item $\mathcal{F}$ est parasite pour la topologie $\tau$,
+\item $\mathcal{F}(U) = 0$ pour tout ouvert $U \subset S$, et
+\item il existe un recouvrement ouvert affine $S = \bigcup U_i$
+tel que $\mathcal{F}(U_i) = 0$ pour tout $i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les implications (2) $\Rightarrow$ (3) $\Rightarrow$ (4) $\Rightarrow$ (5)
+résultent immédiatement des définitions. Supposons (5). Supposons que
+$S = \bigcup U_i$ soit un recouvrement ouvert affine tel que $\mathcal{F}(U_i) = 0$
+pour tout $i$. Soit $V \to S$ un morphisme plat. Il existe un recouvrement ouvert
+affine $V = \bigcup V_j$ tel que chaque $V_j$ ait son image dans un
+$U_i$. Puisque le morphisme $V_j \to S$ est plat, $V_j \to U_i$ l'est aussi.
+L'homomorphisme d'anneaux correspondant
+$A_i = \mathcal{O}(U_i) \to \mathcal{O}(V_j) = B_j$ est donc plat. Ainsi, d'après le
+lemme \ref{lemma-adequate-local}
+et le
+lemme \ref{lemma-adequate-flat},
+on voit que $\mathcal{F}(U_i) \otimes_{A_i} B_j \to \mathcal{F}(V_j)$
+est un isomorphisme. Ainsi $\mathcal{F}(V_j) = 0$. Puisque $\mathcal{F}$ est
+un faisceau pour la topologie de Zariski, on conclut que $\mathcal{F}(V) = 0$.
+On voit de cette manière que (5) entraîne (2).
+
+\medskip\noindent
+Cela démontre l'équivalence de (2), (3), (4) et (5).
+Comme (1) est équivalente à (3) (voir la
+remarque \ref{remark-compare}),
+on conclut que les cinq conditions sont équivalentes.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma.
+La sous-catégorie des modules adéquats parasites est une sous-catégorie de Serre de
+$\textit{Adeq}(\mathcal{O})$. Le quotient est la catégorie des
+modules quasi-cohérents.
+
+\begin{lemma}
+\label{lemma-adequate-by-parasitic}
+Soit $S$ un schéma. La sous-catégorie
+$\mathcal{C} \subset \textit{Adeq}(\mathcal{O})$ des modules adéquats
+parasites est une sous-catégorie de Serre. De plus, le foncteur $v$ induit
+une équivalence de catégories
+$$
+\textit{Adeq}(\mathcal{O}) / \mathcal{C} = \QCoh(\mathcal{O}_S).
+$$
+\end{lemma}
+
+\begin{proof}
+La catégorie $\mathcal{C}$ est le noyau du foncteur exact
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$ ; voir le
+lemme \ref{lemma-parasitic-adequate}.
+C'est donc une sous-catégorie de Serre d'après
+Homologie, lemme \ref{homology-lemma-kernel-exact-functor}.
+D'après
+Homologie, lemme \ref{homology-lemma-serre-subcategory-is-kernel},
+on obtient un foncteur exact induit
+$\overline{v} :
+\textit{Adeq}(\mathcal{O}) / \mathcal{C}
+\to
+\QCoh(\mathcal{O}_S)$.
+Puisque $u$ est un inverse à droite de $v$, on voit immédiatement que
+$\overline{v}$ est essentiellement surjectif.
+On voit que $\overline{v}$ est fidèle d'après
+Homologie, lemme \ref{homology-lemma-quotient-by-kernel-exact-functor}.
+Puisque $u$ est un inverse à droite de $v$, on conclut enfin que
+$\overline{v}$ est pleinement fidèle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-direct-image-parasitic-adequate}
+Soit $f : T \to S$ un morphisme quasi-compact et quasi-séparé
+de schémas. Pour tout $\mathcal{O}_T$-module adéquat parasite sur
+$(\Sch/T)_\tau$, l'image directe
+$f_*\mathcal{F}$ et les images directes supérieures $R^if_*\mathcal{F}$
+sont des $\mathcal{O}_S$-modules adéquats parasites sur $(\Sch/S)_\tau$.
+\end{lemma}
+
+\begin{proof}
+Nous avons déjà vu dans le
+lemme \ref{lemma-direct-image-adequate}
+que ces images directes supérieures sont adéquates.
+Il suffit donc de montrer que
+$(R^if_*\mathcal{F})(U_i) = 0$ pour tout $\tau$-recouvrement
+ouvert $\{U_i \to S\}$. Or $R^if_*\mathcal{F}$
+est parasite d'après
+Descente, lemme \ref{descent-lemma-direct-image-parasitic}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Catégories dérivées de modules adéquats, I}
+\label{section-comparison}
+
+
+\noindent
+Soit $S$ un schéma. Nous poursuivons la discussion commencée dans la
+section \ref{section-parasitic}.
+Le foncteur exact $v$ induit un foncteur
+$$
+D(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D(\QCoh(\mathcal{O}_S))
+$$
+et de même pour les variantes bornées.
+
+\begin{lemma}
+\label{lemma-quotient-easy}
+Soit $S$ un schéma. Notons
+$\mathcal{C} \subset \textit{Adeq}(\mathcal{O})$ la
+sous-catégorie pleine constituée des modules adéquats parasites.
+Alors
+$$
+D(\textit{Adeq}(\mathcal{O}))/D_\mathcal{C}(\textit{Adeq}(\mathcal{O}))
+= D(\QCoh(\mathcal{O}_S))
+$$
+et de même pour les variantes bornées.
+\end{lemma}
+
+\begin{proof}
+{\emergencystretch=1em
+Cela résulte immédiatement de
+Catégories dérivées, lemme \ref{derived-lemma-quotient-by-serre-easy}.\par}
+\end{proof}
+
+\noindent
+Cherchons ensuite une description en sens inverse en considérant
+les foncteurs
+$$
+K^+(\QCoh(\mathcal{O}_S))
+\longrightarrow
+K^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+(\QCoh(\mathcal{O}_S)).
+$$
+Dans certains cas, la catégorie dérivée des modules adéquats est une localisation
+de la catégorie homotopique des complexes de modules quasi-cohérents par rapport
+aux quasi-isomorphismes universels. Soit $S$ un schéma. Une application de complexes
+$\varphi : \mathcal{F}^\bullet \to \mathcal{G}^\bullet$
+de $\mathcal{O}_S$-modules quasi-cohérents est appelée
+{\it quasi-isomorphisme universel} si, pour tout morphisme de schémas
+$f : T \to S$, l'image inverse $f^*\varphi$ est un quasi-isomorphisme.
+
+\begin{lemma}
+\label{lemma-describe-Dplus-adequate}
+Soit $U = \Spec(A)$ un schéma affine.
+La catégorie dérivée bornée inférieurement
+$D^+(\textit{Adeq}(\mathcal{O}))$ est la localisation
+de $K^+(\QCoh(\mathcal{O}_U))$ par rapport au système multiplicatif des
+quasi-isomorphismes universels.
+\end{lemma}
+
+\begin{proof}
+{\emergencystretch=2em
+Si $\varphi : \mathcal{F}^\bullet \to \mathcal{G}^\bullet$
+est un morphisme de complexes de
+$\mathcal{O}_U$-modules quasi-cohérents, alors $u\varphi : u\mathcal{F}^\bullet \to
+u\mathcal{G}^\bullet$ est un quasi-isomorphisme si et seulement si $\varphi$ est
+un quasi-isomorphisme universel. Ainsi la collection $S$
+des quasi-isomorphismes universels est un système multiplicatif
+saturé compatible avec la structure triangulée d'après
+Catégories dérivées, lemme \ref{derived-lemma-triangle-functor-localize}.
+Ainsi $S^{-1}K^+(\QCoh(\mathcal{O}_U))$ existe et est une
+catégorie triangulée ; voir
+Catégories dérivées, proposition
+\ref{derived-proposition-construct-localization}.
+On obtient un foncteur canonique
+$can : S^{-1}K^+(\QCoh(\mathcal{O}_U)) \to
+D^{+}(\textit{Adeq}(\mathcal{O}))$ d'après
+Catégories dérivées, lemme \ref{derived-lemma-universal-property-localization}.
+\par}
+
+\medskip\noindent
+Notons que, presque par définition, tout module adéquat sur $U$ se plonge
+dans un faisceau quasi-cohérent ; voir le
+lemme \ref{lemma-adequate-characterize}. Ainsi, d'après
+Catégories dérivées, lemme \ref{derived-lemma-subcategory-right-resolution},
+étant donné $\mathcal{F}^\bullet \in \Ob(K^+(\textit{Adeq}(\mathcal{O})))$,
+il existe un quasi-isomorphisme
+$\mathcal{F}^\bullet \to u\mathcal{G}^\bullet$,
+où $\mathcal{G}^\bullet \in \Ob(K^+(\QCoh(\mathcal{O}_U)))$.
+Cela démontre que $can$ est essentiellement surjectif.
+
+\medskip\noindent
+De même, supposons que $\mathcal{F}^\bullet$ et $\mathcal{G}^\bullet$
+soient des complexes bornés inférieurement de $\mathcal{O}_U$-modules quasi-cohérents.
+Un morphisme dans $D^+(\textit{Adeq}(\mathcal{O}))$ entre ces
+complexes est constitué d'un couple $f : u\mathcal{F}^\bullet \to \mathcal{H}^\bullet$
+et $s : u\mathcal{G}^\bullet \to \mathcal{H}^\bullet$, où $s$
+est un quasi-isomorphisme. Choisissons un quasi-isomorphisme
+$s' : \mathcal{H}^\bullet \to u\mathcal{E}^\bullet$. On voit alors que
+$s' \circ f : \mathcal{F} \to \mathcal{E}^\bullet$ et le
+quasi-isomorphisme universel
+$s' \circ s : \mathcal{G}^\bullet \to \mathcal{E}^\bullet$ donnent
+un morphisme dans $S^{-1}K^{+}(\QCoh(\mathcal{O}_U))$ ayant pour image
+le morphisme donné. Cela démontre la plénitude.
+La fidélité se démontre de manière analogue.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-right-adjoint-adequate}
+Soit $U = \Spec(A)$ un schéma affine.
+Le foncteur d'inclusion
+$$
+\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/U)_\tau, \mathcal{O})
+$$
+admet un adjoint à droite $A$\footnote{C'est l'« adéquateur ».}.
+De plus, le morphisme d'adjonction
+$A(\mathcal{F}) \to \mathcal{F}$ est un isomorphisme pour tout
+module adéquat $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+D'après
+Topologies, lemme \ref{topologies-lemma-affine-big-site-fppf}
+(et de même pour les autres topologies),
+on peut travailler avec les $\mathcal{O}$-modules sur $(\textit{Aff}/U)_\tau$.
+Notons $\mathcal{P}$ la catégorie des foncteurs à valeurs
+dans les modules sur $\textit{Alg}_A$ et $\mathcal{A}$ la catégorie des foncteurs adéquats
+sur $\textit{Alg}_A$. Notons $i : \mathcal{A} \to \mathcal{P}$
+le foncteur d'inclusion. Notons $Q : \mathcal{P} \to \mathcal{A}$
+la construction du lemme \ref{lemma-adjoint}.
+On a le diagramme commutatif
+\begin{equation}
+\label{equation-categories}
+\vcenter{
+\xymatrix{
+\textit{Adeq}(\mathcal{O}) \ar[r]_-k \ar@{=}[d] &
+\textit{Mod}((\textit{Aff}/U)_\tau, \mathcal{O}) \ar[r]_-j &
+\textit{PMod}((\textit{Aff}/U)_\tau, \mathcal{O}) \ar@{=}[d] \\
+\mathcal{A} \ar[rr]^-i & & \mathcal{P}
+}
+}
+\end{equation}
+L'égalité verticale de gauche est le
+lemme \ref{lemma-adequate-affine},
+et l'égalité verticale de droite a été expliquée dans la
+section \ref{section-quasi-coherent}.
+Définissons $A(\mathcal{F}) = Q(j(\mathcal{F}))$.
+Puisque $j$ est pleinement fidèle, il en résulte immédiatement que $A$
+est adjoint à droite du foncteur d'inclusion $k$. De plus, puisque
+$k$ est lui aussi pleinement fidèle, la dernière assertion en résulte formellement.
+\end{proof}
+
+\noindent
+Le foncteur $A$ est un adjoint à droite, donc est exact à gauche. Puisque le foncteur
+d'inclusion est exact, voir le
+lemme \ref{lemma-abelian-adequate},
+on conclut que $A$ transforme les objets injectifs en objets injectifs et que
+la catégorie $\textit{Adeq}(\mathcal{O})$ possède suffisamment d'injectifs ; voir
+Homologie, lemme \ref{homology-lemma-adjoint-enough-injectives},
+et
+Injectifs, théorème \ref{injectives-theorem-sheaves-modules-injectives}.
+Cela résulte également de l'équivalence dans
+(\ref{equation-categories})
+et du
+lemme \ref{lemma-enough-injectives}.
+
+\begin{lemma}
+\label{lemma-RA-zero}
+Soit $U = \Spec(A)$ un schéma affine.
+Pour tout objet $\mathcal{F}$ de $\textit{Adeq}(\mathcal{O})$,
+on a $R^pA(\mathcal{F}) = 0$ pour tout $p > 0$, où $A$ est
+comme dans le
+lemme \ref{lemma-right-adjoint-adequate}.
+\end{lemma}
+
+\begin{proof}
+Avec les notations de la démonstration du
+lemme \ref{lemma-right-adjoint-adequate},
+choisissons une résolution injective $k(\mathcal{F}) \to \mathcal{I}^\bullet$
+dans la catégorie des $\mathcal{O}$-modules sur $(\textit{Aff}/U)_\tau$.
+D'après
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-include-modules},
+et le
+lemme \ref{lemma-same-cohomology-adequate},
+le complexe $j(\mathcal{I}^\bullet)$ est exact.
+D'autre part, chaque $j(\mathcal{I}^n)$ est un objet injectif
+de la catégorie des préfaisceaux de modules d'après
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-injective-module-injective-presheaf}.
+Il en résulte que $R^pA(\mathcal{F}) = R^pQ(j(k(\mathcal{F})))$.
+Le résultat découle donc du
+lemme \ref{lemma-RQ-zero}.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma. D'après la discussion de la
+section \ref{section-adequate},
+le plongement
+$\textit{Adeq}(\mathcal{O}) \subset
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+présente $\textit{Adeq}(\mathcal{O})$ comme une sous-catégorie de Serre faible de
+la catégorie de tous les $\mathcal{O}$-modules. Notons
+$$
+D_{\textit{Adeq}}(\mathcal{O}) \subset
+D(\mathcal{O}) = D(\textit{Mod}((\Sch/S)_\tau, \mathcal{O}))
+$$
+la sous-catégorie triangulée des complexes dont les faisceaux de cohomologie
+sont adéquats ; voir
+Catégories dérivées, section \ref{derived-section-triangulated-sub}.
+On obtient un foncteur canonique
+$$
+D(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D_{\textit{Adeq}}(\mathcal{O})
+$$
+voir
+Catégories dérivées, équation (\ref{derived-equation-compare}).
+
+\begin{lemma}
+\label{lemma-bounded-below}
+Si $U = \Spec(A)$ est un schéma affine, alors la variante
+bornée inférieurement
+\begin{equation}
+\label{equation-compare-bounded-adequate}
+D^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+_{\textit{Adeq}}(\mathcal{O})
+\end{equation}
+du foncteur ci-dessus est une équivalence.
+\end{lemma}
+
+\begin{proof}
+Soit $A : \textit{Mod}(\mathcal{O}) \to \textit{Adeq}(\mathcal{O})$
+l'adjoint à droite du foncteur d'inclusion construit dans le
+lemme \ref{lemma-right-adjoint-adequate}.
+Puisque $A$ est exact à gauche et que $\textit{Mod}(\mathcal{O})$
+possède suffisamment d'injectifs, $A$ admet un foncteur dérivé à droite
+$RA : D^+_{\textit{Adeq}}(\mathcal{O}) \to D^+(\textit{Adeq}(\mathcal{O}))$.
+Nous affirmons que $RA$ est un quasi-inverse de
+(\ref{equation-compare-bounded-adequate}).
+Le fait essentiel est que, si $\mathcal{F}$ est un module adéquat,
+le morphisme d'adjonction $\mathcal{F} \to RA(\mathcal{F})$ est un
+quasi-isomorphisme d'après le lemme \ref{lemma-RA-zero}.
+
+\medskip\noindent
+Pour démontrer complètement le lemme, il suffit en effet de montrer que :
+\begin{enumerate}
+\item étant donné $\mathcal{F}^\bullet \in K^+(\textit{Adeq}(\mathcal{O}))$,
+l'application canonique $\mathcal{F}^\bullet \to RA(\mathcal{F}^\bullet)$
+est un quasi-isomorphisme, et
+\item étant donné $\mathcal{G}^\bullet \in K^+(\textit{Mod}(\mathcal{O}))$,
+l'application canonique $RA(\mathcal{G}^\bullet) \to \mathcal{G}^\bullet$
+est un quasi-isomorphisme.
+\end{enumerate}
+Les assertions (1) et (2) résultent toutes deux du fait essentiel par un argument
+de suite spectrale utilisant l'une des suites spectrales de
+Catégories dérivées, lemme \ref{derived-lemma-two-ss-complex-functor}.
+Nous omettons certains détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ext-adequate}
+Soit $U = \Spec(A)$ un schéma affine.
+Soient $\mathcal{F}$ et $\mathcal{G}$ des $\mathcal{O}$-modules adéquats.
+Pour tout $i \geq 0$, l'application naturelle
+$$
+\Ext^i_{\textit{Adeq}(\mathcal{O})}(\mathcal{F}, \mathcal{G})
+\longrightarrow
+\Ext^i_{\textit{Mod}(\mathcal{O})}(\mathcal{F}, \mathcal{G})
+$$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+Par définition, ces groupes Ext se calculent comme ensembles de morphismes dans
+la catégorie dérivée. Cela résulte donc immédiatement du
+lemme \ref{lemma-bounded-below}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Extensions pures}
+\label{section-pure}
+
+\noindent
+Nous voulons caractériser en termes algébriques les extensions de faisceaux
+quasi-cohérents sur le grand site d'un schéma affine. Pour cela,
+nous introduisons la notion suivante.
+
+\begin{definition}
+\label{definition-pure}
+Soit $A$ un anneau.
+\begin{enumerate}
+\item Un $A$-module $P$ est dit {\it projectif pur}
+si, pour toute suite universellement exacte
+$0 \to K \to M \to N \to 0$ de $A$-modules, la suite
+$0 \to \Hom_A(P, K) \to \Hom_A(P, M) \to \Hom_A(P, N) \to 0$
+est exacte.
+\item Un $A$-module $I$ est dit {\it injectif pur}
+si, pour toute suite universellement exacte
+$0 \to K \to M \to N \to 0$ de $A$-modules, la suite
+$0 \to \Hom_A(N, I) \to \Hom_A(M, I) \to \Hom_A(K, I) \to 0$
+est exacte.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Caractérisons les modules projectifs purs.
+
+\begin{lemma}
+\label{lemma-pure-projective}
+Soit $A$ un anneau.
+\begin{enumerate}
+\item Un module est projectif pur si et seulement s'il est
+facteur direct d'une somme directe de $A$-modules de présentation finie.
+\item Pour tout module $M$, il existe une suite universellement exacte
+$0 \to N \to P \to M \to 0$, avec $P$ projectif pur.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Notons d'abord qu'un $A$-module de présentation finie est projectif pur d'après
+Algèbre, théorème \ref{algebra-theorem-universally-exact-criteria}.
+Ainsi un facteur direct d'une somme directe de $A$-modules de présentation finie
+est bien projectif pur. Soit $M$ un $A$-module quelconque.
+Écrivons $M = \colim_{i \in I} P_i$ comme limite inductive filtrante de
+$A$-modules de présentation finie. Considérons la suite
+$$
+0 \to N \to \bigoplus P_i \to M \to 0.
+$$
+Pour tout $A$-module de présentation finie $P$, l'application
+$\Hom_A(P, \bigoplus P_i) \to \Hom_A(P, M)$
+est surjective, car toute application $P \to M$ se factorise par un certain $P_i$.
+Ainsi, d'après
+Algèbre, théorème \ref{algebra-theorem-universally-exact-criteria},
+cette suite est universellement exacte. Cela démontre (2).
+Si maintenant $M$ est projectif pur, alors la suite est scindée et
+l'on voit que $M$ est facteur direct de $\bigoplus P_i$.
+\end{proof}
+
+\noindent
+Caractérisons les modules injectifs purs.
+
+\begin{lemma}
+\label{lemma-pure-injective}
+{\emergencystretch=2em
+Soit $A$ un anneau. Pour tout $A$-module $M$, posons
+$M^\vee = \Hom_\mathbf{Z}(M, \mathbf{Q}/\mathbf{Z})$.
+\par}
+\begin{enumerate}
+\item Pour tout $A$-module $M$, le $A$-module $M^\vee$ est injectif pur.
+\item Un $A$-module $I$ est injectif pur si et seulement si l'application
+$I \to (I^\vee)^\vee$ est scindée.
+\item Pour tout module $M$, il existe une suite universellement exacte
+$0 \to M \to I \to N \to 0$, avec $I$ injectif pur.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons les propriétés du foncteur $M \mapsto M^\vee$ données dans
+Compléments d'algèbre, section \ref{more-algebra-section-injectives-modules},
+sans le mentionner à nouveau. L'assertion (1) résulte de ce que
+$\Hom_A(N, M^\vee) =
+\Hom_\mathbf{Z}(N \otimes_A M, \mathbf{Q}/\mathbf{Z})$
+et de ce que $\mathbf{Q}/\mathbf{Z}$ est injectif dans la catégorie des
+groupes abéliens. Ainsi, si $I \to (I^\vee)^\vee$ est scindée,
+$I$ est injectif pur. Nous affirmons que, pour tout $A$-module $M$,
+l'application d'évaluation $ev : M \to (M^\vee)^\vee$ est universellement injective.
+Pour le voir, notons que $ev^\vee : ((M^\vee)^\vee)^\vee \to M^\vee$
+admet un inverse à droite, à savoir $ev' : M^\vee \to ((M^\vee)^\vee)^\vee$.
+Alors, pour tout $A$-module $N$, l'application du foncteur exact et fidèle
+${}^\vee$ au morphisme $N \otimes_A M \to N \otimes_A (M^\vee)^\vee$
+fournit
+$$
+\Hom_A(N, ((M^\vee)^\vee)^\vee) =
+\Big(N \otimes_A (M^\vee)^\vee\Big)^\vee
+\to
+\Big(N \otimes_A M\Big)^\vee =
+\Hom_A(N, M^\vee)
+$$
+qui est surjective en raison de l'existence de l'inverse à droite. D'où l'assertion.
+Celle-ci entraîne (3) et la nécessité de la condition de (2).
+\end{proof}
+
+\noindent
+Avant de poursuivre, faisons l'observation suivante, que nous utiliserons
+fréquemment dans la suite de cette section.
+
+\begin{lemma}
+\label{lemma-split-universally-exact-sequence}
+Soit $A$ un anneau.
+\begin{enumerate}
+\item Soit $L \to M \to N$ une suite universellement exacte
+de $A$-modules. Posons $K = \Im(M \to N)$.
+Alors $K \to N$ est universellement injective.
+\item Tout complexe universellement exact
+peut être décomposé en suites exactes courtes universellement exactes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Pour tout $A$-module $T$, la suite
+$L \otimes_A T \to M \otimes_A T \to K \otimes_A T \to 0$ est exacte
+par exactitude à droite de $\otimes$. Par hypothèse, la suite
+$L \otimes_A T \to M \otimes_A T \to N \otimes_A T$ est exacte.
+Ces deux faits montrent que $K \otimes_A T \to N \otimes_A T$ est injective.
+
+\medskip\noindent
+L'assertion (2) signifie ceci : supposons que $M^\bullet$ soit un complexe
+universellement exact de $A$-modules. Posons $K^i = \Ker(d^i) \subset M^i$.
+Alors les suites exactes courtes $0 \to K^i \to M^i \to K^{i + 1} \to 0$
+sont universellement exactes. Cela résulte immédiatement de (1).
+\end{proof}
+
+\begin{definition}
+\label{definition-pure-resolution}
+Soit $A$ un anneau. Soit $M$ un $A$-module.
+\begin{enumerate}
+\item Une {\it résolution par des projectifs purs} $P_\bullet \to M$
+est une suite universellement exacte
+$$
+\ldots \to P_1 \to P_0 \to M \to 0
+$$
+où chaque $P_i$ est projectif pur.
+\item Une {\it résolution par des injectifs purs} $M \to I^\bullet$ est une suite
+universellement exacte
+$$
+0 \to M \to I^0 \to I^1 \to \ldots
+$$
+où chaque $I^i$ est injectif pur.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Ces résolutions satisfont aux propriétés d'unicité usuelles parmi la classe
+de toutes les résolutions à gauche ou à droite universellement exactes.
+
+\begin{lemma}
+\label{lemma-pure-projective-resolutions}
+Soit $A$ un anneau.
+\begin{enumerate}
+\item Tout $A$-module admet une résolution par des projectifs purs.
+\end{enumerate}
+Soit $M \to N$ une application de $A$-modules.
+Soit $P_\bullet \to M$ une résolution par des projectifs purs et
+soit $N_\bullet \to N$ une résolution universellement exacte.
+\begin{enumerate}
+\item[(2)] Il existe une application de complexes $P_\bullet \to N_\bullet$
+induisant l'application donnée
+$$
+M = \Coker(P_1 \to P_0) \to \Coker(N_1 \to N_0) = N
+$$
+\item[(3)] deux applications $\alpha, \beta : P_\bullet \to N_\bullet$
+induisant la même application $M \to N$ sont homotopes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) résulte immédiatement du
+lemme \ref{lemma-pure-projective}.
+Avant de démontrer (2) et (3), notons que, d'après le
+lemme \ref{lemma-split-universally-exact-sequence},
+on peut décomposer le complexe universellement exact $N_\bullet \to N \to 0$
+en suites exactes courtes universellement exactes $0 \to K_0 \to N_0 \to N \to 0$
+et $0 \to K_i \to N_i \to K_{i - 1} \to 0$.
+
+\medskip\noindent
+Démonstration de (2). Puisque $P_0$ est projectif pur,
+on peut trouver une application $P_0 \to N_0$ relevant l'application $P_0 \to M \to N$.
+On obtient une application induite $P_1 \to F_0 \to N_0$ dont l'image est contenue dans $K_0$.
+Puisque $P_1$ est projectif pur, on peut la relever
+en une application $P_1 \to N_1$. Celle-ci induit à son tour une application
+$P_2 \to P_1 \to N_1$ dont l'image dans
+$N_0$ est nulle, c'est-à-dire dont l'image est contenue dans $K_1$. On peut donc la relever en une application
+$P_2 \to N_2$. On répète le procédé.
+
+\medskip\noindent
+Démonstration de (3). Pour montrer que $\alpha, \beta$ sont homotopes, il suffit
+de montrer que la différence $\gamma = \alpha - \beta$ est homotope
+à zéro. Notons que l'image de $\gamma_0 : P_0 \to N_0$
+est contenue dans $K_0$. On peut donc relever
+$\gamma_0$ en une application $h_0 : P_0 \to N_1$. Considérons l'application
+$\gamma_1' = \gamma_1 - h_0 \circ d_{P, 1} : P_1 \to N_1$.
+D'après le choix de $h_0$, on voit que l'image de $\gamma_1'$
+est contenue dans $K_1$. Puisque $P_1$ est projectif pur, on peut relever
+$\gamma_1'$ en une application $h_1 : P_1 \to N_2$. À ce stade, on a
+$\gamma_1 = h_0 \circ d_{F, 1} + d_{N, 2} \circ h_1$. On répète le procédé.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pure-injective-resolutions}
+Soit $A$ un anneau.
+\begin{enumerate}
+\item Tout $A$-module admet une résolution par des injectifs purs.
+\end{enumerate}
+Soit $M \to N$ une application de $A$-modules.
+Soit $M \to M^\bullet$ une résolution universellement exacte et
+soit $N \to I^\bullet$ une résolution par des injectifs purs.
+\begin{enumerate}
+\item[(2)] Il existe une application de complexes $M^\bullet \to I^\bullet$
+induisant l'application donnée
+$$
+M = \Ker(M^0 \to M^1) \to \Ker(I^0 \to I^1) = N
+$$
+\item[(3)] deux applications $\alpha, \beta : M^\bullet \to I^\bullet$
+induisant la même application $M \to N$ sont homotopes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Ce lemme est dual du
+lemme \ref{lemma-pure-projective-resolutions}.
+La démonstration est identique, sauf qu'il faut renverser toutes les flèches.
+\end{proof}
+
+\noindent
+Les résultats précédents permettent de définir les groupes d'extensions pures
+comme suit. Soient $A$ un anneau et $M$, $N$ des $A$-modules.
+Choisissons une résolution par des injectifs purs $N \to I^\bullet$. D'après le
+lemme \ref{lemma-pure-injective-resolutions},
+le complexe
+$$
+\Hom_A(M, I^\bullet)
+$$
+est bien défini à homotopie près. Son $i$-ième module de cohomologie
+est donc un invariant bien défini de $M$ et $N$.
+
+\begin{definition}
+\label{definition-pure-ext}
+Soient $A$ un anneau et $M$, $N$ des $A$-modules.
+Le $i$-ième {\it module d'extensions pures} $\text{Pext}^i_A(M, N)$
+est le $i$-ième module de cohomologie du complexe
+$\Hom_A(M, I^\bullet)$, où $I^\bullet$ est une résolution par des injectifs purs
+de $N$.
+\end{definition}
+
+\noindent
+Attention : il n'est pas vrai qu'une suite exacte de $A$-modules donne
+lieu à une suite exacte longue de groupes d'extensions pures. (Il faut
+pour cela une suite universellement exacte.)
+Rassemblons quelques faits qui résultent immédiatement de ce qui précède.
+
+\begin{lemma}
+\label{lemma-facts-pext}
+Soit $A$ un anneau.
+\begin{enumerate}
+\item $\text{Pext}^i_A(M, N) = 0$ pour $i > 0$ dès que $N$ est injectif pur,
+\item $\text{Pext}^i_A(M, N) = 0$ pour $i > 0$ dès que $M$ est projectif pur,
+en particulier si $M$ est un $A$-module de présentation finie,
+\item {\emergencystretch=3em
+$\text{Pext}^i_A(M, N)$ est aussi le $i$-ième module de cohomologie
+du complexe $\Hom_A(P_\bullet, N)$, où $P_\bullet$
+est une résolution par des projectifs purs de $M$.\par}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour (3), considérons le complexe double
+$$
+A^{\bullet, \bullet} = \Hom_A(P_\bullet, I^\bullet)
+$$
+{\emergencystretch=3em
+Chacune de ses lignes est exacte sauf en degré $0$, où sa cohomologie
+est $\Hom_A(M, I^q)$. Chacune de ses colonnes est exacte sauf en degré $0$,
+où sa cohomologie est $\Hom_A(P_p, N)$. Ainsi les deux suites spectrales
+associées à ce complexe dans
+Homologie, section \ref{homology-section-double-complex},
+dégénèrent, ce qui donne l'égalité.\par}
+\end{proof}
+
+
+
+
+
+\section{Groupes Ext supérieurs des faisceaux quasi-cohérents sur le grand site}
+\label{section-big}
+
+\noindent
+Il se trouve que le foncteur à valeurs dans les modules $\underline{I}$ associé à
+un module injectif pur $I$ donne un objet injectif dans la
+catégorie des foncteurs adéquats sur $\textit{Alg}_A$.
+Attention : il n'est pas vrai qu'un module projectif pur donne
+un objet projectif dans la catégorie des foncteurs adéquats. Nous disposons néanmoins
+de nombreux objets projectifs, à savoir les foncteurs linéairement adéquats.
+
+\begin{lemma}
+\label{lemma-pure-injective-injective-adequate}
+Soit $A$ un anneau.
+Soit $\mathcal{A}$ la catégorie des foncteurs adéquats sur $\textit{Alg}_A$.
+Les objets injectifs de $\mathcal{A}$ sont exactement les foncteurs
+$\underline{I}$, où $I$ est un $A$-module injectif pur.
+\end{lemma}
+
+\begin{proof}
+Soit $I$ un objet injectif de $\mathcal{A}$.
+Choisissons un plongement $I \to \underline{M}$ pour un certain $A$-module $M$.
+Comme $I$ est injectif, on voit que $\underline{M} = I \oplus F$ pour un certain
+foncteur à valeurs dans les modules $F$. Alors $M = I(A) \oplus F(A)$, et il en résulte
+que $I = \underline{I(A)}$. On voit donc que tout objet injectif
+est de la forme $\underline{I}$ pour un certain $A$-module $I$.
+Il est clair que le module $I$ doit être injectif pur,
+puisque toute suite universellement exacte $0 \to M \to N \to L \to 0$
+donne lieu à une suite exacte
+$0 \to \underline{M} \to \underline{N} \to \underline{L} \to 0$
+de $\mathcal{A}$.
+
+\medskip\noindent
+Enfin, supposons que $I$ soit un
+$A$-module injectif pur. Choisissons un plongement $\underline{I} \to J$
+dans un objet injectif de $\mathcal{A}$ (voir le
+lemme \ref{lemma-enough-injectives}).
+Nous avons vu ci-dessus que $J = \underline{I'}$
+pour un certain $A$-module $I'$ injectif pur. Puisque
+$\underline{I} \to \underline{I'}$ est injective,
+l'application $I \to I'$ est universellement injective. Par l'hypothèse sur $I$,
+elle est scindée. Ainsi $\underline{I}$ est facteur direct de $J = \underline{I'}$,
+donc est un objet injectif de la catégorie $\mathcal{A}$.
+\end{proof}
+
+\noindent
+Soit $U = \Spec(A)$ un schéma affine. Soit $M$ un $A$-module.
+Nous utiliserons la notation $M^a$ pour désigner le faisceau quasi-cohérent
+de $\mathcal{O}$-modules sur $(\Sch/U)_\tau$ associé
+au faisceau quasi-cohérent $\widetilde{M}$ sur $U$.
+Nous disposons maintenant de toutes les notations nécessaires pour formuler le lemme suivant.
+
+\begin{lemma}
+\label{lemma-big-ext}
+Soit $U = \Spec(A)$ un schéma affine. Soient $M$, $N$ des $A$-modules.
+Pour tout $i$, on a un isomorphisme canonique
+$$
+\Ext^i_{\textit{Mod}(\mathcal{O})}(M^a, N^a) = \text{Pext}^i_A(M, N)
+$$
+fonctoriel en $M$ et $N$.
+\end{lemma}
+
+\begin{proof}
+Construisons une flèche canonique de droite à gauche. Si
+$N \to I^\bullet$ est une résolution par des injectifs purs, alors
+$M^a \to (I^\bullet)^a$ est un complexe exact de
+$\mathcal{O}$-modules (adéquats). Ainsi tout élément de $\text{Pext}^i_A(M, N)$
+donne lieu à une application $N^a \to M^a[i]$ dans $D(\mathcal{O})$, c'est-à-dire à
+un élément du groupe de gauche.
+
+\medskip\noindent
+Pour démontrer que cette application est un isomorphisme, notons que l'on peut remplacer
+$\Ext^i_{\textit{Mod}(\mathcal{O})}(M^a, N^a)$ par
+$\Ext^i_{\textit{Adeq}(\mathcal{O})}(M^a, N^a)$ ; voir le
+lemme \ref{lemma-ext-adequate}.
+Soit $\mathcal{A}$ la catégorie des foncteurs adéquats
+sur $\textit{Alg}_A$. Nous avons vu que $\mathcal{A}$ est
+équivalente à $\textit{Adeq}(\mathcal{O})$ ; voir le
+lemme \ref{lemma-adequate-affine}, ainsi que la démonstration du
+lemme \ref{lemma-right-adjoint-adequate}.
+Il suffit donc maintenant de démontrer que
+$$
+\Ext^i_\mathcal{A}(\underline{M}, \underline{N}) =
+\text{Pext}^i_A(M, N)
+$$
+Or cela résulte du
+lemme \ref{lemma-pure-injective-injective-adequate},
+puisqu'une résolution par des injectifs purs $N \to I^\bullet$ correspond exactement
+à une résolution injective de $\underline{N}$ dans $\mathcal{A}$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Catégories dérivées de modules adéquats, II}
+\label{section-derived-categories}
+
+\noindent
+Soit $S$ un schéma. Notons $\mathcal{O}_S$ le faisceau structural de $S$
+et $\mathcal{O}$ le faisceau structural du grand site $(\Sch/S)_\tau$.
+Dans
+Descente, remarque \ref{descent-remark-change-topologies-ringed},
+nous avons construit un morphisme de sites annelés
+\begin{equation}
+\label{equation-compare-big-small}
+f :
+((\Sch/S)_\tau, \mathcal{O})
+\longrightarrow
+(S_{Zar}, \mathcal{O}_S).
+\end{equation}
+Dans les sections précédentes, nous avons vu que le foncteur
+$f_* : \textit{Mod}(\mathcal{O}) \to \textit{Mod}(\mathcal{O}_S)$
+transforme les faisceaux adéquats en faisceaux quasi-cohérents,
+induit un foncteur exact
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$, et
+qu'en fait $f_* = v$ induit une équivalence
+$\textit{Adeq}(\mathcal{O})/\mathcal{C} \to \QCoh(\mathcal{O}_S)$,
+où $\mathcal{C}$ est la sous-catégorie des modules adéquats parasites.
+De plus, le foncteur $f^*$ transforme les modules quasi-cohérents
+en modules adéquats et induit un foncteur
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+qui est adjoint à gauche de $v$.
+
+\medskip\noindent
+Il existe une relation très analogue entre
+$D_{\textit{Adeq}}(\mathcal{O})$ et $D_\QCoh(S)$.
+Expliquons d'abord pourquoi la catégorie $D_{\textit{Adeq}}(\mathcal{O})$
+est indépendante de la topologie choisie.
+
+\begin{remark}
+\label{remark-D-adeq-independence-topology}
+{\emergencystretch=3em
+Soit $S$ un schéma.
+Soient $\tau, \tau' \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Notons $\mathcal{O}_\tau$, resp.\ $\mathcal{O}_{\tau'}$,
+le faisceau structural $\mathcal{O}$ considéré comme faisceau sur
+$(\Sch/S)_\tau$, resp.\ $(\Sch/S)_{\tau'}$.
+Alors $D_{\textit{Adeq}}(\mathcal{O}_\tau)$ et
+$D_{\textit{Adeq}}(\mathcal{O}_{\tau'})$ sont canoniquement isomorphes.
+Cela résulte de Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compare-topologies-derived-adequate-modules}.
+Supposons en effet que $\tau$ soit plus fine que la topologie $\tau'$, posons
+$\mathcal{C} = (\Sch/S)_{fppf}$ et notons $\mathcal{B}$ la collection
+des schémas affines au-dessus de $S$. Nous avons vérifié ci-dessus les hypothèses (1) et (2).
+L'hypothèse (3) est claire, et l'hypothèse (4) résulte du
+lemme \ref{lemma-same-cohomology-adequate}.\par}
+\end{remark}
+
+\begin{remark}
+\label{remark-D-adeq-and-D-QCoh}
+Soit $S$ un schéma. Le morphisme $f$, voir
+(\ref{equation-compare-big-small}), induit
+des foncteurs adjoints
+$Rf_* : D_{\textit{Adeq}}(\mathcal{O}) \to D_\QCoh(S)$
+et
+$Lf^* : D_\QCoh(S) \to D_{\textit{Adeq}}(\mathcal{O})$.
+De plus, $Rf_* Lf^* \cong \text{id}_{D_\QCoh(S)}$.
+
+\medskip\noindent
+Esquissons la démonstration. D'après la
+remarque \ref{remark-D-adeq-independence-topology},
+on peut supposer que la topologie $\tau$ est la topologie de Zariski.
+Nous utiliserons l'existence des foncteurs dérivés totaux non bornés
+$Lf^*$ et $Rf_*$ sur les $\mathcal{O}$-modules et leur
+adjonction ; voir
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-adjoint}.
+Dans ce cas, $f_*$ est simplement la restriction à la sous-catégorie
+$S_{Zar}$ de $(\Sch/S)_{Zar}$. Il est donc clair que
+$Rf_* = f_*$ induit
+$Rf_* : D_{\textit{Adeq}}(\mathcal{O}) \to D_\QCoh(S)$.
+Supposons que $\mathcal{G}^\bullet$ soit un objet de
+$D_\QCoh(S)$. On peut choisir un système
+$\mathcal{K}_1^\bullet \to \mathcal{K}_2^\bullet \to \ldots$
+de complexes bornés supérieurement de $\mathcal{O}_S$-modules plats dont les
+applications de transition sont des injections scindées terme à terme, et un diagramme
+$$
+\xymatrix{
+\mathcal{K}_1^\bullet \ar[d] \ar[r] &
+\mathcal{K}_2^\bullet \ar[d] \ar[r] & \ldots \\
+\tau_{\leq 1}\mathcal{G}^\bullet \ar[r] &
+\tau_{\leq 2}\mathcal{G}^\bullet \ar[r] & \ldots
+}
+$$
+ayant les propriétés (1), (2), (3) énumérées dans
+Catégories dérivées, lemme \ref{derived-lemma-special-direct-system},
+où $\mathcal{P}$ est la collection des $\mathcal{O}_S$-modules plats.
+Alors $Lf^*\mathcal{G}^\bullet$ se calcule par
+$\colim f^*\mathcal{K}_n^\bullet$ ; voir
+Cohomologie sur les sites, lemmes \ref{sites-cohomology-lemma-pullback-K-flat} et
+\ref{sites-cohomology-lemma-derived-base-change}
+(notons que nos sites ont suffisamment de points d'après
+Cohomologie étale, lemme \ref{etale-cohomology-lemma-points-fppf}).
+Il faut voir que $H^i(Lf^*\mathcal{G}^\bullet) =
+\colim H^i(f^*\mathcal{K}_n^\bullet)$ est adéquat pour chaque $i$. D'après le
+lemme \ref{lemma-abelian-adequate},
+on conclut qu'il suffit de montrer que
+chaque $H^i(f^*\mathcal{K}_n^\bullet)$ est adéquat.
+
+\medskip\noindent
+Le caractère adéquat de $H^i(f^*\mathcal{K}_n^\bullet)$ est local sur $S$ ;
+on peut donc supposer que $S = \Spec(A)$ est affine. Puisque $S$ est affine,
+$D_\QCoh(S) = D(\QCoh(\mathcal{O}_S))$ ; voir
+la discussion dans
+Catégories dérivées de schémas, section
+\ref{perfect-section-derived-quasi-coherent}.
+Il existe donc un quasi-isomorphisme
+$\mathcal{F}^\bullet \to \mathcal{K}_n^\bullet$,
+où $\mathcal{F}^\bullet$ est un complexe borné supérieurement de modules
+quasi-cohérents plats.
+Alors $f^*\mathcal{F}^\bullet \to f^*\mathcal{K}_n^\bullet$ est un
+quasi-isomorphisme, et les faisceaux de cohomologie de
+$f^*\mathcal{F}^\bullet$ sont adéquats.
+
+\medskip\noindent
+La dernière assertion,
+$Rf_* Lf^* \cong \text{id}_{D_\QCoh(S)}$,
+résulte de la description explicite des foncteurs ci-dessus.
+(En termes simples : si $\mathcal{F}$ est quasi-cohérent et si $p > 0$, alors
+$L_pf^*\mathcal{F}$ est un module adéquat parasite.)
+\end{remark}
+
+
+\begin{remark}
+\label{remark-conclusion}
+La remarque \ref{remark-D-adeq-and-D-QCoh}
+ci-dessus entraîne que l'on a une équivalence de catégories dérivées
+$$
+D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})
+\longrightarrow
+D_\QCoh(S)
+$$
+où $\mathcal{C}$ est la catégorie des modules adéquats parasites.
+Il est en effet clair que $D_\mathcal{C}(\mathcal{O})$ est le noyau
+de $Rf_*$, d'où un foncteur comme indiqué. Pour tout objet $X$ de
+$D_{\textit{Adeq}}(\mathcal{O})$, l'application $Lf^*Rf_*X \to X$ a pour image
+un quasi-isomorphisme dans $D_\QCoh(S)$ ; ainsi
+$Lf^*Rf_*X \to X$ est un isomorphisme dans
+$D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})$.
+Enfin, pour des objets $X, Y$ de $D_{\textit{Adeq}}(\mathcal{O})$,
+l'application
+$$
+Rf_* :
+\Hom_{D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})}(X, Y)
+\to
+\Hom_{D_\QCoh(S)}(Rf_*X, Rf_*Y)
+$$
+est bijective, puisque $Lf^*$ en donne un inverse (d'après les remarques ci-dessus).
+\end{remark}
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
