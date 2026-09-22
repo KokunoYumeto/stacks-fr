@@ -1,5 +1,9 @@
 # Le projet Stacks — traduction française complète, 116 chapitres
 
+[Lire les 116 chapitres directement en ligne](https://kokunoyumeto.github.io/stacks-zh-hans-cn/fr/index.html) · [Choisir la langue et l’édition](https://kokunoyumeto.github.io/stacks-zh-hans-cn/).
+
+Interface HTML : OpenAI Codex — GPT-6 Astra, effort Ultra ; aucune relecture humaine n’est impliquée.
+
 Cette édition réunit les **116 chapitres**, l’index général et la bibliographie
 dans un volume de **8 374 pages**. Elle traduit les sources anglaises du Stacks
 Project figées au commit `a04446e57ec1fbc252a871afcec7752fb2807b14`.
