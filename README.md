@@ -68,10 +68,17 @@ AI-intégrée. Les archives de provenance et de contrôle visuel héritées dans
 versions Zenodo restent des preuves historiques de cette ancienne édition,
 pas des preuves du présent PDF.
 
-[Le lecteur HTML antérieur](https://kokunoyumeto.github.io/stacks-zh-hans-cn/fr/index.html)
-reste accessible, mais n’a pas encore été régénéré à partir de cette
-restauration. Pour lire la présente traduction fidèle, utiliser le PDF et les
-sources ci-dessus.
+[Lire la traduction restaurée dans le navigateur](https://kokunoyumeto.github.io/stacks-zh-hans-cn/fr/index.html).
+Les 116 unités du lecteur web proviennent des mêmes sources restaurées que le
+PDF et le LaTeX ci-dessus. Les propositions de corrections de la source et les
+ajouts ne sont pas incorporés au texte traduit.
+
+[Sources complètes du lecteur web et du LaTeX](https://github.com/KokunoYumeto/stacks-fr/releases/download/fr-2026.09.30-faithful116-r1/05_stacks_project_french_html_reader_source.zip)
+contient les pages HTML, toutes les sources LaTeX et les outils de reproduction.
+[L’ancien lecteur éditorial](https://kokunoyumeto.github.io/stacks-zh-hans-cn/fr-edition-editoriale-20260921/index.html)
+reste accessible séparément. La conversion web a été contrôlée pour les
+formules, identifiants et renvois ; elle ne constitue pas une nouvelle relecture
+linguistique ou une certification humaine de la traduction.
 
 La licence GNU FDL 1.2 ou ultérieure et les attributions originales sont
 conservées dans `COPYING`, `CONTRIBUTORS` et l’archive des sources. Aucun nouveau
