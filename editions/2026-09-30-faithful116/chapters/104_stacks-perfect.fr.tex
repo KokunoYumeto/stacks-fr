@@ -1,0 +1,1408 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Catégories dérivées des champs}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions les catégories dérivées associées aux champs
+algébriques. Il s'agit notamment des catégories dérivées de faisceaux
+quasi-cohérents : nous démontrons des analogues des résultats pour les schémas
+(voir Catégories dérivées des schémas, section
+\ref{perfect-section-introduction}) et pour les espaces algébriques (voir
+Catégories dérivées des espaces, section
+\ref{spaces-perfect-section-introduction}). Les résultats du présent chapitre
+diffèrent de ceux de \cite{LM-B} principalement parce que nous utilisons
+systématiquement les « gros sites ». Avant d'aborder ce chapitre, le lecteur
+est invité à parcourir rapidement les chapitres « Faisceaux sur les champs
+algébriques » et « Cohomologie des champs algébriques », où est introduite la
+terminologie employée ici.
+
+
+
+\section{Conventions, notations et abus de langage}
+\label{section-conventions}
+
+\noindent
+Nous continuons d'utiliser les conventions et les abus de langage introduits
+dans Propriétés des champs, section
+\ref{stacks-properties-section-conventions}. Nous adoptons les notations
+expliquées dans Cohomologie des champs, section
+\ref{stacks-cohomology-section-notation}.
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Les sites lisse-\'etale et plat-fppf}
+\label{section-lisse-etale}
+
+\noindent
+Cette section est l'analogue, pour les catégories dérivées, de Cohomologie des
+champs, section \ref{stacks-cohomology-section-lisse-etale}.
+
+\begin{lemma}
+\label{lemma-shriek-derived}
+Soit $\mathcal{X}$ un champ algébrique. Nous employons les notations de
+Cohomologie des champs, lemmes
+\ref{stacks-cohomology-lemma-lisse-etale} et
+\ref{stacks-cohomology-lemma-lisse-etale-modules}.
+\begin{enumerate}
+\item Le foncteur
+$g_! : \textit{Ab}(\mathcal{X}_{lisse,\etale}) \to
+\textit{Ab}(\mathcal{X}_\etale)$
+admet un foncteur dérivé gauche
+$$
+Lg_! :
+D(\mathcal{X}_{lisse,\etale})
+\longrightarrow
+D(\mathcal{X}_\etale)
+$$
+qui est adjoint à gauche de $g^{-1}$ et tel que
+$g^{-1}Lg_! = \text{id}$.
+\item Le foncteur $g_! :
+\textit{Mod}(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_{\mathcal{X}})$
+admet un foncteur dérivé gauche
+$$
+Lg_! :
+D(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})
+\longrightarrow
+D(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$$
+qui est adjoint à gauche de $g^*$ et tel que $g^*Lg_! = \text{id}$.
+\item Le foncteur $g_! : \textit{Ab}(\mathcal{X}_{flat,fppf}) \to
+\textit{Ab}(\mathcal{X}_{fppf})$
+admet un foncteur dérivé gauche
+$$
+Lg_! :
+D(\mathcal{X}_{flat, fppf})
+\longrightarrow
+D(\mathcal{X}_{fppf})
+$$
+qui est adjoint à gauche de $g^{-1}$ et tel que
+$g^{-1}Lg_! = \text{id}$.
+\item Le foncteur $g_! :
+\textit{Mod}(\mathcal{X}_{flat,fppf},
+\mathcal{O}_{\mathcal{X}_{flat,fppf}}) \to
+\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_{\mathcal{X}})$
+admet un foncteur dérivé gauche
+$$
+Lg_! :
+D(\mathcal{O}_{\mathcal{X}_{flat, fppf}})
+\longrightarrow
+D(\mathcal{O}_\mathcal{X})
+$$
+qui est adjoint à gauche de $g^*$ et tel que $g^*Lg_! = \text{id}$.
+\end{enumerate}
+Attention : il n'est pas clair a priori que $Lg_!$ sur les modules coïncide avec
+$Lg_!$ sur les faisceaux abéliens ; voir Cohomologie sur les sites, remarque
+\ref{sites-cohomology-remark-when-derived-shriek-equal}.
+\end{lemma}
+
+\begin{proof}
+L'existence du foncteur $Lg_!$ et son adjonction à $g^*$ résultent de
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-existence-derived-lower-shriek}. (Dans le cas des
+faisceaux abéliens, on prend le faisceau constant $\mathbf{Z}$ comme faisceau
+structural.) De plus, sa valeur sur un complexe $\mathcal{H}^\bullet$ se calcule
+en choisissant une résolution gauche convenable
+$\mathcal{K}^\bullet \to \mathcal{H}^\bullet$, puis en appliquant le foncteur
+$g_!$ à $\mathcal{K}^\bullet$. Comme
+$g^{-1}g_!\mathcal{K}^\bullet = \mathcal{K}^\bullet$ d'après Cohomologie des
+champs, lemmes \ref{stacks-cohomology-lemma-lisse-etale-modules} et
+\ref{stacks-cohomology-lemma-lisse-etale}, la dernière assertion est vérifiée
+dans chacun des cas.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-functorial-derived}
+Sous les hypothèses et avec les notations de Cohomologie des champs, lemme
+\ref{stacks-cohomology-lemma-lisse-etale-functorial}, nous avons
+$$
+g^{-1} \circ Rf_* = Rf'_* \circ (g')^{-1}
+\quad\text{et}\quad
+L(g')_! \circ (f')^{-1} = f^{-1} \circ Lg_!
+$$
+sur les catégories dérivées non bornées, aussi bien pour les modules que pour
+les faisceaux abéliens.
+\end{lemma}
+
+\begin{proof}
+Soit $\tau = \etale$ (resp.\ $\tau = fppf$), et soit $\mathcal{F}$ un faisceau
+abélien sur $\mathcal{X}_\tau$. D'après Cohomologie des champs, lemme
+\ref{stacks-cohomology-lemma-lisse-etale-functorial-cohomology}
+l'application canonique de changement de base
+$$
+g^{-1}Rf_*\mathcal{F} \longrightarrow Rf'_*(g')^{-1}\mathcal{F}
+$$
+est un isomorphisme. La suite de la démonstration est formelle. Puisque la
+cohomologie des groupes abéliens coïncide avec celle des faisceaux de modules,
+nous en déduisons également que
+$g^{-1} Rf_*\mathcal{F} = Rf'_* (g')^{-1}\mathcal{F}$ lorsque $\mathcal{F}$ est
+un faisceau de modules sur $\mathcal{X}_\tau$.
+
+\medskip\noindent
+Montrons ensuite que, pour $\mathcal{G}$, faisceau de modules ou faisceau de
+groupes abéliens sur $\mathcal{Y}_{lisse,\etale}$ (resp.\
+$\mathcal{Y}_{flat,fppf}$), l'application canonique
+$$
+L(g')_!(f')^{-1}\mathcal{G} \to f^{-1}Lg_!\mathcal{G}
+$$
+est un isomorphisme. Il suffit pour cela de démontrer que, pour tout faisceau
+injectif $\mathcal{I}$ sur $\mathcal{X}_\tau$, l'application induite
+$$
+\Hom(L(g')_!(f')^{-1}\mathcal{G}, \mathcal{I}[n])
+\leftarrow
+\Hom(f^{-1}Lg_!\mathcal{G}, \mathcal{I}[n])
+$$
+est un isomorphisme pour tout $n \in \mathbf{Z}$ (les Hom étant pris dans les
+catégories dérivées appropriées). Par les adjonctions entre $f^{-1}$ et $Rf_*$,
+entre $Lg_!$ et $g^{-1}$, et par leurs versions « primées », cela résulte de
+l'isomorphisme
+$g^{-1} Rf_*\mathcal{I} \to Rf'_* (g')^{-1}\mathcal{I}$ démontré ci-dessus.
+
+\medskip\noindent
+Dans le cas d'un complexe borné $\mathcal{G}^\bullet$, de modules ou de groupes
+abéliens, sur $\mathcal{Y}_{lisse,\etale}$ (resp.\
+$\mathcal{Y}_{fppf}$), l'application canonique
+\begin{equation}
+\label{equation-to-show}
+L(g')_!(f')^{-1}\mathcal{G}^\bullet \to f^{-1}Lg_!\mathcal{G}^\bullet
+\end{equation}
+est un isomorphisme. Cela découle du cas d'un faisceau par les arguments usuels
+de troncature et du fait que les foncteurs $L(g')_!(f')^{-1}$ et
+$f^{-1}Lg_!$ sont des foncteurs exacts de catégories triangulées.
+
+\medskip\noindent
+Supposons que $\mathcal{G}^\bullet$ soit un complexe borné supérieurement, de
+modules ou de groupes abéliens, sur $\mathcal{Y}_{lisse,\etale}$ (resp.\
+$\mathcal{Y}_{fppf}$). L'application canonique
+(\ref{equation-to-show}) est un isomorphisme, car les troncatures bêtes
+$\sigma_{\geq -n}$ (voir Homologie, section
+\ref{homology-section-truncations}) permettent d'écrire
+$\mathcal{G}^\bullet$ comme une colimite
+$\mathcal{G}^\bullet = \colim \mathcal{G}_n^\bullet$
+de complexes bornés. On obtient ainsi un triangle distingué
+$$
+\bigoplus\nolimits_{n \geq 1} \mathcal{G}_n^\bullet \to
+\bigoplus\nolimits_{n \geq 1} \mathcal{G}_n^\bullet \to
+\mathcal{G}^\bullet \to \ldots
+$$
+et chacun des foncteurs $L(g')_!$, $(f')^{-1}$, $f^{-1}$ et $Lg_!$ commute aux
+sommes directes de complexes.
+
+\medskip\noindent
+Si $\mathcal{G}^\bullet$ est un complexe arbitraire, de modules ou de groupes
+abéliens, sur $\mathcal{Y}_{lisse,\etale}$ (resp.\
+$\mathcal{Y}_{fppf}$), nous employons les troncatures canoniques
+$\tau_{\leq n}$ (voir Homologie, section
+\ref{homology-section-truncations}) pour écrire $\mathcal{G}^\bullet$ comme une
+colimite de complexes bornés supérieurement, puis nous reprenons l'argument du
+paragraphe précédent.
+
+\medskip\noindent
+Enfin, par les adjonctions entre $f^{-1}$ et $Rf_*$, entre $Lg_!$ et $g^{-1}$,
+et par leurs versions « primées », nous concluons en toute généralité que la
+première identité du lemme résulte de la seconde.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-higher-shriek-quasi-coherent}
+Soit $\mathcal{X}$ un champ algébrique. Nous employons les notations de
+Cohomologie des champs, lemme
+\ref{stacks-cohomology-lemma-lisse-etale}.
+\begin{enumerate}
+\item Soit $\mathcal{H}$ un
+$\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$-module quasi-cohérent sur le site
+lisse-\'etale de $\mathcal{X}$. Pour tout $p \in \mathbf{Z}$, le faisceau
+$H^p(Lg_!\mathcal{H})$ est un module localement quasi-cohérent sur
+$\mathcal{X}$ et possède la propriété de changement de base plat.
+\item Soit $\mathcal{H}$ un
+$\mathcal{O}_{\mathcal{X}_{flat,fppf}}$-module quasi-cohérent sur le site
+plat-fppf de $\mathcal{X}$. Pour tout $p \in \mathbf{Z}$, le faisceau
+$H^p(Lg_!\mathcal{H})$ est un module localement quasi-cohérent sur
+$\mathcal{X}$ et possède la propriété de changement de base plat.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme lisse surjectif
+$x : U \to \mathcal{X}$. D'après Modules sur les sites, définition
+\ref{sites-modules-definition-site-local}, il existe un recouvrement étale
+(resp.\ fppf) $\{U_i \to U\}_{i \in I}$ tel que chaque image inverse
+$f_i^{-1}\mathcal{H}$ possède une présentation globale (voir Modules sur les
+sites, définition \ref{sites-modules-definition-global}). Ici,
+$f_i : U_i \to \mathcal{X}$ est le composé $U_i \to U \to \mathcal{X}$, qui est
+un morphisme de champs algébriques. (Rappelons que l'image inverse « est » la
+restriction à $\mathcal{X}/f_i$ ; voir Faisceaux sur les champs, définition
+\ref{stacks-sheaves-definition-pullback} et la discussion qui suit.) Après
+avoir raffiné le recouvrement, nous pouvons supposer que chaque $U_i$ est un
+schéma affine. Puisque chaque $f_i$ est lisse (resp.\ plat), le lemme
+\ref{lemma-lisse-etale-functorial-derived} donne
+$f_i^{-1}Lg_!\mathcal{H} = Lg_{i, !}(f'_i)^{-1}\mathcal{H}$. À l'aide de
+Cohomologie des champs, lemme
+\ref{stacks-cohomology-lemma-check-lqc-fbc-on-covering}, nous ramenons l'énoncé
+du lemme au cas où $\mathcal{H}$ possède une présentation globale et où
+$\mathcal{X} = (\Sch/X)_{fppf}$ pour un schéma affine $X = \Spec(A)$.
+
+\medskip\noindent
+Écrivons cette présentation sous la forme
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} \mathcal{O} \longrightarrow
+\mathcal{H} \longrightarrow 0
+$$
+où $\mathcal{O} = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$ (resp.\
+$\mathcal{O} = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$). Remarquons que le site
+$\mathcal{X}_{lisse,\etale}$ (resp.\ $\mathcal{X}_{flat,fppf}$) possède un
+objet final, à savoir $X/X$, qui est quasi-compact (voir Cohomologie sur les
+sites, section \ref{sites-cohomology-section-limits}). Nous avons donc
+$$
+\Gamma(\bigoplus\nolimits_{i \in I} \mathcal{O}) =
+\bigoplus\nolimits_{i \in I} A
+$$
+d'après Sites, lemme \ref{sites-lemma-directed-colimits-sections}. Par
+conséquent, l'application de la présentation correspond à une présentation
+analogue
+$$
+\bigoplus\nolimits_{j \in J} A \longrightarrow
+\bigoplus\nolimits_{i \in I} A \longrightarrow
+M \longrightarrow 0
+$$
+d'un $A$-module $M$. De plus, $\mathcal{H}$ est égal à la restriction au site
+lisse-\'etale (resp.\ plat-fppf) du faisceau quasi-cohérent $M^a$ associé à
+$M$. Choisissons une résolution
+$$
+\ldots \to F_2 \to F_1 \to F_0 \to M \to 0
+$$
+par des $A$-modules libres. Le complexe
+$$
+\ldots \mathcal{O} \otimes_A F_2 \to \mathcal{O} \otimes_A F_1 \to
+\mathcal{O} \otimes_A F_0 \to \mathcal{H} \to 0
+$$
+est une résolution de $\mathcal{H}$ par des $\mathcal{O}$-modules libres, car,
+pour tout objet $U/X$ de $\mathcal{X}_{lisse,\etale}$ (resp.\
+$\mathcal{X}_{flat,fppf}$), le morphisme structural $U \to X$ est plat. Par
+construction, la valeur de $Lg_!\mathcal{H}$ est donc
+$$
+\ldots \to
+\mathcal{O}_\mathcal{X} \otimes_A F_2 \to
+\mathcal{O}_\mathcal{X} \otimes_A F_1 \to
+\mathcal{O}_\mathcal{X} \otimes_A F_0 \to 0 \to \ldots
+$$
+Comme il s'agit d'un complexe de modules quasi-cohérents sur
+$\mathcal{X}_\etale$ (resp.\ $\mathcal{X}_{fppf}$), il résulte de Cohomologie
+des champs, proposition
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}, que
+$H^p(Lg_!\mathcal{H})$ est quasi-cohérent.
+\end{proof}
+
+
+
+
+\section{Cohomologie et sites lisse-\'etale et plat-fppf}
+\label{section-compare-unbounded-lisse-etale}
+
+\noindent
+Nous avons déjà vu que la cohomologie d'un faisceau sur un champ algébrique
+$\mathcal{X}$ peut se calculer sur le site plat-fppf. Dans cette section, nous
+démontrons qu'il en va de même pour les objets, éventuellement non bornés, de
+la catégorie dérivée de $\mathcal{X}$.
+
+\begin{lemma}
+\label{lemma-higher-shriek-Z}
+Soit $\mathcal{X}$ un champ algébrique. Nous avons
+$Lg_!\mathbf{Z} = \mathbf{Z}$, qu'il s'agisse du $Lg_!$ de la partie (1) du
+lemme \ref{lemma-shriek-derived} ou du $Lg_!$ de la partie (3) du lemme
+\ref{lemma-shriek-derived}.
+\end{lemma}
+
+\begin{proof}
+Nous le démontrons pour la comparaison du site plat-fppf au site fppf ; le cas
+du site lisse-\'etale est exactement analogue. Il faut montrer que
+$H^i(Lg_!\mathbf{Z})$ est $0$ pour $i \not = 0$ et que l'application canonique
+$H^0(Lg_!\mathbf{Z}) \to \mathbf{Z}$ est un isomorphisme. Soit
+$f : \mathcal{U} \to \mathcal{X}$ un morphisme plat et surjectif, où
+$\mathcal{U}$ est un schéma, et supposons en outre $f$ localement de
+présentation finie. (On peut, par exemple, choisir une présentation
+$U \to \mathcal{X}$ et prendre pour $\mathcal{U}$ le champ algébrique
+correspondant à $U$.) D'après Faisceaux sur les champs, lemmes
+\ref{stacks-sheaves-lemma-check-exactness-covering} et
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+il suffit de montrer que l'image inverse $f^{-1}H^i(Lg_!\mathbf{Z})$ est $0$
+pour $i \not = 0$ et que l'image inverse
+$H^0(Lg_!\mathbf{Z}) \to f^{-1}\mathbf{Z}$ est un isomorphisme. Le lemme
+\ref{lemma-lisse-etale-functorial-derived} donne
+$f^{-1}Lg_!\mathbf{Z} = L(g')_!\mathbf{Z}$, où
+$g' : \Sh(\mathcal{U}_{flat, fppf}) \to \Sh(\mathcal{U}_{fppf})$
+est le morphisme de comparaison correspondant pour $\mathcal{U}$. Nous sommes
+ainsi ramenés au cas étudié au paragraphe suivant.
+
+\medskip\noindent
+Supposons $\mathcal{X} = (\Sch/X)_{fppf}$ pour un schéma $X$. La catégorie
+$\mathcal{X}_{flat, fppf}$ possède alors un objet final $e$, à savoir $X/X$ ;
+de plus, le foncteur
+$u : \mathcal{X}_{flat, fppf} \to \mathcal{X}_{fppf}$ envoie $e$ sur l'objet
+final. Puisque $\mathbf{Z}$ est le faisceau abélien libre sur l'objet final,
+lorsque celui-ci existe, nous obtenons $Lg_!\mathbf{Z} = \mathbf{Z}$ par la
+construction même de $Lg_!$ dans Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-existence-derived-lower-shriek}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-cohomology}
+Soit $\mathcal{X}$ un champ algébrique. Nous employons les notations du lemme
+\ref{lemma-shriek-derived}.
+\begin{enumerate}
+\item Pour $K$ dans $D(\mathcal{X}_\etale)$, nous avons
+\begin{enumerate}
+\item $R\Gamma(\mathcal{X}_\etale, K) =
+R\Gamma(\mathcal{X}_{lisse,\etale}, g^{-1}K)$, et
+\item $R\Gamma(x, K) =
+R\Gamma(\mathcal{X}_{lisse,\etale}/x, g^{-1}K)$
+pour tout objet $x$ de $\mathcal{X}_{lisse,\etale}$.
+\end{enumerate}
+\item Pour $K$ dans $D(\mathcal{X}_{fppf})$, nous avons
+\begin{enumerate}
+\item $R\Gamma(\mathcal{X}_{fppf}, K) =
+R\Gamma(\mathcal{X}_{flat,fppf}, g^{-1}K)$, et
+\item $H^p(x, K) =
+R\Gamma(\mathcal{X}_{flat,fppf}/x, g^{-1}K)$
+pour tout objet $x$ de $\mathcal{X}_{flat,fppf}$.
+\end{enumerate}
+\end{enumerate}
+Dans les deux cas, les mêmes assertions valent pour les modules, puisque
+$g^{-1} = g^*$ et que le calcul de la cohomologie ne présente aucune différence
+d'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-modules-abelian-unbounded}.
+\end{lemma}
+
+\begin{proof}
+Nous le démontrons pour la comparaison du site plat-fppf au site fppf ; le cas
+du site lisse-\'etale est exactement analogue. D'après le lemme
+\ref{lemma-higher-shriek-Z}, nous avons $Lg_!\mathbf{Z} = \mathbf{Z}$. Il vient
+\begin{align*}
+R\Gamma(\mathcal{X}_{fppf}, K)
+& =
+R\Hom(\mathbf{Z}, K) \\
+& =
+R\Hom(Lg_!\mathbf{Z}, K) \\
+& =
+R\Hom(\mathbf{Z}, g^{-1}K) \\
+& =
+R\Gamma(\mathcal{X}_{lisse,\etale}, g^{-1}K)
+\end{align*}
+Ceci démontre (1)(a). La partie (1)(b) résulte de la partie (1)(a). En effet,
+si $x$ est au-dessus du schéma $U$, alors le site $\mathcal{X}_\etale/x$ est
+équivalent à $(\Sch/U)_\etale$, et $\mathcal{X}_{lisse,\etale}$ est équivalent
+à $U_{lisse, \etale}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Catégories dérivées de modules quasi-cohérents}
+\label{section-derived}
+
+\noindent
+Soit $\mathcal{X}$ un champ algébrique. Comme le foncteur d'inclusion
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})$ n'est pas exact, nous ne pouvons pas
+définir $D_\QCoh(\mathcal{O}_\mathcal{X})$ comme la sous-catégorie pleine de
+$D(\mathcal{O}_\mathcal{X})$ formée des complexes dont les faisceaux de
+cohomologie sont quasi-cohérents. Nous définissons plutôt la catégorie dérivée
+des modules quasi-cohérents comme un quotient, par analogie avec Cohomologie
+des champs, remarque
+\ref{stacks-cohomology-remark-bousfield-colocalization}.
+
+\medskip\noindent
+Rappelons que $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{O}_\mathcal{X})$ désigne la sous-catégorie pleine des
+$\mathcal{O}_\mathcal{X}$-modules localement quasi-cohérents possédant la
+propriété de changement de base plat ; voir Cohomologie des champs, section
+\ref{stacks-cohomology-section-loc-qcoh-flat-base-change}.
+Nous abrégerons
+$$
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X}) =
+D_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}(\mathcal{O}_\mathcal{X})
+$$
+Du lemme \ref{derived-lemma-cohomology-in-serre-subcategory} de Catégories
+dérivées et de la partie (2) de Cohomologie des champs, proposition
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}, nous déduisons
+que $D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$ est une sous-catégorie
+triangulée strictement pleine et saturée de
+$D(\mathcal{O}_\mathcal{X})$.
+
+\medskip\noindent
+Notons $\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{O}_\mathcal{X})$ la sous-catégorie pleine des
+$\mathcal{O}_\mathcal{X}$-modules parasites ; voir Cohomologie des champs,
+section
+\ref{stacks-cohomology-section-parasitic}.
+Abrégeons de même
+$$
+D_{\textit{Parasitic}}(\mathcal{O}_\mathcal{X}) =
+D_{\textit{Parasitic}(\mathcal{O}_\mathcal{X})}(\mathcal{O}_\mathcal{X})
+$$
+Comme précédemment, c'est une sous-catégorie triangulée strictement pleine et
+saturée de $D(\mathcal{O}_\mathcal{X})$, puisque
+$\textit{Parasitic}(\mathcal{O}_\mathcal{X})$ est une sous-catégorie de Serre
+de $\textit{Mod}(\mathcal{O}_\mathcal{X})$ ; voir Cohomologie des champs, lemme
+\ref{stacks-cohomology-lemma-parasitic}.
+
+\medskip\noindent
+L'intersection des sous-catégories faiblement de Serre
+$\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \cap
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+de $\textit{Mod}(\mathcal{O}_\mathcal{X})$ est encore une sous-catégorie
+faiblement de Serre. Nous adoptons de même l'abréviation
+\begin{align*}
+D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+& =
+D_{\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \cap
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}(\mathcal{O}_\mathcal{X}) \\
+& =
+D_{\textit{Parasitic}}(\mathcal{O}_\mathcal{X})
+\cap
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\end{align*}
+Comme précédemment, c'est une sous-catégorie triangulée strictement pleine et
+saturée de $D(\mathcal{O}_\mathcal{X})$. A fortiori, c'est donc une
+sous-catégorie triangulée strictement pleine et saturée de
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$.
+
+\begin{definition}
+\label{definition-derived}
+Soit $\mathcal{X}$ un champ algébrique. Avec les notations ci-dessus, nous
+définissons la {\it catégorie dérivée des $\mathcal{O}_\mathcal{X}$-modules à
+faisceaux de cohomologie quasi-cohérents} comme le quotient de
+Verdier\footnote{Cette définition diffère de celle de la littérature ; voir
+\cite[6.3]{olsson_sheaves}. Elle coïncide toutefois avec cette dernière d'après
+le lemme \ref{lemma-derived-quasi-coherent}.}
+$$
+D_\QCoh(\mathcal{O}_\mathcal{X}) =
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})/
+D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+$$
+\end{definition}
+
+\noindent
+Le quotient de Verdier est défini dans Catégories dérivées, section
+\ref{derived-section-quotients}. Un morphisme $a : E \to E'$ de
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$ devient un isomorphisme
+dans $D_\QCoh(\mathcal{O}_\mathcal{X})$ si et seulement si le cône $C(a)$ a des
+faisceaux de cohomologie parasites ; voir Catégories dérivées, lemme
+\ref{derived-lemma-operations}.
+
+\medskip\noindent
+Considérons les foncteurs
+$$
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\xrightarrow{H^i}
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\xrightarrow{Q}
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+Remarquons que $Q$ annule la sous-catégorie
+$\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \cap
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ ; voir Cohomologie des champs,
+lemme \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}. D'après
+Catégories dérivées, lemme
+\ref{derived-lemma-universal-property-quotient}, nous obtenons un foncteur
+cohomologique
+\begin{equation}
+\label{equation-Hi-quasi-coherent}
+H^i :
+D_\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X})
+\end{equation}
+De plus, remarquons que $E \in D_\QCoh(\mathcal{O}_\mathcal{X})$ est nul si et
+seulement si $H^i(E) = 0$ pour tout $i \in \mathbf{Z}$, puisque le noyau de
+$Q$ est exactement
+$\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \cap
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ d'après Cohomologie des champs,
+lemme \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}.
+
+\medskip\noindent
+Remarquons que les catégories
+$\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \cap
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ et
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+constituent aussi des sous-catégories faiblement de Serre de la catégorie
+abélienne
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+des modules pour la topologie étale ; voir Cohomologie des champs, proposition
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change} et lemme
+\ref{stacks-cohomology-lemma-parasitic}. L'énoncé du lemme suivant a donc un
+sens.
+
+\begin{lemma}
+\label{lemma-compare-etale-fppf-QCoh}
+Soit $\mathcal{X}$ un champ algébrique. Posons, par abréviation,
+$\mathcal{P}_\mathcal{X} = \textit{Parasitic}(\mathcal{O}_\mathcal{X}) \cap
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+Le morphisme de comparaison
+$\epsilon : \mathcal{X}_{fppf} \to \mathcal{X}_\etale$
+induit un diagramme commutatif
+$$
+\xymatrix{
+D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\ar[r] &
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X}) \ar[r] &
+D(\mathcal{O}_\mathcal{X}) \\
+D_{\mathcal{P}_\mathcal{X}}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\ar[r] \ar[u]^{\epsilon^*} &
+D_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}(
+\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\ar[r] \ar[u]^{\epsilon^*} &
+D(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\ar[u]^{\epsilon^*}
+}
+$$
+De plus, les deux flèches verticales de gauche sont des équivalences de
+catégories triangulées ; nous obtenons donc aussi une équivalence
+$$
+D_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}
+(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+/
+D_{\mathcal{P}_\mathcal{X}}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\longrightarrow
+D_\QCoh(\mathcal{O}_\mathcal{X})
+$$
+\end{lemma}
+
+\begin{proof}
+Puisque $\epsilon^*$ est exact, il est clair que nous obtenons le diagramme de
+l'énoncé. Montrons que la flèche verticale médiane est une équivalence en
+appliquant Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-compare-topologies-derived-adequate-modules}
+à la situation suivante :
+$\mathcal{C} = \mathcal{X}$,
+$\tau = fppf$,
+$\tau' = \etale$,
+$\mathcal{O} = \mathcal{O}_\mathcal{X}$,
+$\mathcal{A} = \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, et
+$\mathcal{B}$ est l'ensemble des objets de $\mathcal{X}$ situés au-dessus de
+schémas affines. Pour appliquer le lemme, il faut vérifier les conditions (1),
+(2), (3) et (4). Les conditions (1) et (2) résultent clairement de la
+discussion précédente ; plus précisément, elles découlent de Cohomologie des
+champs, proposition
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}. La condition
+(3) est satisfaite parce que tout schéma possède un recouvrement ouvert de
+Zariski par des schémas affines. La condition (4) résulte de Descente, lemme
+\ref{descent-lemma-quasi-coherent-and-flat-base-change}.
+
+\medskip\noindent
+Nous omettons de vérifier que l'équivalence de catégories $\epsilon^* :
+D_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}(
+\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\to
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$
+induit une équivalence entre les sous-catégories de complexes à faisceaux de
+cohomologie parasites.
+\end{proof}
+
+\noindent
+Soit $\mathcal{X}$ un champ algébrique. D'après Cohomologie des champs, lemme
+\ref{stacks-cohomology-lemma-quasi-coherent-weak-serre}
+la catégorie des modules quasi-cohérents
+$\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$
+forme une sous-catégorie faiblement de Serre de
+$\textit{Mod}(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$
+et la catégorie des modules quasi-cohérents
+$\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$
+forme une sous-catégorie faiblement de Serre de
+$\textit{Mod}(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$.
+Nous pouvons donc considérer
+$$
+D_\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}}) =
+D_{\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})}(
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}})
+\subset
+D(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})
+$$
+et, de même,
+$$
+D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}}) =
+D_{\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})}(
+\mathcal{O}_{\mathcal{X}_{flat,fppf}})
+\subset
+D(\mathcal{O}_{\mathcal{X}_{flat,fppf}})
+$$
+Comme ci-dessus, ce sont des sous-catégories triangulées strictement pleines et
+saturées. Il se trouve que $D_\QCoh(\mathcal{O}_\mathcal{X})$ est équivalente à
+chacune d'elles.
+
+\begin{lemma}
+\label{lemma-derived-quasi-coherent}
+Soit $\mathcal{X}$ un champ algébrique. Posons
+$\mathcal{P}_\mathcal{X} = \textit{Parasitic}(\mathcal{O}_\mathcal{X}) \cap
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\begin{enumerate}
+\item
+Soit $\mathcal{F}^\bullet$ un objet de
+$D_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}
+(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+Pour le site lisse-\'etale, prenons $g$ comme dans Cohomologie des champs,
+lemme \ref{stacks-cohomology-lemma-lisse-etale}. Nous avons
+\begin{enumerate}
+\item $g^*\mathcal{F}^\bullet$ appartient à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$,
+\item $g^*\mathcal{F}^\bullet = 0$ si et seulement si
+$\mathcal{F}^\bullet$ appartient à
+$D_{\mathcal{P}_\mathcal{X}}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$,
+\item $Lg_!\mathcal{H}^\bullet$ appartient à
+$D_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}(
+\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+pour $\mathcal{H}^\bullet$ appartenant à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$, et
+\item les foncteurs $g^*$ et $Lg_!$ définissent des foncteurs mutuellement
+inverses
+$$
+\xymatrix{
+D_\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^*} &
+D_\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})
+\ar@<1ex>[l]^-{Lg_!}
+}
+$$
+\end{enumerate}
+\item
+Soit $\mathcal{F}^\bullet$ un objet de
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$. Pour le site plat-fppf,
+prenons $g$ comme dans Cohomologie des champs, lemme
+\ref{stacks-cohomology-lemma-lisse-etale}. Nous avons
+\begin{enumerate}
+\item $g^*\mathcal{F}^\bullet$ appartient à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat, fppf}})$,
+\item $g^*\mathcal{F}^\bullet = 0$ si et seulement si
+$\mathcal{F}^\bullet$ appartient à
+$D_{\mathcal{P}_\mathcal{X}}(\mathcal{O}_\mathcal{X})$,
+\item $Lg_!\mathcal{H}^\bullet$ appartient à
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$
+pour $\mathcal{H}^\bullet$ appartenant à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$, et
+\item les foncteurs $g^*$ et $Lg_!$ définissent des foncteurs mutuellement
+inverses
+$$
+\xymatrix{
+D_\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^*} &
+D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}}) \ar@<1ex>[l]^-{Lg_!}
+}
+$$
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Le foncteur $g^* = g^{-1}$ est exact ; (1)(a), (2)(a), (1)(b) et (2)(b)
+résultent donc de Cohomologie des champs, lemmes
+\ref{stacks-cohomology-lemma-quasi-coherent} et
+\ref{stacks-cohomology-lemma-parasitic-in-terms-flat-fppf}.
+
+\medskip\noindent
+Démonstration de (1)(c) et (2)(c). La construction de $Lg_!$ au lemme
+\ref{lemma-shriek-derived} (par l'intermédiaire de Cohomologie sur les sites,
+lemme \ref{sites-cohomology-lemma-existence-derived-lower-shriek}, qui utilise
+à son tour Catégories dérivées, proposition
+\ref{derived-proposition-left-derived-exists}) montre que $Lg_!$, sur tout objet
+$\mathcal{H}^\bullet$ de
+$D(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$, se calcule par
+$$
+Lg_!\mathcal{H}^\bullet = \colim g_!\mathcal{K}_n^\bullet =
+g_! \colim \mathcal{K}_n^\bullet
+$$
+(colimites terme à terme), où le quasi-isomorphisme
+$\colim \mathcal{K}_n^\bullet \to \mathcal{H}^\bullet$ induit des
+quasi-isomorphismes
+$\mathcal{K}_n^\bullet \to \tau_{\leq n} \mathcal{H}^\bullet$. Comme les
+foncteurs d'inclusion
+$$
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\quad\text{et}\quad
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+$$
+sont compatibles aux colimites filtrantes, il suffit de démontrer (c) pour les
+complexes bornés supérieurement $\mathcal{H}^\bullet$ appartenant à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$ et à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$. Dans ce cas, pour montrer que
+$H^n(Lg_!\mathcal{H}^\bullet)$ appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, nous pouvons raisonner par
+récurrence sur l'entier $m$ tel que $\mathcal{H}^i = 0$ pour $i > m$. Si
+$m < n$, alors $H^n(Lg_!\mathcal{H}^\bullet) = 0$ et le résultat est établi.
+Dans le cas général, considérons le triangle distingué
+$$
+\tau_{\leq m - 1}\mathcal{H}^\bullet \to \mathcal{H}^\bullet \to
+H^m(\mathcal{H}^\bullet)[-m] \to \ldots
+$$
+(Catégories dérivées, remarque
+\ref{derived-remark-truncation-distinguished-triangle})
+et appliquons le foncteur $Lg_!$. Comme
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+est une sous-catégorie faiblement de Serre de la catégorie des modules, il
+suffit de démontrer (c) pour deux termes sur trois. Le résultat vaut pour
+$Lg_!\tau_{\leq m - 1}\mathcal{H}^\bullet$ par récurrence et pour
+$Lg_!H^m(\mathcal{H}^\bullet)[-m]$ d'après le lemme
+\ref{lemma-higher-shriek-quasi-coherent}. Par conséquent, (c) est vérifié.
+
+\medskip\noindent
+Démontrons (2)(d). D'après (2)(a) et (2)(b), le foncteur $g^{-1} = g^*$ induit
+un foncteur
+$$
+c :
+D_\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat, fppf}})
+$$
+voir Catégories dérivées, lemme
+\ref{derived-lemma-universal-property-quotient}. Nous avons donc le diagramme
+suivant de catégories triangulées
+$$
+\xymatrix{
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\ar[rd]^{g^{-1}} \ar[rr]_q & &
+D_\QCoh(\mathcal{O}_\mathcal{X}) \ar[ld]^c \\
+& D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat, fppf}})
+\ar@<1ex>[lu]^{Lg_!}
+}
+$$
+où $q$ est le foncteur quotient, le triangle intérieur est commutatif et
+$g^{-1}Lg_! = \text{id}$. Pour tout objet $E$ de
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$, l'image de l'application
+$a : Lg_!g^{-1}E \to E$ est un quasi-isomorphisme dans
+$D(\mathcal{O}_{\mathcal{X}_{flat, fppf}})$. Le cône de $a$ est donc envoyé
+sur zéro par $g^{-1}$ et, d'après (2)(b), $q(a)$ est un isomorphisme. Ainsi,
+$q \circ Lg_!$ est un quasi-inverse de $c$.
+
+\medskip\noindent
+Dans le cas du site lisse-\'etale, le même argument démontre que
+$$
+D_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}(
+\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+/
+D_{\mathcal{P}_\mathcal{X}}(
+\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$$
+est équivalent à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$. L'application de la
+dernière équivalence du lemme \ref{lemma-compare-etale-fppf-QCoh} achève la
+démonstration.
+\end{proof}
+
+\noindent
+Le lemme suivant montre que le foncteur quotient
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X}) \to
+D_\QCoh(\mathcal{O}_\mathcal{X})$ admet un adjoint à gauche. Voir la remarque
+\ref{remark-QCoh-admissible}.
+
+\begin{lemma}
+\label{lemma-bousfield-colocalization}
+Soit $\mathcal{X}$ un champ algébrique. Soit $E$ un objet de
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$. Il existe un triangle
+distingué canonique
+$$
+E' \to E \to P \to E'[1]
+$$
+dans $D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$, tel que $P$
+appartienne à $D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}
+(\mathcal{O}_\mathcal{X})$
+et que
+$$
+\Hom_{D(\mathcal{O}_\mathcal{X})}(E', P') = 0
+$$
+pour tout $P'$ appartenant à
+$D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$.
+\end{lemma}
+
+\begin{proof}
+Considérons le morphisme de topos annelés
+$g : \Sh(\mathcal{X}_{flat, fppf}) \longrightarrow \Sh(\mathcal{X}_{fppf})$
+étudié dans Cohomologie des champs, section
+\ref{stacks-cohomology-section-lisse-etale}.
+Posons $E' = Lg_!g^*E$ et soit $P$ le cône de l'application d'adjonction
+$E' \to E$ ; voir la partie (4) du lemme \ref{lemma-shriek-derived}. D'après
+les parties (2)(a) et (2)(c) du lemme
+\ref{lemma-derived-quasi-coherent}, $E'$ appartient à
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$. Par conséquent, $P$
+appartient aussi à $D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$.
+L'application $g^*E' \to g^*E$ est un isomorphisme, car
+$g^*Lg_! = \text{id}$ d'après la partie (4) du lemme
+\ref{lemma-shriek-derived}. Ainsi, $g^*P = 0$, de sorte que $P$ est un objet de
+$D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$
+d'après la partie (2)(b) du lemme \ref{lemma-derived-quasi-coherent}. Enfin,
+pour $P'$ appartenant à
+$D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$
+nous avons
+$$
+\Hom(E', P') = \Hom(Lg_!g^*E, P') = \Hom(g^*E, g^*P') = 0
+$$
+car $g^*P' = 0$ d'après la partie (2)(b) du lemme
+\ref{lemma-derived-quasi-coherent}. Le triangle distingué
+$E' \to E \to P \to E'[1]$ est canonique — plus précisément, il est unique à
+un isomorphisme de triangles induisant l'identité sur $E$ près — d'après la
+discussion de Catégories dérivées, section \ref{derived-section-admissible}.
+\end{proof}
+
+\begin{remark}
+\label{remark-QCoh-admissible}
+Le lemme \ref{lemma-bousfield-colocalization} montre que
+$$
+D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\subset
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+$$
+est une sous-catégorie admissible à gauche ; voir Catégories dérivées, section
+\ref{derived-section-admissible}. En particulier, si
+$\mathcal{A} \subset D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$
+désigne son orthogonal gauche, alors Catégories dérivées, proposition
+\ref{derived-proposition-summarize-admissible}, implique que $\mathcal{A}$ est
+admissible à droite dans
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$ et que le composé
+$$
+\mathcal{A} \longrightarrow
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X}) \longrightarrow
+D_\QCoh(\mathcal{O}_\mathcal{X})
+$$
+est une équivalence. Cela signifie que nous pouvons considérer
+$D_\QCoh(\mathcal{O}_\mathcal{X})$ comme une sous-catégorie triangulée
+strictement pleine et saturée de
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$, ainsi que de
+$D(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$.
+\end{remark}
+
+
+
+
+
+\section{Image directe dérivée des modules quasi-cohérents}
+\label{section-derived-pushforward}
+
+\noindent
+Comme première application de ce qui précède, nous construisons l'image directe
+dérivée. Dans Exemples, section
+\ref{examples-section-derived-push-quasi-coherent}, le lecteur trouvera un
+exemple de morphisme quasi-compact et quasi-séparé
+$f : \mathcal{X} \to \mathcal{Y}$ de champs algébriques tel que le foncteur
+image directe $Rf_*$ n'induise pas de foncteur
+$D_\QCoh(\mathcal{O}_\mathcal{X}) \to
+D_\QCoh(\mathcal{O}_\mathcal{Y})$. Il est donc nécessaire de se restreindre aux
+complexes bornés inférieurement.
+
+\begin{proposition}
+\label{proposition-derived-direct-image-quasi-coherent}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et
+quasi-séparé de champs algébriques. Le foncteur $Rf_*$ induit un diagramme
+commutatif
+$$
+\xymatrix{
+D^{+}_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\ar[r] \ar[d]^{Rf_*} &
+D^{+}_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\ar[r] \ar[d]^{Rf_*} &
+D(\mathcal{O}_\mathcal{X})
+\ar[d]^{Rf_*} \\
+D^{+}_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})
+\ar[r] &
+D^{+}_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y}) \ar[r] &
+D(\mathcal{O}_\mathcal{Y})
+}
+$$
+et induit donc un foncteur
+$$
+Rf_{\QCoh, *} :
+D^{+}_\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+D^{+}_\QCoh(\mathcal{O}_\mathcal{Y})
+$$
+sur les catégories quotients. De plus, les foncteurs $R^if_\QCoh$ de
+Cohomologie des champs, proposition
+\ref{stacks-cohomology-proposition-direct-image-quasi-coherent}, sont égaux à
+$H^i \circ Rf_{\QCoh, *}$, où $H^i$ est défini dans
+(\ref{equation-Hi-quasi-coherent}).
+\end{proposition}
+
+\begin{proof}
+Il faut montrer que $Rf_*E$ est un objet de
+$D^{+}_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})$ pour $E$ appartenant à
+$D^{+}_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$. Cela résulte de
+Cohomologie des champs, proposition
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}, et de la suite
+spectrale $R^if_*H^j(E) \Rightarrow R^{i + j}f_*E$. Le cas des modules
+parasites se traite de la même manière à l'aide de Cohomologie des champs,
+lemme \ref{stacks-cohomology-lemma-pushforward-parasitic}. La dernière
+assertion découle immédiatement de la définition de $H^i$ dans
+(\ref{equation-Hi-quasi-coherent}).
+\end{proof}
+
+
+
+
+\section{Image inverse dérivée des modules quasi-cohérents}
+\label{section-derived-pullback}
+
+\noindent
+L'image inverse dérivée des complexes à faisceaux de cohomologie
+quasi-cohérents existe en toute généralité.
+
+\begin{proposition}
+\label{proposition-derived-pullback-quasi-coherent}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques. Le
+foncteur exact $f^*$ induit un diagramme commutatif
+$$
+\xymatrix{
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X}) \ar[r] &
+D(\mathcal{O}_\mathcal{X}) \\
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})
+\ar[r] \ar[u]^{f^*} &
+D(\mathcal{O}_\mathcal{Y}) \ar[u]^{f^*}
+}
+$$
+Le composé
+$$
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})
+\xrightarrow{f^*}
+D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})
+\xrightarrow{q_\mathcal{X}}
+D_\QCoh(\mathcal{O}_\mathcal{X})
+$$
+est dérivable à gauche relativement à la localisation
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y}) \to
+D_\QCoh(\mathcal{O}_\mathcal{Y})$
+et nous pouvons définir $Lf^*_\QCoh$ comme son foncteur dérivé gauche
+$$
+Lf_\QCoh^* :
+D_\QCoh(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+D_\QCoh(\mathcal{O}_\mathcal{X})
+$$
+(voir Catégories dérivées, définitions
+\ref{derived-definition-right-derived-functor-defined} et
+\ref{derived-definition-everywhere-defined}). Si $f$ est quasi-compact et
+quasi-séparé, alors $Lf^*_\QCoh$ et $Rf_{\QCoh, *}$ satisfont à l'adjonction
+suivante :
+$$
+\Hom_{D_\QCoh(\mathcal{O}_\mathcal{X})}(Lf^*_\QCoh A, B)
+=
+\Hom_{D_\QCoh(\mathcal{O}_\mathcal{Y})}(A, Rf_{\QCoh, *}B)
+$$
+pour $A \in D_\QCoh(\mathcal{O}_\mathcal{Y})$ et
+$B \in D^{+}_\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{proposition}
+
+\begin{proof}
+Pour démontrer la première assertion, il faut montrer que $f^*E$ est un objet
+de $D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$ pour $E$ appartenant à
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})$. Puisque
+$f^* = f^{-1}$ est exact, cela résulte immédiatement du fait que $f^*$ envoie
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$ dans
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ d'après Cohomologie des champs,
+proposition
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}.
+
+\medskip\noindent
+Posons $\mathcal{D} = D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})$. Soit
+$S$ la collection des morphismes de $\mathcal{D}$ dont le cône est un objet de
+$D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})$.
+Posons $\mathcal{D}' = D_\QCoh(\mathcal{O}_\mathcal{X})$. Posons
+$F = q_\mathcal{X} \circ f^* : \mathcal{D} \to \mathcal{D}'$. Alors
+$\mathcal{D}, S, \mathcal{D}', F$ sont comme dans Catégories dérivées,
+situation \ref{derived-situation-derived-functor} et définition
+\ref{derived-definition-right-derived-functor-defined}. Montrons que $LF(E)$
+est défini pour tout objet $E$ de $\mathcal{D}$. Considérons en effet le
+triangle
+$$
+E' \to E \to P \to E'[1]
+$$
+construit au lemme \ref{lemma-bousfield-colocalization}. Remarquons que
+$s : E' \to E$ est un élément de $S$. Nous affirmons que $E'$ calcule $LF$.
+En effet, supposons que $s' : E'' \to E$ soit un autre élément de $S$, c'est-à-dire
+qu'il s'insère dans un triangle $E'' \to E \to P' \to E''[1]$ avec $P'$
+appartenant à
+$D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})$.
+D'après le lemme \ref{lemma-bousfield-colocalization} et sa démonstration,
+$E' \to E$ se factorise par $E'' \to E$. Nous voyons ainsi que $E' \to E$ est
+cofinal dans le système $S/E$. Il est donc clair que $E'$ calcule $LF$.
+
+\medskip\noindent
+Pour établir la dernière assertion, écrivons $B = q_\mathcal{X}(H)$ et
+$A = q_\mathcal{Y}(E)$. Choisissons $E' \to E$ comme ci-dessus. Nous
+utiliserons d'une part l'égalité
+$Rf_{\QCoh, *}(B) = q_\mathcal{Y}(Rf_*H)$
+et d'autre part l'égalité
+$Lf^*_\QCoh(A) = q_\mathcal{X}(f^*E')$.
+\begin{align*}
+\Hom_{D_\QCoh(\mathcal{O}_\mathcal{X})}(Lf^*_\QCoh A, B)
+& = 
+\Hom_{D_\QCoh(\mathcal{O}_\mathcal{X})}(q_\mathcal{X}(f^*E'),
+q_\mathcal{X}(H)) \\
+& = 
+\colim_{H \to H'} \Hom_{D(\mathcal{O}_\mathcal{X})}(f^*E', H') \\
+& = \colim_{H \to H'} \Hom_{D(\mathcal{O}_\mathcal{Y})}(E', Rf_*H') \\
+& = \Hom_{D(\mathcal{O}_\mathcal{Y})}(E', Rf_*H) \\
+& =
+\Hom_{D_\QCoh(\mathcal{O}_\mathcal{Y})}(A, Rf_{\QCoh, *}B)
+\end{align*}
+Ici, la colimite porte sur les morphismes $s : H \to H'$ de
+$D^+_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$
+dont le cône $P(s)$ est un objet de
+$D^+_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$.
+Nous avons vu la première égalité ci-dessus. La deuxième résulte de la
+construction du quotient de Verdier. La troisième découle de Cohomologie sur
+les sites, lemme \ref{sites-cohomology-lemma-adjoint}. Comme $Rf_*P(s)$ est un
+objet de
+$D^+_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{Y})$
+d'après la proposition
+\ref{proposition-derived-direct-image-quasi-coherent}, nous avons
+$\Hom_{D(\mathcal{O}_\mathcal{Y})}(E', Rf_*P(s)) = 0$. La quatrième égalité est
+donc vérifiée. La dernière résulte de la construction de $E'$.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Objets quasi-cohérents dans la catégorie dérivée}
+\label{section-QC}
+
+\noindent
+Cette section prolonge Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-QC}. Soit $\mathcal{X}$ un champ algébrique. Dans
+cette section, nous avons défini une catégorie triangulée
+$$
+\mathit{QC}(\mathcal{X}) = \mathit{QC}(\mathcal{X}_{affine}, \mathcal{O})
+$$
+et nous avons démontré que, si $\mathcal{X}$ est représentable par un espace
+algébrique $X$, alors $\mathit{QC}(\mathcal{X})$ est équivalente à
+$D_\QCoh(\mathcal{O}_X)$. Il se trouve que la théorie développée jusqu'ici
+suffit exactement à démontrer le même résultat pour tout champ algébrique.
+
+\begin{lemma}
+\label{lemma-cohomology-parasitic}
+Soit $\mathcal{X}$ un champ algébrique. Soit $K$ un objet de
+$D(\mathcal{X}_{fppf})$ dont les faisceaux de cohomologie sont parasites. Alors
+$R\Gamma(x, K) = 0$ pour tout objet $x$ de $\mathcal{X}$ situé au-dessus d'un
+schéma $U$ tel que $U \to \mathcal{X}$ soit plat.
+\end{lemma}
+
+\begin{proof}
+Notons $g : \Sh(\mathcal{X}_{flat, fppf}) \to \Sh(\mathcal{X}_{fppf})$ le
+morphisme de topos considéré à la section \ref{section-lisse-etale}. Soit $x$
+un objet de $\mathcal{X}$ situé au-dessus d'un schéma $U$ tel que
+$U \to \mathcal{X}$ soit plat, c'est-à-dire un objet $x$ de
+$\mathcal{X}_{flat, fppf}$. D'après la partie (2)(b) du lemme
+\ref{lemma-lisse-etale-cohomology}, nous avons
+$R\Gamma(x, K) = R\Gamma(\mathcal{X}_{flat, fppf}/x, g^{-1}K)$.
+Or notre hypothèse signifie que les faisceaux de cohomologie de l'objet
+$g^{-1}K$ de $D(\mathcal{X}_{flat, fppf})$ sont nuls ; voir Cohomologie des
+champs, définition \ref{stacks-cohomology-definition-parasitic}. Ainsi,
+$g^{-1}K = 0$, ce qui conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomology-parasitic-complex}
+Soit $\mathcal{X}$ un champ algébrique. Soit $K$ un objet de
+$D(\mathcal{X}_{fppf})$ tel que $R\Gamma(x, K) = 0$ pour tout objet $x$ de
+$\mathcal{X}$ situé au-dessus d'un schéma affine $U$ tel que
+$U \to \mathcal{X}$ soit plat. Alors $H^i(\mathcal{X}, K) = 0$ pour tout $i$.
+\end{lemma}
+
+\begin{proof}
+Notons $g : \Sh(\mathcal{X}_{flat, fppf}) \to \Sh(\mathcal{X}_{fppf})$ le
+morphisme de topos considéré à la section \ref{section-lisse-etale}. D'après la
+partie (2)(b) du lemme \ref{lemma-lisse-etale-cohomology}, notre hypothèse
+signifie que $g^{-1}K$ a une cohomologie nulle sur tout objet de
+$\mathcal{X}_{flat, fppf}$ situé au-dessus d'un schéma affine. Comme tout objet
+$x$ de $\mathcal{X}_{flat, fppf}$ possède un recouvrement par de tels objets,
+nous en déduisons que les faisceaux de cohomologie de $g^{-1}K$ sont nuls,
+c'est-à-dire que $g^{-1}K = 0$. Bien entendu,
+$R\Gamma(\mathcal{X}_{flat, fppf}, g^{-1}K) = 0$, ce qui donne le résultat voulu
+d'après la partie (2)(a) du lemme \ref{lemma-lisse-etale-cohomology}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-higher-shriek-QC}
+Soit $\mathcal{X}$ un champ algébrique. Soit $K$ un objet de
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat, fppf}})$. Alors $Lg_!K$ possède la
+propriété suivante : pour tout morphisme $x \to x'$ de
+$\mathcal{X}_{affine}$, l'application
+$$
+R\Gamma(x', Lg_!K) \otimes_{\mathcal{O}(x')}^\mathbf{L} \mathcal{O}(x)
+\longrightarrow
+R\Gamma(x, Lg_!K)
+$$
+est un quasi-isomorphisme.
+\end{lemma}
+
+\begin{proof}
+D'après la partie (2)(c) du lemme \ref{lemma-derived-quasi-coherent}, l'objet
+$Lg_!K$ appartient à
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$. Il en résulte aussitôt que
+l'application affichée dans le lemme est un isomorphisme lorsque
+$\mathcal{O}(x') \to \mathcal{O}(x)$ est un homomorphisme d'anneaux plat ; nous
+omettons les détails.
+
+\medskip\noindent
+Montrons dans ce paragraphe que la question est locale pour la topologie
+étale. Soit $x \to x'$ un morphisme arbitraire de $\mathcal{X}_{affine}$. Soit
+$\{x'_i \to x'\}$ un recouvrement dans
+$\mathcal{X}_{affine, \etale}$. Posons $x_i = x \times_{x'} x'_i$, de sorte que
+$\{x_i \to x\}$ soit aussi un recouvrement de
+$\mathcal{X}_{affine, \etale}$. Alors
+$\mathcal{O}(x') \to \prod \mathcal{O}(x'_i)$ est un homomorphisme d'anneaux
+étale fidèlement plat et
+$$
+\prod \mathcal{O}(x_i) =
+\mathcal{O}(x) \otimes_{\mathcal{O}(x')} \left(\prod \mathcal{O}(x'_i)\right)
+$$
+Un argument élémentaire d'algèbre, que nous omettons, montre donc qu'il suffit
+d'établir le résultat de l'énoncé pour chacun des morphismes
+$x_i \to x'_i$ de $\mathcal{X}_{affine}$. Autrement dit, le problème est local
+pour la topologie étale.
+
+\medskip\noindent
+Choisissons un schéma $X$ et un morphisme lisse surjectif
+$f : X \to \mathcal{X}$. Nous pouvons considérer $f$ comme un objet de
+$\mathcal{X}$, conformément à notre abus de notation ; alors
+$(\Sch/X)_{fppf} = \mathcal{X}/f$ ; voir Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-restriction}. D'après Faisceaux sur les champs,
+lemme
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+par exemple, il existe un recouvrement étale $\{x'_i \to x'\}$ tel que
+$x'_i : U'_i = p(x'_i) \to \mathcal{X}$ se factorise par $f$. D'après le
+résultat du paragraphe précédent, nous pouvons supposer que $x \to x'$ est
+l'image d'un morphisme $U \to U'$ de $(\textit{Aff}/X)_{fppf}$ par le foncteur
+$(\Sch/X)_{fppf} \to \mathcal{X}$. À ce stade, nous utilisons le fait que la
+restriction à $(\Sch/X)_{fppf}$ de $Lg_!K$ est égale à
+$f^*Lg_!K = L(g')_!(f')^*K$ d'après le lemme
+\ref{lemma-lisse-etale-functorial-derived}. Nous sommes ainsi ramenés au cas
+étudié au paragraphe suivant.
+
+\medskip\noindent
+Supposons $\mathcal{X} = (\Sch/X)_{fppf}$ et que $x \to x'$ corresponde au
+morphisme de schémas affines $U \to U'$. Nous pouvons encore travailler
+localement pour la topologie étale, ou de Zariski, sur $U'$ ; nous pouvons donc
+supposer que $U' \to X$ se factorise par un ouvert affine de $X$. Nous sommes
+ainsi ramenés au cas du paragraphe suivant.
+
+\medskip\noindent
+Supposons $\mathcal{X} = (\Sch/X)_{fppf}$, où $X = \Spec(R)$ est un schéma
+affine, et que $x \to x'$ corresponde au morphisme de schémas affines
+$U \to U'$. Soit $M^\bullet$ un complexe de $R$-modules représentant
+$R\Gamma(X, K)$. La construction de Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-K-flat-resolution}, permet de supposer que
+$M^\bullet = \colim P_n^\bullet$, où chaque $P_n^\bullet$ est un complexe borné
+supérieurement de $R$-modules libres. Nous omettons les détails ; voir aussi
+Compléments d'algèbre, remarque \ref{more-algebra-remark-P-resolution}.
+Considérons le complexe de modules $M^\bullet_{flat, fppf}$ sur
+$X_{flat, fppf} = (\Sch/X)_{flat, fppf}$ défini par la règle
+$$
+U \longmapsto \Gamma(U, M^\bullet \otimes_R \mathcal{O}_U)
+$$
+C'est un complexe de faisceaux d'après la discussion de Descente, section
+\ref{descent-section-quasi-coherent-sheaves}. Il existe une application
+canonique $M^\bullet_{flat, fppf} \to K$ qui, d'après les remarques faites au
+début de la démonstration, induit un isomorphisme sur les sections au-dessus des
+objets affines de $X_{flat, fppf}$. Comme tout objet de $X_{flat, fppf}$ possède
+un recouvrement par des objets affines, nous voyons que
+$M^\bullet_{flat, fppf}$ coïncide avec $K$.
+
+\medskip\noindent
+Soit $M^\bullet_{fppf}$ le complexe de modules sur $X_{fppf}$ donné par la
+même formule que ci-dessus. Rappelons que
+$Lg_!\mathcal{O} = g_!\mathcal{O} = \mathcal{O}$. Puisque $Lg_!$ est le
+foncteur dérivé gauche de $g_!$, nous en déduisons que
+$Lg_!P_{n, flat, fppf}^\bullet = P_{n, fppf}^\bullet$. Comme le foncteur $Lg_!$
+commute aux colimites homotopiques, ou directement par sa construction dans
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-existence-derived-lower-shriek}, et comme
+$M^\bullet = \colim P_n^\bullet$, nous concluons que
+$Lg_!M^\bullet_{flat, fppf} = M^\bullet_{fppf}$. Écrivons
+$U = \Spec(A)$, $U' = \Spec(A')$ et supposons que $U \to U'$ corresponde à
+l'homomorphisme d'anneaux $A' \to A$. D'après ce qui précède,
+$$
+R\Gamma(U, Lg_!K) = M^\bullet \otimes_R A
+\quad\text{et}\quad
+R\Gamma(U', Lg_!K) = M^\bullet \otimes_R A'
+$$
+Puisque $M^\bullet$ est un complexe K-plat de $R$-modules, la transitivité du
+produit tensoriel montre que
+$$
+R\Gamma(U', Lg_!K) \otimes_{A'}^\mathbf{L} A
+\longrightarrow
+R\Gamma(U, Lg_!K)
+$$
+est le quasi-isomorphisme recherché.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-QC-compare}
+Soit $\mathcal{X}$ un champ algébrique. Alors $\mathit{QC}(\mathcal{X})$ est
+canoniquement équivalente à $D_\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{proposition}
+
+\begin{proof}
+D'après Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-QC-compare-fppf}, l'image inverse par le morphisme de
+comparaison
+$\epsilon : \mathcal{X}_{affine, fppf} \to \mathcal{X}_{affine}$
+identifie $\mathit{QC}(\mathcal{X})$ à une sous-catégorie pleine
+$Q_\mathcal{X} \subset D(\mathcal{X}_{affine, fppf}, \mathcal{O})$. À l'aide
+de l'équivalence de topos annelés de Faisceaux sur les champs, équation
+(\ref{stacks-sheaves-equation-alternative-ringed}), nous pouvons et allons
+considérer $Q_\mathcal{X}$ comme une sous-catégorie pleine de
+$D(\mathcal{X}_{fppf}, \mathcal{O})$.
+
+\medskip\noindent
+De même, le lemme \ref{lemma-bousfield-colocalization} et la remarque
+\ref{remark-QCoh-admissible} montrent que
+$D_\QCoh(\mathcal{O}_\mathcal{X})$ peut être considérée comme l'orthogonal
+gauche $\mathcal{A}$ de la sous-catégorie admissible à gauche
+$D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$
+de $D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$.
+
+\medskip\noindent
+Pour conclure, nous montrerons que $Q_\mathcal{X}$ est égale à $\mathcal{A}$
+comme sous-catégorie de $D(\mathcal{X}_{fppf}, \mathcal{O})$.
+
+\medskip\noindent
+Étape 1 : $Q_\mathcal{X}$ est contenue dans
+$D_{\textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$.
+Un objet $K$ de $Q_\mathcal{X}$ est caractérisé par la propriété suivante :
+$K$, considéré comme un objet de
+$D(\mathcal{X}_{affine, fppf}, \mathcal{O})$, est tel que $R\epsilon_*K$ soit un
+objet de $\mathit{QC}(\mathcal{X}_{affine}, \mathcal{O})$. Cela signifie
+exactement que, pour tout morphisme $x \to x'$ de
+$\mathcal{X}_{affine}$, l'application
+$$
+R\Gamma(x', K) \otimes_{\mathcal{O}(x')}^\mathbf{L} \mathcal{O}(x)
+\longrightarrow
+R\Gamma(x, K)
+$$
+est un isomorphisme ; voir la note de bas de page dans l'énoncé de Cohomologie
+sur les sites, lemme
+\ref{sites-cohomology-lemma-cartesion-plus-topology}. Maintenant, si
+$x' \to x$ est situé au-dessus d'un morphisme plat de schémas affines, cela
+signifie que
+$$
+H^i(x', K) \otimes_{\mathcal{O}(x')} \mathcal{O}(x)
+\cong
+H^i(x, K)
+$$
+Cela signifie clairement que $H^i(K)$ est un faisceau pour la topologie étale
+(Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-quasi-coherent-alternative}) et qu'il possède la
+propriété de changement de base plat ; nous omettons un petit détail.
+
+\medskip\noindent
+Étape 2 : $Q_\mathcal{X}$ est contenue dans $\mathcal{A}$. Il suffit pour cela
+de montrer que, pour $K$ dans $Q_\mathcal{X}$, nous avons
+$\Hom(K, P) = 0$ pour tout $P$ dans
+$D_{\textit{Parasitic} \cap \textit{LQCoh}^{fbc}}(\mathcal{O}_\mathcal{X})$.
+Considérons l'objet
+$$
+H = R\SheafHom_{\mathcal{O}_\mathcal{X}}(K, P)
+$$
+Soit $x$ un objet de $\mathcal{X}$ situé au-dessus d'un schéma affine
+$U = p(x)$. D'après Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-section-RHom-over-U}, nous avons la première
+égalité de
+$$
+R\Gamma(x, H) =
+R\Hom_{\mathcal{O}_\mathcal{X}}(K|_{\mathcal{X}/x}, P|_{\mathcal{X}/x}) =
+R\Hom_{\mathcal{O}}(K|_{\mathcal{X}_{affine}/x}, P|_{\mathcal{X}_{affine}/x})
+$$
+La seconde égalité vient de ce que le topos du site $\mathcal{X}/x$ est
+équivalent au topos du site $\mathcal{X}_{affine}/x$ ; voir Faisceaux sur les
+champs, équation (\ref{stacks-sheaves-equation-alternative-ringed}). Nous
+pouvons écrire $K = \epsilon^*N$ pour un certain $N$ de
+$\mathit{QC}(\mathcal{O})$. Alors Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-QC-hom-out-of-plus-topology}, donne
+$$
+R\Gamma(x, H) =
+R\Hom_{D(\mathcal{O}(x))}(R\Gamma(x, N), R\Gamma(x, P))
+$$
+Le lemme \ref{lemma-cohomology-parasitic} montre que
+$R\Gamma(x, P) = 0$ si $U \to \mathcal{X}$ est plat, et donc que
+$R\Gamma(x, H) = 0$ sous la même hypothèse. D'après le lemme
+\ref{lemma-cohomology-parasitic-complex}, nous concluons que
+$R\Gamma(\mathcal{X}, H) = 0$, et par conséquent que $\Hom(K, P) = 0$.
+
+\medskip\noindent
+Étape 3 : $\mathcal{A}$ est contenue dans $Q_\mathcal{X}$. Soit $K$ un objet de
+$\mathcal{A}$ et soit $x \to x'$ un morphisme de
+$\mathcal{X}_{affine}$. Il faut montrer que
+$$
+R\Gamma(x', K) \otimes_{\mathcal{O}(x')}^\mathbf{L} \mathcal{O}(x)
+\longrightarrow
+R\Gamma(x, K)
+$$
+est un quasi-isomorphisme ; voir la note de bas de page dans l'énoncé de
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-cartesion-plus-topology}. La démonstration du lemme
+\ref{lemma-bousfield-colocalization} et la discussion de la remarque
+\ref{remark-QCoh-admissible} montrent que $\mathcal{A}$ est l'image de la
+restriction de $Lg_!$ à
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat, fppf}})$. Nous pouvons donc supposer
+$K = Lg_!M$ pour un certain $M$ de
+$D_\QCoh(\mathcal{O}_{\mathcal{X}_{flat, fppf}})$. L'égalité recherchée résulte
+alors du lemme \ref{lemma-higher-shriek-QC}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

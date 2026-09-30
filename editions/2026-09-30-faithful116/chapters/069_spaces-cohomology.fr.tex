@@ -1,0 +1,4567 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Cohomologie des espaces algébriques}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous traitons de la cohomologie des espaces algébriques.
+Bien que nous démontrions certains résultats sur la cohomologie des faisceaux abéliens,
+nous nous intéressons principalement à la cohomologie des faisceaux quasi-cohérents, c'est-à-dire
+que nous démontrons les analogues des résultats du chapitre ``Cohomologie des schémas''.
+Certains résultats de ce chapitre se trouvent dans \cite{Kn}.
+
+\medskip\noindent
+Un ingrédient important qui manque dans ce chapitre est le
+{\it principe d'induction}, c'est-à-dire l'analogue, pour les espaces algébriques quasi-compacts
+et quasi-séparés, du
+chapitre Cohomologie des schémas, lemme \ref{coherent-lemma-induction-principle}.
+Ce principe est formulé précisément et démontré en détail dans
+Catégories dérivées des espaces, section \ref{spaces-perfect-section-induction}.
+Au lieu du principe d'induction, nous utilisons dans ce chapitre le
+complexe de {\v C}ech alterné, voir
+section \ref{section-alternating-cech}.
+Il est conçu pour démontrer des énoncés d'annulation tels que
+la proposition \ref{proposition-vanishing},
+mais, dans certains cas, le principe d'induction est un outil plus puissant
+et peut-être plus « standard ». Nous encourageons le lecteur
+à consulter le principe d'induction
+après avoir lu une partie du contenu de cette section.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+L'hypothèse générale est que tous les schémas sont contenus dans
+un grand site fppf $\Sch_{fppf}$. Tous les anneaux $A$ considérés
+ont la propriété que $\Spec(A)$ est (isomorphe à) un
+objet de ce grand site.
+
+\medskip\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Dans ce chapitre et le suivant, nous écrirons $X \times_S X$
+pour le produit de $X$ par lui-même (dans la catégorie des espaces algébriques
+sur $S$), plutôt que $X \times X$.
+
+
+
+
+
+
+
+
+\section{Images directes supérieures}
+\label{section-higher-direct-image}
+
+\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique représentable sur $S$.
+Soit $\mathcal{F}$ un module quasi-cohérent sur $X$ (voir
+Propriétés des espaces, section \ref{spaces-properties-section-quasi-coherent}).
+D'après
+Descente, proposition \ref{descent-proposition-same-cohomology-quasi-coherent},
+les groupes de cohomologie $H^i(X, \mathcal{F})$ coïncident avec le groupe de
+cohomologie usuel calculé dans la topologie de Zariski du
+module quasi-cohérent sur le schéma représentant $X$.
+
+\medskip\noindent
+Plus généralement, soit $f : X \to Y$ un morphisme quasi-compact et quasi-séparé
+d'espaces algébriques représentables $X$ et $Y$. Soit
+$\mathcal{F}$ un module quasi-cohérent sur $X$. D'après
+Descente, lemme \ref{descent-lemma-higher-direct-images-small-etale},
+le faisceau $R^if_*\mathcal{F}$ coïncide avec l'image
+directe supérieure usuelle calculée pour la topologie de Zariski
+du module quasi-cohérent sur le schéma représentant $X$
+qui se déduit vers le schéma représentant $Y$.
+
+\medskip\noindent
+Plus généralement encore, supposons que $f : X \to Y$ soit un
+morphisme représentable, quasi-compact et
+quasi-séparé d'espaces algébriques sur $S$. Soit $V$ un schéma
+et soit $V \to Y$ un morphisme étale surjectif. Posons $U = V \times_Y X$
+et soit $f' : U \to V$ le changement de base de $f$. Pour tout
+Pour tout $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$, nous avons
+\begin{equation}
+\label{equation-representable-higher-direct-image}
+R^if'_*(\mathcal{F}|_U) = (R^if_*\mathcal{F})|_V,
+\end{equation}
+voir
+Propriétés des espaces,
+lemme \ref{spaces-properties-lemma-pushforward-etale-base-change-modules}.
+Comme $f' : U \to V$ est un morphisme quasi-compact et quasi-séparé
+de schémas, la remarque du paragraphe précédent permet de
+calculer $R^if'_*(\mathcal{F}|_U)$ en considérant $\mathcal{F}|_U$ comme un
+faisceau quasi-cohérent sur le schéma $U$, et $f'$ comme un morphisme de schémas.
+Nous utiliserons souvent ce fait sans autre mention.
+
+\medskip\noindent
+Nous démontrons ensuite que les images directes supérieures de faisceaux quasi-cohérents sont
+quasi-cohérentes pour tout morphisme quasi-compact et quasi-séparé d'
+espaces algébriques. Dans la démonstration, nous utilisons une astuce ; une démonstration « meilleure » utiliserait
+un complexe de {\v C}ech relatif, comme cela est expliqué dans
+Faisceaux sur les champs, sections \ref{stacks-sheaves-section-cech} et
+\ref{stacks-sheaves-section-sheaf-cech-complex} ff.
+
+\begin{lemma}
+\label{lemma-higher-direct-image}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Si $f$ est quasi-compact et quasi-séparé, alors $R^if_*$
+transforme les $\mathcal{O}_X$-modules quasi-cohérents en
+$\mathcal{O}_Y$-modules quasi-cohérents.
+\end{lemma}
+
+\begin{proof}
+Soit $V \to Y$ un morphisme étale où $V$ est un schéma affine. Posons
+$U = V \times_Y X$ et notons $f' : U \to V$ le morphisme induit.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent. D'après
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}
+nous avons
+$R^if'_*(\mathcal{F}|_U) = (R^if_*\mathcal{F})|_V$.
+Puisque la propriété d'être un module quasi-cohérent est locale pour la
+topologie étale sur $Y$ (voir
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-characterize-quasi-coherent})
+nous pouvons remplacer $Y$ par $V$, c'est-à-dire supposer que $Y$ est un schéma affine.
+
+\medskip\noindent
+Supposons $Y$ affine. Comme $f$ est quasi-compact, $X$ est
+quasi-compact. Nous pouvons donc choisir un schéma affine $U$ et un
+morphisme étale surjectif $g : U \to X$, voir
+Propriétés des espaces,
+lemme \ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+Figure
+$$
+\xymatrix{
+U \ar[r]_g \ar[rd]_{f \circ g} & X \ar[d]^f \\
+& Y
+}
+$$
+Le morphisme $g : U \to X$ est représentable, séparé
+et quasi-compact puisque $X$ est quasi-séparé. Le lemme
+s'applique donc à $g$ (par la discussion précédente).
+Il s'applique également à $f \circ g : U \to Y$ (car il s'agit d'un morphisme
+de schémas affines).
+
+\medskip\noindent
+Dans la situation décrite au paragraphe précédent, nous montrerons par
+récurrence sur $n$ que $IH_n$ : pour tout faisceau quasi-cohérent $\mathcal{F}$
+sur $X$, les faisceaux $R^if\mathcal{F}$
+sont quasi-cohérents pour $i \leq n$.
+Le cas $n = 0$ résulte de
+Morphismes des espaces, lemme \ref{spaces-morphisms-lemma-pushforward}.
+Supposons $IH_n$. Dans le reste de la démonstration, nous montrons que $IH_{n + 1}$ est valable.
+
+\medskip\noindent
+Soit $\mathcal{H}$ un $\mathcal{O}_U$-module quasi-cohérent.
+Considérons la suite spectrale de Leray
+$$
+E_2^{p, q} = R^pf_* R^qg_* \mathcal{H}
+\Rightarrow
+R^{p + q}(f \circ g)_*\mathcal{H}
+$$
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-relative-Leray}.
+Comme $R^qg_*\mathcal{H}$ est quasi-cohérent par $IH_n$, les faisceaux
+$R^pf_*R^qg_*\mathcal{H}$ sont quasi-cohérents pour $p \leq n$.
+Les faisceaux $R^{p + q}(f \circ g)_*\mathcal{H}$ sont tous
+quasi-cohérents (en fait nuls pour $p + q > 0$, mais cela ne nous est pas nécessaire).
+En degrés $\leq n + 1$, le seul module dont nous n'avons pas encore
+établi la quasi-cohérence est $E_2^{n + 1, 0} = R^{n + 1}f_*g_*\mathcal{H}$.
+De plus, les différentielles
+$d_r^{n + 1, 0} : E_r^{n + 1, 0} \to E_r^{n + 1 + r, 1 - r}$
+sont nulles puisque le terme cible est nul. Comme $\QCoh(\mathcal{O}_X)$
+est une sous-catégorie de Serre faible de $\textit{Mod}(\mathcal{O}_X)$
+(Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-properties-quasi-coherent})
+il s'ensuit que $R^{n + 1}f_*g_*\mathcal{H}$
+est quasi-cohérent (les détails sont omis).
+
+\medskip\noindent
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Posons $\mathcal{H} = g^*\mathcal{F}$. Le morphisme d'adjonction
+$\mathcal{F} \to g_*g^*\mathcal{F} = g_*\mathcal{H}$ est injectif
+car $U \to X$ est étale surjectif. Considérons la suite exacte
+$$
+0 \to \mathcal{F} \to g_*\mathcal{H} \to \mathcal{G} \to 0
+$$
+où $\mathcal{G}$ est le conoyau de la première flèche et, en particulier,
+quasi-cohérent. En appliquant la suite exacte longue de cohomologie, on obtient
+$$
+R^nf_*g_*\mathcal{H} \to
+R^nf_*\mathcal{G} \to
+R^{n + 1}f_*\mathcal{F} \to
+R^{n + 1}f_*g_*\mathcal{H} \to
+R^{n + 1}f_*\mathcal{G}
+$$
+Le conoyau de la première flèche est quasi-cohérent et
+nous avons vu ci-dessus que $R^{n + 1}f_*g_*\mathcal{H}$ est quasi-cohérent.
+Ainsi, $R^{n + 1}f_*\mathcal{F}$ possède une filtration à $2$ étapes,
+dont le premier quotient est quasi-cohérent et le second un sous-module d'un
+faisceau quasi-cohérent. Comme $\mathcal{F}$ est un module quasi-cohérent arbitraire
+$\mathcal{O}_X$-module, le même résultat vaut pour $\mathcal{G}$.
+Nous pouvons donc choisir une suite exacte
+$0 \to \mathcal{A} \to R^{n + 1}f_*\mathcal{G} \to \mathcal{B}$
+où $\mathcal{A}$ et $\mathcal{B}$ sont des $\mathcal{O}_Y$-modules quasi-cohérents.
+Alors le noyau $\mathcal{K}$ de
+$R^{n + 1}f_*g_*\mathcal{H} \to R^{n + 1}f_*\mathcal{G}
+\to \mathcal{B}$ est quasi-cohérent ; on obtient donc un morphisme
+$\mathcal{K} \to \mathcal{A}$ dont le noyau $\mathcal{K}'$ est
+également quasi-cohérent. Ainsi $R^{n + 1}f_*\mathcal{F}$ s'insère dans une suite
+exacte
+$$
+R^nf_*g_*\mathcal{H} \to
+R^nf_*\mathcal{G} \to
+R^{n + 1}f_*\mathcal{F} \to \mathcal{K}' \to 0
+$$
+où tous les modules sont quasi-cohérents, sauf éventuellement $R^{n + 1}f_*\mathcal{F}$.
+Nous concluons que $R^{n + 1}f_*\mathcal{F}$ est quasi-cohérent, c'est-à-dire que
+$IH_{n + 1}$ est vérifiée, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherence-higher-direct-images-application}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme quasi-séparé et quasi-compact
+d'espaces algébriques sur $S$. Pour tout
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$ et tout objet affine $V$ de
+$Y_\etale$, on a
+$$
+H^q(V \times_Y X, \mathcal{F}) = H^0(V, R^qf_*\mathcal{F})
+$$
+pour tout $q \in \mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+Comme la formation de $Rf_*$ commute à la localisation étale,
+(Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules})
+nous pouvons remplacer $Y$ par $V$ et supposer que $Y = V$ est affine.
+Considérons la suite spectrale de Leray
+$E_2^{p, q} = H^p(Y, R^qf_*\mathcal{F})$
+convergeant vers $H^{p + q}(X, \mathcal{F})$, voir
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-Leray}.
+Par le lemme \ref{lemma-higher-direct-image},
+les faisceaux $R^qf_*\mathcal{F}$ sont quasi-cohérents. D'après
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}
+on a $E_2^{p, q} = 0$ lorsque $p > 0$.
+La suite spectrale dégénère donc en $E_2$, ce qui conclut.
+\end{proof}
+
+
+
+
+\section{Morphismes finis}
+\label{section-finite-morphisms}
+
+\noindent
+Voici quelques résultats valables pour tous les faisceaux abéliens
+(en particulier pour les modules quasi-cohérents).
+Nous {\bf avertissons} le lecteur que ces lemmes ne sont pas valables pour
+les morphismes finis de schémas munis de la topologie de Zariski.
+
+\begin{lemma}
+\label{lemma-finite-higher-direct-image-zero}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme intégral (par exemple fini)
+d'espaces algébriques. Alors
+$f_* : \textit{Ab}(X_\etale) \to \textit{Ab}(Y_\etale)$
+est un foncteur exact et $R^pf_* = 0$ pour $p > 0$.
+\end{lemma}
+
+\begin{proof}
+D'après Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-pushforward-etale-base-change}
+nous pouvons calculer les images directes supérieures sur un recouvrement étale de $Y$.
+Nous pouvons donc supposer que $Y$ est un schéma.
+Cela implique que $X$ est un schéma (Morphismes des espaces, lemme
+\ref{spaces-morphisms-lemma-integral-local}).
+Dans ce cas, nous pouvons appliquer
+Cohomologie étale, lemme \ref{etale-cohomology-lemma-what-integral}.
+Dans le cas fini, le lecteur pourra consulter la
+proposition moins technique de Cohomologie étale,
+\ref{etale-cohomology-proposition-finite-higher-direct-image-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalk-push-finite}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme fini d'espaces algébriques
+sur $S$. Soit $\overline{y}$ un point géométrique de $Y$ dont les
+relèvements notés $\overline{x}_1, \ldots, \overline{x}_n$ dans $X$. Alors
+$$
+(f_*\mathcal{F})_{\overline{y}} =
+\prod\nolimits_{i = 1, \ldots, n}
+\mathcal{F}_{\overline{x}_i}
+$$
+pour tout faisceau $\mathcal{F}$ sur $X_\etale$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un voisinage étale $(V, \overline{v})$ de $\overline{y}$.
+Alors la fibre $(f_*\mathcal{F})_{\overline{y}}$
+est la fibre de $f_*\mathcal{F}|_V$ en $\overline{v}$.
+D'après Propriétés des espaces,
+lemme \ref{spaces-properties-lemma-pushforward-etale-base-change}
+nous pouvons remplacer $Y$ par $V$ et $X$ par $X \times_Y V$.
+Alors $Z \to X$ est un morphisme fini de schémas et le résultat est
+la proposition de Cohomologie étale
+\ref{etale-cohomology-proposition-finite-higher-direct-image-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-rings}
+Soit $S$ un schéma. Soit $\pi : X \to Y$ un morphisme fini d'espaces
+algébriques sur $S$. Soit $\mathcal{A}$ un faisceau d'anneaux sur $X_\etale$.
+Soit $\mathcal{B}$ un faisceau d'anneaux sur $Y_\etale$.
+Soit $\varphi : \mathcal{B} \to \pi_*\mathcal{A}$
+un homomorphisme de faisceaux d'anneaux, de sorte que l'on obtient un
+morphisme de topos annelés
+$$
+f = (\pi, \varphi) :
+(\Sh(X_\etale), \mathcal{A})
+\longrightarrow
+(\Sh(Y_\etale), \mathcal{B}).
+$$
+Pour un faisceau de $\mathcal{A}$-modules $\mathcal{F}$ et un
+faisceau de $\mathcal{B}$-modules $\mathcal{G}$, l'application canonique
+$$
+\mathcal{G} \otimes_\mathcal{B} f_*\mathcal{F}
+\longrightarrow
+f_*(f^*\mathcal{G} \otimes_\mathcal{A} \mathcal{F}).
+$$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+L'application est adjointe à l'application
+$$
+f^*\mathcal{G} \otimes_\mathcal{A}
+f^* f_*\mathcal{F} =
+f^*(\mathcal{G} \otimes_\mathcal{B} f_*\mathcal{F})
+\longrightarrow
+f^*\mathcal{G} \otimes_\mathcal{A} \mathcal{F}
+$$
+provenant de $\text{id} : f^*\mathcal{G} \to f^*\mathcal{G}$
+et du morphisme d'adjonction $f^* f_*\mathcal{F} \to \mathcal{F}$.
+Pour voir que cette application est un isomorphisme, nous pouvons vérifier sur les fibres
+(Propriétés des espaces, théorème
+\ref{spaces-properties-theorem-exactness-stalks}).
+Soit $\overline{y}$ un point géométrique de $Y$ et
+soient $\overline{x}_1, \ldots, \overline{x}_n$ les points géométriques
+de $X$ situés au-dessus de $\overline{y}$.
+En calculant l'effet de nos applications sur les fibres, nous voyons qu'il faut
+démontrer
+$$
+\mathcal{G}_{\overline{y}}
+\otimes_{\mathcal{B}_{\overline{y}}}
+\left(
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{F}_{\overline{x}_i}
+\right) =
+\bigoplus\nolimits_{i = 1, \ldots, n}
+(\mathcal{G}_{\overline{y}}
+\otimes_{\mathcal{B}_{\overline{x}}}
+\mathcal{A}_{\overline{x}_i}) \otimes_{\mathcal{A}_{\overline{x}_i}}
+\mathcal{F}_{\overline{x}_i}
+$$
+ce qui est vrai. Nous avons utilisé ici que
+le produit tensoriel commute au passage aux fibres, ainsi que le
+comportement des fibres par image inverse,
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-stalk-pullback}, et
+le comportement des fibres sous poussée le long d'une immersion fermée, voir
+lemme \ref{lemma-stalk-push-finite}.
+\end{proof}
+
+\noindent
+Nous terminons cette section par une formule de projection très générale
+pour les morphismes finis.
+
+\begin{lemma}
+\label{lemma-projection-formula-finite}
+Avec $S$, $X$, $Y$, $\pi$, $\mathcal{A}$, $\mathcal{B}$, $\varphi$ et $f$
+comme dans le lemme \ref{lemma-finite-rings}, on a
+$$
+K \otimes_\mathcal{B}^\mathbf{L} Rf_*M =
+Rf_*(Lf^*K \otimes_\mathcal{A}^\mathbf{L} M)
+$$
+dans $D(\mathcal{B})$ pour tout $K \in D(\mathcal{B})$ et
+$M \in D(\mathcal{A})$.
+\end{lemma}
+
+\begin{proof}
+Comme $f_*$ est exact (lemme \ref{lemma-finite-higher-direct-image-zero}),
+le foncteur $Rf_*$ se calcule en appliquant $f_*$ à un complexe représentant quelconque.
+Choisissons un complexe $\mathcal{K}^\bullet$ de $\mathcal{B}$-modules
+représentant $K$, K-plat à termes plats, voir
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-K-flat-resolution}.
+Alors $f^*\mathcal{K}^\bullet$ est K-plat à termes plats, voir
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-pullback-K-flat}.
+Choisissons un complexe quelconque $\mathcal{M}^\bullet$ de $\mathcal{A}$-modules
+représentant $M$. Alors
+il faut montrer
+$$
+\text{Tot}(\mathcal{K}^\bullet \otimes_\mathcal{B} f_*\mathcal{M}^\bullet)
+=
+f_*\text{Tot}(f^*\mathcal{K}^\bullet \otimes_\mathcal{A} \mathcal{M}^\bullet)
+$$
+car, par nos choix, ces complexes représentent respectivement les membres de droite et de gauche
+de la formule du lemme.
+Comme $f_*$ commute aux sommes directes
+(par exemple d'après la description des fibres dans
+le lemme \ref{lemma-stalk-push-finite}),
+il suffit de vérifier les égalités
+$$
+\mathcal{K}^n \otimes_\mathcal{B} f_*\mathcal{M}^m
+=
+f_*(f^*\mathcal{K}^n \otimes_\mathcal{A} \mathcal{M}^m)
+$$
+qui résultent du lemme \ref{lemma-finite-rings}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Colimites et cohomologie}
+\label{section-colimits}
+
+\noindent
+Le lemme suivant s'applique en particulier aux diagrammes de
+faisceaux quasi-cohérents.
+
+\begin{lemma}
+\label{lemma-colimits}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Si $X$ est quasi-compact et quasi-séparé, alors
+$$
+\colim_i H^p(X, \mathcal{F}_i)
+\longrightarrow
+H^p(X, \colim_i \mathcal{F}_i)
+$$
+est un isomorphisme
+pour tout diagramme filtrant de faisceaux abéliens sur $X_\etale$.
+\end{lemma}
+
+\begin{proof}
+C'est une conséquence du lemme
+Cohomologie sur les sites,
+\ref{sites-cohomology-lemma-colim-works-over-collection}.
+À savoir, soit $\mathcal{B} \subset \Ob(X_{spaces, \etale})$
+l'ensemble des espaces quasi-compacts et quasi-séparés étales au-dessus de $X$.
+Si $U \in \mathcal{B}$, comme $U$ est quasi-compact,
+la famille des recouvrements finis $\{U_i \to U\}$ avec $U_i \in \mathcal{B}$
+est cofinale dans l'ensemble des recouvrements de $U$ dans $X_{spaces, \etale}$. Par
+le lemme de Morphismes des espaces
+\ref{spaces-morphisms-lemma-quasi-compact-quasi-separated-permanence}
+l'ensemble $\mathcal{B}$ vérifie toutes les hypothèses du
+lemme de Cohomologie sur les sites
+\ref{sites-cohomology-lemma-colim-works-over-collection}.
+Comme $X \in \mathcal{B}$, le résultat s'ensuit.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-cohomology}
+\begin{slogan}
+Les images directes supérieures des morphismes qcqs commutent aux colimites filtrantes
+de faisceaux.
+\end{slogan}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme quasi-compact et quasi-séparé
+d'espaces algébriques sur $S$. Soit $\mathcal{F} = \colim \mathcal{F}_i$
+une colimite filtrante de faisceaux abéliens sur $X_\etale$.
+Alors, pour tout $p \geq 0$, on a
+$$
+R^pf_*\mathcal{F} = \colim R^pf_*\mathcal{F}_i.
+$$
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons le fait que le morphisme de topos $f_{small} : X_{small} \to Y_{small}$
+provient du morphisme de sites
+$f_{spaces, \etale} : X_{spaces, \etale} \to Y_{spaces, \etale}$
+associé au foncteur continu $V \longmapsto X \times_Y V$,
+voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-functoriality-etale-site}.
+Nous appliquerons le lemme
+\ref{sites-cohomology-lemma-higher-direct-image-colimit}
+à ce morphisme de sites. Comme tout objet de $Y_{spaces, \etale}$
+admet un recouvrement par des objets affines, il suffit de montrer que
+pour $V$ affine et étale au-dessus de $Y$, on a
+$H^p(X \times_Y V, \mathcal{F}) = \colim H^p(X \times_Y V, \mathcal{F}_i)$.
+Comme $V$ est affine, l'espace algébrique $X \times_Y V$ est
+quasi-compact et quasi-séparé.
+Nous pouvons donc appliquer le lemme \ref{lemma-colimits}
+pour conclure.
+\end{proof}
+
+\noindent
+Le lemme suivant montre que les modules de présentation finie se comportent
+comme attendu sur les espaces algébriques quasi-compacts et quasi-séparés.
+
+\begin{lemma}
+\label{lemma-finite-presentation-quasi-compact-colimit}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact et quasi-séparé
+sur $S$. Soit $I$ un ensemble dirigé et
+soit $(\mathcal{F}_i, \varphi_{ii'})$ un système indexé par $I$
+de $\mathcal{O}_X$-modules. Soit $\mathcal{G}$ un
+$\mathcal{O}_X$-module de présentation finie. Alors
+$$
+\colim_i \Hom_X(\mathcal{G}, \mathcal{F}_i)
+=
+\Hom_X(\mathcal{G}, \colim_i \mathcal{F}_i).
+$$
+En particulier, $\Hom_X(\mathcal{G}, -)$ commute aux colimites filtrantes
+dans $\QCoh(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+L'égalité affichée est un cas particulier du lemme de
+Modules sur les sites, lemme \ref{sites-modules-lemma-finite-presentation-quasi-compact-colimit}.
+Pour l'appliquer, il faut vérifier les hypothèses du
+lemme de Sites \ref{sites-lemma-directed-colimits-global-sections}, partie (4),
+pour le site $X_\etale$.
+Pour cela, nous vérifierons les hypothèses
+(2)(a), (2)(b) et (2)(c) de
+la remarque de Sites \ref{sites-remark-stronger-conditions}.
+À savoir, soit $\mathcal{B} \subset \Ob(X_\etale)$ l'ensemble des objets affines.
+Alors
+\begin{enumerate}
+\item Puisque $X$ est quasi-compact, il existe un $U \in \mathcal{B}$
+tel que $U \to X$ soit surjectif
+(Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}),
+d'où $h_U^\# \to *$ est surjectif.
+\item Pour $U \in \mathcal{B}$, tout recouvrement étale $\{U_i \to U\}_{i \in I}$
+de $U$ admet un raffinement par un recouvrement étale fini
+$\{U_j \to U\}_{j = 1, \ldots, m}$ avec $U_j \in \mathcal{B}$
+(Topologies, lemme \ref{topologies-lemma-etale-affine}).
+\item Pour $U, U' \in \Ob(X_\etale)$, on a
+$h_U^\# \times h_{U'}^\# = h_{U \times_X U'}^\#$.
+Si $U, U' \in \mathcal{B}$, alors $U \times_X U'$ est quasi-compact
+car $X$ est quasi-séparé ; voir par exemple le lemme de Morphismes des espaces
+\ref{spaces-morphisms-lemma-quasi-compact-quasi-separated-permanence}
+Par conséquent, il existe un morphisme étale surjectif
+$U'' \to U \times_X U'$ avec $U'' \in \mathcal{B}$
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}).
+Autrement dit, il existe des morphismes $U'' \to U$ et $U'' \to U'$
+tels que l'application $h_{U''}^\# \to h_U^\# \times h_{u'}^\#$ soit
+surjective.
+\end{enumerate}
+Pour l'énoncé final, observons que le foncteur d'inclusion
+$\QCoh(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_X)$
+commute aux colimites et que les modules de présentation finie
+sont quasi-cohérents. Voir
+Propriétés des Espaces, lemme
+\ref{spaces-properties-lemma-properties-quasi-coherent}.
+\end{proof}
+
+
+
+
+
+\section{Le complexe de {\v C}ech alterné}
+\label{section-alternating-cech}
+
+\noindent
+Soit $S$ un schéma. Soit $f : U \to X$ un morphisme étale d'espaces
+algébriques sur $S$. Le foncteur
+$$
+j : U_{spaces, \etale} \longrightarrow X_{spaces, \etale},\quad
+V/U \longmapsto V/X
+$$
+induit une équivalence entre $U_{spaces, \etale}$ et la catégorie localisée
+$X_{spaces, \etale}/U$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-localize}.
+Il existe donc des foncteurs
+$$
+f_! : \textit{Ab}(U_\etale) \longrightarrow
+\textit{Ab}(X_\etale),\quad
+f_! : \textit{Mod}(\mathcal{O}_U) \longrightarrow \textit{Mod}(\mathcal{O}_X),
+$$
+qui sont adjoints à gauche des foncteurs
+$$
+f^{-1} : \textit{Ab}(X_\etale) \longrightarrow
+\textit{Ab}(U_\etale),\quad
+f^* : \textit{Mod}(\mathcal{O}_X) \longrightarrow \textit{Mod}(\mathcal{O}_U)
+$$
+voir
+Modules sur les sites, section \ref{sites-modules-section-localize}.
+Avertissement : a priori, ce foncteur n'a
+rien à voir avec la cohomologie à supports compacts !
+Dans la référence ci-dessus, nous avons appelé ce foncteur « extension par zéro ».
+Notons que les deux versions de $f_!$ coïncident puisque $f^* = f^{-1}$ pour
+les faisceaux de $\mathcal{O}_X$-modules.
+
+\medskip\noindent
+Comme nous utiliserons cette construction ci-dessous, rappelons quelques-unes de ses
+propriétés. Soit $\mathcal{G}$ un faisceau abélien sur $U_\etale$ ;
+le faisceau $f_!$ est le faisceautisé du préfaisceau
+$$
+V/X \longmapsto
+f_!\mathcal{G}(V) =
+\bigoplus\nolimits_{\varphi \in \Mor_X(V, U)}
+\mathcal{G}(V \xrightarrow{\varphi} U),
+$$
+voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-extension-by-zero}.
+De plus, si $\mathcal{G}$ est un $\mathcal{O}_U$-module, alors $f_!\mathcal{G}$
+est le faisceautisé du même préfaisceau de groupes abéliens,
+muni de façon évidente d'une structure de $\mathcal{O}_X$-module
+(voir loc. cit.). Soit $\overline{x} : \Spec(k) \to X$
+un point géométrique. Il existe alors une identification canonique
+$$
+(f_!\mathcal{G})_{\overline{x}} =
+\bigoplus\nolimits_{\overline{u}} \mathcal{G}_{\overline{u}}
+$$
+où la somme porte sur tous les $\overline{u} : \Spec(k) \to U$ tels que
+$f \circ \overline{u} = \overline{x}$, voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-stalk-j-shriek}
+et
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-points-small-etale-site}.
+Dans la suite, nous étudions le faisceau $f_!\underline{\mathbf{Z}}$.
+Ici, $\underline{\mathbf{Z}}$ désigne le faisceau constant sur
+$X_\etale$ ou $U_\etale$.
+
+\begin{lemma}
+\label{lemma-product-is-tensor-product}
+Soit $S$ un schéma. Soient $f_i : U_i \to X$ des morphismes étales
+d'espaces algébriques sur $S$. Alors il existe des isomorphismes
+$$
+f_{1, !}\underline{\mathbf{Z}} \otimes_{\mathbf{Z}}
+f_{2, !}\underline{\mathbf{Z}}
+\longrightarrow
+f_{12, !}\underline{\mathbf{Z}}
+$$
+où $f_{12} : U_1 \times_X U_2 \to X$ est le morphisme structural
+et
+$$
+(f_1 \amalg f_2)_! \underline{\mathbf{Z}}
+\longrightarrow
+f_{1, !}\underline{\mathbf{Z}} \oplus
+f_{2, !}\underline{\mathbf{Z}}
+$$
+\end{lemma}
+
+\begin{proof}
+Une fois l'application définie, ce sera un isomorphisme d'après la description
+des fibres ci-dessus. Pour définir l'application, il suffit de travailler au niveau
+des préfaisceaux. Nous devons donc définir une application
+$$
+\left(\bigoplus\nolimits_{\varphi_1 \in \Mor_X(V, U_1)} \mathbf{Z}\right)
+\otimes_{\mathbf{Z}}
+\left(\bigoplus\nolimits_{\varphi_2 \in \Mor_X(V, U_2)} \mathbf{Z}\right)
+\longrightarrow
+\bigoplus\nolimits_{\varphi \in \Mor_X(V, U_1 \times_X U_2)}
+\mathbf{Z}
+$$
+Nous envoyons l'élément $1_{\varphi_1} \otimes 1_{\varphi_2}$ sur l'élément
+$1_{\varphi_1 \times \varphi_2}$, avec les notations évidentes. Nous omettons la preuve
+de la seconde égalité.
+\end{proof}
+
+\noindent
+Une autre propriété importante est l'application trace
+$$
+\text{Tr}_f : f_!\underline{\mathbf{Z}} \longrightarrow \underline{\mathbf{Z}}.
+$$
+L'application trace est adjointe à
+l'application $\mathbf{Z} \to f^{-1}\underline{\mathbf{Z}}$ (qui est un isomorphisme).
+Si $\overline{x}$ est comme ci-dessus, l'application $\text{Tr}_f$ sur la fibre en $\overline{x}$
+est l'application
+$$
+(\text{Tr}_f)_{\overline{x}} :
+(f_!\underline{\mathbf{Z}})_{\overline{x}} =
+\bigoplus\nolimits_{\overline{u}} \mathbf{Z}
+\longrightarrow
+\mathbf{Z} = \underline{\mathbf{Z}}_{\overline{x}}
+$$
+qui fait la somme des entiers donnés. Cela résulte de l'adjonction à l'application
+$1 : \mathbf{Z} \to f^{-1}\underline{\mathbf{Z}}$. En particulier, si
+$f$ est étale et surjectif, alors $\text{Tr}_f$ est surjectif.
+
+\medskip\noindent
+Supposons que $f : U \to X$ soit un morphisme étale surjectif
+d'espaces algébriques. Considérons le {\it complexe de Koszul}
+associé à l'application trace définie ci-dessus
+$$
+\ldots \to \wedge^3f_!\underline{\mathbf{Z}} \to
+\wedge^2f_!\underline{\mathbf{Z}} \to f_!\underline{\mathbf{Z}} \to
+\underline{\mathbf{Z}} \to 0
+$$
+Ici, les puissances extérieures sont prises sur le faisceau d'anneaux $\underline{\mathbf{Z}}$.
+Les applications sont définies par la règle
+$$
+e_1 \wedge \ldots \wedge e_n \longmapsto
+\sum\nolimits_{i = 1, \ldots, n} (-1)^{i + 1}
+\text{Tr}_f(e_i)
+e_1 \wedge \ldots \wedge \widehat{e_i} \wedge \ldots \wedge e_n
+$$
+où $e_1, \ldots, e_n$ sont des sections locales de $f_!\underline{\mathbf{Z}}$.
+Soit $\overline{x}$ un point géométrique de $X$ et posons
+$M_{\overline{x}} = (f_!\underline{\mathbf{Z}})_{\overline{x}} =
+\bigoplus_{\overline{u}} \mathbf{Z}$. La fibre du complexe ci-dessus en
+$\overline{x}$ est le complexe
+$$
+\ldots \to \wedge^3 M_{\overline{x}} \to \wedge^2 M_{\overline{x}}
+\to M_{\overline{x}} \to \mathbf{Z} \to 0
+$$
+qui est exact puisque $M_{\overline{x}} \to \mathbf{Z}$ est surjectif, voir
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-homotopy-koszul-abstract}.
+Ainsi, si $K^\bullet = K^\bullet(f)$ désigne le complexe défini par
+$K^i = \wedge^{i + 1}f_!\underline{\mathbf{Z}}$, on obtient un
+quasi-isomorphisme
+\begin{equation}
+\label{equation-quasi-isomorphism}
+K^\bullet \longrightarrow \underline{\mathbf{Z}}[0]
+\end{equation}
+Nous utilisons le complexe $K^\bullet$ pour définir ce que nous appelons
+le complexe de {\v C}ech alterné associé à $f : U \to X$.
+
+\begin{definition}
+\label{definition-alternating-cech-complex}
+Soit $S$ un schéma. Soit $f : U \to X$ un morphisme étale surjectif
+d'espaces algébriques sur $S$. Soit $\mathcal{F}$ un objet de
+$\textit{Ab}(X_\etale)$. Le
+{\it complexe de {\v C}ech alterné}\footnote{Cette notation peut être non standard}
+$\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F})$
+associé à $\mathcal{F}$ et $f$ est le complexe
+$$
+\Hom(K^0, \mathcal{F}) \to \Hom(K^1, \mathcal{F}) \to
+\Hom(K^2, \mathcal{F}) \to \ldots
+$$
+dont les groupes de morphismes sont calculés dans $\textit{Ab}(X_\etale)$.
+\end{definition}
+
+\noindent
+Le lecteur peut vérifier que si $U = \coprod U_i$ et si $f|_{U_i} : U_i \to X$
+est l'immersion ouverte d'un sous-espace, alors
+$\check{\mathcal{C}}_{alt}^\bullet(f, \mathcal{F})$ coïncide avec le complexe
+introduit dans
+Cohomologie, section \ref{cohomology-section-alternating-cech}
+pour le recouvrement de Zariski $X = \bigcup U_i$ et la restriction
+de $\mathcal{F}$ au site de Zariski de $X$. Mais surtout,
+il importe cependant de relier la cohomologie du
+{\v C}ech alterné à la cohomologie.
+
+\begin{lemma}
+\label{lemma-alternating-cech-to-cohomology}
+Soit $S$ un schéma. Soit $f : U \to X$ un morphisme étale surjectif
+d'espaces algébriques sur $S$. Soit $\mathcal{F}$ un objet de
+$\textit{Ab}(X_\etale)$. Il existe une application canonique
+$$
+\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F})
+\longrightarrow
+R\Gamma(X, \mathcal{F})
+$$
+dans $D(\textit{Ab})$. De plus, il existe une suite spectrale dont la page $E_1$ est
+$$
+E_1^{p, q} =
+\Ext_{\textit{Ab}(X_\etale)}^q(K^p, \mathcal{F})
+$$
+convergeant vers $H^{p + q}(X, \mathcal{F})$, où
+$K^p = \wedge^{p + 1}f_!\underline{\mathbf{Z}}$.
+\end{lemma}
+
+\begin{proof}
+Rappelons le quasi-isomorphisme
+$K^\bullet \to \underline{\mathbf{Z}}[0]$, voir
+(\ref{equation-quasi-isomorphism}).
+Choisissons une résolution injective $\mathcal{F} \to \mathcal{I}^\bullet$
+dans $\textit{Ab}(X_\etale)$. Considérons le bicomplexe
+$\Hom(K^\bullet, \mathcal{I}^\bullet)$ dont les termes sont
+$\Hom(K^p, \mathcal{I}^q)$. La différentielle
+$d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$
+est induite par la différentielle $K^{p + 1} \to K^p$
+et la différentielle $d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ est induite par
+la différentielle
+$\mathcal{I}^q \to \mathcal{I}^{q + 1}$.
+Notons $\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))$
+le complexe total associé, voir
+Homologie, section \ref{homology-section-double-complexes}.
+Nous utiliserons les deux suites spectrales
+$({}'E_r, {}'d_r)$ et $({}''E_r, {}''d_r)$
+associées à ce bicomplexe, voir
+Homologie, section \ref{homology-section-double-complex}.
+
+\medskip\noindent
+Comme $K^\bullet$ est une résolution de $\underline{\mathbf{Z}}$,
+on voit que les complexes
+$$
+\Hom(K^\bullet, \mathcal{I}^q) :
+\Hom(K^0, \mathcal{I}^q) \to
+\Hom(K^1, \mathcal{I}^q) \to
+\Hom(K^2, \mathcal{I}^q) \to \ldots
+$$
+sont acycliques en degrés strictement positifs et ont pour $H^0$
+$\Gamma(X, \mathcal{I}^q)$. Par conséquent, d'après
+Homologie, lemme \ref{homology-lemma-double-complex-gives-resolution}
+l'application naturelle
+$$
+\mathcal{I}^\bullet(X) \longrightarrow
+\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))
+$$
+est un quasi-isomorphisme de complexes de groupes abéliens.
+En particulier, on conclut que
+$H^n(\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))) = H^n(X, \mathcal{F})$.
+
+\medskip\noindent
+L'application $\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F}) \to
+R\Gamma(X, \mathcal{F})$ du lemme est la composée de
+$\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F}) \to
+\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))$
+avec l'inverse du quasi-isomorphisme affiché.
+
+\medskip\noindent
+Considérons enfin la suite spectrale $({}'E_r, {}'d_r)$.
+Nous avons
+$$
+E_1^{p, q} = q\text{-ième cohomologie de }
+\Hom(K^p, \mathcal{I}^0) \to
+\Hom(K^p, \mathcal{I}^1) \to
+\Hom(K^p, \mathcal{I}^2) \to \ldots
+$$
+Ceci démontre le lemme.
+\end{proof}
+
+\noindent
+Il résulte du lemme qu'il est important de comprendre
+les groupes d'extensions $\Ext_{\textit{Ab}(X_\etale)}(K^p, \mathcal{F})$,
+c'est-à-dire les foncteurs dérivés à droite de
+$\mathcal{F} \mapsto \Hom(K^p, \mathcal{F})$.
+
+\begin{lemma}
+\label{lemma-compute}
+Soit $S$ un schéma. Soit $f : U \to X$ un morphisme étale, surjectif et séparé
+d'espaces algébriques sur $S$. Pour $p \geq 0$, posons
+$$
+W_p = U \times_X \ldots \times_X U \setminus \text{toutes les diagonales}
+$$
+où le produit fibré comporte $p + 1$ facteurs.
+Le groupe $S_{p + 1}$ agit librement sur $W_p$ au-dessus de $X$ et
+$$
+\Hom(K^p, \mathcal{F}) = S_{p + 1}\text{-anti-invariants de }
+\mathcal{F}(W_p)
+$$
+fonctoriellement en $\mathcal{F}$, où
+$K^p = \wedge^{p + 1}f_!\underline{\mathbf{Z}}$.
+\end{lemma}
+
+\begin{proof}
+Comme $U \to X$ est séparé, la diagonale $U \to U \times_X U$ est une
+immersion fermée. Comme $U \to X$ est étale, cette diagonale
+$U \to U \times_X U$ est une immersion ouverte, voir
+Morphismes des espaces, lemmes
+\ref{spaces-morphisms-lemma-etale-unramified} et
+\ref{spaces-morphisms-lemma-diagonal-unramified-morphism}.
+Ainsi $W_p$ est un sous-espace à la fois ouvert et fermé de
+$U^{p + 1} = U \times_X \ldots \times_X U$. L'action de $S_{p + 1}$
+sur $W_p$ est libre, car nous avons supprimé les points fixes de l'action.
+D'après
+lemme \ref{lemma-product-is-tensor-product}
+on obtient
+$$
+(f_!\underline{\mathbf{Z}})^{\otimes p + 1} =
+f^{p + 1}_!\underline{\mathbf{Z}} = (W_p \to X)_!\underline{\mathbf{Z}}
+\oplus Rest
+$$
+où $f^{p + 1} : U^{p + 1} \to X$ est le morphisme structural.
+En examinant les fibres au-dessus d'un point géométrique $\overline{x}$ de $X$,
+on voit que
+$$
+\left(
+\bigoplus\nolimits_{\overline{u} \mapsto \overline{x}} \mathbf{Z}
+\right)^{\otimes p + 1}
+\longrightarrow
+(W_p \to X)_!\underline{\mathbf{Z}}_{\overline{x}}
+$$
+est le quotient dont le noyau est engendré par tous les tenseurs
+$1_{\overline{u}_0} \otimes \ldots \otimes 1_{\overline{u}_p}$
+où $\overline{u}_i = \overline{u}_j$ pour certains $i \not = j$.
+Ainsi, l'application quotient
+$$
+(f_!\underline{\mathbf{Z}})^{\otimes p + 1}
+\longrightarrow
+\wedge^{p + 1}f_!\underline{\mathbf{Z}}
+$$
+se factorise par $(W_p \to X)_!\underline{\mathbf{Z}}$ ; on obtient donc
+$$
+(f_!\underline{\mathbf{Z}})^{\otimes p + 1}
+\longrightarrow
+(W_p \to X)_!\underline{\mathbf{Z}}
+\longrightarrow
+\wedge^{p + 1}f_!\underline{\mathbf{Z}}
+$$
+Cela montre déjà que $\Hom(K^p, \mathcal{F})$ est (fonctoriellement) un
+sous-groupe de
+$$
+\Hom((W_p \to X)_!\underline{\mathbf{Z}}, \mathcal{F}) = \mathcal{F}(W_p)
+$$
+Pour l'identifier aux éléments anti-invariants sous $S_{p + 1}$, il faut montrer que
+la surjection $(W_p \to X)_!\underline{\mathbf{Z}}
+\to \wedge^{p + 1}f_!\underline{\mathbf{Z}}$ est le quotient anti-invariant maximal
+$S_{p + 1}$-quotient anti-invariant. Autrement dit, il faut montrer que
+$\wedge^{p + 1}f_!\underline{\mathbf{Z}}$ est le quotient de
+$(W_p \to X)_!\underline{\mathbf{Z}}$ par le sous-faisceau engendré par
+les sections locales $s - \text{signature}(\sigma)\sigma(s)$, où $s$ est
+une section locale de $(W_p \to X)_!\underline{\mathbf{Z}}$.
+Cela se vérifie sur les fibres, où c'est clair.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-twist}
+Soit $S$ un schéma. Soit $W$ un espace algébrique sur $S$.
+Soit $G$ un groupe fini agissant librement sur $W$.
+Soit $U = W/G$, voir
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-quotient}.
+Soit $\chi : G \to \{+1, -1\}$ un caractère.
+Alors il existe un faisceau de $\mathbf{Z}$-modules localement libre de rang 1
+$\underline{\mathbf{Z}}(\chi)$ sur $U_\etale$ tel que, pour tout
+faisceau abélien $\mathcal{F}$ sur $U_\etale$, on ait
+$$
+H^0(W, \mathcal{F}|_W)^\chi =
+H^0(U, \mathcal{F} \otimes_{\mathbf{Z}} \underline{\mathbf{Z}}(\chi))
+$$
+\end{lemma}
+
+\begin{proof}
+Le morphisme quotient $q : W \to U$ est un $G$-torseur ; autrement dit, il existe
+un morphisme étale surjectif $U' \to U$ tel que
+$W \times_U U' = \coprod_{g \in G} U'$ comme espaces munis de l'action de $G$ au-dessus de $U'$.
+(On peut notamment prendre $U' = W$.) Ainsi, $q_*\underline{\mathbf{Z}}$ est un
+module de $\mathbf{Z}$ localement libre de rang fini muni d'une action de $G$.
+Pour tout point géométrique $\overline{u}$ de $U$, on obtient des $G$-équivariants
+isomorphismes
+$$
+(q_*\underline{\mathbf{Z}})_{\overline{u}}
+= \bigoplus\nolimits_{\overline{w} \mapsto \overline{u}} \mathbf{Z}
+= \bigoplus\nolimits_{g \in G} \mathbf{Z} = \mathbf{Z}[G]
+$$
+où le second signe $=$ utilise un point géométrique
+$\overline{w}_0$ au-dessus de $\overline{u}$ et
+envoie le facteur correspondant à $g \in G$ sur le facteur
+correspondant à $g(\overline{w}_0)$. Nous avons
+$$
+H^0(W, \mathcal{F}|_W) =
+H^0(U, \mathcal{F} \otimes_\mathbf{Z} q_*\underline{\mathbf{Z}})
+$$
+car
+$q_*\mathcal{F}|_W = \mathcal{F} \otimes_\mathbf{Z} q_*\underline{\mathbf{Z}}$
+comme on peut le vérifier après restriction à $U'$.
+$$
+\underline{\mathbf{Z}}(\chi) =
+(q_*\underline{\mathbf{Z}})^\chi \subset
+q_*\underline{\mathbf{Z}}
+$$
+qui est le sous-faisceau des sections se transformant selon $\chi$.
+Pour tout point géométrique $\overline{u}$ de $U$, on a
+$$
+\underline{\mathbf{Z}}(\chi)_{\overline{u}} =
+\mathbf{Z} \cdot \sum\nolimits_g \chi(g) g
+\subset
+\mathbf{Z}[G] = (q_*\underline{\mathbf{Z}})_{\overline{u}}
+$$
+Il s'ensuit que $\underline{\mathbf{Z}}(\chi)$ est localement libre de
+rang 1 (plus précisément, cela doit être vérifié après restriction à $U'$).
+Notons que, pour tout $\mathbf{Z}$-module $M$, les $\chi$-semi-invariants
+de $M[G]$ sont les éléments de la forme $m \cdot \sum\nolimits_g \chi(g) g$.
+Ainsi, pour tout faisceau abélien $\mathcal{F}$ sur $U$, on a
+$$
+\left(\mathcal{F} \otimes_\mathbf{Z} q_*\underline{\mathbf{Z}}\right)^\chi
+=
+\mathcal{F} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi)
+$$
+car l'égalité se vérifie sur toutes les fibres. Le résultat du lemme s'obtient en
+prenant les sections globales.
+\end{proof}
+
+\noindent
+Nous pouvons maintenant tout rassembler et obtenir le résultat suivant
+particulièrement agréable.
+
+\begin{lemma}
+\label{lemma-alternating-spectral-sequence}
+Soit $S$ un schéma. Soit $f : U \to X$ un morphisme d'espaces algébriques
+sur $S$, surjectif, \'etale et séparé. Pour $p \geq 0$, posons
+$$
+W_p = U \times_X \ldots \times_X U \setminus \text{toutes les diagonales}
+$$
+(avec $p + 1$ facteurs), comme dans le lemme \ref{lemma-compute}.
+Soit $\chi_p : S_{p + 1} \to \{+1, -1\}$ le caractère signe.
+Soient $U_p = W_p/S_{p + 1}$ et $\underline{\mathbf{Z}}(\chi_p)$ les objets définis comme dans le
+lemme \ref{lemma-twist}.
+Alors la suite spectrale du
+lemme \ref{lemma-alternating-cech-to-cohomology}
+a pour page $E_1$
+$$
+E_1^{p, q} =
+H^q(U_p, \mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+$$
+et aboutit à $H^{p + q}(X, \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que, puisque l'action de $S_{p + 1}$ sur $W_p$ est au-dessus de $X$, on
+obtient bien un morphisme $U_p \to X$. Puisque $W_p \to X$ est \'etale et que
+$W_p \to U_p$ est \'etale surjectif, il s'ensuit
+que $U_p \to X$ est lui aussi \'etale ; voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-etale-local}.
+Par conséquent, un objet injectif de
+$\textit{Ab}(X_\etale)$ devient par restriction un objet injectif de
+$\textit{Ab}(U_{p, \etale})$ ; voir
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-cohomology-of-open}.
+De plus, le foncteur
+$\mathcal{G} \mapsto
+\mathcal{G} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+est une auto-équivalence de $\textit{Ab}(U_p)$, donc transforme les objets injectifs
+en objets injectifs et est exact (car
+$\underline{\mathbf{Z}}(\chi_p)$ est un
+$\underline{\mathbf{Z}}$-module inversible). Ainsi, étant donnée une résolution injective
+$\mathcal{F} \to \mathcal{I}^\bullet$ dans $\textit{Ab}(X_\etale)$,
+le complexe
+$$
+\Gamma(U_p,
+\mathcal{I}^0|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\to
+\Gamma(U_p,
+\mathcal{I}^1|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\to
+\Gamma(U_p,
+\mathcal{I}^2|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\to \ldots
+$$
+calcule
+$H^*(U_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$.
+D'autre part, d'après
+le lemme \ref{lemma-twist},
+il est égal au complexe des éléments anti-invariants sous $S_{p + 1}$ de
+$$
+\Gamma(W_p, \mathcal{I}^0) \to
+\Gamma(W_p, \mathcal{I}^1) \to
+\Gamma(W_p, \mathcal{I}^2) \to \ldots
+$$
+qui, d'après
+le lemme \ref{lemma-compute},
+est égal au complexe
+$$
+\Hom(K^p, \mathcal{I}^0) \to
+\Hom(K^p, \mathcal{I}^1) \to
+\Hom(K^p, \mathcal{I}^2) \to \ldots
+$$
+qui calcule
+$\Ext^*_{\textit{Ab}(X_\etale)}(K^p, \mathcal{F})$.
+En combinant ce qui précède, on conclut.
+\end{proof}
+
+
+
+
+
+\section{Annulation en degrés supérieurs pour les faisceaux quasi-cohérents}
+\label{section-higher-vanishing}
+
+\noindent
+Dans cette section, nous montrons que, pour tout espace algébrique quasi-compact et
+quasi-séparé $X$, il existe un entier
+$n = n(X)$ tel que la cohomologie de tout faisceau quasi-cohérent
+sur $X$ est nulle en degrés strictement supérieurs à $n$.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-twist}
+Soient $S$, $W$, $G$, $U$ et $\chi$ comme dans le
+lemme \ref{lemma-twist}.
+Si $\mathcal{F}$ est un $\mathcal{O}_U$-module quasi-cohérent,
+alors $\mathcal{F} \otimes_{\mathbf{Z}} \underline{\mathbf{Z}}(\chi)$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+La structure de $\mathcal{O}_U$-module est claire. Pour vérifier que
+$\mathcal{F} \otimes_{\mathbf{Z}} \underline{\mathbf{Z}}(\chi)$
+est quasi-cohérent, il suffit de le vérifier localement pour la topologie \'etale.
+Comme $\underline{\mathbf{Z}}(\chi)$
+est un $\underline{\mathbf{Z}}$-module localement libre de rang fini, on en déduit le lemme.
+\end{proof}
+
+\noindent
+La proposition suivante est intéressante même lorsque $X$ est un schéma.
+Elle constitue la généralisation naturelle du
+lemme \ref{coherent-lemma-vanishing-nr-affines} du chapitre Cohomologie des schémas.
+Avant de l'énoncer, remarquons que, pour tout morphisme \'etale
+$f : U \to X$ d'un schéma affine vers un espace algébrique
+quasi-séparé $X$, les fibres de $f$ sont universellement bornées ; en particulier,
+il existe un entier $d$ tel que toutes les fibres de $|U| \to |X|$
+soient de cardinal au plus $d$ ; c'est l'implication
+$(\eta) \Rightarrow (\delta)$ du lemme
+\ref{decent-spaces-lemma-bounded-fibres} du chapitre Espaces décents.
+
+\begin{proposition}
+\label{proposition-vanishing}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Supposons $X$ quasi-compact et séparé.
+Soit $U$ un schéma affine, et soit
+$f : U \to X$ un morphisme \'etale surjectif.
+Soit $d$ un majorant du cardinal des fibres de
+$|U| \to |X|$. Alors, pour tout $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$,
+on a $H^q(X, \mathcal{F}) = 0$ pour tout $q \geq d$.
+\end{proposition}
+
+\begin{proof}
+Nous utiliserons la suite spectrale du
+lemme \ref{lemma-alternating-spectral-sequence}.
+Le lemme s'applique, car $f$ est séparé puisque $U$ est séparé ; voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-compose-after-separated}.
+Puisque $X$ est séparé, le schéma $U \times_X \ldots \times_X U$ est un sous-schéma fermé
+de
+$U \times_{\Spec(\mathbf{Z})} \ldots \times_{\Spec(\mathbf{Z})} U$
+et est donc affine. Ainsi, $W_p$ est affine. Par conséquent, $U_p = W_p/S_{p + 1}$ est un
+schéma affine d'après
+Groupoïdes, proposition \ref{groupoids-proposition-finite-flat-equivalence}.
+La discussion de la
+section \ref{section-higher-direct-image}
+montre que la cohomologie des faisceaux quasi-cohérents sur $W_p$ (considéré comme espace
+algébrique) coïncide avec la cohomologie du faisceau quasi-cohérent correspondant
+sur le schéma affine sous-jacent ; elle est donc nulle en degrés positifs d'après
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}.
+D'après
+le lemme \ref{lemma-quasi-coherent-twist},
+les faisceaux
+$\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p)$
+sont quasi-cohérents. Ainsi,
+$H^q(W_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+est nul pour $q > 0$. Par définition de l'entier $d$, on voit que
+$W_p = \emptyset$ pour $p \geq d$. Par conséquent,
+$H^0(W_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+est également nul pour $p \geq d$.
+Cela démontre la proposition.
+\end{proof}
+
+\noindent
+Dans le lemme suivant, nous établissons qu'un espace algébrique quasi-compact et
+quasi-séparé est de dimension cohomologique finie
+pour les modules quasi-cohérents. Nous ne précisons la borne que parce que
+nous l'utiliserons plus loin pour démontrer un résultat analogue pour les images directes
+supérieures.
+
+\begin{lemma}
+\label{lemma-vanishing-quasi-separated}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Supposons $X$ quasi-compact et quasi-séparé.
+On peut alors choisir
+\begin{enumerate}
+\item un schéma affine $U$,
+\item un morphisme \'etale surjectif $f : U \to X$,
+\item un entier $d$ majorant les degrés des fibres de $U \to X$,
+\item pour tout $p = 0, 1, \ldots, d$, un morphisme \'etale surjectif
+$V_p \to U_p$, où $V_p$ est un schéma affine et $U_p$ est défini comme dans le
+lemme \ref{lemma-alternating-spectral-sequence}, et
+\item un entier $d_p$ majorant le degré des fibres de $V_p \to U_p$.
+\end{enumerate}
+De plus, chaque fois que l'on dispose de (1) -- (5), pour tout
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$, on a $H^q(X, \mathcal{F}) = 0$ pour tout
+$q \geq \max(d_p + p)$.
+\end{lemma}
+
+\begin{proof}
+Puisque $X$ est quasi-compact, on peut trouver un morphisme \'etale surjectif
+$U \to X$ avec $U$ affine ; voir
+Propriétés d'espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+D'après
+Espaces décents, lemme \ref{decent-spaces-lemma-bounded-fibres},
+les fibres de $f$ sont universellement bornées ; on peut donc trouver $d$.
+On a $U_p = W_p/S_{p + 1}$ et $W_p \subset U \times_X \ldots \times_X U$
+est ouvert et fermé. Puisque $X$ est quasi-séparé, les schémas
+$W_p$ sont quasi-compacts, donc $U_p$ est quasi-compact.
+Puisque $U$ est séparé, les schémas $W_p$ sont séparés ; ainsi,
+$U_p$ est séparé d'après (la version absolue du)
+Espaces, lemme \ref{spaces-lemma-quotient-finite-separated}.
+D'après
+Propriétés d'espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover},
+on peut trouver les morphismes $V_p \to W_p$.
+D'après
+Espaces décents, lemme \ref{decent-spaces-lemma-bounded-fibres},
+on peut trouver les entiers $d_p$.
+
+\medskip\noindent
+On utilise alors la suite spectrale
+$$
+E_1^{p, q} =
+H^q(U_p, \mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\Rightarrow
+H^{p + q}(X, \mathcal{F})
+$$
+voir
+le lemme \ref{lemma-alternating-spectral-sequence}.
+Par définition de l'entier $d$, on voit que $U_p = 0$ pour $p \geq d$.
+D'après la proposition \ref{proposition-vanishing}
+et
+le lemme \ref{lemma-quasi-coherent-twist},
+on voit que
+$H^q(U_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+est nul pour $q \geq d_p$ lorsque $p = 0, \ldots, d$.
+On en déduit le lemme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Annulation des images directes supérieures}
+\label{section-vanishing-higher-direct-images}
+
+\noindent
+On applique les résultats de la
+section \ref{section-higher-vanishing}
+afin d'obtenir l'annulation des images directes supérieures des faisceaux quasi-cohérents
+pour les morphismes quasi-compacts et quasi-séparés. Ce résultat est utile, car
+il permet, dans certaines situations, de raisonner par récurrence descendante sur le degré
+cohomologique.
+
+\begin{lemma}
+\label{lemma-vanishing-higher-direct-images}
+Soit $S$ un schéma. Soit $f : X \to Y$ un
+morphisme d'espaces algébriques sur $S$.
+Supposons que
+\begin{enumerate}
+\item $f$ soit quasi-compact et quasi-séparé, et
+\item $Y$ soit quasi-compact.
+\end{enumerate}
+Alors il existe un entier $n(X \to Y)$ tel que,
+pour tout espace algébrique $Y'$, tout morphisme $Y' \to Y$
+et tout faisceau quasi-cohérent $\mathcal{F}'$ sur $X' = Y' \times_Y X$,
+les images directes supérieures $R^if'_*\mathcal{F}'$ soient nulles pour tout
+$i \geq n(X \to Y)$.
+\end{lemma}
+
+\begin{proof}
+Soit $V \to Y$ un morphisme \'etale surjectif, où $V$ est un schéma
+affine ; voir
+Propriétés d'espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+Supposons le résultat prouvé pour le changement de base $f_V : V \times_Y X \to V$.
+Le résultat vaut alors pour $f$ avec $n(X \to Y) = n(X_V \to V)$.
+En effet, si $Y' \to Y$ et $\mathcal{F}'$ sont comme dans le lemme, alors
+$R^if'_*\mathcal{F}'|_{V \times_Y Y'}$ est égal à
+$R^if'_{V, *}\mathcal{F}'|_{X'_V}$, où
+$f'_V : X'_V = V \times_Y Y' \times_Y X \to V \times_Y Y' = Y'_V$ ; voir
+Propriétés d'espaces,
+lemme \ref{spaces-properties-lemma-pushforward-etale-base-change-modules}.
+On peut donc supposer que $Y$ est un schéma affine.
+
+\medskip\noindent
+De plus, pour démontrer l'annulation pour tout $Y' \to Y$ et toute
+$\mathcal{F}'$, il suffit de le faire lorsque $Y'$ est un schéma affine.
+Dans ce cas, $R^if'_*\mathcal{F}'$ est quasi-cohérent d'après
+le lemme \ref{lemma-higher-direct-image}.
+Il suffit donc de démontrer que $H^i(X', \mathcal{F}') = 0$, car
+$H^i(X', \mathcal{F}') = H^0(Y', R^if'_*\mathcal{F}')$ d'après
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-apply-Leray}
+et le fait que la cohomologie des faisceaux quasi-cohérents
+sur les espaces algébriques affines est nulle en degrés supérieurs
+(proposition \ref{proposition-vanishing}).
+
+\medskip\noindent
+Choisissons $U \to X$, $d$, $V_p \to U_p$ et $d_p$ comme dans
+le lemme \ref{lemma-vanishing-quasi-separated}.
+Pour tout schéma affine $Y'$ et tout morphisme $Y' \to Y$, notons
+$X' = Y' \times_Y X$, $U' = Y' \times_Y U$, $V'_p = Y' \times_Y V_p$.
+Alors $U' \to X'$, $d' = d$, $V'_p \to U'_p$ et $d'_p = d$
+forment un ensemble de choix comme dans
+le lemme \ref{lemma-vanishing-quasi-separated}
+pour l'espace algébrique $X'$ (détails omis).
+On voit donc que $H^i(X', \mathcal{F}') = 0$ pour $i \geq \max(p + d_p)$,
+et l'on gagne.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-vanishing-higher-direct-images}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme affine
+d'espaces algébriques sur $S$. Alors
+$R^if_*\mathcal{F} = 0$ pour $i > 0$ et tout
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+Rappelons qu'un morphisme affine d'espaces algébriques est représentable.
+L'assertion résulte donc de (\ref{equation-representable-higher-direct-image}) et du
+lemme \ref{coherent-lemma-relative-affine-vanishing} du chapitre Cohomologie des schémas.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-affine-cohomology}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme affine
+d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Alors $H^i(X, \mathcal{F}) = H^i(Y, f_*\mathcal{F})$ pour tout $i \geq 0$.
+\end{lemma}
+
+\begin{proof}
+L'assertion résulte du lemme \ref{lemma-affine-vanishing-higher-direct-images}
+et de la suite spectrale de Leray. Voir
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-apply-Leray}.
+\end{proof}
+
+
+
+
+
+
+\section{Cohomologie à support dans un sous-espace fermé}
+\label{section-cohomology-support}
+
+\noindent
+Cette section est l'analogue des sections du chapitre Cohomologie
+\ref{cohomology-section-cohomology-support} et
+\ref{cohomology-section-cohomology-support-bis}
+et de la section du chapitre Cohomologie \'etale
+\ref{etale-cohomology-section-cohomology-support}
+pour les faisceaux abéliens sur les espaces algébriques.
+
+\medskip\noindent
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$ et soit $Z \subset X$ un
+sous-espace fermé. Soit $\mathcal{F}$ un faisceau abélien sur $X_\etale$. On pose
+$$
+\Gamma_Z(X, \mathcal{F}) =
+\{s \in \mathcal{F}(X) \mid \text{Supp}(s) \subset Z\}
+$$
+l'ensemble des sections à support dans $Z$
+(Propriétés d'espaces, définition \ref{spaces-properties-definition-support}).
+C'est un foncteur exact à gauche qui n'est pas exact en général.
+On obtient donc un foncteur dérivé
+$$
+R\Gamma_Z(X, -) : D(X_\etale) \longrightarrow D(\textit{Ab})
+$$
+et les groupes de cohomologie à support dans $Z$ définis par
+$H^q_Z(X, \mathcal{F}) = R^q\Gamma_Z(X, \mathcal{F})$.
+
+\medskip\noindent
+Soit $\mathcal{I}$ un faisceau abélien injectif sur $X_\etale$. Soit
+$U \subset X$ le sous-espace ouvert complémentaire de $Z$.
+Alors l'application de restriction $\mathcal{I}(X) \to \mathcal{I}(U)$ est surjective
+(Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-restriction-along-monomorphism-surjective})
+et a pour noyau $\Gamma_Z(X, \mathcal{I})$. Il s'ensuit immédiatement que
+pour $K \in D(X_\etale)$ il existe un triangle distingué
+$$
+R\Gamma_Z(X, K) \to R\Gamma(X, K) \to R\Gamma(U, K) \to R\Gamma_Z(X, K)[1]
+$$
+dans $D(\textit{Ab})$. On obtient ainsi une suite exacte longue
+de cohomologie
+$$
+\ldots \to H^i_Z(X, K) \to H^i(X, K) \to H^i(U, K) \to
+H^{i + 1}_Z(X, K) \to \ldots
+$$
+pour tout $K$ dans $D(X_\etale)$.
+
+\medskip\noindent
+Pour un faisceau abélien $\mathcal{F}$ sur $X_\etale$, on peut considérer
+le {\it sous-faisceau des sections à support dans $Z$}, noté
+$\mathcal{H}_Z(\mathcal{F})$, défini par la formule
+$$
+\mathcal{H}_Z(\mathcal{F})(U) =
+\{s \in \mathcal{F}(U) \mid \text{Supp}(s) \subset U \times_X Z\}
+$$
+Nous utilisons ici le support d'une section défini dans
+Propriétés d'espaces, définition \ref{spaces-properties-definition-support}.
+D'après l'équivalence de Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-closed-immersion-push-pull}
+on peut considérer $\mathcal{H}_Z(\mathcal{F})$ comme un faisceau abélien sur
+$Z_\etale$. On obtient ainsi un foncteur
+$$
+\textit{Ab}(X_\etale) \longrightarrow \textit{Ab}(Z_\etale),\quad
+\mathcal{F} \longmapsto \mathcal{H}_Z(\mathcal{F})
+$$
+qui est exact à gauche, mais n'est pas exact en général.
+
+\begin{lemma}
+\label{lemma-sections-with-support-acyclic}
+Soit $S$ un schéma.
+Soit $i : Z \to X$ une immersion fermée d'espaces algébriques sur $S$.
+Soit $\mathcal{I}$ un faisceau abélien injectif sur $X_\etale$.
+Alors $\mathcal{H}_Z(\mathcal{I})$ est un faisceau abélien injectif
+sur $Z_\etale$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que, pour tout faisceau abélien $\mathcal{G}$ sur $Z_\etale$,
+on a
+$$
+\Hom_Z(\mathcal{G}, \mathcal{H}_Z(\mathcal{F})) =
+\Hom_X(i_*\mathcal{G}, \mathcal{F})
+$$
+car toute section de $i_*\mathcal{G}$ est à support dans $Z$.
+Comme $i_*$ est exact (lemme \ref{lemma-finite-higher-direct-image-zero})
+et que $\mathcal{I}$ est injectif sur $X_\etale$, on conclut que
+$\mathcal{H}_Z(\mathcal{I})$ est injectif sur $Z_\etale$.
+\end{proof}
+
+\noindent
+Notons
+$$
+R\mathcal{H}_Z : D(X_\etale) \longrightarrow D(Z_\etale)
+$$
+le foncteur dérivé. On pose
+$\mathcal{H}^q_Z(\mathcal{F}) = R^q\mathcal{H}_Z(\mathcal{F})$, de sorte que
+$\mathcal{H}^0_Z(\mathcal{F}) = \mathcal{H}_Z(\mathcal{F})$.
+D'après le lemme précédent, on a une suite spectrale de Grothendieck
+$$
+E_2^{p, q} = H^p(Z, \mathcal{H}^q_Z(\mathcal{F}))
+\Rightarrow H^{p + q}_Z(X, \mathcal{F})
+$$
+
+\begin{lemma}
+\label{lemma-cohomology-with-support-sheaf-on-support}
+Soit $S$ un schéma. Soit $i : Z \to X$ une immersion fermée
+d'espaces algébriques sur $S$. Soit $\mathcal{G}$ un faisceau abélien injectif
+sur $Z_\etale$. Alors $\mathcal{H}^p_Z(i_*\mathcal{G}) = 0$ pour $p > 0$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du fait que le foncteur $i_*$ est exact
+(lemme \ref{lemma-finite-higher-direct-image-zero}) et transforme
+les faisceaux abéliens injectifs en faisceaux abéliens injectifs
+(Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-pushforward-injective-flat}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-localization-sheaf-with-support}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme \'etale
+d'espaces algébriques sur $S$. Soit $Z \subset Y$ un sous-espace fermé
+tel que $f^{-1}(Z) \to Z$ soit un isomorphisme d'espaces algébriques.
+Soit $\mathcal{F}$ un faisceau abélien sur $X$. Alors
+$$
+\mathcal{H}^q_Z(\mathcal{F}) = \mathcal{H}^q_{f^{-1}(Z)}(f^{-1}\mathcal{F})
+$$
+en tant que faisceaux abéliens sur $Z = f^{-1}(Z)$ et on
+a $H^q_Z(Y, \mathcal{F}) = H^q_{f^{-1}(Z)}(X, f^{-1}\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Comme $f$ est \'etale, l'image inverse d'une résolution injective de $\mathcal{F}$
+est une résolution injective de $f^{-1}\mathcal{F}$.
+Il suffit donc de vérifier l'égalité pour $\mathcal{H}_Z(-)$,
+ce qui résulte des définitions. La démonstration pour la cohomologie à
+support est la même. Certains détails sont omis.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Soit $T \subset |X|$ un sous-ensemble fermé.
+On note $D_T(X_\etale)$ la
+sous-catégorie triangulée strictement pleine et saturée de $D(X_\etale)$
+formée des objets dont les faisceaux de cohomologie sont à support dans $T$.
+
+\begin{lemma}
+\label{lemma-complexes-with-support-on-closed}
+Soit $S$ un schéma.
+Soit $i : Z \to X$ une immersion fermée d'espaces algébriques sur $S$.
+L'application $Ri_* = i_* : D(Z_\etale) \to D(X_\etale)$
+induit une équivalence $D(Z_\etale) \to D_{|Z|}(X_\etale)$ de quasi-inverse
+$$
+i^{-1}|_{D_Z(X_\etale)} = R\mathcal{H}_Z|_{D_{|Z|}(X_\etale)}
+$$
+\end{lemma}
+
+\begin{proof}
+Rappelons que $i^{-1}$ et $i_*$ forment une paire de foncteurs adjoints
+exacts telle que $i^{-1}i_*$ est isomorphe au foncteur identité
+sur les faisceaux abéliens. Voir
+Propriétés d'espaces, lemme
+\ref{spaces-properties-lemma-stalk-pullback} et
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-closed-immersion-push-pull}.
+Ainsi $i_* : D(Z_\etale) \to D_Z(X_\etale)$ est pleinement fidèle et
+$i^{-1}$ fournit
+un inverse à gauche. D'autre part, supposons que $K$ soit un objet de
+$D_Z(X_\etale)$ et considérons le morphisme d'adjonction
+$K \to i_*i^{-1}K$.
+Par exactitude de $i_*$ et de $i^{-1}$,
+celui-ci induit les morphismes d'adjonction
+$H^n(K) \to i_*i^{-1}H^n(K)$ sur les faisceaux de cohomologie.
+Comme ces faisceaux de cohomologie
+sont à support dans $Z$, ces morphismes d'adjonction sont des isomorphismes
+et on conclut que $D(Z_\etale) \to D_Z(X_\etale)$ est une équivalence.
+
+\medskip\noindent
+Pour terminer la démonstration, il faut montrer que $R\mathcal{H}_Z(K) = i^{-1}K$
+si $K$ est un objet de $D_Z(X_\etale)$. Pour cela, on peut utiliser l'égalité
+$K = i_*i^{-1}K$
+que nous venons de démontrer. On peut alors
+choisir un représentant K-injectif $\mathcal{I}^\bullet$ de
+$i^{-1}K$.
+Puisque $i_*$ est l'adjoint à droite du foncteur exact
+$i^{-1}$, le
+complexe $i_*\mathcal{I}^\bullet$ est K-injectif
+(Catégories dérivées, lemme \ref{derived-lemma-adjoint-preserve-K-injectives}).
+On voit que $R\mathcal{H}_Z(K)$ est calculé par
+$\mathcal{H}_Z(i_*\mathcal{I}^\bullet) = \mathcal{I}^\bullet$,
+comme voulu.
+\end{proof}
+
+
+
+
+
+
+\section{Annulation au-delà de la dimension}
+\label{section-vanishing-above-dimension}
+
+\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact et quasi-séparé
+sur $S$. Dans ce cas, $|X|$ est un espace spectral, voir
+Propriétés d'espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral}.
+De plus, la dimension de $X$ (telle qu'elle est définie dans
+Propriétés d'espaces, définition \ref{spaces-properties-definition-dimension})
+est égale à la dimension de Krull de $|X|$, voir
+Espaces décents, lemme \ref{decent-spaces-lemma-dimension-decent-space}.
+Nous allons montrer que, pour les faisceaux quasi-cohérents sur $X$, la
+cohomologie s'annule au-delà de la dimension. Ce résultat est déjà intéressant pour les
+espaces algébriques quasi-séparés de type fini sur un corps.
+
+\begin{lemma}
+\label{lemma-vanishing-above-dimension}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact et quasi-séparé
+sur $S$. Supposons que $\dim(X) \leq d$ pour un entier $d$.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent $\mathcal{F}$ sur $X$.
+\begin{enumerate}
+\item $H^q(X, \mathcal{F}) = 0$ pour $q > d$,
+\item $H^d(X, \mathcal{F}) \to H^d(U, \mathcal{F})$ est surjective
+pour tout ouvert quasi-compact $U \subset X$,
+\item $H^q_Z(X, \mathcal{F}) = 0$ pour $q > d$ pour tout sous-espace fermé
+$Z \subset X$ dont le complémentaire est quasi-compact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après Propriétés d'espaces, lemme
+\ref{spaces-properties-lemma-dimension-decent-invariant-under-etale}
+tout espace algébrique $Y$ \'etale sur $X$ est de dimension $\leq d$.
+Si $Y$ est quasi-séparé, la dimension de $Y$ est égale à la
+dimension de Krull de $|Y|$ d'après 
+Espaces décents, lemme \ref{decent-spaces-lemma-dimension-decent-space}.
+De plus, si $Y$ est un schéma, alors la cohomologie \'etale de $\mathcal{F}$
+sur $Y$, resp.\ la cohomologie \'etale de $\mathcal{F}$ à support dans un
+sous-schéma fermé coïncide avec la cohomologie usuelle de $\mathcal{F}$,
+resp.\ avec la cohomologie usuelle à support dans le sous-schéma fermé.
+Voir
+Descente, proposition \ref{descent-proposition-same-cohomology-quasi-coherent}
+et
+Cohomologie \'etale, lemme
+\ref{etale-cohomology-lemma-cohomology-with-support-quasi-coherent}.
+Nous utiliserons ces faits sans autre mention.
+
+\medskip\noindent
+D'après Espaces décents, lemme
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}
+il existe un entier $n$ et des sous-espaces ouverts
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+ayant la propriété suivante : si l'on pose $T_p = U_p \setminus U_{p + 1}$
+(muni de la structure réduite induite), il existe un schéma séparé
+quasi-compact $V_p$ et un morphisme \'etale surjectif $f_p : V_p \to U_p$
+tel que $f_p^{-1}(T_p) \to T_p$ soit un isomorphisme.
+
+\medskip\noindent
+Comme $U_n = V_n$ est un schéma, nos remarques initiales montrent que la cohomologie de
+$\mathcal{F}$ sur $U_n$ s'annule en degrés $> d$ d'après
+Cohomologie, proposition
+\ref{cohomology-proposition-cohomological-dimension-spectral}.
+Supposons avoir montré, par récurrence, que
+$H^q(U_{p + 1}, \mathcal{F}|_{U_{p + 1}}) = 0$ pour $q > d$.
+Il suffit de montrer que $H_{T_p}^q(U_p, \mathcal{F})$ est nul pour
+$q > d$ afin d'en déduire l'annulation de la cohomologie
+de $\mathcal{F}$ sur $U_p$ en degrés $> d$.
+Cependant, on a
+$$
+H^q_{T_p}(U_p, \mathcal{F}) = H^q_{f_p^{-1}(T_p)}(V_p, \mathcal{F})
+$$
+d'après le lemme \ref{lemma-etale-localization-sheaf-with-support}
+et, puisque $V_p$ est un schéma, l'annulation voulue résulte de
+Cohomologie, proposition
+\ref{cohomology-proposition-cohomological-dimension-spectral}.
+On conclut ainsi que (1) est vraie.
+
+\medskip\noindent
+Pour démontrer (2), soit $U \subset X$ un sous-espace ouvert quasi-compact.
+Considérons le sous-espace ouvert $U' = U \cup U_n$. Posons $Z = U' \setminus U$.
+Alors $g : U_n \to U'$ est un morphisme \'etale tel que
+$g^{-1}(Z) \to Z$ soit un isomorphisme. Par conséquent, d'après le
+lemme \ref{lemma-etale-localization-sheaf-with-support},
+on a $H^q_Z(U', \mathcal{F}) = H^q_Z(U_n, \mathcal{F})$,
+qui s'annule en degré $> d$ puisque $U_n$ est un schéma
+et que l'on peut appliquer
+Cohomologie, proposition
+\ref{cohomology-proposition-cohomological-dimension-spectral}.
+On conclut que $H^d(U', \mathcal{F}) \to H^d(U, \mathcal{F})$
+est surjective. Supposons, par récurrence, avoir ramené
+notre problème au cas où $U$ contient $U_{p + 1}$.
+On pose alors $U' = U \cup U_p$, on pose $Z = U' \setminus U$, et
+on raisonne au moyen du morphisme $f_p : V_p \to U'$ qui est \'etale
+et tel que $f_p^{-1}(Z) \to Z$ soit un isomorphisme.
+Autrement dit, on voit de nouveau que
+$$
+H^q_Z(U', \mathcal{F}) = H^q_{f_p^{-1}(Z)}(V_p, \mathcal{F})
+$$
+et l'on voit de nouveau que ce groupe s'annule en degrés $> d$.
+On conclut que $H^d(U', \mathcal{F}) \to H^d(U, \mathcal{F})$
+est surjective. On atteint finalement le stade où $U_1 = X \subset U$,
+ce qui achève la démonstration.
+
+\medskip\noindent
+Un argument formel montre que (2) implique (3).
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Cohomologie et changement de base, I}
+\label{section-cohomology-and-base-change}
+
+\noindent
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $X$.
+Supposons en outre que $g : Y' \to Y$ soit un morphisme d'espaces algébriques au-dessus de
+$S$. Notons $X' = X_{Y'} = Y' \times_Y X$ le changement de base de $X$ et notons
+$f' : X' \to Y'$ le changement de base de $f$.
+Notons aussi $g' : X' \to X$ la projection,
+et posons $\mathcal{F}' = (g')^*\mathcal{F}$.
+La situation est représentée par le diagramme suivant :
+\begin{equation}
+\label{equation-base-change-diagram}
+\vcenter{
+\xymatrix{
+\mathcal{F}' = (g')^*\mathcal{F} &
+X' \ar[r]_{g'} \ar[d]_{f'} &
+X \ar[d]^f &
+\mathcal{F} \\
+Rf'_*\mathcal{F}' &
+Y' \ar[r]^g &
+Y &
+Rf_*\mathcal{F}
+}
+}
+\end{equation}
+Voici le cas le plus simple de la propriété de changement de base que nous avons en vue.
+
+\begin{lemma}
+\label{lemma-affine-base-change}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme affine d'espaces
+algébriques au-dessus de $S$. Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Dans ce cas, $f_*\mathcal{F} \cong Rf_*\mathcal{F}$ est un faisceau quasi-cohérent,
+et, pour tout diagramme (\ref{equation-base-change-diagram}),
+on a
+$$
+g^*f_*\mathcal{F} = f'_*(g')^*\mathcal{F}.
+$$
+\end{lemma}
+
+\begin{proof}
+D'après la discussion autour de
+(\ref{equation-representable-higher-direct-image}),
+on se ramène au cas d'un morphisme affine de schémas, qui
+est traité dans Cohomologie des schémas, lemme
+\ref{coherent-lemma-affine-base-change}.
+\end{proof}
+
+\begin{lemma}[Changement de base plat]
+\label{lemma-flat-base-change-cohomology}
+Soit $S$ un schéma. Considérons un diagramme cartésien d'espaces algébriques
+$$
+\xymatrix{
+X' \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+au-dessus de $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent
+dont l'image inverse est $\mathcal{F}' = (g')^*\mathcal{F}$.
+Supposons que $g$ soit plat et que $f$ soit quasi-compact et quasi-séparé.
+Pour tout $i \geq 0$,
+\begin{enumerate}
+\item la flèche de changement de base de
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-base-change-map-flat-case}
+est un isomorphisme
+$$
+g^*R^if_*\mathcal{F} \longrightarrow R^if'_*\mathcal{F}',
+$$
+\item si $Y = \Spec(A)$ et $Y' = \Spec(B)$, alors
+$H^i(X, \mathcal{F}) \otimes_A B = H^i(X', \mathcal{F}')$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Le morphisme $g'$ est plat d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-flat}.
+Notons que la platitude de $g$ et de $g'$ équivaut à la platitude
+des morphismes de petits sites étales annelés, voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-flat-morphism-sites}.
+On peut donc appliquer
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-base-change-map-flat-case}
+pour obtenir une flèche de changement de base
+$$
+g^*R^pf_*\mathcal{F} \longrightarrow R^pf'_*\mathcal{F}'
+$$
+Pour montrer que cette flèche est un isomorphisme, on peut travailler localement pour la
+topologie étale sur $Y'$. On peut donc supposer que $Y$ et $Y'$ sont des schémas
+affines. Posons $Y = \Spec(A)$ et $Y' = \Spec(B)$.
+Dans ce cas, il s'agit en fait de montrer que la flèche
+$$
+H^p(X, \mathcal{F}) \otimes_A B \longrightarrow H^p(X_B, \mathcal{F}_B)
+$$
+est un isomorphisme, où $X_B = \Spec(B) \times_{\Spec(A)} X$ et
+$\mathcal{F}_B$ est l'image inverse de $\mathcal{F}$ sur $X_B$.
+Autrement dit, il suffit de démontrer (2).
+
+\medskip\noindent
+Fixons un homomorphisme plat d'anneaux $A \to B$ et soit $X$ un espace algébrique
+quasi-compact et quasi-séparé sur $A$. Notons que $g' : X_B \to X$
+est affine en tant que changement de base de $\Spec(B) \to \Spec(A)$. Par conséquent,
+les images directes supérieures $R^i(g')_*\mathcal{F}_B$ sont nulles d'après le
+lemme \ref{lemma-affine-vanishing-higher-direct-images}.
+Ainsi, $H^p(X_B, \mathcal{F}_B) = H^p(X, g'_*\mathcal{F}_B)$, voir
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-apply-Leray}.
+De plus, on a
+$$
+g'_*\mathcal{F}_B = \mathcal{F} \otimes_{\underline{A}} \underline{B}
+$$
+où $\underline{A}$ et $\underline{B}$ désignent les faisceaux constants d'anneaux
+de valeurs respectives $A$ et $B$. En effet, il est clair qu'il existe une flèche
+du membre de droite vers celui de gauche. Pour tout schéma affine $U$ étale sur $X$, on a
+\begin{align*}
+g'_*\mathcal{F}_B(U) & = \mathcal{F}_B(\Spec(B) \times_{\Spec(A)} U) \\
+& =
+\Gamma(\Spec(B) \times_{\Spec(A)} U,
+(\Spec(B) \times_{\Spec(A)} U \to U)^*\mathcal{F}|_U) \\
+& =
+B \otimes_A \mathcal{F}(U)
+\end{align*}
+donc cette flèche est un isomorphisme. Écrivons $B = \colim M_i$ comme limite
+inductive filtrante de $A$-modules libres de type fini $M_i$ en utilisant le théorème de Lazard, voir
+Algèbre, théorème \ref{algebra-theorem-lazard}.
+On en déduit que
+\begin{align*}
+H^p(X, g'_*\mathcal{F}_B) &
+= H^p(X, \mathcal{F} \otimes_{\underline{A}} \underline{B}) \\
+& = H^p(X, \colim_i \mathcal{F} \otimes_{\underline{A}} \underline{M_i}) \\
+& = \colim_i H^p(X, \mathcal{F} \otimes_{\underline{A}} \underline{M_i}) \\
+& = \colim_i H^p(X, \mathcal{F}) \otimes_A M_i \\
+& = H^p(X, \mathcal{F}) \otimes_A \colim_i M_i \\
+& = H^p(X, \mathcal{F}) \otimes_A B
+\end{align*}
+La première égalité vient de ce que
+$g'_*\mathcal{F}_B = \mathcal{F} \otimes_{\underline{A}} \underline{B}$,
+comme on l'a vu ci-dessus.
+La deuxième vient de ce que $\otimes$ commute aux limites inductives.
+La troisième égalité vient de ce que la cohomologie sur $X$ commute aux
+limites inductives (voir le
+lemme \ref{lemma-colimits}).
+La quatrième égalité vient de ce que $M_i$ est libre de type fini (c'est-à-dire de ce que la cohomologie
+commute aux sommes directes finies).
+La cinquième vient de ce que $\otimes$ commute aux limites inductives.
+La sixième résulte du choix de notre système.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-pull-push-split}
+Soit $f : X \to Y$ un morphisme quasi-compact, séparé et \'etale
+d'espaces algébriques. Alors, pour tout $\mathcal{O}_X$-module quasi-cohérent
+$\mathcal{F}$, le morphisme $f^*f_*\mathcal{F} \to \mathcal{F}$ est scindé.
+\end{lemma}
+
+\begin{proof}
+Considérons le diagramme cartésien
+$$
+\xymatrix{
+X \times_Y X \ar[r]_-p \ar[d]_q & X \ar[d]^f \\
+X \ar[r]^f & Y
+}
+$$
+D'après le Lemme \ref{lemma-affine-base-change}, on a
+$f^*f_*\mathcal{F} = q_*p^*\mathcal{F}$. Le morphisme
+$\Delta : X \to X \times_Y X$ est ouvert (car c'est un morphisme entre
+espaces algébriques \'etales sur $Y$) et fermé puisque $f$ est séparé.
+On voit donc que $p^*\mathcal{F}$ est somme directe de
+$\Delta_*\mathcal{F}$ et d'un module quasi-cohérent à support
+dans le complémentaire (ouvert et fermé) de $\Delta(X)$.
+En suivant les morphismes, le lecteur vérifie que
+$$
+\mathcal{F} = q_*\Delta_*\mathcal{F} \to
+q_*p^*\mathcal{F} = f^*f_*\mathcal{F} \to
+\mathcal{F}
+$$
+est le morphisme identité. Nous omettons les détails.
+\end{proof}
+
+
+
+\section{Modules cohérents sur les espaces algébriques localement noethériens}
+\label{section-coherent}
+
+\noindent
+Cette section est l'analogue de
+Cohomologie des schémas, section \ref{coherent-section-coherent-sheaves}.
+Dans Modules sur les sites, Définition \ref{sites-modules-definition-site-local},
+nous avons défini les modules cohérents sur tout topos annelé. Nous employons cette notion
+pour définir les modules cohérents sur les espaces algébriques localement noethériens.
+Bien qu'il soit possible de travailler plus généralement avec des modules cohérents,
+nous nous abstiendrons de le faire.
+
+\begin{definition}
+\label{definition-coherent}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+Un module quasi-cohérent $\mathcal{F}$ sur $X$ est dit {\it cohérent}
+si $\mathcal{F}$ est un $\mathcal{O}_X$-module cohérent sur le site
+$X_\etale$ au sens de
+Modules sur les sites, Définition \ref{sites-modules-definition-site-local}.
+\end{definition}
+
+\noindent
+Cette définition est compatible avec la notion déjà existante de
+module cohérent sur un schéma localement noethérien; voir l'assertion (5) de
+Propriétés des espaces, section
+\ref{spaces-properties-section-properties-modules} (ou, plus directement,
+Descente, Lemme \ref{descent-lemma-equivalence-quasi-coherent-properties}).
+Désormais, si $X$ est un schéma localement noethérien sur $S$,
+nous ne distinguerons donc pas un module cohérent sur $X$ considéré
+comme schéma d'un module cohérent sur $X$ considéré comme espace algébrique;
+ceci est compatible avec les identifications correspondantes des catégories
+de modules quasi-cohérents décrites dans
+Propriétés des espaces, section \ref{spaces-properties-section-quasi-coherent}.
+
+\medskip\noindent
+Cela étant, le lemme suivant donne une caractérisation concrète
+des modules cohérents sur les espaces algébriques localement
+noethériens.
+
+\begin{lemma}
+\label{lemma-coherent-Noetherian}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{F}$ est cohérent,
+\item $\mathcal{F}$ est un $\mathcal{O}_X$-module quasi-cohérent de type fini,
+\item $\mathcal{F}$ est un $\mathcal{O}_X$-module de présentation finie,
+\item pour tout morphisme \'etale $\varphi : U \to X$, où $U$ est un schéma,
+l'image inverse $\varphi^*\mathcal{F}$ est un module cohérent sur $U$, et
+\item il existe un morphisme \'etale surjectif $\varphi : U \to X$,
+où $U$ est un schéma, tel que l'image inverse $\varphi^*\mathcal{F}$ soit
+un module cohérent sur $U$.
+\end{enumerate}
+En particulier, $\mathcal{O}_X$ est cohérent, tout
+$\mathcal{O}_X$-module inversible est cohérent et, plus généralement, tout
+$\mathcal{O}_X$-module localement libre de type fini est cohérent.
+\end{lemma}
+
+\begin{proof}
+Notons que, si $X$ est un espace algébrique localement noethérien et si
+$U \to X$ est un morphisme \'etale, alors $U$ est localement noethérien; voir
+Propriétés des espaces, section \ref{spaces-properties-section-types-properties}.
+Le lemme résulte alors des points (1) -- (5) établis dans
+Propriétés des espaces, section \ref{spaces-properties-section-properties-modules},
+et du résultat correspondant pour les modules cohérents sur les schémas
+localement noethériens; voir
+Cohomologie des schémas, Lemme \ref{coherent-lemma-coherent-Noetherian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-abelian-Noetherian}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+La catégorie des $\mathcal{O}_X$-modules cohérents est abélienne. Plus précisément,
+le noyau et le conoyau d'un morphisme de $\mathcal{O}_X$-modules cohérents sont
+cohérents. Toute extension de faisceaux cohérents est cohérente.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $f : U \to X$.
+L'image inverse $f^*$ est un foncteur exact, car elle est un foncteur de restriction; voir
+Propriétés des espaces, Équation
+(\ref{spaces-properties-equation-restrict-modules}).
+D'après le
+Lemme \ref{lemma-coherent-Noetherian}, pour vérifier qu'un
+$\mathcal{O}_X$-module $\mathcal{F}$ est
+cohérent, il suffit de vérifier que $f^*\mathcal{F}$ est cohérent. Le
+lemme résulte donc du cas des schémas, qui est
+Cohomologie des schémas, Lemme \ref{coherent-lemma-coherent-abelian-Noetherian}.
+\end{proof}
+
+\noindent
+Les modules cohérents forment une sous-catégorie de Serre de la
+catégorie des $\mathcal{O}_X$-modules quasi-cohérents. Cela n'est pas vrai
+pour les modules sur un topos annelé quelconque.
+
+\begin{lemma}
+\label{lemma-coherent-Noetherian-quasi-coherent-sub-quotient}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+Tout sous-module quasi-cohérent de $\mathcal{F}$ est cohérent.
+Tout module quotient quasi-cohérent de $\mathcal{F}$ est cohérent.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $f : U \to X$.
+L'image inverse $f^*$ est un foncteur exact, car elle est un foncteur de restriction; voir
+Propriétés des espaces, Équation
+(\ref{spaces-properties-equation-restrict-modules}).
+D'après le
+Lemme \ref{lemma-coherent-Noetherian}, pour vérifier qu'un
+$\mathcal{O}_X$-module $\mathcal{G}$ est
+cohérent, il suffit de vérifier que $f^*\mathcal{H}$ est cohérent. Le
+lemme résulte donc du cas des schémas, qui est
+Cohomologie des schémas, Lemme
+\ref{coherent-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-tensor-hom-coherent}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soient $\mathcal{F}$, $\mathcal{G}$ des $\mathcal{O}_X$-modules cohérents.
+Les $\mathcal{O}_X$-modules $\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$
+et $\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ sont
+cohérents.
+\end{lemma}
+
+\begin{proof}
+Par le Lemme \ref{lemma-coherent-Noetherian}, cela résulte du résultat
+pour les schémas; voir
+Cohomologie des schémas, Lemme \ref{coherent-lemma-tensor-hom-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-local-isomorphism}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soient $\mathcal{F}$, $\mathcal{G}$ des $\mathcal{O}_X$-modules cohérents.
+Soit $\varphi : \mathcal{G} \to \mathcal{F}$ un homomorphisme
+de $\mathcal{O}_X$-modules. Soit $\overline{x}$ un point géométrique de $X$
+au-dessus de $x \in |X|$.
+\begin{enumerate}
+\item Si $\mathcal{F}_{\overline{x}} = 0$, il existe un voisinage
+ouvert $X' \subset X$ de $x$ tel que $\mathcal{F}|_{X'} = 0$.
+\item Si $\varphi_{\overline{x}} : \mathcal{G}_{\overline{x}} \to
+\mathcal{F}_{\overline{x}}$ est injectif, il existe un voisinage
+ouvert $X' \subset X$ de $x$ tel que $\varphi|_{X'}$ soit injectif.
+\item Si $\varphi_{\overline{x}} : \mathcal{G}_{\overline{x}} \to
+\mathcal{F}_{\overline{x}}$ est surjectif, il existe un voisinage
+ouvert $X' \subset X$ de $x$ tel que $\varphi|_{X'}$ soit surjectif.
+\item Si $\varphi_{\overline{x}} : \mathcal{G}_{\overline{x}} \to
+\mathcal{F}_{\overline{x}}$ est bijectif, il existe un voisinage
+ouvert $X' \subset X$ de $x$ tel que $\varphi|_{X'}$ soit un isomorphisme.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $\varphi : U \to X$ un morphisme \'etale, où $U$ est un schéma, et
+soit $u \in U$ un point d'image $x$. D'après
+Propriétés des espaces, Lemmes
+\ref{spaces-properties-lemma-stalk-quasi-coherent} et
+\ref{spaces-properties-lemma-describe-etale-local-ring}
+ainsi que
+Compléments d'algèbre, Lemme \ref{more-algebra-lemma-dumb-properties-henselization},
+on voit que $\varphi_{\overline{x}}$ est injectif, surjectif ou bijectif
+si et seulement si $\varphi_u : \varphi^*\mathcal{F}_u \to \varphi^*\mathcal{G}_u$
+possède la propriété correspondante. On peut donc appliquer la version de
+ce lemme pour les schémas pour voir que (quitte à restreindre $U$) le morphisme
+$\varphi^*\mathcal{F} \to \varphi^*\mathcal{G}$ est injectif, surjectif
+ou un isomorphisme. Soit $X' \subset X$ le sous-espace ouvert correspondant
+à $|\varphi|(|U|) \subset |X|$; voir
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-open-subspaces}.
+Puisque $\{U \to X'\}$ est un recouvrement pour la topologie \'etale, on conclut
+que $\varphi|_{X'}$ est injectif, surjectif ou un isomorphisme, ce qui donne le résultat voulu.
+Enfin, remarquons que (1) résulte de (2) en considérant le morphisme
+$\mathcal{F} \to 0$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-support-closed}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent. Soit $i : Z \to X$
+le support schématique de $\mathcal{F}$, et soit $\mathcal{G}$
+le $\mathcal{O}_Z$-module quasi-cohérent tel que
+$i_*\mathcal{G} = \mathcal{F}$; voir
+Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-scheme-theoretic-support}.
+Alors $\mathcal{G}$ est un $\mathcal{O}_Z$-module cohérent.
+\end{lemma}
+
+\begin{proof}
+L'énoncé du lemme a un sens, car un module cohérent est en
+particulier de type fini. De plus, comme $Z \to X$ est une immersion fermée,
+ce morphisme est localement de type fini, et $Z$ est donc localement noethérien; voir
+Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-immersion-locally-finite-type} et
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}.
+Enfin, puisque $\mathcal{G}$ est de type fini, c'est un
+$\mathcal{O}_Z$-module cohérent d'après le
+Lemme \ref{lemma-coherent-Noetherian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-i-star-equivalence}
+Soit $S$ un schéma. Soit $i : Z \to X$ une immersion fermée d'espaces
+algébriques localement noethériens sur $S$.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ le faisceau quasi-cohérent d'idéaux
+définissant $Z$. Le foncteur $i_*$ induit une équivalence entre la
+catégorie des $\mathcal{O}_X$-modules cohérents annulés par $\mathcal{I}$
+et la catégorie des $\mathcal{O}_Z$-modules cohérents.
+\end{lemma}
+
+\begin{proof}
+Le foncteur est pleinement fidèle d'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-i-star-equivalence}.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent
+annulé par $\mathcal{I}$. D'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-i-star-equivalence},
+on peut écrire $\mathcal{F} = i_*\mathcal{G}$ pour un faisceau quasi-cohérent
+$\mathcal{G}$ sur $Z$. Pour vérifier que $\mathcal{G}$ est cohérent,
+on peut travailler localement pour la topologie \'etale (Lemme \ref{lemma-coherent-Noetherian}).
+En choisissant un recouvrement \'etale par un schéma, on conclut que
+$\mathcal{G}$ est cohérent par le cas des schémas
+(Cohomologie des schémas, Lemme \ref{coherent-lemma-i-star-equivalence}).
+Ainsi le foncteur est pleinement fidèle, ce qui termine la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-pushforward-coherent}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme fini d'espaces
+algébriques sur $S$, avec $Y$ localement noethérien. Soit $\mathcal{F}$ un
+$\mathcal{O}_X$-module cohérent. Supposons $f$ fini et $Y$ localement
+noethérien. Alors $R^pf_*\mathcal{F} = 0$ pour $p > 0$, et
+$f_*\mathcal{F}$ est cohérent.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Alors $V \times_Y X \to V$ est un morphisme fini de schémas localement
+noethériens. D'après (\ref{equation-representable-higher-direct-image}), on se ramène
+au cas des schémas, qui est
+Cohomologie des schémas, Lemme \ref{coherent-lemma-finite-pushforward-coherent}.
+\end{proof}
+
+
+
+
+
+
+\section{Faisceaux cohérents sur les espaces noethériens}
+\label{section-coherent-quasi-compact}
+
+\noindent
+Dans cette section, nous donnons quelques propriétés des faisceaux cohérents sur
+les espaces algébriques noethériens.
+
+\begin{lemma}
+\label{lemma-acc-coherent}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+Les sous-modules quasi-cohérents de $\mathcal{F}$ vérifient la condition
+de chaîne ascendante. Autrement dit, pour toute suite
+$$
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \ldots \subset \mathcal{F}
+$$
+de sous-modules quasi-cohérents, on a
+$\mathcal{F}_n = \mathcal{F}_{n + 1} = \ldots $ pour un certain $n \geq 0$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma affine $U$ et un morphisme \'etale surjectif $U \to X$
+(voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}).
+Alors $U$ est un schéma noethérien (d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Si $\mathcal{F}_n|_U = \mathcal{F}_{n + 1}|_U = \ldots$,
+alors $\mathcal{F}_n = \mathcal{F}_{n + 1} = \ldots$.
+Le résultat découle donc du cas des schémas; voir
+Cohomologie des schémas, Lemme \ref{coherent-lemma-acc-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-power-ideal-kills-sheaf}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{F}$ un faisceau cohérent sur $X$. Soit
+$\mathcal{I} \subset \mathcal{O}_X$ un faisceau quasi-cohérent d'idéaux
+correspondant à un sous-espace fermé $Z \subset X$. Il existe alors un
+$n \geq 0$ tel que $\mathcal{I}^n\mathcal{F} = 0$ si et seulement si
+$\text{Supp}(\mathcal{F}) \subset Z$ ensemblistement.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma affine $U$ et un morphisme \'etale surjectif $U \to X$
+(voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}).
+Alors $U$ est un schéma noethérien (d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Notons que $\mathcal{I}^n\mathcal{F}|_U = 0$ si et seulement si
+$\mathcal{I}^n\mathcal{F} = 0$, et il en va de même pour la condition sur
+le support. Le résultat découle donc du cas des schémas; voir
+Cohomologie des schémas, Lemme \ref{coherent-lemma-power-ideal-kills-sheaf}.
+\end{proof}
+
+\begin{lemma}[Artin-Rees]
+\label{lemma-Artin-Rees}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{F}$ un faisceau cohérent sur $X$. Soit
+$\mathcal{G} \subset \mathcal{F}$ un sous-faisceau quasi-cohérent.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ un faisceau quasi-cohérent
+d'idéaux. Il existe alors un $c \geq 0$ tel que, pour tout $n \geq c$, on
+ait
+$$
+\mathcal{I}^{n - c}(\mathcal{I}^c\mathcal{F} \cap \mathcal{G})
+=
+\mathcal{I}^n\mathcal{F} \cap \mathcal{G}
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma affine $U$ et un morphisme \'etale surjectif $U \to X$
+(voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}).
+Alors $U$ est un schéma noethérien (d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+L'égalité du lemme est vérifiée si et seulement si elle l'est après
+restriction à $U$. Le résultat découle donc du cas des schémas; voir
+Cohomologie des schémas, Lemme \ref{coherent-lemma-Artin-Rees}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-homs-over-open}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $\mathcal{G}$ un $\mathcal{O}_X$-module cohérent.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ un faisceau quasi-cohérent
+d'idéaux. Notons $Z \subset X$ le sous-espace fermé correspondant et
+posons $U = X \setminus Z$. Il existe un isomorphisme canonique
+$$
+\colim_n \Hom_{\mathcal{O}_X}(\mathcal{I}^n\mathcal{G}, \mathcal{F})
+\longrightarrow
+\Hom_{\mathcal{O}_U}(\mathcal{G}|_U, \mathcal{F}|_U).
+$$
+En particulier, on a un isomorphisme
+$$
+\colim_n \Hom_{\mathcal{O}_X}(\mathcal{I}^n, \mathcal{F})
+\longrightarrow
+\Gamma(U, \mathcal{F}).
+$$
+\end{lemma}
+
+\begin{proof}
+Soit $W$ un schéma affine et soit $W \to X$ un morphisme \'etale
+surjectif (voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}).
+Posons $R = W \times_X W$. Alors $W$ et $R$ sont des schémas noethériens; voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}.
+Le résultat vaut donc pour les restrictions de $\mathcal{F}$, $\mathcal{G}$,
+ainsi que de $\mathcal{I}$, $U$, $Z$, à $W$ et à $R$, d'après
+Cohomologie des schémas, Lemme \ref{coherent-lemma-homs-over-open}.
+Il en résulte formellement que le résultat vaut sur $X$.
+\end{proof}
+
+
+
+
+
+
+\section{Dévissage des faisceaux cohérents}
+\label{section-devissage}
+
+\noindent
+Cette section est l'analogue de
+Cohomologie des schémas, section \ref{coherent-section-devissage}.
+
+\begin{lemma}
+\label{lemma-prepare-filter-support}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{F}$ un faisceau cohérent sur $X$. Supposons que
+$\text{Supp}(\mathcal{F}) = Z \cup Z'$, où $Z$, $Z'$ sont fermés.
+Il existe alors une suite exacte courte de faisceaux cohérents
+$$
+0 \to \mathcal{G}' \to \mathcal{F} \to \mathcal{G} \to 0
+$$
+avec $\text{Supp}(\mathcal{G}') \subset Z'$ et
+$\text{Supp}(\mathcal{G}) \subset Z$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{I} \subset \mathcal{O}_X$ le faisceau d'idéaux
+définissant sur $Z$ la structure réduite induite de sous-espace fermé; voir
+Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-reduced-closed-subspace}.
+Considérons les sous-faisceaux
+$\mathcal{G}'_n = \mathcal{I}^n\mathcal{F}$ et les
+quotients $\mathcal{G}_n = \mathcal{F}/\mathcal{I}^n\mathcal{F}$.
+Pour tout $n$, on a une suite exacte courte
+$$
+0 \to \mathcal{G}'_n \to \mathcal{F} \to \mathcal{G}_n \to 0
+$$
+Pour tout point géométrique $\overline{x}$ de $Z' \setminus Z$, on a
+$\mathcal{I}_{\overline{x}} = \mathcal{O}_{X, \overline{x}}$
+et donc $\mathcal{G}_{n, \overline{x}} = 0$. Ainsi, on voit que
+$\text{Supp}(\mathcal{G}_n) \subset Z$. Notons que $X \setminus Z'$
+est un espace algébrique noethérien. D'après le
+Lemme \ref{lemma-power-ideal-kills-sheaf},
+il existe donc un $n$ tel que $\mathcal{G}'_n|_{X \setminus Z'} =
+\mathcal{I}^n\mathcal{F}|_{X \setminus Z'} = 0$.
+Pour un tel $n$, on voit que $\text{Supp}(\mathcal{G}'_n) \subset Z'$.
+Il suffit donc de poser $\mathcal{G}' = \mathcal{G}'_n$ et $\mathcal{G} = \mathcal{G}_n$
+pour conclure.
+\end{proof}
+
+\noindent
+Dans la suite, nous emploierons librement le support schématique des
+modules de type fini défini dans Morphismes d'espaces, Définition
+\ref{spaces-morphisms-definition-scheme-theoretic-support}.
+
+\begin{lemma}
+\label{lemma-prepare-filter-irreducible}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{F}$ un faisceau cohérent sur $X$. Supposons que le support
+schématique de $\mathcal{F}$ soit un sous-espace réduit $Z \subset X$ tel que
+$|Z|$ soit irréductible. Il existe alors un entier $r > 0$, un
+faisceau non nul d'idéaux $\mathcal{I} \subset \mathcal{O}_Z$ et un
+morphisme injectif de faisceaux cohérents
+$$
+i_*\left(\mathcal{I}^{\oplus r}\right) \to \mathcal{F}
+$$
+dont le conoyau est à support dans un sous-espace fermé strict de $Z$.
+\end{lemma}
+
+\begin{proof}
+Par hypothèse, il existe un $\mathcal{O}_Z$-module cohérent
+$\mathcal{G}$ de support $Z$ tel que $\mathcal{F} \cong i_*\mathcal{G}$; voir
+Lemme \ref{lemma-coherent-support-closed}. Il suffit donc de démontrer le
+lemme dans le cas $Z = X$ et $i = \text{id}$.
+
+\medskip\noindent
+Par Propriétés des espaces, Proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}
+il existe un sous-espace ouvert dense $U \subset X$ qui est un schéma. Notons que
+$U$ est un schéma intègre noethérien. Quitte à restreindre $U$, on peut supposer
+que $\mathcal{F}|_U \cong \mathcal{O}_U^{\oplus r}$ (par exemple d'après
+Cohomologie des schémas, Lemme \ref{coherent-lemma-prepare-filter-irreducible},
+ou par un argument direct d'algèbre). Soit $\mathcal{I} \subset \mathcal{O}_X$
+un faisceau quasi-cohérent d'idéaux dont le sous-espace fermé associé
+est le complémentaire de $U$ dans $X$ (voir, par exemple,
+Propriétés des espaces, section \ref{spaces-properties-section-reduced}). 
+D'après le Lemme \ref{lemma-homs-over-open}, il existe un $n \geq 0$ et un
+morphisme $\mathcal{I}^n(\mathcal{O}_X^{\oplus r}) \to \mathcal{F}$
+qui redonne notre isomorphisme sur $U$. Puisque
+$\mathcal{I}^n(\mathcal{O}_X^{\oplus r}) = (\mathcal{I}^n)^{\oplus r}$,
+on obtient un morphisme comme dans le lemme. Il est injectif : en effet, si $\sigma$ est
+une section non nulle de $\mathcal{I}^{\oplus r}$ sur un schéma $W$ \'etale
+sur $X$, alors, puisque $X$, et donc $W$, est réduit, le support de $\sigma$
+contient un ouvert non vide de $W$. Or le noyau de
+$(\mathcal{I}^n)^{\oplus r} \to \mathcal{F}$ est nul
+sur un ouvert dense; $\sigma$ ne peut donc pas être une section du noyau.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-filter}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{F}$ un faisceau cohérent sur $X$. Il existe une filtration
+$$
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset
+\ldots \subset \mathcal{F}_m = \mathcal{F}
+$$
+par des sous-faisceaux cohérents telle que, pour chaque $j = 1, \ldots, m$,
+il existe un sous-espace fermé réduit $Z_j \subset X$ tel que $|Z_j|$
+soit irréductible, et un faisceau d'idéaux $\mathcal{I}_j \subset \mathcal{O}_{Z_j}$
+tels que
+$$
+\mathcal{F}_j/\mathcal{F}_{j - 1}
+\cong (Z_j \to X)_* \mathcal{I}_j
+$$
+\end{lemma}
+
+\begin{proof}
+Considérons l'ensemble
+$$
+\mathcal{T} =
+\left\{
+\begin{matrix}
+T \subset |X|
+\text{ fermé tel qu'il existe un faisceau cohérent }
+\mathcal{F} \\
+\text{ avec }
+\text{Supp}(\mathcal{F}) = T
+\text{ pour lequel le lemme est faux}
+\end{matrix}
+\right\}
+$$
+Nous voulons montrer que $\mathcal{T}$ est vide. Sinon,
+puisque $|X|$ est noethérien (Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-Noetherian-topology})
+on peut choisir un élément minimal $T \in \mathcal{T}$. Cela signifie qu'il
+existe un faisceau cohérent $\mathcal{F}$ sur $X$, de support $T$,
+pour lequel le lemme n'est pas vrai. Il est clair que $T \not = \emptyset$, car
+le seul faisceau de support vide est le faisceau nul, pour lequel le
+lemme est vrai (avec $m = 0$).
+
+\medskip\noindent
+Si $T$ n'est pas irréductible, on peut écrire $T = Z_1 \cup Z_2$,
+où $Z_1, Z_2$ sont fermés et strictement contenus dans $T$.
+On peut alors appliquer le Lemme \ref{lemma-prepare-filter-support}
+pour obtenir une suite exacte courte de faisceaux cohérents
+$$
+0 \to
+\mathcal{G}_1 \to
+\mathcal{F} \to
+\mathcal{G}_2 \to 0
+$$
+avec $\text{Supp}(\mathcal{G}_i) \subset Z_i$. Par minimalité de
+$T$, chacun des $\mathcal{G}_i$ admet une filtration comme dans l'énoncé
+du lemme. En considérant la filtration induite sur $\mathcal{F}$,
+on aboutit à une contradiction. On en conclut
+que $T$ est irréductible.
+
+\medskip\noindent
+Supposons $T$ irréductible. Soit $\mathcal{J}$ le faisceau d'idéaux
+définissant sur $T$ la structure réduite induite de sous-espace fermé;
+voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-reduced-closed-subspace}.
+D'après le Lemme \ref{lemma-power-ideal-kills-sheaf}, il existe
+un $n \geq 0$ tel que $\mathcal{J}^n\mathcal{F} = 0$. On obtient donc
+une filtration
+$$
+0 = \mathcal{I}^n\mathcal{F} \subset \mathcal{I}^{n - 1}\mathcal{F}
+\subset \ldots \subset \mathcal{I}\mathcal{F} \subset \mathcal{F}
+$$
+dont chacun des sous-quotients successifs est annulé par $\mathcal{J}$.
+Si chacun de ces sous-quotients admet une filtration comme dans l'énoncé
+du lemme, il en va de même pour $\mathcal{F}$. Autrement dit, on peut
+supposer que $\mathcal{J}$ annule $\mathcal{F}$.
+
+\medskip\noindent
+Supposons $T$ irréductible et $\mathcal{J}\mathcal{F} = 0$, où
+$\mathcal{J}$ est comme ci-dessus. Alors le support schématique de
+$\mathcal{F}$ est $T$; voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-i-star-equivalence}.
+On peut donc appliquer le Lemme \ref{lemma-prepare-filter-irreducible}.
+On obtient une suite exacte courte
+$$
+0 \to
+i_*(\mathcal{I}^{\oplus r}) \to
+\mathcal{F} \to
+\mathcal{Q} \to 0
+$$
+où le support de $\mathcal{Q}$ est une partie fermée stricte de $T$.
+On voit donc que $\mathcal{Q}$ admet une filtration du type voulu
+par minimalité de $T$. Mais il en va alors manifestement de même pour $\mathcal{F}$,
+d'où la contradiction finale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-property-initial}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{P}$ une propriété des faisceaux cohérents sur $X$. Supposons que
+\begin{enumerate}
+\item pour toute suite exacte courte de faisceaux cohérents
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F} \to \mathcal{F}_2 \to 0
+$$
+si les $\mathcal{F}_i$, $i = 1, 2$, vérifient la propriété $\mathcal{P}$,
+il en va de même pour $\mathcal{F}$;
+\item pour tout sous-espace fermé réduit $Z \subset X$ tel que $|Z|$ soit irréductible
+et tout faisceau quasi-cohérent d'idéaux $\mathcal{I} \subset \mathcal{O}_Z$,
+la propriété $\mathcal{P}$ est vérifiée par $i_*\mathcal{I}$.
+\end{enumerate}
+Alors la propriété $\mathcal{P}$ est vérifiée par tout faisceau cohérent sur $X$.
+\end{lemma}
+
+\begin{proof}
+Notons d'abord que, si $\mathcal{F}$ est un faisceau cohérent muni d'une filtration
+$$
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset
+\ldots \subset \mathcal{F}_m = \mathcal{F}
+$$
+par des sous-faisceaux cohérents telle que chaque $\mathcal{F}_i/\mathcal{F}_{i - 1}$
+vérifie la propriété $\mathcal{P}$, il en va de même pour $\mathcal{F}$.
+Cela résulte de la propriété (1) de $\mathcal{P}$.
+D'autre part, d'après le Lemme \ref{lemma-coherent-filter},
+on peut munir tout $\mathcal{F}$ d'une filtration
+dont les sous-quotients successifs sont comme dans (2).
+Le lemme en résulte.
+\end{proof}
+
+\noindent
+Voici une variante plus utile du lemme précédent.
+
+\begin{lemma}
+\label{lemma-property-higher-rank-cohomological}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{P}$ une propriété des faisceaux cohérents sur $X$. Supposons que
+\begin{enumerate}
+\item pour toute suite exacte courte de faisceaux cohérents
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F} \to \mathcal{F}_2 \to 0
+$$
+si les $\mathcal{F}_i$, $i = 1, 2$, vérifient la propriété $\mathcal{P}$,
+il en va de même pour $\mathcal{F}$;
+\item si $\mathcal{P}$ est vérifiée par $\mathcal{F}^{\oplus r}$ pour
+un certain $r \geq 1$, elle est vérifiée par $\mathcal{F}$;
+\item pour tout sous-espace fermé réduit $i : Z \to X$ tel que
+$|Z|$ soit irréductible, il existe un faisceau cohérent $\mathcal{G}$ sur $Z$
+tel que
+\begin{enumerate}
+\item $\text{Supp}(\mathcal{G}) = Z$,
+\item pour tout faisceau quasi-cohérent non nul d'idéaux
+$\mathcal{I} \subset \mathcal{O}_Z$, il existe un sous-faisceau quasi-cohérent
+$\mathcal{G}' \subset \mathcal{I}\mathcal{G}$ tel que
+$\text{Supp}(\mathcal{G}/\mathcal{G}')$ soit une partie fermée stricte de $|Z|$
+et que la propriété $\mathcal{P}$ soit vérifiée par $i_*\mathcal{G}'$.
+\end{enumerate}
+\end{enumerate}
+Alors la propriété $\mathcal{P}$ est vérifiée par tout faisceau cohérent sur $X$.
+\end{lemma}
+
+\begin{proof}
+Considérons l'ensemble
+$$
+\mathcal{T} =
+\left\{
+\begin{matrix}
+T \subset |X|
+\text{ fermé non vide tel qu'il existe un faisceau cohérent } \\
+\mathcal{F}
+\text{ avec }
+\text{Supp}(\mathcal{F}) = T
+\text{ pour lequel le lemme est faux}
+\end{matrix}
+\right\}
+$$
+Nous voulons montrer que $\mathcal{T}$ est vide. Sinon,
+puisque $|X|$ est noethérien (Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-Noetherian-topology})
+on peut choisir un élément minimal $T \in \mathcal{T}$. Cela signifie qu'il
+existe un faisceau cohérent $\mathcal{F}$ sur $X$, de support $T$,
+pour lequel le lemme n'est pas vrai.
+
+\medskip\noindent
+Si $T$ n'est pas irréductible, on peut écrire $T = Z_1 \cup Z_2$,
+où $Z_1, Z_2$ sont fermés et strictement contenus dans $T$.
+On peut alors appliquer le Lemme \ref{lemma-prepare-filter-support}
+pour obtenir une suite exacte courte de faisceaux cohérents
+$$
+0 \to
+\mathcal{G}_1 \to
+\mathcal{F} \to
+\mathcal{G}_2 \to 0
+$$
+avec $\text{Supp}(\mathcal{G}_i) \subset Z_i$. Par minimalité de
+$T$, chacun des $\mathcal{G}_i$ vérifie $\mathcal{P}$. Ainsi $\mathcal{F}$
+vérifie la propriété $\mathcal{P}$ d'après (1), ce qui est une contradiction.
+
+\medskip\noindent
+Supposons $T$ irréductible. Soit $\mathcal{J}$ le faisceau d'idéaux
+définissant sur $T$ la structure réduite induite de sous-espace fermé;
+voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-reduced-closed-subspace}.
+D'après le Lemme \ref{lemma-power-ideal-kills-sheaf}, il existe
+un $n \geq 0$ tel que $\mathcal{J}^n\mathcal{F} = 0$. On obtient donc
+une filtration
+$$
+0 = \mathcal{J}^n\mathcal{F} \subset \mathcal{J}^{n - 1}\mathcal{F}
+\subset \ldots \subset \mathcal{J}\mathcal{F} \subset \mathcal{F}
+$$
+dont chacun des sous-quotients successifs est annulé par $\mathcal{J}$.
+Si chacun de ces sous-quotients admet une filtration comme dans l'énoncé
+du lemme, il en va de même pour $\mathcal{F}$ d'après (1). Autrement dit, on peut
+supposer que $\mathcal{J}$ annule $\mathcal{F}$.
+
+\medskip\noindent
+Supposons $T$ irréductible et $\mathcal{J}\mathcal{F} = 0$, où
+$\mathcal{J}$ est comme ci-dessus. Notons $i : Z \to X$ le sous-espace fermé
+correspondant à $\mathcal{J}$. Alors $\mathcal{F} = i_*\mathcal{H}$
+pour un certain $\mathcal{O}_Z$-module cohérent $\mathcal{H}$; voir
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-i-star-equivalence},
+et Lemme \ref{lemma-coherent-support-closed}.
+Soit $\mathcal{G}$ le faisceau cohérent sur $Z$ vérifiant
+(3)(a) et (3)(b). Appliquons le Lemme \ref{lemma-prepare-filter-irreducible}
+pour obtenir des morphismes injectifs
+$$
+\mathcal{I}_1^{\oplus r_1} \to \mathcal{H}
+\quad\text{et}\quad
+\mathcal{I}_2^{\oplus r_2} \to \mathcal{G}
+$$
+dont les conoyaux sont à support dans des parties fermées strictes de $Z$. On trouve donc
+un ouvert non vide $V \subset Z$ tel que
+$$
+\mathcal{H}^{\oplus r_2}_V \cong \mathcal{G}^{\oplus r_1}_V
+$$
+Soit $\mathcal{I} \subset \mathcal{O}_Z$ un faisceau quasi-cohérent d'idéaux
+définissant $Z \setminus V$; d'après
+le Lemme \ref{lemma-homs-over-open}, on obtient
+un morphisme
+$$
+\mathcal{I}^n\mathcal{G}^{\oplus r_1} \longrightarrow \mathcal{H}^{\oplus r_2}
+$$
+qui est un isomorphisme sur $V$. Le noyau est à support dans $Z \setminus V$,
+donc est annulé par une puissance de $\mathcal{I}$; voir
+Lemme \ref{lemma-power-ideal-kills-sheaf}. Ainsi, quitte à augmenter
+$n$, on peut supposer que le morphisme affiché est injectif; voir
+Lemme \ref{lemma-Artin-Rees}. En appliquant (3)(b), on trouve
+$\mathcal{G}' \subset \mathcal{I}^n\mathcal{G}$ tel que
+$$
+(i_*\mathcal{G}')^{\oplus r_1} \longrightarrow
+i_*\mathcal{H}^{\oplus r_2} = \mathcal{F}^{\oplus r_2}
+$$
+soit injectif, avec un conoyau à support dans une partie fermée stricte de $Z$,
+et que la propriété $\mathcal{P}$ soit vérifiée par $i_*\mathcal{G}'$.
+D'après (1), la propriété $\mathcal{P}$ est vérifiée par $(i_*\mathcal{G}')^{\oplus r_1}$.
+D'après (1) et la minimalité de $T = |Z|$, la propriété $\mathcal{P}$ est vérifiée par
+$\mathcal{F}^{\oplus r_2}$. Enfin, d'après (2), la propriété $\mathcal{P}$
+est vérifiée par $\mathcal{F}$, ce qui est la contradiction cherchée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-property-higher-rank-cohomological-variant}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{P}$ une propriété des faisceaux cohérents sur $X$. Supposons que
+\begin{enumerate}
+\item pour toute suite exacte courte de faisceaux cohérents sur $X$,
+si deux des trois termes vérifient la propriété $\mathcal{P}$, le troisième la vérifie aussi;
+\item si $\mathcal{P}$ est vérifiée par $\mathcal{F}^{\oplus r}$ pour
+un certain $r \geq 1$, elle est vérifiée par $\mathcal{F}$;
+\item pour tout sous-espace fermé réduit $i : Z \to X$ tel que
+$|Z|$ soit irréductible, il existe un faisceau cohérent $\mathcal{G}$ sur $X$
+dont le support schématique est $Z$ et tel que $\mathcal{P}$ soit vérifiée par
+$\mathcal{G}$.
+\end{enumerate}
+Alors la propriété $\mathcal{P}$ est vérifiée par tout faisceau cohérent sur $X$.
+\end{lemma}
+
+\begin{proof}
+Nous allons montrer que les conditions (1) et (2) du
+Lemme \ref{lemma-property-initial} sont vérifiées. C'est clair pour la condition (1).
+Pour établir (2), posons
+$$
+\mathcal{T} =
+\left\{
+\begin{matrix}
+i : Z \to X \text{ sous-espace fermé réduit tel que }|Z|\text{ soit irréductible et}\\
+\text{ que }i_*\mathcal{I}\text{ ne vérifie pas }\mathcal{P}
+\text{ pour un certain faisceau quasi-cohérent }\mathcal{I} \subset \mathcal{O}_Z
+\end{matrix}
+\right\}
+$$
+Si $\mathcal{T}$ n'est pas vide, comme $X$ est noethérien, on peut
+trouver un $i : Z \to X$ minimal dans $\mathcal{T}$. Nous allons montrer
+que cela conduit à une contradiction.
+
+\medskip\noindent
+Soit $\mathcal{G}$ le faisceau de support schématique $Z$ dont
+l'existence est postulée dans l'hypothèse (3). Soit
+$\varphi : i_*\mathcal{I}^{\oplus r} \to \mathcal{G}$ comme dans le
+Lemme \ref{lemma-prepare-filter-irreducible}. Soit
+$$
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset
+\ldots \subset \mathcal{F}_m = \Coker(\varphi)
+$$
+une filtration comme dans le Lemme \ref{lemma-coherent-filter}. Par minimalité
+de $Z$ et d'après l'hypothèse (1), on voit que $\Coker(\varphi)$ vérifie
+la propriété $\mathcal{P}$. Puisque $\varphi$ est injectif, l'hypothèse (1)
+montre encore que $i_*\mathcal{I}^{\oplus r}$ vérifie la propriété
+$\mathcal{P}$. L'hypothèse (2) montre alors que $i_*\mathcal{I}$
+vérifie la propriété $\mathcal{P}$.
+
+\medskip\noindent
+Enfin, si $\mathcal{J} \subset \mathcal{O}_Z$ est un second faisceau quasi-cohérent
+d'idéaux, posons $\mathcal{K} = \mathcal{I} \cap \mathcal{J}$
+et considérons les suites exactes courtes
+$$
+0 \to \mathcal{K} \to \mathcal{I} \to \mathcal{I}/\mathcal{K} \to 0
+\quad
+\text{et}
+\quad
+0 \to \mathcal{K} \to \mathcal{J} \to \mathcal{J}/\mathcal{K} \to 0
+$$
+En raisonnant comme ci-dessus et en utilisant la minimalité de $Z$, on voit que
+$i_*\mathcal{I}/\mathcal{K}$ et $i_*\mathcal{J}/\mathcal{K}$
+vérifient $\mathcal{P}$. L'hypothèse (1) montre donc que
+$i_*\mathcal{K}$, puis $i_*\mathcal{J}$, vérifient $\mathcal{P}$.
+Autrement dit, $Z$ n'est pas un élément de $\mathcal{T}$, ce qui est
+la contradiction cherchée.
+\end{proof}
+
+
+
+
+
+
+\section{Limites de modules cohérents}
+\label{section-limits}
+
+\noindent
+Une limite inductive de modules cohérents (sur un espace algébrique
+localement noethérien) n'est en général pas cohérente. Elle est toutefois quasi-cohérente,
+car toute limite inductive de modules quasi-cohérents sur un espace algébrique est
+quasi-cohérente, voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-properties-quasi-coherent}.
+Réciproquement, si l'espace algébrique est noethérien, tout module quasi-cohérent
+est une limite inductive filtrante de modules cohérents.
+
+\begin{lemma}
+\label{lemma-directed-colimit-coherent}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Tout $\mathcal{O}_X$-module quasi-cohérent est la limite inductive filtrante
+de ses sous-modules cohérents.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Si $\mathcal{G}, \mathcal{H} \subset \mathcal{F}$ sont des
+sous-$\mathcal{O}_X$-modules cohérents, alors l'image de
+$\mathcal{G} \oplus \mathcal{H} \to \mathcal{F}$ est encore un
+sous-$\mathcal{O}_X$-module cohérent qui les contient tous deux
+(voir les Lemmes \ref{lemma-coherent-abelian-Noetherian} et
+\ref{lemma-coherent-Noetherian-quasi-coherent-sub-quotient}).
+On voit ainsi que le système est filtrant.
+Il suffit donc de montrer que $\mathcal{F}$ peut s'écrire comme
+une limite inductive filtrante de modules cohérents : en prenant alors les
+images de ces modules dans $\mathcal{F}$, on conclut qu'il y en a
+suffisamment.
+
+\medskip\noindent
+Soit $U$ un schéma affine et $U \to X$ un morphisme \'etale surjectif.
+Posons $R = U \times_X U$, de sorte que $X = U/R$ comme d'habitude. D'après
+Propriétés des espaces, Proposition
+\ref{spaces-properties-proposition-quasi-coherent},
+on a $\QCoh(\mathcal{O}_X) = \QCoh(U, R, s, t, c)$.
+On se ramène donc à établir l'assertion correspondante pour
+$\QCoh(U, R, s, t, c)$. Le résultat découle alors du
+Lemme plus général \ref{groupoids-lemma-colimit-coherent} du chapitre Groupoïdes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-direct-colimit-finite-presentation}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme affine d'espaces
+algébriques sur $S$, avec $Y$ noethérien. Alors tout
+$\mathcal{O}_X$-module quasi-cohérent est une limite inductive filtrante de
+$\mathcal{O}_X$-modules de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Écrivons $f_*\mathcal{F} = \colim \mathcal{H}_i$, où $\mathcal{H}_i$ est
+un $\mathcal{O}_Y$-module cohérent, voir le
+Lemme \ref{lemma-directed-colimit-coherent}.
+D'après le Lemme \ref{lemma-coherent-Noetherian}, les modules $\mathcal{H}_i$
+sont des $\mathcal{O}_Y$-modules de présentation finie. Par conséquent,
+$f^*\mathcal{H}_i$ est un $\mathcal{O}_X$-module de présentation finie, voir
+Propriétés des espaces, section
+\ref{spaces-properties-section-properties-modules}.
+Nous affirmons que le morphisme
+$$
+\colim f^*\mathcal{H}_i = f^*f_*\mathcal{F} \to \mathcal{F}
+$$
+est surjectif puisque $f$ est supposé affine. En effet, choisissons
+un schéma $V$ et un morphisme \'etale surjectif $V \to Y$. Posons
+$U = X \times_Y V$. Alors $U$ est un schéma, $f' : U \to V$ est affine, et
+$U \to X$ est \'etale surjectif. D'après
+Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules},
+on a $f'_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$, et de même
+pour les images réciproques. Ainsi, la restriction de $f^*f_*\mathcal{F} \to \mathcal{F}$
+à $U$ est le morphisme
+$$
+f^*f_*\mathcal{F}|_U = (f')^*(f_*\mathcal{F})|_V) =
+(f')^*f'_*(\mathcal{F}|_U) \to \mathcal{F}|_U
+$$
+qui est surjectif puisque $f'$ est un morphisme affine de schémas.
+L'affirmation est donc démontrée.
+
+\medskip\noindent
+On conclut que tout module quasi-cohérent sur $X$ est quotient d'une
+limite inductive filtrante de modules de présentation finie. En particulier,
+$\mathcal{F}$ est le conoyau d'un morphisme
+$$
+\colim_{j \in J} \mathcal{G}_j \longrightarrow \colim_{i \in I} \mathcal{H}_i
+$$
+où les $\mathcal{G}_j$ et les $\mathcal{H}_i$ sont de présentation finie. Notons
+que, pour tout $j \in I$, il existe $i \in I$ et un morphisme
+$\alpha : \mathcal{G}_j \to \mathcal{H}_i$ tels que le diagramme
+$$
+\xymatrix{
+\mathcal{G}_j \ar[r]_\alpha \ar[d] & \mathcal{H}_i \ar[d] \\
+\colim_{j \in J} \mathcal{G}_j \ar[r] &
+\colim_{i \in I} \mathcal{H}_i
+}
+$$
+soit commutatif, voir le
+Lemme \ref{lemma-finite-presentation-quasi-compact-colimit}.
+Dans cette situation, $\Coker(\alpha)$ est un
+$\mathcal{O}_X$-module de présentation finie muni d'un morphisme
+$\Coker(\alpha) \to \mathcal{F}$. Considérons l'ensemble $K$ des
+triplets $(i, j, \alpha)$ comme ci-dessus. On pose
+$(i, j, \alpha) \leq (i', j', \alpha')$ si et seulement si
+$i \leq i'$, $j \leq j'$, et si le diagramme
+$$
+\xymatrix{
+\mathcal{G}_j \ar[r]_\alpha \ar[d] & \mathcal{H}_i \ar[d] \\
+\mathcal{G}_{j'} \ar[r]^{\alpha'} &
+\mathcal{H}_{i'}
+}
+$$
+est commutatif. Il résulte de ce qui précède que $K$ est
+un ensemble ordonné filtrant,
+$$
+\mathcal{F} = \colim_{(i, j, \alpha) \in K} \Coker(\alpha),
+$$
+ce qui conclut la démonstration.
+\end{proof}
+
+
+
+
+
+
+\section{Annulation de la cohomologie}
+\label{section-vanishing}
+
+\noindent
+Dans cette section, nous montrons qu'un espace algébrique quasi-compact et quasi-séparé
+est affine si sa cohomologie supérieure s'annule
+pour tout faisceau quasi-cohérent. Nous procédons par une suite de lemmes
+qui deviendront tous superflus une fois démontrée la
+Proposition \ref{proposition-vanishing-affine}.
+
+\begin{situation}
+\label{situation-vanishing}
+Ici, $S$ est un schéma et $X$ est un espace algébrique quasi-compact et quasi-séparé
+sur $S$ ayant la propriété suivante : pour tout
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$, on a
+$H^1(X, \mathcal{F}) = 0$. Posons $A = \Gamma(X, \mathcal{O}_X)$.
+\end{situation}
+
+\noindent
+Nous voudrions montrer que le morphisme canonique
+$$
+p : X \longrightarrow \Spec(A)
+$$
+(voir Propriétés des espaces, Lemme
+\ref{spaces-properties-lemma-morphism-to-affine-scheme}) est un isomorphisme.
+Si $M$ est un $A$-module, nous notons $M \otimes_A \mathcal{O}_X$
+le module quasi-cohérent $p^*\tilde M$.
+
+\begin{lemma}
+\label{lemma-vanishing-compute}
+Dans la Situation \ref{situation-vanishing}, pour tout $A$-module $M$, on a
+$p_*(M \otimes_A \mathcal{O}_X) = \widetilde{M}$ et
+$\Gamma(X, M \otimes_A \mathcal{O}_X) = M$.
+\end{lemma}
+
+\begin{proof}
+L'égalité $p_*(M \otimes_A \mathcal{O}_X) = \widetilde{M}$ résulte
+de l'égalité $\Gamma(X, M \otimes_A \mathcal{O}_X) = M$, car
+$p_*(M \otimes_A \mathcal{O}_X)$ est un module quasi-cohérent sur
+$\Spec(A)$ d'après Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-pushforward}.
+Observons que $\Gamma(X, \bigoplus_{i \in I} \mathcal{O}_X) =
+\bigoplus_{i \in I} A$ d'après le Lemme \ref{lemma-colimits}. Le
+lemme est donc vrai pour les modules libres. Choisissons une suite exacte courte
+$F_1 \to F_0 \to M$, où $F_0, F_1$ sont des $A$-modules libres. Puisque
+$H^1(X, -)$ est nul, le foncteur des sections globales est exact à droite.
+De plus, l'image réciproque $p^*$ est elle aussi exacte à droite. On voit donc
+que
+$$
+\Gamma(X, F_1 \otimes_A \mathcal{O}_X) \to
+\Gamma(X, F_0 \otimes_A \mathcal{O}_X) \to
+\Gamma(X, M \otimes_A \mathcal{O}_X) \to 0
+$$
+est exacte. Le résultat en découle.
+\end{proof}
+
+\noindent
+Le lemme suivant montre que la Situation \ref{situation-vanishing}
+est préservée par le changement de base de $X \to \Spec(A)$ par $\Spec(A') \to \Spec(A)$.
+
+\begin{lemma}
+\label{lemma-vanishing-base-change}
+Dans la Situation \ref{situation-vanishing}.
+\begin{enumerate}
+\item Pour tout morphisme affine $X' \to X$ d'espaces algébriques, on a
+$H^1(X', \mathcal{F}') = 0$ pour tout
+$\mathcal{O}_{X'}$-module quasi-cohérent $\mathcal{F}'$.
+\item Pour toute $A$-algèbre $A'$, en posant $X' = X \times_{\Spec(A)} \Spec(A')$,
+le morphisme $X' \to X$ est affine et $\Gamma(X', \mathcal{O}_{X'}) = A'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) résulte du Lemme \ref{lemma-affine-vanishing-higher-direct-images}
+et de la suite spectrale de Leray (Cohomologie sur les sites, Lemme
+\ref{sites-cohomology-lemma-Leray}). Soit $A \to A'$ comme en (2).
+Alors $X' \to X$ est affine, car les morphismes affines sont stables par
+changement de base (Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-base-change-affine}) et parce que
+tout morphisme de schémas affines est affine. L'égalité
+$\Gamma(X', \mathcal{O}_{X'}) = A'$ résulte de
+$(X' \to X)_*\mathcal{O}_{X'} = A' \otimes_A \mathcal{O}_X$
+d'après le Lemme \ref{lemma-affine-base-change}, puis de
+$$
+\Gamma(X', \mathcal{O}_{X'}) =
+\Gamma(X, (X' \to X)_*\mathcal{O}_{X'}) =
+\Gamma(X, A' \otimes_A \mathcal{O}_X) = A'
+$$
+d'après le Lemme \ref{lemma-vanishing-compute}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-vanishing-separate-closed}
+Dans la Situation \ref{situation-vanishing}, soient $Z_0, Z_1 \subset |X|$
+deux parties fermées disjointes. Il existe alors $a \in A$ tel que
+$Z_0 \subset V(a)$ et $Z_1 \subset V(a - 1)$.
+\end{lemma}
+
+\begin{proof}
+On peut, et l'on va, munir $Z_0$, $Z_1$ de la structure d'espace réduit induite
+(Propriétés des espaces, Définition
+\ref{spaces-properties-definition-reduced-induced-space}); notons
+$i_0 : Z_0 \to X$ et $i_1 : Z_1 \to X$ les immersions fermées correspondantes.
+Comme $Z_0 \cap Z_1 = \emptyset$, le morphisme canonique de
+$\mathcal{O}_X$-modules quasi-cohérents
+$$
+\mathcal{O}_X
+\longrightarrow
+i_{0, *}\mathcal{O}_{Z_0} \oplus i_{1, *}\mathcal{O}_{Z_1}
+$$
+est surjectif (il suffit de regarder les germes aux points géométriques). Puisque $H^1(X, -)$
+est nul sur le noyau de ce morphisme, le morphisme induit sur les sections globales est
+surjectif. On peut donc trouver $a \in A$ dont l'image est la section globale
+$(0, 1)$ du membre de droite.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-vanishing-injective}
+Dans la Situation \ref{situation-vanishing}, le morphisme $p : X \to \Spec(A)$ est
+universellement injectif.
+\end{lemma}
+
+\begin{proof}
+Soit $A \to k$ un homomorphisme d'anneaux, où $k$ est un corps. Il suffit de
+montrer que $\Spec(k) \times_{\Spec(A)} X$ a au plus un point (voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-universally-injective-local}).
+En utilisant le Lemme \ref{lemma-vanishing-base-change}, on peut supposer que $A$
+est un corps, et il faut montrer que $|X|$ a au plus un point.
+
+\medskip\noindent
+Considérons $X$ comme un espace algébrique sur $\Spec(k)$ et utilisons
+la notation $X(K)$ pour désigner les $K$-points de $X$
+pour toute extension $K/k$, voir
+Morphismes d'espaces, section \ref{spaces-morphisms-section-points-fields}.
+Si $K/k$ est une extension algébriquement close
+de degré de transcendance assez grand, alors $X(K) \to |X|$
+est surjective, voir Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-large-enough}. Après avoir remplacé $k$
+par $K$, il suffit donc de prouver que $X(k)$ est réduit à un seul élément
+(dans le cas $A = k)$.
+
+\medskip\noindent
+Soient $x, x' \in X(k)$. D'après Espaces décents, Lemme
+\ref{decent-spaces-lemma-algebraic-residue-field-extension-closed-point},
+$x$ et $x'$ sont des points fermés de $|X|$. Ainsi $x$ et $x'$
+auraient des images distinctes dans $\Spec(k)$ si $x \not = x'$, d'après le
+Lemme \ref{lemma-vanishing-separate-closed}. On conclut que
+$x = x'$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-vanishing-separated}
+Dans la Situation \ref{situation-vanishing}, le morphisme $p : X \to \Spec(A)$ est
+séparé.
+\end{lemma}
+
+\begin{proof}
+D'après Espaces décents, Lemme
+\ref{decent-spaces-lemma-there-is-a-scheme-integral-over},
+il existe un schéma $Y$ et un morphisme entier surjectif
+$Y \to X$. Comme un morphisme entier est affine, on peut appliquer le
+Lemme \ref{lemma-vanishing-base-change}
+pour voir que $H^1(Y, \mathcal{G}) = 0$ pour tout
+$\mathcal{O}_Y$-module quasi-cohérent $\mathcal{G}$.
+Puisque $Y \to X$ est quasi-compact et que $X$ est quasi-compact,
+$Y$ est quasi-compact.
+Comme $Y$ est un schéma, on peut appliquer
+Cohomologie des schémas, Lemme
+\ref{coherent-lemma-quasi-compact-h1-zero-covering}
+pour voir que $Y$ est affine. Ainsi $Y$ est séparé.
+Notons qu'un morphisme entier est affine et universellement fermé, voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-integral-universally-closed}.
+D'après Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-image-universally-closed-separated},
+$X$ est un espace algébrique séparé.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-vanishing-affine}
+\begin{slogan}
+Le critère d'affinité de Serre pour les espaces algébriques.
+\end{slogan}
+Un espace algébrique quasi-compact et quasi-séparé est affine
+si et seulement si tous les groupes de cohomologie supérieure des faisceaux quasi-cohérents
+s'annulent. Plus précisément, tout espace algébrique comme dans la
+Situation \ref{situation-vanishing} est un schéma affine.
+\end{proposition}
+
+\begin{proof}
+Choisissons un schéma affine $U = \Spec(B)$ et un morphisme \'etale surjectif
+$\varphi : U \to X$. Posons $R = U \times_X U$. Comme $p$ est séparé
+(Lemme \ref{lemma-vanishing-separated}), $R$ est un
+sous-schéma fermé de $U \times_{\Spec(A)} U = \Spec(B \otimes_A B)$.
+Ainsi $R = \Spec(C)$ est lui aussi affine, et l'homomorphisme d'anneaux
+$$
+B \otimes_A B \longrightarrow C
+$$
+est surjectif. Notons comme d'habitude $s, t : B \to C$ les deux homomorphismes. Choisissons
+$g_1, \ldots, g_m \in B$ tels que $s(g_1), \ldots, s(g_m)$ engendrent $C$
+sur $t : B \to C$ (ce qui est possible puisque $t : B \to C$ est de présentation
+finie et que l'homomorphisme affiché est surjectif). Alors $g_1, \ldots, g_m$
+définissent des sections globales de $\varphi_*\mathcal{O}_U$, et le morphisme
+$$
+\mathcal{O}_X[z_1, \ldots, z_n] \longrightarrow \varphi_*\mathcal{O}_U,
+\quad
+z_j \longmapsto g_j
+$$
+est surjectif : on peut le vérifier après restriction à $U$.
+En effet, $\varphi^*\varphi_*\mathcal{O}_U = t_*\mathcal{O}_R$
+(d'après le Lemme \ref{lemma-flat-base-change-cohomology});
+on obtient donc exactement la condition que les $s(g_i)$ engendrent $C$
+sur $t : B \to C$. L'annulation de $H^1$ du noyau montre alors que
+$$
+\Gamma(X, \mathcal{O}_X[x_1, \ldots, x_n]) =
+A[x_1, \ldots, x_n] \longrightarrow
+\Gamma(X, \varphi_*\mathcal{O}_U) = \Gamma(U, \mathcal{O}_U) = B
+$$
+est surjectif. On conclut que $B$ est une $A$-algèbre de type fini.
+Ainsi $X \to \Spec(A)$ est de type fini et séparé.
+D'après le Lemme \ref{lemma-vanishing-injective}
+et le
+Lemme \ref{spaces-morphisms-lemma-locally-quasi-finite} de Morphismes d'espaces,
+il est aussi localement quasi-fini. Par conséquent, $X \to \Spec(A)$ est représentable d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable},
+et $X$ est un schéma. Enfin, $X$ est affine, donc égal à $\Spec(A)$,
+par application de Cohomologie des schémas, Lemme
+\ref{coherent-lemma-quasi-compact-h1-zero-covering}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Noetherian-h1-zero}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Supposons que, pour tout $\mathcal{O}_X$-module cohérent
+$\mathcal{F}$, on ait $H^1(X, \mathcal{F}) = 0$.
+Alors $X$ est un schéma affine.
+\end{lemma}
+
+\begin{proof}
+L'hypothèse entraîne que $H^1(X, \mathcal{F}) = 0$ pour tout
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$, d'après les
+Lemmes \ref{lemma-directed-colimit-coherent} et \ref{lemma-colimits}.
+Alors $X$ est affine d'après la
+Proposition \ref{proposition-vanishing-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Noetherian-h1-zero-invertible}
+Soit $S$ un schéma. Soit $X$ un espace algébrique noethérien sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Supposons que, pour tout $\mathcal{O}_X$-module cohérent
+$\mathcal{F}$, il existe $n \geq 1$ tel que
+$H^1(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}) = 0$.
+Alors $X$ est un schéma et $\mathcal{L}$ est ample sur $X$.
+\end{lemma}
+
+\begin{proof}
+Soit $s \in H^0(X, \mathcal{L}^{\otimes d})$ une section globale.
+Soit $U \subset X$ le sous-espace ouvert sur lequel $s$ engendre
+$\mathcal{L}^{\otimes d}$. En particulier, on a
+$\mathcal{L}^{\otimes d}|_U \cong \mathcal{O}_U$.
+Nous affirmons que $U$ est affine.
+
+\medskip\noindent
+Démonstration de l'affirmation. Montrons que $H^1(U, \mathcal{F}) = 0$
+pour tout $\mathcal{O}_U$-module quasi-cohérent $\mathcal{F}$.
+Cela démontrera l'affirmation d'après la Proposition \ref{proposition-vanishing-affine}.
+Notons $j : U \to X$ le morphisme d'inclusion.
+Comme le morphisme $j$ est \'etale-localement affine
+(d'après Morphismes, Lemme \ref{morphisms-lemma-affine-s-open}),
+on voit que $j$ est affine (Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-affine-local}).
+On a donc
+$$
+H^1(U, \mathcal{F}) = H^1(X, j_*\mathcal{F})
+$$
+d'après le Lemme \ref{lemma-affine-vanishing-higher-direct-images}
+(et Cohomologie sur les sites, Lemme \ref{sites-cohomology-lemma-apply-Leray}).
+Écrivons $j_*\mathcal{F} = \colim \mathcal{F}_i$ comme limite inductive filtrante
+de $\mathcal{O}_X$-modules cohérents, voir le
+Lemme \ref{lemma-directed-colimit-coherent}. Alors
+$$
+H^1(X, j_*\mathcal{F}) = \colim H^1(X, \mathcal{F}_i)
+$$
+d'après le Lemme \ref{lemma-colimits}.
+Il suffit donc de montrer que $H^1(X, \mathcal{F}_i)$ s'envoie
+sur zéro dans $H^1(U, j^*\mathcal{F}_i)$. Par hypothèse, il existe
+$n \geq 1$ tel que
+$$
+H^1(X,
+\mathcal{F}_i \otimes_{\mathcal{O}_X}
+(\mathcal{O}_X \oplus \mathcal{L} \oplus \ldots
+\oplus \mathcal{L}^{\otimes d - 1})
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}) = 0
+$$
+Il existe donc $a \geq 0$ tel que
+$H^1(X, \mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}) = 0$.
+D'autre part, le morphisme
+$$
+s^a : \mathcal{F}_i \longrightarrow
+\mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}
+$$
+est un isomorphisme après restriction à $U$. En considérant le
+diagramme commutatif
+$$
+\xymatrix{
+H^1(X, \mathcal{F}_i) \ar[r] \ar[d]_{s^a} & H^1(U, j^*\mathcal{F}_i)
+\ar[d]^{\cong} \\
+H^1(X, \mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}) \ar[r] &
+H^1(U,
+j^*(\mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}))
+}
+$$
+on conclut que le morphisme $H^1(X, \mathcal{F}_i) \to H^1(U, j^*\mathcal{F}_i)$
+est nul, et l'affirmation est démontrée.
+
+\medskip\noindent
+Soit $x \in |X|$ un point fermé. D'après Espaces décents, Lemme
+\ref{decent-spaces-lemma-decent-space-closed-point},
+on peut représenter $x$ par une immersion fermée $i : \Spec(k) \to X$
+(cela utilise aussi le fait qu'un espace algébrique quasi-séparé est
+décent, voir Espaces décents, section
+\ref{decent-spaces-section-reasonable-decent}).
+Ainsi $\mathcal{O}_X \to i_*\mathcal{O}_{\Spec(k)}$ est surjectif.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ son noyau, et choisissons
+$d \geq 1$ tel que
+$H^1(X, \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0$.
+Alors
+$$
+H^0(X, \mathcal{L}^{\otimes d}) \to
+H^0(X,
+i_*\mathcal{O}_{\Spec(k)} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) =
+H^0(\Spec(k), i^*\mathcal{L}^{\otimes d}) \cong k
+$$
+est surjectif d'après la suite exacte longue de cohomologie. Il existe donc
+$s \in H^0(X, \mathcal{L}^{\otimes d})$
+tel que $x \in U$, où $U$ est le sous-espace ouvert associé à $s$
+comme ci-dessus. D'après notre affirmation, $x$ appartient donc au lieu schématique
+(voir Propriétés des espaces, Lemme \ref{spaces-properties-lemma-subscheme})
+de $X$.
+
+\medskip\noindent
+Pour conclure que $X$ est un schéma, il suffit de montrer que
+toute partie ouverte de $|X|$ qui contient tous les points fermés
+est égale à $|X|$. Cela résulte du fait que $|X|$
+est un espace topologique noethérien, voir
+Propriétés des espaces, Lemme \ref{spaces-properties-lemma-Noetherian-sober}.
+Enfin, lorsque $X$ est un schéma, on peut appliquer
+Cohomologie des schémas, Lemme
+\ref{coherent-lemma-quasi-compact-h1-zero-invertible}
+pour conclure que $\mathcal{L}$ est ample.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Morphismes finis et espaces affines}
+\label{section-finite-affine}
+
+\noindent
+Cette section est l'analogue de la
+section \ref{coherent-section-finite-affine} du chapitre Cohomologie des schémas.
+
+\begin{lemma}
+\label{lemma-finite-morphism-Noetherian}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques
+sur $S$. Supposons $f$ fini et surjectif, et $X$ localement noethérien.
+Soit $i : Z \to X$ une immersion fermée. Notons $i' : Z' \to Y$
+l'image réciproque de $Z$
+(Morphismes d'espaces, section \ref{spaces-morphisms-section-closed-immersions})
+et $f' : Z' \to Z$
+le morphisme induit. Alors $\mathcal{G} = f'_*\mathcal{O}_{Z'}$
+est un $\mathcal{O}_Z$-module cohérent dont le support est $Z$.
+\end{lemma}
+
+\begin{proof}
+Observons que $f'$ est le changement de base de $f$; il est donc fini
+et surjectif d'après Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-base-change-surjective} et
+\ref{spaces-morphisms-lemma-base-change-integral}.
+Notons que $Y$, $Z$ et $Z'$ sont localement noethériens d'après
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}
+(et parce que les immersions fermées et les morphismes finis
+sont de type fini). D'après le Lemme \ref{lemma-finite-pushforward-coherent},
+$\mathcal{G}$ est un $\mathcal{O}_Z$-module cohérent.
+Le support de $\mathcal{G}$ est fermé dans $|Z|$, voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-support-finite-type}.
+Si le support de $\mathcal{G}$ n'était pas égal à $|Z|$,
+on pourrait donc, après avoir remplacé $X$ par un sous-espace ouvert, supposer
+$\mathcal{G} = 0$ mais $Z \not = \emptyset$.
+On aurait alors $f'_*\mathcal{O}_{Z'} = 0$. En particulier, la section
+$1 \in \Gamma(Z', \mathcal{O}_{Z'}) = \Gamma(Z, f'_*\mathcal{O}_{Z'})$
+serait nulle, ce qui entraînerait que $Z' = \emptyset$ est l'espace
+algébrique vide. C'est impossible puisque $Z' \to Z$ est surjectif.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-morphism-projection-ideal}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces algébriques
+sur $S$. Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $Y$.
+Soit $\mathcal{I}$ un faisceau quasi-cohérent d'idéaux sur $X$.
+Si $f$ est affine, alors
+$\mathcal{I}f_*\mathcal{F} = f_*(f^{-1}\mathcal{I}\mathcal{F})$
+(avec les notations expliquées dans la démonstration).
+\end{lemma}
+
+\begin{proof}
+Les notations signifient ce qui suit. Puisque $f^{-1}$ est un foncteur exact,
+$f^{-1}\mathcal{I}$ est un faisceau
+d'idéaux de $f^{-1}\mathcal{O}_X$. Par le morphisme
+$f^\sharp : f^{-1}\mathcal{O}_X \to \mathcal{O}_Y$
+sur $Y_\etale$, il opère sur $\mathcal{F}$.
+Alors $f^{-1}\mathcal{I}\mathcal{F}$ est le sous-faisceau
+engendré par les sommes de sections locales de la forme $as$, où $a$
+est une section locale de $f^{-1}\mathcal{I}$ et $s$ une section locale
+de $\mathcal{F}$. C'est un sous-$\mathcal{O}_Y$-module quasi-cohérent
+de $\mathcal{F}$, car c'est aussi l'image d'un morphisme naturel
+$f^*\mathcal{I} \otimes_{\mathcal{O}_Y} \mathcal{F} \to \mathcal{F}$.
+
+\medskip\noindent
+Cela étant, la démonstration est immédiate. En effet, la question est
+\'etale-locale sur $X$, et l'on peut donc supposer que $X$ est un schéma affine.
+Dans ce cas, le résultat découle du résultat correspondant
+pour les schémas, voir Cohomologie des schémas, Lemme
+\ref{coherent-lemma-affine-morphism-projection-ideal}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-image-affine-finite-morphism-affine-Noetherian}
+Soit $S$ un schéma. Soit $f : Y \to X$ un morphisme d'espaces
+algébriques sur $S$. Supposons que
+\begin{enumerate}
+\item $f$ soit fini,
+\item $f$ soit surjectif,
+\item $Y$ soit affine, et
+\item $X$ soit noethérien.
+\end{enumerate}
+Alors $X$ est affine.
+\end{lemma}
+
+\begin{proof}
+Nous allons montrer que, sous les hypothèses du lemme, pour tout
+$\mathcal{O}_X$-module cohérent $\mathcal{F}$, on a $H^1(X, \mathcal{F}) = 0$.
+Cela entraîne que $H^1(X, \mathcal{F}) = 0$ pour tout
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$ d'après les
+Lemmes \ref{lemma-directed-colimit-coherent} et \ref{lemma-colimits}.
+Il s'ensuit alors que $X$ est affine d'après la
+Proposition \ref{proposition-vanishing-affine}.
+
+\medskip\noindent
+Soit $\mathcal{P}$ la propriété des faisceaux cohérents
+$\mathcal{F}$ sur $X$ définie par
+$$
+\mathcal{P}(\mathcal{F}) \Leftrightarrow H^1(X, \mathcal{F}) = 0.
+$$
+Nous allons appliquer le Lemme \ref{lemma-property-higher-rank-cohomological}.
+Il faut donc vérifier les propriétés (1), (2) et (3) de ce lemme pour $\mathcal{P}$.
+La propriété (1) résulte de la suite exacte longue de cohomologie associée
+à une suite exacte courte de faisceaux. La propriété (2) résulte du fait que
+$H^1(X, -)$ est un foncteur additif. Pour vérifier (3), soit $i : Z \to X$
+un sous-espace fermé réduit tel que $|Z|$ soit irréductible. Soient $i' : Z' \to Y$
+et $f' : Z' \to Z$ comme dans le Lemme \ref{lemma-finite-morphism-Noetherian},
+et posons $\mathcal{G} = f'_*\mathcal{O}_{Z'}$. Nous affirmons que
+$\mathcal{G}$ vérifie les propriétés (3)(a) et (3)(b) du
+Lemme \ref{lemma-property-higher-rank-cohomological},
+ce qui achèvera la démonstration. La propriété (3)(a) a été établie dans le
+Lemme \ref{lemma-finite-morphism-Noetherian}. Pour vérifier (3)(b), soit
+$\mathcal{I}$ un faisceau quasi-cohérent non nul d'idéaux sur $Z$.
+Notons $\mathcal{I}' \subset \mathcal{O}_{Z'}$ l'idéal quasi-cohérent
+$(f')^{-1}\mathcal{I} \mathcal{O}_{Z'}$, c'est-à-dire l'
+image de $(f')^*\mathcal{I} \to \mathcal{O}_{Z'}$.
+D'après le Lemme \ref{lemma-affine-morphism-projection-ideal}, on a
+$f_*\mathcal{I}' = \mathcal{I} \mathcal{G}$.
+Nous affirmons que la valeur commune
+$\mathcal{G}' = \mathcal{I} \mathcal{G} = f'_*\mathcal{I}'$
+satisfait la condition énoncée en (3)(b).
+Tout d'abord, il est clair que le support de $\mathcal{G}/\mathcal{G}'$
+est contenu dans le support de $\mathcal{O}_Z/\mathcal{I}$,
+qui est un sous-espace propre de $|Z|$, puisque $\mathcal{I}$ est un
+faisceau d'idéaux non nul sur l'espace algébrique réduit et irréductible $Z$.
+Le morphisme $f'$ est affine, donc $R^1f'_*\mathcal{I}' = 0$ d'après le
+Lemme \ref{lemma-affine-vanishing-higher-direct-images}.
+Comme $Z'$ est affine (en tant que sous-schéma fermé d'un schéma affine),
+on a $H^1(Z', \mathcal{I}') = 0$. La suite spectrale de Leray
+(sous la forme du
+Lemme \ref{sites-cohomology-lemma-apply-Leray} de Cohomologie sur les sites)
+entraîne donc que $H^1(Z, f'_*\mathcal{I}') = 0$.
+Comme $i : Z \to X$ est affine, on conclut que
+$R^1i_*f'_*\mathcal{I}' = 0$, puis que $H^1(X, i_*f'_*\mathcal{I}') = 0$
+par une nouvelle application de Leray. Autrement dit, $H^1(X, i_*\mathcal{G}') = 0$,
+comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Une version faible du lemme de Chow}
+\label{section-weak-chow}
+
+\noindent
+Dans cette section, nous démontrons rapidement le lemme suivant afin
+de faciliter la démonstration des résultats fondamentaux sur la cohomologie des
+modules cohérents sur les espaces algébriques propres.
+
+\begin{lemma}
+\label{lemma-weak-chow}
+Soit $A$ un anneau. Soit $X$ un espace algébrique sur $\Spec(A)$
+dont le morphisme structural $X \to \Spec(A)$ est séparé et de type fini.
+Il existe alors un morphisme propre surjectif $X' \to X$,
+où $X'$ est un schéma H-quasi-projectif sur $\Spec(A)$.
+\end{lemma}
+
+\begin{proof}
+Soit $W$ un schéma affine et soit $f : W \to X$ un morphisme
+\'etale surjectif. Il existe un entier $d$ tel que toutes les fibres géométriques
+de f aient $\leq d$ points (car $X$ est un espace algébrique séparé,
+donc raisonnable, voir
+Espaces décents, Lemme \ref{decent-spaces-lemma-bounded-fibres}).
+En choisissant $d$ minimal, on obtient un ouvert non vide $U \subset X$ tel que
+$f^{-1}(U) \to U$ soit fini \'etale de degré $d$, voir
+Espaces décents, Lemme
+\ref{decent-spaces-lemma-quasi-compact-reasonable-stratification}.
+Soit
+$$
+V \subset W \times_X W \times_X \ldots \times_X W
+$$
+(avec $d$ facteurs dans le produit fibré) le complémentaire de toutes les diagonales.
+Comme $W \to X$ est séparé, la diagonale $W \to W \times_X W$ est une
+immersion fermée. Comme $W \to X$ est \'etale, la diagonale
+$W \to W \times_X W$ est une immersion ouverte, voir
+Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-etale-unramified} et
+\ref{spaces-morphisms-lemma-diagonal-unramified-morphism}.
+Les diagonales sont donc des sous-schémas ouverts et fermés
+du schéma quasi-compact $W \times_X \ldots \times_X W$.
+On conclut en particulier que $V$ est un schéma quasi-compact.
+Choisissons une immersion ouverte $W \subset Y$, où $Y$ est H-projectif sur
+$A$ (c'est possible puisque $W$ est affine et de type fini sur $A$;
+on peut par exemple utiliser
+Morphismes, Lemmes
+\ref{morphisms-lemma-quasi-affine-finite-type-over-S} et
+\ref{morphisms-lemma-H-quasi-projective-open-H-projective}).
+Soit
+$$
+Z \subset Y \times_A Y \times_A \ldots \times_A Y
+$$
+l'image schématique du composé
+$V \to W \times_X \ldots \times_X W \to Y \times_A \ldots \times_A Y$.
+Observons que ce morphisme est quasi-compact, puisque $V$ est quasi-compact
+et que $Y \times_A \ldots \times_A Y$ est séparé.
+Notons que $V \to Z$ est une immersion ouverte, car
+$V \to Y \times_A \ldots \times_A Y$ est une immersion, voir
+Morphismes, Lemme \ref{morphisms-lemma-quasi-compact-immersion}.
+Les morphismes de projection donnent $d$ morphismes $g_i : Z \to Y$.
+Ces morphismes $g_i$ sont projectifs puisque $Y$ est projectif sur $A$, voir
+les résultats de Morphismes, section \ref{morphisms-section-projective}.
+Posons
+$$
+X' = \bigcup g_i^{-1}(W) \subset Z
+$$
+Il existe un morphisme $X' \to X$ dont la restriction à $g_i^{-1}(W)$ est
+le composé $g_i^{-1}(W) \to W \to X$.
+En effet, ces morphismes coïncident sur $V$, donc sur
+$g_i^{-1}(W) \cap g_j^{-1}(W)$ d'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-equality-of-morphisms}.
+Affirmation : le morphisme $X' \to X$ est propre.
+
+\medskip\noindent
+Si l'affirmation est vraie, le lemme résulte d'une récurrence sur $d$.
+En effet, par construction, $X'$ est H-quasi-projectif sur $\Spec(A)$.
+L'image de $X' \to X$ contient l'ouvert $U$, puisque $V$ se projette surjectivement sur $U$.
+Notons $T$ l'espace algébrique muni de la structure réduite induite sur $X \setminus U$.
+Alors $T \times_X W$ est un sous-schéma fermé de $W$, donc est affine.
+De plus, le morphisme $T \times_X W \to T$ est \'etale et toute fibre géométrique
+a $< d$ points. Par hypothèse de récurrence, il existe un morphisme propre
+surjectif $T' \to T$, où $T'$ est un schéma H-quasi-projectif
+sur $\Spec(A)$. Comme $T$ est un sous-espace fermé de $X$,
+$T' \to X$ est un morphisme propre. Le lemme résulte donc du
+morphisme propre surjectif $X' \amalg T' \to X$.
+
+\medskip\noindent
+Démonstration de l'affirmation. Par construction, le morphisme $X' \to X$ est séparé
+et de type fini. Nous allons vérifier les conditions (1) -- (4) de
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-refined-valuative-criterion-universally-closed},
+pour les morphismes $V \to X'$ et $X' \to X$.
+Les conditions (1) et (2) ont été établies ci-dessus.
+La condition (3) est satisfaite parce que $X' \to X$ est séparé (son
+espace algébrique source étant séparé). Il suffit donc de vérifier
+l'existence d'un relèvement dans $X'$ pour les diagrammes
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & V \ar[d] \\
+\Spec(R) \ar[r] & X
+}
+$$
+où $R$ est un anneau de valuation de corps des fractions $K$.
+Notons que le morphisme horizontal supérieur est donné par $d$ points à valeurs dans
+$K$, deux à deux distincts, $w_1, \ldots, w_d$, de $W$. En fait, ils
+sont exactement les antécédents du point $x \in X(K)$
+provenant du diagramme. Comme $W \to X$ est surjectif,
+on peut, après avoir éventuellement remplacé $R$ par une extension d'anneaux de valuation,
+relever le morphisme $\Spec(R) \to X$ en un morphisme $w : \Spec(R) \to W$, voir
+Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-lift-valuation-ring-through-flat-morphism}.
+Puisque $w_1, \ldots, w_d$ forment l'ensemble de tous les antécédents de
+$x$, la restriction $w|_{\Spec(K)}$ est égale à l'un d'eux, disons $w_i$.
+On obtient ainsi un diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] &  Z \ar[d]_{g_i}\\
+\Spec(R) \ar[r]^w & Y
+}
+$$
+D'après le critère valuatif de propreté appliqué au morphisme projectif
+$g_i$, on peut relever $w$ en $z : \Spec(R) \to Z$, voir
+Morphismes, Lemme \ref{morphisms-lemma-locally-projective-proper}
+et
+Schémas, Proposition \ref{schemes-proposition-characterize-universally-closed}.
+L'image de $z$ est contenue dans $g_i^{-1}(W) \subset X'$, ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+\section{Critère valuatif noethérien}
+\label{section-Noetherian-valuative-criterion}
+
+\noindent
+Nous démontrons une version du critère valuatif de propreté
+faisant intervenir des anneaux de valuation discrète. On trouvera des versions plus précises
+(et donc plus techniques) dans
+Limites d'espaces, section
+\ref{spaces-limits-section-Noetherian-valuative-criterion}.
+
+\begin{lemma}
+\label{lemma-check-separated-dvr}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Supposons que
+\begin{enumerate}
+\item $Y$ soit localement noethérien,
+\item $f$ soit localement de type fini et quasi-séparé,
+\item pour tout diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+où $A$ est un anneau de valuation discrète et $K$ son corps des fractions,
+il existe au plus une flèche pointillée rendant le diagramme commutatif.
+\end{enumerate}
+Alors $f$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Il faut montrer que la diagonale $\Delta : X \to X \times_Y X$ est une immersion
+fermée. On sait déjà que $\Delta$ est représentable, séparée,
+un monomorphisme et localement de type fini, voir Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-properties-diagonal}.
+Choisissons un schéma affine $U$ et un morphisme \'etale
+$U \to X \times_Y X$. Posons $V = X \times_{\Delta, X \times_Y X} U$.
+Il suffit de montrer que $V \to U$ est une immersion fermée
+(Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-closed-immersion-local}).
+Comme $X \times_Y X$ est localement de type fini sur $Y$,
+$U$ est noethérien (utiliser Morphismes d'espaces, Lemmes
+\ref{spaces-morphisms-lemma-composition-finite-type},
+\ref{spaces-morphisms-lemma-base-change-finite-type} et
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Notons que $V$ est un schéma, puisque $\Delta$ est représentable.
+En outre, $V$ est quasi-compact puisque $f$ est quasi-séparé.
+Ainsi $V \to U$ est de type fini. Considérons un diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & V \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & U
+}
+$$
+de morphismes de schémas,
+où $A$ est un anneau de valuation discrète de corps des fractions $K$.
+On peut interpréter le composé $\Spec(A) \to U \to X \times_Y X$
+comme une paire de morphismes $a, b : \Spec(A) \to X$ qui coïncident comme morphismes
+dans $Y$ et dont les restrictions à $\Spec(K)$ sont égales. L'hypothèse
+(3) garantit donc que $a = b$, et l'on obtient la flèche pointillée du diagramme.
+D'après Limites, Lemme \ref{limits-lemma-Noetherian-dvr-valuative-proper},
+on conclut que $V \to U$ est propre. Autrement dit, $\Delta$ est propre.
+Comme $\Delta$ est un monomorphisme, on en déduit que $\Delta$ est une
+immersion fermée (Morphismes \'etales, Lemme
+\ref{etale-lemma-characterize-closed-immersion}), comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-proper-dvr}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Supposons que
+\begin{enumerate}
+\item $Y$ soit localement noethérien,
+\item $f$ soit de type fini et quasi-séparé,
+\item pour tout diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+où $A$ est un anneau de valuation discrète et $K$ son corps des fractions,
+il existe une unique flèche pointillée rendant le diagramme commutatif.
+\end{enumerate}
+Alors $f$ est propre.
+\end{lemma}
+
+\begin{proof}
+Il suffit de prouver que $f$ est universellement fermé, car $f$ est séparé d'après le
+Lemme \ref{lemma-check-separated-dvr}.
+Pour cela, on peut travailler \'etale-localement sur $Y$
+(Morphismes d'espaces, Lemme
+\ref{spaces-morphisms-lemma-universally-closed-local}).
+On peut donc supposer que $Y = \Spec(A)$ est un schéma affine noethérien.
+Choisissons $X' \to X$ comme dans la version faible du lemme de Chow
+(Lemme \ref{lemma-weak-chow}). Nous affirmons que $X' \to \Spec(A)$
+est universellement fermé. L'affirmation entraîne le lemme d'après
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-image-proper-is-proper}.
+Pour la démontrer, d'après
+Limites, Lemme \ref{limits-lemma-check-universally-closed-Noetherian},
+il suffit de prouver que, dans tout diagramme commutatif à flèches pleines
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X' \ar[r] & X \ar[d] \\
+\Spec(A) \ar[rr] \ar@{-->}[ru]^a \ar@{-->}[rru]_b & & Y
+}
+$$
+où $A$ est un anneau de valuation discrète de corps des fractions $K$, on peut trouver la
+flèche pointillée $a$. Par hypothèse, on peut trouver la flèche pointillée $b$.
+Alors le morphisme $X' \times_{X, b} \Spec(A) \to \Spec(A)$
+est un morphisme propre de schémas et, d'après le critère valuatif
+pour les morphismes de schémas, le morphisme $b$ admet le relèvement voulu $a$.
+\end{proof}
+
+\begin{remark}[Variante pour les anneaux de valuation discrète complets]
+\label{remark-variant}
+Dans les Lemmes \ref{lemma-check-separated-dvr} et \ref{lemma-check-proper-dvr},
+il suffit de considérer les anneaux de valuation discrète complets.
+Plus précisément, dans le Lemme \ref{lemma-check-separated-dvr}, on peut remplacer
+la condition (3) par la condition suivante : pour tout diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+où $A$ est un anneau de valuation discrète complet de corps des fractions $K$,
+il existe au plus une flèche pointillée rendant le diagramme commutatif. En effet, pour
+tout diagramme comme dans le Lemme \ref{lemma-check-separated-dvr} (3),
+le complété $A^\wedge$ est un anneau de valuation discrète
+(Compléments d'algèbre, Lemme \ref{more-algebra-lemma-completion-dvr}),
+et l'unicité de la flèche $\Spec(A^\wedge) \to X$
+entraîne celle de la flèche $\Spec(A) \to X$,
+par exemple d'après Propriétés des espaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc}.
+De même, dans le Lemme \ref{lemma-check-proper-dvr},
+on peut remplacer la condition (3) par la condition suivante :
+pour tout diagramme commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] & Y
+}
+$$
+où $A$ est un anneau de valuation discrète complet de corps des fractions $K$,
+il existe une extension $A \subset A'$ d'anneaux de valuation discrète complets
+induisant une extension des corps des fractions $K \subset K'$ telle qu'il existe une
+unique flèche $\Spec(A') \to X$ rendant le diagramme
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] & \Spec(K) \ar[r] & X \ar[d] \\
+\Spec(A') \ar[r] \ar[rru] & \Spec(A) \ar[r] & Y
+}
+$$
+commutatif. En effet, pour tout diagramme comme dans le Lemme \ref{lemma-check-proper-dvr}
+partie (3), l'existence d'un diagramme commutatif
+$$
+\xymatrix{
+\Spec(L) \ar[r] \ar[d] & \Spec(K) \ar[r] & X \ar[d] \\
+\Spec(B) \ar[r] \ar[rru] & \Spec(A) \ar[r] & Y
+}
+$$
+pour {\it toute} extension $A \subset B$ d'anneaux de valuation discrète
+entraîne l'existence d'une flèche $\Spec(A) \to X$ s'insérant dans
+le diagramme. Cela a été démontré dans
+Morphismes d'espaces, Lemme \ref{spaces-morphisms-lemma-push-down-solution}.
+En fait, ces considérations montrent qu'il suffit de chercher
+les flèches pointillées dans les diagrammes pour toute classe d'anneaux de valuation discrète
+telle que, pour tout anneau de valuation discrète, il en existe une extension
+qui appartienne à la classe. On pourrait, par exemple, prendre les anneaux de valuation
+discrète complets à corps résiduel algébriquement clos.
+\end{remark}
+
+
+
+
+
+
+
+\section{Images directes supérieures des faisceaux cohérents}
+\label{section-proper-pushforward}
+
+\noindent
+Dans cette section, nous démontrons le fait fondamental que les images
+directes supérieures d'un faisceau cohérent par un morphisme propre
+sont cohérentes. Commençons par un lemme auxiliaire.
+
+\begin{lemma}
+\label{lemma-kill-by-twisting}
+Soit $S$ un schéma. Considérons un diagramme commutatif
+$$
+\xymatrix{
+X \ar[r]_i \ar[rd]_f & \mathbf{P}^n_Y \ar[d] \\
+& Y
+}
+$$
+d'espaces algébriques au-dessus de $S$. Supposons que $i$ soit une immersion fermée
+et que $Y$ soit noethérien. Posons $\mathcal{L} = i^*\mathcal{O}_{\mathbf{P}^n_Y}(1)$.
+Soit $\mathcal{F}$ un module cohérent sur $X$.
+Il existe alors un entier $d_0$ tel que, pour tout $d \geq d_0$, on ait
+$R^pf_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0$
+pour tout $p > 0$.
+\end{lemma}
+
+\begin{proof}
+La nullité de $R^pf_*(\mathcal{F} \otimes \mathcal{L}^{\otimes d})$
+se vérifie localement pour la topologie \'etale sur $Y$, voir
+l'équation (\ref{equation-representable-higher-direct-image}).
+On peut donc supposer que $Y$ est le spectre d'un anneau noethérien. Dans ce cas,
+$X$ est un schéma et le résultat découle de
+Cohomologie des schémas, lemme \ref{coherent-lemma-kill-by-twisting}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-pushforward-coherent}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme propre
+d'espaces algébriques au-dessus de $S$, avec $Y$ localement noethérien.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+Alors $R^if_*\mathcal{F}$ est un $\mathcal{O}_Y$-module cohérent
+pour tout $i \geq 0$.
+\end{lemma}
+
+\begin{proof}
+Remarquons d'abord que $X$ est un espace algébrique localement noethérien
+d'après Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}.
+L'énoncé du lemme a donc un sens. De plus, la formation de
+$R^if_*\mathcal{F}$ commute à la localisation \'etale sur $Y$
+(Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules})
+et la cohérence de $R^if_*\mathcal{F}$ se vérifie
+localement pour la topologie \'etale sur $Y$ (lemme \ref{lemma-coherent-Noetherian}).
+On peut donc supposer que $Y = \Spec(A)$ est un schéma affine noethérien.
+
+\medskip\noindent
+Supposons que $Y = \Spec(A)$ soit un schéma affine. Notons que $f$ est localement
+de présentation finie
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-noetherian-finite-type-finite-presentation}).
+Il est donc de présentation finie, et par suite $X$ est noethérien
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}).
+Le lemme \ref{lemma-property-higher-rank-cohomological-variant}
+s'applique donc à la catégorie des modules cohérents sur $X$.
+Pour un faisceau cohérent $\mathcal{F}$ sur $X$, disons que $\mathcal{P}$ est vérifiée
+si et seulement si $R^if_*\mathcal{F}$ est un module cohérent sur $\Spec(A)$.
+Nous allons montrer que les conditions (1), (2) et (3) du
+lemme \ref{lemma-property-higher-rank-cohomological-variant} sont vérifiées
+pour cette propriété, ce qui achèvera la démonstration du lemme.
+
+\medskip\noindent
+Vérification de la condition (1). Soit
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+une suite exacte courte de faisceaux cohérents sur $X$.
+Considérons la suite exacte longue des images directes supérieures
+$$
+R^{p - 1}f_*\mathcal{F}_3 \to
+R^pf_*\mathcal{F}_1 \to
+R^pf_*\mathcal{F}_2 \to
+R^pf_*\mathcal{F}_3 \to
+R^{p + 1}f_*\mathcal{F}_1
+$$
+Il est alors clair que, si deux des trois faisceaux $\mathcal{F}_i$
+vérifient la propriété $\mathcal{P}$, les images directes supérieures du
+troisième sont encadrées, dans ce complexe exact, par deux faisceaux
+cohérents. Ces images directes supérieures sont donc elles aussi cohérentes d'après les
+lemmes \ref{lemma-coherent-abelian-Noetherian} et
+\ref{lemma-coherent-Noetherian-quasi-coherent-sub-quotient}.
+Ainsi, la propriété $\mathcal{P}$ est également vérifiée pour le troisième.
+
+\medskip\noindent
+Vérification de la condition (2). Elle résulte immédiatement de ce que
+$R^if_*(\mathcal{F}_1 \oplus \mathcal{F}_2) =
+R^if_*\mathcal{F}_1 \oplus R^if_*\mathcal{F}_2$ et de ce qu'un facteur direct
+d'un module cohérent est cohérent (voir les lemmes cités ci-dessus).
+
+\medskip\noindent
+Vérification de la condition (3). Soit $i : Z \to X$ une immersion fermée,
+où $Z$ est réduit et $|Z|$ irréductible. Posons $g = f \circ i : Z \to \Spec(A)$.
+Soit $\mathcal{G}$ un module cohérent sur $Z$ dont le support schématique
+est égal à $Z$, tel que $R^pg_*\mathcal{G}$ soit cohérent pour tout $p$.
+Alors $\mathcal{F} = i_*\mathcal{G}$ est un module cohérent sur
+$X$, de support schématique $Z$, tel que
+$R^pf_*\mathcal{F} = R^pg_*\mathcal{G}$. Pour le voir, utilisons
+la suite spectrale de Leray
+(Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-relative-Leray})
+et le fait que $R^qi_*\mathcal{G} = 0$ pour $q > 0$ d'après le
+lemme \ref{lemma-affine-vanishing-higher-direct-images},
+ainsi que le fait qu'une immersion fermée est affine
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-closed-immersion-affine}).
+On se ramène donc à trouver un faisceau cohérent $\mathcal{G}$ sur $Z$
+de support égal à $Z$, tel que $R^pg_*\mathcal{G}$ soit cohérent
+pour tout $p$.
+
+\medskip\noindent
+Appliquons le lemme \ref{lemma-weak-chow} au morphisme $Z \to \Spec(A)$.
+On obtient ainsi un diagramme
+$$
+\xymatrix{
+Z \ar[rd]_g & Z' \ar[d]^-{g'} \ar[l]^\pi \ar[r]_i & \mathbf{P}^n_A \ar[dl] \\
+& \Spec(A) &
+}
+$$
+où $\pi : Z' \to Z$ est propre et surjectif, et $i$ une immersion.
+Puisque $Z \to \Spec(A)$ est propre, on conclut que $g'$ est propre
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-composition-proper}).
+Par suite, $i$ est une immersion fermée
+(Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-universally-closed-permanence} et
+\ref{spaces-morphisms-lemma-immersion-when-closed}).
+Il s'ensuit que le morphisme
+$i' = (i, \pi) : \mathbf{P}^n_A \times_{\Spec(A)} Z' = \mathbf{P}^n_Z$ est
+une immersion fermée
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-semi-diagonal}).
+Posons
+$$
+\mathcal{L} =
+i^*\mathcal{O}_{\mathbf{P}^n_A}(1) =
+(i')^*\mathcal{O}_{\mathbf{P}^n_Z}(1)
+$$
+On peut appliquer le lemme \ref{lemma-kill-by-twisting}
+à $\mathcal{L}$ et $\pi$, ainsi qu'à $\mathcal{L}$ et $g'$.
+Ainsi, pour tout $d \gg 0$, on a
+$R^p\pi_*\mathcal{L}^{\otimes d} = 0$ pour tout $p > 0$ et
+$R^p(g')_*\mathcal{L}^{\otimes d} = 0$ pour tout $p > 0$.
+Posons $\mathcal{G} = \pi_*\mathcal{L}^{\otimes d}$.
+D'après la suite spectrale de Leray
+(Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-relative-Leray}),
+on a
+$$
+E_2^{p, q} = R^pg_* R^q\pi_*\mathcal{L}^{\otimes d}
+\Rightarrow
+R^{p + q}(g')_*\mathcal{L}^{\otimes d}
+$$
+et, par le choix de $d$, les seuls termes non nuls de $E_2^{p, q}$ sont
+ceux pour lesquels $q = 0$, tandis que les seuls termes non nuls de
+$R^{p + q}(g')_*\mathcal{L}^{\otimes d}$ sont ceux pour lesquels $p = q = 0$.
+Il en résulte que $R^pg_*\mathcal{G} = 0$ pour $p > 0$ et
+que $g_*\mathcal{G} = (g')_*\mathcal{L}^{\otimes d}$.
+En appliquant
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-locally-projective-pushforward}
+on voit que $g_*\mathcal{G} = (g')_*\mathcal{L}^{\otimes d}$ est
+cohérent.
+
+\medskip\noindent
+Il reste à vérifier que le support de $\mathcal{G}$ est $Z$.
+Cela résulte du fait que $\mathcal{L}^{\otimes d}$ possède
+beaucoup de sections globales. Donnons les détails.
+Notons que $\mathcal{L}^{\otimes d}$ est engendré par ses sections globales pour tout $d \geq 0$,
+car il en est de même de $\mathcal{O}_{\mathbf{P}^n}(d)$.
+Choisissons un point $z \in Z'$ s'envoyant sur le point générique $\xi$ de $Z$ ;
+c'est possible puisque $\pi$ est surjectif.
+(Observons que $Z$ possède bien un point générique, car $|Z|$ est irréductible
+et $Z$ est noethérien, donc quasi-séparé ; ainsi $|Z|$ est un espace topologique
+sobre d'après
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-quasi-separated-sober}.)
+Choisissons $s \in \Gamma(Z', \mathcal{L}^{\otimes d})$ qui ne s'annule pas en $z$.
+Puisque $\Gamma(Z, \mathcal{G}) = \Gamma(Z', \mathcal{L}^{\otimes d})$,
+on peut considérer $s$ comme une section globale de $\mathcal{G}$.
+Choisissons un point géométrique $\overline{z}$ de $Z'$ au-dessus de $z$
+et notons $\overline{\xi} = g' \circ \overline{z}$
+le point géométrique correspondant de $Z$. L'application d'adjonction
+$$
+(g')^*\mathcal{G} =
+(g')^*g'_*\mathcal{L}^{\otimes d} \longrightarrow \mathcal{L}^{\otimes d}
+$$
+induit une application entre les fibres
+$\mathcal{G}_{\overline{\xi}} \to \mathcal{L}_{\overline{z}}$, voir
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-stalk-pullback-quasi-coherent}.
+De plus, l'application d'adjonction envoie l'image réciproque de $s$ (vu comme section
+de $\mathcal{G}$) sur $s$ (vu comme section de $\mathcal{L}^{\otimes d}$).
+Ainsi, l'image de $s$ dans l'espace vectoriel source de la flèche
+$$
+\mathcal{G}_{\overline{\xi}} \otimes \kappa(\overline{\xi})
+\longrightarrow
+\mathcal{L}^{\otimes d}_{\overline{z}} \otimes \kappa(\overline{z})
+$$
+n'est pas nulle, puisque, par le choix de $s$, son image dans la cible de la flèche
+est non nulle. Ainsi, $\xi$ appartient au support de $\mathcal{G}$
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-support-finite-type}).
+Puisque $|Z|$ est irréductible et $Z$ réduit, on conclut que
+le support schématique de $\mathcal{G}$ est $Z$ tout entier, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-over-affine-cohomology-finite}
+Soit $A$ un anneau noethérien.
+Soit $f : X \to \Spec(A)$ un morphisme propre d'espaces algébriques.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+Alors $H^i(X, \mathcal{F})$ est un $A$-module de type fini pour tout $i \geq 0$.
+\end{lemma}
+
+\begin{proof}
+Il s'agit simplement du cas affine du lemme \ref{lemma-proper-pushforward-coherent}.
+En effet, le lemme \ref{lemma-higher-direct-image} montre que
+$R^if_*\mathcal{F}$ est un faisceau quasi-cohérent. C'est donc le faisceau
+quasi-cohérent associé au $A$-module
+$\Gamma(\Spec(A), R^if_*\mathcal{F}) = H^i(X, \mathcal{F})$.
+L'égalité résulte de
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-apply-Leray},
+et de l'annulation des groupes de cohomologie supérieurs des modules quasi-cohérents
+sur les schémas affines (Cohomologie des schémas, lemme
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}).
+D'après le lemme \ref{lemma-coherent-Noetherian}, le faisceau $R^if_*\mathcal{F}$ est
+cohérent si et seulement si $H^i(X, \mathcal{F})$
+est un $A$-module de type fini. Le
+lemme \ref{lemma-proper-pushforward-coherent} donne donc la conclusion.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-graded-finiteness}
+Soit $A$ un anneau noethérien.
+Soit $B$ une $A$-algèbre graduée de type fini.
+Soit $f : X \to \Spec(A)$ un morphisme propre d'espaces algébriques.
+Posons $\mathcal{B} = f^*\widetilde B$.
+Soit $\mathcal{F}$ un $\mathcal{B}$-module gradué
+quasi-cohérent de type fini.
+Pour tout $p \geq 0$, le $B$-module gradué $H^p(X, \mathcal{F})$
+est un $B$-module de type fini.
+\end{lemma}
+
+\begin{proof}
+Pour le démontrer, considérons le diagramme de produit fibré
+$$
+\xymatrix{
+X' = \Spec(B) \times_{\Spec(A)} X
+\ar[r]_-\pi \ar[d]_{f'} &
+X \ar[d]^f \\
+\Spec(B) \ar[r] &
+\Spec(A)
+}
+$$
+Notons que $f'$ est un morphisme propre, voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-base-change-proper}.
+De plus, $B$ est une $A$-algèbre de type fini, et est donc
+noethérienne (Algèbre, lemme \ref{algebra-lemma-Noetherian-permanence}).
+Il en résulte que $X'$ est un espace algébrique noethérien
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}).
+Notons que $X'$ est le spectre relatif de la
+$\mathcal{O}_X$-algèbre quasi-cohérente $\mathcal{B}$ d'après
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-affine-equivalence-algebras}.
+Puisque $\mathcal{F}$ est un $\mathcal{B}$-module quasi-cohérent,
+il existe un unique
+$\mathcal{O}_{X'}$-module quasi-cohérent $\mathcal{F}'$ tel que
+$\pi_*\mathcal{F}' = \mathcal{F}$, voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-affine-equivalence-modules}.
+Puisque $\mathcal{F}$ est de type fini comme $\mathcal{B}$-module, on
+conclut que $\mathcal{F}'$ est un
+$\mathcal{O}_{X'}$-module de type fini (détails omis). Autrement dit,
+$\mathcal{F}'$ est un $\mathcal{O}_{X'}$-module cohérent
+(lemme \ref{lemma-coherent-Noetherian}).
+Puisque le morphisme $\pi : X' \to X$ est affine, on a
+$$
+H^p(X, \mathcal{F}) = H^p(X', \mathcal{F}')
+$$
+d'après le
+lemme \ref{lemma-affine-vanishing-higher-direct-images}
+et
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-apply-Leray}.
+Le lemme résulte donc du
+lemme \ref{lemma-proper-over-affine-cohomology-finite}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Faisceaux inversibles amples et cohomologie}
+\label{section-ample-cohomology}
+
+\noindent
+Voici un critère d'amplitude pour les espaces algébriques propres sur une base affine,
+exprimé par l'annulation de la cohomologie après tensorisation.
+
+\begin{lemma}
+\label{lemma-vanshing-gives-ample}
+Soit $R$ un anneau noethérien. Soit $X$ un espace algébrique propre
+sur $R$. Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est un schéma et $\mathcal{L}$ est ample sur $X$ ;
+\item pour tout $\mathcal{O}_X$-module cohérent $\mathcal{F}$, il existe
+un $n_0 \geq 0$ tel que
+$H^p(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$ pour tout $n \geq n_0$
+et tout $p > 0$ ; et
+\item pour tout $\mathcal{O}_X$-module cohérent $\mathcal{F}$, il existe
+un $n \geq 1$ tel que
+$H^1(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (1) $\Rightarrow$ (2) résulte de
+Cohomologie des schémas, lemme \ref{coherent-lemma-vanshing-gives-ample}.
+L'implication (2) $\Rightarrow$ (3) est triviale.
+L'implication (3) $\Rightarrow$ (1) est le
+lemme \ref{lemma-Noetherian-h1-zero-invertible}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-finite-morphism-ample}
+Soit $R$ un anneau noethérien. Soit $f : Y \to X$ un morphisme entre espaces
+algébriques propres sur $R$. Soit $\mathcal{L}$ un
+$\mathcal{O}_X$-module inversible. Supposons $f$ fini et surjectif.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est un schéma et $\mathcal{L}$ est ample ; et
+\item $Y$ est un schéma et $f^*\mathcal{L}$ est ample.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1). Alors $Y$ est un schéma, car un morphisme fini est représentable
+(par des schémas), voir Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-integral-local}. Par suite, (2)
+résulte de Cohomologie des schémas, lemme
+\ref{coherent-lemma-surjective-finite-morphism-ample}.
+
+\medskip\noindent
+Supposons (2). Soit $P$ la propriété suivante des
+$\mathcal{O}_X$-modules cohérents $\mathcal{F}$ : il existe $n_0$
+tel que $H^p(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$
+pour tout $n \geq n_0$ et tout $p > 0$. Nous allons montrer que $P$ est vérifiée
+par tout $\mathcal{O}_X$-module cohérent $\mathcal{F}$, ce qui entraîne que
+$\mathcal{L}$ est ample d'après le lemme \ref{lemma-vanshing-gives-ample}.
+Nous allons appliquer le lemme \ref{lemma-property-higher-rank-cohomological}.
+Il faut donc vérifier les conditions (1), (2) et (3) de ce lemme pour $P$.
+La propriété (1) résulte de la suite exacte longue de cohomologie associée
+à une suite exacte courte de faisceaux et du fait que la tensorisation par
+un faisceau inversible est un foncteur exact. La propriété (2) résulte de ce que
+$H^p(X, -)$ est un foncteur additif.
+
+\medskip\noindent
+Pour vérifier (3), soit $i : Z \to X$ un sous-espace fermé réduit tel que $|Z|$
+soit irréductible. Soient $i' : Z' \to Y$ et $f' : Z' \to Z$ comme dans le
+lemme \ref{lemma-finite-morphism-Noetherian}, et posons
+$\mathcal{G} = f'_*\mathcal{O}_{Z'}$. Nous affirmons que
+$\mathcal{G}$ vérifie les propriétés (3)(a) et (3)(b) du
+lemme \ref{lemma-property-higher-rank-cohomological},
+ce qui achèvera la démonstration. La propriété (3)(a) a été établie au
+lemme \ref{lemma-finite-morphism-Noetherian}. Pour voir (3)(b), soit
+$\mathcal{I}$ un faisceau quasi-cohérent d'idéaux non nul sur $Z$.
+Notons $\mathcal{I}' \subset \mathcal{O}_{Z'}$ l'idéal quasi-cohérent
+$(f')^{-1}\mathcal{I} \mathcal{O}_{Z'}$, c'est-à-dire
+l'image de $(f')^*\mathcal{I} \to \mathcal{O}_{Z'}$.
+D'après le lemme \ref{lemma-affine-morphism-projection-ideal}, on a
+$f_*\mathcal{I}' = \mathcal{I} \mathcal{G}$. Nous affirmons que la valeur commune
+$\mathcal{G}' = \mathcal{I} \mathcal{G} = f'_*\mathcal{I}'$
+vérifie la condition énoncée en (3)(b).
+D'abord, il est clair que le support de $\mathcal{G}/\mathcal{G}'$
+est contenu dans celui de $\mathcal{O}_Z/\mathcal{I}$,
+qui est un sous-espace propre de $|Z|$, puisque $\mathcal{I}$ est un
+faisceau d'idéaux non nul sur l'espace algébrique réduit et irréductible $Z$.
+Rappelons que $f'_*$, $i_*$ et $i'_*$ transforment les modules cohérents en
+modules cohérents, voir les lemmes \ref{lemma-finite-pushforward-coherent} et
+\ref{lemma-i-star-equivalence}.
+Puisque $Y$ est un schéma et que $\mathcal{L}$ est ample,
+le lemme \ref{lemma-vanshing-gives-ample} montre
+qu'il existe $n_0$ tel que
+$$
+H^p(Y, i'_*\mathcal{I}' \otimes_{\mathcal{O}_Y} f^*\mathcal{L}^{\otimes n}) = 0
+$$
+pour $n \geq n_0$ et $p > 0$. On obtient alors
+\begin{align*}
+H^p(X, i_*\mathcal{G}' \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+& =
+H^p(Z, \mathcal{G'} \otimes_{\mathcal{O}_Z} i^*\mathcal{L}^{\otimes n}) \\
+& =
+H^p(Z,
+f'_*\mathcal{I}' \otimes_{\mathcal{O}_Z} i^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Z, f'_*(\mathcal{I}' \otimes_{\mathcal{O}_{Z'}}
+(f')^*i^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Z, f'_*(\mathcal{I}' \otimes_{\mathcal{O}_{Z'}}
+(i')^*f^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Z',
+\mathcal{I}' \otimes_{\mathcal{O}_{Z'}} (i')^*f^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Y, i'_*\mathcal{I}' \otimes_{\mathcal{O}_Y} f^*\mathcal{L}^{\otimes n}) = 0
+\end{align*}
+Nous avons utilisé ici la formule de projection et la suite spectrale de Leray
+(voir Cohomologie sur les sites, sections
+\ref{sites-cohomology-section-projection-formula} et
+\ref{sites-cohomology-section-leray})
+ainsi que le lemme \ref{lemma-finite-higher-direct-image-zero}.
+Cela vérifie la propriété (3)(b) du
+lemme \ref{lemma-property-higher-rank-cohomological}, comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Le théorème des fonctions formelles}
+\label{section-theorem-formal-functions}
+
+\noindent
+Cette section est l'analogue de
+Cohomologie des schémas, section \ref{coherent-section-theorem-formal-functions}.
+Nous invitons le lecteur à lire d'abord cette section.
+
+\begin{situation}
+\label{situation-formal-functions}
+Ici, $A$ est un anneau noethérien et $I \subset A$ un idéal.
+De plus, $f : X \to \Spec(A)$ est un morphisme propre d'espaces algébriques
+et $\mathcal{F}$ un faisceau cohérent sur $X$.
+\end{situation}
+
+\noindent
+Dans cette situation, on note $I^n\mathcal{F}$ le sous-module quasi-cohérent
+de $\mathcal{F}$ engendré, comme $\mathcal{O}_X$-module,
+par les produits de sections locales de $\mathcal{F}$ et d'éléments de $I^n$.
+Autrement dit, c'est l'image de l'application
+$f^*\widetilde{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to \mathcal{F}$.
+
+\begin{lemma}
+\label{lemma-cohomology-powers-ideal-times-F}
+Dans la situation \ref{situation-formal-functions}.
+Posons $B = \bigoplus_{n \geq 0} I^n$.
+Alors, pour tout $p \geq 0$, le $B$-module gradué
+$\bigoplus_{n \geq 0} H^p(X, I^n\mathcal{F})$ est
+un $B$-module de type fini.
+\end{lemma}
+
+\begin{proof}
+Posons $\mathcal{B} = \bigoplus I^n\mathcal{O}_X = f^*\widetilde{B}$.
+Alors $\bigoplus I^n\mathcal{F}$ est un $\mathcal{B}$-module
+gradué de type fini. Le résultat découle donc
+du lemme \ref{lemma-graded-finiteness}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomology-powers-ideal-application}
+Dans la situation \ref{situation-formal-functions}.
+Pour tout $p \geq 0$, il existe un entier $c \geq 0$ tel que
+\begin{enumerate}
+\item l'application de multiplication
+$I^{n - c} \otimes H^p(X, I^c\mathcal{F}) \to H^p(X, I^n\mathcal{F})$
+soit surjective pour tout $n \geq c$ ; et
+\item l'image de $H^p(X, I^{n + m}\mathcal{F}) \to H^p(X, I^n\mathcal{F})$
+soit contenue dans le sous-module $I^{m - c} H^p(X, I^n\mathcal{F})$
+pour tout $n \geq 0$ et tout $m \geq c$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-cohomology-powers-ideal-times-F},
+on peut trouver $d_1, \ldots, d_t \geq 0$ et
+$x_i \in H^p(X, I^{d_i}\mathcal{F})$ tels que
+$\bigoplus_{n \geq 0} H^p(X, I^n\mathcal{F})$ soit engendré
+par $x_1, \ldots, x_t$ sur $B = \bigoplus_{n \geq 0} I^n$.
+Posons $c = \max\{d_i\}$. Il est clair que (1) est vérifiée.
+Pour (2), posons $b = \max(0, n - c)$.
+Considérons le diagramme commutatif de $A$-modules
+$$
+\xymatrix{
+I^{n + m - c - b} \otimes I^b \otimes
+H^p(X, I^c\mathcal{F}) \ar[r] \ar[d] &
+I^{n + m - c} \otimes H^p(X, I^c\mathcal{F}) \ar[r] &
+H^p(X, I^{n + m}\mathcal{F}) \ar[d] \\
+I^{n + m - c - b} \otimes H^p(X, I^n\mathcal{F}) \ar[rr] & &
+H^p(X, I^n\mathcal{F})
+}
+$$
+D'après la partie (1) du lemme, le composé des flèches horizontales
+est surjectif si $n + m \geq c$. D'autre part, il est clair
+que $n + m - c - b \geq m - c$. D'où la partie (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ML-cohomology-powers-ideal}
+Dans la situation \ref{situation-formal-functions}.
+Fixons $p \geq 0$.
+\begin{enumerate}
+\item Il existe $c_1 \geq 0$ tel que, pour tout $n \geq c_1$,
+on ait
+$$
+\Ker(
+H^p(X, \mathcal{F}) \to H^p(X, \mathcal{F}/I^n\mathcal{F})
+)
+\subset
+I^{n - c_1}H^p(X, \mathcal{F}).
+$$
+\item Le système projectif
+$$
+\left(H^p(X, \mathcal{F}/I^n\mathcal{F})\right)_{n \in \mathbf{N}}
+$$
+vérifie la condition de Mittag-Leffler (voir
+Homologie, définition \ref{homology-definition-Mittag-Leffler}).
+\item En fait, quels que soient $p$ et $n$, il existe $c_2(n) \geq n$
+tel que
+$$
+\Im(H^p(X, \mathcal{F}/I^k\mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+=
+\Im(H^p(X, \mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+$$
+pour tout $k \geq c_2(n)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Posons $c_1 = \max\{c_p, c_{p + 1}\}$, où $c_p, c_{p +1}$ sont les entiers
+obtenus dans le lemme \ref{lemma-cohomology-powers-ideal-application} pour
+$H^p$ et $H^{p + 1}$. Nous utiliserons cette constante dans les démonstrations de
+(1), (2) et (3).
+
+\medskip\noindent
+Démontrons la partie (1). Considérons la suite exacte courte
+$$
+0 \to I^n\mathcal{F} \to \mathcal{F} \to \mathcal{F}/I^n\mathcal{F} \to 0
+$$
+La suite exacte longue de cohomologie donne
+$$
+\Ker(
+H^p(X, \mathcal{F}) \to H^p(X, \mathcal{F}/I^n\mathcal{F})
+)
+=
+\Im(
+H^p(X, I^n\mathcal{F}) \to H^p(X, \mathcal{F})
+)
+$$
+D'après le choix de $c_1$, ce sous-module est donc contenu dans
+$I^{n - c_1}H^p(X, \mathcal{F})$ pour $n \geq c_1$.
+
+\medskip\noindent
+Notons que la partie (3) entraîne la partie (2) par définition de la condition
+de Mittag-Leffler.
+
+\medskip\noindent
+Démontrons la partie (3).
+Fixons $n$ pour le reste de la démonstration.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+0 \ar[r] &
+I^n\mathcal{F} \ar[r] &
+\mathcal{F} \ar[r] &
+\mathcal{F}/I^n\mathcal{F} \ar[r] &
+0 \\
+0 \ar[r] &
+I^{n + m}\mathcal{F} \ar[r] \ar[u] &
+\mathcal{F} \ar[r] \ar[u] &
+\mathcal{F}/I^{n + m}\mathcal{F} \ar[r] \ar[u] &
+0
+}
+$$
+Il induit le diagramme commutatif suivant
+$$
+\xymatrix{
+H^p(X, I^n\mathcal{F}) \ar[r] &
+H^p(X, \mathcal{F}) \ar[r] &
+H^p(X, \mathcal{F}/I^n\mathcal{F}) \ar[r]_\delta &
+H^{p + 1}(X, I^n\mathcal{F}) \\
+H^p(X, I^{n + m}\mathcal{F}) \ar[r] \ar[u] &
+H^p(X, \mathcal{F}) \ar[r] \ar[u]^1 &
+H^p(X, \mathcal{F}/I^{n + m}\mathcal{F}) \ar[r] \ar[u] &
+H^{p + 1}(X, I^{n + m}\mathcal{F}) \ar[u]^a
+}
+$$
+Si $m \geq c_1$, on voit que l'image de $a$ est
+contenue dans $I^{m - c_1} H^{p + 1}(X, I^n\mathcal{F})$.
+D'après le lemme d'Artin--Rees (voir Algèbre, lemme \ref{algebra-lemma-map-AR}),
+il existe un entier $c_3(n)$ tel que
+$$
+I^N H^{p + 1}(X, I^n\mathcal{F}) \cap \Im(\delta)
+\subset
+\delta\left(I^{N - c_3(n)}H^p(X, \mathcal{F}/I^n\mathcal{F})\right)
+$$
+pour tout $N \geq c_3(n)$. Comme $H^p(X, \mathcal{F}/I^n\mathcal{F})$
+est annulé par $I^n$, on voit que, si $m \geq c_3(n) + c_1 + n$,
+alors
+$$
+\Im(H^p(X, \mathcal{F}/I^{n + m}\mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+=
+\Im(H^p(X, \mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+$$
+Autrement dit, la partie (3) est vérifiée avec $c_2(n) = c_3(n) + c_1 + n$.
+\end{proof}
+
+\begin{theorem}[Théorème des fonctions formelles]
+\label{theorem-formal-functions}
+Dans la situation \ref{situation-formal-functions}. Fixons $p \geq 0$.
+Le système d'applications
+$$
+H^p(X, \mathcal{F})/I^nH^p(X, \mathcal{F})
+\longrightarrow
+H^p(X, \mathcal{F}/I^n\mathcal{F})
+$$
+définit un isomorphisme de limites
+$$
+H^p(X, \mathcal{F})^\wedge
+\longrightarrow
+\lim_n H^p(X, \mathcal{F}/I^n\mathcal{F})
+$$
+où le membre de gauche est le complété du $A$-module
+$H^p(X, \mathcal{F})$ relativement à l'idéal $I$, voir
+Algèbre, section \ref{algebra-section-completion}.
+De plus, c'est un homéomorphisme pour les topologies de limite projective.
+\end{theorem}
+
+\begin{proof}
+Cela résulte en fait immédiatement du
+lemme \ref{lemma-ML-cohomology-powers-ideal}. Donnons les détails.
+Posons $M = H^p(X, \mathcal{F})$ et $M_n = H^p(X, \mathcal{F}/I^n\mathcal{F})$.
+Notons $N_n = \Im(M \to M_n)$.
+D'après la description de la limite dans Homologie, section
+\ref{homology-section-inverse-systems}, on a
+$$
+\lim_n M_n
+=
+\{(x_n) \in \prod M_n \mid \varphi_i(x_n) = x_{n - 1}, \ n = 2, 3, \ldots\}
+$$
+Choisissons un élément $x = (x_n) \in \lim_n M_n$.
+D'après la partie (3) du lemme \ref{lemma-ML-cohomology-powers-ideal},
+on a $x_n \in N_n$ pour tout $n$, puisque, par
+définition, $x_n$ est l'image d'un certain $x_{n + m} \in M_{n + m}$ pour
+tout $m$. D'après la partie (1) du lemme \ref{lemma-ML-cohomology-powers-ideal},
+il existe une factorisation
+$$
+M \to N_n \to M/I^{n - c_1}M
+$$
+de l'application de réduction. Notons $y_n \in M/I^{n - c_1}M$ l'image de $x_n$
+pour $n \geq c_1$. Puisque, pour $n' \geq n$, le composé
+$M \to M_{n'} \to M_n$ est l'application donnée $M \to M_n$, on voit que
+$y_{n'}$ s'envoie sur $y_n$ par l'application canonique
+$M/I^{n' - c_1}M \to M/I^{n - c_1}M$. Ainsi, $y = (y_{n + c_1})$
+définit un élément de $\lim_n M/I^nM$.
+Nous omettons de vérifier que $y$ s'envoie sur $x$ par
+l'application
+$$
+M^\wedge = \lim_n M/I^nM \longrightarrow \lim_n M_n
+$$
+du lemme. Nous omettons également la vérification concernant les topologies.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-spell-out-theorem-formal-functions}
+Soit $A$ un anneau. Soit $I \subset A$ un idéal. Supposons $A$
+noethérien et complet pour la topologie $I$-adique.
+Soit $f : X \to \Spec(A)$ un morphisme propre d'espaces algébriques.
+Soit $\mathcal{F}$ un faisceau cohérent sur $X$. Alors
+$$
+H^p(X, \mathcal{F}) = \lim_n H^p(X, \mathcal{F}/I^n\mathcal{F})
+$$
+pour tout $p \geq 0$.
+\end{lemma}
+
+\begin{proof}
+C'est une reformulation du théorème des fonctions formelles
+(théorème \ref{theorem-formal-functions}) dans le
+cas d'un anneau de base noethérien complet. En effet, dans ce cas, le
+$A$-module $H^p(X, \mathcal{F})$ est de type fini
+(lemme \ref{lemma-proper-over-affine-cohomology-finite}), donc
+complet pour la topologie $I$-adique (Algèbre, lemme \ref{algebra-lemma-completion-tensor}),
+et l'on voit qu'il est inutile de compléter le membre de gauche.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-formal-functions-stalk}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+au-dessus de $S$, et soit $\mathcal{F}$ un faisceau quasi-cohérent sur $X$. Supposons que
+\begin{enumerate}
+\item $Y$ soit localement noethérien,
+\item $f$ soit propre, et
+\item $\mathcal{F}$ soit cohérent.
+\end{enumerate}
+Soit $\overline{y}$ un point géométrique de $Y$.
+Considérons les « voisinages infinitésimaux »
+$$
+\xymatrix{
+X_n =
+\Spec(\mathcal{O}_{Y, \overline{y}}/\mathfrak m_{\overline{y}}^n) \times_Y X
+\ar[r]_-{i_n} \ar[d]_{f_n} &
+X \ar[d]^f \\
+\Spec(\mathcal{O}_{Y, \overline{y}}/\mathfrak m_{\overline{y}}^n)
+\ar[r]^-{c_n} & Y
+}
+$$
+de la fibre $X_1 = X_{\overline{y}}$, et posons
+$\mathcal{F}_n = i_n^*\mathcal{F}$. On a alors
+$$
+\left(R^pf_*\mathcal{F}\right)_{\overline{y}}^\wedge
+\cong
+\lim_n H^p(X_n, \mathcal{F}_n)
+$$
+comme $\mathcal{O}_{Y, \overline{y}}^\wedge$-modules.
+\end{lemma}
+
+\begin{proof}
+Il s'agit simplement d'une reformulation d'un cas particulier du théorème
+des fonctions formelles, théorème \ref{theorem-formal-functions}.
+Donnons les détails. Notons que $\mathcal{O}_{Y, \overline{y}}$
+est un anneau local noethérien, voir
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-Noetherian-local-ring-Noetherian}.
+Considérons le morphisme canonique
+$c : \Spec(\mathcal{O}_{Y, \overline{y}}) \to Y$.
+C'est un morphisme plat, car il identifie les anneaux locaux.
+Notons $f' : X' \to \Spec(\mathcal{O}_{Y, \overline{y}})$
+le changement de base de $f$ à cet anneau local. On a
+$c^*R^pf_*\mathcal{F} = R^pf'_*\mathcal{F}'$ d'après le
+lemme \ref{lemma-flat-base-change-cohomology}.
+De plus, on dispose d'identifications canoniques $X_n = X'_n$
+pour tout $n \geq 1$.
+
+\medskip\noindent
+On peut donc supposer que $Y = \Spec(A)$ est le spectre d'un
+anneau local noethérien strictement hensélien $A$, d'idéal maximal
+$\mathfrak m$, et que $\overline{y} \to Y$ est égal à
+$\Spec(A/\mathfrak m) \to Y$. Il en résulte que
+$$
+\left(R^pf_*\mathcal{F}\right)_{\overline{y}} =
+\Gamma(Y, R^pf_*\mathcal{F}) =
+H^p(X, \mathcal{F})
+$$
+car $(Y, \overline{y})$ est un objet initial de la catégorie
+des voisinages \'etales de $\overline{y}$.
+Les morphismes $c_n$ sont tous des immersions fermées.
+Leurs changements de base $i_n$ sont donc eux aussi des immersions fermées.
+Notons que $i_{n, *}\mathcal{F}_n = i_{n, *}i_n^*\mathcal{F}
+= \mathcal{F}/\mathfrak m^n\mathcal{F}$. La suite spectrale de Leray
+pour $i_n$ et le lemme \ref{lemma-finite-pushforward-coherent} donnent
+$$
+H^p(X_n, \mathcal{F}_n) =
+H^p(X, i_{n, *}\mathcal{F}) =
+H^p(X, \mathcal{F}/\mathfrak m^n\mathcal{F})
+$$
+On peut donc bien appliquer le théorème des fonctions formelles pour calculer
+la limite figurant dans l'énoncé du lemme, ce qui conclut.
+\end{proof}
+
+\noindent
+Voici un lemme que nous généraliserons ensuite aux fibres de
+dimension $ > 0$, dans le lemme suivant.
+
+\begin{lemma}
+\label{lemma-higher-direct-images-zero-finite-fibre}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+au-dessus de $S$. Soit $\overline{y}$ un point géométrique de $Y$.
+Supposons que
+\begin{enumerate}
+\item $Y$ soit localement noethérien,
+\item $f$ soit propre, et
+\item l'espace topologique sous-jacent à $X_{\overline{y}}$ soit discret.
+\end{enumerate}
+Alors, pour tout faisceau cohérent $\mathcal{F}$ sur $X$, on a
+$(R^pf_*\mathcal{F})_{\overline{y}} = 0$ pour tout $p > 0$.
+\end{lemma}
+
+\begin{proof}
+Soit $\kappa(\overline{y})$ le corps résiduel de l'anneau
+local $\mathcal{O}_{Y, \overline{y}}$. Comme dans le
+lemme \ref{lemma-formal-functions-stalk},
+posons $X_{\overline{y}} = X_1 = \Spec(\kappa(\overline{y})) \times_Y X$.
+D'après Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-quasi-finite-at-point}
+le morphisme $f : X \to Y$ est quasi-fini en chacun
+des points de la fibre de $X \to Y$ au-dessus de $\overline{y}$.
+Il en résulte que $X_{\overline{y}} \to \overline{y}$ est séparé et
+quasi-fini. Par suite, $X_{\overline{y}}$ est un schéma
+d'après Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}.
+Comme il est quasi-compact, son espace topologique sous-jacent est un espace
+discret fini. C'est donc un schéma affine d'après
+Schémas, lemme \ref{schemes-lemma-scheme-finite-discrete-affine}.
+Le lemme \ref{lemma-image-affine-finite-morphism-affine-Noetherian}
+montre alors que les espaces algébriques $X_n$ sont eux aussi des schémas affines.
+De plus, l'espace topologique sous-jacent à chaque $X_n$ est le même
+que celui de $X_1$. Il s'ensuit que $H^p(X_n, \mathcal{F}_n) = 0$
+pour tout $p > 0$. Ainsi,
+$(R^pf_*\mathcal{F})_{\overline{y}}^\wedge = 0$
+d'après le lemme \ref{lemma-formal-functions-stalk}.
+Notons que $R^pf_*\mathcal{F}$ est cohérent d'après le
+lemme \ref{lemma-proper-pushforward-coherent} ;
+ainsi $R^pf_*\mathcal{F}_{\overline{y}}$ est un
+$\mathcal{O}_{Y, \overline{y}}$-module de type fini.
+D'après Algèbre, lemme \ref{algebra-lemma-completion-tensor},
+cela implique que $(R^pf_*\mathcal{F})_{\overline{y}} = 0$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-higher-direct-images-zero-above-dimension-fibre}
+\begin{slogan}
+Pour les morphismes propres, les fibres des images directes supérieures sont nulles aux degrés
+strictement supérieurs à la dimension de la fibre.
+\end{slogan}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Soit $\overline{y}$ un point géométrique de $Y$.
+Supposons que
+\begin{enumerate}
+\item $Y$ soit localement noethérien,
+\item $f$ soit propre, et
+\item $\dim(X_{\overline{y}}) = d$.
+\end{enumerate}
+Alors, pour tout faisceau cohérent $\mathcal{F}$ sur $X$, on a
+$(R^pf_*\mathcal{F})_{\overline{y}} = 0$ pour tout $p > d$.
+\end{lemma}
+
+\begin{proof}
+Soit $\kappa(\overline{y})$ le corps résiduel de l'anneau
+local $\mathcal{O}_{Y, \overline{y}}$. Comme dans le
+lemme \ref{lemma-formal-functions-stalk},
+posons $X_{\overline{y}} = X_1 = \Spec(\kappa(\overline{y})) \times_Y X$.
+De plus, l'espace topologique sous-jacent à chaque voisinage
+infinitésimal $X_n$ est le même que celui de $X_{\overline{y}}$.
+Ainsi, $H^p(X_n, \mathcal{F}_n) = 0$ pour tout $p > d$ d'après le
+lemme \ref{lemma-vanishing-above-dimension}.
+Ainsi, on voit que $(R^pf_*\mathcal{F})_{\overline{y}}^\wedge = 0$
+d'après le lemme \ref{lemma-formal-functions-stalk} pour $p > d$.
+Notons que $R^pf_*\mathcal{F}$ est cohérent d'après le
+lemme \ref{lemma-proper-pushforward-coherent} ;
+ainsi $R^pf_*\mathcal{F}_{\overline{y}}$ est un
+$\mathcal{O}_{Y, \overline{y}}$-module de type fini.
+D'après Algèbre, lemme \ref{algebra-lemma-completion-tensor},
+cela implique que $(R^pf_*\mathcal{F})_{\overline{y}} = 0$.
+\end{proof}
+
+
+
+
+
+
+\section{Applications du théorème des fonctions formelles}
+\label{section-applications-formal-functions}
+
+\noindent
+Nous compléterons cette section selon les besoins.
+
+\begin{lemma}
+\label{lemma-characterize-finite}
+(Pour une version plus générale, voir
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-characterize-finite}).
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques au-dessus de $S$.
+Supposons $Y$ localement noethérien.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est fini ; et
+\item $f$ est propre et $|X_k|$ est un espace discret
+pour tout morphisme $\Spec(k) \to Y$, où $k$ est un corps.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Un morphisme fini est propre d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-finite-proper}.
+Un morphisme fini est quasi-fini d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-finite-quasi-finite}.
+Un morphisme quasi-fini a des fibres discrètes $X_k$, voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-locally-quasi-finite}.
+Ainsi, un morphisme fini est propre et a des fibres discrètes $X_k$.
+
+\medskip\noindent
+Supposons $f$ propre, à fibres discrètes $X_k$.
+Nous voulons montrer que $f$ est fini.
+Il suffit en fait de montrer que $f$ est affine.
+En effet, si $f$ est affine, il s'ensuit que
+$f$ est entier d'après
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-integral-universally-closed}
+puis, d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-finite-integral},
+que $f$ est fini.
+
+\medskip\noindent
+Pour montrer que $f$ est affine, on peut supposer $Y$ affine ; notre
+but est de montrer que $X$ est également affine.
+Puisque $f$ est propre, $X$ est séparé et quasi-compact.
+Nous allons montrer que, pour tout
+$\mathcal{O}_X$-module cohérent $\mathcal{F}$, on a $H^1(X, \mathcal{F}) = 0$.
+Cela implique que $H^1(X, \mathcal{F}) = 0$ pour tout
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$ d'après les
+lemmes \ref{lemma-directed-colimit-coherent} et \ref{lemma-colimits}.
+On en déduit que $X$ est affine d'après la
+proposition \ref{proposition-vanishing-affine}. D'après le
+lemme \ref{lemma-higher-direct-images-zero-finite-fibre},
+on conclut que les fibres de $R^1f_*\mathcal{F}$
+sont nulles en tout point géométrique de $Y$.
+Autrement dit, $R^1f_*\mathcal{F} = 0$. La suite spectrale de Leray
+pour $f$ donne donc
+$H^1(X , \mathcal{F}) = H^1(Y, f_*\mathcal{F})$.
+Puisque $Y$ est affine et $f_*\mathcal{F}$ quasi-cohérent
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-pushforward}),
+on conclut que $H^1(Y, f_*\mathcal{F}) = 0$
+d'après
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}.
+Ainsi, $H^1(X, \mathcal{F}) = 0$, comme voulu.
+\end{proof}
+
+\noindent
+On en déduit le résultat utile suivant.
+
+\begin{lemma}
+\label{lemma-proper-finite-fibre-finite-in-neighbourhood}
+(Pour une version plus générale, voir
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-proper-finite-fibre-finite-in-neighbourhood}).
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+au-dessus de $S$. Soit $\overline{y}$ un point géométrique de $Y$.
+Supposons que
+\begin{enumerate}
+\item $Y$ soit localement noethérien,
+\item $f$ soit propre, et
+\item $|X_{\overline{y}}|$ soit fini.
+\end{enumerate}
+Alors il existe un voisinage ouvert $V \subset Y$ de $\overline{y}$
+tel que $f|_{f^{-1}(V)} : f^{-1}(V) \to V$ soit fini.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $f$ est quasi-fini en tous les points géométriques de $X$
+au-dessus de $\overline{y}$ d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-quasi-finite-at-point}.
+D'après Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part}, l'ensemble
+des points où $f$ est quasi-fini est un sous-espace ouvert $U \subset X$.
+Posons $Z = X \setminus U$. Alors $\overline{y} \not \in f(Z)$. Puisque $f$
+est propre, l'ensemble $f(Z) \subset Y$ est fermé. Choisissons un voisinage ouvert
+$V \subset Y$ de $\overline{y}$ tel que $Z \cap V = \emptyset$. Alors
+$f^{-1}(V) \to V$ est localement quasi-fini et propre.
+Ainsi, $f^{-1}(V) \to V$ a des fibres discrètes $X_k$
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-quasi-finite})
+qui sont quasi-compactes, donc finies.
+Par conséquent, $f^{-1}(V) \to V$
+est fini d'après le lemme \ref{lemma-characterize-finite}.
+\end{proof}
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

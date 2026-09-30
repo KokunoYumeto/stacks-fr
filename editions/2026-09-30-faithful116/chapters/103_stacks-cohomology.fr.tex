@@ -1,0 +1,3919 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Cohomologie des champs algébriques}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous traitons de la cohomologie des champs algébriques.
+Il s'agit notamment de la cohomologie des faisceaux quasi-cohérents, c'est-à-dire que
+nous démontrons des analogues des résultats des chapitres intitulés
+``Cohomologie des schémas'' et ``Cohomologie des espaces algébriques''.
+Les résultats de ce chapitre diffèrent de ceux
+de \cite{LM-B} principalement parce que nous utilisons systématiquement les
+« grands sites ». Avant de lire ce chapitre, nous invitons le lecteur à parcourir
+le chapitre ``Faisceaux sur les champs algébriques'' afin de se
+familiariser avec la terminologie qui y est introduite ; voir
+Faisceaux sur les champs, section \ref{stacks-sheaves-section-introduction}.
+
+
+
+\section{Conventions et abus de langage}
+\label{section-conventions}
+
+\noindent
+Nous continuons d'employer les conventions et abus de langage
+introduits dans
+Propriétés des champs, section \ref{stacks-properties-section-conventions}.
+
+
+
+
+
+
+
+
+
+
+
+\section{Notations}
+\label{section-notation}
+
+\noindent
+Différentes topologies. Si nous désignons un champ algébrique par une lettre
+calligraphique, telle que $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$, alors les notations
+$\mathcal{X}_{Zar}, \mathcal{X}_\etale, \mathcal{X}_{smooth},
+\mathcal{X}_{syntomic}, \mathcal{X}_{fppf}$ désignent les sites introduits
+dans
+Faisceaux sur les champs, définition
+\ref{stacks-sheaves-definition-inherited-topologies}.
+(Il faut penser à un « grand site ».) Par conséquent, le faisceau structural de
+$\mathcal{X}$ est un faisceau sur $\mathcal{X}_{fppf}$.
+En revanche, les espaces algébriques et les schémas
+sont habituellement désignés par des majuscules romaines, telles que $X, Y, Z$, et, dans ce cas,
+$X_\etale$ désigne le petit site étale de $X$ (tel qu'il est
+défini dans
+Topologies, définition
+\ref{topologies-definition-big-small-etale}
+ou
+Propriétés des espaces, définition
+\ref{spaces-properties-definition-etale-site}).
+Cette distinction paraît suffisamment claire.
+
+\medskip\noindent
+La topologie sous-entendue est la topologie fppf. Ainsi, nous dirons parfois
+« faisceau sur $\mathcal{X}$ » ou « faisceau de $\mathcal{O}_\mathcal{X}$-modules »
+pour désigner un faisceau sur $\mathcal{X}_{fppf}$ ou un objet de
+$\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$.
+
+\medskip\noindent
+Si $f : \mathcal{X} \to \mathcal{Y}$ est un morphisme de champs
+algébriques, alors les foncteurs $f_*$ et $f^{-1}$ définis sur les préfaisceaux
+préservent les faisceaux pour chacune des topologies mentionnées ci-dessus. En particulier,
+lorsque nous parlons de l'image directe ou de l'image inverse d'un faisceau, il n'est pas nécessaire
+de préciser la topologie considérée. Il n'en va pas de même
+lorsque nous calculons les groupes de cohomologie ou les images directes supérieures. Dans ce
+cas, nous préciserons toujours la topologie considérée.
+
+\medskip\noindent
+Supposons que $f : X \to \mathcal{Y}$ soit un morphisme d'un espace
+algébrique $X$ vers un champ algébrique $\mathcal{Y}$. Soit $\mathcal{G}$
+un faisceau sur $\mathcal{Y}_\tau$ pour une topologie $\tau$. Alors
+$f^{-1}\mathcal{G}$ est un faisceau pour la topologie $\tau$ sur $\mathcal{S}_X$
+(le champ algébrique associé à $X$), car, suivant nos conventions, $f$
+est en fait un $1$-morphisme $f : \mathcal{S}_X \to \mathcal{Y}$.
+Si $\tau = \etale$ ou si la topologie est plus fine, nous écrivons
+$f^{-1}\mathcal{G}|_{X_\etale}$
+pour désigner la restriction au site étale de $X$ ; voir
+Faisceaux sur les champs, section \ref{stacks-sheaves-section-compare}.
+Si $\mathcal{G}$ est un $\mathcal{O}_\mathcal{X}$-module, nous écrivons parfois
+plutôt
+$f^*\mathcal{G}$ et $f^*\mathcal{G}|_{X_\etale}$.
+
+
+
+
+\section{Image inverse des modules quasi-cohérents}
+\label{section-pullback}
+
+\noindent
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Il est très général que les modules quasi-cohérents sur les topos annelés
+soient compatibles aux images inverses. En particulier, l'image inverse $f^*$ préserve
+les modules quasi-cohérents et nous obtenons un foncteur
+$$
+f^* :
+\QCoh(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X}),
+$$
+voir Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-pullback-quasi-coherent}.
+En général, ce foncteur n'est pas exact, mais il l'est si $f$ est plat.
+
+\begin{lemma}
+\label{lemma-flat-pullback-quasi-coherent}
+Si $f : \mathcal{X} \to \mathcal{Y}$ est un morphisme plat de champs algébriques,
+alors $f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$ est un foncteur exact.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme lisse surjectif $V \to \mathcal{Y}$.
+Choisissons un schéma $U$ et un morphisme lisse surjectif
+$U \to V \times_\mathcal{Y} \mathcal{X}$. Alors $U \to \mathcal{X}$ est
+encore lisse et surjectif, comme composé de deux tels morphismes.
+Du diagramme commutatif
+$$
+\xymatrix{
+U \ar[d] \ar[r]_{f'} & V \ar[d] \\
+\mathcal{X} \ar[r]^f & \mathcal{Y}
+}
+$$
+nous déduisons un diagramme commutatif
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_U) & \QCoh(\mathcal{O}_V) \ar[l] \\
+\QCoh(\mathcal{O}_\mathcal{X}) \ar[u] &
+\QCoh(\mathcal{O}_\mathcal{Y}) \ar[l] \ar[u]
+}
+$$
+de catégories abéliennes. La démonstration du fait que les deux catégories inférieures de ce
+diagramme sont abéliennes a montré que les foncteurs verticaux sont des foncteurs
+exacts et fidèles (voir la démonstration de
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}).
+Puisque $f'$ est un morphisme plat de schémas (d'après notre définition des
+morphismes plats de champs algébriques), nous voyons que $(f')^*$ est un
+foncteur exact sur les faisceaux quasi-cohérents de $V$. Cela conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherent-check-exact}
+Soit $\mathcal{X}$ un champ algébrique. Soit $I$ un ensemble et,
+pour $i \in I$, soit $x_i : U_i \to \mathcal{X}$ un objet
+de $\mathcal{X}$. Supposons que $x_i$ soit plat et que
+$\coprod x_i : \coprod U_i \to \mathcal{X}$ soit surjectif.
+Soit $\varphi : \mathcal{F} \to \mathcal{G}$ une flèche de
+$\QCoh(\mathcal{O}_\mathcal{X})$. Notons $\varphi_i$
+la restriction de $\varphi$ à $(U_i)_\etale$.
+Alors $\varphi$ est injective, resp.\ surjective, resp.\ un isomorphisme
+si et seulement si chaque $\varphi_i$ l'est.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme lisse surjectif
+$x : U \to \mathcal{X}$. Nous pouvons considérer, et considérons, $x$
+comme un objet de $\mathcal{X}$.
+On obtient ainsi une présentation $\mathcal{X} = [U/R]$ par un groupoïde
+en espaces $(U, R, s, t, c)$ et, par conséquent, une équivalence
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) = \QCoh(U, R, s, t, c)
+$$
+Voir la discussion dans Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}.
+La structure de catégorie abélienne du membre de droite est telle que $\varphi$
+est injective, resp.\ surjective, resp.\ un isomorphisme
+si et seulement si la restriction $\varphi|_{U_\etale}$ l'est ; voir
+Groupoïdes dans les espaces, lemme \ref{spaces-groupoids-lemma-abelian}.
+
+\medskip\noindent
+Pour chaque $i$, choisissons un recouvrement étale
+$\{W_{i, j} \to V \times_\mathcal{X} U_i\}_{j \in J_i}$
+par des schémas. Notons $g_{i, j} : W_{i, j} \to V$ et
+$h_{i, j} : W_{i, j} \to U_i$ les flèches évidentes.
+Chacun des morphismes de schémas $g_{i, j} : W_{i, j} \to U$ est plat,
+et ils sont conjointement surjectifs.
+De même, pour chaque $i$ fixé, les morphismes de schémas
+$h_{i, j} : W_{i, j} \to U_i$ sont plats et conjointement surjectifs.
+D'après Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-quasi-coherent},
+l'image inverse par $(g_{i, j})_{small}$ de la restriction
+$\varphi|_{U_\etale}$ est la restriction $\varphi|_{(W_{i, j})_\etale}$,
+et l'image inverse par $(h_{i, j})_{small}$ de la restriction
+$\varphi|_{(U_i)_\etale}$ est la restriction $\varphi|_{(W_{i, j})_\etale}$.
+L'image inverse des modules quasi-cohérents par un morphisme plat de schémas est exacte,
+et l'image inverse par une famille conjointement surjective de morphismes plats de schémas
+reflète les applications injectives, resp.\ surjectives, resp.\ bijectives
+de modules quasi-cohérents (en fait, cela vaut pour tous les modules,
+car on peut vérifier l'exactitude sur les germes). Ainsi,
+$$
+\varphi|_{U_\etale} \text{ injective}
+\Leftrightarrow
+\varphi|_{(W_{i, j})_\etale} \text{ injective pour tous }i, j
+\Leftrightarrow
+\varphi|_{(U_i)_\etale} \text{ injective pour tout }i
+$$
+Ceci achève la démonstration.
+\end{proof}
+
+
+
+
+\section{Images directes supérieures de certaines classes de modules}
+\label{section-key}
+
+\noindent
+Le lemme suivant fonde notre étude des
+images directes supérieures de certaines classes de faisceaux de modules.
+Il en existe deux versions : l'une pour la topologie étale et
+l'autre pour la topologie fppf.
+
+\begin{lemma}
+\label{lemma-general-pushforward}
+Soit $\mathcal{M}$ une règle qui associe à tout champ algébrique
+$\mathcal{X}$ une sous-catégorie $\mathcal{M}_\mathcal{X}$ de
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+telle que
+\begin{enumerate}
+\item $\mathcal{M}_\mathcal{X}$ soit une sous-catégorie faible de Serre
+de $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+(voir Homologie, définition \ref{homology-definition-serre-subcategory})
+pour tout champ algébrique $\mathcal{X}$,
+\item pour tout morphisme lisse de champs algébriques
+$f : \mathcal{Y} \to \mathcal{X}$, le foncteur $f^*$ envoie
+$\mathcal{M}_\mathcal{X}$ dans $\mathcal{M}_\mathcal{Y}$,
+\item si $f_i : \mathcal{X}_i \to \mathcal{X}$ est une famille de morphismes
+lisses de champs algébriques telle que
+$|\mathcal{X}| = \bigcup |f_i|(|\mathcal{X}_i|)$, alors un objet
+$\mathcal{F}$ de
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+appartient à $\mathcal{M}_\mathcal{X}$ si et seulement si
+$f_i^*\mathcal{F}$ appartient à $\mathcal{M}_{\mathcal{X}_i}$ pour tout $i$, et
+\item si $f : \mathcal{Y} \to \mathcal{X}$ est un morphisme de champs
+algébriques tel que $\mathcal{X}$ et $\mathcal{Y}$ soient représentables
+par des schémas affines, alors $R^if_*$ envoie $\mathcal{M}_\mathcal{Y}$
+dans $\mathcal{M}_\mathcal{X}$.
+\end{enumerate}
+Alors, pour tout morphisme quasi-compact et quasi-séparé
+$f : \mathcal{Y} \to \mathcal{X}$ de champs algébriques,
+$R^if_*$ envoie $\mathcal{M}_\mathcal{Y}$
+dans $\mathcal{M}_\mathcal{X}$. (Les images directes supérieures sont calculées pour la topologie
+étale.)
+\end{lemma}
+
+\begin{proof}
+Soit $f : \mathcal{Y} \to \mathcal{X}$ un morphisme quasi-compact et quasi-séparé
+de champs algébriques, et soit $\mathcal{F}$ un objet de
+$\mathcal{M}_\mathcal{Y}$. Choisissons un morphisme lisse surjectif
+$\mathcal{U} \to \mathcal{X}$, où $\mathcal{U}$ est représentable par
+un schéma. D'après
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-base-change-higher-direct-images}
+la prise des images directes supérieures commute au changement de base.
+L'hypothèse (2) montre que l'image inverse de $\mathcal{F}$
+sur $\mathcal{U} \times_\mathcal{X} \mathcal{Y}$ appartient à
+$\mathcal{M}_{\mathcal{U} \times_\mathcal{X} \mathcal{Y}}$
+car la projection
+$\mathcal{U} \times_\mathcal{X} \mathcal{Y} \to \mathcal{Y}$
+est lisse comme changement de base d'un morphisme lisse. Ainsi, (3) montre que nous pouvons
+remplacer $\mathcal{Y} \to \mathcal{X}$ par la projection
+$\mathcal{U} \times_\mathcal{X} \mathcal{Y} \to \mathcal{U}$.
+Autrement dit, nous pouvons supposer que $\mathcal{X}$
+est représentable par un schéma.
+En appliquant encore (3), nous voyons que la question est locale sur
+$\mathcal{X}$ pour la topologie de Zariski ; nous pouvons donc supposer que $\mathcal{X}$ est représentable par
+un schéma affine. Comme $f$ est quasi-compact, il s'ensuit que
+$\mathcal{Y}$ est également quasi-compacte. Nous pouvons donc choisir un morphisme lisse surjectif
+$g : \mathcal{V} \to \mathcal{Y}$, où $\mathcal{V}$ est représentable
+par un schéma affine.
+
+\medskip\noindent
+Dans cette situation, nous disposons de la suite spectrale
+$$
+E_2^{p, q} = R^q(f \circ g_p)_*g_p^*\mathcal{F}
+\Rightarrow
+R^{p + q}f_*\mathcal{F}
+$$
+de
+Faisceaux sur les champs, proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-direct-image}.
+Rappelons qu'il s'agit d'une suite spectrale du premier quadrant ; nous pouvons donc
+appliquer la dernière partie de Homologie, lemme \ref{homology-lemma-first-quadrant-ss}.
+Notons que les morphismes
+$$
+g_p : \mathcal{V}_p =
+\mathcal{V} \times_\mathcal{Y} \ldots \times_\mathcal{Y} \mathcal{V}
+\longrightarrow
+\mathcal{Y}
+$$
+sont lisses comme composés de changements de base du morphisme lisse $g$.
+Ainsi, les faisceaux $g_p^*\mathcal{F}$ appartiennent à
+$\mathcal{M}_{\mathcal{V}_p}$ d'après (2). Il suffit donc de démontrer que les
+images directes supérieures des objets de $\mathcal{M}_{\mathcal{V}_p}$ par
+les morphismes
+$$
+\mathcal{V}_p =
+\mathcal{V} \times_\mathcal{Y} \ldots \times_\mathcal{Y} \mathcal{V}
+\longrightarrow
+\mathcal{X}
+$$
+appartiennent à $\mathcal{M}_\mathcal{X}$. Les champs algébriques $\mathcal{V}_p$
+sont quasi-compacts et quasi-séparés d'après
+Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}.
+Bien entendu, chaque $\mathcal{V}_p$ est représentable par un espace algébrique
+(la diagonale du champ algébrique $\mathcal{Y}$ est représentable
+par des espaces algébriques). Nous sommes donc ramenés au cas où
+$\mathcal{Y}$ est représentable par un espace algébrique et $\mathcal{X}$
+par un schéma affine.
+
+\medskip\noindent
+Lorsque $\mathcal{Y}$ est représentable par un espace
+algébrique et $\mathcal{X}$ par un schéma affine, choisissons
+de nouveau un morphisme lisse surjectif $\mathcal{V} \to \mathcal{Y}$, où
+$\mathcal{V}$ est représentable par un schéma affine. En reprenant
+l'argument précédent, nous sommes de nouveau ramenés aux morphismes
+$\mathcal{V}_p \to \mathcal{X}$. Mais, dans la situation présente, les champs
+algébriques $\mathcal{V}_p$ sont représentables par des schémas quasi-compacts et quasi-séparés
+(car la diagonale d'un espace algébrique est représentable par des
+schémas).
+
+\medskip\noindent
+Nous pouvons donc supposer que $\mathcal{Y}$ est représentable par un schéma et
+$\mathcal{X}$ par un schéma affine. Choisissons (encore)
+un morphisme lisse surjectif $\mathcal{V} \to \mathcal{Y}$, où
+$\mathcal{V}$ est représentable par un schéma affine. Dans ce cas, tous
+les champs algébriques $\mathcal{V}_p$ sont représentables par des schémas
+séparés (car la diagonale d'un schéma est séparée).
+
+\medskip\noindent
+Nous pouvons donc supposer que $\mathcal{Y}$ est représentable par un schéma séparé et
+$\mathcal{X}$ par un schéma affine. Choisissons (une fois encore)
+un morphisme lisse surjectif $\mathcal{V} \to \mathcal{Y}$, où
+$\mathcal{V}$ est représentable par un schéma affine. Dans ce cas, tous
+les champs algébriques $\mathcal{V}_p$ sont représentables par des schémas affines
+(car la diagonale d'un schéma séparé est une immersion fermée, donc affine),
+et ce cas est couvert par l'hypothèse (4).
+Ceci achève la démonstration.
+\end{proof}
+
+\noindent
+Voici la version pour la topologie fppf.
+
+\begin{lemma}
+\label{lemma-general-pushforward-fppf}
+Soit $\mathcal{M}$ une règle qui associe à tout champ algébrique
+$\mathcal{X}$ une sous-catégorie $\mathcal{M}_\mathcal{X}$ de
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$
+telle que
+\begin{enumerate}
+\item $\mathcal{O}_\mathcal{X}$ soit une sous-catégorie faible de Serre
+de $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+pour tout champ algébrique $\mathcal{X}$,
+\item pour tout morphisme lisse de champs algébriques
+$f : \mathcal{Y} \to \mathcal{X}$, le foncteur $f^*$ envoie
+$\mathcal{M}_\mathcal{X}$ dans $\mathcal{M}_\mathcal{Y}$,
+\item si $f_i : \mathcal{X}_i \to \mathcal{X}$ est une famille de morphismes
+lisses de champs algébriques telle que
+$|\mathcal{X}| = \bigcup |f_i|(|\mathcal{X}_i|)$, alors un objet
+$\mathcal{F}$ de $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+appartient à $\mathcal{M}_\mathcal{X}$ si et seulement si
+$f_i^*\mathcal{F}$ appartient à $\mathcal{M}_{\mathcal{X}_i}$ pour tout $i$, et
+\item si $f : \mathcal{Y} \to \mathcal{X}$ est un morphisme de champs
+algébriques tel que $\mathcal{X}$ et $\mathcal{Y}$ soient représentables
+par des schémas affines, alors $R^if_*$ envoie $\mathcal{M}_\mathcal{Y}$
+dans $\mathcal{M}_\mathcal{X}$.
+\end{enumerate}
+Alors, pour tout morphisme quasi-compact et quasi-séparé
+$f : \mathcal{Y} \to \mathcal{X}$ de champs algébriques,
+$R^if_*$ envoie $\mathcal{M}_\mathcal{Y}$
+dans $\mathcal{M}_\mathcal{X}$. (Les images directes supérieures sont calculées pour la topologie
+fppf.)
+\end{lemma}
+
+\begin{proof}
+Identique à la démonstration du lemme \ref{lemma-general-pushforward}.
+\end{proof}
+
+
+\section{Modules localement quasi-cohérents}
+\label{section-locally-quasi-coherent}
+
+\noindent
+Soit $\mathcal{X}$ un champ algébrique. Soit $\mathcal{F}$ un préfaisceau
+de $\mathcal{O}_\mathcal{X}$-modules. On peut se demander si $\mathcal{F}$
+est {\it localement quasi-cohérent} ; voir
+Faisceaux sur les champs, définition
+\ref{stacks-sheaves-definition-locally-quasi-coherent}.
+En bref, cela signifie que $\mathcal{F}$ est un $\mathcal{O}_\mathcal{X}$-module
+pour la topologie étale tel que, pour tout morphisme $f : U \to \mathcal{X}$,
+la restriction $f^*\mathcal{F}|_{U_\etale}$ soit quasi-cohérente
+sur $U_\etale$. (La définition proprement dite est légèrement différente, mais
+équivalente.) Un fait utile est que
+$$
+\textit{LQCoh}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$$
+est une sous-catégorie faible de Serre ; voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-lqc-colimits}.
+
+\begin{lemma}
+\label{lemma-check-lqc-on-etale-covering}
+Soit $\mathcal{X}$ un champ algébrique. Soit
+$f_j : \mathcal{X}_j \to \mathcal{X}$ une famille de morphismes
+lisses de champs algébriques telle que
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_\etale$. Si chaque $f_j^{-1}\mathcal{F}$
+est localement quasi-cohérent, alors $\mathcal{F}$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons remplacer chacun des champs algébriques $\mathcal{X}_j$ par
+un schéma $U_j$ (en utilisant le fait que tout champ algébrique possède un recouvrement lisse par
+un schéma et que les composés de morphismes lisses sont lisses ; voir
+Morphismes de champs, lemme \ref{stacks-morphisms-lemma-composition-smooth}).
+L'image inverse de $\mathcal{F}$ sur $(\Sch/U_j)_\etale$ est encore
+localement quasi-cohérente ; voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-pullback-lqc}.
+Alors $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$ est un morphisme
+lisse surjectif. Soit $x$ un objet de $\mathcal{X}$. D'après
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+il existe un recouvrement étale $\{x_i \to x\}_{i \in I}$
+tel que chaque $x_i$ se relève en un objet $u_i$ de $(\Sch/U)_\etale$.
+Cela signifie simplement que $x$, $x_i$ sont au-dessus de schémas $V$, $V_i$, que
+$\{V_i \to V\}$ est un recouvrement étale et que $x_i$ provient
+d'un morphisme $u_i : V_i \to U$. La restriction
+$x_i^*\mathcal{F}|_{V_{i, \etale}}$ est égale à la restriction
+de $f^*\mathcal{F}$ à $V_{i, \etale}$ ; voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-comparison}.
+Ainsi, $x^*\mathcal{F}|_{V_\etale}$
+est un faisceau sur le petit site étale de $V$ dont la restriction
+à $V_{i, \etale}$ est quasi-cohérente pour tout $i$.
+Il est donc quasi-cohérent, comme souhaité, par exemple d'après
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-characterize-quasi-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward-locally-quasi-coherent}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et
+quasi-séparé de champs algébriques. Soit
+$\mathcal{F}$ un $\mathcal{O}_\mathcal{X}$-module localement quasi-cohérent
+sur $\mathcal{X}_\etale$.
+Alors $R^if_*\mathcal{F}$ (calculé pour la topologie étale) est
+localement quasi-cohérent sur $\mathcal{Y}_\etale$.
+\end{lemma}
+
+\begin{proof}
+Nous allons utiliser le
+lemme \ref{lemma-general-pushforward}
+pour le démontrer. Vérifions ses hypothèses (1) -- (4).
+Les parties (1) et (2) résultent de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-lqc-colimits}.
+La partie (3) résulte du
+lemme \ref{lemma-check-lqc-on-etale-covering}.
+Il suffit donc de démontrer (4).
+
+\medskip\noindent
+Supposons que $f : \mathcal{X} \to \mathcal{Y}$ soit un morphisme de champs algébriques
+tel que $\mathcal{X}$ et $\mathcal{Y}$ soient représentables par des schémas
+affines $X$ et $Y$. Choisissons un objet quelconque $y$ de $\mathcal{Y}$ au-dessus d'un
+schéma $V$. Pour plus de clarté, notons $\mathcal{V} = (\Sch/V)_{fppf}$ le
+champ algébrique correspondant à $V$. Considérons le diagramme cartésien
+$$
+\xymatrix{
+\mathcal{Z} \ar[d] \ar[r]_g \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{V} \ar[r]^y & \mathcal{Y}
+}
+$$
+Ainsi, $\mathcal{Z}$ est représentable par le schéma $Z = V \times_Y X$
+et $f'$ est quasi-compact et séparé (même affine). D'après
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-compare-representable-morphism-cohomology}
+nous avons
+$$
+R^if_*\mathcal{F}|_{V_\etale} =
+R^if'_{small, *}\big(g^*\mathcal{F}|_{Z_\etale}\big)
+$$
+Le membre de droite est un faisceau quasi-cohérent sur $V_\etale$ d'après
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-higher-direct-image}.
+Il s'ensuit que le membre de gauche est quasi-cohérent, ce qu'il
+fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-lqc-on-flat-covering}
+Soit $\mathcal{X}$ un champ algébrique. Soit
+$f_j : \mathcal{X}_j \to \mathcal{X}$ une famille de morphismes plats
+et localement de présentation finie de champs algébriques telle que
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_{fppf}$. Si chaque $f_j^{-1}\mathcal{F}$
+est localement quasi-cohérent, alors $\mathcal{F}$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Supposons d'abord qu'il existe un morphisme $a : \mathcal{U} \to \mathcal{X}$
+surjectif, plat, localement de présentation finie, quasi-compact
+et quasi-séparé, tel que $a^*\mathcal{F}$ soit localement quasi-cohérent.
+Il existe alors une suite exacte
+$$
+0 \to \mathcal{F} \to a_*a^*\mathcal{F} \to b_*b^*\mathcal{F}
+$$
+où $b$ est le morphisme
+$b : \mathcal{U} \times_\mathcal{X} \mathcal{U} \to \mathcal{X}$ ; voir
+Faisceaux sur les champs, proposition
+\ref{stacks-sheaves-proposition-exactness-cech-complex} et
+lemme \ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}.
+De plus, l'image inverse $b^*\mathcal{F}$ est l'image inverse de $a^*\mathcal{F}$
+par l'une des projections ; elle est donc localement quasi-cohérente
+(Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-pullback-lqc}).
+Les modules $a_*a^*\mathcal{F}$ et $b_*b^*\mathcal{F}$ sont localement
+quasi-cohérents d'après le lemme \ref{lemma-pushforward-locally-quasi-coherent}.
+(Notons que $a_*$ et $b_*$ ne dépendent pas de la topologie
+utilisée pour les calculer.)
+Nous en concluons que $\mathcal{F}$ est localement quasi-cohérent ; voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-lqc-colimits}.
+
+\medskip\noindent
+Nous allons ramener la démonstration du cas général à la
+situation du premier paragraphe. Soit $x$ un objet de $\mathcal{X}$
+au-dessus du schéma $U$. Nous devons montrer que
+$\mathcal{F}|_{U_\etale}$ est un $\mathcal{O}_U$-module quasi-cohérent.
+Il suffit de le faire localement sur $U$ pour la topologie de Zariski ; nous pouvons donc
+supposer $U$ affine. D'après
+Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-surjective-family-flat-locally-finite-presentation}
+il existe un recouvrement fppf $\{a_i : U_i \to U\}$ tel que
+chaque $x \circ a_i$ se factorise par un certain $f_j$. Ainsi, $a_i^*\mathcal{F}$
+est localement quasi-cohérent sur $(\Sch/U_i)_{fppf}$. En raffinant
+le recouvrement, nous pouvons supposer que $\{U_i \to U\}_{i = 1, \ldots, n}$
+est un recouvrement fppf standard. Alors $x^*\mathcal{F}$ est un
+module fppf sur $(\Sch/U)_{fppf}$ dont l'image inverse par le morphisme
+$a : U_1 \amalg \ldots \amalg U_n \to U$ est localement quasi-cohérente.
+Le premier paragraphe montre donc que $x^*\mathcal{F}$ est localement
+quasi-cohérent, ce qui implique assurément que $\mathcal{F}|_{U_\etale}$
+est quasi-cohérent.
+\end{proof}
+
+
+
+
+
+
+\section{Morphismes de comparaison plats}
+\label{section-flat-comparison}
+
+\noindent
+Soit $\mathcal{X}$ un champ algébrique et soit $\mathcal{F}$ un objet
+de $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+Étant donné un objet $x$ de $\mathcal{X}$ au-dessus du schéma $U$, la
+restriction $\mathcal{F}|_{U_\etale}$ est la restriction de
+$x^{-1}\mathcal{F}$ au petit site étale de $U$ ; voir
+Faisceaux sur les champs, définition \ref{stacks-sheaves-definition-pullback}.
+Soit ensuite $\varphi : x \to x'$ un morphisme de $\mathcal{X}$ au-dessus
+d'un morphisme de schémas $f : U \to U'$. Nous avons donc un diagramme $2$-commutatif
+$$
+\xymatrix{
+U \ar[rd]_x \ar[rr]_f & & U' \ar[ld]^{x'} \\
+& \mathcal{X}
+}
+$$
+À $\varphi$ est associé un morphisme de comparaison entre les restrictions
+\begin{equation}
+\label{equation-comparison-modules}
+c_\varphi :
+f_{small}^*(\mathcal{F}|_{U'_\etale})
+\longrightarrow
+\mathcal{F}|_{U_\etale}
+\end{equation}
+voir Faisceaux sur les champs, équation
+(\ref{stacks-sheaves-equation-comparison-modules}).
+Dans cette situation, nous pouvons considérer la propriété suivante
+de $\mathcal{F}$.
+
+\begin{definition}
+\label{definition-flat-base-change}
+Soit $\mathcal{X}$ un champ algébrique et soit $\mathcal{F}$ dans
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+Nous disons que $\mathcal{F}$ possède la {\it propriété de changement de base plat}\footnote{Cette
+terminologie n'est peut-être pas standard.}
+si et seulement si $c_\varphi$ est un isomorphisme dès que $f$ est plat.
+\end{definition}
+
+\noindent
+Voici un lemme donnant quelques propriétés de cette notion.
+
+\begin{lemma}
+\label{lemma-check-flat-comparison-on-etale-covering}
+Soit $\mathcal{X}$ un champ algébrique. Soit $\mathcal{F}$
+un $\mathcal{O}_\mathcal{X}$-module sur $\mathcal{X}_\etale$.
+\begin{enumerate}
+\item Si $\mathcal{F}$ possède la propriété de changement de base plat, alors, pour tout morphisme
+$g : \mathcal{Y} \to \mathcal{X}$ de champs algébriques, son
+image inverse $g^*\mathcal{F}$ la possède aussi.
+\item La sous-catégorie pleine de
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+formée des modules possédant la propriété de changement de base plat
+est une sous-catégorie faible de Serre.
+\item Soit $f_i : \mathcal{X}_i \to \mathcal{X}$ une famille de morphismes
+lisses de champs algébriques telle que
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$. Si chaque
+$f_i^*\mathcal{F}$ possède la propriété de changement de base plat, alors
+$\mathcal{F}$ la possède aussi.
+\item La catégorie des $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_\etale$ possédant la propriété de changement de base plat
+admet des limites inductives, qui coïncident avec celles de
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+\item Si $\mathcal{F}$ et $\mathcal{G}$ sont dans
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+et possèdent la propriété de changement de base plat, alors le produit tensoriel
+$\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+possède cette propriété.
+\item Si $\mathcal{F}$ et $\mathcal{G}$ sont dans
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+avec $\mathcal{F}$ de présentation finie et $\mathcal{G}$ possédant
+la propriété de changement de base plat, alors le faisceau
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+possède la propriété de changement de base plat.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $g : \mathcal{Y} \to \mathcal{X}$ comme en (1).
+Soit $y$ un objet de $\mathcal{Y}$ au-dessus d'un schéma $V$. D'après
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-comparison}
+nous avons
+$(g^*\mathcal{F})|_{V_\etale} = \mathcal{F}|_{V_\etale}$.
+De plus, un morphisme de comparaison pour le faisceau $g^*\mathcal{F}$ sur $\mathcal{Y}$
+est un cas particulier d'un morphisme de comparaison pour le faisceau $\mathcal{F}$ sur
+$\mathcal{X}$ ; voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-comparison}.
+Ainsi, (1) est clair.
+
+\medskip\noindent
+Démonstration de (2). Nous utilisons la caractérisation des sous-catégories faibles de Serre de
+Homologie, lemme \ref{homology-lemma-characterize-weak-serre-subcategory}.
+Les noyaux et conoyaux des
+morphismes entre faisceaux possédant la propriété de changement de base plat
+possèdent eux aussi cette propriété. C'est clair, car
+$f_{small}^*$ est exact pour un morphisme plat de schémas et les
+foncteurs de restriction $(-)|_{U_\etale}$ sont exacts (puisque nous
+travaillons avec la topologie étale). Enfin, si
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+est une suite exacte courte dans
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+et que les deux faisceaux extrêmes possèdent la propriété de changement de base plat, alors
+celui du milieu la possède aussi, toujours par l'exactitude de
+$f_{small}^*$ et des foncteurs de restriction (ainsi que par le lemme des cinq).
+
+\medskip\noindent
+Démonstration de (3).
+Soit $f_i : \mathcal{X}_i \to \mathcal{X}$ une famille conjointement surjective de
+morphismes lisses de champs algébriques et supposons que chaque $f_i^*\mathcal{F}$
+possède la propriété de changement de base plat. D'après la partie (1), la définition
+d'un champ algébrique et le fait que les composés de morphismes lisses
+sont lisses (voir
+Morphismes de champs, lemme \ref{stacks-morphisms-lemma-composition-smooth})
+nous pouvons supposer que chaque $\mathcal{X}_i$ est représentable par un schéma.
+Soit $\varphi : x \to x'$ un morphisme de $\mathcal{X}$ au-dessus
+d'un morphisme plat de schémas $a : U \to U'$. D'après
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+il existe une famille conjointement surjective de morphismes étales
+$U'_i \to U'$ telle que $U'_i \to U' \to \mathcal{X}$ se factorise par
+$\mathcal{X}_i$. Nous obtenons ainsi des diagrammes commutatifs
+$$
+\xymatrix{
+U_i = U \times_{U'} U_i' \ar[r]_-{a_i} \ar[d] &
+U_i' \ar[r]_{x_i'} \ar[d] & \mathcal{X}_i \ar[d]^{f_i} \\
+U \ar[r]^a & U' \ar[r]^{x'} & \mathcal{X}
+}
+$$
+Notons que chaque $a_i$ est un morphisme plat de schémas, comme changement de base de $a$.
+Notons $\psi_i : x_i \to x'_i$ le morphisme de $\mathcal{X}_i$ au-dessus de
+$a_i$ et de but $x_i'$. Par hypothèse, le morphisme de comparaison
+$c_{\psi_i} :
+(a_i)_{small}^*\big(f_i^*\mathcal{F}|_{(U'_i)_\etale}\big)
+\to f_i^*\mathcal{F}|_{(U_i)_\etale}$ est un isomorphisme.
+Comme les flèches verticales $U_i' \to U'$ et $U_i \to U$ sont étales,
+les faisceaux $f_i^*\mathcal{F}|_{(U_i')_\etale}$ et
+$f_i^*\mathcal{F}|_{(U_i)_\etale}$ sont les restrictions de
+$\mathcal{F}|_{U'_\etale}$ et $\mathcal{F}|_{U_\etale}$,
+et le morphisme $c_{\psi_i}$ est la restriction de $c_\varphi$ à
+$(U_i)_\etale$ ; voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-comparison}.
+Puisque $\{U_i \to U\}$ est un recouvrement étale, il s'ensuit
+que le morphisme de comparaison $c_\varphi$ est un isomorphisme, ce qu'il
+fallait démontrer.
+
+\medskip\noindent
+Démonstration de (4). Soit $\mathcal{I} \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$,
+$i \mapsto \mathcal{F}_i$ un diagramme, et supposons que chaque $\mathcal{F}_i$
+possède la propriété de changement de base plat. Soit $\varphi : x \to x'$ un morphisme
+de $\mathcal{X}$ au-dessus du morphisme plat de schémas $f : U \to U'$.
+Rappelons que $\colim_i \mathcal{F}_i$ est le faisceau associé à la limite inductive des préfaisceaux.
+Comme nous utilisons la topologie étale, il est clair que
+$$
+(\colim_i \mathcal{F}_i)|_{U_\etale} =
+\colim_i {\mathcal{F}_i}|_{U_\etale}
+$$
+et de même pour la restriction à $U'_\etale$. Ainsi,
+\begin{align*}
+f_{small}^*((\colim_i \mathcal{F}_i)|_{U'_\etale})
+& =
+f_{small}^*(\colim_i {\mathcal{F}_i}|_{U'_\etale}) \\
+& =
+\colim_i f_{small}^*({\mathcal{F}_i}|_{U'_\etale}) \\
+& \xrightarrow{\colim c_\varphi}
+\colim_i \mathcal{F}_i|_{U_\etale} \\
+& =
+(\colim_i \mathcal{F}_i)|_{U_\etale}
+\end{align*}
+Pour la deuxième égalité, nous avons utilisé que $f_{small}^*$ commute aux limites inductives
+(en tant qu'adjoint à gauche). La flèche est un isomorphisme puisque chaque
+$\mathcal{F}_i$ possède la propriété de changement de base plat. La limite inductive
+possède donc cette propriété, et (4) est vraie.
+
+\medskip\noindent
+La partie (5) vaut parce que les produits tensoriels commutent aux images inverses ; voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-tensor-product-pullback}.
+Nous omettons les détails.
+
+\medskip\noindent
+Soient $\mathcal{F}$ et $\mathcal{G}$ comme en (6). Puisque $\mathcal{F}$
+est quasi-cohérent, il possède la propriété de changement de base plat d'après
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-quasi-coherent}.
+Soit $\varphi : x \to x'$ un morphisme de $\mathcal{X}$ au-dessus
+du morphisme plat de schémas $f : U \to U'$.
+Comme nous utilisons la topologie étale, nous avons
+$$
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U_\etale} =
+\SheafHom_{\mathcal{O}_U}(\mathcal{F}|_{U_\etale}, \mathcal{G}|_{U_\etale})
+$$
+et de même pour la restriction à $U'_\etale$ (nous omettons les détails). Ainsi,
+\begin{align*}
+f_{small}^*(
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U'_\etale})
+& =
+f_{small}^*(
+\SheafHom_{\mathcal{O}_{U'}}(
+\mathcal{F}|_{U'_\etale}, \mathcal{G}|_{U'_\etale})) \\
+& =
+\SheafHom_{\mathcal{O}_{U'}}(
+f_{small}^*(\mathcal{F}|_{U'_\etale}),
+f_{small}^*(\mathcal{G}|_{U'_\etale})) \\
+& \xrightarrow{c_\varphi}
+\SheafHom_{\mathcal{O}_U}(\mathcal{F}|_{U_\etale}, \mathcal{G}|_{U_\etale}) \\
+& =
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U_\etale}
+\end{align*}
+Ici, la deuxième égalité est donnée par
+Modules sur les sites, lemme \ref{sites-modules-lemma-pullback-internal-hom}
+qui utilise que $f : U \to U'$ est plat et que, par conséquent, le morphisme
+de sites annelés $f_{small}$ est plat lui aussi.
+La flèche est un isomorphisme puisque $\mathcal{F}$ et $\mathcal{G}$
+possèdent toutes deux la propriété de changement de base plat. Ainsi, notre $\SheafHom$
+possède lui aussi cette propriété, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-comparison}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et
+quasi-séparé de champs algébriques. Soit
+$\mathcal{F}$ un objet de
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+qui soit localement quasi-cohérent et possède la propriété de changement de base plat.
+Alors chaque $R^if_*\mathcal{F}$ (calculé pour la topologie étale)
+possède la propriété de changement de base plat.
+\end{lemma}
+
+\begin{proof}
+Nous allons utiliser le
+lemme \ref{lemma-general-pushforward}
+pour le démontrer. Pour tout champ algébrique $\mathcal{X}$, notons
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ la sous-catégorie pleine de
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+formée des faisceaux localement quasi-cohérents possédant la propriété de
+changement de base plat. Une fois vérifiées les conditions (1) -- (4) du
+lemme \ref{lemma-general-pushforward}
+le lemme en résultera. Les propriétés (1), (2) et (3) résultent de
+Faisceaux sur les champs, lemmes \ref{stacks-sheaves-lemma-pullback-lqc} et
+\ref{stacks-sheaves-lemma-lqc-colimits}
+ainsi que des
+lemmes \ref{lemma-check-lqc-on-etale-covering} et
+\ref{lemma-check-flat-comparison-on-etale-covering}.
+Il suffit donc de démontrer la partie (4).
+
+\medskip\noindent
+Supposons que $f : \mathcal{X} \to \mathcal{Y}$ soit un morphisme de champs algébriques
+tel que $\mathcal{X}$ et $\mathcal{Y}$ soient représentables par des schémas
+affines $X$ et $Y$. Dans ce cas, supposons que
+$\psi : y \to y'$ soit un morphisme de $\mathcal{Y}$ au-dessus
+d'un morphisme plat de schémas $b : V \to V'$. Pour plus de clarté, notons
+$\mathcal{V} = (\Sch/V)_{fppf}$ et $\mathcal{V}' = (\Sch/V')_{fppf}$
+les champs algébriques correspondants. Considérons le diagramme
+de champs algébriques
+$$
+\xymatrix{
+\mathcal{Z} \ar[d]_{f''} \ar[r]_a &
+\mathcal{Z}' \ar[r]_{x'} \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{V} \ar[r]^b & \mathcal{V}' \ar[r]^{y'} & \mathcal{Y}
+}
+$$
+dont les deux carrés sont cartésiens. Comme $f$ est représentable par des schémas
+(et quasi-compact et séparé -- même affine), nous voyons que $\mathcal{Z}$ et
+$\mathcal{Z}'$ sont représentables par des schémas $Z$ et $Z'$ et qu'en
+fait $Z = V \times_{V'} Z'$. Puisque $\mathcal{F}$ possède la propriété de
+changement de base plat, nous voyons que
+$$
+a_{small}^*\big(\mathcal{F}|_{Z'_\etale}\big)
+\longrightarrow
+\mathcal{F}|_{Z_\etale}
+$$
+est un isomorphisme. De plus,
+$$
+R^if_*\mathcal{F}|_{V'_\etale} =
+R^i(f')_{small, *}\big(\mathcal{F}|_{Z'_\etale}\big)
+$$
+et
+$$
+R^if_*\mathcal{F}|_{V_\etale} =
+R^i(f'')_{small, *}\big(\mathcal{F}|_{Z_\etale}\big)
+$$
+d'après
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-compare-representable-morphism-cohomology}.
+Nous voyons donc que le morphisme de comparaison
+$$
+c_\psi :
+b_{small}^*(R^if_*\mathcal{F}|_{V'_\etale})
+\longrightarrow
+R^if_*\mathcal{F}|_{V_\etale}
+$$
+est un isomorphisme d'après
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+Ainsi, $R^if_*\mathcal{F}$ possède la propriété de changement de base plat.
+Puisque $R^if_*\mathcal{F}$ est localement quasi-cohérent d'après le
+lemme \ref{lemma-pushforward-locally-quasi-coherent}
+nous avons terminé.
+\end{proof}
+
+
+
+
+
+\section[Modules quasi-cohérents et changement de base plat]{Modules localement quasi-cohérents possédant la propriété de changement de base plat}
+\label{section-loc-qcoh-flat-base-change}
+
+\noindent
+Soit $\mathcal{X}$ un champ algébrique. Nous noterons\footnote{Nous nous excusons
+de cette notation affreuse.}
+$$
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$$
+la sous-catégorie pleine dont les objets sont les
+$\mathcal{O}_\mathcal{X}$-modules étales $\mathcal{F}$
+qui sont à la fois localement quasi-cohérents
+(section \ref{section-locally-quasi-coherent})
+et possèdent la propriété de changement de base plat
+(section \ref{section-flat-comparison}).
+Nous avons
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \subset
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+$$
+d'après Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-quasi-coherent}.
+
+\begin{proposition}
+\label{proposition-loc-qcoh-flat-base-change}
+Résumé des résultats sur les modules localement quasi-cohérents possédant la propriété de
+changement de base plat.
+\begin{enumerate}
+\item Soit $\mathcal{X}$ un champ algébrique.
+Si $\mathcal{F}$ appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$,
+alors $\mathcal{F}$ est un faisceau pour la topologie fppf, c'est-à-dire
+un objet de $\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+\item La catégorie $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+est une sous-catégorie faible de Serre à la fois de $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+et de $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+\item L'image inverse $f^*$ par tout morphisme de champs algébriques
+$f : \mathcal{X} \to \mathcal{Y}$ induit un foncteur
+$f^* : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\item Si $f : \mathcal{X} \to \mathcal{Y}$ est un morphisme
+quasi-compact et quasi-séparé de champs algébriques
+et si $\mathcal{F}$ est un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, alors
+\begin{enumerate}
+\item l'image directe totale $Rf_*\mathcal{F}$ et les images directes
+supérieures $R^if_*\mathcal{F}$ peuvent être calculées indifféremment pour la topologie étale ou
+la topologie fppf, avec le même résultat, et
+\item chaque $R^if_*\mathcal{F}$ est un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$.
+\end{enumerate}
+\item La catégorie $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ admet des
+limites inductives, qui coïncident avec celles de
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+ainsi qu'avec celles de $\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+\item Si $\mathcal{F}$ et $\mathcal{G}$ appartiennent à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, alors le produit tensoriel
+$\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\item Si $\mathcal{F}$ est de présentation finie et si $\mathcal{G}$ appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, alors
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+La partie (1) est
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-lqc-flat-base-change-fppf-sheaf}.
+
+\medskip\noindent
+La partie (2) pour l'inclusion
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+a été établie dans la démonstration du
+lemme \ref{lemma-flat-comparison}.
+Démontrons (2) pour l'inclusion
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+Soit $\varphi : \mathcal{F} \to \mathcal{G}$ un morphisme entre des
+objets de $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$. Puisque
+$\Ker(\varphi)$
+est le même qu'il soit calculé pour la topologie étale ou pour la topologie
+fppf, nous voyons que $\Ker(\varphi)$ appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+d'après le cas étale. D'autre part,
+le conoyau calculé pour la topologie fppf est le faisceau fppf associé
+au conoyau calculé pour la topologie étale. Or ce
+conoyau étale appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$,
+donc il est un faisceau fppf
+d'après (1), et nous voyons que le conoyau appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+Enfin, supposons que
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+soit une suite exacte dans $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+(c'est-à-dire pour la topologie fppf), avec $\mathcal{F}_1$, $\mathcal{F}_2$
+dans $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$. Pour montrer que
+$\mathcal{F}_2$ est un objet de $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$,
+il suffit de montrer que
+la suite est aussi exacte pour la topologie étale. Pour cela, il
+suffit de montrer que tout élément de $H^1_{fppf}(x, \mathcal{F}_1)$
+devient nul sur les membres d'un recouvrement étale de $x$ (pour tout
+objet $x$ de $\mathcal{X}$). Cela est vrai parce que
+$H^1_{fppf}(x, \mathcal{F}_1) = H^1_\etale(x, \mathcal{F}_1)$ d'après
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-compare-fppf-etale}
+et par la localité de la cohomologie ; voir
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}.
+Ceci démontre (2).
+
+\medskip\noindent
+La partie (3) résulte du
+lemme \ref{lemma-check-flat-comparison-on-etale-covering}
+et de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-pullback-lqc}.
+
+\medskip\noindent
+La partie (4)(b), pour $R^if_*\mathcal{F}$ calculé en cohomologie étale,
+résulte du lemme \ref{lemma-flat-comparison}.
+La partie (4)(a) résulte alors de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-compare-fppf-etale}
+combiné avec (1) ci-dessus.
+
+\medskip\noindent
+La partie (5), pour la topologie étale, résulte de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-lqc-colimits} et du
+lemme \ref{lemma-check-flat-comparison-on-etale-covering}.
+La version fppf en résulte, puisque la limite inductive pour la topologie
+étale est déjà un faisceau fppf d'après la partie (1).
+
+\medskip\noindent
+Les parties (6) et (7) résultent des parties correspondantes du
+lemme \ref{lemma-check-flat-comparison-on-etale-covering} et de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-lqc-colimits}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-lqc-fbc-on-covering}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item Soit $f_j : \mathcal{X}_j \to \mathcal{X}$ une famille de morphismes
+lisses de champs algébriques telle que
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_\etale$. Si chaque $f_j^{-1}\mathcal{F}$
+appartient à $\textit{LQCoh}^{fpc}(\mathcal{O}_{\mathcal{X}_i})$, alors
+$\mathcal{F}$ appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\item Soit $f_j : \mathcal{X}_j \to \mathcal{X}$ une famille de morphismes plats
+et localement de présentation finie de champs algébriques telle que
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_{fppf}$. Si chaque $f_j^{-1}\mathcal{F}$
+appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_{\mathcal{X}_i})$, alors
+$\mathcal{F}$ appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) résulte de la combinaison des
+lemmes \ref{lemma-check-lqc-on-etale-covering} et
+\ref{lemma-check-flat-comparison-on-etale-covering}.
+La démonstration de (2) est analogue à celle du
+lemme \ref{lemma-check-lqc-on-flat-covering}.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_{fppf}$.
+
+\medskip\noindent
+Supposons d'abord qu'il existe un morphisme $a : \mathcal{U} \to \mathcal{X}$
+surjectif, plat, localement de présentation finie, quasi-compact
+et quasi-séparé, tel que $a^*\mathcal{F}$ soit localement quasi-cohérent
+et possède la propriété de changement de base plat.
+Il existe alors une suite exacte
+$$
+0 \to \mathcal{F} \to a_*a^*\mathcal{F} \to b_*b^*\mathcal{F}
+$$
+où $b$ est le morphisme
+$b : \mathcal{U} \times_\mathcal{X} \mathcal{U} \to \mathcal{X}$ ; voir
+Faisceaux sur les champs, proposition
+\ref{stacks-sheaves-proposition-exactness-cech-complex} et
+lemme \ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}.
+De plus, l'image inverse $b^*\mathcal{F}$ est l'image inverse de $a^*\mathcal{F}$
+par l'une des projections ; elle est donc localement quasi-cohérente
+et possède la propriété de changement de base plat ; voir
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+Les modules $a_*a^*\mathcal{F}$ et $b_*b^*\mathcal{F}$ sont localement
+quasi-cohérents et possèdent la propriété de changement de base plat d'après la
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+Nous en concluons que $\mathcal{F}$ est localement quasi-cohérent et
+possède la propriété de changement de base plat d'après la
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+
+\medskip\noindent
+Choisissons un schéma $U$ et un morphisme lisse surjectif $x : U \to \mathcal{X}$.
+D'après la partie (1), il suffit de montrer que $x^*\mathcal{F}$ est localement
+quasi-cohérent et possède la propriété de changement de base plat.
+Toujours d'après la partie (1), il suffit de le faire localement sur $U$ pour la topologie de Zariski ;
+nous pouvons donc supposer que $U$ est affine. D'après
+Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-surjective-family-flat-locally-finite-presentation}
+il existe un recouvrement fppf $\{a_i : U_i \to U\}$ tel que
+chaque $x \circ a_i$ se factorise par un certain $f_j$. Ainsi, le module
+$a_i^*\mathcal{F}$ sur $(\Sch/U_i)_{fppf}$
+est localement quasi-cohérent et possède la propriété de changement de base plat.
+Après avoir raffiné le recouvrement, nous pouvons supposer que $\{U_i \to U\}_{i = 1, \ldots, n}$
+est un recouvrement fppf standard. Alors $x^*\mathcal{F}$ est un
+module fppf sur $(\Sch/U)_{fppf}$ dont l'image inverse par le morphisme
+$a : U_1 \amalg \ldots \amalg U_n \to U$ est localement quasi-cohérente
+et possède la propriété de changement de base plat.
+Le paragraphe précédent montre donc que $x^*\mathcal{F}$ est localement
+quasi-cohérent et possède la propriété de changement de base plat, comme souhaité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-loc-qcoh-fbc-compute-higher-direct-image}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+qui soit quasi-compact, quasi-séparé et
+représentable par des espaces algébriques. Soit $\mathcal{F}$ dans
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+Alors, pour tout objet $y : V \to \mathcal{Y}$ de $\mathcal{Y}$, nous avons
+$$
+(R^if_*\mathcal{F})|_{V_\etale} = R^if'_{small, *}(\mathcal{F}|_{U_\etale})
+$$
+où $f' : U = V \times_\mathcal{Y} \mathcal{X} \to V$ est le changement
+de base de $f$.
+\end{lemma}
+
+\begin{proof}
+D'après Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-base-change-higher-direct-images}
+nous pouvons nous ramener au cas où $\mathcal{X}$
+est représenté par $U$ et $\mathcal{Y}$
+par $V$. Cela utilise bien entendu aussi que l'image inverse de
+$\mathcal{F}$ sur $U$ appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_U)$
+d'après la proposition \ref{proposition-loc-qcoh-flat-base-change}.
+Le résultat découle alors de
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-compare-morphism-cohomology}
+et du fait que $R^if_*$ peut être calculé pour la
+topologie étale d'après la
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-loc-qcoh-fbc-affine-direct-image}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme affine de champs
+algébriques. Le foncteur $f_* : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$ est exact et commute
+aux sommes directes. Les foncteurs $R^if_*$ pour $i > 0$ s'annulent sur
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\end{lemma}
+
+\begin{proof}
+Les foncteurs existent d'après la proposition \ref{proposition-loc-qcoh-flat-base-change}.
+D'après le lemme \ref{lemma-loc-qcoh-fbc-compute-higher-direct-image},
+on se ramène au cas d'un morphisme affine d'espaces algébriques,
+les images directes supérieures étant prises dans le cadre des modules
+quasi-cohérents sur les espaces algébriques. D'après la discussion de
+Cohomologie des espaces, section
+\ref{spaces-cohomology-section-higher-direct-image}
+nous nous ramenons au cas d'un morphisme affine de schémas.
+Pour les morphismes affines de schémas, l'annulation des
+images directes supérieures sur les modules quasi-cohérents résulte de
+Cohomologie des schémas, lemme \ref{coherent-lemma-relative-affine-vanishing}.
+L'annulation de $R^1f_*$ implique l'exactitude de $f_*$.
+La commutation aux sommes directes résulte de
+Morphismes, lemme \ref{morphisms-lemma-affine-equivalence-modules}
+par exemple.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Modules parasites}
+\label{section-parasitic}
+
+\noindent
+La définition suivante est compatible avec
+Descente, définition \ref{descent-definition-parasitic}.
+
+\begin{definition}
+\label{definition-parasitic}
+Soit $\mathcal{X}$ un champ algébrique.
+Un préfaisceau de $\mathcal{O}_\mathcal{X}$-modules $\mathcal{F}$ est
+{\it parasite} si $\mathcal{F}(x) = 0$ pour tout objet $x$
+de $\mathcal{X}$ au-dessus d'un schéma $U$ tel que le morphisme
+correspondant $x : U \to \mathcal{X}$ soit plat.
+\end{definition}
+
+\noindent
+Voici un lemme donnant quelques propriétés de cette notion.
+
+\begin{lemma}
+\label{lemma-parasitic}
+Soit $\mathcal{X}$ un champ algébrique. Soit $\mathcal{F}$
+un préfaisceau de $\mathcal{O}_\mathcal{X}$-modules.
+\begin{enumerate}
+\item Si $\mathcal{F}$ est parasite et si
+$g : \mathcal{Y} \to \mathcal{X}$ est un morphisme plat de champs algébriques,
+alors $g^*\mathcal{F}$ est parasite.
+\item Pour $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$,
+nous avons :
+\begin{enumerate}
+\item le faisceau $\tau$ associé à un préfaisceau parasite de modules est
+parasite, et
+\item la sous-catégorie pleine de
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+formée des modules parasites est une sous-catégorie de Serre.
+\end{enumerate}
+\item Supposons que $\mathcal{F}$ soit un faisceau pour la topologie étale.
+Soit $f_i : \mathcal{X}_i \to \mathcal{X}$ une famille de
+morphismes lisses de champs algébriques telle que
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$. Si chaque
+$f_i^*\mathcal{F}$ est parasite, alors $\mathcal{F}$ l'est aussi.
+\item Supposons que $\mathcal{F}$ soit un faisceau pour la topologie fppf.
+Soit $f_i : \mathcal{X}_i \to \mathcal{X}$ une famille de
+morphismes plats et localement de présentation finie de champs algébriques telle que
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$. Si chaque
+$f_i^*\mathcal{F}$ est parasite, alors $\mathcal{F}$ l'est aussi.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour démontrer la partie (1), soit $y$ un objet de $\mathcal{Y}$ au-dessus
+d'un schéma $V$ tel que le morphisme correspondant $y : V \to \mathcal{Y}$
+soit plat. Alors $g(y) : V \to \mathcal{Y} \to \mathcal{X}$ est plat
+comme composé de morphismes plats (voir
+Morphismes de champs, lemme \ref{stacks-morphisms-lemma-composition-flat})
+et donc $\mathcal{F}(g(y))$ est nul par hypothèse. Puisque
+$g^*\mathcal{F} = g^{-1}\mathcal{F}(y) = \mathcal{F}(g(y))$, nous en concluons que
+$g^*\mathcal{F}$ est parasite.
+
+\medskip\noindent
+Pour démontrer la partie (2)(a), notons que si $\{x_i \to x\}$ est un recouvrement pour la topologie $\tau$
+de $\mathcal{X}$, alors chacun des morphismes $x_i \to x$ est au-dessus
+d'un morphisme plat de schémas. Ainsi, si $x$ est au-dessus d'un schéma
+$U$ tel que $x : U \to \mathcal{X}$ soit plat, il en va de même de tous les
+objets $x_i$. Par conséquent, le préfaisceau $\mathcal{F}^+$ (voir
+Sites, section \ref{sites-section-sheafification})
+est parasite si le préfaisceau $\mathcal{F}$ est
+parasite. Cela démontre (2)(a), puisque le faisceau associé à $\mathcal{F}$
+est $(\mathcal{F}^+)^+$.
+
+\medskip\noindent
+Soit $\mathcal{F}$ un $\tau$-module parasite. Il résulte immédiatement des
+définitions que tout sous-module de $\mathcal{F}$ est parasite. D'autre
+part, si $\mathcal{F}' \subset \mathcal{F}$ est un sous-module, il est
+également clair que le préfaisceau
+$x \mapsto \mathcal{F}(x)/\mathcal{F}'(x)$
+est parasite. Ainsi, le quotient $\mathcal{F}/\mathcal{F}'$ est un module
+parasite d'après (2)(a). Enfin, il faut montrer que, pour toute suite exacte courte
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+dont $\mathcal{F}_1$ et $\mathcal{F}_3$ sont parasites, $\mathcal{F}_2$
+est parasite. Cela résulte immédiatement de l'évaluation en $x$, lorsque cet objet est
+au-dessus d'un schéma plat sur $\mathcal{X}$. Ceci démontre (2)(b) ; voir
+Homologie, lemme \ref{homology-lemma-characterize-serre-subcategory}.
+
+\medskip\noindent
+Soit $f_i : \mathcal{X}_i \to \mathcal{X}$ une famille conjointement surjective de
+morphismes lisses de champs algébriques, et supposons que chaque $f_i^*\mathcal{F}$
+soit parasite. Soit $x$ un objet de $\mathcal{X}$ au-dessus d'un
+schéma $U$ tel que $x : U \to \mathcal{X}$ soit plat. Considérons un recouvrement
+lisse surjectif $W_i \to U \times_{x, \mathcal{X}} \mathcal{X}_i$.
+Notons $y_i : W_i \to \mathcal{X}_i$ la projection. Il s'ensuit
+que $\{f_i(y_i) \to x\}$ est un recouvrement pour la topologie lisse
+sur $\mathcal{X}$. Comme un composé de morphismes plats est plat, nous voyons que
+$f_i^*\mathcal{F}(y_i) = 0$. D'autre part, comme nous l'avons vu dans la démonstration
+de (1), nous avons $f_i^*\mathcal{F}(y_i) = \mathcal{F}(f_i(y_i))$.
+Ainsi, pour un certain recouvrement lisse $\{x_i \to x\}_{i \in I}$
+de $\mathcal{X}$, nous avons $\mathcal{F}(x_i) = 0$. Cela implique
+$\mathcal{F}(x) = 0$, car la topologie lisse est la même
+que la topologie étale ; voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-etale-dominates-smooth}.
+En effet, $\{x_i \to x\}_{i \in I}$ est au-dessus d'un recouvrement lisse
+$\{U_i \to U\}_{i \in I}$ de schémas. D'après le lemme qui vient d'être cité,
+il existe un recouvrement étale $\{V_j \to U\}_{j \in J}$ qui
+raffine $\{U_i \to U\}_{i \in I}$. Notons $x'_j = x|_{V_j}$.
+Alors $\{x'_j \to x\}$ est un recouvrement étale dans $\mathcal{X}$
+raffinant $\{x_i \to x\}_{i \in I}$. Cela signifie que l'application
+$\mathcal{F}(x) \to \prod_{j \in J} \mathcal{F}(x'_j)$, qui est
+injective puisque $\mathcal{F}$ est un faisceau pour la topologie étale,
+se factorise par $\mathcal{F}(x) \to \prod_{i \in I} \mathcal{F}(x_i)$,
+qui est nulle. Ainsi, $\mathcal{F}(x) = 0$, comme souhaité.
+
+\medskip\noindent
+Démonstration de (4) : omise. Indication : elle est semblable, mais plus simple, à celle de (3).
+\end{proof}
+
+\noindent
+Les modules parasites sont préservés par toute image directe, sans aucune restriction.
+
+\begin{lemma}
+\label{lemma-pushforward-parasitic}
+Soit $\tau \in \{\etale, fppf\}$.
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $\mathcal{F}$ un objet parasite de
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$.
+\begin{enumerate}
+\item $H^i_\tau(\mathcal{X}, \mathcal{F}) = 0$ pour tout $i$.
+\item Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Alors $R^if_*\mathcal{F}$ (calculé pour la topologie $\tau$) est un
+objet parasite de $\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous ramenons d'abord (2) à (1).
+D'après Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-pushforward-restriction},
+nous voyons que $R^if_*\mathcal{F}$ est le faisceau associé au préfaisceau
+$$
+y \longmapsto
+H^i_\tau\Big(V \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{F}\Big)
+$$
+Ici, $y$ est un objet type de $\mathcal{Y}$ au-dessus du schéma $V$.
+D'après le lemme \ref{lemma-parasitic}, il suffit de montrer que
+ces groupes de cohomologie sont nuls lorsque $y : V \to \mathcal{Y}$ est plat.
+Notons que $\text{pr} : V \times_{y, \mathcal{Y}} \mathcal{X} \to \mathcal{X}$
+est plat comme changement de base de $y$. Ainsi, d'après le
+lemme \ref{lemma-parasitic}, nous voyons que $\text{pr}^{-1}\mathcal{F}$
+est parasite. Il suffit donc de démontrer (1).
+
+\medskip\noindent
+Pour démontrer (1), nous pouvons utiliser la suite spectrale de
+Faisceaux sur les champs, proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-cohomology}
+pour nous ramener au cas où $\mathcal{X}$
+est un champ algébrique représentable par un espace algébrique.
+Notons que, dans la suite spectrale, chaque
+$f_p^{-1}\mathcal{F} = f_p^*\mathcal{F}$ est un module parasite d'après le
+lemme \ref{lemma-parasitic}, car les morphismes
+$f_p : \mathcal{U}_p =
+\mathcal{U} \times_\mathcal{X} \ldots
+\times_\mathcal{X} \mathcal{U} \to \mathcal{X}$ sont plats.
+En réutilisant encore une fois cette suite spectrale (comme dans la
+démonstration du lemme \ref{lemma-general-pushforward}),
+nous nous ramenons au cas où le
+champ algébrique $\mathcal{X}$ est représentable par un schéma $X$.
+Alors $H^i_\tau(\mathcal{X}, \mathcal{F}) = H^i((\Sch/X)_\tau, \mathcal{F})$.
+Dans ce cas, l'annulation résulte facilement d'un argument
+avec des recouvrements de {\v C}ech ; voir
+Descente, lemme \ref{descent-lemma-cohomology-parasitic}.
+\end{proof}
+
+\noindent
+Le lemme suivant donne l'une des principales raisons de nous intéresser aux
+modules parasites. Pour en comprendre l'énoncé, rappelons que les
+foncteurs
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+et
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})$
+ne sont pas exacts en général.
+
+\begin{lemma}
+\label{lemma-exact-sequence-quasi-coherent-parasitic-cohomology}
+Soit $\mathcal{X}$ un champ algébrique. Soient
+$\alpha : \mathcal{F} \to \mathcal{G}$ et
+$\beta : \mathcal{G} \to \mathcal{H}$
+des morphismes dans $\QCoh(\mathcal{O}_\mathcal{X})$ tels que
+$\beta \circ \alpha = 0$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item dans la catégorie abélienne $\QCoh(\mathcal{O}_\mathcal{X})$,
+le complexe $\mathcal{F} \to \mathcal{G} \to \mathcal{H}$
+est exact en $\mathcal{G}$ ;
+\item $\Ker(\beta)/\Im(\alpha)$, calculé soit dans
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$, soit dans
+$\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$
+est parasite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous avons $\QCoh(\mathcal{O}_\mathcal{X}) \subset
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ ; voir
+section \ref{section-loc-qcoh-flat-base-change}.
+Ainsi, les objets $\Ker(\beta)/\Im(\alpha)$ calculés dans
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ ou dans
+$\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$ coïncident ; voir
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+Désormais, nous utiliserons la topologie étale sur $\mathcal{X}$.
+
+\medskip\noindent
+Soit $\mathcal{E}$ la cohomologie de
+$\mathcal{F} \to \mathcal{G} \to \mathcal{H}$
+calculée dans la catégorie abélienne $\QCoh(\mathcal{O}_\mathcal{X})$.
+Soit $x : U \to \mathcal{X}$ un morphisme plat, où $U$ est un schéma.
+Comme nous utilisons la topologie étale, le foncteur de restriction
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\to \textit{Mod}(U_\etale, \mathcal{O}_U)$ est exact.
+D'autre part, d'après le lemme \ref{lemma-flat-pullback-quasi-coherent} et
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-compare-quasi-coherent}
+le foncteur de restriction
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \xrightarrow{x^*}
+\QCoh((\Sch/U)_\etale, \mathcal{O}) \xrightarrow{{-}|_{U_\etale}}
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+est lui aussi exact. Nous en concluons que
+$\mathcal{E}|_{U_\etale} = (\Ker(\beta)/\Im(\alpha))|_{U_\etale}$.
+
+\medskip\noindent
+Si (1) vaut, alors $\mathcal{E} = 0$ ; ainsi, $\Ker(\beta)/\Im(\alpha)$
+se restreint à zéro sur $U_\etale$ pour tout $U$ plat sur $\mathcal{X}$, et c'est
+la définition d'un module parasite. Si (2) vaut, alors
+$\Ker(\beta)/\Im(\alpha)$ se restreint à zéro sur $U_\etale$ pour tout $U$
+plat sur $\mathcal{X}$ ; ainsi, $\mathcal{E}$ se restreint à zéro sur
+$U_\etale$ pour tout $U$ plat sur $\mathcal{X}$. Cela implique certainement
+que le module quasi-cohérent $\mathcal{E}$ est nul ; on peut par exemple appliquer le
+lemme \ref{lemma-quasi-coherent-check-exact}
+au morphisme $0 \to \mathcal{E}$.
+\end{proof}
+
+
+
+
+
+\section{Modules quasi-cohérents}
+\label{section-quasi-coherent}
+
+\noindent
+Nous avons vu que la catégorie des modules quasi-cohérents sur un champ
+algébrique est équivalente à la catégorie des modules quasi-cohérents sur une
+présentation ; voir
+Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}.
+Ce fait est à la base de ce qui suit.
+
+\begin{lemma}
+\label{lemma-adjoint}
+Soit $\mathcal{X}$ un champ algébrique. Soit
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+la catégorie des modules localement quasi-cohérents possédant la
+propriété de changement de base plat ; voir
+section \ref{section-loc-qcoh-flat-base-change}.
+Le foncteur d'inclusion
+$i : \QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+admet un adjoint à droite
+$$
+Q : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+tel que $Q \circ i$ soit le foncteur identité.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme lisse surjectif $f : U \to \mathcal{X}$.
+Posons $R = U \times_\mathcal{X} U$ ; nous obtenons ainsi un groupoïde lisse
+$(U, R, s, t, c)$ en espaces algébriques tel que
+$\mathcal{X} = [U/R]$ ; voir
+Champs algébriques, lemme \ref{algebraic-lemma-stack-presentation}.
+Nous pouvons remplacer, et remplaçons, $\mathcal{X}$ par $[U/R]$. D'après
+Faisceaux sur les champs, proposition \ref{stacks-sheaves-proposition-quasi-coherent}
+il existe une équivalence
+$$
+q_1 :
+\QCoh(U, R, s, t, c)
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+Construisons un foncteur
+$$
+q_2 :
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U, R, s, t, c)
+$$
+par la règle suivante : si $\mathcal{F}$ est un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, nous posons
+$$
+q_2(\mathcal{F}) = (f^*\mathcal{F}|_{U_\etale}, \alpha)
+$$
+où $\alpha$ est l'isomorphisme
+$$
+t_{small}^*(f^*\mathcal{F}|_{U_\etale})
+\to
+t^*f^*\mathcal{F}|_{R_\etale} \to
+s^*f^*\mathcal{F}|_{R_\etale} \to
+s_{small}^*(f^*\mathcal{F}|_{U_\etale})
+$$
+où les deux morphismes extrêmes sont les morphismes de comparaison. Notons que
+$q_2(\mathcal{F})$ est quasi-cohérent précisément parce que $\mathcal{F}$ est
+localement quasi-cohérent, et que nous avons utilisé (et eu besoin de)
+la propriété de changement de base plat dans la construction de
+la donnée de descente $\alpha$. Nous omettons la
+vérification de la condition de cocycle (voir
+Groupoïdes dans les espaces, définition
+\ref{spaces-groupoids-definition-groupoid-module}).
+En examinant la démonstration de
+Faisceaux sur les champs, proposition \ref{stacks-sheaves-proposition-quasi-coherent}
+nous voyons que $q_2 \circ i$ est un quasi-inverse de $q_1$.
+Définissons $Q = q_1 \circ q_2$.
+Soit $\mathcal{F}$ un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ et
+soit $\mathcal{G}$ un objet de $\QCoh(\mathcal{O}_\mathcal{X})$.
+Nous avons
+\begin{align*}
+\Mor_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}
+(i(\mathcal{G}), \mathcal{F})
+& =
+\Mor_{\QCoh(U, R, s, t, c)}(q_2(i(\mathcal{G})), q_2(\mathcal{F})) \\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{X})}(\mathcal{G}, Q(\mathcal{F}))
+\end{align*}
+où la première égalité résulte de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-map-from-quasi-coherent}
+et la deuxième vaut parce que $q_1 \circ i$ et $q_2$ sont des équivalences de catégories
+quasi-inverses. L'assertion $Q \circ i \cong \text{id}$
+est une conséquence formelle du fait que $i$ est pleinement fidèle.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adjoint-kernel-parasitic}
+Soit $\mathcal{X}$ un champ algébrique.
+Soit $Q : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+le foncteur construit dans le lemme \ref{lemma-adjoint}.
+\begin{enumerate}
+\item Le noyau de $Q$ est exactement la collection des objets parasites
+de $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+\item Pour tout objet $\mathcal{F}$
+de $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, le noyau et le
+conoyau du
+morphisme d'adjonction $Q(\mathcal{F}) \to \mathcal{F}$ sont parasites.
+\item Le foncteur $Q$ est exact et commute à toutes les limites projectives et inductives.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Écrivons $\mathcal{X} = [U/R]$ comme dans la démonstration du lemme \ref{lemma-adjoint}.
+Soit $\mathcal{F}$ un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+Il ressort de la démonstration du lemme \ref{lemma-adjoint}
+que $\mathcal{F}$ appartient au noyau de $Q$ si et seulement si
+$\mathcal{F}|_{U_\etale} = 0$.
+En particulier, si $\mathcal{F}$ est parasite, alors $\mathcal{F}$ appartient au
+noyau. Soit ensuite $x : V \to \mathcal{X}$ un morphisme plat, où
+$V$ est un schéma. Posons $W = V \times_\mathcal{X} U$ et considérons le diagramme
+$$
+\xymatrix{
+W \ar[d]_p \ar[r]_q & V \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+Notons que la projection $p : W \to U$ est plate et que la projection
+$q : W \to V$ est lisse et surjective. Il s'ensuit que $q_{small}^*$
+est un foncteur fidèle sur les modules quasi-cohérents. Par hypothèse, $\mathcal{F}$
+possède la propriété de changement de base plat, de sorte que nous obtenons
+$p_{small}^*\mathcal{F}|_{U_\etale} \cong
+q_{small}^*\mathcal{F}|_{V_\etale}$. Ainsi, si $\mathcal{F}$
+appartient au noyau de $Q$, alors $\mathcal{F}|_{V_\etale} = 0$,
+ce qui achève la démonstration de (1).
+
+\medskip\noindent
+La partie (2) résulte de la discussion précédente et du fait
+que le morphisme $Q(\mathcal{F}) \to \mathcal{F}$ devient un isomorphisme après
+restriction à $U_\etale$.
+
+\medskip\noindent
+Pour démontrer la partie (3), notons que $Q$ est exact à gauche comme adjoint à droite.
+Soit $0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$
+une suite exacte courte dans $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+Considérons le diagramme commutatif suivant
+$$
+\xymatrix{
+0 \ar[r] &
+Q(\mathcal{F}) \ar[r] \ar[d]_a &
+Q(\mathcal{G}) \ar[r] \ar[d]_b &
+Q(\mathcal{H}) \ar[r] \ar[d]_c & 0 \\
+0 \ar[r] &
+\mathcal{F} \ar[r] &
+\mathcal{G} \ar[r] &
+\mathcal{H} \ar[r] & 0
+}
+$$
+Puisque les noyaux et conoyaux de $a$, $b$ et $c$ sont parasites d'après
+la partie (2), et puisque la ligne inférieure est une suite exacte courte, nous voyons que
+la ligne supérieure, considérée comme complexe de $\mathcal{O}_\mathcal{X}$-modules, a des faisceaux de
+cohomologie parasites (nous omettons les détails ; on utilise ici que la catégorie des
+modules parasites est une sous-catégorie de Serre de la catégorie de tous les modules).
+Par l'exactitude à gauche de $Q$, seule l'exactitude en $Q(\mathcal{H})$
+reste à établir. Or le conoyau $\mathcal{Q}$ de
+$Q(\mathcal{G}) \to Q(\mathcal{H}))$
+peut être calculé soit dans $\textit{Mod}(\mathcal{O}_\mathcal{X})$,
+soit dans $\QCoh(\mathcal{O}_\mathcal{X})$, avec le même résultat, car
+le foncteur d'inclusion $\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+est un adjoint à gauche, donc est exact à droite. Ainsi, $\mathcal{Q} = Q(\mathcal{Q})$
+est à la fois quasi-cohérent et parasite, donc $0$ d'après la partie (1), comme souhaité.
+
+\medskip\noindent
+Comme adjoint à droite, $Q$ commute à toutes les limites projectives. Puisque $Q$ est exact, pour
+montrer que $Q$ commute à toutes les limites inductives, il suffit de montrer que $Q$
+commute aux sommes directes ; voir
+Catégories, lemme \ref{categories-lemma-colimits-coproducts-coequalizers}.
+Soit $\mathcal{F}_i$, $i \in I$, une famille d'objets de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$. Pour voir que
+$Q(\bigoplus \mathcal{F}_i)$ est égal à $\bigoplus Q(\mathcal{F}_i)$,
+considérons la construction de $Q$ dans la démonstration du
+lemme \ref{lemma-adjoint}. Elle utilise une présentation $\mathcal{X} = [U/R]$,
+où $U$ est un schéma. Alors $Q(\mathcal{F})$
+se calcule en prenant d'abord la paire
+$(\mathcal{F}|_{U_\etale}, \alpha)$ dans $\QCoh(U, R, s, t, c)$,
+puis en utilisant l'équivalence
+$\QCoh(U, R, s, t, c) \cong \QCoh(\mathcal{O}_\mathcal{X})$.
+Puisque le foncteur de restriction $\textit{Mod}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_{U_\etale})$,
+$\mathcal{F} \mapsto \mathcal{F}|_{U_\etale}$ commute aux
+sommes directes, l'égalité voulue est claire.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-morphism-and-Q}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme plat de champs algébriques.
+Alors $Q_\mathcal{X} \circ f^* = f^* \circ Q_\mathcal{Y}$, où
+$Q_\mathcal{X}$ et $Q_\mathcal{Y}$ sont comme dans le lemme \ref{lemma-adjoint}.
+\end{lemma}
+
+\begin{proof}
+Observons que $f^*$ préserve à la fois $\QCoh$ et $\textit{LQCoh}^{fbc}$ ;
+voir Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-pullback-quasi-coherent} et
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+Si $\mathcal{F}$ appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$,
+alors $Q_\mathcal{Y}(\mathcal{F}) \to \mathcal{F}$
+a un noyau et un conoyau parasites
+d'après le lemme \ref{lemma-adjoint-kernel-parasitic}.
+Comme $f$ est plat, nous obtenons que $f^*Q_\mathcal{Y}(\mathcal{F}) \to f^*\mathcal{F}$
+a un noyau et un conoyau parasites d'après le
+lemme \ref{lemma-parasitic}.
+Ainsi, le morphisme induit
+$f^*Q_\mathcal{Y}(\mathcal{F}) \to Q_\mathcal{X}(f^*\mathcal{F})$
+a un noyau et un conoyau parasites et est donc un isomorphisme,
+par exemple d'après le
+lemme \ref{lemma-exact-sequence-quasi-coherent-parasitic-cohomology}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-object-and-Q}
+Soit $\mathcal{X}$ un champ algébrique. Soit $x$ un objet de $\mathcal{X}$
+au-dessus du schéma $U$ tel que $x : U \to \mathcal{X}$ soit plat.
+Alors, pour $\mathcal{F}$ dans $\QCoh^{fbc}(\mathcal{O}_\mathcal{X})$,
+nous avons $Q(\mathcal{F})|_{U_\etale} = \mathcal{F}|_{U_\etale}$.
+\end{lemma}
+
+\begin{proof}
+C'est vrai parce que le noyau et le conoyau de $Q(\mathcal{F}) \to \mathcal{F}$
+sont parasites ; voir le lemme \ref{lemma-adjoint-kernel-parasitic}.
+\end{proof}
+
+\begin{remark}
+\label{remark-QCoh-abelian}
+Soit $\mathcal{X}$ un champ algébrique. La catégorie
+$\QCoh(\mathcal{O}_\mathcal{X})$ est abélienne, le foncteur d'inclusion
+$\QCoh(\mathcal{O}_\mathcal{X}) \to \textit{Mod}(\mathcal{O}_\mathcal{X})$
+est exact à droite, mais n'est pas exact en général ; voir Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}.
+Nous pouvons utiliser le foncteur $Q$ des
+lemmes \ref{lemma-adjoint} et \ref{lemma-adjoint-kernel-parasitic}
+pour comprendre ceci. Plus précisément, soit $\varphi : \mathcal{F} \to \mathcal{G}$
+un morphisme de $\mathcal{O}_\mathcal{X}$-modules quasi-cohérents. Alors
+\begin{enumerate}
+\item le conoyau $\Coker(\varphi)$ calculé dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ est quasi-cohérent et
+est le conoyau de $\varphi$ dans $\QCoh(\mathcal{O}_\mathcal{X})$ ;
+\item l'image $\Im(\varphi)$ calculée dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ est quasi-cohérente et
+est l'image de $\varphi$ dans $\QCoh(\mathcal{O}_\mathcal{X})$ ; et
+\item le noyau $\Ker(\varphi)$ calculé dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$
+appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+d'après la proposition \ref{proposition-loc-qcoh-flat-base-change}, et
+$Q(\Ker(\varphi))$ est le noyau dans $\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+Cela résulte des références indiquées.
+\end{remark}
+
+\begin{remark}
+\label{remark-QCoh-tensor}
+Soit $\mathcal{X}$ un champ algébrique. Étant donnés deux
+$\mathcal{O}_\mathcal{X}$-modules quasi-cohérents $\mathcal{F}$ et $\mathcal{G}$,
+le module produit tensoriel
+$\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+est quasi-cohérent ; voir Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}, partie (5).
+De même, étant donnés deux modules localement quasi-cohérents possédant
+la propriété de changement de base plat, leur produit tensoriel possède la
+même propriété ; voir la proposition \ref{proposition-loc-qcoh-flat-base-change}.
+Ainsi, les foncteurs d'inclusion
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+$$
+sont des foncteurs de catégories monoïdales symétriques. Plus intéressant encore,
+le foncteur
+$$
+Q :
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+est lui aussi un foncteur de catégories monoïdales symétriques. En effet, étant donnés
+$\mathcal{F}$ et $\mathcal{G}$ dans
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$, nous obtenons
+$$
+\xymatrix{
+Q(\mathcal{F})
+\otimes_{\mathcal{O}_\mathcal{X}}
+Q(\mathcal{G}) \ar[rr] \ar[rd] & &
+\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{X}}
+\mathcal{G} \\
+&
+Q(\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}) \ar[ru]
+}
+$$
+où la flèche sud-ouest provient de la propriété universelle
+de la flèche nord-ouest (et du fait déjà mentionné que
+l'objet du coin supérieur gauche est quasi-cohérent).
+Si nous restreignons ce diagramme à $U_\etale$ pour $U \to \mathcal{X}$
+plat, alors les trois flèches deviennent des isomorphismes (voir les
+lemmes \ref{lemma-adjoint} et \ref{lemma-adjoint-kernel-parasitic}
+et la définition \ref{definition-parasitic}).
+Ainsi, $Q(\mathcal{F}) \otimes_{\mathcal{O}_\mathcal{X}}
+Q(\mathcal{G}) \to
+Q(\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G})$
+est un isomorphisme ; voir par exemple le
+lemme \ref{lemma-quasi-coherent-check-exact}.
+\end{remark}
+
+\begin{remark}
+\label{remark-bousfield-colocalization}
+Soit $\mathcal{X}$ un champ algébrique. Soit
+$\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{O}_\mathcal{X})$ la
+sous-catégorie pleine formée des modules parasites. Les résultats des
+lemmes \ref{lemma-adjoint} et \ref{lemma-adjoint-kernel-parasitic}
+impliquent que
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) =
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) /
+\textit{Parasitic}(\mathcal{O}_\mathcal{X})
+\cap \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+$$
+autrement dit : la catégorie des modules quasi-cohérents est la catégorie
+des modules localement quasi-cohérents possédant la propriété de changement de base plat,
+quotientée par la sous-catégorie de Serre formée des objets parasites.
+Voir Homologie, lemme \ref{homology-lemma-serre-subcategory-is-kernel}.
+L'existence du foncteur d'inclusion
+$i : \QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+qui est adjoint à gauche du foncteur quotient est un trait essentiel de
+la situation. Dans Catégories dérivées de champs, section
+\ref{stacks-perfect-section-derived}, et en particulier dans le
+lemme \ref{stacks-perfect-lemma-bousfield-colocalization}
+nous démontrons qu'un résultat analogue vaut au niveau des catégories dérivées.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-internal-hom-fp-into-qcoh}
+Soit $\mathcal{X}$ un champ algébrique. Soit $\mathcal{F}$ un
+$\mathcal{O}_\mathcal{X}$-module de présentation finie et soit
+$\mathcal{G}$ un $\mathcal{O}_\mathcal{X}$-module quasi-cohérent.
+Les Hom internes
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+calculés dans
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ ou dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ coïncident, et leur valeur commune
+est un objet de $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+Le module quasi-cohérent
+$
+hom(\mathcal{F}, \mathcal{G}) =
+Q(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))
+$
+possède la propriété universelle suivante
+$$
+\Hom_\mathcal{X}(\mathcal{H}, hom(\mathcal{F}, \mathcal{G})) =
+\Hom_\mathcal{X}(\mathcal{H} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{F},
+\mathcal{G})
+$$
+pour $\mathcal{H}$ dans $\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{lemma}
+
+\begin{proof}
+La construction de
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$ dans
+Modules sur les sites, section \ref{sites-modules-section-internal-hom}
+ne dépend que de $\mathcal{F}$ et $\mathcal{G}$ comme préfaisceaux
+de modules ; le résultat $\SheafHom$ est un faisceau pour la topologie
+fppf parce que $\mathcal{F}$ et $\mathcal{G}$ sont supposés être des
+faisceaux pour la topologie fppf ; voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-internal-hom}.
+D'après Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-lqc-colimits},
+nous voyons que $\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+est localement quasi-cohérent.
+D'après le lemme \ref{lemma-check-flat-comparison-on-etale-covering},
+nous voyons que $\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+possède la propriété de changement de base plat. Ainsi,
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+est un objet de $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+et il est légitime de lui appliquer le foncteur $Q$ du lemme \ref{lemma-adjoint}.
+Par la propriété universelle de $Q$, nous avons
+$$
+\Hom_\mathcal{X}(\mathcal{H},
+Q(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))) =
+\Hom_\mathcal{X}(\mathcal{H},
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))
+$$
+pour $\mathcal{H}$ quasi-cohérent ; la formule affichée
+du lemme résulte donc de Modules sur les sites, lemme
+\ref{sites-modules-lemma-internal-hom-adjoint-tensor}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-morphism-and-hom}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme plat de champs algébriques.
+Soit $\mathcal{F}$ un
+$\mathcal{O}_\mathcal{Y}$-module de présentation finie et soit
+$\mathcal{G}$ un $\mathcal{O}_\mathcal{Y}$-module quasi-cohérent.
+Alors $f^*hom(\mathcal{F}, \mathcal{G}) = hom(f^*\mathcal{F}, f^*\mathcal{G})$
+avec les notations du lemme \ref{lemma-internal-hom-fp-into-qcoh}.
+\end{lemma}
+
+\begin{proof}
+Nous avons $f^*\SheafHom_{\mathcal{O}_\mathcal{Y}}(\mathcal{F}, \mathcal{G}) =
+\SheafHom_{\mathcal{O}_\mathcal{X}}(f^*\mathcal{F}, f^*\mathcal{G})$
+d'après Modules sur les sites, lemme \ref{sites-modules-lemma-pullback-internal-hom}.
+(Observons que ce n'est pas à cette étape qu'est utilisée la platitude de $f$,
+car le morphisme de topos annelés associé à $f$ est toujours plat ; voir
+Faisceaux sur les champs, remarque \ref{stacks-sheaves-remark-flat}.)
+Appliquons alors le lemme \ref{lemma-flat-morphism-and-Q} (et c'est ici que nous utilisons
+la platitude de $f$).
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Image directe des modules quasi-cohérents}
+\label{section-pushforward-quasi-coherent}
+
+\noindent
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+Considérons l'image directe
+$$
+f_* :
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\textit{Mod}(\mathcal{O}_\mathcal{Y})
+$$
+Il s'avère que ce foncteur ne préserve presque jamais les sous-catégories
+de faisceaux quasi-cohérents. Considérons par exemple le morphisme de schémas
+$$
+j : X = \mathbf{A}^2_k \setminus \{0\} \longrightarrow \mathbf{A}^2_k = Y.
+$$
+Il lui est associé le morphisme correspondant de champs algébriques
+$$
+f = j_{big} : \mathcal{X} = (\Sch/X)_{fppf} \to
+(\Sch/Y)_{fppf} = \mathcal{Y}
+$$
+L'image directe $f_*\mathcal{O}_\mathcal{X}$ du faisceau structural a pour
+sections globales $k[x, y]$. Ainsi, si $f_*\mathcal{O}_\mathcal{X}$ était
+quasi-cohérent sur $\mathcal{Y}$, nous aurions
+$f_*\mathcal{O}_\mathcal{X} = \mathcal{O}_\mathcal{Y}$. Cependant,
+considérons $T = \Spec(k) \to \mathbf{A}^2_k = Y$ envoyé sur $0$.
+Alors $\Gamma(T, f_*\mathcal{O}_\mathcal{X}) = 0$ parce que
+$X \times_Y T = \emptyset$, tandis que $\Gamma(T, \mathcal{O}_\mathcal{Y}) = k$.
+En revanche, pour tout morphisme plat $T \to Y$, nous avons l'égalité
+$\Gamma(T, f_*\mathcal{O}_\mathcal{X}) = \Gamma(T, \mathcal{O}_\mathcal{Y})$
+qui résulte de
+Cohomologie des schémas, lemme \ref{coherent-lemma-flat-base-change-cohomology}
+en utilisant que $j$ est quasi-compact et quasi-séparé.
+
+\medskip\noindent
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et
+quasi-séparé de champs algébriques. Nous contournons le problème
+mentionné ci-dessus à l'aide des trois observations suivantes :
+\begin{enumerate}
+\item $f_*$ préserve bien les modules localement quasi-cohérents
+(lemme \ref{lemma-pushforward-locally-quasi-coherent}) ;
+\item $f_*$ transforme un faisceau quasi-cohérent en un faisceau localement quasi-cohérent
+dont les morphismes de comparaison plats sont des isomorphismes
+(lemme \ref{lemma-flat-comparison}) ; et
+\item les $\mathcal{O}_\mathcal{Y}$-modules localement quasi-cohérents
+possédant la propriété de changement de base plat donnent des modules quasi-cohérents
+sur une présentation de $\mathcal{Y}$, et donc des modules quasi-cohérents
+sur $\mathcal{Y}$ ; voir
+Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}.
+\end{enumerate}
+Nous obtenons ainsi un foncteur
+$$
+f_{\QCoh, *} :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{Y})
+$$
+qui est adjoint à droite de
+$f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+et tel que, de plus,
+$$
+\Gamma(y, f_*\mathcal{F}) = \Gamma(y, f_{\QCoh, *}\mathcal{F})
+$$
+pour tout $y \in \Ob(\mathcal{Y})$ tel que le $1$-morphisme
+associé $y : V \to \mathcal{Y}$ soit plat ; voir
+lemme \ref{lemma-direct-image-quasi-coherent-over-flat}.
+De plus, une construction semblable produira des foncteurs
+$R^if_{\QCoh, *}$.
+Cependant, ces résultats ne suffiront pas à produire un foncteur
+image directe totale (de complexes à faisceaux de cohomologie
+quasi-cohérents).
+
+\begin{proposition}
+\label{proposition-direct-image-quasi-coherent}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et quasi-séparé
+de champs algébriques. Le foncteur
+$f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+admet un adjoint à droite
+$$
+f_{\QCoh, *} :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{Y})
+$$
+qui peut être défini comme le composé
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\xrightarrow{f_*} \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})
+\xrightarrow{Q} \QCoh(\mathcal{O}_\mathcal{Y})
+$$
+où les foncteurs $f_*$ et $Q$ sont ceux de la
+proposition \ref{proposition-loc-qcoh-flat-base-change}
+et du
+lemme \ref{lemma-adjoint}.
+De plus, si nous définissons $R^if_{\QCoh, *}$ comme le composé
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\xrightarrow{R^if_*} \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})
+\xrightarrow{Q} \QCoh(\mathcal{O}_\mathcal{Y})
+$$
+alors la suite de foncteurs $\{R^if_{\QCoh, *}\}_{i \geq 0}$
+forme un $\delta$-foncteur cohomologique.
+\end{proposition}
+
+\begin{proof}
+C'est une combinaison des résultats mentionnés dans l'énoncé.
+L'adjonction se démontre comme suit. Soit $\mathcal{F}$
+un $\mathcal{O}_\mathcal{X}$-module quasi-cohérent et soit
+$\mathcal{G}$ un $\mathcal{O}_\mathcal{Y}$-module quasi-cohérent.
+Alors nous avons
+\begin{align*}
+\Mor_{\QCoh(\mathcal{O}_\mathcal{X})}(f^*\mathcal{G}, \mathcal{F})
+& =
+\Mor_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})}
+(\mathcal{G}, f_*\mathcal{F}) \\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{Y})}(\mathcal{G}, Q(f_*\mathcal{F}))
+\\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{Y})}(\mathcal{G},
+f_{\QCoh, *}\mathcal{F})
+\end{align*}
+la première égalité résultant de l'adjonction de $f_*$ et $f^*$ (pour des faisceaux
+de modules arbitraires). D'après la
+proposition \ref{proposition-loc-qcoh-flat-base-change}
+nous voyons que $f_*\mathcal{F}$ est un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$
+(et peut être calculé pour la topologie fppf comme pour la topologie étale), et nous
+obtenons la deuxième égalité d'après le lemme \ref{lemma-adjoint}. La troisième
+égalité est la définition de $f_{\QCoh, *}$.
+
+\medskip\noindent
+Pour voir que $\{R^if_{\QCoh, *}\}_{i \geq 0}$ est un
+$\delta$-foncteur cohomologique au sens de
+Homologie, définition \ref{homology-definition-cohomological-delta-functor}
+soit
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+une suite exacte courte de $\QCoh(\mathcal{O}_\mathcal{X})$.
+Cette suite n'est pas nécessairement exacte dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$, mais nous savons qu'elle l'est
+à des modules parasites près ; voir
+lemme \ref{lemma-exact-sequence-quasi-coherent-parasitic-cohomology}.
+Nous pouvons donc décomposer la suite en suites exactes courtes
+$$
+\begin{matrix}
+0 \to \mathcal{P}_1 \to \mathcal{F}_1 \to \mathcal{I}_2 \to 0 \\
+0 \to \mathcal{I}_2 \to \mathcal{F}_2 \to \mathcal{Q}_2 \to 0 \\
+0 \to \mathcal{P}_2 \to \mathcal{Q}_2 \to \mathcal{I}_3 \to 0 \\
+0 \to \mathcal{I}_3 \to \mathcal{F}_3 \to \mathcal{P}_3 \to 0
+\end{matrix}
+$$
+de $\textit{Mod}(\mathcal{O}_\mathcal{X})$, les $\mathcal{P}_i$ étant parasites.
+Notons que chacun des faisceaux
+$\mathcal{P}_j$, $\mathcal{I}_j$, $\mathcal{Q}_j$ est un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ ; voir
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+En appliquant $R^if_*$, nous obtenons des suites exactes longues
+$$
+\begin{matrix}
+0 \to f_*\mathcal{P}_1 \to f_*\mathcal{F}_1 \to f_*\mathcal{I}_2 \to
+R^1f_*\mathcal{P}_1 \to \ldots \\
+0 \to f_*\mathcal{I}_2 \to f_*\mathcal{F}_2 \to f_*\mathcal{Q}_2 \to
+R^1f_*\mathcal{I}_2 \to \ldots \\
+0 \to f_*\mathcal{P}_2 \to f_*\mathcal{Q}_2 \to f_*\mathcal{I}_3 \to
+R^1f_*\mathcal{P}_2 \to \ldots \\
+0 \to f_*\mathcal{I}_3 \to f_*\mathcal{F}_3 \to f_*\mathcal{P}_3 \to
+R^1f_*\mathcal{I}_3 \to \ldots
+\end{matrix}
+$$
+où tous les termes sont des objets de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$ d'après la
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+D'après le
+lemme \ref{lemma-pushforward-parasitic},
+les faisceaux $R^if_*\mathcal{P}_j$ sont parasites et s'annulent donc après application
+du foncteur $Q$ ; voir le
+lemme \ref{lemma-adjoint-kernel-parasitic}.
+Puisque $Q$ est exact, les morphismes
+$$
+Q(R^if_*\mathcal{F}_3)
+\cong
+Q(R^if_*\mathcal{I}_3)
+\cong
+Q(R^if_*\mathcal{Q}_2)
+\rightarrow
+Q(R^{i + 1}f_*\mathcal{I}_2)
+\cong
+Q(R^{i + 1}f_*\mathcal{F}_1)
+$$
+peuvent servir de morphisme de connexion qui fait de la famille de foncteurs
+$\{R^if_{\QCoh, *}\}_{i \geq 0}$
+un $\delta$-foncteur cohomologique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-direct-image-quasi-coherent-over-flat}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et quasi-séparé
+de champs algébriques. Soit $y : V \to \mathcal{Y}$ dans $\Ob(\mathcal{Y})$,
+avec $y$ plat. Soit $\mathcal{F}$ dans
+$\QCoh(\mathcal{O}_\mathcal{X})$.
+Alors $(f_*\mathcal{F})(y) = (f_{\QCoh, *}\mathcal{F})(y)$
+et $(R^if_*\mathcal{F})(y) = (R^if_{\QCoh, *}\mathcal{F})(y)$
+pour tout $i \in \mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la construction des foncteurs $R^if_{\QCoh, *}$ dans la
+proposition \ref{proposition-direct-image-quasi-coherent},
+de la définition des modules parasites dans définition \ref{definition-parasitic}
+et du lemme \ref{lemma-adjoint-kernel-parasitic}, partie (2).
+\end{proof}
+
+\begin{remark}
+\label{remark-direct-image-quasi-coherent-tensor}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et quasi-séparé
+de champs algébriques. Soient $\mathcal{F}$ et $\mathcal{G}$ dans
+$\QCoh(\mathcal{O}_\mathcal{X})$. Il existe alors un diagramme commutatif
+canonique
+$$
+\xymatrix{
+f_{\QCoh, *}\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{Y}}
+f_{\QCoh, *}\mathcal{G} \ar[r] \ar[d] &
+f_*\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{Y}}
+f_*\mathcal{G} \ar[d]^c \\
+f_{\QCoh, *}(\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{X}}
+\mathcal{G}) \ar[r] &
+f_*(\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{X}}
+\mathcal{G})
+}
+$$
+La flèche verticale $c$ de droite est le cup-produit relatif naïf
+(en degré $0$) ;
+voir Cohomologie sur les sites, section \ref{sites-cohomology-section-cup-product}.
+La source et le but de $c$ appartiennent à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ ; voir la
+proposition \ref{proposition-loc-qcoh-flat-base-change}.
+En appliquant $Q$ à $c$, nous obtenons la flèche verticale de gauche,
+car $Q$ commute aux produits tensoriels ; voir la
+remarque \ref{remark-QCoh-tensor}.
+Cette construction est fonctorielle en $\mathcal{F}$ et $\mathcal{G}$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-leray}
+Soit $f : \mathcal{X} \to \mathcal{Y}$
+un morphisme quasi-compact et quasi-séparé de champs algébriques.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $\mathcal{X}$. Alors
+il existe une suite spectrale dont la page $E_2$ est
+$$
+E_2^{p, q} = H^p(\mathcal{Y}, R^qf_{\QCoh, *}\mathcal{F})
+$$
+et qui converge vers $H^{p + q}(\mathcal{X}, \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+D'après Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-Leray},
+la suite spectrale de Leray dont la page est
+$$
+E_2^{p, q} = H^p(\mathcal{Y}, R^qf_*\mathcal{F})
+$$
+converge vers $H^{p + q}(\mathcal{X}, \mathcal{F})$. Le noyau et le conoyau
+du morphisme d'adjonction
+$$
+R^qf_{\QCoh, *}\mathcal{F} \longrightarrow R^qf_*\mathcal{F}
+$$
+sont des modules parasites sur $\mathcal{Y}$
+(lemme \ref{lemma-adjoint-kernel-parasitic})
+et ont donc une cohomologie nulle
+(lemme \ref{lemma-pushforward-parasitic}).
+Il en résulte formellement que
+$H^p(\mathcal{Y}, R^qf_{\QCoh, *}\mathcal{F}) =
+H^p(\mathcal{Y}, R^qf_*\mathcal{F})$, ce qui conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-leray}
+Soient $f : \mathcal{X} \to \mathcal{Y}$ et $g : \mathcal{Y} \to \mathcal{Z}$
+des morphismes quasi-compacts et quasi-séparés de champs algébriques.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $\mathcal{X}$. Alors
+il existe une suite spectrale dont la page $E_2$ est
+$$
+E_2^{p, q} = R^pg_{\QCoh, *}(R^qf_{\QCoh, *}\mathcal{F})
+$$
+et qui converge vers $R^{p + q}(g \circ f)_{\QCoh, *}\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+D'après Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-relative-Leray},
+la suite spectrale de Leray dont la page est
+$$
+E_2^{p, q} = R^pg_*(R^qf_*\mathcal{F})
+$$
+converge vers $R^{p + q}(g \circ f)_*\mathcal{F}$. D'après les résultats de la
+proposition \ref{proposition-loc-qcoh-flat-base-change}
+les termes de cette suite spectrale sont tous des objets de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Z})$. En appliquant le foncteur exact
+$Q_\mathcal{Z} : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Z}) \to
+\QCoh(\mathcal{O}_\mathcal{Z})$, nous obtenons une suite spectrale dans
+$\QCoh(\mathcal{O}_\mathcal{Z})$ convergeant vers
+$R^{p + q}(g \circ f)_{\QCoh, *}\mathcal{F}$. Le résultat
+en découle donc si nous pouvons montrer que
+$$
+Q_\mathcal{Z}(R^pg_*(R^qf_*\mathcal{F})) =
+Q_\mathcal{Z}(R^pg_*(Q_\mathcal{X}(R^qf_*\mathcal{F}))
+$$
+Cela résulte du fait que le noyau et le conoyau du morphisme
+$$
+Q_\mathcal{X}(R^qf_*\mathcal{F}) \longrightarrow R^qf_*\mathcal{F}
+$$
+sont parasites (lemme \ref{lemma-adjoint-kernel-parasitic}) et que
+$R^pg_*$ transforme les modules parasites en modules parasites
+(lemme \ref{lemma-pushforward-parasitic}).
+\end{proof}
+
+\noindent
+Pour terminer cette section, explicitons les suites spectrales
+associées à un recouvrement lisse par un schéma. Comparer avec
+Faisceaux sur les champs, sections \ref{stacks-sheaves-section-cohomology} et
+\ref{stacks-sheaves-section-higher-direct-images}.
+
+\begin{proposition}
+\label{proposition-smooth-covering-compute-cohomology}
+Soit $f : \mathcal{U} \to \mathcal{X}$ un morphisme de champs algébriques.
+Supposons que $f$ soit représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie. Soit $\mathcal{F}$ un
+$\mathcal{O}_\mathcal{X}$-module quasi-cohérent. Il existe alors une suite spectrale
+$$
+E_2^{p, q} = H^q(\mathcal{U}_p, f_p^*\mathcal{F})
+\Rightarrow
+H^{p + q}(\mathcal{X}, \mathcal{F})
+$$
+où $f_p$ est le morphisme
+$\mathcal{U} \times_\mathcal{X} \ldots \times_\mathcal{X} \mathcal{U} \to
+\mathcal{X}$ (avec $p + 1$ facteurs).
+\end{proposition}
+
+\begin{proof}
+C'est un cas particulier de
+Faisceaux sur les champs, proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-cohomology}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-smooth-covering-compute-direct-image}
+Soient $f : \mathcal{U} \to \mathcal{X}$ et $g : \mathcal{X} \to \mathcal{Y}$
+des morphismes composables de champs algébriques.
+Supposons que
+\begin{enumerate}
+\item $f$ soit représentable par des espaces algébriques, surjectif,
+plat, localement de présentation finie, quasi-compact et quasi-séparé, et
+\item $g$ soit quasi-compact et quasi-séparé.
+\end{enumerate}
+Si $\mathcal{F}$ appartient à $\QCoh(\mathcal{O}_\mathcal{X})$, alors
+il existe une suite spectrale
+$$
+E_2^{p, q} = R^q(g \circ f_p)_{\QCoh, *}f_p^*\mathcal{F}
+\Rightarrow
+R^{p + q}g_{\QCoh, *}\mathcal{F}
+$$
+dans $\QCoh(\mathcal{O}_\mathcal{Y})$.
+\end{proposition}
+
+\begin{proof}
+Notons que chacun des morphismes
+$f_p : \mathcal{U} \times_\mathcal{X} \ldots \times_\mathcal{X} \mathcal{U} \to
+\mathcal{X}$ est quasi-compact et quasi-séparé ; ainsi, $g \circ f_p$
+est quasi-compact et quasi-séparé, et l'assertion a donc un sens
+(c'est-à-dire que les foncteurs $R^q(g \circ f_p)_{\QCoh, *}$ sont définis).
+Il existe une suite spectrale
+$$
+E_2^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+d'après Faisceaux sur les champs, proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-direct-image}.
+En appliquant le foncteur exact
+$Q_\mathcal{Y} : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{Y})$, on obtient la suite spectrale voulue dans
+$\QCoh(\mathcal{O}_\mathcal{Y})$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Remarques supplémentaires sur les modules quasi-cohérents}
+\label{section-further-remarks}
+
+\noindent
+Dans cette section, nous réunissons quelques résultats qui aident à comprendre comment
+utiliser les modules quasi-cohérents sur les champs algébriques.
+
+\medskip\noindent
+Soit $f : \mathcal{U} \to \mathcal{X}$ un morphisme de champs algébriques.
+Supposons que $\mathcal{U}$ soit représenté par l'espace algébrique $U$.
+Considérons le foncteur
+$$
+a :
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\longrightarrow
+\textit{Mod}(U_\etale, \mathcal{O}_U),\quad
+\mathcal{F}
+\longmapsto
+f^*\mathcal{F}|_{U_\etale}
+$$
+obtenu en faisant suivre l'image inverse (Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-modules}) de la restriction
+(Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-restriction-algebraic-spaces}).
+En appliquant ce foncteur aux modules localement quasi-cohérents, on obtient un foncteur
+$$
+b : \textit{LQCoh}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+Voir Faisceaux sur les champs, lemmes \ref{stacks-sheaves-lemma-pullback-lqc} et
+\ref{stacks-sheaves-lemma-compare-locally-quasi-coherent}.
+On peut encore restreindre notre foncteur à des sous-catégories plus petites et obtenir
+$$
+c :
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+ainsi que
+$$
+d :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+Ces foncteurs possèdent les propriétés suivantes :\footnote{Nous suggérons
+d'établir pourquoi ces assertions sont vraies sur un coin de table plutôt que de
+suivre les références indiquées.}
+\begin{enumerate}
+\item Le foncteur $a$ est exact. En effet, l'image inverse $f^* = f^{-1}$ est exacte
+(Faisceaux sur les champs, section \ref{stacks-sheaves-section-modules}),
+et la restriction à $U_\etale$ est exacte ; voir
+Faisceaux sur les champs, équation (\ref{stacks-sheaves-equation-restrict}).
+\item Le foncteur $b$ est exact. En effet, d'après
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-lqc-colimits}
+le foncteur d'inclusion $\textit{LQCoh}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ est exact.
+\item Le foncteur $c$ est exact. En effet, d'après la
+proposition \ref{proposition-loc-qcoh-flat-base-change}
+le foncteur d'inclusion $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ est exact.
+\item Le foncteur $d$ est exact à droite, mais n'est pas exact en général.
+En effet, d'après Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-qc-colimits}
+le foncteur d'inclusion $\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ est exact à
+droite. Nous omettons de donner un exemple montrant qu'il n'est pas exact.
+\item Si $f$ est plat, alors $d$ est exact. Cela résulte de la combinaison du
+Lemme \ref{lemma-flat-pullback-quasi-coherent} et de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-compare-quasi-coherent}.
+\item Si $f$ est plat, alors $c$ annule les objets parasites.
+En effet, $f^*$ préserve les objets parasites d'après le Lemme \ref{lemma-parasitic}.
+Pour tout schéma $V$ étale sur $U$, et donc plat sur $\mathcal{X}$,
+on voit alors que
+$0 = f^*\mathcal{F}|_{V_\etale} = c(\mathcal{F})|_{V_\etale}$
+par compatibilité de la restriction à la localisation étale
+(Faisceaux sur les champs, remarque \ref{stacks-sheaves-remark-compare}).
+Ainsi, manifestement, $c(\mathcal{F}) = 0$.
+\item Si $f$ est plat, alors $c = d \circ Q$. En effet, le noyau et le
+conoyau de $Q(\mathcal{F}) \to \mathcal{F}$ sont parasites d'après le
+Lemme \ref{lemma-adjoint-kernel-parasitic}. Puisque
+$c$ est exact (3) et annule les objets parasites (6),
+on voit que l'image par $c$ du morphisme $Q(\mathcal{F}) \to \mathcal{F}$
+est un isomorphisme.
+\item Les foncteurs $a, b, c, d$ commutent aux limites inductives
+et aux sommes directes arbitraires. Cela vaut pour $f^*$ et la restriction,
+qui sont des adjoints à gauche, et vaut donc pour $a$. Le résultat pour
+$b$, $c$, $d$ découle alors des références données ci-dessus.
+\item Les foncteurs $a, b, c, d$ commutent aux produits tensoriels.
+\item Si $f$ est plat et surjectif, si $\mathcal{F}$ appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ et si $c(\mathcal{F}) = 0$,
+alors $\mathcal{F}$ est parasite. En effet, (7) donne $d(Q(\mathcal{F})) = 0$.
+On peut supposer que $U$ est un schéma, par compatibilité de la restriction
+avec la localisation étale (voir la référence ci-dessus). Le
+Lemme \ref{lemma-quasi-coherent-check-exact}, appliqué à $0 \to Q(\mathcal{F})$
+et au morphisme $f : U \to \mathcal{X}$, montre alors que $Q(\mathcal{F}) = 0$.
+Ainsi, $\mathcal{F}$ est parasite d'après le Lemme \ref{lemma-adjoint-kernel-parasitic}.
+\item Si $f$ est plat et surjectif, alors le foncteur $d$
+reflète l'exactitude. Plus précisément, soit $\mathcal{F}^\bullet$ un complexe de
+$\QCoh(\mathcal{O}_\mathcal{X})$. Alors $\mathcal{F}^\bullet$ est exact
+dans $\QCoh(\mathcal{O}_\mathcal{X})$ si et seulement si $d(\mathcal{F}^\bullet)$
+est exact. Nous avons vu une implication en (5). Réciproquement,
+supposons que $H^i(d(\mathcal{F}^\bullet)) = 0$. Alors
+$\mathcal{G} = H^i(\mathcal{F}^\bullet)$ est un objet de
+$\QCoh(\mathcal{O}_\mathcal{X})$ tel que $d(\mathcal{G}) = 0$.
+Ainsi, $\mathcal{G}$ est à la fois quasi-cohérent et parasite d'après (10),
+donc égal à $0$, par exemple d'après la Remarque \ref{remark-bousfield-colocalization}.
+\item
+\label{item-hom-restriction}
+Si $f$ est plat,
+$\mathcal{F}, \mathcal{G} \in \Ob(\QCoh(\mathcal{O}_\mathcal{X}))$,
+et si $\mathcal{F}$ est de présentation finie,
+alors on a
+$$
+d(hom(\mathcal{F}, \mathcal{G})) =
+\SheafHom_{\mathcal{O}_U}(d(\mathcal{F}), d(\mathcal{G}))
+$$
+avec les notations du Lemme \ref{lemma-internal-hom-fp-into-qcoh}.
+La manière la plus simple de le voir est peut-être la suivante :
+\begin{align*}
+d(hom(\mathcal{F}, \mathcal{G}))
+& =
+d(Q(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))) \\
+& =
+c(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})) \\
+& =
+f^*\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U_\etale} \\
+& =
+\SheafHom_{\mathcal{O}_\mathcal{U}}(f^*\mathcal{F},
+f^*\mathcal{G})|_{U_\etale} \\
+& =
+\SheafHom_{\mathcal{O}_U}(f^*\mathcal{F}|_{U_\etale},
+f^*\mathcal{G}|_{U_\etale})
+\end{align*}
+La première égalité résulte de la construction de $hom$. La deuxième
+résulte de (7). La troisième résulte de la définition de $c$. La quatrième résulte de
+Modules sur les sites, lemme \ref{sites-modules-lemma-pullback-internal-hom}.
+La dernière égalité résulte de la même référence appliquée au morphisme plat
+de topos annelés $i_U (U_\etale, \mathcal{O}_U) \to
+(\mathcal{U}_\etale, \mathcal{O}_\mathcal{U})$ de
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-compare}.
+\item Ajouter ici d'autres éléments.
+\end{enumerate}
+
+
+
+
+
+
+\section{Limites inductives et cohomologie}
+\label{section-colimits}
+
+\noindent
+Le lemme suivant s'applique notamment aux diagrammes de faisceaux
+quasi-cohérents.
+
+\begin{lemma}
+\label{lemma-colimits}
+Soit $\mathcal{X}$ un champ algébrique quasi-compact et quasi-séparé.
+Alors
+$$
+\colim_i H^p(\mathcal{X}, \mathcal{F}_i)
+\longrightarrow
+H^p(\mathcal{X}, \colim_i \mathcal{F}_i)
+$$
+est un isomorphisme pour tout diagramme filtrant de faisceaux abéliens sur
+$\mathcal{X}$. Il en va de même pour les faisceaux abéliens sur $\mathcal{X}_\etale$
+lorsque la cohomologie est prise pour la topologie étale.
+\end{lemma}
+
+\begin{proof}
+Soit $\tau = fppf$, resp.\ $\tau = \etale$. Le lemme résulte de
+Cohomologie sur les sites, lemme \ref{sites-cohomology-lemma-colim-global},
+appliqué au site $\mathcal{X}_\tau$. Pour en vérifier les hypothèses, nous
+utilisons Cohomologie sur les sites, remarque \ref{sites-cohomology-remark-colim-global}.
+Soit en effet $\mathcal{B} \subset \Ob(\mathcal{X}_\tau)$ l'ensemble
+des objets au-dessus de schémas affines. Autrement dit, un élément
+de $\mathcal{B}$ est un morphisme $x : U \to \mathcal{X}$ où $U$ est affine.
+Vérifions successivement chacune des conditions (1) -- (4) de la remarque :
+\begin{enumerate}
+\item Puisque $\mathcal{X}$ est quasi-compact, il existe un morphisme
+lisse et surjectif $x : U \to \mathcal{X}$ où $U$ est affine
+(Propriétés des champs, lemme
+\ref{stacks-properties-lemma-quasi-compact-stack}).
+Alors $h_x^\# \to *$ est un morphisme surjectif de faisceaux sur $\mathcal{X}_\tau$.
+\item Puisque les recouvrements dans $\mathcal{X}_\tau$ sont des recouvrements
+fppf, resp.\ étales, tout recouvrement de $U \in \mathcal{B}$ est raffiné
+par un recouvrement fppf affine fini ; voir
+Topologies, lemme \ref{topologies-lemma-fppf-affine},
+resp.\ lemme \ref{topologies-lemma-etale-affine}.
+\item Soient $x : U \to \mathcal{X}$ et $x' : U' \to \mathcal{X}$ dans
+$\mathcal{B}$. Le produit $h_x^\# \times h_{x'}^\#$ dans
+$\Sh(\mathcal{X}_\tau)$ est égal au faisceau sur $\mathcal{X}_\tau$
+déterminé par l'espace algébrique $W = U \times_{x, \mathcal{X}, x'} U'$ au-dessus de
+$\mathcal{X}$ : pour un objet $y : V \to \mathcal{X}$ de
+$\mathcal{X}_\tau$, on a
+$(h_x^\# \times h_{x'}^\#)(y) = \{f : V \to W \mid y =
+x \circ \text{pr}_1 \circ f = x' \circ \text{pr}_2 \circ f\}$.
+L'espace algébrique $W$ est quasi-compact, car $\mathcal{X}$
+est quasi-séparé ; voir, par exemple, Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}
+On peut donc choisir un schéma affine $U''$ et
+un morphisme étale surjectif $U'' \to W$. Notons $x'' : U'' \to \mathcal{X}$
+le composé de $U'' \to W$ et $W \to \mathcal{X}$. Alors
+$h_{x''}^\# \to h_x^\# \times h_{x'}^\#$ est surjectif, comme voulu.
+\item Soient $x : U \to \mathcal{X}$ et $x' : U' \to \mathcal{X}$ dans
+$\mathcal{B}$. Soient $a, b : U \to U'$ des morphismes au-dessus de $\mathcal{X}$,
+c'est-à-dire $a, b  : x \to x'$ des morphismes dans $\mathcal{X}_\tau$.
+Alors l'égalisateur de $h_a$ et $h_b$ est représenté par
+l'égalisateur de $a, b : U \to U'$, qui est un
+schéma affine au-dessus de $\mathcal{X}$ et appartient donc à $\mathcal{B}$.
+\end{enumerate}
+Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-cohomology}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et quasi-séparé
+de champs algébriques. Soit $\mathcal{F} = \colim \mathcal{F}_i$
+une limite inductive filtrante de faisceaux abéliens sur $\mathcal{X}$.
+Alors, pour tout $p \geq 0$, on a
+$$
+R^pf_*\mathcal{F} = \colim R^pf_*\mathcal{F}_i.
+$$
+Il en va de même pour les faisceaux abéliens sur $\mathcal{X}_\etale$
+lorsque les images directes supérieures sont prises pour la topologie étale.
+\end{lemma}
+
+\begin{proof}
+Nous le démontrons pour la topologie fppf ; la démonstration pour la topologie
+étale est la même. Rappelons que $R^if_*\mathcal{F}$ est le faisceau sur
+$\mathcal{Y}_{fppf}$ associé au préfaisceau
+$$
+(y : V \to \mathcal{Y})
+\longmapsto
+H^i(V \times_{y, \mathcal{Y}} \mathcal{X}, \text{pr}^{-1}\mathcal{F})
+$$
+Voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-pushforward-restriction}.
+Rappelons que la limite inductive est le faisceau associé à la limite inductive des préfaisceaux.
+Lorsque $V$ est affine, le produit fibré $V \times_\mathcal{Y} \mathcal{X}$
+est quasi-compact et quasi-séparé. On peut donc appliquer le
+Lemme \ref{lemma-colimits} à $H^p(V \times_\mathcal{Y} \mathcal{X}, -)$
+lorsque $V$ est affine. Puisque tout $V$ possède un recouvrement fppf par des
+objets affines, cela démontre le lemme. Nous omettons certains détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherent-pushforward-direct-sums}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme quasi-compact et quasi-séparé
+de champs algébriques. Le foncteur $f_{\QCoh, *}$
+et les foncteurs $R^if_{\QCoh, *}$ commutent aux sommes directes
+et aux limites inductives filtrantes.
+\end{lemma}
+
+\begin{proof}
+Les foncteurs $f_*$ et $R^if_*$ commutent aux sommes directes et aux limites
+inductives filtrantes sur tous les modules d'après le Lemme \ref{lemma-colimit-cohomology}.
+Le lemme en résulte, car $f_{\QCoh, *} = Q \circ f_*$ et
+$R^if_{\QCoh, *} = Q \circ R^if_*$, et $Q$ commute à
+toutes les limites inductives ; voir le Lemme \ref{lemma-adjoint-kernel-parasitic}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherent-pushforward-affine}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme affine de champs
+algébriques. Les foncteurs $R^if_{\QCoh, *}$, $i > 0$, sont nuls, et le foncteur
+$f_{\QCoh, *}$ est exact et commute aux sommes directes et à toutes les limites inductives.
+\end{lemma}
+
+\begin{proof}
+Puisque $R^if_{\QCoh, *} = Q \circ R^if_*$, l'annulation résulte du
+Lemme \ref{lemma-loc-qcoh-fbc-affine-direct-image}.
+Cette annulation entraîne que $f_{\QCoh, *}$ est exact, car
+$\{R^if_{\QCoh, *}\}_{i \geq 0}$ forme un $\delta$-foncteur ; voir la
+proposition \ref{proposition-direct-image-quasi-coherent}.
+Puis $f_{\QCoh, *}$ commute aux sommes directes, par exemple d'après le
+Lemme \ref{lemma-quasi-coherent-pushforward-direct-sums}.
+Un foncteur exact qui commute aux sommes directes commute
+à toutes les limites inductives.
+\end{proof}
+
+\noindent
+Le lemme suivant affirme que les modules de présentation finie se comportent
+comme prévu sur les champs algébriques quasi-compacts et quasi-séparés.
+
+\begin{lemma}
+\label{lemma-finite-presentation-quasi-compact-colimit}
+Soit $\mathcal{X}$ un champ algébrique quasi-compact et quasi-séparé.
+Soit $I$ un ensemble ordonné filtrant et soit $(\mathcal{F}_i, \varphi_{ii'})$ un
+système indexé par $I$ de $\mathcal{O}_\mathcal{X}$-modules. Soit $\mathcal{G}$ un
+$\mathcal{O}_\mathcal{X}$-module de présentation finie. Alors on a
+$$
+\colim_i \Hom_\mathcal{X}(\mathcal{G}, \mathcal{F}_i)
+=
+\Hom_\mathcal{X}(\mathcal{G}, \colim_i \mathcal{F}_i).
+$$
+En particulier, $\Hom_\mathcal{X}(\mathcal{G}, -)$ commute aux limites
+inductives filtrantes dans $\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{lemma}
+
+\begin{proof}
+L'égalité affichée est un cas particulier de Modules sur les sites, lemme
+\ref{sites-modules-lemma-finite-presentation-quasi-compact-colimit}.
+Pour l'appliquer, il faut vérifier les hypothèses de la partie (4) de
+Sites, lemme \ref{sites-lemma-directed-colimits-global-sections},
+pour le site $\mathcal{X}_{fppf}$. À cette fin, nous vérifions
+les hypothèses (2)(a), (2)(b), (2)(c) de
+Sites, remarque \ref{sites-remark-stronger-conditions}.
+Soit en effet $\mathcal{B} \subset \Ob(\mathcal{X}_{fppf})$ l'ensemble
+des objets au-dessus de schémas affines. Autrement dit, un élément
+de $\mathcal{B}$ est un morphisme $x : U \to \mathcal{X}$ où $U$ est affine.
+Vérifions successivement chacune des conditions (2)(a), (2)(b) et (2)(c)
+de la remarque :
+\begin{enumerate}
+\item Puisque $\mathcal{X}$ est quasi-compact, il existe un morphisme
+lisse et surjectif $x : U \to \mathcal{X}$ où $U$ est affine
+(Propriétés des champs, lemme
+\ref{stacks-properties-lemma-quasi-compact-stack}).
+Alors $h_x^\# \to *$ est un morphisme surjectif de faisceaux sur $\mathcal{X}_{fppf}$.
+\item Puisque les recouvrements dans $\mathcal{X}_{fppf}$ sont des recouvrements
+fppf, tout recouvrement de $U \in \mathcal{B}$ est raffiné
+par un recouvrement fppf affine fini ; voir
+Topologies, lemme \ref{topologies-lemma-fppf-affine}.
+\item Soient $x : U \to \mathcal{X}$ et $x' : U' \to \mathcal{X}$ dans
+$\mathcal{B}$. Le produit $h_x^\# \times h_{x'}^\#$ dans
+$\Sh(\mathcal{X}_{fppf})$ est égal au faisceau sur $\mathcal{X}_{fppf}$
+déterminé par l'espace algébrique $W = U \times_{x, \mathcal{X}, x'} U'$ au-dessus de
+$\mathcal{X}$ : pour un objet $y : V \to \mathcal{X}$ de
+$\mathcal{X}_{fppf}$, on a
+$(h_x^\# \times h_{x'}^\#)(y) = \{f : V \to W \mid y =
+x \circ \text{pr}_1 \circ f = x' \circ \text{pr}_2 \circ f\}$.
+L'espace algébrique $W$ est quasi-compact, car $\mathcal{X}$
+est quasi-séparé ; voir, par exemple, Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}
+On peut donc choisir un schéma affine $U''$ et
+un morphisme étale surjectif $U'' \to W$. Notons $x'' : U'' \to \mathcal{X}$
+le composé de $U'' \to W$ et $W \to \mathcal{X}$. Alors
+$h_{x''}^\# \to h_x^\# \times h_{x'}^\#$ est surjectif, comme voulu.
+\end{enumerate}
+Pour la dernière assertion, observons que le foncteur d'inclusion
+$\QCoh(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_X)$
+commute aux limites inductives et que les modules de présentation finie
+sont quasi-cohérents. Voir Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}.
+\end{proof}
+
+
+
+\section{Les sites lisse-étale et plat-fppf}
+\label{section-lisse-etale}
+
+\noindent
+Dans l'ouvrage \cite{LM-B}, beaucoup des résultats ci-dessus sont démontrés à l'aide du
+site lisse-étale d'un champ algébrique. Nous définissons ici ce site.
+Dans Exemples, section \ref{examples-section-lisse-etale-not-functorial},
+nous montrons que le site lisse-étale n'est pas fonctoriel.
+Nous définissons aussi son analogue, le site plat-fppf, qui est mieux adapté
+au développement des champs algébriques adopté dans le projet Champs
+(car nous prenons la topologie fppf comme topologie de base). Bien entendu, le
+site plat-fppf n'est pas non plus fonctoriel.
+
+\begin{definition}
+\label{definition-lisse-etale}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item Le {\it site lisse-étale} de $\mathcal{X}$ est la sous-catégorie pleine
+$\mathcal{X}_{lisse,\etale}$\footnote{Dans la littérature, le
+site est noté $\text{Lis-\'et}(\mathcal{X})$ ou
+$\text{Lis-Et}(\mathcal{X})$, et le topos associé est noté
+$\mathcal{X}_{\text{lis-\'e}t}$ ou $\mathcal{X}_{\text{lis-et}}$.
+Dans le projet Champs, notre convention consiste à nommer le site et à
+noter le topos correspondant $\Sh(\mathcal{C})$.} de $\mathcal{X}$
+dont les objets sont les $x \in \Ob(\mathcal{X})$ au-dessus d'un schéma $U$
+tels que $x : U \to \mathcal{X}$ soit lisse. Un recouvrement de
+$\mathcal{X}_{lisse,\etale}$ est une famille de morphismes
+$\{x_i \to x\}_{i \in I}$ de $\mathcal{X}_{lisse,\etale}$
+qui forme un recouvrement de $\mathcal{X}_\etale$.
+\item Le {\it site plat-fppf} de $\mathcal{X}$ est la sous-catégorie pleine
+$\mathcal{X}_{flat,fppf}$ de $\mathcal{X}$
+dont les objets sont les $x \in \Ob(\mathcal{X})$ au-dessus d'un schéma $U$
+tels que $x : U \to \mathcal{X}$ soit plat. Un recouvrement de
+$\mathcal{X}_{flat,fppf}$ est une famille de morphismes
+$\{x_i \to x\}_{i \in I}$ de $\mathcal{X}_{flat,fppf}$
+qui forme un recouvrement de $\mathcal{X}_{fppf}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous notons $\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+la restriction de $\mathcal{O}_\mathcal{X}$ au site lisse-étale,
+et de même pour $\mathcal{O}_{\mathcal{X}_{flat,fppf}}$.
+La relation entre le site lisse-étale et le site étale est
+la suivante (nous nous en tenons surtout aux propriétés « topologiques » dans ce lemme).
+
+\begin{lemma}
+\label{lemma-lisse-etale}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item Le foncteur d'inclusion
+$\mathcal{X}_{lisse,\etale} \to \mathcal{X}_\etale$
+est pleinement fidèle, continu et cocontinu. Il s'ensuit que
+\begin{enumerate}
+\item il existe un morphisme de topos
+$$
+g :
+\Sh(\mathcal{X}_{lisse,\etale})
+\longrightarrow
+\Sh(\mathcal{X}_\etale)
+$$
+où $g^{-1}$ est donné par la restriction,
+\item le foncteur $g^{-1}$ admet un adjoint à gauche $g_!^{Sh}$ sur les faisceaux d'ensembles,
+\item les morphismes d'adjonction $g^{-1}g_* \to \text{id}$ et
+$\text{id} \to g^{-1}g_!^{Sh}$ sont des isomorphismes,
+\item le foncteur $g^{-1}$ admet un adjoint à gauche $g_!$ sur les faisceaux abéliens,
+\item le morphisme d'adjonction $\text{id} \to g^{-1}g_!$ est un isomorphisme, et
+\item on a $g^{-1}\mathcal{O}_\mathcal{X} =
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$ ; ainsi, $g$ induit un morphisme plat
+de topos annelés tel que $g^{-1} = g^*$.
+\end{enumerate}
+\item Le foncteur d'inclusion
+$\mathcal{X}_{flat,fppf} \to \mathcal{X}_{fppf}$
+est pleinement fidèle, continu et cocontinu. Il s'ensuit que
+\begin{enumerate}
+\item il existe un morphisme de topos
+$$
+g :
+\Sh(\mathcal{X}_{flat,fppf})
+\longrightarrow
+\Sh(\mathcal{X}_{fppf})
+$$
+où $g^{-1}$ est donné par la restriction,
+\item le foncteur $g^{-1}$ admet un adjoint à gauche $g_!^{Sh}$ sur les faisceaux d'ensembles,
+\item les morphismes d'adjonction $g^{-1}g_* \to \text{id}$ et
+$\text{id} \to g^{-1}g_!^{Sh}$ sont des isomorphismes,
+\item le foncteur $g^{-1}$ admet un adjoint à gauche $g_!$ sur les faisceaux abéliens,
+\item le morphisme d'adjonction $\text{id} \to g^{-1}g_!$ est un isomorphisme, et
+\item on a $g^{-1}\mathcal{O}_\mathcal{X} =
+\mathcal{O}_{\mathcal{X}_{flat,fppf}}$ ; ainsi, $g$ induit un morphisme plat
+de topos annelés tel que $g^{-1} = g^*$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans les deux cas, il est immédiat que le foncteur est pleinement fidèle,
+continu et cocontinu (voir
+Sites, définitions \ref{sites-definition-continuous} et
+\ref{sites-definition-cocontinuous}).
+Les propriétés (a), (b), (c) résultent donc de
+Sites, lemmes \ref{sites-lemma-when-shriek} et
+\ref{sites-lemma-back-and-forth}.
+Les parties (d), (e) résultent de
+Modules sur les sites, lemmes \ref{sites-modules-lemma-g-shriek-adjoint} et
+\ref{sites-modules-lemma-back-and-forth}.
+La partie (f) est immédiate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-cohomology}
+Soit $\mathcal{X}$ un champ algébrique. On reprend les notations du
+Lemme \ref{lemma-lisse-etale}.
+\begin{enumerate}
+\item Pour un faisceau abélien $\mathcal{F}$ sur $\mathcal{X}_\etale$, on a
+\begin{enumerate}
+\item $H^p(\mathcal{X}_\etale, \mathcal{F}) =
+H^p(\mathcal{X}_{lisse,\etale}, g^{-1}\mathcal{F})$, et
+\item $H^p(x, \mathcal{F}) =
+H^p(\mathcal{X}_{lisse,\etale}/x, g^{-1}\mathcal{F})$
+pour tout objet $x$ de $\mathcal{X}_{lisse,\etale}$.
+\end{enumerate}
+Il en va de même pour les faisceaux de modules.
+\item Pour un faisceau abélien $\mathcal{F}$ sur $\mathcal{X}_{fppf}$, on a
+\begin{enumerate}
+\item $H^p(\mathcal{X}_{fppf}, \mathcal{F}) =
+H^p(\mathcal{X}_{flat,fppf}, g^{-1}\mathcal{F})$, et
+\item $H^p(x, \mathcal{F}) =
+H^p(\mathcal{X}_{flat,fppf}/x, g^{-1}\mathcal{F})$
+pour tout objet $x$ de $\mathcal{X}_{flat,fppf}$.
+\end{enumerate}
+Il en va de même pour les faisceaux de modules.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1)(a) résulte de Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-cohomology-on-subcategory}, appliqué au foncteur
+d'inclusion $\mathcal{X}_{lisse,\etale} \to \mathcal{X}_\etale$.
+La partie (1)(b) résulte de la partie (1)(a). En effet, si $x$ est au-dessus du
+schéma $U$, alors le site $\mathcal{X}_\etale/x$ est équivalent
+à $(\Sch/U)_\etale$, et $\mathcal{X}_{lisse,\etale}$ est équivalent
+à $U_{lisse,\etale}$. La partie (2) se démontre de la même manière.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-modules}
+Soit $\mathcal{X}$ un champ algébrique. On reprend les notations du
+Lemme \ref{lemma-lisse-etale}.
+\begin{enumerate}
+\item Il existe un foncteur
+$$
+g_! :
+\textit{Mod}(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}})
+\longrightarrow
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_{\mathcal{X}})
+$$
+qui est adjoint à gauche de $g^*$. En outre, il coïncide avec le foncteur $g_!$
+sur les faisceaux abéliens, et $g^*g_! = \text{id}$.
+\item Il existe un foncteur
+$$
+g_! :
+\textit{Mod}(\mathcal{X}_{flat,fppf},
+\mathcal{O}_{\mathcal{X}_{flat,fppf}})
+\longrightarrow
+\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_{\mathcal{X}})
+$$
+qui est adjoint à gauche de $g^*$. En outre, il coïncide avec le foncteur $g_!$
+sur les faisceaux abéliens, et $g^*g_! = \text{id}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans les deux cas, l'existence du foncteur $g_!$ résulte de
+Modules sur les sites, lemme \ref{sites-modules-lemma-lower-shriek-modules}.
+Pour voir que $g_!$ coïncide avec le foncteur sur les faisceaux abéliens, nous
+montrons que les morphismes de Modules sur les sites, équation
+(\ref{sites-modules-equation-compare-on-localizations})
+sont des isomorphismes.
+
+\medskip\noindent
+Cas lisse-étale. Soit $x \in \Ob(\mathcal{X}_{lisse,\etale})$
+au-dessus d'un schéma $U$, avec $x : U \to \mathcal{X}$ lisse.
+Considérons le foncteur pleinement fidèle induit
+$$
+g' :
+\mathcal{X}_{lisse,\etale}/x
+\longrightarrow
+\mathcal{X}_\etale/x
+$$
+Le membre de droite s'identifie à $(\Sch/U)_\etale$, et celui de
+gauche à la sous-catégorie pleine des schémas $U'/U$ tels que
+le composé $U' \to U \to \mathcal{X}$ soit lisse. Ainsi,
+Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-compare-structure-sheaves}
+s'applique.
+
+\medskip\noindent
+Cas plat-fppf. Soit $x \in \Ob(\mathcal{X}_{flat,fppf})$
+au-dessus d'un schéma $U$, avec $x : U \to \mathcal{X}$ plat.
+Considérons le foncteur pleinement fidèle induit
+$$
+g' :
+\mathcal{X}_{flat,fppf}/x
+\longrightarrow
+\mathcal{X}_{fppf}/x
+$$
+Le membre de droite s'identifie à $(\Sch/U)_{fppf}$, et celui de
+gauche à la sous-catégorie pleine des schémas $U'/U$ tels que
+le composé $U' \to U \to \mathcal{X}$ soit plat. Ainsi,
+Cohomologie étale, lemme
+\ref{etale-cohomology-lemma-compare-structure-sheaves}
+s'applique.
+
+\medskip\noindent
+Dans les deux cas, l'égalité $g^*g_! = \text{id}$ résulte de
+$g^* = g^{-1}$ et de
+l'égalité pour les faisceaux abéliens du Lemme \ref{lemma-lisse-etale}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-structure-sheaf}
+Soit $\mathcal{X}$ un champ algébrique. On reprend les notations des
+lemmes \ref{lemma-lisse-etale} et \ref{lemma-lisse-etale-modules}.
+\begin{enumerate}
+\item On a $g_!\mathcal{O}_{\mathcal{X}_{lisse,\etale}} =
+\mathcal{O}_\mathcal{X}$.
+\item On a $g_!\mathcal{O}_{\mathcal{X}_{flat, fppf}} =
+\mathcal{O}_\mathcal{X}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Dans cette démonstration, nous posons
+$\mathcal{C} = \mathcal{X}_\etale$
+(resp.\ $\mathcal{C} = \mathcal{X}_{fppf}$)
+et nous notons
+$\mathcal{C}' = \mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{C}' = \mathcal{X}_{flat, fppf}$).
+Alors $\mathcal{C}'$ est une sous-catégorie pleine de $\mathcal{C}$.
+Dans cette démonstration, nous regardons les objets $V$ de $\mathcal{C}$
+comme des schémas au-dessus de $\mathcal{X}$ et les objets $U$ de $\mathcal{C}'$
+comme des schémas lisses (resp.\ plats) au-dessus de $\mathcal{X}$.
+Enfin, nous posons $\mathcal{O} = \mathcal{O}_\mathcal{X}$
+et $\mathcal{O}' = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+(resp.\ $\mathcal{O}' = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$).
+Avec ces notations, on a $\mathcal{O}(V) = \Gamma(V, \mathcal{O}_V)$
+et $\mathcal{O}'(U) = \Gamma(U, \mathcal{O}_U)$.
+Considérons l'homomorphisme de $\mathcal{O}$-modules
+$g_!\mathcal{O}' \to \mathcal{O}$
+adjoint à l'identification $\mathcal{O}' = g^{-1}\mathcal{O}$.
+
+\medskip\noindent
+Rappelons que $g_!\mathcal{O}'$ est le faisceau associé au préfaisceau
+$g_{p!}\mathcal{O}'$ défini par la règle
+$$
+V \longmapsto \colim_{V \to U} \mathcal{O}'(U)
+$$
+où la limite inductive est prise dans la catégorie des groupes abéliens
+(Modules sur les sites, définition \ref{sites-modules-definition-g-shriek}).
+Nous utiliserons fréquemment ci-dessous le fait que, si
+$$
+V \to U \to U'
+$$
+sont des morphismes et si $f' \in \mathcal{O}'(U')$ a pour restriction
+$f \in \mathcal{O}'(U)$, alors $(V \to U, f)$ et $(V \to U', f')$
+définissent le même élément de la limite inductive. De plus,
+$g_!\mathcal{O}' \to \mathcal{O}$ envoie simplement l'élément
+$(V \to U, f)$ sur l'image réciproque de $f$ dans $V$.
+
+\medskip\noindent
+Démontrons que $g_!\mathcal{O}' \to \mathcal{O}$ est surjectif.
+Soit $h \in \mathcal{O}(V)$ pour un objet $V$ de $\mathcal{C}$.
+Il suffit de montrer que $h$ appartient localement à l'image. Choisissons un objet
+$U$ de $\mathcal{C}'$ correspondant à un morphisme lisse surjectif
+$U \to \mathcal{X}$. Puisque $U \times_\mathcal{X} V \to V$ est lisse et
+surjectif, après avoir remplacé $V$ par les membres d'un recouvrement étale de $V$,
+nous pouvons supposer qu'il existe un morphisme $V \to U$ ; voir
+Topologies sur les espaces algébriques, lemme
+\ref{spaces-topologies-lemma-etale-dominates-smooth}. À l'aide de $h$, nous obtenons
+un morphisme $V \to U \times \mathbf{A}^1$ tel que, si l'on écrit
+$\mathbf{A}^1 = \Spec(\mathbf{Z}[t])$, l'élément
+$t \in \mathcal{O}(U \times \mathbf{A}^1)$ ait pour image réciproque $h$.
+Comme $U \times \mathbf{A}^1$ est un objet de $\mathcal{C}'$,
+$(V \to U \times \mathbf{A}^1, t)$ est un élément de la limite inductive
+ci-dessus qui s'envoie sur $h \in \mathcal{O}(V)$,
+comme voulu.
+
+\medskip\noindent
+Supposons que $s \in g_!\mathcal{O}'(V)$ soit une section
+dont l'image dans $\mathcal{O}(V)$ est nulle. Pour achever la démonstration,
+il reste à montrer que $s$ est nul. Après avoir remplacé $V$ par les membres
+d'un recouvrement, nous pouvons supposer que $s$ est un élément de la limite inductive
+$$
+\colim_{V \to U} \mathcal{O}'(U)
+$$
+Écrivons $s = \sum (\varphi_i, s_i)$ comme une somme finie, où
+$\varphi_i : V \to U_i$, les $U_i$ sont lisses (resp.\ plats) sur $\mathcal{X}$ et
+$s_i \in \Gamma(U_i, \mathcal{O}_{U_i})$. Choisissons un schéma $W$ étale
+et surjectif sur l'espace algébrique
+$U = U_1 \times_\mathcal{X} \ldots \times_\mathcal{X} U_n$.
+Notons que $W$ est encore lisse (resp.\ plat) sur $\mathcal{X}$, c'est-à-dire
+qu'il définit un objet de $\mathcal{C}'$. Le produit fibré
+$$
+V' = V \times_{(\varphi_1, \ldots, \varphi_n), U} W
+$$
+est étale et surjectif sur $V$ ; il suffit donc de montrer que l'image de $s$
+est nulle dans $g_!\mathcal{O}'(V')$. La restriction
+$\sum (\varphi_i, s_i)|_{V'}$ correspond à la somme des images réciproques
+des fonctions $s_i$ sur $W$. Autrement dit, nous sommes ramenés au cas
+d'un couple $(\varphi, s)$, où $\varphi : V \to U$ est un morphisme avec $U$
+dans $\mathcal{C}'$ et où la restriction de $s \in \mathcal{O}'(U)$ dans
+$\mathcal{O}(V)$ est nulle. D'après le diagramme commutatif
+$$
+\xymatrix{
+V \ar[rr]_-{(\varphi, 0)} \ar[rrd]_\varphi & & U \times \mathbf{A}^1 \\
+& & U \ar[u]_{(\text{id}, 0)}
+}
+$$
+on voit que
+$((\varphi, 0) : V \to U \times \mathbf{A}^1, \text{pr}_2^*x)$
+représente zéro dans la limite inductive ci-dessus. Nous pouvons donc
+remplacer $U$ par $U \times \mathbf{A}^1$, $\varphi$ par $(\varphi, 0)$
+et $s$ par $\text{pr}_1^*s + \text{pr}_2^*x$. Nous pouvons ainsi supposer que
+le lieu $Z : s = 0$ dans $U$ défini par $s$ est lisse (resp.\ plat)
+sur $\mathcal{X}$. On voit alors que $(V \to Z, 0)$ et $(\varphi, s)$
+ont la même valeur dans la limite inductive, c'est-à-dire que l'élément $s$
+est nul, comme voulu.
+\end{proof}
+
+\noindent
+Les sites lisse-étale et plat-fppf permettent de caractériser
+les modules parasites comme suit.
+
+\begin{lemma}
+\label{lemma-parasitic-in-terms-flat-fppf}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item Soit $\mathcal{F}$ un $\mathcal{O}_\mathcal{X}$-module
+sur $\mathcal{X}_\etale$ ayant la propriété de changement de base plat.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{F}$ est parasite ;
+\item $g^*\mathcal{F} = 0$, où
+$g : \Sh(\mathcal{X}_{lisse,\etale}) \to
+\Sh(\mathcal{X}_\etale)$ est défini comme dans le lemme \ref{lemma-lisse-etale}.
+\end{enumerate}
+\item Soit $\mathcal{F}$ un $\mathcal{O}_\mathcal{X}$-module sur
+$\mathcal{X}_{fppf}$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{F}$ est parasite ;
+\item $g^*\mathcal{F} = 0$, où
+$g :  \Sh(\mathcal{X}_{flat,fppf}) \to \Sh(\mathcal{X}_{fppf})$
+est défini comme dans le lemme \ref{lemma-lisse-etale}.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (2) résulte immédiatement des définitions (c'est l'un des avantages
+du site plat-fppf sur le site lisse-étale). L'implication
+(1)(a) $\Rightarrow$ (1)(b) est elle aussi immédiate. Pour établir (1)(b)
+$\Rightarrow$ (1)(a), soient $U$ un schéma et $x : U \to \mathcal{X}$
+un morphisme lisse surjectif. Alors $x$ est un objet du
+site lisse-étale de $\mathcal{X}$. La condition (1)(b)
+implique donc que $\mathcal{F}|_{U_\etale} = 0$. Soit $V \to \mathcal{X}$
+un morphisme plat, où $V$ est un schéma. Posons $W = U \times_\mathcal{X} V$
+et considérons le diagramme
+$$
+\xymatrix{
+W \ar[d]_p \ar[r]_q & V \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+La projection $p : W \to U$ est plate, tandis que la projection
+$q : W \to V$ est lisse et surjective. Il en résulte que $q_{small}^*$
+est un foncteur fidèle sur les modules quasi-cohérents. Par hypothèse,
+$\mathcal{F}$ possède la propriété de changement de base plat, d'où un isomorphisme
+$p_{small}^*\mathcal{F}|_{U_\etale} \cong
+q_{small}^*\mathcal{F}|_{V_\etale}$. Ainsi, si $\mathcal{F}$
+appartient au noyau de $g^*$, alors $\mathcal{F}|_{V_\etale} = 0$,
+comme voulu.
+\end{proof}
+
+
+
+
+
+
+\section{Fonctorialité des sites lisse-étale et plat-fppf}
+\label{section-lisse-etale-functorial}
+
+\noindent
+Le site lisse-étale est fonctoriel pour les morphismes lisses de champs
+algébriques, et le site plat-fppf l'est pour les morphismes plats de champs
+algébriques. Avertissons le lecteur que les topos lisse-étale et plat-fppf ne
+sont pas fonctoriels par rapport à tous les morphismes de champs algébriques ; voir
+Exemples, section \ref{examples-section-lisse-etale-not-functorial}.
+
+\begin{lemma}
+\label{lemma-lisse-etale-functorial}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques.
+\begin{enumerate}
+\item Si $f$ est lisse, alors $f$ se restreint en un foncteur continu et
+cocontinu
+$\mathcal{X}_{lisse,\etale} \to \mathcal{Y}_{lisse,\etale}$
+qui donne un morphisme de topos annelés s'insérant dans le diagramme
+commutatif suivant
+$$
+\xymatrix{
+\Sh(\mathcal{X}_{lisse,\etale}) \ar[r]_{g'} \ar[d]_{f'} &
+\Sh(\mathcal{X}_\etale) \ar[d]^f \\
+\Sh(\mathcal{Y}_{lisse,\etale}) \ar[r]^g &
+\Sh(\mathcal{Y}_\etale)
+}
+$$
+On a $f'_*(g')^{-1} = g^{-1}f_*$ et $g'_!(f')^{-1} = f^{-1}g_!$.
+\item Si $f$ est plat, alors $f$ se restreint en un foncteur continu et
+cocontinu
+$\mathcal{X}_{flat,fppf} \to \mathcal{Y}_{flat,fppf}$
+qui donne un morphisme de topos annelés s'insérant dans le diagramme
+commutatif suivant
+$$
+\xymatrix{
+\Sh(\mathcal{X}_{flat,fppf}) \ar[r]_{g'} \ar[d]_{f'} &
+\Sh(\mathcal{X}_{fppf}) \ar[d]^f \\
+\Sh(\mathcal{Y}_{flat,fppf}) \ar[r]^g &
+\Sh(\mathcal{Y}_{fppf})
+}
+$$
+On a $f'_*(g')^{-1} = g^{-1}f_*$ et $g'_!(f')^{-1} = f^{-1}g_!$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La première assertion résulte du fait que, si $x \in \Ob(\mathcal{X})$
+est au-dessus d'un schéma $U$, si $x : U \to \mathcal{X}$ est lisse
+(resp.\ plat) et si $f$ est lisse (resp.\ plat), alors
+$f(x) : U \to \mathcal{Y}$ est lisse (resp.\ plat) ; voir
+Morphismes de champs, lemmes \ref{stacks-morphisms-lemma-composition-smooth} et
+\ref{stacks-morphisms-lemma-composition-flat}. Le foncteur induit
+$\mathcal{X}_{lisse,\etale} \to \mathcal{Y}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf} \to \mathcal{Y}_{flat,fppf}$) est
+continu et cocontinu par notre définition des recouvrements dans ces
+catégories. Enfin, la commutativité du diagramme résulte du fait que les
+morphismes horizontaux sont donnés par les foncteurs d'inclusion (voir le
+lemme \ref{lemma-lisse-etale}) et du
+lemme \ref{sites-lemma-composition-cocontinuous} de Sites.
+
+\medskip\noindent
+Pour montrer que $f'_*(g')^{-1} = g^{-1}f_*$, soit $\mathcal{F}$ un faisceau
+sur $\mathcal{X}_\etale$ (resp.\ $\mathcal{X}_{fppf}$).
+Il existe un morphisme canonique d'image inverse
+$$
+g^{-1}f_*\mathcal{F} \longrightarrow f'_*(g')^{-1}\mathcal{F}
+$$
+voir Sites, section \ref{sites-section-pullback}.
+Nous affirmons que ce morphisme est un isomorphisme.
+Pour le montrer, prenons un objet $y$ de $\mathcal{Y}_{lisse,\etale}$
+(resp.\ $\mathcal{Y}_{flat,fppf}$). Supposons que $y$ soit au-dessus du schéma
+$V$ et que $y : V \to \mathcal{Y}$ soit lisse (resp.\ plat). Comme
+$g^{-1}$ est le foncteur de restriction, on obtient
+$$
+\left(g^{-1}f_*\mathcal{F}\right)(y) =
+\Gamma(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+d'après Faisceaux sur les champs, équation
+(\ref{stacks-sheaves-equation-pushforward}). Soit
+$(V \times_{y, \mathcal{Y}} \mathcal{X})' \subset
+V \times_{y, \mathcal{Y}} \mathcal{X}$
+la sous-catégorie pleine formée des objets
+$z : W \to V \times_{y, \mathcal{Y}} \mathcal{X}$ tels que le morphisme
+induit $W \to \mathcal{X}$ soit lisse (resp.\ plat). Notons
+$$
+\text{pr}' :
+(V \times_{y, \mathcal{Y}} \mathcal{X})'
+\longrightarrow
+\mathcal{X}_{lisse,\etale}
+\ (\text{resp. }\mathcal{X}_{flat,fppf})
+$$
+la restriction du foncteur $\text{pr}$ utilisé dans la formule ci-dessus.
+Exactement le même argument que celui qui démontre
+Faisceaux sur les champs, équation (\ref{stacks-sheaves-equation-pushforward}),
+montre que, pour tout faisceau $\mathcal{H}$ sur $\mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf}$), on a
+\begin{equation}
+\label{equation-pushforward-lisse-etale}
+f'_*\mathcal{H}(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ (\text{pr}')^{-1}\mathcal{H})
+\end{equation}
+Comme $(g')^{-1}$ est le foncteur de restriction, on voit que
+$$
+\left(f'_*(g')^{-1}\mathcal{F}\right)(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+$$
+D'après le
+lemme \ref{stacks-sheaves-lemma-cohomology-on-subcategory} de Faisceaux sur les champs,
+on voit que
+$$
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+=
+\Gamma(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+sont égaux, comme voulu ; bien que nous omettions la vérification des hypothèses
+du lemme, notons que le fait que $V \to \mathcal{Y}$ soit lisse
+(resp.\ plat) sert à vérifier la seconde condition.
+
+\medskip\noindent
+Enfin, l'égalité $g'_!(f')^{-1} = f^{-1}g_!$ découle formellement de
+l'égalité $f'_*(g')^{-1} = g^{-1}f_*$ par les adjonctions entre
+$f^{-1}$ et $f_*$, entre $g_!$ et $g^{-1}$, et par leurs versions
+« primées ».
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-functorial-pushforward}
+Sous les hypothèses et avec les notations du lemme
+\ref{lemma-lisse-etale-functorial}, soit $\mathcal{H}$ un faisceau abélien sur
+$\mathcal{X}_{lisse,\etale}$ (resp.\ $\mathcal{X}_{flat,fppf}$). Alors
+\begin{equation}
+\label{equation-higher-direct-image-lisse-etale}
+R^pf'_*\mathcal{H} =
+\text{faisceau associé au préfaisceau }y \longmapsto
+H^p((V \times_{y, \mathcal{Y}} \mathcal{X})', (\text{pr}')^{-1}\mathcal{H})
+\end{equation}
+Ici, $y$ est un objet de $\mathcal{Y}_{lisse,\etale}$
+(resp.\ $\mathcal{Y}_{flat,fppf}$) au-dessus du schéma $V$, et les notations
+$(V \times_{y, \mathcal{Y}} \mathcal{X})'$ et $\text{pr}'$ sont
+expliquées dans la démonstration.
+\end{lemma}
+
+\begin{proof}
+Comme dans la démonstration du lemme \ref{lemma-lisse-etale-functorial},
+soit $(V \times_{y, \mathcal{Y}} \mathcal{X})' \subset
+V \times_{y, \mathcal{Y}} \mathcal{X}$ la sous-catégorie pleine
+formée des objets $(x, \varphi)$, où $x$ est un objet de
+$\mathcal{X}_{lisse,\etale}$ (resp.\ $\mathcal{X}_{flat,fppf}$)
+et $\varphi : f(x) \to y$ est un morphisme dans $\mathcal{Y}$.
+D'après l'équation (\ref{equation-pushforward-lisse-etale}),
+on a
+$$
+f'_*\mathcal{H}(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ (\text{pr}')^{-1}\mathcal{H})
+$$
+où $\text{pr}'$ est la projection. Pour un objet $(x, \varphi)$
+de $(V \times_{y, \mathcal{Y}} \mathcal{X})'$,
+on peut considérer $\varphi$ comme une section de $(f')^{-1}h_y$ au-dessus de $x$.
+Ainsi, $(V \times_\mathcal{Y} \mathcal{X})'$ est la localisation
+du site $\mathcal{X}_{lisse,\etale}$
+(resp. $\mathcal{X}_{flat,fppf}$) en le faisceau d'ensembles $(f')^{-1}h_y$ ; voir
+Sites, lemme \ref{sites-lemma-localize-topos-site}. Le morphisme
+$$
+\text{pr}' : (V \times_{y, \mathcal{Y}} \mathcal{X})'
+\to \mathcal{X}_{lisse,\etale}
+\ (\text{resp. }
+\text{pr}' : (V \times_{y, \mathcal{Y}} \mathcal{X})'
+\to \mathcal{X}_{flat,fppf})
+$$
+est le morphisme de localisation.
+En particulier, le foncteur image inverse $(\text{pr}')^{-1}$ préserve
+les faisceaux abéliens injectifs ; voir
+Cohomologie sur les sites, lemme
+\ref{sites-cohomology-lemma-cohomology-on-sheaf-sets}.
+
+\medskip\noindent
+Choisissons une résolution injective $\mathcal{H} \to \mathcal{I}^\bullet$
+sur $\mathcal{X}_{lisse,\etale}$ (resp.\ $\mathcal{X}_{flat,fppf}$).
+La formule de l'image directe montre que $R^if'_*\mathcal{H}$ est le
+faisceau associé au préfaisceau qui, à $y$, associe la cohomologie
+du complexe
+$$
+\begin{matrix}
+\Gamma\Big((V \times_{y, \mathcal{Y}} \mathcal{X})',
+(\text{pr}')^{-1}\mathcal{I}^{i - 1}\Big) \\
+\downarrow \\
+\Gamma\Big((V \times_{y, \mathcal{Y}} \mathcal{X})',
+(\text{pr}')^{-1}\mathcal{I}^i\Big) \\
+\downarrow \\
+\Gamma\Big((V \times_{y, \mathcal{Y}} \mathcal{X})',
+(\text{pr}')^{-1}\mathcal{I}^{i + 1}\Big)
+\end{matrix}
+$$
+Comme $(\text{pr}')^{-1}$ est exact et préserve les objets injectifs, le
+complexe $(\text{pr}')^{-1}\mathcal{I}^\bullet$ est une
+résolution injective de $(\text{pr}')^{-1}\mathcal{H}$,
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-functorial-cohomology}
+Sous les hypothèses et avec les notations du lemme
+\ref{lemma-lisse-etale-functorial}, le morphisme canonique de changement de base
+$$
+g^{-1}Rf_*\mathcal{F} \longrightarrow Rf'_*(g')^{-1}\mathcal{F}
+$$
+est un isomorphisme pour tout faisceau abélien $\mathcal{F}$
+sur $\mathcal{X}_\etale$ (resp.\ $\mathcal{X}_{fppf}$).
+\end{lemma}
+
+\begin{proof}
+En comparant les formules pour $g^{-1}R^pf_*\mathcal{F}$
+et $R^pf'_*(g')^{-1}\mathcal{F}$ données par le
+lemme \ref{stacks-sheaves-lemma-pushforward-restriction} de Faisceaux sur les champs
+et le lemme \ref{lemma-lisse-etale-functorial-pushforward},
+on voit qu'il suffit de montrer
+$$
+H^p((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+=
+H^p_\tau(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+où $\tau = \etale$ (resp.\ $\tau = fppf$). Ici, $y$ est un objet
+de $\mathcal{Y}$ au-dessus d'un schéma $V$ tel que le morphisme
+$y : V \to \mathcal{Y}$ soit lisse (resp.\ plat).
+Cette égalité résulte du
+lemme \ref{stacks-sheaves-lemma-cohomology-on-subcategory} de Faisceaux sur les champs.
+Bien que nous omettions la vérification des hypothèses
+du lemme, notons que le fait que $V \to \mathcal{Y}$ soit lisse
+(resp.\ plat) sert à vérifier la seconde condition.
+\end{proof}
+
+
+
+
+
+
+\section{Modules quasi-cohérents et sites lisse-étale et plat-fppf}
+\label{section-quasi-coherent-modules-II}
+
+\noindent
+Dans cette section, nous expliquons comment décrire les modules quasi-cohérents
+sur un champ algébrique au moyen de son site lisse-étale ou plat-fppf.
+
+\begin{lemma}
+\label{lemma-check-qc-on-etale-covering}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item Soit $f_j : \mathcal{X}_j \to \mathcal{X}$ une famille de morphismes
+lisses de champs algébriques telle que
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_\etale$. Si chaque $f_j^{-1}\mathcal{F}$ est
+quasi-cohérent, alors $\mathcal{F}$ l'est aussi.
+\item Soit $f_j : \mathcal{X}_j \to \mathcal{X}$ une famille de morphismes
+plats et localement de présentation finie de champs algébriques telle que
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_\mathcal{X}$-modules
+sur $\mathcal{X}_{fppf}$. Si chaque $f_j^{-1}\mathcal{F}$ est
+quasi-cohérent, alors $\mathcal{F}$ l'est aussi.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). Nous pouvons remplacer chacun des champs algébriques $\mathcal{X}_j$
+par un schéma $U_j$ (puisque tout champ algébrique admet un recouvrement lisse par
+un schéma et que les composés de morphismes lisses sont lisses ; voir
+Morphismes de champs, lemme \ref{stacks-morphisms-lemma-composition-smooth}).
+L'image inverse de $\mathcal{F}$ sur $(\Sch/U_j)_\etale$ est encore
+quasi-cohérente ; voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-local-pullback}.
+Alors $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$ est un morphisme lisse
+surjectif. Soit $x : V \to \mathcal{X}$ un objet de $\mathcal{X}$. D'après
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+il existe un recouvrement étale $\{x_i \to x\}_{i \in I}$ tel que chaque
+$x_i$ se relève en un objet $u_i$ de $(\Sch/U)_\etale$.
+Cela signifie simplement que $x_i$ est au-dessus d'un schéma $V_i$, que
+$\{V_i \to V\}$ est un recouvrement étale et que $x_i$ provient
+d'un morphisme $u_i : V_i \to U$. Alors
+$x_i^*\mathcal{F} = u_i^*f^*\mathcal{F}$ est quasi-cohérent.
+Il s'ensuit que $x^*\mathcal{F}$ sur $(\Sch/V)_\etale$
+est quasi-cohérent, par exemple d'après
+Modules sur les sites, lemme \ref{sites-modules-lemma-local-final-object}.
+D'après Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent-bis}
+on voit que $x^*\mathcal{F}$ est un faisceau fppf et, puisque $x$
+était arbitraire, que $\mathcal{F}$ est un faisceau pour la
+topologie fppf. En appliquant Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent}
+on voit que $\mathcal{F}$ est quasi-cohérent.
+
+\medskip\noindent
+Preuve de (2). La démonstration emploie exactement le même argument, que nous
+détaillons ici. Nous pouvons remplacer chacun des champs algébriques $\mathcal{X}_j$
+par un schéma $U_j$ (puisque tout champ algébrique admet un recouvrement lisse par
+un schéma et que les morphismes plats et localement de présentation finie sont
+stables par composition ; voir Morphismes de champs, lemmes
+\ref{stacks-morphisms-lemma-composition-flat} et
+\ref{stacks-morphisms-lemma-composition-finite-presentation}).
+L'image inverse de $\mathcal{F}$ sur $(\Sch/U_j)_\etale$ est encore
+localement quasi-cohérente ; voir
+Faisceaux sur les champs, lemme \ref{stacks-sheaves-lemma-pullback-quasi-coherent}.
+Alors $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$ est un morphisme
+surjectif, plat et localement de présentation finie. Soit
+$x : V \to \mathcal{X}$ un objet de $\mathcal{X}$. D'après
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+il existe un recouvrement fppf $\{x_i \to x\}_{i \in I}$ tel que chaque
+$x_i$ se relève en un objet $u_i$ de $(\Sch/U)_\etale$.
+Cela signifie simplement que $x_i$ est au-dessus d'un schéma $V_i$, que
+$\{V_i \to V\}$ est un recouvrement fppf et que $x_i$ provient
+d'un morphisme $u_i : V_i \to U$. Alors
+$x_i^*\mathcal{F} = u_i^*f^*\mathcal{F}$ est quasi-cohérent.
+Il s'ensuit que $x^*\mathcal{F}$ sur $(\Sch/V)_\etale$
+est quasi-cohérent, par exemple d'après
+Modules sur les sites, lemme \ref{sites-modules-lemma-local-final-object}.
+D'après Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent}
+on voit que $\mathcal{F}$ est quasi-cohérent.
+\end{proof}
+
+\noindent
+Rappelons que nous avons défini la notion de module quasi-cohérent sur
+un topos annelé quelconque dans
+Modules sur les sites, section \ref{sites-modules-section-local}.
+
+\begin{lemma}
+\label{lemma-shriek-quasi-coherent}
+Soit $\mathcal{X}$ un champ algébrique. Les notations sont celles du
+lemme \ref{lemma-lisse-etale}.
+\begin{enumerate}
+\item Soit $\mathcal{H}$ un
+$\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$-module quasi-cohérent
+sur le site lisse-étale de $\mathcal{X}$. Alors $g_!\mathcal{H}$ est un
+module quasi-cohérent sur $\mathcal{X}$.
+\item Soit $\mathcal{H}$ un
+$\mathcal{O}_{\mathcal{X}_{flat,fppf}}$-module quasi-cohérent
+sur le site plat-fppf de $\mathcal{X}$. Alors $g_!\mathcal{H}$ est un
+module quasi-cohérent sur $\mathcal{X}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme lisse surjectif $x : U \to \mathcal{X}$.
+D'après
+Modules sur les sites, définition \ref{sites-modules-definition-site-local},
+il existe un recouvrement étale (resp.\ fppf)
+$\{U_i \to U\}_{i \in I}$ tel que chaque image inverse $f_i^{-1}\mathcal{H}$
+admette une présentation globale (voir
+Modules sur les sites, définition \ref{sites-modules-definition-global}).
+Ici, $f_i : U_i \to \mathcal{X}$ est le composé
+$U_i \to U \to \mathcal{X}$, qui est un morphisme de champs algébriques.
+(Rappelons que l'image inverse « est » la restriction à $\mathcal{X}/f_i$ ; voir
+Faisceaux sur les champs, définition \ref{stacks-sheaves-definition-pullback}
+et la discussion qui suit.) Comme chaque $f_i$ est lisse (resp.\ plat), le
+lemme \ref{lemma-lisse-etale-functorial}
+donne $f_i^{-1}g_!\mathcal{H} = g_{i, !}(f'_i)^{-1}\mathcal{H}$.
+Le lemme \ref{lemma-check-qc-on-etale-covering}
+ramène l'énoncé au cas où $\mathcal{H}$
+admet une présentation globale. Écrivons
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} \mathcal{O} \longrightarrow
+\mathcal{H} \longrightarrow 0
+$$
+de $\mathcal{O}$-modules, où
+$\mathcal{O} = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+(resp.\ $\mathcal{O} = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$).
+Comme $g_!$ commute aux limites inductives arbitraires (en tant que foncteur
+adjoint à gauche ; voir le lemme \ref{lemma-lisse-etale-modules} et
+Catégories, lemme \ref{categories-lemma-adjoint-exact}),
+on en déduit l'existence d'une suite exacte
+$$
+\bigoplus\nolimits_{j \in J} g_!\mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} g_!\mathcal{O} \longrightarrow
+g_!\mathcal{H} \longrightarrow 0
+$$
+Le lemme \ref{lemma-lisse-etale-structure-sheaf}
+montre que $g_!\mathcal{O} = \mathcal{O}_\mathcal{X}$.
+Dans le cas (2), la démonstration est terminée. Dans le cas (1), on applique
+Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent-bis}
+pour conclure.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherent}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item Pour le site lisse-étale, avec $g$ comme dans le
+lemme \ref{lemma-lisse-etale}, on a :
+\begin{enumerate}
+\item les foncteurs $g^{-1}$ et $g_!$ définissent des foncteurs quasi-inverses
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^{-1}} &
+\QCoh(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}}) \ar@<1ex>[l]^-{g_!}
+}
+$$
+\item si $\mathcal{F}$ appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$,
+alors $g^{-1}\mathcal{F}$ appartient à
+$\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$ ;
+\item $Q(\mathcal{F}) = g_!g^{-1}\mathcal{F}$, où $Q$ est celui du
+lemme \ref{lemma-adjoint}.
+\end{enumerate}
+\item Pour le site plat-fppf, avec $g$ comme dans le
+lemme \ref{lemma-lisse-etale}, on a :
+\begin{enumerate}
+\item les foncteurs $g^{-1}$ et $g_!$ définissent des foncteurs quasi-inverses
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^{-1}} &
+\QCoh(\mathcal{X}_{flat,fppf},
+\mathcal{O}_{\mathcal{X}_{flat,fppf}}) \ar@<1ex>[l]^-{g_!}
+}
+$$
+\item si $\mathcal{F}$ appartient à $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$,
+alors $g^{-1}\mathcal{F}$ appartient à
+$\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$
+et
+\item $Q(\mathcal{F}) = g_!g^{-1}\mathcal{F}$, où $Q$ est celui du
+lemme \ref{lemma-adjoint}.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'image inverse par tout morphisme de topos annelés préserve les catégories de
+modules quasi-cohérents ; voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-local-pullback}.
+Par conséquent, $g^{-1}$ préserve les catégories de modules quasi-cohérents ;
+nous utilisons ici l'égalité
+$\QCoh(\mathcal{O}_\mathcal{X}) =
+\QCoh(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+fournie par Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent-bis}.
+Il en va de même pour $g_!$ d'après le
+lemme \ref{lemma-shriek-quasi-coherent}.
+Le lemme \ref{lemma-lisse-etale} montre que
+$\mathcal{H} \to g^{-1}g_!\mathcal{H}$ est un isomorphisme.
+Réciproquement, si $\mathcal{F}$ appartient à $\QCoh(\mathcal{O}_\mathcal{X})$,
+alors le morphisme $g_!g^{-1}\mathcal{F} \to \mathcal{F}$ est un morphisme de
+modules quasi-cohérents sur $\mathcal{X}$ dont la restriction à tout schéma lisse sur
+$\mathcal{X}$ est un isomorphisme. La discussion de
+Faisceaux sur les champs, sections
+\ref{stacks-sheaves-section-quasi-coherent-presentation} et
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}
+(par comparaison avec les modules quasi-cohérents sur des présentations),
+montre donc qu'il s'agit d'un isomorphisme. Cela démontre (1)(a) et (2)(a).
+
+\medskip\noindent
+Soit $\mathcal{F}$ un objet de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$. D'après le
+lemme \ref{lemma-adjoint-kernel-parasitic},
+le noyau et le conoyau du morphisme
+$Q(\mathcal{F}) \to \mathcal{F}$ sont parasites. Par conséquent, d'après le
+lemme \ref{lemma-parasitic-in-terms-flat-fppf}
+et puisque $g^* = g^{-1}$ est exact, on conclut que
+$g^*Q(\mathcal{F}) \to g^*\mathcal{F}$ est un isomorphisme. Ainsi,
+$g^*\mathcal{F}$ est quasi-cohérent. Cela démontre (1)(b) et (2)(b).
+Enfin, (1)(c) et (2)(c) résultent du fait que
+$g_!g^*Q(\mathcal{F}) \to Q(\mathcal{F})$ est un isomorphisme d'après
+les arguments qui précèdent.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherent-weak-serre}
+Soit $\mathcal{X}$ un champ algébrique.
+\begin{enumerate}
+\item $\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$
+est une sous-catégorie faible de Serre de
+$\textit{Mod}(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$.
+\item $\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$
+est une sous-catégorie faible de Serre de
+$\textit{Mod}(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous allons vérifier les conditions (1), (2), (3) et (4) du
+lemme \ref{homology-lemma-characterize-weak-serre-subcategory} d'Homologie.
+
+\medskip\noindent
+Comme $0$ est un module quasi-cohérent sur tout site annelé, la condition (1)
+est satisfaite.
+
+\medskip\noindent
+Par définition, $\QCoh(\mathcal{O})$
+est une sous-catégorie strictement pleine de $\textit{Mod}(\mathcal{O})$ ; donc (2) est satisfaite.
+
+\medskip\noindent
+Soit $\varphi : \mathcal{G} \to \mathcal{F}$ un morphisme de modules
+quasi-cohérents sur $\mathcal{X}_{lisse,\etale}$ ou $\mathcal{X}_{flat,fppf}$.
+On a $g^*g_!\mathcal{F} = \mathcal{F}$ et de même pour
+$\mathcal{G}$ et $\varphi$ ; voir le lemme \ref{lemma-lisse-etale-modules}.
+D'après le lemme \ref{lemma-shriek-quasi-coherent},
+$g_!\mathcal{F}$ et $g_!\mathcal{G}$ sont des
+$\mathcal{O}_\mathcal{X}$-modules quasi-cohérents. D'après Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}
+le module $\Coker(g_!\varphi)$ est quasi-cohérent
+sur $\mathcal{X}$ (et c'est le conoyau dans la catégorie
+des modules quasi-cohérents sur $\mathcal{X}$).
+Comme $g^*$ est exact (voir le lemme \ref{lemma-lisse-etale}),
+$g^*\Coker(g_!\varphi) = \Coker(g^*g_!\varphi) = \Coker(\varphi)$
+est également quasi-cohérent (voir le lemme \ref{lemma-quasi-coherent}).
+D'après la proposition \ref{proposition-loc-qcoh-flat-base-change},
+le noyau $\Ker(g_!\varphi)$ appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$.
+Comme $g^*$ est exact, on a
+$g^*\Ker(g_!\varphi) = \Ker(g^*g_!\varphi) = \Ker(\varphi)$.
+Puisque $g^*$ envoie les objets de
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ sur des modules
+quasi-cohérents d'après le lemme \ref{lemma-quasi-coherent}, on en déduit que
+$\Ker(\varphi)$ est également quasi-cohérent. Cela démontre (3).
+
+\medskip\noindent
+Enfin, supposons que
+$$
+0 \to \mathcal{F} \to \mathcal{E} \to \mathcal{G} \to 0
+$$
+soit une extension de $\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$-modules
+(resp.\ de $\mathcal{O}_{\mathcal{X}_{flat,fppf}}$-modules), où $\mathcal{F}$
+et $\mathcal{G}$ sont quasi-cohérents. Pour démontrer (4) et achever la preuve,
+il nous faut montrer que
+$\mathcal{E}$ est quasi-cohérent sur $\mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf}$). Soit $U$
+un objet de $\mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf}$) ; nous considérons $U$ comme un schéma lisse
+(resp.\ plat) sur $\mathcal{X}$. Il faut montrer que la restriction
+de $\mathcal{E}$ à $U_{lisse,\etale}$ (resp.\ $=U_{flat,fppf}$)
+est quasi-cohérente. Nous pouvons donc supposer
+que $\mathcal{X} = U$ est un schéma. Puisque $\mathcal{G}$
+est quasi-cohérent sur $U_{lisse,\etale}$ (resp.\ $U_{flat,fppf}$),
+nous pouvons supposer, après avoir remplacé $U$ par les membres
+d'un recouvrement étale (resp.\ fppf), que $\mathcal{G}$ admet une
+présentation
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} \mathcal{O} \longrightarrow
+\mathcal{G} \longrightarrow 0
+$$
+sur $U_{lisse,\etale}$ (resp.\ $U_{flat,fppf}$), où $\mathcal{O}$
+est le faisceau structural du site. Nous pouvons aussi supposer $U$ affine.
+Comme $\mathcal{F}$ est quasi-cohérent, on a
+$$
+H^1(U_{lisse,\etale}, \mathcal{F}) = 0,
+\quad\text{resp.}\quad
+H^1(U_{flat,fppf}, \mathcal{F}) = 0
+$$
+En effet, $\mathcal{F}$ est l'image inverse d'un module quasi-cohérent
+$\mathcal{F}'$ sur le grand site de $U$
+(d'après le lemme \ref{lemma-quasi-coherent}), les cohomologies
+de $\mathcal{F}$ et $\mathcal{F}'$ coïncident (d'après le
+lemme \ref{lemma-lisse-etale-cohomology}), et l'on sait que
+la cohomologie de $\mathcal{F}'$ sur le grand site du schéma affine $U$
+est nulle (pour l'obtenir dans la situation présente, il faut
+combiner Descentee, propositions
+\ref{descent-proposition-equivalence-quasi-coherent} et
+\ref{descent-proposition-same-cohomology-quasi-coherent} avec
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}).
+Nous pouvons donc relever le morphisme
+$\bigoplus_{i \in I} \mathcal{O} \to \mathcal{G}$
+à $\mathcal{E}$. Une chasse au diagramme donne alors
+une suite exacte
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \to
+\mathcal{F} \oplus \bigoplus\nolimits_{i \in I} \mathcal{O}
+\to
+\mathcal{E} \to 0
+$$
+D'après (3), démontré ci-dessus, on en conclut que $\mathcal{E}$ est
+quasi-cohérent, comme voulu.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Faisceaux cohérents sur les champs localement noethériens}
+\sectionmark{Faisceaux cohérents sur les champs noethériens}
+\label{section-coherent-sheaves}
+
+\noindent
+Cette section est l'analogue de
+Cohomologie des espaces, section
+\ref{spaces-cohomology-section-coherent}.
+Nous avons défini la notion de module cohérent sur tout topos annelé dans
+Modules sur les sites, section \ref{sites-modules-section-local}.
+Cependant, pour tout champ algébrique $\mathcal{X}$, la catégorie des
+$\mathcal{O}_\mathcal{X}$-modules cohérents est nulle, essentiellement parce que
+le site $\mathcal{X}$ contient trop d'objets non noethériens (même si
+$\mathcal{X}$ est lui-même localement noethérien). Nous définirons plutôt les
+modules cohérents au moyen du lemme suivant.
+
+\begin{lemma}
+\label{lemma-coherent-Noetherian}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Soit $\mathcal{F}$ un $\mathcal{O}_\mathcal{X}$-module.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{F}$ est un $\mathcal{O}_\mathcal{X}$-module
+quasi-cohérent de type fini ;
+\item $\mathcal{F}$ est un $\mathcal{O}_\mathcal{X}$-module
+de présentation finie ;
+\item $\mathcal{F}$ est quasi-cohérent et, pour tout morphisme
+$f : U \to \mathcal{X}$ où $U$ est un espace algébrique localement noethérien,
+l'image inverse $f^*\mathcal{F}|_{U_\etale}$ est cohérente ;
+\item $\mathcal{F}$ est quasi-cohérent et il existe un espace algébrique
+$U$ et un morphisme $f : U \to \mathcal{X}$ localement de type fini,
+plat et surjectif, tels que l'image inverse $f^*\mathcal{F}|_{U_\etale}$
+soit cohérente.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $f : U \to \mathcal{X}$ comme dans (4).
+Alors $U$ est localement noethérien (Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian})
+et l'on voit que l'énoncé du lemme a un sens. De plus,
+$f$ est localement de présentation finie d'après Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-noetherian-finite-type-finite-presentation}.
+Soit $x$ un objet de $\mathcal{X}$ au-dessus du schéma $V$.
+Pour démontrer (2), il faut montrer qu'après avoir remplacé $V$
+par les membres d'un recouvrement fppf de $V$, la restriction $x^*\mathcal{F}$
+admet une présentation globale finie sur $\mathcal{X}/x \cong (\Sch/V)_{fppf}$.
+La projection $W = U \times_\mathcal{X} V \to V$ est
+localement de présentation finie, plate et surjective.
+On peut donc remplacer $V$ par les membres d'un recouvrement étale de $W$
+par des schémas et supposer qu'il existe un morphisme $h : V \to U$ tel que $f \circ h = x$.
+Comme $\mathcal{F}$ est quasi-cohérent, on voit que
+la restriction $x^*\mathcal{F}$
+est l'image inverse de $h_{small}^*(f^*\mathcal{F})|_{U_\etale}$
+par $\pi_V$ ; voir Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-compare-quasi-coherent}.
+Puisque, par hypothèse, $f^*\mathcal{F}|_{U_\etale}$ admet localement pour la
+topologie étale une présentation finie, on en conclut
+(4) $\Rightarrow$ (2).
+
+\medskip\noindent
+La condition (2) implique (1) pour tout topos annelé (cela résulte aussitôt de la définition).
+Les propriétés « de type fini » et « quasi-cohérent »
+sont préservées par l'image inverse de tout morphisme de topos annelés ; voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-local-pullback}.
+Par conséquent, (1) implique (3) ; voir Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-coherent-Noetherian}.
+Enfin, (3) implique trivialement (4).
+\end{proof}
+
+\begin{definition}
+\label{definition-coherent}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Un $\mathcal{O}_\mathcal{X}$-module $\mathcal{F}$ est dit {\it cohérent}
+si $\mathcal{F}$ satisfait l'une (et donc chacune) des conditions
+équivalentes du lemme \ref{lemma-coherent-Noetherian}.
+La catégorie des $\mathcal{O}_\mathcal{X}$-modules cohérents est
+notée $\textit{Coh}(\mathcal{O}_\mathcal{X})$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-elementary-coherent}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Le module $\mathcal{O}_\mathcal{X}$ est cohérent, tout
+$\mathcal{O}_\mathcal{X}$-module inversible est cohérent et, plus généralement, tout
+$\mathcal{O}_\mathcal{X}$-module localement libre de type fini est cohérent.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de la définition et de
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-coherent-Noetherian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-coherent}
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un morphisme de champs algébriques
+localement noethériens. Alors $f^*$ envoie les modules cohérents
+sur $\mathcal{Y}$ sur des modules cohérents sur $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte aussitôt de la définition et du fait que l'image inverse par tout
+morphisme de topos annelés préserve les modules de présentation finie ; voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-local-pullback}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-abelian-Noetherian}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+La catégorie des $\mathcal{O}_\mathcal{X}$-modules cohérents est abélienne.
+Si $\varphi : \mathcal{F} \to \mathcal{G}$ est un morphisme
+de $\mathcal{O}_\mathcal{X}$-modules cohérents, alors :
+\begin{enumerate}
+\item le conoyau $\Coker(\varphi)$ calculé dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ est un
+$\mathcal{O}_\mathcal{X}$-module cohérent ;
+\item l'image $\Im(\varphi)$ calculée dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ est un
+$\mathcal{O}_\mathcal{X}$-module cohérent ;
+\item le noyau $\Ker(\varphi)$ calculé dans
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$
+peut ne pas être cohérent, mais il appartient à
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ et $Q(\Ker(\varphi))$
+est cohérent et constitue le noyau de $\varphi$ dans
+$\textit{Coh}(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+Le foncteur d'inclusion $\textit{Coh}(\mathcal{O}_\mathcal{X}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$ est exact.
+\end{lemma}
+
+\begin{proof}
+Les règles données pour former les noyaux, images et conoyaux dans
+$\textit{Coh}(\mathcal{O}_\mathcal{X})$ coïncident avec la prescription
+pour les modules quasi-cohérents de la remarque \ref{remark-QCoh-abelian}.
+Le lemme résultera donc du fait que les modules quasi-cohérents
+$\Coker(\varphi)$, $\Im(\varphi)$ et $Q(\Ker(\varphi))$ sont cohérents.
+D'après le lemme \ref{lemma-coherent-Noetherian}, il suffit de le montrer après
+restriction à $U_\etale$ pour un morphisme lisse surjectif
+$f : U \to \mathcal{X}$. Le foncteur
+$\mathcal{F} \mapsto f^*\mathcal{F}|_{U_\etale}$
+est exact. Par conséquent, $f^*\Coker(\varphi)$ et $f^*\Im(\varphi)$ sont
+le conoyau et l'image d'un morphisme entre $\mathcal{O}_U$-modules cohérents,
+donc sont cohérents comme voulu. Le foncteur
+$\mathcal{F} \mapsto f^*\mathcal{F}|_{U_\etale}$
+annule les modules parasites d'après le lemme \ref{lemma-parasitic}.
+Ainsi, $f^*Q(\Ker(\varphi))|_{U_\etale} = f^*\Ker(\varphi)|_{U_\etale}$
+d'après la partie (2) du lemme \ref{lemma-adjoint-kernel-parasitic}.
+On conclut donc de même que $Q(\Ker(\varphi))$ est cohérent.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extension-coherent}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Étant donnée une suite exacte courte
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+dans $\textit{Mod}(\mathcal{O}_\mathcal{X})$,
+si $\mathcal{F}_1$ et $\mathcal{F}_3$ sont cohérents, alors
+$\mathcal{F}_2$ est cohérent.
+\end{lemma}
+
+\begin{proof}
+D'après Faisceaux sur les champs, lemme
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}, partie (7),
+$\mathcal{F}_2$ est quasi-cohérent. On peut alors vérifier que
+$\mathcal{F}_2$ est cohérent par restriction à $U_\etale$
+pour un morphisme $U \to \mathcal{X}$ lisse et surjectif.
+Cela résulte de Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-coherent-abelian-Noetherian}.
+Quelques détails sont omis.
+\end{proof}
+
+\noindent
+Les modules cohérents forment une sous-catégorie de Serre de la
+catégorie des $\mathcal{O}_\mathcal{X}$-modules quasi-cohérents.
+Cela n'est pas vrai pour les modules sur un topos annelé général.
+
+\begin{lemma}
+\label{lemma-coherent-Noetherian-quasi-coherent-sub-quotient}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Alors $\textit{Coh}(\mathcal{O}_\mathcal{X})$ est une sous-catégorie de Serre de
+$\QCoh(\mathcal{O}_\mathcal{X})$. Soit $\varphi : \mathcal{F} \to \mathcal{G}$
+un morphisme de $\mathcal{O}_\mathcal{X}$-modules quasi-cohérents. On a :
+\begin{enumerate}
+\item si $\mathcal{F}$ est cohérent et $\varphi$ est surjectif,
+alors $\mathcal{G}$ est cohérent ;
+\item si $\mathcal{F}$ est cohérent, alors $\Im(\varphi)$ est cohérente ;
+\item si $\mathcal{G}$ est cohérent et $\Ker(\varphi)$ est parasite, alors
+$\mathcal{F}$ est cohérent.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme lisse surjectif $f : U \to \mathcal{X}$.
+Alors le foncteur
+$f^* : \QCoh(\mathcal{O}_\mathcal{X}) \to \QCoh(\mathcal{O}_U)$
+est exact (lemme \ref{lemma-flat-pullback-quasi-coherent})
+et, en outre, $\textit{Coh}(\mathcal{O}_\mathcal{X})$ est par définition
+la sous-catégorie pleine de $\QCoh(\mathcal{O}_\mathcal{X})$ formée
+des objets $\mathcal{F}$ tels que $f^*\mathcal{F}$ appartienne à
+$\textit{Coh}(\mathcal{O}_U)$. Le fait que
+$\textit{Coh}(\mathcal{O}_\mathcal{X})$ soit une sous-catégorie de Serre de
+$\QCoh(\mathcal{O}_\mathcal{X})$ résulte aussitôt de ceci
+et du fait correspondant pour $U$ ; voir
+Cohomologie des espaces, lemmes
+\ref{spaces-cohomology-lemma-coherent-abelian-Noetherian} et
+\ref{spaces-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}.
+Nous omettons la preuve de (1), (2) et (3). Indication : comparer
+avec la démonstration du lemme \ref{lemma-coherent-abelian-Noetherian}.
+\end{proof}
+
+\noindent
+Soit $\mathcal{X}$ un champ algébrique localement noethérien.
+Soit $U$ un espace algébrique et soit $f : U \to \mathcal{X}$
+un morphisme surjectif, localement de présentation finie et plat.
+Observons que $U$ est localement noethérien
+(Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Soit $(U, R, s, t, c)$ le groupoïde en espaces algébriques
+et $f_{can} : [U/R] \to \mathcal{X}$ l'isomorphisme
+construit dans
+Champs algébriques, lemme \ref{algebraic-lemma-map-space-into-stack} et
+remarque \ref{algebraic-remark-flat-fp-presentation}.
+Comme dans Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}
+on obtient des équivalences
+$$
+\QCoh(\mathcal{O}_\mathcal{X})
+\cong
+\QCoh(\mathcal{O}_{[U/R]})
+\cong
+\QCoh(U, R, s, t, c)
+$$
+où la seconde équivalence est celle de
+Faisceaux sur les champs, proposition \ref{stacks-sheaves-proposition-quasi-coherent}.
+Rappelons que, dans Groupoïdes dans les espaces, section
+\ref{spaces-groupoids-section-colimits}
+nous avons défini la sous-catégorie pleine
+$$
+\textit{Coh}(U, R, s, t, c) \subset \QCoh(U, R, s, t, c)
+$$
+des {\it modules cohérents} comme celle des $(\mathcal{G}, \alpha)$ tels que
+$\mathcal{G}$ soit un $\mathcal{O}_U$-module cohérent.
+
+\begin{lemma}
+\label{lemma-coherent-presentation}
+Dans la situation décrite ci-dessus, l'équivalence
+$\QCoh(\mathcal{O}_\mathcal{X}) \cong \QCoh(U, R, s, t, c)$
+envoie les modules cohérents sur les modules cohérents et réciproquement, c'est-à-dire
+qu'elle induit une équivalence
+$\textit{Coh}(\mathcal{O}_\mathcal{X}) \cong \textit{Coh}(U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte aussitôt de la définition des
+$\mathcal{O}_\mathcal{X}$-modules cohérents.
+Pour expliciter les références, ce qui précède utilise
+Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian},
+Champs algébriques, lemme \ref{algebraic-lemma-map-space-into-stack} et
+remarque \ref{algebraic-remark-flat-fp-presentation},
+Faisceaux sur les champs, section
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks},
+Faisceaux sur les champs, proposition \ref{stacks-sheaves-proposition-quasi-coherent},
+et Groupoïdes dans les espaces, section
+\ref{spaces-groupoids-section-colimits}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-hom}
+Soit $\mathcal{X}$ un champ algébrique localement noethérien. Soient $\mathcal{F}$
+et $\mathcal{G}$ des $\mathcal{O}_\mathcal{X}$-modules cohérents. Alors
+le Hom interne $hom(\mathcal{F}, \mathcal{G})$
+construit dans le lemme \ref{lemma-internal-hom-fp-into-qcoh}
+est un $\mathcal{O}_\mathcal{X}$-module cohérent.
+\end{lemma}
+
+\begin{proof}
+Soit $U \to \mathcal{X}$ un morphisme lisse surjectif issu d'un schéma.
+D'après le point (\ref{item-hom-restriction}) de la section \ref{section-further-remarks},
+la restriction de
+$hom(\mathcal{F}, \mathcal{G})$ à $U$ est le faisceau Hom des restrictions.
+Ce lemme résulte donc du cas des espaces algébriques ; voir
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-tensor-hom-coherent}.
+\end{proof}
+
+
+
+
+
+
+\section{Faisceaux cohérents sur les champs noethériens}
+\label{section-coherent-on-noetherian}
+
+\noindent
+Cette section est l'analogue de
+Cohomologie des espaces, section
+\ref{spaces-cohomology-section-coherent-quasi-compact}.
+
+\begin{lemma}
+\label{lemma-directed-colimit-coherent}
+Soit $\mathcal{X}$ un champ algébrique noethérien. Tout
+$\mathcal{O}_\mathcal{X}$-module quasi-cohérent est la colimite filtrante
+de ses sous-modules cohérents.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{F}$ un $\mathcal{O}_\mathcal{X}$-module quasi-cohérent.
+Si $\mathcal{G}, \mathcal{H} \subset \mathcal{F}$ sont des sous-modules
+$\mathcal{O}_\mathcal{X}$-cohérents, alors l'image de
+$\mathcal{G} \oplus \mathcal{H} \to \mathcal{F}$ est encore un
+sous-module $\mathcal{O}_\mathcal{X}$-cohérent qui les contient tous deux,
+voir le lemme \ref{lemma-coherent-Noetherian-quasi-coherent-sub-quotient}.
+Le système est donc filtrant.
+Il suffit dès lors de montrer que $\mathcal{F}$ s'écrit comme
+colimite filtrante de modules cohérents : on pourra alors prendre les
+images de ces modules dans $\mathcal{F}$ et conclure qu'il y en a
+suffisamment.
+
+\medskip\noindent
+Soient $U$ un schéma affine et $U \to \mathcal{X}$
+un morphisme lisse surjectif (Propriétés des champs, lemme
+\ref{stacks-properties-lemma-quasi-compact-stack}).
+Posons $R = U \times_\mathcal{X} U$, de sorte que $\mathcal{X} = [U/R]$
+comme dans Champs algébriques, lemme \ref{algebraic-lemma-stack-presentation}.
+D'après le lemme \ref{lemma-coherent-presentation}, on a
+$\QCoh(\mathcal{O}_X) = \QCoh(U, R, s, t, c)$ et
+$\textit{Coh}(\mathcal{O}_X) = \textit{Coh}(U, R, s, t, c)$.
+On est ainsi ramené à établir l'énoncé correspondant pour
+$\QCoh(U, R, s, t, c)$. C'est le contenu de
+Groupoïdes dans les espaces, lemme \ref{spaces-groupoids-lemma-colimit-coherent} ;
+nous en vérifions les hypothèses au paragraphe suivant.
+
+\medskip\noindent
+Nous invitons le lecteur à passer le reste de la démonstration.
+Le schéma affine $U$ est noethérien ; cela résulte de notre définition
+d'un champ $\mathcal{X}$ localement noethérien, voir
+Propriétés des champs, définition
+\ref{stacks-properties-definition-type-property} et
+remarque \ref{stacks-properties-remark-list-properties-local-smooth-topology}.
+Les morphismes de projection $s, t : R \to U$ sont lisses (voir la référence
+ci-dessus),
+quasi-séparés et quasi-compacts (Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}).
+En particulier, $R$ est un espace algébrique quasi-compact et quasi-séparé,
+lisse sur $U$, donc noethérien
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}).
+\end{proof}
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

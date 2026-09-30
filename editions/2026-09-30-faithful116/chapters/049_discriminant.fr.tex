@@ -1,0 +1,3388 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Discriminants et différentes}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions la différente et le discriminant
+des morphismes localement quasi-finis de schémas.
+On pourra consulter \cite{Kunz} pour une partie de ces résultats.
+
+\medskip\noindent
+Étant donné un morphisme quasi-fini $f : Y \to X$ de schémas noethériens,
+on dispose d'un module dualisant relatif $\omega_{Y/X}$.
+Dans la section \ref{section-quasi-finite-dualizing},
+nous construisons ce module directement, à l'aide
+du théorème principal de Zariski et de méthodes de localisation étale.
+Sa propriété essentielle est la suivante : étant donné un diagramme
+$$
+\xymatrix{
+Y' \ar[d]_{f'} \ar[r]_{g'} & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+où $g : X' \to X$ est plat, $Y' \subset X' \times_X Y$ est ouvert et
+$f' : Y' \to X'$ est fini, il existe un isomorphisme canonique
+$$
+f'_*(g')^*\omega_{Y/X} =
+\SheafHom_{\mathcal{O}_{X'}}(f'_*\mathcal{O}_{Y'}, \mathcal{O}_{X'})
+$$
+de faisceaux de $f'_*\mathcal{O}_{Y'}$-modules. Dans la
+section \ref{section-quasi-finite-traces}, nous montrons que,
+si $f$ est plat, il existe une section globale canonique
+$\tau_{Y/X} \in H^0(Y, \omega_{Y/X})$ telle que, pour tout diagramme
+commutatif comme ci-dessus, l'isomorphisme envoie $(g')^*\tau_{Y/X}$ sur l'homomorphisme trace
+de la section \ref{section-discriminant}
+associée au morphisme fini localement libre $f'$.
+Dans la section \ref{section-different},
+nous définissons la différente d'un morphisme plat quasi-fini
+de schémas noethériens comme l'annulateur du
+conoyau de $\tau_{Y/X} : \mathcal{O}_X \to \omega_{Y/X}$.
+
+\medskip\noindent
+L'objectif principal de ce chapitre est de montrer que, pour
+$f$ quasi-fini syntomique\footnote{Autrement dit plat et localement d'intersection complète.}, la
+différente coïncide avec la différente de Kähler.
+La différente de Kähler est l'idéal de Fitting d'ordre zéro de $\Omega_{Y/X}$, voir
+la section \ref{section-kahler-different}.
+Cette égalité n'est pas évidente ; nous utilisons un argument élégant
+dû à Tate, voir la section \ref{section-formula-different}.
+Nous étudions également, chemin faisant, la différente de Noether
+et la différente de Dedekind.
+
+\medskip\noindent
+Ce n'est qu'à la fin de ce chapitre, voir
+les sections \ref{section-comparison} et \ref{section-gorenstein-lci},
+que nous établissons le lien avec les résultats plus avancés
+sur la dualité des schémas.
+
+
+
+
+
+
+
+
+\section{Modules dualisants des homomorphismes quasi-finis d'anneaux}
+\label{section-quasi-finite-dualizing}
+
+\noindent
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux noethériens. D'après
+le théorème principal de Zariski
+(Algèbre, lemme \ref{algebra-lemma-quasi-finite-open-integral-closure}),
+il existe une factorisation $A \to B' \to B$ où
+$A \to B'$ est fini et $B' \to B$ induit une immersion ouverte des spectres.
+On pose
+\begin{equation}
+\label{equation-dualizing}
+\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B
+\end{equation}
+dans cette situation. On peut considérer ce module comme une sorte de module
+dualisant relatif, voir les lemmes \ref{lemma-compare-dualizing} et
+\ref{lemma-compare-dualizing-algebraic}.
+Dans cette section, nous montrerons par des méthodes élémentaires d'algèbre commutative
+que $\omega_{B/A}$ est indépendant du choix de la factorisation
+et que la formation de $\omega_{B/A}$ commute au changement de base plat.
+Pour établir l'indépendance à l'égard de la factorisation, nous comparons deux
+factorisations données.
+
+\begin{lemma}
+\label{lemma-dominate-factorizations}
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux. Étant donné deux factorisations
+$A \to B' \to B$ et $A \to B'' \to B$ où
+$A \to B'$ et $A \to B''$ sont finis et $\Spec(B) \to \Spec(B')$
+et $\Spec(B) \to \Spec(B'')$ sont des immersions ouvertes, il existe
+une $A$-sous-algèbre $B''' \subset B$ finie sur $A$ telle que
+$\Spec(B) \to \Spec(B''')$ soit une immersion ouverte et que $B' \to B$ et
+$B'' \to B$ se factorisent par $B'''$.
+\end{lemma}
+
+\begin{proof}
+Soit $B''' \subset B$ la $A$-sous-algèbre engendrée par les images
+de $B' \to B$ et $B'' \to B$. Comme $B'$ et $B''$ sont chacun engendrés
+par un nombre fini d'éléments entiers sur $A$, on voit que $B'''$ est
+engendrée par un nombre fini d'éléments entiers sur $A$, et l'on en déduit
+que $B'''$ est finie sur $A$
+(Algèbre, lemme \ref{algebra-lemma-characterize-finite-in-terms-of-integral}).
+Considérons les applications
+$$
+B = B' \otimes_{B'} B \to B''' \otimes_{B'} B \to B \otimes_{B'} B = B
+$$
+La dernière égalité tient au fait que $\Spec(B) \to \Spec(B')$ est une
+immersion ouverte (donc un monomorphisme). La seconde flèche est injective
+puisque $B' \to B$ est plat. Les deux flèches sont donc des isomorphismes.
+Cela signifie que
+$$
+\xymatrix{
+\Spec(B''') \ar[d] & \Spec(B) \ar[d] \ar[l] \\
+\Spec(B') & \Spec(B) \ar[l]
+}
+$$
+est cartésien. Comme le changement de base d'une immersion ouverte est une
+immersion ouverte, on conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-well-defined}
+Le module (\ref{equation-dualizing}) est bien défini, c'est-à-dire
+indépendant du choix de la factorisation.
+\end{lemma}
+
+\begin{proof}
+Soient $B', B'', B'''$ comme dans le lemme \ref{lemma-dominate-factorizations}.
+On obtient une application canonique
+$$
+\omega''' = \Hom_A(B''', A) \otimes_{B'''} B \longrightarrow
+\Hom_A(B', A) \otimes_{B'} B = \omega'
+$$
+et une application analogue faisant intervenir $B''$. Il suffit de montrer que ces applications
+sont des isomorphismes. Soit $g \in B'$ un élément tel que
+$B'_g \to B_g$ soit un isomorphisme, de sorte que $B'_g \to (B''')_g \to B_g$
+soient des isomorphismes. Il suffit de montrer que $(\omega''')_g \to \omega'_g$
+est un isomorphisme. Le noyau et le conoyau de l'homomorphisme d'anneaux $B' \to B'''$
+sont des $A$-modules de type fini et de torsion par rapport aux puissances de $g$.
+Ils sont donc annulés par une puissance de $g$.
+Le résultat s'en déduit aisément.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localize-dualizing}
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux noethériens.
+\begin{enumerate}
+\item Si $A \to B$ se factorise en $A \to A_f \to B$ pour un $f \in A$,
+alors $\omega_{B/A} = \omega_{B/A_f}$.
+\item Si $g \in B$, alors $(\omega_{B/A})_g = \omega_{B_g/A}$.
+\item Si $f \in A$, alors $\omega_{B_f/A_f} = (\omega_{B/A})_f$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $A \to B' \to B$ une factorisation où $A \to B'$ est fini et
+$\Spec(B) \to \Spec(B')$ est une immersion ouverte. Dans le cas (1), on peut utiliser
+la factorisation $A_f \to B'_f \to B$ pour calculer $\omega_{B/A_f}$
+et appliquer Algèbre, lemme \ref{algebra-lemma-hom-from-finitely-presented}.
+Dans le cas (2), on utilise la factorisation $A \to B' \to B_g$ pour obtenir le résultat.
+L'assertion (3) résulte de (1) et (2).
+\end{proof}
+
+\noindent
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux noethériens, soit
+$A \to A_1$ un homomorphisme quelconque d'anneaux noethériens, et posons
+$B_1 = B \otimes_A A_1$. On obtient un diagramme cocartésien
+$$
+\xymatrix{
+B \ar[r] & B_1 \\
+A \ar[u] \ar[r] & A_1 \ar[u]
+}
+$$
+Remarquons que $A_1 \to B_1$ est également quasi-fini (Algèbre, lemme
+\ref{algebra-lemma-quasi-finite-base-change}).
+Dans cette situation, nous allons définir une application canonique
+$B$-linéaire de changement de base
+\begin{equation}
+\label{equation-bc-dualizing}
+\omega_{B/A} \longrightarrow \omega_{B_1/A_1}
+\end{equation}
+À cet effet, on choisit une factorisation $A \to B' \to B$ comme dans la construction
+de $\omega_{B/A}$. Alors $B'_1 = B' \otimes_A A_1$ est fini sur $A_1$
+et l'on peut utiliser la factorisation $A_1 \to B'_1 \to B_1$ pour construire
+$\omega_{B_1/A_1}$. Il s'agit donc de construire une application
+$$
+\Hom_A(B', A) \otimes_{B'} B
+\longrightarrow
+\Hom_{A_1}(B' \otimes_A A_1, A_1) \otimes_{B'_1} B_1
+$$
+Il suffit ainsi de construire une application $B'$-linéaire
+$\Hom_A(B', A) \to \Hom_{A_1}(B' \otimes_A A_1, A_1)$,
+que l'on notera $\varphi \mapsto \varphi_1$.
+Étant donné une application $A$-linéaire $\varphi : B' \to A$,
+on prend pour $\varphi_1$ l'application définie par
+$\varphi_1(b' \otimes a_1) = \varphi(b')a_1$.
+Elle est manifestement $A_1$-linéaire, ce qui achève la construction.
+
+\begin{lemma}
+\label{lemma-bc-map-dualizing}
+L'application de changement de base (\ref{equation-bc-dualizing})
+est indépendante du choix de la
+factorisation $A \to B' \to B$. Étant donné des homomorphismes d'anneaux $A \to A_1 \to A_2$,
+la composée des applications de changement de base pour $A \to A_1$ et $A_1 \to A_2$
+est l'application de changement de base pour $A \to A_2$.
+\end{lemma}
+
+\begin{proof}
+Omise. Indication : raisonner exactement comme dans le
+lemme \ref{lemma-dualizing-well-defined},
+en utilisant le lemme \ref{lemma-dominate-factorizations}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-flat-base-change}
+Si $A \to A_1$ est plat, alors
+l'application de changement de base (\ref{equation-bc-dualizing}) induit un isomorphisme
+$\omega_{B/A} \otimes_B B_1 \to \omega_{B_1/A_1}$.
+\end{lemma}
+
+\begin{proof}
+Supposons $A \to A_1$ plat. Par construction de $\omega_{B/A}$, on peut
+supposer que $A \to B$ est fini. Alors $\omega_{B/A} = \Hom_A(B, A)$ et
+$\omega_{B_1/A_1} = \Hom_{A_1}(B_1, A_1)$. Puisque $B_1 = B \otimes_A A_1$,
+le résultat découle de Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-composition}
+Soient $A \to B \to C$ des homomorphismes quasi-finis d'anneaux noethériens.
+Il existe une application canonique
+$\omega_{B/A} \otimes_B \omega_{C/B} \to \omega_{C/A}$.
+\end{lemma}
+
+\begin{proof}
+Choisissons $A \to B' \to B$ où $A \to B'$ est fini et
+$\Spec(B) \to \Spec(B')$ est une immersion ouverte. Alors
+$B' \to C$ est également quasi-fini. Choisissons $B' \to C' \to C$
+où $B' \to C'$ est fini et $\Spec(C) \to \Spec(C')$ est une
+immersion ouverte. La source de la flèche est alors
+$$
+\Hom_A(B', A) \otimes_{B'} B \otimes_B
+\Hom_B(B \otimes_{B'} C', B) \otimes_{B \otimes_{B'} C'} C
+$$
+qui est égale à
+$$
+\Hom_A(B', A) \otimes_{B'}
+\Hom_{B'}(C', B) \otimes_{C'} C
+$$
+Ce module est bien muni d'une application canonique vers
+$\Hom_A(C', A) \otimes_{C'} C = \omega_{C/A}$,
+provenant de la composition
+$\Hom_A(B', A) \times \Hom_{B'}(C', B) \to \Hom_A(C', A)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-product}
+Soient $A \to B$ et $A \to C$ des homomorphismes quasi-finis d'anneaux noethériens.
+Alors $\omega_{B \times C/A} = \omega_{B/A} \times \omega_{C/A}$
+comme modules sur $B \times C$.
+\end{lemma}
+
+\begin{proof}
+Choisissons des factorisations $A \to B' \to B$ et $A \to C' \to C$ telles que
+$A \to B'$ et $A \to C'$ soient finis et que $\Spec(B) \to \Spec(B')$
+et $\Spec(C) \to \Spec(C')$ soient des immersions ouvertes. Alors
+$A \to B' \times C' \to B \times C$ est une factorisation analogue.
+Le calcul de $\omega_{B \times C/A}$ à l'aide de cette factorisation
+donne le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-associated-primes}
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux noethériens.
+Alors $\text{Ass}_B(\omega_{B/A})$ est l'ensemble des idéaux premiers de $B$
+au-dessus d'idéaux premiers associés de $A$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une factorisation $A \to B' \to B$ où $A \to B'$ est fini et
+$B' \to B$ induit une immersion ouverte des spectres. Comme
+$\omega_{B/A} = \omega_{B'/A} \otimes_{B'} B$, il suffit
+de démontrer l'assertion pour $\omega_{B'/A}$. On peut donc supposer $A \to B$
+fini.
+
+\medskip\noindent
+Supposons $\mathfrak p \in \text{Ass}(A)$ et soit $\mathfrak q$ un idéal premier
+de $B$ au-dessus de $\mathfrak p$. Soit $x \in A$ un élément dont
+l'annulateur est $\mathfrak p$. Choisissons une application $\kappa(\mathfrak p)$-linéaire
+non nulle $\lambda : \kappa(\mathfrak q) \to \kappa(\mathfrak p)$.
+Puisque $A/\mathfrak p \subset B/\mathfrak q$ est une extension finie
+d'anneaux, il existe $f \in A$, $f \not \in \mathfrak p$,
+tel que $f\lambda$ envoie $B/\mathfrak q$ dans $A/\mathfrak p$.
+On obtient donc une application $A$-linéaire non nulle
+$$
+B \to B/\mathfrak q \to A/\mathfrak p \to A,\quad
+b \mapsto f\lambda(b)x
+$$
+Un calcul immédiat montre que cet élément de $\omega_{B/A}$
+a pour annulateur $\mathfrak q$, d'où
+$\mathfrak q \in \text{Ass}(\omega_{B/A})$.
+
+\medskip\noindent
+Réciproquement, supposons que $\mathfrak q \subset B$ soit un idéal premier
+au-dessus d'un idéal premier $\mathfrak p \subset A$ qui n'est pas associé
+à $A$. Il faut montrer que
+$\mathfrak q \not \in \text{Ass}_B(\omega_{B/A})$.
+En remplaçant $A$ par $A_\mathfrak p$ et $B$ par
+$B_\mathfrak p$, on peut supposer que $\mathfrak p$ est un idéal maximal
+de $A$. Ceci est permis par le lemme \ref{lemma-dualizing-flat-base-change} et
+Algèbre, lemme \ref{algebra-lemma-localize-ass}.
+Il existe alors $f \in \mathfrak m$
+qui est un non-diviseur de zéro de $A$.
+Cet élément $f$ agit donc injectivement sur $\omega_{B/A}$,
+et $\mathfrak q$ n'est donc pas un idéal premier associé à ce module.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-base-flat-flat}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+Alors $\omega_{B/A}$ est un $A$-module plat.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathfrak q \subset B$ un idéal premier au-dessus de $\mathfrak p \subset A$.
+Nous allons montrer que la localisation $\omega_{B/A, \mathfrak q}$ est plate
+sur $A_\mathfrak p$.
+Cela suffit d'après Algèbre, lemme \ref{algebra-lemma-flat-localization}.
+D'après
+Algèbre, lemme \ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime},
+on peut trouver un homomorphisme étale d'anneaux $A \to A'$ et un idéal
+premier $\mathfrak p' \subset A'$ au-dessus de $\mathfrak p$
+tels que $\kappa(\mathfrak p') = \kappa(\mathfrak p)$ et
+que
+$$
+B' = B \otimes_A A' = C \times D
+$$
+avec $A' \to C$ fini, et tels que l'unique idéal premier $\mathfrak q'$
+de $B \otimes_A A'$ au-dessus de $\mathfrak q$ et de $\mathfrak p'$
+corresponde à un idéal premier de $C$. D'après le
+lemme \ref{lemma-dualizing-flat-base-change}
+et Algèbre, lemme \ref{algebra-lemma-base-change-flat-up-down},
+il suffit de montrer que $\omega_{B'/A', \mathfrak q'}$
+est plat sur $A'_{\mathfrak p'}$.
+Puisque $\omega_{B'/A'} = \omega_{C/A'} \times \omega_{D/A'}$
+d'après le lemme \ref{lemma-dualizing-product},
+on est ramené au cas où $B$ est fini plat sur $A$.
+Dans ce cas, $B$ est un $A$-module fini localement libre
+et $\omega_{B/A} = \Hom_A(B, A)$ est le $A$-module dual,
+fini localement libre.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-base-change-of-flat}
+Si $A \to B$ est plat, l'application de changement de base (\ref{equation-bc-dualizing})
+induit un isomorphisme $\omega_{B/A} \otimes_B B_1 \to \omega_{B_1/A_1}$.
+\end{lemma}
+
+\begin{proof}
+Si $A \to B$ est fini plat, $B$ est un $A$-module fini localement libre.
+Dans ce cas, $\omega_{B/A} = \Hom_A(B, A)$ est le $A$-module dual,
+fini localement libre, et sa formation commute
+à tout changement de base, ce qui démontre le lemme dans ce cas.
+Dans le paragraphe suivant, nous ramenons le cas général (quasi-fini plat)
+au cas fini plat que l'on vient de traiter.
+
+\medskip\noindent
+Soit $\mathfrak q_1 \subset B_1$ un idéal premier. Nous allons montrer que la
+l'application localisée en $\mathfrak q_1$ est un isomorphisme, ce qui
+suffit d'après Algèbre, lemme \ref{algebra-lemma-characterize-zero-local}.
+Soient $\mathfrak q \subset B$ et $\mathfrak p \subset A$ les idéaux
+premiers au-dessous de $\mathfrak q_1$. D'après
+Algèbre, lemme \ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime},
+on peut trouver un homomorphisme étale d'anneaux $A \to A'$ et un idéal
+premier $\mathfrak p' \subset A'$ au-dessus de $\mathfrak p$
+tels que $\kappa(\mathfrak p') = \kappa(\mathfrak p)$ et
+que
+$$
+B' = B \otimes_A A' = C \times D
+$$
+avec $A' \to C$ fini, et tels que l'unique idéal premier $\mathfrak q'$
+de $B \otimes_A A'$ au-dessus de $\mathfrak q$ et de $\mathfrak p'$
+corresponde à un idéal premier de $C$. Posons $A'_1 = A' \otimes_A A_1$ et
+considérons les applications de changement de base
+(\ref{equation-bc-dualizing}) pour les homomorphismes d'anneaux
+$A \to A' \to A'_1$ et $A \to A_1 \to A'_1$, dans le diagramme
+$$
+\xymatrix{
+\omega_{B'/A'} \otimes_{B'} B'_1 \ar[r] & \omega_{B'_1/A'_1} \\
+\omega_{B/A} \otimes_B B'_1 \ar[r] \ar[u] &
+\omega_{B_1/A_1} \otimes_{B_1} B'_1 \ar[u]
+}
+$$
+où $B' = B \otimes_A A'$, $B_1 = B \otimes_A A_1$, et
+$B_1' = B \otimes_A (A' \otimes_A A_1)$. D'après le
+lemme \ref{lemma-bc-map-dualizing}, le diagramme commute. D'après le
+lemme \ref{lemma-dualizing-flat-base-change},
+les flèches verticales sont des isomorphismes.
+Comme $B_1 \to B'_1$ est étale, donc plat, il suffit
+de montrer que la flèche horizontale supérieure est un isomorphisme après localisation
+en un idéal premier $\mathfrak q'_1$ de $B'_1$ au-dessus de $\mathfrak q$
+(un tel idéal premier existe ; appliquer
+Algèbre, lemme \ref{algebra-lemma-local-flat-ff}).
+On peut donc supposer que $B = C \times D$, avec $A \to C$
+fini et $\mathfrak q$ correspondant à un idéal premier de $C$.
+Dans ce cas, le module dualisant $\omega_{B/A}$ se décompose
+de façon analogue (lemme \ref{lemma-dualizing-product}),
+ce qui ramène la question
+au cas fini plat $A \to C$ traité ci-dessus.
+\end{proof}
+
+\begin{remark}
+\label{remark-relative-dualizing-for-quasi-finite}
+Soit $f : Y \to X$ un morphisme localement quasi-fini de schémas localement
+noethériens. Il résulte immédiatement du lemme \ref{lemma-localize-dualizing}
+qu'il existe un unique $\mathcal{O}_Y$-module cohérent
+$\omega_{Y/X}$ sur $Y$ tel que, pour tout couple d'ouverts affines
+$\Spec(B) = V \subset Y$, $\Spec(A) = U \subset X$ vérifiant $f(V) \subset U$,
+on ait un isomorphisme canonique
+$$
+H^0(V, \omega_{Y/X}) = \omega_{B/A}
+$$
+et que ces isomorphismes soient compatibles aux applications de restriction.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-compare-dualizing-algebraic}
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux noethériens.
+Soit $\omega_{B/A}^\bullet \in D(B)$ le complexe dualisant relatif
+algébrique étudié dans Complexes dualisants, section
+\ref{dualizing-section-relative-dualizing-complexes-Noetherian}.
+Il existe alors un isomorphisme (non unique)
+$\omega_{B/A} = H^0(\omega_{B/A}^\bullet)$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une factorisation $A \to B' \to B$
+où $A \to B'$ est fini et $\Spec(B') \to \Spec(B)$
+est une immersion ouverte. Alors
+$\omega_{B/A}^\bullet = \omega_{B'/A}^\bullet \otimes_B^\mathbf{L} B'$
+d'après Complexes dualisants, lemmes
+\ref{dualizing-lemma-composition-shriek-algebraic} et
+\ref{dualizing-lemma-upper-shriek-localize}, et
+la définition de $\omega_{B/A}^\bullet$. Il suffit donc
+de montrer qu'il existe un isomorphisme lorsque $A \to B$ est fini.
+Dans ce cas, on peut utiliser
+Complexes dualisants, lemme \ref{dualizing-lemma-upper-shriek-finite},
+pour voir que $\omega_{B/A}^\bullet = R\Hom(B, A)$, d'où
+$H^0(\omega^\bullet_{B/A}) = \Hom_A(B, A)$, ce qu'il fallait établir.
+\end{proof}
+
+
+
+
+
+
+\section{Discriminant d'un morphisme fini localement libre}
+\label{section-discriminant}
+
+\noindent
+Soient $X$ un schéma et $\mathcal{F}$ un $\mathcal{O}_X$-module fini localement
+libre. Il existe alors un homomorphisme canonique, l'{\it homomorphisme trace},
+$$
+\text{Trace} :
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})
+\longrightarrow
+\mathcal{O}_X
+$$
+Voir Exercices, exercice \ref{exercises-exercise-trace-det}. Cet homomorphisme vérifie
+la propriété suivante : $\text{Trace}(\text{id})$ est la fonction localement constante
+de $\mathcal{O}_X$ correspondant au rang de $\mathcal{F}$.
+
+\medskip\noindent
+Soit $\pi : X \to Y$ un morphisme fini localement
+libre de schémas. Il existe un {\it homomorphisme trace de $\pi$} canonique,
+qui est $\mathcal{O}_Y$-linéaire
+$$
+\text{Trace}_\pi : \pi_*\mathcal{O}_X \longrightarrow \mathcal{O}_Y
+$$
+envoyant une section locale $f$ de $\pi_*\mathcal{O}_X$ sur la
+trace de la multiplication par $f$ sur $\pi_*\mathcal{O}_X$. Sur les
+ouverts affines, on retrouve la construction de
+Exercices, exercice \ref{exercises-exercise-trace-det-rings}.
+La composée
+$$
+\mathcal{O}_Y \xrightarrow{\pi^\sharp} \pi_*\mathcal{O}_X
+\xrightarrow{\text{Trace}_\pi} \mathcal{O}_Y
+$$
+est la multiplication par le degré de $\pi$ (qui est une fonction localement constante
+sur $Y$). Par analogie avec
+Corps, section \ref{fields-section-trace-pairing},
+on peut définir la forme trace
+$$
+Q_\pi :
+\pi_*\mathcal{O}_X \times \pi_*\mathcal{O}_X
+\longrightarrow
+\mathcal{O}_Y
+$$
+par $(f, g) \mapsto \text{Trace}_\pi(fg)$. On peut considérer
+$Q_\pi$ comme une application linéaire
+$\pi_*\mathcal{O}_X \to
+\SheafHom_{\mathcal{O}_Y}(\pi_*\mathcal{O}_X, \mathcal{O}_Y)$
+entre modules localement libres de même rang, et l'on obtient ainsi
+un déterminant
+$$
+\det(Q_\pi) :
+\wedge^{top}(\pi_*\mathcal{O}_X)
+\longrightarrow
+\wedge^{top}(\pi_*\mathcal{O}_X)^{\otimes -1}
+$$
+ou, en d'autres termes, une section globale
+$$
+\det(Q_\pi) \in \Gamma(Y, \wedge^{top}(\pi_*\mathcal{O}_X)^{\otimes -2})
+$$
+Le {\it discriminant de $\pi$} est, par définition, le sous-schéma
+fermé $D_\pi \subset Y$ défini par cette section globale.
+Il est clair que $D_\pi$ est un sous-schéma fermé localement principal de $Y$.
+
+\begin{lemma}
+\label{lemma-discriminant}
+Soit $\pi : X \to Y$ un morphisme fini localement
+libre de schémas. Alors $\pi$ est étale si et seulement si son discriminant est vide.
+\end{lemma}
+
+\begin{proof}
+D'après Morphismes, lemme \ref{morphisms-lemma-etale-flat-etale-fibres},
+il suffit de vérifier que les fibres de $\pi$ sont étales.
+Puisque la construction de la forme trace commute au changement de
+base, on est ramené à la question suivante : soient $k$ un corps
+et $A$ une $k$-algèbre de dimension finie. Montrer que
+$A$ est étale sur $k$ si et seulement si la forme trace
+$Q_{A/k} : A \times A \to k$, $(a, b) \mapsto \text{Trace}_{A/k}(ab)$,
+est non dégénérée.
+
+\medskip\noindent
+Supposons $Q_{A/k}$ non dégénérée. Si $a \in A$ est nilpotent, alors
+$ab$ est nilpotent pour tout $b \in A$, et $Q_{A/k}(a, -)$ est donc
+identiquement nulle. Ainsi $A$ est réduit. On peut alors écrire
+$A = K_1 \times \ldots \times K_n$ comme un produit où chaque $K_i$
+est un corps (voir
+Algèbre, lemmes \ref{algebra-lemma-finite-dimensional-algebra},
+\ref{algebra-lemma-artinian-finite-length} et
+\ref{algebra-lemma-minimal-prime-reduced-ring}).
+Dans ce cas, l'espace
+quadratique $(A, Q_{A/k})$ est la somme directe orthogonale des espaces
+$(K_i, Q_{K_i/k})$. Il résulte de
+Corps, lemme \ref{fields-lemma-separable-trace-pairing},
+que chaque $K_i$ est séparable sur $k$. Cela signifie que $A$ est étale
+sur $k$, d'après Algèbre, lemme \ref{algebra-lemma-etale-over-field}.
+On démontre la réciproque en parcourant l'argument en sens inverse.
+\end{proof}
+
+
+
+
+
+\section{Traces des homomorphismes plats quasi-finis d'anneaux}
+\label{section-quasi-finite-traces}
+
+\noindent
+La trace dont il est question dans le titre de cette section est de nature tout
+autre que celle étudiée dans
+Dualité des schémas, section \ref{duality-section-trace}.
+Il s'agit ici de la trace
+étudiée dans Corps, section \ref{fields-section-trace-pairing},
+et généralisée dans Exercices, exercices \ref{exercises-exercise-trace-det} et
+\ref{exercises-exercise-trace-det-rings}.
+
+\medskip\noindent
+Soit $A \to B$ un homomorphisme fini plat d'anneaux noethériens. Alors $B$ est un
+$A$-module fini plat, donc fini localement libre
+(Algèbre, lemme \ref{algebra-lemma-finite-projective}).
+Étant donné $b \in B$, on peut considérer la {\it trace} $\text{Trace}_{B/A}(b)$
+de l'application $A$-linéaire $B \to B$ donnée par
+la multiplication par $b$ sur $B$. D'après les références ci-dessus, cela définit
+un homomorphisme $A$-linéaire $\text{Trace}_{B/A} : B \to A$.
+Puisque $\omega_{B/A} = \Hom_A(B, A)$, car $A \to B$ est fini, on voit
+que $\text{Trace}_{B/A} \in \omega_{B/A}$.
+
+\medskip\noindent
+Pour un homomorphisme plat quasi-fini d'anneaux quelconque, on définit la notion
+de trace comme suit.
+
+\begin{definition}
+\label{definition-trace-element}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+L'{\it élément trace} est l'unique\footnote{L'unicité
+et l'existence seront justifiées dans les
+lemmes \ref{lemma-trace-unique} et \ref{lemma-dualizing-tau}.}
+élément
+$\tau_{B/A} \in \omega_{B/A}$
+ayant la propriété suivante : pour toute $A$-algèbre noethérienne $A_1$
+telle que $B_1 = B \otimes_A A_1$ soit muni d'une
+décomposition en produit $B_1 = C \times D$ avec $A_1 \to C$ fini,
+l'image de $\tau_{B/A}$ dans $\omega_{C/A_1}$
+est $\text{Trace}_{C/A_1}$.
+On utilise ici l'application de changement de base (\ref{equation-bc-dualizing}) et
+le lemme \ref{lemma-dualizing-product} pour obtenir
+$\omega_{B/A} \to \omega_{B_1/A_1} \to \omega_{C/A_1}$.
+\end{definition}
+
+\noindent
+Nous montrons d'abord l'unicité des éléments trace, puis
+leur existence.
+
+\begin{lemma}
+\label{lemma-trace-unique}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+Il existe alors au plus un élément trace dans $\omega_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathfrak q \subset B$ un idéal premier au-dessus de l'idéal premier
+$\mathfrak p \subset A$. D'après
+Algèbre, lemme \ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime},
+on peut trouver un homomorphisme étale d'anneaux $A \to A_1$ et un idéal
+premier $\mathfrak p_1 \subset A_1$ au-dessus de $\mathfrak p$
+tels que $\kappa(\mathfrak p_1) = \kappa(\mathfrak p)$ et
+que
+$$
+B_1 = B \otimes_A A_1 = C \times D
+$$
+avec $A_1 \to C$ fini, et tels que l'unique idéal premier $\mathfrak q_1$
+de $B \otimes_A A_1$ au-dessus de $\mathfrak q$ et de $\mathfrak p_1$
+corresponde à un idéal premier de $C$. Remarquons que
+$\omega_{C/A_1} = \omega_{B/A} \otimes_B C$
+(combiner les lemmes \ref{lemma-dualizing-flat-base-change} et
+\ref{lemma-dualizing-product}). Puisque la collection
+des homomorphismes d'anneaux $B \to C$ ainsi obtenus forme une famille
+conjointement injective d'homomorphismes plats et que l'image de $\tau_{B/A}$
+dans $\omega_{C/A_1}$ est prescrite, l'unicité en résulte.
+\end{proof}
+
+\noindent
+Vérifions la cohérence de cette définition.
+
+\begin{lemma}
+\label{lemma-finite-flat-trace}
+Soit $A \to B$ un homomorphisme fini plat d'anneaux noethériens.
+Alors $\text{Trace}_{B/A} \in \omega_{B/A}$ est l'élément trace.
+\end{lemma}
+
+\begin{proof}
+Supposons donnés $A \to A_1$, avec $A_1$ noethérien, et
+une décomposition en produit $B \otimes_A A_1 = C \times D$ avec $A_1 \to C$
+fini. Dans ce cas, $A_1 \to D$ est évidemment fini lui aussi.
+Posons $B_1 = B \otimes_A A_1$.
+Puisque la construction des traces commute au changement de base,
+on voit que $\text{Trace}_{B/A}$ s'envoie sur $\text{Trace}_{B_1/A_1}$.
+Il suffit donc de remarquer que
+$\text{Trace}_{B_1/A_1} = (\text{Trace}_{C/A_1}, \text{Trace}_{D/A_1})$
+par l'isomorphisme
+$\omega_{B_1/A_1} = \omega_{C/A_1} \times \omega_{D/A_1}$
+du lemme \ref{lemma-dualizing-product}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-trace-base-change}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+Soit $\tau \in \omega_{B/A}$ un élément trace.
+\begin{enumerate}
+\item Si $A \to A_1$ est un homomorphisme où $A_1$ est noethérien, alors, en posant
+$B_1 = A_1 \otimes_A B$, l'image de $\tau$ dans $\omega_{B_1/A_1}$ est un
+élément trace.
+\item Si $A = R_f$ pour un anneau $R$ et un $f \in R$, alors
+$\tau$ est un élément trace dans $\omega_{B/R}$.
+\item Si $g \in B$, l'image de $\tau$ dans $\omega_{B_g/A}$
+est un élément trace.
+\item Si $B = B_1 \times B_2$, alors $\tau$ s'envoie sur un élément trace
+dans chacun des modules $\omega_{B_1/A}$ et $\omega_{B_2/A}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) est une conséquence formelle de la définition.
+
+\medskip\noindent
+L'assertion (2) a un sens car $\omega_{B/R} = \omega_{B/A}$
+d'après le lemme \ref{lemma-localize-dualizing}. Notons $\tau'$ l'élément
+$\tau$ considéré dans $\omega_{B/R}$. Pour démontrer (2),
+supposons donnés $R \to R_1$, avec $R_1$ noethérien, et une décomposition
+en produit $B \otimes_R R_1 = C \times D$ où $R_1 \to C$ est fini.
+En posant $A_1 = (R_1)_f$, on a $B \otimes_A A_1 = C \times D$.
+Puisque $R_1 \to C$ est fini, $A_1 \to C$ l'est a fortiori.
+On peut donc utiliser la propriété qui définit $\tau$ pour obtenir la propriété
+correspondante de $\tau'$.
+
+\medskip\noindent
+L'assertion (3) a un sens car $\omega_{B_g/A} = (\omega_{B/A})_g$
+d'après le lemme \ref{lemma-localize-dualizing}. La démonstration est analogue à celle
+de (2). Supposons donnés $A \to A_1$, avec $A_1$ noethérien, et
+une décomposition en produit $B_g \otimes_A A_1 = C \times D$ où $A_1 \to C$
+est fini. Posons $B_1 = B \otimes_A A_1$. Alors
+$\Spec(C) \to \Spec(B_1)$ est une immersion ouverte puisque $B_g \otimes_A A_1 = (B_1)_g$,
+et son image est fermée puisque $B_1 \to C$ est fini
+(car $A_1 \to C$ est fini).
+On a donc $B_1 = C \times D_1$ et $D = (D_1)_g$. On peut alors utiliser
+la propriété qui définit $\tau$ pour obtenir la propriété correspondante
+de l'image de $\tau$ dans $\omega_{B_g/A}$.
+
+\medskip\noindent
+L'assertion (4) a un sens car
+$\omega_{B/A} = \omega_{B_1/A} \times \omega_{B_2/A}$ d'après le
+lemme \ref{lemma-dualizing-product}.
+Supposons donnés $A \to A'$, avec $A'$ noethérien, et
+une décomposition en produit $B \otimes_A A' = C \times D$ où $A' \to C$
+est fini. On peut manifestement raffiner cette décomposition
+en produit en $B \otimes_A A' = C_1 \times C_2 \times D_1 \times D_2$,
+avec $A' \to C_i$ fini, de sorte que $B_i \otimes_A A' = C_i \times D_i$.
+On peut alors utiliser la propriété qui définit $\tau$ pour obtenir la propriété
+correspondante de l'image de $\tau$ dans $\omega_{B_i/A}$. On utilise ici le fait évident
+que
+$\text{Trace}_{C/A'} = (\text{Trace}_{C_1/A'}, \text{Trace}_{C_2/A'})$
+pour la décomposition
+$\omega_{C/A'} = \omega_{C_1/A'} \times \omega_{C_2/A'}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-trace}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+Soient $g_1, \ldots, g_m \in B$ des éléments engendrant l'idéal unité.
+Soit $\tau \in \omega_{B/A}$ un élément dont l'image dans
+$\omega_{B_{g_i}/A}$ est un élément trace pour $A \to B_{g_i}$.
+Alors $\tau$ est un élément trace.
+\end{lemma}
+
+\begin{proof}
+Supposons donnés $A \to A_1$, avec $A_1$ noethérien, et une décomposition
+en produit $B \otimes_A A_1 = C \times D$ où $A_1 \to C$ est fini.
+Il faut montrer que l'image de $\tau$ dans $\omega_{C/A_1}$ est
+$\text{Trace}_{C/A_1}$. Remarquons que $g_1, \ldots, g_m$
+engendrent l'idéal unité de $B_1 = B \otimes_A A_1$ et que
+$\tau$ s'envoie sur un élément trace dans $\omega_{(B_1)_{g_i}/A_1}$
+d'après le lemme \ref{lemma-trace-base-change}. On peut donc remplacer
+$A$ par $A_1$ et $B$ par $B_1$ pour se placer dans la situation décrite
+au paragraphe suivant.
+
+\medskip\noindent
+On suppose ici que $B = C \times D$ avec $A \to C$ fini.
+Soit $\tau_C$ l'image de $\tau$ dans $\omega_{C/A}$.
+Il faut démontrer que $\tau_C = \text{Trace}_{C/A}$ dans $\omega_{C/A}$.
+La compatibilité des éléments trace aux produits
+(lemme \ref{lemma-trace-base-change})
+montre que $\tau_C$ s'envoie sur un élément trace dans $\omega_{C_{g_i}/A}$.
+Ainsi, en remplaçant $B$ par $C$, on peut supposer $A \to B$
+fini plat.
+
+\medskip\noindent
+Supposons $A \to B$ fini plat. Dans ce cas, $\text{Trace}_{B/A}$
+est un élément trace d'après le lemme \ref{lemma-finite-flat-trace}.
+Par conséquent, $\text{Trace}_{B/A}$ s'envoie sur un élément trace dans
+$\omega_{B_{g_i}/A}$ d'après le lemme \ref{lemma-trace-base-change}.
+L'unicité des éléments trace (lemme \ref{lemma-trace-unique})
+montre que $\text{Trace}_{B/A}$ et $\tau$ ont
+les mêmes images dans $\omega_{B_{g_i}/A} = (\omega_{B/A})_{g_i}$.
+Comme $g_1, \ldots, g_m$ engendrent l'idéal unité de $B$, l'application
+$\omega_{B/A} \to \prod \omega_{B_{g_i}/A}$ est injective,
+et l'on conclut que $\tau_C = \text{Trace}_{B/A}$, ce qu'il fallait établir.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-tau}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+Il existe un élément trace $\tau \in \omega_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+Choisissons une factorisation $A \to B' \to B$ où $A \to B'$ est fini et
+$\Spec(B) \to \Spec(B')$ est une immersion ouverte. Soient $g_1, \ldots, g_n \in B'$
+des éléments tels que $\Spec(B) = \bigcup D(g_i)$ comme ouverts de $\Spec(B')$.
+Supposons que l'on puisse montrer l'existence d'éléments trace $\tau_i$ pour les
+homomorphismes quasi-finis plats d'anneaux $A \to B_{g_i}$. Alors, pour tous $i, j$, les éléments
+$\tau_i$ et $\tau_j$ s'envoient sur des éléments trace de $\omega_{B_{g_ig_j}/A}$
+d'après le lemme \ref{lemma-trace-base-change}. Par unicité des
+éléments trace (lemme \ref{lemma-trace-unique}), ils ont la même image.
+La condition de faisceau pour le module quasi-cohérent associé à
+$\omega_{B/A}$ (voir Algèbre, lemme \ref{algebra-lemma-cover-module})
+fournit donc un élément $\tau \in \omega_{B/A}$.
+Alors $\tau$ est un élément trace d'après le
+lemme \ref{lemma-glue-trace}.
+On est ainsi ramené au cas traité au paragraphe suivant.
+
+\medskip\noindent
+Supposons $A \to B'$ fini et $g \in B'$ tel que $B = B'_g$ soit plat sur $A$.
+Il s'agit de construire un élément trace dans
+$\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B$.
+Choisissons une résolution $F_1 \to F_0 \to B' \to 0$ de $B'$ par des
+$A$-modules libres de type fini $F_0$ et $F_1$. On a alors une suite exacte
+$$
+0 \to \Hom_A(B', A) \to F_0^\vee \to F_1^\vee
+$$
+où $F_i^\vee = \Hom_A(F_i, A)$ est le module dual, libre de type fini.
+De même, on a la suite exacte
+$$
+0 \to \Hom_A(B', B') \to F_0^\vee \otimes_A B' \to F_1^\vee \otimes_A B'
+$$
+L'idée de la construction de $\tau$ est d'utiliser le diagramme
+$$
+B' \xrightarrow{\mu} \Hom_A(B', B')
+\leftarrow \Hom_A(B', A) \otimes_A B'
+\xrightarrow{ev} A
+$$
+où la première flèche envoie $b' \in B'$ sur l'opérateur $A$-linéaire
+de multiplication par $b'$, et la dernière flèche est l'application d'évaluation.
+La difficulté est que la flèche du milieu, qui envoie $\lambda' \otimes b'$
+sur l'application $b'' \mapsto \lambda'(b'')b'$, n'est pas un isomorphisme.
+Si $B'$ est plat sur $A$, les suites exactes ci-dessus montrent que cette flèche
+est un isomorphisme, et la composée de gauche à droite est la trace usuelle
+$\text{Trace}_{B'/A}$. Dans le cas général, on considère
+le diagramme
+$$
+\xymatrix{
+& \Hom_A(B', A) \otimes_A B' \ar[r] \ar[d] &
+\Hom_A(B', A) \otimes_A B'_g \ar[d] \\
+B' \ar[r]_-\mu \ar@{..>}[rru] \ar@{..>}[ru]^\psi &
+\Hom_A(B', B') \ar[r] &
+\Ker(F_0^\vee \otimes_A B'_g \to F_1^\vee \otimes_A B'_g)
+}
+$$
+La platitude de $A \to B'_g$ montre que la flèche verticale de droite est un
+isomorphisme. On obtient donc la flèche pointillée sans étiquette.
+Puisque $B'_g = \colim \frac{1}{g^n}B'$, que
+les colimites commutent aux produits tensoriels,
+et que $B'$ est un $A$-module de présentation finie,
+on peut trouver $n \geq 0$ et une application $B'$-linéaire (pour la structure de $B'$-module à droite)
+$\psi : B' \to \Hom_A(B', A) \otimes_A B'$
+dont la composée avec la flèche verticale de gauche est $g^n\mu$.
+En composant avec $ev$, on obtient un élément
+$ev \circ \psi \in \Hom_A(B', A)$. On pose alors
+$$
+\tau = (ev \circ \psi) \otimes g^{-n} \in
+\Hom_A(B', A) \otimes_{B'} B'_g = \omega_{B'_g/A} = \omega_{B/A}
+$$
+Nous omettons la vérification immédiate que cet élément ne dépend pas
+du choix de $n$ et de $\psi$ ci-dessus.
+
+\medskip\noindent
+Montrons que $\tau$, construit au paragraphe précédent,
+possède la propriété voulue dans un cas particulier. Supposons
+$B' = C' \times D'$ et $g = (f, h)$, où $A \to C'$ est plat, $D'_h$ est plat, et
+$f$ est inversible dans $C'$.
+Il faut montrer que $\tau$ s'envoie sur $\text{Trace}_{C'/A}$ dans $\omega_{C'/A}$.
+Dans ce cas, on choisit d'abord $n_D$ et
+$\psi_D : D' \to \Hom_A(D', A) \otimes_A D'$ comme ci-dessus pour le couple
+$(D', h)$, et l'on peut prendre pour
+$\psi_C : C' \to \Hom_A(C', A) \otimes_A C' = \Hom_A(C', C')$
+l'application envoyant $c' \in C'$ sur la multiplication par $c'$.
+On prend alors $n = n_D$ et $\psi = (f^{n_D} \psi_C, \psi_D)$,
+et la compatibilité voulue est claire car
+$\text{Trace}_{C'/A} = ev \circ \psi_C$, comme on l'a remarqué ci-dessus.
+
+\medskip\noindent
+Pour établir la propriété voulue dans le cas général, supposons donnés
+$A \to A_1$, avec $A_1$ noethérien, et une décomposition en produit
+$B'_g \otimes_A A_1 = C \times D$ où $A_1 \to C$ est fini.
+Posons $B'_1 = B' \otimes_A A_1$. Alors $\Spec(C) \to \Spec(B'_1)$
+est une immersion ouverte puisque $B'_g \otimes_A A_1 = (B'_1)_g$, et
+son image est fermée puisque $B'_1 \to C$ est fini (car $A_1 \to C$
+est fini). Ainsi $B'_1 = C \times D'$ et $D'_g = D$.
+On en déduit que $B'_1 = C \times D'$ et $g$, sur $A_1$,
+sont dans la situation du paragraphe précédent.
+Puisque la formation du diagramme affiché ci-dessus
+commute au changement de base, la formation de $\tau$ commute
+au changement de base $A \to A_1$ (détails omis ; utiliser la
+résolution $F_1 \otimes_A A_1 \to F_0 \otimes_A A_1 \to B'_1 \to 0$
+pour le voir). La compatibilité voulue découle donc du résultat
+du paragraphe précédent.
+\end{proof}
+
+\begin{remark}
+\label{remark-relative-dualizing-for-flat-quasi-finite}
+Soit $f : Y \to X$ un morphisme plat localement quasi-fini de schémas localement
+noethériens. Soit $\omega_{Y/X}$ comme dans la
+remarque \ref{remark-relative-dualizing-for-quasi-finite}.
+L'unicité, l'existence et la compatibilité à la
+localisation des éléments trace
+(lemmes \ref{lemma-trace-unique}, \ref{lemma-dualizing-tau} et
+\ref{lemma-trace-base-change})
+montrent qu'il existe une section globale
+$$
+\tau_{Y/X} \in \Gamma(Y, \omega_{Y/X})
+$$
+telle que, pour tout couple d'ouverts affines
+$\Spec(B) = V \subset Y$, $\Spec(A) = U \subset X$ vérifiant $f(V) \subset U$,
+cet élément $\tau_{Y/X}$ s'envoie sur $\tau_{B/A}$ par
+l'isomorphisme canonique
+$H^0(V, \omega_{Y/X}) = \omega_{B/A}$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-tau-nonzero}
+Soient $k$ un corps et $A$ une $k$-algèbre finie. Supposons $A$
+locale, de corps résiduel $k'$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\text{Trace}_{A/k}$ est non nulle ;
+\item $\tau_{A/k} \in \omega_{A/k}$ est non nul ;
+\item $k'/k$ est séparable et $\text{longueur}_A(A)$ est première
+à la caractéristique de $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les conditions (1) et (2) sont équivalentes d'après le lemme \ref{lemma-finite-flat-trace}.
+Soit $\mathfrak m \subset A$. Puisque $\dim_k(A) < \infty$, il est clair que
+$A$ est de longueur finie sur $A$. Choisissons une filtration
+$$
+A = I_0 \supset \mathfrak m = I_1 \supset I_2 \supset \ldots I_n = 0
+$$
+par des idéaux tels que $I_i/I_{i + 1} \cong k'$ comme $A$-modules. Voir
+Algèbre, lemme \ref{algebra-lemma-simple-pieces}, qui montre également que
+$n = \text{longueur}_A(A)$. Si $a \in \mathfrak m$, alors $aI_i \subset I_{i + 1}$,
+et l'on voit immédiatement que $\text{Trace}_{A/k}(a) = 0$.
+Si $a \not \in \mathfrak m$ a pour image $\lambda \in k'$, alors
+on obtient
+$$
+\text{Trace}_{A/k}(a) =
+\sum\nolimits_{i = 0, \ldots, n - 1}
+\text{Trace}_k(a : I_i/I_{i - 1} \to I_i/I_{i - 1}) =
+n \text{Trace}_{k'/k}(\lambda)
+$$
+On achève la démonstration en appliquant
+Corps, lemme \ref{fields-lemma-separable-trace-pairing}.
+\end{proof}
+
+
+
+
+
+
+\section{Morphismes finis}
+\label{section-finite-morphisms}
+
+\noindent
+Dans cette section, nous rassemblons quelques remarques sur les
+constructions des sections précédentes dans le cas des morphismes finis.
+Soit $f : Y \to X$ un morphisme fini de schémas localement noethériens.
+Soit $\omega_{Y/X}$ comme dans la
+remarque \ref{remark-relative-dualizing-for-quasi-finite}.
+
+\medskip\noindent
+La première remarque est que
+$$
+f_*\omega_{Y/X} = \SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)
+$$
+comme faisceaux de $f_*\mathcal{O}_Y$-modules. Puisque $f$ est affine, cette
+formule caractérise $\omega_{Y/X}$ de façon unique, voir
+Morphismes, lemme \ref{morphisms-lemma-affine-equivalence-modules}.
+La formule est vraie car, pour un ouvert affine $\Spec(A) = U \subset X$,
+l'image inverse $V = f^{-1}(U)$ est le spectre d'une $A$-algèbre finie
+$B$, d'où
+$$
+H^0(U, f_*\omega_{Y/X}) =
+H^0(V, \omega_{Y/X}) =
+\omega_{B/A} =
+\Hom_A(B, A) =
+H^0(U, \SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X))
+$$
+par construction. On obtient en particulier une application canonique d'évaluation
+$$
+f_*\omega_{Y/X} \longrightarrow \mathcal{O}_X
+$$
+donnée par l'évaluation en $1$ lorsque l'on considère $f_*\omega_{Y/X}$
+comme le faisceau $\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)$.
+
+\medskip\noindent
+La deuxième remarque est que l'application d'évaluation fournit
+des identifications canoniques
+$$
+\Hom_Y(\mathcal{F}, f^*\mathcal{G} \otimes_{\mathcal{O}_Y} \omega_{Y/X})
+=
+\Hom_X(f_*\mathcal{F}, \mathcal{G})
+$$
+fonctorielles par rapport au module quasi-cohérent $\mathcal{F}$ sur $Y$
+et au module fini localement libre $\mathcal{G}$ sur $X$.
+Si $\mathcal{G} = \mathcal{O}_X$, cela résulte immédiatement
+de ce qui précède et de
+Algèbre, lemme \ref{algebra-lemma-adjoint-hom-restrict}.
+Pour $\mathcal{G}$ quelconque, on peut utiliser le même lemme et les
+isomorphismes
+$$
+f_*(f^*\mathcal{G} \otimes_{\mathcal{O}_Y} \omega_{Y/X}) =
+\mathcal{G} \otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X) =
+\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{G})
+$$
+de $f_*\mathcal{O}_Y$-modules, où la première égalité est la
+formule de projection
+(Cohomologie, lemme \ref{cohomology-lemma-projection-formula}).
+On peut également démontrer la formule localement sur les ouverts affines par
+un calcul direct.
+
+\medskip\noindent
+La troisième remarque est que, si $f$ est de plus plat, la
+composée
+$$
+f_*\mathcal{O}_Y \xrightarrow{f_*\tau_{Y/X}} f_*\omega_{Y/X}
+\longrightarrow \mathcal{O}_X
+$$
+est égale à l'homomorphisme trace $\text{Trace}_f$ étudié dans la
+section \ref{section-discriminant}. Cela se voit immédiatement
+sur les ouverts affines.
+
+\medskip\noindent
+La quatrième remarque est que, si $f$ est plat et $X$ noethérien, on
+obtient
+$$
+\Hom_Y(K, Lf^*M \otimes_{\mathcal{O}_Y} \omega_{Y/X})
+=
+\Hom_X(Rf_*K, M)
+$$
+pour tous $K$ dans $D_\QCoh(\mathcal{O}_Y)$ et $M$ dans $D_\QCoh(\mathcal{O}_X)$.
+Cela résulte des résultats de
+Dualité des schémas, section \ref{duality-section-proper-flat},
+mais on peut le démontrer directement dans ce cas, comme suit.
+Tout d'abord, si $X$ est affine, l'assertion découle de
+Complexes dualisants, lemmes \ref{dualizing-lemma-right-adjoint} et
+\ref{dualizing-lemma-RHom-is-tensor-special}\footnote{Ce lemme admet
+une démonstration plus simple dans notre cas.}, et de
+Catégories dérivées de schémas, lemme \ref{perfect-lemma-affine-compare-bounded}.
+On peut ensuite utiliser le principe de récurrence
+(Cohomologie des schémas, lemme \ref{coherent-lemma-induction-principle})
+et Mayer-Vietoris
+(sous la forme de Cohomologie, lemme \ref{cohomology-lemma-mayer-vietoris-hom})
+pour achever la démonstration.
+
+
+
+
+
+
+
+\section{La différente de Noether}
+\label{section-noether-different}
+
+\noindent
+La littérature contient de nombreuses notions de différente.
+Nous en présentons quelques-unes dans cette section et les suivantes ; pour plus
+de détails, nous renvoyons le lecteur à \cite{Kunz}.
+
+\medskip\noindent
+Soit $A \to B$ un homomorphisme d'anneaux. Notons
+$$
+\mu : B \otimes_A B \longrightarrow B,\quad
+b \otimes b' \longmapsto bb'
+$$
+l'application de multiplication. Soit $I = \Ker(\mu)$. Il est clair que $I$ est
+engendré par les éléments $b \otimes 1 - 1 \otimes b$ pour $b \in B$.
+L'annulateur $J \subset B \otimes_A B$ de $I$ est donc canoniquement un $B$-module.
+La {\it différente de Noether} de $B$ sur $A$ est
+l'image de $J$ par l'application $\mu : B \otimes_A B \to B$. De façon équivalente,
+la différente de Noether est l'image de l'application
+$$
+J = \Hom_{B \otimes_A B}(B, B \otimes_A B) \longrightarrow B,\quad
+\varphi \longmapsto \mu(\varphi(1))
+$$
+Commençons par quelques lemmes indispensables.
+
+\begin{lemma}
+\label{lemma-noether-different-product}
+Soient $A \to B_i$, $i = 1, 2$, des homomorphismes d'anneaux. Posons $B = B_1 \times B_2$.
+\begin{enumerate}
+\item L'annulateur $J$ de $\Ker(B \otimes_A B \to B)$ est $J_1 \times J_2$,
+où $J_i$ est l'annulateur de $\Ker(B_i \otimes_A B_i \to B_i)$.
+\item La différente de Noether $\mathfrak{D}$ de $B$ sur $A$ est
+$\mathfrak{D}_1 \times \mathfrak{D}_2$, où $\mathfrak{D}_i$ est
+la différente de Noether de $B_i$ sur $A$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-noether-different-base-change}
+Soit $A \to B$ un homomorphisme d'anneaux de type fini. Soit $A \to A'$ un homomorphisme plat d'anneaux.
+Posons $B' = B \otimes_A A'$.
+\begin{enumerate}
+\item L'annulateur $J'$ de $\Ker(B' \otimes_{A'} B' \to B')$ est
+$J \otimes_A A'$, où $J$ est l'annulateur de $\Ker(B \otimes_A B \to B)$.
+\item La différente de Noether $\mathfrak{D}'$ de $B'$ sur $A'$ est
+$\mathfrak{D}B'$, où $\mathfrak{D}$ est
+la différente de Noether de $B$ sur $A$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons des générateurs $b_1, \ldots, b_n$ de $B$ comme $A$-algèbre.
+Alors
+$$
+J = \Ker(B \otimes_A B \xrightarrow{b_i \otimes 1 - 1 \otimes b_i}
+(B \otimes_A B)^{\oplus n})
+$$
+On voit donc que la formation de $J$ commute au changement de base plat.
+Le résultat concernant la différente de Noether en découle immédiatement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-noether-different-localization}
+Soient $A \to B' \to B$ des homomorphismes d'anneaux, avec $A \to B'$
+de type fini et $B' \to B$ induisant une immersion ouverte des spectres.
+\begin{enumerate}
+\item L'annulateur $J$ de $\Ker(B \otimes_A B \to B)$ est
+$J' \otimes_{B'} B$, où $J'$ est l'annulateur de
+$\Ker(B' \otimes_A B' \to B')$.
+\item La différente de Noether $\mathfrak{D}$ de $B$ sur $A$ est
+$\mathfrak{D}'B$, où $\mathfrak{D}'$ est
+la différente de Noether de $B'$ sur $A$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Posons $I = \Ker(B \otimes_A B \to B)$ et $I' = \Ker(B' \otimes_A B' \to B')$.
+Comme $\Spec(B) \to \Spec(B')$ est une immersion ouverte, on a
+$B = (B \otimes_A B) \otimes_{B' \otimes_A B'} B'$. Il en résulte
+$I = I'(B \otimes_A B)$. Puisque $I'$ est de type fini et que
+$B' \otimes_A B' \to B \otimes_A B$ est plat, on obtient
+$J = J'(B \otimes_A B)$, voir
+Algèbre, lemme \ref{algebra-lemma-annihilator-flat-base-change}.
+Puisque la structure de $B' \otimes_A B'$-module de $J'$
+se factorise par $B' \otimes_A B' \to B'$, on en déduit (1).
+L'assertion (2) est une conséquence de (1).
+\end{proof}
+
+\begin{remark}
+\label{remark-construction-pairing}
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux noethériens.
+Soit $J$ l'annulateur de $\Ker(B \otimes_A B \to B)$.
+Il existe un accouplement $B$-bilinéaire canonique
+\begin{equation}
+\label{equation-pairing-noether}
+\omega_{B/A} \times J \longrightarrow B
+\end{equation}
+défini comme suit. Choisissons une factorisation $A \to B' \to B$
+où $A \to B'$ est fini et $B' \to B$ induit une immersion ouverte
+des spectres. Soit $J'$ l'annulateur de $\Ker(B' \otimes_A B' \to B')$.
+On définit d'abord
+$$
+\Hom_A(B', A) \times J' \longrightarrow B',\quad
+(\lambda, \sum b_i \otimes c_i) \longmapsto \sum \lambda(b_i)c_i
+$$
+Cet accouplement est $B'$-bilinéaire précisément parce que, pour $\xi \in J'$ et $b \in B'$,
+on a $(b \otimes 1)\xi = (1 \otimes b)\xi$. D'après le
+lemme \ref{lemma-noether-different-localization}
+et puisque $\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B$,
+on peut l'étendre en l'accouplement $B$-bilinéaire affiché ci-dessus.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-noether-pairing-compatibilities}
+Soit $A \to B$ un homomorphisme quasi-fini d'anneaux noethériens.
+\begin{enumerate}
+\item Si $A \to A'$ est un homomorphisme plat d'anneaux noethériens, alors
+$$
+\xymatrix{
+\omega_{B/A} \times J \ar[r] \ar[d] & B \ar[d]  \\
+\omega_{B'/A'} \times J' \ar[r] & B'
+}
+$$
+est commutatif, avec les notations du
+lemme \ref{lemma-noether-different-base-change},
+les flèches horizontales étant données par
+(\ref{equation-pairing-noether}).
+\item Si $B = B_1 \times B_2$, alors
+$$
+\xymatrix{
+\omega_{B/A} \times J \ar[r] \ar[d] & B \ar[d]  \\
+\omega_{B_i/A} \times J_i \ar[r] & B_i
+}
+$$
+est commutatif pour $i = 1, 2$, avec les notations du
+lemme \ref{lemma-noether-different-product},
+les flèches horizontales étant données par
+(\ref{equation-pairing-noether}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+En vertu de la construction de l'accouplement dans la
+remarque \ref{remark-construction-pairing},
+(1) et (2) se ramènent au cas où $A \to B$ est fini.
+L'assertion (1) résulte alors de ce que l'application de contraction
+$\Hom_A(M, A) \otimes_A M \otimes_A M \to M$,
+$\lambda \otimes m \otimes m' \mapsto \lambda(m)m'$,
+commute au changement de base. Pour (2), utiliser le fait que
+$J = J_1 \times J_2$ est contenu dans les facteurs
+$B_1 \otimes_A B_1$ et $B_2 \otimes_A B_2$
+de $B \otimes_A B$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-noether-pairing-flat-quasi-finite}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+L'accouplement de la remarque \ref{remark-construction-pairing} induit un isomorphisme
+$J \to \Hom_B(\omega_{B/A}, B)$.
+\end{lemma}
+
+\begin{proof}
+Montrons d'abord l'assertion lorsque $A \to B$ est fini plat. Dans ce cas, on peut
+localiser sur $A$ et supposer que $B$ est un $A$-module libre de type fini. Soit
+$b_1, \ldots, b_n$ une base de $B$ comme $A$-module, et notons
+$b_1^\vee, \ldots, b_n^\vee$ la base duale de $\omega_{B/A}$. Remarquons que
+$\sum b_i \otimes c_i \in J$ s'envoie sur l'élément de $\Hom_B(\omega_{B/A}, B)$
+qui envoie $b_i^\vee$ sur $c_i$. Supposons $\varphi : \omega_{B/A} \to B$
+$B$-linéaire. Nous affirmons alors que $\xi = \sum b_i \otimes \varphi(b_i^\vee)$
+est un élément de $J$. En effet, la $B$-linéarité de $\varphi$
+entraîne précisément que $(b \otimes 1)\xi = (1 \otimes b)\xi$ pour tout $b \in B$.
+Notre application possède donc un inverse et est un isomorphisme.
+
+\medskip\noindent
+Soit $\mathfrak q \subset B$ un idéal premier au-dessus de $\mathfrak p \subset A$.
+Nous allons montrer que l'application localisée
+$$
+J_\mathfrak q
+\longrightarrow
+\Hom_B(\omega_B/A, B)_\mathfrak q
+$$
+est un isomorphisme.
+Cela suffit d'après Algèbre, lemme \ref{algebra-lemma-characterize-zero-local}.
+D'après
+Algèbre, lemme \ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime},
+on peut trouver un homomorphisme étale d'anneaux $A \to A'$ et un idéal
+premier $\mathfrak p' \subset A'$ au-dessus de $\mathfrak p$
+tels que $\kappa(\mathfrak p') = \kappa(\mathfrak p)$ et
+que
+$$
+B' = B \otimes_A A' = C \times D
+$$
+avec $A' \to C$ fini, et tels que l'unique idéal premier $\mathfrak q'$
+de $B \otimes_A A'$ au-dessus de $\mathfrak q$ et de $\mathfrak p'$
+corresponde à un idéal premier de $C$. Soit $J'$ l'annulateur de
+$\Ker(B' \otimes_{A'} B' \to B')$. D'après les
+lemmes \ref{lemma-dualizing-flat-base-change},
+\ref{lemma-noether-different-base-change} et
+\ref{lemma-noether-pairing-compatibilities},
+l'application $J' \to \Hom_{B'}(\omega_{B'/A'}, B')$
+s'obtient en appliquant le foncteur $- \otimes_B B'$
+à l'application $J \to \Hom_B(\omega_{B/A}, B)$.
+Puisque $B_\mathfrak q \to B'_{\mathfrak q'}$ est fidèlement plat,
+il suffit d'établir le résultat pour $(A' \to B', \mathfrak q')$.
+D'après les lemmes \ref{lemma-dualizing-product},
+\ref{lemma-noether-different-product} et
+\ref{lemma-noether-pairing-compatibilities},
+on est ramené au cas traité dans le premier
+paragraphe de la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-noether-different-flat-quasi-finite}
+Soit $A \to B$ un homomorphisme plat quasi-fini d'anneaux noethériens.
+Le diagramme
+$$
+\xymatrix{
+J \ar[rr] \ar[rd]_\mu & &
+\Hom_B(\omega_{B/A}, B) \ar[ld]^{\varphi \mapsto \varphi(\tau_{B/A})} \\
+& B
+}
+$$
+commute, la flèche horizontale étant l'isomorphisme du
+lemme \ref{lemma-noether-pairing-flat-quasi-finite}.
+La différente de Noether de $B$ sur $A$
+est donc l'image de l'application $\Hom_B(\omega_{B/A}, B) \to B$.
+\end{lemma}
+
+\begin{proof}
+Exactement comme dans la démonstration du lemme \ref{lemma-noether-pairing-flat-quasi-finite},
+on se ramène au cas d'un homomorphisme fini libre $A \to B$.
+Dans ce cas, $\tau_{B/A} = \text{Trace}_{B/A}$.
+Choisissons une base $b_1, \ldots, b_n$ de $B$ comme $A$-module.
+Soit $\xi = \sum b_i \otimes c_i \in J$. Alors $\mu(\xi) = \sum b_i c_i$.
+D'autre part, l'image de $\xi$ dans $\Hom_B(\omega_{B/A}, B)$
+envoie $\text{Trace}_{B/A}$ sur $\sum \text{Trace}_{B/A}(b_i)c_i$.
+Il faut donc montrer que
+$$
+\sum b_ic_i = \sum \text{Trace}_{B/A}(b_i)c_i
+$$
+lorsque $\xi = \sum b_i \otimes c_i \in J$. Écrivons $b_i b_j = \sum_k a_{ij}^k b_k$
+avec $a_{ij}^k \in A$. Le membre de droite est alors
+$\sum_{i, j} a_{ij}^j c_i$. D'autre part, $\xi \in J$ entraîne
+$$
+(b_j \otimes 1)(\sum\nolimits_i b_i \otimes c_i) =
+(1 \otimes b_j)(\sum\nolimits_i b_i \otimes c_i)
+$$
+ce qui donne $b_j c_i = \sum_k a_{jk}^i c_k$. Le membre de gauche
+est donc $\sum_{i, j} a_{ij}^i c_j$. Puisque $a_{ij}^k = a_{ji}^k$, on a bien l'égalité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-noether-different}
+Soit $A \to B$ un homomorphisme d'anneaux de type fini. Soit $\mathfrak{D} \subset B$
+la différente de Noether. Alors $V(\mathfrak{D})$ est l'ensemble des idéaux premiers
+$\mathfrak q \subset B$ tels que $A \to B$ soit ramifié en $\mathfrak q$.
+\end{lemma}
+
+\begin{proof}
+Supposons $A \to B$ non ramifié en $\mathfrak q$. En remplaçant
+$B$ par $B_g$ pour un $g \in B$, $g \not \in \mathfrak q$, on peut
+supposer $A \to B$ non ramifié (Algèbre, définition
+\ref{algebra-definition-unramified} et
+lemme \ref{lemma-noether-different-localization}).
+Dans ce cas, $\Omega_{B/A} = 0$. Ainsi, si $I = \Ker(B \otimes_A B \to B)$,
+alors $I/I^2 = 0$ d'après
+Algèbre, lemme \ref{algebra-lemma-differentials-diagonal}.
+Puisque $A \to B$ est de type fini, $I$ est de type
+fini. Le lemme de Nakayama
+(Algèbre, lemme \ref{algebra-lemma-NAK})
+assure donc l'existence d'un élément de la forme $1 + i$
+annulant $I$. Il en résulte que $\mathfrak{D} = B$.
+
+\medskip\noindent
+Réciproquement, supposons $\mathfrak{D} \not \subset \mathfrak q$.
+En remplaçant $B$ par une localisation principale comme ci-dessus,
+on peut supposer $\mathfrak{D} = B$. Cela signifie qu'il existe un
+élément de la forme $1 + i$ dans l'annulateur de $I$.
+Réciproquement, cela entraîne que $I/I^2 = \Omega_{B/A}$ est nul,
+ce qui permet de conclure.
+\end{proof}
+
+
+
+
+
+
+
+\section{La différente de Kähler}
+\label{section-kahler-different}
+
+\noindent
+Soit $A \to B$ un homomorphisme d'anneaux de type fini. La {\it différente de Kähler} est
+l'idéal de Fitting d'ordre zéro de $\Omega_{B/A}$ comme $B$-module. On globalise cette
+définition comme suit.
+
+\begin{definition}
+\label{definition-kahler-different}
+Soit $f : Y \to X$ un morphisme de schémas localement de type fini.
+La {\it différente de Kähler} est l'idéal de Fitting d'ordre $0$ de $\Omega_{Y/X}$.
+\end{definition}
+
+\noindent
+La différente de Kähler est un faisceau quasi-cohérent d'idéaux sur $Y$.
+
+\begin{lemma}
+\label{lemma-base-change-kahler-different}
+Considérons un diagramme cartésien de schémas
+$$
+\xymatrix{
+Y' \ar[d]_{f'} \ar[r] & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+où $f$ est localement de type fini. Soit $R \subset Y$, resp.\ $R' \subset Y'$,
+le sous-schéma fermé défini par la différente de Kähler de $f$, resp.\ de $f'$.
+Alors $Y' \to Y$ induit un isomorphisme $R' \to R \times_Y Y'$.
+\end{lemma}
+
+\begin{proof}
+Cela tient au fait que $\Omega_{Y'/X'}$ est l'image inverse de $\Omega_{Y/X}$
+(Morphismes, lemme \ref{morphisms-lemma-base-change-differentials}) ;
+on peut alors appliquer
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-fitting-ideal-basics}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kahler-different}
+Soit $f : Y \to X$ un morphisme de schémas localement de type fini.
+Soit $R \subset Y$ le sous-schéma fermé défini par
+la différente de Kähler. Alors $R \subset Y$ est exactement
+l'ensemble des points où $f$ est ramifié.
+\end{lemma}
+
+\begin{proof}
+Il s'agit de l'énoncé de
+Diviseurs, lemme \ref{divisors-lemma-zero-fitting-ideal-omega-unramified}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kahler-different-complete-intersection}
+Soient $A$ un anneau, $n \geq 1$ et
+$f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$.
+Posons $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$.
+La différente de Kähler de $B$ sur $A$ est l'idéal
+de $B$ engendré par $\det(\partial f_i/\partial x_j)$.
+\end{lemma}
+
+\begin{proof}
+En effet, $\Omega_{B/A}$ admet la présentation
+$$
+\bigoplus\nolimits_{i = 1, \ldots, n} B f_i
+\xrightarrow{\text{d}}
+\bigoplus\nolimits_{j = 1, \ldots, n} B \text{d}x_j
+\rightarrow \Omega_{B/A} \rightarrow 0
+$$
+d'après Algèbre, lemme \ref{algebra-lemma-differential-seq}.
+\end{proof}
+
+
+
+\section{La différente de Dedekind}
+\label{section-dedekind-different}
+
+\noindent
+Soit $A \to B$ un homomorphisme d'anneaux. On dit que {\it la différente de Dedekind est définie}
+si $A$ est noethérien, $A \to B$ est fini,
+tout non-diviseur de zéro de $A$ reste un non-diviseur de zéro dans $B$, et $K \to L$ est
+étale, où $K = Q(A)$ et $L = B \otimes_A K$. Alors $K \subset L$ est
+fini étale et
+$$
+\mathcal{L}_{B/A} = \{x \in L \mid \text{Trace}_{L/K}(bx) \in A
+\text{ pour tout }b \in B\}
+$$
+est le module complémentaire de Dedekind. Dans cette situation, la
+{\it différente de Dedekind} est
+$$
+\mathfrak{D}_{B/A} = \{x \in L \mid x\mathcal{L}_{B/A} \subset B\}
+$$
+considérée comme un $B$-sous-module de $L$.
+D'après le lemme \ref{lemma-dedekind-different-ideal}, la différente de Dedekind est un
+idéal de $B$ si $A$ est normal ou si $B$ est plat sur $A$.
+
+\begin{lemma}
+\label{lemma-dedekind-different-ideal}
+Supposons que la différente de Dedekind de $A \to B$ soit définie. Considérons les assertions
+\begin{enumerate}
+\item $A \to B$ est plat ;
+\item $A$ est un anneau normal ;
+\item $\text{Trace}_{L/K}(B) \subset A$ ;
+\item $1 \in \mathcal{L}_{B/A}$ ;
+\item la différente de Dedekind $\mathfrak{D}_{B/A}$ est un idéal de $B$.
+\end{enumerate}
+On a alors (1) $\Rightarrow$ (3), (2) $\Rightarrow$ (3),
+(3) $\Leftrightarrow$ (4) et (4) $\Rightarrow$ (5).
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (3) et (4) ainsi que
+l'implication (4) $\Rightarrow$ (5) sont immédiates.
+
+\medskip\noindent
+Si $A \to B$ est plat, $\text{Trace}_{B/A} : B \to A$ est
+définie et $\text{Trace}_{L/K}$ s'en déduit par changement de base. On a donc (3).
+
+\medskip\noindent
+Si $A$ est normal, $A$ est un produit fini d'anneaux intègres normaux,
+et l'on se ramène donc au cas d'un anneau intègre normal. Alors $K$ est
+le corps des fractions de $A$, et $L = \prod L_i$ est un produit fini
+d'extensions finies séparables de $K$. On a
+$\text{Trace}_{L/K}(b) = \sum \text{Trace}_{L_i/K}(b_i)$,
+où $b_i \in L_i$ est l'image de $b$.
+Puisque $b$ est entier sur $A$, car $B$ est fini sur $A$,
+ces traces appartiennent à $A$. En effet, le
+polynôme minimal de $b_i$ sur $K$ a ses coefficients dans $A$
+(Algèbre, lemme \ref{algebra-lemma-minimal-polynomial-normal-domain}),
+et $\text{Trace}_{L_i/K}(b_i)$ est un
+multiple entier de l'un de ces coefficients
+(Corps, lemme \ref{fields-lemma-trace-and-norm-from-minimal-polynomial}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dedekind-complementary-module}
+Si la différente de Dedekind de $A \to B$ est définie, alors
+il existe un isomorphisme canonique
+$\mathcal{L}_{B/A} \to \omega_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+Rappelons que $\omega_{B/A} = \Hom_A(B, A)$ puisque $A \to B$ est fini.
+On envoie $x \in \mathcal{L}_{B/A}$ sur l'application
+$b \mapsto \text{Trace}_{L/K}(bx)$.
+Réciproquement, une application $A$-linéaire $\varphi : B \to A$
+fournit une application $K$-linéaire $\varphi_K : L \to K$. Puisque $K \to L$ est fini
+étale, la forme trace est non dégénérée
+(lemme \ref{lemma-discriminant}), et il existe donc $x \in L$ tel que
+$\varphi_K(y) = \text{Trace}_{L/K}(xy)$ pour tout $y \in L$.
+Alors $x \in \mathcal{L}_{B/A}$ s'envoie sur $\varphi$ dans $\omega_{B/A}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-dedekind-complementary-module-trace}
+Si la différente de Dedekind de $A \to B$ est définie et si $A \to B$ est plat, alors
+\begin{enumerate}
+\item l'isomorphisme canonique $\mathcal{L}_{B/A} \to \omega_{B/A}$
+envoie $1 \in \mathcal{L}_{B/A}$ sur l'élément trace
+$\tau_{B/A} \in \omega_{B/A}$ ;
+\item la différente de Dedekind est
+$\mathfrak{D}_{B/A} = \{b \in B \mid b\omega_{B/A} \subset B\tau_{B/A}\}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La première assertion
+résulte de la démonstration du lemme \ref{lemma-dedekind-different-ideal}
+et du lemme \ref{lemma-finite-flat-trace}.
+La deuxième découle immédiatement de la première et des
+définitions.
+\end{proof}
+
+
+
+\section{La différente}
+\label{section-different}
+
+\noindent
+La définition suivante est motivée par le fait qu'elle redonne la
+différente de Dedekind dans le cas fini plat, comme nous le verrons ci-dessous.
+
+\begin{definition}
+\label{definition-different}
+Soit $f : Y \to X$ un morphisme plat localement quasi-fini de
+schémas localement noethériens.
+Soient $\omega_{Y/X}$ le module dualisant relatif et
+$\tau_{Y/X} \in \Gamma(Y, \omega_{Y/X})$ l'élément trace
+(remarques \ref{remark-relative-dualizing-for-quasi-finite} et
+\ref{remark-relative-dualizing-for-flat-quasi-finite}).
+L'annulateur de
+$$
+\Coker(\mathcal{O}_Y \xrightarrow{\tau_{Y/X}} \omega_{Y/X})
+$$
+est la {\it différente} de $Y/X$. C'est un idéal cohérent
+$\mathfrak{D}_f \subset \mathcal{O}_Y$.
+\end{definition}
+
+\noindent
+Nous généraliserons ceci dans la remarque \ref{remark-different-generalization} ci-dessous.
+Remarquons que $\mathfrak{D}_f$ est localement engendré par un élément si
+$\omega_{Y/X}$ est un $\mathcal{O}_Y$-module inversible.
+Énonçons d'abord l'égalité avec la différente de Dedekind.
+
+\begin{lemma}
+\label{lemma-flat-agree-dedekind}
+Soit $f : Y \to X$ un morphisme plat quasi-fini de schémas noethériens.
+Soient $V = \Spec(B) \subset Y$, $U = \Spec(A) \subset X$
+des sous-schémas ouverts affines tels que $f(V) \subset U$.
+Si la différente de Dedekind de $A \to B$ est définie, alors
+$$
+\mathfrak{D}_f|_V = \widetilde{\mathfrak{D}_{B/A}}
+$$
+comme faisceaux cohérents d'idéaux sur $V$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des lemmes \ref{lemma-dedekind-different-ideal} et
+\ref{lemma-flat-dedekind-complementary-module-trace}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-gorenstein-agree-noether}
+Soit $f : Y \to X$ un morphisme plat quasi-fini de schémas noethériens.
+Soient $V = \Spec(B) \subset Y$, $U = \Spec(A) \subset X$
+des sous-schémas ouverts affines tels que $f(V) \subset U$.
+Si $\omega_{Y/X}|_V$ est inversible, c'est-à-dire si $\omega_{B/A}$
+est un $B$-module inversible, alors
+$$
+\mathfrak{D}_f|_V = \widetilde{\mathfrak{D}}
+$$
+comme faisceaux cohérents d'idéaux sur $V$, où
+$\mathfrak{D} \subset B$ est la différente de Noether de $B$ sur $A$.
+\end{lemma}
+
+\begin{proof}
+Considérons l'application
+$$
+\SheafHom_{\mathcal{O}_Y}(\omega_{Y/X}, \mathcal{O}_Y)
+\longrightarrow
+\mathcal{O}_Y,\quad
+\varphi \longmapsto \varphi(\tau_{Y/X})
+$$
+Son image correspond à la différente de Noether
+sur les ouverts affines, voir le lemme \ref{lemma-noether-different-flat-quasi-finite}.
+Le résultat découle donc du fait élémentaire suivant : étant donné
+un module inversible $\omega$ et une section globale $\tau$,
+l'image de
+$\tau : \SheafHom(\omega, \mathcal{O}) = \omega^{\otimes -1} \to \mathcal{O}$
+est égale à l'annulateur de $\Coker(\tau : \mathcal{O} \to \omega)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-different}
+Considérons un diagramme cartésien de schémas noethériens
+$$
+\xymatrix{
+Y' \ar[d]_{f'} \ar[r] & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+où $f$ est plat et quasi-fini. Soit $R \subset Y$, resp.\ $R' \subset Y'$,
+le sous-schéma fermé défini par la différente
+$\mathfrak{D}_f$, resp.\ $\mathfrak{D}_{f'}$.
+Alors $Y' \to Y$ induit une immersion fermée bijective $R' \to R \times_Y Y'$.
+Si $g$ est plat ou si $\omega_{Y/X}$ est inversible, alors
+$R' = R \times_Y Y'$.
+\end{lemma}
+
+\begin{proof}
+On se ramène immédiatement au cas où $X$, $X'$, $Y$, $Y'$
+sont affines. Autrement dit, on dispose d'un diagramme cocartésien d'anneaux
+noethériens
+$$
+\xymatrix{
+B' & B \ar[l] \\
+A' \ar[u] & A \ar[l] \ar[u]
+}
+$$
+où $A \to B$ est plat et quasi-fini. L'application de changement de base
+$\omega_{B/A} \otimes_B B' \to \omega_{B'/A'}$ est un isomorphisme
+(lemme \ref{lemma-dualizing-base-change-of-flat}) et envoie
+l'élément trace $\tau_{B/A}$ sur l'élément trace $\tau_{B'/A'}$
+(lemme \ref{lemma-trace-base-change}).
+Le $B$-module de type fini $Q = \Coker(\tau_{B/A} : B \to \omega_{B/A})$
+vérifie donc $Q \otimes_B B' = \Coker(\tau_{B'/A'} : B' \to \omega_{B'/A'})$.
+Ainsi $\mathfrak{D}_{B/A}B' \subset \mathfrak{D}_{B'/A'}$, ce qui signifie
+que l'on obtient l'immersion fermée $R' \to R \times_Y Y'$.
+Puisque $R = \text{Supp}(Q)$ et $R' = \text{Supp}(Q \otimes_B B')$
+(Algèbre, lemme \ref{algebra-lemma-support-closed}),
+on voit que $R' \to R \times_Y Y'$ est bijective d'après
+Algèbre, lemme \ref{algebra-lemma-support-base-change}.
+L'égalité $\mathfrak{D}_{B/A}B' = \mathfrak{D}_{B'/A'}$ est vraie
+si $B \to B'$ est plat, par exemple si $A \to A'$ est plat, voir
+Algèbre, lemme \ref{algebra-lemma-annihilator-flat-base-change}.
+Enfin, si $\omega_{B/A}$ est inversible, on peut localiser
+et supposer $\omega_{B/A} = B \lambda$. En écrivant $\tau_{B/A} = b\lambda$,
+on voit que $Q = B/bB$ et $\mathfrak{D}_{B/A} = bB$.
+Le même raisonnement sur $B'$
+donne $\mathfrak{D}_{B'/A'} = bB'$, ce qui démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-norm-different-in-discriminant}
+Soit $f : Y \to X$ un morphisme fini plat de schémas noethériens.
+Alors $\text{Norm}_f : f_*\mathcal{O}_Y \to \mathcal{O}_X$ envoie
+$f_*\mathfrak{D}_f$ dans le faisceau d'idéaux du discriminant $D_f$.
+\end{lemma}
+
+\begin{proof}
+L'application norme est construite dans
+Diviseurs, lemme \ref{divisors-lemma-finite-locally-free-has-norm},
+et le discriminant de $f$ dans la section \ref{section-discriminant}.
+La question est locale sur les ouverts affines ; on peut donc supposer $X = \Spec(A)$,
+$Y = \Spec(B)$ et $f$ donné par un homomorphisme fini localement libre d'anneaux $A \to B$.
+En localisant davantage, on peut supposer $B$ libre de type fini comme $A$-module.
+Choisissons une base $b_1, \ldots, b_n \in B$ de $B$ comme $A$-module.
+Notons $b_1^\vee, \ldots, b_n^\vee$ la base duale de
+$\omega_{B/A} = \Hom_A(B, A)$ comme $A$-module.
+Puisque la norme de $b$ est le déterminant de $b : B \to B$ comme
+application $A$-linéaire, on a
+$\text{Norm}_{B/A}(b) = \det(b_i^\vee(bb_j))$.
+Le discriminant est le sous-schéma fermé principal de $\Spec(A)$
+défini par $\det(\text{Trace}_{B/A}(b_ib_j))$.
+Si $b \in \mathfrak{D}_{B/A}$, alors
+il existe $c_i \in B$ tels que
+$b \cdot b_i^\vee = c_i \cdot \text{Trace}_{B/A}$, où
+le point désigne la structure de $B$-module sur $\omega_{B/A}$.
+Écrivons $c_i = \sum a_{il} b_l$.
+On a
+\begin{align*}
+\text{Norm}_{B/A}(b)
+& =
+\det(b_i^\vee(bb_j)) \\
+& =
+\det( (b \cdot b_i^\vee)(b_j)) \\
+& =
+\det((c_i \cdot \text{Trace}_{B/A})(b_j)) \\
+& =
+\det(\text{Trace}_{B/A}(c_ib_j)) \\
+& =
+\det(a_{il}) \det(\text{Trace}_{B/A}(b_l b_j))
+\end{align*}
+ce qui démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-different-ramification}
+Soit $f : Y \to X$ un morphisme plat quasi-fini de schémas noethériens.
+Le sous-schéma fermé $R \subset Y$ défini par la différente $\mathfrak{D}_f$
+est exactement l'ensemble des points où $f$ n'est pas étale
+(ou, de façon équivalente, est ramifié).
+\end{lemma}
+
+\begin{proof}
+Puisque $f$ est de présentation finie et plat, il est étale
+en un point si et seulement s'il est non ramifié en ce point. De plus, la
+formation du lieu des points ramifiés commute au changement de base.
+Voir Morphismes, section \ref{morphisms-section-etale}, et notamment
+Morphismes, lemme \ref{morphisms-lemma-set-points-where-fibres-etale}.
+D'après le lemme \ref{lemma-base-change-different}, la formation de $R$ commute,
+ensemblistement, au changement de base. Il suffit donc de démontrer le
+lemme lorsque $X$ est le spectre d'un corps. D'autre part, la
+construction de $(\omega_{Y/X}, \tau_{Y/X})$ est locale sur $Y$.
+Puisque $Y$ est un espace discret fini (étant quasi-fini
+sur un corps), on peut supposer que $Y$ possède un unique point.
+
+\medskip\noindent
+Écrivons $X = \Spec(k)$ et $Y = \Spec(B)$, où $k$ est un corps et $B$ une
+$k$-algèbre locale finie. Si $Y \to X$ est étale, alors
+$B$ est une extension finie séparable de $k$, et l'élément
+trace $\text{Trace}_{B/k}$ est un élément de base de $\omega_{B/k}$
+d'après Corps, lemme \ref{fields-lemma-separable-trace-pairing}.
+Ainsi $\mathfrak{D}_{B/k} = B$ dans ce cas.
+Réciproquement, si $\mathfrak{D}_{B/k} = B$, le
+lemme \ref{lemma-norm-different-in-discriminant}
+et le fait que la norme de $1$ est $1$ montrent que le
+discriminant est vide. Par conséquent,
+$Y \to X$ est étale d'après le lemme \ref{lemma-discriminant}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-norm-different-is-discriminant}
+Soit $f : Y \to X$ un morphisme plat quasi-fini de schémas noethériens.
+Soit $R \subset Y$ le sous-schéma fermé défini par $\mathfrak{D}_f$.
+\begin{enumerate}
+\item Si $\omega_{Y/X}$ est inversible,
+alors $R$ est un sous-schéma fermé localement principal de $Y$.
+\item Si $\omega_{Y/X}$ est inversible et $f$ fini, alors
+la norme de $R$ est le discriminant $D_f$ de $f$.
+\item Si $\omega_{Y/X}$ est inversible et $f$
+est étale aux points associés de $Y$, alors $R$
+est un diviseur de Cartier effectif et l'on a un
+isomorphisme $\mathcal{O}_Y(R) = \omega_{Y/X}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). On peut travailler localement sur $Y$, donc supposer
+$\omega_{Y/X}$ libre de rang $1$. Écrivons $\omega_{Y/X} = \mathcal{O}_Y\lambda$.
+On peut alors écrire $\tau_{Y/X} = h \lambda$, et l'on voit que
+$R$ est défini par $h$, c'est-à-dire que $R$ est localement principal.
+
+\medskip\noindent
+Preuve de (2). On peut supposer que $Y \to X$ est donné par un homomorphisme fini libre
+d'anneaux $A \to B$ et que $\omega_{B/A}$ est libre de rang $1$ comme $B$-module.
+Choisissons une $B$-base $\lambda$ de $\omega_{B/A}$ et écrivons
+$\text{Trace}_{B/A} = b \cdot \lambda$ avec $b \in B$.
+Alors $\mathfrak{D}_{B/A} = (b)$, et $D_f$ est défini par
+$\det(\text{Trace}_{B/A}(b_ib_j))$, où $b_1, \ldots, b_n$ est une
+base de $B$ comme $A$-module. Soit $b_1^\vee, \ldots, b_n^\vee$
+la base duale.
+En écrivant $b_i^\vee = c_i \cdot \lambda$, on voit que
+$c_1, \ldots, c_n$ est également une base de $B$.
+Ainsi, en posant $c_i = \sum a_{il}b_l$, on voit que $\det(a_{il})$
+est inversible dans $A$. Il est clair que
+$b \cdot b_i^\vee = c_i \cdot \text{Trace}_{B/A}$ ;
+on conclut donc du calcul fait dans la démonstration du
+lemme \ref{lemma-norm-different-in-discriminant}
+que $\text{Norm}_{B/A}(b)$ est le produit d'une unité par
+$\det(\text{Trace}_{B/A}(b_ib_j))$.
+
+\medskip\noindent
+Preuve de (3). Avec les notations ci-dessus, le
+lemme \ref{lemma-different-ramification} et l'hypothèse montrent
+que $h$ ne s'annule pas aux
+points associés de $Y$, ce qui entraîne que $h$ est un non-diviseur de zéro.
+L'isomorphisme canonique envoie $1$ sur $\tau_{Y/X}$, voir
+Diviseurs, lemme \ref{divisors-lemma-characterize-OD}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Morphismes quasi-finis syntomiques}
+\label{section-quasi-finite-syntomic}
+
+\noindent
+Cette section établit qu'un morphisme quasi-fini syntomique
+possède un module dualisant relatif inversible.
+
+\begin{lemma}
+\label{lemma-syntomic-quasi-finite}
+Soit $f : Y \to X$ un morphisme de schémas. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est localement quasi-fini et syntomique ;
+\item $f$ est localement quasi-fini, plat et localement d'intersection
+complète ;
+\item $f$ est localement quasi-fini, plat, localement de présentation finie,
+et les fibres de $f$ sont localement des intersections complètes ;
+\item $f$ est localement quasi-fini et, pour tout $y \in Y$, il existe des
+ouverts affines $y \in V = \Spec(B) \subset Y$, $U = \Spec(A) \subset X$
+avec $f(V) \subset U$, un entier $n$ et
+$h, f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$ tels que
+$B = A[x_1, \ldots, x_n, 1/h]/(f_1, \ldots, f_n)$ ;
+\item pour tout $y \in Y$, il existe des ouverts affines
+$y \in V = \Spec(B) \subset Y$, $U = \Spec(A) \subset X$
+avec $f(V) \subset U$ tels que $A \to B$ soit une intersection complète globale
+relative de la forme $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ ;
+\item $f$ est localement quasi-fini, plat, localement de présentation finie,
+et $\NL_{Y/X}$ est de Tor-amplitude contenue dans $[-1, 0]$ ;
+\item $f$ est plat, localement de présentation finie,
+$\NL_{Y/X}$ est parfait de rang $0$ et de Tor-amplitude contenue dans $[-1, 0]$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) et (2) est donnée par
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-flat-lci}.
+L'équivalence de (1) et (3) est donnée par
+Morphismes, lemme \ref{morphisms-lemma-syntomic-flat-fibres}.
+
+\medskip\noindent
+Si $A \to B$ est comme dans (4), alors
+$B = A[x, x_1, \ldots, x_n]/(xh - 1, f_1, \ldots, f_n)$
+est une intersection complète globale relative, voir Algèbre, définition
+\ref{algebra-definition-relative-global-complete-intersection}.
+Ainsi (4) entraîne (5).
+Il est clair que (5) entraîne (4).
+
+\medskip\noindent
+La condition (5) entraîne (1) : d'après
+Algèbre, lemme \ref{algebra-lemma-relative-global-complete-intersection},
+une intersection complète globale relative est syntomique, et
+la définition d'une intersection complète globale relative
+garantit qu'une telle intersection à
+$n$ variables et $n$ équations est quasi-finie, voir
+Algèbre, définition
+\ref{algebra-definition-relative-global-complete-intersection} et
+lemme \ref{algebra-lemma-isolated-point-fibre}.
+
+\medskip\noindent
+Algèbre, lemme \ref{algebra-lemma-syntomic}, ou
+Morphismes, lemme \ref{morphisms-lemma-syntomic-locally-standard-syntomic},
+montre que (1) entraîne (5).
+
+\medskip\noindent
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-flat-fp-NL-lci}, montre que
+(6) équivaut à (1). Si les conditions équivalentes (1) -- (6) sont satisfaites,
+on voit que, localement sur les ouverts affines, $Y \to X$ est donné par une intersection complète
+globale relative $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$
+ayant autant de variables que
+d'équations. Cette présentation donne
+$$
+\NL_{B/A} =\left(
+(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n} B \text{d} x_i\right)
+$$
+D'après Algèbre, lemme
+\ref{algebra-lemma-relative-global-complete-intersection-conormal},
+le module $(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2$
+est libre, de base formée des classes des éléments
+$f_1, \ldots, f_n$. Ainsi $\NL_{B/A}$ est de rang $0$, de même que $\NL_{Y/X}$.
+On voit ainsi que (1) -- (6) entraînent (7).
+
+\medskip\noindent
+Enfin, supposons (7). D'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-flat-fp-NL-lci},
+le morphisme $f$ est syntomique. Sur des ouverts affines convenables,
+$f$ est donc donné par une intersection complète globale relative
+$A \to B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$, voir
+Morphismes, lemme \ref{morphisms-lemma-syntomic-locally-standard-syntomic}.
+Exactement comme ci-dessus, on voit que $\NL_{B/A}$ est un complexe parfait
+de rang $n - m$. Ainsi $n = m$ et la condition (5) est satisfaite.
+La démonstration est achevée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-invertible}
+Inversibilité du module dualisant relatif.
+\begin{enumerate}
+\item Si $A \to B$ est un homomorphisme quasi-fini plat d'anneaux noethériens,
+alors $\omega_{B/A}$ est un $B$-module inversible si et seulement si
+$\omega_{B \otimes_A \kappa(\mathfrak p)/\kappa(\mathfrak p)}$
+est un $B \otimes_A \kappa(\mathfrak p)$-module inversible
+pour tout idéal premier $\mathfrak p \subset A$.
+\item Si $Y \to X$ est un morphisme quasi-fini plat de
+schémas noethériens, alors $\omega_{Y/X}$ est inversible
+si et seulement si $\omega_{Y_x/x}$ est inversible pour tout $x \in X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Preuve de (1). Comme $A \to B$ est plat, le module
+$\omega_{B/A}$ est $A$-plat, voir le lemme \ref{lemma-dualizing-base-flat-flat}.
+Ainsi $\omega_{B/A}$ est un $B$-module inversible si et seulement si
+$\omega_{B/A} \otimes_A \kappa(\mathfrak p)$
+est un $B \otimes_A \kappa(\mathfrak p)$-module inversible pour
+tout idéal premier $\mathfrak p \subset A$, voir Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-flat-and-free-at-point-fibre}.
+Toujours par platitude de $A \to B$, la
+formation de $\omega_{B/A}$ commute au changement de base, voir le
+lemme \ref{lemma-dualizing-base-change-of-flat}.
+On voit donc que, sous l'hypothèse de platitude, l'inversibilité du module dualisant relatif
+équivaut à l'inversibilité
+du module dualisant relatif pour les homomorphismes
+$\kappa(\mathfrak p) \to B \otimes_A \kappa(\mathfrak p)$.
+
+\medskip\noindent
+L'assertion (2) découle de (1) et de ce que, localement sur les ouverts affines,
+les modules dualisants sont donnés par leurs analogues algébriques, voir la
+remarque \ref{remark-relative-dualizing-for-quasi-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dim-zero-global-complete-intersection-over-field}
+Soit $k$ un corps. Soit $B = k[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$
+une intersection complète globale sur $k$, de dimension $0$.
+Alors $\omega_{B/k}$ est inversible.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme de normalisation de Noether, voir
+Algèbre, lemme \ref{algebra-lemma-Noether-normalization},
+il existe une injection finie $k \to B$, c'est-à-dire
+$\dim_k(B) < \infty$. Ainsi $\omega_{B/k} = \Hom_k(B, k)$
+comme $B$-module.
+D'après Complexes dualisants, lemme \ref{dualizing-lemma-dualizing-finite},
+$R\Hom(B, k)$ est un complexe dualisant de $B$,
+et Complexes dualisants, lemme \ref{dualizing-lemma-RHom-ext},
+montre que $R\Hom(B, k)$ est égal à $\omega_{B/k}$
+placé en degré $0$. Il suffit donc de montrer que
+$B$ est de Gorenstein
+(Complexes dualisants, lemme \ref{dualizing-lemma-gorenstein}).
+C'est le cas d'après Complexes dualisants, lemme
+\ref{dualizing-lemma-gorenstein-lci}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dualizing-syntomic-quasi-finite}
+Soit $f : Y \to X$ un morphisme de schémas localement noethériens. Si $f$
+vérifie les conditions équivalentes du lemme \ref{lemma-syntomic-quasi-finite},
+alors $\omega_{Y/X}$ est un $\mathcal{O}_Y$-module inversible.
+\end{lemma}
+
+\begin{proof}
+On peut supposer que $A \to B$ est une intersection complète globale
+relative de la forme $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$,
+et il faut montrer que $\omega_{B/A}$ est inversible.
+Cela résulte de la combinaison des lemmes \ref{lemma-characterize-invertible} et
+\ref{lemma-dim-zero-global-complete-intersection-over-field}.
+\end{proof}
+
+\begin{example}
+\label{example-universal-quasi-finite-syntomic}
+Soient $n \geq 1$ et $d \geq 1$ des entiers. Soit $T$ l'ensemble des
+multi-indices $E = (e_1, \ldots, e_n)$ tels que $e_i \geq 0$ et
+$\sum e_i \leq d$. Considérons l'anneau
+$$
+A = \mathbf{Z}[a_{i, E} ; 1 \leq i \leq n, E \in T]
+$$
+Dans $A[x_1, \ldots, x_n]$, considérons les éléments
+$f_i = \sum_{E \in T} a_{i, E} x^E$, où $x^E = x_1^{e_1} \ldots x_n^{e_n}$
+suivant la notation usuelle. Considérons la $A$-algèbre
+$$
+B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+Notons $X_{n, d} = \Spec(A)$ et soit $Y_{n, d} \subset \Spec(B)$
+le plus grand sous-schéma ouvert sur lequel la restriction du
+morphisme $\Spec(B) \to \Spec(A) = X_{n, d}$ est quasi-finie, voir
+Algèbre, lemme \ref{algebra-lemma-quasi-finite-open}.
+\end{example}
+
+\begin{lemma}
+\label{lemma-universal-quasi-finite-syntomic-etale}
+Avec les notations de l'exemple \ref{example-universal-quasi-finite-syntomic},
+les schémas $X_{n, d}$ et $Y_{n, d}$ sont réguliers et irréductibles,
+le morphisme $Y_{n, d} \to X_{n, d}$ est localement quasi-fini et
+syntomique, et il existe un sous-schéma ouvert dense $V \subset Y_{n, d}$
+tel que $Y_{n, d} \to X_{n, d}$ se restreigne en un morphisme étale
+$V \to X_{n, d}$.
+\end{lemma}
+
+\begin{proof}
+Le schéma $X_{n, d}$ est le spectre de l'anneau de polynômes $A$.
+Ainsi $X_{n, d}$ est régulier et irréductible. Puisque l'on peut écrire
+$$
+f_i = a_{i, (0, \ldots, 0)} +
+\sum\nolimits_{E \in T, E \not = (0, \ldots, 0)} a_{i, E} x^E
+$$
+on voit que l'anneau $B$ est isomorphe à l'anneau de polynômes
+en $x_1, \ldots, x_n$ et en les éléments $a_{i, E}$ tels que
+$E \not = (0, \ldots, 0)$. Ainsi $\Spec(B)$ est un schéma irréductible et
+régulier, de même que l'ouvert $Y_{n, d}$. Le morphisme
+$Y_{n, d} \to X_{n, d}$ est localement quasi-fini et syntomique d'après le
+lemme \ref{lemma-syntomic-quasi-finite}. Pour trouver $V$, il suffit
+de trouver un point où $Y_{n, d} \to X_{n, d}$ est étale
+(le lieu des points où un morphisme est étale est ouvert par
+définition). Il suffit donc de trouver un point de $X_{n, d}$
+où la fibre de $Y_{n, d} \to X_{n, d}$ est non vide et étale, voir
+Morphismes, lemme \ref{morphisms-lemma-etale-at-point}. Choisissons
+le point correspondant à l'homomorphisme d'anneaux $\chi : A \to \mathbf{Q}$
+envoyant $f_i$ sur $x_i^d - 1$. Alors
+$$
+B \otimes_{A, \chi} \mathbf{Q} =
+\mathbf{Q}[x_1, \ldots, x_n]/(x_1^d - 1, \ldots, x_n^d - 1)
+$$
+est une algèbre étale non nulle sur $\mathbf{Q}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-comes-from-universal}
+Soit $f : Y \to X$ un morphisme de schémas. Si $f$ vérifie les conditions équivalentes
+du lemme \ref{lemma-syntomic-quasi-finite}, alors, pour tout
+$y \in Y$, il existe $n, d$ et un diagramme commutatif
+$$
+\xymatrix{
+Y \ar[d] &
+V \ar[d] \ar[l] \ar[r] &
+Y_{n, d} \ar[d] \\
+X & U \ar[l] \ar[r] &
+X_{n, d}
+}
+$$
+où $U \subset X$ et $V \subset Y$ sont ouverts, avec $y \in V$,
+où $Y_{n, d} \to X_{n, d}$
+est comme dans l'exemple \ref{example-universal-quasi-finite-syntomic}, et
+où le carré de droite est cartésien.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-syntomic-quasi-finite},
+on peut choisir $U$ et $V$ affines, de sorte que
+$U = \Spec(R)$ et $V = \Spec(S)$ avec
+$S = R[y_1, \ldots, y_n]/(g_1, \ldots, g_n)$.
+Avec les notations de l'exemple \ref{example-universal-quasi-finite-syntomic},
+si l'on choisit $d$ assez grand, on peut écrire chaque $g_i$ sous la forme
+$g_i = \sum_{E \in T} g_{i, E}y^E$ avec $g_{i, E} \in R$.
+L'application $A \to R$ envoyant $a_{i, E}$ sur $g_{i, E}$
+et l'application $B \to S$ envoyant $x_i \to y_i$ donnent alors un diagramme cocartésien
+d'anneaux
+$$
+\xymatrix{
+S & B \ar[l] \\
+R \ar[u] & A \ar[l] \ar[u]
+}
+$$
+ce qui démontre le lemme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Morphismes finis syntomiques}
+\label{section-finite-syntomic}
+
+\noindent
+Cette section est l'analogue de la section \ref{section-quasi-finite-syntomic}
+pour les morphismes finis syntomiques.
+
+\begin{lemma}
+\label{lemma-syntomic-finite}
+Soit $f : Y \to X$ un morphisme de schémas. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est fini et syntomique ;
+\item $f$ est fini, plat et localement d'intersection complète ;
+\item $f$ est fini, plat, localement de présentation finie,
+et les fibres de $f$ sont localement des intersections complètes ;
+\item $f$ est fini et, pour tout $x \in X$, il existe un
+ouvert affine $x \in U = \Spec(A) \subset X$, un entier $n$
+et $f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$ tels que
+$f^{-1}(U)$ soit isomorphe au spectre de
+$A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ ;
+\item $f$ est fini, plat, localement de présentation finie,
+et $\NL_{X/Y}$ est de Tor-amplitude contenue dans $[-1, 0]$ ;
+\item $f$ est fini, plat, localement de présentation finie, et
+$\NL_{X/Y}$ est parfait de rang $0$ et de Tor-amplitude contenue dans $[-1, 0]$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1), (2), (3), (5) et (6)
+ainsi que l'implication (4) $\Rightarrow$ (1) résultent immédiatement
+du lemme \ref{lemma-syntomic-quasi-finite}. Supposons les conditions équivalentes
+(1), (2), (3), (5), (6) satisfaites.
+Choisissons un point $x \in X$ et un voisinage ouvert affine $U = \Spec(A)$
+de $x$ dans $X$, et supposons que $x$ corresponde à l'idéal premier
+$\mathfrak p \subset A$. Écrivons $f^{-1}(U) = \Spec(B)$.
+Écrivons $B = A[x_1, \ldots, x_n]/I$. Puisque $\NL_{B/A}$
+est parfait de Tor-amplitude contenue dans $[-1, 0]$ d'après (6),
+on voit que $I/I^2$ est un $B$-module fini localement libre
+de rang $n$. Puisque $B_\mathfrak p$ est semi-local,
+$(I/I^2)_\mathfrak p$ est libre de rang $n$, voir
+Algèbre, lemme \ref{algebra-lemma-locally-free-semi-local-free}.
+Ainsi, en remplaçant $A$ par sa localisation principale en
+un élément n'appartenant pas à $\mathfrak p$, on peut supposer que $I/I^2$
+est un $B$-module libre de rang $n$.
+D'après Algèbre, lemme \ref{algebra-lemma-huber},
+on peut donc trouver une présentation de $B$ sur $A$
+ayant autant de variables que d'équations. Autrement dit,
+on peut supposer $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$.
+Cela démontre (4).
+\end{proof}
+
+\begin{example}
+\label{example-universal-finite-syntomic}
+Soit $d \geq 1$ un entier. Considérons des variables
+$a_{ij}^l$ pour $1 \leq i, j, l \leq d$, et notons
+$$
+A_d = \mathbf{Z}[a_{ij}^k]/J
+$$
+où $J$ est l'idéal engendré par les éléments
+$$
+\left\{
+\begin{matrix}
+\sum_l a_{ij}^la_{lk}^m - \sum_l a_{il}^ma_{jk}^l & \forall i, j, k, m \\
+a_{ij}^k - a_{ji}^k & \forall i, j, k \\
+a_{i1}^j - \delta_{ij} & \forall i, j
+\end{matrix}
+\right.
+$$
+où $\delta_{ij}$ désigne le symbole de Kronecker.
+On définit une $A_d$-algèbre $B_d$ comme suit : comme $A_d$-module, on pose
+$$
+B_d = A_d e_1 \oplus \ldots \oplus A_d e_d
+$$
+La structure d'algèbre est donnée par $A_d \to B_d$ envoyant $1$ sur $e_1$.
+La multiplication sur $B_d$ est l'application $A_d$-bilinéaire
+$$
+m : B_d \times B_d \longrightarrow B_d, \quad
+m(e_i, e_j) = \sum a_{ij}^k e_k
+$$
+On vérifie sans difficulté que les relations ci-dessus
+imposent exactement une structure de $A_d$-algèbre.
+Le morphisme
+$$
+\pi_d : Y_d = \Spec(B_d) \longrightarrow \Spec(A_d) = X_d
+$$
+est le morphisme fini libre « universel » de rang $d$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-universal-finite-syntomic}
+Avec les notations de l'exemple \ref{example-universal-finite-syntomic},
+il existe un sous-schéma ouvert $U_d \subset X_d$ possédant la propriété suivante :
+un morphisme de schémas $X \to X_d$ se factorise par $U_d$ si et seulement
+si $Y_d \times_{X_d} X \to X$ est syntomique.
+\end{lemma}
+
+\begin{proof}
+Rappelons qu'être syntomique équivaut à être plat et
+localement d'intersection complète, voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-flat-lci}.
+L'ensemble $W_d \subset Y_d$ des points où $\pi_d$ est de Koszul
+est ouvert dans $Y_d$, et sa formation commute à tout changement de base, voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-base-change-lci-fibres}.
+Puisque $\pi_d$ est fini, donc fermé,
+$Z = \pi_d(Y_d \setminus W_d)$ est fermé. Comme on a manifestement $U_d = X_d \setminus Z$
+et que sa formation commute au changement de base, le lemme
+en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universal-finite-syntomic-smooth}
+Avec les notations de l'exemple \ref{example-universal-finite-syntomic}
+et $U_d$ comme dans le lemme \ref{lemma-universal-finite-syntomic},
+le schéma $U_d$ est lisse sur $\Spec(\mathbf{Z})$.
+\end{lemma}
+
+\begin{proof}
+Utilisons Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-lifting-along-artinian-at-point},
+pour montrer que $U_d \to \Spec(\mathbf{Z})$ est lisse.
+Supposons donc que $\Spec(A) \to U_d$ soit un morphisme
+et que $A' \to A$ soit une petite extension. Alors $B = A \otimes_{A_d} B_d$
+est une $A$-algèbre finie libre, syntomique sur $A$
+(par construction de $U_d$). D'après
+Lissage des homomorphismes d'anneaux, proposition \ref{smoothing-proposition-lift-smooth},
+il existe un homomorphisme syntomique d'anneaux $A' \to B'$ tel que
+$B \cong B' \otimes_{A'} A$. Posons $e'_1 = 1 \in B'$. Pour $1 < i \leq d$,
+choisissons des relèvements $e'_i \in B'$ des éléments
+$1 \otimes e_i \in A \otimes_{A_d} B_d = B$. Alors $e'_1, \ldots, e'_d$
+est une base de $B'$ sur $A'$ (voir par exemple Algèbre, lemme
+\ref{algebra-lemma-local-artinian-basis-when-flat}).
+On peut donc écrire $e'_i e'_j = \sum \alpha_{ij}^l e'_l$ pour d'uniques
+éléments $\alpha_{ij}^l \in A'$ vérifiant les relations
+$\sum_l \alpha_{ij}^l \alpha_{lk}^m = \sum_l \alpha_{il}^m \alpha _{jk}^l$
+et $\alpha_{ij}^k = \alpha_{ji}^k$ et $\alpha_{i1}^j = \delta_{ij}$
+dans $A'$. Cela détermine un morphisme $\Spec(A') \to X_d$ en
+envoyant $a_{ij}^l \in A_d$ sur $\alpha_{ij}^l \in A'$. Ce morphisme
+coïncide avec le morphisme donné $\Spec(A) \to U_d$. Puisque $\Spec(A')$
+et $\Spec(A)$ ont le même espace topologique sous-jacent, on obtient
+le relèvement voulu $\Spec(A') \to U_d$, et l'on
+conclut que $U_d$ est lisse sur $\mathbf{Z}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universal-finite-syntomic-etale}
+Avec les notations de l'exemple \ref{example-universal-finite-syntomic},
+considérons le sous-schéma ouvert $U'_d \subset X_d$ au-dessus duquel
+$\pi_d$ est étale. Alors $U'_d$ est une partie dense de
+l'ouvert $U_d$ du lemme \ref{lemma-universal-finite-syntomic}.
+\end{lemma}
+
+\begin{proof}
+En raisonnant exactement comme dans la démonstration du
+lemme \ref{lemma-universal-finite-syntomic}, à l'aide de
+Morphismes, lemme \ref{morphisms-lemma-set-points-where-fibres-etale},
+on obtient un plus grand ouvert $U'_d \subset X_d$ au-dessus duquel $\pi_d$ est
+étale. De plus, un morphisme étale étant syntomique, on voit
+que $U'_d \subset U_d$. Pour achever la démonstration, il faut montrer
+que $U'_d \subset U_d$ est dense. Soit $u : \Spec(k) \to U_d$ un morphisme,
+où $k$ est un corps. Soit $B = k \otimes_{A_d} B_d$ comme dans la
+démonstration du lemme \ref{lemma-universal-finite-syntomic-smooth}.
+Nous allons montrer qu'il existe un anneau local intègre $A'$ de corps résiduel $k$
+et une $A'$-algèbre finie syntomique $B'$ avec $B = k \otimes_{A'} B'$
+dont la fibre générique est étale. Exactement comme au paragraphe précédent,
+cela déterminera un morphisme $\Spec(A') \to U_d$ envoyant le
+point générique dans $U'_d$ et le point fermé sur $u$, ce qui
+achèvera la démonstration.
+
+\medskip\noindent
+D'après l'assertion (4) du lemme \ref{lemma-syntomic-finite}, on peut choisir une présentation
+$B = k[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$.
+Soit $d'$ le maximum des degrés totaux des polynômes $f_1, \ldots, f_n$.
+Soit $Y_{n, d'} \to X_{n, d'}$ comme dans
+l'exemple \ref{example-universal-quasi-finite-syntomic}.
+Par construction, il existe un morphisme $u' : \Spec(k) \to X_{n, d'}$
+tel que
+$$
+\Spec(B) \cong Y_{n, d'} \times_{X_{n, d'}, u'} \Spec(k)
+$$
+Notons $A = \mathcal{O}_{X_{n, d'}, u'}^h$ le hensélisé de
+l'anneau local de $X_{n, d'}$ à l'image de $u'$. On peut alors écrire
+$$
+Y_{n, d'} \times_{X_{n, d'}} \Spec(A) = Z \amalg W
+$$
+avec $Z \to \Spec(A)$ fini et $W \to \Spec(A)$ de fibre
+fermée vide, voir
+Algèbre, assertion (13) du lemme \ref{algebra-lemma-characterize-henselian},
+ou la discussion dans Compléments sur les morphismes, section
+\ref{more-morphisms-section-etale-localization}.
+D'après le lemme \ref{lemma-universal-quasi-finite-syntomic-etale},
+l'anneau local $A$ est régulier (on utilise également ici
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-henselization-regular}),
+et le morphisme $Z \to \Spec(A)$ est étale au-dessus du point générique de
+$\Spec(A)$ (car celui-ci s'envoie sur le point générique de $X_{d, n'}$).
+Par construction, $Z \times_{\Spec(A)} \Spec(k) \cong \Spec(B)$.
+Cela donne le résultat voulu, à ceci près que l'application du
+corps résiduel de $A$ vers $k$ n'est pas nécessairement un isomorphisme.
+D'après Algèbre, lemme \ref{algebra-lemma-flat-local-given-residue-field},
+il existe un homomorphisme local plat d'anneaux $A \to A'$ tel que le corps résiduel
+de $A'$ soit $k$. Si $A'$ n'est pas intègre, on choisit un
+idéal premier minimal $\mathfrak p \subset A'$ (situé au-dessus de
+l'unique idéal premier minimal de $A$ par platitude) et l'on remplace
+$A'$ par $A'/\mathfrak p$. On prend pour $B'$ l'unique $A'$-algèbre
+telle que $Z \times_{\Spec(A)} \Spec(A') = \Spec(B')$.
+La démonstration est achevée.
+\end{proof}
+
+\begin{remark}
+\label{remark-universal-finite-syntomic-smooth-top}
+Soit $\pi_d : Y_d \to X_d$ comme dans
+l'exemple \ref{example-universal-finite-syntomic}.
+Soit $U_d \subset X_d$ le plus grand ouvert au-dessus duquel
+$V_d = \pi_d^{-1}(U_d)$ est fini syntomique, comme dans le
+lemme \ref{lemma-universal-finite-syntomic}.
+Alors $V_d$ est également lisse sur $\mathbf{Z}$.
+(Bien entendu, le morphisme $V_d \to U_d$ n'est pas lisse lorsque $d \geq 2$.)
+En raisonnant comme dans la démonstration du lemme \ref{lemma-universal-finite-syntomic-smooth},
+on voit que cela correspond au problème de déformation
+suivant : étant donné une petite extension $C' \to C$ et
+une $C$-algèbre finie syntomique $B$ munie d'une section $B \to C$,
+trouver une $C'$-algèbre finie syntomique $B'$ et une section $B' \to C'$
+dont le produit tensoriel avec $C$ redonne $B \to C$.
+D'après le lemme \ref{lemma-syntomic-finite}, on peut écrire
+$B = C[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ comme
+une intersection complète globale relative.
+Après un changement de coordonnées, on peut supposer
+$x_1, \ldots, x_n$ dans le noyau de $B \to C$.
+Les polynômes $f_i$ ont alors un terme constant nul.
+Choisissons des relèvements quelconques $f'_i \in C'[x_1, \ldots, x_n]$ de $f_i$
+ayant un terme constant nul. Alors
+$B' = C'[x_1, \ldots, x_n]/(f'_1, \ldots, f'_n)$,
+avec la section $B' \to C'$ envoyant $x_i$ sur zéro, convient.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-locally-comes-from-universal-finite}
+Soit $f : Y \to X$ un morphisme de schémas. Si $f$ vérifie les conditions équivalentes
+du lemme \ref{lemma-syntomic-finite}, alors, pour tout
+$x \in X$, il existe un $d$ et un diagramme commutatif
+$$
+\xymatrix{
+Y \ar[d] &
+V \ar[d] \ar[l] \ar[r] &
+V_d \ar[d] \ar[r] &
+Y_d \ar[d]^{\pi_d}\\
+X &
+U \ar[l] \ar[r] &
+U_d \ar[r] &
+X_d
+}
+$$
+possédant les propriétés suivantes :
+\begin{enumerate}
+\item $U \subset X$ est ouvert, $x \in U$ et $V = f^{-1}(U)$ ;
+\item $\pi_d : Y_d \to X_d$ est comme dans
+l'exemple \ref{example-universal-finite-syntomic} ;
+\item $U_d \subset X_d$ est comme dans le lemme \ref{lemma-universal-finite-syntomic}
+et $V_d = \pi_d^{-1}(U_d) \subset Y_d$ ;
+\item le carré du milieu est cartésien.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un voisinage ouvert affine $U = \Spec(A) \subset X$ de $x$.
+Écrivons $V = f^{-1}(U) = \Spec(B)$. Alors $B$ est un
+$A$-module fini localement libre, et l'inclusion $A \subset B$ est localement un facteur direct.
+En rétrécissant $U$, on peut donc choisir une base $1 = e_1, e_2, \ldots, e_d$
+de $B$ comme $A$-module. Écrivons
+$e_i e_j = \sum \alpha_{ij}^l e_l$ pour d'uniques
+éléments $\alpha_{ij}^l \in A$ vérifiant les relations
+$\sum_l \alpha_{ij}^l \alpha_{lk}^m = \sum_l \alpha_{il}^m \alpha _{jk}^l$
+et $\alpha_{ij}^k = \alpha_{ji}^k$ et $\alpha_{i1}^j = \delta_{ij}$
+dans $A$. Cela détermine un morphisme $\Spec(A) \to X_d$ en envoyant
+$a_{ij}^l \in A_d$ sur $\alpha_{ij}^l \in A$. Par construction,
+$V \cong \Spec(A) \times_{X_d} Y_d$. La définition de $U_d$
+montre que $\Spec(A) \to X_d$ se factorise par $U_d$.
+La démonstration est achevée.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Une formule pour la différente}
+\label{section-formula-different}
+
+\noindent
+Dans cette section, nous présentons les résultats dus à Tate dans \cite[appendice A]{Mazur-Roberts}.
+Dans notre terminologie, ils montreront que la différente est
+égale à la différente de Kähler pour un morphisme plat, quasi-fini,
+localement d'intersection complète.
+Calculons d'abord la différente de Noether dans un cas particulier.
+
+\begin{lemma}
+\label{lemma-tate}
+\begin{reference}
+\cite[appendice]{Mazur-Roberts}
+\end{reference}
+Soit $A \to P$ un homomorphisme d'anneaux. Soit $f_1, \ldots, f_n \in P$ une
+suite régulière au sens de Koszul. Supposons $B = P/(f_1, \ldots, f_n)$
+plat sur $A$. Soit $g_1, \ldots, g_n \in P \otimes_A B$
+une suite régulière au sens de Koszul engendrant le noyau de l'application de multiplication
+$P \otimes_A B \to B$. Écrivons $f_i \otimes 1 = \sum g_{ij} g_j$.
+Alors l'annulateur de $\Ker(B \otimes_A B \to B)$ est un idéal principal
+engendré par l'image de $\det(g_{ij})$.
+\end{lemma}
+
+\begin{proof}
+Le complexe de Koszul $K_\bullet = K(P, f_1, \ldots, f_n)$ est une résolution
+de $B$ par des $P$-modules libres de type fini. Le complexe de Koszul
+$M_\bullet = K(P \otimes_A B, g_1, \ldots, g_n)$ est une résolution
+de $B$ par des $P \otimes_A B$-modules libres de type fini. Il existe un morphisme de
+complexes
+$$
+K_\bullet \longrightarrow M_\bullet
+$$
+donné en degré $1$ par la matrice $(g_{ij})$ et
+en degré $n$ par $\det(g_{ij})$. Voir
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-functorial}.
+Comme $B$ est un $A$-module plat, on peut considérer $M_\bullet$ comme un complexe
+de $P$-modules plats (via $P \to P \otimes_A B$, $p \mapsto p \otimes 1$).
+On peut donc utiliser les deux complexes pour calculer $\text{Tor}_*^P(B, B)$,
+et l'application affichée devient un quasi-isomorphisme après tensorisation
+par $B$. Il est clair que $H_n(K_\bullet \otimes_P B) = B$.
+D'autre part, $H_n(M_\bullet \otimes_P B)$ est le noyau de
+$$
+B \otimes_A B \xrightarrow{g_1, \ldots, g_n} (B \otimes_A B)^{\oplus n}
+$$
+Puisque $g_1, \ldots, g_n$ engendrent le noyau de $B \otimes_A B \to B$,
+le lemme est démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-finite-complete-intersection}
+Soient $A$ un anneau, $n \geq 1$ et
+$h, f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$.
+Posons $B = A[x_1, \ldots, x_n, 1/h]/(f_1, \ldots, f_n)$.
+Supposons que $B$ soit quasi-fini sur $A$.
+Alors
+\begin{enumerate}
+\item $B$ est plat sur $A$ et $A \to B$ est une intersection complète locale
+relative ;
+\item l'annulateur $J$ de $I = \Ker(B \otimes_A B \to B)$
+est libre de rang $1$ sur $B$ ;
+\item la différente de Noether de $B$ sur $A$ est engendrée
+par $\det(\partial f_i/\partial x_j)$ dans $B$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Remarquons que
+$B = A[x, x_1, \ldots, x_n]/(xh - 1, f_1, \ldots, f_n)$
+est une intersection complète globale relative sur $A$, voir
+Algèbre, définition
+\ref{algebra-definition-relative-global-complete-intersection}.
+D'après Algèbre, lemme \ref{algebra-lemma-relative-global-complete-intersection},
+on voit que $B$ est plat sur $A$.
+
+\medskip\noindent
+Posons $P' = A[x, x_1, \ldots, x_n]$ et
+$P = P'/(xh - 1) = A[x_1, \ldots, x_n, 1/h]$.
+On a alors $P' \to P \to B$.
+D'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-relative-global-complete-intersection-koszul},
+la suite $xh - 1, f_1, \ldots, f_n$ est régulière au sens de Koszul
+dans $P'$. Puisque $xh - 1$ est une suite régulière au sens de Koszul de longueur
+un dans $P'$ (par exemple d'après le même lemme), on en déduit que
+$f_1, \ldots, f_n$ est une suite régulière au sens de Koszul dans $P$ d'après
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-truncate-koszul-regular}.
+
+\medskip\noindent
+Soit $g_i \in P \otimes_A B$ l'image de $x_i \otimes 1 - 1 \otimes x_i$.
+Utilisons les notations abrégées $y_i = x_i \otimes 1$ et $z_i = 1 \otimes x_i$
+dans $A[x_1, \ldots, x_n] \otimes_A A[x_1, \ldots, x_n]$,
+de sorte que $g_i$ soit l'image de $y_i - z_i$. Pour un polynôme
+$f \in A[x_1, \ldots, x_n]$, on écrit $f(y) = f \otimes 1$
+et $f(z) = 1 \otimes f$ dans le produit tensoriel ci-dessus.
+On a alors
+$$
+P \otimes_A B/(g_1, \ldots, g_n) =
+\frac{A[y_1, \ldots, y_n, z_1, \ldots, z_n, \frac{1}{h(y)h(z)}]}
+{(f_1(z), \ldots, f_n(z), y_1 - z_1, \ldots, y_n - z_n)}
+$$
+qui est manifestement isomorphe à $B$. Par les mêmes arguments
+que ci-dessus, on trouve donc que $f_1(z), \ldots, f_n(z), y_1 - z_1, \ldots, y_n - z_n$
+est une suite régulière au sens de Koszul dans
+$A[y_1, \ldots, y_n, z_1, \ldots, z_n, \frac{1}{h(y)h(z)}]$.
+La suite $f_1(z), \ldots, f_n(z)$ est régulière au sens de Koszul dans
+$A[y_1, \ldots, y_n, z_1, \ldots, z_n, \frac{1}{h(y)h(z)}]$
+par platitude de l'application
+$$
+P \longrightarrow A[y_1, \ldots, y_n, z_1, \ldots, z_n,
+\textstyle{\frac{1}{h(y)h(z)}}],\quad x_i \longmapsto z_i
+$$
+et d'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-koszul-regular-flat-base-change}.
+D'après Compléments d'algèbre, lemme \ref{more-algebra-lemma-truncate-koszul-regular},
+on conclut que $g_1, \ldots, g_n$ est une suite régulière
+dans $P \otimes_A B$.
+
+\medskip\noindent
+Nous avons maintenant vérifié toutes les hypothèses du lemme \ref{lemma-tate}
+ci-dessus, avec $P$, $f_1, \ldots, f_n$ et $g_i \in P \otimes_A B$ comme ci-dessus.
+En particulier, l'annulateur $J$ de $I$ est libre, engendré par un
+élément $\delta$ sur $B$.
+Posons $f_{ij} = \partial f_i/\partial x_j \in A[x_1, \ldots, x_n]$.
+Un calcul élémentaire montre que l'on peut écrire
+$$
+f_i(y) =
+f_i(z_1 + g_1, \ldots, z_n + g_n) =
+f_i(z) + \sum\nolimits_j f_{ij}(z) g_j +
+\sum\nolimits_{j, j'} F_{ijj'}g_jg_{j'}
+$$
+avec $F_{ijj'} \in A[y_1, \ldots, y_n, z_1, \ldots, z_n]$.
+En passant à l'image dans $P \otimes_A B$, les termes $f_i(z)$ deviennent
+nuls et l'on obtient
+$$
+f_i \otimes 1 = \sum\nolimits_j
+\left(1 \otimes f_{ij} + \sum\nolimits_{j'} F_{ijj'}g_{j'}\right)g_j
+$$
+On conclut donc du lemme \ref{lemma-tate}
+que $\delta = \det(g_{ij})$, avec
+$g_{ij} = 1 \otimes f_{ij} + \sum_{j'} F_{ijj'}g_{j'}$.
+Puisque $g_{j'}$ a une image nulle dans $B$, on en déduit
+que l'image de $\det(\partial f_i/\partial x_j)$ dans $B$
+engendre la différente de Noether de $B$ sur $A$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-different-syntomic-quasi-finite}
+Soit $f : Y \to X$ un morphisme de schémas noethériens. Si $f$
+vérifie les conditions équivalentes du lemme \ref{lemma-syntomic-quasi-finite},
+alors la différente $\mathfrak{D}_f$ de $f$ est la différente de Kähler
+de $f$.
+\end{lemma}
+
+\begin{proof}
+D'après les lemmes \ref{lemma-flat-gorenstein-agree-noether} et
+\ref{lemma-dualizing-syntomic-quasi-finite},
+la différente de $f$ coïncide, localement sur les ouverts affines, avec la
+différente de Noether. Le lemme résulte alors du
+calcul de la différente de Noether et de la différente de Kähler
+sur les morceaux affines standards, effectué dans les
+lemmes \ref{lemma-kahler-different-complete-intersection} et
+\ref{lemma-quasi-finite-complete-intersection}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-different-quasi-finite-complete-intersection}
+Soient $A$ un anneau, $n \geq 1$ et
+$h, f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$.
+Posons $B = A[x_1, \ldots, x_n, 1/h]/(f_1, \ldots, f_n)$.
+Supposons que $B$ soit quasi-fini sur $A$.
+Il existe alors un isomorphisme $B \to \omega_{B/A}$
+envoyant $\det(\partial f_i/\partial x_j)$ sur $\tau_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+Soit $J$ l'annulateur de $\Ker(B \otimes_A B \to B)$.
+D'après le lemme \ref{lemma-quasi-finite-complete-intersection},
+l'homomorphisme $A \to B$ est plat et
+$J$ est un $B$-module libre ayant un générateur $\xi$ dont l'image est
+$\det(\partial f_i/\partial x_j)$ dans $B$.
+Le lemme découle donc du
+lemme \ref{lemma-noether-different-flat-quasi-finite}
+et du fait (lemme \ref{lemma-dualizing-syntomic-quasi-finite})
+que $\omega_{B/A}$ est un $B$-module inversible.
+(Attention : il est nécessaire de montrer que $\omega_{B/A}$
+est inversible, car un $B$-module de type fini $M$ tel
+que $\Hom_B(M, B) \cong B$ n'est pas nécessairement libre.)
+\end{proof}
+
+\begin{example}
+\label{example-different-for-monogenic}
+Soit $A$ un anneau noethérien. Soient $f, h \in A[x]$ tels que
+$$
+B = (A[x]/(f))_h = A[x, 1/h]/(f)
+$$
+soit quasi-fini sur $A$. Soit $f' \in A[x]$ la dérivée
+de $f$ par rapport à $x$. L'idéal $\mathfrak{D} = (f') \subset B$
+est la différente de Noether de $B$ sur $A$,
+est la différente de Kähler de $B$ sur $A$, et
+est l'idéal dont le faisceau quasi-cohérent d'idéaux associé est la
+différente de $\Spec(B)$ sur $\Spec(A)$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-discriminant-quasi-finite-morphism-smooth}
+Soit $S$ un schéma noethérien. Soient $X$, $Y$ des schémas lisses
+de dimension relative $n$ sur $S$. Soit $f : Y \to X$ un
+morphisme localement quasi-fini sur $S$.
+Alors $f$ est plat et le sous-schéma fermé $R \subset Y$
+défini par la différente de $f$ est le sous-schéma fermé localement principal
+défini par
+$$
+\wedge^n(\text{d}f) \in
+\Gamma(Y,
+(f^*\Omega^n_{X/S})^{\otimes -1} \otimes_{\mathcal{O}_Y} \Omega^n_{Y/S})
+$$
+Si $f$ est étale aux points associés de $Y$, alors $R$ est un
+diviseur de Cartier effectif, et
+$$
+f^*\Omega^n_{X/S} \otimes_{\mathcal{O}_Y} \mathcal{O}(R) =
+\Omega^n_{Y/S}
+$$
+comme faisceaux inversibles sur $Y$.
+\end{lemma}
+
+\begin{proof}
+Pour montrer que $f$ est plat, il suffit de montrer que $Y_s \to X_s$
+est plat pour tout $s \in S$ (Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-morphism-between-flat-Noetherian}).
+La platitude de $Y_s \to X_s$ découle de
+Algèbre, lemme \ref{algebra-lemma-CM-over-regular-flat}.
+D'après Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-lci-permanence},
+le morphisme $f$ est localement d'intersection complète.
+L'assertion sur la différente découle donc de
+l'assertion correspondante sur la différente de Kähler d'après le
+lemme \ref{lemma-different-syntomic-quasi-finite}.
+Enfin, puisque l'on a la suite exacte
+$$
+f^*\Omega_{X/S} \xrightarrow{\text{d}f} \Omega_{Y/S} \to \Omega_{Y/X} \to 0
+$$
+d'après Morphismes, lemme \ref{morphisms-lemma-triangle-differentials},
+et que $\Omega_{X/S}$ et $\Omega_{Y/S}$ sont finis localement libres
+de rang $n$ (Morphismes, lemme
+\ref{morphisms-lemma-smooth-omega-finite-locally-free}),
+l'assertion concernant la différente de Kähler résulte immédiatement de la définition
+de l'idéal de Fitting d'ordre zéro. Si $f$ est étale aux points associés
+de $Y$, alors $\wedge^n\text{d}f$ ne s'annule pas aux
+points associés de $Y$, ce qui entraîne que l'équation locale
+de $R$ est un non-diviseur de zéro. Ainsi $R$ est un diviseur de Cartier effectif.
+L'isomorphisme canonique envoie $1$ sur $\wedge^n\text{d}f$, voir
+Diviseurs, lemme \ref{divisors-lemma-characterize-OD}.
+\end{proof}
+
+
+
+
+
+
+\section{L'application de Tate}
+\label{section-tate-map}
+
+\noindent
+Dans cette section, nous construisons un isomorphisme entre
+le déterminant du complexe cotangent relatif et
+le module dualisant relatif pour un morphisme localement quasi-fini
+syntomique de schémas localement noethériens. Suivant
+\cite[1.4.4]{Garel}, nous l'appelons l'application de Tate.
+Notre méthode consiste à éviter autant que possible
+les calculs locaux.
+
+\medskip\noindent
+Soit $Y \to X$ un morphisme localement quasi-fini syntomique de schémas.
+Nous utiliserons dans cette section, sans le mentionner à nouveau, toutes les conditions
+équivalentes données dans le lemme \ref{lemma-syntomic-quasi-finite}
+pour cette notion. On voit en particulier que $\NL_{Y/X}$ est un objet parfait
+de $D(\mathcal{O}_Y)$ de Tor-amplitude contenue dans $[-1, 0]$. On dispose donc
+d'un module inversible canonique
+$\det(\NL_{Y/X})$ sur $Y$ et d'une section globale
+$$
+\delta(\NL_{Y/X}) \in \Gamma(Y, \det(\NL_{Y/X}))
+$$
+Voir Catégories dérivées de schémas, lemme
+\ref{perfect-lemma-determinant-two-term-complexes}.
+Supposons donné un diagramme commutatif de schémas
+$$
+\xymatrix{
+Y' \ar[r]_b \ar[d] & Y \ar[d] \\
+X' \ar[r] & X
+}
+$$
+dont les flèches verticales sont localement quasi-finies syntomiques et qui
+induit un isomorphisme de $Y'$ avec un ouvert de $X' \times_X Y$.
+L'application canonique
+$$
+Lb^*\NL_{Y/X} \longrightarrow \NL_{Y'/X'}
+$$
+est alors un quasi-isomorphisme d'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-base-change-NL-flat}.
+On obtient donc un isomorphisme canonique
+$b^*\det(\NL_{Y/X}) \to \det(\NL_{Y'/X'})$ qui envoie la
+section canonique $\delta(\NL_{Y/X})$ sur $\delta(\NL_{Y'/ X'})$, voir
+Catégories dérivées de schémas, remarque \ref{perfect-remark-functorial-det}.
+
+\begin{remark}
+\label{remark-local-description-delta}
+Soit $Y \to X$ un morphisme localement quasi-fini syntomique de schémas.
+Quelle est la forme locale du couple $(\det(\NL_{Y/X}), \delta(\NL_{Y/X}))$ ?
+Choisissons des ouverts affines $V = \Spec(B) \subset Y$,
+$U = \Spec(A) \subset X$ avec $f(V) \subset U$, un entier $n$ et
+$f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$ tels que
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$. Alors
+$$
+\NL_{B/A} = \left(
+(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n} B \text{d} x_i\right)
+$$
+et $(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2$ est libre de base
+formée des classes $\overline{f}_i$. Voir la démonstration du
+lemme \ref{lemma-syntomic-quasi-finite}.
+Ainsi $\det(L_{B/A})$ est libre sur le générateur
+$$
+\text{d}x_1 \wedge \ldots \wedge \text{d}x_n
+\otimes
+(\overline{f}_1 \wedge \ldots \wedge \overline{f}_n)^{\otimes -1}
+$$
+et la section $\delta(\NL_{B/A})$ est l'élément
+$$
+\delta(\NL_{B/A}) =
+\det(\partial f_j/ \partial x_i) \cdot
+\text{d}x_1 \wedge \ldots \wedge \text{d}x_n
+\otimes
+(\overline{f}_1 \wedge \ldots \wedge \overline{f}_n)^{\otimes -1}
+$$
+par définition.
+\end{remark}
+
+\noindent
+Soit $Y \to X$ un morphisme localement quasi-fini syntomique de
+schémas localement noethériens. D'après les
+remarques \ref{remark-relative-dualizing-for-quasi-finite} et
+\ref{remark-relative-dualizing-for-flat-quasi-finite}, on dispose
+d'un $\mathcal{O}_Y$-module cohérent $\omega_{Y/X}$ et d'une section globale
+canonique
+$$
+\tau_{Y/X} \in \Gamma(Y, \omega_{Y/X})
+$$
+qui redonne, localement sur les ouverts affines, le couple $\omega_{B/A}, \tau_{B/A}$.
+D'après le lemme \ref{lemma-dualizing-syntomic-quasi-finite}, le module
+$\omega_{Y/X}$ est inversible. Supposons donné un diagramme commutatif de
+schémas localement noethériens
+$$
+\xymatrix{
+Y' \ar[r]_b \ar[d] & Y \ar[d] \\
+X' \ar[r] & X
+}
+$$
+dont les flèches verticales sont localement quasi-finies syntomiques et qui
+induit un isomorphisme de $Y'$ avec un ouvert de $X' \times_X Y$.
+Il existe alors une application canonique de changement de base
+$$
+b^*\omega_{Y/X} \longrightarrow \omega_{Y'/X'}
+$$
+qui est un isomorphisme
+envoyant $\tau_{Y/X}$ sur $\tau_{Y'/X'}$. En effet, l'application de changement de base
+dans le cadre affine est (\ref{equation-bc-dualizing}) ; c'est un
+isomorphisme d'après le lemme \ref{lemma-dualizing-base-change-of-flat}, et elle
+envoie $\tau_{Y/X}$ sur $\tau_{Y'/X'}$ d'après
+l'assertion (1) du lemme \ref{lemma-trace-base-change}.
+
+\begin{proposition}
+\label{proposition-tate-map}
+Il existe une unique règle qui associe à tout morphisme localement quasi-fini syntomique
+de schémas localement noethériens $Y \to X$ un isomorphisme
+$$
+c_{Y/X} : \det(\NL_{Y/X}) \longrightarrow \omega_{Y/X}
+$$
+vérifiant les deux propriétés suivantes :
+\begin{enumerate}
+\item la section $\delta(\NL_{Y/X})$ s'envoie sur $\tau_{Y/X}$ ;
+\item la règle est compatible avec la restriction aux ouverts et le
+changement de base.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Reformulons l'énoncé de la proposition. Considérons la catégorie
+$\mathcal{C}$ dont les objets, notés $Y/X$, sont les morphismes localement quasi-finis syntomiques
+$Y \to X$ de schémas localement noethériens, et dont les morphismes
+$b/a : Y'/X' \to Y/X$ sont les diagrammes commutatifs
+$$
+\xymatrix{
+Y' \ar[d] \ar[r]_b & Y \ar[d] \\
+X' \ar[r]^a & X
+}
+$$
+induisant un isomorphisme de $Y'$ avec un sous-schéma ouvert de
+$X' \times_X Y$. La proposition signifie que, pour tout objet
+$Y/X$ de $\mathcal{C}$, on dispose d'un isomorphisme
+$c_{Y/X} : \det(\NL_{Y/X}) \to \omega_{Y/X}$
+tel que $c_{Y/X}(\delta(\NL_{Y/X})) = \tau_{Y/X}$,
+et que, pour tout morphisme $b/a : Y'/X' \to Y/X$ de $\mathcal{C}$, on a
+$b^*c_{Y/X} = c_{Y'/X'}$ via les identifications
+$b^*\det(\NL_{Y/X}) = \det(\NL_{Y'/X'})$ et
+$b^*\omega_{Y/X} = \omega_{Y'/X'}$ décrites ci-dessus.
+
+\medskip\noindent
+Étant donné $Y/X$ dans $\mathcal{C}$ et $y \in Y$, on peut trouver
+des ouverts affines $V \subset Y$ et $U \subset X$ avec
+$y \in V$ et $f(V) \subset U$
+tels qu'il existe un isomorphisme
+$$
+\det(\NL_{Y/X})|_V \longrightarrow \omega_{Y/X}|_V
+$$
+envoyant $\delta(\NL_{Y/X})|_V$ sur $\tau_{Y/X}|_V$. Cela résulte
+du choix d'ouverts affines comme dans
+l'assertion (5) du lemme \ref{lemma-syntomic-quasi-finite}, de la description
+locale affine de $\delta(\NL_{Y/X})$ dans la
+remarque \ref{remark-local-description-delta}, et du
+lemme \ref{lemma-different-quasi-finite-complete-intersection}.
+Si l'annulateur de la section $\tau_{Y/X}$ est nul, ces
+applications locales sont uniques et se recollent automatiquement. Ainsi, si l'annulateur
+de $\tau_{Y/X}$ est nul, il existe un unique isomorphisme
+$c_{Y/X} : \det(\NL_{Y/X}) \to \omega_{Y/X}$ tel que
+$c_{Y/X}(\delta(\NL_{Y/X})) = \tau_{Y/X}$.
+Si $b/a : Y'/X' \to Y/X$ est un morphisme de $\mathcal{C}$
+et si l'annulateur de $\tau_{Y'/X'}$ est lui aussi nul,
+alors $b^*c_{Y/X}$ est l'unique isomorphisme
+$c_{Y'/X'} : \det(\NL_{Y'/X'}) \to \omega_{Y'/X'}$ tel que
+$c_{Y'/X'}(\delta(\NL_{Y'/X'})) = \tau_{Y'/X'}$.
+Cela découle formellement du fait que
+$b^*\delta(\NL_{Y/X}) = \delta(\NL_{Y'/X'})$ et
+$b^*\tau_{Y/X} = \tau_{Y'/X'}$.
+
+\medskip\noindent
+On peut résumer les résultats du paragraphe précédent comme suit.
+Notons $\mathcal{C}_{nice} \subset \mathcal{C}$ la
+sous-catégorie pleine des $Y/X$ tels que l'annulateur de
+$\tau_{Y/X}$ soit nul. Nous avons alors résolu le problème
+sur $\mathcal{C}_{nice}$. Pour $Y/X$ dans $\mathcal{C}_{nice}$,
+nous continuons à noter $c_{Y/X}$ la solution que nous venons de trouver.
+
+\medskip\noindent
+Considérons des morphismes
+$$
+Y_1/X_1 \xleftarrow{b_1/a_1} Y/X \xrightarrow{b_2/a_2} Y_2/X_2
+$$
+dans $\mathcal{C}$ tels que $Y_1/X_1$ et $Y_2/X_2$ soient des objets
+de $\mathcal{C}_{nice}$. {\bf Assertion.} $b_1^*c_{Y_1/X_1} = b_2^*c_{Y_2/X_2}$.
+Nous montrerons d'abord que cette assertion entraîne la proposition,
+puis nous la démontrerons.
+
+\medskip\noindent
+Soient $d, n \geq 1$ ; considérons le morphisme localement
+quasi-fini syntomique $Y_{n, d} \to X_{n, d}$
+construit dans l'exemple \ref{example-universal-quasi-finite-syntomic}.
+Alors $Y_{n, d}$ est un schéma irréductible régulier et le
+morphisme $Y_{n, d} \to X_{n, d}$ est localement quasi-fini syntomique
+et étale au-dessus d'un ouvert dense, voir le
+lemme \ref{lemma-universal-quasi-finite-syntomic-etale}.
+Ainsi $\tau_{Y_{n, d}/X_{n, d}}$ est non nul, par exemple d'après le
+lemme \ref{lemma-different-ramification}. Or une section non nulle
+d'un module inversible sur un schéma irréductible régulier
+a un annulateur nul. Ainsi
+$Y_{n, d}/X_{n, d}$ est un objet de $\mathcal{C}_{nice}$.
+
+\medskip\noindent
+Soit $Y/X$ un objet quelconque de $\mathcal{C}$. Soit $y \in Y$.
+D'après le lemme \ref{lemma-locally-comes-from-universal}, on peut trouver
+$n, d \geq 1$ et des morphismes
+$$
+Y/X \leftarrow V/U \xrightarrow{b/a} Y_{n, d}/X_{n, d}
+$$
+de $\mathcal{C}$ tels que $V \subset Y$ et $U \subset X$ soient ouverts.
+On peut donc prendre l'image inverse du morphisme canonique $c_{Y_{n, d}/X_{n, d}}$
+construit ci-dessus par $b$ sur $V$. L'assertion garantit que ces isomorphismes
+locaux se recollent ! On obtient ainsi un isomorphisme global bien défini
+$c_{Y/X} : \det(\NL_{Y/X}) \to \omega_{Y/X}$ tel que
+$c_{Y/X}(\delta(\NL_{Y/X})) = \tau_{Y/X}$.
+Si $b/a : Y'/X' \to Y/X$ est un morphisme de $\mathcal{C}$,
+l'assertion entraîne également que l'application construite de façon analogue
+$c_{Y'/X'}$ est l'image inverse par $b$ de l'application construite localement
+$c_{Y/X}$. Il reste donc à démontrer l'assertion.
+
+\medskip\noindent
+C'est ce que nous faisons dans la suite de la démonstration. On peut choisir un point
+$y \in Y$ et montrer que les applications coïncident dans un voisinage ouvert de $y$.
+On peut donc remplacer $Y_1$, $Y_2$ par des voisinages ouverts de
+l'image de $y$ dans $Y_1$ et $Y_2$. On peut ainsi supposer que
+$Y, X, Y_1, X_1, Y_2, X_2$ sont affines, disons les spectres
+d'anneaux $B, A, B_1, A_1, B_2, A_2$. On a le diagramme
+$$
+\xymatrix{
+B_1 \ar[r] & B & B_2 \ar[l] \\
+A_1 \ar[u] \ar[r] & A \ar[u] & A_2 \ar[l] \ar[u]
+}
+$$
+Par hypothèse, le spectre de $B$ est un ouvert affine
+à la fois du spectre de $A \otimes_{A_1} B_1$ et de celui de $A \otimes_{A_2} B_2$.
+En rétrécissant encore, on peut supposer qu'il existe des éléments
+$g_i \in A \otimes_{A_i} B_i$ tels que nos applications donnent des isomorphismes
+$(A \otimes_{A_i} B_i)_{g_i} = B$, voir
+Propriétés, lemme \ref{properties-lemma-standard-open-two-affines}.
+Soient $x_\alpha$, $y_\beta$ des collections assez grandes de
+variables pour que l'on puisse choisir des surjections
+$$
+A'_1 = A_1[x_\alpha] \to A
+\quad\text{et}\quad
+A'_2 = A_2[y_\beta] \to A
+$$
+de $A_1$-algèbres et de $A_2$-algèbres. On peut alors choisir des relèvements
+$h_i \in A'_i \otimes_{A_i} B_i$ de $g_i \in A \otimes_{A_i} B_i$,
+et l'on considère le diagramme
+$$
+\xymatrix{
+(A'_1 \otimes_{A_1} B_1)_{h_1} \ar[r] & B &
+(A'_2 \otimes_{A_1} B_2)_{h_2} \ar[l] \\
+A'_1 \ar[u] \ar[r] & A \ar[u] & A'_2 \ar[l] \ar[u]
+}
+$$
+Par construction, les deux carrés sont cocartésiens. Considérons ensuite
+l'homomorphisme d'anneaux
+$$
+A' = A'_1 \times_A A'_2 \longrightarrow
+B' =
+(A'_1 \otimes_{A_1} B_1)_{h_1} \times_B
+(A'_2 \otimes_{A_1} B_2)_{h_2}
+$$
+D'après
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-module-over-fibre-product},
+on a $A'_1 \otimes_{A'} B' = (A'_1 \otimes_{A_1} B_1)_{h_1}$
+et $A'_2 \otimes_{A'} B' = (A'_2 \otimes_{A_2} B_2)_{h_2}$. En particulier,
+les fibres du morphisme $Y' = \Spec(B') \to \Spec(A') = X'$ sont
+des sous-schémas ouverts de changements de base des fibres des morphismes $Y_i \to X_i$,
+donc finies et localement des intersections complètes
+(voir le lemme \ref{lemma-syntomic-quasi-finite}).
+D'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-properties-algebras-over-fibre-product},
+l'homomorphisme d'anneaux $A' \to B'$ est plat et de présentation finie.
+D'après l'assertion (3) du lemme \ref{lemma-syntomic-quasi-finite},
+on conclut donc que $Y' \to X'$ est localement quasi-fini et syntomique.
+On obtient ainsi le diagramme commutatif
+$$
+\xymatrix{
+& & Y/X \ar[ld] \ar@/_2pc/[lldd]_{b_1/a_1} \ar[rd] \ar@/^2pc/[rrdd]^{b_2/a_2} \\
+& Y'_1/X'_1 \ar[rd] \ar[ld] & & Y'_2/X'_2 \ar[ld] \ar[rd] \\
+Y_1/X_1 & & Y'/X' & & Y_2/X_2
+}
+$$
+où $Y'_i/X'_i$ correspond à $A'_i \to (A'_i \otimes_{A_i} B_i)_{h_i}$.
+
+\medskip\noindent
+Dans ce paragraphe, un passage à la limite remédie au fait que $A'$ et $A'_i$ ne sont pas
+nécessairement noethériens ; le lecteur peut omettre ce paragraphe.
+On peut trouver une $\mathbf{Z}$-sous-algèbre de type fini
+$A'' \subset A'$ et un homomorphisme quasi-fini syntomique d'anneaux
+$A'' \to B''$ tels que $B' = A' \otimes_{A''} B''$.
+Cela résulte de Limites, lemmes
+\ref{limits-lemma-descend-finite-presentation},
+\ref{limits-lemma-descend-syntomic} et
+\ref{limits-lemma-descend-quasi-finite}.
+Les homomorphismes d'anneaux $A'' \to A'_1 = A_1[x_\alpha]$ se factorisent alors par une
+sous-algèbre de polynômes à un nombre fini de variables $A_i[x_1, \ldots, x_n$, et l'homomorphisme
+$A'' \to A'_2 = A_2[y_\beta]$ se factorise par $A_2[y_1, \ldots, y_m]$.
+En agrandissant les ensembles de variables, on peut aussi supposer que
+$h_1 \in A_1[x_1, \ldots, x_n] \otimes_{A_1} B_1$ et
+$h_2 \in A_2[y_1, \ldots, y_m] \otimes_{A_2} B_2$.
+En agrandissant encore les ensembles de variables, on peut supposer
+que les applications $B'' \to (A'_i \otimes_{A_i} B_i)_{h_i}$
+se factorisent par $(A_1[x_1, \ldots, x_n] \otimes_{A_1} B_1)_{h_1}$
+et $(A_2[y_1, \ldots, y_m] \otimes_{A_2} B_2)_{h_2}$.
+En remplaçant $Y'$, $X'$, $Y'_1$, $X'_1$, $Y'_2$, $X'_2$ par les spectres de
+$B''$, $A''$, $(A_1[x_1, \ldots, x_n] \otimes_{A_1} B_1)_{h_1}$,
+$A_1[x_1, \ldots, x_n]$, $(A_2[y_1, \ldots, y_m] \otimes_{A_2} B_2)_{h_2}$,
+$A_2[y_1, \ldots, y_m]$, on obtient un diagramme comme ci-dessus
+où tous les schémas sont noethériens.
+
+\medskip\noindent
+Remarquons que $Y'_i/X'_i$ est un objet de $\mathcal{C}_{nice}$, car il
+s'obtient en prenant un sous-schéma ouvert du produit d'un espace affine
+avec $Y_i/X_i$. En particulier, l'image inverse de
+$c_{Y_i/X_i}$ par $(b_i/a_i)$ est la même que l'image inverse de
+$c_{Y'_i/X'_i}$ par $Y/X \to Y'_i/X'_i$.
+La démonstration serait alors achevée si $Y'/X'$ était un objet de $\mathcal{C}_{nice}$
+(mais ce n'est probablement pas le cas). En effet, en prenant l'image inverse de $c_{Y'/X'}$
+le long des deux côtés du carré, on obtiendrait la conclusion voulue.
+Pour contourner le fait que $Y'/X'$ n'appartient pas à $\mathcal{C}_{nice}$,
+remarquons que les arguments ci-dessus montrent qu'après avoir éventuellement rétréci tous
+les schémas $X, Y, X'_1, Y'_1, X'_2, Y'_2, X', Y'$, on peut trouver
+$n, d \geq 1$ et prolonger le diagramme comme suit :
+$$
+\xymatrix{
+& Y/X \ar[ld] \ar[rd] \\
+Y'_1/X'_1 \ar[rd] & & Y'_2/X'_2 \ar[ld] \\
+& Y'/X' \ar[d] \\
+& Y_{n, d}/X_{n, d}
+}
+$$
+On peut alors utiliser l'argument déjà donné en prenant
+l'image inverse de $c_{Y_{n, d}/X_{n, d}}$. La démonstration est achevée.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Une généralisation de la différente}
+\label{section-different-generalization}
+
+\noindent
+Dans cette section, nous généralisons la définition \ref{definition-different}
+pour englober tous les homomorphismes d'anneaux $A \to B$
+pour lesquels la différente de Dedekind est définie et $1 \in \mathcal{L}_{B/A}$.
+Expliquons d'abord la condition « $A \to B$ envoie les non-diviseurs de zéro sur
+des non-diviseurs de zéro et induit un homomorphisme plat $Q(A) \to Q(A) \otimes_A B$ ».
+
+\begin{lemma}
+\label{lemma-explain-condition}
+Soit $A \to B$ un homomorphisme d'anneaux noethériens. Considérons les conditions
+\begin{enumerate}
+\item les non-diviseurs de zéro de $A$ s'envoient sur des non-diviseurs de zéro de $B$ ;
+\item (1) est satisfaite et $Q(A) \to Q(A) \otimes_A B$ est plat ;
+\item $A \to B_\mathfrak q$ est plat pour tout
+$\mathfrak q \in \text{Ass}(B)$ ;
+\item (3) est satisfaite et $A \to B_\mathfrak q$ est plat pour tout $\mathfrak q$
+au-dessus d'un élément de $\text{Ass}(A)$.
+\end{enumerate}
+On a alors les implications suivantes :
+$$
+\xymatrix{
+(1) & (2) \ar@{=>}[l] \ar@{=>}[d] \\
+(3) \ar@{=>}[u] & (4) \ar@{=>}[l]
+}
+$$
+Si $A \to B$ vérifie la propriété de montée, (2) et (4) sont équivalentes.
+\end{lemma}
+
+\begin{proof}
+Les implications horizontales du diagramme sont triviales.
+Soit $S \subset A$ l'ensemble des non-diviseurs de zéro, de sorte que
+$Q(A) = S^{-1}A$ et $Q(A) \otimes_A B = S^{-1}B$. Rappelons que
+$S = A \setminus \bigcup_{\mathfrak p \in \text{Ass}(A)} \mathfrak p$
+d'après Algèbre, lemme \ref{algebra-lemma-ass-zero-divisors}.
+Soit $\mathfrak q \subset B$ un idéal premier au-dessus de $\mathfrak p \subset A$.
+
+\medskip\noindent
+Supposons (2). Si $\mathfrak q \in \text{Ass}(B)$, alors
+$\mathfrak q$ est constitué de diviseurs de zéro ; (1) entraîne donc
+qu'il en est de même de $\mathfrak p$. Ainsi
+$\mathfrak p$ correspond à un idéal premier de $S^{-1}A$.
+Par conséquent, $A \to B_\mathfrak q$ est plat d'après l'hypothèse (2).
+Si $\mathfrak q$ est au-dessus d'un idéal premier associé $\mathfrak p$
+de $A$, alors on a certainement $\mathfrak p \in \Spec(S^{-1}A)$, et le
+même argument s'applique.
+
+\medskip\noindent
+Supposons (3). Soit $f \in A$ un non-diviseur de zéro. Si $f$ était diviseur de zéro
+sur $B$, alors $f$ appartiendrait à un idéal premier associé $\mathfrak q$
+de $B$. Puisque $A \to B_\mathfrak q$ est plat par hypothèse, on en déduit que
+$\mathfrak p$ est un idéal premier associé de $A$, d'après
+Algèbre, lemme \ref{algebra-lemma-bourbaki}. Cela entraînerait que
+$f$ est diviseur de zéro sur $A$, contradiction.
+
+\medskip\noindent
+Supposons (4) et la propriété de montée pour $A \to B$. Nous savons déjà que (1) est satisfaite.
+Si $\mathfrak q$ correspond à un idéal premier de $S^{-1}B$, alors $\mathfrak p$
+est contenu dans un idéal premier associé $\mathfrak p'$ de $A$. Par la propriété de montée,
+il existe un idéal premier $\mathfrak q'$ contenant $\mathfrak q$ et situé
+au-dessus de $\mathfrak p$. Alors $A \to B_{\mathfrak q'}$ est plat d'après
+(4). Donc $A \to B_{\mathfrak q}$ est plat, en tant que localisation.
+Ainsi $A \to S^{-1}B$ est plat, de même que $S^{-1}A \to S^{-1}B$, voir
+Algèbre, lemme \ref{algebra-lemma-flat-localization}.
+\end{proof}
+
+\begin{remark}
+\label{remark-different-generalization}
+On peut généraliser la définition \ref{definition-different}.
+Supposons que $f : Y \to X$ soit un morphisme quasi-fini de schémas noethériens
+possédant les propriétés suivantes :
+\begin{enumerate}
+\item l'ouvert $V \subset Y$ où $f$ est plat contient
+$\text{Ass}(\mathcal{O}_Y)$ et $f^{-1}(\text{Ass}(\mathcal{O}_X))$ ;
+\item l'élément trace $\tau_{V/X}$ provient d'une section
+$\tau \in \Gamma(Y, \omega_{Y/X})$.
+\end{enumerate}
+La condition (1) entraîne que $V$ contient les points associés de
+$\omega_{Y/X}$, d'après le lemme \ref{lemma-dualizing-associated-primes}.
+En particulier, $\tau$ est unique s'il existe
+(Diviseurs, lemme \ref{divisors-lemma-restriction-injective-open-contains-ass}).
+Étant donné $\tau$, on peut définir la différente $\mathfrak{D}_f$ comme l'annulateur de
+$\Coker(\tau : \mathcal{O}_Y \to \omega_{Y/X})$. Elle coïncide avec la
+différente de Dedekind dans de nombreux cas (lemme \ref{lemma-agree-dedekind}).
+Cependant, pour les homomorphismes non plats entre anneaux non normaux, cette généralisation
+ne mesure plus la ramification du morphisme, voir
+l'exemple \ref{example-no-different}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-agree-dedekind}
+Supposons que la différente de Dedekind de $A \to B$ soit définie.
+Posons $X = \Spec(A)$ et $Y = \Spec(B)$. La généralisation de la
+remarque \ref{remark-different-generalization}
+s'applique au morphisme $f : Y \to X$ si et seulement si
+$1 \in \mathcal{L}_{B/A}$ (par exemple si $A$ est normal, voir le
+lemme \ref{lemma-dedekind-different-ideal}).
+Dans ce cas, $\mathfrak{D}_{B/A}$ est un idéal de $B$ et l'on a
+$$
+\mathfrak{D}_f = \widetilde{\mathfrak{D}_{B/A}}
+$$
+comme faisceaux cohérents d'idéaux sur $Y$.
+\end{lemma}
+
+\begin{proof}
+La différente de Dedekind de $A \to B$ étant définie, on peut appliquer le
+lemme \ref{lemma-explain-condition} pour voir que
+$Y \to X$ vérifie la condition (1) de la
+remarque \ref{remark-different-generalization}.
+Rappelons qu'il existe un isomorphisme canonique
+$c : \mathcal{L}_{B/A} \to \omega_{B/A}$, voir le
+lemme \ref{lemma-dedekind-complementary-module}.
+Soient $K = Q(A)$ et $L = K \otimes_A B$ comme ci-dessus.
+Par construction, l'application $c$ s'insère dans un diagramme commutatif
+$$
+\xymatrix{
+\mathcal{L}_{B/A} \ar[r] \ar[d]_c & L \ar[d] \\
+\omega_{B/A} \ar[r] & \Hom_K(L, K)
+}
+$$
+où la flèche verticale de droite envoie $x \in L$ sur l'application
+$y \mapsto \text{Trace}_{L/K}(xy)$, et la flèche horizontale
+inférieure est l'application de changement de base (\ref{equation-bc-dualizing}) pour $\omega_{B/A}$.
+On peut factoriser l'application horizontale inférieure en
+$$
+\omega_{B/A} = \Gamma(Y, \omega_{Y/X})
+\to \Gamma(V, \omega_{V/X}) \to \Hom_K(L, K)
+$$
+Puisque tous les points associés de $\omega_{V/X}$
+s'envoient sur des idéaux premiers associés de $A$
+(lemme \ref{lemma-dualizing-associated-primes}),
+la seconde application est injective.
+L'élément $\tau_{V/X}$ s'envoie sur $\text{Trace}_{L/K}$ dans
+$\Hom_K(L, K)$ par la définition même des éléments trace
+(définition \ref{definition-trace-element}).
+Ainsi un $\tau$ comme dans la condition (2) de la
+remarque \ref{remark-different-generalization}
+existe si et seulement si $1 \in \mathcal{L}_{B/A}$, et l'on a alors
+$\tau = c(1)$. Dans ce cas, d'après le lemme \ref{lemma-dedekind-different-ideal},
+on voit que $\mathfrak{D}_{B/A} \subset B$.
+Enfin, l'égalité de $\mathfrak{D}_f$ et de $\mathfrak{D}_{B/A}$
+découle immédiatement des définitions et du fait que $\tau = c(1)$, établi ci-dessus.
+\end{proof}
+
+\begin{example}
+\label{example-no-different}
+Soit $k$ un corps. Soient $A = k[x, y]/(xy)$ et $B = k[u, v]/(uv)$, et soit
+$A \to B$ donné par $x \mapsto u^n$ et $y \mapsto v^m$, pour des
+$n, m \in \mathbf{N}$ premiers à la caractéristique de $k$. Alors
+$A_{x + y} \to B_{x + y}$ est (fini) étale, et nous sommes donc dans une situation
+où la différente de Dedekind est définie. Un calcul donne
+$$
+\text{Trace}_{L/K}(1) = (nx + my)/(x + y),\quad
+\text{Trace}_{L/K}(u^i) = 0,\quad \text{Trace}_{L/K}(v^j) = 0
+$$
+pour $1 \leq i < n$ et $1 \leq j < m$. On en déduit que
+$1 \in \mathcal{L}_{B/A}$ si et seulement si $n = m$. De plus, un
+calcul montre que, si $n = m$, alors $\mathcal{L}_{B/A} = B$,
+et la différente de Dedekind est également $B$. Autrement dit,
+la différente de la remarque \ref{remark-different-generalization}
+est définie pour $\Spec(B) \to \Spec(A)$
+si et seulement si $n = m$, et, dans ce cas, elle est
+l'idéal unité. On voit donc que, dans les cas non plats, la non-annulation
+de la différente ne garantit pas que le morphisme soit étale ou non ramifié.
+\end{example}
+
+
+
+
+
+
+
+\section{Comparaison avec la théorie de la dualité}
+\label{section-comparison}
+
+\noindent
+Dans cette section, nous comparons les constructions algébriques élémentaires
+ci-dessus aux constructions du chapitre sur la théorie de la dualité
+des schémas.
+
+\begin{lemma}
+\label{lemma-compare-dualizing}
+Soit $f : Y \to X$ un morphisme quasi-fini séparé de schémas noethériens.
+Pour tout couple d'ouverts affines $\Spec(B) = V \subset Y$,
+$\Spec(A) = U \subset X$ avec $f(V) \subset U$, il existe un isomorphisme
+$$
+H^0(V, f^!\mathcal{O}_X) = \omega_{B/A}
+$$
+où $f^!$ est comme dans
+Dualité des schémas, section \ref{duality-section-upper-shriek}.
+Ces isomorphismes sont compatibles aux applications de restriction et définissent un
+isomorphisme canonique $H^0(f^!\mathcal{O}_X) = \omega_{Y/X}$, avec
+$\omega_{Y/X}$ comme dans la remarque \ref{remark-relative-dualizing-for-quasi-finite}.
+De même, si $f : Y \to X$ est un morphisme quasi-fini de schémas de
+type fini sur une base noethérienne $S$ munie d'un complexe dualisant
+$\omega_S^\bullet$, alors $H^0(f_{new}^!\mathcal{O}_X) = \omega_{Y/X}$.
+\end{lemma}
+
+\begin{proof}
+Le théorème principal de Zariski permet de choisir une factorisation $f = f' \circ j$,
+où $j : Y \to Y'$ est une immersion ouverte et $f' : Y' \to X$ un morphisme
+fini, voir Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}.
+Par la construction de
+Dualité des schémas, lemme \ref{duality-lemma-shriek-well-defined}, on a
+$f^! = j^* \circ a'$, où
+$a' : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_{Y'})$
+est l'adjoint à droite de $Rf'_*$ donné par
+Dualité des schémas, lemme \ref{duality-lemma-twisted-inverse-image}.
+D'après Dualité des schémas, lemme \ref{duality-lemma-finite-twisted},
+on voit que
+$\Phi(a'(\mathcal{O}_X)) = R\SheafHom(f'_*\mathcal{O}_{Y'}, \mathcal{O}_X)$ dans
+$D_\QCoh^+(f'_*\mathcal{O}_{Y'})$. En particulier, $a'(\mathcal{O}_X)$ a des
+faisceaux de cohomologie nuls en degrés $< 0$. Le faisceau de cohomologie de degré zéro
+est déterminé par l'isomorphisme
+$$
+f'_*H^0(a'(\mathcal{O}_X)) =
+\SheafHom_{\mathcal{O}_X}(f'_*\mathcal{O}_{Y'}, \mathcal{O}_X)
+$$
+de $f'_*\mathcal{O}_{Y'}$-modules via l'équivalence de
+Morphismes, lemme \ref{morphisms-lemma-affine-equivalence-modules}.
+En écrivant $(f')^{-1}U = V' = \Spec(B')$, on obtient
+$$
+H^0(V', a'(\mathcal{O}_X)) = \Hom_A(B', A).
+$$
+Puisque le faisceau de cohomologie de degré zéro de $a'(\mathcal{O}_X)$
+est un module quasi-cohérent, on trouve que
+sa restriction à $V$ est donnée par
+$\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B$, comme annoncé.
+
+\medskip\noindent
+L'assertion sur les applications de restriction signifie que celles
+du $\mathcal{O}_{Y'}$-module quasi-cohérent $H^0(a'(\mathcal{O}_X))$
+pour les ouverts de $Y'$ coïncident avec les applications définies dans le
+lemme \ref{lemma-localize-dualizing}
+pour les modules $\omega_{B/A}$ via les isomorphismes ci-dessus.
+C'est clair.
+
+\medskip\noindent
+Soit $f : Y \to X$ un morphisme quasi-fini de schémas de type fini
+sur une base noethérienne $S$ munie d'un complexe dualisant $\omega_S^\bullet$.
+Considérons des ouverts $V \subset Y$ et $U \subset X$ avec $f(V) \subset U$,
+et $V$ et $U$ séparés sur $S$. Notons $f|_V : V \to U$ la restriction
+de $f$. D'après la discussion ci-dessus et
+Dualité des schémas, lemme \ref{duality-lemma-duality-bootstrap},
+on a des isomorphismes canoniques
+$$
+H^0(f_{new}^!\mathcal{O}_X)|_V = H^0((f|_V)^!\mathcal{O}_U) = \omega_{V/U} =
+\omega_{Y/X}|_V
+$$
+Nous omettons la vérification que ces isomorphismes se recollent en un isomorphisme
+global $H^0(f_{new}^!\mathcal{O}_X) \to \omega_{Y/X}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-trace}
+Soit $f : Y \to X$ un morphisme fini plat de schémas noethériens.
+L'application
+$$
+\text{Trace}_f : f_*\mathcal{O}_Y \longrightarrow \mathcal{O}_X
+$$
+de la section \ref{section-discriminant}
+correspond à une application $\mathcal{O}_Y \to f^!\mathcal{O}_X$ (voir la démonstration).
+Notons $\tau_{Y/X} \in H^0(Y, f^!\mathcal{O}_X)$ l'image de $1$.
+Via l'isomorphisme $H^0(f^!\mathcal{O}_X) = \omega_{X/Y}$ du
+lemme \ref{lemma-compare-dualizing},
+cela coïncide avec la construction de la
+remarque \ref{remark-relative-dualizing-for-flat-quasi-finite}.
+\end{lemma}
+
+\begin{proof}
+Le foncteur $f^!$ est défini dans
+Dualité des schémas, section \ref{duality-section-upper-shriek}.
+Puisque $f$ est fini (donc propre), $f^!$ est donné par
+l'adjoint à droite de l'image directe par $f$. Dans
+Dualité des schémas, section \ref{duality-section-duality-finite},
+nous avons explicité cet adjoint. En particulier,
+l'objet $f^!\mathcal{O}_X$ consiste en un seul
+faisceau de cohomologie placé en degré $0$, et l'on a pour ce faisceau
+$$
+f_*f^!\mathcal{O}_X =
+\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)
+$$
+Pour le voir, on utilise aussi le fait que $f_*\mathcal{O}_Y$ est fini localement libre,
+car $f$ est un morphisme fini plat de schémas noethériens,
+et donc que tous les faisceaux Ext supérieurs sont nuls. Certains détails sont omis.
+Finalement,
+$$
+\text{Trace}_f \in
+\Hom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X) =
+\Gamma(X, f_*f^!\mathcal{O}_X) =
+\Gamma(Y, f^!\mathcal{O}_X)
+$$
+D'autre part, on a $f^!\mathcal{O}_X = \omega_{Y/X}$
+par l'identification du lemme \ref{lemma-compare-dualizing}.
+On dispose donc maintenant de deux éléments, à savoir $\text{Trace}_f$
+et $\tau_{Y/X}$ de la
+remarque \ref{remark-relative-dualizing-for-flat-quasi-finite}, dans
+$$
+\Gamma(Y, f^!\mathcal{O}_X) = \Gamma(Y, \omega_{Y/X})
+$$
+et le lemme affirme qu'ils sont égaux.
+
+\medskip\noindent
+Soit $U = \Spec(A) \subset X$ un ouvert affine d'image inverse
+$V = \Spec(B) \subset Y$. Puisque $f$ est fini,
+$A \to B$ est fini et l'on a donc $\omega_{Y/X}(V) = \Hom_A(B,A)$
+par construction ; cet isomorphisme coïncide avec l'identification
+de $f_*f^!\mathcal{O}_Y$ avec
+$\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)$ décrite
+ci-dessus. L'égalité de $\text{Trace}_f$ et de $\tau_{Y/X}$
+découle donc du fait que $\tau_{B/A} = \text{Trace}_{B/A}$
+d'après le lemme \ref{lemma-finite-flat-trace}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Morphismes quasi-finis de Gorenstein}
+\label{section-gorenstein-lci}
+
+\noindent
+Cette section traite des morphismes quasi-finis de Gorenstein.
+
+\begin{lemma}
+\label{lemma-gorenstein-quasi-finite}
+Soit $f : Y \to X$ un morphisme quasi-fini de schémas noethériens.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est de Gorenstein ;
+\item $f$ est plat et les fibres de $f$ sont de Gorenstein ;
+\item $f$ est plat et $\omega_{Y/X}$ est inversible
+(remarque \ref{remark-relative-dualizing-for-quasi-finite}) ;
+\item pour tout $y \in Y$, il existe des ouverts affines
+$y \in V = \Spec(B) \subset Y$, $U = \Spec(A) \subset X$
+avec $f(V) \subset U$ tels que $A \to B$ soit plat
+et $\omega_{B/A}$ soit un $B$-module inversible.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les conditions (1) et (2) sont équivalentes par définition. Les conditions (3) et (4)
+sont équivalentes par la construction de $\omega_{Y/X}$ dans la
+remarque \ref{remark-relative-dualizing-for-quasi-finite}.
+Il faut donc montrer que (1)-(2) équivaut à (3)-(4).
+
+\medskip\noindent
+Première démonstration. En travaillant localement sur les ouverts affines, on peut supposer $f$ séparé
+et appliquer le lemme \ref{lemma-compare-dualizing} pour voir que
+$\omega_{Y/X}$ est le faisceau de cohomologie de degré zéro de $f^!\mathcal{O}_X$.
+Sous chacune des deux hypothèses, $f$ est plat et quasi-fini ;
+$f^!\mathcal{O}_X$ est donc isomorphe à $\omega_{Y/X}[0]$, voir
+Dualité des schémas, lemme \ref{duality-lemma-flat-quasi-finite-shriek}. Ainsi
+l'équivalence découle de
+Dualité des schémas, lemme
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein}.
+
+\medskip\noindent
+Deuxième démonstration. D'après le lemme \ref{lemma-characterize-invertible},
+il suffit d'établir l'équivalence de
+(2) et (3) lorsque $X$ est le spectre d'un corps $k$.
+Alors $Y = \Spec(B)$, où $B$ est une $k$-algèbre finie.
+Dans ce cas, $\omega_{B/A} = \omega_{B/k} = \Hom_k(B, k)$,
+placé en degré $0$, est un complexe dualisant de $B$, voir
+Complexes dualisants, lemme \ref{dualizing-lemma-dualizing-finite}.
+L'équivalence découle donc de
+Complexes dualisants, lemme \ref{dualizing-lemma-gorenstein}.
+\end{proof}
+
+\begin{remark}
+\label{remark-collect-results-qf-gorenstein}
+Soit $f : Y \to X$ un morphisme quasi-fini de Gorenstein de schémas noethériens.
+Soient $\mathfrak D_f \subset \mathcal{O}_Y$ la différente et
+$R \subset Y$ le sous-schéma fermé défini par $\mathfrak D_f$.
+On a alors
+\begin{enumerate}
+\item $\mathfrak D_f$ est un idéal localement principal ;
+\item $R$ est un sous-schéma fermé localement principal ;
+\item $\mathfrak D_f$ coïncide, localement sur les ouverts affines, avec la différente de Noether ;
+\item la formation de $R$ commute au changement de base ;
+\item si $f$ est fini, la norme de $R$ est le discriminant de $f$ ;
+\item si $f$ est étale aux points associés de $Y$, alors
+$R$ est un diviseur de Cartier effectif et $\omega_{Y/X} = \mathcal{O}_Y(R)$.
+\end{enumerate}
+Cela résulte des lemmes \ref{lemma-flat-gorenstein-agree-noether},
+\ref{lemma-base-change-different} et
+\ref{lemma-norm-different-is-discriminant}.
+\end{remark}
+
+\begin{remark}
+\label{remark-collect-results-qf-gorenstein-two}
+Soit $S$ un schéma noethérien muni d'un complexe dualisant
+$\omega_S^\bullet$. Soit $f : Y \to X$ un morphisme quasi-fini de Gorenstein
+de schémas compactifiables sur $S$. Supposons de plus
+$Y$ et $X$ de Cohen-Macaulay et $f$ étale aux points génériques
+de $Y$. On peut alors combiner
+Dualité des schémas, remarque
+\ref{duality-remark-CM-morphism-compare-dualizing} et la
+remarque \ref{remark-collect-results-qf-gorenstein}
+pour obtenir un isomorphisme canonique
+$$
+\omega_Y = f^*\omega_X \otimes_{\mathcal{O}_Y} \omega_{Y/X} =
+f^*\omega_X \otimes_{\mathcal{O}_Y} \mathcal{O}_Y(R)
+$$
+de $\mathcal{O}_Y$-modules. Si $f$ est en outre fini,
+l'isomorphisme $\mathcal{O}_Y(R) = \omega_{Y/X}$ provient
+de la section globale $\tau_{Y/X} \in H^0(Y, \omega_{Y/X})$
+qui correspond par dualité à l'application
+$\text{Trace}_f : f_*\mathcal{O}_Y \to \mathcal{O}_X$, voir le
+lemme \ref{lemma-compare-trace}.
+\end{remark}
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

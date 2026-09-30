@@ -1,0 +1,2358 @@
+\input{preamble}
+
+% OK, on commence ici.
+%
+\begin{document}
+
+\title{Amorçage}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous utilisons les résultats des sections précédentes pour
+donner des critères assurant qu'un préfaisceau d'ensembles sur la catégorie des
+schémas est un espace algébrique. Une partie de ces résultats provient des
+travaux d'Artin, voir \cite{ArtinI}, \cite{ArtinII},
+\cite{Artin-Theorem-Representability},
+\cite{Artin-Construction-Techniques},
+\cite{Artin-Algebraic-Spaces},
+\cite{Artin-Algebraic-Approximation},
+\cite{Artin-Implicit-Function},
+et \cite{ArtinVersal}.
+Notre méthode consistera toutefois à employer autant que possible des arguments
+semblables à ceux de l'article de Keel et Mori, voir
+\cite{K-M}.
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Nous supposons une fois pour toutes que tous les schémas considérés appartiennent
+à un grand site fppf $\Sch_{fppf}$. De même, tout anneau $A$ considéré
+est tel que $\Spec(A)$ est (isomorphe à) un
+objet de ce grand site.
+
+\medskip\noindent
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Dans ce chapitre et dans les suivants, nous noterons $X \times_S X$
+le produit de $X$ avec lui-même (dans la catégorie des espaces
+algébriques sur $S$), plutôt que $X \times X$.
+
+
+
+
+\section{Morphismes représentables par des espaces algébriques}
+\label{section-morphism-representable-by-spaces}
+
+\noindent
+Nous définissons ici la notion de préfaisceau relativement représentable
+par des espaces algébriques au-dessus d'un autre, puis en établissons quelques propriétés.
+
+\begin{definition}
+\label{definition-morphism-representable-by-spaces}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $F$, $G$ des préfaisceaux sur $\Sch_{fppf}/S$.
+On dit qu'un morphisme $a : F \to G$ est
+{\it représentable par des espaces algébriques}
+si, pour tout $U \in \Ob((\Sch/S)_{fppf})$ et
+tout $\xi : U \to G$, le produit fibré $U \times_{\xi, G} F$
+est un espace algébrique.
+\end{definition}
+
+\noindent
+Voici une vérification élémentaire.
+
+\begin{lemma}
+\label{lemma-morphism-spaces-is-representable-by-spaces}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Alors $f$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+C'est formel. Cela repose sur le fait que
+la catégorie des espaces algébriques sur $S$ admet des produits fibrés, voir
+Espaces, lemme \ref{spaces-lemma-fibre-product-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-transformation}
+\begin{slogan}
+Tout changement de base d'un morphisme de préfaisceaux représentable
+par des espaces algébriques est représentable par des espaces algébriques.
+\end{slogan}
+Soit $S$ un schéma. Soit
+$$
+\xymatrix{
+G' \times_G F \ar[r] \ar[d]^{a'} & F \ar[d]^a \\
+G' \ar[r] & G
+}
+$$
+soit un carré cartésien de préfaisceaux sur $(\Sch/S)_{fppf}$.
+Si $a$ est représentable par des espaces algébriques, alors $a'$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : c'est formel.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-transformation-to-sheaf}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$.
+Soit $a : F \to G$ représentable par des espaces algébriques.
+Si $G$ est un faisceau, alors $F$ en est un aussi.
+\end{lemma}
+
+\begin{proof}
+(Même démonstration que celle de
+Espaces, lemme \ref{spaces-lemma-representable-transformation-to-sheaf}.)
+Soit $\{\varphi_i : T_i \to T\}$ un recouvrement du site
+$(\Sch/S)_{fppf}$.
+Soient $s_i \in F(T_i)$ satisfaisant à la condition de faisceau.
+Alors les $\sigma_i = a(s_i) \in G(T_i)$ satisfont eux aussi à la condition
+de faisceau. Il existe donc un unique $\sigma \in G(T)$ tel
+que $\sigma_i = \sigma|_{T_i}$. Par hypothèse,
+$F' = h_T \times_{\sigma, G, a} F$ est un faisceau.
+Notons que les $(\varphi_i, s_i) \in F'(T_i)$ satisfont eux aussi à la
+condition de faisceau et proviennent donc d'un unique
+$(\text{id}_T, s) \in F'(T)$. Manifestement, $s$ est la section de
+$F$ cherchée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-transformation-diagonal}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$.
+Soit $a : F \to G$ représentable par des espaces algébriques.
+Alors $\Delta_{F/G} : F \to F \times_G F$ est représentable par
+des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+(Même démonstration que celle de
+Espaces, lemme \ref{spaces-lemma-representable-transformation-diagonal}.)
+Soit $U$ un schéma. Soit $\xi = (\xi_1, \xi_2) \in (F \times_G F)(U)$.
+Posons $\xi' = a(\xi_1) = a(\xi_2) \in G(U)$.
+Par hypothèse, il existe un espace algébrique $V$ et un morphisme $V \to U$
+qui représentent le produit fibré $U \times_{\xi', G} F$.
+En particulier, les éléments $\xi_1, \xi_2$ donnent des morphismes
+$f_1, f_2 : U \to V$ au-dessus de $U$. Comme $V$ représente le
+produit fibré $U \times_{\xi', G} F$ et que
+$\xi' = a \circ \xi_1 = a \circ \xi_2$,
+on voit que, si $g : U' \to U$ est un morphisme, alors
+$$
+g^*\xi_1 = g^*\xi_2
+\Leftrightarrow
+f_1 \circ g = f_2 \circ g.
+$$
+Autrement dit, $U \times_{\xi, F \times_G F} F$
+est représenté par $V \times_{\Delta, V \times V, (f_1, f_2)} U$,
+qui est un espace algébrique.
+\end{proof}
+
+\noindent
+La démonstration du
+lemme \ref{lemma-representable-by-spaces-over-space}
+ci-dessous est en fait quelque peu délicate. En effet,
+nous ne pouvons employer l'argument de la démonstration de
+Espaces, lemme \ref{spaces-lemma-representable-over-space},
+car nous ne savons pas encore qu'un composé de transformations
+représentables par des espaces algébriques est représentable par des espaces
+algébriques. Nous utiliserons précisément ce lemme pour établir cet énoncé.
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-over-space}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soient $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$.
+Soit $a : F \to G$ représentable par des espaces algébriques.
+Si $G$ est un espace algébrique, alors $F$ en est un aussi.
+\end{lemma}
+
+\begin{proof}
+Nous avons vu au
+lemme \ref{lemma-representable-by-spaces-transformation-to-sheaf}
+que $F$ est un faisceau.
+
+\medskip\noindent
+Soit $U$ un schéma et soit $U \to G$ un morphisme étale surjectif.
+Alors $U \times_G F$ est un espace algébrique. Soit $W$ un schéma
+et soit $W \to U \times_G F$ un morphisme étale surjectif.
+
+\medskip\noindent
+Affirmons d'abord que $W \to F$ est représentable.
+Pour le voir, soient $X$ un schéma et $X \to F$ un morphisme.
+Alors
+$$
+W \times_F X = W \times_{U \times_G F} U \times_G F \times_F X
+= W \times_{U \times_G F} (U \times_G X)
+$$
+Comme $U \times_G F$ et $G$ sont tous deux des espaces algébriques, on voit
+qu'il s'agit d'un schéma.
+
+\medskip\noindent
+Affirmons ensuite que $W \to F$ est étale et surjectif (cela a désormais
+un sens puisque nous savons qu'il est représentable). Cela résulte de la
+formule précédente : $W \to U \times_G F$ et $U \to G$
+sont tous deux étales et surjectifs, donc
+$W \times_{U \times_G F} (U \times_G X) \to U \times_G X$ et
+$U \times_G X \to X$ sont étales et surjectifs, et le composé de
+morphismes étales surjectifs est étale et surjectif.
+
+\medskip\noindent
+Posons $R = W \times_F W$. D'après ce qui précède, $R$ est un schéma et
+les projections $t, s : R \to W$
+sont étales. Il est clair que $R$ est une relation d'équivalence et que
+$W \to F$ est un épimorphisme de faisceaux. Ainsi, $R$ est une relation
+d'équivalence étale et $F = W/R$. Par conséquent, $F$ est un espace algébrique d'après
+Espaces,
+théorème \ref{spaces-theorem-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces}
+Soit $S$ un schéma.
+Soit $a : F \to G$ un morphisme de préfaisceaux sur $(\Sch/S)_{fppf}$.
+Supposons $a : F \to G$ représentable par des espaces algébriques.
+Si $X$ est un espace algébrique sur $S$ et si $X \to G$ est un morphisme de préfaisceaux,
+alors $X \times_G F$ est un espace algébrique.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-base-change-transformation}, la transformation
+$X \times_G F \to X$ est représentable par des espaces algébriques. Sa source est donc
+un espace algébrique d'après le
+lemme \ref{lemma-representable-by-spaces-over-space}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-transformation}
+Soit $S$ un schéma.
+Soient
+$$
+\xymatrix{
+F \ar[r]^a & G \ar[r]^b & H
+}
+$$
+des morphismes de préfaisceaux sur $(\Sch/S)_{fppf}$.
+Si $a$ et $b$ sont représentables par des espaces algébriques, alors
+$b \circ a$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma sur $S$, et soit $T \to H$ un morphisme.
+Par hypothèse, $T \times_H G$ est un espace algébrique. Le
+lemme \ref{lemma-representable-by-spaces}
+montre donc que $T \times_H F = (T \times_H G) \times_G F$ est lui aussi
+un espace algébrique.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-transformations}
+Soit $S$ un schéma.
+Soient $F_i, G_i : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$, $i = 1, 2$.
+Soient $a_i : F_i \to G_i$, $i = 1, 2$,
+représentables par des espaces algébriques.
+Alors
+$$
+a_1 \times a_2 : F_1 \times F_2 \longrightarrow G_1 \times G_2
+$$
+est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Écrivons $a_1 \times a_2$ comme le composé
+$F_1 \times F_2 \to G_1 \times F_2 \to G_1 \times G_2$.
+La première flèche est le changement de base de $a_1$ par le morphisme
+$G_1 \times F_2 \to G_1$, et la seconde
+est le changement de base de $a_2$ par le morphisme
+$G_1 \times G_2 \to G_2$. Ce lemme est donc une conséquence formelle des
+lemmes \ref{lemma-composition-transformation}
+et \ref{lemma-base-change-transformation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-permanence}
+Soit $S$ un schéma. Soient $a : F \to G$ et $b : G \to H$ des
+transformations de foncteurs $(\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$.
+Supposons que
+\begin{enumerate}
+\item $\Delta : G \to G \times_H G$ soit représentable
+par des espaces algébriques, et que
+\item $b \circ a : F \to H$ soit représentable par des espaces algébriques.
+\end{enumerate}
+Alors $a$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma sur $S$ et soit $\xi \in G(U)$. Alors
+$$
+U \times_{\xi, G, a} F =
+(U \times_{b(\xi), H, b \circ a} F) \times_{(\xi, a), (G \times_H G), \Delta} G
+$$
+Le résultat découle donc du lemme \ref{lemma-representable-by-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-sheaves}
+Soit $S \in \Ob(\Sch_{fppf})$. Soit $F$ un préfaisceau d'ensembles sur
+$(\Sch/S)_{fppf}$. Supposons que
+\begin{enumerate}
+\item $F$ soit un faisceau pour la topologie de Zariski sur $(\Sch/S)_{fppf}$,
+\item il existe un ensemble d'indices $I$ et des sous-foncteurs $F_i \subset F$ tels que
+\begin{enumerate}
+\item chaque $F_i$ soit un faisceau fppf,
+\item chaque $F_i \to F$ soit représentable par des espaces algébriques,
+\item $\coprod F_i \to F$ devienne surjectif après faisceautisation fppf.
+\end{enumerate}
+\end{enumerate}
+Alors $F$ est un faisceau fppf.
+\end{lemma}
+
+\begin{proof}
+Soient $T \in \Ob((\Sch/S)_{fppf})$ et $s \in F(T)$. D'après (2)(c),
+il existe un recouvrement fppf $\{T_j \to T\}$ tel que
+$s|_{T_j}$ soit une section de $F_{\alpha(j)}$ pour un certain $\alpha(j) \in I$.
+Soit $W_j \subset T$ l'image de $T_j \to T$ ;
+c'est un sous-schéma ouvert d'après Morphismes, lemme \ref{morphisms-lemma-fppf-open}.
+D'après (2)(b),
+$F_{\alpha(j)} \times_{F, s|_{W_j}} W_j \to W_j$ est un monomorphisme
+d'espaces algébriques par lequel $T_j$ se factorise. Puisque $\{T_j \to W_j\}$
+est un recouvrement fppf, on en déduit que
+$F_{\alpha(j)} \times_{F, s|_{W_j}} W_j = W_j$, in other words
+$s|_{W_j} \in F_{\alpha(j)}(W_j)$. On en conclut donc que
+$\coprod F_i \to F$ est surjectif pour la topologie de Zariski.
+
+\medskip\noindent
+Soit $\{T_j \to T\}$ un recouvrement fppf de $(\Sch/S)_{fppf}$.
+Soient $s, s' \in F(T)$ tels que $s|_{T_j} = s'|_{T_j}$ pour tout $j$.
+Montrons que $s, s'$ sont égaux. Comme $F$ est un faisceau de Zariski d'après (1),
+nous pouvons raisonner localement pour la topologie de Zariski sur $T$. D'après l'alinéa précédent,
+nous pouvons supposer qu'il existe $i$ tel que $s \in F_i(T)$. Alors
+$s'|_{T_j}$ est une section de $F_i$. D'après (2)(b),
+$F_{i} \times_{F, s'} T \to T$ est un monomorphisme d'espaces algébriques
+par lequel tous les $T_j$ se factorisent. On en conclut que
+$s' \in F_i(T)$. Comme $F_i$ est un faisceau pour la topologie fppf,
+on obtient $s = s'$.
+
+\medskip\noindent
+Soit $\{T_j \to T\}$ un recouvrement fppf de $(\Sch/S)_{fppf}$ et soient
+$s_j \in F(T_j)$ tels que
+$s_j|_{T_j \times_T T_{j'}} = s_{j'}|_{T_j \times_T T_{j'}}$. D'après l'hypothèse
+(2)(c), nous pouvons raffiner le recouvrement et supposer que $s_j \in F_{\alpha(j)}(T_j)$
+pour un certain $\alpha(j) \in I$. Soit $W_j \subset T$ l'image de $T_j \to T$,
+qui est un sous-schéma ouvert d'après Morphismes, lemme \ref{morphisms-lemma-fppf-open}.
+Alors $\{T_j \to W_j\}$ est un recouvrement fppf. Comme $F_{\alpha(j)}$ est un
+sous-préfaisceau de $F$, les deux restrictions de $s_j$ à
+$T_j \times_{W_j} T_j$ coïncident comme éléments de
+$F_{\alpha(j)}(T_j \times_{W_j} T_j)$. La condition de faisceau pour
+$F_{\alpha(j)}$ implique donc l'existence d'un $s'_j \in F_{\alpha(j)}(W_j)$
+dont la restriction à $T_j$ est $s_j$. Pour toute paire d'indices
+$j$ et $j'$, les sections $s'_j|_{W_j \cap W_{j'}}$ et
+$s'_{j'}|_{W_j \cap W_{j'}}$ de $F$ coïncident d'après l'alinéa
+précédent. Le fait que $F$ soit un faisceau de Zariski achève
+la démonstration.
+\end{proof}
+
+
+
+
+
+\section{Propriétés des morphismes de préfaisceaux représentables par des espaces algébriques}
+\label{section-representable-by-spaces-properties}
+
+\noindent
+Voici la définition qui convient.
+
+\begin{definition}
+\label{definition-property-transformation}
+Soit $S$ un schéma. Soit $a : F \to G$ un morphisme de préfaisceaux sur
+$(\Sch/S)_{fppf}$ représentable par des espaces algébriques.
+Soit $\mathcal{P}$ une propriété des morphismes d'espaces algébriques qui
+\begin{enumerate}
+\item est stable par tout changement de base, et
+\item est locale sur la base pour la topologie fppf, voir
+Descente sur les espaces,
+définition \ref{spaces-descent-definition-property-morphisms-local}.
+\end{enumerate}
+Dans ce cas, on dit que $a$ possède {\it la propriété $\mathcal{P}$} si, pour tout
+schéma $U$ et tout $\xi : U \to G$, le morphisme d'espaces algébriques ainsi obtenu
+$U \times_G F \to U$ possède la propriété $\mathcal{P}$.
+\end{definition}
+
+\noindent
+Il importe de noter que nous n'utiliserons cette définition que pour
+des propriétés de morphismes stables par changement de base et
+locales sur la base pour la topologie fppf. Ce n'est
+pas que la définition n'ait autrement aucun sens ; c'est plutôt que
+nous pouvons vouloir donner une autre définition, mieux
+adaptée à la propriété envisagée.
+
+\medskip\noindent
+La définition précédente s'applique\footnote{La stabilité par changement
+de base résulte de
+Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-base-change-surjective},
+\ref{spaces-morphisms-lemma-base-change-quasi-compact},
+\ref{spaces-morphisms-lemma-base-change-etale},
+\ref{spaces-morphisms-lemma-base-change-smooth},
+\ref{spaces-morphisms-lemma-base-change-flat},
+\ref{spaces-morphisms-lemma-base-change-separated},
+\ref{spaces-morphisms-lemma-base-change-finite-type},
+\ref{spaces-morphisms-lemma-base-change-quasi-finite},
+\ref{spaces-morphisms-lemma-base-change-finite-presentation},
+\ref{spaces-morphisms-lemma-base-change-affine},
+\ref{spaces-morphisms-lemma-base-change-proper}, et
+Espaces, lemme
+\ref{spaces-lemma-base-change-immersions}.
+Le caractère local sur la base pour la topologie fppf résulte de
+Descente sur les espaces, lemmes
+\ref{spaces-descent-lemma-descending-property-surjective},
+\ref{spaces-descent-lemma-descending-property-quasi-compact},
+\ref{spaces-descent-lemma-descending-property-etale},
+\ref{spaces-descent-lemma-descending-property-smooth},
+\ref{spaces-descent-lemma-descending-property-flat},
+\ref{spaces-descent-lemma-descending-property-separated},
+\ref{spaces-descent-lemma-descending-property-finite-type},
+\ref{spaces-descent-lemma-descending-property-quasi-finite},
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation},
+\ref{spaces-descent-lemma-descending-property-affine},
+\ref{spaces-descent-lemma-descending-property-proper}, et
+\ref{spaces-descent-lemma-descending-property-closed-immersion}.
+}
+par exemple aux propriétés d'être
+« surjectif »,
+« quasi-compact »,
+« étale »,
+« lisse »,
+« plat »,
+« séparé »,
+« (localement) de type fini »,
+« (localement) quasi-fini »,
+« (localement) de présentation finie »,
+« affine »,
+« propre » et
+« une immersion fermée ».
+Autrement dit, $a$ est
+{\it surjectif}
+(resp.\ {\it quasi-compact},
+{\it étale},
+{\it lisse},
+{\it plat},
+{\it séparé},
+{\it (localement) de type fini},
+{\it (localement) quasi-fini},
+{\it (localement) de présentation finie},
+{\it propre},
+{\it une immersion fermée})
+si, pour tout schéma $T$ et tout morphisme $\xi : T \to G$,
+le morphisme d'espaces algébriques $T \times_{\xi, G} F \to T$ est
+surjectif
+(resp.\ quasi-compact,
+étale,
+plat,
+séparé,
+(localement) de type fini,
+(localement) quasi-fini,
+(localement) de présentation finie,
+propre,
+une immersion fermée).
+
+\medskip\noindent
+Vérifions ensuite la compatibilité avec les notions déjà définies. D'après le
+lemme \ref{lemma-morphism-spaces-is-representable-by-spaces},
+tout morphisme entre espaces algébriques sur $S$ est représentable par
+des espaces algébriques. D'autre part, d'après
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-surjective-local}
+(resp.\ \ref{spaces-morphisms-lemma-quasi-compact-local},
+\ref{spaces-morphisms-lemma-etale-local},
+\ref{spaces-morphisms-lemma-smooth-local},
+\ref{spaces-morphisms-lemma-flat-local},
+\ref{spaces-morphisms-lemma-separated-local},
+\ref{spaces-morphisms-lemma-finite-type-local},
+\ref{spaces-morphisms-lemma-quasi-finite-local},
+\ref{spaces-morphisms-lemma-finite-presentation-local},
+\ref{spaces-morphisms-lemma-affine-local},
+\ref{spaces-morphisms-lemma-proper-local},
+\ref{spaces-morphisms-lemma-closed-immersion-local})
+la définition précédente de
+surjectif
+(resp.\ quasi-compact,
+étale,
+lisse,
+plat,
+séparé,
+(localement) de type fini,
+(localement) quasi-fini,
+(localement) de présentation finie,
+affine,
+propre,
+immersion fermée)
+coïncide avec la définition déjà donnée pour les morphismes
+d'espaces algébriques.
+
+\medskip\noindent
+Voici maintenant quelques lemmes formels.
+
+\begin{lemma}
+\label{lemma-base-change-transformation-property}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété comme dans la
+définition \ref{definition-property-transformation}.
+Soit
+$$
+\xymatrix{
+G' \times_G F \ar[r] \ar[d]^{a'} & F \ar[d]^a \\
+G' \ar[r] & G
+}
+$$
+un carré cartésien de préfaisceaux sur $(\Sch/S)_{fppf}$.
+Si $a$ est représentable par des espaces algébriques et possède $\mathcal{P}$,
+alors $a'$ aussi.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : c'est formel.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-transformation-property}
+Soit $S$ un schéma.
+Soit $\mathcal{P}$ une propriété comme dans la
+définition \ref{definition-property-transformation},
+et supposons $\mathcal{P}$ stable par composition.
+Soient
+$$
+\xymatrix{
+F \ar[r]^a & G \ar[r]^b & H
+}
+$$
+des morphismes de préfaisceaux sur $(\Sch/S)_{fppf}$.
+Si $a$ et $b$ sont représentables par des espaces algébriques et possèdent
+$\mathcal{P}$, alors $b \circ a$ la possède aussi.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : voir le
+lemme \ref{lemma-composition-transformation}
+et utiliser la stabilité par composition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-transformations-property}
+Soit $S$ un schéma.
+Soient $F_i, G_i : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$,
+$i = 1, 2$.
+Soient $a_i : F_i \to G_i$, $i = 1, 2$, représentables par des espaces algébriques.
+Soit $\mathcal{P}$ une propriété comme dans la
+définition \ref{definition-property-transformation},
+stable par composition.
+Si $a_1$ et $a_2$ possèdent la propriété $\mathcal{P}$, alors
+$a_1 \times a_2 : F_1 \times F_2 \longrightarrow G_1 \times G_2$ la possède aussi.
+\end{lemma}
+
+\begin{proof}
+Notons que l'énoncé a un sens d'après le
+lemme \ref{lemma-product-transformations}.
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-transformations-property-implication}
+Soit $S$ un schéma.
+Soient $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$.
+Soit $a : F \to G$ une transformation de foncteurs représentable par
+des espaces algébriques.
+Soient $\mathcal{P}$, $\mathcal{P}'$ des propriétés comme dans la
+définition \ref{definition-property-transformation}.
+Supposons que, pour tout morphisme $f : X \to Y$ d'espaces algébriques sur $S$,
+on ait $\mathcal{P}(f) \Rightarrow \mathcal{P}'(f)$.
+Si $a$ possède la propriété $\mathcal{P}$, alors
+$a$ possède la propriété $\mathcal{P}'$.
+\end{lemma}
+
+\begin{proof}
+C'est formel.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-flat-locally-finite-presentation}
+Soit $S$ un schéma.
+Soient $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ des faisceaux.
+Soit $a : F \to G$ représentable par des espaces algébriques, plat,
+localement de présentation finie et surjectif.
+Alors $a : F \to G$ est surjectif comme morphisme de faisceaux.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma sur $S$ et soit $g : T \to G$ un point à valeurs dans
+$T$ de $G$. Par hypothèse, $T' = F \times_G T$ est un espace algébrique et
+le morphisme $T' \to T$ est un morphisme d'espaces algébriques plat,
+localement de présentation finie et surjectif.
+Soit $U \to T'$ un morphisme étale surjectif, où $U$ est un schéma.
+Par définition des morphismes plats d'espaces algébriques,
+le morphisme de schémas $U \to T$ est alors plat. Il en va de même pour la
+propriété « localement de présentation finie ». Le morphisme $U \to T$ est aussi surjectif,
+voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-surjective-local}.
+Ainsi, $\{U \to T\}$ est un recouvrement fppf tel
+que $g|_U \in G(U)$ provienne d'un élément de $F(U)$, à savoir du
+morphisme $U \to T' \to F$. Cela prouve que le morphisme est surjectif comme
+morphisme de faisceaux, voir
+Sites, définition \ref{sites-definition-sheaves-injective-surjective}.
+\end{proof}
+
+
+
+
+\section{Amorçage de la diagonale}
+\label{section-bootstrap-diagonal}
+
+\noindent
+Dans cette section, nous prouvons que la diagonale d'un faisceau $F$ sur
+$(\Sch/S)_{fppf}$ est représentable dès qu'il existe
+un « recouvrement fppf » de $F$ par un schéma ou par un espace algébrique, voir le
+lemme \ref{lemma-bootstrap-diagonal}.
+
+\begin{lemma}
+\label{lemma-representable-diagonal}
+\begin{slogan}
+La diagonale d'un préfaisceau est représentable par des espaces algébriques si et seulement si
+tout morphisme d'un schéma vers ce préfaisceau est représentable par des espaces algébriques.
+\end{slogan}
+Soit $S$ un schéma.
+Soit $F$ un préfaisceau sur $(\Sch/S)_{fppf}$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\Delta_F : F \to F \times F$ est représentable par des espaces algébriques ;
+\item pour tout schéma $T$, tout morphisme $T \to F$ est représentable par des espaces
+algébriques ;
+\item pour tout espace algébrique $X$, tout morphisme $X \to F$ est représentable
+par des espaces algébriques.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (1). Soit $X \to F$ comme en (3). Soit $T$ un schéma et soit
+$T \to F$ un morphisme. On a alors
+$$
+T \times_F X = (T \times_S X) \times_{F \times F, \Delta} F
+$$
+qui est un espace algébrique d'après le
+lemme \ref{lemma-representable-by-spaces}
+et (1). Ainsi, $X \to F$ est représentable, c'est-à-dire que (3) est vérifiée.
+L'implication (3) $\Rightarrow$ (2) est immédiate. Supposons (2).
+Soit $T$ un schéma et soit $(a, b) : T \to F \times F$ un morphisme.
+Alors
+$$
+F \times_{\Delta_F, F \times F} T =
+(T \times_{a, F, b} T) \times_{T \times T, \Delta_T} T
+$$
+qui est un espace algébrique par hypothèse. Ainsi, $\Delta_F$ est
+représentable par des espaces algébriques, c'est-à-dire que (1) est vérifiée.
+\end{proof}
+
+\noindent
+En particulier, si $F$ est un préfaisceau satisfaisant aux conditions équivalentes du
+lemme, alors, pour tout morphisme $X \to F$ où $X$ est un espace algébrique,
+il est légitime de dire que $X \to F$ est surjectif (resp.\ étale, plat,
+localement de présentation finie) en appliquant la
+définition \ref{definition-property-transformation}.
+
+\medskip\noindent
+Avant de procéder à l'amorçage proprement dit, établissons un petit lemme utile.
+
+\begin{lemma}
+\label{lemma-after-fppf-sep-lqf}
+Soit $S$ un schéma.
+Soit
+$$
+\xymatrix{
+E \ar[r]_a \ar[d]_f & F \ar[d]^g \\
+H \ar[r]^b & G
+}
+$$
+un diagramme cartésien de faisceaux sur $(\Sch/S)_{fppf}$, de sorte que
+$E = H \times_G F$. Si
+\begin{enumerate}
+\item $g$ est représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie ;
+\item $a$ est représentable par des espaces algébriques, séparé et
+localement quasi-fini,
+\end{enumerate}
+alors $b$ est représentable (par des schémas), séparé et
+localement quasi-fini.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma et soit $T \to G$ un morphisme.
+Il faut montrer que $T \times_G H$ est un schéma et que
+le morphisme $T \times_G H \to T$ est séparé et
+localement quasi-fini. Nous pouvons donc effectuer sur tout le diagramme le changement de base vers $T$
+et supposer que $G$ est un schéma. Alors $F$ est un espace algébrique.
+Soit $U$ un schéma et soit $U \to F$ un morphisme étale surjectif.
+Alors $U \to F$ est représentable, surjectif, plat et
+localement de présentation finie d'après
+Morphismes d'espaces,
+lemmes \ref{spaces-morphisms-lemma-etale-flat} et
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation}.
+Le
+lemme \ref{lemma-composition-transformation}
+montre que $U \to G$ est lui aussi surjectif, plat et localement de présentation finie.
+Notons que le changement de base $E \times_F U \to U$ de $a$ reste
+séparé et localement quasi-fini (d'après le
+lemme \ref{lemma-base-change-transformation-property}). Nous pouvons donc
+remplacer la partie supérieure du diagramme du lemme par
+$E \times_F U \to U$. Autrement dit, nous pouvons supposer que
+$F \to G$ est un morphisme de schémas surjectif et plat,
+localement de présentation finie.
+En particulier, $\{F \to G\}$ est un recouvrement fppf de schémas.
+D'après
+Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}
+on en conclut que $E$ est aussi un schéma.
+D'après
+Descente, lemme \ref{descent-lemma-descent-data-sheaves},
+l'égalité $E = H \times_G F$ signifie que l'on obtient une donnée de descente
+sur $E$ relativement au recouvrement fppf $\{F \to G\}$.
+D'après
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+Cette donnée de descente est effective.
+En appliquant de nouveau
+Descente, lemme \ref{descent-lemma-descent-data-sheaves},
+on en déduit que $H$ est un schéma.
+Enfin, d'après
+Descente, lemmes \ref{descent-lemma-descending-property-separated} et
+\ref{descent-lemma-descending-property-quasi-finite}
+il s'ensuit que $b$ est séparé et localement quasi-fini.
+\end{proof}
+
+\noindent
+Voici le résultat annoncé par le titre de la section.
+
+\begin{lemma}
+\label{lemma-bootstrap-diagonal}
+Soit $S$ un schéma.
+Soit $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ un foncteur.
+Supposons que
+\begin{enumerate}
+\item le préfaisceau $F$ soit un faisceau ;
+\item il existe un espace algébrique $X$ et un morphisme $X \to F$
+représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie.
+\end{enumerate}
+Alors $\Delta_F$ est représentable (par des schémas).
+\end{lemma}
+
+\begin{proof}
+Soit $U \to X$ un morphisme étale surjectif d'un schéma vers $X$.
+Alors $U \to X$ est représentable, surjectif, plat et
+localement de présentation finie d'après
+Morphismes d'espaces,
+lemmes \ref{spaces-morphisms-lemma-etale-flat} et
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation}.
+Le
+lemme \ref{lemma-composition-transformation-property}
+montre que le composé $U \to F$ est lui aussi représentable par des espaces algébriques,
+surjectif, plat et localement de présentation finie.
+Ainsi, $R = U \times_F U$ est un espace algébrique, voir le
+lemme \ref{lemma-representable-by-spaces}.
+Le morphisme d'espaces algébriques $R \to U \times_S U$ est
+un monomorphisme, donc il est séparé (puisque la diagonale d'un monomorphisme
+est un isomorphisme, voir
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-monomorphism}).
+Comme $U \to F$ est localement de présentation finie, les deux
+morphismes $R \to U$ le sont aussi, voir le
+lemme \ref{lemma-base-change-transformation-property}.
+Ainsi, $R \to U \times_S U$ est localement de type fini (utiliser
+Morphismes d'espaces,
+lemmes \ref{spaces-morphisms-lemma-finite-presentation-finite-type} et
+\ref{spaces-morphisms-lemma-permanence-finite-type}).
+Au total,
+$R \to U \times_S U$ est un monomorphisme localement de type
+fini, donc un morphisme séparé et localement quasi-fini, voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite}.
+
+\medskip\noindent
+Nous sommes maintenant en mesure de prouver que $\Delta_F$ est représentable.
+Soit $T$ un schéma et soit $(a, b) : T \to F \times F$ un morphisme.
+Posons
+$$
+T' = (U \times_S U) \times_{F \times F} T.
+$$
+Notons que $U \times_S U \to F \times F$ est
+représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie d'après le
+lemme \ref{lemma-product-transformations-property}.
+Ainsi, $T'$ est un espace algébrique et le morphisme de projection
+$T' \to T$ est surjectif, plat et localement de présentation finie.
+Considérons $Z = T \times_{F \times F} F$ (c'est un faisceau) et
+$$
+Z' = T' \times_{U \times_S U} R
+= T' \times_T Z.
+$$
+On voit que $Z'$ est un espace algébrique et que
+$Z' \to T'$ est séparé et localement quasi-fini d'après la
+discussion du premier alinéa de la démonstration, qui a établi que $R$ est
+un espace algébrique et que le
+morphisme $R \to U \times_S U$ possède ces propriétés.
+Nous pouvons donc appliquer le
+lemme \ref{lemma-after-fppf-sep-lqf}
+au diagramme
+$$
+\xymatrix{
+Z' \ar[r] \ar[d] & T' \ar[d] \\
+Z \ar[r] & T
+}
+$$
+ce qui permet de conclure.
+\end{proof}
+
+\noindent
+Voici une variante du résultat précédent.
+
+\begin{lemma}
+\label{lemma-bootstrap-locally-quasi-finite}
+Soit $S$ un schéma. Soit $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ un
+foncteur. Soit $X$ un schéma et soit $X \to F$ représentable par des espaces
+algébriques et localement quasi-fini. Alors $X \to F$ est représentable
+(par des schémas).
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma et soit $T \to F$ un morphisme. Il faut montrer que
+l'espace algébrique $X \times_F T$ est représentable par un schéma. Considérons
+le morphisme
+$$
+X \times_F T  \longrightarrow X \times_{\Spec(\mathbf{Z})} T
+$$
+Comme $X \times_F T \to T$ est localement quasi-fini, la flèche affichée
+l'est aussi (Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-permanence-quasi-finite}).
+D'autre part, la flèche affichée est un monomorphisme,
+donc elle est séparée (Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-monomorphism-separated}).
+Ainsi, $X \times_F T$ est un schéma d'après Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Amorçage}
+\label{section-bootstrap}
+
+\noindent
+Prévenons d'emblée le lecteur que le résultat de cette section sera
+supplanté par le théorème plus fort
+\ref{theorem-final-bootstrap}.
+En revanche, le théorème de cette section est nettement plus facile à
+démontrer et donne déjà une bonne compréhension du mécanisme en jeu,
+notamment aux lecteurs qui s'intéressent surtout aux champs de
+Deligne--Mumford.
+
+\medskip\noindent
+Dans
+Espaces, section \ref{spaces-section-algebraic-spaces},
+nous avons défini un espace algébrique comme un faisceau pour la topologie fppf
+dont la diagonale est représentable et vers lequel il existe un morphisme étale
+surjectif provenant d'un schéma. Dans cette section, nous montrons qu'un
+faisceau pour la topologie fppf dont la diagonale est représentable par des espaces
+algébriques et qui admet un recouvrement étale surjectif par un espace algébrique
+est lui aussi un espace algébrique.
+Autrement dit, la catégorie des espaces algébriques s'obtient en élargissant la
+catégorie des schémas par les faisceaux fppf $F$ qui possèdent une diagonale
+représentable et un recouvrement étale par un schéma. Le
+résultat de cette section affirme que recommencer ce procédé à partir de
+la catégorie des espaces algébriques ne conduit pas à une nouvelle catégorie.
+
+\medskip\noindent
+Une autre motivation des résultats de cette section est qu'ils permettront
+plus loin d'assurer qu'un champ de Deligne--Mumford dont le champ d'inertie est
+trivial est équivalent à un espace algébrique, voir
+Champs algébriques, lemme \ref{algebraic-lemma-algebraic-stack-no-automorphisms}.
+
+\medskip\noindent
+Voici le résultat principal de cette section (comme indiqué plus haut, il
+sera supplanté par le théorème plus fort
+\ref{theorem-final-bootstrap}).
+
+\begin{theorem}
+\label{theorem-bootstrap}
+Soit $S$ un schéma.
+Soit $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ un foncteur.
+Supposons que
+\begin{enumerate}
+\item le préfaisceau $F$ soit un faisceau ;
+\item le morphisme diagonal $F  \to F \times F$ soit représentable par
+des espaces algébriques ;
+\item il existe un espace algébrique $X$
+et un morphisme $X \to F$ surjectif et étale.
+\end{enumerate}
+ou bien supposons que
+\begin{enumerate}
+\item[(a)] le préfaisceau $F$ soit un faisceau ;
+\item[(b)] il existe un espace algébrique $X$ et un morphisme $X \to F$
+représentable par des espaces algébriques, surjectif et étale.
+\end{enumerate}
+Alors $F$ est un espace algébrique.
+\end{theorem}
+
+\begin{proof}
+Nous utiliserons sans plus les mentionner les remarques qui suivent immédiatement la
+définition \ref{definition-property-transformation}.
+
+\medskip\noindent
+Supposons (1), (2) et (3), et soit $X \to F$ comme en (3).
+D'après le lemme \ref{lemma-representable-diagonal}, le morphisme
+$X \to F$ est représentable par des espaces algébriques. Ainsi,
+(a) et (b) sont vérifiées.
+
+\medskip\noindent
+Supposons (a) et (b), et soit $X \to F$ comme en (b).
+Soit $U \to X$ un morphisme étale surjectif d'un schéma vers $X$.
+D'après le lemme \ref{lemma-composition-transformation}, la transformation
+$U \to F$ est représentable par des espaces algébriques, surjective et étale.
+Pour prouver que $F$ est un espace algébrique, il suffit donc de montrer que
+$\Delta_F$ est représentable (Espaces, définition
+\ref{spaces-definition-algebraic-space}). Cela résulte immédiatement du
+lemme \ref{lemma-bootstrap-diagonal}.
+Nous pouvons aussi éviter ce lemme et montrer directement que $F$
+est un espace algébrique, comme dans l'alinéa suivant.
+
+\medskip\noindent
+En effet, soient $U$ un schéma et $U \to F$ un morphisme représentable par des espaces
+algébriques, surjectif et étale. Considérons le produit fibré $R = U \times_F U$.
+Les deux projections $R \to U$ sont représentables par des espaces algébriques, surjectives
+et étales (lemme \ref{lemma-base-change-transformation-property}).
+En particulier, $R$ est un espace algébrique d'après le
+lemme \ref{lemma-representable-by-spaces-over-space}.
+Le morphisme d'espaces algébriques $R \to U \times_S U$ est un monomorphisme,
+donc il est séparé (puisque la diagonale d'un monomorphisme est un isomorphisme).
+Comme $R \to U$ est étale, $R \to U$ est localement quasi-fini, voir
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-etale-locally-quasi-finite}.
+On en déduit que $R \to U \times_S U$ est lui aussi
+localement quasi-fini d'après
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-permanence-quasi-finite}.
+Ainsi,
+Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}
+s'applique et $R$ est un schéma. D'après le
+lemme \ref{lemma-surjective-flat-locally-finite-presentation},
+le morphisme $U \to F$ est un épimorphisme de faisceaux. Ainsi $F = U/R$.
+On en conclut que $F$ est un espace algébrique d'après
+Espaces, théorème \ref{spaces-theorem-presentation}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Recherche d'ouverts}
+\label{section-finding-opens}
+
+
+\medskip\noindent
+Commençons par établir un lemme qui améliore et généralise légèrement
+Espaces, lemme \ref{spaces-lemma-finding-opens},
+aux faisceaux quotients associés à des groupoïdes.
+
+\begin{lemma}
+\label{lemma-better-finding-opens}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur $S$.
+Soit $g : U' \to U$ un morphisme.
+Supposons que
+\begin{enumerate}
+\item le composé
+$$
+\xymatrix{
+U' \times_{g, U, t} R \ar[r]_-{\text{pr}_1} \ar@/^3ex/[rr]^h
+& R \ar[r]_s & U
+}
+$$
+a pour image un ouvert $W \subset U$ ;
+\item le morphisme induit $h : U' \times_{g, U, t} R \to W$
+définit un épimorphisme de faisceaux pour la topologie fppf.
+\end{enumerate}
+Soit $R' = R|_{U'}$ la restriction de $R$ à $U'$. Alors le morphisme
+de faisceaux quotients
+$$
+U'/R' \to U/R
+$$
+pour la topologie fppf est représentable et est une immersion ouverte.
+\end{lemma}
+
+\begin{proof}
+Notons que $W$ est un sous-schéma ouvert $R$-invariant de $U$.
+En effet, l'ensemble des points de $W$ est l'ensemble
+des points de $U$ équivalents, au sens de
+Groupoïdes,
+lemme \ref{groupoids-lemma-pre-equivalence-equivalence-relation-points},
+à un point de $g(U') \subset U$ (le lemme s'applique puisque $j : R \to U \times_S U$
+est une pré-relation d'équivalence d'après
+Groupoïdes, lemme \ref{groupoids-lemma-groupoid-pre-equivalence}).
+De plus, $g : U' \to U$ se factorise par $W$.
+Soit $R|_W$ la restriction de $R$ à $W$.
+Il s'ensuit que $R'$ est aussi la restriction de $R|_W$ à $U'$.
+On peut donc factoriser le morphisme de faisceaux du lemme sous la forme
+$$
+U'/R' \longrightarrow W/R|_W \longrightarrow U/R
+$$
+D'après Groupoïdes, lemme \ref{groupoids-lemma-quotient-groupoid-restrict},
+la première flèche est un isomorphisme de faisceaux.
+Il suffit donc de démontrer le lemme lorsque $g$ est l'immersion
+d'un ouvert $R$-invariant dans $U$.
+
+\medskip\noindent
+Supposons que $U' \subset U$ soit un ouvert $R$-invariant et que $g$ soit le
+morphisme d'inclusion. Posons $F = U/R$ et $F' = U'/R'$. D'après
+Groupoïdes,
+lemme \ref{groupoids-lemma-quotient-pre-equivalence-relation-restrict}
+ou \ref{groupoids-lemma-quotient-groupoid-restrict},
+le morphisme $F' \to F$ est injectif. Soit $\xi \in F(T)$.
+Il faut montrer que $T \times_{\xi, F} F'$ est représentable
+par un sous-schéma ouvert de $T$.
+Il existe un recouvrement fppf $\{f_i : T_i \to T\}$ tel que
+$\xi|_{T_i}$ soit l'image par $U \to U/R$ d'un morphisme $a_i : T_i \to U$.
+Posons $V_i = a_i^{-1}(U')$.
+Affirmons que $V_i \times_T T_j = T_i \times_T V_j$ comme sous-schémas ouverts
+de $T_i \times_T T_j$.
+
+\medskip\noindent
+Comme $a_i \circ \text{pr}_0$ et $a_j \circ \text{pr}_1$ sont des morphismes
+$T_i \times_T T_j \to U$ ayant tous deux pour image la section
+$\xi|_{T_i \times_T T_j} \in F(T_i \times_T T_j)$, il existe
+un recouvrement fppf $\{f_{ijk} : T_{ijk} \to T_i \times_T T_j\}$ et des morphismes
+$r_{ijk} : T_{ijk} \to R$ tels que
+$$
+a_i \circ \text{pr}_0 \circ f_{ijk} = s \circ r_{ijk},
+\quad
+a_j \circ \text{pr}_1 \circ f_{ijk} = t \circ r_{ijk},
+$$
+voir
+Groupoïdes, lemme \ref{groupoids-lemma-quotient-pre-equivalence}.
+Puisque $U'$ est $R$-invariant, on a $s^{-1}(U') = t^{-1}(U')$, donc
+$f_{ijk}^{-1}(V_i \times_T T_j) = f_{ijk}^{-1}(T_i \times_T V_j)$.
+Comme $\{f_{ijk}\}$ est surjectif, l'affirmation précédente en résulte.
+Ainsi, d'après
+Descente, lemme \ref{descent-lemma-open-fpqc-covering},
+il existe un sous-schéma ouvert $V \subset T$ tel que
+$f_i^{-1}(V) = V_i$. Affirmons que $V$ représente $T \times_{\xi, F} F'$.
+
+\medskip\noindent
+Dans un premier temps, montrons que $\xi|_V$ appartient à $F'(V) \subset F(V)$.
+En effet, la famille de morphismes $\{V_i \to V\}$ est un recouvrement fppf
+et, par construction, $\xi|_{V_i} \in F'(V_i)$.
+La propriété de faisceau de $F'$ donne donc $\xi|_V \in F'(V)$.
+Enfin, soient $T' \to T$ un morphisme de schémas et
+$\xi|_{T'} \in F'(T')$. Pour achever la démonstration, il faut montrer que
+$T' \to T$ se factorise par $V$.
+Il existe un recouvrement fppf $\{T'_j \to T'\}_{j \in J}$ et des morphismes
+$b_j : T'_j \to U'$ tels que $\xi|_{T'_j}$ soit l'image par
+$U' \to U/R$ de $b_j$. Il suffit manifestement de montrer que les composés
+$T'_j \to T$ se factorisent par $V$. Nous pouvons donc supposer que $\xi|_{T'}$
+est l'image d'un morphisme $b : T' \to U'$. Il suffit alors de montrer
+que $T'\times_T T_i \to T_i$ se factorise par $V_i$. Sur le schéma
+$T' \times_T T_i$, la restriction de $\xi$ est l'image de deux
+éléments de $(U/R)(T' \times_T T_i)$, à savoir $a_i \circ \text{pr}_1$ et
+$b \circ \text{pr}_0$, dont le second se factorise par l'ouvert $R$-invariant
+$U'$. Ainsi, d'après
+Groupoïdes, lemme \ref{groupoids-lemma-quotient-pre-equivalence},
+il existe un recouvrement $\{h_k : Z_k \to T' \times_T T_i\}$ et des morphismes
+$r_k : Z_k \to R$ tels que $a_i \circ \text{pr}_1 \circ h_k = s \circ r_k$
+et $b \circ \text{pr}_0 \circ h_k = t \circ r_k$. Comme $U'$ est un ouvert
+$R$-invariant et que l'image de $b$ est contenue dans $U'$, l'image de chaque
+$a_i \circ \text{pr}_1 \circ h_k$ est contenue dans $U'$. Il s'ensuit que
+l'image de $T' \times_T T_i \to T_i$ est contenue dans $V_i$, par définition de $V_i$,
+ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Découpage des relations d'équivalence}
+\label{section-slicing}
+
+\noindent
+Dans cette section, nous expliquons comment « améliorer » une relation
+d'équivalence donnée en la découpant. Il ne s'agit pas du type de « découpage
+étale » auquel on pourrait être habitué, mais d'un découpage beaucoup plus grossier.
+
+
+\begin{lemma}
+\label{lemma-slice-equivalence-relation}
+Soit $S$ un schéma.
+Soit $j : R \to U \times_S U$ une relation d'équivalence sur des schémas au-dessus de $S$.
+Supposons que $s, t : R \to U$ soient plats et localement de présentation finie.
+Alors il existe une relation d'équivalence $j' : R' \to U'\times_S U'$
+sur des schémas au-dessus de $S$, et un isomorphisme
+$$
+U'/R' \longrightarrow U/R
+$$
+induit par un morphisme $U' \to U$ qui envoie $R'$ dans $R$, tel que
+$s', t' : R \to U$ soient plats, localement de présentation finie
+et localement quasi-finis.
+\end{lemma}
+
+\begin{proof}
+Nous démontrerons ce lemme en plusieurs étapes. Nous utiliserons sans plus
+le mentionner le fait qu'une relation d'équivalence donne lieu à un schéma en
+groupoïdes et que la restriction d'une relation d'équivalence est encore une relation
+d'équivalence, voir
+Groupoïdes, lemmes
+\ref{groupoids-lemma-restrict-relation},
+\ref{groupoids-lemma-equivalence-groupoid}, et
+\ref{groupoids-lemma-restrict-groupoid-relation}.
+
+\medskip\noindent
+Étape 1 : nous pouvons supposer que $s, t : R \to U$ sont des morphismes
+localement de présentation finie et de Cohen--Macaulay. En effet, comme dans
+Compléments sur les groupoïdes, lemme \ref{more-groupoids-lemma-make-CM},
+soit $g : U' \to U$ le sous-schéma ouvert tel que
+$t^{-1}(U') \subset R$ soit l'ouvert maximal au-dessus duquel $s : R \to U$ est
+de Cohen--Macaulay, et notons $R'$ la restriction de $R$ à $U'$.
+D'après le lemme cité, le morphisme
+$$
+\xymatrix{
+t^{-1}(U') \ar@{=}[r] &
+U' \times_{g, U, t} R \ar[r]_-{\text{pr}_1} \ar@/^3ex/[rr]^h &
+R \ar[r]_s &
+U
+}
+$$
+est surjectif. Comme $h$ est plat et localement de présentation finie,
+$\{h\}$ est un recouvrement fppf. Ainsi, d'après
+Groupoïdes, lemme \ref{groupoids-lemma-quotient-groupoid-restrict},
+$U'/R' \to U/R$ est un isomorphisme. Par construction de $U'$,
+$s', t'$ sont de Cohen--Macaulay et localement de présentation finie.
+
+\medskip\noindent
+Étape 2. Supposons $s, t$ de Cohen--Macaulay et localement de présentation finie.
+Soit $u \in U$ un point de type fini. D'après
+Compléments sur les groupoïdes, lemme \ref{more-groupoids-lemma-max-slice-quasi-finite},
+il existe un schéma affine $U'$ et un morphisme $g : U' \to U$ tels que
+\begin{enumerate}
+\item $g$ est une immersion ;
+\item $u \in U'$ ;
+\item $g$ est localement de présentation finie ;
+\item $h$ est plat, localement de présentation finie et localement quasi-fini ;
+\item les morphismes $s', t' : R' \to U'$ sont plats, localement de
+présentation finie et localement quasi-finis.
+\end{enumerate}
+Nous avons utilisé ici les notations introduites dans
+Compléments sur les groupoïdes, situation \ref{more-groupoids-situation-slice}.
+
+\medskip\noindent
+Étape 3. Pour chaque point $u \in U$ de type fini,
+choisissons $g_u : U'_u \to U$ comme à
+l'étape 2 et notons $R'_u$ la restriction de $R$ à $U'_u$.
+Notons $h_u = s \circ \text{pr}_1 : U'_u \times_{g_u, U, t} R \to U$. Posons
+$U' = \coprod_{u \in U} U'_u$ et $g = \coprod g_u$. Soit $R'$ la
+restriction de $R$ à $U'$ comme ci-dessus. Affirmons que
+le couple $(U', g)$ convient\footnote{Il faut ici vérifier que $U'$ n'est pas
+trop grand, c'est-à-dire qu'il est isomorphe à un objet de la catégorie
+$\Sch_{fppf}$, voir la
+section \ref{section-conventions}.
+Il s'agit d'une question purement ensembliste ; utilisons la notion de taille d'un
+schéma introduite dans
+Ensembles, section \ref{sets-section-categories-schemes}.
+Notons que la taille de chaque $U'_u$ est au plus celle de $U$
+et que le cardinal de l'ensemble d'indices est au plus le cardinal de
+$|U|$, lui-même borné par la taille de $U$. Ainsi, $U'$ est isomorphe
+à un objet de $\Sch_{fppf}$ d'après
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}, partie (6).}.
+Notons que
+\begin{align*}
+R' = &
+\coprod\nolimits_{u_1, u_2 \in U}
+(U'_{u_1} \times_{g_{u_1}, U, t} R)
+\times_R
+(R \times_{s, U, g_{u_2}} U'_{u_2}) \\
+= &
+\coprod\nolimits_{u_1, u_2 \in U}
+(U'_{u_1} \times_{g_{u_1}, U, t} R) \times_{h_{u_1}, U, g_{u_2}} U'_{u_2}
+\end{align*}
+Ainsi, la projection $s' : R' \to U' = \coprod U'_{u_2}$
+est plate, localement de
+présentation finie et localement quasi-finie, car elle est un changement de base de $\coprod h_{u_1}$.
+Enfin, par construction, le morphisme
+$h : U' \times_{g, U, t} R \to U$ est égal à $\coprod h_u$ ; son
+image contient donc tous les points de type fini de $U$.
+Comme chaque $h_u$ est plat et localement de présentation finie, on en déduit que
+$h$ est plat et localement de présentation finie.
+En particulier, l'image de $h$ est ouverte (voir
+Morphismes, lemme \ref{morphisms-lemma-fppf-open})
+et, puisque l'ensemble des points de type fini est dense (voir
+Morphismes, lemme \ref{morphisms-lemma-enough-finite-type-points}),
+on en conclut que l'image de $h$ est $U$. Il s'ensuit que
+$\{h\}$ est un recouvrement fppf. D'après
+Groupoïdes, lemme \ref{groupoids-lemma-quotient-groupoid-restrict},
+cela signifie que $U'/R' \to U/R$ est un isomorphisme.
+La démonstration du lemme est achevée.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Quotient par un sous-groupoïde}
+\label{section-dividing}
+
+\noindent
+Il nous faut encore un lemme avant de pouvoir effectuer l'amorçage final.
+Examinons d'abord ce qui se passe pour les groupoïdes « ordinaires », avant
+d'aborder la version schématique.
+
+\medskip\noindent
+Soit $\mathcal{C}$ un groupoïde, voir
+Catégories, définition \ref{categories-definition-groupoid}.
+Comme expliqué dans
+Groupoïdes, section \ref{groupoids-section-groupoids},
+il correspond à un quintuple $(\text{Ob}, \text{Arrows}, s, t, c)$.
+Supposons donné un sous-ensemble $P \subset \text{Arrows}$ tel que
+$(\text{Ob}, P, s|_P, t|_P, c|_P)$ soit lui aussi un groupoïde et que
+$P$ ne contienne aucun automorphisme non trivial. On peut alors construire
+le groupoïde quotient
+$(\overline{\text{Ob}}, \overline{\text{Arrows}}, \overline{s},
+\overline{t}, \overline{c})$
+de la manière suivante :
+\begin{enumerate}
+\item $\overline{\text{Ob}} = \text{Ob}/P$
+est l'ensemble des classes de $P$-isomorphie ;
+\item $\overline{\text{Arrows}} = P\backslash \text{Arrows}/P$
+est l'ensemble des flèches de $\mathcal{C}$ modulo précomposition et
+postcomposition par des flèches de $P$ ;
+\item les applications source et but
+$\overline{s}, \overline{t} : P\backslash \text{Arrows}/P \to \text{Ob}/P$
+sont induites par $s, t$ ;
+\item la composition est définie par la règle
+$\overline{c}(\overline{a}, \overline{b}) = \overline{c(a, b)}$,
+qui est bien définie.
+\end{enumerate}
+En fait, le groupoïde initial
+$(\text{Ob}, \text{Arrows}, s, t, c)$ est canoniquement
+isomorphe à la restriction (voir la discussion dans
+Groupoïdes, section \ref{groupoids-section-restrict-groupoid})
+du groupoïde
+$(\overline{\text{Ob}}, \overline{\text{Arrows}}, \overline{s},
+\overline{t}, \overline{c})$ par l'application quotient
+$g : \text{Ob} \to \overline{\text{Ob}}$. Rappelons que cela signifie
+que
+$$
+\text{Arrows} =
+\text{Ob}
+\times_{g, \overline{\text{Ob}}, \overline{t}}
+\overline{\text{Arrows}}
+\times_{\overline{s}, \overline{\text{Ob}}, g}
+\text{Ob}
+$$
+ce qui est vrai puisque $P$ ne possède aucun automorphisme non trivial.
+Nous omettons les détails.
+
+\medskip\noindent
+Le lemme suivant vaut dans une généralité bien plus grande, mais c'est
+la version que nous utiliserons dans la démonstration de l'amorçage final (après quoi
+nous pourrons démontrer plus facilement les versions plus générales de ce lemme).
+
+\begin{lemma}
+\label{lemma-divide-subgroupoid}
+Soit $S$ un schéma.
+Soit $(U, R, s, t, c)$ un schéma en groupoïdes sur $S$.
+Soit $P \to R$ un monomorphisme de schémas. Supposons que
+\begin{enumerate}
+\item $(U, P, s|_P, t|_P, c|_{P \times_{s, U, t}P})$ soit un schéma en groupoïdes ;
+\item $s|_P, t|_P : P \to U$ soient finis localement libres ;
+\item $j|_P : P \to U \times_S U$ soit un monomorphisme ;
+\item $U$ soit affine ;
+\item $j : R \to U \times_S U$ soit séparé et localement quasi-fini.
+\end{enumerate}
+Alors $U/P$ est représentable par un schéma affine $\overline{U}$, le
+morphisme quotient $U \to \overline{U}$ est fini localement libre et
+$P = U \times_{\overline{U}} U$. De plus, $R$ est la restriction d'un
+schéma en groupoïdes
+$(\overline{U}, \overline{R}, \overline{s}, \overline{t}, \overline{c})$
+sur $\overline{U}$ par le morphisme quotient $U \to \overline{U}$.
+\end{lemma}
+
+\begin{proof}
+Les conditions (1), (2), (3) et (4), ainsi que
+Groupoïdes, proposition \ref{groupoids-proposition-finite-flat-equivalence},
+impliquent l'existence du schéma affine $\overline{U}$ représentant $U/P$ ;
+le morphisme $U \to \overline{U}$ est fini localement libre et
+$P = U \times_{\overline{U}} U$. L'identification
+$P = U \times_{\overline{U}} U$ est telle que $t|_P = \text{pr}_0$ et
+$s|_P = \text{pr}_1$, et que la composition est égale à
+$\text{pr}_{02} : U \times_{\overline{U}} U \times_{\overline{U}} U
+\to U \times_{\overline{U}} U$.
+Un produit de morphismes finis localement libres est fini localement libre (voir
+Espaces, lemme \ref{spaces-lemma-product-representable-transformations-property}
+et
+Morphismes, lemmes \ref{morphisms-lemma-base-change-finite-locally-free} et
+\ref{morphisms-lemma-composition-finite-locally-free}).
+Pour obtenir $\overline{R}$, nous allons descendre
+le schéma $R$ par le morphisme fini localement libre
+$U \times_S U \to \overline{U} \times_S \overline{U}$.
+Notons en effet que
+$$
+(U \times_S U)
+\times_{(\overline{U} \times_S \overline{U})}
+(U \times_S U)
+=
+P \times_S P
+$$
+d'après ce qui précède. Ainsi, se donner une donnée de descente (voir
+Descente, définition \ref{descent-definition-descent-datum})
+pour $R / U \times_S U / \overline{U} \times_S \overline{U}$
+revient à se donner un isomorphisme
+$$
+\varphi :
+R \times_{(U \times_S U), t \times t} (P \times_S P)
+\longrightarrow
+(P \times_S P) \times_{s \times s, (U \times_S U)} R
+$$
+au-dessus de $P \times_S P$ satisfaisant à une condition de cocycle. Nous définissons $\varphi$
+sur les points à valeurs dans $T$ par la règle
+$$
+\varphi : (r, (p, p')) \longmapsto ((p, p'), p^{-1} \circ r \circ p')
+$$
+où la composition est prise dans la catégorie groupoïde
+$(U(T), R(T), s, t, c)$.
+Cela a un sens, car pour que $(r, (p, p'))$ soit un point à valeurs dans $T$
+de la source de $\varphi$, il faut que $t(r) = t(p)$
+et $s(r) = t(p')$. Notons que ce morphisme est un isomorphisme
+dont l'inverse est donné par
+$((p, p'), r') \mapsto (p \circ r' \circ (p')^{-1}, (p, p'))$.
+Pour vérifier la condition de cocycle, il faut établir que
+$\varphi_{02} = \varphi_{12} \circ \varphi_{01}$
+comme morphismes au-dessus de
+$$
+(U \times_S U)
+\times_{(\overline{U} \times_S \overline{U})} (U \times_S U)
+\times_{(\overline{U} \times_S \overline{U})} (U \times_S U) =
+(P \times_S P) \times_{s \times s, (U \times_S U), t \times t} (P \times_S P)
+$$
+Un calcul explicite donne
+$$
+\begin{matrix}
+\varphi_{02} & (r, (p_1, p_1'), (p_2, p_2')) & \mapsto &
+((p_1, p_1'), (p_2, p_2'),
+(p_1 \circ p_2)^{-1} \circ r \circ (p_1' \circ p_2')) \\
+\varphi_{01} & (r, (p_1, p_1'), (p_2, p_2')) & \mapsto &
+((p_1, p_1'), p_1^{-1} \circ r \circ p_1', (p_2, p_2')) \\
+\varphi_{12} & ((p_1, p_1'), r, (p_2, p_2')) & \mapsto &
+((p_1, p_1'), (p_2, p_2'), p_2^{-1} \circ r \circ p_2')
+\end{matrix}
+$$
+(avec des notations évidentes), ce qui donne le résultat voulu.
+Comme $j$ est séparé et localement quasi-fini d'après (5), nous pouvons appliquer
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+pour obtenir un schéma $\overline{R} \to \overline{U} \times_S \overline{U}$
+et un isomorphisme
+$$
+R \to \overline{R} \times_{(\overline{U} \times_S \overline{U})} (U \times_S U)
+$$
+qui identifie la donnée de descente $\varphi$ à la donnée de descente
+canonique sur
+$\overline{R} \times_{(\overline{U} \times_S \overline{U})} (U \times_S U)$,
+voir
+Descente, définition \ref{descent-definition-effective}.
+
+\medskip\noindent
+Comme $U \times_S U \to \overline{U} \times_S \overline{U}$ est fini
+localement libre, on en déduit que $R \to \overline{R}$ est fini localement libre
+comme changement de base. Ainsi, $R \to \overline{R}$ est surjectif comme morphisme de
+faisceaux sur $(\Sch/S)_{fppf}$.
+Notre choix de $\varphi$ implique que, pour des points à valeurs dans $T$, $r, r' \in R(T)$,
+ceux-ci ont la même image dans $\overline{R}$ si et seulement si
+$p^{-1} \circ r \circ p'$ pour certains $p, p' \in P(T)$. Ainsi,
+$\overline{R}$ représente le faisceau
+$$
+T \longmapsto  \overline{R(T)} = P(T)\backslash R(T)/P(T)
+$$
+avec les notations de la discussion précédant le lemme.
+Nous pouvons donc définir la structure de groupoïde sur
+$(\overline{U} = U/P, \overline{R} = P\backslash R/P)$ exactement comme dans
+la discussion du cas d'un groupoïde « ordinaire ».
+Il s'ensuit que $(U, R, s, t, c)$ est l'image inverse de
+cette structure de groupoïde par le morphisme $U \to \overline{U}$.
+Cela achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Amorçage final}
+\label{section-final-bootstrap}
+
+\noindent
+Le résultat suivant va nettement plus loin que les précédents.
+
+\begin{theorem}
+\label{theorem-final-bootstrap}
+Soit $S$ un schéma.
+Soit $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ un foncteur.
+Chacune des conditions suivantes implique que $F$ est un espace algébrique :
+\begin{enumerate}
+\item $F = U/R$, où $(U, R, s, t, c)$ est un groupoïde en espaces algébriques
+sur $S$ tel que $s, t$ soient plats et localement de présentation finie, et
+$j = (t, s) : R \to U \times_S U$ soit une relation d'équivalence ;
+\item $F = U/R$, où $(U, R, s, t, c)$ est un schéma en groupoïdes
+sur $S$ tel que $s, t$ soient plats et localement de présentation finie, et
+$j = (t, s) : R \to U \times_S U$ soit une relation d'équivalence ;
+\item $F$ est un faisceau et il existe un espace algébrique $U$ et un morphisme
+$U \to F$ représentable par des espaces algébriques,
+surjectif, plat et localement de présentation finie ;
+\item $F$ est un faisceau et il existe un schéma $U$ et un morphisme
+$U \to F$ représentable par des espaces algébriques ou par des schémas,
+surjectif, plat et localement de présentation finie ;
+\item $F$ est un faisceau, $\Delta_F$ est représentable par des espaces algébriques,
+et il existe un espace algébrique $U$ et un morphisme $U \to F$
+surjectif, plat et localement de présentation finie ;
+\item $F$ est un faisceau, $\Delta_F$ est représentable,
+et il existe un schéma $U$ et un morphisme $U \to F$
+surjectif, plat et localement de présentation finie.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Observations immédiates : (6) est un cas particulier de (5) et
+(4) est un cas particulier de (3).
+Montrons d'abord que les cas (5) et (3) se ramènent au cas (1).
+En effet, le lemme d'amorçage de la diagonale
+\ref{lemma-bootstrap-diagonal}
+montre que (3) implique (5). Dans le cas (5), posons $R = U \times_F U$ ; c'est
+un espace algébrique par hypothèse. De plus, toujours par hypothèse, les deux
+projections $s, t : R \to U$ sont surjectives, plates et localement de
+présentation finie. Le morphisme $j : R \to U \times_S U$ est manifestement une
+relation d'équivalence. D'après le
+lemme \ref{lemma-surjective-flat-locally-finite-presentation},
+le morphisme $U \to F$ est un épimorphisme de faisceaux. Ainsi $F = U/R$,
+ce qui nous ramène au cas (1).
+
+\medskip\noindent
+Montrons ensuite que (1) se ramène à (2).
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques
+sur $S$ tel que $s, t$ soient plats et localement de présentation finie, et que
+$j = (t, s) : R \to U \times_S U$ soit une relation d'équivalence.
+Choisissons un schéma $U'$ et un morphisme étale surjectif $U' \to U$.
+Soit $R' = R|_{U'}$ la restriction de $R$ à $U'$. D'après
+Groupoïdes dans les espaces,
+lemme \ref{spaces-groupoids-lemma-quotient-pre-equivalence-relation-restrict},
+on a $U/R = U'/R'$. Comme $s', t' : R' \to U'$ sont eux aussi
+plats et localement de présentation finie (voir
+Compléments sur les groupoïdes dans les espaces,
+lemme \ref{spaces-more-groupoids-lemma-restrict-preserves-type}),
+nous sommes ramenés au cas où $U$ est un schéma.
+Puisque $j$ est une relation d'équivalence, $j$ est un monomorphisme.
+Comme $s : R \to U$ est localement de présentation finie,
+$j : R \to U \times_S U$ est localement de type fini, voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-permanence-finite-type}.
+D'après
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite}
+$j$ est localement quasi-fini et séparé.
+Ainsi, si $U$ est un schéma, alors $R$ est un schéma d'après
+Morphismes d'espaces, proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}.
+Nous sommes donc ramenés à démontrer le théorème dans le cas (2).
+
+\medskip\noindent
+Supposons $F = U/R$, où $(U, R, s, t, c)$ est un schéma en groupoïdes
+sur $S$ tel que $s, t$ soient plats et localement de présentation finie, et que
+$j = (t, s) : R \to U \times_S U$ soit une relation d'équivalence. D'après le
+lemme \ref{lemma-slice-equivalence-relation},
+nous sommes ramenés au cas où $s, t$ sont plats,
+localement de présentation finie et localement quasi-finis.
+Soit $U = \bigcup_{i \in I} U_i$ un recouvrement ouvert affine
+(où l'ensemble d'indices $I$ est de cardinal $\leq$ à la taille de $U$, afin d'éviter
+plus loin des problèmes ensemblistes --- la plupart des lecteurs peuvent ignorer cette remarque).
+Soit $(U_i, R_i, s_i, t_i, c_i)$ la restriction de $R$
+à $U_i$. Il est clair que $s_i, t_i$ restent plats, localement de présentation
+finie et localement quasi-finis, puisque $R_i$ est le sous-schéma ouvert
+$s^{-1}(U_i) \cap t^{-1}(U_i)$ de $R$
+et que $s_i, t_i$ sont les restrictions de $s, t$ à cet ouvert. D'après le
+lemme \ref{lemma-better-finding-opens}
+(ou, plus simplement,
+Espaces, lemme \ref{spaces-lemma-finding-opens}),
+le morphisme $U_i/R_i \to U/R$ est représentable par des immersions ouvertes.
+Ainsi, si l'on peut montrer que $F_i = U_i/R_i$ est un espace algébrique, alors
+$\coprod_{i \in I} F_i$ est un espace algébrique d'après
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces}.
+Comme $U = \bigcup U_i$ est un recouvrement ouvert, il est clair que
+$\coprod F_i \to F$ est surjectif. Il s'ensuit que
+$U/R$ est un espace algébrique, d'après
+Espaces, lemme \ref{spaces-lemma-glueing-algebraic-spaces}.
+Nous sommes ainsi ramenés au cas où $U$ est affine, $s, t$ sont plats,
+localement de présentation finie et localement quasi-finis, et où
+$j$ est une relation d'équivalence.
+
+\medskip\noindent
+Supposons que $(U, R, s, t, c)$ soit un schéma en groupoïdes sur $S$,
+avec $U$ affine, tel que $s, t$ soient plats, localement de présentation finie
+et localement quasi-finis, et que $j$ soit une relation d'équivalence.
+Choisissons $u \in U$. Appliquons
+Compléments sur les groupoïdes dans les espaces,
+lemme \ref{spaces-more-groupoids-lemma-quasi-splitting-affine-scheme},
+à $u \in U, R, s, t, c$. On obtient un schéma affine $U'$, un morphisme étale
+$g : U' \to U$ et un point $u' \in U'$ tel que $\kappa(u) = \kappa(u')$
+et que la restriction $R' = R|_{U'}$ soit quasi-scindée au-dessus de $u'$.
+Notons que l'image $g(U')$ est ouverte, puisque $g$ est étale, et qu'elle contient $u$.
+En appliquant le lemme à plusieurs reprises, on peut donc trouver un nombre fini de
+points $u_i \in U$, $i = 1, \ldots, n$,
+de schémas affines $U'_i$, de morphismes étales $g_i : U_i' \to U$ et de points
+$u'_i \in U'_i$ tels que $g(u'_i) = u_i$, avec (a) chaque
+restriction $R'_i$ quasi-scindée au-dessus d'un point de $U'_i$, et
+(b) $U = \bigcup_{i = 1, \ldots, n} g_i(U'_i)$.
+Reprenons maintenant la dernière partie de l'argument de l'alinéa précédent :
+d'après le
+lemme \ref{lemma-better-finding-opens}
+(ou, plus simplement,
+Espaces, lemme \ref{spaces-lemma-finding-opens}),
+le morphisme $U'_i/R'_i \to U/R$ est représentable par des immersions ouvertes.
+Si l'on peut montrer que $F_i = U'_i/R'_i$ est un espace algébrique, alors
+$\coprod_{i \in I} F_i$ est un espace algébrique d'après
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces}.
+Comme $\{g_i : U'_i \to U\}$ est un recouvrement étale,
+il est clair que $\coprod F_i \to F$ est surjectif. Il s'ensuit que
+$U/R$ est un espace algébrique, d'après
+Espaces, lemme \ref{spaces-lemma-glueing-algebraic-spaces}.
+Nous sommes ainsi ramenés au cas où $U$ est affine, $s, t$ sont plats,
+localement de présentation finie et localement quasi-finis,
+$j$ est une relation d'équivalence et $R$ est quasi-scindé au-dessus de $u$ pour un certain
+$u \in U$.
+
+\medskip\noindent
+Supposons que $(U, R, s, t, c)$ soit un schéma en groupoïdes sur $S$,
+avec $U$ affine et $u \in U$, tel que $s, t$ soient plats, localement
+de présentation finie et localement quasi-finis, que
+$j = (t, s) : R \to U \times_S U$ soit une relation d'équivalence
+et que $R$ soit quasi-scindé au-dessus de $u$. Soit $P \subset R$ un quasi-scindage
+de $R$ au-dessus de $u$. D'après le
+lemme \ref{lemma-divide-subgroupoid},
+$(U, R, s, t, c)$ est la restriction d'un groupoïde
+$(\overline{U}, \overline{R}, \overline{s}, \overline{t}, \overline{c})$
+par un morphisme fini localement libre surjectif $U \to \overline{U}$ tel que
+$P = U \times_{\overline{U}} U$. Notons que $s$ admet la factorisation
+$$
+R = U \times_{\overline{U}, \overline{t}} \overline{R}
+\times_{\overline{s}, \overline{U}} U
+\xrightarrow{\text{pr}_{23}}
+\overline{R} \times_{\overline{s}, \overline{U}} U
+\xrightarrow{\text{pr}_2} U
+$$
+Le morphisme $\text{pr}_2$ est le changement de base de $\overline{s}$, et
+$\text{pr}_{23}$ est un changement de base du morphisme fini localement libre
+surjectif $U \to \overline{U}$. Comme $s$ est plat, localement
+de présentation finie et localement quasi-fini, et comme $\text{pr}_{23}$
+est fini localement libre surjectif (comme changement de base d'un tel morphisme),
+on en déduit que $\text{pr}_2$ est plat, localement
+de présentation finie et localement quasi-fini d'après
+Descente, lemmes
+\ref{descent-lemma-flat-fpqc-local-source} et
+\ref{descent-lemma-locally-finite-presentation-fppf-local-source}, ainsi que
+Morphismes, lemme \ref{morphisms-lemma-quasi-finite-local-source}.
+Comme $\text{pr}_2$ est le changement de base du morphisme
+$\overline{s}$ par $U \to \overline{U}$ et que $\{U \to \overline{U}\}$
+est un recouvrement fppf, on en conclut que $\overline{s}$ est
+plat, localement de présentation finie et localement quasi-fini, voir
+Descente, lemmes \ref{descent-lemma-descending-property-flat},
+\ref{descent-lemma-descending-property-locally-finite-presentation} et
+\ref{descent-lemma-descending-property-quasi-finite}. Il en va de même
+pour $\overline{t}$. Considérons le diagramme commutatif
+$$
+\xymatrix{
+U \times_{\overline{U}} U \ar@{=}[r] \ar[rd] & P \ar[r] \ar[d] & R \ar[d] \\
+& \overline{U} \ar[r]^{\overline{e}} & \overline{R}
+}
+$$
+Un fait général sur les restrictions affirme que les quatre sommets extérieurs
+forment un diagramme cartésien. L'égalité montre que le carré intérieur est
+cartésien. Comme $P$ est ouvert dans $R$ (par définition d'un quasi-scindage),
+on en conclut que $\overline{e}$ est une immersion ouverte d'après
+Descente, lemme \ref{descent-lemma-descending-property-open-immersion}.
+En appliquant
+Groupoïdes,
+lemme \ref{groupoids-lemma-quotient-pre-equivalence-relation-restrict},
+on obtient $U/R = \overline{U}/\overline{R}$. Nous sommes donc ramenés
+au cas où $(U, R, s, t, c)$ est un schéma en groupoïdes sur $S$,
+avec $U$ affine et $u \in U$, tel que $s, t$ soient plats, localement
+de présentation finie et localement quasi-finis, que
+$j = (t, s) : R \to U \times_S U$ soit une relation d'équivalence
+et que $e : U \to R$ soit une immersion ouverte !
+
+\medskip\noindent
+Mais bien entendu, si $e$ est une immersion ouverte et si
+$s, t$ sont plats et localement de présentation finie,
+alors les morphismes $t, s$ sont étales.
+On peut par exemple le voir en appliquant
+Compléments sur les groupoïdes, lemme \ref{more-groupoids-lemma-sheaf-differentials},
+qui montre que $\Omega_{R/U} = 0$, ce qui implique à son tour
+que $s, t : R \to U$ sont G-non ramifiés (voir
+Morphismes, lemme \ref{morphisms-lemma-unramified-omega-zero}),
+et implique donc que $s, t$ sont étales (voir
+Morphismes, lemme \ref{morphisms-lemma-flat-unramified-etale}).
+Enfin, si $s, t$ sont étales, alors $U/R$ est un espace
+algébrique d'après
+Espaces, théorème \ref{spaces-theorem-presentation}.
+\end{proof}
+
+
+
+
+
+\section{Applications}
+\label{section-applications}
+
+\noindent
+Comme première application, nous obtenons le fait fondamental suivant :
+$$
+\fbox{Un faisceau qui est localement un espace algébrique pour la topologie fppf est un espace algébrique.}
+$$
+C'est le contenu du lemme suivant.
+Notons que l'hypothèse (2) équivaut à la condition selon laquelle
+$F|_{(\Sch/S_i)_{fppf}}$ est un espace algébrique, voir
+Espaces, lemme \ref{spaces-lemma-rephrase}.
+L'hypothèse (3) est une condition ensembliste que peuvent ignorer
+ceux qui ne se soucient pas des questions ensemblistes.
+
+\begin{lemma}
+\label{lemma-locally-algebraic-space}
+\begin{slogan}
+La définition d'un espace algébrique est locale pour la topologie fppf.
+\end{slogan}
+Soit $S$ un schéma.
+Soit $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ un foncteur.
+Soit $\{S_i \to S\}_{i \in I}$ un recouvrement de $(\Sch/S)_{fppf}$.
+Supposons que
+\begin{enumerate}
+\item $F$ soit un faisceau ;
+\item chaque $F_i = h_{S_i} \times F$ soit un espace algébrique ;
+\item $\coprod_{i \in I} F_i$ soit un espace algébrique (voir
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces}).
+\end{enumerate}
+Alors $F$ est un espace algébrique.
+\end{lemma}
+
+\begin{proof}
+Considérons le morphisme $\coprod F_i \to F$. C'est le changement de base
+de $\coprod S_i \to S$ par $F \to S$. Il est donc représentable,
+localement de présentation finie, plat et surjectif, d'après notre définition
+d'un recouvrement fppf et le
+lemme \ref{lemma-base-change-transformation-property}.
+Ainsi, le
+théorème \ref{theorem-final-bootstrap}
+s'applique et montre que $F$ est un espace algébrique.
+\end{proof}
+
+\noindent
+Voici un cas particulier du lemme \ref{lemma-locally-algebraic-space}
+dans lequel les questions ensemblistes ne se posent pas.
+
+\begin{lemma}
+\label{lemma-locally-algebraic-space-finite-type}
+Soit $S$ un schéma.
+Soit $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ un foncteur.
+Soit $\{S_i \to S\}_{i \in I}$ un recouvrement de $(\Sch/S)_{fppf}$.
+Supposons que
+\begin{enumerate}
+\item $F$ soit un faisceau ;
+\item chaque $F_i = h_{S_i} \times F$ soit un espace algébrique ;
+\item les morphismes $F_i \to S_i$ soient de type fini.
+\end{enumerate}
+Alors $F$ est un espace algébrique.
+\end{lemma}
+
+\begin{proof}
+Nous allons utiliser le
+lemme \ref{lemma-locally-algebraic-space}
+ci-dessus. Pour cela, nous montrerons que l'hypothèse selon laquelle
+$F_i$ est de type fini sur $S_i$ entraîne que la condition ensembliste
+du lemme est satisfaite (quitte à raffiner légèrement le
+recouvrement donné de $S$).
+Nous suggérons au lecteur de passer la suite de la démonstration.
+
+\medskip\noindent
+Si $S'_i \to S_i$ est un morphisme de schémas, alors
+$$
+h_{S'_i} \times F =
+h_{S'_i} \times_{h_{S_i}} h_{S_i} \times F =
+h_{S'_i} \times_{h_{S_i}} F_i
+$$
+est un espace algébrique de type fini sur $S'_i$, voir
+Espaces, lemme \ref{spaces-lemma-fibre-product-spaces},
+et
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-base-change-finite-type}.
+Nous pouvons donc raffiner le recouvrement donné. Après ce raffinement, nous pouvons supposer :
+(a) chaque $S_i$ est affine ; (b) le cardinal de $I$ est au plus
+le cardinal de l'ensemble des points de $S$. (En effet, pour recouvrir
+tout $S$, il suffit que chaque point appartienne à l'image de $S_i \to S$
+pour un certain $i$.)
+
+\medskip\noindent
+Comme chaque $S_i$ est affine et chaque $F_i$ de type fini sur $S_i$,
+on en déduit que $F_i$ est quasi-compact. Ainsi, d'après
+Propriétés des espaces,
+lemme \ref{spaces-properties-lemma-quasi-compact-affine-cover},
+il existe un $U_i \in \Ob((\Sch/S)_{fppf})$ affine
+et un morphisme étale surjectif $U_i \to F_i$. Le fait que
+$F_i \to S_i$ soit localement de type fini implique alors que
+$U_i \to S_i$ est localement de type fini, et en particulier que
+$U_i \to S$ est localement de type fini. D'après
+Ensembles, lemme \ref{sets-lemma-bound-finite-type},
+on a $\text{size}(U_i) \leq \text{size}(S)$.
+Comme on a aussi $|I| \leq \text{size}(S)$,
+$\coprod_{i \in I} U_i$ est isomorphe à un objet de
+$(\Sch/S)_{fppf}$ d'après
+Ensembles, lemme \ref{sets-lemma-bound-size},
+et la construction de $\Sch$. Il s'ensuit que
+$\coprod F_i$ est un espace algébrique d'après
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces},
+ce qui conclut.
+\end{proof}
+
+\noindent
+Comme deuxième application, nous obtenons
+$$
+\fbox{Toute donnée de descente fppf pour des espaces algébriques est effective.}
+$$
+Cet énoncé vaut sous réserve de difficultés ensemblistes ; nous donnons
+le lemme suivant comme résultat type.
+
+\begin{lemma}
+\label{lemma-descend-algebraic-space}
+\begin{slogan}
+Les données de descente fppf pour les espaces algébriques sont effectives.
+\end{slogan}
+Soit $S$ un schéma. Soit $\{X_i \to X\}_{i \in I}$ un recouvrement
+fppf d'espaces algébriques sur $S$.
+\begin{enumerate}
+\item Si $I$ est dénombrable\footnote{La restriction de dénombrabilité peut être
+ignorée par ceux que les questions ensemblistes ne préoccupent pas. On peut admettre
+ici des ensembles d'indices plus grands si l'on peut borner la taille des espaces
+algébriques que l'on descend. Voir par exemple le
+lemme \ref{lemma-locally-algebraic-space-finite-type}.}, alors toute
+donnée de descente d'espaces algébriques relativement à $\{X_i \to X\}$ est effective.
+\item Toute donnée de descente $(Y_i, \varphi_{ij})$ relativement à
+$\{X_i \to X\}_{i \in I}$ (Descente sur les espaces, définition
+\ref{spaces-descent-definition-descent-datum-for-family-of-morphisms})
+pour laquelle $Y_i \to X_i$ est de type fini
+est effective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). D'après
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-descent-data-sheaves},
+cela revient à affirmer qu'un faisceau fppf $F$
+muni d'un morphisme $F \to X$ est un espace algébrique dès que
+chaque $F \times_X X_i$ est un espace algébrique.
+La restriction sur le cardinal de $I$ implique que
+les coproduits d'espaces algébriques indexés par $I$ sont des espaces algébriques, voir
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces},
+et
+Ensembles, lemme \ref{sets-lemma-what-is-in-it}.
+Le morphisme
+$$
+\coprod F \times_X X_i \longrightarrow F
+$$
+est représentable par des espaces algébriques (comme changement de base de
+$\coprod X_i \to X$, voir le lemme \ref{lemma-base-change-transformation}),
+et surjectif, plat et localement de présentation finie
+(comme changement de base de $\coprod X_i \to X$, voir le
+lemme \ref{lemma-base-change-transformation-property}).
+La partie (1) résulte donc du théorème \ref{theorem-final-bootstrap}.
+
+\medskip\noindent
+Démonstration de (2). Appliquons d'abord
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-descent-data-sheaves},
+pour obtenir un faisceau fppf $F$ muni d'un morphisme $F \to X$
+tel que $F \times_X X_i = Y_i$ pour tout $i \in I$.
+Il s'agit de montrer que $F$ est un espace algébrique.
+Choisissons un schéma $U$ et un morphisme étale surjectif $U \to X$.
+Alors $F' = U \times_X F \to F$ est représentable, surjectif et étale
+comme changement de base de $U \to X$.
+D'après le théorème \ref{theorem-final-bootstrap}, il suffit de montrer
+que $F' = U \times_X F$ est un espace algébrique.
+On peut choisir un recouvrement fppf $\{U_j \to U\}_{j \in J}$,
+où $U_j$ est un schéma raffinant le recouvrement fppf
+$\{X_i \times_X U \to U\}_{i \in I}$, voir
+Topologies sur les espaces, lemme
+\ref{spaces-topologies-lemma-refine-fppf-schemes}.
+On obtient ainsi une application $a : J \to I$ et, pour chaque $j$,
+un morphisme $U_j \to X_{a(j)}$ au-dessus de $X$.
+Alors $U_j \times_U F' = U_j \times_{X_{a(j)}} Y_{a(j)}$
+est de type fini sur $U_j$. Par conséquent, $F'$ est un espace
+algébrique d'après le lemme \ref{lemma-locally-algebraic-space-finite-type}.
+\end{proof}
+
+\noindent
+Voici une application d'un autre type.
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-cover}
+Soit $S$ un schéma. Soient $a : F \to G$ et $b : G \to H$ des
+transformations de foncteurs $(\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$.
+Supposons que
+\begin{enumerate}
+\item $F, G, H$ soient des faisceaux ;
+\item $a : F \to G$ soit représentable par des espaces algébriques, plat,
+localement de présentation finie et surjectif ;
+\item $b \circ a : F \to H$ soit représentable par des espaces algébriques.
+\end{enumerate}
+Alors $b$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma sur $S$ et soit $\xi \in H(U)$. Il faut montrer que
+$U \times_{\xi, H} G$ est un espace algébrique. Or, nous savons
+que $U \times_{\xi, H} F$ est un espace algébrique et que
+$U \times_{\xi, H} F \to U \times_{\xi, H} G$ est représentable par
+des espaces algébriques, plat, localement de présentation finie et surjectif,
+comme changement de base du morphisme $a$ (voir le
+lemme \ref{lemma-base-change-transformation-property}).
+Le résultat découle donc du théorème \ref{theorem-final-bootstrap}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-isom}
+Supposons que $B \to S$ et $(U, R, s, t, c)$ soient comme dans
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-quotient-stack} (1).
+Pour tout schéma $T$ sur $S$ et tous objets $x, y$ de $[U/R]$ au-dessus de $T$,
+le faisceau $\mathit{Isom}(x, y)$ sur $(\Sch/T)_{fppf}$
+est un espace algébrique.
+\end{lemma}
+
+\begin{proof}
+D'après
+Groupoïdes dans les espaces,
+lemme \ref{spaces-groupoids-lemma-quotient-stack-isom},
+il existe un recouvrement fppf $\{T_i \to T\}_{i \in I}$
+tel que $\mathit{Isom}(x, y)|_{(\Sch/T_i)_{fppf}}$
+soit un espace algébrique pour chaque $i$. D'après
+Espaces, lemme \ref{spaces-lemma-rephrase},
+cela signifie que chaque $F_i = h_{S_i} \times \mathit{Isom}(x, y)$
+est un espace algébrique.
+Pour démontrer le lemme, il ne reste donc qu'à vérifier la condition ensembliste
+du lemme \ref{lemma-locally-algebraic-space} ci-dessus, à savoir que
+$\coprod F_i$ est un espace algébrique. Pour cela, nous utilisons
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces},
+qui demande de montrer que $I$ et les $F_i$ ne sont pas « trop grands ».
+Nous suggérons au lecteur de passer la suite de la démonstration.
+
+\medskip\noindent
+Choisissons $U' \in \Ob(\Sch/S)_{fppf}$ et un morphisme
+étale surjectif $U' \to U$. Soit $R'$ la restriction de $R$ à $U'$.
+Comme $[U/R] = [U'/R']$, nous pouvons, après avoir remplacé $U$ par $U'$,
+supposer que $U$ est un schéma. (Cette étape sert à faire en sorte que les
+produits fibrés ci-dessous soient pris au-dessus d'un schéma.)
+
+\medskip\noindent
+Notons que, si l'on raffine le recouvrement $\{T_i \to T\}$, chaque
+$F_i$ reste un espace algébrique.
+Nous pouvons donc supposer que chaque $T_i$ est affine. Comme
+$T_i \to T$ est localement de présentation finie, il s'ensuit que
+$\text{size}(T_i) \leq \text{size}(T)$, voir
+Ensembles, lemme \ref{sets-lemma-bound-finite-type}.
+Nous pouvons aussi supposer que le cardinal de l'ensemble d'indices $I$ est au plus le
+cardinal de l'ensemble des points de $T$, car, pour obtenir un
+recouvrement, il suffit que chaque point de $T$ appartienne à l'image.
+Ainsi $|I| \leq \text{size}(T)$.
+Choisissons $W \in \Ob((\Sch/S)_{fppf})$
+et un morphisme étale surjectif $W \to R$. Notons que, dans la démonstration de
+Groupoïdes dans les espaces,
+lemme \ref{spaces-groupoids-lemma-quotient-stack-isom},
+nous avons montré que $F_i$ est représenté par
+$T_i \times_{(y_i, x_i), U \times_B U} R$ pour certains
+$x_i, y_i : T_i \to U$. On voit alors que
+$V_i = T_i \times_{(y_i, x_i), U \times_B U} W$ est un
+schéma muni d'un morphisme étale surjectif $V_i \to F_i$.
+D'après
+Ensembles, lemme \ref{sets-lemma-bound-size-fibre-product},
+on a
+$$
+\text{size}(V_i) \leq \max\{\text{size}(T_i), \text{size}(W)\}
+\leq \max\{\text{size}(T), \text{size}(W)\}
+$$
+Ainsi, d'après
+Ensembles, lemme \ref{sets-lemma-bound-size},
+on en déduit que
+$$
+\text{size}(\coprod\nolimits_{i \in I} V_i)
+\leq \max\{|I|, \text{size}(T), \text{size}(W)\}.
+$$
+La construction de $\Sch$ montre donc
+que $\coprod_{i \in I} V_i$ est isomorphe à un objet
+$V$ de $(\Sch/S)_{fppf}$. Cela vérifie
+l'hypothèse de
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces},
+ce qui conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-covering-quotient}
+Soit $S$ un schéma. Considérons un espace algébrique $F$ de la forme $F = U/R$,
+où $(U, R, s, t, c)$ est un groupoïde en espaces algébriques
+sur $S$ tel que $s, t$ soient plats et localement de présentation finie, et que
+$j = (t, s) : R \to U \times_S U$ soit une relation d'équivalence.
+Alors $U \to F$ est surjectif, plat et localement de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Ce résultat est presque, mais pas tout à fait, immédiat. En effet, d'après
+Groupoïdes dans les espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-pre-equivalence}
+et puisque $j$ est un monomorphisme, on a $R = U \times_F U$.
+Choisissons un schéma $W$ et un morphisme étale surjectif $W \to F$.
+Comme $U \to F$ est un épimorphisme de faisceaux, il existe un recouvrement fppf
+$\{W_i \to W\}$ et des morphismes $W_i \to U$ relevant les morphismes $W_i \to F$.
+Alors
+$$
+W_i \times_F U = W_i \times_U U \times_F U = W_i \times_{U, t} R
+$$
+et la projection $W_i \times_F U \to W_i$ est le changement de base de
+$t : R \to U$, donc elle est plate et localement de présentation finie, voir
+Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-base-change-flat} et
+\ref{spaces-morphisms-lemma-base-change-finite-presentation}.
+Ainsi, d'après
+Descente sur les espaces, lemmes
+\ref{spaces-descent-lemma-descending-property-flat} et
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}
+on voit que $U \to F$ est plat et localement de présentation finie.
+Il est surjectif d'après
+Espaces, remarque \ref{spaces-remark-warning}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-free-action}
+Soit $S$ un schéma. Soit $X \to B$ un morphisme d'espaces algébriques sur
+$S$. Soit $G$ un espace algébrique en groupes sur $B$ et soit
+$a : G \times_B X \to X$ une action de $G$ sur $X$ au-dessus de $B$.
+Si
+\begin{enumerate}
+\item $a$ est une action libre ;
+\item $G \to B$ est plat et localement de présentation finie,
+\end{enumerate}
+alors $X/G$ (voir
+Groupoïdes dans les espaces, définition
+\ref{spaces-groupoids-definition-quotient-sheaf})
+est un espace algébrique, le morphisme $X \to X/G$ est
+surjectif, plat et localement de présentation finie, et
+$X$ est un torseur fppf sous $G$ au-dessus de $X/G$.
+\end{lemma}
+
+\begin{proof}
+Le fait que $X/G$ soit un espace algébrique résulte immédiatement du
+théorème \ref{theorem-final-bootstrap}
+et des définitions. En effet, $X/G = X/R$, où $R = G \times_B X$.
+Les morphismes $s, t : G \times_B X \to X$ sont plats et localement de
+présentation finie (c'est clair pour $s$, qui est un changement de base de $G \to B$,
+et cela en résulte pour $t$ par symétrie, en utilisant l'inverse), et le morphisme
+$j : G \times_B X \to X \times_B X$ est un monomorphisme d'après
+Groupoïdes dans les espaces, lemme \ref{spaces-groupoids-lemma-free-action},
+puisque l'action est libre. Le morphisme $X \to X/G$ est surjectif, plat et
+localement de présentation finie d'après le lemme \ref{lemma-covering-quotient}.
+Pour voir que $X \to X/G$ est un torseur fppf sous $G$
+(Groupoïdes dans les espaces, définition
+\ref{spaces-groupoids-definition-principal-homogeneous-space})
+il faut montrer que $G \times_S X \to X \times_{X/G} X$
+est un isomorphisme et que $X \to X/G$ admet localement des sections pour la topologie fppf.
+La seconde assertion résulte des propriétés déjà établies de $X \to X/G$.
+Le morphisme $G \times_S X \to X \times_{X/G} X$ est injectif (comme morphisme de
+faisceaux fppf), puisque l'action est libre. Enfin, il est aussi surjectif
+comme morphisme de faisceaux d'après Groupoïdes dans les espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-pre-equivalence}.
+Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-torsor}
+Soit $\{S_i \to S\}_{i \in I}$ un recouvrement de $(\Sch/S)_{fppf}$.
+Soit $G$ un espace algébrique en groupes sur $S$, et notons
+$G_i = G_{S_i}$ ses changements de base. Supposons donnés
+\begin{enumerate}
+\item pour chaque $i \in I$, un torseur fppf sous $G_i$, noté $X_i$, au-dessus de $S_i$ ;
+\item pour chaque $i, j \in I$, un isomorphisme $G_{S_i \times_S S_j}$-équivariant
+$\varphi_{ij} : X_i \times_S S_j \to S_i \times_S X_j$ satisfaisant à la condition
+de cocycle sur chaque $S_i \times_S S_j \times_S S_j$.
+\end{enumerate}
+Alors il existe un torseur fppf sous $G$, noté $X$, au-dessus de $S$
+dont le changement de base à $S_i$ est isomorphe à $X_i$, de telle sorte que l'on
+retrouve la donnée de descente $\varphi_{ij}$.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons considérer $X_i$ comme un faisceau sur $(\Sch/S_i)_{fppf}$, voir
+Espaces, section \ref{spaces-section-change-base-scheme}.
+D'après
+Sites, section \ref{sites-section-glueing-sheaves},
+la donnée de descente $(X_i, \varphi_{ij})$ est effective au sens où
+il existe un unique faisceau $X$ sur $(\Sch/S)_{fppf}$ qui
+redonne les espaces algébriques $X_i$ après restriction à
+$(\Sch/S_i)_{fppf}$. On a donc
+$X_i = h_{S_i} \times X$. D'après le
+lemme \ref{lemma-locally-algebraic-space},
+$X$ est un espace algébrique, sous réserve de vérifier que $\coprod X_i$
+est un espace algébrique, ce que nous ferons à la fin de la démonstration.
+Par l'équivalence de catégories de
+Sites, lemme \ref{sites-lemma-mapping-property-glue},
+les morphismes d'action $G_i \times_{S_i} X_i \to X_i$
+se recollent en un morphisme $a : G \times_S X \to X$.
+Il faut maintenant montrer que $a$ est une action, que $X$
+est un pseudo-torseur et qu'il est localement trivial pour la topologie fppf (voir
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-principal-homogeneous-space}).
+Ces propriétés se vérifient localement pour la topologie fppf et
+découlent donc des propriétés correspondantes des actions
+$G_i \times_{S_i} X_i \to X_i$. Le lemme est ainsi démontré.
+
+\medskip\noindent
+Nous suggérons au lecteur de passer la suite de la démonstration, qui est purement
+ensembliste. Choisissons des recouvrements $\{S_{ij} \to S_j\}_{j \in J_i}$ de
+$(\Sch/S)_{fppf}$
+qui trivialisent les torseurs sous $G_i$ notés $X_i$ (c'est possible par hypothèse et par
+Topologies, lemme \ref{topologies-lemma-fppf-induced}, partie (1)).
+Alors $\{S_{ij} \to S\}_{i \in I, j \in J_i}$ est un recouvrement de
+$(\Sch/S)_{fppf}$ ; nous pouvons donc supposer que chaque $X_i$
+est le torseur trivial ! Bien entendu, nous pouvons encore raffiner le recouvrement ;
+nous pouvons donc supposer que chaque $S_i$ est affine et que le cardinal de l'ensemble
+d'indices $I$ est borné par le cardinal de l'ensemble des points
+de $S$. Choisissons $U \in \Ob((\Sch/S)_{fppf})$ et un morphisme
+étale surjectif $U \to G$. Alors $U_i = U \times_S S_i$ est muni
+d'un morphisme étale surjectif vers $X_i \cong G_i$. D'après
+Ensembles, lemme \ref{sets-lemma-bound-size-fibre-product},
+on a $\text{size}(U_i) \leq \max\{\text{size}(U), \text{size}(S_i)\}$. D'après
+Ensembles, lemme \ref{sets-lemma-bound-finite-type},
+on a $\text{size}(S_i) \leq \text{size}(S)$.
+Ainsi,
+$\text{size}(U_i) \leq \max\{\text{size}(U), \text{size}(S)\}$
+pour tout $i \in I$. En combinant cela avec la borne sur $|I|$ obtenue plus haut,
+Ensembles, lemme \ref{sets-lemma-bound-size},
+donne $\text{size}(\coprod U_i) \leq \max\{\text{size}(U), \text{size}(S)\}$.
+Par conséquent,
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces},
+s'applique et montre que $\coprod X_i$ est un espace algébrique, comme
+il fallait le prouver.
+\end{proof}
+
+
+
+
+\section{Espaces algébriques pour la topologie étale}
+\label{section-spaces-etale}
+
+\noindent
+Soit $S$ un schéma. Au lieu de travailler avec des faisceaux sur
+le grand site fppf $(\Sch/S)_{fppf}$, nous pourrions travailler avec des faisceaux
+sur le grand site étale $(\Sch/S)_\etale$. Tous les résultats de
+Espaces algébriques, sections \ref{spaces-section-representable} et
+\ref{spaces-section-representable-properties}
+ont un sens pour les faisceaux sur $(\Sch/S)_\etale$.
+On obtient ainsi une seconde notion d'espace algébrique en travaillant pour la
+topologie étale. Cette notion est a priori plus faible que celle introduite dans
+Espaces algébriques, définition \ref{spaces-definition-algebraic-space},
+puisqu'un faisceau pour la topologie fppf est assurément un faisceau pour la
+topologie étale. Les deux notions sont toutefois équivalentes, comme le montre le
+lemme suivant.
+
+\begin{lemma}
+\label{lemma-spaces-etale}
+La catégorie sous-jacente commune à $\Sch_{fppf}$ et $\Sch_\etale$ sera notée
+$\Sch_\alpha$
+(voir Topologies, remarque \ref{topologies-remark-choice-sites}).
+Soit $S$ un objet de $\Sch_\alpha$. Soit
+$$
+F : (\Sch_\alpha/S)^{opp} \longrightarrow \textit{Ensembles}
+$$
+un préfaisceau possédant les propriétés suivantes :
+\begin{enumerate}
+\item $F$ est un faisceau pour la topologie étale ;
+\item la diagonale $\Delta : F \to F \times F$ est représentable ;
+\item il existe $U \in \Ob(\Sch_\alpha/S)$
+et un morphisme $U \to F$ surjectif et étale.
+\end{enumerate}
+Alors $F$ est un espace algébrique au sens de
+Espaces algébriques, définition \ref{spaces-definition-algebraic-space}.
+\end{lemma}
+
+\begin{proof}
+Notons que les propriétés (2) et (3) du lemme et les propriétés correspondantes
+(2) et (3) de
+Espaces algébriques, définition \ref{spaces-definition-algebraic-space},
+ne dépendent pas de la topologie. En effet, ces propriétés
+ne font intervenir que la notion de produit fibré de préfaisceaux, les morphismes de
+préfaisceaux, la notion de transformation représentable de foncteurs
+et ce que signifie pour une telle transformation d'être surjective et étale.
+Il ne reste donc qu'à prouver qu'un faisceau étale $F$ possédant les propriétés
+(2) et (3) est aussi un faisceau fppf.
+
+\medskip\noindent
+Pour cela, posons $R = U \times_F U$. D'après (2), le préfaisceau $R$ est représenté
+par un schéma et, d'après (3), les projections $R \to U$ sont étales. Ainsi,
+$j : R \to U \times_S U$ est une relation d'équivalence étale. De plus,
+$U \to F$ identifie $F$ au quotient de $U$ par $R$ pour la
+topologie étale : (a) si $T \to F$ est un morphisme, alors $\{T \times_F U \to T\}$
+est un recouvrement étale, donc $U \to F$ est un épimorphisme de faisceaux pour la
+topologie étale ; (b) si $a, b : T \to U$ ont pour image la même section de $F$,
+alors $(a, b) : T \to R$, donc $a$ et $b$ ont la même image dans le quotient
+de $U$ par $R$ pour la topologie étale. Notons ensuite $U/R$ le faisceau quotient
+pour la topologie fppf ; c'est un espace algébrique d'après
+Espaces, théorème \ref{spaces-theorem-presentation}.
+Nous avons donc des morphismes (transformations de foncteurs)
+$$
+U \to F \to U/R.
+$$
+D'après le
+théorème \ref{spaces-theorem-presentation} d'Espaces cité plus haut,
+le composé est représentable, surjectif et étale. Ainsi, pour tout
+schéma $T$ et tout morphisme $T \to U/R$, le produit fibré $V = T \times_{U/R} U$
+est un schéma étale et surjectif sur $T$. Autrement dit, $\{V \to U\}$
+est un recouvrement étale. Cela prouve que $U \to U/R$ est surjectif comme
+morphisme de faisceaux pour la topologie étale. Il s'ensuit que
+$F \to U/R$ est surjectif comme morphisme de faisceaux pour la topologie étale.
+D'autre part, le morphisme $F \to U/R$ est injectif (comme morphisme de préfaisceaux),
+puisque $R = U \times_{U/R} U$, de nouveau d'après
+Espaces, théorème \ref{spaces-theorem-presentation}.
+Ainsi, $F \to U/R$ est un isomorphisme de faisceaux étales, voir
+Sites, lemme \ref{sites-lemma-mono-epi-sheaves},
+ce qui achève la démonstration.
+\end{proof}
+
+\noindent
+Il existe aussi un analogue de
+Espaces, lemme \ref{spaces-lemma-etale-locally-representable-gives-space}.
+
+\begin{lemma}
+\label{lemma-spaces-etale-locally-representable}
+La catégorie sous-jacente commune à $\Sch_{fppf}$ et $\Sch_\etale$ sera notée
+$\Sch_\alpha$
+(voir Topologies, remarque \ref{topologies-remark-choice-sites}).
+Soit $S$ un objet de $\Sch_\alpha$. Soit
+$$
+F : (\Sch_\alpha/S)^{opp} \longrightarrow \textit{Ensembles}
+$$
+un préfaisceau possédant les propriétés suivantes :
+\begin{enumerate}
+\item $F$ est un faisceau pour la topologie étale ;
+\item il existe un espace algébrique $U$ sur $S$
+et un morphisme $U \to F$ représentable par
+des espaces algébriques, surjectif et étale.
+\end{enumerate}
+Alors $F$ est un espace algébrique au sens de
+Espaces algébriques, définition \ref{spaces-definition-algebraic-space}.
+\end{lemma}
+
+\begin{proof}
+Posons $R = U \times_F U$. C'est un espace algébrique puisque $U \to F$ est supposé
+représentable par des espaces algébriques. Les projections $s, t : R \to U$ sont des
+morphismes étales d'espaces algébriques puisque $U \to F$ est supposé étale.
+Le morphisme $j = (t, s) : R \to U \times_S U$ est un monomorphisme et une
+relation d'équivalence puisque $R = U \times_F U$. D'après le
+théorème \ref{theorem-final-bootstrap},
+le faisceau quotient fppf $F' = U/R$ est un espace algébrique.
+Le morphisme $U \to F'$ est surjectif, plat et localement de présentation
+finie d'après le lemme \ref{lemma-covering-quotient}.
+Le morphisme $R \to U \times_{F'} U$ est surjectif comme morphisme de faisceaux
+fppf d'après Groupoïdes dans les espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-pre-equivalence}
+et, puisque $j$ est un monomorphisme, c'est un isomorphisme.
+Ainsi, le changement de base de $U \to F'$ par $U \to F'$ est étale,
+et l'on en déduit que $U \to F'$ est étale d'après
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-descending-property-etale}.
+Le morphisme $U \to F'$ est donc surjectif comme morphisme de faisceaux étales.
+Cela signifie que $F'$ est égal au faisceau quotient $U/R$
+pour la topologie étale (petite vérification omise). On obtient donc
+une factorisation canonique $U \to F' \to F$, et $F' \to F$ est un morphisme
+injectif de faisceaux. D'autre part, $U \to F$ est surjectif comme morphisme
+de faisceaux étales, et il en va donc de même de $F' \to F$. Ainsi $F' = F$,
+ce qui achève la démonstration.
+\end{proof}
+
+\noindent
+En fait, il suffit de disposer d'un recouvrement lisse par un schéma et de supposer
+que la diagonale est représentable par des espaces algébriques.
+
+\begin{lemma}
+\label{lemma-spaces-etale-smooth-cover}
+La catégorie sous-jacente commune à $\Sch_{fppf}$
+et $\Sch_\etale$ sera notée $\Sch_\alpha$ (voir
+Topologies, remarque \ref{topologies-remark-choice-sites}). Soit $S$ un objet
+de $\Sch_\alpha$. Soit
+$$
+F : (\Sch_\alpha/S)^{opp} \longrightarrow \textit{Ensembles}
+$$
+un préfaisceau possédant les propriétés suivantes :
+\begin{enumerate}
+\item $F$ est un faisceau pour la topologie étale ;
+\item la diagonale $\Delta : F \to F \times F$ est représentable
+par des espaces algébriques ;
+\item il existe $U \in \Ob(\Sch_\alpha/S)$
+et un morphisme $U \to F$ surjectif et lisse.
+\end{enumerate}
+Alors $F$ est un espace algébrique au sens de
+Espaces algébriques, définition \ref{spaces-definition-algebraic-space}.
+\end{lemma}
+
+\begin{proof}
+La démonstration suit celle du lemme \ref{lemma-spaces-etale}. Posons
+$R = U \times_F U$. D'après (2), le préfaisceau $R$ est un espace algébrique et, d'après (3),
+les projections $R \to U$ sont lisses et surjectives. Notons $(U, R, s, t, c)$
+le groupoïde associé à la relation d'équivalence $j : R \to U \times_S U$
+(voir Groupoïdes dans les espaces, lemme
+\ref{spaces-groupoids-lemma-equivalence-groupoid}).
+D'après le théorème \ref{theorem-final-bootstrap}, $X = U/R$ (quotient
+pour la topologie fppf) est un espace algébrique. Comme la topologie lisse
+et la topologie étale ont les mêmes faisceaux (d'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-etale-dominates-smooth}),
+le morphisme $U \to F$ identifie $F$ au quotient de
+$U$ par $R$ pour la topologie lisse (détails omis).
+Nous avons donc des morphismes (transformations de foncteurs)
+$$
+U \to F \to X.
+$$
+D'après le lemme \ref{lemma-covering-quotient}, $U \to X$ est
+surjectif, plat et localement de présentation finie. D'après
+Groupoïdes dans les espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-pre-equivalence}
+(et puisque $j$ est un monomorphisme), on a $R = U \times_X U$. D'après
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-descending-property-smooth},
+on en déduit que $U \to X$ est lisse et surjectif (puisque les projections
+$R \to U$ sont lisses et surjectives et que $\{U \to X\}$ est un recouvrement
+fppf). Ainsi, pour tout schéma $T$ et tout morphisme $T \to X$, le produit fibré
+$T \times_X U$ est un espace algébrique lisse et surjectif sur $T$.
+Choisissons un schéma $V$ et un morphisme étale surjectif $V \to T \times_X U$.
+Alors $\{V \to T\}$ est un recouvrement lisse tel que $V \to T \to X$
+se relève en un morphisme $V \to U$. Cela prouve que
+$U \to X$ est surjectif comme morphisme de faisceaux pour la topologie lisse.
+Il s'ensuit que $F \to X$ est surjectif comme morphisme de faisceaux pour la topologie
+lisse. D'autre part, le morphisme $F \to X$ est injectif (comme morphisme
+de préfaisceaux), puisque $R = U \times_X U$.
+Ainsi, $F \to X$ est un isomorphisme de faisceaux lisses ($=$ étales),
+voir Sites, lemme \ref{sites-lemma-mono-epi-sheaves},
+ce qui achève la démonstration.
+\end{proof}
+
+\noindent
+Enfin, voici l'analogue de
+Espaces, lemme \ref{spaces-lemma-etale-locally-representable-gives-space},
+où l'espace est recouvert par un morphisme lisse.
+
+\begin{lemma}
+\label{lemma-spaces-smooth-locally-representable}
+La catégorie sous-jacente commune à $\Sch_{fppf}$ et $\Sch_\etale$ sera notée
+$\Sch_\alpha$
+(voir Topologies, remarque \ref{topologies-remark-choice-sites}).
+Soit $S$ un objet de $\Sch_\alpha$. Soit
+$$
+F : (\Sch_\alpha/S)^{opp} \longrightarrow \textit{Ensembles}
+$$
+un préfaisceau possédant les propriétés suivantes :
+\begin{enumerate}
+\item $F$ est un faisceau pour la topologie étale ;
+\item il existe un espace algébrique $U$ sur $S$
+et un morphisme $U \to F$ représentable par
+des espaces algébriques, surjectif et lisse.
+\end{enumerate}
+Alors $F$ est un espace algébrique au sens de
+Espaces algébriques, définition \ref{spaces-definition-algebraic-space}.
+\end{lemma}
+
+\begin{proof}
+La démonstration est identique à celle du
+lemme \ref{lemma-spaces-etale-locally-representable}.
+Posons $R = U \times_F U$. C'est un espace algébrique puisque $U \to F$ est supposé
+représentable par des espaces algébriques. Les projections $s, t : R \to U$ sont des
+morphismes lisses d'espaces algébriques puisque $U \to F$ est supposé lisse.
+Le morphisme $j = (t, s) : R \to U \times_S U$ est un monomorphisme et une
+relation d'équivalence puisque $R = U \times_F U$. D'après le
+théorème \ref{theorem-final-bootstrap},
+le faisceau quotient fppf $F' = U/R$ est un espace algébrique.
+Le morphisme $U \to F'$ est surjectif, plat et localement de présentation
+finie d'après le lemme \ref{lemma-covering-quotient}.
+Le morphisme $R \to U \times_{F'} U$ est surjectif comme morphisme de faisceaux
+fppf d'après Groupoïdes dans les espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-pre-equivalence}
+et, puisque $j$ est un monomorphisme, c'est un isomorphisme.
+Ainsi, le changement de base de $U \to F'$ par $U \to F'$ est lisse,
+et l'on en déduit que $U \to F'$ est lisse d'après
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-descending-property-smooth}.
+Le morphisme $U \to F'$ est donc surjectif comme morphisme de faisceaux étales (car
+la topologie lisse et la topologie étale ont les mêmes faisceaux d'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-etale-dominates-smooth}).
+Cela signifie que $F'$ est égal au faisceau quotient $U/R$
+pour la topologie étale (petite vérification omise). On obtient donc
+une factorisation canonique $U \to F' \to F$, et $F' \to F$ est un morphisme
+injectif de faisceaux. D'autre part, $U \to F$ est surjectif comme morphisme
+de faisceaux étales (puisque les topologies lisse et étale ont les mêmes
+faisceaux), et il en va donc de même de $F' \to F$. Ainsi $F' = F$,
+ce qui achève la démonstration.
+\end{proof}
+
+
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

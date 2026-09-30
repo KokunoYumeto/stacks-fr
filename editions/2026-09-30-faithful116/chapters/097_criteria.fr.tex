@@ -1,0 +1,3403 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Critères de représentabilité}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Le but de ce chapitre est de trouver des critères garantissant qu'un
+champ en groupoïdes sur la catégorie des schémas munie de la topologie fppf
+est un champ algébrique. Historiquement, cela consistait souvent à démontrer que
+certains foncteurs étaient représentables ; voir les exposés de Grothendieck
+\cite{Gr-I},
+\cite{Gr-II},
+\cite{Gr-III},
+\cite{Gr-IV},
+\cite{Gr-V}, et
+\cite{Gr-VI}.
+Cela explique le titre de ce chapitre. Les travaux d'Artin constituent une autre
+source importante de ces résultats ; voir
+\cite{ArtinI},
+\cite{ArtinII},
+\cite{Artin-Theorem-Representability},
+\cite{Artin-Construction-Techniques},
+\cite{Artin-Algebraic-Spaces},
+\cite{Artin-Algebraic-Approximation},
+\cite{Artin-Implicit-Function}, et
+\cite{ArtinVersal}.
+
+\medskip\noindent
+Certaines notations, conventions et certains termes de ce chapitre sont peu
+commodes et peuvent sembler inversés au lecteur expérimenté. C'est intentionnel.
+On trouvera une explication dans Quot, section
+\ref{quot-section-conventions}.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+Les conventions employées dans ce chapitre sont les mêmes que dans le
+chapitre consacré aux champs algébriques ; voir
+Champs algébriques, section \ref{algebraic-section-conventions}.
+
+
+
+
+\section{Ce que nous savons déjà}
+\label{section-done-so-far}
+
+\noindent
+L'analogue de ce chapitre pour les espaces algébriques est le chapitre intitulé
+« Amorçage » ; voir
+Amorçage, section \ref{bootstrap-section-introduction}.
+Ce chapitre contient déjà certains résultats de représentabilité.
+En outre, nous avons déjà établi dans le chapitre sur les champs algébriques
+une partie des résultats préliminaires qui y sont traités.
+En voici la liste :
+\begin{enumerate}
+\item Les morphismes de préfaisceaux représentables par des espaces algébriques sont étudiés dans
+Amorçage, section
+\ref{bootstrap-section-morphism-representable-by-spaces}.
+Dans
+Champs algébriques, section
+\ref{algebraic-section-morphisms-representable-by-algebraic-spaces}
+nous étudions la notion de $1$-morphisme de catégories fibrées en groupoïdes
+représentable par des espaces algébriques.
+\item Les propriétés des morphismes de préfaisceaux représentables par des
+espaces algébriques sont étudiées dans
+Amorçage, section
+\ref{bootstrap-section-representable-by-spaces-properties}.
+Dans
+Champs algébriques, section
+\ref{algebraic-section-representable-properties}
+nous étudions les propriétés des $1$-morphismes de catégories fibrées en groupoïdes
+représentables par des espaces algébriques.
+\item Nous avons démontré que, si $F$ est un faisceau dont la diagonale est représentable
+par des espaces algébriques et qui possède un recouvrement \'etale par un espace
+algébrique, alors $F$ est un espace algébrique ; voir
+Amorçage, théorème \ref{bootstrap-theorem-bootstrap}.
+(Il s'agit d'une version faible du résultat de l'alinéa suivant.)
+\item
+\label{item-bootstrap-final}
+Nous avons démontré que, si $F$ est un faisceau et s'il existe un espace
+algébrique $U$ et un morphisme $U \to F$ représentable par des espaces
+algébriques, surjectif, plat et localement de présentation finie, alors
+$F$ est un espace algébrique ; voir
+Amorçage, théorème \ref{bootstrap-theorem-final-bootstrap}.
+\item Nous avons aussi démontré l'analogue « lisse » de
+(\ref{item-bootstrap-final}) pour les champs
+algébriques : si $\mathcal{X}$ est un champ en groupoïdes sur
+$(\Sch/S)_{fppf}$ et s'il existe un champ en groupoïdes
+$\mathcal{U}$ sur $(\Sch/S)_{fppf}$ représentable
+par un espace algébrique ainsi qu'un $1$-morphisme $u : \mathcal{U} \to \mathcal{X}$
+représentable par des espaces algébriques, surjectif et lisse,
+alors $\mathcal{X}$ est un champ algébrique ; voir
+Champs algébriques, lemme
+\ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+\end{enumerate}
+Notre première tâche consiste maintenant à démontrer l'analogue de
+(\ref{item-bootstrap-final}) pour les champs
+algébriques en général ; c'est le
+théorème \ref{theorem-bootstrap}.
+
+
+
+\section{Morphismes de champs en groupoïdes}
+\label{section-1-morphisms}
+
+\noindent
+Cette section est préliminaire et peut être omise en première lecture.
+
+\begin{lemma}
+\label{lemma-etale-permanence}
+Soient $\mathcal{X} \to \mathcal{Y} \to \mathcal{Z}$ des
+$1$-morphismes de catégories fibrées en groupoïdes sur
+$(\Sch/S)_{fppf}$.
+Si $\mathcal{X} \to \mathcal{Z}$ et $\mathcal{Y} \to \mathcal{Z}$ sont
+représentables par des espaces algébriques et étales, il en est de même de
+$\mathcal{X} \to \mathcal{Y}$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{U}$ une catégorie fibrée en groupoïdes représentable sur $S$.
+Soit $f : \mathcal{U} \to \mathcal{Y}$ un $1$-morphisme. Il faut montrer que
+$\mathcal{X} \times_\mathcal{Y} \mathcal{U}$ est représentable par un
+espace algébrique et étale sur $\mathcal{U}$.
+Considérons la composée $h : \mathcal{U} \to \mathcal{Z}$. Alors
+$$
+\mathcal{X} \times_\mathcal{Z} \mathcal{U}
+\longrightarrow
+\mathcal{Y} \times_\mathcal{Z} \mathcal{U}
+$$
+est un $1$-morphisme entre deux catégories fibrées en groupoïdes, toutes deux
+représentables par des espaces algébriques et étales sur $\mathcal{U}$.
+Ainsi, d'après
+Propriétés des espaces algébriques, lemme \ref{spaces-properties-lemma-etale-permanence},
+il est représenté par un morphisme étale d'espaces algébriques.
+Enfin, on obtient le résultat voulu puisque le morphisme $f$ induit
+un morphisme $\mathcal{U} \to \mathcal{Y} \times_\mathcal{Z} \mathcal{U}$
+et que l'on a
+$$
+\mathcal{X} \times_\mathcal{Y} \mathcal{U} =
+(\mathcal{X} \times_\mathcal{Z} \mathcal{U})
+\times_{(\mathcal{Y} \times_\mathcal{Z} \mathcal{U})}
+\mathcal{U}.
+$$
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-descent}
+Soient $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$ des champs en groupoïdes
+sur $(\Sch/S)_{fppf}$. Supposons que $\mathcal{X} \to \mathcal{Y}$
+et $\mathcal{Z} \to \mathcal{Y}$ soient des $1$-morphismes.
+Si
+\begin{enumerate}
+\item $\mathcal{Y}$ et $\mathcal{Z}$ sont représentables par des espaces algébriques
+$Y$ et $Z$ sur $S$,
+\item le morphisme associé d'espaces algébriques $Y \to Z$ est surjectif,
+plat et localement de présentation finie, et
+\item $\mathcal{Y} \times_\mathcal{Z} \mathcal{X}$ est un champ en
+groupoïdes discrets,
+\end{enumerate}
+alors $\mathcal{X}$ est un champ en groupoïdes discrets.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier de
+Champs, lemme \ref{stacks-lemma-stack-in-setoids-descent}.
+\end{proof}
+
+\noindent
+Le lemme suivant est l'analogue de
+Champs algébriques, lemme
+\ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}
+et sera supplanté par le
+théorème \ref{theorem-bootstrap}, plus fort.
+
+\begin{lemma}
+\label{lemma-flat-finite-presentation-surjective-diagonal}
+Soit $S$ un schéma.
+Soit $u : \mathcal{U} \to \mathcal{X}$ un $1$-morphisme de
+champs en groupoïdes sur $(\Sch/S)_{fppf}$. Si
+\begin{enumerate}
+\item $\mathcal{U}$ est représentable par un espace algébrique, et
+\item $u$ est représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie,
+\end{enumerate}
+alors
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Étant donnés deux schémas $T_1$, $T_2$ sur $S$, notons
+$\mathcal{T}_i = (\Sch/T_i)_{fppf}$ les catégories fibrées représentables
+associées. Supposons donnés des $1$-morphismes
+$f_i : \mathcal{T}_i \to \mathcal{X}$.
+D'après
+Champs algébriques, lemme \ref{algebraic-lemma-representable-diagonal},
+il suffit de démontrer que le $2$-produit
+fibré $\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$
+est représentable par un espace algébrique. D'après
+Champs, lemme
+\ref{stacks-lemma-2-fibre-product-stacks-in-setoids-over-stack-in-groupoids}
+c'est en tout cas un champ en groupoïdes discrets. Ainsi,
+$\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$ correspond
+à un faisceau $F$ sur $(\Sch/S)_{fppf}$ ; voir
+Champs, lemme \ref{stacks-lemma-stack-in-setoids-characterize}.
+Soit $U$ l'espace algébrique qui représente $\mathcal{U}$.
+Par hypothèse,
+$$
+\mathcal{T}_i' = \mathcal{U} \times_{u, \mathcal{X}, f_i} \mathcal{T}_i
+$$
+est représentable par un espace algébrique $T'_i$ sur $S$. Par conséquent,
+$\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2'$ est représentable
+par l'espace algébrique $T'_1 \times_U T'_2$.
+Considérons le diagramme commutatif
+$$
+\xymatrix{
+&
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[rr]\ar'[d][dd] & &
+\mathcal{T}_1 \ar[dd] \\
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[ur]\ar[rr]\ar[dd] & &
+\mathcal{T}_1' \ar[ur]\ar[dd] \\
+&
+\mathcal{T}_2 \ar'[r][rr] & &
+\mathcal X \\
+\mathcal{T}_2' \ar[rr]\ar[ur] & &
+\mathcal{U} \ar[ur] }
+$$
+Dans ce diagramme, les carrés inférieur, droit, arrière et
+avant sont des $2$-produits fibrés. Un argument formel montre alors
+que $\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \to
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2$
+est le « changement de base » de $\mathcal{U} \to \mathcal{X}$ ; plus précisément,
+le diagramme
+$$
+\xymatrix{
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[d] \ar[r] &
+\mathcal{U} \ar[d] \\
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[r] &
+\mathcal{X}
+}
+$$
+est un carré $2$-cartésien.
+Ainsi, $T'_1 \times_U T'_2 \to F$ est représentable par des espaces algébriques,
+plat, localement de présentation finie et surjectif ; voir
+Champs algébriques, lemmes
+\ref{algebraic-lemma-map-fibred-setoids-representable-algebraic-spaces},
+\ref{algebraic-lemma-base-change-representable-by-spaces},
+\ref{algebraic-lemma-map-fibred-setoids-property}, et
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+Par conséquent, $F$ est un espace algébrique d'après
+Amorçage, théorème \ref{bootstrap-theorem-final-bootstrap},
+ce qui conclut.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-second-diagonal}
+Soit $\mathcal{X}$ une catégorie fibrée en groupoïdes sur $(\Sch/S)_{fppf}$.
+Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\Delta_\Delta : \mathcal{X} \to
+\mathcal{X} \times_{\mathcal{X} \times \mathcal{X}} \mathcal{X}$
+est représentable par des espaces algébriques,
+\item pour tout $1$-morphisme $\mathcal{V} \to \mathcal{X} \times \mathcal{X}$
+où $\mathcal{V}$ est représentable (par un schéma), le produit fibré
+$\mathcal{Y} =
+\mathcal{X} \times_{\Delta, \mathcal{X} \times \mathcal{X}} \mathcal{V}$
+a une diagonale représentable par des espaces algébriques.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Bien que cela demande un peu de réflexion, l'argument est entièrement formel.
+Rappelons en effet que
+$\mathcal{X} \times_{\mathcal{X} \times \mathcal{X}} \mathcal{X} =
+\mathcal{I}_\mathcal{X}$ est l'inertie de $\mathcal{X}$ et que
+$\Delta_\Delta$ est la section unité de $\mathcal{I}_\mathcal{X}$ ; voir
+Catégories, section \ref{categories-section-inertia}.
+La condition (1) signifie donc ceci : étant donnés un schéma $V$, un objet $x$ de
+$\mathcal{X}$ au-dessus de $V$ et un morphisme $\alpha : x \to x$ de $\mathcal{X}_V$,
+la condition « $\alpha = \text{id}_x$ » définit un espace algébrique sur $V$.
+(Autrement dit, il existe un monomorphisme d'espaces algébriques $W \to V$
+tel qu'un morphisme de schémas $f : T \to V$ se factorise par $W$
+si et seulement si $f^*\alpha = \text{id}_{f^*x}$.)
+
+\medskip\noindent
+Soient d'autre part $V$ un schéma et $x, y$ des objets de
+$\mathcal{X}$ au-dessus de $V$. Alors $(x, y)$ définit un morphisme
+$\mathcal{V} = (\Sch/V)_{fppf} \to \mathcal{X} \times \mathcal{X}$.
+Soient ensuite $h : V' \to V$ un morphisme de schémas et
+$\alpha : h^*x \to h^*y$ et $\beta : h^*x \to h^*y$ des morphismes
+de $\mathcal{X}_{V'}$. Alors $(\alpha, \beta)$ définit un morphisme
+$\mathcal{V}' = (\Sch/V)_{fppf} \to \mathcal{Y} \times \mathcal{Y}$.
+La condition (2) affirme alors que, quels que soient les choix ci-dessus, la
+condition « $\alpha = \beta$ » définit un espace algébrique sur $V$.
+
+\medskip\noindent
+Pour voir l'équivalence, étant donné $(\alpha, \beta)$ comme en (2), on constate que
+(1) implique que « $\alpha^{-1} \circ \beta = \text{id}_{h^*x}$ »
+définit un espace algébrique. L'implication (2) $\Rightarrow$ (1)
+s'obtient en prenant $h = \text{id}_V$ et $\beta = \text{id}_x$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Commutation aux limites sur les objets}
+\label{section-limit-preserving}
+
+\noindent
+Soit $S$ un schéma. Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Nous dirons que
+$p$ {\it commute aux limites sur les objets} si la condition suivante est satisfaite :
+pour toute donnée formée de
+\begin{enumerate}
+\item un schéma affine $U = \lim_{i \in I} U_i$ écrit comme
+limite projective filtrante de schémas affines $U_i$ sur $S$,
+\item un objet $y_i$ de $\mathcal{Y}$ au-dessus de $U_i$ pour un certain $i$,
+\item un objet $x$ de $\mathcal{X}$ au-dessus de $U$, et
+\item un isomorphisme $\gamma : p(x) \to y_i|_U$,
+\end{enumerate}
+il existe un $i' \geq i$, un objet $x_{i'}$ de
+$\mathcal{X}$ au-dessus de $U_{i'}$, un isomorphisme
+$\beta : x_{i'}|_U \to x$ et un isomorphisme
+$\gamma_{i'} : p(x_{i'}) \to y_i|_{U_{i'}}$
+tels que
+\begin{equation}
+\label{equation-limit-preserving}
+\vcenter{
+\xymatrix{
+p(x_{i'}|_U) \ar[d]_{p(\beta)} \ar[rr]_{\gamma_{i'}|_U} & &
+(y_i|_{U_{i'}})|_U \ar@{=}[d] \\
+p(x) \ar[rr]^\gamma & & y_i|_U
+}
+}
+\end{equation}
+soit commutatif. Dans cette situation, on dit que « $(i', x_{i'}, \beta, \gamma_{i'})$
+est une {\it solution} du problème posé par les données (1), (2), (3), (4) ».
+La motivation de cette définition vient de
+Limits of Espaces,
+lemme \ref{spaces-limits-lemma-characterize-relative-limit-preserving}.
+
+\begin{lemma}
+\label{lemma-base-change-limit-preserving}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et $q : \mathcal{Z} \to \mathcal{Y}$
+des $1$-morphismes de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $p : \mathcal{X} \to \mathcal{Y}$ commute aux limites sur les objets, il en
+est de même du changement de base
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+de $p$ par $q$.
+\end{lemma}
+
+\begin{proof}
+L'assertion est formelle. Soit $U = \lim_{i \in I} U_i$ la limite projective filtrante
+de schémas affines $U_i$ sur $S$, soit $z_i$ un objet de $\mathcal{Z}$
+au-dessus de $U_i$ pour un certain $i$, soit $w$ un objet de
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ au-dessus de $U$, et soit
+$\delta : p'(w) \to z_i|_U$ un isomorphisme.
+On peut écrire
+$w = (U, x, z, \alpha)$, où $x$ est un objet de $\mathcal{X}$ au-dessus de $U$,
+$z$ un objet de $\mathcal{Z}$ au-dessus de $U$ et
+$\alpha : p(x) \to q(z)$ un isomorphisme. Puisque $p'(w) = z$, on a
+$\delta : z \to z_i|_U$. Posons $y_i = q(z_i)$ et
+$\gamma = q(\delta) \circ \alpha : p(x) \to y_i|_U$.
+Comme $p$ commute aux limites sur les objets, il existe $i' \geq i$
+et un objet $x_{i'}$ de $\mathcal{X}$ au-dessus de $U_{i'}$, ainsi que des
+isomorphismes $\beta : x_{i'}|_U \to x$ et
+$\gamma_{i'} : p(x_{i'}) \to y_i|_{U_{i'}}$ tels que
+(\ref{equation-limit-preserving}) soit commutatif. Considérons alors l'objet
+$w_{i'} = (U_{i'}, x_{i'}, z_i|_{U_{i'}}, \gamma_{i'})$ de
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ au-dessus de $U_{i'}$
+et définissons les isomorphismes
+$$
+w_{i'}|_U = (U, x_{i'}|_U, z_i|_U, \gamma_{i'}|_U)
+\xrightarrow{(\beta, \delta^{-1})}
+(U, x, z, \alpha) = w
+$$
+et
+$$
+p'(w_{i'}) = z_i|_{U_{i'}} \xrightarrow{\text{id}} z_i|_{U_{i'}}.
+$$
+Ceux-ci se combinent en une solution du problème.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-limit-preserving}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et $q : \mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $p$ et $q$ commutent aux limites sur les objets, il en est de même de la composée
+$q \circ p$.
+\end{lemma}
+
+\begin{proof}
+L'assertion est formelle. Soit $U = \lim_{i \in I} U_i$ la limite projective filtrante
+de schémas affines $U_i$ sur $S$, soit $z_i$ un objet de $\mathcal{Z}$
+au-dessus de $U_i$ pour un certain $i$, soit $x$ un objet de $\mathcal{X}$ au-dessus de $U$,
+et soit $\gamma : q(p(x)) \to z_i|_U$ un isomorphisme. Comme $q$
+commute aux limites sur les objets, il existe $i' \geq i$, un objet
+$y_{i'}$ de $\mathcal{Y}$ au-dessus de $U_{i'}$, un isomorphisme
+$\beta : y_{i'}|_U \to p(x)$ et un isomorphisme
+$\gamma_{i'} : q(y_{i'}) \to z_i|_{U_{i'}}$
+tels que (\ref{equation-limit-preserving}) soit commutatif. Comme $p$
+commute aux limites sur les objets, il existe $i'' \geq i'$, un objet
+$x_{i''}$ de $\mathcal{X}$ au-dessus de $U_{i''}$, un isomorphisme
+$\beta' : x_{i''}|_U \to x$ et un isomorphisme
+$\gamma'_{i''} : p(x_{i''}) \to y_{i'}|_{U_{i''}}$
+tels que (\ref{equation-limit-preserving}) soit commutatif.
+La solution consiste à prendre $x_{i''}$ au-dessus de $U_{i''}$ avec l'isomorphisme
+$$
+q(p(x_{i''})) \xrightarrow{q(\gamma'_{i''})}
+q(y_{i'})|_{U_{i''}} \xrightarrow{\gamma_{i'}|_{U_{i''}}}
+z_i|_{U_{i''}}
+$$
+et l'isomorphisme $\beta' : x_{i''}|_U \to x$. Nous omettons de vérifier
+que (\ref{equation-limit-preserving}) est commutatif.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-limit-preserving}
+Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Si $p$ est
+représentable par des espaces algébriques, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $p$ commute aux limites sur les objets, et
+\item $p$ est localement de présentation finie (voir
+Champs algébriques,
+définition \ref{algebraic-definition-relative-representable-property}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (2). Soit $U = \lim_{i \in I} U_i$ la limite projective filtrante
+de schémas affines $U_i$ sur $S$, soit $y_i$ un objet de $\mathcal{Y}$
+au-dessus de $U_i$ pour un certain $i$, soit $x$ un objet de $\mathcal{X}$ au-dessus de $U$,
+et soit $\gamma : p(x) \to y_i|_U$ un isomorphisme. Notons
+$X_{y_i}$ un espace algébrique sur $U_i$ représentant le $2$-produit
+fibré
+$$
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, p} \mathcal{X}.
+$$
+Notons que $\xi = (U, U \to U_i, x, \gamma^{-1})$ définit un objet de
+ce $2$-produit fibré au-dessus de $U$. Par le lemme de $2$-Yoneda, $\xi$ correspond
+à un morphisme $f_\xi : U \to X_{y_i}$ sur $U_i$. D'après
+Limits of Espaces, proposition
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}
+il existe $i' \geq i$ et un morphisme $f_{i'} : U_{i'} \to X_{y_i}$
+tels que $f_\xi$ soit la composée de $f_{i'}$ et du morphisme de
+projection $U \to U_{i'}$. En outre, le lemme de $2$-Yoneda montre que
+$f_{i'}$ correspond à un objet
+$\xi_{i'} = (U_{i'}, U_{i'} \to U_i, x_{i'}, \alpha)$
+du $2$-produit fibré affiché au-dessus de $U_{i'}$, dont la restriction à
+$U$ redonne $\xi$. En particulier, on obtient un isomorphisme
+$\gamma : x_{i'}|U \to x$. Notons que $\alpha : y_i|_{U_{i'}} \to p(x_{i'})$.
+Ainsi, prendre $x_{i'}$, l'isomorphisme
+$\gamma : x_{i'}|U \to x$ et l'isomorphisme
+$\beta = \alpha^{-1} : p(x_{i'}) \to y_i|_{U_{i'}}$
+fournit une solution du problème.
+
+\medskip\noindent
+Supposons (1). Choisissons un schéma $T$ et un $1$-morphisme
+$y : (\Sch/T)_{fppf} \to \mathcal{Y}$. Soit
+$X_y$ un espace algébrique sur $T$ représentant le $2$-produit fibré
+$(\Sch/T)_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}$.
+Il faut montrer que $X_y \to T$ est localement de présentation finie.
+Pour cela, nous utiliserons le critère de
+Limits of Espaces, remarque \ref{spaces-limits-remark-limit-preserving}.
+Considérons un schéma affine $U = \lim_{i \in I} U_i$ écrit comme
+limite projective filtrante de schémas affines sur $T$.
+Choisissons $i \in I$ et posons $y_i = y|_{U_i}$. Notons aussi $i'$ un élément
+de $I$ supérieur ou égal à $i$. D'après le lemme de $2$-Yoneda, les
+morphismes $U \to X_y$ sur $T$ correspondent bijectivement
+aux classes d'isomorphisme de couples $(x, \alpha)$, où $x$ est un objet
+de $\mathcal{X}$ au-dessus de $U$ et $\alpha : y|_U \to p(x)$ un isomorphisme.
+Bien entendu, donner $\alpha$ revient, à inversion près, à donner
+un isomorphisme $\gamma : p(x) \to y_i|_U$.
+Il en va de même pour les morphismes $U_{i'} \to X_y$ sur $T$. Ainsi, (1) garantit
+que l'application canonique
+$$
+\colim_{i' \geq i} X_y(U_{i'}) \longrightarrow X_y(U)
+$$
+est surjective dans cette situation. Il résulte de
+Limits of Espaces, lemme \ref{spaces-limits-lemma-surjection-is-enough},
+que $X_y \to T$ est localement de présentation finie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-immersion-limit-preserving}
+Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Supposons $p$ représentable
+par des espaces algébriques et une immersion ouverte. Alors $p$ commute aux
+limites sur les objets.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du
+lemme \ref{lemma-representable-by-spaces-limit-preserving}
+et, par le principe général de
+Champs algébriques, lemme
+\ref{algebraic-lemma-representable-transformations-property-implication})
+du fait qu'une immersion ouverte d'espaces algébriques est
+localement de présentation finie ; voir
+Morphismes d'espaces algébriques, lemme
+\ref{spaces-morphisms-lemma-open-immersion-locally-finite-presentation}.
+\end{proof}
+
+\noindent
+Soit $S$ un schéma. Dans le lemme suivant, nous aurons besoin de la notion de
+{\it taille} d'un espace algébrique $X$ sur $S$. Étant donné un cardinal
+$\kappa$, nous dirons que $X$ vérifie $\text{size}(X) \leq \kappa$ si et seulement
+s'il existe un schéma $U$ tel que $\text{size}(U) \leq \kappa$ (voir
+Ensembles, section \ref{sets-section-categories-schemes}) et un morphisme
+étale surjectif $U \to X$.
+
+\begin{lemma}
+\label{lemma-check-representable-limit-preserving}
+Soit $S$ un schéma.
+Soit $\kappa = \text{size}(T)$ pour un certain $T \in \Ob((\Sch/S)_{fppf})$.
+Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$
+tel que
+\begin{enumerate}
+\item $\mathcal{Y} \to (\Sch/S)_{fppf}$ commute aux limites sur les objets,
+\item pour tout schéma affine $V$ localement de présentation finie sur $S$ et
+tout $y \in \Ob(\mathcal{Y}_V)$, le produit fibré
+$(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ est représentable
+par un espace algébrique de taille $\leq \kappa$\footnote{Ceux qui négligent les
+questions ensemblistes peuvent supprimer la condition sur la taille.},
+\item $\mathcal{X}$ et $\mathcal{Y}$ sont des champs pour la topologie de Zariski.
+\end{enumerate}
+Alors $f$ est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Soient $V$ un schéma sur $S$ et $y \in \mathcal{Y}_V$. Il faut démontrer que
+$(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ est représentable
+par un espace algébrique.
+
+\medskip\noindent
+Cas I : $V$ est affine et s'envoie dans un ouvert affine $\Spec(\Lambda) \subset S$.
+On peut alors écrire $V = \lim V_i$, chaque $V_i$ étant affine et de
+présentation finie sur $\Spec(\Lambda)$ ; voir
+Algèbre, lemme \ref{algebra-lemma-ring-colimit-fp}.
+L'hypothèse (1) montre alors que $y$ provient d'un objet $y_i$ au-dessus de $V_i$ pour un certain $i$.
+Par l'hypothèse (3), le produit fibré
+$(\Sch/V_i)_{fppf} \times_{y_i, \mathcal{Y}} \mathcal{X}$ est représentable
+par un espace algébrique $Z_i$. Alors
+$(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ est représentable
+par $Z \times_{V_i} V$.
+
+\medskip\noindent
+Cas II : $V$ est quelconque. Choisissons un recouvrement ouvert affine
+$V = \bigcup_{i \in I} V_i$ tel que chaque $V_i$ s'envoie dans un ouvert affine
+de $S$. Nous affirmons d'abord
+que $\mathcal{Z} = (\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$
+est un champ en groupoïdes discrets pour la topologie de Zariski. En effet, c'est un champ en
+groupoïdes pour la topologie de Zariski d'après
+Champs, lemme \ref{stacks-lemma-2-product-stacks-in-groupoids}.
+Supposons ensuite que $z$ soit un objet de $\mathcal{Z}$ au-dessus d'un schéma $T$.
+Notons $g : T \to V$ le morphisme correspondant à la
+projection de $z$ dans $(\Sch/V)_{fppf}$. Considérons le faisceau de Zariski
+$\mathit{I} = \mathit{Isom}_{\mathcal{Z}}(z, z)$. Le cas I montre que
+$\mathit{I}|_{g^{-1}(V_i)} = *$ (le faisceau réduit à un élément). Ainsi,
+$\mathcal{I} = *$. Par conséquent, $\mathcal{Z}$ est fibrée en groupoïdes discrets. Pour achever
+la démonstration, il faut montrer que le faisceau de Zariski
+$Z : T \mapsto \Ob(\mathcal{Z}_T)/\cong$ est un espace algébrique ; voir
+Champs algébriques, lemme
+\ref{algebraic-lemma-characterize-representable-by-space}.
+Il existe une application $p : Z \to V$ (une transformation de foncteurs) et le cas I
+montre que $Z_i = p^{-1}(V_i)$ est un espace algébrique. Les morphismes
+$Z_i \to Z$ sont représentables par des immersions ouvertes et
+$\coprod Z_i \to Z$ est surjectif (pour la topologie de Zariski).
+Ainsi, $Z$ est un faisceau pour la topologie fppf d'après
+Amorçage, lemme \ref{bootstrap-lemma-glueing-sheaves}.
+Le lemme de Espaces, \ref{spaces-lemma-glueing-algebraic-spaces},
+s'applique donc et montre que $Z$ est un espace algébrique\footnote{
+Pour vérifier la condition ensembliste de ce lemme,
+raisonnons comme suit. Choisissons d'abord le recouvrement ouvert de sorte que
+$|I| \leq \text{size}(V)$. Choisissons ensuite des schémas $U_i$ de taille
+$\leq \max(\kappa, \text{size}(V))$ et des morphismes étales surjectifs
+$U_i \to Z_i$ ; cela est possible par l'hypothèse (2) et
+Ensembles, lemme \ref{sets-lemma-bound-size-fibre-product}
+(nous omettons les détails). Alors
+Ensembles, lemme \ref{sets-lemma-what-is-in-it},
+implique que $\coprod U_i$ est un objet de $(\Sch/S)_{fppf}$.
+Par conséquent, $\coprod Z_i$ est un espace algébrique d'après
+Espaces, lemme \ref{spaces-lemma-coproduct-algebraic-spaces}.
+}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-property-limit-preserving}
+Soit $S$ un schéma. Soit $f : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Soit $\mathcal{P}$
+une propriété des morphismes d'espaces algébriques comme dans
+Champs algébriques, définition
+\ref{algebraic-definition-relative-representable-property}. Si
+\begin{enumerate}
+\item $f$ est représentable par des espaces algébriques,
+\item $\mathcal{Y} \to (\Sch/S)_{fppf}$ commute aux limites sur les objets,
+\item pour tout schéma affine $V$ localement de présentation finie sur $S$ et
+tout $y \in \mathcal{Y}_V$, le morphisme d'espaces algébriques qui en résulte
+$f_y : F_y \to V$, voir Champs algébriques, équation
+(\ref{algebraic-equation-representable-by-algebraic-spaces}),
+a la propriété $\mathcal{P}$.
+\end{enumerate}
+Alors $f$ a la propriété $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Soient $V$ un schéma sur $S$ et $y \in \mathcal{Y}_V$. Il faut montrer
+que $F_y \to V$ a la propriété $\mathcal{P}$. Comme $\mathcal{P}$ est
+locale pour la topologie fppf sur la base, on peut supposer que $V$ est un schéma affine qui
+s'envoie dans un ouvert affine $\Spec(\Lambda) \subset S$. On peut donc écrire
+$V = \lim V_i$, chaque $V_i$ étant affine et de présentation finie sur
+$\Spec(\Lambda)$ ; voir Algèbre, lemme \ref{algebra-lemma-ring-colimit-fp}.
+L'hypothèse (2) montre alors que $y$ provient d'un objet $y_i$ au-dessus de $V_i$ pour un certain $i$.
+Par l'hypothèse (3), le morphisme $F_{y_i} \to V_i$ a la propriété $\mathcal{P}$.
+Comme $\mathcal{P}$ est stable par tout changement de base et que
+$F_y = F_{y_i} \times_{V_i} V$, on conclut que $F_y \to V$ a la propriété
+$\mathcal{P}$, comme voulu.
+\end{proof}
+
+
+
+\section{Formellement lisse sur les objets}
+\label{section-formally-smooth}
+
+\noindent
+Soit $S$ un schéma. Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Nous dirons que
+$p$ est {\it formellement lisse sur les objets} si la condition suivante est satisfaite :
+pour toute donnée formée de
+\begin{enumerate}
+\item un épaississement du premier ordre $U \subset U'$ de schémas affines sur $S$,
+\item un objet $y'$ de $\mathcal{Y}$ au-dessus de $U'$,
+\item un objet $x$ de $\mathcal{X}$ au-dessus de $U$, et
+\item un isomorphisme $\gamma : p(x) \to y'|_U$,
+\end{enumerate}
+il existe un objet $x'$ de
+$\mathcal{X}$ au-dessus de $U'$, muni d'un isomorphisme
+$\beta : x'|_U \to x$ et d'un isomorphisme $\gamma' : p(x') \to y'$
+tels que
+\begin{equation}
+\label{equation-formally-smooth}
+\vcenter{
+\xymatrix{
+p(x'|_U) \ar[d]_{p(\beta)} \ar[rr]_{\gamma'|_U} & &
+y'|_U \ar@{=}[d] \\
+p(x) \ar[rr]^\gamma & & y'|_U
+}
+}
+\end{equation}
+soit commutatif. Dans cette situation, on dit que « $(x', \beta, \gamma')$
+est une {\it solution} du problème posé par les données (1), (2), (3), (4) ».
+
+\begin{lemma}
+\label{lemma-base-change-formally-smooth}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et $q : \mathcal{Z} \to \mathcal{Y}$
+des $1$-morphismes de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $p : \mathcal{X} \to \mathcal{Y}$ est formellement lisse sur les objets, il en
+est de même du changement de base
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+de $p$ par $q$.
+\end{lemma}
+
+\begin{proof}
+L'assertion est formelle. Soit $U \subset U'$ un épaississement du premier ordre
+de schémas affines sur $S$, soit $z'$ un objet de $\mathcal{Z}$
+au-dessus de $U'$, soit $w$ un objet de
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ au-dessus de $U$, et soit
+$\delta : p'(w) \to z'|_U$ un isomorphisme.
+On peut écrire
+$w = (U, x, z, \alpha)$, où $x$ est un objet de $\mathcal{X}$ au-dessus de $U$,
+$z$ un objet de $\mathcal{Z}$ au-dessus de $U$ et
+$\alpha : p(x) \to q(z)$ un isomorphisme. Puisque $p'(w) = z$, on a
+$\delta : z \to z|_U$. Posons $y' = q(z')$ et
+$\gamma = q(\delta) \circ \alpha : p(x) \to y'|_U$.
+Comme $p$ est formellement lisse sur les objets, il existe un
+objet $x'$ de $\mathcal{X}$ au-dessus de $U'$, ainsi que des
+isomorphismes $\beta : x'|_U \to x$ et $\gamma' : p(x') \to y'$ tels que
+(\ref{equation-formally-smooth}) soit commutatif. Considérons alors l'objet
+$w = (U', x', z', \gamma')$ de $\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$
+au-dessus de $U'$ et définissons les isomorphismes
+$$
+w'|_U = (U, x'|_U, z'|_U, \gamma'|_U)
+\xrightarrow{(\beta, \delta^{-1})}
+(U, x, z, \alpha) = w
+$$
+et
+$$
+p'(w') = z' \xrightarrow{\text{id}} z'.
+$$
+Ceux-ci se combinent en une solution du problème.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-formally-smooth}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et $q : \mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $p$ et $q$ sont formellement lisses sur les objets, il en est de même de la composée
+$q \circ p$.
+\end{lemma}
+
+\begin{proof}
+L'assertion est formelle. Soit $U \subset U'$ un épaississement du premier ordre
+de schémas affines sur $S$, soit $z'$ un objet de $\mathcal{Z}$
+au-dessus de $U'$, soit $x$ un objet de $\mathcal{X}$ au-dessus de $U$,
+et soit $\gamma : q(p(x)) \to z'|_U$ un isomorphisme. Comme $q$ est
+formellement lisse sur les objets, il existe un objet
+$y'$ de $\mathcal{Y}$ au-dessus de $U'$, un isomorphisme
+$\beta : y'|_U \to p(x)$ et un isomorphisme $\gamma' : q(y') \to z'$
+tels que (\ref{equation-formally-smooth}) soit commutatif. Comme $p$ est
+formellement lisse sur les objets, il existe un objet
+$x'$ de $\mathcal{X}$ au-dessus de $U'$, un isomorphisme
+$\beta' : x'|_U \to x$ et un isomorphisme $\gamma'' : p(x') \to y'$
+tels que (\ref{equation-formally-smooth}) soit commutatif.
+La solution consiste à prendre $x'$ au-dessus de $U'$ avec l'isomorphisme
+$$
+q(p(x')) \xrightarrow{q(\gamma'')} q(y') \xrightarrow{\gamma'} z'
+$$
+et l'isomorphisme $\beta' : x'|_U \to x$. Nous omettons de vérifier
+que (\ref{equation-formally-smooth}) est commutatif.
+\end{proof}
+
+\noindent
+Notons que la classe des morphismes formellement lisses d'espaces algébriques est
+stable par tout changement de base et locale sur le but pour la
+topologie fpqc ; voir
+Compléments sur les morphismes d'espaces algébriques,
+lemmes \ref{spaces-more-morphisms-lemma-base-change-formally-smooth} et
+\ref{spaces-more-morphisms-lemma-descending-property-formally-smooth}.
+La condition (2) du lemme ci-dessous a donc un sens.
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-formally-smooth}
+Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Si $p$ est
+représentable par des espaces algébriques, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $p$ est formellement lisse sur les objets, et
+\item $p$ est formellement lisse (voir
+Champs algébriques,
+définition \ref{algebraic-definition-relative-representable-property}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (2). Soit $U \subset U'$ un épaississement du premier ordre
+de schémas affines sur $S$, soit $y'$ un objet de $\mathcal{Y}$
+au-dessus de $U'$, soit $x$ un objet de $\mathcal{X}$ au-dessus de $U$,
+et soit $\gamma : p(x) \to y'|_U$ un isomorphisme. Notons
+$X_{y'}$ un espace algébrique sur $U'$ représentant le $2$-produit
+fibré
+$$
+(\Sch/U')_{fppf} \times_{y', \mathcal{Y}, p} \mathcal{X}.
+$$
+Notons que $\xi = (U, U \to U', x, \gamma^{-1})$ définit un objet de
+ce $2$-produit fibré au-dessus de $U$. Par le lemme de $2$-Yoneda, $\xi$ correspond
+à un morphisme $f_\xi : U \to X_{y'}$ sur $U'$. Comme $X_{y'} \to U'$ est
+formellement lisse par hypothèse, il existe un morphisme
+$f' : U' \to X_{y'}$ tel que $f_\xi$ soit la composée de $f'$
+et du morphisme $U \to U'$. En outre, le lemme de $2$-Yoneda montre que
+$f'$ correspond à un objet $\xi' = (U', U' \to U', x', \alpha)$ du
+$2$-produit fibré affiché au-dessus de $U'$, dont la restriction à
+$U$ redonne $\xi$. En particulier, on obtient un isomorphisme
+$\gamma : x'|U \to x$. Notons que $\alpha : y' \to p(x')$.
+Ainsi, prendre $x'$, l'isomorphisme
+$\gamma : x'|U \to x$ et l'isomorphisme
+$\beta = \alpha^{-1} : p(x') \to y'$
+fournit une solution du problème.
+
+\medskip\noindent
+Supposons (1). Choisissons un schéma $T$ et un $1$-morphisme
+$y : (\Sch/T)_{fppf} \to \mathcal{Y}$. Soit
+$X_y$ un espace algébrique sur $T$ représentant le $2$-produit fibré
+$(\Sch/T)_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}$.
+Il faut montrer que $X_y \to T$ est formellement lisse.
+Il suffit donc de montrer que, pour tout épaississement du premier ordre
+$U \subset U'$ de schémas affines sur $T$,
+$X_y(U') \to X_y(U')$ est surjective (il s'agit de morphismes dans la
+catégorie des espaces algébriques sur $T$). Posons $y' = y|_{U'}$.
+D'après le lemme de $2$-Yoneda, les morphismes $U \to X_y$ sur $T$ correspondent bijectivement
+aux classes d'isomorphisme de couples $(x, \alpha)$, où $x$ est un objet
+de $\mathcal{X}$ au-dessus de $U$ et $\alpha : y|_U \to p(x)$ un isomorphisme.
+Bien entendu, donner $\alpha$ revient, à inversion près, à donner
+un isomorphisme $\gamma : p(x) \to y'|_U$.
+Il en va de même pour les morphismes $U' \to X_y$ sur $T$. Ainsi, (1) garantit
+la surjectivité de $X_y(U') \to X_y(U')$
+dans cette situation, ce qui conclut.
+\end{proof}
+
+
+
+
+
+
+
+\section{Surjectif sur les objets}
+\label{section-formally-surjective}
+
+\noindent
+Soit $S$ un schéma. Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Nous dirons que
+$p$ est {\it surjectif sur les objets} si la condition suivante est satisfaite :
+pour toute donnée formée de
+\begin{enumerate}
+\item un corps $k$ sur $S$, et
+\item un objet $y$ de $\mathcal{Y}$ au-dessus de $\Spec(k)$,
+\end{enumerate}
+il existe une extension de corps $K/k$ sur $S$ et un
+objet $x$ de $\mathcal{X}$ au-dessus de $\Spec(K)$
+tel que $p(x) \cong y|_{\Spec(K)}$.
+
+\begin{lemma}
+\label{lemma-base-change-surjective}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et $q : \mathcal{Z} \to \mathcal{Y}$
+des $1$-morphismes de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $p : \mathcal{X} \to \mathcal{Y}$ est surjectif sur les objets, il en
+est de même du changement de base
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+de $p$ par $q$.
+\end{lemma}
+
+\begin{proof}
+L'assertion est formelle. Soit $z$ un objet de $\mathcal{Z}$ au-dessus d'un corps $k$.
+Comme $p$ est surjectif sur les objets, il existe une extension $K/k$,
+un objet $x$ de $\mathcal{X}$ au-dessus de $K$ et un isomorphisme
+$\alpha : p(x) \to q(z)|_{\Spec(K)}$. Alors
+$w = (\Spec(K), x, z|_{\Spec(K)}, \alpha)$ est un objet de
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ au-dessus de $K$ tel que
+$p'(w) = z|_{\Spec(K)}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-surjective}
+Soient $p : \mathcal{X} \to \mathcal{Y}$ et $q : \mathcal{Y} \to \mathcal{Z}$
+des $1$-morphismes de catégories fibrées en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $p$ et $q$ sont surjectifs sur les objets, il en est de même de la composée
+$q \circ p$.
+\end{lemma}
+
+\begin{proof}
+L'assertion est formelle. Soit $z$ un objet de $\mathcal{Z}$ au-dessus d'un corps $k$.
+Comme $q$ est surjectif sur les objets, il existe une extension de corps $K/k$
+et un objet $y$ de $\mathcal{Y}$ au-dessus de $K$ tels que
+$q(y) \cong x|_{\Spec(K)}$. Comme $p$ est surjectif sur les objets, il
+existe une extension de corps $L/K$ et un objet $x$ de $\mathcal{X}$
+au-dessus de $L$ tel que $p(x) \cong y|_{\Spec(L)}$. Alors l'extension de corps
+$L/k$ et l'objet $x$ de $\mathcal{X}$ au-dessus de $L$ vérifient
+$q(p(x)) \cong z|_{\Spec(L)}$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-surjective}
+Soit $p : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de catégories
+fibrées en groupoïdes sur $(\Sch/S)_{fppf}$. Si $p$ est
+représentable par des espaces algébriques, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item $p$ est surjectif sur les objets, et
+\item $p$ est surjectif (voir
+Champs algébriques,
+définition \ref{algebraic-definition-relative-representable-property}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (2). Soit $k$ un corps et soit $y$ un objet de
+$\mathcal{Y}$ au-dessus de $k$. Notons $X_y$ un espace algébrique sur $k$
+représentant le $2$-produit fibré
+$$
+(\Sch/\Spec(k))_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}.
+$$
+Puisque $p$ est supposé surjectif, $X_y$ n'est pas vide.
+Il existe donc une extension de corps $K/k$ et, à valeurs dans $K$, un point
+$x$ de $X_y$. Par le lemme de $2$-Yoneda, cela correspond à un objet
+$x$ de $\mathcal{X}$ au-dessus de $K$, muni d'un isomorphisme
+$p(x) \cong y|_{\Spec(K)}$ ; ainsi, (1) est satisfaite.
+
+\medskip\noindent
+Supposons (1). Choisissons un schéma $T$ et un $1$-morphisme
+$y : (\Sch/T)_{fppf} \to \mathcal{Y}$. Soit
+$X_y$ un espace algébrique sur $T$ représentant le $2$-produit fibré
+$(\Sch/T)_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}$.
+Il faut montrer que $X_y \to T$ est surjectif. D'après
+Morphismes d'espaces algébriques, définition \ref{spaces-morphisms-definition-surjective},
+il faut montrer que $|X_y| \to |T|$ est surjectif.
+Cela signifie exactement que, pour tout corps $k$ sur $T$ et tout
+morphisme $t : \Spec(k) \to T$, il existe une extension de corps
+$K/k$ et un morphisme $x : \Spec(K) \to X_y$ tels que
+$$
+\xymatrix{
+\Spec(K) \ar[d] \ar[r]_x & X_y \ar[d] \\
+\Spec(k) \ar[r]^t & T
+}
+$$
+soit commutatif. D'après le lemme de $2$-Yoneda, cela signifie exactement qu'il faut trouver
+$k \subset K$ et un objet $x$ de $\mathcal{X}$ au-dessus de $K$ tels que
+$p(x) \cong t^*y|_{\Spec(K)}$. Ainsi, (1) garantit bien cette
+existence, ce qui conclut.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Morphismes algébriques}
+\label{section-algebraic}
+
+\noindent
+La notion suivante est parfois utile.
+
+\begin{definition}
+\label{definition-algebraic}
+Soit $S$ un schéma. Soit $F : \mathcal{X} \to \mathcal{Y}$ un
+$1$-morphisme de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+On dit que $F$ est {\it algébrique} si, pour tout schéma $T$ et tout
+objet $\xi$ de $\mathcal{Y}$ au-dessus de $T$, le $2$-produit fibré
+$$
+(\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{X}
+$$
+est un champ algébrique sur $S$.
+\end{definition}
+
+\noindent
+Avec cette terminologie, on obtient le résultat suivant, qui généralise
+Champs algébriques, lemme
+\ref{algebraic-lemma-representable-morphism-to-algebraic}.
+
+\begin{lemma}
+\label{lemma-algebraic-morphism-to-algebraic}
+Soit $S$ un schéma.
+Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de
+champs en groupoïdes sur $(\Sch/S)_{fppf}$. Si
+\begin{enumerate}
+\item $\mathcal{Y}$ est un champ algébrique, et
+\item $F$ est algébrique (au sens ci-dessus),
+\end{enumerate}
+alors $\mathcal{X}$ est un champ algébrique.
+\end{lemma}
+
+\begin{proof}
+D'après l'hypothèse (1), il existe un schéma $T$ et un objet
+$\xi$ de $\mathcal{Y}$ au-dessus de $T$ tels que le
+$1$-morphisme correspondant $\xi : (\Sch/T)_{fppf} \to \mathcal{Y}$
+soit lisse et surjectif. Alors
+$\mathcal{U} = (\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{X}$
+est un champ algébrique par l'hypothèse (2).
+Choisissons un schéma $U$ et un $1$-morphisme lisse surjectif
+$(\Sch/U)_{fppf} \to \mathcal{U}$.
+La projection $\mathcal{U} \longrightarrow \mathcal{X}$,
+qui est le changement de base du morphisme
+$\xi : (\Sch/T)_{fppf} \to \mathcal{Y}$,
+est surjective et lisse ; voir
+Champs algébriques, lemme
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+La composée
+$(\Sch/U)_{fppf} \to \mathcal{U} \to \mathcal{X}$
+est alors surjective et lisse comme composée de
+morphismes surjectifs et lisses ; voir
+Champs algébriques, lemme
+\ref{algebraic-lemma-composition-representable-transformations-property}.
+Ainsi, $\mathcal{X}$ est un champ algébrique d'après
+Champs algébriques, lemme
+\ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-from-algebraic}
+Soit $S$ un schéma. Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$. Si $\mathcal{X}$ est un
+champ algébrique et si $\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+est représentable par des espaces algébriques, alors $F$ est algébrique.
+\end{lemma}
+
+\begin{proof}
+Choisissons un champ en groupoïdes représentable $\mathcal{U}$ et un
+$1$-morphisme lisse surjectif $\mathcal{U} \to \mathcal{X}$. Soit $T$ un schéma et
+soit $\xi$ un objet de $\mathcal{Y}$ au-dessus de $T$. Le morphisme de
+$2$-produits fibrés
+$$
+(\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{U}
+\longrightarrow
+(\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{X}
+$$
+est représentable par des espaces algébriques, surjectif et lisse comme
+changement de base de $\mathcal{U} \to \mathcal{X}$ ; voir
+Champs algébriques,
+lemmes \ref{algebraic-lemma-base-change-representable-by-spaces} et
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+La condition imposée à la diagonale de $\mathcal{Y}$ montre que
+la source de ce morphisme est représentable par un espace algébrique ; voir
+Champs algébriques, lemme \ref{algebraic-lemma-representable-diagonal}.
+La cible est donc un champ algébrique d'après
+Champs algébriques,
+lemme \ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonals-and-algebraic-morphisms}
+Soit $S$ un schéma. Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $F$ est algébrique et si
+$\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+est représentable par des espaces algébriques, alors
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Supposons $F$ algébrique et
+$\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+représentable par des espaces algébriques.
+Prenons un schéma $U$ sur $S$ et deux objets $x_1, x_2$ de
+$\mathcal{X}$ au-dessus de $U$.
+Il faut montrer que $\mathit{Isom}(x_1, x_2)$ est un espace algébrique
+sur $U$ ; voir
+Champs algébriques, lemme \ref{algebraic-lemma-representable-diagonal}.
+Posons $y_i = F(x_i)$. On dispose d'un morphisme de faisceaux d'ensembles
+$$
+f : \mathit{Isom}(x_1, x_2) \to \mathit{Isom}(y_1, y_2)
+$$
+dont la cible est un espace algébrique par hypothèse.
+Il suffit donc de montrer que $f$ est représentable par des
+espaces algébriques ; voir Amorçage, lemme
+\ref{bootstrap-lemma-representable-by-spaces-over-space}.
+On peut donc choisir un schéma $V$ sur $U$ et un
+isomorphisme $\beta : y_{1, V} \to y_{2, V}$ ;
+il faut montrer que le foncteur
+$$
+(\Sch/V)_{fppf} \to \textit{Ensembles},\quad
+T/V \mapsto \{\alpha : x_{1, T} \to x_{2, T}
+\text{ dans }\mathcal{X}_T \mid F(\alpha) = \beta|_T\}
+$$
+est un espace algébrique. Considérons les objets
+$z_1 = (V, x_{1, V}, \text{id})$ et
+$z_2 = (V, x_{2, V}, \beta)$ de
+$$
+\mathcal{Z} = (\Sch/V)_{fppf} \times_{y_{1, V}, \mathcal{Y}} \mathcal{X}
+$$
+On vérifie immédiatement que
+le foncteur ci-dessus est égal à $\mathit{Isom}(z_1, z_2)$
+sur $(\Sch/V)_{fppf}$. C'est donc un espace algébrique
+par l'hypothèse que $F$ est algébrique (et par la définition
+des champs algébriques).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Espaces de sections}
+\label{section-spaces-sections}
+
+\noindent
+Étant donnés des morphismes $W \to Z \to U$, on peut considérer le foncteur qui associe
+à un schéma $U'$ sur $U$ l'ensemble des sections $\sigma : Z_{U'} \to W_{U'}$
+du changement de base $W_{U'} \to Z_{U'}$ du morphisme $W \to Z$.
+Dans cette section, nous démontrons quelques lemmes préliminaires sur ce foncteur.
+
+\begin{lemma}
+\label{lemma-surjection-space-of-sections}
+Soit $Z \to U$ un morphisme fini de schémas.
+Soit $W$ un espace algébrique et soit $W \to Z$ un
+morphisme étale surjectif. Il existe alors un morphisme
+étale surjectif $U' \to U$ et une section
+$$
+\sigma : Z_{U'} \to W_{U'}
+$$
+du morphisme $W_{U'} \to Z_{U'}$.
+\end{lemma}
+
+\begin{proof}
+On peut choisir un schéma séparé $W'$ et un morphisme étale surjectif
+$W' \to W$. Après avoir remplacé $W$ par $W'$, on peut donc supposer que $W$
+est un schéma séparé. Écrivons $f : W \to Z$ et $\pi : Z \to U$.
+Notons que $f \circ \pi : W \to U$ est séparé puisque
+$W$ est séparé (voir
+Schémas, lemme \ref{schemes-lemma-compose-after-separated}).
+Soit $u \in U$ un point. Il suffit évidemment
+de trouver un voisinage étale $(U', u')$ de $(U, u)$ tel qu'une
+section $\sigma$ existe sur $U'$. Soient $z_1, \ldots, z_r$
+les points de $Z$ situés au-dessus de $u$. Pour chaque $i$, choisissons un point
+$w_i \in W$ d'image $z_i$. On peut choisir un voisinage étale
+$(U', u') \to (U, u)$ tel que les conclusions de
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-etale-splits-off-quasi-finite-part-technical-variant}
+soient satisfaites à la fois pour $Z \to U$ et les points $z_1, \ldots, z_r$,
+et pour $W \to U$ et les points $w_1, \ldots, w_r$. Après avoir
+remplacé $(U, u)$ par $(U', u')$ et renommé les objets, on peut donc supposer que
+toutes les extensions de corps $\kappa(z_i)/\kappa(u)$ et
+$\kappa(w_i)/\kappa(u)$ sont radicielles et, de plus,
+qu'il existe des décompositions en sommes disjointes
+$$
+Z = V_1 \amalg \ldots \amalg V_r \amalg A, \quad
+W = W_1 \amalg \ldots \amalg W_r \amalg B
+$$
+en sous-schémas ouverts et fermés,
+avec $z_i \in V_i$, $w_i \in W_i$, et $V_i \to U$, $W_i \to U$ finis.
+Après avoir remplacé $U$ par $U \setminus \pi(A)$, on peut supposer que
+$A = \emptyset$, c'est-à-dire $Z = V_1 \amalg \ldots \amalg V_r$.
+Après avoir remplacé $W_i$ par $W_i \cap f^{-1}(V_i)$ et
+$B$ par $B \cup \bigcup W_i \cap f^{-1}(Z \setminus V_i)$,
+on peut supposer que $f$ envoie $W_i$ dans $V_i$.
+Alors $f_i = f|_{W_i} : W_i \to V_i$ est un morphisme entre schémas finis sur $U$,
+donc il est fini (voir
+Morphismes, lemme \ref{morphisms-lemma-finite-permanence}).
+Il est aussi étale (par hypothèse),
+$f_i^{-1}(\{z_i\}) = w_i$, et induit un isomorphisme des corps
+résiduels $\kappa(z_i) = \kappa(w_i)$ (car les deux sont des extensions radicielles
+de $\kappa(u)$, tandis que $\kappa(w_i)/\kappa(z_i)$
+est séparable puisque $f$ est étale). D'après
+Morphismes étales, lemme \ref{etale-lemma-finite-etale-one-point}
+le morphisme $f_i$ est donc un isomorphisme dans un voisinage $V_i'$ de
+$z_i$. Comme $\pi : Z \to U$ est fermé, quitte à rétrécir $U$, on peut supposer
+que $W_i \to V_i$ est un isomorphisme. Cela démontre le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-space-of-sections}
+Soit $Z \to U$ un morphisme fini localement libre de schémas.
+Soit $W$ un espace algébrique et soit $W \to Z$ un morphisme étale.
+Alors le foncteur
+$$
+F : (\Sch/U)_{fppf}^{opp} \longrightarrow \textit{Ensembles},
+$$
+défini par la règle
+$$
+U' \longmapsto
+F(U') =
+\{\sigma : Z_{U'} \to W_{U'}\text{ section de }W_{U'} \to Z_{U'}\}
+$$
+est un espace algébrique et le morphisme $F \to U$ est étale.
+\end{lemma}
+
+\begin{proof}
+Supposons d'abord que $W \to Z$ soit aussi séparé.
+Soit $U'$ un schéma sur $U$ et soit $\sigma \in F(U')$. D'après
+Morphismes d'espaces algébriques, lemme \ref{spaces-morphisms-lemma-section-immersion},
+le morphisme $\sigma$ est une immersion fermée.
+De plus, $\sigma$ est étale d'après
+Propriétés des espaces algébriques, lemme \ref{spaces-properties-lemma-etale-permanence}.
+Ainsi, $\sigma$ est aussi une immersion ouverte ; voir
+Morphismes d'espaces algébriques,
+lemme \ref{spaces-morphisms-lemma-etale-universally-injective-open}.
+Autrement dit, $Z_\sigma = \sigma(Z_{U'}) \subset W_{U'}$ est
+un sous-espace ouvert tel que le morphisme $Z_\sigma \to Z_{U'}$
+soit un isomorphisme. En particulier, le morphisme $Z_\sigma \to U'$
+est fini. On obtient donc une transformation de foncteurs
+$$
+F \longrightarrow (W/U)_{fin}, \quad
+\sigma \longmapsto (U' \to U, Z_\sigma)
+$$
+où $(W/U)_{fin}$ est la partie finie du morphisme $W \to U$
+introduite dans
+Compléments sur les groupoïdes en espaces algébriques, section
+\ref{spaces-more-groupoids-section-finite}.
+Il est clair que cette transformation de foncteurs est injective (puisqu'on peut
+retrouver $\sigma$ à partir de $Z_\sigma$ comme inverse de l'isomorphisme
+$Z_\sigma \to Z_{U'}$). D'après
+Compléments sur les groupoïdes en espaces algébriques, proposition
+\ref{spaces-more-groupoids-proposition-finite-algebraic-space}
+nous savons que $(W/U)_{fin}$ est un espace algébrique étale sur $U$.
+Pour achever la preuve dans ce cas, il suffit donc de montrer que
+$F \to (W/U)_{fin}$ est représentable et est une immersion ouverte.
+Pour cela, supposons donnés un morphisme de schémas $U' \to U$
+et un sous-espace ouvert $Z' \subset W_{U'}$ tels que $Z' \to U'$
+soit fini. Il suffit alors de montrer qu'il existe un
+sous-schéma ouvert $U'' \subset U'$ tel qu'un morphisme
+$T \to U'$ se factorise par $U''$ si et seulement si $Z' \times_{U'} T$
+s'envoie isomorphiquement sur $Z \times_{U'} T$. Cela résulte de
+Compléments sur les morphismes d'espaces algébriques, lemme
+\ref{spaces-more-morphisms-lemma-where-isomorphism}
+(on utilise ici que $Z \to B$ est plat et localement de présentation finie,
+ainsi que fini).
+Le lemme est donc démontré lorsque $W \to Z$ est séparé
+et étale.
+
+\medskip\noindent
+Dans le cas général, choisissons un schéma séparé $W'$ et un morphisme
+étale surjectif $W' \to W$. Notons que les morphismes $W' \to W$ et
+$W \to Z$ sont séparés puisque leur source est séparée. Notons $F'$ le
+foncteur associé à $W' \to Z \to U$ comme dans le lemme. Dans le premier
+paragraphe de la preuve, nous avons montré que $F'$ est représentable par un
+espace algébrique étale sur $U$. D'après le
+lemme \ref{lemma-surjection-space-of-sections},
+l'application de foncteurs $F' \to F$ est surjective pour la topologie étale
+sur $\Sch/U$. De plus, si $U'$ et $\sigma : Z_{U'} \to W_{U'}$
+définissent un élément $\xi \in F(U')$, alors le produit fibré
+$$
+F'' = F' \times_{F, \xi} U'
+$$
+est le foncteur sur $\Sch/U'$ associé aux morphismes
+$$
+W'_{U'} \times_{W_{U'}, \sigma} Z_{U'} \to Z_{U'} \to U'.
+$$
+Comme le premier morphisme est séparé, étant le changement de base d'un morphisme
+séparé, le résultat du premier paragraphe montre que $F''$ est un espace algébrique étale sur $U'$.
+Il s'ensuit que $F' \to F$ est une transformation de foncteurs
+étale surjective, représentable par des espaces algébriques. Ainsi,
+$F$ est un espace algébrique d'après
+Amorçage, théorème \ref{bootstrap-theorem-final-bootstrap}.
+Puisque $F' \to F$ est un morphisme étale surjectif d'espaces algébriques,
+$F \to U$ est étale puisque $F' \to U$ l'est.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Morphismes relatifs}
+\label{section-relative-morphisms}
+
+\noindent
+Nous poursuivons la discussion commencée dans
+Compléments sur les morphismes, section \ref{more-morphisms-section-relative-morphisms}.
+
+\medskip\noindent
+Soit $S$ un schéma. Soient $Z \to B$ et $X \to B$ des morphismes
+d'espaces algébriques sur $S$. Pour tout schéma $T$, on peut considérer les couples
+$(a, b)$, où $a : T \to B$
+est un morphisme et $b : T \times_{a, B} Z \to T \times_{a, B} X$
+un morphisme sur $T$. On a le diagramme
+\begin{equation}
+\label{equation-hom}
+\vcenter{
+\xymatrix{
+T \times_{a, B} Z \ar[rd] \ar[rr]_b & &
+T \times_{a, B} X \ar[ld] & Z \ar[rd] & & X \ar[ld] \\
+& T \ar[rrr]^a & & & B
+}
+}
+\end{equation}
+Bien entendu, on peut aussi voir $b$ comme un morphisme
+$b : T \times_{a, B} Z \to X$ tel que
+$$
+\xymatrix{
+T \times_{a, B} Z \ar[r] \ar[d] \ar@/^1pc/[rrr]_-b &
+Z \ar[rd] & & X \ar[ld] \\
+T \ar[rr]^a & & B
+}
+$$
+soit commutatif. Dans cette situation, on peut définir un foncteur
+\begin{equation}
+\label{equation-hom-functor}
+\mathit{Mor}_B(Z, X) : (\Sch/S)^{opp} \longrightarrow \textit{Ensembles},
+\quad
+T \longmapsto \{(a, b)\text{ comme ci-dessus}\}
+\end{equation}
+Parfois, on le considère comme un foncteur défini sur la catégorie
+des schémas sur $B$ ; dans ce cas, on omet $a$ de la notation.
+
+\begin{lemma}
+\label{lemma-hom-functor-sheaf}
+Soit $S$ un schéma. Soient $Z \to B$ et $X \to B$ des morphismes
+d'espaces algébriques sur $S$. Alors
+\begin{enumerate}
+\item $\mathit{Mor}_B(Z, X)$ est un faisceau sur
+$(\Sch/S)_{fppf}$.
+\item Si $T$ est un espace algébrique sur $S$, il existe une
+bijection canonique
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, \mathit{Mor}_B(Z, X))
+=
+\{(a, b)\text{ comme dans }(\ref{equation-hom})\}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un espace algébrique sur $S$. Soit $\{T_i \to T\}$ un
+recouvrement fppf de $T$ (comme dans
+Topologies on Espaces, section \ref{spaces-topologies-section-fppf}).
+Supposons que $(a_i, b_i) \in \mathit{Mor}_B(Z, X)(T_i)$ et
+que $(a_i, b_i)|_{T_i \times_T T_j} = (a_j, b_j)|_{T_i \times_T T_j}$
+pour tous $i, j$. D'après
+Descente et espaces algébriques,
+lemme \ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms},
+il existe un unique morphisme $a : T \to B$ tel que $a_i$ soit la
+composée de $T_i \to T$ et de $a$. Alors
+$\{T_i \times_{a_i, B} Z \to T \times_{a, B} Z\}$ est aussi un recouvrement
+fppf, et le même lemme implique qu'il existe un unique morphisme
+$b : T \times_{a, B} Z \to T \times_{a, B} X$ tel que $b_i$ soit la
+composée de $T_i \times_{a_i, B} Z \to T \times_{a, B} Z$ et de $b$. Ainsi,
+$(a, b) \in \mathit{Mor}_B(Z, X)(T)$ se restreint à $(a_i, b_i)$
+sur $T_i$ pour tout $i$.
+
+\medskip\noindent
+Notons que le résultat du paragraphe précédent implique en particulier (1).
+
+\medskip\noindent
+Soit $T$ un espace algébrique sur $S$. Pour démontrer (2), nous allons
+construire des applications réciproques entre les ensembles affichés. Dans la
+suite, le mot « couple » désigne un couple $(a, b)$ s'insérant
+dans (\ref{equation-hom}).
+
+\medskip\noindent
+Soit $v : T \to \mathit{Mor}_B(Z, X)$ une transformation naturelle.
+Choisissons un schéma $U$ et un morphisme étale surjectif $p : U \to T$.
+Alors $v(p) \in \mathit{Mor}_B(Z, X)(U)$ correspond à un couple $(a_U, b_U)$
+sur $U$. Soit $R = U \times_T U$, de projections $t, s : R \to U$.
+Comme $v$ est une transformation de foncteurs, les images inverses de
+$(a_U, b_U)$ par $s$ et $t$ coïncident. Puisque $\{U \to T\}$ est un
+recouvrement fppf, le résultat du premier paragraphe permet donc de
+déduire qu'il existe un unique couple $(a, b)$ sur $T$.
+
+\medskip\noindent
+Réciproquement, soit $(a, b)$ un couple sur $T$.
+Soient $U \to T$, $R = U \times_T U$ et $t, s : R \to U$ comme
+ci-dessus. La restriction $(a, b)|_U$ donne alors naissance à une
+transformation de foncteurs $v : h_U \to \mathit{Mor}_B(Z, X)$ par le
+lemme de Yoneda
+(Catégories, lemme \ref{categories-lemma-yoneda}).
+Comme les deux images inverses $s^*(a, b)|_U$ et $t^*(a, b)|_U$
+sont égales, $v$ coégalise les deux applications
+$h_t, h_s : h_R \to h_U$. Puisque $T = U/R$ est le faisceau quotient fppf d'après
+Espaces, lemme \ref{spaces-lemma-space-presentation},
+et puisque $\mathit{Mor}_B(Z, X)$ est un faisceau fppf d'après (1), on conclut
+que $v$ se factorise par une application $T \to \mathit{Mor}_B(Z, X)$.
+
+\medskip\noindent
+Nous omettons de vérifier que les deux constructions ci-dessus sont
+réciproques.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-hom-functor}
+Soit $S$ un schéma. Soient $Z \to B$, $X \to B$ et $B' \to B$
+des morphismes d'espaces algébriques sur $S$. Posons $Z' = B' \times_B Z$
+et $X' = B' \times_B X$. Alors
+$$
+\mathit{Mor}_{B'}(Z', X')
+=
+B' \times_B \mathit{Mor}_B(Z, X)
+$$
+dans $\Sh((\Sch/S)_{fppf})$.
+\end{lemma}
+
+\begin{proof}
+L'égalité des foncteurs résulte immédiatement des définitions.
+L'égalité des faisceaux s'en déduit, car les deux membres sont des
+faisceaux d'après le
+lemme \ref{lemma-hom-functor-sheaf},
+et parce qu'un produit fibré de faisceaux est égal au
+produit fibré correspondant des préfaisceaux (c'est-à-dire des foncteurs).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-covering-hom-functor}
+Soit $S$ un schéma. Soient $Z \to B$ et $X' \to X \to B$ des morphismes
+d'espaces algébriques sur $S$. Supposons que
+\begin{enumerate}
+\item $X' \to X$ soit étale, et
+\item $Z \to B$ soit fini localement libre.
+\end{enumerate}
+Alors $\mathit{Mor}_B(Z, X') \to \mathit{Mor}_B(Z, X)$ est représentable
+par des espaces algébriques et étale. Si $X' \to X$ est aussi surjectif,
+alors $\mathit{Mor}_B(Z, X') \to \mathit{Mor}_B(Z, X)$ est surjectif.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $\xi = (a, b)$ un élément de
+$\mathit{Mor}_B(Z, X)(U)$. Il faut montrer que le foncteur
+$$
+h_U \times_{\xi, \mathit{Mor}_B(Z, X)} \mathit{Mor}_B(Z, X')
+$$
+est représentable par un espace algébrique étale sur $U$. Posons
+$Z_U = U \times_{a, B} Z$ et $W = Z_U \times_{b, X} X'$.
+Alors $W \to Z_U \to U$ est comme dans le
+lemme \ref{lemma-space-of-sections},
+et le faisceau $F$ qui y est défini s'identifie au produit fibré
+affiché ci-dessus. D'où la première assertion du lemme.
+La seconde assertion résulte de celle-ci et du
+lemme \ref{lemma-surjection-space-of-sections},
+qui garantit que $F \to U$ est surjectif dans la situation ci-dessus.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-hom-functor-algebraic-space}
+Soit $S$ un schéma. Soient $Z \to B$ et $X \to B$ des morphismes
+d'espaces algébriques sur $S$. Si $Z \to B$ est fini localement libre,
+alors $\mathit{Mor}_B(Z, X)$ est un espace algébrique.
+\end{proposition}
+
+\begin{proof}
+Choisissons un schéma $B' = \coprod B'_i$, somme disjointe de
+schémas affines $B'_i$, et un morphisme étale surjectif $B' \to B$.
+On peut aussi supposer que $B'_i \times_B Z$ est le spectre d'un anneau
+qui est un $\Gamma(B'_i, \mathcal{O}_{B'_i})$-module libre de type fini.
+D'après le
+lemme \ref{lemma-base-change-hom-functor}
+et
+Espaces, lemme
+\ref{spaces-lemma-base-change-representable-transformations-property}
+le morphisme $\mathit{Mor}_{B'}(Z', X') \to \mathit{Mor}_B(Z, X)$
+est étale surjectif. D'après
+Amorçage, théorème \ref{bootstrap-theorem-final-bootstrap},
+il suffit donc de démontrer la proposition lorsque $B = B'$ est une somme disjointe de
+schémas affines $B'_i$ telle que chaque $B'_i \times_B Z$ soit fini et libre
+sur $B'_i$. Il suffit alors de démontrer le résultat après restriction
+à chaque $B'_i$. On peut donc supposer que $B$ est affine et que
+$\Gamma(Z, \mathcal{O}_Z)$ est un $\Gamma(B, \mathcal{O}_B)$-module libre de type fini.
+
+\medskip\noindent
+Choisissons un schéma $X'$ qui soit une somme disjointe de schémas affines et
+un morphisme étale surjectif $X' \to X$. D'après le
+lemme \ref{lemma-etale-covering-hom-functor},
+le morphisme $\mathit{Mor}_B(Z, X') \to \mathit{Mor}_B(Z, X)$
+est représentable par des espaces algébriques, étale et surjectif.
+D'après
+Amorçage, théorème \ref{bootstrap-theorem-final-bootstrap},
+il suffit donc de démontrer la proposition lorsque $X$ est une somme disjointe
+de schémas affines. On se ramène ainsi au cas traité dans le paragraphe
+suivant.
+
+\medskip\noindent
+Supposons que $X = \coprod_{i \in I} X_i$ soit une somme disjointe de schémas
+affines, que $B$ soit affine et que $\Gamma(Z, \mathcal{O}_Z)$ soit un
+$\Gamma(B, \mathcal{O}_B)$-module libre de type fini. Pour toute partie finie
+$E \subset I$, posons
+$$
+F_E = \mathit{Mor}_B(Z, \coprod\nolimits_{i \in E} X_i).
+$$
+D'après Compléments sur les morphismes,
+lemme \ref{more-morphisms-lemma-hom-from-finite-free-into-affine},
+$F_E$ est un espace algébrique. Considérons le morphisme
+$$
+\coprod\nolimits_{E \subset I\text{ fini}} F_E
+\longrightarrow
+\mathit{Mor}_B(Z, X)
+$$
+Chacun des morphismes
+$F_E \to \mathit{Mor}_B(Z, X)$ est une immersion ouverte, car son image est
+simplement le lieu paramétrant les couples $(a, b)$ pour lesquels $b$ se factorise par
+le sous-schéma ouvert $\coprod\nolimits_{i \in E} X_i$ de $X$. De plus,
+si $T$ est quasi-compact, alors, pour tout couple $(a, b)$, l'image
+de $b$ est contenue dans $\coprod\nolimits_{i \in E} X_i$ pour une certaine partie
+finie $E \subset I$. La flèche affichée est donc en fait un
+recouvrement ouvert, ce qui conclut\footnote{Sous réserve de
+quelques arguments ensemblistes. Il faut en effet montrer que
+$\coprod F_E$ est un espace algébrique. Cela résulte des inégalités
+$|I| \leq \text{size}(X)$ et $\text{size}(F_E) \leq \text{size}(X)$,
+la seconde découlant de la description explicite de $F_E$ dans la preuve de
+Compléments sur les morphismes,
+lemme \ref{more-morphisms-lemma-hom-from-finite-free-into-affine}.
+Nous omettons certains détails.}, d'après
+Espaces, lemme \ref{spaces-lemma-glueing-algebraic-spaces}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Restriction des scalaires}
+\label{section-restriction-of-scalars}
+
+\noindent
+Supposons que $X \to Z \to B$ soient des morphismes d'espaces algébriques sur $S$.
+Pour tout schéma $T$, on peut considérer les couples $(a, b)$, où $a : T \to B$
+est un morphisme et $b : T \times_{a, B} Z \to X$ un morphisme sur $Z$.
+On a le diagramme
+\begin{equation}
+\label{equation-pairs}
+\vcenter{
+\xymatrix{
+& X \ar[d] \\
+T \times_{a, B} Z \ar[d] \ar[ru]^b \ar[r] & Z \ar[d] \\
+T \ar[r]^a & B
+}
+}
+\end{equation}
+Dans cette situation, on peut définir un
+foncteur
+\begin{equation}
+\label{equation-restriction-of-scalars}
+\text{Res}_{Z/B}(X) : (\Sch/S)^{opp} \longrightarrow \textit{Ensembles},
+\quad
+T \longmapsto \{(a, b)\text{ comme ci-dessus}\}
+\end{equation}
+Parfois, on le considère comme un foncteur défini sur la catégorie
+des schémas sur $B$ ; dans ce cas, on omet $a$ de la notation.
+
+\begin{lemma}
+\label{lemma-restriction-of-scalars-sheaf}
+Soit $S$ un schéma. Soient $X \to Z \to B$ des morphismes
+d'espaces algébriques sur $S$. Alors
+\begin{enumerate}
+\item $\text{Res}_{Z/B}(X)$ est un faisceau sur
+$(\Sch/S)_{fppf}$.
+\item Si $T$ est un espace algébrique sur $S$, il existe une
+bijection canonique
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, \text{Res}_{Z/B}(X))
+=
+\{(a, b)\text{ comme dans }(\ref{equation-pairs})\}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un espace algébrique sur $S$. Soit $\{T_i \to T\}$ un
+recouvrement fppf de $T$ (comme dans
+Topologies on Espaces, section \ref{spaces-topologies-section-fppf}).
+Supposons que $(a_i, b_i) \in \text{Res}_{Z/B}(X)(T_i)$ et
+que $(a_i, b_i)|_{T_i \times_T T_j} = (a_j, b_j)|_{T_i \times_T T_j}$
+pour tous $i, j$. D'après
+Descente et espaces algébriques,
+lemme \ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms},
+il existe un unique morphisme $a : T \to B$ tel que $a_i$ soit la
+composée de $T_i \to T$ et de $a$. Alors
+$\{T_i \times_{a_i, B} Z \to T \times_{a, B} Z\}$ est aussi un recouvrement
+fppf, et le même lemme implique qu'il existe un unique morphisme
+$b : T \times_{a, B} Z \to X$ tel que $b_i$ soit la composée
+de $T_i \times_{a_i, B} Z \to T \times_{a, B} Z$ et de $b$. Ainsi,
+$(a, b) \in \text{Res}_{Z/B}(X)(T)$ se restreint à $(a_i, b_i)$
+sur $T_i$ pour tout $i$.
+
+\medskip\noindent
+Notons que le résultat du paragraphe précédent implique en particulier (1).
+
+\medskip\noindent
+Soit $T$ un espace algébrique sur $S$. Pour démontrer (2), nous allons
+construire des applications réciproques entre les ensembles affichés. Dans la
+suite, le mot « couple » désigne un couple $(a, b)$ s'insérant
+dans (\ref{equation-pairs}).
+
+\medskip\noindent
+Soit $v : T \to \text{Res}_{Z/B}(X)$ une transformation naturelle.
+Choisissons un schéma $U$ et un morphisme étale surjectif $p : U \to T$.
+Alors $v(p) \in \text{Res}_{Z/B}(X)(U)$ correspond à un couple $(a_U, b_U)$
+sur $U$. Soit $R = U \times_T U$, de projections $t, s : R \to U$.
+Comme $v$ est une transformation de foncteurs, les images inverses de
+$(a_U, b_U)$ par $s$ et $t$ coïncident. Puisque $\{U \to T\}$ est un
+recouvrement fppf, le résultat du premier paragraphe permet donc de
+déduire qu'il existe un unique couple $(a, b)$ sur $T$.
+
+\medskip\noindent
+Réciproquement, soit $(a, b)$ un couple sur $T$.
+Soient $U \to T$, $R = U \times_T U$ et $t, s : R \to U$ comme
+ci-dessus. La restriction $(a, b)|_U$ donne alors naissance à une
+transformation de foncteurs $v : h_U \to \text{Res}_{Z/B}(X)$ par le
+lemme de Yoneda
+(Catégories, lemme \ref{categories-lemma-yoneda}).
+Comme les deux images inverses $s^*(a, b)|_U$ et $t^*(a, b)|_U$
+sont égales, $v$ coégalise les deux applications
+$h_t, h_s : h_R \to h_U$. Puisque $T = U/R$ est le faisceau quotient fppf d'après
+Espaces, lemme \ref{spaces-lemma-space-presentation},
+et puisque $\text{Res}_{Z/B}(X)$ est un faisceau fppf d'après (1), on conclut
+que $v$ se factorise par une application $T \to \text{Res}_{Z/B}(X)$.
+
+\medskip\noindent
+Nous omettons de vérifier que les deux constructions ci-dessus sont
+réciproques.
+\end{proof}
+
+\noindent
+Bien entendu, le faisceau $\text{Res}_{Z/B}(X)$ est muni d'une transformation
+naturelle de foncteurs $\text{Res}_{Z/B}(X) \to B$. Nous l'utiliserons sans autre
+mention dans la suite.
+
+\begin{lemma}
+\label{lemma-etale-base-change-restriction-of-scalars}
+Soit $S$ un schéma. Soient $X \to Z \to B$ et $B' \to B$
+des morphismes d'espaces algébriques sur $S$.
+Posons $Z' = B' \times_B Z$ et $X' = B' \times_B X$. Alors
+$$
+\text{Res}_{Z'/B'}(X')
+=
+B' \times_B \text{Res}_{Z/B}(X)
+$$
+dans $\Sh((\Sch/S)_{fppf})$.
+\end{lemma}
+
+\begin{proof}
+L'égalité des foncteurs résulte immédiatement des définitions.
+L'égalité des faisceaux s'en déduit, car les deux membres sont des
+faisceaux d'après le
+lemme \ref{lemma-restriction-of-scalars-sheaf},
+et parce qu'un produit fibré de faisceaux est égal au
+produit fibré correspondant des préfaisceaux (c'est-à-dire des foncteurs).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-covering-restriction-of-scalars}
+Soit $S$ un schéma. Soient $X' \to X \to Z \to B$ des morphismes
+d'espaces algébriques sur $S$. Supposons que
+\begin{enumerate}
+\item $X' \to X$ soit étale, et
+\item $Z \to B$ soit fini localement libre.
+\end{enumerate}
+Alors $\text{Res}_{Z/B}(X') \to \text{Res}_{Z/B}(X)$ est représentable
+par des espaces algébriques et étale. Si $X' \to X$ est aussi surjectif,
+alors $\text{Res}_{Z/B}(X') \to \text{Res}_{Z/B}(X)$ est surjectif.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $\xi = (a, b)$ un élément de
+$\text{Res}_{Z/B}(X)(U)$. Il faut montrer que le foncteur
+$$
+h_U \times_{\xi, \text{Res}_{Z/B}(X)} \text{Res}_{Z/B}(X')
+$$
+est représentable par un espace algébrique étale sur $U$. Posons
+$Z_U = U \times_{a, B} Z$ et $W = Z_U \times_{b, X} X'$.
+Alors $W \to Z_U \to U$ est comme dans le
+lemme \ref{lemma-space-of-sections},
+et le faisceau $F$ qui y est défini s'identifie au produit fibré
+affiché ci-dessus. D'où la première assertion du lemme.
+La seconde assertion résulte de celle-ci et du
+lemme \ref{lemma-surjection-space-of-sections},
+qui garantit que $F \to U$ est surjectif dans la situation ci-dessus.
+\end{proof}
+
+\noindent
+On peut maintenant utiliser les lemmes ci-dessus pour montrer que $\text{Res}_{Z/B}(X)$
+est un espace algébrique dès que $Z \to B$ est fini localement libre, d'une manière
+presque identique à la preuve que $\mathit{Mor}_B(Z, X)$ est un
+espace algébrique ; voir la
+proposition \ref{proposition-hom-functor-algebraic-space}.
+Nous déduirons plutôt directement ce résultat du lemme suivant
+et du fait que $\mathit{Mor}_B(Z, X)$ est un espace algébrique.
+
+\begin{lemma}
+\label{lemma-fibre-diagram}
+Soit $S$ un schéma. Soient $X \to Z \to B$ des morphismes
+d'espaces algébriques sur $S$. Le diagramme suivant
+$$
+\xymatrix{
+\mathit{Mor}_B(Z, X) \ar[r] & \mathit{Mor}_B(Z, Z) \\
+\text{Res}_{Z/B}(X) \ar[r] \ar[u] & B \ar[u]_{\text{id}_Z}
+}
+$$
+est un diagramme cartésien de faisceaux sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+La preuve est omise. Indication : exercice sur le point de vue fonctoriel en
+géométrie algébrique.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-restriction-of-scalars-algebraic-space}
+Soit $S$ un schéma. Soient $X \to Z \to B$ des morphismes
+d'espaces algébriques sur $S$. Si $Z \to B$ est fini localement libre,
+alors $\text{Res}_{Z/B}(X)$ est un espace algébrique.
+\end{proposition}
+
+\begin{proof}
+D'après la
+proposition \ref{proposition-hom-functor-algebraic-space},
+les foncteurs $\mathit{Mor}_B(Z, X)$ et $\mathit{Mor}_B(Z, Z)$
+sont des espaces algébriques. L'assertion résulte donc du diagramme cartésien
+du
+lemme \ref{lemma-fibre-diagram}
+et du fait que les produits fibrés d'espaces algébriques existent et
+sont donnés par le produit fibré dans la catégorie sous-jacente des
+faisceaux d'ensembles (voir
+Espaces, lemme
+\ref{spaces-lemma-fibre-product-spaces-over-sheaf-with-representable-diagonal}).
+\end{proof}
+
+
+
+
+
+
+\section{Champs de Hilbert finis}
+\label{section-finite-hilbert-stacks}
+
+\noindent
+Dans cette section, nous démontrons quelques résultats sur les champs de
+Hilbert finis $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+introduits dans
+Exemples de champs, section \ref{examples-stacks-section-hilbert-d-stack}.
+
+\begin{lemma}
+\label{lemma-map-hilbert}
+Considérons un diagramme $2$-commutatif
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_G \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^H & \mathcal{Y}
+}
+$$
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$, muni d'un
+$2$-isomorphisme $\gamma : H \circ F' \to F \circ G$. Dans cette situation, on
+obtient un $1$-morphisme canonique
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$.
+Ce morphisme est compatible avec les $1$-morphismes d'oubli de
+Exemples de champs,
+équation (\ref{examples-stacks-equation-diagram-hilbert-d-stack}).
+\end{lemma}
+
+\begin{proof}
+On envoie l'objet $(U, Z, y', x', \alpha')$ sur l'objet
+$(U, Z, H(y'), G(x'), \gamma \star \text{id}_H \star \alpha')$,
+où $\star$ désigne la composition horizontale des $2$-morphismes ; voir
+Catégories, définition \ref{categories-definition-horizontal-composition}.
+Au morphisme
+$(f, g, b, a) :
+(U_1, Z_1, y_1', x_1', \alpha_1') \to (U_2, Z_2, y_2', x_2', \alpha_2')$
+on associe
+$(f, g, H(b), G(a))$.
+Nous omettons de vérifier que cela définit un foncteur entre catégories sur
+$(\Sch/S)_{fppf}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cartesian-map-hilbert}
+Dans la situation du
+lemme \ref{lemma-map-hilbert},
+supposons que le carré donné soit $2$-cartésien. Alors le diagramme
+$$
+\xymatrix{
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \ar[r] \ar[d] &
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \ar[d] \\
+\mathcal{Y}' \ar[r] &
+\mathcal{Y}
+}
+$$
+est $2$-cartésien.
+\end{lemma}
+
+\begin{proof}
+Le lemme \ref{lemma-map-hilbert} fournit un diagramme $2$-commutatif
+et, par conséquent,
+un $1$-morphisme (c'est-à-dire un foncteur)
+$$
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}')
+\longrightarrow
+\mathcal{Y}' \times_\mathcal{Y} \mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+Indiquons pourquoi ce foncteur est essentiellement surjectif. Un objet
+de la catégorie du membre de droite consiste en un schéma $U$ sur $S$,
+un objet $y'$ de $\mathcal{Y}'_U$, un objet $(U, Z, y, x, \alpha)$
+de $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U$ et un isomorphisme
+$H(y') \to y$ dans $\mathcal{Y}_U$. L'hypothèse signifie exactement qu'il
+existe un objet $x'$ de $\mathcal{X}'_Z$ muni d'isomorphismes
+$G(x') \cong x$ et $\alpha' : y'|_Z \to F'(x')$ compatibles
+avec $\alpha$. Alors $(U, Z, y', x', \alpha')$ est un
+objet de $\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}')$ au-dessus de $U$.
+Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-covering-hilbert}
+Dans la situation du
+lemme \ref{lemma-map-hilbert},
+supposons que
+\begin{enumerate}
+\item $\mathcal{Y}' = \mathcal{Y}$ et $H = \text{id}_\mathcal{Y}$,
+\item $G$ soit représentable par des espaces algébriques et étale.
+\end{enumerate}
+Alors $\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est représentable par
+des espaces algébriques et étale.
+Si $G$ est en outre surjectif, alors
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est surjectif.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $\xi = (U, Z, y, x, \alpha)$ un objet de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U$.
+Il faut montrer que le $2$-produit fibré
+\begin{equation}
+\label{equation-to-show}
+(\Sch/U)_{fppf}
+\times_{\xi, \mathcal{H}_d(\mathcal{X}/\mathcal{Y})}
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y})
+\end{equation}
+est représentable par un espace algébrique étale sur $U$.
+Un objet de celui-ci au-dessus de $U'$ correspond à un objet
+$x'$ de la catégorie fibre de $\mathcal{X}'$ au-dessus de $Z_{U'}$
+tel que $G(x') \cong x|_{Z_{U'}}$.
+Par hypothèse, le $2$-produit fibré
+$$
+(\Sch/Z)_{fppf} \times_{x, \mathcal{X}} \mathcal{X}'
+$$
+est représentable par un espace algébrique $W$ tel que la projection
+$W \to Z$ soit étale. Alors (\ref{equation-to-show})
+est représenté par l'espace algébrique $F$ qui paramètre les sections de
+$W \to Z$ sur $U$, introduit dans le
+lemme \ref{lemma-space-of-sections}.
+Comme $F \to U$ est étale, on conclut que
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est représentable par
+des espaces algébriques et étale.
+Enfin, si $\mathcal{X}' \to \mathcal{X}$ est aussi surjectif,
+alors $W \to Z$ est surjectif, et donc $F \to U$ l'est d'après le
+lemme \ref{lemma-surjection-space-of-sections}.
+Ainsi, dans ce cas,
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est aussi surjectif.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-map-hilbert}
+Dans la situation du
+lemme \ref{lemma-map-hilbert},
+supposons que $G$ et $H$ soient représentables par des espaces algébriques et étales.
+Alors $\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est représentable par
+des espaces algébriques et étale.
+Si, de plus, $H$ est surjectif et le foncteur induit
+$\mathcal{X}' \to \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+est surjectif, alors
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est surjectif.
+\end{lemma}
+
+\begin{proof}
+Posons $\mathcal{X}'' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$. D'après le
+lemme \ref{lemma-etale-permanence},
+le $1$-morphisme $\mathcal{X}' \to \mathcal{X}''$ est représentable par
+des espaces algébriques et étale (en particulier, la condition de la seconde
+assertion du lemme selon laquelle $\mathcal{X}' \to \mathcal{X}''$ est surjectif
+a un sens). On obtient un diagramme $2$-commutatif
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d] &
+\mathcal{X}'' \ar[r] \ar[d] &
+\mathcal{X} \ar[d] \\
+\mathcal{Y}' \ar[r] &
+\mathcal{Y}' \ar[r] &
+\mathcal{Y}
+}
+$$
+Il résulte du
+lemme \ref{lemma-cartesian-map-hilbert}
+que $\mathcal{H}_d(\mathcal{X}''/\mathcal{Y}')$ est le changement de base
+de $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ par $\mathcal{Y}' \to \mathcal{Y}$.
+En particulier,
+$\mathcal{H}_d(\mathcal{X}''/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est
+représentable par des espaces algébriques et étale ; voir
+Champs algébriques, lemme
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+De plus, il est aussi surjectif si $H$ l'est.
+Par conséquent, il suffit de montrer que
+le résultat vaut pour le carré de gauche du diagramme.
+On se ramène ainsi au cas où $\mathcal{Y}' = \mathcal{Y}$,
+qui fait l'objet du
+lemme \ref{lemma-etale-covering-hilbert}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-hilbert}
+Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de champs en groupoïdes
+sur $(\Sch/S)_{fppf}$. Supposons que
+$\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+soit représentable par des espaces algébriques. Alors
+$$
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}
+$$
+qui figure dans
+Exemples de champs, équation
+(\ref{examples-stacks-equation-diagram-hilbert-d-stack}),
+est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $\xi = (U, Z, p, x, 1)$ un objet de
+$\mathcal{H}_d(\mathcal{X}) = \mathcal{H}_d(\mathcal{X}/S)$ au-dessus de $U$.
+Ici, $p$ est simplement le morphisme structural de $U$.
+La cinquième composante $1$ existe et est unique
+puisque tout est au-dessus de $S$.
+Soit aussi $y$ un objet de $\mathcal{Y}$ au-dessus de $U$.
+Il faut montrer que le $2$-produit fibré
+\begin{equation}
+\label{equation-res-isom}
+(\Sch/U)_{fppf}
+\times_{\xi \times y, \mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}}
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\end{equation}
+est représentable par un espace algébrique. Pour l'expliquer,
+introduisons
+$$
+I = \mathit{Isom}_\mathcal{Y}(y|_Z, F(x))
+$$
+qui est un espace algébrique sur $Z$ par hypothèse. Soit $a : U' \to U$
+un schéma sur $U$. Que signifie se donner un objet de la catégorie
+fibre de (\ref{equation-res-isom}) au-dessus de $U'$ ? Cela signifie que l'on
+dispose d'un objet $\xi' = (U', Z', y', x', \alpha')$ de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U'$ et d'isomorphismes
+$(U', Z', p', x', 1) \cong (U, Z, p, x, 1)|_{U'}$ et
+$y' \cong y|_{U'}$. Ainsi, $\xi'$ est isomorphe à
+$(U', U' \times_{a, U} Z, a^*y, x|_{U' \times_{a, U} Z}, \alpha)$
+pour un certain morphisme
+$$
+\alpha :
+a^*y|_{U' \times_{a, U} Z}
+\longrightarrow
+F(x|_{U' \times_{a, U} Z})
+$$
+dans la catégorie fibre de $\mathcal{Y}$ au-dessus de $U' \times_{a, U} Z$. Ainsi,
+on peut voir $\alpha$ comme un morphisme $b : U' \times_{a, U} Z \to I$.
+On voit de cette manière que (\ref{equation-res-isom})
+est représenté par $\text{Res}_{Z/U}(I)$, qui est un espace algébrique d'après la
+proposition \ref{proposition-restriction-of-scalars-algebraic-space}.
+\end{proof}
+
+\noindent
+Le lemme suivant est une généralisation (partielle) du
+lemme \ref{lemma-etale-covering-hilbert}.
+
+\begin{lemma}
+\label{lemma-representable-on-top}
+Soient $F : \mathcal{X} \to \mathcal{Y}$ et $G : \mathcal{X}' \to \mathcal{X}$
+des $1$-morphismes de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+Si $G$ est représentable par des espaces algébriques, alors le $1$-morphisme
+$$
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+est représentable par des espaces algébriques.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $\xi = (U, Z, y, x, \alpha)$ un objet de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U$.
+Il faut montrer que le $2$-produit fibré
+\begin{equation}
+\label{equation-to-show-again}
+(\Sch/U)_{fppf}
+\times_{\xi, \mathcal{H}_d(\mathcal{X}/\mathcal{Y})}
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y})
+\end{equation}
+est représentable par un espace algébrique sur $U$.
+Un objet de celui-ci au-dessus de $a : U' \to U$ correspond à un objet
+$x'$ de $\mathcal{X}'$ au-dessus de $U' \times_{a, U} Z$ tel que
+$G(x') \cong x|_{U' \times_{a, U} Z}$. Par hypothèse, le $2$-produit fibré
+$$
+(\Sch/Z)_{fppf} \times_{x, \mathcal{X}} \mathcal{X}'
+$$
+est représentable par un espace algébrique $W$ sur $Z$. Il s'ensuit que
+(\ref{equation-to-show-again}) est représenté par $\text{Res}_{Z/U}(W)$,
+qui est un espace algébrique d'après la
+proposition \ref{proposition-restriction-of-scalars-algebraic-space}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-limit-preserving}
+Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de champs en groupoïdes
+sur $(\Sch/S)_{fppf}$. Supposons que $F$ soit représentable par des espaces
+algébriques et localement de présentation finie. Alors
+$$
+p : \mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}
+$$
+commute aux limites sur les objets.
+\end{lemma}
+
+\begin{proof}
+Cela signifie qu'il faut montrer ceci : étant donnés
+\begin{enumerate}
+\item un schéma affine $U = \lim_i U_i$ écrit comme la
+limite projective filtrante de schémas affines $U_i$ sur $S$,
+\item un objet $y_i$ de $\mathcal{Y}$ au-dessus de $U_i$ pour un certain $i$, et
+\item un objet $\Xi = (U, Z, y, x, \alpha)$ de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+au-dessus de $U$ tel que $y = y_i|_U$,
+\end{enumerate}
+il existe $i' \geq i$ et un objet
+$\Xi_{i'} = (U_{i'}, Z_{i'}, y_{i'}, x_{i'}, \alpha_{i'})$ de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U_{i'}$ tel que
+$\Xi_{i'}|_U = \Xi$ et $y_{i'} = y_i|_{U_{i'}}$.
+En effet, ces deux dernières égalités assurent la commutativité de
+(\ref{equation-limit-preserving}).
+
+\medskip\noindent
+Soit $X_{y_i} \to U_i$ un espace algébrique représentant le $2$-produit
+fibré
+$$
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X}.
+$$
+Notons que $X_{y_i} \to U_i$ est localement de présentation finie par notre
+hypothèse sur $F$. Écrivons $\Xi $. Il est clair que
+$\xi = (Z, Z \to U_i, x, \alpha)$ est un objet du $2$-produit fibré
+affiché ci-dessus ; ainsi, $\xi$ donne naissance à un morphisme
+$f_\xi : Z \to X_{y_i}$ d'espaces algébriques sur $U_i$
+(puisque $X_{y_i}$ est le foncteur des classes d'isomorphisme d'objets de
+$(\Sch/U_i)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$ ; voir
+Champs algébriques,
+lemme \ref{algebraic-lemma-characterize-representable-by-space}).
+D'après
+Limits, lemmes \ref{limits-lemma-descend-finite-presentation} et
+\ref{limits-lemma-descend-finite-locally-free}
+il existe $i' \geq i$ et un morphisme fini localement libre
+$Z_{i'} \to U_{i'}$ de degré $d$ dont le changement de base à $U$ est $Z$. D'après
+Limits of Espaces, proposition
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}
+on peut, après avoir remplacé $i'$ par un indice plus grand, supposer qu'il existe un
+morphisme $f_{i'} : Z_{i'} \to X_{y_i}$ tel que
+$$
+\xymatrix{
+Z \ar[d] \ar[r] \ar@/^3ex/[rr]^{f_\xi} &
+Z_{i'} \ar[d] \ar[r]_{f_{i'}} & X_{y_i} \ar[d] \\
+U \ar[r] & U_{i'} \ar[r] & U_i
+}
+$$
+soit commutatif. Posons
+$\Xi_{i'} = (U_{i'}, Z_{i'}, y_{i'}, x_{i'}, \alpha_{i'})$
+où
+\begin{enumerate}
+\item $y_{i'}$ est l'objet de $\mathcal{Y}$ au-dessus de $U_{i'}$
+qui est l'image inverse de $y_i$ sur $U_{i'}$,
+\item $x_{i'}$ est l'objet de $\mathcal{X}$ au-dessus de $Z_{i'}$ qui correspond,
+par le lemme de $2$-Yoneda, au $1$-morphisme
+$$
+(\Sch/Z_{i'})_{fppf} \to
+\mathcal{S}_{X_{y_i}} \to
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X} \to
+\mathcal{X}
+$$
+où la flèche du milieu est l'équivalence qui définit $X_{y_i}$
+(notations comme dans
+Champs algébriques, sections
+\ref{algebraic-section-representable-by-algebraic-spaces} et
+\ref{algebraic-section-split}).
+\item $\alpha_{i'} : y_{i'}|_{Z_{i'}} \to F(x_{i'})$ est l'isomorphisme
+provenant de la $2$-commutativité du diagramme
+$$
+\xymatrix{
+(\Sch/Z_{i'})_{fppf} \ar[r] \ar[rd] &
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X}
+\ar[r] \ar[d] &
+\mathcal{X} \ar[d]^F \\
+& (\Sch/U_{i'})_{fppf} \ar[r] & \mathcal{Y}
+}
+$$
+\end{enumerate}
+Rappelons que $f_\xi : Z \to X_{y_i}$ était le morphisme correspondant à
+l'objet $\xi = (Z, Z \to U_i, x, \alpha)$ de
+$(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X}$
+au-dessus de $Z$. Par construction, $f_{i'}$ est le morphisme correspondant à
+l'objet $\xi_{i'} = (Z_{i'}, Z_{i'} \to U_i, x_{i'}, \alpha_{i'})$.
+Comme $f_\xi = f_{i'} \circ (Z \to Z_{i'})$, on voit que
+l'objet $\xi_{i'} = (Z_{i'}, Z_{i'} \to U_i, x_{i'}, \alpha_{i'})$ a pour image inverse
+$\xi$ sur $Z$. Ainsi, $x_{i'}$ a pour image inverse $x$ et $\alpha_{i'}$
+a pour image inverse $\alpha$. Cela signifie que $\Xi_{i'}$ a pour image inverse
+$\Xi$ sur $U$, ce qui conclut.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Le champ de Hilbert fini d'un point}
+\label{section-hilbert-point}
+
+\noindent
+Soit $d \geq 1$ un entier. Dans
+Exemples de champs, définition \ref{examples-stacks-definition-hilbert-d-stack},
+nous avons défini un champ en groupoïdes $\mathcal{H}_d$.
+Dans cette section, nous montrons que $\mathcal{H}_d$ est un
+champ algébrique. Nous supposerons partout que
+$S = \Spec(\mathbf{Z})$.
+Le cas général s'en déduira par changement de base.
+Rappelons que la catégorie fibre de $\mathcal{H}_d$ au-dessus d'un schéma $T$
+est la catégorie des morphismes finis localement libres $\pi : Z \to T$ de
+degré $d$. Au lieu de les classifier directement, nous étudions d'abord
+les faisceaux quasi-cohérents d'algèbres $\pi_*\mathcal{O}_Z$.
+
+\medskip\noindent
+Soit $R$ un anneau. Adoptons temporairement la définition suivante :
+une {\it algèbre libre de rang $d$ sur $R$}
+est la donnée d'une structure de $R$-algèbre commutative $m$ sur $R^{\oplus d}$
+dont $e_1 = (1, 0, \ldots, 0)$ est l'unité\footnote{Il est peut-être préférable
+de la voir comme un couple formé d'une application de multiplication
+$m : R^{\oplus d} \otimes_R R^{\oplus d} \to R^{\oplus d}$ et
+d'un homomorphisme d'anneaux $\psi : R \to R^{\oplus d}$ satisfaisant à un certain nombre d'axiomes.}.
+On considère $m$ comme une application $R$-linéaire
+$$
+m : R^{\oplus d} \otimes_R R^{\oplus d} \longrightarrow R^{\oplus d}
+$$
+telle que $m(e_1, x) = m(x, e_1) = x$ et que $m$ définisse une
+structure d'anneau commutative et associative. Si l'on écrit
+$m(e_i, e_j) = \sum a_{ij}^ke_k$, cela revient
+aux conditions
+$$
+\left\{
+\begin{matrix}
+\sum_l a_{ij}^la_{lk}^m = \sum_l a_{il}^ma_{jk}^l & \forall i, j, k, m \\
+a_{ij}^k = a_{ji}^k & \forall i, j, k \\
+a_{i1}^j = \delta_{ij} & \forall i, j
+\end{matrix}
+\right.
+$$
+où $\delta_{ij}$ est le symbole $\delta$ de Kronecker. Définissons donc
+$$
+R_{univ} = \mathbf{Z}[a_{ij}^k]/J
+$$
+où $J$ est l'idéal engendré par les relations affichées ci-dessus.
+Notons
+$$
+m_{univ} :
+R_{univ}^{\oplus d} \otimes_{R_{univ}} R_{univ}^{\oplus d}
+\longrightarrow
+R_{univ}^{\oplus d}
+$$
+l'algèbre libre de rang $d$, notée $m$, sur $R_{univ}$ dont les constantes
+de structure sont les classes des $a_{ij}^k$ modulo $J$.
+Il est alors clair que, pour toute algèbre libre de rang $d$, notée $m$, sur un anneau
+$R$, il existe un unique homomorphisme de $\mathbf{Z}$-algèbres
+$\psi : R_{univ} \to R$ tel que $\psi_*m_{univ} = m$ (cela signifie que
+$m$ s'obtient en appliquant le foncteur de changement de base
+$- \otimes_{R_{univ}} R$ à $m_{univ}$). Autrement dit, en posant
+$X = \Spec(R_{univ})$, on obtient une identification canonique
+$$
+X(T) = \{\text{algèbres libres de rang }d\text{, de multiplication }m\text{ sur }R\}
+$$
+pour $T = \Spec(R)$ variable. Par localisation de Zariski, on obtient
+l'identification suivante, apparemment plus générale,
+\begin{equation}
+\label{equation-objects}
+X(T) = \{\text{algèbres libres de rang }d\text{, de multiplication }
+m\text{ sur }\Gamma(T, \mathcal{O}_T)\}
+\end{equation}
+pour tout schéma $T$.
+
+\medskip\noindent
+Parlons maintenant brièvement des {\it isomorphismes d'algèbres libres de rang $d$
+sur $R$}. Supposons que $m$ et $m'$ soient deux algèbres libres de rang $d$
+sur un anneau $R$. Un {\it isomorphisme de $m$ vers $m'$} est la donnée d'une
+application $R$-linéaire inversible
+$$
+\varphi : R^{\oplus d} \longrightarrow R^{\oplus d}
+$$
+telle que $\varphi(e_1) = e_1$ et que
+$$
+m \circ \varphi \otimes \varphi = \varphi \circ m'.
+$$
+Notons que l'on peut composer ces isomorphismes, de sorte que la collection des
+algèbres libres de rang $d$ sur $R$ devienne une catégorie.
+On obtient ainsi un foncteur
+\begin{equation}
+\label{equation-FAd}
+FA_d : \Sch_{fppf}^{opp} \longrightarrow \textit{Groupoïdes}
+\end{equation}
+de la catégorie des schémas vers les groupoïdes : à un schéma $T$, on associe
+l'ensemble des algèbres libres de rang $d$ sur $\Gamma(T, \mathcal{O}_T)$,
+muni d'une structure
+de catégorie au moyen de la notion d'isomorphisme qui vient d'être définie.
+
+\medskip\noindent
+Ce qui précède suggère de considérer le foncteur en groupes $G$
+qui associe à tout schéma $T$ le groupe
+$$
+G(T) = \{g \in \text{GL}_d(\Gamma(T, \mathcal{O}_T)) \mid g(e_1) = e_1\}
+$$
+Il est clair que $G \subset \text{GL}_d$ (voir
+Groupoïdes, exemple \ref{groupoids-example-general-linear-group})
+est le sous-schéma en groupes fermé défini par les équations
+$x_{11} = 1$ et $x_{i1} = 0$ pour $i > 1$. Ainsi, $G$ est un
+schéma en groupes affine et lisse sur $\Spec(\mathbf{Z})$. Considérons
+l'action
+$$
+a : G \times_{\Spec(\mathbf{Z})} X \longrightarrow X
+$$
+qui associe à un point à valeurs dans $T$, noté $(g, m)$, où $T = \Spec(R)$,
+du membre de gauche l'algèbre libre de rang $d$ sur $R$
+donnée par
+$$
+a(g, m) = g^{-1} \circ m \circ g \otimes g.
+$$
+Notons que cela signifie que $g$ définit un isomorphisme $m \to a(g, m)$
+d'algèbres libres de rang $d$ sur $R$. Nous omettons de vérifier que
+$a$ définit bien une action du schéma en groupes $G$ sur le schéma $X$.
+
+\begin{lemma}
+\label{lemma-represent-FAd}
+Le foncteur en groupoïdes $FA_d$ défini dans (\ref{equation-FAd})
+est isomorphe (!) au foncteur en groupoïdes qui associe
+à un schéma $T$ la catégorie dont
+\begin{enumerate}
+\item l'ensemble des objets est $X(T)$,
+\item l'ensemble des morphismes est $G(T) \times X(T)$,
+\item $s : G(T) \times X(T) \to X(T)$ est la projection,
+\item $t : G(T) \times X(T) \to X(T)$ est $a(T)$, et
+\item la composition $G(T) \times X(T) \times_{s, X(T), t} G(T) \times X(T)
+\to G(T) \times X(T)$ est donnée par $((g, m), (g', m')) \mapsto (gg', m')$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous avons vu la règle sur les objets dans (\ref{equation-objects}).
+Nous avons aussi vu ci-dessus que $g \in G(T)$ peut être considéré comme
+un morphisme de $m$ vers $a(g, m)$ pour toute algèbre libre de rang $d$, notée $m$.
+Réciproquement, tout morphisme $m \to m'$ est donné par une application linéaire
+inversible $\varphi$ qui correspond à un élément $g \in G(T)$ tel
+que $m' = a(g, m)$.
+\end{proof}
+
+\noindent
+En fait, le groupoïde $(X, G \times X, s, t, c)$ décrit dans le
+lemme ci-dessus est le groupoïde associé à l'action $a : G \times X \to X$
+tel qu'il est défini dans
+Groupoïdes, lemme \ref{groupoids-lemma-groupoid-from-action}.
+Comme $G$ est lisse sur $\Spec(\mathbf{Z})$,
+les deux morphismes $s, t : G \times X \to X$ sont
+lisses : par symétrie, il suffit de le montrer pour l'un d'eux, et
+$s$ est le changement de base de $G \to \Spec(\mathbf{Z})$.
+Ainsi, $(G \times X, X, s, t, c)$ est un groupoïde lisse en schémas,
+et le champ quotient $[X/G]$ est un champ algébrique d'après
+Champs algébriques,
+théorème \ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+
+\begin{proposition}
+\label{proposition-finite-hilbert-point}
+Le champ $\mathcal{H}_d$ est équivalent au champ quotient
+$[X/G]$ décrit ci-dessus. En particulier, $\mathcal{H}_d$ est un
+champ algébrique.
+\end{proposition}
+
+\begin{proof}
+Notons que, d'après
+Groupoïdes in Espaces, définition
+\ref{spaces-groupoids-definition-quotient-stack}
+le champ quotient $[X/G]$ est le champ associé à la
+catégorie fibrée en groupoïdes associée au « préfaisceau en groupoïdes »
+qui associe à un schéma $T$ le groupoïde
+$$
+(X(T), G(T) \times X(T), s, t, c).
+$$
+Comme ce « préfaisceau en groupoïdes » est isomorphe à $FA_d$ d'après le
+lemme \ref{lemma-represent-FAd},
+il suffit de montrer que $\mathcal{H}_d$ est le champ associé
+à (la catégorie fibrée en groupoïdes associée au
+« préfaisceau en groupoïdes ») $FA_d$. Pour cela, définissons d'abord un
+foncteur
+$$
+\Spec : FA_d \longrightarrow \mathcal{H}_d
+$$
+Rappelons que la catégorie fibre de $\mathcal{H}_d$ au-dessus d'un schéma $T$
+est la catégorie des morphismes finis localement libres $Z \to T$ de degré $d$.
+Étant donnés un schéma $T$ et une algèbre libre de rang $d$
+sur $\Gamma(T, \mathcal{O}_T)$, notée $m$, on peut lui associer l'objet
+$$
+Z = \underline{\Spec}_T(\mathcal{A})
+$$
+de $\mathcal{H}_{d, T}$,
+où $\mathcal{A} = \mathcal{O}_T^{\oplus d}$ est munie d'une
+structure de $\mathcal{O}_T$-algèbre au moyen de $m$. De plus, si $m'$ est
+une seconde algèbre libre de rang $d$ sur $\Gamma(T, \mathcal{O}_T)$
+et si $\varphi : m \to m'$ est un isomorphisme entre elles, alors
+l'application $\mathcal{O}_T$-linéaire induite
+$\varphi : \mathcal{O}_T^{\oplus d} \to \mathcal{O}_T^{\oplus d}$
+induit un isomorphisme
+$$
+\varphi : \mathcal{A}' \longrightarrow \mathcal{A}
+$$
+de $\mathcal{O}_T$-algèbres quasi-cohérentes. Par conséquent,
+$$
+\underline{\Spec}_T(\varphi) :
+\underline{\Spec}_T(\mathcal{A})
+\longrightarrow
+\underline{\Spec}_T(\mathcal{A}')
+$$
+est un morphisme dans la catégorie fibre $\mathcal{H}_{d, T}$. Nous omettons de
+vérifier que cette construction est compatible au changement de base ; on
+obtient donc bien un foncteur $\Spec : FA_d \to \mathcal{H}_d$,
+comme annoncé ci-dessus.
+
+\medskip\noindent
+Pour montrer que $\Spec : FA_d \to \mathcal{H}_d$ induit une équivalence
+entre le champ associé à $FA_d$ et $\mathcal{H}_d$, il suffit de
+vérifier que
+\begin{enumerate}
+\item $\mathit{Isom}(m, m') = \mathit{Isom}(\Spec(m), \Spec(m'))$
+pour tous $m, m' \in FA_d(T)$.
+\item pour tout schéma $T$ et tout objet $Z \to T$ de $\mathcal{H}_{d, T}$,
+il existe un recouvrement $\{T_i \to T\}$ tel que $Z|_{T_i}$ soit
+isomorphe à $\Spec(m)$ pour un certain $m \in FA_d(T_i)$.
+\end{enumerate}
+Voir
+Champs, lemme \ref{stacks-lemma-stackify-groupoids}.
+La première assertion résulte de l'observation que tout isomorphisme
+$$
+\underline{\Spec}_T(\mathcal{A})
+\longrightarrow
+\underline{\Spec}_T(\mathcal{A}')
+$$
+est nécessairement donné par une matrice globale inversible $g$ lorsque
+$\mathcal{A} = \mathcal{A}' = \mathcal{O}_T^{\oplus d}$ comme modules.
+Pour démontrer la seconde assertion, soit $\pi : Z \to T$ un morphisme fini
+localement libre de degré $d$. Alors $\mathcal{A}$ est un faisceau
+de $\mathcal{O}_T$-modules localement libre de rang $d$.
+Considérons l'élément $1 \in \Gamma(T, \mathcal{A})$. Cet élément est
+non nul dans $\mathcal{A} \otimes_{\mathcal{O}_{T, t}} \kappa(t)$
+pour tout $t \in T$, puisque le schéma
+$Z_t = \Spec(\mathcal{A} \otimes_{\mathcal{O}_{T, t}} \kappa(t))$
+est non vide, étant de degré $d > 0$ sur $\kappa(t)$. Ainsi,
+$1 : \mathcal{O}_T \to \mathcal{A}$ peut localement servir de premier
+élément d'une base (on peut, par exemple, utiliser les parties (1) et (2) du
+lemme \ref{algebra-lemma-cokernel-flat} de Algèbre
+pour le voir). Après localisation sur
+$T$, on peut donc supposer qu'il existe un isomorphisme
+$\varphi : \mathcal{A} \to \mathcal{O}_T^{\oplus d}$
+tel que $1 \in \Gamma(\mathcal{A})$ corresponde au premier élément de la base.
+Dans cette situation, l'application de multiplication
+$\mathcal{A} \otimes_{\mathcal{O}_T} \mathcal{A} \to \mathcal{A}$
+se traduit, par $\varphi$, en une algèbre libre de rang $d$, notée $m$, sur
+$\Gamma(T, \mathcal{O}_T)$. Cela achève la preuve.
+\end{proof}
+
+
+
+
+\section{Champs de Hilbert finis d'espaces}
+\label{section-spaces-hilbert}
+
+\noindent
+Le champ de Hilbert fini d'un espace algébrique est un champ algébrique.
+
+\begin{lemma}
+\label{lemma-hilbert-stack-of-space}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+Alors $\mathcal{H}_d(X)$ est un champ algébrique.
+\end{lemma}
+
+\begin{proof}
+Le $1$-morphisme
+$$
+\mathcal{H}_d(X) \longrightarrow \mathcal{H}_d
+$$
+est représentable par des espaces algébriques d'après le
+lemme \ref{lemma-representable-on-top}.
+Le champ $\mathcal{H}_d$ est algébrique d'après la
+proposition \ref{proposition-finite-hilbert-point}.
+Par conséquent, $\mathcal{H}_d(X)$ est un champ algébrique d'après
+Champs algébriques,
+lemme \ref{algebraic-lemma-representable-morphism-to-algebraic}.
+\end{proof}
+
+\noindent
+Ce lemme permet d'amorcer le raisonnement.
+
+\begin{lemma}
+\label{lemma-hilbert-stack-relative-space}
+Soit $S$ un schéma. Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$ tel que
+\begin{enumerate}
+\item $\mathcal{X}$ soit représentable par un espace algébrique, et
+\item $F$ soit représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie.
+\end{enumerate}
+Alors $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est un champ algébrique.
+\end{lemma}
+
+\begin{proof}
+Choisissons un champ en groupoïdes représentable $\mathcal{U}$ sur $S$ et un
+$1$-morphisme $f : \mathcal{U} \to \mathcal{H}_d(\mathcal{X})$
+qui soit représentable par des espaces algébriques, lisse et surjectif.
+C'est possible car $\mathcal{H}_d(\mathcal{X})$ est un champ algébrique d'après le
+lemme \ref{lemma-hilbert-stack-of-space}.
+Considérons le $2$-produit fibré
+$$
+\mathcal{W} =
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{\mathcal{H}_d(\mathcal{X}), f}
+\mathcal{U}.
+$$
+Puisque $\mathcal{U}$ est représentable (c'est en particulier un champ en
+groupoïdes discrets), il résulte de
+Exemples de champs, lemme \ref{examples-stacks-lemma-faithful-hilbert}
+et de
+Champs, lemme \ref{stacks-lemma-2-fibre-product-gives-stack-in-setoids}
+que $\mathcal{W}$ est un champ en groupoïdes discrets. Le $1$-morphisme
+$\mathcal{W} \to \mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est
+représentable par des espaces algébriques, lisse et surjectif comme changement
+de base du morphisme $f$ (voir
+Champs algébriques,
+lemmes \ref{algebraic-lemma-base-change-representable-by-spaces} et
+\ref{algebraic-lemma-base-change-representable-transformations-property}).
+Ainsi, si l'on montre que $\mathcal{W}$ est représentable par un espace algébrique,
+le lemme résultera de
+Champs algébriques,
+lemme \ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+
+\medskip\noindent
+La diagonale de $\mathcal{Y}$ est représentable par des espaces algébriques d'après le
+lemme \ref{lemma-flat-finite-presentation-surjective-diagonal}.
+On peut appliquer le
+lemme \ref{lemma-relative-hilbert}
+pour voir que le $1$-morphisme
+$$
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}
+$$
+est représentable par des espaces algébriques. Considérons le $2$-produit fibré
+$$
+\mathcal{V} =
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{(\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}), f \times F}
+(\mathcal{U} \times \mathcal{X}).
+$$
+Le morphisme de projection $\mathcal{V} \to \mathcal{U} \times \mathcal{X}$
+est représentable par des espaces algébriques comme changement de base du dernier
+morphisme affiché. Par conséquent, $\mathcal{V}$ est un espace algébrique (voir
+Amorçage, lemme \ref{bootstrap-lemma-representable-by-spaces-over-space}
+ou
+Champs algébriques,
+lemme \ref{algebraic-lemma-base-change-by-space-representable-by-space}).
+Le $1$-morphisme $\mathcal{V} \to \mathcal{U}$ s'insère dans le diagramme
+$2$-cartésien suivant
+$$
+\xymatrix{
+\mathcal{V} \ar[d] \ar[r] & \mathcal{X} \ar[d]^F \\
+\mathcal{W} \ar[r] & \mathcal{Y}
+}
+$$
+car
+$$
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{(\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}), f \times F}
+(\mathcal{U} \times \mathcal{X})
+=
+(\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{\mathcal{H}_d(\mathcal{X}), f}
+\mathcal{U}) \times_{\mathcal{Y}, F} \mathcal{X}.
+$$
+Ainsi, $\mathcal{V} \to \mathcal{W}$ est représentable par des espaces algébriques,
+surjectif, plat et localement de présentation finie comme changement de base
+de $F$. Il en est donc de même pour le morphisme correspondant entre les faisceaux
+d'ensembles associés à $\mathcal{V}$ et à $\mathcal{W}$, voir
+Champs algébriques, lemme \ref{algebraic-lemma-map-fibred-setoids-property}.
+On en conclut que le faisceau associé à $\mathcal{W}$ est un espace
+algébrique d'après
+Amorçage, théorème \ref{bootstrap-theorem-final-bootstrap}.
+\end{proof}
+
+
+
+
+\section{Lieu LCI dans le champ de Hilbert}
+\label{section-lci}
+
+\noindent
+On se reportera à
+Exemples de champs, section \ref{examples-stacks-section-hilbert-d-stack}
+pour les notations. Fixons un $1$-morphisme $F : \mathcal{X} \longrightarrow \mathcal{Y}$
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$. Supposons que
+$F$ soit représentable par des espaces algébriques. Fixons $d \geq 1$. Considérons un
+objet $(U, Z, y, x, \alpha)$ de $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$.
+On en déduit un $1$-morphisme
+$$
+(\Sch/Z)_{fppf}
+\longrightarrow
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}
+$$
+(d'après la propriété universelle des $2$-produits fibrés) qui est représenté par
+un morphisme d'espaces algébriques sur $U$.
+En effet, puisque $F$ est représentable par des espaces algébriques, on peut choisir
+un espace algébrique $X_y$ sur $U$ qui représente le $2$-produit fibré
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$.
+Comme $\alpha : y|_Z \to F(x)$ est un isomorphisme, on voit que
+$\xi = (Z, Z \to U, x, \alpha)$ est un objet du $2$-produit fibré
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$ au-dessus de $Z$.
+Ainsi, $\xi$ donne naissance à un morphisme $x_\alpha : Z \to X_y$ d'espaces algébriques
+sur $U$, puisque $X_y$ est le foncteur des classes d'isomorphisme d'objets de
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$, voir
+Champs algébriques,
+lemme \ref{algebraic-lemma-characterize-representable-by-space}.
+Voici un diagramme
+\begin{equation}
+\label{equation-relative-map}
+\vcenter{
+\xymatrix{
+Z \ar[r]_{x_\alpha} \ar[rd] & X_y \ar[d] \\
+& U
+}
+}
+\quad\quad
+\vcenter{
+\xymatrix{
+(\Sch/Z)_{fppf} \ar[rd] \ar[r]_-{x, \alpha} &
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X} \ar[r] \ar[d] &
+\mathcal{X} \ar[d]^F \\
+& (\Sch/U)_{fppf} \ar[r]^y & \mathcal{Y}
+}
+}
+\end{equation}
+Remarquons que si
+$(f, g, b, a) : (U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$
+est un morphisme entre objets de $\mathcal{H}_d$, alors le morphisme
+$x'_{\alpha'} : Z' \to X'_{y'}$ est le changement de base du morphisme
+$x_\alpha$ par le morphisme $g : U' \to U$ (détails omis).
+
+\medskip\noindent
+Supposons maintenant, de plus, que $F$ soit plat et localement de présentation finie.
+Dans cette situation, définissons une sous-catégorie pleine
+$$
+\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \subset
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+formée des objets $(U, Z, y, x, \alpha)$ de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ tels
+que le morphisme correspondant $x_\alpha : Z \to X_y$ soit non ramifié
+et localement d'intersection complète (voir
+Morphismes d'espaces algébriques, définition \ref{spaces-morphisms-definition-unramified}
+et
+Compléments sur les morphismes d'espaces algébriques,
+définition \ref{spaces-more-morphisms-definition-lci}
+pour les définitions correspondantes).
+
+\begin{lemma}
+\label{lemma-lci-locus-stack-in-groupoids}
+Soit $S$ un schéma. Fixons un $1$-morphisme
+$F : \mathcal{X} \longrightarrow \mathcal{Y}$
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+Supposons que $F$ soit représentable par des espaces algébriques, plat et localement
+de présentation finie. Alors $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$
+est un champ en groupoïdes et le foncteur d'inclusion
+$$
+\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+est représentable et est une immersion ouverte.
+\end{lemma}
+
+\begin{proof}
+Soit $\Xi = (U, Z, y, x, \alpha)$ un objet de $\mathcal{H}_d$. Il résulte
+de la remarque qui suit
+(\ref{equation-relative-map})
+que l'image inverse de $\Xi$ par $U' \to U$ appartient à
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ si et seulement si le changement
+de base de $x_\alpha$ est non ramifié et localement d'intersection complète.
+Notons que $Z \to U$ est fini localement libre (donc plat, localement de
+présentation finie et universellement fermé) et que $X_y \to U$ est
+plat et localement de présentation finie par notre hypothèse sur $F$. Alors
+Compléments sur les morphismes d'espaces algébriques, lemmes
+\ref{spaces-more-morphisms-lemma-where-unramified} et
+\ref{spaces-more-morphisms-lemma-where-lci}
+entraînent qu'il existe un sous-schéma ouvert $W \subset U$ tel qu'un morphisme
+$U' \to U$ se factorise par $W$ si et seulement si le changement de base de
+$x_\alpha$ par $U' \to U$ est non ramifié et localement d'intersection
+complète. Cela implique que
+$$
+(\Sch/U)_{fppf}
+\times_{\Xi, \mathcal{H}_d(\mathcal{X}/\mathcal{Y})}
+\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+$$
+est représentable par $W$. La dernière assertion du lemme
+en résulte. La première assertion (à savoir que
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ est un champ en groupoïdes)
+résulte alors de ce qui précède et de
+Champs algébriques,
+lemme \ref{algebraic-lemma-open-fibred-category-is-algebraic}.
+\end{proof}
+
+\noindent
+Les morphismes localement d'intersection complète sont « localement sans obstruction ».
+Cette assertion vaut dans une bien plus grande généralité que le cas particulier
+dont nous avons besoin ici.
+
+\begin{lemma}
+\label{lemma-lci-unobstructed}
+Soit $U \subset U'$ un épaississement du premier ordre de schémas affines.
+Soit $X'$ un espace algébrique plat sur $U'$. Posons $X = U \times_{U'} X'$.
+Soit $Z \to U$ fini localement libre de degré $d$. Enfin, soit
+$f : Z \to X$ non ramifié et localement d'intersection complète.
+Alors il existe un diagramme commutatif
+$$
+\xymatrix{
+(Z \subset Z') \ar[rd] \ar[rr]_{(f, f')} & & (X \subset X') \ar[ld] \\
+& (U \subset U')
+}
+$$
+d'espaces algébriques sur $U'$ tel que $Z' \to U'$ soit fini localement libre
+de degré $d$ et que $Z = U \times_{U'} Z'$.
+\end{lemma}
+
+\begin{proof}
+D'après
+Compléments sur les morphismes d'espaces algébriques,
+lemme \ref{spaces-more-morphisms-lemma-unramified-lci},
+le faisceau conormal $\mathcal{C}_{Z/X}$ du morphisme non ramifié $Z \to X$
+est un $\mathcal{O}_Z$-module localement libre de type fini et, d'après
+Compléments sur les morphismes d'espaces algébriques,
+lemme \ref{spaces-more-morphisms-lemma-transitivity-conormal-lci},
+on a une suite exacte
+$$
+0 \to i^*\mathcal{C}_{X/X'} \to
+\mathcal{C}_{Z/X'} \to
+\mathcal{C}_{Z/X} \to 0
+$$
+de faisceaux conormaux. Comme $Z$ est affine, cette suite est scindée. Choisissons
+un scindage
+$$
+\mathcal{C}_{Z/X'} = i^*\mathcal{C}_{X/X'} \oplus \mathcal{C}_{Z/X}
+$$
+Soit $Z \subset Z''$ l'épaississement universel du premier ordre de $Z$
+sur $X'$ (voir
+Compléments sur les morphismes d'espaces algébriques,
+section \ref{spaces-more-morphisms-section-universal-thickening}).
+Notons $\mathcal{I} \subset \mathcal{O}_{Z''}$ le faisceau quasi-cohérent
+d'idéaux correspondant à $Z \subset Z''$. Par définition,
+$\mathcal{C}_{Z/X'}$ est $\mathcal{I}$ considéré comme faisceau sur $Z$.
+Le scindage ci-dessus détermine donc un scindage
+$$
+\mathcal{I} = i^*\mathcal{C}_{X/X'} \oplus \mathcal{C}_{Z/X}
+$$
+Soit $Z' \subset Z''$ le sous-schéma fermé défini par
+$\mathcal{C}_{Z/X} \subset \mathcal{I}$, considéré comme faisceau quasi-cohérent
+d'idéaux sur $Z''$. Il est clair que $Z'$ est un épaississement du premier ordre
+de $Z$ et que l'on obtient un diagramme commutatif d'épaississements du premier ordre
+comme dans l'énoncé du lemme.
+
+\medskip\noindent
+Puisque $X' \to U'$ est plat et que $X = U \times_{U'} X'$, on voit que
+$\mathcal{C}_{X/X'}$ est l'image inverse de $\mathcal{C}_{U/U'}$ sur $X$, voir
+Compléments sur les morphismes d'espaces algébriques, lemme \ref{spaces-more-morphisms-lemma-deform}.
+Notons que, par construction, $\mathcal{C}_{Z/Z'} = i^*\mathcal{C}_{X/X'}$ ;
+on en conclut que $\mathcal{C}_{Z/Z'}$ est isomorphe à l'image inverse
+de $\mathcal{C}_{U/U'}$ sur $Z$. En appliquant
+Compléments sur les morphismes d'espaces algébriques, lemme \ref{spaces-more-morphisms-lemma-deform}
+une nouvelle fois (ou son analogue pour les schémas, voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-deform}),
+on en conclut que $Z' \to U'$ est plat et que $Z = U \times_{U'} Z'$.
+Enfin,
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-deform-property}
+montre que $Z' \to U'$ est fini localement libre de degré $d$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lci-formally-smooth}
+Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de champs en groupoïdes
+sur $(\Sch/S)_{fppf}$. Supposons que $F$ soit représentable par des espaces
+algébriques, plat et localement de présentation finie. Alors
+$$
+p : \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}
+$$
+est formellement lisse sur les objets.
+\end{lemma}
+
+\begin{proof}
+Il s'agit de montrer ceci : étant donnés
+\begin{enumerate}
+\item un objet $(U, Z, y, x, \alpha)$ de
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ au-dessus d'un schéma affine $U$,
+\item un épaississement du premier ordre $U \subset U'$, et
+\item un objet $y'$ de $\mathcal{Y}$ au-dessus de $U'$ tel que $y'|_U = y$,
+\end{enumerate}
+il existe alors un objet $(U', Z', y', x', \alpha')$ de
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ au-dessus de $U'$ tel que
+$Z = U \times_{U'} Z'$, que $x = x'|_Z$ et que
+$\alpha = \alpha'|_U$. En effet, les deux dernières égalités assureront
+la commutativité de (\ref{equation-formally-smooth}).
+
+\medskip\noindent
+Considérons le morphisme $x_\alpha : Z \to X_y$ construit dans
+l'équation (\ref{equation-relative-map}). Notons de même $X'_{y'}$
+l'espace algébrique sur $U'$ qui représente le $2$-produit fibré
+$(\Sch/U')_{fppf} \times_{y', \mathcal{Y}, F} \mathcal{X}$.
+Par hypothèse, le morphisme $X'_{y'} \to U'$ est plat (et localement de
+présentation finie). Comme $y'|_U = y$, on voit que $X_y = U \times_{U'} X'_{y'}$.
+On peut donc appliquer le
+lemme \ref{lemma-lci-unobstructed}
+pour trouver $Z' \to U'$ fini localement libre de degré $d$ tel que
+$Z = U \times_{U'} Z'$ et tel que $Z' \to X'_{y'}$ prolonge $x_\alpha$.
+Par construction, le morphisme $Z' \to X'_{y'}$ correspond à un couple
+$(x', \alpha')$. Il est clair que $(U', Z', y', x', \alpha')$
+est un objet de $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U'$
+tel que $Z = U \times_{U'} Z'$, que $x = x'|_Z$ et que
+$\alpha = \alpha'|_U$. Comme le
+lemme \ref{lemma-lci-locus-stack-in-groupoids}
+montre que $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \subset
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ est un « sous-champ ouvert »,
+il s'ensuit que $(U', Z', y', x', \alpha')$ est un objet de
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lci-surjective}
+Soit $F : \mathcal{X} \to \mathcal{Y}$ un $1$-morphisme de champs en groupoïdes
+sur $(\Sch/S)_{fppf}$. Supposons que $F$ soit représentable par des espaces
+algébriques, plat, surjectif et localement de présentation finie. Alors
+$$
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{Y}
+$$
+est surjectif sur les objets.
+\end{lemma}
+
+\begin{proof}
+Il suffit de montrer ceci : pour tout corps $k$
+et tout objet $y$ de $\mathcal{Y}$ au-dessus de $\Spec(k)$, il existe
+un entier $d \geq 1$ et un objet $(U, Z, y, x, \alpha)$ de
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ avec $U = \Spec(k)$.
+En effet, dans ce cas, on voit que $p$ est surjectif sur les objets au
+sens fort où aucune extension du corps n'est nécessaire.
+
+\medskip\noindent
+Notons $X_y$ l'espace algébrique sur $U = \Spec(k)$
+qui représente le $2$-produit fibré
+$(\Sch/U')_{fppf} \times_{y', \mathcal{Y}, F} \mathcal{X}$.
+Par hypothèse, le morphisme $X_y \to \Spec(k)$ est surjectif et
+localement de présentation finie (et plat). En particulier, $X_y$ est
+non vide. Choisissons un schéma affine non vide $V$ et un morphisme étale
+$V \to X_y$. Notons que $V \to \Spec(k)$ est plat, surjectif
+et localement de présentation finie (d'après
+Morphismes d'espaces algébriques,
+définition \ref{spaces-morphisms-definition-locally-finite-presentation}).
+Choisissons un point fermé $v \in V$ où $V \to \Spec(k)$ est Cohen-Macaulay
+(c'est-à-dire que $V$ est Cohen-Macaulay en $v$), voir
+Compléments sur les morphismes,
+lemme \ref{more-morphisms-lemma-flat-finite-presentation-CM-open}.
+En appliquant
+Compléments sur les morphismes,
+lemme \ref{more-morphisms-lemma-slice-CM},
+on trouve une immersion régulière $Z \to V$ telle que $Z = \{v\}$.
+Cela implique que $Z \to V$ est une immersion fermée. De plus, il s'ensuit que
+$Z \to \Spec(k)$ est fini (par exemple d'après
+Algèbre, lemme \ref{algebra-lemma-isolated-point}).
+Ainsi, $Z \to \Spec(k)$ est fini localement libre d'un certain degré $d$.
+Le morphisme $Z \to X_y$ est alors non ramifié comme composé
+d'une immersion fermée et d'un morphisme étale
+(voir
+Morphismes d'espaces algébriques, lemmes \ref{spaces-morphisms-lemma-composition-unramified},
+\ref{spaces-morphisms-lemma-etale-unramified} et
+\ref{spaces-morphisms-lemma-immersion-unramified}).
+Enfin, $Z \to X_y$ est localement d'intersection complète
+comme composé d'une immersion régulière de schémas et d'un morphisme
+étale d'espaces algébriques (voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-regular-immersion-lci}
+et
+Morphismes d'espaces algébriques, lemmes \ref{spaces-morphisms-lemma-etale-smooth} et
+\ref{spaces-morphisms-lemma-smooth-syntomic}, ainsi que
+Compléments sur les morphismes d'espaces algébriques,
+lemmes \ref{spaces-more-morphisms-lemma-flat-lci} et
+\ref{spaces-more-morphisms-lemma-composition-lci}).
+Le morphisme $Z \to X_y$ correspond à un objet $x$ de $\mathcal{X}$
+au-dessus de $Z$, muni d'un isomorphisme $\alpha : y|_Z \to F(x)$.
+On obtient un objet $(U, Z, y, x, \alpha)$ de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$. D'après ce qui précède au sujet
+du morphisme $Z \to X_y$, on voit qu'il s'agit en fait d'un objet de la
+sous-catégorie $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$, ce qui conclut.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Amorçage des champs algébriques}
+\label{section-bootstrap}
+
+\noindent
+Le théorème suivant est l'un des principaux résultats de ce chapitre.
+
+\begin{theorem}
+\label{theorem-bootstrap}
+\begin{slogan}
+Théorème d'Artin sur la représentabilité des groupoïdes plats
+\end{slogan}
+Soit $S$ un schéma. Soit $F : \mathcal{X} \to \mathcal{Y}$
+un $1$-morphisme de champs en groupoïdes sur $(\Sch/S)_{fppf}$. Si
+\begin{enumerate}
+\item $\mathcal{X}$ est représentable par un espace algébrique, et
+\item $F$ est représentable par des espaces algébriques, surjectif, plat et
+localement de présentation finie,
+\end{enumerate}
+alors $\mathcal{Y}$ est un champ algébrique.
+\end{theorem}
+
+\begin{proof}
+D'après le
+lemme \ref{lemma-flat-finite-presentation-surjective-diagonal},
+on voit que la diagonale de $\mathcal{Y}$ est représentable par des espaces
+algébriques. Il suffit donc de vérifier l'existence d'un $1$-morphisme
+$f : \mathcal{V} \to \mathcal{Y}$ de champs en groupoïdes sur
+$(\Sch/S)_{fppf}$, avec $\mathcal{V}$ représentable et
+$f$ surjectif et lisse. D'après le
+lemme \ref{lemma-hilbert-stack-relative-space},
+on sait que
+$$
+\coprod\nolimits_{d \geq 1} \mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+est un champ algébrique. Il résulte du
+lemme \ref{lemma-lci-locus-stack-in-groupoids}
+et de
+Champs algébriques,
+lemme \ref{algebraic-lemma-open-fibred-category-is-algebraic}
+que
+$$
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+$$
+est lui aussi un champ algébrique. Choisissons un champ en groupoïdes représentable
+$\mathcal{V}$ sur $(\Sch/S)_{fppf}$ ainsi qu'un
+$1$-morphisme surjectif et lisse
+$$
+\mathcal{V}
+\longrightarrow
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}).
+$$
+Nous affirmons que le composé
+$$
+\mathcal{V}
+\longrightarrow
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{Y}
+$$
+est lisse et surjectif, ce qui achève la preuve du théorème. En effet,
+la lissité résultera des
+lemmes \ref{lemma-limit-preserving} et \ref{lemma-lci-formally-smooth},
+et la surjectivité du
+lemme \ref{lemma-lci-surjective}.
+Détaillons cela dans le paragraphe suivant.
+
+\medskip\noindent
+Par construction, $\mathcal{V} \to
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$
+est représentable par des espaces algébriques, surjectif et lisse (donc
+aussi localement de présentation finie et formellement lisse d'après le principe
+général
+Champs algébriques, lemme
+\ref{algebraic-lemma-representable-transformations-property-implication}
+et
+Compléments sur les morphismes d'espaces algébriques,
+lemme \ref{spaces-more-morphisms-lemma-smooth-formally-smooth}).
+En appliquant les
+lemmes \ref{lemma-representable-by-spaces-limit-preserving},
+\ref{lemma-representable-by-spaces-formally-smooth} et
+\ref{lemma-representable-by-spaces-surjective}
+on voit que $\mathcal{V} \to
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$
+commute aux limites sur les objets, est formellement lisse sur les objets et
+est surjectif sur les objets. Le $1$-morphisme
+$\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\to \mathcal{Y}$ possède les propriétés suivantes :
+\begin{enumerate}
+\item commute aux limites sur les objets : cela résulte du
+lemme \ref{lemma-limit-preserving}
+pour $\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}$,
+que l'on combine aux lemmes
+\ref{lemma-lci-locus-stack-in-groupoids},
+\ref{lemma-open-immersion-limit-preserving} et
+\ref{lemma-composition-limit-preserving}
+pour l'obtenir pour $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}$ ;
+\item est formellement lisse sur les objets d'après le
+lemme \ref{lemma-lci-formally-smooth} ;
+
+\item est surjectif sur les objets d'après le
+lemme \ref{lemma-lci-surjective}.
+\end{enumerate}
+En utilisant les
+lemmes \ref{lemma-composition-limit-preserving},
+\ref{lemma-composition-formally-smooth} et
+\ref{lemma-composition-surjective}
+on en conclut que le composé $\mathcal{V} \to \mathcal{Y}$
+commute aux limites sur les objets, est formellement lisse sur les objets et
+est surjectif sur les objets.
+En utilisant les
+lemmes \ref{lemma-representable-by-spaces-limit-preserving},
+\ref{lemma-representable-by-spaces-formally-smooth} et
+\ref{lemma-representable-by-spaces-surjective}
+on voit que $\mathcal{V} \to \mathcal{Y}$ est
+localement de présentation finie, formellement lisse et surjectif.
+Enfin, en utilisant (par l'intermédiaire du principe général
+Champs algébriques,
+lemme \ref{algebraic-lemma-representable-transformations-property-implication})
+le critère infinitésimal de relèvement
+(Compléments sur les morphismes d'espaces algébriques, lemme
+\ref{spaces-more-morphisms-lemma-smooth-formally-smooth})
+on voit que $\mathcal{V} \to \mathcal{Y}$ est lisse, ce qui conclut.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Applications}
+\label{section-applications}
+
+\noindent
+Notre première tâche consiste à montrer que le champ quotient $[U/R]$ associé à
+un « groupoïde plat et localement de présentation finie » est un champ algébrique.
+Voir
+Groupoïdes in Espaces,
+définition \ref{spaces-groupoids-definition-quotient-stack}
+pour la définition du champ quotient.
+Le lemme préliminaire suivant est l'analogue de
+Champs algébriques,
+lemme \ref{algebraic-lemma-smooth-quotient-smooth-presentation}.
+
+\begin{lemma}
+\label{lemma-flat-quotient-flat-presentation}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $S$.
+Supposons que $s, t$ soient plats et localement de présentation finie.
+Alors le morphisme $\mathcal{S}_U \to [U/R]$ est plat, localement de
+présentation finie et surjectif.
+\end{lemma}
+
+\begin{proof}
+Soit $T$ un schéma et soit $x : (\Sch/T)_{fppf} \to [U/R]$
+un $1$-morphisme. Il faut montrer que la projection
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+\longrightarrow
+(\Sch/T)_{fppf}
+$$
+est surjective, plate et localement de présentation finie.
+On sait déjà que le membre de gauche
+est représentable par un espace algébrique $F$, voir
+Champs algébriques, lemmes \ref{algebraic-lemma-diagonal-quotient-stack} et
+\ref{algebraic-lemma-representable-diagonal}.
+Il faut donc montrer que le morphisme correspondant $F \to T$ d'espaces
+algébriques est surjectif, localement de présentation finie et plat.
+Puisqu'il s'agit de propriétés de morphismes d'espaces
+algébriques qui sont locales sur le but pour la topologie fppf, on
+peut les vérifier localement pour la topologie fppf sur $T$. Par construction, il existe
+un recouvrement fppf $\{T_i \to T\}$ de $T$ tel que
+$x|_{(\Sch/T_i)_{fppf}}$ provienne d'un morphisme
+$x_i : T_i \to U$. (Notons que $F \times_T T_i$ représente le
+$2$-produit fibré $\mathcal{S}_U \times_{[U/R]} (\Sch/T_i)_{fppf}$,
+de sorte que tout est compatible au changement de base par $T_i \to T$.)
+On peut donc supposer que $x$ provient de $x : T \to U$.
+Dans ce cas, on voit que
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+=
+(\mathcal{S}_U \times_{[U/R]} \mathcal{S}_U)
+\times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+=
+\mathcal{S}_R \times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+$$
+La première égalité résulte de
+Catégories, lemme \ref{categories-lemma-2-fibre-product-erase-factor},
+et la seconde de
+Groupoïdes in Espaces,
+lemme \ref{spaces-groupoids-lemma-quotient-stack-2-cartesian}.
+Manifestement, le dernier $2$-produit fibré est représenté par l'espace
+algébrique $F = R \times_{s, U, x} T$, et la projection
+$R \times_{s, U, x} T \to T$ est plate et localement de présentation finie
+comme changement de base du morphisme d'espaces algébriques
+plat et localement de présentation finie $s : R \to U$.
+Elle est aussi surjective puisque $s$ admet une section (à savoir la section unité
+$e : U \to R$ du groupoïde).
+Cela démontre le lemme.
+\end{proof}
+
+\noindent
+Voici le premier résultat principal de cette section.
+
+\begin{theorem}
+\label{theorem-flat-groupoid-gives-algebraic-stack}
+Soit $S$ un schéma appartenant à $\Sch_{fppf}$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $S$.
+Supposons que $s, t$ soient plats et localement de présentation finie.
+Alors le champ quotient $[U/R]$ est un champ algébrique sur $S$.
+\end{theorem}
+
+\begin{proof}
+Vérifions les deux conditions du
+théorème \ref{theorem-bootstrap}
+pour le morphisme
+$$
+(\Sch/U)_{fppf} \longrightarrow [U/R].
+$$
+La première est immédiate (car $U$ est un espace algébrique).
+La seconde est le
+lemme \ref{lemma-flat-quotient-flat-presentation}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Quand un champ quotient est-il algébrique ?}
+\label{section-quotient-algebraic}
+
+\noindent
+Dans
+Groupoïdes in Espaces, section \ref{spaces-groupoids-section-stacks},
+nous avons défini le champ quotient $[U/R]$ associé à un groupoïde
+$(U, R, s, t, c)$ en espaces algébriques. Notons que $[U/R]$ est un champ
+en groupoïdes dont la diagonale est représentable par des espaces algébriques (voir
+Amorçage, lemme \ref{bootstrap-lemma-quotient-stack-isom}
+et
+Champs algébriques, lemme \ref{algebraic-lemma-representable-diagonal})
+et qu'il existe un espace algébrique $U$ et un $1$-morphisme
+$(\Sch/U)_{fppf} \to [U/R]$ qui est une « surjection fppf »
+au sens où il induit un morphisme entre les préfaisceaux des classes d'isomorphisme
+d'objets qui devient surjectif après passage aux faisceaux associés.
+Cependant, $[U/R]$ n'est pas en général un champ
+algébrique. Cela ne contredit pas le
+théorème \ref{theorem-bootstrap},
+car le $1$-morphisme $(\Sch/U)_{fppf} \to [U/R]$ peut ne pas
+être plat et localement de présentation finie.
+
+\medskip\noindent
+La manière la plus simple de construire des exemples de champs quotients non algébriques
+consiste à considérer des quotients de la forme $[S/G]$, où $S$ est un schéma et $G$
+un schéma en groupes sur $S$ qui agit trivialement sur $S$. En effet, nous verrons
+ci-dessous
+(lemme \ref{lemma-BG-algebraic})
+que, si $[S/G]$ est algébrique, alors $G \to S$ doit être plat et localement
+de présentation finie. On trouvera un exemple explicite dans
+Exemples, section \ref{examples-section-not-algebraic-stack}.
+
+\begin{lemma}
+\label{lemma-quotient-algebraic}
+Soit $S$ un schéma et soit $B$ un espace algébrique sur $S$.
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $B$.
+Le champ quotient $[U/R]$ est un champ algébrique si et seulement s'il
+existe un morphisme d'espaces algébriques $g : U' \to U$ tel que
+\begin{enumerate}
+\item le composé
+$U' \times_{g, U, t} R \to R \xrightarrow{s} U$ est un morphisme surjectif de
+faisceaux, et
+\item les morphismes $s', t' : R' \to U'$ sont plats et localement de présentation
+finie, où $(U', R', s', t', c')$ est la restriction de
+$(U, R, s, t, c)$ par $g$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons d'abord que $g : U' \to U$ satisfasse à (1) et (2). La propriété (1)
+implique que $[U'/R'] \to [U/R]$ est une équivalence, voir
+Groupoïdes in Espaces,
+lemme \ref{spaces-groupoids-lemma-quotient-stack-restrict-equivalence}.
+D'après le
+théorème \ref{theorem-flat-groupoid-gives-algebraic-stack},
+le champ quotient $[U'/R']$ est un champ algébrique. Par conséquent,
+$[U/R]$ est lui aussi un champ algébrique, voir
+Champs algébriques, lemme \ref{algebraic-lemma-equivalent}.
+
+\medskip\noindent
+Réciproquement, supposons que $[U/R]$ soit un champ algébrique. On peut choisir un
+schéma $W$ et un $1$-morphisme lisse et surjectif
+$$
+f : (\Sch/W)_{fppf} \longrightarrow [U/R].
+$$
+D'après le lemme de $2$-Yoneda
+(Champs algébriques, section \ref{algebraic-section-2-yoneda}),
+cela correspond à un objet $\xi$ de $[U/R]$ au-dessus de $W$.
+D'après la description de $[U/R]$ dans
+Groupoïdes in Espaces, lemme \ref{spaces-groupoids-lemma-quotient-stack-objects},
+on peut trouver un morphisme de schémas surjectif, plat et localement de présentation finie
+$b : U' \to W$ tel que $\xi' = b^*\xi$ corresponde à un morphisme
+$g : U' \to U$. Notons que le $1$-morphisme
+$$
+f' : (\Sch/U')_{fppf} \longrightarrow [U/R].
+$$
+correspondant à $\xi'$ est surjectif, plat et localement de
+présentation finie, voir
+Champs algébriques, lemme
+\ref{algebraic-lemma-composition-representable-transformations-property}.
+Par conséquent,
+$(\Sch/U')_{fppf} \times_{[U/R]} (\Sch/U')_{fppf}$
+qui est représenté par l'espace algébrique
+$$
+\mathit{Isom}_{[U/R]}(\text{pr}_0^*\xi', \text{pr}_1^*\xi') =
+(U' \times_S U')
+\times_{(g \circ \text{pr}_0, g \circ \text{pr}_1), U \times_S U} R = R'
+$$
+(voir
+Groupoïdes in Espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-stack-morphisms}
+pour la première égalité ; la seconde est la définition de la restriction)
+est plat et localement de présentation finie sur $U'$ à la fois par $s'$ et par $t'$
+(par changement de base, voir
+Champs algébriques, lemme
+\ref{algebraic-lemma-base-change-representable-transformations-property}).
+D'après cette description de $R'$ et
+Champs algébriques, lemme \ref{algebraic-lemma-map-space-into-stack},
+on obtient un $1$-morphisme canonique pleinement fidèle $[U'/R'] \to [U/R]$.
+Ce $1$-morphisme est essentiellement surjectif parce que $f'$ est plat,
+localement de présentation finie et surjectif (voir
+Champs, lemme \ref{stacks-lemma-characterize-essentially-surjective-when-ff}) ;
+une autre manière de le démontrer consiste à utiliser
+Champs algébriques, remarque
+\ref{algebraic-remark-flat-fp-presentation}.
+Enfin, on peut utiliser
+Groupoïdes in Espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-stack-restrict-equivalence}
+pour conclure que le composé
+$U' \times_{g, U, t} R \to R \xrightarrow{s} U$ est un morphisme surjectif de faisceaux.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-quotient-algebraic}
+Soit $S$ un schéma et soit $B$ un espace algébrique sur $S$.
+Soit $G$ un espace algébrique en groupes sur $B$.
+Soit $X$ un espace algébrique sur $B$ et soit $a : G \times_B X \to X$
+une action de $G$ sur $X$ au-dessus de $B$.
+Le champ quotient $[X/G]$ est un champ algébrique si et seulement s'il
+existe un morphisme d'espaces algébriques $\varphi : X' \to X$ tel que
+\begin{enumerate}
+\item $G \times_B X' \to X$, $(g, x') \mapsto a(g, \varphi(x'))$, soit un
+morphisme surjectif de faisceaux, et
+\item les deux projections $X'' \to X'$ de l'espace algébrique $X''$
+défini par la règle
+$$
+T \longmapsto \{(x'_1, g, x'_2) \in (X' \times_B G \times_B X')(T)
+\mid \varphi(x'_1) = a(g, \varphi(x'_2))\}
+$$
+soient plates et localement de présentation finie.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Ce lemme est un cas particulier du
+lemme \ref{lemma-quotient-algebraic}.
+En effet, le champ quotient $[X/G]$ est, d'après
+Groupoïdes in Espaces, définition \ref{spaces-groupoids-definition-quotient-stack},
+égal au champ quotient $[X/G \times_B X]$ du groupoïde
+en espaces algébriques $(X, G \times_B X, s, t, c)$ associé à
+l'action du groupe dans
+Groupoïdes in Espaces, lemme \ref{spaces-groupoids-lemma-groupoid-from-action}.
+Une petite observation est nécessaire pour obtenir la condition (1).
+En effet, le morphisme $s : G \times_B X \to X$ est la seconde projection
+et le morphisme $t :  G \times_B X \to X$ est le morphisme d'action $a$.
+Ainsi, le morphisme $h : U' \times_{g, U, t} R \to R \xrightarrow{s} U$ du
+lemme \ref{lemma-quotient-algebraic}
+correspond au morphisme
+$$
+X' \times_{\varphi, X, a} (G \times_B X) \xrightarrow{\text{pr}_1} X
+$$
+dans la situation présente. Toutefois, grâce à la symétrie fournie par
+le passage à l'inverse dans $G$, ce morphisme est isomorphe au morphisme
+$$
+(G \times_B X) \times_{\text{pr}_1, X, \varphi} X' \xrightarrow{a} X
+$$
+de l'énoncé du lemme. Les détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-BG-algebraic}
+\begin{slogan}
+Les gerbes sont algébriques si et seulement si les groupes associés sont plats
+et localement de présentation finie
+\end{slogan}
+Soit $S$ un schéma et soit $B$ un espace algébrique sur $S$.
+Soit $G$ un espace algébrique en groupes sur $B$.
+Munissons $B$ de l'action triviale de $G$.
+Alors le champ quotient $[B/G]$ est un champ algébrique
+si et seulement si $G$ est plat et localement de présentation finie sur $B$.
+\end{lemma}
+
+\begin{proof}
+Si $G$ est plat et localement de présentation finie sur $B$, alors
+$[B/G]$ est un champ algébrique d'après le
+théorème \ref{theorem-flat-groupoid-gives-algebraic-stack}.
+
+\medskip\noindent
+Réciproquement, supposons que $[B/G]$ soit un champ algébrique. D'après le
+lemme \ref{lemma-group-quotient-algebraic}
+et puisque l'action est triviale, on voit
+qu'il existe un espace algébrique $B'$ et un morphisme
+$B' \to B$ tels que (1) $B' \to B$ soit un morphisme surjectif
+de faisceaux et (2) que les projections
+$$
+B' \times_B G \times_B B' \to B'
+$$
+soient plates et localement de présentation finie. Notons que le changement de base
+$B' \times_B G \times_B B' \to G \times_B B'$ de $B' \to B$
+est lui aussi un morphisme surjectif de faisceaux. Il résulte donc de
+Descente et espaces algébriques, lemme \ref{spaces-descent-lemma-curiosity},
+que la projection $G \times_B B' \to B'$ est plate et localement
+de présentation finie. D'après (1), on peut trouver un recouvrement fppf
+$\{B_i \to B\}$ tel que $B_i \to B$ se factorise par $B' \to B$.
+Ainsi, $G \times_B B_i \to B_i$ est plat et localement de présentation finie
+par changement de base. D'après
+Descente et espaces algébriques, lemmes
+\ref{spaces-descent-lemma-descending-property-flat} et
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}
+on en conclut que $G \to B$ est plat et localement de présentation finie.
+\end{proof}
+
+\noindent
+Nous verrons plus loin que le champ quotient d'un $S$-espace lisse
+par un espace algébrique en groupes $G$ est lisse, même lorsque $G$ ne l'est pas
+(Morphismes of Champs, lemme
+\ref{stacks-morphisms-lemma-smooth-quotient-stack}).
+
+
+
+
+\section{Champs algébriques pour la topologie étale}
+\label{section-stacks-etale}
+
+\noindent
+Soit $S$ un schéma. Au lieu de travailler avec des champs en groupoïdes sur
+le grand site fppf $(\Sch/S)_{fppf}$, on pourrait travailler avec des champs en groupoïdes
+sur le grand site étale $(\Sch/S)_\etale$. Tout le contenu de
+Champs algébriques, sections
+\ref{algebraic-section-representable},
+\ref{algebraic-section-2-yoneda},
+\ref{algebraic-section-representable-morphism},
+\ref{algebraic-section-split},
+\ref{algebraic-section-representable-by-algebraic-spaces},
+\ref{algebraic-section-morphisms-representable-by-algebraic-spaces},
+\ref{algebraic-section-representable-properties} et
+\ref{algebraic-section-stacks}
+s'applique aux catégories fibrées en groupoïdes sur $(\Sch/S)_\etale$.
+On obtient ainsi une seconde notion de champ algébrique en travaillant pour la
+topologie étale. Cette notion est a priori plus faible que celle introduite
+dans Champs algébriques, définition \ref{algebraic-definition-algebraic-stack},
+puisqu'un champ pour la topologie fppf est certainement un champ pour la topologie
+étale. Toutefois, les deux notions sont équivalentes, comme le montre le
+lemme suivant.
+
+\begin{lemma}
+\label{lemma-stacks-etale}
+La catégorie sous-jacente commune à $\Sch_{fppf}$
+et à $\Sch_\etale$ sera notée $\Sch_\alpha$ (voir
+Faisceaux on Champs, section \ref{stacks-sheaves-section-sheaves} et
+Topologies, remarque \ref{topologies-remark-choice-sites}). Soit $S$ un objet
+de $\Sch_\alpha$. Soit
+$$
+p : \mathcal{X} \to \Sch_\alpha/S
+$$
+une catégorie fibrée en groupoïdes ayant les propriétés suivantes :
+\begin{enumerate}
+\item $\mathcal{X}$ est un champ en groupoïdes sur $(\Sch/S)_\etale$,
+\item la diagonale $\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+est représentable par des espaces algébriques\footnote{Ici, on peut entendre
+soit des faisceaux pour la topologie étale dont la diagonale est représentable et qui
+admettent un recouvrement étale surjectif par un schéma, soit des espaces algébriques
+au sens de
+Espaces algébriques, définition \ref{spaces-definition-algebraic-space}.
+En effet, d'après Amorçage, lemme \ref{bootstrap-lemma-spaces-etale},
+il n'y a aucune différence.}, et
+\item il existe $U \in \Ob(\Sch_\alpha/S)$
+et un $1$-morphisme $(\Sch/U)_\etale \to \mathcal{X}$
+qui est surjectif et lisse.
+\end{enumerate}
+Alors $\mathcal{X}$ est un champ algébrique au sens de
+Champs algébriques, définition \ref{algebraic-definition-algebraic-stack}.
+\end{lemma}
+
+\begin{proof}
+Notons que les propriétés (2) et (3) du lemme et les propriétés
+(2) et (3) correspondantes de
+Champs algébriques, définition \ref{algebraic-definition-algebraic-stack},
+sont indépendantes de la topologie. En effet, ces propriétés
+ne font intervenir que la notion de $2$-produit fibré de catégories fibrées en
+groupoïdes, les $1$- et $2$-morphismes de catégories fibrées en groupoïdes, la
+notion de $1$-morphisme de catégories fibrées en groupoïdes représentable
+par des espaces algébriques et ce que signifie, pour un tel $1$-morphisme, être
+surjectif et lisse.
+Il suffit donc de montrer que tout champ en groupoïdes pour la topologie étale,
+noté $\mathcal{X}$, qui possède les propriétés (2) et (3), est aussi un champ en groupoïdes pour la topologie fppf.
+
+\medskip\noindent
+D'après (2), soit $R$ un espace algébrique représentant
+$$
+(\Sch_\alpha/U) \times_\mathcal{X} (\Sch_\alpha/U)
+$$
+D'après (3), les projections $s, t : R \to U$ sont lisses. Exactement comme dans la preuve de
+Champs algébriques, lemme \ref{algebraic-lemma-map-space-into-stack},
+il existe un groupoïde en espaces $(U, R, s, t, c)$ et, canoniquement,
+un $1$-morphisme pleinement fidèle $[U/R]_\etale \to \mathcal{X}$,
+où $[U/R]_\etale$ est le champ associé pour la topologie étale au préfaisceau
+en groupoïdes
+$$
+T \longmapsto (U(T), R(T), s(T), t(T), c(T))
+$$
+Affirmation : si $V \to T$ est un morphisme lisse et surjectif d'un espace algébrique
+$V$ vers un schéma $T$, alors il existe un recouvrement étale $\{T_i \to T\}$
+plus fin que le recouvrement $\{V \to T\}$. Cela résulte de
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-etale-dominates-smooth}
+ou du résultat plus général
+Faisceaux on Champs, lemme
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}.
+En utilisant l'affirmation et en raisonnant exactement comme dans
+Champs algébriques, lemme \ref{algebraic-lemma-stack-presentation},
+on voit que $[U/R]_\etale \to \mathcal{X}$ est une
+équivalence.
+
+\medskip\noindent
+Notons ensuite $[U/R]$ le champ quotient pour la topologie fppf,
+qui est un champ algébrique d'après
+Champs algébriques, théorème
+\ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+On a donc des $1$-morphismes
+$$
+U \to [U/R]_\etale \to [U/R].
+$$
+Les morphismes $U \to [U/R]_\etale \cong \mathcal{X}$ et
+$U \to [U/R]$ sont tous deux surjectifs et lisses (le premier par hypothèse
+et le second d'après le théorème) et, dans les deux cas, les
+produits fibrés $U \times_\mathcal{X} U$ et $U \times_{[U/R]} U$
+sont représentés par $R$. Par conséquent, le $1$-morphisme
+$[U/R]_\etale \to [U/R]$ est pleinement fidèle (puisque les morphismes
+dans les champs quotients sont donnés par des morphismes vers $R$, voir
+Groupoïdes in Espaces, section
+\ref{spaces-groupoids-section-explicit-quotient-stacks}).
+
+\medskip\noindent
+Enfin, pour tout schéma $T$ et tout morphisme $t : T \to [U/R]$, le produit fibré
+$V = T \times_{U/R} U$ est un espace algébrique surjectif et lisse sur $T$.
+D'après l'affirmation ci-dessus, il existe un recouvrement étale $\{T_i \to T\}_{i \in I}$
+et des morphismes $T_i \to V$ au-dessus de $T$. Cela prouve que l'objet
+$t$ de $[U/R]$ au-dessus de $T$ provient de $U$ localement pour la topologie étale. On en conclut que
+$[U/R]_\etale \to [U/R]$ est une équivalence de champs en
+groupoïdes sur $(\Sch/S)_\etale$ d'après
+Champs, lemme \ref{stacks-lemma-characterize-essentially-surjective-when-ff}.
+Cela achève la preuve.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

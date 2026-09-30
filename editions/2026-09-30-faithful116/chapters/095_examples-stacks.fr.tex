@@ -1,0 +1,1863 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Exemples de champs}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Nous étudions ici des exemples de champs en géométrie algébrique.
+Certains sont des champs algébriques, d'autres ne le sont pas.
+Nous déterminerons lesquels sont des champs algébriques dans un chapitre ultérieur.
+Dans le présent chapitre, nous nous préoccupons donc principalement des conditions
+de descente. Voir par exemple \cite{Vis2}.
+
+\medskip\noindent
+Certaines notations, conventions et certains termes de ce chapitre sont peu naturels
+et pourront sembler inversés au lecteur plus expérimenté. Cela est intentionnel.
+On trouvera une explication dans Quot, section \ref{quot-section-conventions}.
+
+
+
+
+\section{Notations}
+\label{section-notation}
+
+\noindent
+Dans ce chapitre, nous fixons un grand site fppf convenable $\Sch_{fppf}$
+comme dans Topologies, définition \ref{topologies-definition-big-fppf-site}.
+Ainsi, sauf indication explicite contraire, tous les schémas seront des objets
+de $\Sch_{fppf}$.
+Nous travaillerons toujours relativement à une base $S$ contenue dans $\Sch_{fppf}$.
+Nous travaillerons alors avec le grand site fppf $(\Sch/S)_{fppf}$,
+voir Topologies, définition \ref{topologies-definition-big-small-fppf}.
+On retrouve le cas absolu en prenant
+$S = \Spec(\mathbf{Z})$.
+
+
+
+
+\section{Exemples de champs}
+\label{section-examples-stacks}
+
+\noindent
+Nous donnons d'abord quelques exemples importants de champs sur
+$(\Sch/S)_{fppf}$.
+
+
+
+
+\section{Faisceaux quasi-cohérents}
+\label{section-stack-of-quasi-coherent-sheaves}
+
+\noindent
+Nous définissons une catégorie $\QCohstack$ comme suit :
+\begin{enumerate}
+\item Un objet de $\QCohstack$ est un couple $(X, \mathcal{F})$,
+où $X/S$ est un objet de $(\Sch/S)_{fppf}$ et $\mathcal{F}$
+est un $\mathcal{O}_X$-module quasi-cohérent ;
+\item un morphisme $(f, \varphi) : (Y, \mathcal{G}) \to (X, \mathcal{F})$
+est un couple formé d'un morphisme $f : Y \to X$ de schémas sur $S$
+et d'un $f$-morphisme (voir
+Faisceaux, section \ref{sheaves-section-ringed-spaces-functoriality-modules})
+$\varphi : \mathcal{F} \to \mathcal{G}$ ;
+\item le composé des morphismes
+$$
+(Z, \mathcal{H}) \xrightarrow{(g, \psi)}
+(Y, \mathcal{G}) \xrightarrow{(f, \phi)} (X, \mathcal{F})
+$$
+est $(f \circ g, \psi \circ \phi)$, où $\psi \circ \phi$ est
+le composé des $f$-morphismes.
+\end{enumerate}
+Ainsi, $\QCohstack$ est une catégorie et
+$$
+p : \QCohstack \to (\Sch/S)_{fppf},
+\quad
+(X, \mathcal{F}) \mapsto X
+$$
+est un foncteur. Remarquons que la catégorie fibre de $\QCohstack$ au-dessus
+d'un schéma $X$ est l'opposée de la catégorie $\QCoh(\mathcal{O}_X)$
+des $\mathcal{O}_X$-modules quasi-cohérents.
+Pour un usage ultérieur, remarquons qu'étant donnés
+$(X, \mathcal{F}), (Y, \mathcal{G}) \in \Ob(\QCohstack)$,
+nous avons
+\begin{equation}
+\label{equation-morphisms-qcoh}
+\Mor_{\QCohstack}((Y, \mathcal{G}), (X, \mathcal{F}))
+=
+\coprod\nolimits_{f \in \Mor_S(Y, X)}
+\Mor_{\QCoh(\mathcal{O}_Y)}(f^*\mathcal{F}, \mathcal{G}).
+\end{equation}
+Voir la discussion des $f$-morphismes de modules dans
+Faisceaux, section \ref{sheaves-section-ringed-spaces-functoriality-modules}.
+
+\medskip\noindent
+La catégorie $\QCohstack$ n'est pas un champ sur $(\Sch/S)_{fppf}$,
+car sa collection d'objets est une classe propre. Nous verrons néanmoins
+qu'elle satisfait tous les axiomes d'un champ. Nous contournerons
+la difficulté ensembliste dans la
+section \ref{section-stack-of-finitely-generated-quasi-coherent-sheaves}.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-strongly-cartesian}
+Un morphisme $(f, \varphi) : (Y, \mathcal{G}) \to (X, \mathcal{F})$
+de $\QCohstack$ est fortement cartésien si et seulement si le
+morphisme $\varphi$ induit un isomorphisme $f^*\mathcal{F} \to \mathcal{G}$.
+\end{lemma}
+
+\begin{proof}
+Soit $(X, \mathcal{F}) \in \Ob(\QCohstack)$.
+Soit $f : Y \to X$ un morphisme de $(\Sch/S)_{fppf}$.
+Il existe un $f$-morphisme canonique $c : \mathcal{F} \to f^*\mathcal{F}$
+et nous obtenons donc un morphisme
+$(f, c) : (Y, f^*\mathcal{F}) \to (X, \mathcal{F})$.
+Nous affirmons que $(f, c)$ est fortement cartésien.
+En effet, pour tout objet $(Z, \mathcal{H})$ de $\QCohstack$, nous avons
+\begin{align*}
+\Mor_{\QCohstack}((Z, \mathcal{H}), (Y, f^*\mathcal{F}))
+& =
+\coprod\nolimits_{g \in \Mor_S(Z, Y)}
+\Mor_{\QCoh(\mathcal{O}_Z)}(g^*f^*\mathcal{F}, \mathcal{H}) \\
+& =
+\coprod\nolimits_{g \in \Mor_S(Z, Y)}
+\Mor_{\QCoh(\mathcal{O}_Z)}((f \circ g)^*\mathcal{F}, \mathcal{H}) \\
+& =
+\Mor_{\QCohstack}((Z, \mathcal{H}), (X, \mathcal{F}))
+\times_{\Mor_S(Z, X)} \Mor_S(Z, Y),
+\end{align*}
+où nous avons utilisé deux fois l'équation (\ref{equation-morphisms-qcoh}).
+Cela prouve que la condition de
+Catégories, définition \ref{categories-definition-cartesian-over-C},
+est satisfaite pour $(f, c)$, d'où notre assertion. Par
+Catégories, lemme \ref{categories-lemma-composition-cartesian},
+les isomorphismes sont fortement cartésiens et
+les composés de morphismes fortement cartésiens le sont aussi,
+ce qui prouve l'implication « si » du lemme. Réciproquement,
+étant donnés $(X, \mathcal{F})$ et $f : Y \to X$, s'il existe un
+morphisme fortement cartésien relevant $f$ et de but $(X, \mathcal{F})$,
+alors il est nécessairement isomorphe à $(f, c)$ (voir la discussion qui suit
+Catégories, définition \ref{categories-definition-cartesian-over-C}).
+L'implication « seulement si » du lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-of-quasi-coherent-sheaves}
+Le foncteur $p : \QCohstack \to (\Sch/S)_{fppf}$
+satisfait les conditions (1), (2) et (3) de
+Champs, définition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+Il résulte clairement du
+lemme \ref{lemma-quasi-coherent-strongly-cartesian}
+que $\QCohstack$ est une catégorie fibrée sur $(\Sch/S)_{fppf}$.
+Pour un recouvrement $\mathcal{U} = \{X_i \to X\}_{i \in I}$ de
+$(\Sch/S)_{fppf}$, le foncteur
+$$
+\QCoh(\mathcal{O}_X) \longrightarrow DD(\mathcal{U})
+$$
+est pleinement fidèle et essentiellement surjectif, voir
+Descente, proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+Par conséquent,
+Champs, lemme \ref{stacks-lemma-stack-equivalences},
+montre que $\QCohstack$ satisfait tous les
+axiomes d'un champ.
+\end{proof}
+
+
+
+
+
+\section{Le champ des faisceaux quasi-cohérents de type fini}
+\label{section-stack-of-finitely-generated-quasi-coherent-sheaves}
+
+\noindent
+On peut en fait obtenir un champ de faisceaux quasi-cohérents
+si l'on ne considère que les modules quasi-cohérents de type fini.
+Notons
+$$
+p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}
+$$
+la sous-catégorie pleine de $\QCohstack$ sur $(\Sch/S)_{fppf}$
+formée des couples $(T, \mathcal{F})$ tels que $\mathcal{F}$
+soit un $\mathcal{O}_T$-module quasi-cohérent de type fini.
+
+\begin{lemma}
+\label{lemma-stack-of-finite-type-quasi-coherent-sheaves}
+Le foncteur $p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}$
+satisfait les conditions (1), (2) et (3) de
+Champs, définition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+Nous allons pour cela vérifier les hypothèses (1), (2) et (3) de
+Champs, lemme \ref{stacks-lemma-substack}.
+D'après le
+lemme \ref{lemma-quasi-coherent-strongly-cartesian},
+un morphisme $(Y, \mathcal{G}) \to (X, \mathcal{F})$ est
+fortement cartésien si et seulement s'il induit un isomorphisme
+$f^*\mathcal{F} \to \mathcal{G}$. D'après
+Modules, lemme \ref{modules-lemma-pullback-finite-type},
+l'image inverse d'un $\mathcal{O}_X$-module de type fini est de type
+fini. L'hypothèse (1) de
+Champs, lemme \ref{stacks-lemma-substack},
+est donc satisfaite. L'hypothèse (2) est immédiate.
+Enfin, pour prouver l'hypothèse (3), il faut montrer ceci :
+si $\mathcal{F}$ est un $\mathcal{O}_X$-module quasi-cohérent
+et si $\{f_i : X_i \to X\}$ est un recouvrement fppf tel que chaque
+$f_i^*\mathcal{F}$ soit de type fini, alors $\mathcal{F}$ est de
+type fini. En restreignant $\mathcal{F}$ à
+un ouvert affine de $X$, on se ramène à l'énoncé algébrique suivant :
+soient $R \to S$ un homomorphisme d'anneaux de présentation finie et fidèlement plat,
+et $M$ un $R$-module. Si $M \otimes_R S$ est un
+$S$-module de type fini, alors $M$ est un $R$-module de type fini.
+Une forme plus forte de ce fait algébrique se trouve dans
+Algèbre, lemme \ref{algebra-lemma-descend-properties-modules}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type}
+Soit $(X, \mathcal{O}_X)$ un espace annelé.
+\begin{enumerate}
+\item La catégorie des $\mathcal{O}_X$-modules de type fini possède un
+ensemble de classes d'isomorphisme.
+\item La catégorie des $\mathcal{O}_X$-modules quasi-cohérents
+de type fini possède un ensemble de classes d'isomorphisme.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (2) résulte de la partie (1), car la catégorie de (2) est une sous-catégorie
+pleine de celle de (1). Considérons un recouvrement ouvert quelconque
+$\mathcal{U} : X = \bigcup_{i \in I} U_i$. Notons $j_i : U_i \to X$
+les morphismes d'inclusion. Considérons une application $r : I \to \mathbf{N}$.
+Si $\mathcal{F}$ est un $\mathcal{O}_X$-module dont la restriction à
+$U_i$ est engendrée par au plus $r(i)$ sections de $\mathcal{F}(U_i)$,
+alors $\mathcal{F}$ est un quotient du faisceau
+$$
+\mathcal{H}_{\mathcal{U}, r} =
+\bigoplus\nolimits_{i \in I} j_{i, !}\mathcal{O}_{U_i}^{\oplus r(i)}.
+$$
+Par définition, si $\mathcal{F}$ est de type fini, il existe
+un recouvrement ouvert $\mathcal{U}$ dont l'ensemble d'indices est $I = X$
+et pour lequel cette condition est vérifiée. Il suffit donc de montrer qu'il existe
+un ensemble de choix possibles pour $\mathcal{U}$ (c'est évident),
+un ensemble de choix possibles pour $r : I \to \mathbf{N}$ (c'est évident) et,
+pour chaque $\mathcal{U}$ et chaque $r$, un ensemble de modules quotients possibles
+de $\mathcal{H}_{\mathcal{U}, r}$. Autrement dit, il suffit de montrer
+que, pour un $\mathcal{O}_X$-module $\mathcal{H}$ donné, les quotients ont
+au plus un ensemble de classes d'isomorphisme.
+Cette dernière assertion devient évidente
+si l'on considère les noyaux d'un morphisme quotient
+$\mathcal{H} \to \mathcal{F}$
+comme paramétrés par une partie de l'ensemble des parties de
+$\prod_{U \subset X\text{ ouvert}} \mathcal{H}(U)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-fg-quasi-coherent}
+Il existe une sous-catégorie
+$\QCohstack_{fg, small} \subset \QCohstack_{fg}$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item le foncteur d'inclusion
+$\QCohstack_{fg, small} \to \QCohstack_{fg}$ est
+pleinement fidèle et essentiellement surjectif ;
+\item le foncteur
+$p_{fg, small} : \QCohstack_{fg, small} \to (\Sch/S)_{fppf}$
+fait de $\QCohstack_{fg, small}$ un champ sur $(\Sch/S)_{fppf}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous avons vu dans les
+lemmes \ref{lemma-stack-of-finite-type-quasi-coherent-sheaves} et
+\ref{lemma-finite-type}
+que $p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}$
+satisfait les conditions (1), (2) et (3) de
+Champs, définition \ref{stacks-definition-stack},
+ainsi que la condition supplémentaire (4) de
+Champs, remarque \ref{stacks-remark-stack-make-small}.
+La discussion de cette remarque fournit donc $\QCohstack_{fg, small}$.
+\end{proof}
+
+\noindent
+Nous effectuerons souvent le remplacement
+$$
+\QCohstack_{fg} \leadsto \QCohstack_{fg, small}
+$$
+sans le signaler davantage et, par abus de notation, nous désignerons
+simplement ce remplacement par $\QCohstack_{fg}$.
+
+\begin{remark}
+\label{remark-higher-rank}
+Toute la discussion de cette section reste valable
+si l'on veut considérer les
+faisceaux quasi-cohérents qui sont localement engendrés par au plus $\kappa$
+sections, pour un cardinal infini $\kappa$, par exemple $\kappa = \aleph_0$.
+\end{remark}
+
+
+
+
+
+\section{Revêtements étales finis}
+\label{section-finite-etale}
+
+\noindent
+Nous définissons une catégorie $\textit{F\'Et}$ comme suit :
+\begin{enumerate}
+\item Un objet de $\textit{F\'Et}$ est un morphisme étale fini $Y \to X$
+de schémas (d'après nos conventions, il s'agit d'un morphisme étale fini
+dans $(\Sch/S)_{fppf}$) ;
+\item un morphisme $(b, a) : (Y \to X) \to (Y' \to X')$ de $\textit{F\'Et}$
+est un diagramme commutatif
+$$
+\xymatrix{
+Y \ar[d] \ar[r]_b & Y' \ar[d] \\
+X \ar[r]_a & X'
+}
+$$
+dans la catégorie des schémas.
+\end{enumerate}
+Ainsi, $\textit{F\'Et}$ est une catégorie et
+$$
+p : \textit{F\'Et} \to (\Sch/S)_{fppf},
+\quad
+(Y \to X) \mapsto X
+$$
+est un foncteur. La catégorie fibre de $\textit{F\'Et}$ au-dessus
+d'un schéma $X$ est précisément la catégorie $\textit{F\'Et}_X$ étudiée dans
+Groupes fondamentaux, section \ref{pione-section-finite-etale}.
+
+\begin{lemma}
+\label{lemma-finite-etale-stack}
+Le foncteur
+$$
+p : \textit{F\'Et} \longrightarrow (\Sch/S)_{fppf}
+$$
+définit un champ sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+La descente fppf des morphismes étales finis résulte de
+Descente, lemmes \ref{descent-lemma-affine},
+\ref{descent-lemma-descending-property-finite} et
+\ref{descent-lemma-descending-property-etale}.
+Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+
+\section{Espaces algébriques}
+\label{section-stack-of-spaces}
+
+\noindent
+Nous définissons une catégorie $\Spacesstack$ comme suit :
+\begin{enumerate}
+\item Un objet de $\Spacesstack$ est un morphisme $X \to U$
+d'espaces algébriques sur $S$, où $U$ est représentable par un objet de
+$(\Sch/S)_{fppf}$ ;
+\item un morphisme $(f, g) : (X \to U) \to (Y \to V)$
+est un diagramme commutatif
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+U \ar[r]^g & V
+}
+$$
+de morphismes d'espaces algébriques sur $S$.
+\end{enumerate}
+Ainsi, $\Spacesstack$ est une catégorie et
+$$
+p : \Spacesstack \to (\Sch/S)_{fppf},
+\quad
+(X \to U) \mapsto U
+$$
+est un foncteur. La catégorie fibre de $\Spacesstack$ au-dessus
+d'un schéma $U$ est précisément la catégorie $\textit{Espaces}/U$ des
+espaces algébriques sur $U$ (voir
+Topologies sur les espaces, section \ref{spaces-topologies-section-procedure}).
+Nous considérerons donc parfois un objet de $\Spacesstack$ comme un
+couple $X/U$ formé d'un schéma $U$ et d'un espace algébrique $X$ sur $U$.
+Pour un usage ultérieur, remarquons qu'étant donnés
+$(X/U), (Y/V) \in \Ob(\Spacesstack)$,
+nous avons
+\begin{equation}
+\label{equation-morphisms-spaces}
+\Mor_{\Spacesstack}(X/U, Y/V)
+=
+\coprod\nolimits_{g \in \Mor_S(U, V)}
+\Mor_{\textit{Espaces}/U}(X, U \times_{g, V} Y).
+\end{equation}
+La catégorie $\Spacesstack$ est presque, mais pas tout à fait, un champ
+sur $(\Sch/S)_{fppf}$. La difficulté est de nature ensembliste,
+comme nous l'expliquerons ci-dessous.
+
+\begin{lemma}
+\label{lemma-spaces-strongly-cartesian}
+Un morphisme $(f, g) : X/U \to Y/V$
+de $\Spacesstack$ est fortement cartésien si et seulement si le
+morphisme $f$ induit un isomorphisme $X \to U \times_{g, V} Y$.
+\end{lemma}
+
+\begin{proof}
+Soit $Y/V \in \Ob(\Spacesstack)$.
+Soit $g : U \to V$ un morphisme de $(\Sch/S)_{fppf}$.
+La projection $p : U \times_{g, V} Y \to Y$
+donne un morphisme
+$(p, g) : U \times_{g, V} Y/U \to Y/V$ de $\Spacesstack$.
+Nous affirmons que $(p, g)$ est fortement cartésien.
+En effet, pour tout objet $Z/W$ de $\Spacesstack$, nous avons
+\begin{align*}
+\Mor_{\Spacesstack}(Z/W, U \times_{g, V} Y/U)
+& =
+\coprod\nolimits_{h \in \Mor_S(W, U)}
+\Mor_{\textit{Espaces}/W}(Z, W \times_{h, U} U \times_{g, V} Y) \\
+& =
+\coprod\nolimits_{h \in \Mor_S(W, U)}
+\Mor_{\textit{Espaces}/W}(Z, W \times_{g \circ h, V} Y) \\
+& =
+\Mor_{\Spacesstack}(Z/W, Y/V)
+\times_{\Mor_S(W, V)} \Mor_S(W, U),
+\end{align*}
+où nous avons utilisé deux fois l'équation (\ref{equation-morphisms-spaces}).
+Cela prouve que la condition de
+Catégories, définition \ref{categories-definition-cartesian-over-C},
+est satisfaite pour $(p, g)$, d'où notre assertion. Par
+Catégories, lemme \ref{categories-lemma-composition-cartesian},
+les isomorphismes sont fortement cartésiens et
+les composés de morphismes fortement cartésiens le sont aussi,
+ce qui prouve l'implication « si » du lemme. Réciproquement,
+étant donnés $Y/V$ et $g : U \to V$, s'il existe un
+morphisme fortement cartésien relevant $g$ et de but $Y/V$,
+alors il est nécessairement isomorphe à $(p, g)$ (voir la discussion qui suit
+Catégories, définition \ref{categories-definition-cartesian-over-C}).
+L'implication « seulement si » du lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pre-stack-of-spaces}
+Le foncteur $p : \Spacesstack \to (\Sch/S)_{fppf}$
+satisfait les conditions (1) et (2) de
+Champs, définition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+Il résulte du
+lemme \ref{lemma-spaces-strongly-cartesian}
+que $\Spacesstack$ est une catégorie fibrée sur $(\Sch/S)_{fppf}$,
+ce qui prouve (1).
+Supposons que $\{U_i \to U\}_{i \in I}$ soit un recouvrement de
+$(\Sch/S)_{fppf}$. Soient $X, Y$ des espaces algébriques sur
+$U$. Enfin, supposons donnés des morphismes $\varphi_i : X_{U_i} \to Y_{U_i}$
+de $\textit{Espaces}/U_i$ tels que les restrictions de $\varphi_i$ et $\varphi_j$
+soient les mêmes morphismes $X_{U_i \times_U U_j} \to Y_{U_i \times_U U_j}$
+d'espaces algébriques sur $U_i \times_U U_j$.
+Pour prouver (2), il faut montrer qu'il existe un unique morphisme
+$\varphi  : X \to Y$ sur $U$ dont le changement de base à $U_i$ est
+égal à $\varphi_i$. Comme un morphisme de $X$ vers $Y$ équivaut à
+un morphisme de faisceaux, cela résulte directement de
+Sites, lemme \ref{sites-lemma-glue-maps}.
+\end{proof}
+
+\begin{remark}
+\label{remark-stack-spaces}
+Si l'on néglige les difficultés ensemblistes\footnote{La difficulté ne tient pas
+à ce que $\Spacesstack$ soit une classe propre, puisque notre définition d'un
+espace algébrique sur $S$ n'autorise qu'un ensemble de
+classes d'isomorphisme d'espaces algébriques sur $S$. Elle tient plutôt à ce que
+des réunions disjointes arbitraires d'espaces algébriques puissent devenir trop grandes
+et sortir ainsi de l'« univers partiel » d'ensembles que nous avons choisi.},
+$\Spacesstack$ satisfait aussi
+la descente des objets et est donc un champ. Il faut en effet montrer qu'étant donnés
+\begin{enumerate}
+\item un recouvrement fppf $\{U_i \to U\}_{i \in I}$ ;
+\item pour chaque $i \in I$, un espace algébrique $X_i/U_i$ ;
+\item pour chaque $i, j \in I$, un isomorphisme
+$\varphi_{ij} : X_i \times_U U_j \to U_i \times_U X_j$ d'espaces algébriques
+sur $U_i \times_U U_j$, satisfaisant la condition de cocycle sur
+$U_i \times_U U_j \times_U U_k$,
+\end{enumerate}
+il existe un espace algébrique $X/U$ et des isomorphismes
+$X_{U_i} \cong X_i$ sur $U_i$ qui redonnent les isomorphismes $\varphi_{ij}$.
+D'abord, d'après
+Sites, lemme \ref{sites-lemma-glue-sheaves},
+il existe sur $(\Sch/U)_{fppf}$ un faisceau $X$ qui redonne
+les $X_i$ et les $\varphi_{ij}$. Puis, d'après
+Amorçage, lemme \ref{bootstrap-lemma-locally-algebraic-space},
+$X$ est un espace algébrique (si l'on néglige la condition ensembliste
+de ce lemme).
+Nous emploierons cet argument dans la section suivante pour montrer que,
+si l'on ne considère que les espaces algébriques de type fini, on obtient
+un champ.
+\end{remark}
+
+
+
+
+
+\section{Le champ des espaces algébriques de type fini}
+\label{section-stack-of-finite-type-spaces}
+
+
+\noindent
+On peut en fait obtenir un champ d'espaces
+si l'on ne considère que les espaces de type fini.
+Notons
+$$
+p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}
+$$
+la sous-catégorie pleine de $\Spacesstack$ sur $(\Sch/S)_{fppf}$
+formée des couples $X/U$ tels que $X \to U$
+soit un morphisme de type fini.
+
+\begin{lemma}
+\label{lemma-stack-of-finite-type-spaces}
+Le foncteur
+$p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$
+satisfait les conditions (1), (2) et (3) de
+Champs, définition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+Nous allons donner tous les détails, jusqu'à l'excès (ce qui risque
+de masquer l'idée de la démonstration).
+
+\medskip\noindent
+Nous avons vu dans le
+lemme \ref{lemma-spaces-strongly-cartesian}
+qu'un morphisme $(f, g) : X/U \to Y/V$ de $\Spacesstack$ est
+fortement cartésien si le morphisme induit $f : X \to U \times_V Y$
+est un isomorphisme. Si $Y \to V$ est de type fini,
+alors $U \times_V Y \to U$ l'est aussi, voir
+Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-base-change-finite-type}.
+Ainsi, si $(f, g) : X/U \to Y/V$ dans $\Spacesstack$ est
+fortement cartésien dans $\Spacesstack$ et si $Y/V$ est un objet
+de $\Spacesstack_{ft}$, alors $X/U$ est automatiquement aussi un
+objet de $\Spacesstack_{ft}$ et, bien entendu, $(f, g)$ est
+également fortement cartésien dans $\Spacesstack_{ft}$. On en
+conclut que $\Spacesstack_{ft}$ est une catégorie fibrée sur
+$(\Sch/S)_{fppf}$. Cela prouve (1).
+
+\medskip\noindent
+L'argument précédent montre aussi que le foncteur d'inclusion
+$\Spacesstack_{ft} \to \Spacesstack$ transforme les
+morphismes fortement cartésiens en morphismes fortement cartésiens.
+Autrement dit, $\Spacesstack_{ft} \to \Spacesstack$ est
+un $1$-morphisme de catégories fibrées sur $(\Sch/S)_{fppf}$.
+
+\medskip\noindent
+Soit $U \in \Ob((\Sch/S)_{fppf})$.
+Soient $X, Y$ des espaces algébriques de type fini sur $U$. D'après
+Champs, lemme \ref{stacks-lemma-presheaf-mor-map-fibred-categories},
+nous obtenons un morphisme de préfaisceaux
+$$
+\mathit{Mor}_{\Spacesstack_{ft}}(X, Y)
+\longrightarrow
+\mathit{Mor}_{\Spacesstack}(X, Y)
+$$
+qui est un isomorphisme, puisque $\Spacesstack_{ft}$ est une sous-catégorie pleine de
+$\Spacesstack$. Le membre de gauche est donc un faisceau, car nous avons montré,
+au lemme \ref{lemma-pre-stack-of-spaces},
+que celui de droite en est un. Cela prouve (2).
+
+\medskip\noindent
+Pour prouver la condition (3) de
+Champs, définition \ref{stacks-definition-stack},
+il faut montrer ceci : étant donnés
+\begin{enumerate}
+\item un recouvrement $\{U_i \to U\}_{i \in I}$ de $(\Sch/S)_{fppf}$ ;
+\item pour chaque $i \in I$, un espace algébrique $X_i$ de type fini sur $U_i$ ;
+\item pour chaque $i, j \in I$, un isomorphisme
+$\varphi_{ij} : X_i \times_U U_j \to U_i \times_U X_j$ d'espaces algébriques
+sur $U_i \times_U U_j$, satisfaisant la condition de cocycle sur
+$U_i \times_U U_j \times_U U_k$,
+\end{enumerate}
+il existe un espace algébrique $X$ de type fini sur $U$ et des isomorphismes
+$X_{U_i} \cong X_i$ sur $U_i$ qui redonnent les isomorphismes $\varphi_{ij}$.
+Cela résulte de
+Amorçage, lemme \ref{bootstrap-lemma-descend-algebraic-space}, partie (2). D'après
+Descente sur les espaces, lemme
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation},
+le morphisme $X \to U$ est de type fini, ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-ft-spaces}
+Il existe une sous-catégorie
+$\Spacesstack_{ft, small} \subset \Spacesstack_{ft}$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item le foncteur d'inclusion
+$\Spacesstack_{ft, small} \to \Spacesstack_{ft}$ est
+pleinement fidèle et essentiellement surjectif ;
+\item le foncteur
+$p_{ft, small} : \Spacesstack_{ft, small} \to (\Sch/S)_{fppf}$
+fait de $\Spacesstack_{ft, small}$ un champ sur
+$(\Sch/S)_{fppf}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous avons vu dans le
+lemme \ref{lemma-stack-of-finite-type-spaces}
+que $p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$
+satisfait les conditions (1), (2) et (3) de
+Champs, définition \ref{stacks-definition-stack}.
+La condition supplémentaire (4) de
+Champs, remarque \ref{stacks-remark-stack-make-small},
+est satisfaite parce que tout espace algébrique $X$ sur $S$ est de la
+forme $U/R$, avec $U, R \in \Ob((\Sch/S)_{fppf})$, voir
+Espaces, lemme \ref{spaces-lemma-space-presentation}.
+Il n'existe donc qu'un ensemble de classes d'isomorphisme d'objets.
+La discussion de cette remarque fournit alors $\Spacesstack_{ft, small}$.
+\end{proof}
+
+\noindent
+Nous effectuerons souvent le remplacement
+$$
+\Spacesstack_{ft} \leadsto \Spacesstack_{ft, small}
+$$
+sans le signaler davantage et, par abus de notation, nous désignerons
+simplement ce remplacement par $\Spacesstack_{ft}$.
+
+\begin{remark}
+\label{remark-higher-cardinality-spaces}
+Toute la discussion de cette section reste valable
+si l'on veut considérer les espaces algébriques $X/U$ qui sont
+localement de type fini et tels que l'image inverse dans $X$ d'un ouvert affine
+de $U$ puisse être recouverte par un nombre dénombrable d'ouverts affines.
+Au besoin, on peut aussi introduire la notion de morphisme de
+$\kappa$-type (c'est-à-dire imposer une borne au nombre de générateurs des
+extensions d'anneaux et une borne au cardinal de la famille d'ouverts affines au-dessus
+d'un ouvert affine donné de la base), où $\kappa$ est un cardinal, puis
+construire un champ
+$$
+\Spacesstack_\kappa \longrightarrow (\Sch/S)_{fppf}
+$$
+exactement de la même manière que ci-dessus (à condition de veiller à ce que
+$\Sch$ soit assez grande en fonction de $\kappa$).
+\end{remark}
+
+
+
+
+
+\section{Exemples de champs en groupoïdes}
+\label{section-examples-stacks-in-groupoids}
+
+\noindent
+Les exemples précédents sont des champs qui ne sont pas des champs en
+groupoïdes. Dans le reste de ce chapitre, nous donnons
+des exemples issus de la géométrie algébrique de champs en groupoïdes.
+
+
+
+\section{Le champ associé à un faisceau}
+\label{section-stack-associated-to-sheaf}
+
+\noindent
+Soit $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ensembles}$ un préfaisceau.
+Nous obtenons une catégorie fibrée en ensembles
+$$
+p_F : \mathcal{S}_F \to (\Sch/S)_{fppf},
+$$
+voir
+Catégories, exemple \ref{categories-example-presheaf}.
+C'est un champ en ensembles si et seulement si $F$ est un faisceau, voir
+Champs, lemme \ref{stacks-lemma-stack-in-setoids-characterize}.
+
+
+
+\section{Le champ en groupoïdes des faisceaux quasi-cohérents de type fini}
+\label{section-stack-in-groupoids-of-quasi-coherent-sheaves}
+
+\noindent
+Soit $p : \QCohstack_{fg} \to (\Sch/S)_{fppf}$ le champ
+introduit à la
+section \ref{section-stack-of-finitely-generated-quasi-coherent-sheaves}
+(avec l'abus de notation qui y a été introduit).
+Nous pouvons le transformer en un champ en groupoïdes
+$p' : \QCohstack_{fg}' \to (\Sch/S)_{fppf}$ au moyen
+du procédé de
+Catégories, lemme \ref{categories-lemma-fibred-gives-fibred-groupoids},
+voir
+Champs, lemme \ref{stacks-lemma-stack-gives-stack-groupoids}.
+Dans ce cas particulier, cela signifie simplement que $\QCohstack_{fg}'$ a
+les mêmes objets que $\QCohstack_{fg}$, mais que ses morphismes sont les
+couples $(f, g) : (U, \mathcal{F}) \to (U', \mathcal{F}')$
+où $g$ est un isomorphisme $g : f^*\mathcal{F}' \to \mathcal{F}$.
+
+
+\section{Le champ en groupoïdes des espaces algébriques de type fini}
+\label{section-stack-in-groupoids-of-finite-type-spaces}
+
+\noindent
+Soit $p : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$ le champ
+introduit à la
+section \ref{section-stack-of-finite-type-spaces}
+(avec l'abus de notation qui y a été introduit).
+Nous pouvons le transformer en un champ en groupoïdes
+$p' : \Spacesstack_{ft}' \to (\Sch/S)_{fppf}$ au moyen
+du procédé de
+Catégories, lemme \ref{categories-lemma-fibred-gives-fibred-groupoids},
+voir
+Champs, lemme \ref{stacks-lemma-stack-gives-stack-groupoids}.
+Dans ce cas particulier, cela signifie simplement que $\Spacesstack_{ft}'$
+a les mêmes objets que $\Spacesstack_{ft}$, c'est-à-dire les morphismes de type fini
+$X \to U$, où $X$ est un espace algébrique sur $S$ et $U$ un schéma
+sur $S$. Mais les morphismes $(f, g) : X/U \to Y/V$ sont maintenant les
+diagrammes commutatifs
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+U \ar[r]^g & V
+}
+$$
+qui sont cartésiens.
+
+
+
+\section{Champs quotients}
+\label{section-quotient-stacks}
+
+\noindent
+Soit $(U, R, s, t, c)$ un groupoïde en espaces algébriques sur $S$.
+Dans ce cas, le champ quotient
+$$
+[U/R] \longrightarrow (\Sch/S)_{fppf}
+$$
+est par construction un champ en groupoïdes, voir
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-quotient-stack}.
+Les faisceaux $\mathit{Isom}$ sont même
+représentables par des espaces algébriques, voir
+Amorçage, lemme \ref{bootstrap-lemma-quotient-stack-isom}.
+Ces champs quotients sont d'une importance fondamentale dans la théorie des
+champs algébriques.
+
+\medskip\noindent
+Un cas particulier de la construction précédente est le champ quotient
+$$
+[X/G] \longrightarrow (\Sch/S)_{fppf}
+$$
+associé à une donnée $(B, G/B, m, X/B, a)$. Ici,
+\begin{enumerate}
+\item $B$ est un espace algébrique sur $S$ ;
+\item $(G, m)$ est un espace algébrique en groupes sur $B$ ;
+\item $X$ est un espace algébrique sur $B$ ;
+\item $a : G \times_B X \to X$ est une action de $G$ sur $X$ au-dessus de $B$.
+\end{enumerate}
+En effet, d'après
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-quotient-stack},
+le champ en groupoïdes $[X/G]$ est le
+champ quotient $[X/G \times_B X]$ ci-dessus. Il convient
+d'expliciter la catégorie $[X/G]$. Nous le ferons à la
+section \ref{section-group-quotient-stacks}.
+
+
+
+\section{Classification des torseurs}
+\label{section-torsors}
+
+\noindent
+Nous allons expliquer avec soin plusieurs variantes de ce que peut
+signifier l'étude du champ des torseurs sous un espace algébrique en groupes $G$
+ou sous un faisceau de groupes $\mathcal{G}$.
+
+
+
+\subsection{Torseurs sous un faisceau de groupes}
+\label{subsection-torsors-sheaf}
+
+\noindent
+Soit $\mathcal{G}$ un faisceau de groupes sur $(\Sch/S)_{fppf}$.
+Pour $U \in \Ob((\Sch/S)_{fppf})$, nous notons
+$\mathcal{G}|_U$ la restriction de $\mathcal{G}$ à $(\Sch/U)_{fppf}$.
+Nous définissons une catégorie $\mathcal{G}\textit{-Torsors}$ comme suit :
+\begin{enumerate}
+\item Un objet de $\mathcal{G}\textit{-Torsors}$ est un couple
+$(U, \mathcal{F})$, où $U$ est un objet de $(\Sch/S)_{fppf}$
+et $\mathcal{F}$ un torseur sous $\mathcal{G}|_U$, voir
+Cohomologie sur les sites, définition \ref{sites-cohomology-definition-torsor}.
+\item Un morphisme $(U, \mathcal{F}) \to (V, \mathcal{H})$ est donné
+par un couple $(f, \alpha)$, où $f : U \to V$ est un morphisme de schémas
+sur $S$, et $\alpha : f^{-1}\mathcal{H} \to \mathcal{F}$ un
+isomorphisme de torseurs sous $\mathcal{G}|_U$.
+\end{enumerate}
+Ainsi, $\mathcal{G}\textit{-Torsors}$ est une catégorie et
+$$
+p : \mathcal{G}\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, \mathcal{F}) \longmapsto U
+$$
+est un foncteur. La catégorie fibre de $\mathcal{G}\textit{-Torsors}$
+au-dessus de $U$ est la catégorie des torseurs sous $\mathcal{G}|_U$, qui est un groupoïde.
+
+\begin{lemma}
+\label{lemma-torsors-sheaf-stack-in-groupoids}
+Moyennant un remplacement comme dans
+Champs, remarque \ref{stacks-remark-stack-make-small},
+le foncteur
+$$
+p : \mathcal{G}\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf}
+$$
+définit un champ en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+La partie la plus difficile de la démonstration consiste à montrer
+l'effectivité de la descente des objets.
+Soit $\{U_i \to U\}_{i \in I}$ un recouvrement de $(\Sch/S)_{fppf}$.
+Supposons donné, pour chaque $i$, un torseur $\mathcal{F}_i$
+sous $\mathcal{G}|_{U_i}$ et, pour chaque $i, j \in I$, un isomorphisme
+$\varphi_{ij} :
+\mathcal{F}_i|_{U_i \times_U U_j} \to \mathcal{F}_j|_{U_i \times_U U_j}$
+de torseurs sous $\mathcal{G}|_{U_i \times_U U_j}$,
+satisfaisant une condition de cocycle convenable sur $U_i \times_U U_j \times_U U_k$.
+Alors, d'après
+Sites, section \ref{sites-section-glueing-sheaves},
+nous obtenons sur $(\Sch/U)_{fppf}$ un faisceau $\mathcal{F}$
+dont la restriction à chaque $U_i$ redonne $\mathcal{F}_i$ ainsi que
+la donnée de descente. Par l'équivalence de catégories de
+Sites, lemme \ref{sites-lemma-mapping-property-glue},
+les morphismes d'action $\mathcal{G}|_{U_i} \times \mathcal{F}_i \to \mathcal{F}_i$
+se recollent en un morphisme $a : \mathcal{G}|_U \times \mathcal{F} \to \mathcal{F}$.
+Il reste à montrer que $a$ est une action et que $\mathcal{F}$ devient
+un torseur sous $\mathcal{G}|_U$. Ces deux propriétés se vérifient localement
+et résultent donc des propriétés correspondantes des actions
+$\mathcal{G}|_{U_i} \times \mathcal{F}_i \to \mathcal{F}_i$.
+Cela prouve l'effectivité de la descente des objets dans
+$\mathcal{G}\textit{-Torsors}$.
+Nous omettons certains détails.
+\end{proof}
+
+
+
+\subsection{Variante pour les torseurs sous un faisceau}
+\label{subsection-variant-torsor-sheaf}
+
+\noindent
+On peut généraliser légèrement la construction de la
+sous-section \ref{subsection-torsors-sheaf}.
+Soient en effet $\mathcal{G} \to \mathcal{B}$ un morphisme de faisceaux
+sur $(\Sch/S)_{fppf}$ et
+$$
+m :
+\mathcal{G} \times_\mathcal{B} \mathcal{G}
+\longrightarrow
+\mathcal{G}
+$$
+une loi de groupe sur $\mathcal{G}/\mathcal{B}$. Autrement dit, le couple
+$(\mathcal{G}, m)$ est un objet en groupes du topos
+$\Sh((\Sch/S)_{fppf})/\mathcal{B}$. Voir
+Sites, section \ref{sites-section-localize-topoi},
+pour les localisations de topos.
+Dans cette situation, nous pouvons définir une catégorie
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$ comme suit
+(nous utilisons le plongement de Yoneda pour considérer les schémas comme des faisceaux) :
+\begin{enumerate}
+\item Un objet de $\mathcal{G}/\mathcal{B}\textit{-Torsors}$ est un triplet
+$(U, b, \mathcal{F})$, où
+\begin{enumerate}
+\item $U$ est un objet de $(\Sch/S)_{fppf}$ ;
+\item $b : U \to \mathcal{B}$ est une section de $\mathcal{B}$ sur $U$ ;
+\item $\mathcal{F}$ est un torseur sous $U \times_{b, \mathcal{B}}\mathcal{G}$
+sur $U$.
+\end{enumerate}
+\item Un morphisme $(U, b, \mathcal{F}) \to (U', b', \mathcal{F}')$ est donné
+par un couple $(f, g)$, où $f : U \to U'$ est un morphisme de schémas
+sur $S$ tel que $b = b' \circ f$, et où
+$g : f^{-1}\mathcal{F}' \to \mathcal{F}$ est un
+isomorphisme de torseurs sous $U \times_{b, \mathcal{B}} \mathcal{G}$.
+\end{enumerate}
+Ainsi, $\mathcal{G}/\mathcal{B}\textit{-Torsors}$ est une catégorie et
+$$
+p :
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+\longrightarrow
+(\Sch/S)_{fppf},
+\quad
+(U, b, \mathcal{F}) \longmapsto U
+$$
+est un foncteur. La catégorie fibre de
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$
+au-dessus de $U$ est la réunion disjointe, lorsque $b : U \to \mathcal{B}$ varie,
+des catégories de torseurs sous $U \times_{b, \mathcal{B}} \mathcal{G}$ ;
+c'est donc un groupoïde.
+
+\medskip\noindent
+Dans le cas particulier $\mathcal{B} = S$, on retrouve la catégorie
+$\mathcal{G}\textit{-Torsors}$ introduite dans la
+sous-section \ref{subsection-torsors-sheaf}.
+
+\begin{lemma}
+\label{lemma-variant-torsors-sheaf-stack-in-groupoids}
+Moyennant un remplacement comme dans
+Champs, remarque \ref{stacks-remark-stack-make-small},
+le foncteur
+$$
+p :
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+\longrightarrow
+(\Sch/S)_{fppf}
+$$
+définit un champ en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Cette démonstration reprend celle du
+lemme \ref{lemma-torsors-sheaf-stack-in-groupoids}.
+Le lecteur est invité à lire d'abord cette dernière, dont
+les notations sont moins lourdes.
+La partie la plus difficile de la démonstration consiste à montrer
+l'effectivité de la descente des objets. Soit $\{U_i \to U\}_{i \in I}$
+un recouvrement de $(\Sch/S)_{fppf}$.
+Supposons donné, pour chaque $i$, un couple $(b_i, \mathcal{F}_i)$
+formé d'un morphisme $b_i : U_i \to \mathcal{B}$ et d'un
+torseur $\mathcal{F}_i$ sous $U_i \times_{b_i, \mathcal{B}} \mathcal{G}$,
+et supposons que, pour chaque $i, j \in I$,
+on ait $b_i|_{U_i \times_U U_j} = b_j|_{U_i \times_U U_j}$ et
+que soit donné un isomorphisme
+$\varphi_{ij} :
+\mathcal{F}_i|_{U_i \times_U U_j} \to \mathcal{F}_j|_{U_i \times_U U_j}$
+de torseurs sous $(U_i \times_U U_j) \times_\mathcal{B} \mathcal{G}$,
+satisfaisant une condition de cocycle convenable sur $U_i \times_U U_j \times_U U_k$.
+Alors, d'après
+Sites, section \ref{sites-section-glueing-sheaves},
+nous obtenons sur $(\Sch/U)_{fppf}$ un faisceau $\mathcal{F}$
+dont la restriction à chaque $U_i$ redonne $\mathcal{F}_i$ ainsi que
+la donnée de descente. L'axiome de faisceau pour $\mathcal{B}$ montre
+que les morphismes $b_i$ proviennent d'un unique morphisme $b : U \to \mathcal{B}$.
+Par l'équivalence de catégories de
+Sites, lemme \ref{sites-lemma-mapping-property-glue},
+les morphismes d'action
+$(U_i \times_{b_i, \mathcal{B}} \mathcal{G}) \times_{U_i} \mathcal{F}_i
+\to \mathcal{F}_i$
+se recollent en un morphisme
+$(U \times_{b, \mathcal{B}} \mathcal{G}) \times \mathcal{F} \to \mathcal{F}$.
+Il reste à montrer que c'est une action et que $\mathcal{F}$ devient
+un torseur sous $U \times_{b, \mathcal{B}} \mathcal{G}$.
+Ces deux propriétés se vérifient localement
+et résultent donc des propriétés correspondantes des actions
+sur les $\mathcal{F}_i$.
+Cela prouve l'effectivité de la descente des objets dans
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$.
+Nous omettons certains détails.
+\end{proof}
+
+
+
+\subsection{Espaces principaux homogènes}
+\label{subsection-principal-homogeneous-spaces}
+
+\noindent
+Soit $B$ un espace algébrique sur $S$.
+Soit $G$ un espace algébrique en groupes sur $B$.
+Nous définissons une catégorie $G\textit{-Principal}$ comme suit :
+\begin{enumerate}
+\item Un objet de $G\textit{-Principal}$ est un triplet $(U, b, X)$, où
+\begin{enumerate}
+\item $U$ est un objet de $(\Sch/S)_{fppf}$ ;
+\item $b : U \to B$ est un morphisme sur $S$ ;
+\item $X$ est un espace principal homogène sous $G_U$ sur $U$, où
+$G_U = U \times_{b, B} G$.
+\end{enumerate}
+Voir
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-principal-homogeneous-space}.
+\item Un morphisme $(U, b, X) \to (U', b', X')$ est donné
+par un couple $(f, g)$, où $f : U \to U'$ est un morphisme de schémas
+sur $B$, et $g : X \to U \times_{f, U'} X'$ un
+isomorphisme d'espaces principaux homogènes sous $G_U$.
+\end{enumerate}
+Ainsi, $G\textit{-Principal}$ est une catégorie et
+$$
+p : G\textit{-Principal} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, X) \longmapsto U
+$$
+est un foncteur. La catégorie fibre de $G\textit{-Principal}$
+au-dessus de $U$ est la réunion disjointe, lorsque $b : U \to B$ varie,
+des catégories d'espaces principaux homogènes sous $U \times_{b, B} G$ ;
+c'est donc un groupoïde.
+
+\medskip\noindent
+Dans le cas particulier $S = B$, les objets sont simplement les couples
+$(U, X)$, où $U$ est un schéma sur $S$ et $X$ un espace principal homogène
+sous $G_U$ sur $U$. De plus, les morphismes sont simplement les diagrammes
+cartésiens
+$$
+\xymatrix{
+X \ar[d] \ar[r]_g & X' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+où $g$ est $G$-équivariant.
+
+\begin{remark}
+\label{remark-principal-stack-in-groupoids}
+Nous conjecturons que, moyennant un remplacement comme dans
+Champs, remarque \ref{stacks-remark-stack-make-small},
+le foncteur
+$$
+p : G\textit{-Principal} \longrightarrow (\Sch/S)_{fppf}
+$$
+définit un champ en groupoïdes sur $(\Sch/S)_{fppf}$. Cela résulterait
+de l'énoncé suivant : étant donnés
+\begin{enumerate}
+\item un recouvrement $\{U_i \to U\}_{i \in I}$ de $(\Sch/S)_{fppf}$ ;
+\item un espace algébrique en groupes $H$ sur $U$ ;
+\item pour chaque $i$, un espace principal homogène $X_i$ sous $H_{U_i}$
+sur $U_i$ ;
+\item des isomorphismes $H$-équivariants
+$\varphi_{ij} : X_{i, U_i \times_U U_j} \to X_{j, U_i \times_U U_j}$
+satisfaisant la condition de cocycle,
+\end{enumerate}
+il existe un espace principal homogène $X$ sous $H$ sur $U$
+qui redonne $(X_i, \varphi_{ij})$. La méthode employée dans la démonstration de
+Amorçage, lemme \ref{bootstrap-lemma-descent-torsor},
+ramène ce problème à une question ensembliste ; le lecteur qui néglige
+les questions ensemblistes « saura » donc que le résultat est vrai. On trouve dans
+\url{https://math.columbia.edu/~dejong/wordpress/?p=591}
+une suggestion pour aborder ce problème.
+\end{remark}
+
+
+
+\subsection{Variante pour les espaces principaux homogènes}
+\label{subsection-variant-principal-homogeneous-spaces}
+
+\noindent
+Soit $S$ un schéma. Soit $B = S$.
+Soit $G$ un schéma en groupes sur $B = S$.
+Dans cette situation, nous pouvons définir une sous-catégorie pleine
+$G\textit{-Principal-Schémas} \subset G\textit{-Principal}$
+dont les objets sont les couples $(U, X)$, où $U$ est un objet de
+$(\Sch/S)_{fppf}$ et $X \to U$ un espace principal homogène
+sous $G$ sur $U$ qui est représentable, c'est-à-dire un schéma.
+
+\medskip\noindent
+En général, $G\textit{-Principal-Schémas}$ n'est pas
+un champ en groupoïdes sur $(\Sch/S)_{fppf}$. Cela tient
+à ce qu'il existe effectivement, en général, des espaces principaux homogènes
+qui ne sont pas des schémas ; la descente des objets n'est donc pas effective
+en général.
+
+
+
+\subsection{Torseurs pour la topologie fppf}
+\label{subsection-fppf-torsors}
+
+\noindent
+Soit $B$ un espace algébrique sur $S$.
+Soit $G$ un espace algébrique en groupes sur $B$.
+Nous définissons une catégorie $G\textit{-Torsors}$ comme suit :
+\begin{enumerate}
+\item Un objet de $G\textit{-Torsors}$ est un triplet $(U, b, X)$, où
+\begin{enumerate}
+\item $U$ est un objet de $(\Sch/S)_{fppf}$ ;
+\item $b : U \to B$ est un morphisme ;
+\item $X$ est un $G_U$-torseur fppf sur $U$, où $G_U = U \times_{b, B} G$.
+\end{enumerate}
+Voir
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-principal-homogeneous-space}.
+\item Un morphisme $(U, b, X) \to (U', b', X')$ est donné
+par un couple $(f, g)$, où $f : U \to U'$ est un morphisme de schémas
+sur $B$, et $g : X \to U \times_{f, U'} X'$ un
+isomorphisme de $G_U$-torseurs.
+\end{enumerate}
+Ainsi, $G\textit{-Torsors}$ est une catégorie et
+$$
+p : G\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, a, X) \longmapsto U
+$$
+est un foncteur. La catégorie fibre de $G\textit{-Torsors}$
+au-dessus de $U$ est la réunion disjointe, lorsque $b : U \to B$ varie,
+des catégories de $U \times_{b, B} G$-torseurs fppf ;
+c'est donc un groupoïde.
+
+\medskip\noindent
+Dans le cas particulier $S = B$, les objets sont simplement les couples
+$(U, X)$, où $U$ est un schéma sur $S$ et $X$ un
+$G_U$-torseur fppf sur $U$. De plus, les morphismes sont simplement les diagrammes
+cartésiens
+$$
+\xymatrix{
+X \ar[d] \ar[r]_g & X' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+où $g$ est $G$-équivariant.
+
+\begin{lemma}
+\label{lemma-torsors-stack-in-groupoids}
+Moyennant un remplacement comme dans
+Champs, remarque \ref{stacks-remark-stack-make-small},
+le foncteur
+$$
+p : G\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf}
+$$
+définit un champ en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+La partie la plus difficile de la démonstration consiste à montrer l'effectivité
+de la descente des objets ; c'est le contenu de
+Amorçage, lemme \ref{bootstrap-lemma-descent-torsor}.
+Nous omettons la démonstration des axiomes (1) et (2) de
+Champs, définition \ref{stacks-definition-stack-in-groupoids}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-torsors}
+Soit $B$ un espace algébrique sur $S$. Soit $G$ un espace algébrique en
+groupes sur $B$. Notons $\mathcal{G}$, resp.\ $\mathcal{B}$, l'espace algébrique
+$G$, resp.\ $B$, considéré comme un faisceau sur $(\Sch/S)_{fppf}$.
+Le foncteur
+$$
+G\textit{-Torsors} \longrightarrow \mathcal{G}/\mathcal{B}\textit{-Torsors}
+$$
+qui associe au triplet $(U, b, X)$ le triplet
+$(U, b, \mathcal{X})$, où $\mathcal{X}$ est $X$ considéré comme un faisceau,
+est une équivalence de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Nous allons utiliser
+Champs, lemme \ref{stacks-lemma-characterize-essentially-surjective-when-ff},
+pour le prouver. Le foncteur est pleinement fidèle, puisque la catégorie des
+espaces algébriques sur $S$ est une sous-catégorie pleine de la catégorie des
+faisceaux sur $(\Sch/S)_{fppf}$.
+En outre, tous les objets (des deux côtés) sont des torseurs localement triviaux,
+de sorte que la condition (2) du lemme cité ci-dessus est satisfaite.
+Le foncteur est donc une équivalence.
+\end{proof}
+
+
+
+\subsection{Variante pour les torseurs en topologie fppf}
+\label{subsection-variant-fppf-torsors}
+
+\noindent
+Soit $S$ un schéma. Soit $B = S$.
+Soit $G$ un schéma en groupes sur $B = S$.
+Dans cette situation, nous pouvons définir une sous-catégorie pleine
+$G\textit{-Torsors-Schémas} \subset G\textit{-Torsors}$
+dont les objets sont les couples $(U, X)$, où $U$ est un objet de
+$(\Sch/S)_{fppf}$ et $X \to U$ un
+$G$-torseur fppf sur $U$ qui est représentable, c'est-à-dire un schéma.
+
+\medskip\noindent
+En général, $G\textit{-Torsors-Schémas}$ n'est pas
+un champ en groupoïdes sur $(\Sch/S)_{fppf}$. Cela tient
+à ce qu'il existe effectivement, en général, des $G$-torseurs fppf
+qui ne sont pas des schémas ; la descente des objets n'est donc pas effective
+en général.
+
+
+
+
+\section{Quotients par des actions de groupes}
+\label{section-group-quotient-stacks}
+
+\noindent
+Nous avons maintenant introduit assez de notations pour décrire
+plus précisément les champs $[X/G]$ de la
+section \ref{section-quotient-stacks}.
+
+\begin{situation}
+\label{situation-quotient-stack}
+Dans cette situation,
+\begin{enumerate}
+\item $S$ est un schéma contenu dans $\Sch_{fppf}$ ;
+\item $B$ est un espace algébrique sur $S$ ;
+\item $(G, m)$ est un espace algébrique en groupes sur $B$ ;
+\item $\pi : X \to B$ est un espace algébrique sur $B$ ;
+\item $a : G \times_B X \to X$ est une action de $G$ sur $X$ au-dessus de $B$.
+\end{enumerate}
+\end{situation}
+
+\noindent
+Dans cette situation, nous construisons comme suit une catégorie $[[X/G]]$\footnote{La notation
+$[[X/G]]$ avec doubles crochets sert à distinguer cette catégorie du
+champ $[X/G]$ introduit précédemment. Dans la
+proposition \ref{proposition-equal-quotient-stacks},
+nous montrerons que les deux sont canoniquement équivalents.
+Nous utiliserons ensuite la notation $[X/G]$ pour désigner indifféremment l'un ou l'autre.} :
+\begin{enumerate}
+\item Un objet de $[[X/G]]$ consiste en un quadruplet
+$(U, b, P, \varphi : P \to X)$, où
+\begin{enumerate}
+\item $U$ est un objet de $(\Sch/S)_{fppf}$ ;
+\item $b : U \to B$ est un morphisme sur $S$ ;
+\item $P$ est un $G_U$-torseur fppf sur $U$, où $G_U = U \times_{b, B} G$ ;
+\item $\varphi : P \to X$ est un morphisme $G$-équivariant qui s'insère
+dans le diagramme commutatif
+$$
+\xymatrix{
+P \ar[d] \ar[r]_{\varphi} & X \ar[d] \\
+U \ar[r]^b & B
+}
+$$
+\end{enumerate}
+\item Un morphisme de $[[X/G]]$ est un couple
+$(f, g) : (U, b, P, \varphi) \to (U', b', P', \varphi')$,
+où $f : U \to U'$ est un morphisme de schémas sur $B$
+et $g : P \to P'$ un morphisme $G$-équivariant au-dessus de $f$
+qui induit un isomorphisme $P \cong U \times_{f, U'} P'$ et vérifie
+$\varphi = \varphi' \circ g$.
+Autrement dit, $(f, g)$ s'insère dans le diagramme commutatif
+suivant :
+$$
+\xymatrix{
+P \ar[d] \ar[rrrd]_\varphi \ar[r]^g & P' \ar[d] \ar[rrd]^{\varphi'} \\
+U \ar[rrrd]_b \ar[r]^f & U' \ar[rrd]^{b'} & & X \ar[d] \\
+& & & B
+}
+$$
+\end{enumerate}
+Ainsi, $[[X/G]]$ est une catégorie et
+$$
+p : [[X/G]] \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, P, \varphi) \longmapsto U
+$$
+est un foncteur. La catégorie fibre de $[[X/G]]$
+au-dessus de $U$ est la réunion disjointe, lorsque $b \in \Mor_S(U, B)$ varie,
+des $U \times_{b, B} G$-torseurs fppf $P$ munis d'un morphisme
+$G$-équivariant vers $X$. Les catégories fibres de $[[X/G]]$ sont donc des groupoïdes.
+
+\medskip\noindent
+Remarquons que le foncteur
+$$
+[[X/G]] \longrightarrow G\textit{-Torsors},
+\quad
+(U, b, P, \varphi) \longmapsto (U, b, P)
+$$
+est un $1$-morphisme de catégories sur $(\Sch/S)_{fppf}$.
+
+\begin{lemma}
+\label{lemma-group-quotient-stack-in-groupoids}
+Moyennant un remplacement comme dans
+Champs, remarque \ref{stacks-remark-stack-make-small},
+le foncteur
+$$
+p : [[X/G]] \longrightarrow (\Sch/S)_{fppf}
+$$
+définit un champ en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+La partie la plus difficile de la démonstration consiste à montrer l'effectivité
+de la descente des objets. Supposons que $\{U_i \to U\}_{i \in I}$ soit un recouvrement de
+$(\Sch/S)_{fppf}$. Soient
+$\xi_i = (U_i, b_i, P_i, \varphi_i)$ des objets de $[[X/G]]$ au-dessus de $U_i$,
+et soit $\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+une donnée de descente. En appliquant le foncteur
+$[[X/G]] \to G\textit{-Torsors}$ ci-dessus, nous obtenons en particulier une donnée de descente
+sur les triplets $(U_i, b_i, P_i)$ pour le champ en groupoïdes
+$G\textit{-Torsors}$. Nous avons vu que
+$G\textit{-Torsors}$ est un champ en groupoïdes
+(lemme \ref{lemma-torsors-stack-in-groupoids}).
+Nous pouvons donc supposer que $b_i = b|_{U_i}$ pour un morphisme $b : U \to B$, et
+que $P_i = U_i \times_U P$ pour un $G_U = U \times_{b, B} G$-torseur fppf
+$P$ sur $U$. Les morphismes $\varphi_i$ sont compatibles
+avec la donnée de descente canonique sur les restrictions $U_i \times_U P$
+et définissent donc un morphisme $\varphi : P \to X$. (On peut par exemple
+utiliser
+Sites, lemme \ref{sites-lemma-mapping-property-glue},
+ou
+Descente sur les espaces,
+lemme \ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms},
+pour obtenir $\varphi$.)
+Cela prouve l'effectivité de la descente des objets.
+Nous omettons la démonstration des axiomes (1) et (2) de
+Champs, définition \ref{stacks-definition-stack-in-groupoids}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-equal-quotient-stacks}
+Dans la
+situation \ref{situation-quotient-stack},
+il existe une équivalence canonique
+$$
+[X/G] \longrightarrow [[X/G]]
+$$
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{proposition}
+
+\begin{proof}
+Nous donnons tous les détails afin de nous assurer que les définitions
+s'accordent exactement comme il le faut.
+Rappelons que $[X/G]$ est le champ quotient
+associé au groupoïde en espaces algébriques
+$(X, G \times_B X, s, t, c)$, voir
+Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-quotient-stack}.
+Cela signifie que $[X/G]$ est la champification de la
+catégorie fibrée en groupoïdes $[X/_{\!p}G]$ associée au foncteur
+$$
+(\Sch/S)_{fppf} \longrightarrow \textit{Groupoïdes},
+\quad
+U \longmapsto (X(U), G(U) \times_{B(U)} X(U), s, t, c),
+$$
+où $s(g, x) = x$, $t(g, x) = a(g, x)$ et
+$c((g, x), (g', x')) = (m(g, g'), x')$. D'après la construction de
+Catégories, exemple \ref{categories-example-functor-groupoids},
+un objet de $[X/_{\!p}G]$ est un couple $(U, x)$ avec $x \in X(U)$,
+et un morphisme $(f, g) : (U, x) \to (U', x')$ de $[X/_{\!p}G]$
+est donné par un morphisme de schémas $f : U \to U'$ et un élément
+$g \in G(U)$ tel que $a(g, x) = x' \circ f$.
+Nous pouvons donc définir un $1$-morphisme de champs en groupoïdes
+$$
+F_p : [X/_{\!p}G] \longrightarrow [[X/G]]
+$$
+par les règles suivantes : sur les objets, nous posons
+$$
+F_p(U, x) =
+(U, \pi \circ x, G \times_{B, \pi \circ x} U, a \circ (\text{id}_G \times x)).
+$$
+Cette définition a un sens, car le diagramme
+$$
+\xymatrix{
+G \times_{B, \pi \circ x} U \ar[d] \ar[r]_{\text{id}_G \times x} &
+G \times_{B, \pi} X \ar[r]_-a &
+X \ar[d]^\pi \\
+U \ar[rr]^{\pi \circ x} & & B
+}
+$$
+est commutatif, et les deux flèches horizontales sont $G$-équivariantes si l'on considère
+les produits fibrés comme des $G$-torseurs triviaux sur $U$, resp.\ sur $X$.
+Sur un morphisme $(f, g) : (U, x) \to (U', x')$, nous posons
+$F_p(f, g) = (f, R_{g^{-1}})$, où $R_{g^{-1}}$ désigne la translation à droite
+par l'inverse de $g$. Plus précisément, le morphisme
+$F_p(f, g) : F_p(U, x) \to F_p(U', x')$ est donné par le diagramme cartésien
+$$
+\xymatrix{
+G \times_{B, \pi \circ x} U \ar[d] \ar[r]_{R_{g^{-1}}} &
+G \times_{B, \pi \circ x'} U' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+où, sur les points à valeurs dans $T$, $R_{g^{-1}}$ est défini par
+$$
+R_{g^{-1}}(g', u) = (m(g', i(g(u))), f(u)).
+$$
+Pour vérifier que cela convient, il faut établir l'égalité
+$$
+a \circ (\text{id}_G \times x)
+=
+a \circ (\text{id}_G \times x') \circ R_{g^{-1}},
+$$
+qui est vraie puisque le membre de droite, appliqué au point à valeurs dans $T$
+$(g', u)$, donne bien l'égalité souhaitée
+\begin{align*}
+a((\text{id}_G \times x')(m(g', i(g(u))), f(u)))
+& =
+a(m(g', i(g(u))), x'(f(u))) \\
+& =
+a(g', a(i(g(u)), x'(f(u)))) \\
+& =
+a(g', x(u)),
+\end{align*}
+car $a(g, x) = x' \circ f$ et donc $a(i(g), x' \circ f) = x$.
+
+\medskip\noindent
+La propriété universelle de la champification donnée dans
+Champs, lemme \ref{stacks-lemma-stackify-groupoids-universal-property},
+fournit une extension canonique $F : [X/G] \to [[X/G]]$ du $1$-morphisme
+$F_p$ ci-dessus. Montrons d'abord que $F$ est pleinement fidèle.
+Comme la source et le but sont des champs en groupoïdes,
+il suffit pour cela de montrer que $F$ identifie les faisceaux $\mathit{Isom}$.
+Choisissons un schéma $U$ et des objets $\xi, \xi'$ de
+$[X/G]$ au-dessus de $U$. Nous voulons montrer que
+$$
+F :
+\mathit{Isom}_{[X/G]}(\xi, \xi')
+\longrightarrow
+\mathit{Isom}_{[[X/G]]}(F(\xi), F(\xi'))
+$$
+est un isomorphisme de faisceaux. Il suffit de travailler localement
+sur $U$ ; nous pouvons donc supposer que $\xi, \xi'$ proviennent d'objets
+$(U, x)$, $(U, x')$ de $[X/_{\!p}G]$ au-dessus de $U$. Cela résulte directement
+de la construction de la champification et est aussi détaillé dans
+Groupoïdes dans les espaces,
+section \ref{spaces-groupoids-section-explicit-quotient-stacks}.
+Soit en utilisant directement la description ci-dessus des morphismes de
+$[X/_{\!p}G]$, soit en appliquant
+Groupoïdes dans les espaces,
+lemme \ref{spaces-groupoids-lemma-quotient-stack-morphisms},
+nous voyons que, dans ce cas,
+$$
+\mathit{Isom}_{[X/G]}(\xi, \xi') =
+U \times_{(x, x'), X \times_S X, (s, t)} (G \times_B X).
+$$
+Un point à valeurs dans $T$ de ce produit fibré correspond à un couple
+$(u, g)$, où $u \in U(T)$ et $g \in G(T)$, tel que
+$a(g, x \circ u) = x' \circ u$. (Cela implique en particulier
+$\pi \circ x \circ u = \pi \circ x' \circ u$.)
+D'autre part, un point à valeurs dans $T$
+de $\mathit{Isom}_{[[X/G]]}(F(\xi), F(\xi'))$ correspond par définition
+à un morphisme $u : T \to U$ tel que
+$\pi \circ x \circ u = \pi \circ x' \circ u : T \to B$, ainsi qu'à un isomorphisme
+$$
+R :
+G \times_{B, \pi \circ x \circ u} T
+\longrightarrow
+G \times_{B, \pi \circ x' \circ u} T
+$$
+de $G_T$-torseurs triviaux compatible avec les morphismes donnés vers $X$.
+Puisque les torseurs sont triviaux, on a $R = R_{g^{-1}}$
+(multiplication à droite) pour un certain $g \in G(T)$. La compatibilité avec les morphismes
+$a \circ (1_G, x \circ u), a \circ (1_G, x' \circ u) : G \times_B T \to X$
+équivaut à la condition $a(g, x \circ u) = x' \circ u$.
+Nous obtenons donc l'égalité voulue des faisceaux $\mathit{Isom}$.
+
+\medskip\noindent
+Sachant maintenant que $F$ est pleinement fidèle, nous pouvons appliquer
+Champs, lemme \ref{stacks-lemma-characterize-essentially-surjective-when-ff}.
+Pour montrer que $F$ est une équivalence, il suffit donc
+de montrer que les objets de $[[X/G]]$ appartiennent localement pour la topologie fppf à l'image essentielle
+de $F$. Cela est clair, puisque les torseurs fppf sont localement triviaux pour la topologie fppf,
+et la conclusion en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-classifying-stacks}
+\begin{slogan}
+Le champ classifiant d'un schéma en groupes ou d'un espace algébrique en groupes.
+\end{slogan}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $G$ un espace algébrique en groupes sur $B$. Alors les champs
+en groupoïdes
+$$
+[B/G],\quad
+[[B/G]],\quad
+G\textit{-Torsors},\quad
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+$$
+sont tous canoniquement équivalents.
+Si $G \to B$ est plat et localement
+de présentation finie, ils sont aussi équivalents à
+$G\textit{-Principal}$.
+\end{lemma}
+
+\begin{proof}
+L'équivalence
+$G\textit{-Torsors} \to \mathcal{G}/\mathcal{B}\textit{-Torsors}$
+est donnée au lemme \ref{lemma-compare-torsors}.
+L'équivalence $[B/G] \to [[B/G]]$ est donnée par la
+proposition \ref{proposition-equal-quotient-stacks}.
+En développant la définition de $[[B/G]]$ donnée à la
+section \ref{section-group-quotient-stacks},
+nous voyons que $[[B//G]] = G\textit{-Torsors}$.
+
+\medskip\noindent
+Supposons enfin $G \to B$ plat et localement de présentation finie.
+Pour montrer que le foncteur naturel
+$G\textit{-Torsors} \to G\textit{-Principal}$ est une équivalence,
+il suffit de montrer que, pour un schéma $U$ sur $B$,
+un espace principal homogène $X \to U$ sous $G_U$
+est localement trivial pour la topologie fppf. Par notre définition des espaces principaux homogènes
+(Groupoïdes dans les espaces,
+définition \ref{spaces-groupoids-definition-principal-homogeneous-space}),
+il existe un recouvrement fpqc $\{U_i \to U\}$ tel que
+$U_i \times_U X \cong G \times_B U_i$ comme espaces algébriques sur $U_i$.
+Il en résulte que $X \to U$ est surjectif, plat et localement de présentation
+finie, voir
+Descente sur les espaces, lemmes
+\ref{spaces-descent-lemma-descending-property-surjective},
+\ref{spaces-descent-lemma-descending-property-flat} et
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}.
+Choisissons un schéma $W$ et un morphisme étale surjectif $W \to X$.
+Il résulte alors de ce qui précède que $\{W \to U\}$ est un recouvrement fppf
+tel que $X_W \to W$ admette une section. Ainsi, $X$ est un $G_U$-torseur fppf.
+\end{proof}
+
+\begin{remark}
+\label{remark-X-mod-G-group}
+Soit $S$ un schéma.
+Soit $G$ un groupe abstrait.
+Soit $X$ un espace algébrique sur $S$.
+Soit $G \to \text{Aut}_S(X)$ un homomorphisme de groupes.
+Dans cette situation, nous pouvons définir $[[X/G]]$ de façon analogue
+à ce qui précède, comme suit :
+\begin{enumerate}
+\item Un objet de $[[X/G]]$ consiste en un triplet
+$(U, P, \varphi : P \to X)$, où
+\begin{enumerate}
+\item $U$ est un objet de $(\Sch/S)_{fppf}$ ;
+\item $P$ est un faisceau sur $(\Sch/U)_{fppf}$ muni
+d'une action de $G$ qui en fait un torseur sous le faisceau constant
+de valeur $G$ ;
+\item $\varphi : P \to X$ est un morphisme $G$-équivariant de faisceaux.
+\end{enumerate}
+\item Un morphisme
+$(f, g) : (U, P, \varphi) \to (U', P', \varphi')$
+est donné par un morphisme de schémas $f : T \to T'$
+et un isomorphisme $G$-équivariant
+$g : P \to f^{-1}P'$ tel que $\varphi = \varphi' \circ g$.
+\end{enumerate}
+Exactement comme ci-dessus, nous obtenons un foncteur
+$$
+[[X/G]] \longrightarrow (\Sch/S)_{fppf}
+$$
+qui fait de $[[X/G]]$ un champ en groupoïdes sur $(\Sch/S)_{fppf}$.
+Le faisceau constant $\underline{G}$ est représentable (pourvu que le cardinal de $G$ ne soit
+pas trop grand) par $G_S$ sur $(\Sch/S)_{fppf}$,
+et cette version de $[[X/G]]$ est équivalente au champ
+$[[X/G_S]]$ introduit ci-dessus.
+\end{remark}
+
+
+
+
+
+
+\section{Le champ de Picard}
+\label{section-picard-stack}
+
+\noindent
+Dans cette section, nous introduisons le champ de Picard en toute généralité.
+Dans le chapitre sur Quot et Hilb, nous montrerons qu'il s'agit, sous des hypothèses
+convenables, d'un champ algébrique, voir
+Quot, section \ref{quot-section-picard-stack}.
+
+\medskip\noindent
+Soit $S$ un schéma.
+Soit $\pi : X \to B$ un morphisme d'espaces algébriques sur $S$.
+Nous définissons une catégorie $\Picardstack_{X/B}$ comme suit :
+\begin{enumerate}
+\item Un objet est un triplet $(U, b, \mathcal{L})$, où
+\begin{enumerate}
+\item $U$ est un objet de $(\Sch/S)_{fppf}$ ;
+\item $b : U \to B$ est un morphisme sur $S$ ;
+\item $\mathcal{L}$ est un faisceau inversible sur le changement de base
+$X_U = U \times_{b, B} X$.
+\end{enumerate}
+\item Un morphisme $(f, g) : (U, b, \mathcal{L}) \to (U', b', \mathcal{L}')$
+est donné par un morphisme de schémas $f : U \to U'$ sur $B$ et un
+isomorphisme $g : f^*\mathcal{L}' \to \mathcal{L}$.
+\end{enumerate}
+Le composé de
+$(f, g) : (U, b, \mathcal{L}) \to (U', b', \mathcal{L}')$
+avec
+$(f', g') : (U', b', \mathcal{L}') \to (U'', b'', \mathcal{L}'')$
+est $(f' \circ f, g \circ f^*(g'))$.
+Nous obtenons ainsi une catégorie $\Picardstack_{X/B}$ et
+$$
+p : \Picardstack_{X/B} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, \mathcal{L}) \longmapsto U
+$$
+est un foncteur. La catégorie fibre de $\Picardstack_{X/B}$ au-dessus de $U$
+est la réunion disjointe, lorsque $b \in \Mor_S(U, B)$ varie, des catégories
+de faisceaux inversibles sur $X_U = U \times_{b, B} X$. Les catégories
+fibres sont donc des groupoïdes.
+
+\begin{lemma}
+\label{lemma-picard-stack}
+Moyennant un remplacement comme dans
+Champs, remarque \ref{stacks-remark-stack-make-small},
+le foncteur
+$$
+\Picardstack_{X/B} \longrightarrow (\Sch/S)_{fppf}
+$$
+définit un champ en groupoïdes sur $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Comme d'habitude, la partie la plus difficile consiste à montrer l'effectivité de la descente des objets.
+Soit pour cela $\{U_i \to U\}$ un recouvrement de $(\Sch/S)_{fppf}$.
+Soit $\xi_i = (U_i, b_i, \mathcal{L}_i)$ un objet de
+$\Picardstack_{X/B}$ au-dessus de $U_i$, et soit
+$\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+une donnée de descente. Elle implique en particulier que les morphismes
+$b_i$ sont les restrictions d'un morphisme $b : U \to B$.
+Écrivons $X_U = U \times_{b, B} X$ et
+$X_i = U_i \times_{b_i, B} X =
+U_i \times_U U \times_{b, B} X = U_i \times_U X_U$.
+Le faisceau $\mathcal{L}_i$ est un $\mathcal{O}_{X_i}$-module inversible.
+La famille $\{X_i \to X_U\}$ est elle aussi un recouvrement fppf.
+De plus, la donnée de descente $\varphi_{ij}$ fournit une
+donnée de descente sur les faisceaux inversibles $\mathcal{L}_i$ relativement
+au recouvrement fppf $\{X_i \to X_U\}$.
+Par conséquent, d'après
+Descente sur les espaces,
+proposition \ref{spaces-descent-proposition-fpqc-descent-quasi-coherent},
+nous obtenons un unique faisceau inversible $\mathcal{L}$ sur $X_U$
+qui redonne $\mathcal{L}_i$ et les données de descente sur $X_i$.
+Le triplet $(U, b, \mathcal{L})$ est donc l'objet de
+$\Picardstack_{X/B}$ au-dessus de $U$ que nous cherchions.
+Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+\section{Exemples de champs d'inertie}
+\label{section-examples-inertia}
+
+\noindent
+Voici quelques exemples de champs d'inertie.
+
+\begin{example}
+\label{example-inertia-stack-of-X-mod-G}
+Soit $S$ un schéma. Soit $G$ un groupe commutatif.
+Soit $X \to S$ un schéma sur $S$.
+Soit $a : G \times X \to X$ une action de $G$ sur $X$.
+Pour $g \in G$, nous notons $g : X \to X$ l'automorphisme correspondant.
+Dans ce cas, le champ d'inertie de $[X/G]$ (voir
+remarque \ref{remark-X-mod-G-group})
+est donné par
+$$
+I_{[X/G]} = \coprod\nolimits_{g\in G} [X^g/G],
+$$
+où, pour un élément $g$ de $G$, le symbole $X^g$ désigne le
+schéma $X^g = \{x \in X \mid g(x) = x\}$. Plus précisément,
+$X^g$ est le produit
+fibré
+$$
+X^g =  X \times_{(1, 1), X \times_S X, (g, 1)} X.
+$$
+En effet, pour tout $S$-schéma $T$, un
+point à valeurs dans $T$ du champ d'inertie de $[X/G]$ consiste en un
+triplet $(P/T, \phi, \alpha)$ formé d'un $G$-torseur fppf
+$P \to T$, d'un morphisme $G$-équivariant
+$\phi : P \to X$ et
+d'un automorphisme $\alpha$ de $P$ sur $T$ tel que
+$\phi \circ \alpha = \phi$.
+Puisque $G$ est un faisceau de groupes \emph{commutatifs},
+$\alpha$ est donné, localement pour la topologie fppf sur $T$,
+par la multiplication par un élément $g$ de $G$.
+La condition $\phi \circ \alpha = \phi$ signifie que $\phi$
+se factorise par l'inclusion de $X^g$
+dans $X$, c'est-à-dire que $\phi$ est le composé de cette inclusion avec un
+morphisme $P \to X^g$.
+La discussion précédente permet de définir un morphisme de catégories fibrées
+$I_{[X/G]} \to \coprod_{g\in G} [X^g/G]$ sur les points à valeurs dans $T$ comme ci-dessus.
+Nous omettons la vérification qu'il s'agit d'une équivalence.
+\end{example}
+
+\begin{example}
+\label{example-inertia-stack-of-picard}
+Soit $f : X \to S$ un morphisme de schémas.
+Supposons que, pour tout $T \to S$, le changement de base $f_T : X_T \to T$
+ait la propriété que le morphisme $\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$
+est un isomorphisme. (Cela implique que $f$ est
+{\it cohomologiquement plat en dimension $0$} (insérer ici une référence ultérieure),
+mais c'est une condition plus forte.) Considérons le champ de Picard $\Picardstack_{X/S}$, voir
+section \ref{section-picard-stack}.
+Les points de son champ d'inertie au-dessus d'un
+$S$-schéma $T$ sont les couples $(\mathcal{L}, \alpha)$,
+où $\mathcal{L}$ est un faisceau inversible
+sur $X_T$ et $\alpha$ un automorphisme de ce faisceau inversible.
+Autrement dit, nous pouvons considérer $\alpha$ comme un élément de
+$H^0(X_T, \mathcal{O}_{X_T})^\times = H^0(T, \mathcal{O}_T^*)$
+d'après notre hypothèse. Or $H^0(T, \mathcal{O}_T^*) = \mathbf{G}_{m, S}(T)$,
+voir Groupoïdes, exemple \ref{groupoids-example-multiplicative-group}.
+Le champ d'inertie de $\Picardstack_{X/S}$ est donc
+$$
+I_{\Picardstack_{X/S}} = \mathbf{G}_{m, S} \times_S \Picardstack_{X/S}
+$$
+en tant que champ sur $(\Sch/S)_{fppf}$.
+\end{example}
+
+
+
+
+
+
+\section{Champs de Hilbert finis}
+\label{section-hilbert-d-stack}
+
+\noindent
+Nous formulons ce qui suit dans une généralité peut-être un peu plus grande
+que strictement nécessaire. Fixons un $1$-morphisme
+$$
+F : \mathcal{X} \longrightarrow \mathcal{Y}
+$$
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$. Pour chaque entier
+$d \geq 1$, considérons une catégorie $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+définie comme suit :
+\begin{enumerate}
+\item Un objet est un quintuplet $(U, Z, y, x, \alpha)$, où $U, Z$ sont des objets de
+$(\Sch/S)_{fppf}$ et où $Z$ est fini et localement libre de degré
+$d$ sur $U$, avec
+$y \in \Ob(\mathcal{Y}_U)$, $x \in \Ob(\mathcal{X}_Z)$
+et un isomorphisme $\alpha : y|_Z \to F(x)$\footnote{
+Cela signifie que ces données fournissent, par le $2$-lemme de Yoneda
+(Catégories, lemme \ref{categories-lemma-yoneda-2category}), un
+diagramme $2$-commutatif
+$$
+\xymatrix{
+(\Sch/Z)_{fppf} \ar[r]_-x \ar[d] & \mathcal{X} \ar[d]^F \\
+(\Sch/U)_{fppf} \ar[r]^-y & \mathcal{Y}
+}
+$$
+de champs en groupoïdes sur $(\Sch/S)_{fppf}$.
+On peut aussi représenter $\alpha$ comme un $2$-morphisme
+$$
+\xymatrix{
+(\Sch/Z)_{fppf}
+\rrtwocell^{y \circ (Z \to U)}_{F \circ x}{\alpha} & &
+\mathcal{Y}.
+}
+$$
+}.
+\item Un morphisme $(U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$ est
+donné par un morphisme de schémas $f : U \to U'$, un morphisme de schémas
+$g : Z \to Z'$ qui induit un isomorphisme $Z \to Z' \times_U U'$,
+et des isomorphismes $b : y \to f^*y'$, $a : x \to g^*x'$ induisant un diagramme
+commutatif
+$$
+\xymatrix{
+y|_Z \ar[rr]_\alpha \ar[d]_{b|_Z} & &
+F(x) \ar[d]^{F(a)} \\
+f^*y'|_Z \ar[rr]^{\alpha'} & &
+F(g^*x') \\
+}
+$$
+\end{enumerate}
+Les définitions montrent immédiatement qu'il existe un foncteur d'oubli
+canonique
+$$
+p :
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+(\Sch/S)_{fppf}
+$$
+qui associe au quintuplet $(U, Z, y, x, \alpha)$ le schéma $U$
+et au morphisme
+$(f, g, b, a) : (U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$
+le morphisme $f : U \to U'$.
+
+\begin{lemma}
+\label{lemma-hilbert-d-stack}
+La catégorie $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$, munie
+du foncteur $p$ ci-dessus, définit un champ en groupoïdes sur
+$(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Comme d'habitude, la partie la plus difficile consiste à montrer l'effectivité de la descente des objets.
+Soit pour cela $\{U_i \to U\}$ un recouvrement de $(\Sch/S)_{fppf}$.
+Soit $\xi_i = (U_i, Z_i, y_i, x_i, \alpha_i)$ un objet de
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U_i$, et soit
+$\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+une donnée de descente. Remarquons d'abord que $\varphi_{ij}$
+induit une donnée de descente $(Z_i/U_i, \varphi_{ij})$, qui est effective d'après
+Descente, lemme \ref{descent-lemma-affine}.
+On obtient ainsi un schéma $Z/U$ fini et localement libre de degré $d$ d'après
+Descente, lemme \ref{descent-lemma-descending-property-finite-locally-free}.
+Désormais, nous identifions $Z_i$ à $Z \times_U U_i$.
+Ensuite, les objets $y_i$ des catégories fibres $\mathcal{Y}_{U_i}$
+descendent en un objet $y$ de $\mathcal{Y}_U$, puisque $\mathcal{Y}$ est un
+champ en groupoïdes. De même, les objets $x_i$ des catégories fibres
+$\mathcal{X}_{Z_i}$ descendent en un objet $x$ de $\mathcal{X}_Z$, puisque
+$\mathcal{X}$ est un champ en groupoïdes. Enfin, les isomorphismes donnés
+$$
+\alpha_i :
+(y|_Z)_{Z_i} = y_i|_{Z_i}
+\longrightarrow
+F(x_i) = F(x|_{Z_i})
+$$
+se recollent en un morphisme $\alpha : y|_Z \to F(x)$, car $\mathcal{Y}$
+est un champ et $\mathit{Isom}_\mathcal{Y}(y|_Z, F(x))$ est donc
+un faisceau. Nous omettons les détails.
+\end{proof}
+
+\begin{definition}
+\label{definition-hilbert-d-stack}
+Nous appellerons $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+le {\it champ de Hilbert fini de degré $d$ de $\mathcal{X}$ sur $\mathcal{Y}$}
+construit ci-dessus. Si $\mathcal{Y} = S$, nous écrivons
+$\mathcal{H}_d(\mathcal{X}) = \mathcal{H}_d(\mathcal{X}/\mathcal{Y})$.
+Si $\mathcal{X} = \mathcal{Y} = S$, nous le notons $\mathcal{H}_d$.
+\end{definition}
+
+\noindent
+Étant donné $F : \mathcal{X} \to \mathcal{Y}$ comme ci-dessus, nous avons les
+$1$-morphismes naturels suivants de champs en groupoïdes sur
+$(\Sch/S)_{fppf}$ :
+\begin{equation}
+\label{equation-diagram-hilbert-d-stack}
+\vcenter{
+\xymatrix{
+\mathcal{H}_d(\mathcal{X}) \ar[rd] &
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \ar[d] \ar[l] \ar[r] &
+\mathcal{Y} \\
+& \mathcal{H}_d
+}
+}
+\end{equation}
+Chacune des flèches est donnée par un « foncteur d'oubli ».
+
+\begin{lemma}
+\label{lemma-faithful-hilbert}
+Le $1$-morphisme
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{H}_d(\mathcal{X})$
+est fidèle.
+\end{lemma}
+
+\begin{proof}
+Pour vérifier que
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{H}_d(\mathcal{X})$
+est fidèle, il suffit de le vérifier sur les catégories fibres.
+Soient $\xi = (U, Z, y, x, \alpha)$ et $\xi' = (U, Z', y', x', \alpha')$
+deux objets de $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus du
+schéma $U$. Soient $(g, b, a), (g', b', a') : \xi \to \xi'$ deux morphismes
+de la catégorie fibre de $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ au-dessus de $U$.
+Les images de ces morphismes dans $\mathcal{H}_d(\mathcal{X})$ coïncident
+si et seulement si $g = g'$ et $a = a'$. Le diagramme commutatif
+$$
+\xymatrix{
+y|_Z \ar[rr]_\alpha \ar[d]_{b|_Z, \ b'|_Z} & &
+F(x) \ar[d]^{F(a) = F(a')} \\
+y'|_Z \ar[rr]^-{\alpha'} & &
+F(g^*x') = F((g')^*x') \\
+}
+$$
+implique alors que $b|_Z = b'|_Z$. Puisque $Z \to U$ est fini et localement libre de degré
+$d$, la famille $\{Z \to U\}$ est un recouvrement fppf ; ainsi $b = b'$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

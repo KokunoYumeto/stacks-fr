@@ -1,0 +1,2146 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Foncteurs et morphismes}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Soient $X$ et $Y$ des schémas. Ce chapitre porte sur les rapports
+entre les foncteurs $\QCoh(\mathcal{O}_Y) \to \QCoh(\mathcal{O}_X)$ et les
+morphismes de schémas $X \to Y$. Plus généralement, nous étudions les
+rapports entre $\QCoh(\mathcal{O}_X)$ et $X$ ou, si $X$ est noethérien,
+entre $\textit{Coh}(\mathcal{O}_X)$ et $X$.
+Ces rapports ont été étudiés dans \cite{Gabriel}.
+
+
+
+
+
+
+\section{Foncteurs sur les catégories de modules}
+\label{section-preliminary}
+
+\noindent
+Pour un anneau $A$, notons $\text{Mod}^{fp}_A$ la catégorie des
+$A$-modules de présentation finie.
+
+\begin{lemma}
+\label{lemma-functor-on-fp-modules}
+Soit $A$ un anneau. Soit $\mathcal{B}$ une catégorie admettant des limites
+inductives filtrantes. Soit $F : \text{Mod}^{fp}_A \to \mathcal{B}$ un foncteur. Alors $F$
+se prolonge de manière unique en un foncteur $F' : \text{Mod}_A \to \mathcal{B}$
+qui commute aux limites inductives filtrantes.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de
+Catégories, lemme \ref{categories-lemma-extend-functor-by-colim}.
+Pour voir que ce lemme s'applique, observons que les
+$A$-modules de présentation finie sont des
+objets compacts au sens catégorique de $\text{Mod}_A$, d'après
+Algèbre, lemme \ref{algebra-lemma-characterize-finitely-presented-module-hom}.
+De plus, tout $A$-module est limite inductive filtrante
+de $A$-modules de présentation finie, d'après
+Algèbre, lemme \ref{algebra-lemma-module-colimit-fp}.
+\end{proof}
+
+\noindent
+Si une catégorie $\mathcal{B}$ est additive et admet des limites inductives filtrantes,
+alors $\mathcal{B}$ admet des sommes directes quelconques : toute somme directe s'écrit
+comme limite inductive filtrante de sommes directes finies.
+
+\begin{lemma}
+\label{lemma-functor-on-fp-modules-additive}
+Soient $A$, $\mathcal{B}$, $F$ comme dans le lemme \ref{lemma-functor-on-fp-modules}.
+Supposons que $\mathcal{B}$ et $F$ soient additifs. Alors
+$F'$ est additif et commute aux sommes directes quelconques.
+\end{lemma}
+
+\begin{proof}
+Pour montrer que $F'$ est additif, il suffit de montrer
+que $F'(M) \oplus F'(M') \to F'(M \oplus M')$ est un isomorphisme pour
+tous $A$-modules $M$, $M'$, voir
+Homologie, lemme \ref{homology-lemma-additive-functor}.
+Écrivons $M = \colim_i M_i$ et $M' = \colim_j M'_j$ comme limites inductives filtrantes
+de $A$-modules de présentation finie $M_i$. Alors
+$F'(M) = \colim_i F(M_i)$, $F'(M') = \colim_j F(M'_j)$, et
+\begin{align*}
+F'(M \oplus M')
+& =
+F'(\colim_{i, j} M_i \oplus M'_j) \\
+& =
+\colim_{i, j} F(M_i \oplus M'_j) \\
+& =
+\colim_{i, j} F(M_i) \oplus F(M'_j) \\
+& =
+F'(M) \oplus F'(M')
+\end{align*}
+comme voulu. Pour montrer que $F'$ commute aux sommes directes, supposons
+que $M = \bigoplus_{i \in I} M_i$. Alors
+$M = \colim_{I' \subset I\text{ fini}} \bigoplus_{i \in I'} M_i$
+est une limite inductive filtrante. On obtient
+\begin{align*}
+F'(M)
+& =
+\colim_{I' \subset I\text{ fini}}
+F'(\bigoplus\nolimits_{i \in I'} M_i) \\
+& =
+\colim_{I' \subset I\text{ fini}}
+\bigoplus\nolimits_{i \in I'} F'(M_i) \\
+& =
+\bigoplus\nolimits_{i \in I} F'(M_i)
+\end{align*}
+La deuxième égalité résulte de l'additivité de $F'$ déjà démontrée.
+\end{proof}
+
+\noindent
+Si une catégorie $\mathcal{B}$ est additive, admet des limites inductives filtrantes et
+des conoyaux, alors $\mathcal{B}$ admet des limites inductives quelconques, voir
+la discussion ci-dessus et Catégories, lemme
+\ref{categories-lemma-colimits-coproducts-coequalizers}.
+
+\begin{lemma}
+\label{lemma-functor-on-fp-modules-right-exact}
+Soient $A$, $\mathcal{B}$, $F$ comme dans le lemme \ref{lemma-functor-on-fp-modules}.
+Supposons que $\mathcal{B}$ soit additive, admette des conoyaux, et que $F$ soit exact à droite. Alors
+$F'$ est additif, exact à droite et commute aux sommes directes quelconques.
+\end{lemma}
+
+\begin{proof}
+Puisque $F$ est exact à droite, $F$ commute aux sommes de deux objets, qui sont
+représentées par les sommes directes. Ainsi $F$ est additif, d'après
+Homologie, lemme \ref{homology-lemma-additive-functor}.
+Donc $F'$ est additif et commute aux sommes directes, d'après le
+lemme \ref{lemma-functor-on-fp-modules-additive}.
+Nous invitons le lecteur à démontrer lui-même que $F'$ est exact à droite
+avant de lire la démonstration ci-dessous.
+
+\medskip\noindent
+Pour montrer que $F'$ est exact à droite, il suffit de montrer que $F'$ commute
+aux conoyaux de doubles flèches, voir
+Catégories, lemme \ref{categories-lemma-characterize-right-exact}.
+Or, si $a, b : K \to L$ sont des homomorphismes de $A$-modules, le
+conoyau de la double flèche formée de $a$ et $b$ est le conoyau de $a - b : K \to L$.
+Soit donc $K \to L \to M \to 0$ une suite exacte
+de $A$-modules. Nous devons montrer que, dans
+$$
+F'(K) \to F'(L) \to F'(M) \to 0
+$$
+la deuxième flèche est un conoyau de la première dans $\mathcal{B}$
+(si $\mathcal{B}$ était abélienne, nous dirions que la suite ci-dessus
+est exacte).
+Écrivons $M = \colim_{i \in I} M_i$ comme limite inductive filtrante de
+$A$-modules de présentation finie, voir
+Algèbre, lemme \ref{algebra-lemma-module-colimit-fp}.
+Posons $L_i = L \times_M M_i$. 
+On obtient un système de suites exactes $K \to L_i \to M_i \to 0$ indexé par $I$.
+Puisque les limites inductives commutent aux limites inductives, d'après
+Catégories, lemme \ref{categories-lemma-colimits-commute},
+et puisque les conoyaux sont des cas particuliers des conoyaux de doubles flèches,
+il suffit de montrer que $F'(L_i) \to F(M_i)$ est un conoyau de
+$F'(K) \to F'(L_i)$ dans $\mathcal{B}$ pour tout $i \in I$. Autrement dit, nous pouvons
+supposer $M$ de présentation finie. Écrivons $L = \colim_{i \in I} L_i$
+comme limite inductive filtrante de $A$-modules de présentation finie,
+de telle sorte que chaque $L_i$ s'envoie surjectivement sur $M$.
+Posons $K_i = K \times_L L_i$. On obtient un système de suites exactes courtes
+$K_i \to L_i \to M \to 0$ indexé par $I$.
+En répétant l'argument précédent, on se ramène à montrer que
+$F(L_i) \to F(M_i)$ est un conoyau de
+$F'(K) \to F(L_i)$ dans $\mathcal{B}$ pour tout $i \in I$.
+Autrement dit, nous pouvons supposer que
+$L$ et $M$ sont des $A$-modules de présentation finie.
+Dans ce cas, le module $\Ker(L \to M)$ est de type fini
+(Algèbre, lemme \ref{algebra-lemma-extension}).
+On peut donc écrire $K = \colim_{i \in I} K_i$ comme limite inductive filtrante
+de $A$-modules de présentation finie s'envoyant tous surjectivement sur $\Ker(L \to M)$.
+On obtient un système de suites exactes courtes
+$K_i \to L \to M \to 0$ indexé par $I$.
+En répétant l'argument précédent, on se ramène à montrer que
+$F(L) \to F(M)$ est un conoyau de
+$F(K_i) \to F(L)$ dans $\mathcal{B}$ pour tout $i \in I$.
+Autrement dit, nous pouvons supposer que $K$, $L$ et $M$
+sont des $A$-modules de présentation finie. Ce dernier cas résulte
+de l'hypothèse que $F$ est exact à droite.
+\end{proof}
+
+\noindent
+Si une catégorie $\mathcal{B}$ est additive et admet des noyaux,
+alors $\mathcal{B}$ admet des limites projectives finies. En effet, les produits finis
+sont des sommes directes, qui existent, et le noyau de la double flèche $a, b : L \to M$
+est le noyau de $a - b : K \to L$, qui existe. Toutes les limites projectives
+finies existent donc, d'après Catégories, lemme \ref{categories-lemma-finite-limits-exist}.
+
+\begin{lemma}
+\label{lemma-functor-on-fp-modules-left-exact}
+Soient $A$, $\mathcal{B}$, $F$ comme dans le lemme \ref{lemma-functor-on-fp-modules}.
+Supposons que $A$ soit un anneau cohérent (Algèbre, définition
+\ref{algebra-definition-coherent}), que $\mathcal{B}$ soit additive, admette des noyaux,
+que les limites inductives filtrantes commutent à la formation des noyaux et que $F$ soit exact à gauche. Alors
+$F'$ est additif, exact à gauche et commute aux sommes directes quelconques.
+\end{lemma}
+
+\begin{proof}
+Puisque $A$ est cohérent, la catégorie $\text{Mod}^{fp}_A$ est abélienne,
+avec les mêmes noyaux et conoyaux que dans $\text{Mod}_A$, voir
+Algèbre, lemmes \ref{algebra-lemma-coherent-ring} et
+\ref{algebra-lemma-coherent}. Toutes les limites projectives finies existent donc dans
+$\text{Mod}^{fp}_A$, et
+Catégories, définition \ref{categories-definition-exact}, s'applique.
+Puisque $F$ est exact à gauche, $F$ commute aux produits de deux objets, qui sont
+représentés par les sommes directes. Ainsi $F$ est additif, d'après
+Homologie, lemme \ref{homology-lemma-additive-functor}.
+Donc $F'$ est additif et commute aux sommes directes, d'après le
+lemme \ref{lemma-functor-on-fp-modules-additive}.
+Nous invitons le lecteur à démontrer lui-même que $F'$ est exact à gauche
+avant de lire la démonstration ci-dessous.
+
+\medskip\noindent
+Pour montrer que $F'$ est exact à gauche, il suffit de montrer que $F'$ commute
+aux noyaux de doubles flèches, voir
+Catégories, lemme \ref{categories-lemma-characterize-left-exact}.
+Or, si $a, b : L \to M$ sont des homomorphismes de $A$-modules, le
+noyau de la double flèche formée de $a$ et $b$ est le noyau de $a - b : L \to M$.
+Soit donc $0 \to K \to L \to M$ une suite exacte
+de $A$-modules. Nous devons montrer que, dans
+$$
+0 \to F'(K) \to F'(L) \to F'(M)
+$$
+la flèche $F'(K) \to F'(L)$ est un noyau de $F'(L) \to F'(M)$ dans $\mathcal{B}$
+(si $\mathcal{B}$ était abélienne, nous dirions que la suite ci-dessus
+est exacte).
+Écrivons $M = \colim_{i \in I} M_i$ comme limite inductive filtrante de
+$A$-modules de présentation finie, voir
+Algèbre, lemme \ref{algebra-lemma-module-colimit-fp}.
+Posons $L_i = L \times_M M_i$. 
+On obtient un système de suites exactes $0 \to K \to L_i \to M_i$
+indexé par $I$. Puisque, par hypothèse, les limites inductives filtrantes commutent à la formation des noyaux
+dans $\mathcal{B}$, 
+il suffit de montrer que $F'(K) \to F'(L_i)$ est un noyau de
+$F'(L_i) \to F(M_i)$ dans $\mathcal{B}$ pour tout $i \in I$. Autrement dit, nous pouvons
+supposer $M$ de présentation finie. Écrivons $L = \colim_{i \in I} L_i$
+comme limite inductive filtrante de $A$-modules de présentation finie.
+Posons $K_i = K \times_L L_i$. On obtient un système de suites exactes courtes
+$0 \to K_i \to L_i \to M$ indexé par $I$.
+En répétant l'argument précédent, on se ramène à montrer que
+$F'(K_i) \to F(L_i)$ est un noyau de
+$F(L_i) \to F(M)$ dans $\mathcal{B}$ pour tout $i \in I$.
+Autrement dit, nous pouvons supposer que
+$L$ et $M$ sont des $A$-modules de présentation finie.
+Puisque $A$ est cohérent, le $A$-module $K = \Ker(L \to M)$ est
+de présentation finie, car la catégorie des
+$A$-modules de présentation finie est abélienne (voir les références ci-dessus).
+Autrement dit, les trois modules $K$, $L$ et $M$
+sont des $A$-modules de présentation finie. Ce dernier cas résulte
+de l'hypothèse que $F$ est exact à gauche.
+\end{proof}
+
+\noindent
+Si une catégorie $\mathcal{B}$ est additive et admet des conoyaux,
+alors $\mathcal{B}$ admet des limites inductives finies. En effet, les sommes finies
+sont des sommes directes, qui existent, et le conoyau de la double flèche $a, b : K \to L$
+est le conoyau de $a - b : K \to L$, qui existe. Toutes les limites inductives
+finies existent donc, d'après Catégories, lemme \ref{categories-lemma-colimits-exist}.
+
+\begin{lemma}
+\label{lemma-functor-on-modules-fp}
+Soit $A$ un anneau. Soit $\mathcal{B}$ une catégorie additive
+admettant des conoyaux. Il existe une équivalence de catégories entre
+\begin{enumerate}
+\item la catégorie des foncteurs $F : \text{Mod}^{fp}_A \to \mathcal{B}$
+exacts à droite, et
+\item la catégorie des couples $(K, \kappa)$ où $K \in \Ob(\mathcal{B})$
+et où $\kappa : A \to \text{End}_\mathcal{B}(K)$ est un homomorphisme d'anneaux,
+\end{enumerate}
+donnée par la règle qui à $F$ associe $F(A)$ muni de son action naturelle de $A$.
+\end{lemma}
+
+\begin{proof}
+Soit $(K, \kappa)$ comme dans (2). Nous allons construire un foncteur
+$F : \text{Mod}^{fp}_A \to \mathcal{B}$ tel que $F(A) = K$,
+muni de l'action donnée de $A$ par $\kappa$. Pour un
+entier $n \geq 0$, posons
+$$
+F(A^{\oplus n}) = K^{\oplus n}
+$$
+Étant donnée une application $A$-linéaire $\varphi : A^{\oplus m} \to A^{\oplus n}$
+de matrice $(a_{ij}) \in \text{Mat}(n \times m, A)$, définissons
+$$
+F(\varphi) :
+F(A^{\oplus m}) = K^{\oplus m}
+\longrightarrow
+K^{\oplus n} = F(A^{\oplus n})
+$$
+comme l'application de matrice $(\kappa(a_{ij}))$. Cela définit un foncteur
+additif $F$ de la sous-catégorie pleine de
+$\text{Mod}^{fp}_A$ d'objets $0$, $A$, $A^{\oplus 2}$, $\ldots$
+dans $\mathcal{B}$ ; nous omettons la vérification.
+
+\medskip\noindent
+Pour chaque objet $M$ de $\text{Mod}^{fp}_A$, choisissons une présentation
+$$
+A^{\oplus m_M} \xrightarrow{\varphi_M} A^{\oplus n_M} \to M \to 0
+$$
+de $M$ comme $A$-module. Prenons la présentation triviale
+$0 \to A^{\oplus n} \xrightarrow{1} A^{\oplus n} \to 0$ si $M = A^{\oplus n}$
+(ce n'est pas nécessaire, mais simplifie l'exposé).
+Pour chaque morphisme $f : M \to N$ de
+$\text{Mod}^{fp}_A$, nous pouvons choisir un diagramme commutatif
+\begin{equation}
+\label{equation-map}
+\vcenter{
+\xymatrix{
+A^{\oplus m_M} \ar[r]_{\varphi_M} \ar[d]_{\psi_f} &
+A^{\oplus n_M} \ar[r] \ar[d]_{\chi_f} &
+M \ar[r] \ar[d]_f & 0 \\
+A^{\oplus m_N} \ar[r]^{\varphi_N} &
+A^{\oplus n_N} \ar[r] &
+N \ar[r] & 0
+}
+}
+\end{equation}
+Ces choix étant faits, nous pouvons définir ce qui suit : pour un objet
+$M$ de $\text{Mod}^{fp}_A$, posons
+$$
+F(M) = \Coker(F(\varphi_M) : F(A^{\oplus m_M}) \to F(A^{\oplus n_M}))
+$$
+et, pour un morphisme $f : M \to N$ de $\text{Mod}^{fp}_A$, posons
+$$
+F(f) = \text{le morphisme }F(M) \to F(N)\text{ induit par }
+F(\psi_f)\text{ et }F(\chi_f)\text{ sur les conoyaux}
+$$
+Notons que cette règle prolonge le foncteur $F$ donné sur
+la sous-catégorie pleine constituée des modules libres $A^{\oplus n}$.
+Il reste à montrer que $F$ est un foncteur, que $F$ est additif
+et que $F$ est exact à droite.
+
+\medskip\noindent
+Soit $f : M \to N$ un morphisme de $\text{Mod}^{fp}_A$. Montrons que le morphisme
+$F(f)$ définie ci-dessus est indépendante du choix de $\psi_f$ et de $\chi_f$
+dans (\ref{equation-map}). Supposons en effet que
+$$
+\xymatrix{
+A^{\oplus m_M} \ar[r]_{\varphi_M} \ar[d]_\psi &
+A^{\oplus n_M} \ar[r] \ar[d]_\chi &
+M \ar[r] \ar[d]_f & 0 \\
+A^{\oplus m_N} \ar[r]^{\varphi_N} &
+A^{\oplus n_N} \ar[r] &
+N \ar[r] & 0
+}
+$$
+soit également commutatif. Notons $F(f)' : F(M) \to F(N)$ le morphisme
+induit par $F(\psi)$ et $F(\chi)$. À la vue des diagrammes
+commutatifs, un argument élémentaire d'algèbre commutative fournit un homomorphisme
+$\omega : A^{\oplus n_M} \to A^{\oplus m_N}$ telle que
+$\chi = \chi_f + \varphi_N \circ \omega$. En appliquant $F$,
+on trouve $F(\chi) = F(\chi_f) + F(\varphi_N) \circ F(\omega)$.
+Puisque $F(N)$ est le conoyau de $F(\varphi_N)$, on voit
+que le morphisme $F(A^{\oplus n_M}) \to F(M)$ égalise $F(f)$ et $F(f)'$.
+Un conoyau étant un épimorphisme, on en conclut que $F(f) = F(f)'$.
+
+\medskip\noindent
+Montrons que $F$ est un foncteur. Observons d'abord que
+$F(\text{id}_M) = \text{id}_{F(M)}$, car nous pouvons choisir
+les identités pour $\psi_f$ et $\chi_f$ dans le diagramme ci-dessus
+lorsque $f = \text{id}_M$. Supposons ensuite donnés
+$f : M \to N$ et $g : L \to M$. Alors
+$\psi = \psi_f \circ \psi_g$ et $\chi = \chi_f \circ \chi_g$
+conviennent dans (\ref{equation-map}) pour $f \circ g$.
+Ils induisent donc le morphisme voulu, ce qui exprime précisément
+que $F(f) \circ F(g) = F(f \circ g)$.
+
+\medskip\noindent
+Montrons que $F$ est additif. Supposons donnés
+$f, g : M \to N$. Alors $\psi = \psi_f + \psi_g$ et
+$\chi = \chi_f + \chi_g$ conviennent dans (\ref{equation-map}) pour $f + g$.
+Ils induisent donc le morphisme voulu, ce qui exprime précisément
+que $F(f) + F(g) = F(f + g)$.
+
+\medskip\noindent
+Montrons enfin que $F$ est exact à droite. Il suffit de montrer que $F$
+commute aux conoyaux de doubles flèches, voir
+Catégories, lemme \ref{categories-lemma-characterize-right-exact}.
+Pour cela, il suffit de montrer que $F$ commute aux conoyaux.
+Soit $K \to L \to M \to 0$ une suite exacte de $A$-modules
+avec $K$, $L$, $M$ de présentation finie. Puisque $F$ est un foncteur
+additif, on obtient bien un complexe
+$$
+F(K) \to F(L) \to F(M) \to 0
+$$
+et il faut montrer que la deuxième flèche est le conoyau de la première
+dans $\mathcal{B}$. En tout cas, on obtient un morphisme
+$\Coker(F(K) \to F(L)) \to F(M)$.
+Un argument élémentaire d'algèbre commutative fournit un diagramme commutatif
+$$
+\xymatrix{
+A^{\oplus m_M} \ar[r]_{\varphi_M} \ar[d]_\psi &
+A^{\oplus n_M} \ar[r] \ar[d]_\chi &
+M \ar[r] \ar[d]_1 & 0 \\
+K \ar[r] &
+L \ar[r] &
+M \ar[r] & 0
+}
+$$
+En appliquant $F$ à ce diagramme et en utilisant la construction de $F(M)$ comme
+conoyau de $F(\varphi_M)$, on trouve un morphisme
+$F(M) \to \Coker(F(K) \to F(L))$ inverse à droite
+du morphisme $\Coker(F(K) \to F(L)) \to F(M)$. Il en résulte d'abord
+que $F(L) \to F(M)$ est toujours un épimorphisme. Ensuite, ce qui précède donne
+une décomposition
+$$
+\Coker(F(K) \to F(L)) = F(M) \oplus E
+$$
+compatible à la fois avec
+$F(M) \to \Coker(F(K) \to F(L))$ et $\Coker(F(K) \to F(L)) \to F(M)$.
+Mais alors l'épimorphisme $p : F(L) \to E$ devient nul aussi bien
+après composition avec $F(K) \to F(L)$ qu'après composition
+avec $F(A^{n_M}) \to F(L)$. Or, puisque $K \oplus A^{n_M} \to L$
+est surjectif (nous omettons l'argument algébrique), on en conclut que
+$F(K \oplus A^{n_M}) \to F(L)$ est un épimorphisme (d'après ce qui précède),
+d'où $E = 0$. Cela achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functor-on-modules}
+Soit $A$ un anneau. Soit $\mathcal{B}$ une catégorie additive
+admettant des sommes directes quelconques et des conoyaux. Il existe une équivalence
+de catégories entre
+\begin{enumerate}
+\item la catégorie des foncteurs $F : \text{Mod}_A \to \mathcal{B}$
+exacts à droite et commutant aux sommes directes quelconques, et
+\item la catégorie des couples $(K, \kappa)$ où $K \in \Ob(\mathcal{B})$
+et où $\kappa : A \to \text{End}_\mathcal{B}(K)$ est un homomorphisme d'anneaux,
+\end{enumerate}
+donnée par la règle qui à $F$ associe $F(A)$ muni de son action naturelle de $A$.
+\end{lemma}
+
+\begin{proof}
+Combinons les lemmes \ref{lemma-functor-on-modules-fp} et
+\ref{lemma-functor-on-fp-modules-right-exact}.
+\end{proof}
+
+
+
+
+
+
+\section{Foncteurs entre catégories de modules}
+\label{section-functors}
+
+\noindent
+Le lemme suivant est l'archétype des résultats de ce chapitre.
+
+\begin{lemma}
+\label{lemma-functor}
+Soient $A$ et $B$ des anneaux. Soit $F : \text{Mod}_A \to \text{Mod}_B$
+un foncteur. Les propriétés suivantes sont équivalentes :
+\begin{enumerate}
+\item $F$ est isomorphe au foncteur $M \mapsto M \otimes_A K$
+pour un certain $A \otimes_\mathbf{Z} B$-module $K$ ;
+\item $F$ est exact à droite et commute à toutes les sommes directes ;
+\item $F$ commute à toutes les limites inductives ;
+\item $F$ admet un adjoint à droite $G$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Si (1) est satisfaite, alors (4) l'est aussi, car un adjoint à droite de $M \mapsto M \otimes_A K$
+est $N \mapsto \Hom_B(K, N)$, voir
+Algèbre différentielle graduée, lemme \ref{dga-lemma-tensor-hom-adjunction}.
+Si (4) est satisfaite, alors (3) l'est d'après Catégories, lemme \ref{categories-lemma-adjoint-exact}.
+L'implication (3) $\Rightarrow$ (2) résulte immédiatement des définitions.
+
+\medskip\noindent
+Supposons (2). Nous allons démontrer (1). D'après la discussion de
+Homologie, section \ref{homology-section-functors},
+le foncteur $F$ est additif. Ainsi, $F$ induit
+un homomorphisme d'anneaux $A \to \text{End}_B(F(M))$, $a \mapsto F(a \cdot \text{id}_M)$
+pour tout $A$-module $M$. Nous en concluons que $F(M)$ est un
+$A \otimes_\mathbf{Z} B$-module, fonctoriellement en $M$.
+Posons $K = F(A)$. Définissons
+$$
+M \otimes_A K = M \otimes_A F(A) \longrightarrow F(M),
+\quad m \otimes k \longmapsto F(\varphi_m)(k)
+$$
+Ici, $\varphi_m : A \to M$ envoie $a \to am$. La règle
+$(m, k) \mapsto F(\varphi_m)(k)$ est $A$-bilinéaire (et $B$-linéaire
+à droite), comme requis pour obtenir l'homomorphisme
+$A \otimes_\mathbf{Z} B$-linéaire affichée.
+Cette construction est fonctorielle en $M$ ; elle définit donc une transformation
+de foncteurs $- \otimes_A K \to F(-)$ qui est un isomorphisme lorsqu'on
+l'évalue en $A$. Pour tout $A$-module $M$, nous pouvons choisir une suite exacte
+$$
+\bigoplus\nolimits_{j \in J} A \to
+\bigoplus\nolimits_{i \in I} A \to
+M \to 0
+$$
+En utilisant les morphismes construits ci-dessus, nous obtenons un diagramme commutatif
+$$
+\xymatrix{
+(\bigoplus\nolimits_{j \in J} A) \otimes_A K \ar[r] \ar[d] &
+(\bigoplus\nolimits_{i \in I} A) \otimes_A K \ar[r] \ar[d] &
+M \otimes_A K \ar[r] \ar[d] &
+0 \\
+F(\bigoplus\nolimits_{j \in J} A) \ar[r] &
+F(\bigoplus\nolimits_{i \in I} A) \ar[r] &
+F(M) \ar[r] &  0
+}
+$$
+La ligne inférieure est exacte puisque $F$ est exact à droite.
+La ligne supérieure est exacte puisque le produit tensoriel par $K$ est exact à droite.
+Comme $F$ commute aux sommes directes, les deux flèches verticales de gauche
+sont bijectives. Nous pouvons donc conclure.
+\end{proof}
+
+\begin{example}
+\label{example-functor-modules}
+Soit $R$ un anneau. Soient $A$ et $B$ des $R$-algèbres. Soit $K$ un
+$A \otimes_R B$-module. Nous pouvons alors considérer le foncteur
+\begin{equation}
+\label{equation-FM-modules}
+F : \text{Mod}_A \longrightarrow \text{Mod}_B,\quad
+M \longmapsto M \otimes_A K
+\end{equation}
+Ce foncteur est $R$-linéaire, exact à droite,
+commute aux sommes directes quelconques, commute
+à toutes les limites inductives et admet un adjoint à droite (lemme \ref{lemma-functor}).
+\end{example}
+
+\begin{lemma}
+\label{lemma-functor-modules}
+Soit $R$ un anneau. Soient $A$ et $B$ des $R$-algèbres. Il existe une
+équivalence de catégories entre
+\begin{enumerate}
+\item la catégorie des foncteurs $R$-linéaires
+$F : \text{Mod}_A \to \text{Mod}_B$ qui
+sont exacts à droite et commutent aux sommes directes quelconques, et
+\item la catégorie $\text{Mod}_{A \otimes_R B}$,
+\end{enumerate}
+donnée en associant à $K$ le foncteur $F$ de (\ref{equation-FM-modules}).
+\end{lemma}
+
+\begin{proof}
+Soit $F$ un objet de la première catégorie. D'après le
+lemme \ref{lemma-functor}, nous pouvons supposer que $F(M) = M \otimes_A K$
+fonctoriellement en $M$, pour un certain $A \otimes_\mathbf{Z} B$-module $K$.
+La $R$-linéarité de $F$ implique immédiatement que la structure de
+$A \otimes_\mathbf{Z} B$-module sur $K$ provient
+d'une (unique) structure de $A \otimes_R B$-module sur $K$.
+Nous voyons donc que l'association de $K$ à $F$ comme dans (\ref{equation-FM-modules})
+est essentiellement surjective.
+
+\medskip\noindent
+Pour démontrer que notre foncteur est pleinement fidèle, nous devons montrer que,
+étant donnés des $A \otimes_R B$-modules $K$ et $K'$, toute transformation
+$t : F \to F'$ entre les foncteurs correspondants provient
+d'un unique $\varphi : K \to K'$. Puisque $K = F(A)$ et $K' = F'(A)$,
+nous pouvons prendre pour $\varphi$ la valeur $t_A : F(A) \to F'(A)$
+de $t$ en $A$. Cet homomorphisme est $A \otimes_R B$-linéaire d'après la
+définition de la structure de $A \otimes B$-module sur $F(A)$
+et $F'(A)$ donnée dans la démonstration du lemme \ref{lemma-functor}.
+\end{proof}
+
+\begin{remark}
+\label{remark-composition}
+Soit $R$ un anneau. Soient $A$, $B$, $C$ des $R$-algèbres.
+Soient $F : \text{Mod}_A \to \text{Mod}_B$ et
+$F' : \text{Mod}_B \to \text{Mod}_C$ des foncteurs
+$R$-linéaires exacts à droite qui commutent aux sommes directes quelconques.
+Si, par l'équivalence du lemme \ref{lemma-functor-modules}, l'objet
+$K$ de $\text{Mod}_{A \otimes_R B}$ correspond à $F$ et l'objet
+$K'$ de $\text{Mod}_{B \otimes_R C}$ correspond à $F'$, alors
+$K \otimes_B K'$, vu comme un objet de
+$\text{Mod}_{A \otimes_R C}$, correspond à $F' \circ F$.
+\end{remark}
+
+\begin{remark}
+\label{remark-exact-flat}
+Dans la situation du lemme \ref{lemma-functor-modules},
+supposons que $F$ corresponde à $K$. Alors
+$F$ est exact $\Leftrightarrow$ $K$ est plat sur $A$.
+\end{remark}
+
+\begin{remark}
+\label{remark-finite}
+Dans la situation du lemme \ref{lemma-functor-modules},
+supposons que $F$ corresponde à $K$. Alors
+$F$ envoie les $A$-modules finis sur des $B$-modules finis
+$\Leftrightarrow$ $K$ est fini comme $B$-module.
+\end{remark}
+
+\begin{remark}
+\label{remark-finite-presentation}
+Dans la situation du lemme \ref{lemma-functor-modules},
+supposons que $F$ corresponde à $K$. Alors
+$F$ envoie les $A$-modules de présentation finie sur des $B$-modules de présentation finie
+$\Leftrightarrow$ $K$ est de présentation finie comme $B$-module.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-functor-equivalence}
+Soient $A$ et $B$ des anneaux. Si
+$$
+F : \text{Mod}_A \longrightarrow \text{Mod}_B
+$$
+est une équivalence de catégories, alors il existe un isomorphisme
+d'anneaux $A \to B$ et un $B$-module inversible $L$ tels que
+$F$ soit isomorphe au foncteur $M \mapsto (M \otimes_A B) \otimes_B L$.
+\end{lemma}
+
+\begin{proof}
+Puisqu'une équivalence commute à toutes les limites inductives, nous voyons que le
+lemme \ref{lemma-functor} s'applique. Soit $K$ le
+$A \otimes_\mathbf{Z} B$-module tel que $F$ soit
+isomorphe au foncteur $M \mapsto M \otimes_A K$.
+Soit $K'$ le $B \otimes_\mathbf{Z} A$-module tel qu'un
+quasi-inverse de $F$ soit
+isomorphe au foncteur $N \mapsto N \otimes_B K'$.
+D'après la remarque \ref{remark-composition} et le
+lemme \ref{lemma-functor-modules}, nous avons un isomorphisme
+$$
+\psi : K \otimes_B K' \longrightarrow A
+$$
+de $A \otimes_\mathbf{Z} A$-modules.
+De même, nous avons un isomorphisme
+$$
+\psi' : K' \otimes_A K \longrightarrow B
+$$
+de $B \otimes_\mathbf{Z} B$-modules. Choisissons un élément
+$\xi = \sum_{i = 1, \ldots, n} x_i \otimes y_i \in K \otimes_B K'$
+tel que $\psi(\xi) = 1$. Considérons les isomorphismes
+$$
+K \xrightarrow{\psi^{-1} \otimes \text{id}_K}
+K \otimes_B K' \otimes_A K \xrightarrow{\text{id}_K \otimes \psi'} K
+$$
+Leur composé est un isomorphisme donné par
+$$
+k \longmapsto \sum x_i \psi'(y_i \otimes k)
+$$
+Nous en concluons que cet automorphisme se factorise comme
+$$
+K \to B^{\oplus n} \to K
+$$
+en tant qu'homomorphisme de $B$-modules. Il s'ensuit que $K$ est un
+$B$-module projectif fini.
+
+\medskip\noindent
+Nous affirmons que $K$ est inversible comme $B$-module. Cela revient
+à demander que le rang de $K$ comme $B$-module ait la valeur constante $1$ ;
+voir Plus sur l'algèbre, lemme \ref{more-algebra-lemma-invertible}, et
+Algèbre, lemme \ref{algebra-lemma-finite-projective}.
+Sinon, il existe un idéal maximal $\mathfrak m \subset B$
+tel que soit (a) $K \otimes_B B/\mathfrak m = 0$, soit
+(b) il existe une surjection $K \to (B/\mathfrak m)^{\oplus 2}$ de
+$B$-modules. Le cas (a) est absurde puisque $K' \otimes_A K \otimes_B N = N$
+pour tout $B$-module $N$. Le cas (b) impliquerait l'existence d'une surjection
+$$
+A = K \otimes_B K' \longrightarrow (B/\mathfrak m \otimes_B K')^{\oplus 2}
+$$
+de $A$-modules (à droite). C'est impossible, car la cible est un $A$-module
+qui nécessite au moins deux générateurs : $B/\mathfrak m \otimes_B K'$
+est non nul, car il est l'image du module non nul $B/\mathfrak m$ par
+le quasi-inverse de $F$.
+
+\medskip\noindent
+Puisque $K$ est inversible comme $B$-module, nous avons $\Hom_B(K, K) = B$.
+Comme $K = F(A)$, l'action de $A$ sur $K$ définit un isomorphisme d'anneaux
+$A \to B$. Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functor-equivalence-linear}
+Soit $R$ un anneau. Soient $A$ et $B$ des $R$-algèbres. Si
+$$
+F : \text{Mod}_A \longrightarrow \text{Mod}_B
+$$
+est une équivalence $R$-linéaire de catégories, alors il existe
+un isomorphisme $A \to B$ de $R$-algèbres et un $B$-module inversible $L$ tels que
+$F$ soit isomorphe au foncteur $M \mapsto (M \otimes_A B) \otimes_B L$.
+\end{lemma}
+
+\begin{proof}
+Le lemme \ref{lemma-functor-equivalence} nous fournit $A \to B$ et $L$.
+Pour achever la démonstration, il reste à montrer que la $R$-linéarité
+de $F$ force $A \to B$ à être un homomorphisme de $R$-algèbres. Nous omettons les détails.
+\end{proof}
+
+\begin{remark}
+\label{remark-monoidal}
+Soient $A$ et $B$ des anneaux. Munissons $\text{Mod}_A$ et $\text{Mod}_B$
+de la structure monoïdale usuelle donnée par les produits tensoriels de modules.
+Soit $F : \text{Mod}_A \to \text{Mod}_B$ un foncteur de
+catégories monoïdales, voir
+Catégories, définition \ref{categories-definition-functor-monoidal-categories}.
+Voici quelques remarques :
+\begin{enumerate}
+\item Puisque $F(A)$ est une unité (d'après nos définitions), nous avons $F(A) = B$.
+\item Nous obtenons une application multiplicative $\varphi : A \to B$
+en envoyant $a \in A$ sur son action sur $F(A) = B$.
+\item Prenons $A = B$ et $F(M) = M \otimes_A M$. Dans ce cas, $\varphi(a) = a^2$.
+\item Si $F$ est additif, alors $\varphi$ est un homomorphisme d'anneaux.
+\item Prenons $A = B = \mathbf{Z}$ et $F(M) = M/\text{torsion}$. Alors
+$\varphi = \text{id}_\mathbf{Z}$, mais $F$ n'est pas le foncteur identité.
+\item Si $F$ est exact à droite et commute aux sommes directes,
+alors $F(M) = M \otimes_{A, \varphi} B$ d'après le lemme \ref{lemma-functor}.
+\end{enumerate}
+Autrement dit, les homomorphismes d'anneaux $A \to B$ sont en bijection avec les classes d'isomorphisme
+de foncteurs de catégories monoïdales $\text{Mod}_A \to \text{Mod}_B$
+qui commutent à toutes les limites inductives.
+\end{remark}
+
+
+
+
+\section{Prolongement des foncteurs sur des catégories de modules}
+\label{section-functors-extend}
+
+\noindent
+Pour un anneau $A$, notons $\text{Mod}^{fp}_A$ la catégorie des
+$A$-modules de présentation finie.
+
+\begin{lemma}
+\label{lemma-functor-fp-modules}
+Soient $A$ et $B$ des anneaux. Soit
+$F : \text{Mod}^{fp}_A \to \text{Mod}^{fp}_B$ un foncteur.
+Alors $F$ se prolonge de manière unique en un foncteur
+$F' : \text{Mod}_A \to \text{Mod}_B$
+qui commute aux limites inductives filtrantes.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-functor-on-fp-modules}.
+\end{proof}
+
+\begin{remark}
+\label{remark-monoidal-extension}
+Conservons $A$, $B$, $F$ et $F'$ comme dans le lemme \ref{lemma-functor-fp-modules}.
+Observons que le produit tensoriel de deux modules de présentation finie est
+de présentation finie ; voir Algèbre, lemme \ref{algebra-lemma-tensor-finiteness}.
+Nous pouvons donc munir $\text{Mod}^{fp}_A$, $\text{Mod}^{fp}_B$,
+$\text{Mod}_A$ et $\text{Mod}_B$ de la structure monoïdale usuelle
+donnée par les produits tensoriels de modules. Dans ce cas, si $F$ est
+un foncteur de catégories monoïdales, alors $F'$ l'est aussi. Cela résulte immédiatement
+du fait que les produits tensoriels de modules commutent aux limites inductives
+filtrantes.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-functor-fp-modules-exact}
+Conservons $A$, $B$, $F$ et $F'$ comme dans le lemme \ref{lemma-functor-fp-modules}.
+\begin{enumerate}
+\item Si $F$ est additif, alors $F'$ est additif et
+commute aux sommes directes quelconques ;
+\item si $F$ est exact à droite, alors $F'$ est exact à droite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte des lemmes \ref{lemma-functor-on-fp-modules-additive} et
+\ref{lemma-functor-on-fp-modules-right-exact}.
+\end{proof}
+
+\begin{remark}
+\label{remark-monoidal-extension-exact}
+En combinant les remarques \ref{remark-monoidal} et \ref{remark-monoidal-extension}
+et le lemme \ref{lemma-functor-fp-modules-exact},
+nous obtenons ce qui suit. Étant donnés des anneaux $A$ et $B$, l'ensemble des homomorphismes d'anneaux $A \to B$
+est en bijection avec l'ensemble des classes d'isomorphisme
+de foncteurs de catégories monoïdales $\text{Mod}^{fp}_A \to \text{Mod}^{fp}_B$
+qui sont exacts à droite.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-functor-fp-modules-left-exact}
+Conservons $A$, $B$, $F$ et $F'$ comme dans le lemme \ref{lemma-functor-fp-modules}.
+Supposons que $A$ soit un anneau cohérent
+(Algèbre, définition \ref{algebra-definition-coherent}).
+Si $F$ est exact à gauche, alors $F'$ est exact à gauche.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-functor-on-fp-modules-left-exact}.
+\end{proof}
+
+\noindent
+Pour un anneau $A$, notons $\text{Mod}^{fg}_A$ la catégorie des
+$A$-modules de type fini (aussi appelés $A$-modules finis).
+
+\begin{lemma}
+\label{lemma-functor-finite-modules}
+Soient $A$ et $B$ des anneaux noethériens. Soit
+$F : \text{Mod}^{fg}_A \to \text{Mod}^{fg}_B$ un foncteur.
+Alors $F$ se prolonge de manière unique en un foncteur $F' : \text{Mod}_A \to \text{Mod}_B$
+qui commute aux limites inductives filtrantes. Si $F$ est additif, alors
+$F'$ est additif et commute aux sommes directes quelconques.
+Si $F$ est exact, exact à gauche ou exact à droite, alors $F'$ l'est aussi.
+\end{lemma}
+
+\begin{proof}
+Voir les lemmes \ref{lemma-functor-fp-modules-exact} et
+\ref{lemma-functor-fp-modules-left-exact}.
+Utilisons aussi le fait que les $A$-modules finis sont des $A$-modules de présentation finie ;
+voir Algèbre, lemme
+\ref{algebra-lemma-Noetherian-finite-type-is-finite-presentation},
+ainsi que le fait que les anneaux noethériens sont cohérents ; voir
+Algèbre, lemme \ref{algebra-lemma-Noetherian-coherent}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Foncteurs entre catégories de modules quasi-cohérents}
+\label{section-functor-quasi-coherent}
+
+\noindent
+Dans cette section, nous étudions brièvement les foncteurs entre catégories de
+modules quasi-cohérents.
+
+\begin{example}
+\label{example-functor-quasi-coherent}
+Soit $R$ un anneau. Soient $X$ et $Y$ des
+schémas sur $R$, avec $X$ quasi-compact et quasi-séparé.
+Soit $\mathcal{K}$ un $\mathcal{O}_{X \times_R Y}$-module quasi-cohérent.
+Nous pouvons alors considérer le foncteur
+\begin{equation}
+\label{equation-FM-QCoh}
+F : \QCoh(\mathcal{O}_X) \longrightarrow \QCoh(\mathcal{O}_Y),\quad
+\mathcal{F} \longmapsto
+\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})
+\end{equation}
+Le morphisme $\text{pr}_2$ est quasi-compact et quasi-séparé
+(Schémas, lemmes \ref{schemes-lemma-quasi-compact-preserved-base-change}
+et \ref{schemes-lemma-separated-permanence}). Par conséquent, l'image directe par
+ce morphisme préserve les modules quasi-cohérents ; voir
+Schémas, lemme \ref{schemes-lemma-push-forward-quasi-coherent}.
+De plus, notre foncteur est $R$-linéaire et commute aux sommes directes quelconques ;
+voir Cohomologie des schémas, lemme \ref{coherent-lemma-colimit-cohomology}.
+\end{example}
+
+\noindent
+Le lemme suivant est une généralisation naturelle du
+lemme \ref{lemma-functor-modules}.
+
+\begin{lemma}
+\label{lemma-functor-quasi-coherent-from-affine}
+Soit $R$ un anneau. Soient $X$ et $Y$ des schémas sur $R$, avec $X$ affine.
+Il existe une équivalence de catégories entre
+\begin{enumerate}
+\item la catégorie des foncteurs $R$-linéaires
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+qui sont exacts à droite et commutent aux sommes directes quelconques, et
+\item la catégorie $\QCoh(\mathcal{O}_{X \times_R Y})$,
+\end{enumerate}
+donnée en associant à $\mathcal{K}$ le foncteur $F$ de (\ref{equation-FM-QCoh}).
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{K}$ un objet de $\QCoh(\mathcal{O}_{X \times_R Y})$
+et soit $F_\mathcal{K}$ le foncteur (\ref{equation-FM-QCoh}). D'après la discussion de
+l'exemple \ref{example-functor-quasi-coherent}, nous savons déjà que
+$F$ est $R$-linéaire et commute aux sommes directes quelconques.
+Comme $\text{pr}_2 : X \times_R Y \to Y$ est affine
+(Morphismes, lemme \ref{morphisms-lemma-base-change-affine}), le foncteur
+$\text{pr}_{2, *}$ est exact ; voir Cohomologie des schémas, lemme
+\ref{coherent-lemma-relative-affine-vanishing}.
+Ainsi, $F$ est aussi exact à droite ; autrement dit, $F$ est comme en (1).
+
+\medskip\noindent
+Soit $F$ comme en (1). Écrivons $X = \Spec(A)$. Considérons le
+$\mathcal{O}_Y$-module quasi-cohérent $\mathcal{G} = F(\mathcal{O}_X)$.
+Le foncteur $F$ induit une application $R$-linéaire
+$A \to \text{End}_{\mathcal{O}_Y}(\mathcal{G})$,
+$a \mapsto F(a \cdot \text{id})$. Ainsi, $\mathcal{G}$ est un module sur le faisceau d'anneaux
+$$
+A \otimes_R \mathcal{O}_Y = \text{pr}_{2, *}\mathcal{O}_{X \times_R Y}
+$$
+D'après Morphismes, lemme \ref{morphisms-lemma-affine-equivalence-modules},
+nous trouvons qu'il existe un unique module quasi-cohérent $\mathcal{K}$
+sur $X \times_R Y$ tel que $F(\mathcal{O}_X) = \mathcal{G} =
+\text{pr}_{2, *}\mathcal{K}$, de manière compatible avec l'action
+de $A$ et de $\mathcal{O}_Y$. Notons $F_\mathcal{K}$ le foncteur
+donné par (\ref{equation-FM-QCoh}). Il existe une équivalence
+$\text{Mod}_A \to \QCoh(\mathcal{O}_X)$ envoyant $A$ sur $\mathcal{O}_X$ ; voir
+Schémas, lemme \ref{schemes-lemma-equivalence-quasi-coherent}.
+Nous obtenons donc un isomorphisme $F \cong F_\mathcal{K}$ d'après le
+lemme \ref{lemma-functor-on-modules}, car nous avons un isomorphisme
+$F(\mathcal{O}_X) \cong F_\mathcal{K}(\mathcal{O}_X)$ compatible avec
+l'action de $A$ par construction.
+
+\medskip\noindent
+Cela montre que le foncteur qui associe à $\mathcal{K}$ le foncteur $F_\mathcal{K}$
+est essentiellement surjectif. Nous omettons la vérification de la pleine fidélité.
+\end{proof}
+
+\begin{remark}
+\label{remark-affine-morphism}
+Nous utiliserons ci-dessous que, pour un morphisme affine
+$h : T \to S$, nous avons $h_*\mathcal{G} \otimes_{\mathcal{O}_S} \mathcal{H} =
+h_*(\mathcal{G} \otimes_{\mathcal{O}_T} h^*\mathcal{H})$ pour
+$\mathcal{G} \in \QCoh(\mathcal{O}_T)$ et
+$\mathcal{H} \in \QCoh(\mathcal{O}_S)$. Cela résulte
+immédiatement de la traduction en algèbre.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-functor-quasi-coherent-from-affine-compose}
+Dans le lemme \ref{lemma-functor-quasi-coherent-from-affine}, supposons que $F$
+corresponde à $\mathcal{K}$ dans $\QCoh(\mathcal{O}_{X \times_R Y})$.
+Nous avons :
+\begin{enumerate}
+\item Si $f : X' \to X$ est un morphisme affine, alors $F \circ f_*$
+correspond à $(f \times \text{id}_Y)^*\mathcal{K}$.
+\item Si $g : Y' \to Y$ est un morphisme plat, alors $g^* \circ F$ correspond à
+$(\text{id}_X \times g)^*\mathcal{K}$.
+\item Si $j : V \to Y$ est une immersion ouverte, alors $j^* \circ F$
+correspond à $\mathcal{K}|_{X \times_R V}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration de (1). Considérons le diagramme commutatif
+$$
+\xymatrix{
+X' \times_R Y \ar[rrd]^{\text{pr}'_2} \ar[rd]_{f \times \text{id}_Y}
+\ar[dd]_{\text{pr}'_1} \\
+& X \times_R Y \ar[r]_{\text{pr}_2} \ar[d]_{\text{pr}_1} & Y \\
+X' \ar[r]^f & X
+}
+$$
+Soit $\mathcal{F}'$ un module quasi-cohérent sur $X'$. Nous avons
+\begin{align*}
+\text{pr}_{2, *}(\text{pr}_1^*f_*\mathcal{F}'
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})
+& =
+\text{pr}_{2, *}((f \times \text{id}_Y)_*
+(\text{pr}'_1)^*\mathcal{F}'
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K}) \\
+& =
+\text{pr}_{2, *}(f \times \text{id}_Y)_*
+\left((\text{pr}'_1)^*\mathcal{F}'
+\otimes_{\mathcal{O}_{X' \times_R Y}}
+(f \times \text{id}_Y)^*\mathcal{K})\right)  \\
+& =
+\text{pr}'_{2, *}((\text{pr}'_1)^*\mathcal{F}'
+\otimes_{\mathcal{O}_{X' \times_R Y}} (f \times \text{id}_Y)^*\mathcal{K})
+\end{align*}
+Ici, la première égalité est le changement de base affine pour le carré
+de gauche du diagramme ; voir
+Cohomologie des schémas, lemme \ref{coherent-lemma-affine-base-change}.
+La deuxième égalité résulte de la remarque \ref{remark-affine-morphism}.
+La troisième égalité est la fonctorialité des images directes de modules.
+Cela démontre (1).
+
+\medskip\noindent
+Démonstration de (2). Considérons le diagramme commutatif
+$$
+\xymatrix{
+X \times_R Y' \ar[rr]_-{\text{pr}'_2} \ar[rd]^{\text{id}_X \times g}
+\ar[rdd]_{\text{pr}'_1} & & Y' \ar[d]^g \\
+& X \times_R Y \ar[r]_-{\text{pr}_2} \ar[d]^{\text{pr}_1} & Y \\
+& X
+}
+$$
+Nous avons
+\begin{align*}
+g^*\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})
+& =
+\text{pr}'_{2, *}(
+(\text{id}_X \times g)^*(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})) \\
+& =
+\text{pr}'_{2, *}((\text{pr}'_1)^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y'}}
+(\text{id}_X \times g)^*\mathcal{K})
+\end{align*}
+La première égalité résulte du changement de base plat pour le carré du diagramme ; voir
+Cohomologie des schémas, lemme \ref{coherent-lemma-flat-base-change-cohomology}.
+La deuxième égalité résulte de la fonctorialité de l'image inverse et du fait que
+l'image inverse d'un produit tensoriel est le produit tensoriel des images inverses.
+
+\medskip\noindent
+La partie (3) est un cas particulier de (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functor-quasi-coherent-from-affine-diagonal-pre}
+Soit $R$ un anneau. Soient $X$ et $Y$ des schémas sur $R$. Supposons que $X$
+soit quasi-compact à diagonale affine. Soit
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+un foncteur $R$-linéaire exact à droite qui commute
+aux sommes directes quelconques. Nous pouvons alors construire
+\begin{enumerate}
+\item un module quasi-cohérent $\mathcal{K}$ sur $X \times_R Y$, et
+\item une transformation naturelle $t : F \to F_\mathcal{K}$,
+où $F_\mathcal{K}$ désigne le foncteur (\ref{equation-FM-QCoh}),
+\end{enumerate}
+telle que $t : F \circ f_* \to F_\mathcal{K} \circ f_*$ soit un isomorphisme
+pour tout morphisme $f : X' \to X$ dont le schéma source est affine.
+\end{lemma}
+
+\begin{proof}
+Considérons un morphisme $f' : X' \to X$ avec $X'$ affine. Comme la
+diagonale de $X$ est affine, nous voyons que $f'$ est un morphisme affine
+(Morphismes, lemme \ref{morphisms-lemma-affine-permanence}).
+Ainsi, $f'_* : \QCoh(\mathcal{O}_{X'}) \to \QCoh(\mathcal{O}_X)$
+est un foncteur exact $R$-linéaire
+(Cohomologie des schémas, lemme \ref{coherent-lemma-relative-affine-vanishing})
+qui commute aux sommes directes
+(Cohomologie des schémas, lemme \ref{coherent-lemma-colimit-cohomology}).
+Ainsi, $F \circ f'_*$ est un foncteur $R$-linéaire exact à droite qui commute
+aux sommes directes quelconques. Par conséquent,
+$F \circ f'_* = F_{\mathcal{K}'}$ pour un certain $\mathcal{K}'$
+sur $X' \times_R Y$, d'après le lemme \ref{lemma-functor-quasi-coherent-from-affine}.
+De plus, étant donné un morphisme $f'' : X'' \to X'$ avec $X''$ affine,
+nous obtenons une identification canonique
+$(f'' \times \text{id}_Y)^*\mathcal{K}' = \mathcal{K}''$
+à l'aide des références déjà données, combinées au
+lemme \ref{lemma-functor-quasi-coherent-from-affine-compose}.
+Ces identifications satisfont une condition de cocycle pour
+un autre morphisme $f''' : X''' \to X''$, condition dont nous laissons
+au lecteur le soin d'écrire les détails.
+
+\medskip\noindent
+Choisissons un recouvrement ouvert affine $X = \bigcup_{i = 1, \ldots, n} U_i$.
+Comme la diagonale de $X$ est affine, nous voyons que les intersections
+$U_{i_0 \ldots i_p} = U_{i_0} \cap \ldots \cap U_{i_p}$ sont affines.
+Comme ci-dessus, les morphismes d'inclusion
+$j_{i_0 \ldots i_p} : U_{i_0 \ldots i_p} \to X$ sont affines.
+Notons $\mathcal{K}_{i_0 \ldots i_p}$ le module quasi-cohérent
+sur $U_{i_0 \ldots i_p} \times_R Y$ correspondant à
+$F \circ j_{i_0 \ldots i_p *}$ comme ci-dessus.
+D'après ce qui précède, nous obtenons des identifications
+$$
+\mathcal{K}_{i_0 \ldots i_p} =
+\mathcal{K}_{i_0 \ldots \hat i_j \ldots i_p}|_{U_{i_0 \ldots i_p} \times_R Y}
+$$
+qui satisfont les compatibilités usuelles de recollement. Autrement dit, nous obtenons
+un unique module quasi-cohérent $\mathcal{K}$ sur $X \times_R Y$
+dont la restriction à $U_{i_0 \ldots i_p} \times_R Y$ est
+$\mathcal{K}_{i_0 \ldots i_p}$, de manière compatible avec les identifications affichées.
+
+\medskip\noindent
+Construisons ensuite la transformation $t$. Étant donné un
+$\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$, notons $\mathcal{F}_{i_0 \ldots i_p}$
+la restriction de $\mathcal{F}$ à $U_{i_0 \ldots i_p}$ et notons
+$(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0 \ldots i_p}$
+la restriction de $\text{pr}_1^*\mathcal{F} \otimes \mathcal{K}$ à
+$U_{i_0 \ldots i_p} \times_R Y$.
+Observons que
+\begin{align*}
+F(j_{i_0 \ldots i_p *}\mathcal{F}_{i_0 \ldots i_p})
+& =
+\text{pr}_{i_0 \ldots i_p, 2, *}(
+\text{pr}_{i_0 \ldots i_p, 1}^*\mathcal{F}_{i_0 \ldots i_p}
+\otimes \mathcal{K}_{i_0 \ldots i_p}) \\
+& =
+\text{pr}_{i_0 \ldots i_p, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0 \ldots i_p}
+\end{align*}
+où $\text{pr}_{i_0 \ldots i_p, 2} : U_{i_0 \ldots i_p} \times_R Y \to Y$
+est la projection, et de même pour l'autre projection. De plus, ces
+identifications sont compatibles avec les identifications affichées
+au paragraphe précédent. Rappelons, d'après Cohomologie des schémas, lemme
+\ref{coherent-lemma-separated-case-relative-cech},
+que le complexe de {\v C}ech relatif
+$$
+\bigoplus 
+\text{pr}_{i_0, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1i_2, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1i_2}
+\to \ldots
+$$
+calcule $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})$.
+Ainsi, le faisceau de cohomologie en degré $0$ est $F_\mathcal{K}(\mathcal{F})$.
+Nous obtenons donc le morphisme souhaité
+$t : F(\mathcal{F}) \to F_\mathcal{K}(\mathcal{F})$
+en considérant le diagramme commutatif suivant
+$$
+\xymatrix{
+&
+F(\mathcal{F}) \ar[r] \ar@{..>}[d] &
+\bigoplus F(j_{i_0*}\mathcal{F}_{i_0}) \ar[r] \ar[d] &
+\bigoplus F(j_{i_0i_1*}\mathcal{F}_{i_0i_1}) \ar[d] \\
+0 \ar[r] &
+F_\mathcal{K}(\mathcal{F}) \ar[r] &
+\bigoplus 
+\text{pr}_{i_0, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0}
+\ar[r] &
+\bigoplus 
+\text{pr}_{i_0i_1, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1}
+}
+$$
+Nous obtenons la ligne supérieure en appliquant $F$ au complexe (exact)
+$0 \to \mathcal{F} \to \bigoplus j_{i_0*}\mathcal{F}_{i_0} \to
+\bigoplus j_{i_0i_1*}\mathcal{F}_{i_0i_1}$ (mais, comme
+$F$ n'est pas exact, la ligne supérieure est seulement un complexe et n'est pas
+nécessairement exacte).
+Les flèches verticales pleines sont les identifications ci-dessus.
+Cela définit bien la flèche pointillée comme souhaité.
+La flèche est fonctorielle en $\mathcal{F}$ ; nous omettons les détails.
+
+\medskip\noindent
+Il nous reste à démontrer la dernière assertion. Soit $f : X' \to X$
+comme dans l'énoncé du lemme, et soit $\mathcal{K}'$
+le module quasi-cohérent sur $X' \times_R Y$ construit
+au premier paragraphe de la démonstration. Si le morphisme
+$f : X' \to X$ est à valeurs dans l'un des ouverts $U_i$, alors le
+résultat découle du
+lemme \ref{lemma-functor-quasi-coherent-from-affine-compose},
+car, dans ce cas, nous savons
+que $\mathcal{K}_i = \mathcal{K}|_{U_i \times_R Y}$
+a pour image inverse $\mathcal{K}$. En général, nous obtenons un
+recouvrement ouvert affine $X' = \bigcup U'_i$ avec $U'_i = f^{-1}(U_i)$,
+ainsi que des isomorphismes
+$\mathcal{K}'|_{U'_i} = f_i^*\mathcal{K}_i$, où
+$f_i : U'_i \to U_i$ est le morphisme induit.
+Ces morphismes satisfont les conditions de compatibilité nécessaires
+pour se recoller en un isomorphisme $\mathcal{K}' = f^*\mathcal{K}$,
+et nous concluons. Nous omettons certains détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coh-noetherian-from-affine-flat}
+Dans le lemme \ref{lemma-functor-quasi-coherent-from-affine}
+ou dans le lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal-pre},
+si $F$ est un foncteur exact, alors l'objet correspondant
+$\mathcal{K}$ de $\QCoh(\mathcal{O}_{X \times_R Y})$ est plat sur $X$.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons supposer que $X$ est affine ; nous sommes donc dans le cas du
+lemme \ref{lemma-functor-quasi-coherent-from-affine}.
+D'après le lemme \ref{lemma-functor-quasi-coherent-from-affine-compose},
+nous pouvons supposer que $Y$ est affine. Dans le cas affine, l'énoncé
+se traduit par la remarque \ref{remark-exact-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functor-quasi-coherent-from-affine-diagonal}
+Soit $R$ un anneau. Soient $X$ et $Y$ des schémas sur $R$. Supposons que $X$ soit
+quasi-compact à diagonale affine.
+Il existe une équivalence de catégories entre
+\begin{enumerate}
+\item la catégorie des foncteurs exacts $R$-linéaires
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+qui commutent aux sommes directes quelconques, et
+\item la sous-catégorie pleine de $\QCoh(\mathcal{O}_{X \times_R Y})$ constituée
+des $\mathcal{K}$ tels que
+\begin{enumerate}
+\item $\mathcal{K}$ est plat sur $X$ ;
+\item pour $\mathcal{F} \in \QCoh(\mathcal{O}_X)$, nous avons
+$R^q\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K}) = 0$ pour $q > 0$.
+\end{enumerate}
+\end{enumerate}
+donnée en associant à $\mathcal{K}$ le foncteur $F$ de (\ref{equation-FM-QCoh}).
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{K}$ comme en (2). Le foncteur $F$ de
+(\ref{equation-FM-QCoh}) commute aux sommes directes.
+Puisque, d'après (1) (a), le module $\mathcal{K}$ est plat sur $X$,
+nous voyons que, pour toute suite exacte courte
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$,
+nous obtenons une suite exacte courte
+$$
+0 \to
+\text{pr}_1^*\mathcal{F}_1 \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K} \to
+\text{pr}_1^*\mathcal{F}_2 \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K} \to
+\text{pr}_1^*\mathcal{F}_3 \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K} \to
+0
+$$
+Puisque, d'après (2)(b), l'image directe supérieure $R^1\text{pr}_{2, *}$
+du premier terme est nulle, nous concluons que
+$0 \to F(\mathcal{F}_1) \to F(\mathcal{F}_2) \to F(\mathcal{F}_3) \to 0$
+est exacte, et nous voyons que $F$ est comme en (1).
+
+\medskip\noindent
+Soit $F$ comme en (1). Soient $\mathcal{K}$ et $t : F \to F_\mathcal{K}$ comme
+dans le lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal-pre}.
+D'après le lemme \ref{lemma-coh-noetherian-from-affine-flat}, nous voyons
+que $\mathcal{K}$ est plat sur $X$. Pour achever la démonstration, nous devons
+montrer que $t$ est un isomorphisme et établir l'assertion sur les images
+directes supérieures. Ces deux faits résultent de ce que le
+complexe de {\v C}ech relatif
+$$
+\bigoplus 
+\text{pr}_{i_0, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1i_2, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1i_2}
+\to \ldots
+$$
+calcule $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})$.
+Voir la démonstration du
+lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal-pre}
+pour les notations et la raison de cette assertion. Dans la démonstration du
+lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal-pre},
+nous avons aussi constaté que ce complexe est égal à l'image par $F$ du complexe
+$$
+\bigoplus j_{i_0*}\mathcal{F}_{i_0} \to
+\bigoplus j_{i_0i_1*}\mathcal{F}_{i_0i_1} \to
+\bigoplus j_{i_0i_1i_2*}\mathcal{F}_{i_0i_1i_2} \to \ldots
+$$
+Ce complexe est exact sauf en degré zéro, où son faisceau de cohomologie
+est égal à $\mathcal{F}$. Ainsi, puisque $F$ est un foncteur exact,
+nous concluons que $F = F_\mathcal{K}$ et que (2)(b) est satisfaite.
+
+\medskip\noindent
+Nous omettons de démontrer que la construction qui associe à $F$
+le module $\mathcal{K}$ est fonctorielle et est un quasi-inverse du
+foncteur qui associe à $\mathcal{K}$ le foncteur $F_\mathcal{K}$
+déterminé par (\ref{equation-FM-QCoh}).
+\end{proof}
+
+\begin{remark}
+\label{remark-characterize-FM-QCoh}
+Soit $R$ un anneau. Soient $X$ et $Y$ des schémas sur $R$. Supposons que $X$
+soit quasi-compact à diagonale affine.
+Le lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal} peut
+se généraliser comme suit : les foncteurs
+(\ref{equation-FM-QCoh}) associés aux modules quasi-cohérents sur
+$X \times_R Y$ sont exactement ceux
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+qui possèdent les propriétés suivantes :
+\begin{enumerate}
+\item $F$ est $R$-linéaire et commute aux sommes directes quelconques ;
+\item $F \circ j_*$ est exact à droite lorsque $j : U \to X$ est
+l'inclusion d'un ouvert affine ;
+\item $0 \to F(\mathcal{F}) \to F(\mathcal{G}) \to F(\mathcal{H})$
+est exacte chaque fois que $0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$
+est une suite exacte telle que, pour tout $x \in X$, la suite des germes
+$0 \to \mathcal{F}_x \to \mathcal{G}_x \to \mathcal{H}_x \to 0$
+soit une suite exacte courte scindée.
+\end{enumerate}
+En effet, ces hypothèses suffisent pour construire une transformation
+$t : F \to F_\mathcal{K}$ comme dans le
+lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal-pre}
+et montrer qu'elle est un isomorphisme. De plus, les propriétés (1), (2) et (3)
+sont bien satisfaites par les foncteurs (\ref{equation-FM-QCoh}).
+Si nous en avons un jour besoin, nous l'énoncerons et le démontrerons ici avec soin.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-compose-FM-QCoh}
+Soit $R$ un anneau. Soient $X$, $Y$, $Z$ des schémas sur $R$. Supposons que
+$X$ et $Y$ soient quasi-compacts et à diagonale affine. Soient
+$$
+F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)
+\quad\text{et}\quad
+G : \QCoh(\mathcal{O}_Y) \to \QCoh(\mathcal{O}_Z)
+$$
+des foncteurs exacts $R$-linéaires qui commutent aux sommes directes quelconques.
+Soient $\mathcal{K}$ dans $\QCoh(\mathcal{O}_{X \times_R Y})$
+et $\mathcal{L}$ dans $\QCoh(\mathcal{O}_{Y \times_R Z})$
+les « noyaux » correspondants ; voir le
+lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal}.
+Alors $G \circ F$ correspond à
+$\text{pr}_{13, *}(\text{pr}_{12}^*\mathcal{K}
+\otimes_{\mathcal{O}_{X \times_R Y \times_R Z}}
+\text{pr}_{23}^*\mathcal{L})$ dans $\QCoh(\mathcal{O}_{X \times_R Z})$.
+\end{lemma}
+
+\begin{proof}
+Puisque $G \circ F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Z)$
+est $R$-linéaire, exact et commute aux sommes directes quelconques,
+le lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal} montre
+qu'il existe un objet $\mathcal{M}$ de
+$\QCoh(\mathcal{O}_{X \times_R Z})$ correspondant à $G \circ F$.
+D'autre part, notons
+$\mathcal{E} = \text{pr}_{13, *}(\text{pr}_{12}^*\mathcal{K}
+\otimes \text{pr}_{23}^*\mathcal{L})$. Ici et dans la suite de
+la démonstration, nous omettons l'indice des produits tensoriels.
+Soient $U \subset X$ et $W \subset Z$ des sous-schémas ouverts affines.
+Pour démontrer le lemme, nous allons construire un isomorphisme
+$$
+\Gamma(U \times_R W, \mathcal{E})
+\cong
+\Gamma(U \times_R W, \mathcal{M})
+$$
+compatible avec les applications de restriction lorsque $U$ et $W$ varient.
+
+\medskip\noindent
+Tout d'abord, nous observons que
+$$
+\Gamma(U \times_R W, \mathcal{E}) =
+\Gamma(U \times_R Y \times_R W,
+\text{pr}_{12}^*\mathcal{K} \otimes \text{pr}_{23}^*\mathcal{L})
+$$
+par construction. Il nous faut donc montrer qu'il en va de même
+pour $\mathcal{M}$.
+
+\medskip\noindent
+Écrivons $U = \Spec(A)$ et notons $j : U \to X$ le morphisme d'inclusion.
+Rappelons, d'après la construction de $\mathcal{M}$ dans la démonstration du
+lemme \ref{lemma-functor-quasi-coherent-from-affine}, que
+$$
+\Gamma(U \times_R W, \mathcal{M}) =
+\Gamma(W, G(F(j_*\mathcal{O}_U)))
+$$
+où la structure de $A$-module du membre de droite est induite par
+l'action de $A$ sur $\mathcal{O}_U$. La correspondance entre
+$F$ et $\mathcal{K}$ nous dit que
+$F(j_*\mathcal{O}_U) = b_*(a^*j_*\mathcal{O}_U \otimes \mathcal{K})$,
+où $a : X \times_R Y \to X$ et $b : X \times_R Y \to Y$ sont
+les morphismes de projection. Comme $j$ est un morphisme affine, nous avons
+$a^*j_*\mathcal{O}_U = (j \times \text{id}_Y)_*\mathcal{O}_{U \times_R Y}$
+d'après Cohomologie des schémas, lemme
+\ref{coherent-lemma-affine-base-change}.
+Ensuite, nous avons
+$(j \times \text{id}_Y)_*\mathcal{O}_{U \times_R Y} \otimes \mathcal{K} =
+(j \times \text{id}_Y)_*\mathcal{K}|_{U \times_R Y}$,
+par exemple d'après la remarque \ref{remark-affine-morphism}.
+En rassemblant ces égalités, nous obtenons
+$$
+F(j_*\mathcal{O}_U) =
+(U \times_R Y \to Y)_*\mathcal{K}|_{U \times_R Y}
+$$
+muni de l'action évidente de $A$. (Cette formule est implicite dans la
+démonstration du lemme \ref{lemma-functor-quasi-coherent-from-affine}.)
+En appliquant le foncteur $G$, nous obtenons
+$$
+G(F(j_*\mathcal{O}_U)) =
+t_*(s^*((U \times_R Y \to Y)_*\mathcal{K}|_{U \times_R Y})
+\otimes \mathcal{L})
+$$
+où $s : Y \times_R Z \to Y$ et $t : Y \times_R Z \to Z$ sont
+les morphismes de projection. En utilisant de nouveau le changement de base
+pour un morphisme affine (Cohomologie des schémas, lemme
+\ref{coherent-lemma-affine-base-change}), cette fois pour le carré
+$$
+\xymatrix{
+U \times_R Y \times_R Z \ar[r] \ar[d] & U \times_R Y \ar[d] \\
+Y \times_R Z \ar[r] & Y
+}
+$$
+nous obtenons
+$$
+s^*((U \times_R Y \to Y)_*\mathcal{K}|_{U \times_R Y}) =
+(U \times_R Y \times_R Z \to Y \times_R Z)_*
+\text{pr}_{12}^*\mathcal{K}|_{U \times_R Y \times_R Z}
+$$
+En utilisant encore la remarque \ref{remark-affine-morphism}, nous trouvons
+\begin{align*}
+(U \times_R Y \times_R Z \to Y \times_R Z)_*
+\text{pr}_{12}^*\mathcal{K}|_{U \times_R Y \times_R Z}
+\otimes \mathcal{L} \\
+=
+(U \times_R Y \times_R Z \to Y \times_R Z)_*
+\left(\text{pr}_{12}^*\mathcal{K} \otimes
+\text{pr}_{23}^*\mathcal{L}\right)|_{U \times_R Y \times_R Z}
+\end{align*}
+En appliquant à cette égalité le foncteur
+$\Gamma(W, t_*(-)) = \Gamma(Y \times_R W, -)$, nous obtenons
+\begin{align*}
+\Gamma(U \times_R W, \mathcal{M})
+& =
+\Gamma(W, G(F(j_*\mathcal{O}_U))) \\
+& =
+\Gamma(Y \times_R W, (U \times_R Y \times_R Z \to Y \times_R Z)_*
+(\text{pr}_{12}^*\mathcal{K} \otimes
+\text{pr}_{23}^*\mathcal{L})|_{U \times_R Y \times_R Z}) \\
+& =
+\Gamma(U \times_R Y \times_R W,
+\text{pr}_{12}^*\mathcal{K} \otimes \text{pr}_{23}^*\mathcal{L})
+\end{align*}
+comme voulu. Nous omettons la vérification que ces isomorphismes sont
+compatibles avec les applications de restriction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-persistence-exactness}
+Soient $R$, $X$, $Y$ et $\mathcal{K}$ comme au point (2) du
+lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal}.
+Alors, pour tout schéma $T$ sur $R$, nous avons
+$$
+R^q\text{pr}_{13, *}(\text{pr}_{12}^*\mathcal{F}
+\otimes_{\mathcal{O}_{T \times_R X \times_R Y}}
+\text{pr}_{23}^*\mathcal{K}) = 0
+$$
+pour tout module quasi-cohérent $\mathcal{F}$ sur $T \times_R X$ et tout
+$q > 0$.
+\end{lemma}
+
+\begin{proof}
+La question est locale sur $T$ ; nous pouvons donc supposer $T$ affine.
+Dans ce cas, nous pouvons considérer le diagramme
+$$
+\xymatrix{
+T \times_R X \ar[d] &
+T \times_R X \times_R Y \ar[d] \ar[l] \ar[r] &
+T \times_R Y \ar[d] \\
+X &
+X \times_R Y \ar[l] \ar[r] &
+Y
+}
+$$
+dont les flèches verticales sont affines. En particulier, le foncteur image
+directe par $T \times_R Y \to Y$ est fidèle et exact (Cohomologie des schémas,
+lemme \ref{coherent-lemma-relative-affine-vanishing} et
+Morphismes, lemme \ref{morphisms-lemma-affine-equivalence-modules}).
+En parcourant le diagramme et en utilisant l'annulation des images directes
+supérieures par les morphismes affines (voir la référence ci-dessus), nous
+voyons qu'il suffit de démontrer que
+$$
+R^q\text{pr}_{2, *}(
+\text{pr}_{23, *}(\text{pr}_{12}^*\mathcal{F}
+\otimes_{\mathcal{O}_{T \times_R X \times_R Y}}
+\text{pr}_{23}^*\mathcal{K})) =
+R^q\text{pr}_{2, *}(
+\text{pr}_{23, *}(\text{pr}_{12}^*\mathcal{F})
+\otimes_{\mathcal{O}_{X \times_R Y}}
+\mathcal{K}))
+$$
+est nul, ce qui résulte de l'hypothèse sur $\mathcal{K}$.
+L'égalité découle de la remarque \ref{remark-affine-morphism}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functor-quasi-coherent-from-separated}
+Dans le lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal},
+supposons que $F$ et $\mathcal{K}$ se correspondent. Si $X$ est séparé et
+plat sur $R$, alors il existe une surjection
+$\mathcal{O}_X \boxtimes F(\mathcal{O}_X) \to \mathcal{K}$.
+\end{lemma}
+
+\begin{proof}
+Soit $\Delta : X \to X \times_R X$ le morphisme diagonal et
+posons $\mathcal{O}_\Delta = \Delta_*\mathcal{O}_X$.
+Comme $\Delta$ est une immersion fermée, nous avons une suite exacte courte
+$$
+0 \to \mathcal{I} \to 
+\mathcal{O}_{X \times_R X} \to \mathcal{O}_\Delta \to 0
+$$
+Comme $\mathcal{K}$ est plat sur $X$, son image inverse
+$\text{pr}_{23}^*\mathcal{K}$ sur $X \times_R X \times_R Y$
+est plate sur $X \times_R X$. Nous obtenons une suite exacte courte
+$$
+0 \to 
+\text{pr}_{12}^*\mathcal{I}
+\otimes
+\text{pr}_{23}^*\mathcal{K} \to
+\text{pr}_{23}^*\mathcal{K} \to
+\text{pr}_{12}^*\mathcal{O}_\Delta
+\otimes
+\text{pr}_{23}^*\mathcal{K} \to 0
+$$
+sur $X \times_R X \times_R Y$ ; voir
+Modules, lemme \ref{modules-lemma-pullback-tensor-flat-module}.
+Ainsi, d'après le lemme \ref{lemma-persistence-exactness},
+nous obtenons une surjection
+$$
+\text{pr}_{13, *}(\text{pr}_{23}^*\mathcal{K})
+\to
+\text{pr}_{13, *}(
+\text{pr}_{12}^*\mathcal{O}_\Delta
+\otimes
+\text{pr}_{23}^*\mathcal{K})
+$$
+D'après le changement de base plat (Cohomologie des schémas, lemme
+\ref{coherent-lemma-flat-base-change-cohomology}), la source de cette flèche
+est égale à $\text{pr}_2^*\text{pr}_{2, *}\mathcal{K}
+= \mathcal{O}_X \boxtimes F(\mathcal{O}_X)$. D'autre part, le but est
+égal à
+$$
+\text{pr}_{13, *}(
+\text{pr}_{12}^*\mathcal{O}_\Delta
+\otimes
+\text{pr}_{23}^*\mathcal{K}) =
+\text{pr}_{13, *} (\Delta \times \text{id}_Y)_* \mathcal{K} =
+\mathcal{K}
+$$
+ce qui achève la démonstration. La première égalité résulte par exemple de
+Cohomologie, lemme \ref{cohomology-lemma-projection-formula-closed-immersion}
+et du fait que $\text{pr}_{12}^*\mathcal{O}_\Delta =
+(\Delta \times \text{id}_Y)_*\mathcal{O}_{X \times_R Y}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Reconstruction de Gabriel--Rosenberg}
+\label{section-gabriel}
+
+\noindent
+Le titre de cette section renvoie à des résultats tels que la
+proposition \ref{proposition-gabriel-rosenberg}.
+Outre l'article original de Gabriel \cite{Gabriel}, on pourra consulter
+\cite{Brandenburg}, qui démontre le résultat pour les schémas quasi-séparés
+et examine la littérature. Dans cette section, nous démontrerons seulement
+la reconstruction de Gabriel--Rosenberg pour les schémas quasi-compacts et
+quasi-séparés.
+
+\begin{lemma}
+\label{lemma-categorically-compact-QCoh}
+Soit $X$ un schéma quasi-compact et quasi-séparé.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Alors $\mathcal{F}$ est un objet compact au sens catégorique de
+$\QCoh(\mathcal{O}_X)$ si et seulement si $\mathcal{F}$ est de
+présentation finie.
+\end{lemma}
+
+\begin{proof}
+Voir Catégories, définition \ref{categories-definition-compact-object},
+pour notre notion d'objet compact au sens catégorique dans une catégorie.
+Si $\mathcal{F}$ est de présentation finie, alors elle est compacte au sens
+catégorique d'après Modules, lemme
+\ref{modules-lemma-finite-presentation-quasi-compact-colimit}.
+Réciproquement, tout module quasi-cohérent $\mathcal{F}$ peut s'écrire
+comme une limite inductive filtrante $\mathcal{F} = \colim \mathcal{F}_i$
+de $\mathcal{O}_X$-modules de présentation finie (donc quasi-cohérents) ;
+voir Propriétés, lemme
+\ref{properties-lemma-directed-colimit-finite-presentation}.
+Si $\mathcal{F}$ est compact au sens catégorique, il existe un indice $i$
+et un morphisme $\mathcal{F} \to \mathcal{F}_i$ qui est inverse à droite du
+morphisme donné $\mathcal{F}_i \to \mathcal{F}$.
+Nous concluons que $\mathcal{F}$ est facteur direct d'un module de
+présentation finie, et est donc lui-même de présentation finie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-supported-on-support-pre}
+Soit $X$ un schéma affine. Soit $\mathcal{F}$ un
+$\mathcal{O}_X$-module de présentation finie. Soit $\mathcal{E}$ un
+$\mathcal{O}_X$-module quasi-cohérent non nul. Si
+$\text{Supp}(\mathcal{E}) \subset \text{Supp}(\mathcal{F})$,
+alors il existe un morphisme non nul $\mathcal{F} \to \mathcal{E}$.
+\end{lemma}
+
+\begin{proof}
+Traduisons l'énoncé en algèbre. Soit $A$ un anneau. Soit $M$ un
+$A$-module de présentation finie. Soit $N$ un $A$-module non nul. Supposons
+$\text{Supp}(N) \subset \text{Supp}(M)$. Il s'agit de montrer que
+$\Hom_A(M, N)$ est non nul.
+Nous pouvons supposer $N = A/I$ cyclique (en remplaçant $N$ par n'importe
+lequel de ses sous-modules cycliques non nuls). Choisissons une présentation
+$$
+A^{\oplus m} \xrightarrow{T} A^{\oplus n} \to M \to 0
+$$
+Rappelons que $\text{Supp}(M)$ est défini par $\text{Fit}_0(M)$, qui est
+l'idéal engendré par les mineurs $n \times n$ de la matrice $T$.
+Voir Plus sur l'algèbre, lemme
+\ref{more-algebra-lemma-fitting-ideal-basics}.
+L'hypothèse $\text{Supp}(N) \subset \text{Supp}(M)$ signifie alors que
+les éléments de $\text{Fit}_0(M)$ sont nilpotents dans $A/I$.
+Considérons la suite exacte
+$$
+0 \to \Hom_A(M, A/I) \to (A/I)^{\oplus n} \xrightarrow{T^t} (A/I)^{\oplus m}
+$$
+Nous devons montrer que $T^t$ ne peut être injective ; nous invitons le
+lecteur à en trouver une démonstration à partir de la nilpotence des éléments
+de $\text{Fit}_0(M)$ dans $A/I$. Voici la nôtre.
+Comme $\text{Fit}_0(M)$ est de type fini, cette nilpotence implique que
+l'annulateur $J \subset A/I$ de $\text{Fit}_0(M)$ dans $A/I$ est non nul.
+Pour montrer que $T^t$ n'est pas injective, nous pouvons localiser en un idéal
+premier. En choisissant convenablement cet idéal premier, nous pouvons
+supposer $A$ local et $J$ toujours non nul. Alors $T^t$ a un noyau non nul
+d'après Plus sur l'algèbre, lemme
+\ref{more-algebra-lemma-exact-length-1}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-supported-on-support}
+Soit $X$ un schéma quasi-compact et quasi-séparé.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module de présentation finie.
+Les deux sous-catégories suivantes de $\QCoh(\mathcal{O}_X)$ sont égales :
+\begin{enumerate}
+\item la sous-catégorie pleine $\mathcal{A} \subset \QCoh(\mathcal{O}_X)$
+dont les objets sont les modules quasi-cohérents dont le support est contenu,
+au sens ensembliste, dans $\text{Supp}(\mathcal{F})$ ;
+\item la plus petite sous-catégorie de Serre
+$\mathcal{B} \subset \QCoh(\mathcal{O}_X)$ qui contient
+$\mathcal{F}$ et qui est stable par extensions et par sommes directes
+quelconques.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Observons que l'énoncé a un sens puisque les $\mathcal{O}_X$-modules de
+présentation finie sont quasi-cohérents.
+Comme $\mathcal{A}$ est une sous-catégorie de Serre stable par extensions et
+par sommes directes et comme $\mathcal{F}$ est un objet de $\mathcal{A}$,
+nous voyons que $\mathcal{B} \subset \mathcal{A}$. Il reste donc à montrer
+que $\mathcal{A}$ est contenue dans $\mathcal{B}$.
+
+\medskip\noindent
+Soit $\mathcal{E}$ un objet de $\mathcal{A}$. Il existe un sous-module
+maximal $\mathcal{E}' \subset \mathcal{E}$ appartenant à $\mathcal{B}$.
+En effet, soit $\mathcal{E}_i \subset \mathcal{E}$, $i \in I$, la famille
+des sous-objets qui sont des objets de $\mathcal{B}$. Alors
+$\bigoplus \mathcal{E}_i$ appartient à $\mathcal{B}$, de même que
+$$
+\mathcal{E}' = \Im(\bigoplus \mathcal{E}_i \longrightarrow \mathcal{E})
+$$
+C'est manifestement le sous-module maximal recherché.
+
+\medskip\noindent
+Supposons maintenant qu'il existe un morphisme non nul
+$\mathcal{G} \to \mathcal{E}/\mathcal{E}'$
+avec $\mathcal{G}$ dans $\mathcal{B}$. Alors
+$\mathcal{G}' = \mathcal{E} \times_{\mathcal{E}/\mathcal{E}'} \mathcal{G}$
+appartient à $\mathcal{B}$ : $\mathcal{E}'$ en est le sous-objet et
+$\mathcal{G}$ le quotient. L'image de $\mathcal{G}' \to \mathcal{E}$ serait alors
+strictement plus grande que $\mathcal{E}'$, ce qui contredirait la maximalité
+de $\mathcal{E}'$. Il suffit donc de démontrer l'assertion du paragraphe
+suivant.
+
+\medskip\noindent
+Soit $\mathcal{E}$ un objet non nul de $\mathcal{A}$. Nous affirmons qu'il
+existe un morphisme non nul $\mathcal{G} \to \mathcal{E}$ avec
+$\mathcal{G}$ dans $\mathcal{B}$. Nous allons le démontrer par récurrence sur
+le nombre minimal $n$ d'ouverts affines $U_i$ de $X$ tels que
+$\text{Supp}(\mathcal{E}) \subset U_1 \cup \ldots \cup U_n$.
+Posons $U = U_n$ et notons $j : U \to X$ le morphisme d'inclusion.
+Notons $\mathcal{E}' = \Im(\mathcal{E} \to j_*\mathcal{E}|_U)$.
+Le noyau $\mathcal{E}''$ de la surjection
+$\mathcal{E} \to \mathcal{E}'$ a son support contenu dans
+$U_1 \cup \ldots \cup U_{n - 1}$. Ainsi, si $\mathcal{E}''$ est non nul,
+le résultat découle de l'hypothèse de récurrence. Autrement dit, nous pouvons
+supposer $\mathcal{E} \subset j_*\mathcal{E}|_U$.
+En particulier, $\mathcal{E}|_U$ est non nul.
+D'après le lemme \ref{lemma-supported-on-support-pre}, il existe une
+morphisme non nul $\mathcal{F}|_U \to \mathcal{E}|_U$.
+Il correspond à un morphisme
+$$
+\varphi : \mathcal{F} \longrightarrow j_*(\mathcal{E}|_U)
+$$
+dont la restriction à $U$ est non nulle.
+En posant $\mathcal{G} = \varphi^{-1}(\mathcal{E})$, nous concluons.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-supported-on-closed}
+Soit $X$ un schéma quasi-compact et quasi-séparé.
+Soit $Z \subset X$ une partie fermée telle que $U = X \setminus Z$
+soit quasi-compact. Soit $\mathcal{A} \subset \QCoh(\mathcal{O}_X)$
+la sous-catégorie pleine dont les objets sont les modules quasi-cohérents
+à support dans $Z$. Alors le foncteur de restriction
+$\QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_U)$ induit
+une équivalence $\QCoh(\mathcal{O}_X)/\mathcal{A} \cong \QCoh(\mathcal{O}_U)$.
+\end{lemma}
+
+\begin{proof}
+D'après la propriété universelle de la construction quotient
+(Homologie, lemme \ref{homology-lemma-serre-subcategory-is-kernel}),
+nous obtenons bien un foncteur induit
+$\QCoh(\mathcal{O}_X)/\mathcal{A} \cong \QCoh(\mathcal{O}_U)$.
+Notons $j : U \to X$ le morphisme d'inclusion. Comme $j$ est quasi-compact
+et quasi-séparé, nous obtenons un foncteur
+$j_* : \QCoh(\mathcal{O}_U) \to \QCoh(\mathcal{O}_X)$.
+Le lecteur vérifiera qu'il définit un quasi-inverse ; nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-affine}
+Soit $X$ un schéma quasi-compact et quasi-séparé.
+Si $\QCoh(\mathcal{O}_X)$ est équivalente à la catégorie des modules
+sur un anneau, alors $X$ est affine.
+\end{lemma}
+
+\begin{proof}
+Soit $F : \text{Mod}_R \to \QCoh(\mathcal{O}_X)$ une équivalence.
+Alors $\mathcal{F} = F(R)$ possède les propriétés suivantes :
+\begin{enumerate}
+\item c'est un $\mathcal{O}_X$-module de présentation finie
+(lemme \ref{lemma-categorically-compact-QCoh}) ;
+\item $\Hom_X(\mathcal{F}, -)$ est exact ;
+\item $\Hom_X(\mathcal{F}, \mathcal{F})$ est un anneau commutatif ;
+\item tout objet de $\QCoh(\mathcal{O}_X)$ est quotient d'une somme directe
+de copies de $\mathcal{F}$.
+\end{enumerate}
+Soit $x \in X$ un point fermé. Considérons la surjection
+$$
+\mathcal{O}_X \to i_*\kappa(x)
+$$
+où le but est l'image directe de $\kappa(x)$ par le morphisme d'inclusion
+$i : x \to X$. Nous avons
+$$
+\Hom_X(\mathcal{F}, i_*\kappa(x)) =
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \kappa(x))
+$$
+Tout d'abord, (4) implique que $\mathcal{F}_x$ est non nul.
+D'après (2), tout homomorphisme $\mathcal{F}_x \to \kappa(x)$ se relève en
+un homomorphisme $\mathcal{F}_x \to \mathcal{O}_{X, x}$ (puisqu'il se
+relève même en un morphisme global $\mathcal{F} \to \mathcal{O}_X$).
+Comme $\mathcal{F}_x$ est un $\mathcal{O}_{X, x}$-module fini, il s'ensuit
+que $\mathcal{F}_x$ est un $\mathcal{O}_{X, x}$-module libre non nul de rang fini.
+Comme $\mathcal{F}$ est de présentation finie, cela implique que
+$\mathcal{F}$ est libre de rang fini strictement positif sur un voisinage ouvert de $x$
+(Modules, lemme \ref{modules-lemma-finite-presentation-stalk-free}).
+Puisque toute partie fermée de $X$ contient un point fermé
+(Topologie, lemme \ref{topology-lemma-quasi-compact-closed-point}),
+il s'ensuit que $\mathcal{F}$ est localement libre de rang fini strictement positif.
+De même, l'homomorphisme
+$$
+\Hom_X(\mathcal{F}, \mathcal{F}) \to
+\Hom_X(\mathcal{F}, i_*i^*\mathcal{F}) =
+\Hom_{\kappa(x)}(\mathcal{F}_x/\mathfrak m_x \mathcal{F}_x,
+\mathcal{F}_x/\mathfrak m_x \mathcal{F}_x)
+$$
+est surjective. D'après la propriété (3), nous concluons que le rang de
+$\mathcal{F}_x$ est nécessairement $1$. Ainsi $\mathcal{F}$ est un
+$\mathcal{O}_X$-module inversible. Nous en déduisons que le foncteur
+$$
+\mathcal{H}
+\longmapsto
+\Gamma(X, \mathcal{H}) = \Hom_X(\mathcal{O}_X, \mathcal{H}) =
+\Hom_X(\mathcal{F}, \mathcal{H} \otimes_{\mathcal{O}_X} \mathcal{F})
+$$
+sur $\QCoh(\mathcal{O}_X)$ est lui aussi exact. Il s'ensuit que le premier
+groupe $\Ext$
+$$
+\Ext^1_{\QCoh(\mathcal{O}_X)}(\mathcal{O}_X, \mathcal{H}) = 0
+$$
+calculé dans la catégorie abélienne $\QCoh(\mathcal{O}_X)$ s'annule pour
+tout $\mathcal{H}$ dans $\QCoh(\mathcal{O}_X)$. Or, comme
+$\QCoh(\mathcal{O}_X) \subset \textit{Mod}(\mathcal{O}_X)$
+est stable par extensions (Schémas, section
+\ref{schemes-section-quasi-coherent}), nous voyons que le groupe $\Ext^1$
+entre modules quasi-cohérents calculé dans $\QCoh(\mathcal{O}_X)$ est le même
+que celui calculé dans $\textit{Mod}(\mathcal{O}_X)$. Nous concluons donc que
+$$
+H^1(X, \mathcal{H}) =
+\Ext^1_{\textit{Mod}(\mathcal{O}_X)}(\mathcal{O}_X, \mathcal{H}) = 0
+$$
+pour tout $\mathcal{H}$ dans $\QCoh(\mathcal{O}_X)$.
+Il en résulte que $X$ est affine, par exemple d'après
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-quasi-compact-h1-zero-covering}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-gabriel-rosenberg}
+\begin{reference}
+Cas particulier de \cite[Theorem 1.2]{Brandenburg}
+\end{reference}
+Soient $X$ et $Y$ des schémas quasi-compacts et quasi-séparés.
+Si $F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+est une équivalence, alors il existe un isomorphisme de schémas
+$f : Y \to X$ et un $\mathcal{O}_Y$-module inversible
+$\mathcal{L}$ tels que $F(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$.
+\end{proposition}
+
+\begin{proof}
+Bien entendu, $F$ est additif, exact, commute à toutes les limites,
+à toutes les limites inductives, aux sommes directes, etc.
+Soit $U \subset X$ un sous-schéma ouvert affine.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ un faisceau quasi-cohérent
+d'idéaux de type fini tel que $Z = V(\mathcal{I})$ soit le complémentaire
+de $U$ dans $X$ ; voir Propriétés, lemme
+\ref{properties-lemma-quasi-coherent-finite-type-ideals}.
+Alors $\mathcal{O}_X/\mathcal{I}$ est un $\mathcal{O}_X$-module de
+présentation finie. Ainsi $\mathcal{G} = F(\mathcal{O}_X/\mathcal{I})$
+est un $\mathcal{O}_Y$-module de présentation finie d'après le
+lemme \ref{lemma-categorically-compact-QCoh}.
+Notons $T \subset Y$ le support de $\mathcal{G}$ et posons
+$V = Y \setminus T$. Comme $\mathcal{G}$ est de présentation finie,
+le schéma $V$ est un ouvert quasi-compact de $Y$.
+D'après le lemme \ref{lemma-supported-on-support}, nous voyons que $F$ induit
+une équivalence entre
+\begin{enumerate}
+\item la sous-catégorie pleine de $\QCoh(\mathcal{O}_X)$ formée des modules
+à support dans $Z$, et
+\item la sous-catégorie pleine de $\QCoh(\mathcal{O}_Y)$ formée des modules
+à support dans $T$.
+\end{enumerate}
+D'après le lemme \ref{lemma-quotient-supported-on-closed}, nous obtenons un
+diagramme commutatif
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_X) \ar[r]_F \ar[d] &
+\QCoh(\mathcal{O}_Y) \ar[d] \\
+\QCoh(\mathcal{O}_U) \ar[r]^{F_U} &
+\QCoh(\mathcal{O}_V)
+}
+$$
+où les flèches verticales sont les foncteurs de restriction et les flèches
+horizontales des équivalences. D'après le lemme
+\ref{lemma-characterize-affine}, nous concluons que $V$ est affine.
+Le cas affine est traité par le lemme \ref{lemma-functor-equivalence}.
+Nous trouvons donc un isomorphisme $f_U : V \to U$ et un
+$\mathcal{O}_V$-module inversible $\mathcal{L}_U$ tels que
+$F_U$ soit le foncteur
+$\mathcal{F} \mapsto f_U^*\mathcal{F} \otimes \mathcal{L}_U$.
+
+\medskip\noindent
+Pour achever la démonstration, il suffit d'observer que les diagrammes
+ci-dessus satisfont une compatibilité évidente à l'égard des inclusions de
+sous-schémas ouverts affines de $X$. Les morphismes $f_U$ et les modules
+inversibles $\mathcal{L}_U$ se recollent donc. Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Foncteurs entre catégories de modules cohérents}
+\label{section-functor-coherent}
+
+\noindent
+Le lemme suivant garantit que nous pouvons utiliser les résultats sur les
+foncteurs entre catégories de modules quasi-cohérents lorsque nous disposons
+d'un foncteur entre catégories de modules cohérents.
+
+\begin{lemma}
+\label{lemma-functor-coherent}
+Soient $X$ et $Y$ des schémas noethériens. Soit
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+un foncteur. Alors $F$ se prolonge de manière unique en un foncteur
+$\QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+qui commute aux limites inductives filtrantes.
+Si $F$ est additif, son prolongement commute aux sommes directes quelconques.
+Si $F$ est exact, exact à gauche ou exact à droite, il en va de même de son
+prolongement.
+\end{lemma}
+
+\begin{proof}
+L'existence et l'unicité du prolongement sont un fait général ; voir
+Catégories, lemme \ref{categories-lemma-extend-functor-by-colim}.
+Pour vérifier que ce lemme s'applique, observons que les modules cohérents
+sont de présentation finie (Modules, lemme
+\ref{modules-lemma-coherent-finite-presentation}) et sont donc des objets
+compacts au sens catégorique de $\textit{Mod}(\mathcal{O}_X)$ d'après
+Modules, lemme \ref{modules-lemma-finite-presentation-quasi-compact-colimit}.
+Enfin, tout module quasi-cohérent est limite inductive filtrante de modules
+cohérents, par exemple d'après Propriétés, lemme
+\ref{properties-lemma-quasi-coherent-colimit-finite-type}.
+
+\medskip\noindent
+Supposons $F$ additif. Si
+$\mathcal{F} = \bigoplus_{j \in J} \mathcal{H}_j$
+avec les $\mathcal{H}_j$ quasi-cohérents, alors
+$\mathcal{F} = \colim_{J' \subset J\text{ fini}}
+\bigoplus_{j \in J'} \mathcal{H}_j$.
+En notant encore $F$ le prolongement de $F$, nous obtenons
+\begin{align*}
+F(\mathcal{F})
+& =
+\colim_{J' \subset J\text{ fini}}
+F(\bigoplus\nolimits_{j \in J'} \mathcal{H}_j) \\
+& =
+\colim_{J' \subset J\text{ fini}}
+\bigoplus\nolimits_{j \in J'} F(\mathcal{H}_j) \\
+& =
+\bigoplus\nolimits_{j \in J} F(\mathcal{H}_j)
+\end{align*}
+Ainsi $F$ commute aux sommes directes quelconques.
+
+\medskip\noindent
+Supposons que
+$0 \to \mathcal{F} \to \mathcal{F}' \to \mathcal{F}'' \to 0$
+soit une suite exacte courte de $\mathcal{O}_X$-modules quasi-cohérents.
+Écrivons $\mathcal{F}' = \bigcup \mathcal{F}'_i$ comme réunion de ses
+sous-modules cohérents ; voir Propriétés, lemme
+\ref{properties-lemma-quasi-coherent-colimit-finite-type}.
+Notons $\mathcal{F}''_i \subset \mathcal{F}''$ l'image de $\mathcal{F}'_i$
+et posons $\mathcal{F}_i = \mathcal{F} \cap \mathcal{F}'_i =
+\Ker(\mathcal{F}'_i \to \mathcal{F}''_i)$. Il est alors clair que
+$\mathcal{F} = \bigcup \mathcal{F}_i$ et
+$\mathcal{F}'' = \bigcup \mathcal{F}''_i$, et que nous avons des suites
+exactes courtes
+$$
+0 \to \mathcal{F}_i \to \mathcal{F}_i' \to \mathcal{F}_i'' \to 0
+$$
+Comme le prolongement commute aux limites inductives filtrantes, nous avons
+$F(\mathcal{F}) = \colim_{i \in I} F(\mathcal{F}_i)$,
+$F(\mathcal{F}') = \colim_{i \in I} F(\mathcal{F}'_i)$ et
+$F(\mathcal{F}'') = \colim_{i \in I} F(\mathcal{F}''_i)$.
+Puisque les limites inductives filtrantes sont exactes
+(Modules, lemme \ref{modules-lemma-limits-colimits}), nous concluons que les
+propriétés d'exactitude de $F$ se transmettent à son prolongement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-coherent}
+Soient $X$ et $Y$ des schémas noethériens. Soit
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+une équivalence de catégories. Alors il existe un isomorphisme $f : Y \to X$
+et un $\mathcal{O}_Y$-module inversible $\mathcal{L}$ tels que
+$F(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-functor-coherent}, nous obtenons un unique foncteur
+$F' : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$ qui prolonge $F$.
+Il en va de même pour un quasi-inverse de $F$ et, par unicité, nous concluons
+que $F'$ est une équivalence. D'après la
+proposition \ref{proposition-gabriel-rosenberg}, il existe un isomorphisme
+$f : Y \to X$ et un $\mathcal{O}_Y$-module inversible $\mathcal{L}$
+tels que $F'(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$.
+Alors $f$ et $\mathcal{L}$ conviennent également pour $F$.
+\end{proof}
+
+\begin{remark}
+\label{remark-equivalence-coherent-linear}
+Dans le lemme \ref{lemma-equivalence-coherent}, si $X$ et $Y$ sont définis
+sur un même anneau de base $R$ et si $F$ est $R$-linéaire, alors
+l'isomorphisme $f$ est un morphisme de schémas sur $R$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-characterize-finite}
+Soit $f : V \to X$ un morphisme quasi-fini séparé de schémas noethériens.
+S'il existe un $\mathcal{O}_V$-module cohérent $\mathcal{K}$ dont le support
+est $V$, tel que $f_*\mathcal{K}$ soit cohérent et que
+$R^qf_*\mathcal{K} = 0$, alors $f$ est fini.
+\end{lemma}
+
+\begin{proof}
+D'après le théorème principal de Zariski, il existe une immersion ouverte
+$j : V \to Y$ au-dessus de $X$ telle que $\pi : Y \to X$ soit fini ; voir
+Plus sur les morphismes, lemme
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}.
+Comme $\pi$ est affine, le foncteur $\pi_*$ est exact et fidèle sur la
+catégorie des $\mathcal{O}_X$-modules cohérents.
+Nous voyons donc que $j_*\mathcal{K}$ est cohérent et que
+$R^qj_*\mathcal{K}$ est nul pour $q > 0$.
+Autrement dit, nous sommes ramenés au cas traité dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons que $f$ soit une immersion ouverte. Nous pouvons remplacer $X$ par
+l'adhérence schématique de $V$. Supposons $X \setminus V$ non vide afin
+d'aboutir à une contradiction. Choisissons un point générique
+$\xi \in X \setminus V$ d'une composante irréductible de $X \setminus V$.
+En examinant la situation après le changement de base par
+$\Spec(\mathcal{O}_{X, \xi}) \to X$, puis en utilisant le changement de base
+plat et Cohomologie locale, lemme
+\ref{local-cohomology-lemma-finiteness-pushforwards-and-H1-local},
+nous sommes ramenés au problème algébrique du paragraphe suivant.
+
+\medskip\noindent
+Soit $(A, \mathfrak m)$ un anneau local noethérien. Soit $M$ un $A$-module
+fini dont le support est $\Spec(A)$. Alors
+$H^i_\mathfrak m(M) \not = 0$ pour un certain $i$. Cela résulte de
+Complexes dualisants, lemme \ref{dualizing-lemma-depth}, et du fait que
+$M$ est non nul, donc de profondeur finie.
+\end{proof}
+
+\noindent
+Le lemme suivant se généralise au cas où $k$ est un anneau noethérien et où
+$X$ est plat sur $k$ (toutes les autres hypothèses restant inchangées).
+
+\begin{lemma}
+\label{lemma-functor-coherent-over-field}
+Soit $k$ un corps. Soient $X$ et $Y$ des schémas de type fini sur $k$,
+avec $X$ séparé. Il existe une équivalence de catégories entre
+\begin{enumerate}
+\item la catégorie des foncteurs exacts $k$-linéaires
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$, et
+\item la catégorie des $\mathcal{O}_{X \times Y}$-modules cohérents
+$\mathcal{K}$ qui sont plats sur $X$ et dont le support est fini sur $Y$,
+\end{enumerate}
+obtenue en associant à $\mathcal{K}$ la restriction du foncteur
+(\ref{equation-FM-QCoh}) à $\textit{Coh}(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{K}$ comme en (2). D'après le
+lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal}, le foncteur
+$F$ donné par (\ref{equation-FM-QCoh}) est exact et $k$-linéaire.
+De plus, $F$ envoie $\textit{Coh}(\mathcal{O}_X)$ dans
+$\textit{Coh}(\mathcal{O}_Y)$, par exemple d'après
+Cohomologie des schémas, lemme
+\ref{coherent-lemma-support-proper-over-base-pushforward}.
+
+\medskip\noindent
+Construisons le quasi-inverse de cette construction. Soit $F$ comme en (1).
+D'après le lemme \ref{lemma-functor-coherent}, nous pouvons prolonger $F$ en
+un foncteur exact $k$-linéaire sur les catégories de modules quasi-cohérents,
+qui commute aux sommes directes quelconques.
+D'après le lemme \ref{lemma-functor-quasi-coherent-from-affine-diagonal}, ce
+prolongement correspond à un unique module quasi-cohérent $\mathcal{K}$, plat
+sur $X$, tel que
+$R^q\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times Y}} \mathcal{K}) = 0$ pour $q > 0$
+et pour tout $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$.
+Comme $F(\mathcal{O}_X)$ est un $\mathcal{O}_Y$-module cohérent, il résulte
+du lemme \ref{lemma-functor-quasi-coherent-from-separated} que
+$\mathcal{K}$ est cohérent.
+
+\medskip\noindent
+Pour tout point fermé $x \in X$, notons $\mathcal{O}_x$ le faisceau gratte-ciel
+en $x$ de valeur le corps résiduel de $x$. Nous avons
+$$
+F(\mathcal{O}_x) =
+\text{pr}_{2, *}(\text{pr}_1^*\mathcal{O}_x \otimes \mathcal{K}) =
+(x \times Y \to Y)_*(\mathcal{K}|_{x \times Y})
+$$
+Comme $x \times Y \to Y$ est fini, l'image directe par ce morphisme est
+fidèle. Ainsi, si $y \in Y$ appartient à l'image du support de
+$\mathcal{K}|_{x \times Y}$, alors $y$ appartient au support de
+$F(\mathcal{O}_x)$.
+
+\medskip\noindent
+Soit $Z \subset X \times Y$ le support schématique $Z$ de $\mathcal{K}$ ;
+voir Morphismes, définition
+\ref{morphisms-definition-scheme-theoretic-support}.
+Nous montrons d'abord que $Z \to Y$ est quasi-fini en montrant que ses fibres
+au-dessus des points fermés sont finies. En effet, si la fibre de $Z \to Y$
+au-dessus d'un point fermé $y \in Y$ est de dimension $> 0$, nous pouvons
+trouver une infinité de points fermés deux à deux distincts
+$x_1, x_2, \ldots$ dans l'image de $Z_y \to X$. Comme nous avons une
+surjection
+$\mathcal{O}_X \to \bigoplus_{i = 1, \ldots, n} \mathcal{O}_{x_i}$,
+nous obtenons une surjection
+$$
+F(\mathcal{O}_X) \to \bigoplus\nolimits_{i = 1, \ldots, n} F(\mathcal{O}_{x_i})
+$$
+D'après ce qui précède, le point $y$ appartient au support de chacun des
+modules cohérents $F(\mathcal{O}_{x_i})$. Comme $F(\mathcal{O}_X)$ est un
+module cohérent, cela conduit à une contradiction, car le germe de
+$F(\mathcal{O}_X)$ en $y$ sera engendré par $< n$ éléments si
+$n$ est assez grand.
+Ainsi $Z \to Y$ est quasi-fini.
+Comme $\text{pr}_{2, *}\mathcal{K}$ est cohérent et que
+$R^q\text{pr}_{2, *}\mathcal{K} = 0$ pour $q > 0$, nous concluons que
+$Z \to Y$ est fini d'après le lemme \ref{lemma-characterize-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward-invertible-pre}
+Soit $f : X \to Y$ un morphisme séparé de type fini de schémas. Soit
+$\mathcal{F}$ un module quasi-cohérent de type fini sur $X$, dont le support
+est fini sur $Y$ et tel que $\mathcal{L} = f_*\mathcal{F}$ soit un
+$\mathcal{O}_X$-module inversible. Alors il existe une section
+$s : Y \to X$ telle que $\mathcal{F} \cong s_*\mathcal{L}$.
+\end{lemma}
+
+\begin{proof}
+Localement dans le cas affine, l'énoncé se traduit par le problème algébrique
+suivant. Soit $A \to B$ un homomorphisme d'anneaux et soit $N$ un $B$-module
+qui est inversible comme $A$-module. Alors l'annulateur $J$ de $N$ dans $B$
+est tel que $A \to B/J$ soit un isomorphisme. Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward-invertible}
+Soit $f : X \to Y$ un morphisme séparé de type fini de schémas, muni d'une
+section $s : Y \to X$. Soit $\mathcal{F}$ un module quasi-cohérent de type
+fini sur $X$, à support ensembliste dans $s(Y)$, et tel que
+$\mathcal{L} = f_*\mathcal{F}$ soit un $\mathcal{O}_X$-module inversible.
+Si $Y$ est réduit, alors $\mathcal{F} \cong s_*\mathcal{L}$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-pushforward-invertible-pre}, il existe une section
+$s' : Y  \to X$ telle que $\mathcal{F} = s'_*\mathcal{L}$. Comme $s'(Y)$
+et $s(Y)$ ont la même partie fermée sous-jacente et sont tous deux des
+sous-schémas fermés réduits de $X$, ils sont égaux.
+Ainsi $s = s'$ et le lemme est démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-coherent-over-field}
+\begin{reference}
+Version faible du résultat de \cite{Gabriel} selon lequel la catégorie des
+modules quasi-cohérents détermine la classe d'isomorphisme d'un schéma.
+\end{reference}
+Soit $k$ un corps. Soient $X$ et $Y$ des schémas de type fini sur $k$,
+avec $X$ séparé et $Y$ réduit. S'il existe une équivalence $k$-linéaire
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+de catégories, alors il existe un isomorphisme $f : Y \to X$ sur $k$ et un
+$\mathcal{O}_Y$-module inversible $\mathcal{L}$ tels que
+$F(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$.
+\end{lemma}
+
+\begin{proof}[Démonstration par reconstruction de Gabriel--Rosenberg]
+Ce lemme est une forme faible des résultats exposés dans le
+lemme \ref{lemma-equivalence-coherent} et la
+remarque \ref{remark-equivalence-coherent-linear}.
+\end{proof}
+
+\begin{proof}[Démonstration indépendante de la reconstruction de Gabriel--Rosenberg]
+D'après le lemme \ref{lemma-functor-coherent-over-field}, nous obtenons un
+$\mathcal{O}_{X \times Y}$-module cohérent $\mathcal{K}$, plat sur $X$ et
+dont le support est fini sur $Y$, tel que $F$ soit donné par la restriction
+du foncteur (\ref{equation-FM-QCoh}) à $\textit{Coh}(\mathcal{O}_X)$.
+Si nous pouvons montrer que $F(\mathcal{O}_X)$ est un
+$\mathcal{O}_Y$-module inversible, alors le
+lemme \ref{lemma-pushforward-invertible-pre} montre que
+$\mathcal{K} = s_*\mathcal{L}$ pour une section
+$s : Y \to X \times Y$ de $\text{pr}_2$ et un
+$\mathcal{O}_Y$-module inversible $\mathcal{L}$.
+Cela montrera que $F$ est de la forme indiquée, avec
+$f = \text{pr}_1 \circ s$. Nous omettons certains détails.
+
+\medskip\noindent
+Il reste à montrer que $F(\mathcal{O}_X)$ est inversible. Nous n'en donnons
+qu'une esquisse et omettons certains détails.
+Pour un point fermé $x \in X$, nous notons $\mathcal{O}_x$ dans
+$\textit{Coh}(\mathcal{O}_X)$ le faisceau gratte-ciel en $x$ de valeur
+$\kappa(x)$. Observons d'abord que les seuls objets simples de la catégorie
+$\textit{Coh}(\mathcal{O}_X)$ sont ces faisceaux gratte-ciel
+$\mathcal{O}_x$. Il en va de même pour $Y$. Ainsi, pour tout point fermé
+$y \in Y$, il existe un point fermé $x \in X$ tel que
+$\mathcal{O}_y \cong F(\mathcal{O}_x)$. De plus, en considérant les
+endomorphismes, nous trouvons $\kappa(x) \cong \kappa(y)$ comme extensions
+finies de $k$. Alors
+$$
+\Hom_Y(F(\mathcal{O}_X), \mathcal{O}_y) \cong
+\Hom_Y(F(\mathcal{O}_X), F(\mathcal{O}_x)) \cong
+\Hom_X(\mathcal{O}_X, \mathcal{O}_x) \cong \kappa(x) \cong \kappa(y)
+$$
+Il en résulte que le germe du $\mathcal{O}_Y$-module cohérent
+$F(\mathcal{O}_X)$ en $y \in Y$ peut être engendré par $1$ générateur (et
+pas moins), pour tout point fermé $y \in Y$. Il s'ensuit immédiatement que
+$F(\mathcal{O}_X)$ est localement engendré par $1$ élément (et pas moins) et,
+comme $Y$ est réduit, cela montre bien qu'il s'agit d'un module inversible.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

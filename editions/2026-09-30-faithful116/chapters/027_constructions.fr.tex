@@ -1,0 +1,5168 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Constructions de schémas}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Le présent chapitre expose diverses méthodes permettant de construire des
+schémas à partir d'autres schémas. On pourra consulter \cite{EGA}.
+
+
+
+
+
+\section{Recollement relatif}
+\label{section-relative-glueing}
+
+\noindent
+Le lemme suivant est utile lorsque l'on cherche à construire un schéma $X$
+sur $S$ et que l'on sait déjà construire la restriction de $X$ aux ouverts affines
+de $S$. L'énoncé est en fait tout à fait général et vaut pour les espaces
+(localement) annelés, bien que la démonstration soit rédigée dans le langage
+des schémas.
+
+\begin{lemma}
+\label{lemma-relative-glueing}
+Soit $S$ un schéma. Soit $\mathcal{B}$ une base de la topologie de $S$.
+Supposons données les familles suivantes :
+\begin{enumerate}
+\item pour tout $U \in \mathcal{B}$, un schéma $f_U : X_U \to U$ sur $U$ ;
+\item pour $U, V \in \mathcal{B}$ avec $V \subset U$, un morphisme
+$\rho^U_V : X_V \to X_U$ sur $U$.
+\end{enumerate}
+Supposons que
+\begin{enumerate}
+\item[(a)] chaque $\rho^U_V$ induise un isomorphisme
+$X_V \to f_U^{-1}(V)$ de schémas sur $V$ ;
+\item[(b)] pour $W, V, U \in \mathcal{B}$ tels que
+$W \subset V \subset U$, on ait $\rho^U_W = \rho^U_V \circ \rho ^V_W$.
+\end{enumerate}
+Il existe alors un morphisme de schémas
+$f : X \to S$ et des isomorphismes
+$i_U : f^{-1}(U) \to X_U$ au-dessus de $U \in \mathcal{B}$ tels que,
+pour $V, U \in \mathcal{B}$ avec $V \subset U$, la composée
+$$
+\xymatrix{
+X_V \ar[r]^{i_V^{-1}} &
+f^{-1}(V) \ar[rr]^{inclusion} & &
+f^{-1}(U) \ar[r]^{i_U} &
+X_U
+}
+$$
+soit $\rho^U_V$. De plus, $X$ est unique
+à unique isomorphisme près sur $S$.
+\end{lemma}
+
+\begin{proof}
+Nous allons appliquer Schémas, Lemme
+\ref{schemes-lemma-glue-functors}.
+Définissons d'abord un foncteur contravariant $F$ de la catégorie des
+schémas vers celle des ensembles. Pour un schéma $T$, posons
+$$
+F(T) =
+\left\{
+\begin{matrix}
+(g, \{h_U\}_{U \in \mathcal{B}}),
+\ g : T \to S, \ h_U : g^{-1}(U) \to X_U, \\
+f_U \circ h_U = g|_{g^{-1}(U)},
+\ h_U|_{g^{-1}(V)} = \rho^U_V \circ h_V
+\ \forall\ V, U \in \mathcal{B}, V \subset U
+\end{matrix}
+\right\}.
+$$
+L'application de restriction $F(T) \to F(T')$ associée à un morphisme
+$T' \to T$ est donnée par composition. Pour $W \in \mathcal{B}$,
+considérons le sous-foncteur $F_W \subset F$ constitué des systèmes
+$(g, \{h_U\})$ tels que $g(T) \subset W$.
+
+\medskip\noindent
+Montrons d'abord que $F$ est un faisceau pour la topologie de Zariski.
+Soient $T$ un schéma, $T = \bigcup V_i$ un recouvrement ouvert et
+$\xi_i \in F(V_i)$ des éléments tels que
+$\xi_i|_{V_i \cap V_j} = \xi_j|_{V_i \cap V_j}$.
+Écrivons $\xi_i = (g_i, \{h_{i, U}\})$.
+Les morphismes $g_i$ se recollent en un unique morphisme global
+$g : T \to S$. De plus,
+$g^{-1}(U) = \bigcup g_i^{-1}(U)$ ; les morphismes
+$h_{i, U} : g_i^{-1}(U) \to X_U$ se recollent donc en un unique morphisme
+$h_U : g^{-1}(U) \to X_U$. On vérifie aisément que le système
+$(g, \{h_U\})$ appartient à $F(T)$. Le foncteur $F$ satisfait donc la
+condition de faisceau pour la topologie de Zariski.
+
+\medskip\noindent
+Vérifions ensuite que chaque $F_W$,
+$W \in \mathcal{B}$, est représentable.
+Nous affirmons que la transformation de foncteurs
+$$
+F_W \longrightarrow \Mor(-, X_W), \ (g, \{h_U\}) \longmapsto h_W
+$$
+est un isomorphisme. Soient $T$ un schéma et $\alpha : T \to X_W$ un
+morphisme. Posons $g = f_W \circ \alpha$.
+Pour $U \in \mathcal{B}$ avec $U \subset W$, définissons
+$h_U : g^{-1}(U) \to X_U$ comme la composée
+$(\rho^W_U)^{-1} \circ \alpha|_{g^{-1}(U)}$.
+C'est possible puisque $\alpha(g^{-1}(U))$ est contenu dans $f_W^{-1}(U)$,
+grâce à la condition (a).
+$f_U \circ h_U = g|_{g^{-1}(U)}$ pour un tel $U$.
+Si, de plus, $V \in \mathcal{B}$ et $V \subset U \subset W$, la condition
+(b) donne $\rho^U_V \circ h_V = h_U|_{g^{-1}(V)}$.
+Il reste à définir $h_U$ pour un élément quelconque $U \in \mathcal{B}$.
+Comme $\mathcal{B}$ est une base de la topologie de $S$, on peut choisir
+un recouvrement ouvert $U \cap W = \bigcup U_i$
+avec $U_i \in \mathcal{B}$.
+Puisque $g$ est à valeurs dans $W$, on a
+$g^{-1}(U) = g^{-1}(U \cap W) = \bigcup g^{-1}(U_i)$.
+Considérons les morphismes
+$h_i = \rho^U_{U_i} \circ h_{U_i} : g^{-1}(U_i) \to X_U$.
+La condition (b) permet aisément de vérifier
+$h_i|_{g^{-1}(U_i) \cap g^{-1}(U_j)} = h_j|_{g^{-1}(U_i) \cap g^{-1}(U_j)}$.
+Ces morphismes se recollent donc en le morphisme cherché
+$h_U : g^{-1}(U) \to X_U$. Nous omettons la vérification élémentaire que
+$(g, \{h_U\})$ appartient à $F_W(T)$ et s'envoie sur $\alpha$ par
+l'application affichée ci-dessus.
+
+\medskip\noindent
+Vérifions ensuite que chaque inclusion $F_W \subset F$ est représentable
+par des immersions ouvertes. Cela résulte directement des définitions.
+
+\medskip\noindent
+Enfin, vérifions que la famille $(F_W)_{W \in \mathcal{B}}$ recouvre $F$.
+Cela résulte de la construction et du
+fait que $\mathcal{B}$ est une base
+de la topologie de $S$.
+
+\medskip\noindent
+Soit $X$ un schéma représentant $F$, et soit
+$(f, \{i_U\}) \in F(X)$ une « famille universelle ».
+Chaque $F_W$ étant représentable par $X_W$ via la transformation de
+foncteurs ci-dessus, $i_W : f^{-1}(W) \to X_W$ est un isomorphisme.
+Le lemme est démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-glueing-sheaves}
+Soit $S$ un schéma. Soit $\mathcal{B}$ une base de la topologie de $S$.
+Supposons données les familles suivantes :
+\begin{enumerate}
+\item pour tout $U \in \mathcal{B}$,
+un schéma $f_U : X_U \to U$ sur $U$ ;
+\item pour tout $U \in \mathcal{B}$, un faisceau quasi-cohérent
+$\mathcal{F}_U$ sur $X_U$ ;
+\item pour $U, V \in \mathcal{B}$ avec $V \subset U$, un morphisme
+$\rho^U_V : X_V \to X_U$ ;
+\item pour $U, V \in \mathcal{B}$ avec $V \subset U$, un morphisme
+$\theta^U_V : (\rho^U_V)^*\mathcal{F}_U \to \mathcal{F}_V$.
+\end{enumerate}
+Supposons que
+\begin{enumerate}
+\item[(a)] chaque $\rho^U_V$ induise un isomorphisme
+$X_V \to f_U^{-1}(V)$ de schémas sur $V$ ;
+\item[(b)] chaque $\theta^U_V$ soit un isomorphisme ;
+\item[(c)] pour $W, V, U \in \mathcal{B}$
+avec $W \subset V \subset U$,
+on ait $\rho^U_W = \rho^U_V \circ \rho ^V_W$ ;
+\item[(d)] pour $W, V, U \in \mathcal{B}$
+avec $W \subset V \subset U$,
+on ait $\theta^U_W = \theta^V_W \circ (\rho^V_W)^*\theta^U_V$.
+\end{enumerate}
+Il existe alors un morphisme de schémas $f : X \to S$, un faisceau
+quasi-cohérent $\mathcal{F}$ sur $X$ et des isomorphismes
+$i_U : f^{-1}(U) \to X_U$ et
+$\theta_U : i_U^*\mathcal{F}_U \to \mathcal{F}|_{f^{-1}(U)}$
+au-dessus de $U \in \mathcal{B}$ tels que, pour $V, U \in \mathcal{B}$
+avec $V \subset U$, la composée
+$$
+\xymatrix{
+X_V \ar[r]^{i_V^{-1}} &
+f^{-1}(V) \ar[rr]^{inclusion} & &
+f^{-1}(U) \ar[r]^{i_U} &
+X_U
+}
+$$
+soit $\rho^U_V$ et que la composée
+\begin{equation}
+\label{equation-glue}
+(\rho^U_V)^*\mathcal{F}_U
+=
+(i_V^{-1})^*((i_U^*\mathcal{F}_U)|_{f^{-1}(V)})
+\xrightarrow{\theta_U|_{f^{-1}(V)}}
+(i_V^{-1})^*(\mathcal{F}|_{f^{-1}(V)})
+\xrightarrow{\theta_V^{-1}}
+\mathcal{F}_V
+\end{equation}
+soit $\theta^U_V$. De plus, $(X, \mathcal{F})$ est unique à unique
+isomorphisme près sur $S$.
+\end{lemma}
+
+\begin{proof}
+Le Lemme \ref{lemma-relative-glueing} fournit le schéma $X$ sur $S$ et les
+isomorphismes $i_U$. Posons $\mathcal{F}'_U = i_U^*\mathcal{F}_U$
+pour $U \in \mathcal{B}$ ; c'est un
+$\mathcal{O}_{f^{-1}(U)}$-module quasi-cohérent. Les morphismes
+$$
+\mathcal{F}'_U|_{f^{-1}(V)} =
+i_U^*\mathcal{F}_U|_{f^{-1}(V)} =
+i_V^*(\rho^U_V)^*\mathcal{F}_U \xrightarrow{i_V^*\theta^U_V}
+i_V^*\mathcal{F}_V = \mathcal{F}'_V
+$$
+définissent des isomorphismes
+$(\theta')^U_V : \mathcal{F}'_U|_{f^{-1}(V)} \to \mathcal{F}'_V$
+pour $V \subset U$ dans $\mathcal{B}$.
+La condition (d) exprime précisément
+leur compatibilité pour un triplet $W \subset V \subset U$ d'éléments de
+$\mathcal{B}$. On peut ainsi définir des isomorphismes
+$$
+\varphi_{12} :
+\mathcal{F}'_{U_1}|_{f^{-1}(U_1 \cap U_2)}
+\longrightarrow
+\mathcal{F}'_{U_2}|_{f^{-1}(U_1 \cap U_2)}
+$$
+pour $U_1, U_2 \in \mathcal{B}$, en recouvrant l'intersection
+$U_1 \cap U_2 = \bigcup V_j$ par des éléments $V_j$ de $\mathcal{B}$ et en
+posant
+$$
+\varphi_{12}|_{V_j} =
+\left((\theta')^{U_2}_{V_j}\right)^{-1}
+\circ
+(\theta')^{U_1}_{V_j}.
+$$
+Nous omettons la vérification que ces morphismes se recollent bien en un
+morphisme $\varphi_{12}$ et satisfont
+la condition de cocycle d'une donnée
+de recollement de faisceaux (au sens de Faisceaux,
+section \ref{sheaves-section-glueing-sheaves}). Par Faisceaux,
+Lemme \ref{sheaves-lemma-glue-sheaves}, on obtient le faisceau
+$\mathcal{F}$ sur $X$. Nous omettons la vérification de
+(\ref{equation-glue}).
+\end{proof}
+
+\begin{remark}
+\label{remark-relative-glueing-functorial}
+Les constructions des Lemmes \ref{lemma-relative-glueing} et
+\ref{lemma-relative-glueing-sheaves} sont fonctorielles.
+Supposons en effet données deux familles
+$(f_U : X_U \to U, \rho^U_V)$ et
+$(g_U : Y_U \to U, \sigma^U_V)$ comme dans le
+Lemme \ref{lemma-relative-glueing}. Supposons que, pour chaque
+$U \in \mathcal{B}$, on dispose d'un morphisme $h_U : X_U \to Y_U$ sur
+$U$, compatible avec les restrictions $\rho^U_V$ et $\sigma^U_V$.
+La fonctorialité signifie que l'on obtient un morphisme de schémas
+$h : X \to Y$ sur $S$ dont les restrictions sont les $h_U$, où
+$f : X \to S$ est construit à partir de
+$(f_U : X_U \to U, \rho^U_V)$ et $g : Y \to S$ à partir de
+$(g_U : Y_U \to U, \sigma^U_V)$.
+
+\medskip\noindent
+De même, supposons données deux familles
+$(f_U : X_U \to U, \mathcal{F}_U, \rho^U_V, \theta^U_V)$ et
+$(g_U : Y_U \to U, \mathcal{G}_U, \sigma^U_V, \eta^U_V)$ comme dans le
+Lemme \ref{lemma-relative-glueing-sheaves}.
+Supposons que, pour chaque
+$U \in \mathcal{B}$, on dispose d'un morphisme
+$h_U : X_U \to Y_U$ sur $U$, compatible
+avec $\rho^U_V$ et $\sigma^U_V$,
+et d'un morphisme $\tau_U : h_U^*\mathcal{G}_U \to \mathcal{F}_U$
+compatible avec $\theta^U_V$ et $\eta^U_V$.
+La fonctorialité signifie que ces données définissent un morphisme de
+schémas $h : X \to Y$ sur $S$ dont les
+restrictions sont les $h_U$, ainsi
+qu'un morphisme $h^*\mathcal{G} \to \mathcal{F}$ dont les restrictions
+sont les $h_U$. Ici, $(f : X \to S, \mathcal{F})$ est construit à
+partir de $(f_U : X_U \to U, \mathcal{F}_U, \rho^U_V, \theta^U_V)$ et
+$(g : Y \to S, \mathcal{G})$ à partir de
+$(g_U : Y_U \to U, \mathcal{G}_U, \sigma^U_V, \eta^U_V)$.
+
+\medskip\noindent
+Nous omettons les vérifications, ainsi qu'une formulation convenable de
+l'« équivalence de catégories » entre données de recollement relatif et
+objets relatifs.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Spectre relatif par recollement}
+\label{section-spec-via-glueing}
+
+\begin{situation}
+\label{situation-relative-spec}
+Ici, $S$ est un schéma et $\mathcal{A}$ une $\mathcal{O}_S$-algèbre
+quasi-cohérente. Cela signifie que $\mathcal{A}$
+est un faisceau de $\mathcal{O}_S$-algèbres qui est
+quasi-cohérent comme $\mathcal{O}_S$-module.
+\end{situation}
+
+\noindent
+Dans cette section, nous indiquons comment construire un morphisme de schémas
+$$
+\underline{\Spec}_S(\mathcal{A}) \longrightarrow S
+$$
+en recollant les spectres $\Spec(\Gamma(U, \mathcal{A}))$, où $U$ parcourt
+les ouverts affines de $S$. Montrons d'abord que les spectres des algèbres
+de sections de $\mathcal{A}$ sur ces ouverts affines forment une famille
+de schémas satisfaisant les conditions
+du Lemme \ref{lemma-relative-glueing}.
+
+\begin{lemma}
+\label{lemma-spec-inclusion}
+Dans la Situation \ref{situation-relative-spec}, soient
+$U \subset U' \subset S$ des ouverts affines. Posons
+$A = \mathcal{A}(U)$ et $A' = \mathcal{A}(U')$.
+L'homomorphisme d'anneaux $A' \to A$ induit un morphisme
+$\Spec(A) \to \Spec(A')$, et le diagramme
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] &
+\Spec(A') \ar[d] \\
+U \ar[r] &
+U'
+}
+$$
+est cartésien.
+\end{lemma}
+
+\begin{proof}
+Posons $R = \mathcal{O}_S(U)$ et $R' = \mathcal{O}_S(U')$.
+L'homomorphisme $R \otimes_{R'} A' \to A$ est un isomorphisme puisque
+$\mathcal{A}$ est quasi-cohérente (voir, par exemple, Schémas,
+Lemme \ref{schemes-lemma-widetilde-pullback}).
+Le résultat découle de la
+description du produit fibré de schémas affines dans Schémas,
+Lemme \ref{schemes-lemma-fibre-product-affine-schemes}.
+\end{proof}
+
+\noindent
+En particulier, le morphisme $\Spec(A) \to \Spec(A')$ du lemme est une
+immersion ouverte.
+
+\begin{lemma}
+\label{lemma-transitive-spec}
+Dans la Situation \ref{situation-relative-spec}, soient
+$U \subset U' \subset U'' \subset S$ des ouverts affines. Posons
+$A = \mathcal{A}(U)$, $A' = \mathcal{A}(U')$,
+$A'' = \mathcal{A}(U'')$.
+La composée des morphismes $\Spec(A) \to \Spec(A')$ et
+$\Spec(A') \to \Spec(A'')$ du Lemme
+\ref{lemma-spec-inclusion} est le
+morphisme $\Spec(A) \to \Spec(A'')$
+du Lemme \ref{lemma-spec-inclusion}.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que $A'' \to A$ est la composée de $A'' \to A'$ et de
+$A' \to A$, puisque $\mathcal{A}$ est un faisceau.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-relative-spec}
+Dans la Situation \ref{situation-relative-spec}, il existe un morphisme
+de schémas
+$$
+\pi : \underline{\Spec}_S(\mathcal{A}) \longrightarrow S
+$$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item pour tout ouvert affine $U \subset S$, il existe un isomorphisme
+$i_U : \pi^{-1}(U) \to \Spec(\mathcal{A}(U))$ sur $U$ ;
+\item pour des ouverts affines $U \subset U' \subset S$, la composée
+$$
+\xymatrix{
+\Spec(\mathcal{A}(U)) \ar[r]^{i_U^{-1}} &
+\pi^{-1}(U) \ar[rr]^{inclusion} & &
+\pi^{-1}(U') \ar[r]^{i_{U'}} &
+\Spec(\mathcal{A}(U'))
+}
+$$
+est l'immersion ouverte du Lemme \ref{lemma-spec-inclusion}.
+\end{enumerate}
+De plus, $\underline{\Spec}_S(\mathcal{A})$ est unique à unique
+isomorphisme près sur $S$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des
+Lemmes \ref{lemma-relative-glueing},
+\ref{lemma-spec-inclusion} et
+\ref{lemma-transitive-spec}.
+L'unicité est énoncée dans la dernière phrase du
+Lemme \ref{lemma-relative-glueing}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Le spectre relatif comme foncteur}
+\label{section-spec}
+
+\noindent
+Plaçons-nous dans la Situation \ref{situation-relative-spec}, c'est-à-dire que
+$S$ est un schéma et que $\mathcal{A}$ est un faisceau quasi-cohérent de
+$\mathcal{O}_S$-algèbres.
+
+\medskip\noindent
+Pour tout $f : T \to S$, l'image inverse
+$f^*\mathcal{A}$ est un faisceau quasi-cohérent de $\mathcal{O}_T$-algèbres.
+Nous allons considérer les paires $(f : T \to S, \varphi)$ où
+$f$ est un morphisme de schémas et $\varphi : f^*\mathcal{A} \to \mathcal{O}_T$
+un morphisme de $\mathcal{O}_T$-algèbres. Remarquons que cela revient à se
+donner un homomorphisme de $f^{-1}\mathcal{O}_S$-algèbres
+$\varphi : f^{-1}\mathcal{A} \to \mathcal{O}_T$ ; voir
+Faisceaux, Lemme \ref{sheaves-lemma-adjointness-tensor-restrict}.
+Cela revient également à se donner un
+homomorphisme de $\mathcal{O}_S$-algèbres
+$\varphi : \mathcal{A} \to f_*\mathcal{O}_T$ ; voir
+Faisceaux, Lemme \ref{sheaves-lemma-adjoint-push-pull-modules}.
+Nous utiliserons sans autre mention ces trois façons d'envisager $\varphi$.
+
+\medskip\noindent
+Étant donnés une telle paire
+$(f : T \to S, \varphi)$ et un morphisme $a : T' \to T$, on obtient
+une seconde paire $(f' = f \circ a, \varphi' = a^*\varphi)$, appelée
+l'image inverse de $(f, \varphi)$. On peut notamment décrire
+$\varphi' = a^*\varphi$ comme la composée
+$\mathcal{A} \to f_*\mathcal{O}_T \to f'_*\mathcal{O}_{T'}$,
+où la seconde application est $f_*a^\sharp$ avec
+$a^\sharp : \mathcal{O}_T \to a_*\mathcal{O}_{T'}$.
+On a ainsi défini un foncteur
+\begin{eqnarray}
+\label{equation-spec}
+F : \Sch^{opp} & \longrightarrow & \textit{Ensembles} \\
+T & \longmapsto & F(T) = \{\text{pairs }(f, \varphi) \text{ as above}\}
+\nonumber
+\end{eqnarray}
+
+\begin{lemma}
+\label{lemma-spec-base-change}
+Dans la Situation \ref{situation-relative-spec},
+soit $F$ le foncteur
+associé ci-dessus à $(S, \mathcal{A})$.
+Soit $g : S' \to S$ un morphisme de schémas.
+Posons $\mathcal{A}' = g^*\mathcal{A}$ et soit $F'$ le
+foncteur associé ci-dessus à $(S', \mathcal{A}')$.
+Il existe alors un isomorphisme canonique
+$$
+F' \cong h_{S'} \times_{h_S} F
+$$
+de foncteurs.
+\end{lemma}
+
+\begin{proof}
+Se donner une paire $(f' : T \to S', \varphi' : (f')^*\mathcal{A}' \to \mathcal{O}_T)$
+revient à se donner une paire $(f, \varphi : f^*\mathcal{A} \to \mathcal{O}_T)$
+ainsi qu'une factorisation de $f$ sous la forme
+$f = g \circ f'$. En effet, avec ces notations,
+$(f')^* \mathcal{A}' = (f')^*g^*\mathcal{A} = f^*\mathcal{A}$.
+D'où le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-spec-affine}
+Dans la Situation \ref{situation-relative-spec}, soit $F$ le foncteur
+associé ci-dessus à $(S, \mathcal{A})$.
+Si $S$ est affine, alors $F$ est représentable par le
+schéma affine $\Spec(\Gamma(S, \mathcal{A}))$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $S = \Spec(R)$ et $A = \Gamma(S, \mathcal{A})$.
+Alors $A$ est une $R$-algèbre et $\mathcal{A} = \widetilde A$.
+L'homomorphisme d'anneaux $R \to A$ donne une application canonique
+$$
+f_{univ} : \Spec(A)
+\longrightarrow
+S = \Spec(R).
+$$
+On a
+$f_{univ}^*\mathcal{A} =  \widetilde{A \otimes_R A}$
+par Schémas, Lemme \ref{schemes-lemma-widetilde-pullback}.
+Il existe donc une application canonique
+$$
+\varphi_{univ} :
+f_{univ}^*\mathcal{A} = \widetilde{A \otimes_R A}
+\longrightarrow
+\widetilde A = \mathcal{O}_{\Spec(A)}
+$$
+provenant de l'application de $A$-modules $A \otimes_R A \to A$,
+$a \otimes a' \mapsto aa'$. Nous affirmons que la paire
+$(f_{univ}, \varphi_{univ})$ représente $F$ dans ce cas.
+Autrement dit, pour tout schéma $T$, l'application
+$$
+\Mor(T, \Spec(A)) \longrightarrow \{\text{pairs } (f, \varphi)\},\quad
+a \longmapsto (f_{univ} \circ a, a^*\varphi_{univ})
+$$
+est bijective.
+
+\medskip\noindent
+Construisons l'application inverse.
+À toute paire $(f : T \to S, \varphi)$
+est associé l'homomorphisme d'anneaux
+$$
+\xymatrix{
+A = \Gamma(S, \mathcal{A}) \ar[r]^{f^*} &
+\Gamma(T, f^*\mathcal{A}) \ar[r]^{\varphi} &
+\Gamma(T, \mathcal{O}_T)
+}
+$$
+Celui-ci induit un morphisme de schémas $T \to \Spec(A)$
+par Schémas, Lemme \ref{schemes-lemma-morphism-into-affine}.
+
+\medskip\noindent
+Nous omettons de vérifier que cette application est inverse de celle
+affichée ci-dessus.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-spec}
+Dans la Situation \ref{situation-relative-spec},
+le foncteur $F$ est représentable par un schéma.
+\end{lemma}
+
+\begin{proof}
+Nous allons appliquer Schémas, Lemme \ref{schemes-lemma-glue-functors}.
+
+\medskip\noindent
+Vérifions d'abord que $F$ satisfait la condition de faisceau pour la
+topologie de Zariski. Supposons que $T$ soit un schéma,
+que $T = \bigcup_{i \in I} U_i$ soit un recouvrement ouvert
+et que $(f_i, \varphi_i) \in F(U_i)$ vérifient
+$(f_i, \varphi_i)|_{U_i \cap U_j} = (f_j, \varphi_j)|_{U_i \cap U_j}$.
+Il en résulte que les morphismes $f_i : U_i \to S$
+se recollent en un morphisme de schémas $f : T \to S$ tel que
+$f|_{U_i} = f_i$ ; voir Schémas, section \ref{schemes-section-glueing-schemes}.
+Ainsi, $f_i^*\mathcal{A} = f^*\mathcal{A}|_{U_i}$ et, par hypothèse, les
+morphismes $\varphi_i$ coïncident sur $U_i \cap U_j$. Ils se recollent donc,
+par Faisceaux, section \ref{sheaves-section-glueing-sheaves}, en un
+morphisme de $\mathcal{O}_T$-algèbres $f^*\mathcal{A} \to \mathcal{O}_T$.
+Cela prouve que $F$ satisfait la condition de faisceau pour la topologie
+de Zariski.
+
+\medskip\noindent
+Soit $S = \bigcup_{i \in I} U_i$ un recouvrement par des ouverts affines.
+Soit $F_i \subset F$ le sous-foncteur formé des
+paires $(f : T \to S, \varphi)$ telles que
+$f(T) \subset U_i$.
+
+\medskip\noindent
+Il faut montrer que chaque $F_i$ est représentable.
+C'est le cas, car $F_i$ s'identifie
+au foncteur associé à $U_i$ muni de
+la $\mathcal{O}_{U_i}$-algèbre quasi-cohérente $\mathcal{A}|_{U_i}$,
+par le Lemme \ref{lemma-spec-base-change}.
+Le résultat découle donc du Lemme \ref{lemma-spec-affine}.
+
+\medskip\noindent
+Montrons ensuite que $F_i \subset F$ est représentable par des immersions ouvertes.
+Soit $(f : T \to S, \varphi) \in F(T)$. Posons $V_i = f^{-1}(U_i)$.
+La définition de $F_i$ montre que, pour tout $a : T' \to T$,
+on a $a^*(f, \varphi) \in F_i(T')$ si et seulement si $a(T') \subset V_i$.
+C'est précisément ce qu'il fallait démontrer.
+
+\medskip\noindent
+Enfin, il faut montrer que la famille $(F_i)_{i \in I}$
+recouvre $F$. Soit $(f : T \to S, \varphi) \in F(T)$.
+Posons $V_i = f^{-1}(U_i)$. Puisque $S = \bigcup_{i \in I} U_i$
+est un recouvrement ouvert de $S$, on voit que $T = \bigcup_{i \in I} V_i$
+est un recouvrement ouvert de $T$. De plus, $(f, \varphi)|_{V_i} \in F_i(V_i)$.
+Le lemme est ainsi démontré.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-gives-functor-spec}
+Dans la Situation \ref{situation-relative-spec}, le schéma
+$\pi : \underline{\Spec}_S(\mathcal{A}) \to S$
+construit dans le Lemme \ref{lemma-glue-relative-spec} et le schéma
+représentant le foncteur $F$ sont canoniquement isomorphes comme schémas
+au-dessus de $S$.
+\end{lemma}
+
+\begin{proof}
+Soit $X \to S$ le schéma représentant le foncteur $F$.
+Considérons le faisceau de $\mathcal{O}_S$-algèbres
+$\mathcal{R} = \pi_*\mathcal{O}_{\underline{\Spec}_S(\mathcal{A})}$.
+Par construction de $\underline{\Spec}_S(\mathcal{A})$,
+on dispose d'isomorphismes $\mathcal{A}(U) \to \mathcal{R}(U)$
+pour tout ouvert affine $U \subset S$ ; cela résulte de la partie (1) du
+Lemme \ref{lemma-glue-relative-spec}.
+Pour des ouverts $U \subset U' \subset S$, ces isomorphismes sont
+compatibles aux applications de restriction ; cela résulte de la partie (2) du
+Lemme \ref{lemma-glue-relative-spec}.
+Par Faisceaux, Lemme \ref{sheaves-lemma-restrict-basis-equivalence-modules},
+ils proviennent donc d'un isomorphisme de $\mathcal{O}_S$-algèbres
+$\varphi : \mathcal{A} \to \mathcal{R}$. On obtient ainsi un élément
+$(\pi, \varphi) \in F(\underline{\Spec}_S(\mathcal{A}))$.
+Puisque $X$ représente le foncteur $F$, il lui correspond un
+morphisme de schémas $can : \underline{\Spec}_S(\mathcal{A}) \to X$
+au-dessus de $S$.
+
+\medskip\noindent
+Soit $U \subset S$ un ouvert affine. Soit $F_U \subset F$ le
+sous-foncteur de $F$ correspondant aux paires $(f, \varphi)$ définies sur des
+schémas $T$ tels que $f(T) \subset U$. Le changement de base
+$X_U$ représente manifestement $F_U$. D'autre part, d'après le
+Lemme \ref{lemma-spec-affine}, $F_U$ est représenté par
+$\Spec(\mathcal{A}(U)) = \pi^{-1}(U)$. Autrement dit, $X_U \cong \pi^{-1}(U)$.
+Nous omettons de vérifier que cette identification est induite par le
+changement de base du morphisme $can$ à $U$.
+\end{proof}
+
+\begin{definition}
+\label{definition-relative-spec}
+Soit $S$ un schéma. Soit $\mathcal{A}$ un faisceau quasi-cohérent de
+$\mathcal{O}_S$-algèbres. Le {\it spectre relatif de $\mathcal{A}$ au-dessus de
+$S$}, ou simplement le {\it spectre de $\mathcal{A}$ au-dessus de $S$}, est le schéma
+construit dans le Lemme \ref{lemma-glue-relative-spec} qui représente le
+foncteur $F$ (\ref{equation-spec}) ; voir le
+Lemme \ref{lemma-glueing-gives-functor-spec}.
+On le note $\pi : \underline{\Spec}_S(\mathcal{A}) \to S$.
+La « famille universelle » est un morphisme de $\mathcal{O}_S$-algèbres
+$$
+\mathcal{A}
+\longrightarrow
+\pi_*\mathcal{O}_{\underline{\Spec}_S(\mathcal{A})}
+$$
+\end{definition}
+
+\noindent
+Le lemme suivant affirme notamment que la formation du spectre relatif
+commute aux changements de base.
+
+\begin{lemma}
+\label{lemma-spec-properties}
+Soit $S$ un schéma. Soit $\mathcal{A}$ un faisceau quasi-cohérent
+de $\mathcal{O}_S$-algèbres. Soit
+$\pi : \underline{\Spec}_S(\mathcal{A}) \to S$
+le spectre relatif de $\mathcal{A}$ au-dessus de $S$.
+\begin{enumerate}
+\item Pour tout ouvert affine $U \subset S$, l'image inverse
+$\pi^{-1}(U)$ est affine.
+\item Pour tout morphisme $g : S' \to S$, on a
+$S' \times_S \underline{\Spec}_S(\mathcal{A}) =
+\underline{\Spec}_{S'}(g^*\mathcal{A})$.
+\item
+L'application universelle
+$$
+\mathcal{A}
+\longrightarrow
+\pi_*\mathcal{O}_{\underline{\Spec}_S(\mathcal{A})}
+$$
+est un isomorphisme de $\mathcal{O}_S$-algèbres.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) résulte de la description du spectre relatif par recollement ;
+voir le Lemme \ref{lemma-glue-relative-spec}.
+La partie (2) découle immédiatement du Lemme \ref{lemma-spec-base-change}.
+La partie (3) est locale sur $S$ et, lorsque $S$ est affine, elle résulte
+par exemple du Lemme \ref{lemma-spec-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-canonical-morphism}
+Soit $f : X \to S$ un morphisme quasi-compact et quasi-séparé de schémas.
+Par Schémas, Lemme \ref{schemes-lemma-push-forward-quasi-coherent},
+le faisceau $f_*\mathcal{O}_X$ est un faisceau quasi-cohérent de
+$\mathcal{O}_S$-algèbres. Il existe un morphisme canonique
+$$
+can : X \longrightarrow \underline{\Spec}_S(f_*\mathcal{O}_X)
+$$
+de schémas au-dessus de $S$.
+Pour tout ouvert affine $U \subset S$, la restriction $can|_{f^{-1}(U)}$
+s'identifie au morphisme canonique
+$$
+f^{-1}(U) \longrightarrow \Spec(\Gamma(f^{-1}(U), \mathcal{O}_X))
+$$
+provenant de Schémas, Lemme \ref{schemes-lemma-morphism-into-affine}.
+\end{lemma}
+
+\begin{proof}
+Par la définition de $\underline{\Spec}$ comme schéma représentant le
+foncteur $F$, le morphisme provient de l'application canonique
+$\varphi : f^*f_*\mathcal{O}_X \to \mathcal{O}_X$ (qui, par adjonction entre
+image inverse et image directe, correspond à
+$\text{id} : f_*\mathcal{O}_X \to f_*\mathcal{O}_X$).
+L'assertion concernant la restriction à $f^{-1}(U)$
+résulte de la description du spectre relatif au-dessus d'un ouvert affine ;
+voir le Lemme \ref{lemma-spec-affine}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Espace affine de dimension n}
+\label{section-affine-n-space}
+
+\noindent
+Comme application du spectre relatif, définissons l'espace affine de
+dimension $n$ au-dessus d'un schéma de
+base $S$. Pour tout entier $n \geq 0$,
+on peut considérer le faisceau quasi-cohérent de $\mathcal{O}_S$-algèbres
+$\mathcal{O}_S[T_1, \ldots, T_n]$. Il est quasi-cohérent car, comme faisceau
+de $\mathcal{O}_S$-modules, il est simplement la somme directe de copies de
+$\mathcal{O}_S$ indexées par les multi-indices.
+
+\begin{definition}
+\label{definition-affine-n-space}
+Soient $S$ un schéma et $n \geq 0$.
+Le schéma
+$$
+\mathbf{A}^n_S =
+\underline{\Spec}_S(\mathcal{O}_S[T_1, \ldots, T_n])
+$$
+au-dessus de $S$ est appelé {\it espace affine de dimension $n$ au-dessus de $S$}.
+Si $S = \Spec(R)$ est affine, on l'appelle aussi
+{\it espace affine de dimension $n$ au-dessus de $R$} et on le note $\mathbf{A}^n_R$.
+\end{definition}
+
+\noindent
+Remarquons que $\mathbf{A}^n_R = \Spec(R[T_1, \ldots, T_n])$.
+Pour tout morphisme de schémas $g : S' \to S$, on a
+$g^*\mathcal{O}_S[T_1, \ldots, T_n] = \mathcal{O}_{S'}[T_1, \ldots, T_n]$ ;
+ainsi, $\mathbf{A}^n_{S'} = S' \times_S \mathbf{A}^n_S$ est le changement
+de base. Une définition équivalente de l'espace affine de dimension $n$
+est donc donnée par la formule
+$$
+\mathbf{A}^n_S = S \times_{\Spec(\mathbf{Z})} \mathbf{A}^n_{\mathbf{Z}}.
+$$
+En outre, un morphisme d'un $S$-schéma $f : X \to S$
+vers $\mathbf{A}^n_S$ est déterminé par un homomorphisme de
+$\mathcal{O}_S$-algèbres
+$\mathcal{O}_S[T_1, \ldots, T_n] \to f_*\mathcal{O}_X$.
+Cela revient manifestement à se donner les images des $T_i$.
+Autrement dit, se donner un morphisme de $X$ vers $\mathbf{A}^n_S$ au-dessus de $S$
+revient à se donner $n$ éléments
+$h_1, \ldots, h_n \in \Gamma(X, \mathcal{O}_X)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Fibrés vectoriels}
+\label{section-vector-bundle}
+
+\noindent
+Soit $S$ un schéma.
+Soit $\mathcal{E}$ un faisceau quasi-cohérent de $\mathcal{O}_S$-modules.
+Par Modules, Lemme \ref{modules-lemma-whole-tensor-algebra-permanence},
+l'algèbre symétrique $\text{Sym}(\mathcal{E})$ de
+$\mathcal{E}$ sur $\mathcal{O}_S$
+est un faisceau quasi-cohérent de $\mathcal{O}_S$-algèbres.
+On peut donc lui appliquer la construction du spectre relatif.
+
+\begin{definition}
+\label{definition-vector-bundle}
+Soit $S$ un schéma. Soit $\mathcal{E}$ un
+$\mathcal{O}_S$-module quasi-cohérent\footnote{Le lecteur pourrait s'attendre
+à ce que l'on suppose ici $\mathcal{E}$ localement libre de type fini. Nous ne
+le faisons pas, afin de rester cohérents avec \cite[II, définition 1.7.8]{EGA}.}.
+Le {\it fibré vectoriel associé à $\mathcal{E}$} est
+$$
+\mathbf{V}(\mathcal{E}) = \underline{\Spec}_S(\text{Sym}(\mathcal{E})).
+$$
+\end{definition}
+
+\noindent
+Le fibré vectoriel associé à $\mathcal{E}$ est muni d'une structure
+supplémentaire. En effet, on a une graduation
+$$
+\pi_*\mathcal{O}_{\mathbf{V}(\mathcal{E})} =
+\bigoplus\nolimits_{n \geq 0} \text{Sym}^n(\mathcal{E}).
+$$
+qui fait de $\pi_*\mathcal{O}_{\mathbf{V}(\mathcal{E})}$
+une $\mathcal{O}_S$-algèbre graduée. Réciproquement, on retrouve
+$\mathcal{E}$ comme sa partie de degré $1$.
+Nous définissons donc un fibré vectoriel abstrait comme suit.
+
+\begin{definition}
+\label{definition-abstract-vector-bundle}
+Soit $S$ un schéma. Un {\it fibré vectoriel $\pi : V \to S$ au-dessus de $S$}
+est un morphisme affine de schémas tel que $\pi_*\mathcal{O}_V$ soit muni
+d'une structure de $\mathcal{O}_S$-algèbre graduée
+$\pi_*\mathcal{O}_V = \bigoplus\nolimits_{n \geq 0} \mathcal{E}_n$
+telle que $\mathcal{E}_0 = \mathcal{O}_S$ et que les applications
+$$
+\text{Sym}^n(\mathcal{E}_1) \longrightarrow \mathcal{E}_n
+$$
+soient des isomorphismes pour tout $n \geq 0$. Un {\it morphisme de fibrés
+vectoriels au-dessus de $S$} est un morphisme $f : V \to V'$ tel que
+l'application induite
+$$
+f^* : \pi'_*\mathcal{O}_{V'} \longrightarrow \pi_*\mathcal{O}_V
+$$ soit compatible avec les graduations données.
+\end{definition}
+
+\noindent
+Un exemple de fibré vectoriel sur $S$ est l'espace affine de dimension $n$,
+$\mathbf{A}^n_S$, sur $S$ ;
+voir la Définition \ref{definition-affine-n-space}. En effet,
+$\mathcal{O}_S[T_1, \ldots, T_n] = \text{Sym}(\mathcal{O}_S^{\oplus n})$.
+
+\begin{lemma}
+\label{lemma-category-vector-bundles}
+La catégorie des fibrés vectoriels au-dessus d'un schéma $S$ est
+anti-équivalente à la catégorie des $\mathcal{O}_S$-modules quasi-cohérents.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : dans un sens, on utilise le foncteur
+$\underline{\Spec}_S(\text{Sym}^*_{\mathcal{O}_S}(-))$,
+et dans l'autre le foncteur
+$(\pi : V \to S) \leadsto (\pi_*\mathcal{O}_V)_1$, où l'indice
+signifie que l'on prend la partie de degré $1$.
+\end{proof}
+
+
+
+
+\section{Cônes}
+\label{section-cone}
+
+\noindent
+En géométrie algébrique, les cônes correspondent aux algèbres graduées.
+Selon nos conventions, un anneau ou une algèbre gradué $A$ est muni d'une graduation
+$A = \bigoplus_{d \geq 0} A_d$ par les entiers positifs ou nuls ; voir
+Algèbre, section \ref{algebra-section-graded}.
+
+\begin{definition}
+\label{definition-cone}
+Soit $S$ un schéma. Soit $\mathcal{A}$ une
+$\mathcal{O}_S$-algèbre graduée quasi-cohérente. Supposons que
+$\mathcal{O}_S \to \mathcal{A}_0$ soit un isomorphisme\footnote{On impose
+souvent que $\mathcal{A}$ soit engendrée par $\mathcal{A}_1$ sur
+$\mathcal{O}_S$. Nous ne le supposons pas, afin de rester cohérents avec
+\cite[II, (8.3.1)]{EGA}.}.
+Le {\it cône associé à $\mathcal{A}$}, ou le
+{\it cône affine associé à $\mathcal{A}$}, est
+$$
+C(\mathcal{A}) = \underline{\Spec}_S(\mathcal{A}).
+$$
+\end{definition}
+
+\noindent
+Le cône associé à un faisceau gradué de $\mathcal{O}_S$-algèbres
+est muni d'une structure supplémentaire : on obtient une graduation
+$$
+\pi_*\mathcal{O}_{C(\mathcal{A})} =
+\bigoplus\nolimits_{n \geq 0} \mathcal{A}_n
+$$
+On peut donc définir un cône abstrait comme suit.
+
+\begin{definition}
+\label{definition-abstract-cone}
+Soit $S$ un schéma. Un {\it cône $\pi : C \to S$ au-dessus de $S$} est un
+morphisme affine de schémas tel que $\pi_*\mathcal{O}_C$ soit muni d'une
+structure de $\mathcal{O}_S$-algèbre graduée
+$\pi_*\mathcal{O}_C = \bigoplus\nolimits_{n \geq 0} \mathcal{A}_n$
+telle que $\mathcal{A}_0 = \mathcal{O}_S$. Un {\it morphisme de cônes}
+de $\pi : C \to S$ vers $\pi' : C' \to S$
+est un morphisme $f : C \to C'$ tel que l'application induite
+$$
+f^* : \pi'_*\mathcal{O}_{C'} \longrightarrow \pi_*\mathcal{O}_C
+$$
+soit compatible avec les graduations données.
+\end{definition}
+
+\noindent
+Tout fibré vectoriel est un exemple de cône. En fait, la catégorie des
+fibrés vectoriels au-dessus de $S$ est une sous-catégorie pleine de la
+catégorie des cônes au-dessus de $S$.
+
+
+
+
+
+
+
+
+
+
+\section{Proj d'un anneau gradué}
+\label{section-proj}
+
+\noindent
+Dans cette section, nous construisons le Proj d'un anneau gradué
+en suivant \cite[II, section 2]{EGA}.
+
+\medskip\noindent
+Soit $S$ un anneau gradué. Considérons l'espace topologique $\text{Proj}(S)$
+associé à $S$ ; voir Algèbre, section \ref{algebra-section-proj}.
+Nous allons munir cet espace d'un faisceau d'anneaux $\mathcal{O}_{\text{Proj}(S)}$
+de sorte que la paire $(\text{Proj}(S), \mathcal{O}_{\text{Proj}(S)})$
+ainsi obtenue soit un schéma.
+
+\medskip\noindent
+Rappelons que $\text{Proj}(S)$ possède une base d'ouverts $D_{+}(f)$,
+$f \in S_d$, $d \geq 1$, que nous appelons {\it ouverts standards} ; voir
+Algèbre, section \ref{algebra-section-proj}. Cette terminologie sous-entendra
+toujours que $f$ est homogène de degré strictement positif, même si nous
+omettons de le préciser. En outre, l'intersection de deux ouverts standards
+est encore un ouvert standard :
+$D_{+}(f) \cap D_{+}(g) = D_{+}(fg)$ pour $f, g \in S$ homogènes de degré strictement positif.
+
+\begin{lemma}
+\label{lemma-standard-open}
+Soit $S$ un anneau gradué. Soit $f \in S$
+homogène de degré strictement positif.
+\begin{enumerate}
+\item Si $g\in S$ est homogène de degré strictement positif
+et $D_{+}(g) \subset D_{+}(f)$, alors
+\begin{enumerate}
+\item $f$ est inversible dans $S_g$, et
+$f^{\deg(g)}/g^{\deg(f)}$ est inversible dans $S_{(g)}$,
+\item $g^e = af$ pour un certain $e \geq 1$ et un certain $a \in S$ homogène,
+\item il existe un homomorphisme canonique de $S$-algèbres $S_f \to S_g$,
+\item il existe un homomorphisme canonique de $S_0$-algèbres
+$S_{(f)} \to S_{(g)}$, compatible avec l'application $S_f \to S_g$,
+\item l'application $S_{(f)} \to S_{(g)}$ induit un isomorphisme
+$$
+(S_{(f)})_{g^{\deg(f)}/f^{\deg(g)}} \cong S_{(g)},
+$$
+\item ces applications induisent un diagramme commutatif d'espaces
+topologiques
+$$
+\xymatrix{
+D_{+}(g) \ar[d] &
+\{\mathbf{Z}\text{-graded primes of }S_g\} \ar[l] \ar[r] \ar[d] &
+\Spec(S_{(g)}) \ar[d] \\
+D_{+}(f) &
+\{\mathbf{Z}\text{-graded primes of }S_f\} \ar[l] \ar[r] &
+\Spec(S_{(f)})
+}
+$$
+où les applications horizontales sont des homéomorphismes et les applications
+verticales des immersions ouvertes,
+\item il existe des applications canoniques compatibles de $S_f$-modules et
+de $S_{(f)}$-modules $M_f \to M_g$ et $M_{(f)} \to M_{(g)}$ pour tout
+$S$-module gradué $M$, et
+\item l'application $M_{(f)} \to M_{(g)}$ induit un isomorphisme
+$$
+(M_{(f)})_{g^{\deg(f)}/f^{\deg(g)}} \cong M_{(g)}.
+$$
+\end{enumerate}
+\item Tout recouvrement ouvert de $D_{+}(f)$ admet un raffinement qui est un
+recouvrement ouvert fini de la forme $D_{+}(f) = \bigcup_{i = 1}^n D_{+}(g_i)$.
+\item Soient $g_1, \ldots, g_n \in S$ homogènes de degré strictement positif.
+Alors $D_{+}(f) \subset \bigcup D_{+}(g_i)$ si et seulement si
+$g_1^{\deg(f)}/f^{\deg(g_1)}, \ldots, g_n^{\deg(f)}/f^{\deg(g_n)}$
+engendrent l'idéal unité de $S_{(f)}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Rappelons que $D_{+}(g) = \Spec(S_{(g)})$, l'identification étant donnée par
+les homomorphismes d'anneaux $S \to S_g \leftarrow S_{(g)}$ ; voir
+Algèbre, Lemme \ref{algebra-lemma-topology-proj}.
+Ainsi, $f^{\deg(g)}/g^{\deg(f)}$ est un élément de $S_{(g)}$ qui n'appartient
+à aucun idéal premier ; il est donc inversible, par
+Algèbre, Lemme \ref{algebra-lemma-Zariski-topology}.
+On en déduit (a).
+Écrivons l'inverse de $f$ dans $S_g$ sous la forme $a/g^d$.
+On peut remplacer $a$ par sa partie homogène de degré
+$d\deg(g) - \deg(f)$.
+Cela signifie que $g^d - af$ est annulé par une puissance de $g$, d'où
+$g^e = af$ pour un certain $a \in S$ homogène de degré
+$e\deg(g) - \deg(f)$. Ceci prouve (b).
+Pour (c), l'application $S_f \to S_g$ existe, d'après (a), par la propriété
+universelle de la localisation ; on peut aussi la définir en envoyant $b/f^n$
+sur $a^nb/g^{ne}$. Elle induit manifestement une application entre les
+sous-anneaux d'éléments de degré zéro $S_{(f)} \to S_{(g)}$.
+De même, on peut définir $M_f \to M_g$ et $M_{(f)} \to M_{(g)}$ en envoyant
+$x/f^n$ sur $a^nx/g^{ne}$. Les assertions qui présentent $S_{(g)}$, resp.\ $M_{(g)}$, comme une
+localisation principale de $S_{(f)}$, resp.\ $M_{(f)}$, résultent aussitôt des formules précédentes.
+Les applications du diagramme commutatif d'espaces topologiques correspondent
+aux homomorphismes d'anneaux ci-dessus. Les flèches horizontales sont des
+homéomorphismes par Algèbre, Lemme \ref{algebra-lemma-topology-proj}.
+Les flèches verticales sont des immersions ouvertes, puisque celle de gauche
+est l'inclusion d'un sous-ensemble ouvert.
+
+\medskip\noindent
+L'ouvert $D_{+}(f)$ est quasi-compact, car il est homéomorphe à
+$\Spec(S_{(f)})$ ; voir Algèbre, Lemme
+\ref{algebra-lemma-quasi-compact}.
+La deuxième assertion résulte donc directement du fait que les ouverts
+standards forment une base de la topologie.
+
+\medskip\noindent
+La troisième assertion découle directement de
+Algèbre, Lemme \ref{algebra-lemma-Zariski-topology}.
+\end{proof}
+
+\noindent
+Dans Faisceaux, section \ref{sheaves-section-bases}, nous avons défini
+la notion de faisceau sur une base et montré qu'elle est essentiellement
+équivalente à celle de faisceau sur l'espace ; voir Faisceaux, Lemmes
+\ref{sheaves-lemma-extend-off-basis} et
+\ref{sheaves-lemma-extend-off-basis-structures}. En outre, nous avons montré
+dans Faisceaux, Lemme
+\ref{sheaves-lemma-cofinal-systems-coverings-standard-case}, qu'il suffit de
+vérifier la condition de faisceau sur un système cofinal de recouvrements
+ouverts de chaque ouvert standard. D'après
+le lemme précédent, il suffit donc
+de la vérifier sur les recouvrements finis par des ouverts standards.
+
+\begin{definition}
+\label{definition-standard-covering}
+Soit $S$ un anneau gradué. Supposons que
+$D_{+}(f) \subset \text{Proj}(S)$ soit un ouvert standard. Un
+{\it recouvrement ouvert standard} de $D_{+}(f)$ est un recouvrement
+$D_{+}(f) = \bigcup_{i = 1}^n D_{+}(g_i)$, où
+$g_1, \ldots, g_n \in S$ sont homogènes de degré strictement positif.
+\end{definition}
+
+\noindent
+Soit $S$ un anneau gradué et soit $M$ un $S$-module gradué. Nous allons
+définir un préfaisceau $\widetilde M$ sur la base des ouverts standards.
+Supposons que $U \subset \text{Proj}(S)$ soit un ouvert standard.
+Si $f, g \in S$ sont homogènes de
+degré strictement positif et vérifient
+$D_{+}(f) = D_{+}(g)$, le Lemme \ref{lemma-standard-open} fournit des
+applications canoniques $M_{(f)} \to M_{(g)}$ et
+$M_{(g)} \to M_{(f)}$, inverses l'une de l'autre. On peut donc choisir
+n'importe quel $f$ tel que $U = D_{+}(f)$ et poser
+$$
+\widetilde M(U) = M_{(f)}.
+$$
+Remarquons que, si $D_{+}(g) \subset D_{+}(f)$, le
+Lemme \ref{lemma-standard-open} donne une application canonique
+$$
+\widetilde M(D_{+}(f)) = M_{(f)} \longrightarrow
+M_{(g)} = \widetilde M(D_{+}(g)).
+$$
+On obtient ainsi un préfaisceau de
+groupes abéliens sur la base des ouverts
+standards. Si $M = S$, alors $\widetilde S$
+est un préfaisceau d'anneaux sur
+cette base. Pour $M$ quelconque, $\widetilde M$ est un préfaisceau de
+$\widetilde S$-modules sur la même base.
+
+\medskip\noindent
+Calculons la fibre de $\widetilde M$ en un point
+$x \in \text{Proj}(S)$. Supposons que $x$ corresponde à l'idéal premier
+homogène $\mathfrak p \subset S$. Par définition de la fibre, on a
+$$
+\widetilde M_x
+=
+\colim_{f\in S_d, d > 0, f\not\in \mathfrak p} M_{(f)}
+$$
+L'ensemble $\{f \in S_d, d > 0, f \not \in \mathfrak p\}$ est ici préordonné
+par la règle
+$f \geq f' \Leftrightarrow D_{+}(f) \subset D_{+}(f')$.
+Si $f_1, f_2 \in S \setminus \mathfrak p$ sont homogènes de degré strictement
+positif, alors $f_1f_2 \geq f_1$ pour cet ordre. Dans Algèbre,
+section \ref{algebra-section-proj}, nous avons défini
+$M_{(\mathfrak p)}$ comme le module dont les éléments sont les fractions
+$x/f$, avec $x, f$ homogènes,
+$\deg(x) = \deg(f)$ et $f \not \in \mathfrak p$.
+Comme $\mathfrak p \in \text{Proj}(S)$, il existe au
+moins un $f_0 \in S$ homogène de degré strictement
+positif tel que $f_0 \not\in \mathfrak p$. Puisque
+$x/f = f_0x/ff_0$, on peut toujours supposer que le
+dénominateur d'un élément de $M_{(\mathfrak p)}$ est de degré strictement
+positif. Ces remarques donnent aussitôt
+$$
+\widetilde M_x = M_{(\mathfrak p)}.
+$$
+
+\medskip\noindent
+Vérifions maintenant la condition de
+faisceau pour les recouvrements ouverts
+standards. Si
+$D_{+}(f) = \bigcup_{i = 1}^n D_{+}(g_i)$, cette condition équivaut à
+l'exactitude de la suite
+$$
+0 \to M_{(f)} \to \bigoplus M_{(g_i)} \to \bigoplus M_{(g_ig_j)}.
+$$
+Comme $D_{+}(g_i) = D_{+}(fg_i)$, on
+peut récrire cette suite sous la forme
+$$
+0 \to M_{(f)} \to \bigoplus M_{(fg_i)} \to \bigoplus M_{(fg_ig_j)}.
+$$
+D'après le Lemme \ref{lemma-standard-open}, les éléments
+$g_1^{\deg(f)}/f^{\deg(g_1)}, \ldots, g_n^{\deg(f)}/f^{\deg(g_n)}$
+engendrent l'idéal unité de $S_{(f)}$, et les modules
+$M_{(fg_i)}$ et $M_{(fg_ig_j)}$ sont les localisations principales du
+$S_{(f)}$-module $M_{(f)}$ par rapport à ces éléments et à leurs produits.
+On peut donc appliquer Algèbre, Lemme \ref{algebra-lemma-cover-module},
+au module $M_{(f)}$ sur $S_{(f)}$ et aux éléments
+$g_1^{\deg(f)}/f^{\deg(g_1)}, \ldots, g_n^{\deg(f)}/f^{\deg(g_n)}$.
+La suite est ainsi exacte. D'après les remarques précédentes,
+$\widetilde M$ est donc un faisceau sur la base des ouverts standards.
+
+\medskip\noindent
+Il résulte alors de Faisceaux, section \ref{sheaves-section-bases}, qu'il
+existe un unique faisceau d'anneaux
+$\mathcal{O}_{\text{Proj}(S)}$ qui coïncide
+avec $\widetilde S$ sur les ouverts
+standards. Le calcul des fibres effectué
+ci-dessus et Algèbre, Lemme
+\ref{algebra-lemma-proj-prime}, montrent que toutes
+les fibres de ce faisceau d'anneaux sont des anneaux locaux.
+
+\medskip\noindent
+De même, pour tout $S$-module gradué $M$, il existe un
+unique faisceau de $\mathcal{O}_{\text{Proj}(S)}$-modules
+$\mathcal{F}$ qui coïncide avec
+$\widetilde M$ sur les ouverts standards ; voir Faisceaux,
+Lemme \ref{sheaves-lemma-extend-off-basis-module}.
+
+\begin{definition}
+\label{definition-structure-sheaf}
+Soit $S$ un anneau gradué.
+\begin{enumerate}
+\item Le {\it faisceau structural $\mathcal{O}_{\text{Proj}(S)}$ du spectre
+homogène de $S$} est l'unique faisceau d'anneaux
+$\mathcal{O}_{\text{Proj}(S)}$ qui coïncide avec $\widetilde S$ sur la base
+des ouverts standards.
+\item L'espace localement annelé
+$(\text{Proj}(S), \mathcal{O}_{\text{Proj}(S)})$ est appelé le
+{\it spectre homogène} de $S$ et noté $\text{Proj}(S)$.
+\item Le faisceau de $\mathcal{O}_{\text{Proj}(S)}$-modules qui prolonge
+$\widetilde M$ à tous les ouverts de
+$\text{Proj}(S)$ est appelé le faisceau
+de $\mathcal{O}_{\text{Proj}(S)}$-modules associé à $M$. Lui aussi est noté
+$\widetilde M$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Résumons les résultats obtenus jusqu'ici.
+
+\begin{lemma}
+\label{lemma-proj-sheaves}
+Soit $S$ un anneau gradué, soit $M$ un $S$-module gradué et soit
+$\widetilde M$ le faisceau de $\mathcal{O}_{\text{Proj}(S)}$-modules associé
+à $M$.
+\begin{enumerate}
+\item Pour tout $f \in S$ homogène de degré strictement positif, on a
+$$
+\Gamma(D_{+}(f), \mathcal{O}_{\text{Proj}(S)}) = S_{(f)}.
+$$
+\item Pour tout $f\in S$ homogène de degré strictement positif, on a
+$\Gamma(D_{+}(f), \widetilde M) = M_{(f)}$ en tant que $S_{(f)}$-module.
+\item Si $D_{+}(g) \subset D_{+}(f)$, les applications de restriction de
+$\mathcal{O}_{\text{Proj}(S)}$ et de $\widetilde M$ sont les applications
+$S_{(f)} \to S_{(g)}$ et $M_{(f)} \to M_{(g)}$ du
+Lemme \ref{lemma-standard-open}.
+\item Soit $\mathfrak p$ un idéal premier
+homogène de $S$ qui ne contient pas
+$S_{+}$, et soit $x \in \text{Proj}(S)$ le point correspondant. On a
+$\mathcal{O}_{\text{Proj}(S), x} = S_{(\mathfrak p)}$.
+\item Soit $\mathfrak p$ un idéal premier
+homogène de $S$ qui ne contient pas
+$S_{+}$, et soit $x \in \text{Proj}(S)$ le point correspondant. On a
+$(\widetilde M)_x = M_{(\mathfrak p)}$ en tant que
+$S_{(\mathfrak p)}$-module.
+\item
+\label{item-map}
+Il existe un homomorphisme canonique d'anneaux
+$
+S_0 \longrightarrow \Gamma(\text{Proj}(S), \widetilde S)
+$
+et un morphisme canonique de $S_0$-modules
+$
+M_0 \longrightarrow \Gamma(\text{Proj}(S), \widetilde M)
+$
+compatibles avec les descriptions ci-dessus des sections sur les ouverts
+standards et des fibres.
+\end{enumerate}
+Toutes ces identifications sont en outre fonctorielles
+en le $S$-module gradué $M$. En particulier,
+le foncteur $M \mapsto \widetilde M$ est un
+foncteur exact de la catégorie des $S$-modules gradués vers la catégorie des
+$\mathcal{O}_{\text{Proj}(S)}$-modules.
+\end{lemma}
+
+\begin{proof}
+Les assertions (1) à (5) résultent de la discussion précédente.
+L'assertion (6) découle de l'existence des applications canoniques
+$M_0 \to M_{(f)}$, $x \mapsto x/1$, compatibles avec les applications de
+restriction décrites en (3). L'exactitude du foncteur
+$M \mapsto \widetilde M$ résulte de celle du foncteur
+$M \mapsto M_{(\mathfrak p)}$ (voir Algèbre,
+Lemme \ref{algebra-lemma-proj-prime}) et du fait que l'exactitude d'une suite
+courte de faisceaux se vérifie sur les fibres ; voir Modules,
+Lemme \ref{modules-lemma-abelian}.
+\end{proof}
+
+\begin{remark}
+\label{remark-global-sections-not-isomorphism}
+L'application de $M_0$ dans les sections globales de $\widetilde M$ est en
+général loin d'être un isomorphisme. Un exemple élémentaire consiste à prendre
+$S = k[x, y, z]$ avec $1 = \deg(x) = \deg(y) = \deg(z)$ (ou un nombre
+quelconque de variables) et $M = S/(x^{100}, y^{100}, z^{100})$. On voit facilement que
+$\widetilde M = 0$, tandis que $M_0 = k$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-standard-open-proj}
+Soit $S$ un anneau gradué et soit $f \in S$ homogène de degré strictement
+positif. Supposons que $D(g) \subset \Spec(S_{(f)})$ soit un ouvert standard.
+Il existe alors un élément $h \in S$ homogène de degré strictement positif tel
+que $D(g)$ corresponde à $D_{+}(h) \subset D_{+}(f)$ par l'homéomorphisme
+d'Algèbre, Lemme \ref{algebra-lemma-topology-proj}. On peut même choisir $h$
+de sorte que $g = h/f^n$ pour un certain $n$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $g = h/f^n$, où $h$ est homogène de degré strictement positif et
+$n \geq 1$. Si $D_{+}(h)$ n'est pas contenu dans $D_{+}(f)$, remplaçons $h$
+par $hf$ et $n$ par $n + 1$. L'élément $h$ a alors la forme voulue et
+$D_{+}(h) \subset D_{+}(f)$ correspond à
+$D(g) \subset \Spec(S_{(f)})$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proj-scheme}
+Soit $S$ un anneau gradué. L'espace
+localement annelé $\text{Proj}(S)$ est un
+schéma. Les ouverts standards $D_{+}(f)$
+sont des ouverts affines. Pour tout
+$S$-module gradué $M$, le faisceau $\widetilde M$ est un faisceau
+quasi-cohérent de $\mathcal{O}_{\text{Proj}(S)}$-modules.
+\end{lemma}
+
+\begin{proof}
+Considérons un ouvert standard $D_{+}(f) \subset \text{Proj}(S)$.
+D'après les Lemmes \ref{lemma-standard-open} et \ref{lemma-proj-sheaves},
+on a $\Gamma(D_{+}(f), \mathcal{O}_{\text{Proj}(S)}) = S_{(f)}$, et il existe
+un homéomorphisme $\varphi : D_{+}(f) \to \Spec(S_{(f)})$.
+Pour tout ouvert standard $D(g) \subset \Spec(S_{(f)})$, choisissons
+$h \in S_{+}$ comme dans le Lemme \ref{lemma-standard-open-proj}.
+Alors $\varphi^{-1}(D(g)) = D_{+}(h)$ et, d'après les Lemmes
+\ref{lemma-proj-sheaves} et \ref{lemma-standard-open},
+$$
+\Gamma(D_{+}(h), \mathcal{O}_{\text{Proj}(S)})
+=
+S_{(h)}
+=
+(S_{(f)})_{h^{\deg(f)}/f^{\deg(h)}}
+=
+(S_{(f)})_g
+=
+\Gamma(D(g), \mathcal{O}_{\Spec(S_{(f)})}).
+$$
+La restriction de $\mathcal{O}_{\text{Proj}(S)}$
+à $D_{+}(f)$ correspond donc,
+par l'homéomorphisme $\varphi$, exactement au faisceau
+$\mathcal{O}_{\Spec(S_{(f)})}$ défini dans Schémas,
+section \ref{schemes-section-affine-schemes}. Il s'ensuit que $D_{+}(f)$ est
+un schéma affine isomorphe à $\Spec(S_{(f)})$ par $\varphi$, et donc que
+$\text{Proj}(S)$ est un schéma.
+
+\medskip\noindent
+On montre exactement de la même manière que $\widetilde M$ est un faisceau
+quasi-cohérent de $\mathcal{O}_{\text{Proj}(S)}$-modules. En effet, l'argument
+précédent donne
+$$
+\widetilde M|_{D_{+}(f)} \cong \varphi^*\left(\widetilde{M_{(f)}}\right)
+$$
+ce qui montre que $\widetilde M$ est quasi-cohérent.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proj-separated}
+Soit $S$ un anneau gradué. Le
+schéma $\text{Proj}(S)$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Il faut montrer que le morphisme canonique
+$\text{Proj}(S) \to \Spec(\mathbf{Z})$ est séparé. Utilisons Schémas,
+Lemme \ref{schemes-lemma-characterize-separated}. Il suffit de montrer que,
+pour toute paire d'ouverts standards $D_{+}(f)$ et $D_{+}(g)$,
+l'intersection $D_{+}(f) \cap D_{+}(g) = D_{+}(fg)$ est affine (ce qui est
+clair) et que l'homomorphisme d'anneaux
+$$
+S_{(f)} \otimes_{\mathbf{Z}} S_{(g)} \longrightarrow S_{(fg)}
+$$
+est surjectif. Tout élément $s$ de $S_{(fg)}$ est de la forme
+$s = h/(f^ng^m)$, où $h \in S$ est homogène de degré
+$n\deg(f) + m\deg(g)$. En multipliant $h$ par un monôme convenable
+$f^ig^j$, on peut supposer que $n = n' \deg(g)$ et
+$m = m' \deg(f)$. On peut alors récrire $s$ sous la forme
+$s = h/f^{(n' + m')\deg(g)} \cdot f^{m'\deg(g)}/g^{m'\deg(f)}$.
+Ainsi, $s$ appartient bien à l'image de la
+flèche affichée.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proj-quasi-compact}
+Soit $S$ un anneau gradué. Le schéma
+$\text{Proj}(S)$ est quasi-compact si et
+seulement s'il existe un nombre fini d'éléments homogènes
+$f_1, \ldots, f_n \in S_{+}$ tels que
+$S_{+} \subset \sqrt{(f_1, \ldots, f_n)}$. Dans ce cas,
+$\text{Proj}(S) = D_+(f_1) \cup \ldots \cup D_+(f_n)$.
+\end{lemma}
+
+\begin{proof}
+Si une telle famille d'éléments existe, les ouverts affines standards
+$D_{+}(f_i)$ recouvrent $\text{Proj}(S)$ d'après Algèbre,
+Lemme \ref{algebra-lemma-topology-proj}. Réciproquement, si
+$\text{Proj}(S)$ est quasi-compact, on
+peut le recouvrir par un nombre fini
+d'ouverts standards $D_{+}(f_i)$, $i = 1, \ldots, n$, et le lemme que nous
+venons de citer donne
+$S_{+} \subset \sqrt{(f_1, \ldots, f_n)}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-structure-morphism-proj}
+Soit $S$ un anneau gradué. Le schéma $\text{Proj}(S)$ possède un morphisme
+canonique vers le schéma affine $\Spec(S_0)$, qui coïncide sur les espaces
+topologiques avec l'application d'Algèbre,
+Définition \ref{algebra-definition-proj}.
+\end{lemma}
+
+\begin{proof}
+Nous avons vu plus haut que notre construction de $\widetilde S$, resp.\ $\widetilde M$,
+donne un faisceau de $S_0$-algèbres, resp.\ $S_0$-modules.
+On obtient donc un morphisme par Schémas,
+Lemme \ref{schemes-lemma-morphism-into-affine}. Restreint à $D_{+}(f)$, ce
+morphisme provient de l'homomorphisme canonique d'anneaux
+$S_0 \to S_{(f)}$. Les applications $S \to S_f$ et $S_{(f)} \to S_f$ sont
+des homomorphismes de $S_0$-algèbres ; voir le
+Lemme \ref{lemma-standard-open}. Par conséquent, si l'idéal premier homogène
+$\mathfrak p \subset S$ correspond à l'idéal premier $\mathbf{Z}$-gradué
+$\mathfrak p' \subset S_f$ et à l'idéal premier ordinaire
+$\mathfrak p'' \subset S_{(f)}$, ces trois idéaux ont la même image inverse
+dans $S_0$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proj-valuative-criterion}
+Soit $S$ un anneau gradué. Si $S$ est une algèbre de type fini sur $S_0$,
+le morphisme $\text{Proj}(S) \to \Spec(S_0)$
+satisfait les parties existence
+et unicité du critère valuatif ; voir Schémas,
+Définition \ref{schemes-definition-valuative-criterion}.
+\end{lemma}
+
+\begin{proof}
+L'unicité résulte de ce que $\text{Proj}(S)$ est séparé
+(Lemme \ref{lemma-proj-separated} et Schémas,
+Lemme \ref{schemes-lemma-separated-implies-valuative}).
+Choisissons des éléments homogènes $x_i \in S_{+}$, $i = 1, \ldots, n$,
+qui engendrent $S$ sur $S_0$. Posons $d_i = \deg(x_i)$ et
+$d = \text{lcm}\{d_i\}$. Supposons donné un diagramme
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & \text{Proj}(S) \ar[d] \\
+\Spec(A) \ar[r] & \Spec(S_0)
+}
+$$
+comme dans Schémas, Définition \ref{schemes-definition-valuative-criterion}.
+Notons $v : K^* \to \Gamma$ la valuation de $A$ ; voir Algèbre,
+Définition \ref{algebra-definition-value-group}. On peut choisir un élément
+homogène $f \in S_{+}$ tel que $\Spec(K)$ s'envoie dans $D_{+}(f)$. On obtient
+alors un diagramme commutatif d'homomorphismes d'anneaux
+$$
+\xymatrix{
+K & S_{(f)} \ar[l]^{\varphi} \\
+A \ar[u] & S_0 \ar[l] \ar[u]
+}
+$$
+Après renumérotation, on peut supposer que
+$\varphi(x_i^{\deg(f)}/f^{d_i})$ est non nul pour $i = 1, \ldots, r$ et nul
+pour $i = r + 1, \ldots, n$. Comme les ouverts $D_{+}(x_i)$ recouvrent
+$\text{Proj}(S)$, on a $r \geq 1$. Choisissons
+$i_0 \in \{1, \ldots, r\}$ de sorte que
+$\gamma_i = (d/d_i)v(\varphi(x_i^{\deg(f)}/f^{d_i}))$ soit minimal dans
+$\Gamma$. Pour alléger les notations, posons $x_0 = x_{i_0}$ et
+$d_0 = d_{i_0}$. L'homomorphisme $\varphi$ se factorise par un homomorphisme
+$\varphi' : S_{(fx_0)} \to K$, qui fournit un homomorphisme
+$S_{(x_0)} \to S_{(fx_0)} \to K$.
+L'algèbre $S_{(x_0)}$ est engendrée sur $S_0$ par les éléments
+$x_1^{e_1} \ldots x_n^{e_n}/x_0^{e_0}$ tels que
+$\sum e_i d_i = e_0 d_0$. Si $e_i > 0$ pour un certain $i > r$, alors
+$\varphi'(x_1^{e_1} \ldots x_n^{e_n}/x_0^{e_0}) = 0$.
+Si $e_i = 0$ pour $i > r$, on a
+\begin{align*}
+d \deg(f) v(\varphi'(x_1^{e_1} \ldots x_r^{e_r}/x_0^{e_0}))
+& =
+d v(\varphi'(x_1^{e_1 \deg(f)} \ldots x_r^{e_r \deg(f)}/x_0^{e_0 \deg(f)})) \\
+& =
+d \sum e_i v(\varphi'(x_i^{\deg(f)}/f^{d_i}))
+- e_0 v(\varphi'(x_0^{\deg(f)}/f^{d_0})) \\
+& =
+\sum e_i d_i \gamma_i - e_0 d_0 \gamma_0 \\
+& \geq
+\sum e_i d_i \gamma_0 - e_0 d_0 \gamma_0 = 0
+\end{align*}
+car $\gamma_0$ est minimal parmi les $\gamma_i$. Il en résulte que
+$S_{(x_0)}$ s'envoie dans $A$ par $\varphi'$. Le morphisme de schémas correspondant
+$\Spec(A) \to \Spec(S_{(x_0)}) = D_{+}(x_0)
+\subset \text{Proj}(S)$ est le morphisme qui complète le premier diagramme
+commutatif de cette démonstration.
+\end{proof}
+
+\noindent
+Nous avons aussi vu dans la démonstration du
+Lemme \ref{lemma-proj-valuative-criterion} que, sous les hypothèses de ce
+lemme, le morphisme $\text{Proj}(S) \to \Spec(S_0)$ est quasi-compact. Il résulte donc de Schémas,
+Proposition \ref{schemes-proposition-characterize-universally-closed}, que
+$\text{Proj}(S) \to \Spec(S_0)$ est universellement fermé dans cette
+situation. Les exemples suivants montrent que ces résultats ne subsistent
+pas sans hypothèse sur l'anneau gradué $S$.
+
+\begin{example}
+\label{example-not-existence-valuative-big-proj}
+Soit $\mathbf{C}[X_1, X_2, X_3, \ldots]$ la $\mathbf{C}$-algèbre graduée dans
+laquelle chaque $X_i$ est de degré $1$. Considérons l'homomorphisme d'anneaux
+$$
+\mathbf{C}[X_1, X_2, X_3, \ldots]
+\longrightarrow
+\mathbf{C}[t^\alpha ; \alpha \in \mathbf{Q}_{\geq 0}]
+$$
+qui envoie $X_i$ sur $t^{1/i}$. Le membre de droite devient un anneau de
+valuation $A$ après localisation en l'idéal
+$\mathfrak m = (t^\alpha ; \alpha > 0)$. Soit $K$ le corps des fractions de
+$A$. L'homomorphisme ci-dessus donne un morphisme
+$\Spec(K) \to \text{Proj}(\mathbf{C}[X_1, X_2, X_3, \ldots])$ qui ne se
+prolonge pas en un morphisme défini sur tout $\Spec(A)$. En effet, l'image de
+$\Spec(A)$ serait contenue dans l'un des $D_{+}(X_i)$ ; mais
+$X_{i + 1}/X_i$ devrait alors s'envoyer sur un élément de $A$, ce qui est
+impossible puisqu'il s'envoie sur $t^{1/(i + 1) - 1/i}$.
+\end{example}
+
+\begin{example}
+\label{example-not-existence-valuative-small-proj}
+Soit $R = \mathbf{C}[t]$ et
+$$
+S = R[X_1, X_2, X_3, \ldots]/(X_i^2 - tX_{i + 1}).
+$$
+La graduation est définie par $R = S_0$ et
+$\deg(X_i) = 2^{i - 1}$. Remarquons que, si
+$\mathfrak p \in \text{Proj}(S)$, alors $t \not \in \mathfrak p$ ; sinon,
+$\mathfrak p$ contiendrait tous les $X_i$,
+ce qui est impossible pour un point
+du spectre homogène. On a donc
+$D_{+}(X_i) = D_{+}(X_{i + 1})$ pour tout $i$. Ainsi,
+$\text{Proj}(S)$ est quasi-compact ; il est même affine, puisqu'il est égal à
+$D_{+}(X_1)$. On voit facilement que l'image de
+$\text{Proj}(S) \to \Spec(R)$ est $D(t)$. Le morphisme
+$\text{Proj}(S) \to \Spec(R)$ n'est donc pas fermé.
+Le critère valuatif ne peut par conséquent pas s'appliquer, puisqu'il
+entraînerait que le morphisme est fermé (voir Schémas,
+Proposition \ref{schemes-proposition-characterize-universally-closed}).
+\end{example}
+
+\begin{example}
+\label{example-trivial-proj}
+Soit $A$ un anneau. Munissons $S = A[T]$ de sa structure de $A$-algèbre
+graduée pour laquelle $T$ est de degré
+$1$. Alors le morphisme canonique
+$\text{Proj}(S) \to \Spec(A)$ (voir le
+Lemme \ref{lemma-structure-morphism-proj}) est un isomorphisme.
+\end{example}
+
+\begin{example}
+\label{example-open-subset-proj}
+Soit $X = \Spec(A)$ un schéma affine et soit $U \subset X$ un sous-schéma
+ouvert. Munissons $A[T]$ de la graduation définie par $\deg T = 1$.
+Soit $S$ le sous-anneau de $A[T]$ engendré par $A$ et par tous les $fT^i$,
+où $i \ge 0$ et où $f \in A$ vérifie $D(f) \subset U$. Nous affirmons que
+$S$ est un anneau gradué tel que $S_0 = A$ et
+$\text{Proj}(S) \cong U$, et que cet isomorphisme identifie le morphisme
+canonique $\text{Proj}(S) \to \Spec(A)$ du
+Lemme \ref{lemma-structure-morphism-proj} à l'inclusion $U \subset X$.
+
+\medskip\noindent
+Supposons que $\mathfrak p \in \text{Proj}(S)$ soit tel que tout élément
+$fT \in S_1$ appartienne à $\mathfrak p$. Alors tout générateur $fT^i$ avec $i \ge 1$ appartient à $\mathfrak p$, car
+$(fT^i)^2 = (fT)(fT^{2i-1}) \in \mathfrak p$ et $\mathfrak p$ est radical.
+On aurait donc $\mathfrak p \supset S_+$, ce qui est impossible.
+Par conséquent, $\text{Proj}(S)$ est recouvert par les sous-schémas
+affines ouverts standards $\{D_+(fT)\}_{fT \in S_1}$.
+
+\medskip\noindent
+Remarquons que, si $fT \in S_1$, l'inclusion $S \subset A[T]$ induit un
+isomorphisme gradué de $S[(fT)^{-1}]$ sur $A[T, T^{-1}, f^{-1}]$. L'ouvert standard
+$D_+(fT) \cong \Spec(S_{(fT)})$ est donc isomorphe à
+$\Spec(A[T, T^{-1}, f^{-1}]_0) = \Spec(A[f^{-1}])$.
+Il est clair que cet isomorphisme est la restriction du morphisme canonique
+$\text{Proj}(S) \to \Spec(A)$. Si, de plus, $gT \in S_1$, alors
+$S[(fT)^{-1}, (gT)^{-1}] \cong A[T, T^{-1}, f^{-1}, g^{-1}]$
+comme anneaux gradués, de sorte que $D_+(fT) \cap D_+(gT) \cong \Spec(A[f^{-1}, g^{-1}])$.
+Ainsi, $\text{Proj}(S)$ est la réunion des sous-schémas ouverts $D_+(fT)$,
+qui sont isomorphes par le morphisme canonique aux sous-schémas ouverts
+$D(f) \subset X$, et leurs intersections dans $\text{Proj}(S)$ correspondent
+à leurs intersections dans $X$. Le morphisme canonique est donc un
+isomorphisme de $\text{Proj}(S)$ sur la réunion de tous les
+$D(f) \subset U$, c'est-à-dire sur $U$.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Faisceaux quasi-cohérents sur Proj}
+\label{section-quasi-coherent-proj}
+
+\noindent
+Soit $S$ un anneau gradué et soit $M$ un $S$-module gradué. Nous avons vu au
+Lemme \ref{lemma-proj-sheaves} comment construire un faisceau quasi-cohérent de modules $\widetilde{M}$
+sur $\text{Proj}(S)$ ainsi qu'une application
+\begin{equation}
+\label{equation-map-global-sections}
+M_0 \longrightarrow \Gamma(\text{Proj}(S), \widetilde{M})
+\end{equation}
+de la partie de degré $0$ de $M$ vers les sections globales de
+$\widetilde{M}$. La partie de degré $0$ du $n$-ième décalé $M(n)$ du module
+gradué $M$ (voir Algèbre, section \ref{algebra-section-graded}) est égale à
+$M_n$. On obtient donc des applications
+\begin{equation}
+\label{equation-map-global-sections-degree-n}
+M_n \longrightarrow \Gamma(\text{Proj}(S), \widetilde{M(n)}).
+\end{equation}
+Nous voudrions pouvoir effectuer cette opération pour tout faisceau
+quasi-cohérent $\mathcal{F}$ sur $\text{Proj}(S)$. Pour ce faire, nous
+prendrons son produit tensoriel avec le $n$-ième tordu du faisceau structural ;
+voir la Définition \ref{definition-twist}. Le lemme suivant relie les deux
+notions.
+
+\begin{lemma}
+\label{lemma-widetilde-tensor}
+Soit $S$ un anneau gradué. Soit
+$(X, \mathcal{O}_X) = (\text{Proj}(S), \mathcal{O}_{\text{Proj}(S)})$ le
+schéma du Lemme \ref{lemma-proj-scheme}. Soit $f \in S_{+}$ homogène.
+Soit $x \in X$ un point correspondant à l'idéal premier homogène
+$\mathfrak p \subset S$. Soient $M$ et $N$ des $S$-modules gradués.
+Il existe un morphisme canonique de $\mathcal{O}_{\text{Proj}(S)}$-modules
+$$
+\widetilde M \otimes_{\mathcal{O}_X} \widetilde N
+\longrightarrow
+\widetilde{M \otimes_S N}
+$$
+qui induit l'application canonique
+$
+M_{(f)} \otimes_{S_{(f)}} N_{(f)}
+\to
+(M \otimes_S N)_{(f)}
+$
+sur les sections au-dessus de $D_{+}(f)$ et l'application canonique
+$
+M_{(\mathfrak p)} \otimes_{S_{(\mathfrak p)}} N_{(\mathfrak p)}
+\to
+(M \otimes_S N)_{(\mathfrak p)}
+$
+sur les fibres en $x$
+En outre, le diagramme suivant est commutatif :
+$$
+\xymatrix{
+M_0 \otimes_{S_0} N_0 \ar[r] \ar[d] &
+(M \otimes_S N)_0 \ar[d] \\
+\Gamma(X, \widetilde M \otimes_{\mathcal{O}_X} \widetilde N) \ar[r] &
+\Gamma(X, \widetilde{M \otimes_S N})
+}
+$$
+où les applications verticales sont données par
+(\ref{equation-map-global-sections}).
+\end{lemma}
+
+\begin{proof}
+Construire le morphisme affiché revient à construire une application
+$\mathcal{O}_X$-bilinéaire
+$$
+\widetilde M \times \widetilde N
+\longrightarrow
+\widetilde{M \otimes_S N}
+$$
+voir Modules, section \ref{modules-section-tensor-product}. Il suffit de la
+définir sur les sections au-dessus des ouverts $D_{+}(f)$, de manière
+compatible avec les applications de restriction. Sur $D_{+}(f)$, on utilise
+l'application $S_{(f)}$-bilinéaire
+$M_{(f)} \times N_{(f)} \to (M \otimes_S N)_{(f)}$,
+$(x/f^n, y/f^m) \mapsto (x \otimes y)/f^{n + m}$. Nous omettons les détails.
+\end{proof}
+
+\begin{remark}
+\label{remark-not-isomorphism}
+En général, le morphisme construit au Lemme \ref{lemma-widetilde-tensor}
+n'est pas un isomorphisme. Voici un exemple. Soit $k$ un corps. Prenons
+$S = k[x, y, z]$, où $k$ est placé en degré $0$ et
+$\deg(x) = 1$, $\deg(y) = 2$, $\deg(z) = 3$.
+Posons $M = S(1)$ et $N = S(2)$ ; pour les notations, voir Algèbre,
+section \ref{algebra-section-graded}. Alors $M \otimes_S N = S(3)$.
+Remarquons que
+\begin{eqnarray*}
+S_z
+& = &
+k[x, y, z, 1/z] \\
+S_{(z)}
+& = &
+k[x^3/z, xy/z, y^3/z^2]
+\cong
+k[u, v, w]/(uw - v^3) \\
+M_{(z)} & = & S_{(z)} \cdot x + S_{(z)} \cdot y^2/z \subset S_z \\
+N_{(z)} & = & S_{(z)} \cdot y + S_{(z)} \cdot x^2 \subset S_z \\
+S(3)_{(z)} & = & S_{(z)} \cdot z \subset S_z
+\end{eqnarray*}
+Considérons l'idéal maximal $\mathfrak m = (u, v, w) \subset S_{(z)}$.
+On voit sans difficulté que $M_{(z)}/\mathfrak mM_{(z)}$ et
+$N_{(z)}/\mathfrak mN_{(z)}$ sont tous deux de dimension $2$ sur
+$\kappa(\mathfrak m)$. En revanche,
+$S(3)_{(z)}/\mathfrak mS(3)_{(z)}$ est de dimension $1$.
+L'application $M_{(z)} \otimes N_{(z)} \to S(3)_{(z)}$
+n'est donc pas un
+isomorphisme.
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{Faisceaux inversibles sur Proj}
+\label{section-invertible-on-proj}
+
+\noindent
+Rappelons la construction, donnée dans Algèbre,
+section \ref{algebra-section-graded}, du module tordu $M(n)$ associé à un
+module gradué sur un anneau gradué.
+
+\begin{definition}
+\label{definition-twist}
+Soit $S$ un anneau gradué et soit $X = \text{Proj}(S)$.
+\begin{enumerate}
+\item Nous posons $\mathcal{O}_X(n) = \widetilde{S(n)}$. Ce faisceau est
+appelé le $n$-ième {\it tordu du faisceau structural de $\text{Proj}(S)$}.
+\item Pour tout faisceau de
+$\mathcal{O}_X$-modules $\mathcal{F}$, nous posons
+$\mathcal{F}(n) = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_X(n)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Nous allons utiliser le Lemme \ref{lemma-widetilde-tensor} pour construire
+plusieurs morphismes canoniques. Comme
+$S(n) \otimes_S S(m) = S(n + m)$, il existe des morphismes canoniques
+\begin{equation}
+\label{equation-multiply}
+\mathcal{O}_X(n) \otimes_{\mathcal{O}_X} \mathcal{O}_X(m)
+\longrightarrow
+\mathcal{O}_X(n + m).
+\end{equation}
+Ces morphismes ne sont pas des isomorphismes
+en général ; voir l'exemple de la
+Remarque \ref{remark-not-isomorphism}. Le même exemple montre que
+$\mathcal{O}_X(n)$ n'est en général {\it
+pas} un faisceau inversible sur $X$.
+En prenant le produit tensoriel avec un $\mathcal{O}_X$-module quelconque
+$\mathcal{F}$, on obtient des morphismes
+\begin{equation}
+\label{equation-multiply-on-sheaf}
+\mathcal{O}_X(n) \otimes_{\mathcal{O}_X} \mathcal{F}(m)
+\longrightarrow
+\mathcal{F}(n + m).
+\end{equation}
+Les applications (\ref{equation-map-global-sections-degree-n}) sur les
+sections globales donnent un homomorphisme d'anneaux gradués
+\begin{equation}
+\label{equation-global-sections}
+S \longrightarrow \bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{O}_X(n)).
+\end{equation}
+Pour un $\mathcal{O}_X$-module quelconque $\mathcal{F}$, les morphismes
+(\ref{equation-multiply-on-sheaf}) donnent une structure de module gradué
+\begin{equation}
+\label{equation-global-sections-module}
+\bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{O}_X(n))
+\times
+\bigoplus\nolimits_{m \in \mathbf{Z}} \Gamma(X, \mathcal{F}(m))
+\longrightarrow
+\bigoplus\nolimits_{m \in \mathbf{Z}} \Gamma(X, \mathcal{F}(m))
+\end{equation}
+et, par (\ref{equation-global-sections}), une structure de $S$-module.
+Plus généralement, étant donné un $S$-module gradué $M$, on a
+$M(n) = M \otimes_S S(n)$. On obtient donc des morphismes
+\begin{equation}
+\label{equation-multiply-more-generally}
+\widetilde M(n)
+=
+\widetilde M
+\otimes_{\mathcal{O}_X}
+\mathcal{O}_X(n)
+\longrightarrow
+\widetilde{M(n)}.
+\end{equation}
+Sur les sections globales, (\ref{equation-map-global-sections-degree-n})
+définit un morphisme de $S$-modules gradués
+\begin{equation}
+\label{equation-global-sections-more-generally}
+M \longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X, \widetilde{M(n)}).
+\end{equation}
+Voici un fait important qui résulte presque immédiatement des définitions.
+
+\begin{lemma}
+\label{lemma-when-invertible}
+Soit $S$ un anneau gradué et posons $X = \text{Proj}(S)$. Soit
+$f \in S$ homogène de degré $d > 0$. Les faisceaux
+$\mathcal{O}_X(nd)|_{D_{+}(f)}$ sont inversibles, et même triviaux, pour tout
+$n \in \mathbf{Z}$ (voir Modules,
+Définition \ref{modules-definition-invertible}). Les morphismes
+(\ref{equation-multiply}) restreints à $D_{+}(f)$
+$$
+\mathcal{O}_X(nd)|_{D_{+}(f)} \otimes_{\mathcal{O}_{D_{+}(f)}}
+\mathcal{O}_X(m)|_{D_{+}(f)}
+\longrightarrow
+\mathcal{O}_X(nd + m)|_{D_{+}(f)},
+$$
+les morphismes (\ref{equation-multiply-on-sheaf}) restreints à $D_+(f)$
+$$
+\mathcal{O}_X(nd)|_{D_{+}(f)} \otimes_{\mathcal{O}_{D_{+}(f)}}
+\mathcal{F}(m)|_{D_{+}(f)}
+\longrightarrow
+\mathcal{F}(nd + m)|_{D_{+}(f)},
+$$
+et les morphismes (\ref{equation-multiply-more-generally}) restreints à
+$D_{+}(f)$
+$$
+\widetilde M(nd)|_{D_{+}(f)}
+=
+\widetilde M|_{D_{+}(f)}
+\otimes_{\mathcal{O}_{D_{+}(f)}}
+\mathcal{O}_X(nd)|_{D_{+}(f)}
+\longrightarrow
+\widetilde{M(nd)}|_{D_{+}(f)}
+$$
+sont des isomorphismes pour tous $n, m \in \mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+Les homomorphismes de $S$-modules gradués $S \to S(nd)$ et
+$M \to M(nd)$ définis par $x \mapsto f^n x$ deviennent des isomorphismes
+après inversion de $f$. Le premier donne $S_{(f)} \cong S(nd)_{(f)}$, d'où un isomorphisme
+$\mathcal{O}_{D_{+}(f)} \cong \mathcal{O}_X(nd)|_{D_{+}(f)}$.
+Le second montre que l'application
+$S(nd)_{(f)} \otimes_{S_{(f)}} M_{(f)} \to M(nd)_{(f)}$ est un isomorphisme.
+Le cas du morphisme (\ref{equation-multiply-on-sheaf}) résulte du cas du
+morphisme (\ref{equation-multiply}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-apply-modules}
+Soit $S$ un anneau gradué, soit $M$ un $S$-module gradué et posons
+$X = \text{Proj}(S)$. Supposons que $X$ soit recouvert par les ouverts
+standards $D_+(f)$ avec $f \in S_1$, ce qui est par exemple le cas si $S$ est
+engendré par $S_1$ sur $S_0$. Alors les faisceaux $\mathcal{O}_X(n)$ sont
+inversibles et les morphismes (\ref{equation-multiply}),
+(\ref{equation-multiply-on-sheaf}) et
+(\ref{equation-multiply-more-generally}) sont des isomorphismes.
+En particulier, ces morphismes induisent des isomorphismes
+$$
+\mathcal{O}_X(1)^{\otimes n} \cong
+\mathcal{O}_X(n)
+\quad
+\text{et}
+\quad
+\widetilde{M} \otimes_{\mathcal{O}_X} \mathcal{O}_X(n) =
+\widetilde{M}(n) \cong \widetilde{M(n)}
+$$
+Ainsi, (\ref{equation-map-global-sections-degree-n}) devient une application
+\begin{equation}
+\label{equation-map-global-sections-degree-n-simplified}
+M_n \longrightarrow \Gamma(X, \widetilde{M}(n))
+\end{equation}
+et (\ref{equation-global-sections-more-generally}) devient une application
+\begin{equation}
+\label{equation-global-sections-more-generally-simplified}
+M \longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X, \widetilde{M}(n)).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Sous les hypothèses du lemme, $X$ est recouvert par les ouverts
+$D_{+}(f)$ avec $f \in S_1$ ; le résultat découle donc du
+Lemme \ref{lemma-when-invertible}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-where-invertible}
+Soit $S$ un anneau gradué, posons $X = \text{Proj}(S)$ et fixons un entier
+$d \geq 1$. Les deux ouverts suivants de $X$ sont égaux :
+\begin{enumerate}
+\item le plus grand ouvert $W = W_d \subset X$ tel que chaque
+$\mathcal{O}_X(dn)|_W$ soit inversible et que tous les morphismes de
+multiplication
+$\mathcal{O}_X(nd)|_W \otimes_{\mathcal{O}_W} \mathcal{O}_X(md)|_W
+\to \mathcal{O}_X(nd + md)|_W$
+(voir \ref{equation-multiply}) soient des isomorphismes ;
+\item la réunion des ouverts $D_{+}(fg)$, où $f, g \in S$ sont homogènes et
+$\deg(f) = \deg(g) + d$.
+\end{enumerate}
+En outre, tous les morphismes
+$\widetilde M(nd)|_W = \widetilde M|_W \otimes_{\mathcal{O}_W}
+\mathcal{O}_X(nd)|_W \to \widetilde{M(nd)}|_W$
+(voir \ref{equation-multiply-more-generally}) sont des isomorphismes.
+\end{lemma}
+
+\begin{proof}
+Si $x \in D_{+}(fg)$ avec $\deg(f) = \deg(g) + d$, alors, sur
+$D_{+}(fg)$, les faisceaux $\mathcal{O}_X(dn)$ sont engendrés par l'élément
+$(f/g)^n = f^{2n}/(fg)^n$. En raisonnant comme dans la démonstration du
+Lemme \ref{lemma-when-invertible}, on en déduit que $x$ appartient à l'ouvert
+$W$ défini en (1).
+
+\medskip\noindent
+Réciproquement, supposons que $\mathcal{O}_X(dn)$ soit libre de rang 1 pour
+tout $n$, sur un voisinage ouvert $V$ de
+$x \in X$, et que tous les morphismes
+de multiplication
+$\mathcal{O}_X(nd)|_V \otimes_{\mathcal{O}_V} \mathcal{O}_X(md)|_V
+\to \mathcal{O}_X(nd + md)|_V$ soient des isomorphismes.
+On peut choisir $h \in S_{+}$ homogène tel que
+$x \in D_{+}(h) \subset V$. Par définition
+des tordus du faisceau structural,
+il existe un élément $s$ de $(S_h)_d$ tel que $s^n$ soit une base de
+$(S_h)_{nd}$ comme $S_{(h)}$-module pour tout $n \in \mathbf{Z}$.
+Écrivons $s = f/h^m$ avec $m \geq 1$ et
+$f \in S_{d + m \deg(h)}$. Posons $g = h^m$, de sorte que $s = f/g$.
+Par construction, $x \in D_{+}(g)$. Remarquons que
+$g^d \in (S_h)_{d\deg(g)}$. Par hypothèse, cet élément est un multiple de
+$s^{\deg(g)} = f^{\deg(g)}/g^{\deg(g)}$ ; écrivons
+$g^d = a/g^e \cdot f^{\deg(g)}/g^{\deg(g)}$. On en déduit
+$g^{d + e + \deg(g)} = a f^{\deg(g)}$, puis $x \in D_{+}(f)$.
+Ainsi, $x$ appartient à l'ensemble défini en (2).
+
+\medskip\noindent
+L'existence de la section génératrice $s = f/g$ sur l'ouvert affine
+$D_{+}(fg)$ dont les puissances engendrent
+librement les faisceaux de modules
+$\mathcal{O}_X(nd)$ montre aisément que les morphismes
+$\widetilde M(nd)|_W = \widetilde M|_W \otimes_{\mathcal{O}_W}
+\mathcal{O}_X(nd)|_W \to \widetilde{M(nd)}|_W$
+(voir \ref{equation-multiply-more-generally}) sont des isomorphismes.
+Comparer avec la démonstration du Lemme \ref{lemma-when-invertible}.
+\end{proof}
+
+\noindent
+Rappelons que, d'après Modules, Lemme \ref{modules-lemma-s-open}, si
+$\mathcal{L}$ est un faisceau inversible
+sur un espace localement annelé $X$
+et si $s$ est une section globale de $\mathcal{L}$, alors l'ensemble
+$X_s = \{x \in X \mid s \not \in \mathfrak m_x\mathcal{L}_x\}$ est ouvert.
+
+\begin{lemma}
+\label{lemma-principal-open}
+Soit $S$ un anneau gradué, posons $X = \text{Proj}(S)$ et fixons un entier
+$d \geq 1$. Soit $W = W_d \subset X$ le sous-schéma ouvert défini dans le
+Lemme \ref{lemma-where-invertible}. Soient $n \geq 1$ et $f \in S_{nd}$.
+Notons $s \in \Gamma(W, \mathcal{O}_W(nd))$ l'image de $f$ par
+(\ref{equation-global-sections}), restreinte à $W$. Alors
+$$
+W_s = D_{+}(f) \cap W.
+$$
+\end{lemma}
+
+\begin{proof}
+Soit $D_{+}(ab) \subset W$ un ouvert affine standard, où $a, b \in S$ sont
+homogènes et $\deg(a) = \deg(b) + d$. Remarquons que
+$D_{+}(ab) \cap D_{+}(f) = D_{+}(abf)$. D'autre part, la restriction de $s$
+à $D_{+}(ab)$ correspond à l'élément
+$f/1 = b^nf/a^n (a/b)^n \in (S_{ab})_{nd}$.
+Nous avons vu dans la démonstration du
+Lemme \ref{lemma-where-invertible} que
+$(a/b)^n$ engendre $\mathcal{O}_W(nd)$ au-dessus de $D_{+}(ab)$.
+Il s'ensuit que $W_s \cap D_{+}(ab)$ est l'ouvert principal associé à
+$b^nf/a^n \in \mathcal{O}_X(D_{+}(ab))$. Le résultat est alors clair.
+\end{proof}
+
+\noindent
+Le lemme suivant énonce les propriétés que nous utiliserons plus loin pour
+caractériser les schémas munis d'un faisceau inversible ample.
+
+\begin{lemma}
+\label{lemma-ample-on-proj}
+Soit $S$ un anneau gradué, soit $X = \text{Proj}(S)$ et soit
+$Y \subset X$ un sous-schéma ouvert quasi-compact. Notons
+$\mathcal{O}_Y(n)$ la restriction de $\mathcal{O}_X(n)$ à $Y$.
+Il existe un entier $d \geq 1$ tel que
+\begin{enumerate}
+\item le sous-schéma $Y$ est contenu dans l'ouvert $W_d$ défini au
+Lemme \ref{lemma-where-invertible} ;
+\item le faisceau $\mathcal{O}_Y(dn)$ est inversible pour tout
+$n \in \mathbf{Z}$ ;
+\item tous les morphismes
+$\mathcal{O}_Y(nd) \otimes_{\mathcal{O}_Y} \mathcal{O}_Y(m)
+\longrightarrow
+\mathcal{O}_Y(nd + m)$
+de l'Équation (\ref{equation-multiply}) sont des isomorphismes ;
+\item tous les morphismes
+$\widetilde M(nd)|_Y = \widetilde M|_Y \otimes_{\mathcal{O}_Y}
+\mathcal{O}_X(nd)|_Y \to \widetilde{M(nd)}|_Y$
+(voir \ref{equation-multiply-more-generally}) sont des isomorphismes ;
+\item si $f \in S_{nd}$ et si
+$s \in \Gamma(Y, \mathcal{O}_Y(nd))$ désigne
+l'image de $f$ par (\ref{equation-global-sections}),
+restreinte à $Y$, alors
+$D_{+}(f) \cap Y = Y_s$ ;
+\item une base de la topologie de $Y$ est formée par les ouverts $Y_s$,
+où $s \in \Gamma(Y, \mathcal{O}_Y(nd))$ et $n \geq 1$ ;
+\item une base de la topologie de $Y$ est formée par les ouverts affines
+$Y_s \subset Y$, pour
+$s \in \Gamma(Y, \mathcal{O}_Y(nd))$ et $n \geq 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Comme $Y$ est quasi-compact, il existe un nombre fini d'éléments homogènes
+$f_i \in S_{+}$, $i = 1, \ldots, n$, tels que les ouverts standards
+$D_{+}(f_i)$ recouvrent $Y$. Posons $d_i = \deg(f_i)$ et
+$d = d_1 \ldots d_n$. Comme
+$D_{+}(f_i) = D_{+}(f_i^{d/d_i})$, la caractérisation (2) du
+Lemme \ref{lemma-where-invertible}, ou bien (1) et le
+Lemme \ref{lemma-when-invertible}, donne immédiatement $Y \subset W_d$.
+Le Lemme \ref{lemma-where-invertible} montre alors que (1) entraîne (2), (3)
+et (4). Remarquons que (3) est un cas particulier de (4).
+L'assertion (5) résulte du Lemme \ref{lemma-principal-open}.
+Enfin, (6) et (7) résultent du fait que les ouverts $D_{+}(f)$ forment une
+base de la topologie de $X$ et sont affines.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-comparison-proj-quasi-coherent}
+Soit $S$ un anneau gradué, posons $X = \text{Proj}(S)$ et soit
+$\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent. Munissons
+$M = \bigoplus_{n \in \mathbf{Z}} \Gamma(X, \mathcal{F}(n))$ de sa structure
+de $S$-module gradué à l'aide de
+(\ref{equation-global-sections-module}) et (\ref{equation-global-sections}).
+Il existe alors un morphisme canonique de $\mathcal{O}_X$-modules
+$$
+\widetilde{M} \longrightarrow \mathcal{F}
+$$
+fonctoriel en $\mathcal{F}$, tel que l'application induite
+$M_0 \to \Gamma(X, \mathcal{F})$ soit l'identité.
+\end{lemma}
+
+\begin{proof}
+Soit $f \in S$ homogène de degré $d > 0$. Rappelons que, d'après le
+Lemme \ref{lemma-proj-sheaves}, la restriction
+$\widetilde{M}|_{D_{+}(f)}$ correspond au $S_{(f)}$-module $M_{(f)}$.
+On peut donc définir une application canonique
+$$
+M_{(f)} \longrightarrow \Gamma(D_+(f), \mathcal{F}),\quad
+m/f^n \longmapsto m|_{D_+(f)} \otimes f|_{D_+(f)}^{-n}
+$$
+qui a un sens parce que $f|_{D_+(f)}$ est une section trivialisante du
+faisceau inversible $\mathcal{O}_X(d)|_{D_+(f)}$ ; voir le
+Lemme \ref{lemma-when-invertible} et sa démonstration. Comme $\widetilde{M}$
+est quasi-cohérent, on obtient ainsi un morphisme canonique
+$$
+\widetilde{M}|_{D_+(f)} \longrightarrow \mathcal{F}|_{D_+(f)}
+$$
+par Schémas, Lemme \ref{schemes-lemma-compare-constructions}.
+Ces morphismes se recollent sur les intersections et définissent donc un
+morphisme global. Nous omettons la vérification du recollement ainsi que la
+démonstration de la dernière assertion.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Fonctorialité de Proj}
+\label{section-functoriality-proj}
+
+\noindent
+Un homomorphisme d'anneaux gradués $\psi : A \to B$ ne donne pas toujours lieu à
+un morphisme entre les spectres homogènes projectifs associés. La raison en est que
+l'image réciproque $\psi^{-1}(\mathfrak q)$
+d'un idéal premier homogène $\mathfrak q \subset B$ peut
+contenir l'idéal $A_{+}$ des éléments de degré strictement positif même si $\mathfrak q$ ne
+contient pas $B_{+}$.
+L'énoncé correct est le suivant.
+
+\begin{lemma}
+\label{lemma-morphism-proj}
+Soient $A$, $B$ deux anneaux gradués.
+Posons $X = \text{Proj}(A)$ et $Y = \text{Proj}(B)$.
+Soit $\psi : A \to B$ un homomorphisme d'anneaux gradués.
+Posons
+$$
+U(\psi)
+=
+\bigcup\nolimits_{f \in A_{+}\ \text{homogeneous}} D_{+}(\psi(f))
+\subset Y.
+$$
+Il existe alors un morphisme canonique de schémas
+$$
+r_\psi :
+U(\psi)
+\longrightarrow
+X
+$$
+et un homomorphisme d'algèbres $\mathbf{Z}$-graduées sur
+$\mathcal{O}_{U(\psi)}$
+$$
+\theta = \theta_\psi :
+r_\psi^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_X(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_{U(\psi)}(d).
+$$
+Le triplet $(U(\psi), r_\psi, \theta)$ est
+caractérisé par les propriétés suivantes :
+\begin{enumerate}
+\item Pour tout $d \geq 0$, le diagramme
+$$
+\xymatrix{
+A_d \ar[d] \ar[rr]_{\psi} & &
+B_d \ar[d] \\
+\Gamma(X, \mathcal{O}_X(d)) \ar[r]^-\theta &
+\Gamma(U(\psi), \mathcal{O}_Y(d)) &
+\Gamma(Y, \mathcal{O}_Y(d)) \ar[l]
+}
+$$ est commutatif.
+\item Pour tout $f \in A_{+}$ homogène,
+on a $r_\psi^{-1}(D_{+}(f)) = D_{+}(\psi(f))$ et
+la restriction de $r_\psi$ à $D_{+}(\psi(f))$
+correspond à l'homomorphisme d'anneaux
+$A_{(f)} \to B_{(\psi(f))}$ induit par $\psi$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il est clair que la condition (2) détermine de manière unique le morphisme de schémas
+et l'ouvert $U(\psi)$. Fixons $f \in A_d$ avec $d \geq 1$.
+Notons que
+$\mathcal{O}_X(n)|_{D_{+}(f)}$ correspond au
+$A_{(f)}$-module $(A_f)_n$ et que
+$\mathcal{O}_Y(n)|_{D_{+}(\psi(f))}$ correspond au
+$B_{(\psi(f))}$-module $(B_{\psi(f)})_n$. Autrement dit, la restriction de $\theta$
+à $D_{+}(\psi(f))$ correspond à un homomorphisme d'algèbres
+$\mathbf{Z}$-graduées sur $B_{(\psi(f))}$
+$$
+A_f \otimes_{A_{(f)}} B_{(\psi(f))}
+\longrightarrow
+B_{\psi(f)}
+$$
+La condition (1) détermine les images de tous les éléments de $A$.
+Puisque $f$ est un élément inversible envoyé sur $\psi(f)$,
+on voit que $1/f^m$ est envoyé sur $1/\psi(f)^m$. Il en résulte aussitôt
+que $\theta$ est uniquement déterminé, à savoir qu'il est
+donné par la formule
+$$
+a/f^m \otimes b/\psi(f)^e \longmapsto \psi(a)b/\psi(f)^{m + e}.
+$$
+Pour démontrer l'existence, remarquons que la preuve d'unicité ci-dessus fournit
+une prescription bien définie pour le morphisme $r$ et l'homomorphisme $\theta$
+sur tout ouvert standard de la forme
+$D_{+}(\psi(f)) \subset U(\psi)$ à valeurs dans $D_{+}(f)$.
+Notons-les $r_f$ et $\theta_f$.
+Il suffit donc de vérifier que, si $D_{+}(f) \subset D_{+}(g)$
+pour des éléments homogènes $f, g \in A_{+}$, alors la restriction de
+$r_g$ à $D_{+}(\psi(f))$ coïncide avec $r_f$. Cela résulte clairement des
+formules données ci-dessus pour $r$ et $\theta$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-proj-transitive}
+Soient $A$, $B$ et $C$ des anneaux gradués.
+Posons $X = \text{Proj}(A)$, $Y = \text{Proj}(B)$ et $Z = \text{Proj}(C)$.
+Soient $\varphi : A \to B$, $\psi : B \to C$ des homomorphismes d'anneaux gradués.
+Alors on a
+$$
+U(\psi \circ \varphi) = r_\psi^{-1}(U(\varphi))
+\quad
+\text{et}
+\quad
+r_{\psi \circ \varphi}
+=
+r_\varphi \circ r_\psi|_{U(\psi \circ \varphi)}.
+$$
+De plus, on a
+$$
+\theta_\psi \circ r_\psi^*\theta_\varphi
+=
+\theta_{\psi \circ \varphi}
+$$
+avec les notations évidentes.
+\end{lemma}
+
+\begin{proof}
+La démonstration est omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-graded-rings-map-proj}
+Avec les hypothèses et les notations du lemme \ref{lemma-morphism-proj} ci-dessus.
+Supposons que $A_d \to B_d$ soit surjectif pour tout $d \gg 0$. Alors
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ est une immersion fermée, et
+\item les homomorphismes $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+sont surjectifs, mais ne sont pas des isomorphismes en général (même si $A \to B$ est
+surjectif).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La partie (1) résulte de la définition de $U(\psi)$ et du fait que
+$D_{+}(f) = D_{+}(f^n)$ pour tout $n > 0$. Pour $f \in A_{+}$ homogène,
+on voit que $A_{(f)} \to B_{(\psi(f))}$ est surjectif car
+tout élément de $B_{(\psi(f))}$ peut être représenté par une fraction
+$b/\psi(f)^n$ avec $n$ arbitrairement grand (ce qui force le degré de
+$b \in B$ à être grand). Cela démontre (2).
+Le même argument montre que l'homomorphisme
+$$
+A_f \to B_{\psi(f)}
+$$
+est surjectif, ce qui démontre la surjectivité de $\theta$.
+Pour un exemple où cet homomorphisme n'est pas un isomorphisme,
+considérons l'anneau gradué $A = k[x, y]$, où $k$ est un corps,
+avec $\deg(x) = 1$, $\deg(y) = 2$. Posons $I = (x)$, de sorte que
+$B = k[y]$. Notons que $\mathcal{O}_Y(1) = 0$ dans ce cas.
+Mais on voit facilement que $r_\psi^*\mathcal{O}_X(1)$
+n'est pas nul. (Il existe des exemples moins artificiels.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-eventual-iso-graded-rings-map-proj}
+Avec les hypothèses et les notations du lemme \ref{lemma-morphism-proj} ci-dessus.
+Supposons que $A_d \to B_d$ soit un isomorphisme pour tout $d \gg 0$. Alors
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ est un isomorphisme, et
+\item les homomorphismes $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+sont des isomorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+On a (1) par le lemme \ref{lemma-surjective-graded-rings-map-proj}.
+Soit $f \in A_{+}$ homogène. L'hypothèse sur $\psi$ implique que
+$A_f \to B_f$ est un isomorphisme (détails omis). Il est donc clair que
+les restrictions de $r_\psi$ et de $\theta$ au-dessus de $D_{+}(f)$ sont des isomorphismes.
+Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-graded-rings-generated-degree-1-map-proj}
+Avec les hypothèses et les notations du lemme \ref{lemma-morphism-proj} ci-dessus.
+Supposons que $A_d \to B_d$ soit surjectif pour $d \gg 0$ et que $A$ soit engendré
+par $A_1$ comme $A_0$-algèbre. Alors
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ est une immersion fermée, et
+\item les homomorphismes $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+sont des isomorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Par les lemmes \ref{lemma-eventual-iso-graded-rings-map-proj} et
+\ref{lemma-morphism-proj-transitive},
+on peut remplacer $B$ par l'image de $A \to B$
+sans modifier $X$ ni les faisceaux $\mathcal{O}_X(n)$.
+On peut donc supposer que $A \to B$ est surjectif. Par le
+lemme \ref{lemma-surjective-graded-rings-map-proj}, on obtient (1) et (2),
+ainsi que la surjectivité dans (3).
+Par le lemme \ref{lemma-apply-modules}, on voit que
+$\mathcal{O}_X(n)$ et $\mathcal{O}_Y(n)$
+sont tous deux inversibles. Ainsi, $\theta$ est un isomorphisme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-map-proj}
+\begin{reference}
+\cite[II, Proposition 2.8.10]{EGA}
+\end{reference}
+Avec les hypothèses et les notations du lemme \ref{lemma-morphism-proj} ci-dessus.
+Supposons qu'il existe un homomorphisme d'anneaux $R \to A_0$ et un homomorphisme d'anneaux
+$R \to R'$ tels que $B = R' \otimes_R A$. Alors
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item le diagramme
+$$
+\xymatrix{
+Y = \text{Proj}(B) \ar[r]_{r_\psi} \ar[d] &
+\text{Proj}(A) = X \ar[d] \\
+\Spec(R') \ar[r] &
+\Spec(R)
+}
+$$
+est un carré cartésien, et
+\item les homomorphismes $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+sont des isomorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de l'examen de ce qui se passe sur les ouverts
+standards $D_{+}(f)$ pour $f \in A_{+}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localization-map-proj}
+Avec les hypothèses et les notations du lemme \ref{lemma-morphism-proj} ci-dessus.
+Supposons qu'il existe $g \in A_0$ tel que $\psi$ induise un
+isomorphisme $A_g \to B$. Alors
+$U(\psi) = Y$, $r_\psi : Y \to X$ est une immersion ouverte
+qui identifie $Y$ à l'image réciproque
+de $D(g) \subset \Spec(A_0)$. De plus, l'homomorphisme $\theta$
+est un isomorphisme.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du lemme \ref{lemma-base-change-map-proj} ci-dessus.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-d-uple}
+Soit $S$ un anneau gradué. Soit $d \geq 1$. Posons $S' = S^{(d)}$ avec les notations
+d'Algèbre, section \ref{algebra-section-graded}. Posons
+$X = \text{Proj}(S)$ et $X' = \text{Proj}(S')$. Il existe un
+isomorphisme canonique de schémas $i : X \to X'$ tel que
+\begin{enumerate}
+\item pour tout $S$-module gradué $M$, en posant $M' = M^{(d)}$,
+on ait un isomorphisme canonique $\widetilde{M} \to i^*\widetilde{M'}$,
+\item on ait des isomorphismes canoniques
+$\mathcal{O}_{X}(nd) \to i^*\mathcal{O}_{X'}(n)$
+\end{enumerate}
+et ces isomorphismes sont compatibles avec les homomorphismes de multiplication
+du lemme \ref{lemma-widetilde-tensor}, et donc avec les homomorphismes
+(\ref{equation-multiply}),
+(\ref{equation-multiply-on-sheaf}),
+(\ref{equation-global-sections}),
+(\ref{equation-global-sections-module}),
+(\ref{equation-multiply-more-generally}) et
+(\ref{equation-global-sections-more-generally}) (voir la démonstration pour les
+énoncés précis).
+\end{lemma}
+
+\begin{proof}
+L'homomorphisme injectif d'anneaux $S' \to S$ (qui n'est pas un homomorphisme d'anneaux gradués
+en raison de nos conventions) induit un morphisme $j : \Spec(S) \to \Spec(S')$.
+Étant donné un idéal premier homogène $\mathfrak p \subset S$, on voit que
+$\mathfrak p' = j(\mathfrak p) = S' \cap \mathfrak p$
+est un idéal premier homogène de $S'$.
+De plus, si $f \in S_+$ est homogène et $f \not \in \mathfrak p$, alors
+$f^d \in S'_+$ et $f^d \not \in \mathfrak p'$. Réciproquement, si
+$\mathfrak p' \subset S'$ est un idéal premier homogène ne contenant pas un
+élément homogène $f \in S'_+$, alors
+$\mathfrak p = \{g \in S \mid g^d \in \mathfrak p'\}$ est un
+idéal premier homogène de $S$ ne contenant pas $f$, dont l'image par $j$
+est $\mathfrak p'$. Pour voir que $\mathfrak p$ est un idéal, notons
+que, si $g, h \in \mathfrak p$, alors
+$(g + h)^{2d} \in \mathfrak p'$ par la formule du binôme.
+On a donc $g + h \in \mathfrak p'$ puisque $\mathfrak p'$ est premier.
+On voit ainsi que $j$ induit un homéomorphisme $i : X \to X'$.
+De plus, étant donné $f \in S_+$ homogène, on a
+$S_{(f)} \cong S'_{(f^d)}$. Comme ces isomorphismes sont compatibles
+avec les homomorphismes de restriction du
+lemme \ref{lemma-standard-open}, on voit qu'il existe un
+isomorphisme $i^\sharp : i^{-1}\mathcal{O}_{X'} \to \mathcal{O}_X$ de
+faisceaux structuraux sur $X$ et $X'$ ; ainsi, $i$ est un isomorphisme
+de schémas.
+
+\medskip\noindent
+Soit $M$ un $S$-module gradué. Étant donné $f \in S_+$ homogène, on a
+$M_{(f)} \cong M'_{(f^d)}$ ; exactement de la même manière que ci-dessus,
+on obtient donc l'isomorphisme de (1). Les isomorphismes de (2) sont un cas particulier
+de (1) pour $M = S(nd)$, ce qui donne $M' = S'(n)$. Soient $M$ et $N$
+des $S$-modules gradués. Alors on a
+$$
+M' \otimes_{S'} N' =
+(M \otimes_S N)^{(d)} =
+(M \otimes_S N)'
+$$
+comme on le vérifie directement à partir des définitions. Cela étant,
+la compatibilité avec les homomorphismes de multiplication du
+lemme \ref{lemma-widetilde-tensor} équivaut à la commutativité du diagramme
+$$
+\xymatrix{
+\widetilde M \otimes_{\mathcal{O}_X} \widetilde N
+\ar[d]_{(1) \otimes (1)} \ar[r] &
+\widetilde{M \otimes_S N} \ar[d]^{(1)} \\
+i^*(\widetilde{M'} \otimes_{\mathcal{O}_{X'}} \widetilde{N'}) \ar[r] &
+i^*(\widetilde{M' \otimes_{S'} N'})
+}
+$$
+Cela se voit en examinant la construction des homomorphismes
+sur l'ouvert $D_+(f) = D_+(f^d)$, où la flèche horizontale supérieure
+est donnée par l'application
+$M_{(f)} \times N_{(f)} \to (M \otimes_S N)_{(f)}$
+et la flèche horizontale inférieure par l'application
+$M'_{(f^d)} \times N'_{(f^d)} \to (M' \otimes_{S'} N')_{(f^d)}$.
+Puisque ces applications coïncident via les identifications
+$M_{(f)} = M'_{(f^d)}$, etc., on obtient la compatibilité voulue.
+Nous omettons la démonstration des autres compatibilités.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Morphismes vers Proj}
+\label{section-morphisms-proj}
+
+\noindent
+Soit $S$ un anneau gradué. Soit $X = \text{Proj}(S)$ le spectre homogène de
+$S$ et soit $d \geq 1$ un entier. Considérons le sous-schéma ouvert
+\begin{equation}
+\label{equation-Ud}
+U_d = \bigcup\nolimits_{f  \in S_d} D_{+}(f)
+\quad\subset\quad
+X = \text{Proj}(S)
+\end{equation}
+Remarquons que $d | d' \Rightarrow U_d \subset U_{d'}$ et que
+$X = \bigcup_d U_d$. Ni $X$ ni $U_d$ ne
+sont nécessairement quasi-compacts ;
+voir Algèbre, Lemme \ref{algebra-lemma-topology-proj}. Écrivons
+$\mathcal{O}_{U_d}(n) = \mathcal{O}_X(n)|_{U_d}$.
+D'après le Lemme \ref{lemma-when-invertible},
+$\mathcal{O}_{U_d}(nd)$, pour $n \in \mathbf{Z}$, est un module inversible
+sur $\mathcal{O}_{U_d}$, et tous
+les morphismes de multiplication
+$\mathcal{O}_{U_d}(nd) \otimes_{\mathcal{O}_{U_d}} \mathcal{O}_{U_d}(m)
+\to \mathcal{O}_{U_d}(nd + m)$ de (\ref{equation-multiply}) sont des
+isomorphismes. En particulier,
+$\mathcal{O}_{U_d}(nd) \cong \mathcal{O}_{U_d}(d)^{\otimes n}$.
+L'homomorphisme d'anneaux gradués (\ref{equation-global-sections}), composé
+avec la restriction à $U_d$, donne un homomorphisme d'anneaux gradués
+\begin{equation}
+\label{equation-psi-d}
+\psi^d : S^{(d)} \longrightarrow \Gamma_*(U_d, \mathcal{O}_{U_d}(d)).
+\end{equation}
+Pour la notation $S^{(d)}$, voir Algèbre,
+section \ref{algebra-section-graded}. Pour la notation $\Gamma_*$, voir
+Modules, Définition \ref{modules-definition-gamma-star}. En
+outre, puisque $U_d$ est recouvert par les ouverts $D_{+}(f)$,
+$f \in S_d$, le faisceau
+$\mathcal{O}_{U_d}(d)$ est engendré par
+les sections appartenant à l'image de
+$\psi^d_1 : S^{(d)}_1 = S_d \to \Gamma(U_d, \mathcal{O}_{U_d}(d))$ ; voir
+Modules, Définition \ref{modules-definition-globally-generated}.
+
+\medskip\noindent
+Soit $Y$ un schéma et soit $\varphi : Y \to X$ un morphisme de schémas.
+Supposons que l'image $\varphi(Y)$ soit
+contenue dans le sous-schéma ouvert
+$U_d$ de $X$. La discussion qui suit Modules,
+Définition \ref{modules-definition-gamma-star},
+fournit un homomorphisme
+d'anneaux gradués
+$$
+\Gamma_*(U_d, \mathcal{O}_{U_d}(d))
+\longrightarrow
+\Gamma_*(Y, \varphi^*\mathcal{O}_X(d)).
+$$
+Sa composée avec $\psi^d$ donne un homomorphisme d'anneaux gradués
+\begin{equation}
+\label{equation-psi-phi-d}
+\psi_\varphi^d :
+S^{(d)}
+\longrightarrow
+\Gamma_*(Y, \varphi^*\mathcal{O}_X(d))
+\end{equation}
+tel que le faisceau inversible
+$\varphi^*\mathcal{O}_X(d)$ soit engendré par
+les sections appartenant à l'image de
+$(S^{(d)})_1 = S_d \to \Gamma(Y, \varphi^*\mathcal{O}_X(d))$.
+
+\begin{lemma}
+\label{lemma-converse-construction}
+Soient $S$ un anneau gradué, $X = \text{Proj}(S)$, $d \geq 1$ et
+$U_d \subset X$ comme ci-dessus. Soit
+$Y$ un schéma, soit $\mathcal{L}$ un
+faisceau inversible sur $Y$ et soit
+$\psi : S^{(d)} \to \Gamma_*(Y, \mathcal{L})$ un homomorphisme d'anneaux
+gradués tel que $\mathcal{L}$ soit
+engendré par les sections appartenant à
+l'image de $\psi|_{S_d} : S_d \to \Gamma(Y, \mathcal{L})$.
+Il existe alors un morphisme $\varphi : Y \to X$ tel que
+$\varphi(Y) \subset U_d$ et un isomorphisme
+$\alpha : \varphi^*\mathcal{O}_{U_d}(d) \to \mathcal{L}$ tels que
+$\psi_\varphi^d$ coïncide avec $\psi$ par l'intermédiaire de $\alpha$ :
+$$
+\xymatrix{
+\Gamma_*(Y, \mathcal{L}) &
+\Gamma_*(Y, \varphi^*\mathcal{O}_{U_d}(d)) \ar[l]^-\alpha &
+\Gamma_*(U_d, \mathcal{O}_{U_d}(d)) \ar[l]^-{\varphi^*} \\
+S^{(d)} \ar[u]^\psi & &
+S^{(d)} \ar[u]^{\psi^d} \ar[ul]^{\psi^d_\varphi} \ar[ll]_{\text{id}}
+}
+$$
+est commutatif. De plus, le couple $(\varphi, \alpha)$ est unique.
+\end{lemma}
+
+\begin{proof}
+Choisissons $f \in S_d$ et notons
+$s = \psi(f) \in \Gamma(Y, \mathcal{L})$. Sur l'ouvert $Y_s$ où $s$ ne
+s'annule pas, la multiplication par $s$ induit un isomorphisme
+$\mathcal{O}_{Y_s} \to \mathcal{L}|_{Y_s}$ ; voir Modules,
+Lemme \ref{modules-lemma-s-open}. Nous noterons l'inverse de cet isomorphisme
+$x \mapsto x/s$, et procéderons de même pour les puissances de
+$\mathcal{L}$. On définit ainsi un homomorphisme d'anneaux
+$\psi_{(f)} : S_{(f)} \to \Gamma(Y_s, \mathcal{O}_Y)$ en envoyant la fraction
+$a/f^n$ sur $\psi(a)/s^n$. Par Schémas,
+Lemme \ref{schemes-lemma-morphism-into-affine},
+cet homomorphisme correspond à
+un morphisme $\varphi_f : Y_s \to \Spec(S_{(f)}) = D_{+}(f)$.
+Introduisons aussi l'isomorphisme
+$\alpha_f : \varphi_f^*\mathcal{O}_{D_{+}(f)}(d) \to \mathcal{L}|_{Y_s}$ qui
+envoie l'image inverse de la section trivialisante $f$ sur $D_{+}(f)$ vers la
+section trivialisante $s$ sur $Y_s$. Avec ce choix, le diagramme du lemme est
+commutatif avec $Y$ remplacé par $Y_s$, $\varphi$ remplacé par $\varphi_f$
+et $\alpha$ remplacé par $\alpha_f$ ; nous omettons la vérification.
+
+\medskip\noindent
+Soit $f' \in S_d$ un second élément et notons
+$s' = \psi(f') \in \Gamma(Y, \mathcal{L})$. Alors
+$Y_s \cap Y_{s'} = Y_{ss'}$, et de même
+$D_{+}(f) \cap D_{+}(f') = D_{+}(ff')$. Nous avons vu au
+Lemme \ref{lemma-ample-on-proj} que $D_{+}(f') \cap D_{+}(f)$ est l'ensemble
+des points de $D_{+}(f)$ où la section de $\mathcal{O}_X(d)$ définie par $f'$
+ne s'annule pas. Ainsi,
+$\varphi_f^{-1}(D_{+}(f') \cap D_{+}(f)) = Y_s \cap Y_{s'}
+= \varphi_{f'}^{-1}(D_{+}(f') \cap D_{+}(f))$.
+Sur $D_{+}(f) \cap D_{+}(f')$, la fraction $f/f'$ est une section inversible
+du faisceau structural, d'inverse $f'/f$. Remarquons que
+$\psi_{(f')}(f/f') = \psi(f)/s' = s/s'$ et
+$\psi_{(f)}(f'/f) = \psi(f')/s = s'/s$. Nous affirmons qu'il existe un unique
+homomorphisme d'anneaux
+$S_{(ff')} \to \Gamma(Y_{ss'}, \mathcal{O}_Y)$
+rendant commutatif le diagramme
+$$
+\xymatrix{
+\Gamma(Y_s, \mathcal{O}_Y) \ar[r] &
+\Gamma(Y_{ss'}, \mathcal{O}_Y) &
+\Gamma(Y_{s, '} \mathcal{O}_Y) \ar[l]\\
+S_{(f)} \ar[r] \ar[u]^{\psi_{(f)}} &
+S_{(ff')} \ar[u] &
+S_{(f')} \ar[l] \ar[u]^{\psi_{(f')}}
+}
+$$
+Il existe, car on peut utiliser la règle
+$x/(ff')^n \mapsto \psi(x)/(ss')^n$, qui
+est bien définie d'après les formules
+précédentes. L'unicité résulte de ce que
+$\text{Proj}(S)$ est séparé ; voir le
+Lemme \ref{lemma-proj-separated} et sa démonstration. Ainsi, les morphismes
+$\varphi_f$ et $\varphi_{f'}$ coïncident sur $Y_s \cap Y_{s'}$.
+Les restrictions de $\alpha_f$ et $\alpha_{f'}$ coïncident aussi sur
+$Y_s \cap Y_{s'}$, puisque
+les fonctions régulières $s/s'$ et $\psi_{(f')}(f/f')$ coïncident.
+Les morphismes $\psi_f$ se recollent donc en un morphisme global de $Y$
+vers $U_d \subset X$, et les morphismes $\alpha_f$ se recollent en un
+isomorphisme satisfaisant les conditions du lemme.
+
+\medskip\noindent
+Il reste à montrer l'unicité du couple $(\varphi, \alpha)$. Supposons que
+$(\varphi', \alpha')$ soit un second couple satisfaisant les mêmes conditions.
+Soit $f \in S_d$. La commutativité des diagrammes du lemme montre que les
+images inverses de $D_{+}(f)$ par $\varphi$ et par $\varphi'$ sont toutes deux
+égales à $Y_{\psi(f)}$. Comme les ouverts $D_{+}(f)$ forment une base de la
+topologie de $X$ et que l'espace topologique $X$ est sobre (voir Schémas,
+Lemme \ref{schemes-lemma-scheme-sober}),
+les applications continues sous-jacentes
+à $\varphi$ et à $\varphi'$ sont égales. Utilisons $s = \psi(f)$ pour
+trivialiser le faisceau inversible $\mathcal{L}$ sur $Y_{\psi(f)}$.
+La commutativité des diagrammes donne
+$\alpha^{\otimes n}(\psi^d_{\varphi}(x)) =
+\psi(x) = (\alpha')^{\otimes n}(\psi^d_{\varphi'}(x))$
+pour tout $x \in S_{nd}$. Par construction de $\psi^d_{\varphi}$ et de
+$\psi^d_{\varphi'}$, on a
+$\psi^d_{\varphi}(x) = \varphi^\sharp(x/f^n) \psi^d_{\varphi}(f^n)$
+sur $Y_{\psi(f)}$, et de même pour $\psi^d_{\varphi'}$.
+La commutativité des diagrammes du lemme entraîne alors
+$\varphi^\sharp(x/f^n) = (\varphi')^\sharp(x/f^n)$.
+Ainsi, $\varphi$ et $\varphi'$ induisent le même morphisme de
+$Y_{\psi(f)}$ vers le schéma affine
+$D_{+}(f) = \Spec(S_{(f)})$ . Ainsi, $\varphi$ et $\varphi'$
+sont égaux comme morphismes. Enfin, il reste
+à montrer que, $\varphi$ étant donné, la
+commutativité du diagramme du lemme détermine un unique $\alpha$. Nous omettons
+la vérification.
+\end{proof}
+
+\noindent
+Reprenons la discussion qui précède le lemme. Soit $S$ un anneau gradué et
+soit $Y$ un schéma. Nous considérerons les {\it triplets}
+$(d, \mathcal{L}, \psi)$ où
+\begin{enumerate}
+\item $d \geq 1$ est un entier ;
+\item $\mathcal{L}$ est un $\mathcal{O}_Y$-module inversible ;
+\item $\psi : S^{(d)} \to \Gamma_*(Y, \mathcal{L})$ est un homomorphisme
+d'anneaux gradués tel que $\mathcal{L}$ soit engendré par les sections
+globales $\psi(f)$, avec $f \in S_d$.
+\end{enumerate}
+Étant donnés un morphisme $h : Y' \to Y$ et un triplet
+$(d, \mathcal{L}, \psi)$ sur $Y$, on
+peut en prendre l'image inverse : c'est
+le triplet $(d, h^*\mathcal{L}, h^* \circ \psi)$.
+Deux triplets $(d, \mathcal{L}, \psi)$ et
+$(d, \mathcal{L}', \psi')$ associés au même entier $d$ sont dits
+{\it strictement équivalents} s'il existe un isomorphisme
+$\beta : \mathcal{L} \to \mathcal{L}'$ tel que
+$\beta \circ \psi = \psi'$ comme homomorphismes d'anneaux gradués
+$S^{(d)} \to \Gamma_*(Y, \mathcal{L}')$.
+
+\medskip\noindent
+Pour tout entier $d \geq 1$, nous définissons
+\begin{eqnarray*}
+F_d : \Sch^{opp} & \longrightarrow & \textit{Ensembles}, \\
+Y & \longmapsto &
+\{\text{strict equivalence classes of triples }
+(d, \mathcal{L}, \psi)
+\text{ as above}\}
+\end{eqnarray*}
+les images inverses étant définies comme ci-dessus.
+
+\begin{lemma}
+\label{lemma-proj-functor-strict}
+Soit $S$ un anneau gradué et soit
+$X = \text{Proj}(S)$. Le sous-schéma ouvert
+$U_d \subset X$ défini en (\ref{equation-Ud}) représente le foncteur $F_d$,
+et le triplet $(d, \mathcal{O}_{U_d}(d), \psi^d)$ défini ci-dessus est la
+famille universelle (voir Schémas,
+section \ref{schemes-section-representable}).
+\end{lemma}
+
+\begin{proof}
+C'est une reformulation du Lemme \ref{lemma-converse-construction}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-apply}
+Soit $S$ un anneau gradué engendré, comme $S_0$-algèbre, par les éléments de
+$S_1$. Alors le schéma $X = \text{Proj}(S)$
+représente le foncteur qui associe
+à un schéma $Y$ l'ensemble des couples $(\mathcal{L}, \psi)$ où
+\begin{enumerate}
+\item $\mathcal{L}$ est un $\mathcal{O}_Y$-module inversible ;
+\item $\psi : S \to \Gamma_*(Y, \mathcal{L})$ est un homomorphisme d'anneaux
+gradués tel que $\mathcal{L}$ soit engendré par les sections globales
+$\psi(f)$, avec $f \in S_1$,
+\end{enumerate}
+à équivalence stricte près, au sens défini ci-dessus.
+\end{lemma}
+
+\begin{proof}
+Sous les hypothèses du lemme, on a $X = U_1$ ; le résultat est donc une
+reformulation du Lemme \ref{lemma-proj-functor-strict}.
+\end{proof}
+
+\noindent
+Terminons cette section par la description d'un foncteur correspondant à
+$\text{Proj}(S)$ pour un anneau gradué quelconque $S$. Nous conseillons au
+lecteur de ne pas lire la suite de cette section.
+
+\medskip\noindent
+Fixons un anneau gradué quelconque $S$ et soit $T$ un schéma. Deux triplets
+$(d, \mathcal{L}, \psi)$ et $(d', \mathcal{L}', \psi')$ sur $T$, où les
+entiers $d$ et $d'$ peuvent être distincts, sont
+dits {\it équivalents} s'il existe un isomorphisme
+$\beta : \mathcal{L}^{\otimes d'} \to (\mathcal{L}')^{\otimes d}$
+de faisceaux inversibles sur $T$ tel que
+$\beta \circ \psi|_{S^{(dd')}}$ et $\psi'|_{S^{(dd')}}$ coïncident comme
+homomorphismes d'anneaux gradués
+$S^{(dd')} \to \Gamma_*(Y, (\mathcal{L}')^{\otimes dd'})$.
+
+\begin{lemma}
+\label{lemma-equivalent}
+Soit $S$ un anneau gradué, posons $X = \text{Proj}(S)$ et soit $T$ un schéma.
+Soient $(d, \mathcal{L}, \psi)$ et $(d', \mathcal{L}', \psi')$ deux triplets
+sur $T$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item Posons $n = \text{lcm}(d, d')$ et écrivons $n = ad = a'd'$.
+Il existe un isomorphisme
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$ tel que
+$\beta \circ \psi|_{S^{(n)}}$ et $\psi'|_{S^{(n)}}$ coïncident comme
+homomorphismes d'anneaux gradués
+$S^{(n)} \to \Gamma_*(Y, (\mathcal{L}')^{\otimes n})$.
+\item Les triplets $(d, \mathcal{L}, \psi)$ et
+$(d', \mathcal{L}', \psi')$ sont équivalents.
+\item Pour un certain entier strictement positif $n = ad = a'd'$, il existe un
+isomorphisme
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$ tel que
+$\beta \circ \psi|_{S^{(n)}}$ et $\psi'|_{S^{(n)}}$ coïncident comme
+homomorphismes d'anneaux gradués
+$S^{(n)} \to \Gamma_*(Y, (\mathcal{L}')^{\otimes n})$.
+\item Les morphismes $\varphi : T \to X$ et $\varphi' : T \to X$ associés
+respectivement à $(d, \mathcal{L}, \psi)$ et
+$(d', \mathcal{L}', \psi')$ sont égaux.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il est clair que (1) entraîne (2), et
+(2) entraîne (3) en se restreignant à
+des degrés plus divisibles et en prenant des puissances des faisceaux
+inversibles. En outre, (3) entraîne (4) par l'assertion d'unicité du
+Lemme \ref{lemma-converse-construction}. Il reste donc à montrer que (4)
+entraîne (1). Supposons (4), c'est-à-dire $\varphi = \varphi'$.
+On peut alors écrire
+$\mathcal{L} = \varphi^*\mathcal{O}_X(d)$ et
+$\mathcal{L}' = \varphi^*\mathcal{O}_X(d')$.
+En outre, par ces identifications,
+les homomorphismes d'anneaux gradués $\psi$ et $\psi'$ correspondent à la
+restriction de l'homomorphisme canonique d'anneaux gradués
+$$
+S \longrightarrow \bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{O}_X(n))
+$$
+à $S^{(d)}$ et à $S^{(d')}$, composée avec l'image inverse par $\varphi$
+(encore une fois par le Lemme
+\ref{lemma-converse-construction}). Il suffit
+donc de prendre pour $\beta$ l'isomorphisme
+$$
+(\varphi^*\mathcal{O}_X(d))^{\otimes a} =
+\varphi^*\mathcal{O}_X(n) =
+(\varphi^*\mathcal{O}_X(d'))^{\otimes a'}
+$$
+\end{proof}
+
+\noindent
+Soit $S$ un anneau gradué et soit $X = \text{Proj}(S)$. Sur le sous-schéma
+ouvert $U_d \subset X = \text{Proj}(S)$ défini en (\ref{equation-Ud}), nous
+disposons du triplet $(d, \mathcal{O}_{U_d}(d), \psi^d)$. Si $d | d'$, les
+triplets $(d, \mathcal{O}_{U_d}(d), \psi^d)$ et
+$(d', \mathcal{O}_{U_{d'}}(d'), \psi^{d'})$, restreints à l'ouvert $U_d$
+(qui est contenu dans $U_{d'}$), sont
+manifestement équivalents. Ce fait et le
+Lemme \ref{lemma-converse-construction} montrent que les morphismes
+$Y \to X$ correspondent approximativement aux classes d'équivalence de
+triplets sur $Y$. Cette affirmation n'est pas tout à fait exacte : si $Y$
+n'est pas quasi-compact, il se peut qu'aucun triplet unique ne convienne.
+Il faut donc prendre quelques précautions pour définir le foncteur
+correspondant.
+
+\medskip\noindent
+Voici une façon de procéder. Supposons
+$d' = ad$. Considérons la transformation
+de foncteurs $F_d \to F_{d'}$ qui associe au triplet
+$(d, \mathcal{L}, \psi)$ sur $T$ le triplet
+$(d', \mathcal{L}^{\otimes a}, \psi|_{S^{(d')}})$.
+L'une des implications du Lemme \ref{lemma-equivalent} montre que cette
+transformation $F_d \to F_{d'}$ est injective. Pour un schéma quasi-compact
+$T$, posons
+$$
+F(T) = \bigcup\nolimits_{d \in \mathbf{N}} F_d(T)
+$$
+Les applications de transition sont celles décrites ci-dessus. On obtient
+ainsi un foncteur contravariant de la
+catégorie des schémas quasi-compacts vers
+la catégorie des ensembles. Pour un schéma quelconque $T$, posons
+$$
+F(T)
+=
+\lim_{V \subset T\text{ quasi-compact open}} F(V).
+$$
+Autrement dit, un élément $\xi$ de $F(T)$ correspond au choix compatible
+d'éléments $\xi_V \in F(V)$, où $V$ parcourt les ouverts quasi-compacts de
+$T$. Nous omettons la définition de l'application d'image inverse
+$F(T) \to F(T')$ associée à un morphisme de schémas $T' \to T$.
+Nous avons ainsi défini le foncteur
+\begin{eqnarray*}
+F : \Sch^{opp} & \longrightarrow & \textit{Ensembles}
+\end{eqnarray*}
+
+\begin{lemma}
+\label{lemma-proj-functor}
+Soit $S$ un anneau gradué et soit
+$X = \text{Proj}(S)$. Le foncteur $F$ défini
+ci-dessus est représentable par le schéma $X$.
+\end{lemma}
+
+\begin{proof}
+Nous avons vu que le foncteur $F_d$ correspond au sous-schéma ouvert
+$U_d \subset X$. En outre, la transformation de foncteurs
+$F_d \to F_{d'}$ (si $d | d'$) définie ci-dessus correspond au morphisme
+d'inclusion $U_d \to U_{d'}$ ; voir la discussion précédente. Pour montrer
+que $F$ est représenté par $X$, il suffit donc de vérifier que tout morphisme
+$T \to X$, où $T$ est quasi-compact, se
+factorise par un certain $U_d$, et que,
+pour tout schéma $T$, on a
+$$
+\Mor(T, X)
+=
+\lim_{V \subset T\text{ quasi-compact open}} \Mor(V, X).
+$$
+Nous omettons ces vérifications.
+\end{proof}
+
+
+
+
+
+
+
+\section{Espace projectif}
+\label{section-projective-space}
+
+\noindent
+L'espace projectif est l'un des objets fondamentaux de la géométrie
+algébrique. Dans cette section, nous nous contentons de le construire comme le
+$\text{Proj}$ d'un anneau de polynômes. Nous découvrirons plus loin nombre de
+ses belles propriétés.
+
+\begin{lemma}
+\label{lemma-projective-space}
+Soit $S = \mathbf{Z}[T_0, \ldots, T_n]$ avec $\deg(T_i) = 1$. Le schéma
+$$
+\mathbf{P}^n_{\mathbf{Z}} = \text{Proj}(S)
+$$
+représente le foncteur qui associe à un schéma $Y$ les couples
+$(\mathcal{L}, (s_0, \ldots, s_n))$ tels que
+\begin{enumerate}
+\item $\mathcal{L}$ soit un $\mathcal{O}_Y$-module inversible ;
+\item $s_0, \ldots, s_n$ soient des
+sections globales de $\mathcal{L}$ qui
+engendrent $\mathcal{L}$,
+\end{enumerate}
+à l'équivalence suivante près :
+$(\mathcal{L}, (s_0, \ldots, s_n)) \sim
+(\mathcal{N}, (t_0, \ldots, t_n))$ $\Leftrightarrow$ il existe un
+isomorphisme $\beta : \mathcal{L} \to \mathcal{N}$ tel que
+$\beta(s_i) = t_i$ pour $i = 0, \ldots, n$.
+\end{lemma}
+
+\begin{proof}
+C'est un cas particulier du Lemme \ref{lemma-apply}. En effet, pour tout
+anneau gradué $A$, on a
+\begin{eqnarray*}
+\Mor_{graded rings}(\mathbf{Z}[T_0, \ldots, T_n], A)
+& = &
+A_1 \times \ldots \times A_1 \\
+\psi & \mapsto & (\psi(T_0), \ldots, \psi(T_n))
+\end{eqnarray*}
+et la partie de degré $1$ de $\Gamma_*(Y, \mathcal{L})$ n'est autre que
+$\Gamma(Y, \mathcal{L})$.
+\end{proof}
+
+\begin{definition}
+\label{definition-projective-space}
+Le schéma
+$\mathbf{P}^n_{\mathbf{Z}} = \text{Proj}(\mathbf{Z}[T_0, \ldots, T_n])$ est
+appelé l'{\it espace projectif de dimension $n$ sur $\mathbf{Z}$}.
+Son changement de base $\mathbf{P}^n_S$ à un schéma $S$ est appelé l'
+{\it espace projectif de dimension $n$ sur $S$}. Si $R$ est un anneau, le
+changement de base à $\Spec(R)$ est noté $\mathbf{P}^n_R$ et appelé l'
+{\it espace projectif de dimension $n$ sur $R$}.
+\end{definition}
+
+\noindent
+Soient $Y$ un schéma sur $S$ et
+$(\mathcal{L}, (s_0, \ldots, s_n))$ un couple comme dans le
+Lemme \ref{lemma-projective-space}. Le morphisme induit vers
+$\mathbf{P}^n_S$ est noté
+$$
+\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))} :
+Y \longrightarrow \mathbf{P}^n_S
+$$
+Cette notation a un sens : le couple définit un morphisme vers
+$\mathbf{P}^n_{\mathbf{Z}}$, tandis que le morphisme structural vers $S$ est
+déjà donné ; ensemble, ils définissent un morphisme vers
+$\mathbf{P}^n_S = \mathbf{P}^n_{\mathbf{Z}} \times S$.
+Par le Lemme \ref{lemma-relative-proj-base-change}, on peut identifier
+$\mathbf{P}^n_S$ au Proj relatif de la $\mathcal{O}_S$-algèbre graduée
+$\mathcal{O}_S[T_0, \ldots, T_n]$. On peut alors caractériser
+$\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}$ comme l'unique $S$-morphisme tel
+que
+$$
+\mathcal{L} =
+\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}^*\mathcal{O}_{\mathbf{P}^n_S}(1)
+\quad
+\text{et}
+\quad
+s_i = \varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}^*T_i
+$$
+où l'on considère $T_i$ comme une section globale de
+$\mathcal{O}_{\mathbf{P}^n_S}(1)$ par l'intermédiaire de l'application $\psi$
+du Lemme \ref{lemma-glue-relative-proj-twists} ; nous omettons les détails.
+
+\begin{lemma}
+\label{lemma-standard-covering-projective-space}
+L'espace projectif de dimension $n$ sur $\mathbf{Z}$ est recouvert par les
+$n + 1$ ouverts standards
+$$
+\mathbf{P}^n_{\mathbf{Z}} =
+\bigcup\nolimits_{i = 0, \ldots, n} D_{+}(T_i)
+$$
+chacun des $D_{+}(T_i)$ étant isomorphe à $\mathbf{A}^n_{\mathbf{Z}}$,
+l'espace affine de dimension $n$ sur $\mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de
+$\mathbf{Z}[T_0, \ldots, T_n]_{+} = (T_0, \ldots, T_n)$
+et de l'isomorphisme
+évident
+$$
+\Spec
+\left(
+\mathbf{Z}
+\left[\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i}
+\right]
+\right)
+\cong
+\mathbf{A}^n_{\mathbf{Z}}
+$$
+\end{proof}
+
+\begin{lemma}
+\label{lemma-projective-space-separated}
+Soit $S$ un schéma. Le morphisme structural $\mathbf{P}^n_S \to S$
+possède les propriétés suivantes :
+\begin{enumerate}
+\item il est séparé ;
+\item il est quasi-compact ;
+\item il satisfait les parties existence
+et unicité du critère valuatif ;
+\item il est universellement fermé.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Toutes ces propriétés sont stables par changement de base (c'est clair pour
+les deux dernières ; pour les deux premières, voir Schémas, Lemmes
+\ref{schemes-lemma-separated-permanence} et
+\ref{schemes-lemma-quasi-compact-preserved-base-change}). Il suffit donc de les
+démontrer pour le morphisme
+$\mathbf{P}^n_{\mathbf{Z}} \to \Spec(\mathbf{Z})$.
+La séparation est le Lemme \ref{lemma-proj-separated}. La quasi-compacité
+résulte du Lemme \ref{lemma-standard-covering-projective-space}.
+Les parties existence et unicité du critère valuatif résultent du
+Lemme \ref{lemma-proj-valuative-criterion}.
+Enfin, le caractère universellement
+fermé découle des assertions précédentes et de Schémas,
+Proposition \ref{schemes-proposition-characterize-universally-closed}.
+\end{proof}
+
+\begin{remark}
+\label{remark-missing-finite-type}
+Que manque-t-il à la liste de propriétés ci-dessus ? Certainement la propriété
+d'être de type fini. Si nous ne l'énonçons pas ici, c'est que nous n'avons pas
+encore défini la notion de type fini à ce stade. Une autre propriété absente
+est la « lissité » ; il y en a sans doute beaucoup d'autres auxquelles le
+lecteur pourra penser.
+\end{remark}
+
+\begin{lemma}[Plongement de Segre]
+\label{lemma-segre-embedding}
+Soit $S$ un schéma. Il existe une immersion fermée
+$$
+\mathbf{P}^n_S \times_S \mathbf{P}^m_S
+\longrightarrow
+\mathbf{P}^{nm + n + m}_S
+$$
+appelée le {\it plongement de Segre}.
+\end{lemma}
+
+\begin{proof}
+Il suffit de le démontrer lorsque
+$S = \Spec(\mathbf{Z})$. Nous omettrons donc
+l'indice $S$ et travaillerons dans la situation absolue. Écrivons
+$\mathbf{P}^n = \text{Proj}(\mathbf{Z}[X_0, \ldots, X_n])$,
+$\mathbf{P}^m = \text{Proj}(\mathbf{Z}[Y_0, \ldots, Y_m])$ et
+$\mathbf{P}^{nm + n + m} =
+\text{Proj}(\mathbf{Z}[Z_0, \ldots, Z_{nm + n + m}])$.
+Pour définir un morphisme vers
+$\mathbf{P}^{nm + n + m}$, il faut se donner
+sur le membre de gauche un faisceau inversible $\mathcal{L}$ et
+$(n + 1)(m + 1)$ sections $s_i$ qui l'engendrent ; voir le
+Lemme \ref{lemma-projective-space}. Prenons le faisceau inversible
+$$
+\mathcal{L} =
+\text{pr}_1^*\mathcal{O}_{\mathbf{P}^n}(1)
+\otimes
+\text{pr}_2^*\mathcal{O}_{\mathbf{P}^m}(1)
+$$
+et les sections
+$$
+s_0 = X_0Y_0, \ s_1 = X_1Y_0, \ldots, \ s_n = X_nY_0,
+\ s_{n + 1} = X_0Y_1, \ldots, \ s_{nm + n + m} = X_nY_m.
+$$
+Elles engendrent $\mathcal{L}$, puisque les sections $X_i$ engendrent
+$\mathcal{O}_{\mathbf{P}^n}(1)$ et les sections $Y_j$ engendrent
+$\mathcal{O}_{\mathbf{P}^m}(1)$. Le morphisme induit $\varphi$ vérifie
+$$
+\varphi^{-1}(D_{+}(Z_{i + (n + 1)j})) = D_{+}(X_i) \times D_{+}(Y_j).
+$$
+C'est donc un morphisme affine. Dans le cas $(i, j) = (0, 0)$,
+l'homomorphisme d'anneaux correspondant est
+$$
+\mathbf{Z}[Z_1/Z_0, \ldots, Z_{nm + n + m}/Z_0]
+\longrightarrow
+\mathbf{Z}[X_1/X_0, \ldots, X_n/X_0, Y_1/Y_0, \ldots, Y_n/Y_0]
+$$
+qui envoie $Z_i/Z_0$ sur $X_i/X_0$ pour $i \leq n$ et
+$Z_{(n + 1)j}/Z_0$ sur $Y_j/Y_0$. Il est
+donc surjectif. Le même raisonnement
+s'applique aux autres ouverts affines.
+Ainsi, $\varphi$ est une immersion
+fermée (voir Schémas, Lemme \ref{schemes-lemma-closed-local-target} et
+Exemple \ref{schemes-example-closed-immersion-affines}).
+\end{proof}
+
+\noindent
+Les deux lemmes suivants sont des cas particuliers de résultats plus généraux
+établis plus loin, mais il est sans doute utile de les démontrer directement
+ici. Le premier est un cas particulier de Diviseurs, Lemme \ref{divisors-lemma-closed-subscheme-proj}.
+
+\begin{lemma}
+\label{lemma-closed-in-projective-space}
+Soit $R$ un anneau et soit $Z \subset \mathbf{P}^n_R$ un sous-schéma fermé.
+Posons
+$$
+I_d = \Ker\left(
+R[T_0, \ldots, T_n]_d
+\longrightarrow
+\Gamma(Z, \mathcal{O}_{\mathbf{P}^n_R}(d)|_Z)\right)
+$$
+Alors $I = \bigoplus I_d \subset R[T_0, \ldots, T_n]$ est un idéal gradué et
+$Z = \text{Proj}(R[T_0, \ldots, T_n]/I)$.
+\end{lemma}
+
+\begin{proof}
+Il est clair que $I$ est un idéal gradué. Posons
+$Z' = \text{Proj}(R[T_0, \ldots, T_n]/I)$. D'après le
+Lemme \ref{lemma-surjective-graded-rings-generated-degree-1-map-proj},
+$Z'$ est
+un sous-schéma fermé de $\mathbf{P}^n_R$. Pour vérifier l'égalité $Z = Z'$,
+il suffit de se placer sur un ouvert affine standard $D_{+}(T_i)$.
+Après renumérotation des coordonnées homogènes, on peut supposer $i = 0$.
+Écrivons que $Z \cap D_{+}(T_0)$, resp.\ $Z' \cap D_{+}(T_0)$,
+est défini par l'idéal $J$, resp.\ $J'$, de
+$R[T_1/T_0, \ldots, T_n/T_0]$. Alors $J'$ est engendré par les éléments
+$F/T_0^{\deg(F)}$, où $F \in I$ est homogène.
+Supposons que $F \in I$ soit de degré $d$. Comme $F$ s'annule en tant que
+section de $\mathcal{O}_{\mathbf{P}^n_R}(d)$ restreinte à $Z$, l'élément
+$F/T_0^d$ appartient à $J$. Ainsi, $J' \subset J$.
+
+\medskip\noindent
+Réciproquement, soit $f \in J$. Si $f$ est de degré total $d$ en
+$T_1/T_0, \ldots, T_n/T_0$, on peut écrire
+$f = F/T_0^d$ pour un certain $F \in R[T_0, \ldots, T_n]_d$.
+Choisissons $i \in \{1, \ldots, n\}$. Le sous-schéma
+$Z \cap D_{+}(T_i)$ est défini par un certain idéal
+$J_i \subset R[T_0/T_i, \ldots, T_n/T_i]$. En outre,
+$$
+J \cdot
+R\left[
+\frac{T_1}{T_0}, \ldots, \frac{T_n}{T_0},
+\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i}
+\right]
+=
+J_i \cdot
+R\left[
+\frac{T_1}{T_0}, \ldots, \frac{T_n}{T_0},
+\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i}
+\right]
+$$
+Le membre de gauche est le localisé de
+$J$ par rapport à $T_i/T_0$, et celui
+de droite le localisé de $J_i$ par rapport à $T_0/T_i$. Il s'ensuit que
+$T_0^{d_i}F/T_i^{d + d_i}$ appartient à $J_i$ pour un entier $d_i$
+suffisamment grand. Par conséquent,
+$T_0^{\max(d_i)}F$ appartient à $I$,
+car sa restriction à chacun des ouverts affines standards $D_{+}(T_i)$
+s'annule sur le sous-schéma fermé $Z \cap D_{+}(T_i)$.
+Ainsi, $f \in J'$, d'où $J \subset J'$, comme voulu.
+\end{proof}
+
+\noindent
+Le lemme suivant est un cas particulier des résultats plus généraux de
+Propriétés, Lemmes \ref{properties-lemma-ample-quasi-coherent} ou
+\ref{properties-lemma-proj-quasi-coherent}.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-projective-space}
+Soit $R$ un anneau et soit $\mathcal{F}$ un faisceau quasi-cohérent sur
+$\mathbf{P}^n_R$. Pour $d \geq 0$, posons
+$$
+M_d
+=
+\Gamma(\mathbf{P}^n_R,
+\mathcal{F} \otimes_{\mathcal{O}_{\mathbf{P}^n_R}}
+\mathcal{O}_{\mathbf{P}^n_R}(d))
+=
+\Gamma(\mathbf{P}^n_R, \mathcal{F}(d))
+$$
+Alors $M = \bigoplus_{d \geq 0} M_d$ est un
+$R[T_0, \ldots, R_n]$-module gradué et il existe un isomorphisme canonique
+$\mathcal{F} = \widetilde{M}$.
+\end{lemma}
+
+\begin{proof}
+Les applications de multiplication
+$$
+R[T_0, \ldots, R_n]_e \times M_d \longrightarrow M_{d + e}
+$$
+proviennent des isomorphismes naturels
+$$
+\mathcal{O}_{\mathbf{P}^n_R}(e)
+\otimes_{\mathcal{O}_{\mathbf{P}^n_R}}
+\mathcal{F}(d)
+\longrightarrow
+\mathcal{F}(e + d)
+$$
+voir l'Équation (\ref{equation-global-sections-module}). Construisons le
+morphisme $c : \widetilde{M} \to \mathcal{F}$. Sur chacun des ouverts affines
+standards $U_i = D_{+}(T_i)$, on a
+$\Gamma(U_i, \widetilde{M}) = (M[1/T_i])_0$, où l'indice ${}_0$ désigne la
+partie de degré $0$. Tout élément de ce module s'écrit $m/T_i^d$ avec
+$m \in M_d$. Comme $T_i$ engendre $\mathcal{O}(1)$ au-dessus de $U_i$, on
+peut toujours écrire $m|_{U_i} = m_i \otimes T_i^d$, avec une unique section
+$m_i \in \Gamma(U_i, \mathcal{F})$. Il est donc naturel de poser
+$c(m/T_i^d) = m_i$. Un raisonnement élémentaire, omis ici, montre que cela
+définit un morphisme $c : \widetilde{M} \to \mathcal{F}$ dès que l'on vérifie
+$$
+(T_i/T_j)^d m_i|_{U_i \cap U_j} = m_j|_{U_i \cap U_j}
+$$
+dans $M[1/T_iT_j]$. Or cela est clair,
+car sur l'intersection les générateurs
+$T_i$ et $T_j$ de $\mathcal{O}(1)$ diffèrent par la fonction inversible
+$T_i/T_j$.
+
+\medskip\noindent
+Injectivité de $c$. On peut la vérifier sur les ouverts affines $U_i$.
+Soit $i \in \{0, \ldots, n\}$ et soit l'élément $s$ donné par
+$s = m/T_i^d \in \Gamma(U_i, \widetilde{M})$ tel que
+$c(m/T_i^d) = 0$. D'après la description de $c$, on a $m_i = 0$, donc
+$m|_{U_i} = 0$. On a alors $T_i^em = 0$ dans $M$ pour un certain $e$.
+Par conséquent, $s = m/T_i^d = T_i^e/T_i^{e + d} = 0$, comme voulu.
+
+\medskip\noindent
+Surjectivité de $c$. On peut la vérifier sur les ouverts affines $U_i$ et,
+après renumérotation, il suffit de la vérifier sur $U_0$.
+Soit $s \in \mathcal{F}(U_0)$. Écrivons
+$\mathcal{F}|_{U_i} = \widetilde{N_i}$ pour un certain
+$R[T_0/T_i, \ldots, T_0/T_i]$-module $N_i$ ; c'est possible parce que
+$\mathcal{F}$ est quasi-cohérent. La section $s$ correspond alors à un élément
+$x \in N_0$. On a
+$$
+(N_i)_{T_j/T_i} \cong (N_j)_{T_i/T_j}
+$$
+où les indices désignent la localisation principale, comme modules sur
+l'anneau
+$$
+R\left[
+\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i},
+\frac{T_0}{T_j}, \ldots, \frac{T_n}{T_j}
+\right].
+$$
+Il existe donc un entier $d$ assez grand et des éléments
+$s_i \in N_i$, $i = 1, \ldots, n$, tels que
+$$
+s = (T_i/T_0)^d s_i
+$$
+sur $U_0 \cap U_i$. Considérons ensuite la différence
+$$
+t_{ij} = s_i - (T_j/T_i)^d s_j
+$$
+sur $U_i \cap U_j$, $0 < i < j$. Par le choix des $s_i$, on a
+$t_{ij}|_{U_0 \cap U_i \cap U_j} = 0$. Il existe donc un entier $e$ assez
+grand tel que $(T_0/T_i)^et_{ij} = 0$. Posons
+$s_i' = (T_0/T_i)^es_i$ et $s_0' = s$. On a alors
+$$
+s_a' = (T_b/T_a)^{e + d} s_b'
+$$
+sur $U_a \cap U_b$ pour tous $a, b$. C'est exactement la condition pour que
+les éléments $s'_a$ se recollent en une section globale
+$m \in \Gamma(\mathbf{P}^n_R, \mathcal{F}(e + d))$.
+Par construction, $c(m/T_0^{e + d}) = s$. Le morphisme $c$ est donc surjectif,
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-globally-generated-omega-twist-1}
+Soit $X$ un schéma. Soit $\mathcal{L}$ un faisceau inversible, et soient
+$s_0, \ldots, s_n$ des sections globales de $\mathcal{L}$ qui l'engendrent.
+Soit $\mathcal{F}$ le noyau du morphisme induit
+$\mathcal{O}_X^{\oplus n + 1} \to \mathcal{L}$. Alors
+$\mathcal{F} \otimes \mathcal{L}$ est engendré par ses sections globales.
+\end{lemma}
+
+\begin{proof}
+Le résultat est même vrai lorsque $X$ est un espace localement annelé
+quelconque. Le faisceau $\mathcal{F}$ est un $\mathcal{O}_X$-module localement
+libre de rang fini $n$. Les éléments
+$$
+s_{ij} = (0, \ldots, 0, s_j, 0, \ldots, 0, -s_i, 0, \ldots, 0)
+\in \Gamma(X, \mathcal{L}^{\oplus n + 1})
+$$
+où $s_j$ occupe la $i$-ième place et $-s_i$ la $j$-ième s'envoient sur zéro
+dans $\mathcal{L}^{\otimes 2}$. Ainsi,
+$s_{ij} \in \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L})$.
+Un calcul local montre que ces sections engendrent
+$\mathcal{F} \otimes \mathcal{L}$.
+
+\medskip\noindent
+Autre démonstration. Considérons le morphisme
+$\varphi : X \to \mathbf{P}^n_\mathbf{Z}$ associé au couple
+$(\mathcal{L}, (s_0, \ldots, s_n))$. Comme l'image inverse de
+$\mathcal{O}(1)$ est $\mathcal{L}$ et
+celle de $T_i$ est $s_i$, il suffit de
+démontrer le lemme pour $\mathbf{P}^n_\mathbf{Z}$.
+Dans ce cas, le faisceau $\mathcal{F}$ correspond au
+$S = \mathbf{Z}[T_0, \ldots, T_n]$-module gradué
+$M$ qui s'insère dans la suite exacte courte
+$$
+0 \to M \to S^{\oplus n + 1} \to S(1) \to 0
+$$
+où le second morphisme est donné par $T_0, \ldots, T_n$.
+L'assertion précédente se traduit alors par le fait que les éléments
+$$
+T_{ij} = (0, \ldots, 0, T_j, 0, \ldots, 0, -T_i, 0, \ldots, 0)
+\in M(1)_0
+$$
+engendrent le module gradué $M(1)$ sur $S$. Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Faisceaux inversibles et morphismes vers Proj}
+\label{section-invertible-proj}
+
+\noindent
+Soit $T$ un schéma et soit $\mathcal{L}$ un faisceau inversible sur $T$.
+Pour une section $s \in \Gamma(T, \mathcal{L})$, on note $T_s$ l'ouvert
+des points où $s$ ne s'annule pas. Voir Modules,
+Lemme \ref{modules-lemma-s-open}. On peut considérer le lemme suivant comme
+une légère généralisation du Lemme \ref{lemma-apply}. C'est également une
+généralisation du Lemme \ref{lemma-morphism-proj}.
+
+\begin{lemma}
+\label{lemma-invertible-map-into-proj}
+Soit $A$ un anneau gradué et posons $X = \text{Proj}(A)$.
+Soient $T$ un schéma, $\mathcal{L}$ un
+$\mathcal{O}_T$-module inversible et
+$\psi : A \to \Gamma_*(T, \mathcal{L})$
+un homomorphisme d'anneaux gradués.
+Posons
+$$
+U(\psi) = \bigcup\nolimits_{f \in A_{+}\text{ homogeneous}} T_{\psi(f)}
+$$
+Le morphisme $\psi$ induit un morphisme canonique de schémas
+$$
+r_{\mathcal{L}, \psi} :
+U(\psi) \longrightarrow X
+$$
+muni d'un morphisme d'algèbres $\mathbf{Z}$-graduées sur $\mathcal{O}_T$
+$$
+\theta :
+r_{\mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_X(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{L}^{\otimes d}|_{U(\psi)}.
+$$
+Le triplet $(U(\psi), r_{\mathcal{L}, \psi}, \theta)$ est caractérisé par
+les propriétés suivantes :
+\begin{enumerate}
+\item Pour tout $f \in A_{+}$ homogène, on a
+$r_{\mathcal{L}, \psi}^{-1}(D_{+}(f)) = T_{\psi(f)}$.
+\item Pour tout $d \geq 0$, le diagramme
+$$
+\xymatrix{
+A_d \ar[d]_{(\ref{equation-global-sections})} \ar[r]_{\psi} &
+\Gamma(T, \mathcal{L}^{\otimes d}) \ar[d]^{restrict} \\
+\Gamma(X, \mathcal{O}_X(d)) \ar[r]^{\theta} &
+\Gamma(U(\psi), \mathcal{L}^{\otimes d})
+}
+$$
+est commutatif.
+\end{enumerate}
+De plus, pour tout $d \geq 1$ et tout
+sous-schéma ouvert $V \subset T$ tels
+que les sections de $\psi(A_d)$ engendrent $\mathcal{L}^{\otimes d}|_V$,
+le morphisme $r_{\mathcal{L}, \psi}|_V$ coïncide avec le morphisme
+$\varphi : V \to \text{Proj}(A)$ et le morphisme $\theta|_V$ coïncide avec
+$\alpha : \varphi^*\mathcal{O}_X(d) \to \mathcal{L}^{\otimes d}|_V$,
+où $(\varphi, \alpha)$ est le couple du Lemme
+\ref{lemma-converse-construction} associé à
+$\psi|_{A^{(d)}} : A^{(d)} \to \Gamma_*(V, \mathcal{L}^{\otimes d})$.
+\end{lemma}
+
+\begin{proof}
+Supposons que deux triplets $(U, r : U \to X, \theta)$ et
+$(U', r' : U' \to X, \theta')$ satisfassent (1) et (2).
+La propriété (1) entraîne $U = U' = U(\psi)$ ainsi que l'égalité
+$r = r'$ des applications continues
+sous-jacentes : les ouverts $D_{+}(f)$
+forment en effet une base de la topologie de $X$, et $X$ est un espace
+topologique sobre (voir Algèbre, section \ref{algebra-section-proj} et
+Schémas, Lemme \ref{schemes-lemma-scheme-sober}).
+Soit $f \in A_{+}$ homogène. On a
+$\Gamma(D_{+}(f), \bigoplus_{n \in \mathbf{Z}} \mathcal{O}_X(n)) = A_f$
+comme algèbres $\mathbf{Z}$-graduées.
+Considérons les deux homomorphismes
+d'anneaux $\mathbf{Z}$-gradués
+$$
+\theta, \theta' :
+A_f
+\longrightarrow
+\Gamma(T_{\psi(f)}, \bigoplus \mathcal{L}^{\otimes n}).
+$$
+La multiplication par $f$ (resp.\ $\psi(f)$) est un isomorphisme dans le
+membre de gauche (resp.\ de droite). On sait aussi, par (2), que
+$\theta(x/1) = \theta'(x/1) = \psi(x)|_{T_{\psi(f)}}$
+pour tout $x \in A$.
+On en déduit aisément $\theta = \theta'$. En considérant les composantes
+de degré $0$, on obtient $r^\sharp = (r')^\sharp$, c'est-à-dire
+$r = r'$ comme morphismes de schémas. Cela prouve l'unicité.
+
+\medskip\noindent
+Passons à l'existence. Grâce à l'unicité que nous venons de démontrer,
+il suffit de construire le couple $(r, \theta)$ localement sur $T$.
+On peut donc supposer $T = \Spec(R)$ affine, $\mathcal{L} = \mathcal{O}_T$,
+et qu'il existe $f \in A_{+}$ homogène tel que $\psi(f)$ engendre
+$\mathcal{O}_T = \mathcal{O}_T^{\otimes \deg(f)}$.
+Autrement dit, $\psi(f) = u \in R^*$ est inversible. Dans ce cas, $\psi$
+est un homomorphisme d'anneaux gradués
+$$
+A \longrightarrow R[x] = \Gamma_*(T, \mathcal{O}_T)
+$$ qui envoie $f$ sur $ux^{\deg(f)}$. Il se prolonge de façon unique en un
+homomorphisme d'anneaux $\mathbf{Z}$-gradués
+$\theta : A_f \to R[x, x^{-1}]$ en envoyant $1/f$ sur
+$u^{-1}x^{-\deg(f)}$. En degré zéro, on obtient l'homomorphisme d'anneaux
+$A_{(f)} \to R$ qui définit le morphisme
+$r : T = \Spec(R) \to \Spec(A_{(f)}) = D_{+}(f) \subset X$.
+Nous avons donc construit $(r, \theta)$ dans ce cas particulier.
+
+\medskip\noindent
+Montrons la dernière assertion du lemme. D'après le
+Lemme \ref{lemma-converse-construction},
+le morphisme qui y est construit
+est l'unique morphisme rendant commutatif le diagramme de son énoncé.
+La commutativité du diagramme du présent
+lemme entraîne celle du diagramme
+restreint à $V$ et à $A^{(d)}$. D'où le résultat.
+\end{proof}
+
+\begin{remark}
+\label{remark-not-in-invertible-locus}
+Sous les hypothèses du Lemme \ref{lemma-invertible-map-into-proj}, l'image
+du morphisme $r_{\mathcal{L}, \psi}$ n'est pas nécessairement contenue dans
+le lieu où le faisceau $\mathcal{O}_X(1)$ est inversible. Voici un exemple.
+Soit $k$ un corps et soit $S = k[A, B, C]$ gradué par
+$\deg(A) = 1$, $\deg(B) = 2$, $\deg(C) = 3$.
+Posons $X = \text{Proj}(S)$ et soit
+$T = \mathbf{P}^2_k = \text{Proj}(k[X_0, X_1, X_2])$.
+Rappelons que $\mathcal{L} = \mathcal{O}_T(1)$ est inversible et que
+$\mathcal{O}_T(n) = \mathcal{L}^{\otimes n}$.
+Considérons la composée $\psi$ des homomorphismes
+$$
+S \to k[X_0, X_1, X_2] \to \Gamma_*(T, \mathcal{L}).
+$$
+Le premier est $A \mapsto X_0$, $B \mapsto X_1^2$,
+$C \mapsto X_2^3$ ;
+le second est (\ref{equation-global-sections}). D'après le lemme, cette
+composée correspond à un morphisme
+$r_{\mathcal{L}, \psi} : T \to X = \text{Proj}(S)$, dont on voit aisément
+qu'il est surjectif. Or, dans la Remarque \ref{remark-not-isomorphism},
+nous avons montré que $\mathcal{O}_X(1)$
+n'est pas inversible en tout point
+de $X$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+\section{Proj relatif par recollement}
+\label{section-relative-proj-via-glueing}
+
+\begin{situation}
+\label{situation-relative-proj}
+Ici, $S$ est un schéma et $\mathcal{A}$ une $\mathcal{O}_S$-algèbre graduée
+quasi-cohérente.
+\end{situation}
+
+\noindent
+Dans cette section, nous indiquons comment construire un morphisme de schémas
+$$
+\underline{\text{Proj}}_S(\mathcal{A}) \longrightarrow S
+$$
+en recollant les spectres homogènes $\text{Proj}(\Gamma(U, \mathcal{A}))$,
+où $U$ parcourt les ouverts affines de $S$. Montrons d'abord que les spectres
+homogènes des algèbres de sections de $\mathcal{A}$ sur les ouverts affines
+forment une famille de schémas satisfaisant les conditions du
+Lemme \ref{lemma-relative-glueing}.
+
+\begin{lemma}
+\label{lemma-proj-inclusion}
+Plaçons-nous dans la Situation \ref{situation-relative-proj}.
+Soient $U \subset U' \subset S$ des ouverts affines et posons
+$A = \mathcal{A}(U)$, $A' = \mathcal{A}(U')$.
+L'homomorphisme d'anneaux gradués $A' \to A$ induit un morphisme
+$r : \text{Proj}(A) \to \text{Proj}(A')$, et le diagramme
+$$
+\xymatrix{
+\text{Proj}(A) \ar[r] \ar[d] &
+\text{Proj}(A') \ar[d] \\
+U \ar[r] &
+U'
+}
+$$ est cartésien. De plus, il existe des isomorphismes canoniques
+$\theta : r^*\mathcal{O}_{\text{Proj}(A')}(n) \to
+\mathcal{O}_{\text{Proj}(A)}(n)$ compatibles avec les morphismes de
+multiplication.
+\end{lemma}
+
+\begin{proof}
+Posons $R = \mathcal{O}_S(U)$ et $R' = \mathcal{O}_S(U')$.
+L'homomorphisme $R \otimes_{R'} A' \to A$ est un isomorphisme puisque
+$\mathcal{A}$ est quasi-cohérente (voir, par exemple, Schémas,
+Lemme \ref{schemes-lemma-widetilde-pullback}).
+Le résultat découle donc du
+Lemme \ref{lemma-base-change-map-proj}.
+\end{proof}
+
+\noindent
+En particulier, le morphisme $\text{Proj}(A) \to \text{Proj}(A')$ du lemme
+est une immersion ouverte.
+
+\begin{lemma}
+\label{lemma-transitive-proj}
+Plaçons-nous dans la Situation \ref{situation-relative-proj}.
+Soient $U \subset U' \subset U'' \subset S$
+des ouverts affines et posons
+$A = \mathcal{A}(U)$, $A' = \mathcal{A}(U')$, $A'' = \mathcal{A}(U'')$.
+La composée des morphismes $r : \text{Proj}(A) \to \text{Proj}(A')$ et
+$r' : \text{Proj}(A') \to \text{Proj}(A'')$ du
+Lemme \ref{lemma-proj-inclusion} est le morphisme
+$r'' : \text{Proj}(A) \to \text{Proj}(A'')$ du
+Lemme \ref{lemma-proj-inclusion}. Une assertion analogue vaut pour les
+isomorphismes $\theta$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du Lemme
+\ref{lemma-morphism-proj-transitive}, puisque
+$A'' \to A$ est la composée de $A'' \to A'$ et de $A' \to A$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-relative-proj}
+Dans la Situation \ref{situation-relative-proj}, il existe un morphisme
+de schémas
+$$
+\pi : \underline{\text{Proj}}_S(\mathcal{A}) \longrightarrow S
+$$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item pour tout ouvert affine $U \subset S$, il existe un isomorphisme
+$i_U : \pi^{-1}(U) \to \text{Proj}(A)$, où $A = \mathcal{A}(U)$ ;
+\item pour des ouverts affines $U \subset U' \subset S$, la composée
+$$
+\xymatrix{
+\text{Proj}(A) \ar[r]^{i_U^{-1}} &
+\pi^{-1}(U) \ar[rr]^{inclusion} & &
+\pi^{-1}(U') \ar[r]^{i_{U'}} &
+\text{Proj}(A')
+}
+$$
+où $A = \mathcal{A}(U)$, $A' = \mathcal{A}(U')$, est l'immersion ouverte du
+Lemme \ref{lemma-proj-inclusion}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des
+Lemmes \ref{lemma-relative-glueing},
+\ref{lemma-proj-inclusion} et
+\ref{lemma-transitive-proj}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-relative-proj-twists}
+Dans la Situation \ref{situation-relative-proj}, le morphisme
+$\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$ du
+Lemme \ref{lemma-glue-relative-proj}
+est muni de la structure supplémentaire
+suivante. Il existe un faisceau quasi-cohérent $\mathbf{Z}$-gradué
+d'algèbres sur $\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$
+$\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$
+et un morphisme de $\mathcal{O}_S$-algèbres graduées
+$$
+\psi :
+\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0}
+\pi_*\left(\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)\right)
+$$
+uniquement déterminés par la propriété suivante : pour tout ouvert affine
+$U \subset S$, en posant $A = \mathcal{A}(U)$, il existe un isomorphisme
+$$
+\theta_U :
+i_U^*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{O}_{\text{Proj}(A)}(n)
+\right)
+\longrightarrow
+\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)
+\right)|_{\pi^{-1}(U)}
+$$
+d'algèbres $\mathbf{Z}$-graduées sur
+$\mathcal{O}_{\pi^{-1}(U)}$ tel que le
+diagramme
+$$
+\xymatrix{
+A_n
+\ar[rr]_\psi
+\ar[dr]_-{(\ref{equation-global-sections})}
+& &
+\Gamma(\pi^{-1}(U),
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)) \\
+&
+\Gamma(\text{Proj}(A),
+\mathcal{O}_{\text{Proj}(A)}(n))
+\ar[ru]_-{\theta_U}
+&
+}
+$$
+soit commutatif.
+\end{lemma}
+
+\begin{proof}
+Nous allons appliquer le Lemme \ref{lemma-relative-glueing-sheaves} pour
+recoller les faisceaux d'algèbres $\mathbf{Z}$-graduées
+$\bigoplus_{n \in \mathbf{Z}} \mathcal{O}_{\text{Proj}(A)}(n)$ pour
+$A = \mathcal{A}(U)$, $U \subset S$ ouvert affine, sur le schéma
+$\underline{\text{Proj}}_S(\mathcal{A})$.
+Nous avons construit les données nécessaires dans le
+Lemme \ref{lemma-proj-inclusion} et vérifié la condition (d) du
+Lemme \ref{lemma-relative-glueing-sheaves} dans le
+Lemme \ref{lemma-transitive-proj}. On obtient ainsi
+le faisceau d'algèbres $\mathbf{Z}$-graduées sur
+$\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$
+$\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$,
+muni des isomorphismes $\theta_U$ pour tout ouvert affine $U \subset S$
+et tout $n \in \mathbf{Z}$. Pour chaque ouvert affine $U \subset S$,
+en posant $A = \mathcal{A}(U)$, on dispose d'un homomorphisme
+$A \to \Gamma(\text{Proj}(A),
+\bigoplus_{n \geq 0} \mathcal{O}_{\text{Proj}(A)}(n))$.
+Le morphisme $\psi$ existe donc par fonctorialité du recollement relatif ;
+voir la Remarque \ref{remark-relative-glueing-functorial}.
+Le diagramme du lemme est commutatif par construction. Cette propriété
+caractérise le faisceau d'algèbres $\mathbf{Z}$-graduées sur
+$\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$
+$\bigoplus \mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$ :
+la démonstration du Lemme \ref{lemma-morphism-proj} montre en effet que la
+commutativité de ces diagrammes détermine de façon unique les morphismes
+$\theta_U$. Nous omettons certains détails.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Le Proj relatif comme foncteur}
+\label{section-relative-proj}
+
+\noindent
+Plaçons-nous dans la Situation \ref{situation-relative-proj}.
+Ainsi, $S$ est un schéma et
+$\mathcal{A} = \bigoplus_{d \geq 0} \mathcal{A}_d$ est une
+$\mathcal{O}_S$-algèbre graduée quasi-cohérente. Nous allons donner une
+version relative de la construction de $\text{Proj}$, en définissant un
+foncteur que représentera le spectre homogène relatif. Nous construirons
+ainsi un morphisme de schémas
+$$
+\underline{\text{Proj}}_S(\mathcal{A}) \longrightarrow S
+$$
+qui, au-dessus des ouverts affines de $S$, sera le spectre homogène d'un
+anneau gradué. Nous suivrons la démarche adoptée pour le spectre relatif
+dans la section \ref{section-spec}. La méthode plus simple consistant à
+recoller les schémas $\text{Proj}(A)$, où $A = \Gamma(U, \mathcal{A})$ et
+$U \subset S$ est un ouvert affine, est exposée dans la
+section \ref{section-relative-proj-via-glueing}. Nous montrerons que les
+deux constructions donnent des schémas isomorphes.
+
+\medskip\noindent
+Fixons pour l'instant un entier $d \geq 1$. Nous notons
+$\mathcal{A}^{(d)} = \bigoplus_{n \geq 0} \mathcal{A}_{nd}$, par analogie
+avec la notation d'Algèbre, section \ref{algebra-section-graded}.
+Soit $T$ un schéma. Considérons les {\it quadruplets
+$(d, f : T \to S, \mathcal{L}, \psi)$ sur $T$} où
+\begin{enumerate}
+\item $d$ est l'entier fixé ci-dessus ;
+\item $f : T \to S$ est un morphisme de schémas ;
+\item $\mathcal{L}$ est un $\mathcal{O}_T$-module inversible ;
+\item
+$\psi : f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0}\mathcal{L}^{\otimes n}$
+est un homomorphisme de $\mathcal{O}_T$-algèbres graduées tel que
+$f^*\mathcal{A}_d \to \mathcal{L}$ soit surjectif.
+\end{enumerate}
+Étant donnés un morphisme $h : T' \to T$ et un quadruplet
+$(d, f, \mathcal{L}, \psi)$ sur $T$, on peut en prendre l'image inverse,
+qui est le quadruplet $(d, f \circ h, h^*\mathcal{L}, h^*\psi)$ sur $T'$.
+Deux quadruplets $(d, f, \mathcal{L}, \psi)$ et
+$(d, f', \mathcal{L}', \psi')$ sur $T$, associés au même entier $d$, sont
+dits {\it strictement équivalents} si
+$f = f'$ et s'il existe un isomorphisme
+$\beta : \mathcal{L} \to \mathcal{L}'$ tel que $\beta \circ \psi = \psi'$
+comme morphismes de $\mathcal{O}_T$-algèbres graduées
+$f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes n}$.
+
+\medskip\noindent
+Pour tout entier $d \geq 1$, définissons
+\begin{eqnarray*}
+F_d : \Sch^{opp} & \longrightarrow & \textit{Ensembles}, \\
+T & \longmapsto &
+\{\text{strict equivalence classes of }
+(d, f : T \to S, \mathcal{L}, \psi)
+\text{ as above}\}
+\end{eqnarray*}
+avec les images inverses définies ci-dessus.
+
+\begin{lemma}
+\label{lemma-proj-base-change}
+Dans la Situation \ref{situation-relative-proj},
+soit $d \geq 1$ et soit
+$F_d$ le foncteur associé ci-dessus à $(S, \mathcal{A})$.
+Soit $g : S' \to S$ un morphisme de schémas. Posons
+$\mathcal{A}' = g^*\mathcal{A}$ et
+soit $F_d'$ le foncteur associé à
+$(S', \mathcal{A}')$. Il existe un
+isomorphisme canonique de foncteurs
+$$
+F'_d \cong h_{S'} \times_{h_S} F_d
+$$
+\end{lemma}
+
+\begin{proof}
+Se donner un quadruplet
+$(d, f' : T \to S', \mathcal{L}',
+\psi' : (f')^*(\mathcal{A}')^{(d)} \to
+\bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes n})$
+revient à se donner un quadruplet
+$(d, f, \mathcal{L},
+\psi : f^*\mathcal{A}^{(d)} \to
+\bigoplus_{n \geq 0} \mathcal{L}^{\otimes n})$
+et une factorisation de $f$ sous la forme $f = g \circ f'$. La correspondance est donnée par
+$f = g \circ f'$, $\mathcal{L} = \mathcal{L}'$ et $\psi = \psi'$, via les
+identifications
+$(f')^*(\mathcal{A}')^{(d)} = (f')^*g^*(\mathcal{A}^{(d)}) =
+f^*\mathcal{A}^{(d)}$. D'où le lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-affine}
+Dans la Situation \ref{situation-relative-proj}, soit $F_d$ le foncteur
+associé ci-dessus à $(d, S, \mathcal{A})$.
+Si $S$ est affine, alors $F_d$
+est représentable par le sous-schéma ouvert $U_d$ de (\ref{equation-Ud})
+du schéma $\text{Proj}(\Gamma(S, \mathcal{A}))$.
+\end{lemma}
+
+\begin{proof}
+Écrivons $S = \Spec(R)$ et $A = \Gamma(S, \mathcal{A})$.
+Alors $A$ est une $R$-algèbre graduée et $\mathcal{A} = \widetilde A$.
+Il nous faut identifier $F_d$ au
+foncteur $F_d^{triples}$ des triplets
+défini dans la section \ref{section-morphisms-proj}.
+
+\medskip\noindent
+Soit $(d, f : T \to S, \mathcal{L}, \psi)$ un quadruplet. On peut voir
+$\psi$ comme un morphisme de $\mathcal{O}_S$-modules
+$\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n}$.
+Puisque $\mathcal{A}^{(d)}$ est quasi-cohérente, cela revient à se donner
+un homomorphisme $R$-linéaire d'anneaux gradués
+$A^{(d)} \to \Gamma(S, \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n})$.
+Or $\Gamma(S, \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n}) =
+\Gamma_*(T, \mathcal{L})$.
+On peut donc associer au quadruplet le triplet $(d, \mathcal{L}, \psi)$.
+
+\medskip\noindent
+Réciproquement, soit $(d, \mathcal{L}, \psi)$ un triplet.
+La composée $R \to A_0 \to \Gamma(T, \mathcal{O}_T)$ détermine un morphisme
+$f : T \to S = \Spec(R)$ ; voir Schémas,
+Lemme \ref{schemes-lemma-morphism-into-affine}. Avec ce choix de $f$,
+l'homomorphisme
+$A^{(d)} \to \Gamma(S, \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n})$
+est $R$-linéaire et correspond donc à un morphisme $\psi$ donnant un
+quadruplet $(d, f : T \to S, \mathcal{L}, \psi)$.
+Nous omettons la vérification que ces constructions définissent un
+isomorphisme de foncteurs $F_d = F_d^{triples}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-d}
+Dans la Situation \ref{situation-relative-proj}, le foncteur $F_d$ est
+représentable par un schéma.
+\end{lemma}
+
+\begin{proof}
+Nous allons appliquer Schémas, Lemme \ref{schemes-lemma-glue-functors}.
+
+\medskip\noindent
+Vérifions d'abord que $F_d$ est un faisceau pour la topologie de Zariski.
+Soient $T$ un schéma, $T = \bigcup_{i \in I} U_i$
+un recouvrement ouvert et
+$(d, f_i, \mathcal{L}_i, \psi_i) \in F_d(U_i)$ tels que
+$(d, f_i, \mathcal{L}_i, \psi_i)|_{U_i \cap U_j}$ et
+$(d, f_j, \mathcal{L}_j, \psi_j)|_{U_i \cap U_j}$ soient strictement
+équivalents. Les morphismes $f_i : U_i \to S$ se recollent alors en un
+morphisme de schémas $f : T \to S$ tel que $f|_{I_i} = f_i$ ; voir
+Schémas, section \ref{schemes-section-glueing-schemes}.
+On a donc $f_i^*\mathcal{A}^{(d)} = f^*\mathcal{A}^{(d)}|_{U_i}$.
+Il existe aussi des isomorphismes
+$\beta_{ij} : \mathcal{L}_i|_{U_i \cap U_j} \to \mathcal{L}_j|_{U_i \cap U_j}$
+tels que $\beta_{ij} \circ \psi_i = \psi_j$ sur $U_i \cap U_j$.
+Cette condition détermine les $\beta_{ij}$ de façon unique puisque les
+morphismes $f_i^*\mathcal{A}_d \to \mathcal{L}_i$ sont surjectifs.
+En particulier, $\beta_{jk} \circ \beta_{ij} = \beta_{ik}$ sur
+$U_i \cap U_j \cap U_k$. Par Faisceaux,
+section \ref{sheaves-section-glueing-sheaves}, les faisceaux inversibles
+$\mathcal{L}_i$ se recollent donc en un $\mathcal{O}_T$-module inversible
+$\mathcal{L}$, et les morphismes $\psi_i$ se recollent en un morphisme de
+$\mathcal{O}_T$-algèbres
+$\psi : f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0} \mathcal{L}^{\otimes n}$.
+Cela prouve que $F_d$ satisfait la
+condition de faisceau pour la topologie
+de Zariski.
+
+\medskip\noindent
+Soit $S = \bigcup_{i \in I} U_i$ un
+recouvrement par des ouverts affines.
+Soit $F_{d, i} \subset F_d$ le sous-foncteur constitué des couples
+$(f : T \to S, \varphi)$ tels que $f(T) \subset U_i$.
+
+\medskip\noindent
+Montrons que chaque $F_{d, i}$ est représentable. D'après le
+Lemme \ref{lemma-proj-base-change}, le
+foncteur $F_{d, i}$ s'identifie au foncteur
+associé à $U_i$ muni de la $\mathcal{O}_{U_i}$-algèbre graduée
+quasi-cohérente $\mathcal{A}|_{U_i}$. La représentabilité résulte donc du
+Lemme \ref{lemma-relative-proj-affine}.
+
+\medskip\noindent
+Montrons ensuite que $F_{d, i} \subset F_d$ est représentable par des
+immersions ouvertes. Soit $(f : T \to S, \varphi) \in F_d(T)$ et posons
+$V_i = f^{-1}(U_i)$. Par définition de $F_{d, i}$, pour un morphisme
+$a : T' \to T$, on a $a^*(f, \varphi) \in F_{d, i}(T')$ si et seulement si
+$a(T') \subset V_i$. C'est ce qu'il fallait montrer.
+
+\medskip\noindent
+Enfin, montrons que la famille $(F_{d, i})_{i \in I}$ recouvre $F_d$.
+Soit $(f : T \to S, \varphi) \in F_d(T)$ et posons
+$V_i = f^{-1}(U_i)$. Puisque $S = \bigcup_{i \in I} U_i$ est un
+recouvrement ouvert de $S$, on obtient un recouvrement ouvert
+$T = \bigcup_{i \in I} V_i$ de $T$. De plus, $(f, \varphi)|_{V_i} \in F_{d, i}(V_i)$.
+Cela achève la démonstration du lemme.
+\end{proof}
+
+\noindent
+Nous pouvons maintenant reprendre, dans le cadre relatif, la fin de la
+section \ref{section-morphisms-proj}
+et définir un foncteur représentable
+par $\underline{\text{Proj}}_S(\mathcal{A})$.
+Introduisons pour cela la notion d'équivalence entre deux quadruplets
+$(d, f : T \to S, \mathcal{L}, \psi)$ et
+$(d', f' : T \to S, \mathcal{L}', \psi')$, les entiers $d, d'$
+pouvant être distincts. Ils sont dits {\it équivalents} si $f = f'$ et
+s'il existe un isomorphisme
+$\beta : \mathcal{L}^{\otimes d'} \to (\mathcal{L}')^{\otimes d}$
+tel que
+$\beta \circ \psi|_{f^*\mathcal{A}^{(dd')}} = \psi'|_{f^*\mathcal{A}^{(dd')}}$.
+Le lemme suivant montre que l'on
+obtient bien une relation d'équivalence
+(ce qui n'est pas tout à fait immédiat).
+
+\begin{lemma}
+\label{lemma-equivalent-relative}
+Dans la Situation \ref{situation-relative-proj}, soient $T$ un schéma et
+$(d, f, \mathcal{L}, \psi)$, $(d', f', \mathcal{L}', \psi')$ deux
+quadruplets sur $T$. Les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item Posons $m = \text{lcm}(d, d')$ et écrivons $m = ad = a'd'$.
+On a $f = f'$ et il existe un isomorphisme
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+tel que $\beta \circ \psi|_{f^*\mathcal{A}^{(m)}}$ et
+$\psi'|_{f^*\mathcal{A}^{(m)}}$
+coïncident comme homomorphismes d'anneaux
+gradués
+$f^*\mathcal{A}^{(m)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes mn}$.
+\item Les quadruplets $(d, f, \mathcal{L}, \psi)$ et
+$(d', f', \mathcal{L}', \psi')$ sont équivalents.
+\item On a $f = f'$ et, pour un certain entier strictement positif
+$m = ad = a'd'$, il existe un isomorphisme
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+tel que $\beta \circ \psi|_{f^*\mathcal{A}^{(m)}}$ et
+$\psi'|_{f^*\mathcal{A}^{(m)}}$
+coïncident comme homomorphismes d'anneaux
+gradués
+$f^*\mathcal{A}^{(m)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes mn}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Il est clair que (1) entraîne (2) et que
+(2) entraîne (3), en se restreignant
+à des degrés plus divisibles et en prenant des puissances des faisceaux
+inversibles. Supposons (3) pour un entier $m = ad = a'd'$.
+Posons $m_0 = \text{lcm}(d, d')$ et écrivons $m_0 = a_0d = a'_0d'$.
+Nous disposons d'un isomorphisme
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+ayant la propriété (3), et cherchons un isomorphisme
+$\beta_0 : \mathcal{L}^{\otimes a_0} \to (\mathcal{L}')^{\otimes a'_0}$
+ayant la même propriété. Les morphismes
+$\psi : f^*\mathcal{A}_d \to \mathcal{L}$ et
+$\psi' : (f')^*\mathcal{A}_{d'} \to \mathcal{L}'$ étant surjectifs par
+hypothèse, il en est de même des morphismes
+$\psi : f^*\mathcal{A}_{m_0} \to \mathcal{L}^{\otimes a_0}$ et
+$\psi' : (f')^*\mathcal{A}_{m_0} \to (\mathcal{L}')^{\otimes a_0}$.
+Ainsi, s'il existe, $\beta_0$ est uniquement déterminé par la condition
+$\beta_0 \circ \psi = \psi'$. On peut donc travailler localement sur $T$,
+et supposer que $f = f' : T \to S$ est à valeurs dans un ouvert affine,
+autrement dit que $S$ est affine. Le résultat découle alors de l'assertion
+correspondante pour les triplets (Lemme \ref{lemma-equivalent}) et de la
+correspondance entre triplets et quadruplets lorsque la base est affine
+(voir la démonstration du Lemme \ref{lemma-relative-proj-affine}).
+\end{proof}
+
+\noindent
+Supposons $d' = ad$. Considérons la transformation de foncteurs
+$F_d \to F_{d'}$ qui associe au quadruplet $(d, f, \mathcal{L}, \psi)$ sur
+$T$ le quadruplet
+$(d', f, \mathcal{L}^{\otimes a}, \psi|_{f^*\mathcal{A}^{(d')}})$.
+Une des implications du Lemme \ref{lemma-equivalent-relative} montre que
+la transformation $F_d \to F_{d'}$ est
+injective. Pour un schéma quasi-compact $T$,
+définissons
+$$
+F(T) = \bigcup\nolimits_{d \in \mathbf{N}} F_d(T)
+$$
+avec les applications de transition ci-dessus. On obtient ainsi un foncteur
+contravariant de la catégorie des schémas quasi-compacts vers celle des
+ensembles. Pour un schéma quelconque $T$, définissons
+$$
+F(T)
+=
+\lim_{V \subset T\text{ quasi-compact open}} F(V).
+$$
+Autrement dit, un élément $\xi$ de $F(T)$ correspond à une famille
+compatible d'éléments $\xi_V \in F(V)$, où $V$ parcourt les ouverts
+quasi-compacts de $T$. Nous omettons
+la définition de l'application d'image
+inverse $F(T) \to F(T')$ associée à un morphisme de schémas $T' \to T$.
+Nous avons ainsi défini le foncteur
+\begin{equation}
+\label{equation-proj}
+F : \Sch^{opp} \longrightarrow \textit{Ensembles}
+\end{equation}
+
+\begin{lemma}
+\label{lemma-relative-proj}
+Dans la Situation \ref{situation-relative-proj}, le foncteur $F$ ci-dessus
+est représentable par un schéma.
+\end{lemma}
+
+\begin{proof}
+Soit $U_d \to S$ le schéma représentant le foncteur $F_d$ défini ci-dessus,
+et soit $\mathcal{L}_d$,
+$\psi^d : \pi_d^*\mathcal{A}^{(d)} \to
+\bigoplus_{n \geq 0} \mathcal{L}_d^{\otimes n}$ l'objet universel.
+Si $d | d'$, on peut considérer le quadruplet
+$(d', \pi_d, \mathcal{L}_d^{\otimes d'/d}, \psi^d|_{\mathcal{A}^{(d')}})$,
+qui détermine un morphisme canonique $U_d \to U_{d'}$ au-dessus de $S$.
+Par construction, ce morphisme correspond à la transformation de foncteurs
+$F_d \to F_{d'}$ définie ci-dessus.
+
+\medskip\noindent
+Pour tout ouvert affine $\Spec(R) = V \subset S$, en posant
+$A = \Gamma(V, \mathcal{A})$, on dispose d'une identification canonique
+du changement de base $U_{d, V}$ avec le sous-schéma ouvert correspondant
+de $\text{Proj}(A)$ ; voir le Lemme \ref{lemma-relative-proj-affine}.
+De plus, les morphismes $U_{d, V} \to U_{d', V}$ construits ci-dessus
+correspondent aux inclusions d'ouverts dans $\text{Proj}(A)$.
+On en déduit que $U_d \to U_{d'}$ est une immersion ouverte.
+
+\medskip\noindent
+On peut donc construire $X$ en recollant les schémas $U_d$ suivant les
+immersions ouvertes $U_d \to U_{d'}$.
+Il est commode de choisir une suite
+$d_1 | d_2 | d_3 | \ldots$ telle que
+tout entier strictement positif divise
+l'un des $d_i$, puis de poser
+$X = \bigcup U_{d_i}$ au moyen des immersions
+ouvertes ci-dessus. Il est alors aisé de montrer que $X$ représente $F$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-gives-functor-proj}
+Dans la Situation \ref{situation-relative-proj}, le schéma
+$\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$ construit dans le
+Lemme \ref{lemma-glue-relative-proj} est canoniquement
+isomorphe au schéma représentant le foncteur $F$,
+comme schéma sur $S$.
+\end{lemma}
+
+\begin{proof}
+Soit $X$ le schéma représentant $F$.
+$X$ est un schéma sur $S$, puisque $F$
+est muni d'une transformation naturelle $F \to h_S$.
+Posons $Y = \underline{\text{Proj}}_S(\mathcal{A})$.
+Nous devons montrer
+que $X \cong Y$ comme $S$-schémas. Donnons deux démonstrations.
+
+\medskip\noindent
+La première utilise la construction de $X$ comme réunion des schémas $U_d$
+représentant $F_d$ dans la démonstration
+du Lemme \ref{lemma-relative-proj}.
+Au-dessus de chaque ouvert affine de $S$, on peut identifier $X$ au spectre
+homogène des sections de $\mathcal{A}$
+sur cet ouvert, puisque c'est le cas
+pour les ouverts $U_d$. Ces identifications sont de plus compatibles avec
+les restrictions à des ouverts affines plus petits. Or $Y$ a été construit
+en recollant ces spectres homogènes. On
+peut donc recoller ces isomorphismes
+en un isomorphisme entre $X$ et $\underline{\text{Proj}}_S(\mathcal{A})$.
+Nous omettons les détails.
+
+\medskip\noindent
+Voici la seconde démonstration. Le
+Lemme \ref{lemma-glue-relative-proj-twists} fournit un morphisme d'algèbres
+graduées
+$$
+\psi : \pi^*\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0} \mathcal{O}_Y(n)
+$$
+sur $Y$ qui, sur les sections au-dessus des ouverts affines de $S$, coïncide
+avec (\ref{equation-global-sections}). Pour tout $y \in Y$, il existe donc
+un voisinage ouvert $V \subset Y$ de $y$ et un entier $d \geq 1$ tels que,
+pour $d | n$, le faisceau $\mathcal{O}_Y(n)|_V$ soit inversible et que les
+morphismes de multiplication
+$\mathcal{O}_Y(n)|_V \otimes_{\mathcal{O}_V} \mathcal{O}_Y(m)|_V
+\to \mathcal{O}_Y(n + m)|_V$ soient des isomorphismes.
+La restriction de $\psi$ à $\pi^*\mathcal{A}^{(d)}|_V$ donne ainsi un
+élément de $F_d(V)$. Les ouverts $V$ recouvrant $Y$, on voit que « $\psi$ »
+définit un élément de $F(Y)$, donc un
+morphisme canonique $Y \to X$ sur $S$.
+La construction étant entièrement canonique, on peut vérifier localement
+sur $S$ qu'il s'agit d'un isomorphisme. On se ramène donc au cas où $S$ est
+affine, dans lequel le résultat est clair.
+\end{proof}
+
+\begin{definition}
+\label{definition-relative-proj}
+Soient $S$ un schéma et $\mathcal{A}$ un faisceau quasi-cohérent de
+$\mathcal{O}_S$-algèbres graduées. Le {\it spectre homogène relatif de
+$\mathcal{A}$ sur $S$}, ou {\it spectre
+homogène de $\mathcal{A}$ sur $S$},
+ou encore {\it Proj relatif de $\mathcal{A}$ sur $S$}, est le schéma
+construit dans le Lemme \ref{lemma-glue-relative-proj} et représentant le
+foncteur $F$ de (\ref{equation-proj}) ; voir le
+Lemme \ref{lemma-glueing-gives-functor-proj}.
+On le note $\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$.
+\end{definition}
+
+\noindent
+Le Proj relatif est muni d'un faisceau quasi-cohérent d'algèbres
+$\mathbf{Z}$-graduées
+$\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$
+(les faisceaux tordus du faisceau structural) et d'un homomorphisme
+« universel » d'algèbres graduées
+$$
+\psi_{univ} :
+\mathcal{A}
+\longrightarrow
+\pi_*\left(
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)
+\right)
+$$
+voir le Lemme \ref{lemma-glue-relative-proj-twists}.
+On peut également le
+considérer comme un homomorphisme
+$$
+\psi_{univ} :
+\pi^*\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)
+$$
+Le lemme suivant exprime l'universalité de cet objet.
+
+\begin{lemma}
+\label{lemma-tie-up-psi}
+Dans la Situation \ref{situation-relative-proj}, soit
+$(f : T \to S, d, \mathcal{L}, \psi)$
+un quadruplet et soit
+$r_{d, \mathcal{L}, \psi} : T \to \underline{\text{Proj}}_S(\mathcal{A})$
+le $S$-morphisme associé. Il existe un isomorphisme
+d'algèbres $\mathbf{Z}$-graduées sur $\mathcal{O}_T$
+$$
+\theta :
+r_{d, \mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(nd)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}
+$$
+rendant commutatif le diagramme suivant
+$$
+\xymatrix{
+\mathcal{A}^{(d)} \ar[rr]_-{\psi}
+ \ar[rd]_-{\psi_{univ}} & &
+f_*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{L}^{\otimes n}
+\right) \\
+ &
+\pi_*\left(
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(nd)
+\right) \ar[ru]_\theta
+}
+$$
+La commutativité de ce diagramme
+détermine $\theta$ de façon unique.
+\end{lemma}
+
+\begin{proof}
+Le quadruplet $(f : T \to S, d, \mathcal{L}, \psi)$ définit un élément de
+$F_d(T)$. Soit
+$U_d \subset \underline{\text{Proj}}_S(\mathcal{A})$ le lieu
+où le faisceau
+$\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)$ est
+inversible et engendré par l'image de
+$\psi_{univ} : \pi^*\mathcal{A}_d \to
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)$.
+Rappelons que $U_d$ représente $F_d$ ; voir la démonstration du
+Lemme \ref{lemma-relative-proj}. Il
+suffit donc de montrer que le quadruplet
+$(U_d \to S, d, \mathcal{O}_{U_d}(d), \psi_{univ}|_{\mathcal{A}^{(d)}})$
+est la famille universelle, c'est-à-dire l'objet représentant dans
+$F_d(U_d)$. On peut le vérifier après restriction à un ouvert affine de
+$S$, car (a) la formation des foncteurs
+$F_d$ commute au changement de base
+(Lemme \ref{lemma-proj-base-change}) et (b) le couple
+$(\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n),
+\psi_{univ})$
+est construit par recollement au-dessus des ouverts affines de $S$
+(Lemme \ref{lemma-glue-relative-proj-twists}).
+On peut donc supposer $S$ affine. Alors le foncteur $F_d$ des quadruplets
+coïncide avec le foncteur $F_d$ des triplets (voir la démonstration du
+Lemme \ref{lemma-relative-proj-affine}), et le
+Lemme \ref{lemma-proj-functor-strict} montre que
+$(d, \mathcal{O}_{U_d}(d), \psi^d)$ est le triplet universel sur $U_d$.
+En remontant les identifications de la démonstration du
+Lemme \ref{lemma-relative-proj-affine}, on voit que
+$(U_d \to S, d, \mathcal{O}_{U_d}(d), \psi_{univ}|_{\mathcal{A}^{(d)}})$
+est bien le quadruplet universel cherché.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-separated}
+Soient $S$ un schéma et $\mathcal{A}$
+un faisceau quasi-cohérent de
+$\mathcal{O}_S$-algèbres graduées. Le morphisme
+$\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Pour vérifier qu'un morphisme est séparé, on peut travailler localement sur
+la base ; voir Schémas, section \ref{schemes-section-separation-axioms}.
+Par construction, $\underline{\text{Proj}}_S(\mathcal{A})$ est isomorphe,
+au-dessus de chaque ouvert affine $U \subset S$, à $\text{Proj}(A)$, où
+$A = \mathcal{A}(U)$. Par le Lemme \ref{lemma-proj-separated},
+$\text{Proj}(A)$ est séparé. Le morphisme $\text{Proj}(A) \to U$ est donc
+séparé (voir Schémas, Lemme \ref{schemes-lemma-compose-after-separated}),
+comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-base-change}
+Soient $S$ un schéma et $\mathcal{A}$ un faisceau quasi-cohérent de
+$\mathcal{O}_S$-algèbres graduées. Pour tout morphisme de schémas
+$g : S' \to S$, il existe un isomorphisme canonique
+$$
+r :
+\underline{\text{Proj}}_{S'}(g^*\mathcal{A})
+\longrightarrow
+S' \times_S \underline{\text{Proj}}_S(\mathcal{A})
+$$
+ainsi qu'un isomorphisme correspondant
+$$
+\theta :
+r^*\text{pr}_2^*\left(\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_{S'}(g^*\mathcal{A})}(d)
+$$
+d'algèbres $\mathbf{Z}$-graduées sur
+$\mathcal{O}_{\underline{\text{Proj}}_{S'}(g^*\mathcal{A})}$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du Lemme \ref{lemma-proj-base-change} et de la construction
+de $\underline{\text{Proj}}_S(\mathcal{A})$, dans le
+Lemme \ref{lemma-relative-proj}, comme
+réunion des schémas $U_d$ représentant
+les foncteurs $F_d$. Du point de vue de la construction par recollement,
+cet isomorphisme est donné par les isomorphismes du
+Lemme \ref{lemma-base-change-map-proj}, qui fournit aussi $\theta$.
+Nous omettons certains détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-apply-relative}
+Soient $S$ un schéma et $\mathcal{A}$ un faisceau quasi-cohérent de
+$\mathcal{O}_S$-modules gradués, engendré comme $\mathcal{A}_0$-algèbre par
+$\mathcal{A}_1$. Alors $X = \underline{\text{Proj}}_S(\mathcal{A})$
+représente le foncteur $F_1$ qui associe à un schéma $f : T \to S$ sur $S$
+l'ensemble des couples $(\mathcal{L}, \psi)$ où
+\begin{enumerate}
+\item $\mathcal{L}$ est un $\mathcal{O}_T$-module inversible ;
+\item
+$\psi : f^*\mathcal{A} \to \bigoplus_{n \geq 0} \mathcal{L}^{\otimes n}$
+est un homomorphisme de $\mathcal{O}_T$-algèbres graduées tel que
+$f^*\mathcal{A}_1 \to \mathcal{L}$ soit surjectif,
+\end{enumerate}
+à équivalence stricte près au sens
+ci-dessus. De plus, dans ce cas, tous les
+faisceaux quasi-cohérents
+$\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n)$ sont des
+$\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}$-modules inversibles,
+et les morphismes de multiplication induisent des isomorphismes
+$
+\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n)
+\otimes_{\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}}
+\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(m) =
+\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n + m)$.
+\end{lemma}
+
+\begin{proof}
+Sous les hypothèses du lemme, les faisceaux
+$\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n)$ sont inversibles
+et les morphismes de multiplication sont des isomorphismes, par le
+Lemme \ref{lemma-relative-proj} et le Lemme \ref{lemma-apply} appliqués
+au-dessus des ouverts affines de $S$.
+Ainsi, $X$ représente bien $F_1$ ;
+voir la démonstration du Lemme \ref{lemma-relative-proj}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Faisceaux quasi-cohérents sur le Proj relatif}
+\label{section-quasi-coherent-relative-proj}
+
+\noindent
+Nous indiquons brièvement comment traiter les modules gradués dans le cadre
+relatif.
+
+\medskip\noindent
+Plaçons-nous dans la Situation \ref{situation-relative-proj} : $S$ est un
+schéma et $\mathcal{A}$ une
+$\mathcal{O}_S$-algèbre graduée quasi-cohérente.
+Soit $\mathcal{M} = \bigoplus_{n \in \mathbf{Z}} \mathcal{M}_n$ un
+$\mathcal{A}$-module gradué, quasi-cohérent comme $\mathcal{O}_S$-module.
+Nous allons décrire le faisceau quasi-cohérent de modules associé sur
+$\underline{\text{Proj}}_S(\mathcal{A})$.
+Nous décrivons d'abord son image
+inverse sur les schémas $T$ munis d'un morphisme vers le Proj relatif.
+
+\medskip\noindent
+Soient $T$ un schéma et $(d, f : T \to S, \mathcal{L}, \psi)$ un quadruplet
+sur $T$, au sens de la section \ref{section-relative-proj}.
+Définissons un faisceau quasi-cohérent $\widetilde{\mathcal{M}}_T$ de
+$\mathcal{O}_T$-modules par
+\begin{equation}
+\label{equation-widetilde-M}
+\widetilde{\mathcal{M}}_T =
+\left(
+f^*\mathcal{M}^{(d)}
+\otimes_{f^*\mathcal{A}^{(d)}}
+\left(\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}\right)
+\right)_0
+\end{equation}
+Ainsi, $\widetilde{\mathcal{M}}_T$ est
+la composante de degré $0$ du produit
+tensoriel des $f^*\mathcal{A}^{(d)}$-modules gradués
+$\mathcal{M}^{(d)}$ et
+$\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}$.
+Le faisceau $\widetilde{\mathcal{M}}_T$ dépend du
+quadruplet, bien que la notation ne l'indique pas.
+Cette construction a la propriété agréable suivante : pour tout morphisme
+$g : T' \to T$, on a
+$\widetilde{\mathcal{M}}_{T'} = g^*\widetilde{\mathcal{M}}_T$,
+où $\widetilde{\mathcal{M}}_{T'}$ désigne
+le faisceau quasi-cohérent associé
+au quadruplet image inverse $(d, f \circ g, g^*\mathcal{L}, g^*\psi)$.
+
+\medskip\noindent
+Tous les faisceaux de (\ref{equation-widetilde-M}) étant quasi-cohérents,
+on peut expliciter la construction sur un ouvert affine
+$\Spec(C) = V \subset T$ dont l'image est contenue dans un ouvert affine
+$\Spec(R) = U \subset S$. Supposons que $\mathcal{A}|_U$ corresponde à la
+$R$-algèbre graduée $A$, que $\mathcal{M}|_U$ corresponde au $A$-module
+gradué $M$ et que $\mathcal{L}|_V$
+corresponde au $C$-module inversible $L$.
+Le morphisme $\psi$ induit un homomorphisme de $R$-algèbres graduées
+$\gamma : A^{(d)} \to \bigoplus_{n \geq 0} L^{\otimes n}$
+(les puissances tensorielles de $L$ sont prises sur $C$).
+Alors $(\widetilde{\mathcal{M}}_T)|_V$ est le faisceau quasi-cohérent
+associé au $C$-module
+$$
+N_{R, C, A, M, \gamma} =
+\left(
+M^{(d)} \otimes_{A^{(d)}, \gamma}
+\left(\bigoplus\nolimits_{n \in \mathbf{Z}} L^{\otimes n}\right)
+\right)_0
+$$
+Par hypothèse, on peut même recouvrir $T$ par des ouverts affines $V$ tels
+qu'il existe $a \in A_d$ dont l'image $\gamma(a) \in L$ soit une base du
+$C$-module $L$. Dans ce cas, tout élément de $N_{R, C, A, M, \gamma}$ est
+une somme de tenseurs purs $\sum m_i \otimes \gamma(a)^{-n_i}$, avec
+$m_i \in M_{n_id}$. En multipliant
+chaque $m_i$ par une puissance positive
+convenable de $a$, puis en regroupant
+les termes, on voit que tout élément
+de $N_{R, C, A, M, \gamma}$ s'écrit $m \otimes \gamma(a)^{-n}$ avec
+$m \in M_{nd}$ et $n \gg 0$. Autrement dit, dans ce cas,
+$$
+N_{R, C, A, M, \gamma} = M_{(a)} \otimes_{A_{(a)}} C
+$$
+où $A_{(a)} \to C$ est donné par
+$x/a^n \mapsto \gamma(x)/\gamma(a)^n$.
+C'est donc la valeur de $\widetilde{M}$ sur
+$D_{+}(a) \subset \text{Proj}(A)$, tirée en arrière sur $\Spec(C)$ par le
+morphisme $\Spec(C) \to D_{+}(a)$ défini par $\gamma$.
+
+\begin{lemma}
+\label{lemma-relative-proj-modules}
+Dans la Situation \ref{situation-relative-proj}, à tout faisceau
+quasi-cohérent de $\mathcal{A}$-modules gradués $\mathcal{M}$ sur $S$ est
+canoniquement associé un faisceau de
+$\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$-modules
+$\widetilde{\mathcal{M}}$ ayant les
+propriétés suivantes :
+\begin{enumerate}
+\item Pour tout schéma $T$ et tout quadruplet
+$(T \to S, d, \mathcal{L}, \psi)$ sur $T$ correspondant à un morphisme
+$h : T \to \underline{\text{Proj}}_S(\mathcal{A})$, il existe un
+isomorphisme canonique
+$\widetilde{\mathcal{M}}_T = h^*\widetilde{\mathcal{M}}$,
+où $\widetilde{\mathcal{M}}_T$ est défini par (\ref{equation-widetilde-M}).
+\item Les isomorphismes de (1) sont compatibles avec les images inverses.
+\item Il existe un morphisme canonique
+$$
+\pi^*\mathcal{M}_0 \longrightarrow \widetilde{\mathcal{M}}.
+$$
+\item La construction $\mathcal{M} \mapsto \widetilde{\mathcal{M}}$ est
+fonctorielle en $\mathcal{M}$.
+\item La construction $\mathcal{M} \mapsto \widetilde{\mathcal{M}}$ est
+exacte.
+\item Il existe des morphismes canoniques
+$$
+\widetilde{\mathcal{M}}
+\otimes_{\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}}
+\widetilde{\mathcal{N}}
+\longrightarrow
+\widetilde{\mathcal{M} \otimes_\mathcal{A} \mathcal{N}}
+$$
+comme dans le Lemme \ref{lemma-widetilde-tensor}.
+\item Il existe des morphismes canoniques
+$$
+\pi^*\mathcal{M}
+\longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\widetilde{\mathcal{M}(n)}
+$$
+généralisant (\ref{equation-global-sections-more-generally}).
+\item La formation de $\widetilde{\mathcal{M}}$
+commute au changement de base.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La démonstration est omise. Il conviendrait de scinder ce lemme en plusieurs énoncés et de les démontrer séparément.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Fonctorialité du Proj relatif}
+\label{section-functoriality-relative-proj}
+
+\noindent
+Cette section est l'analogue de la section \ref{section-functoriality-proj}
+pour le Proj relatif. Soit $S$ un schéma. Un morphisme de
+$\mathcal{O}_S$-algèbres graduées $\psi : \mathcal{A} \to \mathcal{B}$
+n'induit pas toujours un morphisme entre les Proj relatifs associés. L'énoncé correct est le suivant.
+
+\begin{lemma}
+\label{lemma-morphism-relative-proj}
+Soient $S$ un schéma et $\mathcal{A}$, $\mathcal{B}$ deux
+$\mathcal{O}_S$-algèbres graduées quasi-cohérentes. Posons
+$p : X = \underline{\text{Proj}}_S(\mathcal{A}) \to S$ et
+$q : Y = \underline{\text{Proj}}_S(\mathcal{B}) \to S$.
+Soit $\psi : \mathcal{A} \to \mathcal{B}$ un homomorphisme de
+$\mathcal{O}_S$-algèbres graduées. Il existe un ouvert canonique
+$U(\psi) \subset Y$ et un morphisme canonique de schémas
+$$
+r_\psi :
+U(\psi)
+\longrightarrow
+X
+$$ sur $S$
+et un morphisme d'algèbres $\mathbf{Z}$-graduées sur
+$\mathcal{O}_{U(\psi)}$
+$$
+\theta = \theta_\psi :
+r_\psi^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_X(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_{U(\psi)}(d).
+$$
+Le triplet $(U(\psi), r_\psi, \theta)$ est caractérisé par la propriété
+suivante : pour tout ouvert affine $W \subset S$, le triplet
+$$
+(U(\psi) \cap p^{-1}W,\quad
+r_\psi|_{U(\psi) \cap p^{-1}W} : U(\psi) \cap p^{-1}W \to q^{-1}W,\quad
+\theta|_{U(\psi) \cap p^{-1}W})
+$$ est égal au triplet associé à
+$\psi : \mathcal{A}(W) \to \mathcal{B}(W)$ dans le
+Lemme \ref{lemma-morphism-proj}, via les identifications
+$p^{-1}W = \text{Proj}(\mathcal{A}(W))$ et
+$q^{-1}W = \text{Proj}(\mathcal{B}(W))$ de la
+section \ref{section-relative-proj-via-glueing}.
+\end{lemma}
+
+\begin{proof}
+Le lemme s'obtient en recollant les triplets locaux.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-relative-proj-transitive}
+Soient $S$ un schéma et $\mathcal{A}$, $\mathcal{B}$, $\mathcal{C}$ des
+$\mathcal{O}_S$-algèbres graduées quasi-cohérentes. Posons
+$X = \underline{\text{Proj}}_S(\mathcal{A})$,
+$Y = \underline{\text{Proj}}_S(\mathcal{B})$ et
+$Z = \underline{\text{Proj}}_S(\mathcal{C})$.
+Soient $\varphi : \mathcal{A} \to \mathcal{B}$ et
+$\psi : \mathcal{B} \to \mathcal{C}$ des morphismes de
+$\mathcal{O}_S$-algèbres graduées. On a
+$$
+U(\psi \circ \varphi) = r_\varphi^{-1}(U(\psi))
+\quad
+\text{et}
+\quad
+r_{\psi \circ \varphi}
+=
+r_\varphi \circ r_\psi|_{U(\psi \circ \varphi)}.
+$$
+De plus,
+$$
+\theta_\psi \circ r_\psi^*\theta_\varphi
+=
+\theta_{\psi \circ \varphi}
+$$
+avec les notations évidentes.
+\end{lemma}
+
+\begin{proof}
+La démonstration est omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-graded-rings-map-relative-proj}
+Avec les hypothèses et notations du Lemme \ref{lemma-morphism-relative-proj},
+supposons que $\mathcal{A}_d \to \mathcal{B}_d$ soit surjectif pour
+$d \gg 0$. Alors
+\begin{enumerate}
+\item $U(\psi) = Y$ ;
+\item $r_\psi : Y \to X$ est une immersion fermée ;
+\item les morphismes $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+sont surjectifs, mais ne sont pas des isomorphismes en général, même si
+$\mathcal{A} \to \mathcal{B}$ est surjectif.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte des Lemmes
+\ref{lemma-morphism-relative-proj}
+et
+\ref{lemma-surjective-graded-rings-map-proj}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-eventual-iso-graded-rings-map-relative-proj}
+Avec les hypothèses et notations du Lemme \ref{lemma-morphism-relative-proj},
+supposons que $\mathcal{A}_d \to \mathcal{B}_d$ soit un isomorphisme pour
+tout $d \gg 0$. Alors
+\begin{enumerate}
+\item $U(\psi) = Y$ ;
+\item $r_\psi : Y \to X$ est un isomorphisme ;
+\item les morphismes $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+sont des isomorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte des Lemmes
+\ref{lemma-morphism-relative-proj}
+et
+\ref{lemma-eventual-iso-graded-rings-map-proj}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-generated-degree-1-map-relative-proj}
+Avec les hypothèses et notations du Lemme \ref{lemma-morphism-relative-proj},
+supposons que $\mathcal{A}_d \to \mathcal{B}_d$ soit surjectif pour
+$d \gg 0$ et que $\mathcal{A}$ soit engendrée par $\mathcal{A}_1$ sur
+$\mathcal{A}_0$. Alors
+\begin{enumerate}
+\item $U(\psi) = Y$ ;
+\item $r_\psi : Y \to X$ est une immersion fermée ;
+\item les morphismes $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+sont des isomorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte des Lemmes
+\ref{lemma-morphism-relative-proj}
+et
+\ref{lemma-surjective-graded-rings-generated-degree-1-map-proj}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Faisceaux inversibles et morphismes vers le Proj relatif}
+\label{section-invertible-relative-proj}
+
+\noindent
+Le lemme suivant pourra nous être utile. Voici les données considérées :
+\begin{enumerate}
+\item $S$ est un schéma.
+\item $\mathcal{A}$ est une $\mathcal{O}_S$-algèbre graduée quasi-cohérente.
+\item On note
+$\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$ le spectre
+homogène relatif sur $S$.
+\item $f : X \to S$ est un morphisme de schémas.
+\item $\mathcal{L}$ est un $\mathcal{O}_X$-module inversible.
+\item $\psi : f^*\mathcal{A} \to
+\bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$ est un homomorphisme de
+$\mathcal{O}_X$-algèbres graduées.
+\end{enumerate}
+Ces données étant fixées, posons
+$$
+U(\psi) = \bigcup\nolimits_{(U, V, a)} U_{\psi(a)}
+$$
+où $(U, V, a)$ vérifie les conditions suivantes :
+\begin{enumerate}
+\item $V \subset S$ est un ouvert affine ;
+\item $U = f^{-1}(V)$ ;
+\item $a \in \mathcal{A}(V)_{+}$ est homogène.
+\end{enumerate}
+On a alors $\psi(a) \in \Gamma(U, \mathcal{L}^{\otimes \deg(a)})$, et
+$U_{\psi(a)}$ est l'ouvert correspondant (voir Modules,
+Lemme \ref{modules-lemma-s-open}).
+
+\begin{lemma}
+\label{lemma-invertible-map-into-relative-proj}
+Avec les hypothèses et notations ci-dessus, le morphisme $\psi$ induit un
+morphisme canonique de schémas sur $S$
+$$
+r_{\mathcal{L}, \psi} :
+U(\psi) \longrightarrow \underline{\text{Proj}}_S(\mathcal{A})
+$$
+muni d'un morphisme de $\mathcal{O}_{U(\psi)}$-algèbres graduées
+$$
+\theta :
+r_{\mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{d \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \geq 0} \mathcal{L}^{\otimes d}|_{U(\psi)}
+$$
+caractérisés par les propriétés suivantes :
+\begin{enumerate}
+\item Pour tout ouvert $V \subset S$ et tout $d \geq 0$, le diagramme
+$$
+\xymatrix{
+\mathcal{A}_d(V) \ar[d]_{\psi} \ar[r]_{\psi} &
+\Gamma(f^{-1}(V), \mathcal{L}^{\otimes d}) \ar[d]^{restrict} \\
+\Gamma(\pi^{-1}(V),
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)) \ar[r]^{\theta} &
+\Gamma(f^{-1}(V) \cap U(\psi), \mathcal{L}^{\otimes d})
+}
+$$
+est commutatif.
+\item Pour tout $d \geq 1$ et tout sous-schéma ouvert $W \subset X$ tels que
+$\psi|_W : f^*\mathcal{A}_d|_W \to \mathcal{L}^{\otimes d}|_W$ soit
+surjectif, la restriction du morphisme $r_{\mathcal{L}, \psi}$ coïncide avec
+le morphisme $W \to \underline{\text{Proj}}_S(\mathcal{A})$ fourni par la
+construction du spectre homogène relatif ; voir la
+Définition \ref{definition-relative-proj}.
+\item Pour tout ouvert affine $V \subset S$, la restriction
+$$
+(U(\psi) \cap f^{-1}(V), r_{\mathcal{L}, \psi}|_{U(\psi) \cap f^{-1}(V)},
+\theta|_{U(\psi) \cap f^{-1}(V)})
+$$
+coïncide, via $i_V$ (voir le Lemme \ref{lemma-glue-relative-proj}), avec le
+triplet $(U(\psi'), r_{\mathcal{L}, \psi'}, \theta')$ du
+Lemme \ref{lemma-invertible-map-into-proj} associé à l'homomorphisme
+$\psi' : A = \mathcal{A}(V) \to \Gamma_*(f^{-1}(V), \mathcal{L}|_{f^{-1}(V)})$
+induit par $\psi$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+On utilise la caractérisation (3) pour construire $r_{\mathcal{L}, \psi}$
+et $\theta$ localement sur $S$, puis l'unicité du
+Lemme \ref{lemma-invertible-map-into-proj} pour montrer que ces constructions
+se recollent. Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+
+
+\section{Torsion par des faisceaux inversibles et Proj relatif}
+\label{section-twisting-and-proj}
+
+\noindent
+Soient $S$ un schéma,
+$\mathcal{A} = \bigoplus_{d \geq 0} \mathcal{A}_d$ une
+$\mathcal{O}_S$-algèbre graduée
+quasi-cohérente et $\mathcal{L}$ un faisceau
+inversible sur $S$. On obtient une autre $\mathcal{O}_S$-algèbre graduée
+quasi-cohérente en posant
+$$
+\mathcal{B}
+=
+\bigoplus\nolimits_{d \geq 0}
+\mathcal{A}_d \otimes_{\mathcal{O}_S} \mathcal{L}^{\otimes d}
+$$
+Les spectres homogènes relatifs de $\mathcal{A}$ et de $\mathcal{B}$ sont
+isomorphes.
+
+\begin{lemma}
+\label{lemma-twisting-and-proj}
+Avec les notations $S$, $\mathcal{A}$,
+$\mathcal{L}$ et $\mathcal{B}$
+ci-dessus, il existe un isomorphisme canonique
+$$
+\xymatrix{
+P = \underline{\text{Proj}}_S(\mathcal{A})
+\ar[rr]_g \ar[rd]_\pi & &
+\underline{\text{Proj}}_S(\mathcal{B}) = P'
+\ar[ld]^{\pi'} \\
+& S &
+}
+$$
+ayant les propriétés suivantes :
+\begin{enumerate}
+\item Il existe des isomorphismes
+$\theta_n : g^*\mathcal{O}_{P'}(n)
+\to
+\mathcal{O}_P(n) \otimes \pi^*\mathcal{L}^{\otimes n}$
+qui forment un isomorphisme d'algèbres $\mathbf{Z}$-graduées
+$$
+\theta :
+g^*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{O}_{P'}(n)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{O}_P(n)
+\otimes \pi^*\mathcal{L}^{\otimes n}
+$$
+\item Pour tout ouvert $V \subset S$, les diagrammes
+$$
+\xymatrix{
+\mathcal{A}_n(V) \otimes \mathcal{L}^{\otimes n}(V)
+\ar[r]_{multiply} \ar[d]^{\psi \otimes \pi^*}
+&
+\mathcal{B}_n(V) \ar[dd]^\psi \\
+\Gamma(\pi^{-1}V, \mathcal{O}_P(n)) \otimes
+\Gamma(\pi^{-1}V, \pi^*\mathcal{L}^{\otimes n})
+\ar[d]^{multiply} \\
+\Gamma(\pi^{-1}V, \mathcal{O}_P(n) \otimes \pi^*\mathcal{L}^{\otimes n})
+&
+\Gamma(\pi'^{-1}V, \mathcal{O}_{P'}(n)) \ar[l]_-{\theta_n}
+}
+$$
+sont commutatifs.
+\item Ajouter d'autres propriétés ici au besoin.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Lorsque $\mathcal{L} \cong \mathcal{O}_S$, il s'agit de l'identité.
+Dans le cas général, on choisit un recouvrement ouvert de $S$ sur les
+éléments duquel $\mathcal{L}$ se trivialise, puis on recolle les morphismes
+correspondants. Nous omettons les détails.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Fibrés projectifs}
+\label{section-projective-bundle}
+
+\noindent
+Soient $S$ un schéma et $\mathcal{E}$ un faisceau quasi-cohérent de
+$\mathcal{O}_S$-modules. Par Modules,
+Lemme \ref{modules-lemma-whole-tensor-algebra-permanence}, l'algèbre
+symétrique $\text{Sym}(\mathcal{E})$
+de $\mathcal{E}$ sur $\mathcal{O}_S$
+est un faisceau quasi-cohérent de $\mathcal{O}_S$-algèbres. Elle est
+engendrée en degré $1$ sur $\mathcal{O}_S$.
+On peut donc lui appliquer la
+construction de la section précédente, notamment les Lemmes
+\ref{lemma-relative-proj} et \ref{lemma-apply-relative}.
+
+\begin{definition}
+\label{definition-projective-bundle}
+Soient $S$ un schéma et $\mathcal{E}$ un $\mathcal{O}_S$-module
+quasi-cohérent\footnote{Le lecteur pourrait s'attendre à la condition que
+$\mathcal{E}$ soit localement libre de rang fini. Nous ne l'imposons pas,
+afin de rester cohérents avec \cite[II, définition 4.1.1]{EGA}.}.
+On note
+$$
+\pi :
+\mathbf{P}(\mathcal{E}) = \underline{\text{Proj}}_S(\text{Sym}(\mathcal{E}))
+\longrightarrow
+S
+$$
+et on l'appelle le {\it fibré projectif associé à $\mathcal{E}$}.
+Le symbole $\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n)$ désigne le
+$\mathcal{O}_{\mathbf{P}(\mathcal{E})}$-module inversible du
+Lemme \ref{lemma-apply-relative}, appelé
+le {\it faisceau structural tordu}
+d'indice $n$.
+\end{definition}
+
+\noindent
+D'après le Lemme \ref{lemma-glue-relative-proj-twists}, il existe des
+homomorphismes canoniques de $\mathcal{O}_S$-modules
+$$
+\text{Sym}^n(\mathcal{E})
+\longrightarrow
+\pi_*\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n)
+\quad\text{equivalently}\quad
+\pi^*\text{Sym}^n(\mathcal{E})
+\longrightarrow
+\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n)
+$$
+pour tout $n \geq 0$. En particulier, pour $n = 1$, on a
+$$
+\mathcal{E}
+\longrightarrow
+\pi_*\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)
+\quad\text{equivalently}\quad
+\pi^*\mathcal{E}
+\longrightarrow
+\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)
+$$
+et $\pi^*\mathcal{E} \to \mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$ est
+surjectif par le Lemme \ref{lemma-apply-relative}. C'est une bonne façon
+de retenir la convention adoptée pour
+construire $\mathbf{P}(\mathcal{E})$.
+
+\medskip\noindent
+Attention : certains ouvrages ne définissent $\mathbf{P}(\mathcal{E})$
+que lorsque $\mathcal{E}$ est localement libre de rang fini sur $S$.
+De plus, ils notent parfois $\mathbf{P}(\mathcal{E})$ ce que nous notons
+$\mathbf{P}(\mathcal{E}^\vee)$, où $\mathcal{E}^\vee$ est le dual de
+$\mathcal{E}$ (là encore, seulement lorsque $\mathcal{E}$ est localement libre de rang
+fini).
+
+\medskip\noindent
+Soient $S$, $\mathcal{E}$ et $\mathbf{P}(\mathcal{E}) \to S$ comme dans la
+Définition \ref{definition-projective-bundle}. Soit $f : T \to S$ un
+schéma sur $S$ et soit $\psi : f^*\mathcal{E} \to \mathcal{L}$ une
+surjection, où $\mathcal{L}$ est un $\mathcal{O}_T$-module inversible.
+Le morphisme induit de $\mathcal{O}_T$-algèbres graduées
+$$
+f^*\text{Sym}(\mathcal{E}) = \text{Sym}(f^*\mathcal{E}) \to
+\text{Sym}(\mathcal{L}) = \bigoplus\nolimits_{n \geq 0} \mathcal{L}^{\otimes n}
+$$ correspond à un morphisme
+$$
+\varphi_{\mathcal{L}, \psi} : T \longrightarrow \mathbf{P}(\mathcal{E})
+$$
+sur $S$, d'après la construction du Proj relatif comme schéma représentant
+le foncteur $F$ dans la section \ref{section-relative-proj}.
+Réciproquement, pour un morphisme $\varphi : T \to \mathbf{P}(\mathcal{E})$
+sur $S$, on pose
+$\mathcal{L} = \varphi^*\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$ et on
+prend pour $\psi : f^*\mathcal{E} \to \mathcal{L}$ l'image inverse par
+$\varphi$ de la surjection canonique
+$\pi^*\mathcal{E} \to \mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$.
+Par le Lemme \ref{lemma-apply-relative}, ces constructions sont des
+bijections réciproques entre les classes d'isomorphisme de couples
+$(\mathcal{L}, \psi)$ et les morphismes
+$\varphi : T \to \mathbf{P}(\mathcal{E})$ sur $S$.
+Ainsi, $\mathbf{P}(\mathcal{E})$ représente le foncteur qui associe à
+$f : T \to S$ l'ensemble des quotients comme $\mathcal{O}_T$-modules de
+$f^*\mathcal{E}$ qui sont localement libres de rang $1$.
+
+\begin{example}[Espace projectif d'un espace vectoriel]
+\label{example-projective-space}
+Soient $k$ un corps et $V$ un $k$-espace
+vectoriel. L'{\it espace projectif}
+correspondant est le $k$-schéma
+$$
+\mathbf{P}(V) = \text{Proj}(\text{Sym}(V))
+$$
+où $\text{Sym}(V)$ est l'algèbre symétrique de $V$ sur $k$.
+On a bien sûr $\mathbf{P}(V) \cong \mathbf{P}^n_k$ si $\dim(V) = n + 1$,
+puisque l'algèbre symétrique de $V$ est alors isomorphe à un anneau de
+polynômes en $n + 1$ variables. Si l'on considère $V$ comme un module
+quasi-cohérent sur $\Spec(k)$, alors $\mathbf{P}(V)$ est le fibré projectif
+correspondant sur $\Spec(k)$. D'après ce qui précède, un
+$k$-point $p$ de $\mathbf{P}(V)$ correspond à une surjection de
+$k$-espaces vectoriels $V \to L_p$, avec $\dim(L_p) = 1$.
+Plus généralement, soient $X$ un schéma sur $k$, $\mathcal{L}$ un
+$\mathcal{O}_X$-module inversible et
+$\psi : V \to \Gamma(X, \mathcal{L})$ une application $k$-linéaire telle
+que $\mathcal{L}$ soit engendré, comme $\mathcal{O}_X$-module, par les
+sections appartenant à l'image de $\psi$.
+On obtient un morphisme canonique
+$$
+\varphi_{\mathcal{L}, \psi} : X \longrightarrow \mathbf{P}(V)
+$$
+de schémas sur $k$, muni d'un isomorphisme
+$\theta : \varphi_{\mathcal{L}, \psi}^*\mathcal{O}_{\mathbf{P}(V)}(1)
+\to \mathcal{L}$ tel que $\psi$ coïncide avec la composée
+$$
+V \to
+\Gamma(\mathbf{P}(V), \mathcal{O}_{\mathbf{P}(V)}(1))
+\to
+\Gamma(X, \varphi_{\mathcal{L}, \psi}^*\mathcal{O}_{\mathbf{P}(V)}(1))
+\to
+\Gamma(X, \mathcal{L})
+$$
+Voir le Lemme \ref{lemma-invertible-map-into-proj}.
+Si $V \subset \Gamma(X, \mathcal{L})$ est un sous-espace, nous noterons
+simplement $\varphi_{\mathcal{L}, V}$ le morphisme ainsi construit.
+Si $\dim(V) = n + 1$ et si l'on choisit
+une base $v_0, \ldots, v_n$ de $V$,
+le diagramme
+$$
+\xymatrix{
+X \ar@{=}[d] \ar[rr]_{\varphi_{\mathcal{L}, \psi}} & &
+\mathbf{P}(V) \ar[d]^{\cong} \\
+X \ar[rr]^{\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}} & &
+\mathbf{P}^n_k
+}
+$$
+est commutatif, où $s_i = \psi(v_i) \in \Gamma(X, \mathcal{L})$,
+où $\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}$ est défini comme dans la
+section \ref{section-projective-space}, et où la flèche verticale de
+droite correspond à l'isomorphisme
+$k[T_0, \ldots, T_n] \to \text{Sym}(V)$ envoyant $T_i$ sur $v_i$.
+\end{example}
+
+\begin{example}
+\label{example-projective-bundle}
+Le morphisme $\text{Sym}^n(\mathcal{E}) \to
+\pi_*(\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n))$ est un isomorphisme lorsque
+$\mathcal{E}$ est localement libre, mais pas nécessairement dans le cas
+général. Nous allons donner un exemple où il n'est pas injectif pour
+$n = 1$. Posons $S = \Spec(A)$, avec
+$$
+A = k[u, v, s_1, s_2, t_1, t_2]/I
+$$
+où $k$ est un corps et
+$$
+I = (-us_1 + vt_1 + ut_2, vs_1 + us_2 - vt_2, vs_2, ut_1).
+$$
+Notons $\overline{u}$ la classe de $u$
+dans $A$, et de même pour les autres
+variables. Soit $M = (Ax \oplus Ay)/A(\overline{u}x + \overline{v}y)$,
+de sorte que
+$$
+\text{Sym}(M) = A[x, y]/(\overline{u}x + \overline{v}y)
+= k[x, y, u, v, s_1, s_2, t_1, t_2]/J
+$$
+où
+$$
+J = (-us_1 + vt_1 + ut_2, vs_1 + us_2 - vt_2, vs_2, ut_1, ux + vy).
+$$
+Le fibré projectif associé au faisceau quasi-cohérent
+$\mathcal{E} = \widetilde{M}$ sur $S = \Spec(A)$ est alors le schéma
+$$
+P =
+\text{Proj}(\text{Sym}(M)).
+$$
+Il admet le recouvrement ouvert affine $P = D_{+}(x) \cup D_{+}(y)$.
+Considérons l'élément $m \in M$ qui est l'image de $us_1x + vt_2y$.
+On a
+$$
+x(us_1x + vt_2y) = (s_1x + s_2y)(ux + vy) \bmod I
+$$
+et
+$$
+y(us_1x + vt_2y) = (t_1x + t_2y)(ux + vy) \bmod I.
+$$
+La première égalité montre que $m$ s'envoie sur la section nulle de
+$\mathcal{O}_P(1)$ sur $D_{+}(x)$ ; la seconde montre
+que son image dans $\mathcal{O}_P(1)$ est nulle
+sur $D_{+}(y)$. Ainsi, l'image de $m$ dans
+$\Gamma(P, \mathcal{O}_P(1))$ est nulle.
+Montrons pourtant que $m \not = 0$ : $m$ donnera ainsi une section globale
+non nulle de $\mathcal{E}$ dont l'image dans
+$\Gamma(P, \mathcal{O}_P(1))$ est nulle. Supposons $m = 0$ pour obtenir
+une contradiction. Il existe alors
+$f \in k[u, v, s_1, s_2, t_1, t_2]$ tel que
+$$
+us_1x + vt_2y = f(ux + vy) \bmod I
+$$
+Puisque $I$ est engendré par des polynômes homogènes de degré $2$, on peut
+décomposer $f$ en composantes homogènes et ne conserver que celle de degré
+1. Autrement dit, on peut supposer
+$$
+f = au + bv + \alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2
+$$
+avec $a, b, \alpha_1, \alpha_2, \beta_1, \beta_2 \in k$.
+On obtient les conditions
+$$
+\begin{matrix}
+us_1 - u(au + bv + \alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I \\
+vt_2 - v(au + bv + \alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I
+\end{matrix}
+$$
+Il n'y a aucun terme $u^2, uv, v^2$ dans les générateurs de $I$ ;
+on a donc $a = b = 0$. Il reste les relations
+$$
+\begin{matrix}
+us_1 - u(\alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I \\
+vt_2 - v(\alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I
+\end{matrix}
+$$
+Le premier générateur de $I$ permet de
+remplacer $us_1$ par $vt_1 + ut_2$,
+le deuxième générateur de $I$ de remplacer $vs_1$
+par $-us_2 + vt_2$, le troisième d'éliminer
+$vs_2$, et le troisième d'éliminer $ut_1$. On obtient
+$$
+\begin{matrix}
+(1 - \alpha_1)vt_1 + (1 - \alpha_1)ut_2 - \alpha_2us_2 - \beta_2ut_2 = 0 \\
+(1 - \alpha_1)vt_2 + \alpha_1us_2 - \beta_1vt_1 - \beta_2vt_2 = 0
+\end{matrix}
+$$
+Ces relations imposent à $\alpha_1$ d'être à la fois égal à $0$ et à $1$,
+ce qui donne la contradiction cherchée.
+\end{example}
+
+
+\begin{lemma}
+\label{lemma-projective-bundle-separated}
+Soit $S$ un schéma. Le morphisme structural
+$\mathbf{P}(\mathcal{E}) \to S$ d'un
+fibré projectif sur $S$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du Lemme \ref{lemma-relative-proj-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-projective-space-bundle}
+Soient $S$ un schéma et $n \geq 0$. Alors $\mathbf{P}^n_S$ est un fibré
+projectif sur $S$.
+\end{lemma}
+
+\begin{proof}
+On a
+$$
+\mathbf{P}^n_{\mathbf{Z}} =
+\text{Proj}(\mathbf{Z}[T_0, \ldots, T_n]) =
+\underline{\text{Proj}}_{\Spec(\mathbf{Z})}
+\left(\widetilde{\mathbf{Z}[T_0, \ldots, T_n]}\right)
+$$
+où l'anneau $\mathbf{Z}[T_0, \ldots, T_n]$ est gradué par
+$\deg(T_i) = 1$, les éléments de $\mathbf{Z}$ étant de degré $0$.
+Rappelons que $\mathbf{P}^n_S$ est défini comme
+$\mathbf{P}^n_{\mathbf{Z}} \times_{\Spec(\mathbf{Z})} S$.
+De plus, la formation du spectre homogène relatif commute au changement de
+base ; voir le Lemme \ref{lemma-relative-proj-base-change}.
+Pour tout schéma $g : S \to \Spec(\mathbf{Z})$, on a
+$g^*\mathcal{O}_{\Spec(\mathbf{Z})}[T_0, \ldots, T_n]
+= \mathcal{O}_S[T_0, \ldots, T_n]$.
+En combinant ces observations, on obtient
+$$
+\mathbf{P}^n_S = \underline{\text{Proj}}_S(\mathcal{O}_S[T_0, \ldots, T_n]).
+$$
+Enfin,
+$\mathcal{O}_S[T_0, \ldots, T_n] = \text{Sym}(\mathcal{O}_S^{\oplus n + 1})$.
+Ainsi, $\mathbf{P}^n_S$ est un fibré projectif sur $S$.
+\end{proof}
+
+
+
+\section{Grassmanniennes}
+\label{section-grassmannian}
+
+\noindent
+Dans cette section, nous introduisons les foncteurs grassmanniens usuels et
+montrons qu'ils sont représentables par des schémas. Fixons des entiers
+$k$, $n$ tels que $0 < k < n$. Nous allons construire un foncteur
+\begin{equation}
+\label{equation-gkn}
+G(k, n) : \Sch \longrightarrow \textit{Ensembles}
+\end{equation}
+qui, en termes approximatifs, paramétrera les sous-espaces de dimension $k$
+d'un espace de dimension $n$. Pour des raisons techniques, il est cependant
+plus commode de paramétrer les quotients de dimension $(n - k)$ ; c'est la
+convention que nous adopterons.
+
+\medskip\noindent
+Plus précisément, $G(k, n)$ associe à un schéma $S$ l'ensemble
+$G(k, n)(S)$ des classes d'isomorphisme de surjections
+$$
+q : \mathcal{O}_S^{\oplus n} \longrightarrow \mathcal{Q}
+$$
+où $\mathcal{Q}$ est un $\mathcal{O}_S$-module localement libre de rang
+$n - k$. Il s'agit bien d'un ensemble : cela résulte, par exemple,
+de Modules,
+Lemme \ref{modules-lemma-set-isomorphism-classes-finite-type-modules},
+ou du fait que la classe d'isomorphisme de $q$ est déterminée par le noyau de $q$
+(et que les sous-faisceaux d'un faisceau donné forment un ensemble).
+À un morphisme de schémas $f : T \to S$, on associe l'application
+$G(k, n)(f) : G(k, n)(S) \to G(k, n)(T)$ envoyant la classe de
+$q : \mathcal{O}_S^{\oplus n} \longrightarrow \mathcal{Q}$ sur celle de
+$f^*q : \mathcal{O}_T^{\oplus n} \longrightarrow f^*\mathcal{Q}$.
+Cette définition a un sens, car (1) $f^*\mathcal{O}_S = \mathcal{O}_T$,
+(2) $f^*$ est additif, (3) $f^*$ préserve les modules localement libres
+(Modules, Lemme \ref{modules-lemma-pullback-locally-free}) et (4) $f^*$
+est exact à droite (Modules,
+Lemme \ref{modules-lemma-exactness-pushforward-pullback}).
+
+\begin{lemma}
+\label{lemma-gkn-representable}
+Soit $0 < k < n$. Le foncteur $G(k, n)$ de (\ref{equation-gkn}) est
+représentable par un schéma.
+\end{lemma}
+
+\begin{proof}
+Posons $F = G(k, n)$ et appliquons le critère de Schémas,
+Lemme \ref{schemes-lemma-glue-functors}.
+Le foncteur $F$ est un faisceau pour la topologie de Zariski parce que
+l'on peut recoller les faisceaux ; voir Faisceaux,
+section \ref{sheaves-section-glueing-sheaves} (certains détails sont omis).
+
+\medskip\noindent
+La famille de sous-foncteurs $F_i$.
+Soit $I$ l'ensemble des parties de
+$\{1, \ldots, n\}$ de cardinal $n - k$.
+Pour un schéma $S$ et $j \in \{1, \ldots, n\}$, notons $e_j$ la section
+globale
+$$
+e_j = (0, \ldots, 0, 1, 0, \ldots, 0)\quad(1\text{ in }j\text{th spot})
+$$
+de $\mathcal{O}_S^{\oplus n}$. Ces sections forment une base de
+$\mathcal{O}_S^{\oplus n}$. De même, pour $j \in \{1, \ldots, n - k\}$,
+notons $f_j$ la section globale de $\mathcal{O}_S^{\oplus n - k}$ dont
+toutes les composantes sont nulles, sauf la $j$-ième qui vaut $1$.
+Pour $i \in I$, soit
+$$
+s_i : \mathcal{O}_S^{\oplus n - k} \longrightarrow \mathcal{O}_S^{\oplus n}
+$$
+la somme directe des injections canoniques
+$\mathcal{O}_S \to \mathcal{O}_S^{\oplus n}$ correspondant aux éléments
+de $I$. Plus précisément, si $i = \{i_1, \ldots, i_{n - k}\}$ avec
+$i_1 < i_2 < \ldots < i_{n - k}$, le morphisme $s_i$ envoie $f_j$ sur
+$e_{i_j}$ pour $j \in \{1, \ldots, n - k\}$. On pose
+$$
+F_i(S) = \{q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q} \in F(S) \mid
+q \circ s_i \text{ is surjective}\}
+\subset F(S)
+$$
+Pour un morphisme de schémas $f : T \to S$, l'image inverse $f^*s_i$ est
+le morphisme correspondant sur $T$. Puisque $f^*$ est exact à droite
+(Modules, Lemme \ref{modules-lemma-exactness-pushforward-pullback}),
+on en déduit que $F_i$ est un sous-foncteur de $F$.
+
+\medskip\noindent
+Représentabilité de $F_i$. Après renumérotation, on peut supposer
+$i = \{1, \ldots, n - k\}$ ; ainsi, $s_i$ est l'inclusion des
+$n - k$ premiers facteurs directs. Si $q \circ s_i$ est surjectif, alors $q \circ s_i$ est
+un isomorphisme, puisqu'il s'agit d'un morphisme surjectif entre modules
+localement libres de même rang fini (Modules,
+Lemme \ref{modules-lemma-map-finite-locally-free}).
+Pour $q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q}$ dans $F_i(S)$,
+on peut donc utiliser $q \circ s_i$ pour identifier $\mathcal{Q}$ à
+$\mathcal{O}_S^{\oplus n - k}$. On obtient ainsi
+$$
+q : \mathcal{O}_S^{\oplus n} \longrightarrow \mathcal{O}_S^{\oplus n - k}
+$$
+qui envoie $e_j$ sur $f_j$ pour $j = 1, \ldots, n - k$, avec les notations
+ci-dessus. Pour déterminer entièrement $q$, il reste à choisir les images
+$q(e_{n - k + 1}), \ldots, q(e_n)$ dans
+$\Gamma(S, \mathcal{O}_S^{\oplus n - k})$.
+Ainsi, $F_i$ est isomorphe au foncteur
+$$
+S \longmapsto
+\prod\nolimits_{j = n - k + 1, \ldots, n}
+\Gamma(S,  \mathcal{O}_S^{\oplus n - k})
+$$
+qui est lui-même isomorphe au produit de $k(n - k)$ copies du foncteur
+$S \mapsto \Gamma(S, \mathcal{O}_S)$. Ce dernier est représentable par
+$\mathbf{A}^1_\mathbf{Z}$, d'après Schémas,
+Exemple \ref{schemes-example-global-sections}. Par conséquent, $F_i$ est
+représentable par $\mathbf{A}^{k(n - k)}_\mathbf{Z}$, puisque le produit
+fibré sur $\Spec(\mathbf{Z})$ est le produit dans la catégorie des schémas.
+
+\medskip\noindent
+L'inclusion $F_i \subset F$ est représentable par des immersions ouvertes.
+Soient $S$ un schéma et $q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q}$
+un élément de $F(S)$. Par Modules,
+Lemme \ref{modules-lemma-finite-type-surjective-on-stalk}, l'ensemble
+$U_i = \{s \in S \mid (q \circ s_i)_s\text{ surjective}\}$ est ouvert
+dans $S$. Puisque $\mathcal{O}_{S, s}$ est un anneau local et
+$\mathcal{Q}_s$ un $\mathcal{O}_{S, s}$-module de type fini, le lemme de
+Nakayama (Algèbre, Lemme \ref{algebra-lemma-NAK}) donne
+$$
+s \in U_i \Leftrightarrow
+\left(
+\text{the map }
+\kappa(s)^{\oplus n - k} \to \mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s
+\text{ induced by }
+(q \circ s_i)_s
+\text{ is surjective}
+\right)
+$$
+Soient $f : T \to S$ un morphisme de schémas et $t \in T$ un point
+d'image $s \in S$. On a
+$(f^*\mathcal{Q})_t =
+\mathcal{Q}_s \otimes_{\mathcal{O}_{S, s}} \mathcal{O}_{T, t}$
+(Faisceaux, Lemme \ref{sheaves-lemma-stalk-pullback-modules}), et de même
+pour les morphismes correspondants. Ainsi, l'application
+$$
+\kappa(t)^{\oplus n - k} \to (f^*\mathcal{Q})_t/\mathfrak m_t(f^*\mathcal{Q})_t
+$$
+induite par $(f^*q \circ f^*s_i)_t$ s'obtient par changement de base de
+l'application
+$\kappa(s)^{\oplus n - k} \to \mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s$
+ci-dessus suivant l'extension de corps $\kappa(t)/\kappa(s)$.
+Il en résulte que $s \in U_i$ si et seulement si $t$ appartient à l'ouvert
+correspondant pour $f^*q$. En particulier, $T \to S$ se factorise par
+$U_i$ si et seulement si $f^*q \in F_i(T)$, comme voulu.
+
+\medskip\noindent
+La famille des $F_i$, $i \in I$, recouvre $F$.
+Soit $q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q}$ un élément de $F(S)$.
+Il faut montrer que, pour tout point $s$ de $S$, il existe $i \in I$ tel
+que $s_i$ soit surjectif dans un voisinage de $s$.
+Il suffit donc de montrer que l'une des composées
+$$
+\kappa(s)^{\oplus n - k} \xrightarrow{s_i}
+\kappa(s)^{\oplus n} \rightarrow
+\mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s
+$$
+est surjective (voir le paragraphe précédent). Comme
+$\mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s$ est un espace vectoriel de
+dimension $n - k$, cela résulte de l'algèbre linéaire.
+\end{proof}
+
+\begin{definition}
+\label{definition-grassmannian}
+Soit $0 < k < n$. Le schéma $\mathbf{G}(k, n)$ représentant le foncteur
+$G(k, n)$ est appelé la {\it grassmannienne sur $\mathbf{Z}$}.
+Son changement de base $\mathbf{G}(k, n)_S$ à un schéma $S$ est appelé la
+{\it grassmannienne sur $S$}. Si $R$ est un anneau, le changement de base
+à $\Spec(R)$ est noté $\mathbf{G}(k, n)_R$ et appelé la
+{\it grassmannienne sur $R$}.
+\end{definition}
+
+\noindent
+Cette définition a un sens, puisque la
+représentabilité de ces foncteurs a
+été démontrée dans le Lemme \ref{lemma-gkn-representable}.
+
+\begin{lemma}
+\label{lemma-projective-space-grassmannian}
+Soit $n \geq 1$. Il existe un isomorphisme canonique
+$\mathbf{G}(n, n + 1) = \mathbf{P}^n_\mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+D'après le Lemme \ref{lemma-projective-space}, le schéma
+$\mathbf{P}^n_\mathbf{Z}$ représente le foncteur qui associe à un schéma
+$S$ l'ensemble des classes d'isomorphisme de couples
+$(\mathcal{L}, (s_0, \ldots, s_n))$ formés d'un module inversible
+$\mathcal{L}$ et de $(n + 1)$ sections
+globales qui engendrent $\mathcal{L}$.
+Un tel couple définit un quotient
+$$
+\mathcal{O}_S^{\oplus n + 1} \longrightarrow \mathcal{L},\quad
+(h_0, \ldots, h_n) \longmapsto \sum h_i s_i.
+$$
+Réciproquement, un élément
+$q : \mathcal{O}_S^{\oplus n + 1} \to \mathcal{Q}$ de $G(n, n + 1)(S)$
+donne le couple $(\mathcal{Q}, (q(e_1), \ldots, q(e_{n + 1})))$.
+Ici, les $e_i$, $i = 1, \ldots, n + 1$, sont les sections de la base
+canonique du module libre $\mathcal{O}_S^{\oplus n + 1}$.
+Nous omettons la vérification que ces constructions définissent des
+transformations de foncteurs réciproques.
+\end{proof}
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

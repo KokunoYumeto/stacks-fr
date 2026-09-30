@@ -1,0 +1,4375 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Diviseurs sur les espaces algébriques}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions les diviseurs sur les espaces algébriques et des sujets connexes.
+Une référence de base sur les espaces algébriques est \cite{Kn}.
+
+
+
+
+
+
+
+
+
+\section{Points associés et points faiblement associés}
+\label{section-associated}
+
+\noindent
+Dans le cas des schémas, nous avons introduit deux notions concurrentes
+de points associés : les points associés au sens usuel
+(Diviseurs, section \ref{divisors-section-associated})
+et les points faiblement associés
+(Diviseurs, section \ref{divisors-section-weakly-associated}).
+Pour un espace algébrique général, la notion de point associé
+est pratiquement inutilisable, et nous ne chercherons même pas à la définir.
+Si l'espace algébrique est localement noethérien, nous nous autorisons
+à employer l'expression « point associé » à la place de
+« point faiblement associé », puisque ces notions coïncident pour les
+schémas noethériens (Diviseurs, lemme \ref{divisors-lemma-ass-weakly-ass}).
+Avant de donner notre définition, nous avons besoin d'un lemme.
+
+\begin{lemma}
+\label{lemma-associated}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $x \in |X|$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un morphisme \'etale $f : U \to X$, où $U$ est un schéma,
+et un point $u \in U$ d'image $x$ tels que $u$ soit faiblement associé
+à $f^*\mathcal{F}$,
+\item pour tout morphisme \'etale $f : U \to X$, où $U$ est un schéma,
+et tout point $u \in U$ d'image $x$, le point $u$ est faiblement associé
+à $f^*\mathcal{F}$,
+\item l'idéal maximal de $\mathcal{O}_{X, \overline{x}}$
+est un idéal premier faiblement associé au module $\mathcal{F}_{\overline{x}}$.
+\end{enumerate}
+Si $X$ est localement noethérien, elles sont également équivalentes à :
+\begin{enumerate}
+\item[(4)] il existe un morphisme \'etale $f : U \to X$, où $U$ est un schéma,
+et un point $u \in U$ d'image $x$ tels que $u$ soit associé
+à $f^*\mathcal{F}$,
+\item[(5)] pour tout morphisme \'etale $f : U \to X$, où $U$ est un schéma,
+et tout point $u \in U$ d'image $x$, le point $u$ est associé
+à $f^*\mathcal{F}$,
+\item[(6)] l'idéal maximal de $\mathcal{O}_{X, \overline{x}}$
+est un idéal premier associé au module $\mathcal{F}_{\overline{x}}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$, un point $u$ et un morphisme \'etale
+$f : U \to X$ qui envoie $u$ sur $x$. Relevons $\overline{x}$ en un point
+géométrique de $U$ au-dessus de $u$. Rappelons que
+$\mathcal{O}_{X, \overline{x}} = \mathcal{O}_{U, u}^{sh}$
+où le hensélisé strict est pris relativement au
+relèvement choisi de $\overline{x}$ ; voir
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-describe-etale-local-ring}.
+Enfin, nous avons
+$$
+\mathcal{F}_{\overline{x}} =
+(f^*\mathcal{F})_u \otimes_{\mathcal{O}_{U, u}}
+\mathcal{O}_{X, \overline{x}} =
+(f^*\mathcal{F})_u \otimes_{\mathcal{O}_{U, u}}
+\mathcal{O}_{U, u}^{sh}
+$$
+d'après
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-stalk-quasi-coherent}.
+L'équivalence de (1), (2) et (3) résulte donc de
+Compléments sur la platitude, lemme \ref{flat-lemma-weakly-associated-henselization}.
+Si $X$ est localement noethérien,
+tout $U$ comme ci-dessus est localement noethérien ;
+les conditions (1), resp.\ (2), sont donc équivalentes aux conditions (4), resp.\ (5), d'après
+Diviseurs, lemme \ref{divisors-lemma-ass-weakly-ass}.
+D'autre part, dans le cas localement noethérien,
+l'anneau local $\mathcal{O}_{X, \overline{x}}$ est lui aussi noethérien
+(Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-Noetherian-local-ring-Noetherian}).
+L'équivalence de (3) et (6) résulte donc du même lemme
+(ou par Algèbre, lemme \ref{algebra-lemma-ass-weakly-ass}).
+\end{proof}
+
+\begin{definition}
+\label{definition-weakly-associated}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $X$.
+Soit $x \in |X|$.
+\begin{enumerate}
+\item On dit que $x$ est {\it faiblement associé} à $\mathcal{F}$
+si les conditions équivalentes (1), (2) et (3) du
+lemme \ref{lemma-associated} sont satisfaites.
+\item On note $\text{WeakAss}(\mathcal{F})$ l'ensemble des points
+faiblement associés à $\mathcal{F}$.
+\item Les {\it points faiblement associés à $X$} sont les points
+faiblement associés à $\mathcal{O}_X$.
+\end{enumerate}
+Si $X$ est localement noethérien, on dira
+{\it $x$ est associé à $\mathcal{F}$}
+si et seulement si $x$ est faiblement associé à $\mathcal{F}$, et l'on pose
+$\text{Ass}(\mathcal{F}) = \text{WeakAss}(\mathcal{F})$.
+Enfin (toujours sous l'hypothèse que $X$ est localement noethérien),
+on dira que {\it $x$ est un point associé de $X$} si et seulement si
+$x$ est un point faiblement associé à $X$.
+\end{definition}
+
+\noindent
+À ce stade, nous pouvons démontrer les lemmes de rigueur.
+
+\begin{lemma}
+\label{lemma-weakly-ass-support}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Alors $\text{WeakAss}(\mathcal{F}) \subset \text{Supp}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement des définitions. Le support d'un faisceau abélien
+sur $X$ est défini dans Propriétés des espaces, définition
+\ref{spaces-properties-definition-support}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ses-weakly-ass}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+une suite exacte de faisceaux quasi-cohérents sur $X$.
+Alors
+$\text{WeakAss}(\mathcal{F}_2) \subset
+\text{WeakAss}(\mathcal{F}_1) \cup \text{WeakAss}(\mathcal{F}_3)$
+et
+$\text{WeakAss}(\mathcal{F}_1) \subset \text{WeakAss}(\mathcal{F}_2)$.
+\end{lemma}
+
+\begin{proof}
+Pour tout point géométrique $\overline{x} \in X$,
+la suite des fibres
+$0 \to \mathcal{F}_{1, \overline{x}} \to
+\mathcal{F}_{2, \overline{x}} \to
+\mathcal{F}_{3, \overline{x}} \to 0$
+est une suite exacte de $\mathcal{O}_{X, \overline{x}}$-modules.
+Le lemme résulte donc de
+Algèbre, lemme \ref{algebra-lemma-weakly-ass}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-ass-zero}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Alors
+$$
+\mathcal{F} = (0) \Leftrightarrow \text{WeakAss}(\mathcal{F}) = \emptyset
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $U$ et un morphisme \'etale surjectif $f : U \to X$.
+Alors $\mathcal{F}$ est nul si et seulement si $f^*\mathcal{F}$ est nul.
+Le lemme résulte donc de la définition et du lemme dans le
+cas des schémas ; voir
+Diviseurs, lemme \ref{divisors-lemma-weakly-ass-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-minimal-support-in-weakly-ass}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $x \in |X|$. Si
+\begin{enumerate}
+\item $x \in \text{Supp}(\mathcal{F})$
+\item $x$ est un point de codimension $0$ de $X$
+(Propriétés des espaces, définition
+\ref{spaces-properties-definition-dimension-local-ring}).
+\end{enumerate}
+Alors $x \in \text{WeakAss}(\mathcal{F})$. Si $\mathcal{F}$
+est un $\mathcal{O}_X$-module de type fini de support schématique $Z$
+(Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-scheme-theoretic-support})
+et si $x$ est un point de codimension $0$ de $Z$, alors
+$x \in \text{WeakAss}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Puisque $x \in \text{Supp}(\mathcal{F})$, la fibre
+$\mathcal{F}_{\overline{x}}$ n'est pas nulle. Ainsi,
+$\text{WeakAss}(\mathcal{F}_{\overline{x}})$
+est non vide d'après
+Algèbre, lemme \ref{algebra-lemma-weakly-ass-zero}.
+D'autre part, le spectre de $\mathcal{O}_{X, \overline{x}}$
+est réduit à un point. Par définition, $x$ est donc faiblement associé à
+$\mathcal{F}$. Pour la dernière assertion, l'homomorphisme
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Z, \overline{z}}$
+est surjectif, le spectre de $\mathcal{O}_{Z, \overline{z}}$
+est réduit à un point, et $\mathcal{F}_{\overline{x}}$ est un
+module non nul sur $\mathcal{O}_{Z, \overline{z}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-minimal-support-in-weakly-ass-decent}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $x \in |X|$. Si
+\begin{enumerate}
+\item $X$ est décent (par exemple quasi-séparé ou localement séparé),
+\item $x \in \text{Supp}(\mathcal{F})$
+\item $x$ n'est pas une spécialisation d'un autre point dans
+$\text{Supp}(\mathcal{F})$.
+\end{enumerate}
+Alors $x \in \text{WeakAss}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+(Un espace algébrique quasi-séparé est décent ; voir
+Espaces décents, section \ref{decent-spaces-section-reasonable-decent}.
+Un espace algébrique localement séparé est décent ; voir
+Espaces décents, lemme \ref{decent-spaces-lemma-locally-separated-decent}.)
+Choisissons un schéma $U$, un point $u \in U$ et un morphisme \'etale
+$f : U \to X$ envoyant $u$ sur $x$. D'après
+Espaces décents, lemme
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}
+si $u' \leadsto u$ est une spécialisation non triviale, alors
+$f(u') \not = x$. Ainsi, $u \in \text{Supp}(f^*\mathcal{F})$
+n'est pas une spécialisation d'un autre point de
+$\text{Supp}(f^*\mathcal{F})$.
+Par conséquent, $u \in \text{WeakAss}(f^*\mathcal{F})$ d'après
+Diviseurs, lemme \ref{lemma-minimal-support-in-weakly-ass}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-ass}
+Soit $S$ un schéma. Soit $X$ un espace algébrique localement noethérien sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+Alors $\text{Ass}(\mathcal{F}) \cap W$ est fini pour
+tout ouvert quasi-compact $W \subset |X|$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma quasi-compact $U$ et un morphisme \'etale $U \to X$
+tel que $W$ soit l'image de $|U| \to |X|$. Alors $U$ est un
+schéma noethérien, et l'on conclut en appliquant
+Diviseurs, lemme \ref{divisors-lemma-finite-ass}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restriction-injective-open-contains-weakly-ass}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Si $U \to X$ est un morphisme \'etale tel que
+$\text{WeakAss}(\mathcal{F}) \subset \Im(|U| \to |X|)$, alors
+$\Gamma(X, \mathcal{F}) \to \Gamma(U, \mathcal{F})$ est injectif.
+\end{lemma}
+
+\begin{proof}
+Soit $s \in \Gamma(X, \mathcal{F})$ une section dont la restriction à $U$ est nulle.
+Soit $\mathcal{F}' \subset \mathcal{F}$ l'image de l'homomorphisme
+$\mathcal{O}_X \to \mathcal{F}$ défini par $s$. Alors $\mathcal{F}'|_U = 0$.
+Cela entraîne
+$\text{WeakAss}(\mathcal{F}') \cap \Im(|U| \to |X|) = \emptyset$
+(par définition des points faiblement associés).
+D'autre part,
+$\text{WeakAss}(\mathcal{F}') \subset \text{WeakAss}(\mathcal{F})$
+par le lemme \ref{lemma-ses-weakly-ass}. Nous en déduisons que
+$\text{WeakAss}(\mathcal{F}') = \emptyset$.
+Ainsi, $\mathcal{F}' = 0$ par le lemme \ref{lemma-weakly-ass-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakass-pushforward}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme quasi-compact et quasi-séparé
+d'espaces algébriques sur $S$. Soit $\mathcal{F}$ un
+$\mathcal{O}_X$-module quasi-cohérent. Soit $y \in |Y|$ un point qui n'appartient pas à
+l'image de $|f|$. Alors $y$ n'est pas faiblement associé à $f_*\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+D'après Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-pushforward},
+le $\mathcal{O}_Y$-module $f_*\mathcal{F}$ est quasi-cohérent, de sorte que
+l'énoncé a un sens.
+Choisissons un schéma affine $V$, un point $v \in V$ et un morphisme \'etale
+$V \to Y$ envoyant $v$ sur $y$. Nous pouvons remplacer
+$f : X \to Y$, $\mathcal{F}$, $y$ par
+$X \times_Y V \to V$, $\mathcal{F}|_{X \times_Y V}$, $v$.
+Nous pouvons donc supposer que $Y$ est un schéma affine.
+Dans ce cas, $X$ est quasi-compact ; nous pouvons donc choisir
+un schéma affine $U$ et un morphisme \'etale surjectif $U \to X$.
+Notons $g : U \to Y$ le composé.
+Alors $f_*\mathcal{F} \subset g_*(\mathcal{F}|_U)$.
+Par le lemme \ref{lemma-ses-weakly-ass},
+on se ramène au cas des schémas, traité dans
+Diviseurs, lemme \ref{divisors-lemma-weakass-pushforward}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-injective-on-weakass}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\varphi : \mathcal{F} \to \mathcal{G}$ un homomorphisme de
+$\mathcal{O}_X$-modules quasi-cohérents. Supposons que, pour tout
+$x \in |X|$, l'une au moins des conditions suivantes soit satisfaite :
+\begin{enumerate}
+\item $\mathcal{F}_{\overline{x}} \to \mathcal{G}_{\overline{x}}$
+est injectif, ou
+\item $x \not \in \text{WeakAss}(\mathcal{F})$.
+\end{enumerate}
+Alors $\varphi$ est injectif.
+\end{lemma}
+
+\begin{proof}
+Les hypothèses impliquent que $\text{WeakAss}(\Ker(\varphi)) = \emptyset$
+et donc que $\Ker(\varphi) = 0$ par le lemme \ref{lemma-weakly-ass-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakass-reduced}
+Soit $S$ un schéma. Soit $X$ un espace algébrique réduit sur $S$.
+Alors les points faiblement associés à $X$ sont exactement les points de codimension $0$
+de $X$.
+\end{lemma}
+
+\begin{proof}
+En travaillant localement pour la topologie \'etale, cela résulte de
+Diviseurs, lemme \ref{divisors-lemma-weakass-reduced}
+et
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-codimension-0-points}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Morphismes et points faiblement associés}
+\label{section-morphisms-weakly-associated}
+
+\begin{lemma}
+\label{lemma-weakly-ass-reverse-functorial}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme affine d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+On a alors
+$$
+\text{WeakAss}_S(f_*\mathcal{F}) \subset f(\text{WeakAss}_X(\mathcal{F}))
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Posons $U = X \times_Y V$. Alors $U \to V$ est un morphisme affine
+de schémas. Par définition des points faiblement associés,
+le problème est ramené au morphisme de schémas $U \to V$. Ce cas est
+traité dans Diviseurs, lemme \ref{divisors-lemma-weakly-ass-reverse-functorial}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ass-functorial-equal}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme affine d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Si $X$ est localement noethérien, alors on a
+$$
+\text{WeakAss}_Y(f_*\mathcal{F}) =
+f(\text{WeakAss}_X(\mathcal{F}))
+$$
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Posons $U = X \times_Y V$. Alors $U \to V$ est un morphisme affine
+et $U$ est localement noethérien.
+Par définition des points faiblement associés,
+le problème est ramené au morphisme de schémas $U \to V$. Ce cas est
+traité dans Diviseurs, lemme \ref{divisors-lemma-ass-functorial-equal}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-associated-finite}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme fini d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Alors $\text{WeakAss}(f_*\mathcal{F}) = f(\text{WeakAss}(\mathcal{F}))$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Posons $U = X \times_Y V$. Alors $U \to V$ est un morphisme fini
+de schémas. Par définition des points faiblement associés,
+le problème est ramené au morphisme de schémas $U \to V$. Ce cas est
+traité dans Diviseurs, lemme \ref{divisors-lemma-weakly-associated-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-ass-pullback}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Soit $\mathcal{G}$ un $\mathcal{O}_Y$-module quasi-cohérent.
+Soit $x \in |X|$ et $y = f(x) \in |Y|$. Si
+\begin{enumerate}
+\item $y \in \text{WeakAss}_S(\mathcal{G})$,
+\item $f$ est plat en $x$, et
+\item la dimension de l'anneau local de la fibre de $f$ au point $x$
+est nulle (Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-dimension-fibre}),
+\end{enumerate}
+alors $x \in \text{WeakAss}(f^*\mathcal{G})$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un schéma $V$, un point $v \in V$ et un morphisme \'etale $V \to Y$
+envoyant $v$ sur $y$. Choisissons un schéma $U$, un point $u \in U$ et un
+morphisme \'etale $U \to V \times_Y X$ envoyant $v$ sur un point situé au-dessus de
+$v$ et de $x$. Cela est possible car il existe $t \in |V \times_Y X|$
+s'envoyant sur $(v, y)$ d'après Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-points-cartesian}.
+Par définition, la dimension de $\mathcal{O}_{U_v, u}$ est nulle.
+Ainsi, $u$ est un point générique de la fibre $U_v$.
+Par définition des points faiblement associés,
+le problème est ramené au morphisme de schémas $U \to V$.
+Ce cas est traité dans
+Diviseurs, lemme \ref{divisors-lemma-weakly-ass-pullback}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-ass-change-fields}
+Soit $K/k$ une extension de corps. Soit $X$ un espace algébrique sur $k$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $y \in X_K$ d'image $x \in X$. Si $y$ est un point
+faiblement associé à l'image inverse $\mathcal{F}_K$, alors $x$
+est un point faiblement associé à $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+C'est la traduction de
+Diviseurs, lemme \ref{divisors-lemma-weakly-ass-change-fields}
+dans le langage des espaces algébriques. Nous omettons les détails de cette
+traduction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-flat-weak-assassin-up-down}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme fini et plat d'espaces algébriques.
+Soit $\mathcal{G}$ un $\mathcal{O}_Y$-module quasi-cohérent.
+Soit $x \in |X|$ un point d'image $y \in |Y|$. Alors
+$$
+x \in \text{WeakAss}(g^*\mathcal{G})
+\Leftrightarrow
+y \in \text{WeakAss}(\mathcal{G})
+$$
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du cas des schémas
+(Compléments sur la platitude, lemme \ref{flat-lemma-finite-flat-weak-assassin-up-down})
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-weak-assassin-up-down}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme \'etale d'espaces algébriques.
+Soit $\mathcal{G}$ un $\mathcal{O}_Y$-module quasi-cohérent.
+Soit $x \in |X|$ un point d'image $y \in |Y|$. Alors
+$$
+x \in \text{WeakAss}(f^*\mathcal{G})
+\Leftrightarrow
+y \in \text{WeakAss}(\mathcal{G})
+$$
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de la définition des points faiblement associés
+et, en fait, le lemme correspondant pour les schémas
+(Compléments sur la platitude, lemme \ref{flat-lemma-etale-weak-assassin-up-down})
+est à la base de notre définition.
+\end{proof}
+
+
+
+
+
+
+
+\section{Assassin faible relatif}
+\label{section-relative-weak-assassin}
+
+\noindent
+Nous avons besoin de quelques lemmes pour définir cet objet.
+
+\begin{lemma}
+\label{lemma-locally-noetherian-fibre}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Soit $y \in |Y|$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe un schéma $V$, un point $v \in V$ et un morphisme \'etale $V \to Y$
+envoyant $v$ sur $y$ tels que l'espace algébrique $X_v$ soit localement noethérien,
+\item pour tout schéma $V$, tout point $v \in V$ et tout morphisme \'etale $V \to Y$
+envoyant $v$ sur $y$, l'espace algébrique $X_v$ est localement noethérien, et
+\item il existe un corps $k$ et un morphisme $\Spec(k) \to Y$ représentant
+$y$ tels que $X_k$ soit localement noethérien.
+\end{enumerate}
+S'il existe un corps $k_0$ et un monomorphisme $\Spec(k_0) \to Y$
+représentant $y$, ces conditions sont également équivalentes à
+\begin{enumerate}
+\item[(4)] l'espace algébrique $X_{k_0}$ est localement noethérien.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Remarquons que $X_v = v \times_Y X = \Spec(\kappa(v)) \times_Y X$.
+Les implications (2) $\Rightarrow$ (1) $\Rightarrow$ (3) sont donc claires.
+Supposons que $\Spec(k) \to Y$ soit un morphisme depuis le spectre d'un corps
+tel que $X_k$ soit localement noethérien. Soit $V \to Y$ un morphisme \'etale
+depuis un schéma $V$, et soit $v \in V$ un point envoyé sur $y$.
+Alors le schéma $v \times_Y \Spec(k)$ est non vide. Choisissons un
+point $w \in v \times_Y \Spec(k)$. Considérons les morphismes
+$$
+X_v \longleftarrow X_w \longrightarrow X_k
+$$
+Comme $V \to Y$ est \'etale et que $w$ peut être considéré comme un point de
+$V \times_Y \Spec(k)$, l'extension $\kappa(w)/k$
+est une extension finie séparable de corps
+(Morphismes, lemme \ref{morphisms-lemma-etale-over-field}).
+Ainsi, $X_w \to X_k$ est un morphisme fini \'etale obtenu par changement de base de
+$w \to \Spec(k)$. Par conséquent, $X_w$ est localement noethérien
+(Morphismes des espaces, lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Le morphisme $X_w \to X_v$ est surjectif, affine et plat,
+car il est obtenu par changement de base du morphisme surjectif, affine et plat $w \to v$.
+Le fait que $X_w$ soit localement noethérien implique alors que
+$X_v$ est localement noethérien. Pour le voir, choisissons un morphisme
+\'etale surjectif $U \to X$, puis remarquons que
+$U_w \to U_v$ est surjectif, affine et plat. En nous plaçant
+localement dans le cas affine sur le schéma $U_v$, nous concluons
+que $U_w$ est localement noethérien par
+Algèbre, lemme \ref{algebra-lemma-descent-Noetherian}.
+
+\medskip\noindent
+Enfin, il suffit de prouver que (3) implique (4)
+lorsqu'il existe un monomorphisme $\Spec(k_0) \to Y$ dans la classe de $y$.
+Alors $\Spec(k) \to Y$ se factorise en $\Spec(k) \to \Spec(k_0) \to Y$.
+L'argument donné ci-dessus montre alors que le fait que $X_k$ soit
+localement noethérien implique que $X_{k_0}$ est localement noethérien.
+\end{proof}
+
+\begin{definition}
+\label{definition-locally-Noetherian-fibre}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Soit $y \in |Y|$. Nous disons que {\it la fibre de $f$ au-dessus de $y$ est
+localement noethérienne} si les conditions équivalentes (1), (2) et (3)
+du lemme \ref{lemma-locally-noetherian-fibre} sont satisfaites.
+Nous disons que {\it les fibres de $f$ sont localement noethériennes} si cette propriété
+est satisfaite pour tout $y \in |Y|$.
+\end{definition}
+
+\noindent
+Bien entendu, la manière usuelle de garantir que les fibres sont localement noethériennes consiste
+à supposer que le morphisme est localement de type fini.
+
+\begin{lemma}
+\label{lemma-locally-finite-type-locally-Noetherian-fibres}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Si $f$ est localement de type fini, alors
+les fibres de $f$ sont localement noethériennes.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}
+et du fait que le spectre d'un corps est noethérien.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-assassin}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Soit $x \in |X|$ et $y = f(x) \in |Y|$.
+Soit $\mathcal{F}$ un
+$\mathcal{O}_X$-module quasi-cohérent. Considérons les diagrammes commutatifs
+$$
+\xymatrix{
+X \ar[d] & X \times_Y V \ar[d] \ar[l] & X_v \ar[d] \ar[l] \\
+Y & V \ar[l] & v \ar[l]
+}
+\quad
+\xymatrix{
+X \ar[d] & U \ar[d] \ar[l] & U_v \ar[d] \ar[l] \\
+Y & V \ar[l] & v \ar[l]
+}
+\quad
+\xymatrix{
+x \ar@{|->}[d] &
+x' \ar@{|->}[d] \ar@{|->}[l] &
+u \ar@{|->}[ld] \ar@{|->}[l] \\
+y &
+v \ar@{|->}[l]
+}
+$$
+où $V$ et $U$ sont des schémas, $V \to Y$ et $U \to X \times_Y V$
+sont \'etales, et $v \in V$, $x' \in |X_v|$, $u \in U$ sont des points
+reliés comme dans le dernier diagramme.
+Notons $\mathcal{F}|_{X_v}$ et $\mathcal{F}|_{U_v}$
+les images inverses de $\mathcal{F}$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item il existe $V, v, x'$ comme ci-dessus tels que $x'$ soit un point
+faiblement associé à $\mathcal{F}|_{X_v}$,
+\item pour tous $V \to Y, v, x'$ comme ci-dessus, $x'$ est un point
+faiblement associé à $\mathcal{F}|_{X_v}$,
+\item il existe $U, V, u, v$ comme ci-dessus tels que $u$ soit un point
+faiblement associé à $\mathcal{F}|_{U_v}$,
+\item pour tous $U, V, u, v$ comme ci-dessus, $u$ est un point
+faiblement associé à $\mathcal{F}|_{U_v}$,
+\item il existe un corps $k$, un morphisme $\Spec(k) \to Y$ représentant $y$
+et un point $t \in |X_k|$ s'envoyant sur $x$, tels que $t$ soit un point
+faiblement associé à $\mathcal{F}|_{X_k}$.
+\end{enumerate}
+S'il existe un corps $k_0$ et un monomorphisme $\Spec(k_0) \to Y$
+représentant $y$, ces conditions sont également équivalentes à
+\begin{enumerate}
+\item[(6)] $x_0$ est un point faiblement associé à $\mathcal{F}|_{X_{k_0}}$
+où $x_0 \in |X_{k_0}|$ est l'unique point s'envoyant sur $x$.
+\end{enumerate}
+Si la fibre de $f$ au-dessus de $y$ est localement noethérienne, alors, dans les
+conditions (1), (2), (3), (4) et (6), nous pouvons remplacer
+``faiblement associé'' par ``associé''.
+\end{lemma}
+
+\begin{proof}
+Remarquons qu'étant donnés $V, v, x'$ comme dans le lemme, nous pouvons trouver
+$U \to X \times_Y V$ et $u \in U$ s'envoyant sur $x'$
+et qu'alors le morphisme $U_v \to X_v$ est \'etale.
+Il est donc clair que (1) et (3) sont équivalentes,
+de même que (2) et (4). Chacune de ces conditions implique (5).
+Nous allons montrer que (5) implique (2).
+Supposons donnés $V, v, x'$, ainsi que $\Spec(k) \to X$ et $t \in |X_k|$,
+de sorte que $t$ soit un point faiblement
+associé à $\mathcal{F}|_{X_k}$.
+Nous pouvons choisir un point $w \in v \times_Y \Spec(k)$.
+Nous obtenons alors les morphismes
+$$
+X_v \longleftarrow X_w \longrightarrow X_k
+$$
+Comme $V \to Y$ est \'etale et que $w$ peut être considéré comme un point de
+$V \times_Y \Spec(k)$, l'extension $\kappa(w)/k$
+est une extension finie séparable de corps
+(Morphismes, lemme \ref{morphisms-lemma-etale-over-field}).
+Ainsi, $X_w \to X_k$ est un morphisme fini \'etale obtenu par changement de base de
+$w \to \Spec(k)$. Tout point $x''$ de $X_w$ situé au-dessus de $t$
+est donc un point faiblement associé à $\mathcal{F}|_{X_w}$ par le
+lemme \ref{lemma-etale-weak-assassin-up-down}.
+Nous pouvons choisir $x''$ s'envoyant sur $x'$
+(Propriétés des espaces, lemme \ref{spaces-properties-lemma-points-cartesian}).
+Le lemme \ref{lemma-weakly-ass-change-fields}
+implique alors que $x'$ est un point faiblement associé
+à $\mathcal{F}|_{X_v}$.
+
+\medskip\noindent
+Pour achever la preuve, il suffit de montrer que les
+conditions équivalentes (1) -- (5) impliquent (6) lorsque l'on se donne
+$\Spec(k_0) \to Y$ comme dans (6). Dans ce cas, le morphisme
+$\Spec(k) \to Y$ de (5) se factorise de manière unique en $\Spec(k) \to \Spec(k_0) \to Y$.
+Alors $x_0$ est l'image de $t$ par le morphisme $X_k \to X_{k_0}$.
+Le même lemme que ci-dessus montre donc que (6) est vraie.
+\end{proof}
+
+\begin{definition}
+\label{definition-relative-weak-assassin}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+L'{\it assassin faible relatif de $\mathcal{F}$ dans $X$ sur $Y$}
+est l'ensemble $\text{WeakAss}_{X/Y}(\mathcal{F}) \subset |X|$
+des $x \in |X|$ pour lesquels les conditions équivalentes du
+lemme \ref{lemma-relative-assassin} sont satisfaites.
+Si les fibres de $f$ sont localement noethériennes
+(définition \ref{definition-locally-Noetherian-fibre}),
+on utilise la notation $\text{Ass}_{X/Y}(\mathcal{F})$.
+\end{definition}
+
+\noindent
+Avec ces notations, nous pouvons énoncer certains des résultats
+déjà démontrés pour les schémas.
+
+\begin{lemma}
+\label{lemma-bourbaki}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Soit $\mathcal{G}$ un $\mathcal{O}_Y$-module quasi-cohérent.
+Supposons que
+\begin{enumerate}
+\item $\mathcal{F}$ est plat sur $Y$,
+\item $X$ et $Y$ sont localement noethériens, et
+\item les fibres de $f$ sont localement noethériennes.
+\end{enumerate}
+Alors
+$$
+\text{Ass}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G}) =
+\{x \in \text{Ass}_{X/Y}(\mathcal{F})\text{ tel que }
+f(x) \in \text{Ass}_Y(\mathcal{G}) \}
+$$
+\end{lemma}
+
+\begin{proof}
+Par localisation \'etale, l'énoncé résulte immédiatement du résultat
+pour les schémas ; voir
+Diviseurs, lemme \ref{divisors-lemma-bourbaki}.
+Le résultat pour les schémas n'est plus général que parce que
+nous n'avons pas défini les points associés pour les
+espaces algébriques non noethériens (nous devons donc supposer que $X$
+et les fibres de $X \to Y$ sont localement noethériens pour pouvoir
+même formuler cet énoncé).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-relative-assassin}
+Soit $S$ un schéma. Soit
+$$
+\xymatrix{
+X' \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+un diagramme cartésien d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent
+et posons $\mathcal{F}' = (g')^*\mathcal{F}$.
+Si $f$ est localement de type fini, alors
+\begin{enumerate}
+\item $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')
+\Rightarrow g'(x') \in \text{Ass}_{X/Y}(\mathcal{F})$
+\item si $x \in \text{Ass}_{X/Y}(\mathcal{F})$, alors, étant donné
+$y' \in |Y'|$ tel que $f(x) = g(y')$, il existe
+$x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$
+avec $g'(x') = x$ et $f'(x') = y'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte du cas des schémas par localisation \'etale.
+Donnons tous les détails. Choisissons un schéma
+$V$ et un morphisme \'etale surjectif $V \to Y$.
+Choisissons un schéma $U$ et un morphisme
+\'etale surjectif $U \to V \times_Y X$. Choisissons un schéma $V'$
+et un morphisme \'etale surjectif $V' \to V \times_Y Y'$.
+Alors $U' = V' \times_V U$ est un schéma et le morphisme
+$U' \to X'$ est surjectif et \'etale.
+
+\medskip\noindent
+Preuve de (1). Choisissons $u' \in U'$ s'envoyant sur $x'$.
+Notons $v' \in V'$ l'image de $u'$.
+La condition $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$ équivaut
+à $u' \in \text{Ass}(\mathcal{F}|_{U'_{v'}})$
+par définition (il est légitime d'écrire $\text{Ass}$ au lieu de $\text{WeakAss}$
+car $U'_{v'}$ est localement noethérien).
+En appliquant Diviseurs, lemme \ref{divisors-lemma-base-change-relative-assassin},
+nous voyons que l'image $u \in U$ de $u'$ appartient à
+$\text{Ass}(\mathcal{F}|_{U_v})$ où $v \in V$ est l'image de $u$.
+Cela signifie à son tour que $g'(x') \in \text{Ass}_{X/Y}(\mathcal{F})$.
+
+\medskip\noindent
+Preuve de (2). Choisissons $u \in U$ s'envoyant sur $x$.
+Notons $v \in V$ l'image de $u$.
+La condition $x \in \text{Ass}_{X/Y}(\mathcal{F})$ équivaut
+à $u \in \text{Ass}(\mathcal{F}|_{U_v})$
+par définition. Choisissons un point $v' \in V'$ s'envoyant
+sur $y' \in |Y'|$ et sur $v \in V$ (ce qui est possible d'après
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-points-cartesian}).
+Soit $t \in \Spec(\kappa(v') \otimes_{\kappa(v)} \kappa(u))$
+un point générique d'une composante irréductible.
+Soit $u' \in U'$ l'image de $t$.
+En appliquant Diviseurs, lemme \ref{divisors-lemma-base-change-relative-assassin},
+nous voyons que $u' \in \text{Ass}(\mathcal{F}'|_{U'_{v'}})$.
+Cela signifie à son tour que $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$
+où $x' \in |X'|$ est l'image de $u'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-relative-assassin-quasi-finite}
+Conservons les notations et les hypothèses du
+lemme \ref{lemma-base-change-relative-assassin}.
+Supposons que $g$ soit localement quasi-fini, ou plus généralement que
+pour tout $y' \in |Y'|$ le degré de transcendance de $y'/g(y')$ soit $0$.
+Alors $\text{Ass}_{X'/Y'}(\mathcal{F}')$ est l'image réciproque de
+$\text{Ass}_{X/Y}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Le degré de transcendance d'un point sur son image est défini dans
+Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-dimension-fibre}.
+Soit $x' \in |X'|$ d'image $x \in |X|$.
+Choisissons un schéma $V$ et un morphisme \'etale surjectif $V \to Y$.
+Choisissons un schéma $U$ et un morphisme
+\'etale surjectif $U \to V \times_Y X$. Choisissons un schéma $V'$
+et un morphisme \'etale surjectif $V' \to V \times_Y Y'$.
+Alors $U' = V' \times_V U$ est un schéma et le morphisme
+$U' \to X'$ est surjectif et \'etale.
+Choisissons $u \in U$ s'envoyant sur $x$.
+Notons $v \in V$ l'image de $u$.
+La condition $x \in \text{Ass}_{X/Y}(\mathcal{F})$ équivaut
+à $u \in \text{Ass}(\mathcal{F}|_{U_v})$
+par définition. Choisissons un point $u' \in U'$ s'envoyant
+sur $x' \in |X'|$ et sur $u \in U$ (ce qui est possible d'après
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-points-cartesian}).
+Soit $v' \in V'$ l'image de $u'$.
+La condition $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$ équivaut
+à $u' \in \text{Ass}(\mathcal{F}'|_{U'_{v'}})$
+par définition.
+Le lemme résulte alors de la discussion de
+Diviseurs, remarque \ref{divisors-remark-base-change-relative-assassin},
+appliquée à $u' \in \Spec(\kappa(v') \otimes_{\kappa(v)} \kappa(u))$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-weak-assassin-finite}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $i : Z \to X$ un morphisme fini.
+Soit $\mathcal{G}$ un $\mathcal{O}_Z$-module quasi-cohérent.
+Alors $\text{WeakAss}_{X/Y}(i_*\mathcal{G}) =
+i(\text{WeakAss}_{Z/Y}(\mathcal{G}))$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-relative-weak-assassin-finite})
+par localisation \'etale. Nous omettons les détails.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-assassin-constructible}
+Soit $Y$ un schéma. Soit $X$ un espace algébrique de présentation finie
+sur $Y$. Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent
+de présentation finie. Soit $U \subset X$ un sous-espace ouvert
+tel que $U \to Y$ soit quasi-compact. Alors l'ensemble
+$$
+E = \{y \in Y \mid \text{Ass}_{X_y}(\mathcal{F}_y) \subset |U_y|\}
+$$
+est une partie localement constructible de $Y$.
+\end{lemma}
+
+\begin{proof}
+Remarquons que, puisque $Y$ est un schéma, on peut considérer les fibres
+$X_y = \Spec(\kappa(y)) \times_Y X$. (De plus, d'après nos définitions,
+l'ensemble $\text{Ass}_{X_y}(\mathcal{F}_y)$ est exactement la fibre de
+$\text{Ass}_{X/Y}(\mathcal{F}) \to Y$ au-dessus de $y$, mais nous ne l'utiliserons pas.)
+La question est locale sur $Y$ : en effet, il suffit de montrer que
+$E$ est constructible lorsque $Y$ est affine.
+Dans ce cas, $X$ est quasi-compact. Choisissons un schéma affine $W$
+et un morphisme \'etale surjectif $\varphi : W \to X$.
+Alors $\text{Ass}_{X_y}(\mathcal{F}_y)$ est l'image de
+$\text{Ass}_{W_y}(\varphi^*\mathcal{F}_y)$ pour tous les $y \in Y$.
+Par conséquent, le lemme résulte du cas des schémas, appliqué à
+l'ouvert $\varphi^{-1}(U) \subset W$ et au morphisme $W \to Y$.
+Le cas des schémas est traité dans
+Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-relative-assassin-constructible}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Idéaux de Fitting}
+\label{section-fitting-ideals}
+
+\noindent
+Cette section prolonge la discussion de
+Diviseurs, section \ref{divisors-section-fitting-ideals}.
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Nous pouvons alors construire les idéaux de Fitting
+$$
+0 = \text{Fit}_{-1}(\mathcal{F}) \subset \text{Fit}_0(\mathcal{F}) \subset
+\text{Fit}_1(\mathcal{F}) \subset \ldots \subset \mathcal{O}_X
+$$
+comme la suite d'idéaux quasi-cohérents caractérisée par la
+propriété suivante : pour tout affine $U = \Spec(A)$ \'etale sur $X$,
+si $\mathcal{F}|_U$ correspond au $A$-module $M$, alors
+$\text{Fit}_i(\mathcal{F})|_U$
+correspond à l'idéal $\text{Fit}_i(M) \subset A$.
+Cette définition est indépendante des choix et donne un idéal quasi-cohérent, car
+si $A \to B$ est un homomorphisme d'anneaux \'etale, alors le $i$-ième idéal de Fitting
+de $M \otimes_A B$ sur $B$ est égal à $\text{Fit}_i(M) B$ d'après
+Compléments sur l'algèbre, lemme \ref{more-algebra-lemma-fitting-ideal-basics}, partie (3).
+Plus précisément (peut-être), l'existence du faisceau quasi-cohérent d'idéaux
+$\text{Fit}_0(\mathcal{O}_X)$ résulte (par exemple) de
+la description des faisceaux quasi-cohérents dans
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-characterize-quasi-coherent-small-etale}
+et de la propriété d'image inverse donnée dans
+Diviseurs, lemme \ref{divisors-lemma-base-change-fitting-ideal}.
+
+\medskip\noindent
+L'avantage de cette construction des idéaux de Fitting
+est que l'on voit immédiatement que leur formation
+commute à la localisation \'etale ; par conséquent, de nombreuses propriétés des
+idéaux de Fitting se ramènent immédiatement aux propriétés correspondantes
+dans le cas des schémas. Nous utiliserons souvent la
+discussion de Propriétés des espaces, section
+\ref{spaces-properties-section-properties-modules}
+pour passer des propriétés des faisceaux quasi-cohérents
+sur les schémas à celles sur les espaces algébriques.
+
+\begin{lemma}
+\label{lemma-base-change-fitting-ideal}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_Y$-module quasi-cohérent de type fini.
+Alors
+$f^{-1}\text{Fit}_i(\mathcal{F}) \cdot \mathcal{O}_X =
+\text{Fit}_i(f^*\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+L'énoncé se ramène à
+Diviseurs, lemme \ref{divisors-lemma-base-change-fitting-ideal}
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fitting-ideal-of-finitely-presented}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module de présentation finie.
+Alors $\text{Fit}_r(\mathcal{F})$ est un idéal quasi-cohérent de type fini.
+\end{lemma}
+
+\begin{proof}
+L'énoncé se ramène à
+Diviseurs, lemme \ref{divisors-lemma-fitting-ideal-of-finitely-presented}
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-on-subscheme-cut-out-by-Fit-0}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent de type fini.
+Soit $Z_0 \subset X$ le sous-espace fermé défini par
+$\text{Fit}_0(\mathcal{F})$.
+Soit $Z \subset X$ le support schématique de $\mathcal{F}$.
+Alors
+\begin{enumerate}
+\item $Z \subset Z_0 \subset X$ comme sous-espaces fermés,
+\item $|Z| = |Z_0| = \text{Supp}(\mathcal{F})$ comme parties fermées de $|X|$,
+\item il existe un $\mathcal{O}_{Z_0}$-module quasi-cohérent de type fini
+$\mathcal{G}_0$ avec
+$$
+(Z_0 \to X)_*\mathcal{G}_0 = \mathcal{F}.
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Rappelons que la formation de $Z$ commute à la localisation \'etale ; voir
+Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-scheme-theoretic-support}
+(qui utilise Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-scheme-theoretic-support}
+pour définir $Z$). Ainsi (1) et (2) découlent du cas des schémas ; voir
+Diviseurs, lemme \ref{divisors-lemma-on-subscheme-cut-out-by-Fit-0}.
+Pour obtenir $\mathcal{G}_0$ comme dans la partie (3), nous pouvons utiliser
+le module $\mathcal{G}$ sur $Z$ fourni par Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-scheme-theoretic-support}
+et poser $\mathcal{G}_0 = (Z \to Z_0)_*\mathcal{G}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fitting-ideal-generate-locally}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un module quasi-cohérent de type fini
+sur $\mathcal{O}_X$. Soit $x \in |X|$. Alors $\mathcal{F}$ peut être
+engendré par $r$ éléments dans un voisinage \'etale de $x$ si et seulement
+si $\text{Fit}_r(\mathcal{F})_{\overline{x}} = \mathcal{O}_{X, \overline{x}}$.
+\end{lemma}
+
+\begin{proof}
+L'énoncé se ramène à
+Diviseurs, lemme \ref{divisors-lemma-fitting-ideal-generate-locally}
+par localisation \'etale (ainsi qu'à la description de l'anneau
+local dans Propriétés des espaces, section
+\ref{spaces-properties-section-stalks-structure-sheaf}
+et au fait que le hensélisé strict d'un anneau local
+est fidèlement plat sur celui-ci, ce qui montre que l'égalité sur le hensélisé
+strict équivaut à l'égalité sur l'anneau local).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fitting-ideal-finite-locally-free}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un module quasi-cohérent de type fini
+sur $\mathcal{O}_X$. Soit $r \geq 0$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{F}$ est fini localement libre de rang $r$,
+\item $\text{Fit}_{r - 1}(\mathcal{F}) = 0$ et
+$\text{Fit}_r(\mathcal{F}) = \mathcal{O}_X$, et
+\item $\text{Fit}_k(\mathcal{F}) = 0$ pour $k < r$ et
+$\text{Fit}_k(\mathcal{F}) = \mathcal{O}_X$ pour $k \geq r$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'énoncé se ramène à
+Diviseurs, lemme \ref{divisors-lemma-fitting-ideal-finite-locally-free}
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-free-rank-r-pullback}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un module quasi-cohérent de type fini
+sur $\mathcal{O}_X$. Les sous-espaces fermés
+$$
+X = Z_{-1} \supset Z_0 \supset Z_1 \supset Z_2 \ldots
+$$
+définis par les idéaux de Fitting de $\mathcal{F}$ ont les propriétés
+suivantes :
+\begin{enumerate}
+\item L'intersection $\bigcap Z_r$ est vide.
+\item Le foncteur $(\Sch/X)^{opp} \to \textit{Ens}$ défini par la règle
+$$
+T \longmapsto
+\left\{
+\begin{matrix}
+\{*\} & \text{si }\mathcal{F}_T\text{ est engendré localement par }
+\leq r\text{ sections} \\
+\emptyset & \text{sinon}
+\end{matrix}
+\right.
+$$
+est représentable par le sous-espace ouvert $X \setminus Z_r$.
+\item Le foncteur $F_r : (\Sch/X)^{opp} \to \textit{Ens}$ défini par la règle
+$$
+T \longmapsto
+\left\{
+\begin{matrix}
+\{*\} & \text{si }\mathcal{F}_T\text{ est localement libre de rang }r\\
+\emptyset & \text{sinon}
+\end{matrix}
+\right.
+$$
+est représentable par le sous-espace localement fermé $Z_{r - 1} \setminus Z_r$
+de $X$.
+\end{enumerate}
+Si $\mathcal{F}$ est de présentation finie, alors
+$Z_r \to X$, $X \setminus Z_r \to X$ et $Z_{r - 1} \setminus Z_r \to X$
+sont de présentation finie.
+\end{lemma}
+
+\begin{proof}
+L'énoncé se ramène à
+Diviseurs, lemme \ref{divisors-lemma-locally-free-rank-r-pullback}
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-presentation-module}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module
+de présentation finie. Soit $X = Z_{-1} \subset Z_0 \subset Z_1 \subset \ldots$
+comme dans le lemme \ref{lemma-locally-free-rank-r-pullback}.
+Posons $X_r = Z_{r - 1} \setminus Z_r$.
+Alors $X' = \coprod_{r \geq 0} X_r$ représente le foncteur
+$$
+F_{flat} : \Sch/X \longrightarrow \textit{Ens},\quad\quad
+T \longmapsto
+\left\{
+\begin{matrix}
+\{*\} & \text{si }\mathcal{F}_T\text{ est plat sur }T\\
+\emptyset & \text{sinon}
+\end{matrix}
+\right.
+$$
+De plus, $\mathcal{F}|_{X_r}$ est localement libre de rang $r$ et les
+morphismes $X_r \to X$ et $X' \to X$ sont de présentation finie.
+\end{lemma}
+
+\begin{proof}
+L'énoncé se ramène à
+Diviseurs, lemme \ref{divisors-lemma-finite-presentation-module}
+par localisation \'etale.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Diviseurs de Cartier effectifs}
+\label{section-effective-Cartier-divisors}
+
+\noindent
+Pour des raisons de commodité, il semble préférable de définir d'abord la notion de
+diviseur de Cartier effectif. Rappelons que dans
+Morphismes d'espaces, section \ref{spaces-morphisms-section-closed-immersions},
+nous avons étudié la correspondance entre les sous-espaces fermés et les faisceaux
+quasi-cohérents d'idéaux. De plus, dans
+Propriétés des espaces, section
+\ref{spaces-properties-section-properties-modules}, nous avons étudié les propriétés
+des modules quasi-cohérents, notamment celle d'être « engendré localement par $1$ élément ».
+Ces références montrent que la définition suivante est
+compatible avec celle donnée pour les schémas.
+
+\begin{definition}
+\label{definition-effective-Cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Un {\it sous-espace fermé localement principal} de $X$ est un sous-espace fermé
+dont le faisceau d'idéaux est engendré localement par $1$ élément.
+\item Un {\it diviseur de Cartier effectif} sur $X$ est un sous-espace fermé
+$D \subset X$ tel que le faisceau d'idéaux $\mathcal{I}_D \subset \mathcal{O}_X$
+soit un $\mathcal{O}_X$-module inversible.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Ainsi, un diviseur de Cartier effectif est un sous-espace fermé localement principal,
+mais la réciproque n'est pas toujours vraie. Les diviseurs de Cartier effectifs sont des
+sous-espaces fermés de codimension pure $1$ au sens le plus fort possible :
+ils sont en effet définis localement par un seul élément non diviseur de zéro.
+Ils sont en particulier nulle part denses.
+
+\begin{lemma}
+\label{lemma-characterize-effective-Cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $D \subset X$ un sous-espace fermé.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item Le sous-espace $D$ est un diviseur de Cartier effectif sur $X$.
+\item Il existe un schéma $U$ et un morphisme \'etale surjectif $U \to X$ tels que
+l'image inverse $D \times_X U$ soit un diviseur de Cartier effectif sur $U$.
+\item Pour tout schéma $U$ et tout morphisme \'etale $U \to X$,
+l'image inverse $D \times_X U$ est un diviseur de Cartier effectif sur $U$.
+\item Pour tout $x \in |D|$, il existe un morphisme \'etale
+$(U, u) \to (X, x)$ d'espaces algébriques pointés tel que $U = \Spec(A)$
+et $D \times_X U = \Spec(A/(f))$, où $f \in A$ est non diviseur de zéro.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (1) -- (3) résulte de la
+définition \ref{definition-effective-Cartier-divisor}
+et des références qui la précèdent.
+Supposons (1) et soit $x \in |D|$. Choisissons un schéma $W$ et un
+morphisme \'etale surjectif
+$W \to X$. Choisissons $w \in D \times_X W$ d'image $x$.
+D'après (3), $D \times_X W$ est un diviseur de Cartier
+effectif sur $W$. On obtient donc un voisinage \'etale affine $U$
+en choisissant un voisinage ouvert affine de $w$ dans $W$, comme dans
+Diviseurs, lemme \ref{divisors-lemma-characterize-effective-Cartier-divisor}.
+
+\medskip\noindent
+Supposons (4). Alors $\mathcal{I}_D|_U$ est inversible d'après
+Diviseurs, lemme \ref{divisors-lemma-characterize-effective-Cartier-divisor}.
+Puisque l'on peut trouver un recouvrement \'etale de $X$ par la famille
+de tous ces $U$ et de $X \setminus D$, on en déduit que
+$\mathcal{I}_D$ est un $\mathcal{O}_X$-module inversible.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-complement-locally-principal-closed-subscheme}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $Z \subset X$ un sous-espace fermé localement
+principal. Soit $U = X \setminus Z$. Alors $U \to X$ est un morphisme affine.
+\end{lemma}
+
+\begin{proof}
+La question est locale sur $X$ pour la topologie \'etale ; voir
+Morphismes d'espaces, lemmes \ref{spaces-morphisms-lemma-affine-local}
+et le
+lemme \ref{lemma-characterize-effective-Cartier-divisor}.
+L'énoncé découle donc du cas des schémas, traité dans
+Diviseurs, lemme
+\ref{divisors-lemma-complement-locally-principal-closed-subscheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-complement-effective-Cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $D \subset X$ un diviseur de Cartier effectif.
+Soit $U = X \setminus D$. Alors $U \to X$ est un morphisme affine et $U$
+est schématiquement dense dans $X$.
+\end{lemma}
+
+\begin{proof}
+L'affinité résulte du lemme \ref{lemma-complement-locally-principal-closed-subscheme}.
+La question de la densité est locale sur $X$ pour la topologie \'etale d'après
+Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-scheme-theoretically-dense}.
+L'énoncé découle donc du cas des schémas, traité dans
+Diviseurs, lemme
+\ref{divisors-lemma-complement-effective-Cartier-divisor}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-effective-Cartier-makes-dimension-drop}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $D \subset X$ un diviseur de Cartier effectif.
+Soit $x \in |D|$.
+Si $\dim_x(X) < \infty$, alors $\dim_x(D) < \dim_x(X)$.
+\end{lemma}
+
+\begin{proof}
+La définition d'un diviseur de Cartier effectif et celle de la
+dimension d'un espace algébrique en un point
+(Propriétés des espaces, définition
+\ref{spaces-properties-definition-dimension-at-point})
+sont toutes deux locales pour la topologie \'etale. Le lemme découle donc du cas des schémas
+traité dans
+Diviseurs, lemme \ref{divisors-lemma-effective-Cartier-makes-dimension-drop}.
+\end{proof}
+
+\begin{definition}
+\label{definition-sum-effective-Cartier-divisors}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Étant donnés deux diviseurs de Cartier effectifs
+$D_1$, $D_2$ sur $X$, on définit $D = D_1 + D_2$ comme le
+sous-espace fermé de $X$ correspondant au faisceau quasi-cohérent
+d'idéaux
+$\mathcal{I}_{D_1}\mathcal{I}_{D_2} \subset \mathcal{O}_S$.
+On appelle ce sous-espace la {\it somme des diviseurs de Cartier effectifs
+$D_1$ et $D_2$}.
+\end{definition}
+
+\noindent
+Il est clair que l'on peut de même définir la somme $\sum n_iD_i$ à partir
+d'un nombre fini de diviseurs de Cartier effectifs $D_i$ sur $X$
+et d'entiers positifs ou nuls $n_i$.
+
+\begin{lemma}
+\label{lemma-sum-effective-Cartier-divisors}
+La somme de deux diviseurs de Cartier effectifs est un diviseur de
+Cartier effectif.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise. Localement pour la topologie \'etale, l'énoncé se ramène au
+fait d'algèbre élémentaire suivant : si $f_1, f_2 \in A$ sont non diviseurs de zéro dans un anneau $A$, alors
+$f_1f_2 \in A$ est non diviseur de zéro.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sum-closed-subschemes-effective-Cartier}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soient $Z, Y$ deux sous-espaces fermés de $X$
+de faisceaux d'idéaux $\mathcal{I}$ et $\mathcal{J}$. Si $\mathcal{I}\mathcal{J}$
+définit un diviseur de Cartier effectif $D \subset X$, alors $Z$ et $Y$
+sont des diviseurs de Cartier effectifs et $D = Z + Y$.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-characterize-effective-Cartier-divisor},
+l'énoncé se ramène au cas des schémas, traité dans
+Diviseurs, lemme \ref{divisors-lemma-sum-closed-subschemes-effective-Cartier}.
+\end{proof}
+
+\noindent
+Rappelons que nous avons défini l'image inverse d'un sous-espace fermé
+par un morphisme quelconque d'espaces algébriques dans
+Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-inverse-image-closed-subspace}.
+
+\begin{lemma}
+\label{lemma-pullback-locally-principal}
+Soit $S$ un schéma.
+Soit $f : X' \to X$ un morphisme d'espaces algébriques sur $S$.
+Soit $Z \subset X$ un sous-espace fermé localement principal.
+Alors l'image inverse $f^{-1}(Z)$ est un sous-espace fermé localement
+principal de $X'$.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-effective-Cartier-divisor}
+Soit $S$ un schéma.
+Soit $f : X' \to X$ un morphisme d'espaces algébriques sur $S$.
+Soit $D \subset X$
+un diviseur de Cartier effectif. On dit que {\it l'image inverse de
+$D$ par $f$ est définie} si le sous-espace fermé $f^{-1}(D) \subset X'$
+est un diviseur de Cartier effectif. Dans ce cas, on la note indifféremment
+$f^*D$ ou $f^{-1}(D)$ et on l'appelle
+{\it l'image inverse du diviseur de Cartier effectif}.
+\end{definition}
+
+\noindent
+La condition selon laquelle $f^{-1}(D)$ est un diviseur de Cartier effectif
+est souvent satisfaite en pratique.
+
+\begin{lemma}
+\label{lemma-pullback-effective-Cartier-defined}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $D \subset Y$ un diviseur de Cartier effectif.
+L'image inverse de $D$ par $f$ est définie dans chacun des cas suivants :
+\begin{enumerate}
+\item $f(x) \not \in |D|$ pour tout point faiblement associé $x$ de $X$,
+\item $f$ est plat, et
+\item ajouter ici d'autres cas au besoin.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+En travaillant localement pour la topologie \'etale, ce lemme se ramène au cas des schémas ; voir
+Diviseurs, lemme \ref{divisors-lemma-pullback-effective-Cartier-defined}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-effective-Cartier-divisors-additive}
+Soit $S$ un schéma.
+Soit $f : X' \to X$ un morphisme d'espaces algébriques sur $S$.
+Soient $D_1$, $D_2$ des diviseurs de Cartier effectifs sur $X$.
+Si les images inverses de $D_1$ et $D_2$ sont définies, alors celle
+de $D = D_1 + D_2$ est définie et
+$f^*D = f^*D_1 + f^*D_2$.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+
+
+
+\section{Diviseurs de Cartier effectifs et faisceaux inversibles}
+\label{section-effective-Cartier-invertible}
+
+\noindent
+Puisqu'un diviseur de Cartier effectif possède un faisceau d'idéaux inversible
+(définition \ref{definition-effective-Cartier-divisor}), la
+définition suivante a un sens.
+
+\begin{definition}
+\label{definition-invertible-sheaf-effective-Cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$
+et soit $D \subset X$ un diviseur de Cartier effectif dont le faisceau
+d'idéaux est $\mathcal{I}_D$.
+\begin{enumerate}
+\item Le {\it faisceau inversible $\mathcal{O}_X(D)$ associé à $D$}
+est défini par
+$$
+\mathcal{O}_X(D) =
+\SheafHom_{\mathcal{O}_X}(\mathcal{I}_D, \mathcal{O}_X) =
+\mathcal{I}_D^{\otimes -1}.
+$$
+\item La section canonique, habituellement notée $1$ ou $1_D$, est la
+section globale de $\mathcal{O}_X(D)$ correspondant au
+morphisme d'inclusion $\mathcal{I}_D \to \mathcal{O}_X$.
+\item On écrit
+$\mathcal{O}_X(-D) = \mathcal{O}_X(D)^{\otimes -1} = \mathcal{I}_D$.
+\item Étant donné un second diviseur de Cartier effectif $D' \subset X$, on définit
+$\mathcal{O}_X(D - D') =
+\mathcal{O}_X(D) \otimes_{\mathcal{O}_X} \mathcal{O}_X(-D')$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Quelques remarques. Nous verrons plus bas que l'application
+$D \mapsto \mathcal{O}_X(D)$ transforme l'addition des diviseurs de Cartier
+effectifs (définition \ref{definition-sum-effective-Cartier-divisors})
+en l'addition dans le groupe de Picard de $X$
+(lemme \ref{lemma-invertible-sheaf-sum-effective-Cartier-divisors}).
+Cependant, l'expression $D - D'$ de la définition précédente n'a
+aucune signification géométrique. Plus précisément, on peut considérer
+l'ensemble des diviseurs de Cartier effectifs sur $X$ comme un monoïde commutatif
+$\text{EffCart}(X)$ dont l'élément nul est le diviseur de Cartier effectif vide.
+L'application $(D, D') \mapsto \mathcal{O}_X(D - D')$ définit alors
+un homomorphisme de groupes
+$$
+\text{EffCart}(X)^{gp} \longrightarrow \Pic(X)
+$$
+où le membre de gauche est la complétion en groupe de
+$\text{EffCart}(X)$. Autrement dit, lorsqu'on écrit $\mathcal{O}_X(D - D')$,
+on peut considérer $D - D'$ comme un élément de $\text{EffCart}(X)^{gp}$.
+
+\begin{lemma}
+\label{lemma-conormal-effective-Cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $D \subset X$ un diviseur de Cartier effectif.
+Alors le faisceau conormal vérifie $\mathcal{C}_{D/X} = \mathcal{I}_D|D =
+\mathcal{O}_X(D)^{\otimes -1}|_D$.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-invertible-sheaf-sum-effective-Cartier-divisors}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soient $D_1$, $D_2$ des diviseurs de Cartier effectifs sur $X$.
+Soit $D = D_1 + D_2$.
+Il existe alors un unique isomorphisme
+$$
+\mathcal{O}_X(D_1) \otimes_{\mathcal{O}_X} \mathcal{O}_X(D_2)
+\longrightarrow
+\mathcal{O}_X(D)
+$$
+qui envoie $1_{D_1} \otimes 1_{D_2}$ sur $1_D$.
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{definition}
+\label{definition-regular-section}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{L}$ un faisceau inversible sur $X$.
+Une section globale $s \in \Gamma(X, \mathcal{L})$ est appelée
+{\it section régulière} si l'application $\mathcal{O}_X \to \mathcal{L}$,
+$f \mapsto fs$, est injective.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-regular-section-structure-sheaf}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+Soit $f \in \Gamma(X, \mathcal{O}_X)$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $f$ est une section régulière, et
+\item pour tout $x \in X$, l'image $f \in \mathcal{O}_{X, \overline{x}}$
+est non diviseur de zéro.
+\item pour tout $U = \Spec(A)$ affine et \'etale sur $X$,
+la restriction $f|_U$ est un élément non diviseur de zéro de $A$, et
+\item il existe un schéma $U$ et un morphisme \'etale surjectif
+$U \to X$ tels que $f|_U$ soit une section régulière de $\mathcal{O}_U$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\noindent
+Notons qu'une section globale $s$ d'un $\mathcal{O}_X$-module inversible
+$\mathcal{L}$ peut être considérée comme un homomorphisme de $\mathcal{O}_X$-modules
+$s : \mathcal{O}_X \to \mathcal{L}$. Son dual est donc un
+homomorphisme $s : \mathcal{L}^{\otimes -1} \to \mathcal{O}_X$.
+(Voir Modules sur les sites, lemme \ref{sites-modules-lemma-constructions-invertible},
+pour le faisceau inversible dual.)
+
+\begin{definition}
+\label{definition-zero-scheme-s}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{L}$ un faisceau inversible.
+Soit $s \in \Gamma(X, \mathcal{L})$.
+Le {\it schéma des zéros} de $s$ est le sous-espace fermé $Z(s) \subset X$
+défini par le faisceau quasi-cohérent d'idéaux
+$\mathcal{I} \subset \mathcal{O}_X$ qui est l'image de
+l'homomorphisme $s : \mathcal{L}^{\otimes -1} \to \mathcal{O}_X$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zero-scheme}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soit $s \in \Gamma(X, \mathcal{L})$.
+\begin{enumerate}
+\item Considérons les immersions fermées $i : Z \to X$ telles que
+$i^*s \in \Gamma(Z, i^*\mathcal{L}))$ soit nulle,
+ordonnées par inclusion. Le schéma des zéros $Z(s)$ est l'
+élément maximal de cet ensemble ordonné.
+\item Pour tout morphisme d'espaces algébriques $f : Y \to X$ sur $S$,
+on a $f^*s = 0$ dans $\Gamma(Y, f^*\mathcal{L})$ si et seulement si
+$f$ se factorise par $Z(s)$.
+\item Le schéma des zéros $Z(s)$ est un sous-espace fermé localement principal de $X$.
+\item Le schéma des zéros $Z(s)$ est un diviseur de Cartier effectif sur $X$
+si et seulement si $s$ est une section régulière de $\mathcal{L}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-OD}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+\begin{enumerate}
+\item Si $D \subset X$ est un diviseur de Cartier effectif, alors
+la section canonique $1_D$ de $\mathcal{O}_X(D)$ est régulière.
+\item Réciproquement, si $s$ est une section régulière du faisceau
+inversible $\mathcal{L}$, alors il existe un unique diviseur de Cartier
+effectif $D = Z(s) \subset X$ et un unique isomorphisme
+$\mathcal{O}_X(D) \to \mathcal{L}$ qui envoie $1_D$ sur $s$.
+\end{enumerate}
+Les constructions
+$D \mapsto (\mathcal{O}_X(D), 1_D)$ et $(\mathcal{L}, s) \mapsto Z(s)$
+définissent des applications réciproques
+$$
+\left\{
+\begin{matrix}
+\text{diviseurs de Cartier effectifs sur }X
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{couples }(\mathcal{L}, s)\text{ formés d'un}\\
+\mathcal{O}_X\text{-module inversible et d'une section globale régulière}
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+Démonstration omise.
+\end{proof}
+
+
+
+
+
+\section{Diviseurs de Cartier effectifs sur les espaces noethériens}
+\label{section-Noetherian-effective-Cartier}
+
+\noindent
+Dans le cadre localement noethérien, l'essentiel de l'étude des
+diviseurs de Cartier effectifs et des sections régulières se simplifie quelque peu.
+
+\begin{lemma}
+\label{lemma-effective-Cartier-divisor-Sk}
+Soient $S$ un schéma et $X$ un espace algébrique localement noethérien
+sur $S$. Soit $D \subset X$ un diviseur de Cartier effectif. Si $X$ vérifie
+$(S_k)$, alors $D$ vérifie $(S_{k - 1})$.
+\end{lemma}
+
+\begin{proof}
+D'après notre définition de la propriété $(S_k)$ pour les espaces algébriques
+(Propriétés des espaces, section
+\ref{spaces-properties-section-types-properties})
+et le
+lemme \ref{lemma-characterize-effective-Cartier-divisor},
+l'énoncé découle du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-effective-Cartier-divisor-Sk}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-effective-Cartier-divisor-S1}
+Soient $S$ un schéma et $X$ un espace algébrique normal localement noethérien
+sur $S$. Soit $D \subset X$ un
+diviseur de Cartier effectif. Alors $D$ vérifie $(S_1)$.
+\end{lemma}
+
+\begin{proof}
+D'après notre définition de la normalité pour les espaces algébriques
+(Propriétés des espaces, section
+\ref{spaces-properties-section-types-properties})
+et le
+lemme \ref{lemma-characterize-effective-Cartier-divisor},
+l'énoncé découle du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-normal-effective-Cartier-divisor-S1}).
+\end{proof}
+
+\noindent
+Le lemme suivant permet parfois de construire des diviseurs de
+Cartier effectifs.
+
+\begin{lemma}
+\label{lemma-complement-open-affine-effective-cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique régulier, noethérien et séparé
+sur $S$. Soit $U \subset X$ un ouvert affine dense. Il existe alors un
+diviseur de Cartier effectif $D \subset X$ tel que $U = X \setminus D$.
+\end{lemma}
+
+\begin{proof}
+Nous affirmons que l'espace algébrique $D$ muni de la structure réduite induite
+sur $X \setminus U$ (Propriétés des espaces, définition
+\ref{spaces-properties-definition-reduced-induced-space})
+est le diviseur de Cartier effectif recherché. La construction
+de $D$ commute à la localisation \'etale ; voir la démonstration de
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-reduced-closed-subspace}.
+Soit $X' \to X$ un morphisme \'etale surjectif avec $X'$ affine.
+Puisque $X$ est séparé, on voit que $U' = X' \times_X U$ est
+affine. Puisque l'application $|X'| \to |X|$ est ouverte, on voit que $U'$
+est dense dans $X'$. Puisque $D' = X' \times_X D$ est la structure de schéma
+réduite induite sur $X' \setminus U'$, on en déduit que
+$D'$ est un diviseur de Cartier effectif d'après
+Diviseurs, lemme
+\ref{divisors-lemma-complement-open-affine-effective-cartier-divisor}
+et sa démonstration. C'est ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Noetherian-regular-separated-pic-effective-Cartier}
+Soit $S$ un schéma. Soit $X$ un espace algébrique régulier, noethérien et séparé
+sur $S$. Alors tout $\mathcal{O}_X$-module inversible est isomorphe à
+$$
+\mathcal{O}_X(D - D') =
+\mathcal{O}_X(D) \otimes_{\mathcal{O}_X} \mathcal{O}_X(D')^{\otimes -1}
+$$
+pour certains diviseurs de Cartier effectifs $D, D'$ sur $X$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Choisissons un ouvert affine dense $U \subset X$ tel que
+$\mathcal{L}|_U$ soit trivial. Cela est possible car
+$X$ possède un sous-espace ouvert dense qui est un schéma ; voir
+Propriétés des espaces, proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+Notons $s : \mathcal{O}_U \to \mathcal{L}|_U$ la trivialisation.
+Le complémentaire de $U$ est un diviseur de Cartier effectif
+$D$. Nous affirmons que, pour un certain $n > 0$, l'homomorphisme $s$ se prolonge de manière unique en un homomorphisme
+$$
+s : \mathcal{O}_X(-nD) \longrightarrow \mathcal{L}
+$$
+Cette affirmation implique le lemme car elle montre que
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{O}_X(nD)$
+possède une section globale régulière, donc est isomorphe à
+$\mathcal{O}_X(D')$ pour un certain diviseur de Cartier effectif $D'$
+d'après le lemme \ref{lemma-characterize-OD}.
+Pour démontrer l'affirmation, on peut travailler localement pour la topologie \'etale. On peut donc supposer que
+$X$ est un schéma affine noethérien. Puisque
+$\mathcal{O}_X(-nD) = \mathcal{I}^n$, où $\mathcal{I} = \mathcal{O}_X(-D)$
+est le faisceau d'idéaux de $D$ dans $X$, ce cas résulte de
+Cohomologie des schémas, lemme \ref{coherent-lemma-homs-over-open}.
+\end{proof}
+
+\noindent
+Le lemme suivant relève en réalité d'une autre section.
+
+\begin{lemma}
+\label{lemma-smooth-over-valuation-ring-effective-Cartier}
+Soit $R$ un anneau de valuation de corps des fractions $K$.
+Soit $X$ un espace algébrique sur $R$ tel que $X \to \Spec(R)$
+soit lisse. Pour tout diviseur de Cartier effectif $D \subset X_K$,
+il existe un diviseur de Cartier effectif $D' \subset X$
+tel que $D'_K = D$.
+\end{lemma}
+
+\begin{proof}
+Soit $D' \subset X$ l'image schématique de $D \to X_K \to X$.
+Puisque ce morphisme est quasi-compact, la formation de $D'$
+commute au changement de base plat ; voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-flat-base-change-scheme-theoretic-image}.
+On obtient en particulier $D'_K = D$. On peut donc
+supposer $X$ affine. Écrivons $X = \Spec(A)$.
+Alors $X_K = \Spec(A \otimes_R K)$ et $D$ correspond à
+un idéal $I \subset A \otimes_R K$. Il faut montrer que
+$J = I \cap A$ définit un diviseur de Cartier effectif dans $X$.
+Observons d'abord que $A/J$ est plat sur $R$ (car c'est un
+$R$-module sans torsion ; voir Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-valuation-ring-torsion-free-flat}),
+donc $J$ est de type fini d'après
+Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-flat-finite-type-valuation-ring-finite-presentation}
+et le
+lemme d'Algèbre \ref{algebra-lemma-extension}.
+Il suffit donc de montrer que $J_\mathfrak q \subset A_\mathfrak q$
+est engendré par un seul élément pour tout idéal premier $\mathfrak q \subset A$.
+Soit $\mathfrak p = R \cap \mathfrak q$. Alors
+$R_\mathfrak p$ est un anneau de valuation
+(Algèbre, lemme \ref{algebra-lemma-make-valuation-rings}).
+Observons en outre que $A_\mathfrak q/\mathfrak p A_\mathfrak q$
+est un anneau régulier d'après Algèbre, lemme
+\ref{algebra-lemma-characterize-smooth-over-field}.
+On peut donc appliquer Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-picard-group-generic-fibre-regular}
+pour voir que $I(A_\mathfrak q \otimes_R K)$ est engendré par
+un seul élément $f \in A_\mathfrak p \otimes_R K$.
+Après avoir chassé les dénominateurs, on peut supposer $f \in A_\mathfrak q$.
+Soit $\mathfrak c \subset R_\mathfrak p$ l'idéal de contenu de $f$
+(voir Compléments d'algèbre, définition \ref{more-algebra-definition-content-ideal}
+et Compléments sur la platitude, lemme
+\ref{flat-lemma-flat-finite-type-local-valuation-ring-has-content}).
+Puisque $R_\mathfrak p$ est un anneau de valuation et
+que $\mathfrak c$ est de type fini
+(Compléments d'algèbre, lemme \ref{more-algebra-lemma-content-finitely-generated}),
+on a $\mathfrak c = (\pi)$ pour un certain $\pi \in R_\mathfrak p$
+(Algèbre, lemme \ref{algebra-lemma-characterize-valuation-ring}).
+Après avoir remplacé $f$ par $\pi^{-1}f$, on a $f \in A_\mathfrak q$
+et $f \not \in \mathfrak pA_\mathfrak q$.
+Affirmation : $I_\mathfrak q = (f)$, ce qui achève la démonstration.
+Pour la vérifier, observons que $f \in I_\mathfrak q$.
+On a donc une surjection $A_\mathfrak q/(f) \to A_\mathfrak q/I_\mathfrak q$
+qui devient un isomorphisme après tensorisation sur $R$ avec $K$.
+Il suffit donc de montrer que
+$A_\mathfrak q/(f)$ est plat sur $R_\mathfrak p$.
+Cela résulte de
+Algèbre, lemme \ref{algebra-lemma-grothendieck-general}
+et du choix de $f$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Diviseurs de Cartier effectifs relatifs}
+\label{section-effective-Cartier-morphisms}
+
+\noindent
+Le lemme suivant montre qu'un diviseur de Cartier effectif qui est
+plat sur la base est véritablement une « famille de diviseurs de Cartier effectifs »
+sur la base. Par exemple, sa restriction à toute fibre est un diviseur de
+Cartier effectif.
+
+\begin{lemma}
+\label{lemma-relative-Cartier}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme
+d'espaces algébriques sur $S$. Soit $D \subset X$ un sous-espace fermé.
+Supposons que
+\begin{enumerate}
+\item $D$ soit un diviseur de Cartier effectif, et
+\item $D \to Y$ soit un morphisme plat.
+\end{enumerate}
+Alors, pour tout morphisme de schémas $g : Y' \to Y$, l'image inverse
+$(g')^{-1}D$ est un diviseur de Cartier effectif sur $X' = Y' \times_Y X$,
+où $g' : X' \to X$ est la projection.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-characterize-effective-Cartier-divisor},
+la propriété d'être un diviseur de Cartier effectif est locale pour la topologie \'etale.
+Le lemme se ramène donc immédiatement au cas des schémas,
+qui est Diviseurs, lemme \ref{divisors-lemma-relative-Cartier}.
+\end{proof}
+
+\noindent
+Ce lemme justifie la définition suivante.
+
+\begin{definition}
+\label{definition-relative-effective-Cartier-divisor}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Un {\it diviseur de Cartier effectif relatif} sur $X/Y$ est un
+diviseur de Cartier effectif $D \subset X$ tel que $D \to Y$
+soit un morphisme plat d'espaces algébriques.
+\end{definition}
+
+
+
+
+
+
+
+
+\section{Fonctions et sections méromorphes}
+\label{section-meromorphic-functions}
+
+\noindent
+Cette section est l'analogue de
+Diviseurs, section \ref{divisors-section-meromorphic-functions}.
+Attention : il est encore plus facile de commettre des erreurs sur ce sujet dans le
+cas des espaces algébriques que dans celui des schémas !
+
+\medskip\noindent
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Pour tout schéma $U$ \'etale sur $X$, nous avons défini l'ensemble
+$\mathcal{S}(U) \subset \mathcal{O}_X(U)$
+des sections régulières de $\mathcal{O}_X$ sur $U$ ; voir la
+définition \ref{definition-regular-section}. La restriction
+d'une section régulière à $V/U$ \'etale est régulière. Par conséquent,
+$\mathcal{S} : U \mapsto \mathcal{S}(U)$ est un sous-faisceau (d'ensembles)
+de $\mathcal{O}_X$. On note parfois $\mathcal{S} = \mathcal{S}_X$
+pour indiquer la dépendance en $X$.
+De plus, $\mathcal{S}(U)$
+est une partie multiplicative de l'anneau $\mathcal{O}_X(U)$ pour
+tout $U$. On peut donc considérer
+le préfaisceau d'anneaux
+$$
+U \longmapsto \mathcal{S}(U)^{-1} \mathcal{O}_X(U),
+$$
+sur $X_\etale$ et son faisceau associé ; voir
+Modules sur les sites, section \ref{sites-modules-section-localizing-sheaves-rings}.
+
+\begin{definition}
+\label{definition-sheaf-meromorphic-functions}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Le {\it faisceau des fonctions méromorphes sur $X$} est
+le faisceau {\it $\mathcal{K}_X$} sur $X_\etale$ associé au préfaisceau
+affiché ci-dessus. Une {\it fonction méromorphe} sur $X$
+est une section globale de $\mathcal{K}_X$.
+\end{definition}
+
+\noindent
+Puisque tout élément de chaque $\mathcal{S}(U)$ est non diviseur de zéro dans
+$\mathcal{O}_X(U)$, on voit que l'homomorphisme naturel de faisceaux
+d'anneaux $\mathcal{O}_X \to \mathcal{K}_X$ est injectif.
+De plus, par compatibilité du passage au faisceau associé et de la prise des fibres,
+on voit que
+$$
+\mathcal{K}_{X, \overline{x}} =
+\mathcal{S}_{\overline{x}}^{-1}\mathcal{O}_{X, \overline{x}}
+$$
+pour tout point géométrique $\overline{x}$ de $X$. L'ensemble
+$\mathcal{S}_{\overline{x}}$ est une partie de
+l'ensemble des éléments non diviseurs de zéro de $\mathcal{O}_{X, \overline{x}}$, mais
+ne lui est pas égal en général.
+
+\begin{lemma}
+\label{lemma-describe-S}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Pour $U$ affine et \'etale sur $X$, l'ensemble
+$\mathcal{S}_X(U)$ est l'ensemble des éléments non diviseurs de zéro de
+$\mathcal{O}_X(U)$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du lemme \ref{lemma-regular-section-structure-sheaf}.
+\end{proof}
+
+\noindent
+Soit ensuite $\mathcal{F}$ un faisceau de $\mathcal{O}_X$-modules
+sur $X_\etale$.
+Considérons le préfaisceau $U \mapsto \mathcal{S}(U)^{-1}\mathcal{F}(U)$.
+Le faisceau qui lui est associé est
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{K}_X$ ; voir
+Modules sur les sites, lemme \ref{sites-modules-lemma-simple-invert-module}.
+
+\begin{definition}
+\label{definition-meromorphic-section}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_X$-modules
+sur $X_\etale$.
+\begin{enumerate}
+\item On note $\mathcal{K}_X(\mathcal{F})$ le faisceau de
+$\mathcal{K}_X$-modules associé au préfaisceau
+$U \mapsto \mathcal{S}(U)^{-1}\mathcal{F}(U)$. De manière équivalente,
+$\mathcal{K}_X(\mathcal{F}) =
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{K}_X$ (voir ci-dessus).
+\item Une {\it section méromorphe de $\mathcal{F}$}
+est une section globale de $\mathcal{K}_X(\mathcal{F})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+On a en particulier
+$$
+\mathcal{K}_X(\mathcal{F})_{\overline{x}}
+=
+\mathcal{F}_{\overline{x}}
+\otimes_{\mathcal{O}_{X, \overline{x}}} \mathcal{K}_{X, \overline{x}}
+=
+\mathcal{S}_{\overline{x}}^{-1}\mathcal{F}_{\overline{x}}
+$$
+pour tout point géométrique $\overline{x}$ de $X$. Il faut toutefois prendre garde
+au fait que $\mathcal{S}_{\overline{x}}$ peut ne pas être l'ensemble des
+éléments non diviseurs de zéro de l'anneau local \'etale $\mathcal{O}_{X, \overline{x}}$,
+comme nous l'avons signalé plus haut. Les faisceaux de sections méromorphes ne sont pas
+des modules quasi-cohérents en général, mais ils ont certaines propriétés communes
+avec les modules quasi-cohérents.
+
+\begin{lemma}
+\label{lemma-meromorphic-quasi-coherent}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$. Supposons que
+\begin{enumerate}
+\item[(a)] tout point faiblement associé de $X$
+soit un point de codimension $0$, et
+\item[(b)] $X$ vérifie les conditions équivalentes
+du lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-prepare-normalization}.
+\end{enumerate}
+Alors
+\begin{enumerate}
+\item $\mathcal{K}_X$ est un faisceau quasi-cohérent de $\mathcal{O}_X$-algèbres,
+\item pour $U \in X_\etale$ affine, $\mathcal{K}_X(U)$
+est l'anneau total des fractions de $\mathcal{O}_X(U)$,
+\item pour un point géométrique $\overline{x}$, l'ensemble
+$\mathcal{S}_{\overline{x}}$
+est l'ensemble des éléments non diviseurs de zéro de $\mathcal{O}_{X, \overline{x}}$, et
+\item pour un point géométrique $\overline{x}$, l'anneau
+$\mathcal{K}_{X, \overline{x}}$ est l'anneau total des fractions de
+$\mathcal{O}_{X, \overline{x}}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Le lemme \ref{lemma-regular-section-structure-sheaf}
+montre que, pour $U \in X_\etale$ affine,
+$\mathcal{S}_X(U) \subset \mathcal{O}_X(U)$
+est l'ensemble des éléments non diviseurs de zéro de $\mathcal{O}_X(U)$.
+Ainsi, le préfaisceau $\mathcal{S}^{-1}\mathcal{O}_X$ est égal à
+$$
+U \longmapsto Q(\mathcal{O}_X(U))
+$$
+sur $X_{affine, \etale}$, avec les notations de
+Algèbre, exemple \ref{algebra-example-localize-at-prime}.
+Observons que les points de codimension $0$ de $X$ correspondent
+aux points génériques de $U$ ; voir
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-codimension-0-points}.
+Ainsi, si $U = \Spec(A)$, alors $A$ est un anneau ayant un nombre fini d'idéaux premiers minimaux
+tel que tout idéal premier faiblement associé de $A$ soit minimal.
+Il en est de même de toute extension \'etale de $A$ (car son
+spectre est un schéma affine \'etale sur $X$ et peut donc
+jouer le rôle de $A$ dans la phrase précédente).
+Pour montrer que notre préfaisceau est un faisceau quasi-cohérent,
+il suffit de montrer que
+$$
+Q(A) \otimes_A B \longrightarrow Q(B)
+$$
+est un isomorphisme lorsque $A \to B$ est un homomorphisme \'etale d'anneaux ; voir
+Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-characterize-quasi-coherent-small-etale}.
+(Pour définir la flèche affichée, observons que, puisque $A \to B$
+est plat, il envoie les éléments non diviseurs de zéro sur des éléments non diviseurs de zéro.)
+D'après les lemmes d'Algèbre
+\ref{algebra-lemma-total-ring-fractions-no-embedded-points} et
+\ref{algebra-lemma-weakly-ass-zero-divisors}.
+on a
+$$
+Q(A) = \prod\nolimits_{\mathfrak p \subset A\text{ minimal}} A_\mathfrak p
+\quad\text{et}\quad
+Q(B) = \prod\nolimits_{\mathfrak q \subset B\text{ minimal}} B_\mathfrak q
+$$
+Puisque $A \to B$ est \'etale, les idéaux premiers minimaux de $B$ sont exactement les
+idéaux premiers de $B$ au-dessus des idéaux premiers minimaux
+de $A$ (par exemple d'après Compléments d'algèbre, lemme
+\ref{more-algebra-lemma-dimension-etale-extension}).
+D'après les lemmes d'Algèbre \ref{algebra-lemma-local-dimension-zero-henselian},
+\ref{algebra-lemma-characterize-henselian} (13), et
+\ref{algebra-lemma-mop-up}, on voit que $A_\mathfrak p \otimes_A B$
+est un produit fini d'anneaux locaux finis \'etales sur $A_\mathfrak p$.
+Cela implique clairement que $A_\mathfrak p \otimes_A B =
+\prod_{\mathfrak q\text{ au-dessus de }\mathfrak p} B_\mathfrak q$,
+comme souhaité.
+
+\medskip\noindent
+À ce stade, on sait que (1) et (2) sont satisfaites.
+Démonstration de (3). Soit $s \in \mathcal{O}_{X, \overline{x}}$
+un élément non diviseur de zéro. On peut trouver un voisinage \'etale
+$(U, \overline{u}) \to (X, \overline{x})$
+et $f \in \mathcal{O}_X(U)$ d'image $s$.
+Soit $u \in U$ le point déterminé par $\overline{u}$.
+Puisque $\mathcal{O}_{U, u} \to \mathcal{O}_{X, \overline{x}}$
+est fidèlement plat (car c'est un hensélisé strict), on voit que
+$f$ s'envoie sur un élément non diviseur de zéro de $\mathcal{O}_{U, u}$.
+D'après Diviseurs, lemme \ref{divisors-lemma-meromorphic-weakass-finite},
+quitte à rétrécir $U$, on obtient que $f$ est non diviseur de zéro
+et donc une section de $\mathcal{S}_X(U)$.
+L'assertion (4) résulte de (3) par calcul des fibres.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-meromorphic-quasi-coherent-agree}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$. Supposons que
+\begin{enumerate}
+\item[(a)] tout point faiblement associé de $X$
+soit un point de codimension $0$, et
+\item[(b)] $X$ vérifie les conditions équivalentes
+du lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-prepare-normalization}.
+\item[(c)] $X$ soit représentable par un schéma $X_0$
+(notation maladroite mais provisoire).
+\end{enumerate}
+Alors le faisceau des fonctions méromorphes $\mathcal{K}_X$
+est le faisceau quasi-cohérent de $\mathcal{O}_X$-algèbres
+associé au faisceau quasi-cohérent des fonctions méromorphes
+$\mathcal{K}_{X_0}$.
+\end{lemma}
+
+\begin{proof}
+Pour l'équivalence entre $\QCoh(\mathcal{O}_X)$ et
+$\QCoh(\mathcal{O}_{X_0})$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-quasi-coherent}.
+Le lemme est vrai parce que $\mathcal{K}_X$ et $\mathcal{K}_{X_0}$
+sont quasi-cohérents et prennent la même valeur sur les ouverts affines correspondants
+de $X$ et $X_0$, d'après le lemme \ref{lemma-meromorphic-quasi-coherent} et
+Diviseurs, lemme \ref{divisors-lemma-meromorphic-weakass-finite}.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-meromorphic-sections}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme
+d'espaces algébriques sur $S$. On dit que {\it les images inverses des fonctions
+méromorphes sont définies pour $f$} si, pour tout diagramme commutatif
+$$
+\xymatrix{
+U \ar[r] \ar[d] & X \ar[d] \\
+V \ar[r] & Y
+}
+$$
+où $U \in X_\etale$ et $V \in Y_\etale$, et pour toute
+section $s \in \mathcal{S}_Y(V)$, l'image inverse
+$f^\sharp(s) \in \mathcal{O}_X(U)$ est un élément
+de $\mathcal{S}_X(U)$.
+\end{definition}
+
+\noindent
+Dans ce cas, il existe un morphisme induit
+$f^\sharp : f_{small}^{-1}\mathcal{K}_Y \to \mathcal{K}_X$,
+autrement dit, on obtient un diagramme commutatif de morphismes
+de topos annelés
+$$
+\xymatrix{
+(\Sh(X_\etale), \mathcal{K}_X) \ar[r] \ar[d]^{f_{small}} &
+(\Sh(X_\etale), \mathcal{O}_X) \ar[d]^{f_{small}} \\
+(\Sh(Y_\etale), \mathcal{K}_Y) \ar[r] &
+(\Sh(Y_\etale), \mathcal{O}_Y)
+}
+$$
+On note parfois $f^*(s) = f^\sharp(s)$ pour une
+section $s \in \Gamma(Y, \mathcal{K}_Y)$.
+
+\begin{lemma}
+\label{lemma-pullback-meromorphic-sections-defined}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Les images inverses des sections méromorphes sont définies
+dans chacun des cas suivants :
+\begin{enumerate}
+\item les points faiblement associés de $X$ sont envoyés
+sur des points de codimension $0$ de $Y$,
+\item $f$ est plat,
+\item ajouter ici d'autres cas au besoin.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+En travaillant localement pour la topologie \'etale, cela se ramène au cas des schémas ; voir
+Diviseurs, lemme \ref{divisors-lemma-pullback-meromorphic-sections-defined}.
+Pour effectuer cette réduction, utiliser le lemme \ref{lemma-regular-section-structure-sheaf}
+(description des sections régulières),
+la définition \ref{definition-weakly-associated} (définition
+des points faiblement associés), et
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-codimension-0-points}
+(description des points de codimension $0$).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-meromorphic}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$. Supposons que
+\begin{enumerate}
+\item[(a)] tout point faiblement associé de $X$
+soit un point de codimension $0$, et
+\item[(b)] $X$ vérifie les conditions équivalentes
+du lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-prepare-normalization},
+\item[(c)] tout point de codimension $0$ de $X$ puisse être représenté
+par un monomorphisme $\Spec(k) \to X$.
+\end{enumerate}
+Soit $X^0 \subset |X|$ l'ensemble des points de codimension $0$ de $X$.
+Alors on a
+$$
+\mathcal{K}_X =
+\bigoplus\nolimits_{\eta \in X^0} j_{\eta, *}\mathcal{O}_{X, \eta} =
+\prod\nolimits_{\eta \in X^0} j_{\eta, *}\mathcal{O}_{X, \eta}
+$$
+où $j_\eta : \Spec(\mathcal{O}_{X, \eta}) \to X$ est le morphisme canonique
+de Schémas, section \ref{schemes-section-points} ; cela a un sens parce que
+$X^0$ est contenu dans le lieu schématique de $X$. De même,
+pour tout $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$,
+on obtient la formule
+$$
+\mathcal{K}_X(\mathcal{F}) =
+\bigoplus\nolimits_{\eta \in X^0} j_{\eta, *}\mathcal{F}_\eta =
+\prod\nolimits_{\eta \in X^0} j_{\eta, *}\mathcal{F}_\eta
+$$
+pour le faisceau des sections méromorphes de $\mathcal{F}$.
+Enfin, l'anneau des fonctions rationnelles de $X$ est l'anneau des fonctions
+méromorphes sur $X$, autrement dit : $R(X) = \Gamma(X, \mathcal{K}_X)$.
+\end{lemma}
+
+\begin{proof}
+D'après Espaces décents, lemme \ref{decent-spaces-lemma-get-reasonable} et
+section \ref{decent-spaces-section-reasonable-decent},
+on voit que $X$ est décent\footnote{Réciproquement, si $X$ est décent,
+alors la condition (c) est automatiquement satisfaite.}.
+Ainsi, $X^0 \subset |X|$ est l'ensemble des points génériques des composantes
+irréductibles
+(Espaces décents, lemme \ref{decent-spaces-lemma-decent-generic-points}),
+et $X^0$ est localement fini dans $|X|$ d'après (b).
+Il en résulte que $X^0$ est contenu dans tout ouvert dense de $|X|$.
+En particulier, $X^0$ est contenu dans le lieu schématique
+(Espaces décents, théorème \ref{decent-spaces-theorem-decent-open-dense-scheme}).
+Ainsi, les anneaux locaux $\mathcal{O}_{X, \eta}$ et les morphismes $j_\eta$
+sont définis.
+
+\medskip\noindent
+Observons qu'une somme directe localement finie de faisceaux de modules
+est égale au produit. Ce fait, joint au fait que $X^0$ est localement
+fini dans $|X|$, explique les égalités entre
+les sommes directes et les produits dans l'énoncé.
+Ensuite, puisque $\mathcal{K}_X(\mathcal{F}) =
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{K}_X$,
+on voit que la seconde égalité résulte de la première.
+
+\medskip\noindent
+Soit
+$j : Y = \coprod\nolimits_{\eta \in X^0} \Spec(\mathcal{O}_{X, \eta}) \to X$
+le morphisme induit par les morphismes $j_\eta$.
+Il faut montrer que $\mathcal{K}_X = j_*\mathcal{O}_Y$.
+Observons que $\mathcal{K}_Y = \mathcal{O}_Y$, car $Y$ est une somme
+disjointe de spectres d'anneaux locaux de dimension $0$ : dans un anneau local
+de dimension zéro, tout élément non diviseur de zéro est inversible.
+Ensuite, remarquons que les images inverses des fonctions méromorphes
+sont définies pour $j$ d'après le
+lemme \ref{lemma-pullback-meromorphic-sections-defined}.
+Cela donne un morphisme
+$$
+\mathcal{K}_X \longrightarrow j_*\mathcal{O}_Y.
+$$
+Soit $U \in X_\etale$ affine. D'après le lemme \ref{lemma-meromorphic-quasi-coherent},
+le membre de gauche prend pour valeur l'anneau total des fractions de $\mathcal{O}_X(U)$.
+D'autre part, le membre de droite est égal au produit des
+anneaux locaux de $U$ aux points de codimension $0$, c'est-à-dire aux points génériques
+de $U$. Ces deux anneaux sont égaux (comme on l'a déjà vu dans la démonstration
+du lemme \ref{lemma-meromorphic-quasi-coherent}), d'après les lemmes
+d'Algèbre
+\ref{algebra-lemma-total-ring-fractions-no-embedded-points} et
+\ref{algebra-lemma-weakly-ass-zero-divisors}.
+Ainsi, notre morphisme est un isomorphisme.
+
+\medskip\noindent
+Enfin, il reste à montrer que $R(X) = \Gamma(X, \mathcal{K}_X)$.
+Cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-meromorphic-weakass-finite})
+appliqué au lieu schématique $X' \subset X$.
+En effet, l'anneau des fonctions rationnelles de $X$ est, par définition,
+le même que l'anneau des fonctions rationnelles sur $X'$
+car celui-ci est un sous-espace ouvert dense de $X$ (voir ci-dessus).
+Bien entendu, $R(X')$ coïncide avec l'anneau des fonctions rationnelles
+lorsque $X'$ est considéré comme un schéma.
+D'autre part, d'après notre description de $\mathcal{K}_X$ ci-dessus,
+et le fait, établi plus haut, que $X^0 \subset |X'|$
+est contenu dans tout ouvert dense, on voit que
+$\Gamma(X, \mathcal{K}_X) = \Gamma(X', \mathcal{K}_{X'})$.
+Enfin, utilisons la compatibilité consignée dans le
+lemme \ref{lemma-meromorphic-quasi-coherent-agree}.
+\end{proof}
+
+\begin{definition}
+\label{definition-regular-meromorphic-section}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Une section méromorphe $s$ de $\mathcal{L}$ est dite {\it régulière}
+si l'homomorphisme induit $\mathcal{K}_X \to \mathcal{K}_X(\mathcal{L})$
+est injectif.
+\end{definition}
+
+\noindent
+Précisons quand on peut prendre l'image inverse des sections méromorphes (régulières).
+
+\begin{lemma}
+\label{lemma-meromorphic-sections-pullback}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Supposons que les images inverses des fonctions méromorphes soient définies
+pour $f$ (voir la
+définition \ref{definition-pullback-meromorphic-sections}).
+\begin{enumerate}
+\item Soit $\mathcal{F}$ un faisceau de $\mathcal{O}_Y$-modules.
+Il existe une application canonique d'image inverse
+$f^* : \Gamma(Y, \mathcal{K}_Y(\mathcal{F})) \to
+\Gamma(X, \mathcal{K}_X(f^*\mathcal{F}))$
+pour les sections méromorphes de $\mathcal{F}$.
+\item Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Une section méromorphe régulière $s$ de $\mathcal{L}$ a pour image inverse
+la section méromorphe régulière $f^*s$ de $f^*\mathcal{L}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-regular-meromorphic-section-exists}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$
+vérifiant les conditions (a), (b) et (c) du
+lemme \ref{lemma-compute-meromorphic}.
+Alors tout $\mathcal{O}_X$-module inversible $\mathcal{L}$ possède
+une section méromorphe régulière.
+\end{lemma}
+
+\begin{proof}
+Avec les notations du lemme \ref{lemma-compute-meromorphic},
+la fibre $\mathcal{L}_\eta$ de $\mathcal{L}$ est définie pour tout
+$\eta \in X^0$ et c'est un module libre de rang $1$ sur $\mathcal{O}_{X, \eta}$.
+Choisissons un générateur $s_\eta \in \mathcal{L}_\eta$ pour tout $\eta \in X^0$.
+Il résulte immédiatement de la description de
+$\mathcal{K}_X$ et $\mathcal{K}_X(\mathcal{L})$
+dans le lemme \ref{lemma-compute-meromorphic}
+que $s = \prod s_\eta$ est une section méromorphe régulière de $\mathcal{L}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Proj relatif}
+\label{section-relative-proj}
+
+\noindent
+Cette section reprend la construction du Proj relatif
+dans le cadre des espaces algébriques. Son contenu
+correspond à celui de Constructions, section
+\ref{constructions-section-relative-proj}
+et de Diviseurs, section \ref{divisors-section-relative-proj},
+dans le cas des schémas.
+
+\begin{situation}
+\label{situation-relative-proj}
+Ici, $S$ est un schéma, $X$ est un espace algébrique sur $S$ et
+$\mathcal{A}$ est une $\mathcal{O}_X$-algèbre graduée quasi-cohérente.
+\end{situation}
+
+\noindent
+Dans la situation \ref{situation-relative-proj}, nous allons définir
+un foncteur $F : (\Sch/S)_{fppf}^{opp} \to \textit{Ens}$ qui se révélera
+être un espace algébrique. Nous suivrons, mutatis mutandis,
+la méthode de
+Constructions, section \ref{constructions-section-relative-proj}.
+Tout d'abord, pour un schéma $T$ sur $S$, nous appelons
+{\it quadruplet au-dessus de $T$} un système
+$(d, f : T \to X, \mathcal{L}, \psi)$
+\begin{enumerate}
+\item $d \geq 1$ est un entier,
+\item $f : T \to X$ est un morphisme au-dessus de $S$,
+\item $\mathcal{L}$ est un $\mathcal{O}_T$-module inversible, et
+\item
+$\psi : f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0}\mathcal{L}^{\otimes n}$
+est un homomorphisme de $\mathcal{O}_T$-algèbres graduées
+tel que $f^*\mathcal{A}_d \to \mathcal{L}$ soit surjectif.
+\end{enumerate}
+Nous disons que les deux quadruplets $(d, f, \mathcal{L}, \psi)$ et
+$(d', f', \mathcal{L}', \psi')$ sont {\it équivalents}\footnote{Cette
+définition est motivée par
+Constructions, lemme \ref{constructions-lemma-equivalent-relative}.
+Son avantage est qu'elle définit manifestement
+une relation d'équivalence.}
+si et seulement si
+$f = f'$ et s'il existe un entier positif $m = ad = a'd'$
+ainsi qu'un isomorphisme
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+tel que $\beta \circ \psi|_{f^*\mathcal{A}^{(m)}}$ et
+$\psi'|_{f^*\mathcal{A}^{(m)}}$ coïncident
+comme homomorphismes d'anneaux gradués
+$f^*\mathcal{A}^{(m)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes mn}$.
+Étant donnés un quadruplet $(d, f, \mathcal{L}, \psi)$
+et un morphisme $h : T' \to T$, on dispose du quadruplet image inverse
+$(d, f \circ h, h^*\mathcal{L}, h^*\psi)$. L'image inverse respecte
+la relation d'équivalence. Enfin, pour un schéma {\it quasi-compact} $T$
+sur $S$, on pose
+$$
+F(T) = \text{l'ensemble des classes d'équivalence de quadruplets au-dessus de }T
+$$
+et, pour un schéma arbitraire $T$ sur $S$, on pose
+$$
+F(T)
+=
+\lim_{V \subset T\text{ ouvert quasi-compact}} F(V).
+$$
+Autrement dit, un élément $\xi$ de $F(T)$ correspond à un système
+compatible de choix d'éléments $\xi_V \in F(V)$, où $V$ parcourt les
+ouverts quasi-compacts de $T$. Nous avons ainsi défini notre foncteur
+\begin{equation}
+\label{equation-proj}
+F : \Sch^{opp} \longrightarrow \textit{Ens}
+\end{equation}
+Il existe un morphisme de foncteurs $F \to X$ qui envoie le quadruplet
+$(d, f, \mathcal{L}, \psi)$ sur $f$.
+
+\begin{lemma}
+\label{lemma-relative-proj}
+Dans la situation \ref{situation-relative-proj}, le foncteur $F$ ci-dessus est un
+espace algébrique. Pour tout morphisme $g : Z \to X$, où $Z$ est un schéma,
+il existe un isomorphisme canonique
+$\underline{\text{Proj}}_Z(g^*\mathcal{A}) = Z \times_X F$
+compatible avec tout changement de base ultérieur.
+\end{lemma}
+
+\begin{proof}
+Il suffit de démontrer la seconde assertion, voir
+Espaces, lemme \ref{spaces-lemma-representable-over-space}.
+Soit $g : Z \to X$ un morphisme, où $Z$ est un schéma.
+Soit $F'$ le foncteur des quadruplets associé
+à la $\mathcal{O}_Z$-algèbre graduée quasi-cohérente $g^*\mathcal{A}$.
+Il existe alors un isomorphisme canonique $F' = Z \times_X F$ qui envoie
+un quadruplet $(d, f : T \to Z, \mathcal{L}, \psi)$ pour $F'$
+sur $(d, g \circ f, \mathcal{L}, \psi)$ (détails omis, voir la démonstration de
+Constructions, lemme \ref{constructions-lemma-proj-base-change}).
+D'après les lemmes
+\ref{constructions-lemma-equivalent-relative},
+\ref{constructions-lemma-relative-proj} et
+\ref{constructions-lemma-glueing-gives-functor-proj} de Constructions, ainsi que la
+définition \ref{constructions-definition-relative-proj},
+$F'$ est représentable par
+$\underline{\text{Proj}}_Z(g^*\mathcal{A})$.
+\end{proof}
+
+\noindent
+Le lemme ci-dessus montre que la définition suivante a un sens.
+
+\begin{definition}
+\label{definition-relative-proj}
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Soit $\mathcal{A}$ un faisceau quasi-cohérent
+d'algèbres graduées sur $\mathcal{O}_X$. Le
+{\it spectre homogène relatif de $\mathcal{A}$ sur $X$},
+ou le {\it spectre homogène de $\mathcal{A}$ sur $X$}, ou le
+{\it Proj relatif de $\mathcal{A}$ sur $X$} est l'espace algébrique
+$F$ sur $X$ du lemme \ref{lemma-relative-proj}.
+On le note $\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$.
+\end{definition}
+
+\noindent
+En particulier, le morphisme structural du Proj relatif est représentable
+par construction. On peut aussi décrire le Proj relatif par recollement. Soit
+$\varphi : U \to X$ un morphisme \'etale surjectif, où $U$ est un schéma.
+Posons $R = U \times_X U$, avec pour morphismes de projection $s, t : R  \to U$.
+D'après le lemme \ref{lemma-relative-proj}, il existe un isomorphisme canonique
+$$
+\gamma : 
+\underline{\text{Proj}}_U(\varphi^*\mathcal{A})
+\longrightarrow
+\underline{\text{Proj}}_X(\mathcal{A}) \times_X U
+$$
+au-dessus de $U$. Soit $\alpha : t^*\varphi^*\mathcal{A} \to s^*\varphi^*\mathcal{A}$
+l'isomorphisme canonique fourni par la
+proposition de Propriétés des espaces
+\ref{spaces-properties-proposition-quasi-coherent}.
+Alors le diagramme
+$$
+\xymatrix{
+&
+\underline{\text{Proj}}_U(\varphi^*\mathcal{A}) \times_{U, s} R
+\ar@{=}[r] &
+\underline{\text{Proj}}_R(s^*\varphi^*\mathcal{A})
+\ar[dd]_{\text{induit par }\alpha} \\
+\underline{\text{Proj}}_X(\mathcal{A}) \times_X R
+\ar[ru]_{s^*\gamma} \ar[rd]^{t^*\gamma} \\
+&
+\underline{\text{Proj}}_U(\varphi^*\mathcal{A}) \times_{U, t} R
+\ar@{=}[r] &
+\underline{\text{Proj}}_R(t^*\varphi^*\mathcal{A})
+}
+$$
+est commutatif (les signes d'égalité proviennent du
+lemme \ref{constructions-lemma-relative-proj-base-change} de Constructions).
+Ainsi, si l'on note $\mathcal{A}_U$, $\mathcal{A}_R$
+les images inverses de $\mathcal{A}$ sur $U$, $R$, alors
+$P = \underline{\text{Proj}}_X(\mathcal{A})$ admet pour revêtement \'etale
+le schéma $P_U = \underline{\text{Proj}}_U(\mathcal{A}_U)$, et
+$P_U \times_P P_U$ est égal à
+$P_R = \underline{\text{Proj}}_R(\mathcal{A}_R)$.
+Ces remarques permettent de raisonner de la manière habituelle par
+localisation \'etale afin de transporter les résultats sur le Proj relatif du cas
+des schémas à celui des espaces algébriques.
+
+\begin{lemma}
+\label{lemma-twists-of-structure-sheaf}
+Dans la situation \ref{situation-relative-proj}, le Proj relatif est muni
+d'un faisceau quasi-cohérent d'algèbres graduées par $\mathbf{Z}$
+$\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_X(\mathcal{A})}(n)$
+et d'un homomorphisme canonique d'algèbres graduées
+$$
+\psi :
+\pi^*\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_X(\mathcal{A})}(n)
+$$
+dont le changement de base à tout schéma sur $X$ coïncide avec
+celui du lemme \ref{constructions-lemma-glue-relative-proj-twists} de Constructions.
+\end{lemma}
+
+\begin{proof}
+Comme dans la discussion qui suit la définition \ref{definition-relative-proj},
+choisissons un schéma $U$ et un morphisme \'etale surjectif
+$U \to X$, puis posons $R = U \times_X U$, avec projections $s, t : R \to U$,
+$\mathcal{A}_U = \mathcal{A}|_U$, $\mathcal{A}_R = \mathcal{A}|_R$,
+ainsi que $\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$,
+$\pi_U : P_U = \underline{\text{Proj}}_U(\mathcal{A}_U)$ et
+$\pi_R : P_R = \underline{\text{Proj}}_U(\mathcal{A}_R)$.
+D'après le
+lemme \ref{constructions-lemma-glue-relative-proj-twists} de Constructions,
+on dispose d'un faisceau quasi-cohérent d'algèbres graduées par $\mathbf{Z}$
+sur $\mathcal{O}_{P_U}$,
+$\bigoplus_{n \in \mathbf{Z}} \mathcal{O}_{P_U}(n)$
+ainsi que d'un homomorphisme canonique
+$\psi_U : \pi_U^*\mathcal{A}_U \to \bigoplus_{n \geq 0} \mathcal{O}_{P_U}(n)$
+et de même pour $P_R$. D'après le
+lemme \ref{constructions-lemma-relative-proj-base-change} de Constructions,
+les images inverses de $\mathcal{O}_{P_U}(n)$ et de $\psi_U$ par l'une ou l'autre projection
+$P_R \to P_U$ sont $\mathcal{O}_{P_R}(n)$ et $\psi_R$.
+D'après la proposition de Propriétés des espaces
+\ref{spaces-properties-proposition-quasi-coherent}
+on obtient $\mathcal{O}_{P}(n)$ et $\psi$.
+Nous omettons de vérifier la compatibilité avec l'image inverse sur
+un schéma arbitraire au-dessus de $X$.
+\end{proof}
+
+\noindent
+Le Proj relatif étant construit, passons à quelques propriétés
+élémentaires.
+
+\begin{lemma}
+\label{lemma-relative-proj-base-change}
+Soit $S$ un schéma. Soit $g : X' \to X$ un morphisme d'espaces algébriques
+sur $S$, et soit $\mathcal{A}$ un faisceau quasi-cohérent
+d'algèbres graduées sur $\mathcal{O}_X$. Il existe alors un isomorphisme canonique
+$$
+r :
+\underline{\text{Proj}}_{X'}(g^*\mathcal{A})
+\longrightarrow
+X' \times_X \underline{\text{Proj}}_X(\mathcal{A})
+$$
+ainsi qu'un isomorphisme correspondant
+$$
+\theta :
+r^*\text{pr}_2^*\left(\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_X(\mathcal{A})}(d)\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_{X'}(g^*\mathcal{A})}(d)
+$$
+d'algèbres graduées par $\mathbf{Z}$
+sur $\mathcal{O}_{\underline{\text{Proj}}_{X'}(g^*\mathcal{A})}$.
+\end{lemma}
+
+\begin{proof}
+Soit $F$ le foncteur (\ref{equation-proj}) et soit $F'$ le
+foncteur correspondant défini à l'aide de $g^*\mathcal{A}$ sur $X'$.
+Nous affirmons qu'il existe un isomorphisme canonique $r : F' \to X' \times_X F$
+de foncteurs (et, bien sûr, $r$ est l'isomorphisme du lemme).
+Il suffit de construire la bijection
+$r : F'(T) \to X'(T) \times_{X(T)} F(T)$ pour les schémas quasi-compacts $T$
+sur $S$. Tout d'abord, si $\xi = (d', f', \mathcal{L}', \psi')$ est un
+quadruplet au-dessus de $T$ pour $F'$, on peut poser
+$r(\xi) = (f', (d', g \circ f', \mathcal{L}', \psi'))$. Cette expression a un sens
+car $(g \circ f')^*\mathcal{A}^{(d)} = (f')^*(g^*\mathcal{A})^{(d)}$.
+L'application inverse envoie la paire $(f', (d, f, \mathcal{L}, \psi))$
+sur le quadruplet $(d, f', \mathcal{L}, \psi)$. Nous omettons la démonstration
+de la dernière assertion (indication : se ramener au cas des schémas par localisation
+\'etale et appliquer le lemme de Constructions
+\ref{constructions-lemma-relative-proj-base-change}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-separated}
+Dans la situation \ref{situation-relative-proj}, le morphisme
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$
+est séparé.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{spaces-morphisms-lemma-separated-local} de Morphismes d'espaces
+et la construction du Proj relatif, cela résulte du
+cas des schémas, traité dans
+Constructions, lemme \ref{constructions-lemma-relative-proj-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-quasi-compact}
+Dans la situation \ref{situation-relative-proj}, si l'une des conditions suivantes est satisfaite :
+\begin{enumerate}
+\item $\mathcal{A}$ est de type fini en tant que faisceau
+d'algèbres sur $\mathcal{A}_0$,
+\item $\mathcal{A}$ est engendrée par $\mathcal{A}_1$ en tant
+qu'algèbre sur $\mathcal{A}_0$, et $\mathcal{A}_1$ est un
+$\mathcal{A}_0$-module de type fini,
+\item il existe un sous-$\mathcal{A}_0$-module quasi-cohérent de type fini
+$\mathcal{F} \subset \mathcal{A}_{+}$ tel que
+$\mathcal{A}_{+}/\mathcal{F}\mathcal{A}$ soit un faisceau d'idéaux localement nilpotent
+de $\mathcal{A}/\mathcal{F}\mathcal{A}$,
+\end{enumerate}
+alors $\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$ est quasi-compact.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{spaces-morphisms-lemma-quasi-compact-local} de Morphismes d'espaces
+et la construction du Proj relatif, cela résulte du
+cas des schémas, traité dans
+Diviseurs, lemme \ref{divisors-lemma-relative-proj-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-finite-type}
+Dans la situation \ref{situation-relative-proj},
+si $\mathcal{A}$ est de type fini en tant que faisceau
+d'algèbres sur $\mathcal{O}_X$, alors
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$ est de type fini.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{spaces-morphisms-lemma-finite-type-local} de Morphismes d'espaces
+et la construction du Proj relatif, cela résulte du
+cas des schémas, traité dans
+Diviseurs, lemme \ref{divisors-lemma-relative-proj-finite-type}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-universally-closed}
+Dans la situation \ref{situation-relative-proj}, si
+$\mathcal{O}_X \to \mathcal{A}_0$
+est un homomorphisme d'algèbres entier\footnote{Autrement dit, la clôture intégrale
+de $\mathcal{O}_X$ dans $\mathcal{A}_0$, voir
+Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-integral-closure}, est égale à
+$\mathcal{A}_0$.} et si $\mathcal{A}$ est de type fini en tant
+qu'algèbre sur $\mathcal{A}_0$, alors
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$ est universellement fermé.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-universally-closed-local}
+et la construction du Proj relatif, cela résulte du
+cas des schémas, traité dans
+Diviseurs, lemme \ref{divisors-lemma-relative-proj-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-proper}
+Dans la situation \ref{situation-relative-proj},
+les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{A}_0$ est un $\mathcal{O}_X$-module de type fini
+et $\mathcal{A}$ est de type fini en tant qu'algèbre sur $\mathcal{A}_0$,
+\item $\mathcal{A}_0$ est un $\mathcal{O}_X$-module de type fini
+et $\mathcal{A}$ est de type fini en tant qu'algèbre sur $\mathcal{O}_X$.
+\end{enumerate}
+Si ces conditions sont satisfaites, alors
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$
+est propre.
+\end{lemma}
+
+\begin{proof}
+D'après le lemme de Morphismes d'espaces
+\ref{spaces-morphisms-lemma-proper-local}
+et la construction du Proj relatif, cela résulte du
+cas des schémas, traité dans
+Diviseurs, lemme \ref{divisors-lemma-relative-proj-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-generated-in-degree-1}
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Soit $\mathcal{A}$ un faisceau quasi-cohérent d'algèbres graduées sur $\mathcal{O}_X$
+engendré en tant qu'algèbre sur $\mathcal{A}_0$ par $\mathcal{A}_1$.
+Avec $P = \underline{\text{Proj}}_X(\mathcal{A})$, on a
+\begin{enumerate}
+\item $P$ représente le foncteur $F_1$ qui associe à
+$T$ sur $S$ l'ensemble des classes d'isomorphie de
+triplets $(f, \mathcal{L}, \psi)$, où $f : T \to X$ est un morphisme
+au-dessus de $S$, $\mathcal{L}$ est un $\mathcal{O}_T$-module inversible, et
+$\psi : f^*\mathcal{A} \to \bigoplus_{n \geq 0} \mathcal{L}^{\otimes n}$
+est un homomorphisme de $\mathcal{O}_T$-algèbres graduées induisant une surjection
+$f^*\mathcal{A}_1 \to \mathcal{L}$,
+\item l'homomorphisme canonique $\pi^*\mathcal{A}_1 \to \mathcal{O}_P(1)$ est
+surjectif, et
+\item chaque $\mathcal{O}_P(n)$ est inversible,
+et les homomorphismes de multiplication induisent des isomorphismes
+$\mathcal{O}_P(n) \otimes_{\mathcal{O}_P} \mathcal{O}_P(m) =
+\mathcal{O}_P(n + m)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omise.
+Voir Constructions, lemme \ref{constructions-lemma-apply-relative},
+pour le cas des schémas.
+\end{proof}
+
+
+
+
+
+
+
+\section{Fonctorialité du Proj relatif}
+\label{section-functoriality-relative-proj}
+
+\noindent
+Cette section est l'analogue de
+Constructions, section \ref{constructions-section-functoriality-relative-proj}.
+
+\begin{lemma}
+\label{lemma-morphism-relative-proj}
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Soit $\psi : \mathcal{A} \to \mathcal{B}$ un homomorphisme
+d'algèbres graduées quasi-cohérentes sur $\mathcal{O}_X$. Posons
+$P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ et
+$Q = \underline{\text{Proj}}_X(\mathcal{B}) \to X$.
+Il existe un sous-espace ouvert canonique
+$U(\psi) \subset Q$ et un morphisme canonique
+d'espaces algébriques
+$$
+r_\psi :
+U(\psi)
+\longrightarrow
+P
+$$
+au-dessus de $X$ et un homomorphisme d'algèbres graduées par $\mathbf{Z}$ sur $\mathcal{O}_{U(\psi)}$
+$$
+\theta = \theta_\psi :
+r_\psi^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_P(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_{U(\psi)}(d).
+$$
+Le triplet $(U(\psi), r_\psi, \theta)$ est caractérisé par la propriété
+que, pour tout schéma $W$ \'etale sur $X$, le triplet
+$$
+(U(\psi) \times_X W,\quad
+r_\psi|_{U(\psi) \times_X W} : U(\psi) \times_X W \to  P \times_X W,\quad
+\theta|_{U(\psi) \times_X W})
+$$
+est égal au triplet associé à $\psi : \mathcal{A}|_W \to \mathcal{B}|_W$
+par Constructions, lemme \ref{constructions-lemma-morphism-relative-proj}.
+\end{lemma}
+
+\begin{proof}
+Ce lemme résulte de la localisation \'etale et du cas des schémas, voir la
+discussion qui suit la
+définition \ref{definition-relative-proj}. Détails omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-relative-proj-transitive}
+Soient $S$ un schéma et $X$ un espace algébrique sur $S$.
+Soient $\mathcal{A}$, $\mathcal{B}$ et $\mathcal{C}$ des
+algèbres graduées quasi-cohérentes sur $\mathcal{O}_X$.
+Posons $P = \underline{\text{Proj}}_X(\mathcal{A})$,
+$Q = \underline{\text{Proj}}_X(\mathcal{B})$ et
+$R = \underline{\text{Proj}}_X(\mathcal{C})$.
+Soient $\varphi : \mathcal{A} \to \mathcal{B}$,
+$\psi : \mathcal{B} \to \mathcal{C}$ des homomorphismes d'algèbres graduées sur $\mathcal{O}_X$.
+Alors
+$$
+U(\psi \circ \varphi) = r_\varphi^{-1}(U(\psi))
+\quad
+\text{et}
+\quad
+r_{\psi \circ \varphi}
+=
+r_\varphi \circ r_\psi|_{U(\psi \circ \varphi)}.
+$$
+De plus,
+$$
+\theta_\psi \circ r_\psi^*\theta_\varphi
+=
+\theta_{\psi \circ \varphi}
+$$
+avec les notations évidentes.
+\end{lemma}
+
+\begin{proof}
+Omise.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-graded-rings-map-relative-proj}
+Sous les hypothèses et avec les notations du lemme \ref{lemma-morphism-relative-proj}
+ci-dessus, supposons que $\mathcal{A}_d \to \mathcal{B}_d$ soit surjectif pour
+$d \gg 0$. Alors
+\begin{enumerate}
+\item $U(\psi) = Q$,
+\item $r_\psi : Q \to R$ est une immersion fermée, et
+\item les homomorphismes $\theta : r_\psi^*\mathcal{O}_P(n) \to \mathcal{O}_Q(n)$
+sont surjectifs mais ne sont pas en général des isomorphismes (même si
+$\mathcal{A} \to \mathcal{B}$ est surjectif).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte du cas des schémas
+(Constructions, lemme
+\ref{constructions-lemma-surjective-graded-rings-map-relative-proj})
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-eventual-iso-graded-rings-map-relative-proj}
+Sous les hypothèses et avec les notations du lemme \ref{lemma-morphism-relative-proj}
+ci-dessus, supposons que $\mathcal{A}_d \to \mathcal{B}_d$ soit un isomorphisme pour tout
+$d \gg 0$. Alors
+\begin{enumerate}
+\item $U(\psi) = Q$,
+\item $r_\psi : Q \to P$ est un isomorphisme, et
+\item les homomorphismes $\theta : r_\psi^*\mathcal{O}_P(n) \to \mathcal{O}_Q(n)$
+sont des isomorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte du cas des schémas
+(Constructions, lemme
+\ref{constructions-lemma-eventual-iso-graded-rings-map-relative-proj})
+par localisation \'etale.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-generated-degree-1-map-relative-proj}
+Sous les hypothèses et avec les notations du lemme \ref{lemma-morphism-relative-proj}
+ci-dessus, supposons que $\mathcal{A}_d \to \mathcal{B}_d$ soit surjectif pour $d \gg 0$
+et que $\mathcal{A}$ soit engendrée par $\mathcal{A}_1$ sur $\mathcal{A}_0$.
+Alors
+\begin{enumerate}
+\item $U(\psi) = Q$,
+\item $r_\psi : Q \to P$ est une immersion fermée, et
+\item les homomorphismes $\theta : r_\psi^*\mathcal{O}_P(n) \to \mathcal{O}_Q(n)$
+sont des isomorphismes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte du cas des schémas
+(Constructions, lemme
+\ref{constructions-lemma-surjective-generated-degree-1-map-relative-proj})
+par localisation \'etale.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Faisceaux inversibles et morphismes vers le Proj relatif}
+\label{section-invertible-relative-proj}
+
+\noindent
+Il semble que le lemme suivant puisse être utile quelque part.
+La situation est la suivante :
+\begin{enumerate}
+\item Soient $S$ un schéma et $Y$ un espace algébrique sur $S$.
+\item Soit $\mathcal{A}$ une algèbre graduée quasi-cohérente sur $\mathcal{O}_Y$.
+\item Notons $\pi : \underline{\text{Proj}}_Y(\mathcal{A}) \to Y$ le Proj
+relatif de $\mathcal{A}$ sur $Y$.
+\item Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+\item Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+\item Soit
+$\psi : f^*\mathcal{A} \to \bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$
+un homomorphisme d'algèbres graduées sur $\mathcal{O}_X$.
+\end{enumerate}
+Ces données étant fixées, soit $U(\psi) \subset X$ le sous-espace ouvert tel que
+$$
+|U(\psi)| = \bigcup\nolimits_{d \geq 1}
+\{\text{lieu où }f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}
+\text{ est surjectif}\}
+$$
+La formation de $U(\psi) \subset X$ commute au
+changement de base par tout morphisme $X' \to X$.
+
+\begin{lemma}
+\label{lemma-invertible-map-into-relative-proj}
+Sous les hypothèses et avec les notations ci-dessus, le morphisme
+$\psi$ induit un morphisme canonique d'espaces algébriques sur $Y$
+$$
+r_{\mathcal{L}, \psi} :
+U(\psi) \longrightarrow \underline{\text{Proj}}_Y(\mathcal{A})
+$$
+ainsi qu'un homomorphisme d'algèbres graduées sur $\mathcal{O}_{U(\psi)}$
+$$
+\theta :
+r_{\mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{d \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_Y(\mathcal{A})}(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \geq 0} \mathcal{L}^{\otimes d}|_{U(\psi)}
+$$
+caractérisé par les propriétés suivantes :
+\begin{enumerate}
+\item Pour $V \to Y$ \'etale et $d \geq 0$, le diagramme
+$$
+\xymatrix{
+\mathcal{A}_d(V) \ar[d]_{\psi} \ar[r]_{\psi} &
+\Gamma(V \times_Y X, \mathcal{L}^{\otimes d}) \ar[d]^{restriction} \\
+\Gamma(V \times_Y \underline{\text{Proj}}_Y(\mathcal{A}),
+\mathcal{O}_{\underline{\text{Proj}}_Y(\mathcal{A})}(d)) \ar[r]^-\theta &
+\Gamma(V \times_Y U(\psi), \mathcal{L}^{\otimes d})
+}
+$$
+est commutatif.
+\item Pour tout $d \geq 1$ et tout morphisme $W \to X$, où $W$ est un schéma,
+tel que $\psi|_W : f^*\mathcal{A}_d|_W \to \mathcal{L}^{\otimes d}|_W$
+soit surjectif, on a (a) $W \to X$ se factorise par $U(\psi)$ et
+(b) le composé de $W \to U(\psi)$ avec $r_{\mathcal{L}, \psi}$
+coïncide avec le morphisme $W \to \underline{\text{Proj}}_Y(\mathcal{A})$
+dont l'existence résulte de la construction de $\underline{\text{Proj}}_Y(\mathcal{A})$,
+voir la définition \ref{definition-relative-proj}.
+\item Considérons un diagramme commutatif
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+où $X'$ et $Y'$ sont des schémas, posons $\mathcal{A}' = g^*\mathcal{A}$
+et $\mathcal{L}' = (g')^*\mathcal{L}$ et notons
+$\psi' : (f')^*\mathcal{A} \to \bigoplus_{d \geq 0} (\mathcal{L}')^{\otimes d}$
+l'image inverse de $\psi$. Notons $U(\psi')$, $r_{\psi', \mathcal{L}'}$
+et $\theta'$ le sous-espace ouvert, le morphisme et l'homomorphisme construits
+dans Constructions, lemme \ref{lemma-invertible-map-into-relative-proj}.
+Alors $U(\psi') = (g')^{-1}(U(\psi))$
+et $r_{\psi', \mathcal{L}'}$ coïncide avec le changement de base
+de $r_{\psi, \mathcal{L}}$ via l'isomorphisme
+$\underline{\text{Proj}}_{Y'}(\mathcal{A}') =
+Y' \times_Y \underline{\text{Proj}}_Y(\mathcal{A})$
+du lemme \ref{lemma-relative-proj-base-change}.
+De plus, $\theta'$ est l'image inverse de $\theta$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omise. Indications :
+Observons d'abord que, pour un schéma quasi-compact
+$W$ sur $X$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $W \to X$ se factorise par $U(\psi)$, et
+\item il existe un $d$ tel que
+$\psi|_W : f^*\mathcal{A}_d|_W \to \mathcal{L}^{\otimes d}|_W$
+soit surjectif.
+\end{enumerate}
+On obtient ainsi une description de $U(\psi)$ comme sous-foncteur de $X$
+sur notre catégorie de base $(\Sch/S)_{fppf}$. Pour de tels $W$ et $d$,
+considérons le quadruplet
+$(d, W \to Y, \mathcal{L}|_W, \psi^{(d)}|_W)$.
+D'après la définition de $\underline{\text{Proj}}_Y(\mathcal{A})$,
+on obtient un morphisme $W \to \underline{\text{Proj}}_Y(\mathcal{A})$.
+Notre notion d'équivalence des quadruplets montre que
+ce morphisme est indépendant du choix de $d$.
+Cela définit manifestement une transformation de foncteurs
+$r_{\psi, \mathcal{L}} : U(\psi) \to \underline{\text{Proj}}_Y(\mathcal{A})$,
+c'est-à-dire un morphisme d'espaces algébriques.
+Par construction, ce morphisme vérifie (2).
+Comme le morphisme construit dans
+Constructions, lemme \ref{constructions-lemma-invertible-map-into-relative-proj}
+vérifie la même propriété, (3) est vraie.
+
+\medskip\noindent
+Pour construire $\theta$ et vérifier la compatibilité (1) du
+lemme, travaillons localement pour la topologie \'etale sur $Y$ et $X$, en raisonnant comme
+dans la discussion qui suit la
+définition \ref{definition-relative-proj}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Faisceaux relativement amples}
+\label{section-relatively-ample}
+
+\noindent
+Cette section est l'analogue de
+Morphismes, section \ref{morphisms-section-relatively-ample}
+pour les espaces algébriques.
+Notre définition d'un faisceau inversible relativement ample est
+la suivante.
+
+\begin{definition}
+\label{definition-relatively-ample}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+On dit que $\mathcal{L}$ est {\it relativement ample}, ou {\it ample relativement à $f$},
+ou {\it ample sur $X/Y$}, ou {\it $f$-ample}, si $f : X \to Y$
+est représentable et si, pour tout morphisme $Z \to Y$
+où $Z$ est un schéma, l'image inverse $\mathcal{L}_Z$ de $\mathcal{L}$
+sur $X_Z = Z \times_Y X$ est ample sur $X_Z/Z$ au sens de
+Morphismes, définition \ref{morphisms-definition-relatively-ample}.
+\end{definition}
+
+\noindent
+Nous ramènerons presque toujours les questions sur les faisceaux inversibles
+relativement amples au cas des schémas. Ainsi, dans cette section, nous n'avons
+essentiellement que des vérifications de cohérence.
+
+\begin{lemma}
+\label{lemma-relatively-ample-sanity-check}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Supposons que $Y$ soit un schéma. Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{L}$ est ample sur $X/Y$ au sens de la
+définition \ref{definition-relatively-ample}, et
+\item $X$ est un schéma et $\mathcal{L}$ est ample sur $X/Y$
+au sens de
+Morphismes, définition \ref{morphisms-definition-relatively-ample}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cela résulte des définitions et de
+Morphismes, lemme \ref{morphisms-lemma-ample-base-change}
+(qui affirme que, pour les schémas, la propriété d'être relativement ample
+est préservée par changement de base).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-base-change}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soit $Y' \to Y$ un morphisme d'espaces algébriques sur $S$.
+Soit $f' : X' \to Y'$ le changement de base de $f$ et notons
+$\mathcal{L}'$ l'image inverse de $\mathcal{L}$ sur $X'$.
+Si $\mathcal{L}$ est $f$-ample, alors $\mathcal{L}'$ est $f'$-ample.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de la définition !
+(Indication : transitivité du changement de base.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relatively-ample-properties}
+Soit $S$ un schéma.
+Soit $f : X \to Y$ un morphisme d'espaces algébriques sur $S$.
+S'il existe un faisceau inversible $f$-ample, alors
+$f$ est représentable, quasi-compact et séparé.
+\end{lemma}
+
+\begin{proof}
+C'est clair d'après les définitions et
+Morphismes, lemme \ref{morphisms-lemma-relatively-ample-separated}.
+(En cas de doute, voir le principe exposé dans
+Espaces algébriques, lemme
+\ref{spaces-lemma-representable-transformations-property-implication}.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-relatively-ample}
+Soit $V \to U$ un morphisme \'etale surjectif de schémas affines.
+Soit $X$ un espace algébrique sur $U$.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soit $Y = V \times_U X$ et soit $\mathcal{N}$
+l'image inverse de $\mathcal{L}$ sur $Y$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{L}$ est ample sur $X/U$, et
+\item $\mathcal{N}$ est ample sur $Y/V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (1) $\Rightarrow$ (2) résulte du
+lemme \ref{lemma-ample-base-change}.
+Supposons (2). Cela implique que $Y \to V$ est
+quasi-compact et séparé (lemme \ref{lemma-relatively-ample-properties})
+et que $Y$ est un schéma. Il s'ensuit que le morphisme $f : X \to U$ est
+quasi-compact et séparé
+(Morphismes d'espaces, lemmes
+\ref{spaces-morphisms-lemma-quasi-compact-local} et
+\ref{spaces-morphisms-lemma-separated-local}).
+Posons $\mathcal{A} = \bigoplus_{d \geq 0} f_*\mathcal{L}^{\otimes d}$.
+C'est un faisceau quasi-cohérent d'algèbres graduées sur $\mathcal{O}_U$
+(Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-pushforward}).
+Par adjonction, nous avons un morphisme
+$\psi : f^*\mathcal{A} \to \bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$.
+En appliquant le lemme \ref{lemma-invertible-map-into-relative-proj},
+nous obtenons un sous-espace ouvert $U(\psi) \subset X$ et un morphisme
+$$
+r_{\mathcal{L}, \psi} : U(\psi) \to \underline{\text{Proj}}_U(\mathcal{A})
+$$
+Puisque $h : V \to U$ est \'etale, nous avons
+$\mathcal{A}|_V = (Y \to V)_*(\bigoplus_{d \geq 0} \mathcal{N}^{\otimes d})$,
+voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}.
+Il s'ensuit que l'image inverse $\psi'$ de $\psi$ sur
+$Y$ est le morphisme d'adjonction associé à la situation $(Y \to V, \mathcal{N})$
+considérée dans Morphismes, lemme \ref{morphisms-lemma-characterize-relatively-ample}, partie (5).
+Comme $\mathcal{N}$ est ample sur $Y/V$, le lemme que nous venons de
+citer donne $U(\psi') = Y$ et montre que $r_{\mathcal{N}, \psi'}$
+est une immersion ouverte.
+Puisque le lemme \ref{lemma-invertible-map-into-relative-proj}
+nous dit que la formation de $r_{\mathcal{L}, \psi}$
+commute au changement de base, nous en concluons que
+$U(\psi) = X$ et que nous avons un diagramme commutatif
+$$
+\xymatrix{
+Y \ar[r]_-{r'} \ar[d] &
+\underline{\text{Proj}}_V(\mathcal{A}|_V) \ar[d] \ar[r] &
+V \ar[d] \\
+X \ar[r]^-r &
+\underline{\text{Proj}}_U(\mathcal{A}) \ar[r] &
+U
+}
+$$
+dont les carrés sont cartésiens. Nous en concluons que $r$ est une
+immersion ouverte par
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-closed-immersion-local}.
+Ainsi, $X$ est un schéma. Nous pouvons alors appliquer
+Morphismes, lemme \ref{morphisms-lemma-characterize-relatively-ample}, partie (5),
+pour conclure que $\mathcal{L}$ est ample sur $X/U$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relatively-ample-local}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{L}$ est ample sur $X/Y$,
+\item pour tout schéma $Z$ et tout morphisme $Z \to Y$,
+l'espace algébrique $X_Z = Z \times_Y X$ est un schéma
+et l'image inverse $\mathcal{L}_Z$ est ample sur $X_Z/Z$,
+\item pour tout schéma affine $Z$ et tout morphisme $Z \to Y$,
+l'espace algébrique $X_Z = Z \times_Y X$ est un schéma
+et l'image inverse $\mathcal{L}_Z$ est ample sur $X_Z/Z$,
+\item il existe un schéma $V$ et un morphisme \'etale surjectif
+$V \to Y$ tels que l'espace algébrique $X_V = V \times_Y X$ soit un schéma
+et que l'image inverse $\mathcal{L}_V$ soit ample sur $X_V/V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les assertions (1) et (2) sont équivalentes par définition.
+L'implication (2) $\Rightarrow$ (3) est immédiate.
+Si (3) est satisfaite et si $Z \to Y$ est comme dans (2), nous voyons
+que la représentabilité de $X_Z \to Z$ se vérifie localement sur les ouverts affines de $Z$.
+Ainsi, $X_Z$ est un schéma, par exemple par
+Propriétés des espaces, lemme \ref{spaces-properties-lemma-subscheme}.
+Il en résulte alors que $\mathcal{L}_Z$ est ample sur $X_Z/Z$, car
+cela est vrai localement sur $Z$ et nous pouvons utiliser
+Morphismes, lemme \ref{morphisms-lemma-characterize-relatively-ample}.
+Ainsi, (1), (2) et (3) sont équivalentes. Ces conditions
+impliquent clairement (4).
+
+\medskip\noindent
+Supposons (4). Soit $Z \to Y$ un morphisme avec $Z$ affine.
+Alors $U = V \times_Y Z \to Z$ est un morphisme \'etale surjectif
+tel que l'image inverse de $\mathcal{L}_Z$ par $X_U \to X_Z$
+soit relativement ample sur $X_U/U$.
+Nous pouvons remplacer $U$ par une somme disjointe finie d'ouverts affines dont les images recouvrent encore la base.
+Il s'ensuit que $\mathcal{L}_Z$ est ample sur $X_Z/Z$ par le
+lemme \ref{lemma-descend-relatively-ample}.
+Ainsi (4) $\Rightarrow$ (3), ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-affine-O-ample}
+Soit $S$ un schéma. Soit $f : X \to Y$ un morphisme d'espaces algébriques
+sur $S$. Alors $f$ est quasi-affine si et seulement si $\mathcal{O}_X$
+est ample relativement à $f$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte du cas des schémas, voir
+Morphismes, lemme \ref{morphisms-lemma-quasi-affine-O-ample}.
+\end{proof}
+
+
+
+\section{Amplitude relative et cohomologie}
+\label{section-ample-and-proper}
+
+\noindent
+Cette section contient quelques résultats apparentés à ceux
+de Cohomologie des schémas, sections
+\ref{coherent-section-applications-formal-functions} et
+\ref{coherent-section-ample-cohomology}.
+
+\medskip\noindent
+Le lemme suivant n'est qu'un exemple de ce que l'on peut faire.
+
+\begin{lemma}
+\label{lemma-vanshing-gives-ample}
+Soit $R$ un anneau noethérien. Soit $X$ un espace algébrique sur $R$
+tel que le morphisme structural $f : X \to \Spec(R)$ soit propre.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $\mathcal{L}$ est ample sur $X/R$
+(définition \ref{definition-relatively-ample}),
+\item pour tout $\mathcal{O}_X$-module cohérent $\mathcal{F}$,
+il existe un $n_0 \geq 0$ tel que
+$H^p(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$
+pour tous $n \geq n_0$ et $p > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'implication (1) $\Rightarrow$ (2) résulte de
+Cohomologie des schémas, lemme \ref{coherent-lemma-coherent-proper-ample},
+car l'hypothèse (1) implique que $X$ est un schéma.
+L'implication (2) $\Rightarrow$ (1) est le
+lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-Noetherian-h1-zero-invertible}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-on-fibre}
+Soit $Y$ un schéma noethérien. Soit $X$ un espace algébrique sur $Y$
+tel que le morphisme structural $f : X \to Y$ soit propre.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soit $\mathcal{F}$ un $\mathcal{O}_X$-module cohérent.
+Soit $y \in Y$ un point tel que $X_y$ soit un schéma et que
+$\mathcal{L}_y$ soit ample sur $X_y$.
+Il existe alors un $d_0$ tel que, pour tout $d \geq d_0$, on ait
+$$
+R^pf_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})_y = 0
+\text{ pour }p > 0
+$$
+et que l'homomorphisme
+$$
+f_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})_y
+\longrightarrow
+H^0(X_y, \mathcal{F}_y \otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d})
+$$
+soit surjectif.
+\end{lemma}
+
+\begin{proof}
+Observons que $\mathcal{O}_{Y, y}$ est un anneau local noethérien.
+Considérons le morphisme canonique
+$c : \Spec(\mathcal{O}_{Y, y}) \to Y$, voir
+Schémas, équation (\ref{schemes-equation-canonical-morphism}).
+Ce morphisme est plat, puisqu'il identifie les anneaux locaux.
+Notons provisoirement $f' : X' \to \Spec(\mathcal{O}_{Y, y})$
+le morphisme obtenu de $f$ par ce changement de base. Nous avons
+$c^*R^pf_*\mathcal{F} = R^pf'_*\mathcal{F}'$ d'après
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+De plus, les fibres $X_y$ et $X'_y$ s'identifient.
+Nous pouvons donc supposer que $Y = \Spec(A)$ est le spectre d'un
+anneau local noethérien $(A, \mathfrak m, \kappa)$ et que $y \in Y$
+correspond à $\mathfrak m$. Dans ce cas,
+$R^pf_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})_y =
+H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+pour tout $p \geq 0$. Notons $f_y : X_y \to \Spec(\kappa)$ la projection.
+
+\medskip\noindent
+Posons $B = \text{Gr}_\mathfrak m(A) =
+\bigoplus_{n \geq 0} \mathfrak m^n/\mathfrak m^{n + 1}$.
+Considérons le faisceau $\mathcal{B} = f_y^*\widetilde{B}$
+d'algèbres graduées quasi-cohérentes sur $\mathcal{O}_{X_y}$.
+Nous emploierons les notations de Cohomologie des espaces, section
+\ref{spaces-cohomology-section-theorem-formal-functions},
+en remplaçant $I$ par $\mathfrak m$.
+Puisque $X_y$ est le sous-espace fermé de $X$ défini par
+$\mathfrak m\mathcal{O}_X$, nous pouvons considérer
+$\mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1}\mathcal{F}$
+comme un $\mathcal{O}_{X_y}$-module cohérent, voir
+Cohomologie des espaces, lemme \ref{spaces-cohomology-lemma-i-star-equivalence}.
+Alors
+$\bigoplus_{n \geq 0} \mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1}\mathcal{F}$
+est un $\mathcal{B}$-module gradué quasi-cohérent de type fini,
+car il est engendré en degré zéro sur $\mathcal{B}$
+et sa partie de degré zéro est
+$\mathcal{F}_y = \mathcal{F}/\mathfrak m \mathcal{F}$,
+qui est un $\mathcal{O}_{X_y}$-module cohérent.
+Ainsi, d'après Cohomologie des schémas, lemme
+\ref{coherent-lemma-graded-finiteness}, partie (2),
+il existe un $d_0$ tel que
+$$
+H^p(X_y, \mathfrak m^n \mathcal{F}/ \mathfrak m^{n + 1}\mathcal{F}
+\otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d}) = 0
+$$
+pour tous $p > 0$, $d \geq d_0$ et $n \geq 0$. D'après
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-relative-affine-cohomology},
+cela revient à dire que
+$
+H^p(X, \mathfrak m^n \mathcal{F}/ \mathfrak m^{n + 1}\mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0
+$
+pour tous $p > 0$, $d \geq d_0$ et $n \geq 0$.
+
+\medskip\noindent
+Considérons les suites exactes courtes
+$$
+0 \to \mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\to \mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\to \mathcal{F}/\mathfrak m^n \mathcal{F} \to 0
+$$
+de $\mathcal{O}_X$-modules cohérents. La tensorisation par $\mathcal{L}^{\otimes d}$
+est un foncteur exact et nous obtenons des suites exactes courtes
+$$
+0 \to
+\mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}
+\to \mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}
+\to \mathcal{F}/\mathfrak m^n \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d} \to 0
+$$
+En utilisant la suite exacte longue de cohomologie et l'annulation ci-dessus,
+nous concluons (par récurrence) que
+\begin{enumerate}
+\item $H^p(X, \mathcal{F}/\mathfrak m^n \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0$
+pour tous $p > 0$, $d \geq d_0$ et $n \geq 0$, et
+\item $H^0(X, \mathcal{F}/\mathfrak m^n \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) \to
+H^0(X_y, \mathcal{F}_y \otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d})$
+est surjectif pour tous $d \geq d_0$ et $n \geq 1$.
+\end{enumerate}
+D'après le théorème des fonctions formelles
+(Cohomologie des espaces, théorème
+\ref{spaces-cohomology-theorem-formal-functions}),
+nous trouvons que le complété $\mathfrak m$-adique de
+$H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+est nul pour tous $d \geq d_0$ et $p > 0$.
+Comme $H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+est un $A$-module de type fini d'après
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite},
+il résulte du lemme de Nakayama (Algèbre, lemme \ref{algebra-lemma-NAK})
+que $H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+est nul pour tous $d \geq d_0$ et $p > 0$.
+Pour $p = 0$, nous déduisons du
+lemme de Cohomologie des espaces
+\ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal}, partie (3),
+que $H^0(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) \to
+H^0(X_y, \mathcal{F}_y \otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d})$
+est surjectif, ce qui donne la dernière assertion du lemme.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-in-neighbourhood}
+(Pour une version plus générale, voir
+Descente sur les espaces, lemme \ref{spaces-descent-lemma-ample-in-neighbourhood}).
+Soit $Y$ un schéma noethérien. Soit $X$ un espace algébrique sur $Y$
+tel que le morphisme structural $f : X \to Y$ soit propre.
+Soit $\mathcal{L}$ un $\mathcal{O}_X$-module inversible.
+Soit $y \in Y$ un point tel que $X_y$ soit un schéma et que
+$\mathcal{L}_y$ soit ample sur $X_y$.
+Il existe alors un voisinage ouvert $V \subset Y$
+de $y$ tel que $\mathcal{L}|_{f^{-1}(V)}$ soit ample sur $f^{-1}(V)/V$
+(au sens de la définition \ref{definition-relatively-ample}).
+\end{lemma}
+
+\begin{proof}
+Choisissons $d_0$ comme dans le lemme \ref{lemma-ample-on-fibre} pour
+$\mathcal{F} = \mathcal{O}_X$. Choisissons $d \geq d_0$
+de sorte qu'il existe un $r \geq 0$ et des sections
+$s_{y, 0}, \ldots, s_{y, r} \in H^0(X_y, \mathcal{L}_y^{\otimes d})$
+qui définissent une immersion fermée
+$$
+\varphi_y =
+\varphi_{\mathcal{L}_y^{\otimes d}, (s_{y, 0}, \ldots, s_{y, r})} :
+X_y \to \mathbf{P}^r_{\kappa(y)}.
+$$
+C'est possible d'après Morphismes, lemme
+\ref{morphisms-lemma-finite-type-over-affine-ample-very-ample},
+mais nous utilisons aussi
+Morphismes, lemme \ref{morphisms-lemma-image-proper-scheme-closed},
+pour voir que $\varphi_y$ est une immersion fermée, et
+Constructions, section \ref{constructions-section-projective-space},
+pour la description des morphismes vers l'espace projectif
+au moyen de faisceaux inversibles et de sections.
+Par notre choix de $d_0$, après avoir remplacé $Y$ par un voisinage ouvert
+de $y$, nous pouvons choisir
+$s_0, \ldots, s_r \in H^0(X, \mathcal{L}^{\otimes d})$
+qui s'envoient sur $s_{y, 0}, \ldots, s_{y, r}$.
+Soit $X_{s_i} \subset X$ le sous-espace ouvert où $s_i$
+est un générateur de $\mathcal{L}^{\otimes d}$. Puisque
+les $s_{y, i}$ engendrent $\mathcal{L}_y^{\otimes d}$, nous avons
+$|X_y| \subset U = \bigcup |X_{s_i}|$. Comme $X \to Y$ est fermé,
+il existe un voisinage ouvert $y \in V \subset Y$
+tel que $|f|^{-1}(V) \subset U$. Après avoir remplacé $Y$ par $V$, nous pouvons
+supposer que les $s_i$ engendrent $\mathcal{L}^{\otimes d}$. Nous
+obtenons ainsi un morphisme
+$$
+\varphi = \varphi_{\mathcal{L}^{\otimes d}, (s_0, \ldots, s_r)} :
+X \longrightarrow \mathbf{P}^r_Y
+$$
+avec $\mathcal{L}^{\otimes d} \cong \varphi^*\mathcal{O}_{\mathbf{P}^r_Y}(1)$
+dont le changement de base en $y$ donne $\varphi_y$ (à strictement parler, il faudrait
+rédiger une preuve que la construction des morphismes vers l'espace projectif
+donnée dans
+Constructions, section \ref{constructions-section-projective-space},
+vaut aussi pour décrire les morphismes d'espaces algébriques vers l'espace
+projectif ; nous omettons les détails).
+
+\medskip\noindent
+Nous terminerons la démonstration par une astuce ; la démonstration « correcte »
+consiste à montrer directement que $\varphi$ est une immersion
+fermée après changement de base à un voisinage ouvert de $y$.
+En effet, d'après
+Cohomologie des espaces, lemme
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood},
+nous voyons que $\varphi$ est fini au-dessus d'un voisinage ouvert
+de la fibre $\mathbf{P}^r_{\kappa(y)}$ de $\mathbf{P}^r_Y \to Y$
+au-dessus de $y$. Comme $\mathbf{P}^r_Y \to Y$ est fermé, quitte à
+rétrécir $Y$, nous pouvons supposer que $\varphi$ est fini.
+En particulier, $X$ est un schéma.
+Alors $\mathcal{L}^{\otimes d} \cong \varphi^*\mathcal{O}_{\mathbf{P}^r_Y}(1)$
+est ample d'après le résultat très général donné dans
+Morphismes, lemme \ref{morphisms-lemma-pullback-ample-tensor-relatively-ample}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Sous-espaces fermés du Proj relatif}
+\label{section-closed-in-relative-proj}
+
+\noindent
+Quelques lemmes auxiliaires sur les sous-espaces fermés du Proj relatif.
+Cette section est l'analogue de
+Diviseurs, section \ref{divisors-section-closed-in-relative-proj}.
+
+\begin{lemma}
+\label{lemma-closed-subscheme-proj}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{A}$ une $\mathcal{O}_X$-algèbre graduée quasi-cohérente. Soit
+$\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ le Proj relatif
+de $\mathcal{A}$. Soit $i : Z \to P$ un sous-espace fermé. Notons
+$\mathcal{I} \subset \mathcal{A}$ le noyau du morphisme canonique
+$$
+\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{d \geq 0} \pi_*\left((i_*\mathcal{O}_Z)(d)\right)
+$$
+Si $\pi$ est quasi-compact, il existe un isomorphisme
+$Z = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{I})$.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $\pi$ est séparé d'après le
+lemme \ref{lemma-relative-proj-separated}.
+Comme $\pi$ est quasi-compact, $\pi_*$ transforme les modules quasi-cohérents
+en modules quasi-cohérents, voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-pushforward}.
+Ainsi, $\mathcal{I}$ est un $\mathcal{O}_X$-module quasi-cohérent.
+En particulier, $\mathcal{B} = \mathcal{A}/\mathcal{I}$ est une
+$\mathcal{O}_X$-algèbre graduée quasi-cohérente. Le morphisme de fonctorialité
+$Z' = \underline{\text{Proj}}_X(\mathcal{B}) \to
+\underline{\text{Proj}}_X(\mathcal{A})$ est défini partout et est
+une immersion fermée, voir le lemme
+\ref{lemma-surjective-graded-rings-map-relative-proj}.
+Il suffit donc de montrer que $Z = Z'$ comme sous-espaces fermés de $P$.
+
+\medskip\noindent
+Cela étant, la question est locale pour la topologie \'etale sur la base et l'on
+se ramène au cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-closed-subscheme-proj})
+par localisation \'etale.
+\end{proof}
+
+\noindent
+Lorsque le sous-espace fermé est localement défini par un nombre fini
+d'équations, nous pouvons le définir par un faisceau d'idéaux de type fini de
+$\mathcal{A}$.
+
+\begin{lemma}
+\label{lemma-closed-subscheme-proj-finite}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact et quasi-séparé
+sur $S$.
+Soit $\mathcal{A}$ une $\mathcal{O}_X$-algèbre graduée quasi-cohérente. Soit
+$\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ le Proj relatif
+de $\mathcal{A}$. Soit $i : Z \to P$ un sous-schéma fermé.
+Si $\pi$ est quasi-compact et si $i$ est de présentation finie, alors il existe
+un $d > 0$ et un sous-$\mathcal{O}_X$-module quasi-cohérent de type fini
+$\mathcal{F} \subset \mathcal{A}_d$ tel que
+$Z = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$.
+\end{lemma}
+
+\begin{proof}
+Le lecteur peut reprendre les arguments employés dans le cas des schémas. Nous
+allons toutefois montrer, par une astuce, que le lemme résulte de ce cas.
+Soit $\mathcal{I} \subset \mathcal{A}$ l'idéal gradué quasi-cohérent
+qui définit $Z$ dans le lemme \ref{lemma-closed-subscheme-proj}.
+Choisissons un schéma affine $U$ et un morphisme \'etale surjectif
+$U \to X$, voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+D'après le cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-closed-subscheme-proj-finite}),
+il existe un $d > 0$ et un
+sous-$\mathcal{O}_U$-module quasi-cohérent de type fini
+$\mathcal{F}' \subset \mathcal{I}_d|_U \subset \mathcal{A}_d|_U$,
+tel que $Z \times_X U$ soit égal à
+$\underline{\text{Proj}}_U(\mathcal{A}|_U/\mathcal{F}'\mathcal{A}|_U)$.
+D'après Limites des espaces, lemme
+\ref{spaces-limits-lemma-directed-colimit-finite-type},
+nous pouvons trouver un sous-module quasi-cohérent de type fini
+$\mathcal{F} \subset \mathcal{I}_d$ tel que
+$\mathcal{F}' \subset \mathcal{F}|_U$. Posons
+$Z' = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$.
+Alors $Z' \to P$ est une immersion fermée
+(lemme \ref{lemma-surjective-generated-degree-1-map-relative-proj})
+et $Z \subset Z'$ puisque $\mathcal{F}\mathcal{A} \subset \mathcal{I}$.
+D'autre part, $Z' \times_X U \subset Z \times_X U$ d'après notre
+choix de $\mathcal{F}$. Ainsi, $Z = Z'$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-subscheme-proj-finite-type}
+Soit $S$ un schéma. Soit $X$ un espace algébrique quasi-compact et quasi-séparé
+sur $S$.
+Soit $\mathcal{A}$ une $\mathcal{O}_X$-algèbre graduée quasi-cohérente.
+Soit $\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ le Proj relatif
+de $\mathcal{A}$. Soit $i : Z \to X$ un sous-espace fermé.
+Soit $U \subset X$ un ouvert. Supposons que
+\begin{enumerate}
+\item $\pi$ soit quasi-compact,
+\item $i$ soit de présentation finie,
+\item $|U| \cap |\pi|(|i|(|Z|)) = \emptyset$,
+\item $U$ soit quasi-compact,
+\item $\mathcal{A}_n$ soit un $\mathcal{O}_X$-module de type fini pour tout $n$.
+\end{enumerate}
+Alors il existe un $d > 0$ et un
+sous-$\mathcal{O}_X$-module quasi-cohérent de type fini $\mathcal{F} \subset \mathcal{A}_d$ tel que (a)
+$Z = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$
+et (b) le support de $\mathcal{A}_d/\mathcal{F}$ soit disjoint de $U$.
+\end{lemma}
+
+\begin{proof}
+Nous employons la même astuce que dans la démonstration du
+lemme \ref{lemma-closed-subscheme-proj-finite}
+pour nous ramener au cas des schémas.
+Soit $\mathcal{I} \subset \mathcal{A}$ l'idéal gradué quasi-cohérent
+qui définit $Z$ dans le lemme \ref{lemma-closed-subscheme-proj}.
+Choisissons un schéma affine $W$ et un morphisme \'etale surjectif
+$W \to X$, voir Propriétés des espaces, lemme
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+D'après le cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-closed-subscheme-proj-finite-type}),
+il existe un $d > 0$ et un
+sous-$\mathcal{O}_W$-module quasi-cohérent de type fini
+$\mathcal{F}' \subset \mathcal{I}_d|_W \subset \mathcal{A}_d|_W$,
+tel que (a) $Z \times_X W$ soit égal à
+$\underline{\text{Proj}}_W(\mathcal{A}|_W/\mathcal{F}'\mathcal{A}|_W)$
+et que (b) le support de $\mathcal{A}_d|_W/\mathcal{F}'$ soit disjoint de
+$U \times_X W$. D'après Limites des espaces, lemme
+\ref{spaces-limits-lemma-directed-colimit-finite-type},
+nous pouvons trouver un sous-module quasi-cohérent de type fini
+$\mathcal{F} \subset \mathcal{I}_d$ tel que
+$\mathcal{F}' \subset \mathcal{F}|_W$. Posons
+$Z' = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$.
+Alors $Z' \to P$ est une immersion fermée
+(lemme \ref{lemma-surjective-generated-degree-1-map-relative-proj})
+et $Z \subset Z'$ puisque $\mathcal{F}\mathcal{A} \subset \mathcal{I}$.
+D'autre part, $Z' \times_X W \subset Z \times_X W$ d'après notre
+choix de $\mathcal{F}$. Ainsi, $Z = Z'$.
+Enfin, le support de $\mathcal{A}_d/\mathcal{F}$ est contenu dans
+$X \setminus U$, car $\mathcal{A}_d|_W/\mathcal{F}|_W$ est un quotient
+de $\mathcal{A}_d|_W/\mathcal{F}'$, dont le support est contenu dans
+$W \setminus U \times_X W$. Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-conormal-sheaf-section-projective-bundle}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{E}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Il existe une bijection
+$$
+\left\{
+\begin{matrix}
+\text{sections }\sigma\text{ du } \\
+\text{morphisme } \mathbf{P}(\mathcal{E}) \to X
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{surjections }\mathcal{E} \to \mathcal{L}\text{ où} \\
+\mathcal{L}\text{ est un }\mathcal{O}_X\text{-module inversible}
+\end{matrix}
+\right\}
+$$
+Dans ce cas, $\sigma$ est une immersion fermée et il existe un
+isomorphisme canonique
+$$
+\Ker(\mathcal{E} \to \mathcal{L})
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes -1}
+\longrightarrow
+\mathcal{C}_{\sigma(X)/\mathbf{P}(\mathcal{E})}
+$$
+La bijection et l'isomorphisme sont tous deux compatibles avec le changement de base.
+\end{lemma}
+
+\begin{proof}
+Puisque les constructions sont compatibles avec le changement de base, il suffit de
+vérifier l'assertion localement pour la topologie \'etale sur $X$. Nous pouvons donc supposer que $X$ est
+un schéma, et le résultat est alors
+Diviseurs, lemme \ref{divisors-lemma-conormal-sheaf-section-projective-bundle}.
+\end{proof}
+
+
+
+
+
+
+\section{Éclatements}
+\label{section-blowing-up}
+
+\noindent
+L'éclatement est un outil important en géométrie algébrique.
+
+\begin{definition}
+\label{definition-blow-up}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ un faisceau quasi-cohérent
+d'idéaux, et soit $Z \subset X$ le sous-espace fermé correspondant
+à $\mathcal{I}$
+(Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-closed-immersion-ideals}).
+L'{\it éclatement de $X$ le long de $Z$}, ou l'
+{\it éclatement de $X$ suivant le faisceau d'idéaux $\mathcal{I}$} est
+le morphisme
+$$
+b :
+\underline{\text{Proj}}_X
+\left(\bigoplus\nolimits_{n \geq 0} \mathcal{I}^n\right)
+\longrightarrow
+X
+$$
+Le {\it diviseur exceptionnel} de l'éclatement est l'image inverse
+$b^{-1}(Z)$. Le sous-espace $Z$ est parfois appelé le {\it centre} de l'éclatement.
+\end{definition}
+
+\noindent
+Nous verrons plus loin que le diviseur exceptionnel est un diviseur de Cartier
+effectif. De plus, l'éclatement se caractérise comme le « plus petit »
+espace algébrique au-dessus de $X$ tel que l'image inverse de $Z$ soit un
+diviseur de Cartier effectif.
+
+\medskip\noindent
+Si $b : X' \to X$ est l'éclatement de $X$ le long de $Z$, on note souvent
+$\mathcal{O}_{X'}(n)$ les faisceaux tordus du faisceau structural. Notons que ceux-ci
+sont des $\mathcal{O}_{X'}$-modules inversibles et que
+$\mathcal{O}_{X'}(n) = \mathcal{O}_{X'}(1)^{\otimes n}$,
+car $X'$ est le Proj relatif d'une algèbre graduée quasi-cohérente
+sur $\mathcal{O}_X$ qui est engendrée en degré $1$, voir le
+lemme \ref{lemma-relative-proj-generated-in-degree-1}.
+
+\begin{lemma}
+\label{lemma-blowing-up-affine}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ un
+faisceau quasi-cohérent d'idéaux. Soit $U = \Spec(A)$ un schéma affine
+\'etale sur $X$, et soit $I \subset A$ l'idéal correspondant à
+$\mathcal{I}|_U$. Si $X' \to X$ est l'éclatement de $X$ suivant $\mathcal{I}$,
+il existe alors un isomorphisme canonique
+$$
+U \times_X X' = \text{Proj}(\bigoplus\nolimits_{d \geq 0} I^d)
+$$
+de schémas au-dessus de $U$, où le membre de droite est
+le spectre homogène de l'algèbre de Rees de $I$ dans $A$.
+De plus, $U \times_X X'$ possède un recouvrement ouvert affine par les
+spectres des algèbres d'éclatement affines $A[\frac{I}{a}]$.
+\end{lemma}
+
+\begin{proof}
+Notons que la restriction $\mathcal{I}|_U$ est égale à l'image inverse
+de $\mathcal{I}$ par le morphisme $U \to X$, voir
+Propriétés des espaces, section \ref{spaces-properties-section-modules}.
+Le lemme résulte donc de la combinaison du lemme \ref{lemma-relative-proj} et de
+Diviseurs, lemme \ref{divisors-lemma-blowing-up-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-base-change-blowing-up}
+Soit $S$ un schéma.
+Soit $X_1 \to X_2$ un morphisme plat d'espaces algébriques sur $S$.
+Soit $Z_2 \subset X_2$ un sous-espace fermé.
+Soit $Z_1$ l'image inverse de $Z_2$ dans $X_1$.
+Soit $X'_i$ l'éclatement de centre $Z_i$ dans $X_i$. Il existe alors un diagramme
+cartésien
+$$
+\xymatrix{
+X_1' \ar[r] \ar[d] & X_2' \ar[d] \\
+X_1 \ar[r] & X_2
+}
+$$
+d'espaces algébriques sur $S$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{I}_2$ le faisceau d'idéaux de $Z_2$ dans $X_2$.
+Notons $g : X_1 \to X_2$ le morphisme donné. Le faisceau d'idéaux
+$\mathcal{I}_1$ de $Z_1$ est alors l'image de
+$g^*\mathcal{I}_2 \to \mathcal{O}_{X_1}$
+(voir Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-inverse-image-closed-subspace}
+et la discussion qui suit cette définition).
+D'après le lemme \ref{lemma-relative-proj-base-change},
+$X_1 \times_{X_2} X_2'$ est le Proj relatif de
+$\bigoplus_{n \geq 0} g^*\mathcal{I}_2^n$. Comme $g$ est plat, le morphisme
+$g^*\mathcal{I}_2^n \to \mathcal{O}_{X_1}$ est injectif et son image est
+$\mathcal{I}_1^n$. Ainsi, $X_1 \times_{X_2} X_2' = X_1'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowing-up-gives-effective-Cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $Z \subset X$ un sous-espace fermé.
+L'éclatement $b : X' \to X$ de centre $Z$ dans $X$
+possède les propriétés suivantes :
+\begin{enumerate}
+\item $b|_{b^{-1}(X \setminus Z)} : b^{-1}(X \setminus Z) \to X \setminus Z$
+est un isomorphisme,
+\item le diviseur exceptionnel $E = b^{-1}(Z)$ est un diviseur de Cartier effectif
+sur $X'$,
+\item il existe un isomorphisme canonique
+$\mathcal{O}_{X'}(-1) = \mathcal{O}_{X'}(E)$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $U \to X$ un morphisme \'etale surjectif.
+Comme la formation de l'éclatement commute au changement de base plat
+(lemme \ref{lemma-flat-base-change-blowing-up}),
+nous pouvons démontrer chacune de ces assertions après changement de base à $U$.
+Cela nous ramène au cas des schémas.
+Dans ce cas, le résultat est
+Diviseurs, lemme
+\ref{divisors-lemma-blowing-up-gives-effective-Cartier-divisor}.
+\end{proof}
+
+\begin{lemma}[Propriété universelle de l'éclatement]
+\label{lemma-universal-property-blowing-up}
+\begin{slogan}
+Éclater un fermé pour en faire un diviseur de Cartier.
+\end{slogan}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique sur $S$.
+Soit $Z \subset X$ un sous-espace fermé.
+Soit $\mathcal{C}$ la sous-catégorie pleine de $(\textit{Espaces}/X)$ composée
+des $Y \to X$ tels que l'image inverse de $Z$ soit un
+diviseur de Cartier effectif sur $Y$. Alors l'éclatement $b : X' \to X$ de centre $Z$ dans $X$
+est un objet final de $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Le morphisme $b : X' \to X$ est un objet de $\mathcal{C}$ d'après le
+lemme \ref{lemma-blowing-up-gives-effective-Cartier-divisor}.
+Soit $f : Y \to X$ un objet de $\mathcal{C}$. Nous devons montrer qu'il existe
+un unique morphisme $Y \to X'$ au-dessus de $X$. Posons $D = f^{-1}(Z)$.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ le faisceau d'idéaux de $Z$
+et soit $\mathcal{I}_D$ le faisceau d'idéaux de $D$. Alors
+$f^*\mathcal{I} \to \mathcal{I}_D$ est une surjection
+vers un $\mathcal{O}_Y$-module inversible. Elle se prolonge en un morphisme
+$\psi : \bigoplus f^*\mathcal{I}^d \to \bigoplus \mathcal{I}_D^d$
+d'algèbres graduées sur $\mathcal{O}_Y$. (Nous observons que
+$\mathcal{I}_D^d = \mathcal{I}_D^{\otimes d}$ puisque $D$ est un
+diviseur de Cartier effectif.) D'après le
+lemme \ref{lemma-relative-proj-generated-in-degree-1},
+le triplet $(f : Y \to X, \mathcal{I}_D, \psi)$ définit un
+morphisme $Y \to X'$ au-dessus de $X$. La restriction
+$$
+Y \setminus D \longrightarrow X' \setminus b^{-1}(Z) = X \setminus Z
+$$
+est unique. L'ouvert $Y \setminus D$ est schématiquement dense dans $Y$
+d'après le lemme \ref{lemma-complement-effective-Cartier-divisor}. 
+Ainsi, le morphisme $Y \to X'$ est unique d'après
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-equality-of-morphisms}
+(de plus, $b$ est séparé d'après le lemme
+\ref{lemma-relative-proj-separated}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blow-up-effective-Cartier-divisor}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $Z \subset X$ un diviseur de Cartier effectif.
+L'éclatement de $X$ le long de $Z$ est le morphisme identité de $X$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de la propriété universelle des éclatements
+(lemme \ref{lemma-universal-property-blowing-up}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blow-up-reduced-space}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ un
+faisceau quasi-cohérent d'idéaux. Si $X$ est réduit, alors
+l'éclatement $X'$ de $X$ suivant $\mathcal{I}$ est réduit.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $U \to X$ un morphisme \'etale surjectif.
+Comme la formation de l'éclatement commute au changement de base plat
+(lemme \ref{lemma-flat-base-change-blowing-up}),
+nous pouvons démontrer l'assertion après changement de base à $U$.
+Cela nous ramène au cas des schémas.
+Dans ce cas, le résultat est
+Diviseurs, lemme \ref{divisors-lemma-blow-up-reduced-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowup-finite-nr-irreducibles}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$. Soit
+$b : X' \to X$ l'éclatement de $X$ le long d'un sous-espace fermé. Si
+$X$ vérifie les conditions équivalentes de
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-prepare-normalization},
+alors il en est de même de $X'$.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du lemme cité dans l'énoncé,
+de la description locale pour la topologie \'etale des éclatements donnée au
+lemme \ref{lemma-blowing-up-affine}, et de
+Diviseurs, lemme \ref{divisors-lemma-blow-up-and-irreducible-components}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blow-up-pullback-effective-Cartier}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $b : X' \to X$ un éclatement de $X$ le long d'un sous-espace fermé.
+Pour tout diviseur de Cartier effectif $D$ sur $X$, l'image inverse
+$b^{-1}D$ est définie (voir la définition
+\ref{definition-pullback-effective-Cartier-divisor}).
+\end{lemma}
+
+\begin{proof}
+D'après les lemmes \ref{lemma-blowing-up-affine} et
+\ref{lemma-characterize-effective-Cartier-divisor},
+cela se ramène au fait algébrique suivant :
+soient $A$ un anneau, $I \subset A$ un idéal, $a \in I$, et $x \in A$
+un non-diviseur de zéro. L'image de $x$ dans $A[\frac{I}{a}]$ est alors un
+non-diviseur de zéro. En effet, supposons que $x (y/a^n) = 0$ dans $A[\frac{I}{a}]$.
+Alors $a^mxy = 0$ dans $A$ pour un certain $m$. Donc $a^my = 0$ puisque $x$ est un
+non-diviseur de zéro. Ainsi $y/a^n$ est nul dans $A[\frac{I}{a}]$, comme voulu.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowing-up-two-ideals}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soient $\mathcal{I} \subset \mathcal{O}_X$ et $\mathcal{J}$ des
+faisceaux quasi-cohérents d'idéaux. Soit $b : X' \to X$ l'éclatement
+de $X$ suivant $\mathcal{I}$. Soit $b' : X'' \to X'$ l'éclatement de
+$X'$ suivant $b^{-1}\mathcal{J} \mathcal{O}_{X'}$. Alors $X'' \to X$
+est canoniquement isomorphe à l'éclatement de $X$ suivant $\mathcal{I}\mathcal{J}$.
+\end{lemma}
+
+\begin{proof}
+Soit $E \subset X'$ le diviseur exceptionnel de $b$, qui est un diviseur de
+Cartier effectif d'après le
+lemme \ref{lemma-blowing-up-gives-effective-Cartier-divisor}.
+Alors $(b')^{-1}E$ est un diviseur de Cartier effectif sur $X''$ d'après le
+lemme \ref{lemma-blow-up-pullback-effective-Cartier}.
+Soit $E' \subset X''$ le diviseur exceptionnel de $b'$ (lui aussi un diviseur de
+Cartier effectif). Considérons le diviseur de Cartier effectif
+$E'' = E' + (b')^{-1}E$. Par construction, l'idéal de $E''$ est
+$(b \circ b')^{-1}\mathcal{I} (b \circ b')^{-1}\mathcal{J} \mathcal{O}_{X''}$.
+D'après le lemme \ref{lemma-universal-property-blowing-up},
+il existe donc un morphisme canonique de $X''$ vers l'éclatement $c : Y \to X$
+de $X$ le long de $\mathcal{I}\mathcal{J}$. Inversement, puisque $\mathcal{I}\mathcal{J}$
+a pour image inverse un idéal inversible, on voit que
+$c^{-1}\mathcal{I}\mathcal{O}_Y$ définit
+un diviseur de Cartier effectif, voir le
+lemme \ref{lemma-sum-closed-subschemes-effective-Cartier}.
+Il existe donc un morphisme $c' : Y \to X'$ au-dessus de $X$ par le
+lemme \ref{lemma-universal-property-blowing-up}.
+Alors $(c')^{-1}b^{-1}\mathcal{J}\mathcal{O}_Y = c^{-1}\mathcal{J}\mathcal{O}_Y$,
+qui définit lui aussi un diviseur de Cartier effectif. Il existe donc un morphisme
+$c'' : Y \to X''$ au-dessus de $X'$. Nous omettons de vérifier que ce
+morphisme est l'inverse du morphisme $X'' \to Y$ construit précédemment.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowing-up-projective}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $\mathcal{I} \subset \mathcal{O}_X$ un faisceau quasi-cohérent
+d'idéaux. Soit $b : X' \to X$ l'éclatement de $X$
+suivant le faisceau d'idéaux $\mathcal{I}$. Si $\mathcal{I}$ est de type fini, alors
+$b : X' \to X$ est un morphisme propre.
+\end{lemma}
+
+\begin{proof}
+Soit $U$ un schéma et soit $U \to X$ un morphisme \'etale surjectif.
+Comme la formation de l'éclatement commute au changement de base plat
+(lemme \ref{lemma-flat-base-change-blowing-up}),
+nous pouvons démontrer l'assertion après changement de base à $U$
+(voir Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-proper-local}).
+Cela nous ramène au cas des schémas.
+Dans ce cas, le morphisme $b$ est projectif d'après
+Diviseurs, lemme \ref{divisors-lemma-blowing-up-projective},
+donc propre d'après
+Morphismes, lemme \ref{morphisms-lemma-locally-projective-proper}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-finite-type-blowups}
+Soit $S$ un schéma et soit $X$ un espace algébrique sur $S$.
+Supposons que $X$ soit quasi-compact et quasi-séparé.
+Soit $Z \subset X$ un sous-espace fermé de présentation finie.
+Soit $b : X' \to X$ l'éclatement de centre $Z$.
+Soit $Z' \subset X'$ un sous-espace fermé de présentation finie.
+Soit $X'' \to X'$ l'éclatement de centre $Z'$.
+Il existe un sous-espace fermé $Y \subset X$ de présentation finie
+tel que
+\begin{enumerate}
+\item $|Y| = |Z| \cup |b|(|Z'|)$, et
+\item la composée $X'' \to X$ soit isomorphe à l'éclatement
+de $X$ le long de $Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+La condition que $Z \to X$ soit de présentation finie signifie que
+$Z$ est défini par un faisceau d'idéaux quasi-cohérent de type fini
+$\mathcal{I} \subset \mathcal{O}_X$, voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}.
+Écrivons $\mathcal{A} = \bigoplus_{n \geq 0} \mathcal{I}^n$, de sorte que
+$X' = \underline{\text{Proj}}(\mathcal{A})$.
+Notons que $X \setminus Z$ est un sous-espace ouvert quasi-compact de $X$ d'après
+Limites des espaces, lemme
+\ref{spaces-limits-lemma-quasi-coherent-finite-type-ideals}.
+Puisque $b^{-1}(X \setminus Z) \to X \setminus Z$ est un isomorphisme
+(lemme \ref{lemma-blowing-up-gives-effective-Cartier-divisor}), le même
+résultat montre que
+$b^{-1}(X \setminus Z) \setminus Z'$ est un sous-espace ouvert quasi-compact de $X'$.
+Ainsi, $U = X \setminus (Z \cup b(Z'))$ est un sous-espace ouvert quasi-compact de $X$.
+D'après le lemme \ref{lemma-closed-subscheme-proj-finite-type},
+il existe un $d > 0$ et un
+sous-$\mathcal{O}_X$-module de type fini $\mathcal{F} \subset \mathcal{I}^d$ tel
+que $Z' = \underline{\text{Proj}}(\mathcal{A}/\mathcal{F}\mathcal{A})$
+et que le support de $\mathcal{I}^d/\mathcal{F}$ soit contenu
+dans $X \setminus U$.
+
+\medskip\noindent
+Comme $\mathcal{F} \subset \mathcal{I}^d$ est un sous-$\mathcal{O}_X$-module,
+nous pouvons considérer $\mathcal{F} \subset \mathcal{I}^d \subset \mathcal{O}_X$
+comme un faisceau d'idéaux quasi-cohérent de type fini sur $X$. Notons-le
+$\mathcal{J} \subset \mathcal{O}_X$ pour éviter toute confusion. Puisque
+$\mathcal{I}^d / \mathcal{J}$ et $\mathcal{O}/\mathcal{I}^d$ ont
+leur support dans $|X| \setminus |U|$, on voit que $|V(\mathcal{J})|$ est contenu
+dans $|X| \setminus |U|$. Réciproquement, comme $\mathcal{J} \subset \mathcal{I}^d$,
+on voit que $|Z| \subset |V(\mathcal{J})|$. Sur
+$X \setminus Z \cong X' \setminus b^{-1}(Z)$, le faisceau d'idéaux
+$\mathcal{J}$ définit $Z'$ (voir la formule affichée ci-dessous). Ainsi,
+$|V(\mathcal{J})|$ est égal à $|Z| \cup |b|(|Z'|)$. Par suite,
+$|V(\mathcal{I}\mathcal{J})| = |Z| \cup |b|(|Z'|)$. De plus,
+$\mathcal{I}\mathcal{J}$ est un idéal de type fini, comme produit de deux tels idéaux.
+Nous affirmons que $X'' \to X$ est isomorphe à l'éclatement de $X$ suivant
+$\mathcal{I}\mathcal{J}$, ce qui achève la démonstration du lemme en posant
+$Y = V(\mathcal{I}\mathcal{J})$.
+
+\medskip\noindent
+Rappelons d'abord que l'éclatement de $X$ suivant $\mathcal{I}\mathcal{J}$
+est le même que l'éclatement de $X'$ suivant $b^{-1}\mathcal{J} \mathcal{O}_{X'}$,
+voir le lemme \ref{lemma-blowing-up-two-ideals}.
+Il suffit donc de montrer que l'éclatement de $X'$ suivant
+$b^{-1}\mathcal{J} \mathcal{O}_{X'}$ coïncide avec l'éclatement de $X'$
+le long de $Z'$. Nous allons montrer que
+$$
+b^{-1}\mathcal{J} \mathcal{O}_{X'} = \mathcal{I}_E^d \mathcal{I}_{Z'}
+$$
+comme faisceaux d'idéaux sur $X''$. Cela donnera le résultat, puisque
+$\mathcal{I}_E^d$ définit le diviseur de Cartier effectif $dE$
+et que nous pouvons utiliser les lemmes \ref{lemma-blow-up-effective-Cartier-divisor} et
+\ref{lemma-blowing-up-two-ideals}.
+
+\medskip\noindent
+Pour établir l'égalité affichée des idéaux, nous pouvons travailler localement.
+Avec les notations $A$, $I$, $a \in I$ du lemme \ref{lemma-blowing-up-affine},
+on voit que $\mathcal{F}$ correspond à un sous-$R$-module $M \subset I^d$
+qui s'envoie isomorphiquement sur un idéal $J \subset R$. La condition
+$Z' = \underline{\text{Proj}}(\mathcal{A}/\mathcal{F}\mathcal{A})$
+signifie que $Z' \cap \Spec(A[\frac{I}{a}])$ est défini par l'idéal
+engendré par les éléments $m/a^d$, où $m \in M$. Supposons que $m \in M$
+corresponde à la fonction $f \in J$. Alors, dans l'algèbre d'éclatement affine
+$A' = A[\frac{I}{a}]$, on a $f = (a^dm)/a^d = a^d (m/a^d)$.
+L'égalité en résulte.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Transformée stricte}
+\label{section-strict-transform}
+
+\noindent
+Cette section est l'analogue de
+Diviseurs, section \ref{divisors-section-strict-transform}.
+Soient $S$ un schéma, $B$ un espace algébrique sur $S$, et
+$Z \subset B$ un sous-espace fermé.
+Soit $b : B' \to B$ l'éclatement de $B$ le long de $Z$ et désignons par $E \subset B'$
+le diviseur exceptionnel $E = b^{-1}Z$. Dans la suite, nous considérerons
+souvent un espace algébrique $X$ sur $B$ et formerons le diagramme cartésien
+$$
+\xymatrix{
+\text{pr}_{B'}^{-1}E \ar[r] \ar[d] &
+X \times_B B' \ar[r]_-{\text{pr}_X} \ar[d]_{\text{pr}_{B'}} &
+X \ar[d]^f \\
+E \ar[r] & B' \ar[r] & B
+}
+$$
+Puisque $E$ est un diviseur de Cartier effectif
+(lemme \ref{lemma-blowing-up-gives-effective-Cartier-divisor}),
+on voit que $\text{pr}_{B'}^{-1}E \subset X \times_B B'$
+est localement principal
+(lemme \ref{lemma-pullback-locally-principal}).
+Ainsi, le morphisme d'inclusion du complémentaire de
+$\text{pr}_{B'}^{-1}E$ dans $X \times_B B'$
+est affine et, en particulier, quasi-compact
+(lemme \ref{lemma-complement-locally-principal-closed-subscheme}).
+Par conséquent, pour un $\mathcal{O}_{X \times_B B'}$-module quasi-cohérent
+$\mathcal{G}$, le sous-faisceau des sections à support dans $|\text{pr}_{B'}^{-1}E|$
+est un sous-module quasi-cohérent ; voir
+Limites d'espaces, définition
+\ref{spaces-limits-definition-subsheaf-sections-supported-on-closed}.
+Si $\mathcal{G}$ est un faisceau quasi-cohérent d'algèbres, par exemple
+$\mathcal{G} = \mathcal{O}_{X \times_B B'}$, ce sous-faisceau est alors un idéal
+de $\mathcal{G}$.
+
+\begin{definition}
+\label{definition-strict-transform}
+Reprenons $Z \subset B$ et $f : X \to B$ comme ci-dessus.
+\begin{enumerate}
+\item Étant donné un $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$,
+la {\it transformée stricte} de $\mathcal{F}$ relativement à l'éclatement
+de $B$ le long de $Z$ est le quotient $\mathcal{F}'$ de $\text{pr}_X^*\mathcal{F}$
+par le sous-module des sections à support dans $|\text{pr}_{B'}^{-1}E|$.
+\item La {\it transformée stricte} de $X$ est le sous-espace fermé
+$X' \subset X \times_B B'$ défini par l'idéal quasi-cohérent des
+sections de $\mathcal{O}_{X \times_B B'}$ à support dans
+$|\text{pr}_{B'}^{-1}E|$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Notons que la transformée stricte par un éclatement dépend du
+sous-espace fermé qui sert de centre à cet éclatement
+(et non du seul morphisme $B' \to B$).
+
+\begin{lemma}[Localisation étale et transformée stricte]
+\label{lemma-strict-transform-local}
+Dans la situation de la définition \ref{definition-strict-transform}.
+Soit
+$$
+\xymatrix{
+U \ar[r] \ar[d] & X \ar[d] \\
+V \ar[r] & B
+}
+$$
+un diagramme commutatif de morphismes, où $U$ et $V$ sont des schémas et où
+les flèches horizontales sont étales. Soit $V' \to V$ l'éclatement de $V$
+le long de $Z \times_B V$. Alors
+\begin{enumerate}
+\item $V' = V \times_B B'$ et les morphismes
+$V' \to B'$ et $U \times_V V' \to X \times_B B'$ sont étales,
+\item la transformée stricte $U'$ de $U$ relativement à $V' \to V$
+est égale à $X' \times_X U$, où $X'$ est la transformée stricte de $X$
+relativement à $B' \to B$, et
+\item pour un $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$, la
+restriction de la transformée stricte $\mathcal{F}'$ à
+$U \times_V V'$ est la transformée stricte de $\mathcal{F}|_U$ relativement
+à $V' \to V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'assertion (1) résulte de la commutation de l'éclatement au changement de base
+plat (lemme \ref{lemma-flat-base-change-blowing-up}), de la platitude des
+morphismes étales et de leur stabilité par changement de base. L'assertion (3)
+résulte alors de ce que la formation du faisceau des sections à support dans
+un fermé commute à l'image inverse
+par les morphismes étales ; voir Limites d'espaces, lemme
+\ref{spaces-limits-lemma-sections-supported-on-closed-subset}.
+L'assertion (2) résulte de (3), appliquée à $\mathcal{F} = \mathcal{O}_X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform}
+Dans la situation de la définition \ref{definition-strict-transform}.
+\begin{enumerate}
+\item La transformée stricte $X'$ de $X$ est l'éclatement de $X$ le long du
+sous-espace fermé $f^{-1}Z$ de $X$.
+\item Pour un $\mathcal{O}_X$-module quasi-cohérent $\mathcal{F}$, la
+transformée stricte $\mathcal{F}'$ est canoniquement isomorphe à
+l'image directe par $X' \to X \times_B B'$ de la transformée stricte de
+$\mathcal{F}$ relativement à l'éclatement $X' \to X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $X'' \to X$ l'éclatement de $X$ le long de $f^{-1}Z$. Par la propriété
+universelle de l'éclatement (lemme \ref{lemma-universal-property-blowing-up}),
+il existe un diagramme commutatif
+$$
+\xymatrix{
+X'' \ar[r] \ar[d] & X \ar[d] \\
+B' \ar[r] & B
+}
+$$
+d'où un morphisme $i : X'' \to X \times_B B'$. La première assertion
+du lemme affirme que $i$ est une immersion fermée d'image $X'$.
+La seconde affirme que $\mathcal{F}' = i_*\mathcal{F}''$,
+où $\mathcal{F}''$ est la transformée stricte de $\mathcal{F}$
+relativement à l'éclatement $X'' \to X$. Ces assertions se vérifient
+localement pour la topologie étale sur $X$ ; on se ramène donc au cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-strict-transform}).
+Certains détails sont omis.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-flat}
+Dans la situation de la définition \ref{definition-strict-transform}.
+\begin{enumerate}
+\item Si $X$ est plat sur $B$ en tout point situé au-dessus de $Z$, alors
+la transformée stricte de $X$ coïncide avec le changement de base $X \times_B B'$.
+\item Soit $\mathcal{F}$ un $\mathcal{O}_X$-module quasi-cohérent.
+Si $\mathcal{F}$ est plat sur $B$ en tout point situé au-dessus de $Z$, alors
+la transformée stricte $\mathcal{F}'$ de $\mathcal{F}$ est égale à
+l'image inverse $\text{pr}_X^*\mathcal{F}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-strict-transform-flat})
+par localisation étale
+(lemme \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-affine}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $Z \subset B$ un sous-espace fermé.
+Soit $b : B' \to B$ l'éclatement de centre $Z$ dans $B$. Soit
+$g : X \to Y$ un morphisme affine d'espaces algébriques sur $B$.
+Soit $\mathcal{F}$ un faisceau quasi-cohérent sur $X$.
+Soit $g' : X \times_B B' \to Y \times_B B'$ le changement de base
+de $g$. Soit $\mathcal{F}'$ la transformée stricte de $\mathcal{F}$
+relativement à $b$. Alors $g'_*\mathcal{F}'$ est la transformée stricte
+de $g_*\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-strict-transform-affine})
+par localisation étale (lemme \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-different-centers}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $Z \subset B$ un sous-espace fermé.
+Soit $D \subset B$ un diviseur de Cartier effectif.
+Soit $Z' \subset B$ le sous-espace fermé défini par le produit
+des faisceaux d'idéaux de $Z$ et de $D$.
+Soit $B' \to B$ l'éclatement de $B$ le long de $Z$.
+\begin{enumerate}
+\item L'éclatement de $B$ le long de $Z'$ est isomorphe au morphisme $B' \to B$.
+\item Soient $f : X \to B$ un morphisme d'espaces algébriques et $\mathcal{F}$
+un $\mathcal{O}_X$-module quasi-cohérent. Si le sous-faisceau de $\mathcal{F}$ des
+sections à support dans $|f^{-1}D|$ est nul, alors la
+transformée stricte de $\mathcal{F}$ relativement à l'éclatement
+le long de $Z$ coïncide avec la transformée stricte de $\mathcal{F}$ relativement
+à l'éclatement de $B$ le long de $Z'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-strict-transform-different-centers})
+par localisation étale (lemme \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-composition-blowups}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $Z \subset B$ un sous-espace fermé.
+Soit $b : B' \to B$ l'éclatement de centre $Z$.
+Soit $Z' \subset B'$ un sous-espace fermé.
+Soit $B'' \to B'$ l'éclatement de centre $Z'$.
+Soit $Y \subset B$ un sous-schéma fermé tel que
+$|Y| = |Z| \cup |b|(|Z'|)$ et que la composée $B'' \to B$
+soit isomorphe à l'éclatement de $B$ le long de $Y$.
+Dans cette situation, pour tout schéma $X$ sur $B$ et tout
+$\mathcal{F} \in \QCoh(\mathcal{O}_X)$, on a
+\begin{enumerate}
+\item la transformée stricte de $\mathcal{F}$ relativement à l'éclatement
+de $B$ le long de $Y$ est égale à la transformée stricte, relativement à
+l'éclatement $B'' \to B'$ le long de $Z'$, de la transformée stricte de $\mathcal{F}$
+relativement à l'éclatement $B' \to B$ de $B$ le long de $Z$, et
+\item la transformée stricte de $X$ relativement à l'éclatement
+de $B$ le long de $Y$ est égale à la transformée stricte, relativement à
+l'éclatement $B'' \to B'$ le long de $Z'$, de la transformée stricte de $X$
+relativement à l'éclatement $B' \to B$ de $B$ le long de $Z$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-strict-transform-composition-blowups})
+par localisation étale (lemme \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-universally-injective}
+Dans la situation de la définition \ref{definition-strict-transform}.
+Supposons que
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+soit une suite exacte de faisceaux quasi-cohérents sur $X$ qui reste
+exacte après tout changement de base $T \to B$. Alors les transformées strictes
+$\mathcal{F}_i'$ relativement à tout éclatement $B' \to B$
+forment elles aussi la suite exacte
+$0 \to \mathcal{F}'_1 \to \mathcal{F}'_2 \to \mathcal{F}'_3 \to 0$.
+\end{lemma}
+
+\begin{proof}
+Omis. Indication : cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-strict-transform-universally-injective})
+par localisation étale (lemme \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-blowup-fitting-ideal}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_B$-module quasi-cohérent de type fini.
+Soit $Z_k \subset S$ le sous-schéma fermé défini par
+$\text{Fit}_k(\mathcal{F})$ ; voir la section \ref{section-fitting-ideals}.
+Soit $B' \to B$ l'éclatement de $B$ le long de $Z_k$ et soit
+$\mathcal{F}'$ la transformée stricte de $\mathcal{F}$.
+Alors $\mathcal{F}'$ peut être engendré localement par $\leq k$
+sections.
+\end{lemma}
+
+\begin{proof}
+Omis. Cela résulte du cas des schémas
+(Diviseurs, lemme \ref{divisors-lemma-strict-transform-blowup-fitting-ideal})
+par localisation étale (lemme \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-blowup-fitting-ideal-locally-free}
+Soit $S$ un schéma. Soit $B$ un espace algébrique sur $S$.
+Soit $\mathcal{F}$ un $\mathcal{O}_B$-module quasi-cohérent de type fini.
+Soit $Z_k \subset S$ le sous-schéma fermé défini par
+$\text{Fit}_k(\mathcal{F})$ ; voir la section \ref{section-fitting-ideals}.
+Supposons que $\mathcal{F}$ soit localement libre de rang $k$ sur $B \setminus Z_k$.
+Soit $B' \to B$ l'éclatement de $B$ le long de $Z_k$ et soit
+$\mathcal{F}'$ la transformée stricte de $\mathcal{F}$.
+Alors $\mathcal{F}'$ est localement libre de rang $k$.
+\end{lemma}
+
+\begin{proof}
+Omis. Cela résulte du cas des schémas
+(Diviseurs, lemme
+\ref{divisors-lemma-strict-transform-blowup-fitting-ideal-locally-free})
+par localisation étale (lemme \ref{lemma-strict-transform-local}).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Éclatements admissibles}
+\label{section-admissible-blowups}
+
+\noindent
+Afin de mieux maîtriser les éclatements considérés, nous introduisons la
+terminologie standard suivante.
+
+\begin{definition}
+\label{definition-admissible-blowup}
+Soit $S$ un schéma. Soit $X$ un espace algébrique sur $S$.
+Soit $U \subset X$ un sous-espace ouvert. Un morphisme
+$X' \to X$ est appelé {\it éclatement $U$-admissible} s'il existe une
+immersion fermée $Z \to X$ de présentation finie, avec $Z$ disjoint de
+$U$, telle que $X'$ soit isomorphe à l'éclatement de $X$ le long de $Z$.
+\end{definition}
+
+\noindent
+Rappelons que $Z \to X$ est de présentation finie si et seulement si le
+faisceau d'idéaux $\mathcal{I}_Z \subset \mathcal{O}_X$ est de type fini ; voir
+Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}.
+En particulier, un éclatement $U$-admissible est un morphisme propre ; voir le
+lemme \ref{lemma-blowing-up-projective}.
+Notons que plusieurs centres peuvent donner lieu au même morphisme.
+La condition exige donc seulement l'existence d'un centre disjoint de
+$U$ qui produise $X'$.
+Enfin, comme le morphisme $b : X' \to X$ est un isomorphisme au-dessus de $U$ (voir le
+lemme \ref{lemma-blowing-up-gives-effective-Cartier-divisor}), nous identifierons souvent,
+par abus de notation, $U$ à un sous-espace ouvert de $X'$.
+
+\begin{lemma}
+\label{lemma-composition-admissible-blowups}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique quasi-compact et quasi-séparé sur $S$.
+Soit $U \subset X$ un sous-espace ouvert quasi-compact.
+Soit $b : X' \to X$ un éclatement $U$-admissible.
+Soit $X'' \to X'$ un éclatement $U$-admissible.
+Alors la composée $X'' \to X$ est un éclatement $U$-admissible.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement du
+lemme plus précis \ref{lemma-composition-finite-type-blowups}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend-admissible-blowups}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique quasi-compact et quasi-séparé.
+Soient $U, V \subset X$ des sous-espaces ouverts quasi-compacts.
+Soit $b : V' \to V$ un éclatement $U \cap V$-admissible.
+Alors il existe un éclatement $U$-admissible $X' \to X$
+dont la restriction à $V$ est $V'$.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{I} \subset \mathcal{O}_V$ le faisceau quasi-cohérent d'idéaux
+de type fini tel que $V(\mathcal{I})$ soit
+disjoint de $U \cap V$ et que $V'$ soit isomorphe à
+l'éclatement de $V$ le long de $\mathcal{I}$. Soit
+$\mathcal{I}' \subset \mathcal{O}_{U \cup V}$ le faisceau quasi-cohérent
+d'idéaux dont la restriction à $U$ est $\mathcal{O}_U$ et
+dont la restriction à $V$ est $\mathcal{I}$.
+Par Limites d'espaces, lemme \ref{spaces-limits-lemma-extend},
+il existe un faisceau quasi-cohérent d'idéaux de type fini
+$\mathcal{J} \subset \mathcal{O}_X$ dont la restriction à $U \cup V$ est
+$\mathcal{I}'$. Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dominate-admissible-blowups}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique quasi-compact et quasi-séparé sur $S$.
+Soit $U \subset X$ un sous-espace ouvert quasi-compact.
+Soient $b_i : X_i \to X$, $i = 1, \ldots, n$, des éclatements $U$-admissibles.
+Il existe un éclatement $U$-admissible $b : X' \to X$ tel que
+(a) $b$ se factorise sous la forme $X' \to X_i \to X$ pour $i = 1, \ldots, n$, et
+(b) chacun des morphismes $X' \to X_i$ soit un éclatement $U$-admissible.
+\end{lemma}
+
+\begin{proof}
+Soit $\mathcal{I}_i \subset \mathcal{O}_X$ le faisceau quasi-cohérent d'idéaux
+de type fini tel que $V(\mathcal{I}_i)$ soit
+disjoint de $U$ et que $X_i$ soit isomorphe à
+l'éclatement de $X$ le long de $\mathcal{I}_i$. Posons
+$\mathcal{I} = \mathcal{I}_1 \cdot \ldots \cdot \mathcal{I}_n$
+et soit $X'$ l'éclatement de $X$ le long de $\mathcal{I}$. Alors
+$X' \to X$ se factorise par $b_i$ d'après le lemme \ref{lemma-blowing-up-two-ideals}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separate-disjoint-opens-by-blowing-up}
+Soit $S$ un schéma.
+Soit $X$ un espace algébrique quasi-compact et quasi-séparé sur $S$.
+Soient $U, V$ des sous-espaces ouverts quasi-compacts disjoints de $X$.
+Il existe alors un éclatement $U \cup V$-admissible $b : X' \to X$
+tel que $X'$ soit une réunion disjointe de sous-espaces ouverts
+$X' = X'_1 \amalg X'_2$, avec $b^{-1}(U) \subset X'_1$ et
+$b^{-1}(V) \subset X'_2$.
+\end{lemma}
+
+\begin{proof}
+Choisissons des faisceaux quasi-cohérents d'idéaux de type fini $\mathcal{I}$
+et, respectivement, $\mathcal{J}$ tels que $X \setminus U = V(\mathcal{I})$
+et, respectivement, $X \setminus V = V(\mathcal{J})$ ; voir
+Limites d'espaces, lemme
+\ref{spaces-limits-lemma-quasi-coherent-finite-type-ideals}.
+Alors $|V(\mathcal{I}\mathcal{J})| = |X|$. Par suite,
+$\mathcal{I}\mathcal{J}$ est un faisceau d'idéaux localement nilpotent.
+Comme $\mathcal{I}$ et $\mathcal{J}$ sont de type fini et $X$
+est quasi-compact, il existe un $n > 0$ tel que
+$\mathcal{I}^n \mathcal{J}^n = 0$. On peut donc remplacer, et l'on remplace, $\mathcal{I}$
+par $\mathcal{I}^n$ et $\mathcal{J}$ par $\mathcal{J}^n$. On a alors
+$\mathcal{I} \mathcal{J} = 0$. Soit $b : X' \to X$ l'éclatement
+le long de $\mathcal{I} + \mathcal{J}$. Cet éclatement est $U \cup V$-admissible
+car $|V(\mathcal{I} + \mathcal{J})| = |X| \setminus |U| \cup |V|$.
+Nous allons montrer que $X'$ est une réunion disjointe de sous-espaces ouverts
+$X' = X'_1 \amalg X'_2$, comme dans l'énoncé du lemme.
+
+\medskip\noindent
+Comme $|V(\mathcal{I} + \mathcal{J})|$ est le complémentaire de
+$|U \cup V|$, on en déduit que $V \cup U$ est schématiquement
+dense dans $X'$ ; voir les
+lemmes \ref{lemma-blowing-up-gives-effective-Cartier-divisor} et
+\ref{lemma-complement-effective-Cartier-divisor}.
+Ainsi, si une telle décomposition $X' = X'_1 \amalg X'_2$
+en sous-espaces à la fois ouverts et fermés existe, $X'_1$ est l'adhérence
+schématique de $U$ dans $X'$, et, de même, $X'_2$ est
+l'adhérence schématique de $V$ dans $X'$. Comme $U \to X'$
+et $V \to X'$ sont quasi-compacts, la formation des adhérences
+schématiques commute à la localisation étale (Morphismes d'espaces,
+lemme \ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}).
+Pour vérifier l'existence de $X'_1$ et $X'_2$, on peut donc travailler localement
+pour la topologie étale sur $X$. On se ramène ainsi au cas des schémas, traité
+dans la démonstration de Diviseurs, lemme
+\ref{divisors-lemma-separate-disjoint-opens-by-blowing-up}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

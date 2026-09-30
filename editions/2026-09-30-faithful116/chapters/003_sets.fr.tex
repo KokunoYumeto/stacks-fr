@@ -1,0 +1,1135 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Théorie des ensembles}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Nous avons besoin de quelques notions de théorie des ensembles de temps à autre.
+Nous utilisons la théorie des ensembles de Zermelo--Fraenkel avec l'axiome du
+choix (ZFC), telle qu'elle est décrite dans \cite{Kunen} et \cite{Jech}.
+
+\section{Tout est un ensemble}
+\label{section-sets-everything}
+
+\noindent
+La plupart des mathématiciens considèrent que la théorie des ensembles fournit
+les fondements de base des mathématiques. Mais comment cela fonctionne-t-il
+réellement ? Par exemple, comment traduit-on la phrase
+« $X$ est un schéma » en théorie des ensembles ? Il suffit de dérouler les
+définitions : un schéma est un espace localement annelé tel que tout point
+possède un voisinage ouvert qui est un schéma affine. Un espace localement
+annelé est un espace annelé en anneaux locaux. Un espace annelé est une paire
+$(X, \mathcal{O}_X)$ constituée
+d'un espace topologique $X$ et d'un faisceau d'anneaux $\mathcal{O}_X$ sur
+celui-ci. Un espace topologique est une paire $(X, \tau)$ constituée d'un
+ensemble $X$ et d'un ensemble de sous-ensembles
+$\tau \subset \mathcal{P}(X)$ satisfaisant les axiomes d'une topologie. Et
+ainsi de suite.
+
+\medskip\noindent
+Ainsi, étant donné un ensemble $S$, comment reconnaîtrions-nous s'il s'agit
+d'un schéma ? La première chose que nous cherchons à déterminer est si
+l'ensemble $S$ est une paire ordonnée. Cela signifie par définition (voir
+\cite{Jech}, page 7) que $S$ est de la forme
+$(a, b) := \{\{a\}, \{a, b\}\}$ pour certains ensembles $a, b$. Si c'est le
+cas, nous examinerions alors si $a$ est une paire ordonnée $(c, d)$. Si oui,
+nous vérifierions si $d \subset \mathcal{P}(c)$, puis, dans l'affirmative, si
+$d$ constitue la collection d'ensembles d'une topologie sur l'ensemble $c$.
+Et ainsi de suite.
+
+\medskip\noindent
+Ainsi, même si la rédaction d'une formule complète $\phi_{scheme}(x)$ à une
+variable libre $x$ en théorie des ensembles, exprimant la notion « $x$ est un
+schéma », demanderait un travail considérable, elle est possible. Il devrait en
+être de même pour tout objet mathématique.
+
+\section{Classes}
+\label{section-classes}
+
+\noindent
+Nous utilisons informellement la notion de {\it classe}.\par\noindent
+Étant donnée une formule $\phi(x, p_1, \ldots, p_n)$, nous appelons
+$$
+C = \{x : \phi(x, p_1, \ldots, p_n)\}
+$$
+une {\it classe}. Une classe est plus facile à manipuler que la formule qui la
+définit, mais ce n'est pas, à proprement parler, un objet mathématique. Par
+exemple, si $R$ est un anneau, nous pouvons considérer la classe de tous les
+$R$-modules (puisque, après tout, nous pouvons traduire la phrase « $M$ est un
+$R$-module » en une formule de théorie des ensembles, laquelle définit alors
+une classe). Une {\it classe propre} est une classe qui n'est pas un ensemble.
+
+\medskip\noindent
+Nous pouvons ainsi considérer la catégorie des $R$-modules, qui est une
+« grande » catégorie---autrement dit, elle possède une classe propre d'objets.
+De même, nous pouvons considérer la « grande » catégorie des schémas, la
+« grande » catégorie des anneaux, etc.
+
+
+
+\section{Ordinaux}
+\label{section-ordinals}
+
+\noindent
+Un ensemble $T$ est {\it transitif} si $x\in T$ implique $x\subset T$.
+Un ensemble $\alpha$ est un {\it ordinal} s'il est transitif et bien ordonné
+par $\in$. Dans ce cas, nous définissons
+$\alpha + 1 = \alpha \cup \{\alpha\}$, qui est un autre ordinal appelé le
+{\it successeur} de $\alpha$. Un ordinal $\alpha$ est appelé un
+{\it ordinal successeur} s'il existe un ordinal $\beta$ tel que
+$\alpha = \beta + 1$. Le plus petit ordinal est $\emptyset$, également noté
+$0$. Si $\alpha$ n'est ni $0$ ni un ordinal successeur, alors $\alpha$ est
+appelé un {\it ordinal limite} et nous avons
+$$
+\alpha
+=
+\bigcup\nolimits_{\gamma \in \alpha} \gamma.
+$$
+Le premier ordinal limite est $\omega$ ; c'est aussi le premier ordinal
+infini. Le premier ordinal non dénombrable $\omega_1$ est l'ensemble de tous
+les ordinaux dénombrables. La collection de tous les ordinaux est une classe
+propre. Elle est bien ordonnée par $\in$ au sens suivant : tout ensemble non
+vide (et même toute classe non vide) d'ordinaux possède un plus petit élément.
+Étant donné un ensemble $A$ d'ordinaux, nous définissons la {\it borne supérieure} de
+$A$ par $\sup_{\alpha \in A} \alpha =
+\bigcup_{\alpha \in A} \alpha$. C'est le plus petit ordinal supérieur ou égal
+à tout $\alpha \in A$. Étant donné un ensemble bien ordonné $(S, <)$, il existe
+un unique ordinal $\alpha$ tel que $(S, <) \cong (\alpha, \in)$ ; on l'appelle
+le {\it type d'ordre} de l'ensemble bien ordonné.
+
+\section{La hiérarchie des ensembles}
+\label{section-sets-hierarchy}
+
+\noindent
+Nous définissons par récurrence transfinie $V_0 = \emptyset$,
+$V_{\alpha + 1} = P(V_\alpha)$ (ensemble des parties), et, pour un ordinal
+limite $\alpha$,
+$$
+V_\alpha = \bigcup\nolimits_{\beta < \alpha} V_\beta.
+$$
+Remarquons que chaque $V_\alpha$ est un ensemble transitif.
+
+\begin{lemma}
+\label{lemma-axiom-regularity}
+Tout ensemble est un élément de $V_\alpha$ pour un certain ordinal $\alpha$.
+\end{lemma}
+
+\begin{proof}
+Voir \cite[lemme 6.3]{Jech}.
+\end{proof}
+
+\noindent
+Dans \cite[chapitre III]{Kunen}, il est expliqué que ce lemme équivaut à
+l'axiome de fondation. Le {\it rang} d'un ensemble $S$ est le plus petit ordinal
+$\alpha$ tel que $S \in V_{\alpha + 1}$. Par {\it univers partiel}, nous
+entendrons un ensemble suffisamment grand de la forme $V_\alpha$, lequel sera
+clair d'après le contexte.
+
+\section{Cardinalité}
+\label{section-cardinals}
+
+\noindent
+La {\it cardinalité} d'un ensemble $A$ est le plus petit ordinal $\alpha$ tel
+qu'il existe une bijection entre $A$ et $\alpha$. Nous utilisons parfois la
+notation $\alpha = |A|$ pour l'indiquer. Nous disons qu'un ordinal $\alpha$ est
+un {\it cardinal} si et seulement s'il apparaît comme cardinalité d'un certain
+ensemble $A$---autrement dit, si $\alpha = |A|$. Nous utilisons les lettres
+grecques $\kappa$, $\lambda$ pour les cardinaux. Le premier cardinal infini est
+$\omega$ et, dans ce contexte, il est noté $\aleph_0$. Un ensemble est
+{\it dénombrable} si sa cardinalité est $\leq \aleph_0$. Si $\alpha$ est un
+ordinal, nous notons $\alpha^+$ le plus petit cardinal $> \alpha$. On peut
+l'utiliser pour définir $\aleph_1 = \aleph_0^+$,
+$\aleph_2 = \aleph_1^+$, etc., et l'on peut en fait définir $\aleph_\alpha$
+pour tout ordinal $\alpha$ par récurrence transfinie. Nous relevons l'égalité
+$\aleph_1 = \omega_1$.
+
+\medskip\noindent
+L'{\it addition} des cardinaux $\kappa, \lambda$ est notée
+$\kappa \oplus \lambda$ ; c'est la cardinalité de
+$\kappa \amalg \lambda$. La {\it multiplication} des cardinaux
+$\kappa, \lambda$ est notée $\kappa \otimes \lambda$ ; c'est la cardinalité
+de $\kappa \times \lambda$. Si $\kappa$ et $\lambda$ sont des cardinaux
+infinis, alors
+$\kappa \oplus \lambda = \kappa \otimes \lambda = \max(\kappa, \lambda)$.
+L'{\it exponentiation} des cardinaux $\kappa, \lambda$ est notée
+$\kappa^\lambda$ ; c'est la cardinalité de l'ensemble des applications
+(ensemblistes) de $\lambda$ vers $\kappa$. Étant donné un ensemble $K$ de
+cardinaux, la {\it borne supérieure} de $K$ est
+$\sup_{\kappa \in K} \kappa = \bigcup_{\kappa \in K} \kappa$, qui est
+également un cardinal.
+
+\section{Cofinalité}
+\label{section-cofinality}
+
+\noindent
+Un {\it sous-ensemble cofinal} $S$ d'un ensemble bien ordonné $T$ est un
+sous-ensemble $S \subset T$ tel que
+$\forall t \in T \exists s\in S (t \leq s)$. Remarquons qu'un sous-ensemble
+d'un ensemble bien ordonné est lui-même bien ordonné (pour l'ordre induit).
+Étant donné un ordinal $\alpha$, la {\it cofinalité} $\text{cf}(\alpha)$ de
+$\alpha$ est le plus petit ordinal $\beta$ qui apparaît comme type d'ordre
+d'un sous-ensemble cofinal de $\alpha$. La cofinalité d'un ordinal est toujours
+un cardinal. Nous pouvons donc aussi définir la cofinalité de $\alpha$ comme la
+plus petite cardinalité d'un sous-ensemble cofinal de $\alpha$.
+
+\begin{lemma}
+\label{lemma-map-from-set-lifts}
+Supposons que $T = \colim_{\alpha < \beta} T_\alpha$ soit une colimite
+d'ensembles indexée par les ordinaux strictement inférieurs à un ordinal donné
+$\beta$. Supposons que $\varphi : S \to T$ soit une application d'ensembles.
+Alors $\varphi$ se relève en une application à valeurs dans $T_\alpha$ pour un
+certain $\alpha < \beta$, pourvu que $\beta$ ne soit pas la limite d'une
+famille d'ordinaux indexée par $S$, autrement dit si $\beta$ est un ordinal tel que
+$\text{cf}(\beta) > |S|$.
+\end{lemma}
+
+\begin{proof}
+Pour chaque élément $s \in S$, choisissons un $\alpha_s < \beta$ et un élément
+$t_s \in T_{\alpha_s}$ qui s'envoie sur $\varphi(s)$ dans $T$. Par hypothèse,
+$\alpha = \sup_{s \in S} \alpha_s$ est strictement inférieur à $\beta$.
+L'application $\varphi_\alpha : S \to T_\alpha$ qui associe à $s$ l'image de
+$t_s$ dans $T_\alpha$ est donc une solution.
+\end{proof}
+
+\noindent
+Le résultat suivant est essentiellement l'argument de Grothendieck établissant
+l'existence d'ordinaux de cofinalité arbitrairement grande, argument qu'il a
+utilisé pour démontrer l'existence d'assez d'injectifs dans certaines
+catégories abéliennes ; voir \cite{Tohoku}.
+
+\begin{proposition}
+\label{proposition-exist-ordinals-large-cofinality}
+Soit $\kappa$ un cardinal. Il existe alors un ordinal dont la cofinalité est
+strictement supérieure à $\kappa$.
+\end{proposition}
+
+\begin{proof}
+Si $\kappa$ est fini, alors $\omega = \text{cf}(\omega)$ convient. Supposons
+donc $\kappa$ infini. Considérons le plus petit ordinal $\alpha$ dont la
+cardinalité est strictement supérieure à $\kappa$. Nous affirmons que
+$\text{cf}(\alpha) > \kappa$. Remarquons que $\alpha$ est un ordinal limite,
+car si $\alpha = \beta + 1$, alors $|\alpha| = |\beta|$ (puisque $\alpha$ et
+$\beta$ sont infinis), ce qui contredit la minimalité de $\alpha$. (Bien sûr,
+$\alpha$ est aussi un cardinal, mais nous n'en avons pas besoin.) Pour obtenir
+une contradiction, supposons que $S \subset \alpha$ soit un sous-ensemble
+cofinal tel que $|S| \leq \kappa$. Pour $\beta \in S$, c'est-à-dire
+$\beta < \alpha$, nous avons $|\beta| \leq \kappa$ par minimalité de $\alpha$.
+Comme $\alpha$ est un ordinal limite et $S$ est cofinal dans $\alpha$, nous
+obtenons $\alpha = \bigcup_{\beta \in S} \beta$. Par conséquent,
+$|\alpha| \leq |S| \otimes \kappa \leq \kappa \otimes \kappa \leq \kappa$,
+ce qui contredit notre choix de $\alpha$.
+\end{proof}
+
+
+
+\section{Principe de réflexion}
+\label{section-reflection-principle}
+
+\noindent
+Une partie de ce contenu se trouve dans le chapitre de \cite{Kunen} intitulé
+« Easy consistency proofs ».
+
+\medskip\noindent
+Soit $\phi(x_1, \ldots, x_n)$ une formule de théorie des ensembles. Adoptons la
+convention selon laquelle cette notation implique que toutes les variables
+libres de $\phi$ figurent parmi $x_1, \ldots, x_n$. Soit $M$ un ensemble. La
+formule $\phi^M(x_1, \ldots, x_n)$ est celle que l'on obtient à partir de
+$\phi(x_1, \ldots, x_n)$ en remplaçant respectivement tous les $\forall x$ et
+$\exists x$ par $\forall x\in M$ et $\exists x\in M$. Ainsi, la formule
+$\phi(x_1, x_2) = \exists x (x\in x_1 \wedge x\in x_2)$ devient
+$\phi^M(x_1, x_2) = \exists x \in M (x\in x_1 \wedge x\in x_2)$.
+La formule $\phi^M$ est appelée la {\it relativisation de $\phi$ à $M$}.
+
+\begin{theorem}
+\label{theorem-reflection-principle}
+Considérons une famille {\bf finie} de formules de théorie des ensembles,
+notées $\phi_1(x_1, \ldots, x_n), \ldots, \phi_m(x_1, \ldots, x_n)$.
+Soit $M_0$ un ensemble. Il existe un ensemble $M$ tel
+que $M_0 \subset M$ et que l'on ait, $\forall x_1, \ldots, x_n \in M$,
+$$
+\forall i = 1, \ldots, m, \ \phi_i^{M}(x_1, \ldots, x_n)
+\Leftrightarrow
+\forall i = 1, \ldots, m, \ \phi_i(x_1, \ldots, x_n).
+$$
+En fait, nous pouvons prendre $M = V_\alpha$ pour un certain ordinal limite
+$\alpha$.
+\end{theorem}
+
+\begin{proof}
+Voir \cite[théorème 12.14]{Jech} ou \cite[théorème 7.4]{Kunen}.
+\end{proof}
+
+\noindent
+Nous interprétons ce théorème comme suit : étant donnés
+$x_1, \ldots, x_n \in M$, les formules sont vraies lorsque les variables liées
+parcourent tous les ensembles si et seulement si elles sont vraies lorsque les
+variables liées parcourent les éléments de $V_\alpha$. Ce théorème est un
+métathéorème, car il porte directement sur les formules de la théorie des
+ensembles. Il affirme en réalité qu'étant donnée la liste finie de formules
+$\phi_1, \ldots, \phi_m$, dont toutes les variables libres figurent parmi
+$x_1, \ldots, x_n$, la phrase
+$$
+\begin{matrix}
+\forall M_0\ \exists M, \ M_0 \subset M\ \forall x_1, \ldots, x_n \in M \\
+\phi_1(x_1, \ldots, x_n) \wedge \ldots \wedge \phi_m(x_1, \ldots, x_n)
+\leftrightarrow
+\phi_1^M(x_1, \ldots, x_n) \wedge \ldots \wedge \phi_m^M(x_1, \ldots, x_n)
+\end{matrix}
+$$
+est démontrable dans ZFC. Autrement dit, chaque fois que nous écrivons
+effectivement une liste finie de formules $\phi_i$, nous obtenons un théorème.
+
+\medskip\noindent
+Il est assez difficile d'utiliser ce théorème dans les « mathématiques
+ordinaires », car le sens des formules $\phi_i^M(x_1, \ldots, x_n)$ n'est pas
+très clair ! Nous utiliserons plutôt l'idée de la démonstration du principe de
+réflexion pour établir directement les résultats d'existence dont nous avons
+besoin.
+
+\section{Construction de catégories de schémas}
+\label{section-categories-schemes}
+
+\noindent
+Nous allons expliquer comment appliquer ceci pour produire, à partir d'un
+ensemble initial de schémas, une « petite » catégorie de schémas stable par une
+liste d'opérations naturelles. Avant cela, introduisons la taille d'un schéma.
+Étant donné un schéma $S$, nous définissons
+$$
+\text{size}(S) = \max(\aleph_0, \kappa_1, \kappa_2),
+$$
+où nous définissons les nombres cardinaux $\kappa_1$ et $\kappa_2$ comme suit :
+\begin{enumerate}
+\item Nous prenons pour $\kappa_1$ la cardinalité de l'ensemble des ouverts
+affines de $S$.
+\item Pour $\kappa_2$, nous prenons la borne supérieure des cardinalités des
+$\Gamma(U, \mathcal{O}_S)$, lorsque $U \subset S$ est un ouvert affine.
+\end{enumerate}
+
+\begin{lemma}
+\label{lemma-bounded-size}
+Pour tout cardinal $\kappa$, il existe un ensemble $A$ tel que chaque élément
+de $A$ soit un schéma et que, pour tout schéma $S$ vérifiant
+$\text{size}(S) \leq \kappa$, il existe un élément $X \in A$ tel que
+$X \cong S$ (isomorphisme de schémas).
+\end{lemma}
+
+\begin{proof}
+La démonstration est omise. Indication : réfléchir à la manière dont tout schéma est isomorphe à un
+schéma obtenu par recollement de schémas affines.
+\end{proof}
+
+\noindent
+Nous notons $Bound$ la fonction qui associe à chaque cardinal $\kappa$
+\begin{equation}
+\label{equation-bound}
+Bound(\kappa) = \max\{\kappa^{\aleph_0}, \kappa^+\}.
+\end{equation}
+Nous pourrions faire croître cette fonction beaucoup plus rapidement ; par
+exemple, nous pourrions poser $Bound(\kappa) = \kappa^\kappa$, et le résultat
+ci-dessous resterait vrai. Pour tout ordinal $\alpha$, nous notons
+$\Sch_\alpha$ la sous-catégorie pleine de la catégorie des schémas dont les
+objets sont des éléments de $V_\alpha$. Voici le résultat que nous allons
+démontrer.
+
+\begin{lemma}
+\label{lemma-construct-category}
+Avec les notations $\text{size}$, $Bound$ et $\Sch_\alpha$ ci-dessus, soit
+$S_0$ un ensemble de schémas. Il existe un ordinal limite $\alpha$ possédant
+les propriétés suivantes :
+\begin{enumerate}
+\item
+\label{item-inclusion}
+Nous avons $S_0 \subset V_\alpha$ ; autrement dit,
+$S_0 \subset \Ob(\Sch_\alpha)$.
+\item
+\label{item-bounded}
+Pour tout $S \in \Ob(\Sch_\alpha)$ et tout schéma $T$ tel que
+$\text{size}(T) \leq Bound(\text{size}(S))$, il existe un schéma
+$S' \in \Ob(\Sch_\alpha)$ tel que $T \cong S'$.
+\item
+\label{item-limit}
+Pour toute catégorie d'indices dénombrable\footnote{L'ensemble des objets
+et les ensembles de morphismes sont tous dénombrables. On peut en fait
+démontrer le lemme en remplaçant $\aleph_0$ par un cardinal quelconque dans
+(3) et (4).} $\mathcal{I}$ et tout foncteur
+$F : \mathcal{I} \to \Sch_\alpha$, la limite $\lim_\mathcal{I} F$ existe dans
+$\Sch_\alpha$ si et seulement si elle existe dans $\Sch$ et, de plus, dans ce
+cas, le morphisme naturel entre elles est un isomorphisme.
+\item
+\label{item-colimit}
+Pour toute catégorie d'indices dénombrable $\mathcal{I}$ et tout foncteur
+$F : \mathcal{I} \to \Sch_\alpha$, la colimite $\colim_\mathcal{I} F$ existe
+dans $\Sch_\alpha$ si et seulement si elle existe dans $\Sch$ et, de plus,
+dans ce cas, le morphisme naturel entre elles est un isomorphisme.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous définissons, par récurrence transfinie, une fonction $f$ qui associe un
+ordinal à chaque ordinal comme suit. Posons $f(0) = 0$. Étant donné
+$f(\alpha)$, nous définissons $f(\alpha + 1)$ comme le plus petit ordinal
+$\beta$ pour lequel les conditions suivantes sont satisfaites :
+\begin{enumerate}
+\item Nous avons $\alpha + 1 \leq \beta$ et $f(\alpha) \leq \beta$.
+\item Soient $S \in \Ob(\Sch_{f(\alpha)})$ et $T$ un schéma tel que
+$\text{size}(T) \leq Bound(\text{size}(S))$. Il existe alors un schéma
+$S' \in \Ob(\Sch_\beta)$ tel que $T \cong S'$.
+\item Pour toute catégorie d'indices dénombrable $\mathcal{I}$ et tout
+foncteur $F : \mathcal{I} \to \Sch_{f(\alpha)}$, si la limite
+$\lim_\mathcal{I} F$ ou la colimite $\colim_\mathcal{I} F$ existe dans
+$\Sch$, alors elle est isomorphe à un schéma de $\Sch_\beta$.
+\end{enumerate}
+Pour voir que $\beta$ existe, raisonnons comme suit. Puisque
+$\Ob(\Sch_{f(\alpha)})$ est un ensemble, nous voyons que
+$\kappa =
+\sup_{S \in \Ob(\Sch_{f(\alpha)})} Bound(\text{size}(S))$
+existe et est un cardinal. Soit $A$ un ensemble de schémas obtenu à partir de
+$\kappa$ comme dans le lemme \ref{lemma-bounded-size}. Il existe un ensemble
+$CountCat$ de catégories dénombrables tel que toute catégorie dénombrable soit
+isomorphe à un élément de $CountCat$. Nous pouvons donc supposer, au point (3)
+ci-dessus, que $\mathcal{I}$ est un élément de $CountCat$. Cela signifie que
+les paires $(\mathcal{I}, F)$ du point (3) parcourent un ensemble. Il existe
+donc un ensemble $B$ dont les éléments sont des schémas tel que, pour toute
+paire $(\mathcal{I}, F)$ comme au point (3), si la limite ou la colimite existe,
+elle soit isomorphe à un élément de $B$. Par conséquent, si nous choisissons un
+$\beta$ quelconque tel que $A \cup B \subset V_\beta$ et
+$\beta > \max\{\alpha + 1, f(\alpha)\}$, alors (1)--(3) sont satisfaites.
+Comme toute collection non vide d'ordinaux possède un plus petit élément, nous
+voyons que $f(\alpha + 1)$ est bien définie. Enfin, si $\alpha$ est un ordinal
+limite, nous posons
+$f(\alpha) = \sup_{\alpha' < \alpha} f(\alpha')$.
+
+\medskip\noindent
+Choisissons $\beta_0$ tel que $S_0 \subset V_{\beta_0}$. Par construction,
+$f(\beta) \geq \beta$, et nous voyons que
+$S_0 \subset V_{f(\beta_0)}$ également. De plus, comme $f$ est croissante au
+sens large, nous voyons que $S_0 \subset V_{f(\beta)}$ est vrai pour tout
+$\beta \geq \beta_0$. Choisissons ensuite un ordinal quelconque
+$\beta_1 > \beta_0$ de cofinalité
+$\text{cf}(\beta_1) > \omega = \aleph_0$. C'est possible, car la cofinalité des
+ordinaux devient arbitrairement grande ; voir la proposition
+\ref{proposition-exist-ordinals-large-cofinality}. Nous affirmons que
+$\alpha = f(\beta_1)$ est une solution au problème posé dans le lemme.
+
+\medskip\noindent
+La première propriété du lemme découle de notre choix de
+$\beta_1 > \beta_0$ ci-dessus.
+
+\medskip\noindent
+Puisque $\beta_1$ est un ordinal limite (sa cofinalité étant infinie), nous
+obtenons $f(\beta_1) = \sup_{\beta < \beta_1} f(\beta)$. Ainsi,
+$\{f(\beta) \mid \beta < \beta_1\} \subset f(\beta_1)$ est un sous-ensemble
+cofinal. Nous voyons donc que
+$$
+V_\alpha = V_{f(\beta_1)} = \bigcup\nolimits_{\beta < \beta_1} V_{f(\beta)}.
+$$
+Soit maintenant $S \in \Ob(\Sch_\alpha)$. Nous définissons $\beta(S)$ comme le
+plus petit ordinal $\beta$ tel que
+$S \in \Ob(\Sch_{f(\beta)})$. D'après ce qui précède, nous voyons que
+$\beta(S) < \beta_1$ toujours. Puisque
+$\Ob(\Sch_{f(\beta + 1)}) \subset
+\Ob(\Sch_\alpha)$, la construction de $f$ ci-dessus montre que la deuxième
+propriété du lemme est satisfaite.
+
+\medskip\noindent
+Supposons que $\{S_1, S_2, \ldots\} \subset \Ob(\Sch_\alpha)$ soit une
+collection dénombrable. Considérons la fonction
+$\omega \to \beta_1$, $n \mapsto \beta(S_n)$. Comme la cofinalité de $\beta_1$
+est $> \omega$, l'image de cette fonction ne peut pas être un sous-ensemble
+cofinal. Il existe donc un $\beta < \beta_1$ tel que
+$\{S_1, S_2, \ldots\} \subset \Ob(\Sch_{f(\beta)})$. Il s'ensuit que tout
+foncteur $F : \mathcal{I} \to \Sch_\alpha$ se factorise par l'une des
+sous-catégories $\Sch_{f(\beta)}$. Ainsi, s'il existe un schéma $X$ qui est la
+colimite ou la limite du diagramme $F$, la construction de $f$ montre que $X$
+est isomorphe à un objet de $\Sch_{f(\beta + 1)}$, qui est une sous-catégorie
+de $\Sch_\alpha$. Cela démontre les deux dernières assertions du lemme.
+\end{proof}
+
+\begin{remark}
+\label{remark-how-to-use-reflection}
+Le lemme ci-dessus peut également être démontré à l'aide du principe de
+réflexion. Il faut toutefois être prudent. Supposons en effet que la phrase
+$\phi_{scheme}(X)$ exprime la propriété « $X$ est un schéma » ; que signifie
+alors la formule $\phi_{scheme}^{V_\alpha}(X)$ ? Il est vrai que le principe de
+réflexion affirme que nous pouvons trouver $\alpha$ tel que, pour tout
+$X \in V_\alpha$, nous ayons
+$\phi_{scheme}(X) \leftrightarrow \phi_{scheme}^{V_\alpha}(X)$,
+mais cela ne sert absolument à rien. C'est seulement en combinant deux énoncés
+de ce type que quelque chose d'intéressant se produit. Supposons par exemple
+que $\phi_{red}(X, Y)$ exprime la propriété « $X$, $Y$ sont des schémas et $Y$
+est la réduction de $X$ » (voir Schémas, définition
+\ref{schemes-definition-reduced-induced-scheme}). Supposons que nous appliquions
+le principe de réflexion à la paire de formules
+$\phi_1(X, Y) = \phi_{red}(X, Y)$,
+$\phi_2(X) = \exists Y, \phi_1(X, Y)$. Il est alors facile de voir que tout
+$\alpha$ produit par le principe de réflexion possède la propriété suivante :
+pour tout $X \in \Ob(\Sch_\alpha)$, la réduction de $X$ est également un objet
+de $\Sch_\alpha$ (vérification laissée en exercice).
+\end{remark}
+
+\begin{lemma}
+\label{lemma-bound-affine}
+Soit $S$ un schéma affine. Soit $R = \Gamma(S, \mathcal{O}_S)$. Alors la taille
+de $S$ est égale à $\max\{ \aleph_0, |R|\}$.
+\end{lemma}
+
+\begin{proof}
+Il y a au plus $\max\{|R|, \aleph_0\}$ ouverts affines de $\Spec(R)$. Cela est
+clair, car tout ouvert affine $U \subset \Spec(R)$ est une union finie
+d'ouverts principaux $D(f_1) \cup \ldots \cup D(f_n)$ ; le nombre d'ouverts
+affines est donc au plus
+$\sup_n |R|^n = \max\{|R|, \aleph_0\}$, voir
+\cite[chap. I, 10.13]{Kunen}. D'autre part, nous voyons que
+$\Gamma(U, \mathcal{O}) \subset R_{f_1} \times \ldots \times R_{f_n}$ et donc
+$|\Gamma(U, \mathcal{O})| \leq
+\max\{\aleph_0, |R_{f_1}|, \ldots, |R_{f_n}|\}$. Il suffit donc de démontrer
+que $|R_f| \leq \max\{\aleph_0, |R|\}$, ce que nous omettons.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bound-size}
+Soit $S$ un schéma. Soit $S = \bigcup_{i \in I} S_i$ un recouvrement ouvert.
+Alors
+$\text{size}(S) \leq \max\{|I|, \sup_i\{\text{size}(S_i)\}\}$.
+\end{lemma}
+
+\begin{proof}
+Soit $U \subset S$ un ouvert affine quelconque. Comme $U$ est quasi-compact,
+il existe un nombre fini d'éléments $i_1, \ldots, i_n \in I$ et des ouverts
+affines $U_i \subset U \cap S_i$ tels que
+$U = U_1 \cup U_2 \cup \ldots \cup U_n$. Ainsi
+$$
+|\Gamma(U, \mathcal{O}_U)|
+\leq
+|\Gamma(U_1, \mathcal{O})|
+\otimes
+\ldots
+\otimes
+|\Gamma(U_n, \mathcal{O})|
+\leq \sup\nolimits_i\{\text{size}(S_i)\}
+$$
+De plus, cela montre que la cardinalité de l'ensemble des ouverts affines de
+$S$ est inférieure ou égale à celle de l'ensemble
+$$
+\coprod_{n \in \omega}
+\coprod_{i_1, \ldots, i_n \in I}
+\{\text{ouverts affines de }S_{i_1}\}
+\times
+\ldots
+\times
+\{\text{ouverts affines de }S_{i_n}\}.
+$$
+La cardinalité de chacun des ensembles figurant dans l'union disjointe est
+majorée par $\sup_i\{\text{size}(S_i)\}$. Celle de l'ensemble d'indices est
+au plus égale à $\max\{|I|, \aleph_0\}$, voir
+\cite[chap. I, 10.13]{Kunen}. Par conséquent, d'après
+\cite[lemme 5.8]{Jech}, la cardinalité du coproduit est au plus
+$$
+\max\{\aleph_0, |I|\}
+\otimes \sup_i\{\text{size}(S_i)\}
+$$
+Le lemme en résulte.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bound-size-fibre-product}
+Soient $f : X \to S$, $g : Y \to S$ des morphismes de schémas. Alors nous
+avons
+$\text{size}(X \times_S Y) \leq \max\{\text{size}(X), \text{size}(Y)\}$.
+\end{lemma}
+
+\begin{proof}
+Soit $S = \bigcup_{k \in K} S_k$ un recouvrement ouvert affine. Soient
+$X = \bigcup_{i \in I} U_i$, $Y = \bigcup_{j \in J} V_j$ des recouvrements
+ouverts affines, où $I$, $J$ ont des cardinalités
+$\leq \text{size}(X), \text{size}(Y)$. Pour chaque $i \in I$, il existe un
+ensemble fini $K_i$ d'éléments $k \in K$ tel que
+$f(U_i) \subset \bigcup_{k \in K_i} S_k$. Pour chaque $j \in J$, il existe un
+ensemble fini $K_j$ d'éléments $k \in K$ tel que
+$g(V_j) \subset \bigcup_{k \in K_j} S_k$. Par conséquent, $f(X), g(Y)$ sont
+contenus dans $S' = \bigcup_{k \in K'} S_k$, où
+$K' = \bigcup_{i \in I} K_i \cup \bigcup_{j \in J} K_j$. Remarquons que la
+cardinalité de $K'$ est au plus
+$\max\{\aleph_0, |I|, |J|\}$. En appliquant le lemme
+\ref{lemma-bound-size}, nous voyons qu'il suffit de démontrer que
+$\text{size}(f^{-1}(S_k) \times_{S_k} g^{-1}(S_k))
+\leq \max\{\text{size}(X), \text{size}(Y)\}$ pour $k \in K'$. Autrement dit,
+nous pouvons supposer que $S$ est affine.
+
+\medskip\noindent
+Supposons $S$ affine. Soient
+$X = \bigcup_{i \in I} U_i$, $Y = \bigcup_{j \in J} V_j$ des recouvrements
+ouverts affines, où $I$, $J$ ont des cardinalités
+$\leq \text{size}(X), \text{size}(Y)$. De nouveau, d'après le lemme
+\ref{lemma-bound-size}, il suffit de démontrer le lemme pour les produits
+$U_i \times_S V_j$. D'après le lemme \ref{lemma-bound-affine}, nous voyons
+qu'il suffit de montrer que
+$$
+|A \otimes_C B| \leq \max\{\aleph_0, |A|, |B|\}.
+$$
+Nous omettons la démonstration de cette inégalité.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bound-finite-type}
+Soit $S$ un schéma. Soit $f : X \to S$ un morphisme localement de type fini,
+où $X$ est quasi-compact. Alors
+$\text{size}(X) \leq \text{size}(S)$.
+\end{lemma}
+
+\begin{proof}
+Nous pouvons trouver un recouvrement ouvert affine fini
+$X = \bigcup_{i = 1, \ldots n} U_i$ tel que chaque $U_i$ s'envoie dans un
+ouvert affine $S_i$ de $S$. Ainsi, d'après le lemme
+\ref{lemma-bound-size}, nous nous ramenons au cas où $S$ et $X$ sont tous deux
+affines. Dans ce cas, le lemme \ref{lemma-bound-affine} montre qu'il suffit de
+prouver
+$$
+|A[x_1, \ldots, x_n]| \leq \max\{\aleph_0, |A|\}.
+$$
+Nous omettons la démonstration de cette inégalité.
+\end{proof}
+
+\noindent
+Dans Algèbre, lemme \ref{algebra-lemma-epimorphism-cardinality}, nous
+montrerons que si $A \to B$ est un épimorphisme d'anneaux, alors
+$|B| \leq \max(|A|, \aleph_0)$. L'analogue pour les schémas est le lemme
+suivant.
+
+\begin{lemma}
+\label{lemma-bound-monomorphism}
+Soit $f : X \to Y$ un monomorphisme de schémas. Si au moins l'une des
+propriétés suivantes est satisfaite, alors
+$\text{size}(X) \leq \text{size}(Y)$ :
+\begin{enumerate}
+\item $f$ est quasi-compact,
+\item $f$ est localement de présentation finie,
+\item ajouter ici d'autres cas selon les besoins.
+\end{enumerate}
+Mais cette borne n'est pas valable pour les monomorphismes localement de type
+fini.
+\end{lemma}
+
+\begin{proof}
+Soit $Y = \bigcup_{j \in J} V_j$ un recouvrement ouvert affine de $Y$ tel que
+$|J| \leq \text{size}(Y)$. D'après le lemme \ref{lemma-bound-size}, il suffit
+de borner la taille de l'image réciproque de $V_j$ dans $X$. Nous nous ramenons
+donc au cas où $Y$ est affine, disons $Y = \Spec(B)$. Pour tout ouvert affine
+$\Spec(A) \subset X$, nous avons
+$|A| \leq \max(|B|, \aleph_0) = \text{size}(Y)$ ; voir la remarque ci-dessus
+et le lemme \ref{lemma-bound-affine}. Il suffit donc de montrer que $X$ possède
+au plus $\text{size}(Y)$ ouverts affines. Cela est clair si $X$ est
+quasi-compact, d'où le cas (1). Dans le cas (2), le nombre de classes
+d'isomorphisme de $B$-algèbres $A$ susceptibles d'apparaître est borné par
+$\text{size}(B)$, car chaque $A$ est de type fini sur $B$, donc isomorphe à une
+algèbre $B[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ pour certains $n, m$ et
+$f_j \in B[x_1, \ldots, x_n]$. Cependant, comme $X \to Y$ est un
+monomorphisme, il existe au plus un morphisme $\Spec(A) \to X$ au-dessus de
+$Y = \Spec(B)$. Le nombre d'ouverts affines de $X$ est donc borné par le nombre
+de ces classes d'isomorphisme.
+
+\medskip\noindent
+Pour démontrer la dernière assertion du lemme, considérons l'anneau
+$B = \prod_{n \in \mathbf{N}} \mathbf{F}_2$ et posons $Y = \Spec(B)$. Pour
+chaque ultrafiltre $\mathcal{U}$ sur $\mathbf{N}$, nous obtenons un idéal
+maximal $\mathfrak m_\mathcal{U}$ de corps résiduel $\mathbf{F}_2$ ;
+l'application $B \to \mathbf{F}_2$ envoie l'élément $(x_n)$ sur
+$\lim_\mathcal{U} x_n$. Les détails sont omis. Le morphisme de schémas
+$X = \coprod_\mathcal{U} \Spec(\mathbf{F}_2) \to Y$ est un monomorphisme,
+puisque tous les points sont distincts. Cependant, la cardinalité de l'ensemble
+des sous-schémas ouverts affines de $X$ est égale à celle de l'ensemble des
+ultrafiltres sur $\mathbf{N}$, qui vaut $2^{2^{\aleph_0}}$. Nous concluons grâce
+à $|B| = 2^{\aleph_0} < 2^{2^{\aleph_0}}$.
+\end{proof}
+\begin{lemma}
+\label{lemma-what-is-in-it}
+Soit $\alpha$ un ordinal comme dans le lemme \ref{lemma-construct-category}
+ci-dessus. La catégorie $\Sch_\alpha$ vérifie les propriétés suivantes :
+\begin{enumerate}
+\item Si $X, Y, S \in \Ob(\Sch_\alpha)$, alors, pour tous morphismes
+$f : X \to S$, $g : Y \to S$, le produit fibré $X \times_S Y$ dans
+$\Sch_\alpha$ existe et est un produit fibré dans la catégorie des schémas.
+\item Étant donnée toute famille au plus dénombrable $S_1, S_2, \ldots$
+d'éléments de $\Ob(\Sch_\alpha)$, le coproduit $\coprod_i S_i$ existe dans
+$\Ob(\Sch_\alpha)$ et est un coproduit dans la catégorie des schémas.
+\item Pour tout $S \in \Ob(\Sch_\alpha)$ et toute immersion ouverte
+$U \to S$, il existe un $V \in \Ob(\Sch_\alpha)$ tel que $V \cong U$.
+\item Pour tout $S \in \Ob(\Sch_\alpha)$ et toute immersion fermée
+$T \to S$, il existe un $S' \in \Ob(\Sch_\alpha)$ tel que $S' \cong T$.
+\item Pour tout $S \in \Ob(\Sch_\alpha)$ et tout morphisme de type fini
+$T \to S$, il existe un $S' \in \Ob(\Sch_\alpha)$ tel que $S' \cong T$.
+\item Supposons que $S$ soit un schéma possédant un recouvrement ouvert
+$S = \bigcup_{i \in I} S_i$ tel qu'il existe un $T \in \Ob(\Sch_\alpha)$
+avec (a) $\text{size}(S_i) \leq \text{size}(T)^{\aleph_0}$ pour tout
+$i \in I$, et (b) $|I| \leq \text{size}(T)^{\aleph_0}$.
+Alors $S$ est isomorphe à un objet de $\Sch_\alpha$.
+\item Pour tout $S \in \Ob(\Sch_\alpha)$ et tout morphisme $f : T \to S$
+localement de type fini tel que $T$ puisse être recouvert par au plus
+$\text{size}(S)^{\aleph_0}$ ouverts affines, il existe un
+$S' \in \Ob(\Sch_\alpha)$ tel que $S' \cong T$.
+Par exemple, cela vaut si $T$ peut être recouvert par au plus
+$|\mathbf{R}| = 2^{\aleph_0} = \aleph_0^{\aleph_0}$ ouverts affines.
+\item Pour tout $S \in \Ob(\Sch_\alpha)$ et tout monomorphisme $T \to S$
+qui est soit localement de présentation finie, soit quasi-compact, il existe
+un $S' \in \Ob(\Sch_\alpha)$ tel que $S' \cong T$.
+\item Supposons que $T \in \Ob(\Sch_\alpha)$ soit affine. Écrivons
+$R = \Gamma(T, \mathcal{O}_T)$. Alors chacun des schémas suivants est
+isomorphe à un schéma de $\Sch_\alpha$ :
+\begin{enumerate}
+\item Pour tout idéal $I \subset R$, si $R^* = \lim_n R/I^n$ est le
+complété, le schéma $\Spec(R^*)$.
+\item Pour toute $R$-algèbre de type fini $R'$, le schéma $\Spec(R')$.
+\item Pour toute localisation $S^{-1}R$, le schéma $\Spec(S^{-1}R)$.
+\item Pour tout idéal premier $\mathfrak p \subset R$, le schéma
+$\Spec(\overline{\kappa(\mathfrak p)})$.
+\item Pour tout sous-anneau $R' \subset R$, le schéma $\Spec(R')$.
+\item Tout schéma de type fini sur un anneau de cardinalité au plus
+$|R|^{\aleph_0}$.
+\item Et ainsi de suite.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Les assertions (1) et (2) découlent directement des définitions.
+L'assertion (3) découle du fait que la taille d'un sous-schéma ouvert $U$ de
+$S$ est clairement inférieure ou égale à celle de $S$.
+L'assertion (4) découle de (5).
+L'assertion (5) découle de (7).
+L'assertion (6) découle du fait que la taille de $S$ est
+$\leq \max\{|I|, \sup_i \text{size}(S_i)\} \leq \text{size}(T)^{\aleph_0}$
+d'après le lemme \ref{lemma-bound-size}. L'assertion (7) découle de (6).
+En effet, pour tout ouvert affine $V \subset T$, nous avons
+$\text{size}(V) \leq \text{size}(S)$ d'après le
+lemme \ref{lemma-bound-finite-type}.
+Nous voyons donc que (6) s'applique dans la situation de (7).
+La partie (8) découle du lemme \ref{lemma-bound-monomorphism}.
+
+\medskip\noindent
+L'assertion (9) se traduit, via le lemme \ref{lemma-bound-affine}, par une
+borne supérieure pour la cardinalité des anneaux
+$R^*$, $S^{-1}R$, $\overline{\kappa(\mathfrak p)}$, $R'$, etc.
+Le cas le plus intéressant est peut-être l'anneau $R^*$. En tant qu'ensemble,
+il est l'image d'une application surjective $R^{\mathbf{N}} \to R^*$.
+Puisque $|R^{\mathbf{N}}| = |R|^{\aleph_0}$, la borne voulue résulte de ce que
+nous avons choisi $Bound(\kappa)$ supérieur ou égal à $\kappa^{\aleph_0}$.
+Ouf ! (La cardinalité de la clôture algébrique d'un corps
+est la même que celle du corps, ou bien elle vaut $\aleph_0$.)
+\end{proof}
+
+\begin{remark}
+\label{remark-what-is-not-in-it}
+Soit $R$ un anneau. Supposons que nous considérions l'anneau
+$\prod_{\mathfrak p \in \Spec(R)} \kappa(\mathfrak p)$.
+La cardinalité de cet anneau est bornée par $|R|^{2^{|R|}}$, mais n'est pas
+bornée par $|R|^{\aleph_0}$ en général.
+Par exemple, si $R = \mathbf{C}[x]$, elle n'est pas bornée par
+$|R|^{\aleph_0}$, et si $R = \prod_{n \in \mathbf{N}} \mathbf{F}_2$,
+elle n'est pas bornée par $|R|^{|R|}$.
+Ainsi, le « Et ainsi de suite » du lemme \ref{lemma-what-is-in-it} ci-dessus
+doit être pris avec prudence. Bien entendu, s'il devient un jour nécessaire
+de considérer ces anneaux dans des arguments relatifs à la cohomologie
+fppf/\'etale, nous pourrons remplacer la fonction $Bound$ ci-dessus par la
+fonction $\kappa \mapsto \kappa^{2^\kappa}$.
+\end{remark}
+
+\noindent
+Dans le lemme suivant, nous utilisons la notion de recouvrement fpqc introduite
+dans Topologies, section \ref{topologies-section-fpqc}.
+
+\begin{lemma}
+\label{lemma-bound-by-covering}
+Soit $f : X \to Y$ un morphisme de schémas. Supposons qu'il existe un
+recouvrement fpqc $\{g_j : Y_j \to Y\}_{j \in J}$ tel que $g_j$ se factorise
+par $f$. Alors $\text{size}(Y) \leq \text{size}(X)$.
+\end{lemma}
+
+\begin{proof}
+Soit $V \subset Y$ un ouvert affine. Par définition, il existe un entier
+$n \geq 0$, une application $a : \{1, \ldots, n\} \to J$ et des ouverts
+affines $V_i \subset Y_{a(i)}$ tels que
+$V = g_{a(1)}(V_1) \cup \ldots \cup g_{a(n)}(V_n)$.
+Notons $h_j : Y_j \to X$ un morphisme tel que $f \circ h_j = g_j$.
+Alors $h_{a(1)}(V_1) \cup \ldots \cup h_{a(n)}(V_n)$ est une partie
+quasi-compacte de $f^{-1}(V)$. Nous pouvons donc trouver un ouvert
+quasi-compact $W \subset f^{-1}(V)$ qui contient $h_{a(i)}(V_i)$ pour
+$i = 1, \ldots, n$. En particulier, $V = f(W)$.
+
+\medskip\noindent
+D'une part, cela montre que la cardinalité de l'ensemble des ouverts affines
+de $Y$ est au plus celle de l'ensemble $S$ des ouverts quasi-compacts de $X$.
+Puisque tout ouvert quasi-compact de $X$ est une réunion finie d'ouverts
+affines, nous voyons que la cardinalité de cet ensemble est au plus
+$\sup |S|^n = \max(\aleph_0, |S|)$.
+D'autre part, nous avons
+$\mathcal{O}_Y(V) \subset \prod_{i = 1, \ldots, n} \mathcal{O}_{Y_{a(i)}}(V_i)$
+car $\{V_i \to V\}$ est un recouvrement fpqc. Par conséquent,
+$\mathcal{O}_Y(V) \subset \mathcal{O}_X(W)$ puisque $V_i \to V$ se factorise
+par $W$. Comme $W$ possède lui aussi un recouvrement fini par des ouverts
+affines de $X$, nous concluons que $|\mathcal{O}_Y(V)|$ est borné par la
+taille de $X$. Le lemme découle maintenant de la définition de la taille d'un
+schéma.
+\end{proof}
+
+\noindent
+Dans le lemme suivant, nous utilisons la notion de recouvrement fppf introduite
+dans Topologies, section \ref{topologies-section-fppf}.
+
+\begin{lemma}
+\label{lemma-bound-fppf-covering}
+Soit $\{f_i : X_i \to X\}_{i \in I}$ un recouvrement fppf d'un schéma.
+Il existe un recouvrement fppf $\{W_j \to X\}_{j \in J}$ qui raffine
+$\{X_i \to X\}_{i \in I}$ et tel que
+$\text{size}(\coprod W_j) \leq \text{size}(X)$.
+\end{lemma}
+
+\begin{proof}
+Choisissons un recouvrement ouvert affine $X = \bigcup_{a \in A} U_a$ avec
+$|A| \leq \text{size}(X)$. Pour chaque $a$, nous pouvons choisir une partie
+finie $I_a \subset I$ et, pour $i \in I_a$, un ouvert quasi-compact
+$W_{a, i} \subset X_i$ tels que
+$U_a = \bigcup_{i \in I_a} f_i(W_{a, i})$.
+Alors $\text{size}(W_{a, i}) \leq \text{size}(X)$ d'après le
+lemme \ref{lemma-bound-finite-type}.
+Nous concluons que
+$$
+\text{size}(\coprod_a \coprod_{i \in I_a} W_{i, a}) \leq \text{size}(X)
+$$
+d'après le lemme \ref{lemma-bound-size}.
+\end{proof}
+
+
+
+
+
+\section{Ensembles munis d'une action de groupe}
+\label{section-sets-with-group-action}
+
+\noindent
+Soit $G$ un groupe. Nous notons $G\textit{-Ensembles}$ la « grande » catégorie
+des $G$-ensembles. Pour tout ordinal $\alpha$, nous notons
+$G\textit{-Ensembles}_\alpha$ la sous-catégorie pleine de $G\textit{-Ensembles}$ dont
+les objets appartiennent à $V_\alpha$. Comme notion de taille d'un
+$G$-ensemble, nous prenons
+$\text{size}(S) = \max\{\aleph_0, |G|, |S|\}$ (où $|G|$ et $|S|$ sont les
+cardinalités des ensembles sous-jacents). Comme ci-dessus, nous utilisons la
+fonction $Bound(\kappa) = \kappa^{\aleph_0}$.
+
+\begin{lemma}
+\label{lemma-sets-with-group-action}
+Avec les notations $G$, $G\textit{-Ensembles}_\alpha$, $\text{size}$ et $Bound$
+ci-dessus, soit $S_0$ un ensemble de $G$-ensembles.
+Il existe un ordinal limite $\alpha$ ayant les propriétés suivantes :
+\begin{enumerate}
+\item Nous avons $S_0 \cup \{{}_GG\} \subset \Ob(G\textit{-Ensembles}_\alpha)$.
+\item Soit $S \in \Ob(G\textit{-Ensembles}_\alpha)$.\par\noindent
+Pour tout $G$-ensemble $T$ tel
+que $\text{size}(T) \leq Bound(\text{size}(S))$, il existe un
+$S' \in \Ob(G\textit{-Ensembles}_\alpha)$ qui est isomorphe à $T$.
+\item Soit $\mathcal{I}$ une catégorie d'indices dénombrable. Pour tout foncteur
+$F : \mathcal{I} \to G\textit{-Ensembles}_\alpha$, la limite
+$\lim_\mathcal{I} F$ et la colimite $\colim_\mathcal{I} F$ existent dans
+$G\textit{-Ensembles}_\alpha$ et coïncident avec ceux calculés dans $G\textit{-Ensembles}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis. La démonstration est analogue à celle du
+lemme \ref{lemma-construct-category} ci-dessus, mais plus facile.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-what-is-in-it-G-sets}
+Soit $\alpha$ un ordinal comme dans le
+lemme \ref{lemma-sets-with-group-action} ci-dessus. La catégorie
+$G\textit{-Ensembles}_\alpha$ vérifie les propriétés suivantes :
+\begin{enumerate}
+\item Le $G$-ensemble ${}_GG$ est un objet de $G\textit{-Ensembles}_\alpha$.
+\item Les (co)produits, les produits fibrés et les sommes amalgamées existent
+dans $G\textit{-Ensembles}_\alpha$ et coïncident avec ceux calculés dans
+$G\textit{-Ensembles}$.
+\item Étant donné un objet $U$ de $G\textit{-Ensembles}_\alpha$, toute partie
+$G$-stable $O \subset U$ est isomorphe à un objet de
+$G\textit{-Ensembles}_\alpha$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+\section{Recouvrements d'un site}
+\label{section-coverings-site}
+
+\noindent
+Supposons que $\mathcal{C}$ soit une catégorie (comme dans Catégories,
+définition \ref{categories-definition-category}) et que
+$\text{Cov}(\mathcal{C})$ soit une classe propre de recouvrements satisfaisant
+les propriétés (1), (2) et (3) de Sites,
+définition \ref{sites-definition-site}. Nous les rappelons ici :
+\begin{enumerate}
+\item Si $V \to U$ est un isomorphisme, alors $\{V \to U\} \in
+\text{Cov}(\mathcal{C})$.
+\item Si $\{U_i \to U\}_{i\in I} \in \text{Cov}(\mathcal{C})$ et si, pour
+chaque $i$, nous avons
+$\{V_{ij} \to U_i\}_{j\in J_i} \in \text{Cov}(\mathcal{C})$, alors
+$\{V_{ij} \to U\}_{i \in I, j\in J_i} \in \text{Cov}(\mathcal{C})$.
+\item Si $\{U_i \to U\}_{i\in I}\in \text{Cov}(\mathcal{C})$ et si
+$V \to U$ est un morphisme de $\mathcal{C}$, alors $U_i \times_U V$ existe
+pour tout $i$ et
+$\{U_i \times_U V \to V \}_{i\in I} \in \text{Cov}(\mathcal{C})$.
+\end{enumerate}
+Pour un ordinal $\alpha$, nous posons
+$\text{Cov}(\mathcal{C})_\alpha = \text{Cov}(\mathcal{C}) \cap V_\alpha$.
+Étant donnés un ordinal $\alpha$ et un cardinal $\kappa$, nous définissons
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$ comme l'ensemble des éléments
+$\mathcal{U} =
+\{\varphi_i : U_i \to U\}_{i\in I} \in \text{Cov}(\mathcal{C})_\alpha$
+tels que $|I| \leq \kappa$.
+
+\medskip\noindent
+Rappelons la notion suivante ; voir Sites,
+définition \ref{sites-definition-combinatorial-tautological}.
+Deux familles de morphismes, $\{\varphi_i : U_i \to U\}_{i\in I}$ et
+$\{\psi_j : W_j \to U\}_{j\in J}$, ayant la même cible dans $\mathcal{C}$,
+sont dites {\it combinatoirement équivalentes} s'il existe des applications
+$\alpha : I \to J$ et $\beta : J\to I$ telles que
+$\varphi_i = \psi_{\alpha(i)}$ et $\psi_j = \varphi_{\beta(j)}$.
+Cela définit une relation d'équivalence sur les familles de morphismes ayant
+une cible fixée.
+
+\begin{lemma}
+\label{lemma-coverings-site}
+Avec les notations ci-dessus, soit
+$\text{Cov}_0 \subset \text{Cov}(\mathcal{C})$ un ensemble contenu dans
+$\text{Cov}(\mathcal{C})$.
+Il existe un cardinal $\kappa$ et un ordinal limite $\alpha$ ayant les
+propriétés suivantes :
+\begin{enumerate}
+\item Nous avons
+$\text{Cov}_0 \subset \text{Cov}(\mathcal{C})_{\kappa, \alpha}$.
+\item L'ensemble de recouvrements
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$ satisfait les propriétés (1), (2)
+et (3) de Sites, définition \ref{sites-definition-site} (voir ci-dessus).
+Autrement dit, $(\mathcal{C}, \text{Cov}(\mathcal{C})_{\kappa, \alpha})$
+est un site.
+\item Tout recouvrement de $\text{Cov}(\mathcal{C})$ est combinatoirement
+équivalent à un recouvrement de
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour le démontrer, considérons d'abord l'ensemble $\mathcal{S}$ de tous les
+ensembles de morphismes de $\mathcal{C}$ ayant une cible fixée.
+Autrement dit, un élément de $\mathcal{S}$ est une partie $T$ de
+$\text{Arrows}(\mathcal{C})$ telle que tous les éléments de $T$ aient la même
+cible. Étant donnée une famille
+$\mathcal{U} = \{\varphi_i : U_i \to U\}_{i\in I}$ de morphismes ayant une
+cible fixée, nous définissons
+$Supp(\mathcal{U}) = \{ \varphi \in \text{Arrows}(\mathcal{C})
+\mid \exists i\in I, \varphi = \varphi_i\}$.
+Remarquons que deux familles
+$\mathcal{U} =  \{\varphi_i : U_i \to U\}_{i\in I}$ et
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$ sont combinatoirement équivalentes
+si et seulement si $Supp(\mathcal{U}) = Supp(\mathcal{V})$.
+Ensuite, nous définissons $\mathcal{S}_\tau \subset \mathcal{S}$ comme la
+partie
+$\mathcal{S}_\tau = \{ T \in \mathcal{S} \mid
+\exists\ \mathcal{U} \in \text{Cov}(\mathcal{C}) \ T = Supp(\mathcal{U})\}$.
+Pour tout élément $T \in \mathcal{S}_\tau$, posons $\beta(T)$ égal au plus
+petit ordinal $\beta$ tel qu'il existe un
+$\mathcal{U} \in \text{Cov}(\mathcal{C})_\beta$ tel que
+$T = \text{Supp}(\mathcal{U})$. Enfin, posons
+$\beta_0 = \sup_{T \in S_\tau} \beta(T)$.
+Il en résulte que tout $\mathcal{U} \in \text{Cov}(\mathcal{C})$ est
+combinatoirement équivalent à un élément de
+$\text{Cov}(\mathcal{C})_{\beta_0}$.
+
+\medskip\noindent
+Soit $\kappa$ le maximum de $\aleph_0$, de la cardinalité
+$|\text{Arrows}(\mathcal{C})|$,
+$$
+\sup\nolimits_{\{U_i \to U\}_{i\in I} \in \text{Cov}(\mathcal{C})_{\beta_0}}
+|I|,
+\quad\text{et}\quad
+\sup\nolimits_{\{U_i \to U\}_{i\in I} \in \text{Cov}_0} |I|.
+$$
+Puisque $\kappa$ est un cardinal infini, nous avons
+$\kappa \otimes \kappa = \kappa$. Remarquons qu'évidemment
+$\text{Cov}(\mathcal{C})_{\beta_0} =
+\text{Cov}(\mathcal{C})_{\kappa, \beta_0}$.
+
+\medskip\noindent
+Nous définissons, par récurrence transfinie, une fonction $f$ qui associe un
+ordinal à tout ordinal de la manière suivante. Posons $f(0) = 0$.
+Étant donné $f(\alpha)$, nous définissons $f(\alpha + 1)$ comme le plus petit
+ordinal $\beta$ tel que les conditions suivantes soient satisfaites :
+\begin{enumerate}
+\item Nous avons $\alpha + 1 \leq \beta$ et $f(\alpha) \leq \beta$.
+\item Si $\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$ et si, pour tout $i$, nous
+avons
+$\{W_{ij} \to U_i\}_{j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$,
+alors
+$\{W_{ij} \to U\}_{i \in I, j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, \beta}$.
+\item Si $\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \alpha}$ et si $W \to U$ est un
+morphisme de $\mathcal{C}$, alors
+$\{U_i \times_U W \to W \}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \beta}$.
+\end{enumerate}
+Pour voir que $\beta$ existe, remarquons que la collection de tous les
+recouvrements $\{W_{ij} \to U\}$ et $\{U_i \times_U W \to W \}$ qui
+interviennent dans (2) et (3) forme clairement un ensemble. Il existe donc un
+ordinal $\beta$ tel que $V_\beta$ contienne tous ces recouvrements. En outre,
+l'ensemble d'indices du recouvrement $\{W_{ij} \to U\}$ a pour cardinalité
+$\sum_{i \in I} |J_i| \leq \kappa \otimes \kappa = \kappa$, et ces
+recouvrements sont donc contenus dans
+$\text{Cov}(\mathcal{C})_{\kappa, \beta}$.
+Puisque toute collection non vide d'ordinaux possède un plus petit élément,
+nous voyons que $f(\alpha + 1)$ est bien défini. Enfin, si $\alpha$ est un
+ordinal limite, nous posons
+$f(\alpha) = \sup_{\alpha' < \alpha} f(\alpha')$.
+
+\medskip\noindent
+Choisissons un ordinal $\beta_1$ tel que
+$\text{Arrows}(\mathcal{C}) \subset V_{\beta_1}$,
+$\text{Cov}_0 \subset V_{\beta_0}$ et $\beta_1 \geq \beta_0$.
+Par construction, $f(\beta_1) \geq \beta_1$, et nous voyons que les mêmes
+propriétés sont vérifiées pour $V_{f(\beta_1)}$. De plus, comme $f$ est
+croissante au sens large, cela reste vrai pour tout $\beta \geq \beta_1$.
+Choisissons ensuite un ordinal $\beta_2 > \beta_1$ de cofinalité
+$\text{cf}(\beta_2) > \kappa$. C'est possible puisque la cofinalité des
+ordinaux devient arbitrairement grande ; voir la
+proposition \ref{proposition-exist-ordinals-large-cofinality}.
+Nous affirmons que la paire formée par $\kappa$ et $\alpha = f(\beta_2)$ est
+une solution au problème posé dans le lemme.
+
+\medskip\noindent
+La première et la troisième propriétés du lemme découlent de nos choix de
+$\kappa$, $\beta_2 > \beta_1 > \beta_0$ ci-dessus.
+
+\medskip\noindent
+Puisque $\beta_2$ est un ordinal limite (car sa cofinalité est infinie), nous
+obtenons $f(\beta_2) = \sup_{\beta < \beta_2} f(\beta)$.
+Ainsi, $\{f(\beta) \mid \beta < \beta_2\} \subset f(\beta_2)$ est une partie
+cofinale. Nous voyons donc que
+$$
+V_\alpha = V_{f(\beta_2)} = \bigcup\nolimits_{\beta < \beta_2} V_{f(\beta)}.
+$$
+Maintenant, soit $\mathcal{U} \in \text{Cov}_{\kappa, \alpha}$.
+Nous définissons $\beta(\mathcal{U})$ comme le plus petit ordinal $\beta$ tel
+que $\mathcal{U} \in \text{Cov}_{\kappa, f(\beta)}$. D'après ce qui précède,
+nous voyons que $\beta(\mathcal{U}) < \beta_2$ dans tous les cas.
+
+\medskip\noindent
+Nous devons montrer que les propriétés (1), (2) et (3) qui définissent un site
+sont vérifiées pour la paire
+$(\mathcal{C}, \text{Cov}_{\kappa, \alpha})$.
+La première l'est parce que, par notre choix de $\beta_2$, toutes les flèches
+de $\mathcal{C}$ appartiennent à $V_{f(\beta_2)}$.
+Pour la troisième, étant donné un recouvrement
+$\mathcal{U} = \{U_i \to U\}_{i \in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \alpha}$, nous utilisons le fait que
+$\beta(\mathcal{U}) < \beta_2$ ; tout changement de base de $\mathcal{U}$
+appartient alors, par construction de $f$, à
+$\text{Cov}(\mathcal{C})_{\kappa, f(\beta + 1)}$, et donc à
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$.
+
+\medskip\noindent
+Enfin, pour la deuxième condition, supposons que
+$\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$ et que, pour chaque $i$,
+nous ayons
+$\mathcal{W}_i = \{W_{ij} \to U_i\}_{j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$.
+Considérons la fonction
+$I \to \beta_2$, $i \mapsto \beta(\mathcal{W}_i)$. Puisque la cofinalité
+de $\beta_2$ est $> \kappa \geq |I|$, l'image de cette fonction ne peut être
+une partie cofinale. Il existe donc un $\beta < \beta_1$ tel que
+$\mathcal{W}_i \in \text{Cov}_{\kappa, f(\beta)}$ pour tout $i \in I$.
+Il en résulte que le recouvrement
+$\{W_{ij} \to U\}_{i\in I, j \in J_i}$ est un élément de
+$\text{Cov}(\mathcal{C})_{\kappa, f(\beta + 1)}
+\subset \text{Cov}(\mathcal{C})_{\kappa, \alpha}$, comme souhaité.
+\end{proof}
+
+\begin{remark}
+\label{remark-better}
+Il est probable que, pour un certain ordinal limite $\alpha$, l'ensemble de
+recouvrements $\text{Cov}(\mathcal{C})_\alpha$ satisfasse les conditions du
+lemme. C'est après tout ce qu'une application du principe de réflexion semble
+donner (aux réserves près décrites à la fin de la
+section \ref{section-reflection-principle} et dans la
+remarque \ref{remark-how-to-use-reflection}).
+\end{remark}
+
+
+
+
+
+
+
+
+\section{Catégories abéliennes et injectifs}
+\label{section-abelian-categories-injectives}
+
+\noindent
+Le lemme suivant s'applique à la catégorie des modules sur un faisceau
+d'anneaux sur un site.
+
+\begin{lemma}
+\label{lemma-abelian-injectives}
+Supposons donnée une grande catégorie $\mathcal{A}$ (voir Catégories,
+remarque \ref{categories-remark-big-categories}).
+Supposons que $\mathcal{A}$ soit abélienne et possède suffisamment d'injectifs.
+Voir Homologie, définitions \ref{homology-definition-abelian-category}
+et \ref{homology-definition-enough-injectives}.
+Alors, pour tout ensemble donné d'objets $\{A_s\}_{s\in S}$ de
+$\mathcal{A}$, il existe une sous-catégorie abélienne
+$\mathcal{A}' \subset \mathcal{A}$ ayant les propriétés suivantes :
+\begin{enumerate}
+\item le foncteur d'inclusion $\mathcal{A}' \to \mathcal{A}$ est exact,
+\item $\Ob(\mathcal{A}')$ est un ensemble,
+\item $\Ob(\mathcal{A}')$ contient $A_s$ pour tout $s \in S$,
+\item $\mathcal{A}'$ possède suffisamment d'injectifs, et
+\item un objet de $\mathcal{A}'$ est injectif si et seulement s'il est un
+objet injectif de $\mathcal{A}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omis.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

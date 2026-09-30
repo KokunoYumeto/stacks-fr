@@ -1,0 +1,3420 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Modules de courbes}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Dans ce chapitre, nous étudions quelques-uns des champs de modules de courbes
+classiques. L'article célèbre de Deligne et Mumford constitue une référence,
+voir \cite{DM}.
+
+
+
+
+\section{Conventions et abus de langage}
+\label{section-conventions}
+
+\noindent
+Nous continuons d'employer les conventions et les abus de langage
+introduits dans Propriétés des champs, section
+\ref{stacks-properties-section-conventions}.
+Sauf mention contraire, notre schéma de base sera $\Spec(\mathbf{Z})$.
+
+
+
+
+
+
+
+\section{Le champ des courbes}
+\label{section-stack-curves}
+
+\noindent
+Cette section fait suite à Quot, section \ref{quot-section-curves}.
+Soit $\Curvesstack$ le champ dont la catégorie des sections au-dessus d'un
+schéma $S$ est la catégorie des familles de courbes sur $S$.
+Il importe de garder à l'esprit qu'une
+{\it famille de courbes} est un morphisme $f : X \to S$, où $X$
+est un espace algébrique (!) et où $f$ est plat, propre, de présentation finie
+et de dimension relative $\leq 1$.
+Nous savons déjà que $\Curvesstack$ est un
+champ algébrique sur $\mathbf{Z}$, voir Quot, théorème
+\ref{quot-theorem-curves-algebraic}.
+Si nous n'autorisions pas les espaces algébriques dans la définition de
+notre champ, ce théorème serait faux.
+
+\medskip\noindent
+On note souvent un changement de base par un indice, mais nous ne pouvons pas
+employer cette notation pour $\Curvesstack$, car $\Curvesstack_S$
+désigne chez nous la catégorie fibre au-dessus de $S$.
+C'est pourquoi, dans Quot, remarque \ref{quot-remark-curves-base-change},
+nous avons noté $B\text{-}\Curvesstack$ le changement de base
+$$
+B\text{-}\Curvesstack = \Curvesstack \times B
+$$
+à l'espace algébrique $B$. Le produit de droite est pris au-dessus de
+l'objet final, c'est-à-dire au-dessus de $\Spec(\mathbf{Z})$. L'objet de gauche
+est le champ classifiant les familles de courbes sur la catégorie des schémas
+sur $B$. En particulier, si $k$ est un corps, alors
+$$
+k\text{-}\Curvesstack = \Curvesstack \times \Spec(k)
+$$
+est le champ de modules classifiant les familles de courbes sur la catégorie
+des schémas sur $k$.
+Avant de poursuivre, effectuons une vérification de cohérence.
+
+\begin{lemma}
+\label{lemma-extend-curves-to-spaces}
+Soit $T \to B$ un morphisme d'espaces algébriques. La catégorie
+$$
+\Mor_B(T, B\text{-}\Curvesstack) = \Mor(T, \Curvesstack)
+$$
+est la catégorie des familles de courbes sur $T$.
+\end{lemma}
+
+\begin{proof}
+Une famille de courbes sur $T$ est un morphisme $f : X \to T$ d'espaces
+algébriques, qui est plat, propre, de présentation finie et de
+dimension relative $\leq 1$ (Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-relative-dimension}).
+C'est exactement la même définition que dans Quot, situation
+\ref{quot-situation-curves}, si ce n'est que la base $T$ peut être
+un espace algébrique. Notre catégorie de base par défaut pour les
+champs et espaces algébriques est la catégorie des schémas ; le lemme
+ne découle donc pas immédiatement des définitions. Cela étant dit,
+nous invitons le lecteur à sauter la démonstration.
+
+\medskip\noindent
+D'après la description de $B\text{-}\Curvesstack$ comme produit donnée
+ci-dessus, il suffit de démontrer le lemme dans le cas absolu. Choisissons
+un schéma $U$ et un morphisme étale surjectif $p : U \to T$.
+Posons $R = U \times_T U$, avec projections $s, t : R \to U$.
+
+\medskip\noindent
+Soit $v : T \to \Curvesstack$ un morphisme. Alors $v \circ p$
+correspond à une famille de courbes $X_U \to U$. Le
+$2$-morphisme canonique $v \circ p \circ t \to v \circ p \circ s$
+est un isomorphisme $\varphi : X_U \times_{U, s} R \to X_U \times_{U, t} R$.
+Cet isomorphisme satisfait à la condition de cocycle sur
+$R \times_{s, t} R$.
+D'après Amorçage, lemme \ref{bootstrap-lemma-descend-algebraic-space},
+nous obtenons un morphisme d'espaces algébriques $X \to T$
+dont l'image inverse sur $U$ est égale à $X_U$, compatiblement avec $\varphi$.
+Puisque $\{U \to T\}$ est un recouvrement étale, le morphisme
+$X \to T$ est plat, propre et de présentation finie d'après
+Descente pour les espaces, lemmes
+\ref{spaces-descent-lemma-descending-property-flat},
+\ref{spaces-descent-lemma-descending-property-proper} et
+\ref{spaces-descent-lemma-descending-property-finite-presentation}.
+De plus, $X \to T$ est de dimension relative $\leq 1$, car cette propriété
+est locale pour la topologie étale. Ainsi, $X \to T$ est une famille de
+courbes sur $T$.
+
+\medskip\noindent
+Réciproquement, soit $X \to T$ une famille de courbes. Alors le
+changement de base $X_U$ détermine un morphisme $w : U \to \Curvesstack$,
+et l'isomorphisme canonique $X_U \times_{U, s} R \to X_U \times_{U, t} R$
+détermine une $2$-flèche $w \circ s \to w \circ t$ satisfaisant à la
+condition de cocycle. On obtient ainsi un morphisme
+$v : T = [U/R] \to \Curvesstack$ par la propriété universelle du
+quotient $[U/R]$ ; voir
+Groupoïdes dans les espaces, lemme
+\ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}.
+(En fait, il est ici bien plus simple de revenir à la situation antérieure
+à l'introduction de notre abus de langage et de construire directement
+le foncteur $\Sch/T \to \Curvesstack$ qui « est » le
+morphisme $T \to \Curvesstack$.)
+
+\medskip\noindent
+Nous omettons de vérifier que les constructions ci-dessus
+s'étendent aux morphismes entre objets et sont quasi-inverses l'une de l'autre.
+\end{proof}
+
+
+
+
+
+
+\section{Le champ des courbes polarisées}
+\label{section-polarized-curves}
+
+\noindent
+Dans cette section, nous développons une partie des considérations de
+Quot, remarque \ref{quot-remark-alternative-approach-curves}.
+Considérons le $2$-produit fibré
+$$
+\xymatrix{
+\Curvesstack \times_{\Spacesstack'_{fp, flat, proper}}
+\Polarizedstack \ar[r] \ar[d] &
+\Polarizedstack \ar[d] \\
+\Curvesstack \ar[r] &
+\Spacesstack'_{fp, flat, proper}
+}
+$$
+Nous notons ce $2$-produit fibré
+$$
+\textit{PolarizedCurves} =
+\Curvesstack
+\times_{\Spacesstack'_{fp, flat, proper}}
+\Polarizedstack
+$$
+Ce produit fibré paramètre les courbes polarisées, c'est-à-dire les familles
+de courbes munies d'un faisceau inversible relativement ample.
+Plus précisément, un objet de
+$\textit{PolarizedCurves}$
+est un couple $(X \to S, \mathcal{L})$ tel que
+\begin{enumerate}
+\item $X \to S$ est un morphisme de schémas propre, plat,
+de présentation finie et de dimension relative $\leq 1$, et
+\item $\mathcal{L}$ est un $\mathcal{O}_X$-module inversible
+qui est relativement ample sur $X/S$.
+\end{enumerate}
+Un morphisme $(X' \to S', \mathcal{L}') \to (X \to S, \mathcal{L})$
+entre objets de
+$\textit{PolarizedCurves}$
+est donné par un triplet $(f, g, \varphi)$,
+où $f : X' \to X$ et $g : S' \to S$
+sont des morphismes de schémas s'inscrivant dans un diagramme commutatif
+$$
+\xymatrix{
+X' \ar[d] \ar[r]_f & X \ar[d] \\
+S' \ar[r]^g & S
+}
+$$
+qui induit un isomorphisme $X' \to S' \times_S X$ ; autrement dit, le
+diagramme est cartésien, et $\varphi : f^*\mathcal{L} \to \mathcal{L}'$
+est un isomorphisme. La composition se définit de manière évidente.
+
+\begin{lemma}
+\label{lemma-polarized-curves-in-polarized}
+Le morphisme
+$\textit{PolarizedCurves} \to
+\Polarizedstack$ est une immersion ouverte et fermée.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que le $1$-morphisme
+$\Curvesstack \to \Spacesstack'_{fp, flat, proper}$
+est représentable par des immersions ouvertes et fermées ; voir
+Quot, lemme \ref{quot-lemma-curves-open-and-closed-in-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-polarized-curves-over-curves}
+Le morphisme
+$\textit{PolarizedCurves} \to \Curvesstack$
+est lisse et surjectif.
+\end{lemma}
+
+\begin{proof}
+Surjectivité. Soient $k$ un corps et $X$ un espace algébrique propre
+sur $k$, de dimension $\leq 1$, c'est-à-dire un objet de $\Curvesstack$ sur $k$.
+D'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}
+l'espace algébrique $X$ est un schéma. Ainsi, $X$
+est un schéma propre de dimension $\leq 1$ sur $k$.
+D'après Variétés, lemme \ref{varieties-lemma-dim-1-proper-projective},
+$X$ est H-projectif sur $\kappa$.
+Il existe en particulier un $\mathcal{O}_X$-module inversible ample
+$\mathcal{L}$ sur $X$. Alors $(X, \mathcal{L})$ est un objet
+de $\textit{PolarizedCurves}$ sur
+$k$ dont l'image est $X$.
+
+\medskip\noindent
+Lissité. Soit $X \to S$ un objet de $\Curvesstack$, c'est-à-dire un
+morphisme $S \to \Curvesstack$. Il est clair que
+$$
+\textit{PolarizedCurves}
+\times_{\Curvesstack} S
+\subset \Picardstack_{X/S}
+$$
+est le sous-champ des objets $(T/S, \mathcal{L}/X_T)$ tels que
+$\mathcal{L}$ soit ample sur $X_T/T$. C'est un sous-champ ouvert d'après
+Descente pour les espaces, lemme \ref{spaces-descent-lemma-ample-in-neighbourhood}.
+Puisque $\Picardstack_{X/S} \to S$ est lisse d'après
+Champs de modules, lemme \ref{moduli-lemma-pic-curves-smooth},
+la conclusion s'ensuit.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-locally-scheme}
+Soit $X \to S$ une famille de courbes.
+Il existe alors un recouvrement étale $\{S_i \to S\}$
+tel que $X_i = X \times_S S_i$ soit un schéma. Nous pouvons même
+supposer $X_i$ H-projectif sur $S_i$.
+\end{lemma}
+
+\begin{proof}
+Il s'agit d'un corollaire immédiat du
+lemme \ref{lemma-polarized-curves-over-curves}.
+En effet, l'explicitation des définitions montre que ce lemme fournit un
+morphisme lisse surjectif $S' \to S$ tel que $X' = X \times_S S'$
+soit muni d'un $\mathcal{O}_{X'}$-module inversible
+$\mathcal{L}'$ qui est ample sur $X'/S'$.
+Nous pouvons ensuite raffiner le recouvrement lisse $\{S' \to S\}$
+par un recouvrement étale $\{S_i \to S\}$ ; voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-etale-dominates-smooth}.
+Après remplacement de $S_i$ par un recouvrement ouvert convenable, nous
+pouvons supposer $X_i \to S_i$ H-projectif ; voir
+Morphismes, lemmes \ref{morphisms-lemma-proper-ample-locally-projective} et
+\ref{morphisms-lemma-characterize-locally-projective}
+(ce point est aussi étudié en détail dans
+Compléments sur les morphismes, section \ref{more-morphisms-section-projective}).
+\end{proof}
+
+
+
+
+
+
+\section{Propriétés du champ des courbes}
+\label{section-properties}
+
+\noindent
+Le lemme suivant n'est pas vrai pour les modules de surfaces ; voir
+la remarque \ref{remark-boundedness-aut-does-not-work-surfaces}.
+
+\begin{lemma}
+\label{lemma-curves-diagonal-separated-fp}
+La diagonale de $\Curvesstack$ est séparée
+et de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Rappelons que $\Curvesstack$ est un champ algébrique qui préserve les limites ;
+voir Quot, lemme \ref{quot-lemma-curves-limits}.
+D'après Limites de champs, lemme
+\ref{stacks-limits-lemma-limit-preserving-diagonal}, cela implique que
+$\Delta : \Polarizedstack \to \Polarizedstack \times \Polarizedstack$
+préserve les limites. Par conséquent, $\Delta$ est localement de présentation
+finie d'après Limites de champs, proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+
+\medskip\noindent
+Montrons que $\Delta$ est séparée. Pour cela, il suffit de montrer que,
+pour un schéma $U$ et deux objets $Y \to U$ et $X \to U$ de
+$\Curvesstack$ au-dessus de $U$, l'espace algébrique
+$$
+\mathit{Isom}_U(Y, X)
+$$
+est séparé. Il résulte en effet de Champs de modules, lemmes
+\ref{moduli-lemma-Mor-s-lfp} et
+\ref{moduli-lemma-Isom-in-Mor}, que cet espace
+algébrique est séparé.
+
+\medskip\noindent
+Pour achever la démonstration, montrons que $\Delta$ est quasi-compacte.
+Puisque $\Delta$ est représentable par des espaces algébriques, il suffit
+de vérifier que le changement de base de $\Delta$ par un morphisme lisse
+surjectif $U \to \Curvesstack \times \Curvesstack$ est quasi-compact
+(voir, par exemple, Propriétés des champs, lemme
+\ref{stacks-properties-lemma-check-property-covering}).
+Choisissons pour $U = \coprod U_i$ une réunion disjointe d'ouverts affines,
+munie d'un morphisme lisse surjectif
+$$
+U \longrightarrow
+\textit{PolarizedCurves} \times \textit{PolarizedCurves}
+$$
+Alors $U \to \Curvesstack \times \Curvesstack$ est surjectif
+et lisse, car $\textit{PolarizedCurves} \to \Curvesstack$
+est surjectif et lisse d'après le lemme
+\ref{lemma-polarized-curves-over-curves}.
+Comme $\textit{PolarizedCurves}$ préserve les limites
+(d'après Axiomes d'Artin, lemme
+\ref{artin-lemma-fibre-product-limit-preserving},
+et Quot, lemmes \ref{quot-lemma-curves-limits},
+\ref{quot-lemma-polarized-limits} et
+\ref{quot-lemma-spaces-limits}), le morphisme
+$\textit{PolarizedCurves} \to \Spec(\mathbf{Z})$ est localement de
+présentation finie. Il en va donc de même de $U_i \to \Spec(\mathbf{Z})$
+(Limites de champs, proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}
+et Morphismes de champs, lemmes
+\ref{stacks-morphisms-lemma-composition-finite-presentation} et
+\ref{stacks-morphisms-lemma-smooth-locally-finite-presentation}).
+En particulier, $U_i$ est affine noethérien. Nous sommes ainsi ramenés
+au cas étudié dans le paragraphe suivant.
+
+\medskip\noindent
+Dans ce paragraphe, étant donnés un schéma affine noethérien $U$ et deux objets
+$(Y, \mathcal{N})$ et $(X, \mathcal{L})$
+de $\textit{PolarizedCurves}$ au-dessus de $U$, nous montrons que l'espace algébrique
+$$
+\mathit{Isom}_U(Y, X)
+$$
+est quasi-compact. Comme les composantes connexes de $U$ sont ouvertes et
+fermées, nous pouvons remplacer $U$ par celles-ci. Nous supposons donc
+désormais $U$ connexe. Soit $u \in U$ un point. Soient $Q$ et $P$ les
+polynômes de Hilbert de ces familles, c'est-à-dire
+$$
+Q(n) = \chi(Y_u, \mathcal{N}_u^{\otimes n})
+\quad\text{et}\quad
+P(n) = \chi(X_u, \mathcal{L}_u^{\otimes n})
+$$
+voir Variétés, lemme \ref{varieties-lemma-numerical-polynomial-from-euler}.
+Comme $U$ est connexe et que les fonctions
+$u \mapsto \chi(Y_u, \mathcal{N}_u^{\otimes n})$ et
+$u \mapsto \chi(X_u, \mathcal{L}_u^{\otimes n})$
+ sont localement constantes (voir
+Catégories dérivées de schémas, lemme
+\ref{perfect-lemma-chi-locally-constant-geometric})
+nous obtenons le même polynôme de Hilbert en tout point de $U$.
+Posons
+$$
+\mathcal{M} = \text{pr}_1^*\mathcal{N}
+\otimes_{\mathcal{O}_{Y \times_U X}} \text{pr}_2^*\mathcal{L}
+$$
+sur $Y \times_U X$. Pour
+$(f, \varphi) \in \mathit{Isom}_U(Y, X)(T)$, où $T$ est un schéma sur $U$,
+et pour tout $t \in T$, on a
+\begin{align*}
+\chi(Y_t, (\text{id} \times f)^*\mathcal{M}^{\otimes n})
+& =
+\chi(Y_t,
+\mathcal{N}_t^{\otimes n} \otimes_{\mathcal{O}_{Y_t}}
+f_t^*\mathcal{L}_t^{\otimes n}) \\
+& =
+n\deg(\mathcal{N}_t) + n\deg(f_t^*\mathcal{L}_t) +
+\chi(Y_t, \mathcal{O}_{Y_t}) \\
+& =
+Q(n) + n\deg(\mathcal{L}_t) \\
+& =
+Q(n) + P(n) - P(0)
+\end{align*}
+d'après Riemann--Roch pour les courbes propres, plus précisément d'après
+Variétés, définition \ref{varieties-definition-degree-invertible-sheaf},
+lemme \ref{varieties-lemma-degree-tensor-product},
+et le fait que $f_t$ est un isomorphisme.
+En posant $P'(t) = Q(t) + P(t) - P(0)$, nous obtenons
+$$
+\mathit{Isom}_U(Y, X) =
+\mathit{Isom}_U(Y, X) \cap \mathit{Mor}^{P', \mathcal{M}}_U(Y, X)
+$$
+Cette intersection est une intersection de sous-espaces ouverts de
+$\mathit{Mor}_U(Y, X)$ ; voir Champs de modules, lemme
+\ref{moduli-lemma-Isom-in-Mor} et remarque
+\ref{moduli-remark-Mor-numerical}.
+Or $\mathit{Mor}^{P', \mathcal{M}}_U(Y, X)$
+est un espace algébrique noethérien, puisqu'il est de présentation
+finie sur $U$ d'après Champs de modules, lemme
+\ref{moduli-lemma-Mor-qc-over-base}.
+L'intersection est donc elle aussi un espace algébrique noethérien,
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{remark}
+\label{remark-boundedness-aut-does-not-work-surfaces}
+L'argument de bornitude employé dans la démonstration du
+lemme \ref{lemma-curves-diagonal-separated-fp}
+ne fonctionne pas pour les modules de surfaces ; de fait,
+le résultat est faux, notamment parce que des surfaces K3
+sur des corps peuvent avoir des groupes discrets d'automorphismes infinis.
+La « raison » pour laquelle l'argument ne fonctionne pas est que, sur une
+surface projective $S$ sur un corps, étant donnés des faisceaux inversibles
+amples $\mathcal{N}$ et $\mathcal{L}$ de polynômes de Hilbert $Q$ et $P$,
+il n'existe aucune borne a priori pour le polynôme de Hilbert de
+$\mathcal{N} \otimes_{\mathcal{O}_S} \mathcal{L}$.
+En termes de théorie de l'intersection, si $H_1$ et $H_2$ sont des
+diviseurs de Cartier effectifs et amples sur $S$, il n'existe aucune
+borne (supérieure) pour le nombre d'intersection $H_1 \cdot H_2$
+en fonction de $H_1 \cdot H_1$ et de $H_2 \cdot H_2$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-curves-qs-lfp}
+Le morphisme $\Curvesstack \to \Spec(\mathbf{Z})$ est quasi-séparé et
+localement de présentation finie.
+\end{lemma}
+
+\begin{proof}
+Pour vérifier que $\Curvesstack \to \Spec(\mathbf{Z})$ est quasi-séparé,
+il faut montrer que sa diagonale est quasi-compacte et quasi-séparée.
+Cela résulte immédiatement du lemme
+\ref{lemma-curves-diagonal-separated-fp}.
+Pour montrer que $\Curvesstack \to \Spec(\mathbf{Z})$ est localement de
+présentation finie, il suffit de montrer que $\Curvesstack$
+préserve les limites ; voir Limites de champs, proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+C'est Quot, lemme \ref{quot-lemma-curves-limits}.
+\end{proof}
+
+
+
+
+
+
+\section{Sous-champs ouverts du champ des courbes}
+\label{section-open}
+
+\noindent
+Dans la suite, nous caractériserons souvent un sous-champ ouvert de
+$\Curvesstack$ au moyen d'une propriété $P$ des morphismes d'espaces
+algébriques. Pour voir que $P$ définit un sous-champ ouvert, il suffit
+de vérifier la condition suivante :
+\begin{enumerate}
+\item[(o)] pour toute famille de courbes $f : X \to S$, il existe
+un plus grand sous-schéma ouvert $S' \subset S$ tel que
+$f|_{f^{-1}(S')} : f^{-1}(S') \to S'$ possède $P$ et tel que
+la formation de $S'$ commute à tout changement de base.
+\end{enumerate}
+Supposons en effet que (o) soit satisfaite. Choisissons un schéma $U$ et
+un morphisme lisse surjectif $m : U \to \Curvesstack$. Posons
+$R = U \times_{\Curvesstack} U$ et notons $t, s : R \to U$
+les projections. Rappelons que $\Curvesstack = [U/R]$ est une présentation ;
+voir Champs algébriques, lemme \ref{algebraic-lemma-stack-presentation} et
+définition \ref{algebraic-definition-presentation}.
+Par construction de $\Curvesstack$ comme champ des courbes, le morphisme $m$
+est le morphisme classifiant d'une famille de courbes $C \to U$. La
+$2$-commutativité du diagramme
+$$
+\xymatrix{
+R \ar[r]_s \ar[d]_t & U \ar[d] \\
+U \ar[r] & \Curvesstack
+}
+$$
+implique que $C \times_{U, s} R  \cong C \times_{U, t} R$
+(isomorphisme de familles de courbes sur $R$). Soit $W \subset U$
+le plus grand sous-schéma ouvert tel que
+$f|_{f^{-1}(W)} : f^{-1}(W) \to W$ possède $P$, comme dans (o).
+Puisque, d'après (o), la formation de $W$ commute aux changements de base,
+l'isomorphisme ci-dessus donne $s^{-1}(W) = t^{-1}(W)$.
+Ainsi, $W \subset U$ correspond à un sous-champ ouvert
+$$
+\Curvesstack^P \subset \Curvesstack
+$$
+d'après Propriétés des champs, lemme
+\ref{stacks-properties-lemma-immersion-presentation}.
+
+\medskip\noindent
+En conservant les notations du paragraphe précédent, nous affirmons que
+le sous-champ ouvert $\Curvesstack^P$ possède les deux propriétés
+universelles suivantes :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^P$,
+\item le morphisme $X \to S$ possède $P$ ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$, de dimension $\leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^P$,
+\item le morphisme $X \to \Spec(k)$ possède $P$.
+\end{enumerate}
+\end{enumerate}
+Cela résulte de la considération du $2$-produit fibré
+$$
+\xymatrix{
+T \ar[r]_p \ar[d]_q & U \ar[d] \\
+S \ar[r] & \Curvesstack
+}
+$$
+Observons que $T \to S$ est surjectif et lisse, car il se déduit de
+$U \to \Curvesstack$ par changement de base. L'ouvert $S' \subset S$
+donné par (o) est donc déterminé par son image inverse dans $T$.
+Or, par l'invariance des ouverts de (o) sous changement de base et puisque
+$X \times_S T \cong C \times_U T$ par $2$-commutativité, nous obtenons
+$q^{-1}(S') = p^{-1}(W)$ comme ouverts de $T$.
+Cela implique immédiatement (1). La partie (2) est un cas particulier de (1).
+
+\medskip\noindent
+Étant données deux propriétés $P$ et $Q$ des morphismes d'espaces
+algébriques, supposons que nous ayons déjà établi que $\Curvesstack^Q$
+est un sous-champ ouvert de $\Curvesstack$. La même méthode permet alors
+de démontrer que
+$\Curvesstack^{Q, P} \subset \Curvesstack^Q$ est ouvert.
+Nous omettons les détails.
+
+
+
+\section{Courbes à groupes d'automorphismes finis et réduits}
+\label{section-finite-aut}
+
+\noindent
+Soit $X$ un schéma propre sur un corps $k$, de dimension $\leq 1$,
+c'est-à-dire un objet de $\Curvesstack$ sur $k$.
+D'après le lemme \ref{lemma-curves-diagonal-separated-fp},
+l'espace algébrique des automorphismes $\mathit{Aut}(X)$
+est de type fini et séparé sur $k$.
+En particulier, $\mathit{Aut}(X)$ est un schéma en groupes ; voir
+Compléments sur les groupoïdes dans les espaces, lemme
+\ref{spaces-more-groupoids-lemma-group-space-scheme-locally-finite-type-over-k}.
+Si la caractéristique de $k$ est nulle, alors $\mathit{Aut}(X)$
+est réduit et même lisse sur $k$ (Groupoïdes, lemme
+\ref{groupoids-lemma-group-scheme-characteristic-zero-smooth}).
+Toutefois, en général, $\mathit{Aut}(X)$ n'est pas réduit, même
+si $X$ est géométriquement réduit.
+
+\begin{example}[Groupe d'automorphismes non réduit]
+\label{example-non-reduced}
+Soit $k$ un corps algébriquement clos de caractéristique $2$.
+Posons $Y = Z = \mathbf{P}^1_k$. Choisissons trois points $k$-rationnels
+deux à deux distincts $a, b, c$ dans $\mathbf{A}^1_k$. En considérant
+$\mathbf{A}^1_k \subset \mathbf{P}^1_k = Y = Z$ comme un sous-schéma ouvert,
+nous obtenons une immersion fermée
+$$
+T =  \Spec(k[t]/(t - a)^2) \amalg \Spec(k[t]/(t - b)^2)
+\amalg \Spec(k[t]/(t - c)^2)
+\longrightarrow
+\mathbf{P}^1_k
+$$
+Soit $X$ la somme amalgamée dans le diagramme
+$$
+\xymatrix{
+T \ar[r] \ar[d] & Y \ar[d] \\
+Z \ar[r] & X
+}
+$$
+Soit $U \subset X$ la partie ouverte affine qui est l'image de
+$\mathbf{A}^1_k \amalg \mathbf{A}^1_k$. Nous avons alors un diagramme
+égalisateur
+$$
+\xymatrix{
+\mathcal{O}_X(U) \ar[r] &
+k[t] \times k[t] \ar@<1ex>[r] \ar@<-1ex>[r] &
+k[t]/(t - a)^2 \times k[t]/(t - b)^2 \times k[t]/(t - c)^2
+}
+$$
+Sur l'algèbre des nombres duaux $A = k[\epsilon]$, ce diagramme égalisateur
+admet un automorphisme non trivial envoyant $t$ sur $t + \epsilon$. Nous
+laissons au lecteur le soin de voir que cet automorphisme s'étend en un
+automorphisme de $X$ sur $A$. D'autre part, le lecteur vérifie aisément que
+le groupe d'automorphismes de $X$ sur $k$ est fini.
+Ainsi, $\mathit{Aut}(X)$ est nécessairement non réduit.
+\end{example}
+
+\noindent
+Soit $X$ un schéma propre sur un corps $k$, de dimension $\leq 1$,
+c'est-à-dire un objet de $\Curvesstack$ sur $k$. Même si $\mathit{Aut}(X)$
+est géométriquement réduit, il n'est pas nécessairement de
+dimension $0$, quand bien même $X$ est lisse et géométriquement connexe.
+
+\begin{example}[Groupe d'automorphismes lisse de dimension positive]
+\label{example-pos-dim}
+Soit $k$ un corps algébriquement clos. Si $X$ est une courbe lisse
+de genre $0$, resp.\ $1$, alors son groupe d'automorphismes est de
+dimension $3$, resp.\ $1$. En effet, dans le cas du genre $0$, on a
+$X \cong \mathbf{P}^1_k$ d'après Courbes algébriques, proposition
+\ref{curves-proposition-projective-line}. Puisque
+$$
+\mathit{Aut}(\mathbf{P}^1_k) = \text{PGL}_{2, k}
+$$
+comme foncteurs, sa dimension est $3$. D'autre part,
+si le genre de $X$ est $1$, alors l'application
+$X = \underline{\Hilbfunctor}^1_{X/k} \to
+\underline{\Picardfunctor}^1_{X/k}$ est un isomorphisme ; voir
+Schémas de Picard des courbes, lemme \ref{pic-lemma-picard-pieces},
+et Courbes algébriques, théorème
+\ref{curves-theorem-curves-rational-maps}.
+Ainsi, $X$ possède une structure de variété abélienne
+(puisque $\underline{\Picardfunctor}^1_{X/k} \cong
+\underline{\Picardfunctor}^0_{X/k}$).
+En particulier, les fibrés tangent et cotangent de $X$ sont triviaux
+(Groupoïdes, lemme \ref{groupoids-lemma-group-scheme-module-differentials}).
+Nous en concluons que $\dim_k H^0(X, T_X) = 1$, donc que
+$\dim \mathit{Aut}(X) \leq 1$. D'autre part, les translations
+(en considérant $X$ comme un schéma en groupes) fournissent une partie
+de dimension $1$ de $\text{Aut}(X)$ ; sa dimension vaut donc bien $1$.
+\end{example}
+
+\noindent
+Il existe en fait un sous-champ ouvert de
+$\Curvesstack$ qui paramètre les courbes dont le groupe d'automorphismes
+est géométriquement réduit et fini.
+En voici un énoncé précis.
+
+\begin{lemma}
+\label{lemma-DM-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{DM} \subset \Curvesstack$
+possédant les propriétés suivantes :
+\begin{enumerate}
+\item $\Curvesstack^{DM} \subset \Curvesstack$ est le plus grand
+sous-champ ouvert qui soit DM ;
+\item pour une famille de courbes $X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{DM}$,
+\item l'espace algébrique en groupes $\mathit{Aut}_S(X)$ est non ramifié
+sur $S$ ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$, de dimension $\leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{DM}$ ;
+\item $\mathit{Aut}(X)$ est géométriquement réduit sur $k$ et
+de dimension $0$ ;
+\item $\mathit{Aut}(X) \to \Spec(k)$ est non ramifié.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'existence d'un sous-champ ouvert ayant la propriété (1) résulte de
+Morphismes de champs, lemme \ref{stacks-morphisms-lemma-open-DM-locus}.
+Les points de ce sous-champ ouvert sont caractérisés par (3)(c) d'après
+Morphismes de champs, lemme \ref{stacks-morphisms-lemma-points-DM-locus}.
+L'équivalence de (3)(b) et (3)(c) affirme qu'un espace algébrique $G$,
+localement de type fini, géométriquement réduit et de dimension $0$ sur
+un corps $k$, est non ramifié sur $k$.
+Tout d'abord, $G$ est un schéma d'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-locally-finite-type-dim-zero}.
+Nous pouvons ensuite prendre un ouvert affine de $G$, observer
+qu'il est propre sur $k$, puis appliquer Variétés, lemme
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}.
+Nous omettons les détails mineurs.
+
+\medskip\noindent
+La partie (2) est vraie parce que (3) l'est. En effet, le morphisme
+$\mathit{Aut}_S(X) \to S$ est localement de type fini. Nous pouvons donc
+vérifier si $\mathit{Aut}_S(X) \to S$ est non ramifié en tout point de
+$\mathit{Aut}_S(X)$ en le vérifiant sur les fibres aux points du schéma $S$ ;
+voir Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-where-unramified}.
+Mais, après changement de base en un point de $S$, nous nous ramenons à
+l'équivalence de (3)(a) et (3)(c).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-in-DM-locus-vector-fields}
+Soit $X$ un schéma propre sur un corps $k$, de dimension $\leq 1$.
+Alors les propriétés (3)(a), (b), (c) sont également équivalentes à
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$.
+\end{lemma}
+
+\begin{proof}
+Dans la discussion précédente, nous avons vu que $G = \mathit{Aut}(X)$
+est un schéma en groupes de type fini et séparé sur $\Spec(k)$ ;
+on utilise ici le lemme \ref{lemma-curves-diagonal-separated-fp} et
+Compléments sur les groupoïdes dans les espaces, lemme
+\ref{spaces-more-groupoids-lemma-group-space-scheme-locally-finite-type-over-k}.
+Alors $G$ est non ramifié sur $k$ si et seulement si $\Omega_{G/k} = 0$
+(Morphismes, lemme \ref{morphisms-lemma-unramified-omega-zero}).
+D'après Groupoïdes, lemme
+\ref{groupoids-lemma-group-scheme-module-differentials}, cette annulation
+a lieu si $T_{G/k, e} = 0$, où $T_{G/k, e}$ est l'espace tangent à $G$
+en l'élément neutre $e \in G(k)$ ; voir Variétés, définition
+\ref{varieties-definition-tangent-space}, ainsi que la formule de
+Variétés, lemme \ref{varieties-lemma-tangent-space-cotangent-space}.
+Puisque $\kappa(e) = k$, l'espace tangent se décrit au moyen des
+morphismes $\alpha : \Spec(k[\epsilon]) \to G = \mathit{Aut}(X)$
+dont la restriction à $\Spec(k)$ est $e$.
+On est ainsi ramené à considérer les automorphismes
+$$
+\alpha :
+X \times_{\Spec(k)} \Spec(k[\epsilon])
+\longrightarrow
+X \times_{\Spec(k)} \Spec(k[\epsilon])
+$$
+sur $\Spec(k[\epsilon])$ dont la restriction à $\Spec(k)$ est
+$\text{id}_X$. De tels automorphismes sont appelés
+automorphismes infinitésimaux.
+
+\medskip\noindent
+Les automorphismes infinitésimaux de $X$ correspondent bijectivement
+aux dérivations de $\mathcal{O}_X$ sur $k$. Cela résulte de
+Compléments sur les morphismes, lemmes
+\ref{more-morphisms-lemma-difference-derivation} et
+\ref{more-morphisms-lemma-action-by-derivations} (nous n'avons besoin que
+du premier, puisque le sens réciproque ne nous intéresse pas ; consulter
+aussi Compléments sur les morphismes, remarque
+\ref{more-morphisms-remark-another-special-case}, pour une explication).
+Pour un autre argument établissant cette égalité, nous renvoyons le lecteur
+à Problèmes de déformation, lemme \ref{examples-defos-lemma-schemes-TI}.
+\end{proof}
+
+
+
+
+
+\section{Courbes de Cohen-Macaulay}
+\label{section-CM}
+
+\noindent
+Il existe un sous-champ ouvert de $\Curvesstack$ qui paramètre
+les « courbes » de Cohen-Macaulay.
+
+\begin{lemma}
+\label{lemma-CM-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{CM} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{CM}$,
+\item le morphisme $X \to S$ est Cohen-Macaulay ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{CM}$,
+\item $X$ est Cohen-Macaulay.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $f : X \to S$ une famille de courbes. D'après
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-flat-finite-presentation-CM-open},
+l'ensemble
+$$
+W = \{x \in |X| : f \text{ est Cohen-Macaulay au point }x\}
+$$
+est ouvert dans $|X|$, et la formation de cet ouvert commute à tout
+changement de base. Puisque $f$ est propre, le sous-ensemble
+$$
+S' = S \setminus f(|X| \setminus W)
+$$
+de $S$ est ouvert, et $X \times_S S' \to S'$ est Cohen-Macaulay.
+De plus, la formation de $S'$ commute à tout changement de base,
+car il en est ainsi de $W$. La méthode exposée à la section
+\ref{section-open} fournit donc le sous-champ ouvert possédant les
+propriétés voulues.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-CM-1-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{CM, 1} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{CM, 1}$,
+\item le morphisme $X \to S$ est Cohen-Macaulay et de dimension
+relative $1$ (Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-relative-dimension}) ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{CM, 1}$,
+\item $X$ est Cohen-Macaulay et $X$ est équidimensionnel de dimension $1$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après le lemme \ref{lemma-CM-curves}, il est clair que l'on a
+$\Curvesstack^{CM, 1} \subset \Curvesstack^{CM}$ si ce sous-champ existe.
+Soit $f : X \to S$ une famille de courbes telle que $f$ soit
+Cohen-Macaulay. D'après Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-lfp-CM-relative-dimension},
+nous avons une décomposition
+$$
+X = X_0 \amalg X_1
+$$
+en sous-espaces ouverts et fermés telle que $X_0 \to S$ soit de dimension
+relative $0$ et $X_1 \to S$ de dimension relative $1$.
+Puisque $f$ est propre, le sous-ensemble
+$$
+S' = S \setminus f(|X_0|)
+$$
+de $S$ est ouvert, et $X \times_S S' \to S'$ est Cohen-Macaulay
+et de dimension relative $1$.
+De plus, la formation de $S'$ commute à tout changement de base,
+car il en est ainsi de la décomposition précédente (la dimension relative
+se comportant bien par changement de base ; voir Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}).
+La méthode exposée à la section \ref{section-open} fournit donc le sous-champ
+ouvert possédant les propriétés voulues.
+\end{proof}
+
+
+
+
+
+\section{Courbes de genre donné}
+\label{section-genus}
+
+\noindent
+Dans le projet Champs, on convient que le genre $g$ d'un
+schéma $X$ propre de dimension $1$ sur un corps $k$ n'est défini que
+si $H^0(X, \mathcal{O}_X) = k$. Dans ce cas,
+$g = \dim_k H^1(X, \mathcal{O}_X)$.
+Voir Courbes algébriques, section \ref{curves-section-genus}.
+Les conditions nécessaires pour définir le genre définissent un sous-champ ouvert,
+qui est alors réunion disjointe de sous-champs ouverts, un pour chaque genre.
+
+\begin{lemma}
+\label{lemma-pre-genus-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{h0, 1} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $f : X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{h0, 1}$,
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$, cette égalité reste vraie
+après tout changement de base, et les fibres de $f$ sont de dimension $1$ ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise par
+$\Curvesstack^{h0, 1}$,
+\item $H^0(X, \mathcal{O}_X) = k$ et $\dim(X) = 1$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour une famille de courbes $X \to S$, l'ensemble des $s \in S$ tels que
+$\kappa(s) = H^0(X_s, \mathcal{O}_{X_s})$
+est ouvert dans $S$ d'après Catégories dérivées des espaces, lemme
+\ref{spaces-perfect-lemma-jump-loci-geometric}.
+De même, l'ensemble des points de $S$ où la fibre est de
+dimension $1$ est ouvert d'après Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-dimension-fibres-proper-flat}.
+En outre, si $f : X \to S$ est une famille de courbes dont toutes les fibres
+sont de dimension $1$ (et, en particulier, $f$ est surjectif), alors
+la condition (1)(b) équivaut à
+$\kappa(s) = H^0(X_s, \mathcal{O}_{X_s})$ pour tout $s \in S$ ; voir
+Catégories dérivées des espaces, lemme \ref{spaces-perfect-lemma-proper-flat-h0}.
+Le lemme résulte donc de la discussion générale de la
+section \ref{section-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pre-genus-in-CM-1}
+On a $\Curvesstack^{h0, 1} \subset \Curvesstack^{CM, 1}$
+en tant que sous-champs ouverts de $\Curvesstack$.
+\end{lemma}
+
+\begin{proof}
+Voir Courbes algébriques, lemme \ref{curves-lemma-automatic}, ainsi que les
+lemmes \ref{lemma-pre-genus-curves} et \ref{lemma-CM-1-curves}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-genus}
+Soit $f : X \to S$ une famille de courbes telle que
+$\kappa(s) = H^0(X_s, \mathcal{O}_{X_s})$ pour tout $s \in S$, c'est-à-dire que
+le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{h0, 1}$ (lemme \ref{lemma-pre-genus-curves}). Alors :
+\begin{enumerate}
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$, et cette égalité subsiste après tout changement de base ;
+\item $R^1f_*\mathcal{O}_X$ est un $\mathcal{O}_S$-module fini localement libre ;
+\item pour tout morphisme $h : S' \to S$, si $f' : X' \to S'$ est obtenu par
+changement de base, alors $h^*(R^1f_*\mathcal{O}_X) = R^1f'_*\mathcal{O}_{X'}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Appliquons Catégories dérivées des espaces, lemme
+\ref{spaces-perfect-lemma-proper-flat-h0}.
+Cela prouve l'assertion (1). Cela implique aussi que, localement sur $S$,
+on peut écrire $Rf_*\mathcal{O}_X = \mathcal{O}_S \oplus P$,
+où $P$ est parfait et de Tor-amplitude contenue dans $[1, \infty)$.
+Rappelons que la formation de $Rf_*\mathcal{O}_X$ commute
+à tout changement de base
+(Catégories dérivées des espaces, lemme
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}).
+Ainsi, pour $s \in S$, on a
+$$
+H^i(P \otimes_{\mathcal{O}_S}^\mathbf{L} \kappa(s)) =
+H^i(X_s, \mathcal{O}_{X_s})
+\text{ pour }i \geq 1
+$$
+Ce groupe est nul sauf si $i = 1$, car $X_s$ est un schéma noethérien
+de dimension $1$ ; voir
+Cohomologie, proposition \ref{cohomology-proposition-vanishing-Noetherian}.
+On a alors $P = H^1(P)[-1]$, et $H^1(P)$ est fini localement libre,
+par exemple d'après Compléments sur l'algèbre, lemme
+\ref{more-algebra-lemma-lift-perfect-from-residue-field}.
+Comme tout est compatible avec le changement de base, on voit
+également que l'assertion (3) est vraie.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pre-genus-one-piece-per-genus}
+Il existe une décomposition en sous-champs ouverts et fermés
+$$
+\Curvesstack^{h0, 1} = \coprod\nolimits_{g \geq 0} \Curvesstack_g
+$$
+où chaque $\Curvesstack_g$ se caractérise comme suit :
+\begin{enumerate}
+\item pour une famille de courbes $f : X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack_g$,
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$, cette égalité reste vraie après
+tout changement de base, les fibres de $f$ sont de dimension $1$, et
+$R^1f_*\mathcal{O}_X$ est un $\mathcal{O}_S$-module localement libre de rang $g$ ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise par
+$\Curvesstack_g$,
+\item $\dim(X) = 1$, $k = H^0(X, \mathcal{O}_X)$ et
+le genre de $X$ est $g$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Nous disposons déjà de $\Curvesstack^{h0, 1}$ comme sous-champ ouvert de
+$\Curvesstack$, caractérisé par les conditions du lemme qui ne font intervenir
+ni $R^1f_*$ ni $H^1$ ; voir le lemme \ref{lemma-pre-genus-curves}.
+L'existence de la décomposition en sous-champs ouverts et fermés
+résulte immédiatement de la discussion de la section \ref{section-open}
+et du lemme \ref{lemma-genus}. Cela prouve la caractérisation de (1).
+La caractérisation de (2) résulte de la définition du
+genre donnée dans Courbes algébriques, définition \ref{curves-definition-genus}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Courbes géométriquement réduites}
+\label{section-geometrically-reduced}
+
+\noindent
+Il existe un sous-champ ouvert de $\Curvesstack$ qui paramètre
+les « courbes » géométriquement réduites.
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{geomred} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{geomred}$,
+\item les fibres du morphisme $X \to S$ sont géométriquement réduites
+(Compléments sur les morphismes d'espaces, définition
+\ref{spaces-more-morphisms-definition-geometrically-reduced-fibre}) ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise par
+$\Curvesstack^{geomred}$,
+\item $X$ est géométriquement réduit sur $k$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $f : X \to S$ une famille de courbes. D'après
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-geometrically-reduced-open},
+l'ensemble
+$$
+E = \{s \in S : \text{la fibre de }X \to S\text{ en }s
+\text{ est géométriquement réduite}\}
+$$
+est ouvert dans $S$. La formation de cet ouvert commute à tout
+changement de base d'après
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-base-change-fibres-geometrically-reduced}.
+La méthode exposée à la section \ref{section-open} fournit donc le sous-champ
+ouvert possédant les propriétés voulues.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geomred-in-CM}
+On a $\Curvesstack^{geomred} \subset \Curvesstack^{CM}$
+en tant que sous-champs ouverts de $\Curvesstack$.
+\end{lemma}
+
+\begin{proof}
+Cela tient à ce qu'un schéma noethérien réduit de
+dimension $\leq 1$ est Cohen-Macaulay. Voir
+Algèbre, lemme \ref{algebra-lemma-criterion-reduced}.
+\end{proof}
+
+
+
+
+
+
+\section{Courbes géométriquement réduites et connexes}
+\label{section-geometrically-reduced-connected}
+
+\noindent
+Il existe un sous-champ ouvert de $\Curvesstack$ qui paramètre
+les « courbes » géométriquement réduites et connexes.
+Nous éliminons d'emblée les objets de dimension $0$.
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-connected-1-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{grc, 1} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{grc, 1}$,
+\item les fibres géométriques du morphisme $X \to S$ sont
+réduites, connexes et de dimension $1$ ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise par
+$\Curvesstack^{grc, 1}$,
+\item $X$ est géométriquement réduit, géométriquement connexe
+et de dimension $1$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après les lemmes \ref{lemma-geometrically-reduced-curves},
+\ref{lemma-geomred-in-CM}, \ref{lemma-CM-curves} et \ref{lemma-CM-1-curves},
+il est clair que l'on a
+$$
+\Curvesstack^{grc, 1}
+\subset
+\Curvesstack^{geomred} \cap \Curvesstack^{CM, 1}
+$$
+si ce sous-champ existe. Soit $f : X \to S$ une famille de courbes telle que $f$
+soit Cohen-Macaulay, ait des fibres géométriquement réduites et
+soit de dimension relative $1$. D'après
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-stein-factorization-etale},
+dans la factorisation de Stein
+$$
+X \to T \to S
+$$
+le morphisme $T \to S$ est \'etale. Il en résulte qu'il existe
+un sous-schéma ouvert et fermé $S' \subset S$ tel que
+$X \times_S S' \to S'$ ait des fibres géométriquement
+connexes (dans la décomposition de
+Morphismes, lemme \ref{morphisms-lemma-finite-locally-free},
+appliquée au morphisme fini localement libre $T \to S$,
+cela correspond à $S_1$).
+La formation de cet ouvert commute à tout changement de base,
+car le nombre de composantes connexes des fibres géométriques
+est invariant par changement de base (il est également vrai
+que la factorisation de Stein commute au changement de base
+dans notre cas particulier, mais nous n'en avons pas besoin pour conclure).
+La méthode exposée à la section \ref{section-open} fournit donc le sous-champ
+ouvert possédant les propriétés voulues.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geomredcon-in-h0-1}
+On a $\Curvesstack^{grc, 1} \subset \Curvesstack^{h0, 1}$
+en tant que sous-champs ouverts de $\Curvesstack$. En particulier, pour toute
+famille de courbes $f : X \to S$
+dont les fibres géométriques sont réduites, connexes et de dimension $1$,
+$R^1f_*\mathcal{O}_X$ est un $\mathcal{O}_S$-module fini localement libre
+dont la formation commute à tout changement de base.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de Variétés, lemme
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections},
+ainsi que des lemmes \ref{lemma-pre-genus-curves} et
+\ref{lemma-geometrically-reduced-connected-1-curves}.
+La dernière assertion résulte du lemme \ref{lemma-genus}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-one-piece-per-genus}
+Il existe une décomposition en sous-champs ouverts et fermés
+$$
+\Curvesstack^{grc, 1} = \coprod\nolimits_{g \geq 0} \Curvesstack^{grc, 1}_g
+$$
+où chaque $\Curvesstack^{grc, 1}_g$ se caractérise comme suit :
+\begin{enumerate}
+\item pour une famille de courbes $f : X \to S$, les assertions suivantes
+sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{grc, 1}_g$,
+\item les fibres géométriques du morphisme $f : X \to S$ sont
+réduites, connexes, de dimension $1$, et
+$R^1f_*\mathcal{O}_X$ est un $\mathcal{O}_S$-module localement libre
+de rang $g$ ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise par
+$\Curvesstack^{grc, 1}_g$,
+\item $X$ est géométriquement réduit, géométriquement connexe,
+de dimension $1$ et de genre $g$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Première démonstration : posons
+$\Curvesstack^{grc, 1}_g = \Curvesstack^{grc, 1} \cap \Curvesstack_g$
+et combinons les lemmes \ref{lemma-geomredcon-in-h0-1} et
+\ref{lemma-pre-genus-one-piece-per-genus}.
+Seconde démonstration :
+L'existence de la décomposition en sous-champs ouverts et fermés
+résulte immédiatement de la discussion de la section \ref{section-open}
+et du lemme \ref{lemma-geomredcon-in-h0-1}.
+Cela prouve la caractérisation de (1).
+La caractérisation de (2) en résulte également, car
+le genre d'un schéma $X/k$ propre de dimension $1$,
+géométriquement réduit et connexe, est défini
+(Courbes algébriques, définition \ref{curves-definition-genus}, et
+Variétés, lemme
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections})
+et vaut $\dim_k H^1(X, \mathcal{O}_X)$.
+\end{proof}
+
+
+ 
+ 
+ 
+ 
+ 
+\section{Courbes de Gorenstein}
+\label{section-gorenstein}
+
+\noindent
+Il existe un sous-champ ouvert de $\Curvesstack$ qui paramètre
+les « courbes » de Gorenstein.
+
+\begin{lemma}
+\label{lemma-gorenstein-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{Gorenstein} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{Gorenstein}$,
+\item le morphisme $X \to S$ est de Gorenstein ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{Gorenstein}$,
+\item $X$ est de Gorenstein.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Soit $f : X \to S$ une famille de courbes. D'après
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-flat-finite-presentation-gorenstein-open},
+l'ensemble
+$$
+W = \{x \in |X| : f \text{ est de Gorenstein au point }x\}
+$$
+est ouvert dans $|X|$, et la formation de cet ouvert commute à tout
+changement de base. Puisque $f$ est propre, le sous-ensemble
+$$
+S' = S \setminus f(|X| \setminus W)
+$$
+de $S$ est ouvert, et $X \times_S S' \to S'$ est de Gorenstein.
+De plus, la formation de $S'$ commute à tout changement de base,
+car il en est ainsi de $W$.
+La méthode exposée à la section \ref{section-open} fournit donc le
+sous-champ ouvert possédant les propriétés voulues.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gorenstein-1-curves}
+Il existe un sous-champ ouvert
+$\Curvesstack^{Gorenstein, 1} \subset \Curvesstack$ tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{Gorenstein, 1}$,
+\item le morphisme $X \to S$ est de Gorenstein et de
+dimension relative $1$ (Morphismes d'espaces, définition
+\ref{spaces-morphisms-definition-relative-dimension}) ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ et tel que $\dim(X) \leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{Gorenstein, 1}$,
+\item $X$ est de Gorenstein et $X$ est équidimensionnel de
+dimension $1$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Rappelons qu'un schéma de Gorenstein est Cohen-Macaulay
+(Dualité pour les schémas, lemme \ref{duality-lemma-gorenstein-CM})
+et rappelons
+qu'un morphisme de Gorenstein est un morphisme de Cohen-Macaulay
+(Dualité pour les schémas, lemme \ref{duality-lemma-gorenstein-CM-morphism}).
+Nous pouvons donc prendre
+$\Curvesstack^{Gorenstein, 1}$ égale à l'intersection
+de $\Curvesstack^{Gorenstein}$ et de $\Curvesstack^{CM, 1}$
+dans $\Curvesstack$, et appliquer les
+lemmes \ref{lemma-gorenstein-curves} et \ref{lemma-CM-1-curves}.
+\end{proof}
+
+
+
+
+
+
+\section{Courbes d'intersection complète locale}
+\label{section-lci}
+
+\noindent
+Il existe un sous-champ ouvert de $\Curvesstack$ qui paramètre
+les « courbes » qui sont des intersections complètes locales.
+
+\begin{lemma}
+\label{lemma-lci-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{lci} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{lci}$,
+\item $X \to S$ est un morphisme d'intersection complète locale, et
+\item $X \to S$ est un morphisme syntomique.
+\end{enumerate}
+\item pour un schéma propre $X$ sur un corps $k$, de dimension $\leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{lci}$,
+\item $X$ est une intersection complète locale sur $k$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Rappelons qu'être un morphisme syntomique revient à être plat et à être
+un morphisme d'intersection complète locale ; voir
+Compléments sur les morphismes d'espaces, lemme \ref{spaces-more-morphisms-lemma-flat-lci}.
+Ainsi, (1)(b) est équivalente à (1)(c).
+À la section \ref{section-open}, nous avons vu
+qu'il suffit de montrer que, pour toute famille de courbes
+$f : X \to S$, il existe un sous-schéma ouvert $S' \subset S$
+tel que $S' \times_S X \to S'$ soit un morphisme d'intersection complète
+locale et que la formation de $S'$ commute à tout changement de base.
+Cela découle du résultat plus général
+Compléments sur les morphismes d'espaces, lemme \ref{spaces-more-morphisms-lemma-where-lci}.
+\end{proof}
+
+
+
+
+\section{Courbes à singularités isolées}
+\label{section-curves-isolated}
+
+\noindent
+Nous pouvons considérer le sous-champ ouvert de $\Curvesstack$
+qui paramètre les « courbes » n'ayant qu'un nombre fini de points
+singuliers (ceux-ci peuvent correspondre à des composantes de dimension $0$
+dans notre cadre).
+
+\begin{lemma}
+\label{lemma-isolated-sings-curves}
+Il existe un sous-champ ouvert
+$\Curvesstack^{+} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $X \to S$, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{+}$,
+\item le lieu singulier de $X \to S$, muni
+d'une quelconque/certaine structure de sous-espace fermé, est fini sur $S$.
+\end{enumerate}
+\item pour un schéma propre $X$ sur un corps $k$, de dimension $\leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{+}$,
+\item $X \to \Spec(k)$ est lisse sauf en un nombre fini de points.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour démontrer le lemme, il suffit de montrer que, pour toute famille de courbes
+$f : X \to S$, il existe un sous-schéma ouvert $S' \subset S$
+tel que la fibre de $S' \times_S X \to S'$ possède la propriété (2).
+(La formation de l'ouvert commutera alors automatiquement au changement de base.)
+Par définition, le lieu $T \subset |X|$ des points où $X \to S$
+n'est pas lisse est fermé. Soit $Z \subset X$ le sous-espace fermé
+défini en munissant $T$ de la structure réduite induite d'espace algébrique
+(Propriétés des espaces, définition
+\ref{spaces-properties-definition-reduced-induced-space}).
+Si maintenant $s \in S$ est un point tel que $Z_s$ soit fini, il existe
+un voisinage ouvert $U_s \subset S$ de $s$ tel que
+$Z \cap f^{-1}(U_s) \to U_s$ soit fini ; voir
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-proper-finite-fibre-finite-in-neighbourhood}.
+Cela démontre le lemme.
+\end{proof}
+
+
+
+
+\section{Le lieu lisse du champ des courbes}
+\label{section-smooth}
+
+\noindent
+Le morphisme
+$$
+\Curvesstack \longrightarrow \Spec(\mathbf{Z})
+$$
+est lisse au-dessus d'un sous-champ ouvert maximal ; voir
+Morphismes de champs, lemme \ref{stacks-morphisms-lemma-where-smooth}.
+Nous voulons donner un critère pour qu'une courbe appartienne à ce lieu.
+Pour cela, nous utiliserons un peu de théorie des déformations.
+
+\medskip\noindent
+Soit $k$ un corps. Soit $X$ un schéma propre de dimension $\leq 1$ sur $k$.
+Choisissons un anneau de Cohen $\Lambda$ pour $k$ ; voir
+Algèbre, lemme \ref{algebra-lemma-cohen-rings-exist}.
+Nous sommes alors dans la situation décrite dans
+Problèmes de déformation, exemple \ref{examples-defos-example-schemes} et
+lemme \ref{examples-defos-lemma-schemes-RS}.
+Nous obtenons ainsi une catégorie de déformations $\Deformationcategory_X$
+sur la catégorie $\mathcal{C}_\Lambda$ des $\Lambda$-algèbres artiniennes
+locales de corps résiduel $k$.
+
+\begin{lemma}
+\label{lemma-in-smooth-locus}
+Dans la situation ci-dessus, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par l'ouvert où $\Curvesstack \to \Spec(\mathbf{Z})$ est lisse,
+\item la catégorie de déformations $\Deformationcategory_X$ est sans obstruction.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Puisque $\Curvesstack \longrightarrow \Spec(\mathbf{Z})$ est localement
+de présentation finie (lemme \ref{lemma-curves-qs-lfp}),
+la formation du sous-champ ouvert où
+$\Curvesstack \longrightarrow \Spec(\mathbf{Z})$ est lisse commute au changement de base
+plat
+(Morphismes de champs, lemme \ref{stacks-morphisms-lemma-where-smooth}).
+Puisque l'anneau de Cohen $\Lambda$ est plat sur $\mathbf{Z}$,
+nous pouvons travailler sur $\Lambda$. Autrement dit, il s'agit de montrer que
+$$
+\Lambda\text{-}\Curvesstack \longrightarrow \Spec(\Lambda)
+$$
+est lisse dans un voisinage ouvert du point
+$x_0 : \Spec(k) \to \Lambda\text{-}\Curvesstack$
+défini par $X/k$ si et seulement si $\Deformationcategory_X$ est sans obstruction.
+
+\medskip\noindent
+Le lemme résulte maintenant de
+Géométrie des champs, lemme \ref{stacks-geometry-lemma-characterize-smoothness},
+et de l'égalité
+$$
+\Deformationcategory_X =
+\mathcal{F}_{\Lambda\text{-}\Curvesstack, k, x_0}
+$$
+Cette égalité n'est pas tout à fait triviale à établir. En effet, dans le
+membre de gauche, la catégorie de déformations classifie toutes les déformations plates
+$Y \to \Spec(A)$ de $X$ comme schéma sur $A \in \Ob(\mathcal{C}_\Lambda)$.
+Dans le membre de droite, la catégorie de déformations classifie tous les
+morphismes plats $Y \to \Spec(A)$ de fibre spéciale $X$,
+où $Y$ est un espace algébrique et où
+$Y \to \Spec(A)$ est propre, de présentation finie et de
+dimension relative $\leq 1$. Puisque $A$ est artinien, nous voyons
+que $Y$ est un schéma, par exemple d'après Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}.
+Il reste donc à montrer ceci : une déformation plate $Y \to \Spec(A)$ de
+$X$ comme schéma sur un anneau local artinien $A$ de corps résiduel $k$
+est propre, de présentation finie et de dimension relative $\leq 1$.
+La dimension relative se définit en termes des fibres et cette propriété vaut donc
+automatiquement pour $Y/A$ puisqu'elle vaut pour $X/k$.
+Le morphisme $Y \to \Spec(A)$ est propre et localement de présentation finie,
+car c'est vrai pour $X \to \Spec(k)$ ; voir
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-deform-property}.
+\end{proof}
+
+\noindent
+Voici un « grand » ouvert du champ des courbes qui est contenu
+dans le lieu lisse.
+
+\begin{lemma}
+\label{lemma-big-smooth-part-curves}
+Le sous-champ ouvert
+$$
+\Curvesstack^{lci+} =
+\Curvesstack^{lci} \cap \Curvesstack^{+}
+\subset \Curvesstack
+$$
+possède les propriétés suivantes :
+\begin{enumerate}
+\item $\Curvesstack^{lci+} \to \Spec(\mathbf{Z})$ est lisse,
+\item pour une famille de courbes $X \to S$, les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise par
+$\Curvesstack^{lci+}$,
+\item $X \to S$ est un morphisme d'intersection complète locale et
+le lieu singulier de $X \to S$, muni d'une quelconque/certaine structure
+de sous-espace fermé, est fini sur $S$ ;
+\end{enumerate}
+\item pour un schéma propre $X$ sur un corps $k$, de dimension $\leq 1$,
+les assertions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{lci+}$,
+\item $X$ est une intersection complète locale sur $k$ et
+$X \to \Spec(k)$ est lisse sauf en un nombre fini de points.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Si nous pouvons montrer qu'il existe un sous-champ ouvert $\Curvesstack^{lci+}$
+dont les points sont caractérisés par (2), nous voyons alors que
+(1) résulte de la combinaison du lemme \ref{lemma-in-smooth-locus} avec
+Problèmes de déformation, lemme \ref{examples-defos-lemma-curve-isolated-lci}.
+Puisque
+$$
+\Curvesstack^{lci+} = \Curvesstack^{lci} \cap \Curvesstack^{+}
+$$
+dans $\Curvesstack$, on conclut par les
+lemmes \ref{lemma-lci-curves} et \ref{lemma-isolated-sings-curves}.
+\end{proof}
+
+
+
+
+\section{Courbes lisses}
+\label{section-smooth-curves}
+
+\noindent
+Dans cette section, nous étudions les sous-champs ouverts de $\Curvesstack$
+qui paramètrent les ``courbes'' lisses.
+
+\begin{lemma}
+\label{lemma-smooth-curves}
+Il existe des sous-champs ouverts
+$$
+\Curvesstack^{smooth, 1} \subset \Curvesstack^{smooth} \subset \Curvesstack
+$$
+tels que
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{smooth}$, respectivement par $\Curvesstack^{smooth, 1}$,
+\item $f$ est lisse, respectivement lisse de dimension relative $1$,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{smooth}$, respectivement par $\Curvesstack^{smooth, 1}$,
+\item $X$ est lisse sur $k$, respectivement $X$ est lisse sur $k$ et
+$X$ est équidimensionnel de dimension $1$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pour démontrer les assertions concernant $\Curvesstack^{smooth}$,
+il suffit de montrer qu'étant donnée une famille de courbes
+$f : X \to S$, il existe un sous-schéma ouvert $S' \subset S$
+tel que $S' \times_S X \to S'$ soit lisse et que la
+formation de cet ouvert commute au changement de base.
+Nous savons qu'il existe un plus grand ouvert $U \subset X$ tel
+que $U \to S$ soit lisse et que la formation de $U$ commute
+à tout changement de base, voir
+Morphismes d'espaces, lemme \ref{spaces-morphisms-lemma-where-smooth}.
+Si $T = |X| \setminus |U|$, alors $f(T)$ est fermé dans $S$ puisque $f$ est propre.
+En posant $S' = S \setminus f(T)$, on obtient l'ouvert voulu.
+
+\medskip\noindent
+Soit $f : X \to S$ une famille de courbes telle que $f$ soit lisse.
+Alors les fibres $X_s$ sont lisses sur $\kappa(s)$ et sont donc
+de Cohen-Macaulay (on peut le voir, par exemple, en utilisant
+Algèbre, lemmes \ref{algebra-lemma-smooth-over-field} et
+\ref{algebra-lemma-lci-CM}). Ainsi, on voit que l'on peut poser
+$$
+\Curvesstack^{smooth, 1} = \Curvesstack^{smooth} \cap
+\Curvesstack^{CM, 1}
+$$
+et les équivalences voulues résultent de ce qui a déjà été
+montré pour $\Curvesstack^{smooth}$ et du lemme \ref{lemma-CM-1-curves}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-curves-smooth}
+Le morphisme $\Curvesstack^{smooth} \to \Spec(\mathbf{Z})$ est lisse.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de l'observation que
+$\Curvesstack^{smooth} \subset \Curvesstack^{lci+}$
+et du lemme \ref{lemma-big-smooth-part-curves}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-curves-h0}
+Il existe un sous-champ ouvert
+$\Curvesstack^{smooth, h0} \subset \Curvesstack$
+tel que
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{smooth}$,
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$, cette égalité reste vraie après tout changement de base,
+et $f$ est lisse de dimension relative $1$,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{smooth, h0}$,
+\item $X$ est lisse, $\dim(X) = 1$, et $k = H^0(X, \mathcal{O}_X)$,
+\item $X$ est lisse, $\dim(X) = 1$, et $X$ est géométriquement connexe,
+\item $X$ est lisse, $\dim(X) = 1$, et $X$ est géométriquement intègre, et
+\item $X_{\overline{k}}$ est une courbe lisse.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Si l'on pose
+$$
+\Curvesstack^{smooth, h0} = \Curvesstack^{smooth} \cap
+\Curvesstack^{h0, 1}
+$$
+on voit alors que (1) résulte des
+lemmes \ref{lemma-pre-genus-curves} et \ref{lemma-smooth-curves}.
+En fait, cela donne aussi l'équivalence de (2)(a) et (2)(b).
+Pour achever la démonstration, il reste à montrer que
+(2)(b) est équivalent à chacune des conditions (2)(c), (2)(d) et (2)(e).
+
+\medskip\noindent
+Un schéma lisse sur un corps est géométriquement normal
+(Variétés, lemme \ref{varieties-lemma-smooth-geometrically-normal}),
+la lissité est préservée par changement de base
+(Morphismes, lemme \ref{morphisms-lemma-base-change-smooth}), et
+la propriété d'être lisse est locale pour la topologie fpqc sur le but
+(Descente, lemme \ref{descent-lemma-descending-property-smooth}).
+Compte tenu de cela, l'équivalence de (2)(b), (2)(c), 2(d) et (2)(e)
+résulte de Variétés, lemme \ref{varieties-lemma-geometrically-normal-stein}.
+\end{proof}
+
+\begin{definition}
+\label{definition-deligne-mumford-smooth}
+\begin{reference}
+\cite{DM}
+\end{reference}
+Nous notons $\mathcal{M}$ et appelons
+{\it champ de modules des courbes propres et lisses}
+le champ algébrique
+$\Curvesstack^{smooth, h0}$ paramétrant les familles de courbes
+introduit au lemme \ref{lemma-smooth-curves-h0}.
+Pour $g \geq 0$, nous notons $\mathcal{M}_g$ et appelons
+{\it champ de modules des courbes propres et lisses de genre $g$}
+le champ algébrique introduit au
+lemme \ref{lemma-smooth-one-piece-per-genus}.
+\end{definition}
+
+\noindent
+Voici l'inévitable lemme.
+
+\begin{lemma}
+\label{lemma-smooth-one-piece-per-genus}
+Il existe une décomposition en sous-champs ouverts et fermés
+$$
+\mathcal{M} = \coprod\nolimits_{g \geq 0} \mathcal{M}_g
+$$
+où chaque $\mathcal{M}_g$ se caractérise comme suit :
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\mathcal{M}_g$,
+\item $X \to S$ est lisse, $f_*\mathcal{O}_X = \mathcal{O}_S$,
+cette égalité reste vraie après tout changement de base, et $R^1f_*\mathcal{O}_X$
+est un $\mathcal{O}_S$-module localement libre de rang $g$,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\mathcal{M}_g$,
+\item $X$ est lisse, $\dim(X) = 1$, $k = H^0(X, \mathcal{O}_X)$,
+et $X$ est de genre $g$,
+\item $X$ est lisse, $\dim(X) = 1$, $X$ est géométriquement connexe, et
+$X$ est de genre $g$,
+\item $X$ est lisse, $\dim(X) = 1$, $X$ est géométriquement intègre, et
+$X$ est de genre $g$, et
+\item $X_{\overline{k}}$ est une courbe lisse de genre $g$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Combiner les lemmes \ref{lemma-smooth-curves-h0} et
+\ref{lemma-pre-genus-one-piece-per-genus}.
+On peut aussi utiliser
+le lemme \ref{lemma-one-piece-per-genus}
+à la place.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-curves-h0-smooth}
+Les morphismes $\mathcal{M} \to \Spec(\mathbf{Z})$ et
+$\mathcal{M}_g \to \Spec(\mathbf{Z})$
+sont lisses.
+\end{lemma}
+
+\begin{proof}
+Comme $\mathcal{M}$ est un sous-champ ouvert de
+$\Curvesstack^{lci+}$, cela résulte du
+lemme \ref{lemma-big-smooth-part-curves}.
+\end{proof}
+
+
+
+
+
+\section{Densité des courbes lisses}
+\label{section-smooth-is-dense}
+
+\noindent
+Le titre de cette section est trompeur, car nous n'affirmons pas que
+$\Curvesstack^{smooth}$ est dense dans $\Curvesstack$.
+En fait, cela est faux, comme Mumford l'a montré dans \cite{PathologiesIV}.
+Cependant, nous verrons que les ``courbes'' lisses sont denses
+dans un grand ouvert.
+
+\begin{lemma}
+\label{lemma-smooth-dense}
+L'inclusion
+$$
+|\Curvesstack^{smooth}| \subset |\Curvesstack^{lci+}|
+$$
+est celle d'un sous-ensemble ouvert dense.
+\end{lemma}
+
+\begin{proof}
+Par la construction même de la topologie sur
+$|\Curvesstack^{lci+}|$ dans
+Propriétés des champs, section \ref{stacks-properties-section-points},
+on constate que $|\Curvesstack^{smooth}|$
+est un sous-ensemble ouvert. Soit $\xi \in |\Curvesstack^{lci+}|$ un point.
+Il existe alors un corps $k$ et un schéma $X$ sur $k$
+tel que $X$ soit propre sur $k$, que $\dim(X) \leq 1$,
+que $X$ soit localement d'intersection complète sur $k$, et
+que $X$ soit lisse sur $k$ sauf en un nombre fini de points, et
+que $\xi$ soit la classe d'équivalence du
+morphisme classifiant $\Spec(k) \to \Curvesstack^{lci+}$ déterminé par $X$.
+Voir le lemme \ref{lemma-big-smooth-part-curves}.
+D'après Problèmes de déformation, lemme
+\ref{examples-defos-lemma-smoothing-proper-curve-isolated-lci},
+il existe un morphisme plat et projectif $Y \to \Spec(k[[t]])$
+dont la fibre générique est lisse et la fibre spéciale est
+isomorphe à $X$. Considérons le morphisme classifiant
+$$
+\Spec(k[[t]]) \longrightarrow \Curvesstack^{lci+}
+$$
+déterminé par $Y$. L'image du point fermé est $\xi$
+et l'image du point générique appartient à $|\Curvesstack^{smooth}|$.
+Comme le point générique se spécialise au point fermé dans
+$|\Spec(k[[t]])|$, on conclut que $\xi$ appartient à l'adhérence
+de $|\Curvesstack^{smooth}|$, comme voulu.
+\end{proof}
+
+
+
+
+
+
+\section{Courbes nodales}
+\label{section-nodal-curves}
+
+\noindent
+En géométrie algébrique, les courbes nodales jouent un rôle particulier.
+Nous suggérons au lecteur de jeter un rapide coup d'œil à certaines des discussions
+de Courbes algébriques, sections \ref{curves-section-nodal} et
+\ref{curves-section-families-nodal},
+ainsi que de Compléments sur les morphismes d'espaces, section
+\ref{spaces-more-morphisms-section-families-nodal}.
+
+\begin{lemma}
+\label{lemma-nodal-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{nodal} \subset \Curvesstack$
+tel que
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{nodal}$,
+\item $f$ est au plus nodal de dimension relative $1$,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$ se factorise
+par $\Curvesstack^{nodal}$,
+\item les singularités de $X$ sont au plus nodales et $X$
+est équidimensionnel de dimension $1$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+En fait, il suffit de montrer qu'étant donnée une famille de courbes
+$f : X \to S$, il existe un sous-schéma ouvert $S' \subset S$
+tel que $S' \times_S X \to S'$ soit au plus nodal de dimension relative $1$
+et que la formation de $S'$ commute à tout changement de base.
+D'après Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-locus-where-nodal},
+il existe un plus grand sous-espace ouvert $X' \subset X$ tel
+que $f|_{X'} : X' \to S$ soit au plus nodal de dimension relative $1$.
+De plus, la formation de $X'$ commute au changement de base.
+On peut donc prendre
+$$
+S' = S \setminus |f|(|X| \setminus |X'|)
+$$
+Cet ensemble est ouvert, car un morphisme propre est universellement fermé par
+définition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-nodal-curves-smooth}
+Le morphisme $\Curvesstack^{nodal} \to \Spec(\mathbf{Z})$ est lisse.
+\end{lemma}
+
+\begin{proof}
+Cela résulte immédiatement de l'observation que
+$\Curvesstack^{nodal} \subset \Curvesstack^{lci+}$
+et du lemme \ref{lemma-big-smooth-part-curves}.
+\end{proof}
+
+
+
+
+\section{Le faisceau dualisant relatif}
+\label{section-relative-dualizing}
+
+\noindent
+Cette section sert principalement
+à introduire des notations dans le cas des familles de courbes.
+La majeure partie du travail a déjà été faite dans le chapitre sur la dualité.
+
+\medskip\noindent
+Soit $f : X \to S$ une famille de courbes. Il existe un objet
+$\omega_{X/S}^\bullet$ de $D_\QCoh(\mathcal{O}_X)$,
+appelé le {\it complexe dualisant relatif}, qui possède la propriété
+suivante : pour tout diagramme de changement de base
+$$
+\xymatrix{
+X_U \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+U \ar[r]^g & S
+}
+$$
+où $U = \Spec(A)$ est affine, le complexe
+$\omega_{X_U/U}^\bullet = L(g')^*\omega_{X/S}^\bullet$
+représente le foncteur
+$$
+D_\QCoh(\mathcal{O}_{X_U}) \longrightarrow \text{Mod}_A,\quad
+K \longmapsto \Hom_U(Rf_*K, \mathcal{O}_U)
+$$
+Plus précisément, soit $(\omega_{X/S}^\bullet, \tau)$
+le complexe dualisant relatif de la famille défini dans
+Dualité pour les espaces, définition
+\ref{spaces-duality-definition-relative-dualizing-proper-flat}.
+Son existence est démontrée dans Dualité pour les espaces, lemme
+\ref{spaces-duality-lemma-existence-relative-dualizing}.
+De plus, la formation de $(\omega_{X/S}^\bullet, \tau)$ commute
+à tout changement de base (essentiellement par définition ; une référence
+précise est Dualité pour les espaces, lemme
+\ref{spaces-duality-lemma-base-change-relative-dualizing}).
+Dorénavant, nous identifierons le changement de base de
+$\omega_{X/S}^\bullet$ au complexe dualisant relatif
+de la famille obtenue par changement de base, sans plus le préciser.
+
+\medskip\noindent
+Soit $\{S_i \to S\}$ un recouvrement étale avec les $S_i$ affines tel que
+$X_i = X \times_S S_i$ soit un schéma ; voir le lemme \ref{lemma-etale-locally-scheme}.
+D'après Dualité pour les espaces, lemme \ref{spaces-duality-lemma-compare},
+on constate que $\omega_{X_i/S_i}^\bullet$ s'identifie
+au complexe dualisant relatif du morphisme de schémas propre, plat et
+de présentation finie $f_i : X_i \to S_i$ étudié dans
+Dualité pour les schémas, remarque
+\ref{duality-remark-relative-dualizing-complex}.
+Ainsi, pour démontrer une propriété de $\omega_{X/S}^\bullet$
+locale pour la topologie étale, nous pouvons supposer que $X \to S$ est un morphisme de schémas
+et utiliser la théorie développée dans le chapitre sur la dualité pour les schémas.
+Plus généralement, après tout changement de base de $X$ qui est un schéma,
+le complexe dualisant relatif s'identifie au
+complexe dualisant relatif de Dualité pour les schémas, remarque
+\ref{duality-remark-relative-dualizing-complex}.
+Dorénavant, nous utiliserons cette identification sans plus le préciser.
+
+\medskip\noindent
+En particulier, soit $\Spec(k) \to S$ un morphisme, où $k$ est un corps.
+Notons $X_k$ le changement de base (c'est un schéma d'après
+Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}).
+Alors $\omega_{X_k/k}^\bullet$ est isomorphe
+au complexe $\omega_{X_k}^\bullet$ de
+Courbes algébriques, lemme \ref{curves-lemma-duality-dim-1}
+(tous deux représentent le même foncteur, de sorte que l'on peut appliquer le lemme de Yoneda,
+mais cela résulte en fait des remarques précédentes).
+On en conclut que les faisceaux de cohomologie
+$H^i(\omega_{X_k/k}^\bullet)$
+ne sont non nuls que pour $i = 0, -1$.
+Si $X_k$ est de Cohen-Macaulay et équidimensionnel de dimension $1$,
+alors on n'a plus que $H^{-1}$ et, si $X_k$ est en outre de Gorenstein,
+$H^{-1}(\omega_{X_k/k})$ est inversible ; voir
+Courbes algébriques, lemmes \ref{curves-lemma-duality-dim-1-CM}
+et \ref{curves-lemma-rr}.
+
+\begin{lemma}
+\label{lemma-CM-dualizing}
+Soit $X \to S$ une famille de courbes dont les fibres sont de Cohen-Macaulay
+et équidimensionnelles de dimension $1$ (lemme \ref{lemma-CM-1-curves}).
+Alors $\omega_{X/S}^\bullet = \omega_{X/S}[1]$, où $\omega_{X/S}$
+est un $\mathcal{O}_X$-module pseudo-cohérent et plat sur $S$, dont la
+formation commute à tout changement de base.
+\end{lemma}
+
+\begin{proof}
+Nous invitons vivement le lecteur à déduire cet énoncé directement de l'étude ci-dessus
+du comportement après changement de base à un corps. Notre démonstration
+emploiera une réduction quelque peu laborieuse au cas des schémas noethériens.
+
+\medskip\noindent
+Dès que nous aurons montré $\omega_{X/S}^\bullet = \omega_{X/S}[1]$ avec
+$\omega_{X/S}$ plat sur $S$, l'assertion relative au changement de base
+en découlera, puisque nous savons déjà que la formation de $\omega_{X/S}^\bullet$
+commute à tout changement de base. De plus, la pseudo-cohérence
+sera automatique, car $\omega_{X/S}^\bullet$ est pseudo-cohérent
+par définition. L'annulation des autres faisceaux de cohomologie et la platitude
+peuvent se vérifier localement pour la topologie étale. Nous pouvons donc supposer que $f : X \to S$
+est un morphisme de schémas avec $S$ affine (voir la discussion précédente).
+Écrivons $S = \lim S_i$ comme limite projective filtrante de schémas affines $S_i$
+de type fini sur $\mathbf{Z}$.
+Puisque $\Curvesstack^{CM, 1}$ est localement de présentation finie sur
+$\mathbf{Z}$ (comme sous-champ ouvert de $\Curvesstack$ ; voir les
+lemmes \ref{lemma-CM-1-curves} et \ref{lemma-curves-qs-lfp}),
+on peut trouver un $i$ et une famille
+de courbes $X_i \to S_i$ dont l'image réciproque est $X \to S$
+(Limites de champs, lemme
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving}).
+Quitte à augmenter $i$, on peut supposer que $X_i$ est un schéma ;
+voir Limites d'espaces, lemme \ref{spaces-limits-lemma-limit-is-scheme}.
+Puisque la formation de $\omega_{X/S}^\bullet$ commute à
+tout changement de base, on peut remplacer $S$ par $S_i$.
+Après ce remplacement, nous pouvons supposer, et nous le faisons, que $S_i$ est noethérien.
+Alors $f$ est manifestement un morphisme de Cohen-Macaulay
+(Compléments sur les morphismes, définition \ref{more-morphisms-definition-CM}),
+en vertu de notre hypothèse sur les fibres.
+De plus, $\omega_{X/S}^\bullet = f^!\mathcal{O}_S$
+par la construction même de $f^!$ dans
+Dualité pour les schémas, section \ref{duality-section-upper-shriek}.
+Le lemme résulte donc de Dualité pour les schémas, lemme
+\ref{duality-lemma-affine-flat-Noetherian-CM}.
+\end{proof}
+
+\begin{definition}
+\label{definition-relative-dualizing-sheaf}
+Soit $f : X \to S$ une famille de courbes dont les fibres sont de Cohen-Macaulay
+et équidimensionnelles de dimension $1$ (lemme \ref{lemma-CM-1-curves}).
+Le $\mathcal{O}_X$-module
+$$
+\omega_{X/S} = H^{-1}(\omega_{X/S}^\bullet)
+$$
+étudié dans le lemme \ref{lemma-CM-dualizing}
+est appelé le {\it faisceau dualisant relatif} de $f$.
+\end{definition}
+
+\noindent
+Dans la situation de la définition \ref{definition-relative-dualizing-sheaf},
+le faisceau dualisant relatif $\omega_{X/S}$ possède la propriété suivante
+(qui le caractérise en outre localement sur $S$) :
+pour tout diagramme de changement de base
+$$
+\xymatrix{
+X_U \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+U \ar[r]^g & S
+}
+$$
+où $U = \Spec(A)$ est affine, le module $\omega_{X_U/U} = (g')^*\omega_{X/S}$
+représente le foncteur
+$$
+\QCoh(\mathcal{O}_{X_U}) \longrightarrow \text{Mod}_A,\quad
+\mathcal{F} \longmapsto \Hom_A(H^1(X, \mathcal{F}), A)
+$$
+Cela résulte immédiatement de la propriété correspondante du complexe
+dualisant relatif donnée ci-dessus. En particulier, si $A = k$ est un corps,
+on retrouve le module dualisant de $X_k$ introduit et étudié dans
+Courbes algébriques, lemmes \ref{curves-lemma-duality-dim-1},
+\ref{curves-lemma-duality-dim-1-CM} et \ref{curves-lemma-rr}.
+
+\begin{lemma}
+\label{lemma-gorenstein-dualizing}
+Soit $X \to S$ une famille de courbes dont les fibres sont de Gorenstein
+et équidimensionnelles de dimension $1$ (lemme \ref{lemma-gorenstein-1-curves}).
+Alors le faisceau dualisant relatif $\omega_{X/S}$ est un
+$\mathcal{O}_X$-module inversible dont la
+formation commute à tout changement de base.
+\end{lemma}
+
+\begin{proof}
+Cela résulte de ce que l'image réciproque du module dualisant relatif
+sur une fibre est inversible, d'après la discussion précédente. On
+peut aussi raisonner exactement comme dans la démonstration du
+lemme \ref{lemma-CM-dualizing} et déduire le résultat de
+Dualité pour les schémas, lemme
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Courbes préstables}
+\label{section-prestable-curves}
+
+\noindent
+La définition suivante est équivalente à ce qui semble être la
+notion généralement admise de famille préstable de courbes.
+
+\begin{definition}
+\label{definition-prestable}
+Soit $f : X \to S$ une famille de courbes. On dit que $f$ est une
+{\it famille préstable de courbes} si
+\begin{enumerate}
+\item $f$ est au plus nodal de dimension relative $1$, et
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$, et cette égalité subsiste après
+tout changement de base\footnote{En fait, il suffit d'exiger
+$f_*\mathcal{O}_X = \mathcal{O}_S$, car la factorisation de Stein
+de $f$ est étale dans ce cas ; voir
+Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-stein-factorization-etale}.
+On peut aussi remplacer cette condition en demandant que les fibres
+géométriques soient connexes ; voir le lemme \ref{lemma-geomredcon-in-h0-1}.}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Soit $X$ un schéma propre sur un corps $k$ avec $\dim(X) \leq 1$.
+Alors $X \to \Spec(k)$ est une famille de courbes ; on peut donc demander
+si elle est préstable ou non\footnote{Nous ne pouvons pas employer le terme
+``courbe préstable'' ici, car le mot courbe implique l'irréductibilité. Voir
+la discussion dans Courbes algébriques, section \ref{curves-section-families-nodal}.}
+au sens de la définition. En explicitant les définitions, on voit que
+les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est préstable,
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+et $k = H^0(X, \mathcal{O}_X)$,
+\item $X_{\overline{k}}$ est connexe et lisse sur $\overline{k}$
+en dehors d'un nombre fini de nœuds
+(Courbes algébriques, définition \ref{curves-definition-multicross}).
+\end{enumerate}
+Cela montre que notre définition concorde avec la plupart de celles que l'on trouve
+dans la littérature.
+
+\begin{lemma}
+\label{lemma-prestable-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{prestable} \subset \Curvesstack$
+tel que
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{prestable}$,
+\item $X \to S$ est une famille préstable de courbes,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$
+se factorise par $\Curvesstack^{prestable}$,
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+et $k = H^0(X, \mathcal{O}_X)$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Étant donnée une famille de courbes $X \to S$, elle est préstable si
+et seulement si le morphisme classifiant se factorise à la fois par
+$\Curvesstack^{nodal}$ et $\Curvesstack^{h0, 1}$. On peut aussi
+utiliser $\Curvesstack^{grc, 1}$ (puisqu'une courbe nodale est géométriquement
+réduite et a donc son $H^0$ égal au corps de base si et seulement si
+elle est connexe). En formule,
+$$
+\Curvesstack^{prestable} =
+\Curvesstack^{nodal} \cap \Curvesstack^{h0, 1} =
+\Curvesstack^{nodal} \cap \Curvesstack^{grc, 1}
+$$
+Le lemme résulte donc des
+lemmes \ref{lemma-pre-genus-curves} et \ref{lemma-nodal-curves}.
+\end{proof}
+
+\noindent
+Pour tout genre $g \geq 0$, nous disposons du champ algébrique classifiant
+les courbes préstables de genre $g$. En fait, dorénavant, nous dirons
+que $X \to S$ est une {\it famille préstable de courbes de genre $g$}
+si et seulement si le morphisme classifiant $S \to \Curvesstack$ se factorise par
+le sous-champ ouvert $\Curvesstack^{prestable}_g$ du
+lemme \ref{lemma-prestable-one-piece-per-genus}.
+
+\begin{lemma}
+\label{lemma-prestable-one-piece-per-genus}
+Il existe une décomposition en sous-champs ouverts et fermés
+$$
+\Curvesstack^{prestable} = \coprod\nolimits_{g \geq 0}
+\Curvesstack^{prestable}_g
+$$
+où chaque $\Curvesstack^{prestable}_g$ est caractérisé de la manière suivante :
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{prestable}_g$,
+\item $X \to S$ est une famille préstable de courbes et
+$R^1f_*\mathcal{O}_X$ est un $\mathcal{O}_S$-module localement libre de rang $g$,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$
+se factorise par $\Curvesstack^{prestable}_g$,
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, et le genre de $X$ est $g$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Puisque nous avons vu que $\Curvesstack^{prestable}$ est contenu
+dans $\Curvesstack^{h0, 1}$, l'assertion résulte des
+lemmes \ref{lemma-prestable-curves} et
+\ref{lemma-pre-genus-one-piece-per-genus}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-prestable-curves-smooth}
+Les morphismes
+$\Curvesstack^{prestable} \to \Spec(\mathbf{Z})$ et
+$\Curvesstack^{prestable}_g \to \Spec(\mathbf{Z})$ sont
+lisses.
+\end{lemma}
+
+\begin{proof}
+Puisque $\Curvesstack^{prestable}$ est un sous-champ ouvert de
+$\Curvesstack^{nodal}$, cela résulte du
+lemme \ref{lemma-nodal-curves-smooth}.
+\end{proof}
+
+
+
+
+\section{Courbes semi-stables}
+\label{section-semistable-curves}
+
+\noindent
+Le lemme suivant nous aidera à comprendre les familles de courbes semi-stables.
+
+\begin{lemma}
+\label{lemma-semistable}
+Soit $f : X \to S$ une famille préstable de courbes de genre $g \geq 1$.
+Soit $s \in S$ un point du schéma de base. Soit $m \geq 2$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X_s$ n'a pas de queue rationnelle
+(Courbes algébriques, exemple \ref{curves-example-rational-tail}), et
+\item $f^*f_*\omega_{X/S}^{\otimes m} \to \omega_{X/S}^{\otimes m}$
+est surjectif sur $f^{-1}(U)$ pour un ouvert $s \in U \subset S$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (2). D'après les résultats de la section \ref{section-relative-dualizing},
+on en déduit que $\omega_{X_s}^{\otimes m}$ est
+globalement engendré. Cependant, si $C \subset X_s$
+est une queue rationnelle, alors $\deg(\omega_{X_s}|_C) < 0$ d'après
+Courbes algébriques, lemme \ref{curves-lemma-rational-tail-negative},
+d'où $H^0(C, \omega_{X_s}|_C) = 0$ d'après
+Variétés, lemme \ref{varieties-lemma-check-invertible-sheaf-trivial},
+ce qui contredit le fait qu'il soit globalement engendré.
+Cela prouve (1).
+
+\medskip\noindent
+Supposons (1). Supposons d'abord que $g \geq 2$. L'hypothèse (1)
+implique que $\omega_{X_s}^{\otimes m}$ est globalement engendré ;
+voir Courbes algébriques, lemme \ref{curves-lemma-contracting-rational-tails}.
+En outre, on a
+$$
+\Hom_{\kappa(s)}(H^1(X_s, \omega_{X_s}^{\otimes m}), \kappa(s)) =
+H^0(X_s, \omega_{X_s}^{\otimes 1 - m})
+$$
+par dualité ; voir Courbes algébriques, lemme \ref{curves-lemma-duality-dim-1-CM}.
+Puisque $\omega_{X_s}^{\otimes m}$ est globalement engendré, on voit
+que sa restriction à chaque composante irréductible est de degré non négatif.
+Par conséquent, la restriction de $\omega_{X_s}^{\otimes 1 - m}$ à chaque
+composante irréductible est de degré non positif. Comme
+$\deg(\omega_{X_s}^{\otimes 1 - m}) = (1 - m)(2g - 2) < 0$ par Riemann--Roch
+(Courbes algébriques, lemme \ref{curves-lemma-rr}), on conclut que ce $H^0$
+est nul d'après Variétés, lemme \ref{varieties-lemma-no-sections-dual-nef}.
+Le théorème de cohomologie et changement de base montre que
+$$
+E = Rf_*\omega_{X/S}^{\otimes m}
+$$
+est un complexe parfait dont la formation commute à tout changement de base
+(Catégories dérivées des espaces, lemme
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}).
+L'annulation démontrée ci-dessus montre que $E \otimes^\mathbf{L} \kappa(s)$
+est égal à $H^0(X_s, \omega_{X_s}^{\otimes m})$ placé en degré $0$.
+Quitte à restreindre $S$, on voit que $E = f_*\omega_{X/S}^{\otimes m}$
+est un $\mathcal{O}_S$-module localement libre placé en degré $0$
+(et que sa formation commute à tout changement de base, comme nous
+l'avons déjà dit) ; voir Catégories dérivées des espaces, lemme
+\ref{spaces-perfect-lemma-open-where-cohomology-in-degree-i-rank-r-geometric}.
+Le morphisme $f^*f_*\omega_{X/S}^{\otimes m} \to \omega_{X/S}^{\otimes m}$
+devient surjectif après restriction à $X_s$. Il est donc surjectif dans
+un voisinage ouvert de $X_s$. Puisque $f$ est propre, ce voisinage
+contient $f^{-1}(U)$ pour un voisinage ouvert
+$U$ de $s$ dans $S$.
+
+\medskip\noindent
+Supposons (1) et $g = 1$. D'après
+Courbes algébriques, lemme \ref{curves-lemma-contracting-rational-tails},
+l'hypothèse (1) signifie que $\omega_{X_s}$ est isomorphe à
+$\mathcal{O}_{X_s}$. S'il est possible de montrer que, quitte à restreindre $S$,
+le faisceau inversible $\omega_{X/S}$ devient trivial, alors
+la preuve est achevée. On peut supposer $S$ affine. En restreignant encore $S$,
+on peut écrire
+$$
+Rf_*\mathcal{O}_X = (\mathcal{O}_S \xrightarrow{0} \mathcal{O}_S)
+$$
+placé en degrés $0$ et $1$,
+de manière compatible à tout changement de base ultérieur ; voir le lemme \ref{lemma-genus}.
+Par dualité, cela signifie que
+$$
+Rf_*\omega_{X/S} = (\mathcal{O}_S \xrightarrow{0} \mathcal{O}_S)
+$$
+placé en degrés $0$ et $1$\footnote{On utilise que
+$Rf_*\omega_{X/S}^\bullet =
+Rf_*R\SheafHom_{\mathcal{O}_X}(\mathcal{O}_X. \omega_{X/S}^\bullet) =
+R\SheafHom_{\mathcal{O}_S}(Rf_*\mathcal{O}_X, \mathcal{O}_S)$
+d'après Dualité pour les espaces, lemme \ref{spaces-duality-lemma-iso-on-RSheafHom} et
+remarque \ref{spaces-duality-remark-iso-on-RSheafHom},
+puis que $\omega_{X/S}^\bullet = \omega_{X/S}[1]$ d'après
+nos définitions de la section \ref{section-relative-dualizing}.}.
+En particulier, on obtient un isomorphisme $\mathcal{O}_S \to f_*\omega_{X/S}$
+qui est compatible à tout changement de base, puisque la
+formation de $Rf_*\omega_{X/S}$ est compatible au changement de base
+(voir la référence donnée ci-dessus).
+Par adjonction, on obtient une section globale $\sigma \in \Gamma(X, \omega_{X/S})$.
+La restriction de cette section à la fibre $X_s$
+est non nulle (c'est même un élément d'une base) et, puisque
+$\omega_{X_s}$ est trivial sur les fibres,
+cette section ne s'annule en aucun point de $X_s$.
+Elle ne s'annule donc pas dans
+un voisinage ouvert de $X_s$. Puisque $f$ est propre, ce voisinage
+contient $f^{-1}(U)$ pour un voisinage ouvert
+$U$ de $s$ dans $S$.
+\end{proof}
+
+\noindent
+Le lemme \ref{lemma-semistable} motive la définition suivante.
+
+\begin{definition}
+\label{definition-semistable}
+Soit $f : X \to S$ une famille de courbes.
+On dit que $f$ est une {\it famille semi-stable de courbes} si
+\begin{enumerate}
+\item $X \to S$ est une famille préstable de courbes, et
+\item $X_s$ est de genre $\geq 1$ et
+n'a pas de queue rationnelle pour tout $s \in S$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+En particulier, une famille préstable de courbes de genre $0$ n'est jamais
+semi-stable.
+Soit $X$ un schéma propre sur un corps $k$ avec $\dim(X) \leq 1$.
+Alors $X \to \Spec(k)$ est une famille de courbes ; on peut donc demander
+si elle est semi-stable ou non. En développant les définitions, on voit que
+les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est semi-stable,
+\item $X$ est préstable, est de genre $\geq 1$ et n'a pas de queue rationnelle,
+\item $X_{\overline{k}}$ est connexe, est lisse sur $\overline{k}$
+en dehors d'un nombre fini de nœuds, est de genre $\geq 1$, et n'a aucune
+composante irréductible isomorphe à $\mathbf{P}^1_{\overline{k}}$
+qui rencontre le reste de $X_{\overline{k}}$ en un seul point.
+\end{enumerate}
+Pour voir l'équivalence de (2) et (3), on utilise que $X$ n'a pas de queue rationnelle
+si et seulement si $X_{\overline{k}}$ n'a pas de queue rationnelle, d'après
+Courbes algébriques, lemme \ref{curves-lemma-contracting-rational-tails}.
+Cela montre que notre définition concorde avec la plupart de celles que l'on trouve
+dans la littérature.
+
+\begin{lemma}
+\label{lemma-semistable-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{semistable} \subset \Curvesstack$
+tel que
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{semistable}$,
+\item $X \to S$ est une famille semi-stable de courbes,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$
+se factorise par $\Curvesstack^{semistable}$,
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, le genre de $X$ est $\geq 1$, et
+$X$ n'a pas de queue rationnelle,
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, et $\omega_{X_s}^{\otimes m}$ est
+globalement engendré pour $m \geq 2$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+L'équivalence de (2)(b) et (2)(c) est donnée par
+Courbes algébriques, lemme \ref{curves-lemma-contracting-rational-tails}.
+Dans la suite de la démonstration, nous travaillerons avec (2)(b),
+conformément à la définition \ref{definition-semistable}.
+
+\medskip\noindent
+D'après la discussion de la section \ref{section-open},
+il suffit de considérer les familles $f : X \to S$ de
+courbes préstables. Le lemme \ref{lemma-semistable}
+donne l'ouverture souhaitée du lieu en question.
+La formation de cet ouvert commute à tout changement de base,
+car l'existence ou la non-existence de queues rationnelles est invariante
+par extension du corps de base, d'après
+Courbes algébriques, lemme \ref{curves-lemma-contracting-rational-tails}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-semistable-one-piece-per-genus}
+Il existe une décomposition en sous-champs ouverts et fermés
+$$
+\Curvesstack^{semistable} = \coprod\nolimits_{g \geq 1}
+\Curvesstack^{semistable}_g
+$$
+où chaque $\Curvesstack^{semistable}_g$ est caractérisé de la manière suivante :
+\begin{enumerate}
+\item étant donnée une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{semistable}_g$,
+\item $X \to S$ est une famille semi-stable de courbes et
+$R^1f_*\mathcal{O}_X$ est un $\mathcal{O}_S$-module localement libre de rang $g$,
+\end{enumerate}
+\item étant donné un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$
+se factorise par $\Curvesstack^{semistable}_g$,
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, le genre de $X$ est $g$, et $X$
+n'a pas de queue rationnelle,
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, le genre de $X$ est $g$, et
+$\omega_{X_s}^{\otimes m}$ est globalement engendré pour $m \geq 2$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Combiner les lemmes \ref{lemma-semistable-curves} et
+\ref{lemma-prestable-one-piece-per-genus}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-semistable-curves-smooth}
+Les morphismes
+$\Curvesstack^{semistable} \to \Spec(\mathbf{Z})$ et
+$\Curvesstack^{semistable}_g \to \Spec(\mathbf{Z})$
+sont lisses.
+\end{lemma}
+
+\begin{proof}
+Puisque $\Curvesstack^{semistable}$ est un sous-champ ouvert de
+$\Curvesstack^{nodal}$, cela résulte du
+lemme \ref{lemma-nodal-curves-smooth}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Courbes stables}
+\label{section-stable-curves}
+
+\noindent
+Le lemme suivant nous aidera à comprendre les familles de courbes stables.
+
+\begin{lemma}
+\label{lemma-stable}
+Soit $f : X \to S$ une famille préstable de courbes de genre $g \geq 2$.
+Soit $s \in S$ un point du schéma de base.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X_s$ n'a ni queue rationnelle ni
+pont rationnel
+(Courbes algébriques, exemples
+\ref{curves-example-rational-tail} et
+\ref{curves-example-rational-bridge}) ;
+\item $\omega_{X/S}$ est ample sur $f^{-1}(U)$ pour un ouvert $s \in U \subset S$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Supposons (2). Alors $\omega_{X_s}$ est ample sur $X_s$.
+D'après Courbes algébriques, lemmes \ref{curves-lemma-rational-tail-negative} et
+\ref{curves-lemma-rational-bridge-zero},
+nous en concluons que (1) est satisfaite (nous utilisons aussi
+la caractérisation des faisceaux inversibles amples donnée dans
+Variétés, lemme
+\ref{varieties-lemma-ampleness-in-terms-of-degrees-components}).
+
+\medskip\noindent
+Supposons (1). Alors $\omega_{X_s}$ est ample sur $X_s$ d'après
+Courbes algébriques, lemme \ref{curves-lemma-contracting-rational-bridges}.
+La conclusion résulte de Descente sur les espaces, lemme
+\ref{spaces-descent-lemma-ample-in-neighbourhood}.
+\end{proof}
+
+\noindent
+Le lemme \ref{lemma-stable} motive la définition suivante.
+
+\begin{definition}
+\label{definition-stable}
+Soit $f : X \to S$ une famille de courbes.
+On dit que $f$ est une {\it famille stable de courbes} si
+\begin{enumerate}
+\item $X \to S$ est une famille préstable de courbes ;
+\item $X_s$ est de genre $\geq 2$ et ne possède ni queue rationnelle
+ni pont rationnel pour tout $s \in S$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+En particulier, une famille préstable de courbes de genre $0$ ou $1$ n'est jamais
+stable.
+Soit $X$ un schéma propre sur un corps $k$ avec $\dim(X) \leq 1$.
+Alors $X \to \Spec(k)$ est une famille de courbes ; on peut donc demander
+si elle est stable ou non. En explicitant les définitions, on voit que
+les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $X$ est stable ;
+\item $X$ est préstable, est de genre $\geq 2$ et ne possède ni queue rationnelle
+ni pont rationnel ;
+\item $X$ est géométriquement connexe, est lisse sur $k$
+en dehors d'un nombre fini de nœuds, et $\omega_X$ est ample.
+\end{enumerate}
+Pour voir l'équivalence de (2) et (3), on utilise
+le lemme \ref{lemma-stable} ci-dessus.
+Cela montre que notre définition concorde avec la plupart de celles que l'on trouve
+dans la littérature.
+
+\begin{lemma}
+\label{lemma-stable-curves}
+Il existe un sous-champ ouvert $\Curvesstack^{stable} \subset \Curvesstack$
+tel que :
+\begin{enumerate}
+\item pour une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\Curvesstack^{stable}$ ;
+\item $X \to S$ est une famille stable de courbes ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$
+se factorise par $\Curvesstack^{stable}$ ;
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, le genre de $X$ est $\geq 2$, et
+$X$ n'a ni queue rationnelle ni pont rationnel ;
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, et $\omega_{X_s}$ est ample.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+D'après la discussion de la section \ref{section-open},
+il suffit de considérer les familles $f : X \to S$ de
+courbes préstables. Le lemme \ref{lemma-stable}
+donne l'ouverture souhaitée du lieu considéré.
+La formation de cet ouvert commute à tout changement de base,
+soit parce que l'existence ou la non-existence de queues ou de ponts rationnels
+est invariante par extension du corps de base, d'après
+Courbes algébriques, lemmes
+\ref{curves-lemma-contracting-rational-tails} et
+\ref{curves-lemma-contracting-rational-bridges},
+soit parce que l'amplitude est invariante par extension du corps de base, d'après
+Descente, lemme \ref{descent-lemma-descending-property-ample}.
+\end{proof}
+
+\begin{definition}
+\label{definition-deligne-mumford}
+\begin{reference}
+\cite{DM}
+\end{reference}
+Nous notons $\overline{\mathcal{M}}$ et appelons
+{\it champ de modules des courbes stables} le champ algébrique
+$\Curvesstack^{stable}$ qui paramètre les familles stables de courbes
+introduit au lemme \ref{lemma-stable-curves}.
+Pour $g \geq 2$, nous notons $\overline{\mathcal{M}}_g$ et appelons
+{\it champ de modules des courbes stables de genre $g$}
+le champ algébrique introduit au lemme \ref{lemma-stable-one-piece-per-genus}.
+\end{definition}
+
+\noindent
+Voici le lemme incontournable.
+
+\begin{lemma}
+\label{lemma-stable-one-piece-per-genus}
+Il existe une décomposition en sous-champs ouverts et fermés
+$$
+\overline{\mathcal{M}} = \coprod\nolimits_{g \geq 2} \overline{\mathcal{M}}_g
+$$
+où chaque $\overline{\mathcal{M}}_g$ est caractérisé comme suit :
+\begin{enumerate}
+\item pour une famille de courbes $f : X \to S$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $S \to \Curvesstack$ se factorise
+par $\overline{\mathcal{M}}_g$ ;
+\item $X \to S$ est une famille stable de courbes et
+$R^1f_*\mathcal{O}_X$ est un $\mathcal{O}_S$-module localement libre de rang $g$ ;
+\end{enumerate}
+\item pour un schéma $X$ propre sur un corps $k$ avec
+$\dim(X) \leq 1$, les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item le morphisme classifiant $\Spec(k) \to \Curvesstack$
+se factorise par $\overline{\mathcal{M}}_g$ ;
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, le genre de $X$ est $g$, et $X$
+n'a ni queue rationnelle ni pont rationnel ;
+\item les singularités de $X$ sont au plus nodales, $\dim(X) = 1$,
+$k = H^0(X, \mathcal{O}_X)$, le genre de $X$ est $g$, et
+$\omega_{X_s}$ est ample.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Combiner les lemmes \ref{lemma-stable-curves} et
+\ref{lemma-prestable-one-piece-per-genus}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stable-curves-smooth}
+Les morphismes
+$\overline{\mathcal{M}} \to \Spec(\mathbf{Z})$ et
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$
+sont lisses.
+\end{lemma}
+
+\begin{proof}
+Puisque $\overline{\mathcal{M}}$ est un sous-champ ouvert de
+$\Curvesstack^{nodal}$, cela résulte du
+lemme \ref{lemma-nodal-curves-smooth}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stable-curves-deligne-mumford}
+Les champs $\overline{\mathcal{M}}$ et
+$\overline{\mathcal{M}}_g$
+sont des sous-champs ouverts de $\Curvesstack^{DM}$.
+En particulier, $\overline{\mathcal{M}}$ et
+$\overline{\mathcal{M}}_g$ sont DM
+(Morphismes de champs, définition
+\ref{stacks-morphisms-definition-absolute-separated})
+ainsi que des champs de Deligne-Mumford
+(Champs algébriques, définition \ref{algebraic-definition-deligne-mumford}).
+\end{lemma}
+
+\begin{proof}
+Démontrons la première assertion.
+Soit $X$ un schéma propre sur un corps $k$ dont les singularités
+sont au plus nodales, avec $\dim(X) = 1$, $k = H^0(X, \mathcal{O}_X)$,
+tel que le genre de $X$ soit $\geq 2$, et tel que $X$ n'ait
+ni queue rationnelle ni pont rationnel.
+Il faut montrer que le morphisme classifiant
+$\Spec(k) \to \overline{\mathcal{M}} \to \Curvesstack$
+se factorise par $\Curvesstack^{DM}$.
+Nous pouvons d'abord remplacer $k$ par sa clôture algébrique
+(puisque nous savons déjà que les champs considérés sont des sous-champs
+ouverts du champ algébrique $\Curvesstack$).
+D'après les lemmes \ref{lemma-stable-curves}, \ref{lemma-DM-curves} et
+\ref{lemma-in-DM-locus-vector-fields}, il suffit de montrer que
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$.
+Cela est démontré dans
+Courbes algébriques, lemme \ref{curves-lemma-stable-vector-fields}.
+
+\medskip\noindent
+Puisque $\Curvesstack^{DM}$ est le plus grand sous-champ ouvert de
+$\Curvesstack$ qui soit DM, il en va de même du
+sous-champ ouvert $\overline{\mathcal{M}}$ de $\Curvesstack^{DM}$.
+Enfin, un champ algébrique DM est de Deligne-Mumford d'après
+Morphismes de champs, théorème \ref{stacks-morphisms-theorem-DM}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-dense-in-stable}
+Soit $g \geq 2$. L'inclusion
+$$
+|\mathcal{M}_g| \subset |\overline{\mathcal{M}}_g|
+$$
+est celle d'un sous-ensemble ouvert dense.
+\end{lemma}
+
+\begin{proof}
+Puisque $\overline{\mathcal{M}}_g \subset \Curvesstack^{lci+}$
+est ouvert et que
+$\Curvesstack^{smooth} \cap \overline{\mathcal{M}}_g = \mathcal{M}_g$,
+cela résulte immédiatement du
+lemme \ref{lemma-smooth-dense}.
+\end{proof}
+
+
+
+\section{Morphismes de contraction}
+\label{section-contracting}
+
+\noindent
+Nous invitons vivement le lecteur à se familiariser avec
+Courbes algébriques, sections
+\ref{curves-section-contracting-rational-tails},
+\ref{curves-section-contracting-rational-bridges} et
+\ref{curves-section-contracting-to-stable},
+avant de poursuivre. Le résultat principal de cette section
+est l'existence d'un morphisme de « stabilisation »
+$$
+\Curvesstack^{prestable}_g
+\longrightarrow
+\overline{\mathcal{M}}_g
+$$
+Voir le lemme \ref{lemma-stabilization-morphism}.
+En termes informels, ce morphisme envoie le point modulaire d'une
+courbe nodale de genre $g$ sur le point modulaire de la courbe stable
+associée construite dans
+Courbes algébriques, lemme \ref{curves-lemma-characterize-contraction-to-stable}.
+
+\begin{lemma}
+\label{lemma-contract}
+Soient $S$ un schéma et $s \in S$ un point.
+Soient $f : X \to S$ et $g : Y \to S$ des familles de courbes.
+Soit $c : X \to Y$ un morphisme sur $S$. Si
+$c_{s, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_s}$ et
+$R^1c_{s, *}\mathcal{O}_{X_s} = 0$, alors,
+après remplacement de $S$ par un voisinage ouvert de $s$,
+on a $\mathcal{O}_Y = c_*\mathcal{O}_X$ et $R^1c_*\mathcal{O}_X = 0$,
+et cela reste vrai après tout changement de base par un morphisme $S' \to S$.
+\end{lemma}
+
+\begin{proof}
+Soit $(U, u) \to (S, s)$ un voisinage étale tel que
+$\mathcal{O}_{Y_U} = (X_U \to Y_U)_*\mathcal{O}_{X_U}$ et
+$R^1(X_U \to Y_U)_*\mathcal{O}_{X_U} = 0$, ces égalités restant vraies
+après changement de base par $U' \to U$. Remplaçons alors $S$ par
+l'image ouverte de $U \to S$. Étant donné $S' \to S$, posons $U' = U \times_S S'$ ;
+nous obtenons les recouvrements étales $\{U' \to S'\}$ et
+$\{Y_{U'} \to Y_{S'}\}$. La validité de l'énoncé pour
+le changement de base de $c$ par $S' \to S$ résulte donc de sa validité
+pour le changement de base de $X_U \to Y_U$ par
+$U' \to U$. Autrement dit, la question est locale pour la
+topologie étale sur $S$.
+Ainsi, d'après le lemme \ref{lemma-etale-locally-scheme}, nous pouvons supposer que
+$X$ et $Y$ sont des schémas. D'après
+Compléments sur les morphismes, lemme \ref{more-morphisms-lemma-h1-fibre-zero-isom},
+il existe un sous-schéma ouvert $V \subset Y$ contenant $Y_s$
+tel que $c_*\mathcal{O}_X|_V = \mathcal{O}_V$ et
+$R^1c_*\mathcal{O}_X|_V = 0$, ces égalités restant vraies après
+tout changement de base par $S' \to S$. Puisque $g : Y \to S$ est propre, on peut
+trouver un voisinage ouvert $U \subset S$ de $s$ tel que
+$g^{-1}(U) \subset V$. Alors $U$ convient.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-contract-basic-uniqueness}
+Soient $S$ un schéma et $s \in S$ un point.
+Soient $f : X \to S$ et $g_i : Y_i \to S$, $i = 1, 2$, des familles de courbes.
+Soient $c_i : X \to Y_i$ des morphismes sur $S$.
+Supposons donné un isomorphisme $Y_{1, s} \cong Y_{2, s}$
+des fibres, compatible avec $c_{1, s}$ et $c_{2, s}$.
+Si $c_{1, s, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_{1, s}}$ et
+$R^1c_{1, s, *}\mathcal{O}_{X_s} = 0$, alors il existe un
+voisinage ouvert $U$ de $s$ et un isomorphisme
+$Y_{1, U} \cong Y_{2, U}$ de familles de courbes sur $U$,
+compatible avec l'isomorphisme donné des fibres ainsi qu'avec
+$c_1$ et $c_2$.
+\end{lemma}
+
+\begin{proof}
+Rappelons que $\mathcal{O}_{S, s} = \colim \mathcal{O}_S(U)$, où
+la limite inductive est prise sur le système des voisinages affines $U$ de $s$.
+La catégorie des espaces algébriques de présentation finie sur
+l'anneau local est donc la limite inductive des catégories d'espaces algébriques
+de présentation finie sur les voisinages affines de $s$.
+Voir Limites d'espaces, lemme
+\ref{spaces-limits-lemma-descend-finite-presentation}.
+On se ramène ainsi au cas où $S$ est le spectre d'un
+anneau local et où $s$ est le point fermé.
+
+\medskip\noindent
+Supposons $S = \Spec(A)$, où $A$ est un anneau local et $s$ son point fermé.
+Écrivons $A = \colim A_j$, avec les $A_j$ locaux noethériens (par exemple essentiellement
+de type fini sur $\mathbf{Z}$) et les homomorphismes de transition locaux.
+Posons $S_j = \Spec(A_j)$, de point fermé $s_j$. On peut trouver un
+$j$ et des familles de courbes $X_j \to S_j$, $Y_{j, i} \to S_j$ ;
+voir le lemme \ref{lemma-curves-qs-lfp} et
+Limites de champs, lemme
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving}.
+Quitte à augmenter $j$, on peut trouver des morphismes
+$c_{j, i} : X_j \to Y_{j, i}$ dont le changement de base à $s$ est $c_i$ ; voir
+Limites d'espaces, lemme
+\ref{spaces-limits-lemma-descend-finite-presentation}.
+Puisque $\kappa(s) = \colim \kappa(s_j)$, on peut de même
+supposer donné un isomorphisme $Y_{j, 1, s_j} \cong Y_{j, 2, s_j}$
+compatible avec $c_{j, 1, s_j}$ et $c_{j, 2, s_j}$.
+Enfin, les hypothèses
+$c_{1, s, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_{1, s}}$ et
+$R^1c_{1, s, *}\mathcal{O}_{X_s} = 0$
+sont héritées par $c_{j, 1, s_j}$, car
+$\{s_j \to s\}$ est un recouvrement fpqc et
+$c_{1, s}$ est le changement de base de $c_{j, 1, s_j}$ par ce recouvrement
+(nous omettons les détails).
+Le lemme est ainsi ramené au cas traité dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons que $S$ soit le spectre d'un anneau local noethérien $\Lambda$ et que
+$s$ soit le point fermé. Considérons l'image schématique $Z$ de
+$$
+(c_1, c_2) : X \longrightarrow Y_1 \times_S Y_2
+$$
+L'énoncé du lemme équivaut à dire que $Z$ s'envoie
+isomorphiquement sur $Y_1$ et $Y_2$ par les morphismes de projection.
+Puisque la formation de l'image schématique de ce morphisme commute
+au changement de base plat (Morphismes d'espaces, lemme
+\ref{spaces-morphisms-lemma-flat-base-change-scheme-theoretic-image}),
+nous pouvons remplacer $\Lambda$ par son complété
+(Compléments d'algèbre, section \ref{more-algebra-section-permanence-completion}).
+
+\medskip\noindent
+Supposons que $S$ soit le spectre d'un anneau local noethérien complet $\Lambda$.
+Observons que $X$, $Y_1$, $Y_2$ sont alors des schémas
+(Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-projective-over-complete}).
+Notons $X_n$, $Y_{1, n}$, $Y_{2, n}$ les changements de base de
+$X$, $Y_1$, $Y_2$ à $\Spec(\Lambda/\mathfrak m^{n + 1})$.
+Rappelons que la flèche
+$$
+\Deformationcategory_{X_s \to Y_{2, s}} \cong
+\Deformationcategory_{X_s \to Y_{1, s}} \longrightarrow
+\Deformationcategory_{X_s}
+$$
+est une équivalence ; voir Problèmes de déformation, lemme
+\ref{examples-defos-lemma-schemes-morphisms-smooth-to-base}.
+Il existe donc un isomorphisme d'objets formels
+$(X_n \to Y_{1, n}) \cong (X_n \to Y_{2, n})$
+de $\Deformationcategory_{X_s \to Y_{1, s}}$.
+Enfin, le théorème d'algébrisation de Grothendieck
+(Cohomologie des schémas, lemme \ref{coherent-lemma-algebraize-morphism})
+fournit un isomorphisme $Y_1 \to Y_2$ compatible avec $c_1$ et $c_2$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-contract-basic}
+Soit $f : X \to S$ une famille de courbes. Soit $s \in S$ un point.
+Soit $h_0 : X_s \to Y_0$ un morphisme vers un schéma propre $Y_0$ sur $\kappa(s)$
+tel que $h_{0, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_0}$ et
+$R^1h_{0, *}\mathcal{O}_{X_s} = 0$. Alors il existe un voisinage
+étale élémentaire $(U, u) \to (S, s)$, une famille de courbes $Y \to U$
+et un morphisme $h : X_U \to Y$ sur $U$ dont la fibre en $u$
+est isomorphe à $h_0$.
+\end{lemma}
+
+\begin{proof}
+Commençons par quelques réductions ; le lecteur peut passer directement à la suite.
+La question est locale sur $S$ ; on peut donc supposer $S$ affine.
+Écrivons $S = \lim S_i$ comme limite projective filtrante de schémas affines $S_i$
+de type fini sur $\mathbf{Z}$.
+Pour un certain $i$, on peut trouver une famille de courbes $X_i \to S_i$
+dont le changement de base est $X \to S$. Cela résulte du
+lemme \ref{lemma-curves-qs-lfp} et de
+Limites de champs, lemme
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving}.
+Soit $s_i \in S_i$ l'image de $s$. Observons que
+$\kappa(s) = \colim \kappa(s_i)$ et que $X_s$ est un schéma
+(Espaces sur les corps, lemme
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}).
+Quitte à augmenter $i$, on peut supposer qu'il existe un morphisme
+$h_{i, 0} : X_{i, s_i} \to Y_i$
+de schémas de type fini sur $\kappa(s_i)$ dont le changement de base à
+$\kappa(s)$ est $h_0$ ; voir
+Limites, lemme \ref{limits-lemma-descend-finite-presentation}.
+Quitte à augmenter $i$, on peut supposer $Y_i$ propre sur $\kappa(s_i)$ ; voir
+Limites, lemme \ref{limits-lemma-eventually-proper}.
+Soit $g_{i, 0} : Y_0 \to Y_{i, 0}$ la projection. Observons qu'il
+s'agit d'un morphisme fidèlement plat, car il se déduit par changement de base de
+$\Spec(\kappa(s)) \to \Spec(\kappa(s_i))$.
+Par changement de base plat, on a
+$$
+h_{0, *}\mathcal{O}_{X_s} = g_{i, 0}^*h_{i, 0, *}\mathcal{O}_{X_{i, s_i}}
+\quad\text{et}\quad
+R^1h_{0, *}\mathcal{O}_{X_s} = g_{i, 0}^*Rh_{i, 0, *}\mathcal{O}_{X_{i, s_i}}
+$$
+voir Cohomologie des schémas, lemme
+\ref{coherent-lemma-flat-base-change-cohomology}.
+Par fidèle platitude, on voit que $X_i \to S_i$, $s_i \in S_i$ et
+$X_{i, s_i} \to Y_i$ satisfont à toutes les hypothèses du lemme.
+On est ainsi ramené au cas traité dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons $S$ affine de type fini sur $\mathbf{Z}$.
+Soit $\mathcal{O}_{S, s}^h$ l'hensélisé de l'anneau local
+de $S$ en $s$. Observons que $\mathcal{O}_{S, s}^h$ est un anneau G d'après
+Compléments d'algèbre, lemme \ref{more-algebra-lemma-henselization-G-ring} et
+proposition \ref{more-algebra-proposition-ubiquity-G-ring}.
+Supposons que nous puissions construire une famille de courbes
+$Y' \to \Spec(\mathcal{O}_{S, s}^h)$ et un morphisme
+$$
+h' : X \times_S \Spec(\mathcal{O}_{S, s}^h) \longrightarrow Y'
+$$
+sur $\Spec(\mathcal{O}_{S, s}^h)$ dont le changement de base au point
+fermé soit $h_0$. Cela suffira. En effet, utilisons d'abord l'égalité
+$$
+\mathcal{O}_{S, s}^h = \colim_{(U, u)} \mathcal{O}_U(U)
+$$
+où la limite inductive est prise sur la catégorie filtrante des
+voisinages étales élémentaires (Compléments sur les morphismes, lemme
+\ref{more-morphisms-lemma-describe-henselization}).
+Utilisons ensuite de nouveau le fait que $Y'$ descend en une famille
+$Y \to U$ pour un certain $U$ (voir les références données ci-dessus).
+Puis appliquons
+Limites, lemme \ref{limits-lemma-descend-finite-presentation},
+pour faire descendre $h'$ en un certain $h$. On est ainsi ramené au cas
+traité dans le paragraphe suivant.
+
+\medskip\noindent
+Supposons $S = \Spec(\Lambda)$, où $(\Lambda, \mathfrak m, \kappa)$
+est un anneau G local noethérien hensélien et $s$ le point fermé de $S$.
+Rappelons que l'application
+$$
+\Deformationcategory_{X_s \to Y_0} \to \Deformationcategory_{X_s}
+$$
+est une équivalence ; voir Problèmes de déformation, lemme
+\ref{examples-defos-lemma-schemes-morphisms-smooth-to-base}.
+(C'est la seule étape importante de la démonstration ; tout le reste
+relève de la technique.) Notons $\Lambda^\wedge$ le complété $\mathfrak m$-adique.
+Les images réciproques $X_n$ de $X$ sur $\Lambda/\mathfrak m^{n + 1}$ définissent
+un objet formel $\xi$ de $\Deformationcategory_{X_s}$ sur $\Lambda^\wedge$.
+L'équivalence fournit un objet formel
+$\xi'$ de $\Deformationcategory_{X_s \to Y_0}$ sur $\Lambda^\wedge$.
+On obtient ainsi un immense diagramme commutatif
+$$
+\xymatrix{
+\ldots \ar[r] &
+X_n \ar[r] \ar[d] &
+X_{n - 1} \ar[r] \ar[d] &
+\ldots \ar[r] &
+X_s \ar[d] \\
+\ldots \ar[r] &
+Y_n \ar[r] \ar[d] &
+Y_{n - 1} \ar[r] \ar[d] &
+\ldots \ar[r] &
+Y_0 \ar[d] \\
+\ldots \ar[r] &
+\Spec(\Lambda/\mathfrak m^{n + 1}) \ar[r] &
+\Spec(\Lambda/\mathfrak m^n) \ar[r] &
+\ldots \ar[r] &
+\Spec(\kappa)
+}
+$$
+L'objet formel $(Y_n)$ provient d'une famille de courbes
+$Y' \to \Spec(\Lambda^\wedge)$ d'après
+Quot, lemme \ref{quot-lemma-curves-existence}.
+D'après Compléments sur les morphismes d'espaces, lemme
+\ref{spaces-more-morphisms-lemma-algebraize-morphism},
+on obtient un morphisme $h' : X_{\Lambda^\wedge} \to Y'$ qui induit
+les morphismes donnés $X_n \to Y_n$ pour tout $n$,
+et en particulier le morphisme donné $X_s \to Y_0$.
+
+\medskip\noindent
+Pour terminer, appliquons un argument standard d'algébrisation et d'approximation.
+Observons d'abord que l'on peut trouver une sous-$\Lambda$-algèbre de type fini
+$\Lambda \subset A \subset \Lambda^\wedge$, une famille de courbes
+$Y'' \to \Spec(A)$ et un morphisme $h'' : X_A \to Y''$ sur $A$
+dont le changement de base à $\Lambda^\wedge$ est $h'$.
+Cela résulte de ce que $\Lambda^\wedge$ est la limite inductive filtrante
+de ces anneaux $A$ et de ce que l'on peut raisonner comme précédemment en utilisant
+le fait que $\Curvesstack$ est localement de présentation finie
+(ce qui fournit $Y''$ sur $A$ d'après
+Limites de champs, lemme
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving})
+et en appliquant
+Limites d'espaces, lemme \ref{spaces-limits-lemma-descend-finite-presentation},
+pour faire descendre $h'$ en un certain $h''$.
+On peut alors appliquer la propriété d'approximation des anneaux G
+(sous la forme du théorème de Lissage des homomorphismes d'anneaux,
+\ref{smoothing-theorem-approximation-property})
+afin de trouver une application $A \to \Lambda$ qui induise la même application
+$A \to \kappa$ que celle obtenue de $A \to \Lambda^\wedge$.
+En changeant la base de $h''$ à $\Lambda$, on achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-contract-prestable-to-stable}
+Soit $f : X \to S$ une famille préstable de courbes de genre $g \geq 2$.
+Il existe une factorisation $X \to Y \to S$ de $f$, où $g : Y \to S$
+est une famille stable de courbes et où $c : X \to Y$ possède les propriétés
+suivantes :
+\begin{enumerate}
+\item $\mathcal{O}_Y = c_*\mathcal{O}_X$ et $R^1c_*\mathcal{O}_X = 0$,
+ces égalités restant vraies après tout changement de base par un morphisme $S' \to S$ ;
+\item pour tout $s \in S$, le morphisme $c_s : X_s \to Y_s$ est la
+contraction des queues et ponts rationnels étudiée dans
+Courbes algébriques, section \ref{curves-section-contracting-to-stable}.
+\end{enumerate}
+De plus, $c : X \to Y$ est unique à isomorphisme unique près.
+\end{lemma}
+
+\begin{proof}
+Soit $s \in S$. Soit $c_0 : X_s \to Y_0$ la contraction de
+Courbes algébriques, section \ref{curves-section-contracting-to-stable}
+(plus précisément, Courbes algébriques, lemme
+\ref{curves-lemma-characterize-contraction-to-stable}).
+D'après le lemme \ref{lemma-contract-basic},
+il existe un voisinage étale élémentaire
+$(U, u)$ et un morphisme $c : X_U \to Y$
+de familles de courbes sur $U$ qui redonne
+$c_0$ comme fibre en $u$.
+Puisque $\omega_{Y_0}$ est ample, quitte à rétrécir $U$,
+on voit que $Y \to U$ est une famille stable de genre $g$
+par l'ouverture contenue dans
+les lemmes \ref{lemma-stable-curves} et \ref{lemma-stable-one-piece-per-genus}.
+Quitte à rétrécir $U$ une nouvelle fois, l'assertion (1) du lemme pour
+$c : X_U \to Y$ résulte du lemme \ref{lemma-contract}.
+De plus, la partie (2) résulte de l'unicité dans Courbes algébriques, lemme
+\ref{curves-lemma-characterize-contraction-to-stable}.
+On en conclut qu'un morphisme $c$ comme dans le lemme existe localement pour
+la topologie étale sur $S$. Plus précisément, il existe un recouvrement étale
+$\{U_i \to S\}$ et des morphismes $c_i : X_{U_i} \to Y_i$ sur $U_i$,
+où $Y_i \to U_i$ est une famille stable de courbes
+possédant les propriétés (1) et (2) énoncées dans le lemme.
+
+\medskip\noindent
+Pour achever la démonstration, il suffit de prouver l'unicité de $c : X \to Y$
+(à isomorphisme unique près). En effet, une fois cela établi, nous
+obtenons des isomorphismes
+$$
+\varphi_{ij} :
+Y_i \times_{U_i} (U_i \times_S U_j)
+\longrightarrow
+Y_i \times_{U_j} (U_i \times_S U_j)
+$$
+satisfaisant la condition de cocycle (par unicité) sur
+$U_i \times U_j \times U_k$. Puisque $\overline{\mathcal{M}_g}$
+est un champ algébrique, les données de descente sont effectives,
+et nous obtenons $Y \to S$. Les morphismes $c_i$ descendent en un morphisme
+$c : X \to Y$ sur $S$. Enfin, les propriétés (1) et (2) pour $c$
+résultent immédiatement des propriétés (1) et (2) pour $c_i$.
+
+\medskip\noindent
+Enfin, si $c_1 : X \to Y_i$, $i = 1, 2$, sont deux morphismes vers
+des familles stables de courbes sur $S$ satisfaisant (1) et (2), alors
+nous obtenons un morphisme $Y_1 \to Y_2$ compatible avec $c_1$ et $c_2$,
+au moins localement sur $S$, grâce au lemme \ref{lemma-contract-basic-uniqueness}.
+Nous omettons la vérification de l'unicité de ces morphismes
+(indication : elle résulte du fait que l'image schématique
+de $c_1$ est $Y_1$). Ces morphismes définis localement se recollent donc,
+ce qui achève la démonstration.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stabilization-morphism}
+Soit $g \geq 2$. Il existe un morphisme de champs algébriques sur $\mathbf{Z}$
+$$
+stabilisation :
+\Curvesstack^{prestable}_g
+\longrightarrow
+\overline{\mathcal{M}}_g
+$$
+qui envoie une famille préstable de courbes $X \to S$ de genre $g$
+sur la famille stable $Y \to S$ qui lui est associée dans le
+lemme \ref{lemma-contract-prestable-to-stable}.
+\end{lemma}
+
+\begin{proof}
+Pour le voir, il suffit de vérifier que la construction du
+lemme \ref{lemma-contract-prestable-to-stable}
+est compatible aux changements de base (ainsi qu'aux isomorphismes, ce qui est immédiat) ;
+voir l'(abus de) langage pour les champs algébriques introduit dans
+Propriétés des champs, section \ref{stacks-properties-section-conventions}.
+Il suffit pour cela de vérifier que les propriétés (1) et (2) du
+lemme \ref{lemma-contract-prestable-to-stable} sont stables
+par changement de base. C'est immédiat pour (1).
+Pour (2), cela résulte soit de ce que les contractions de
+Courbes algébriques, lemmes \ref{curves-lemma-contracting-rational-tails} et
+\ref{curves-lemma-contracting-rational-bridges},
+sont stables par extension du corps de base, soit
+de ce que les conditions caractérisant les morphismes sur les fibres dans
+Courbes algébriques, lemme \ref{curves-lemma-characterize-contraction-to-stable},
+sont préservées par extension du corps de base.
+\end{proof}
+
+
+
+\section{Théorème de réduction stable}
+\label{section-stable-reduction}
+
+\noindent
+Dans le chapitre sur la réduction semi-stable, nous avons démontré le célèbre
+théorème de réduction semi-stable des courbes. Soit $K$ le corps des fractions
+d'un anneau de valuation discrète $R$. Soit $C$ une courbe projective lisse
+sur $K$ telle que $K = H^0(C, \mathcal{O}_C)$. Conformément à
+Réduction semi-stable, définition \ref{models-definition-semistable},
+on dit que $C$ a une {\it réduction semi-stable} si, au choix,
+il existe une famille préstable de courbes sur $R$ de fibre générique $C$, ou
+un (ce qui équivaut à tout) modèle régulier minimal de $C$ sur $R$ est préstable.
+Nous montrons dans cette section que, pour les courbes de genre $g \geq 2$,
+cela équivaut aussi à l'existence d'une réduction stable.
+
+\begin{lemma}
+\label{lemma-stable-reduction}
+Soit $R$ un anneau de valuation discrète de corps des fractions $K$.
+Soit $C$ une courbe projective lisse sur $K$ telle que
+$K = H^0(C, \mathcal{O}_C)$ et de genre $g \geq 2$.
+Les conditions suivantes sont équivalentes :
+\begin{enumerate}
+\item $C$ a une réduction semi-stable
+(Réduction semi-stable, définition \ref{models-definition-semistable}) ;
+\item il existe une famille stable de courbes sur $R$ de fibre générique $C$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Une famille stable de courbes étant aussi préstable, il est immédiat que
+(2) implique (1). Réciproquement, étant donnée une famille préstable de courbes sur $R$
+de fibre générique $C$, le lemme \ref{lemma-contract-prestable-to-stable}
+permet de la contracter en une famille stable de courbes. Comme la fibre générique
+est déjà stable, cette opération ne la modifie pas,
+ce qui achève la démonstration.
+\end{proof}
+
+\noindent
+Le lemme suivant affirme que la famille stable de courbes sur $R$
+promise par le lemme \ref{lemma-stable-reduction}
+est unique à isomorphisme unique près.
+
+\begin{lemma}
+\label{lemma-unique-stable-model}
+Soit $R$ un anneau de valuation discrète de corps des fractions $K$.
+Soit $C$ une courbe propre et lisse sur $K$
+telle que $K = H^0(C, \mathcal{O}_C)$ et de genre $g$.
+Si $X$ et $X'$ sont des modèles de $C$
+(Réduction semi-stable, section \ref{models-section-models})
+et si $X$ et $X'$ sont des familles stables de courbes de genre $g$ sur $R$,
+alors il existe un unique isomorphisme de modèles $X \to X'$.
+\end{lemma}
+
+\begin{proof}
+Soit $Y$ le modèle minimal de $C$. Rappelons que $Y$ existe, est
+unique et est au plus nodal de dimension relative $1$ sur $R$ ; voir
+Réduction semi-stable,
+proposition \ref{models-proposition-exists-minimal-model} et
+lemmes \ref{models-lemma-minimal-model-unique} et
+\ref{models-lemma-semistable} (ce dernier s'applique puisque l'on dispose de $X$).
+Il existe un morphisme de contraction
+$$
+Y \longrightarrow Z
+$$
+tel que $Z$ soit une famille stable de courbes de genre $g$ sur $R$
+(lemme \ref{lemma-contract-prestable-to-stable}). Nous affirmons
+qu'il existe un unique isomorphisme de modèles $X \to Z$.
+Par symétrie, il en va de même pour $X'$, ce qui achèvera la démonstration.
+
+\medskip\noindent
+D'après Réduction semi-stable, lemme \ref{models-lemma-blowup-at-worst-nodal},
+il existe une suite
+$$
+X_m \to \ldots \to X_1 \to X_0 = X
+$$
+telle que $X_{i + 1} \to X_i$ soit l'éclatement d'un point fermé
+$x_i$ où $X_i$ est singulier, que $X_i \to \Spec(R)$ soit au plus nodal
+de dimension relative $1$, et que $X_m$ soit régulier.
+D'après Réduction semi-stable, lemme \ref{models-lemma-pre-exists-minimal-model},
+il existe une suite
+$$
+X_m = Y_n \to Y_{n - 1} \to \ldots \to Y_1 \to Y_0 = Y
+$$
+de modèles propres réguliers de $C$, dont chaque morphisme est une
+contraction d'une courbe exceptionnelle de première espèce\footnote{En fait,
+on a $X_m = Y$, c'est-à-dire que $X_m$ ne contient aucune courbe exceptionnelle
+de première espèce. Nous invitons le lecteur à le vérifier,
+car cela simplifie quelque peu la démonstration.}.
+D'après Réduction semi-stable, lemme \ref{models-lemma-blowdown-at-worst-nodal},
+chaque $Y_i$ est au plus nodal de dimension relative $1$ sur $R$.
+Pour établir notre affirmation, il suffit de montrer qu'il existe un isomorphisme
+$X \to Z$ compatible avec les morphismes $X_m \to X$
+et $X_m = Y_n \to Y \to Z$. Soit $s \in \Spec(R)$ le point fermé.
+En appliquant soit le
+lemme \ref{lemma-contract-basic-uniqueness}, soit le
+lemme \ref{lemma-contract-prestable-to-stable},
+on se ramène à démontrer que les morphismes
+$X_{m, s} \to X_s$ et
+$X_{m, s} \to Z_s$
+sont tous deux égaux au morphisme canonique de
+Courbes algébriques, lemme \ref{curves-lemma-characterize-contraction-to-stable}.
+
+\medskip\noindent
+Pour un morphisme $c : U \to V$ de schémas sur $\kappa(s)$,
+on dit que $c$ possède la propriété (*) si $\dim(U_v) \leq 1$ pour $v \in V$,
+$\mathcal{O}_V = c_*\mathcal{O}_U$ et $R^1c_*\mathcal{O}_U = 0$.
+Cette propriété est stable par composition.
+Puisque $X_s$ et $Z_s$ sont tous deux des courbes stables de genre $g$ sur $\kappa(s)$,
+il suffit de montrer que chacun des morphismes $Y_s \to Z_s$,
+$X_{i + 1, s} \to X_{i, s}$ et $Y_{i + 1, s} \to Y_{i, s}$
+possède la propriété (*) ; voir
+Courbes algébriques, lemme \ref{curves-lemma-characterize-contraction-to-stable}.
+
+\medskip\noindent
+La propriété (*) est satisfaite par $Y_s \to Z_s$ par construction.
+
+\medskip\noindent
+Les morphismes $c : X_{i + 1, s} \to X_{i, s}$ sont construits et étudiés
+dans la démonstration de
+Réduction semi-stable, lemme \ref{models-lemma-blowup-at-worst-nodal}.
+Il suffit de vérifier (*) localement pour la topologie étale sur $X_{i, s}$.
+Il suffit donc de vérifier (*) pour le changement de base du morphisme
+« $X_1 \to X_0$ » de Réduction semi-stable, exemple \ref{models-example-blowup},
+à $R/\pi R$.
+Nous laissons le calcul explicite au lecteur.
+
+\medskip\noindent
+Le morphisme $c : Y_{i + 1, s} \to Y_{i, s}$ est la restriction
+de la contraction d'une courbe exceptionnelle $E \subset Y_{i + 1}$
+de première espèce ; autrement dit, $b : Y_{i + 1} \to Y_i$ est une contraction de $E$,
+c'est-à-dire que $b$ est l'éclatement d'un point régulier de la surface $Y_i$
+(Résolution des surfaces, section \ref{resolve-section-minus-one}).
+On a alors $\mathcal{O}_{Y_i} = b_*\mathcal{O}_{Y_{i + 1}}$ et
+$R^1b_*\mathcal{O}_{Y_{i + 1}} = 0$ ; voir par exemple
+Résolution des surfaces, lemme
+\ref{resolve-lemma-cohomology-of-blowup}.
+Nous en concluons que $\mathcal{O}_{Y_{i, s}} = c_*\mathcal{O}_{Y_{i + 1, s}}$
+et $R^1c_*\mathcal{O}_{Y_{i + 1, s}} = 0$ d'après
+Compléments sur les morphismes, lemmes \ref{more-morphisms-lemma-check-h1-fibre-zero},
+\ref{more-morphisms-lemma-h1-fibre-zero} et
+\ref{more-morphisms-lemma-h1-fibre-zero-check-h0-kappa}
+(ce dernier ne donne que la surjectivité de
+$\mathcal{O}_{Y_{i, s}} \to c_*\mathcal{O}_{Y_{i + 1, s}}$, mais
+l'injectivité résulte aisément de ce que $Y_{i, s}$ est réduit
+et que $c$ ne modifie la situation qu'au-dessus d'un point fermé).
+Cela achève la démonstration.
+\end{proof}
+
+\noindent
+Du lemme \ref{lemma-stable-reduction} et du
+théorème de Réduction semi-stable \ref{models-theorem-semistable-reduction},
+on déduit immédiatement le théorème de réduction stable.
+
+\begin{theorem}
+\label{theorem-stable-reduction}
+\begin{reference}
+\cite[corollaire 2.7]{DM}
+\end{reference}
+Soit $R$ un anneau de valuation discrète de corps des fractions $K$. Soit $C$ une
+courbe projective lisse sur $K$ telle que $H^0(C, \mathcal{O}_C) = K$
+et de genre $g \geq 2$. Alors :
+\begin{enumerate}
+\item il existe une extension d'anneaux de valuation discrète $R \subset R'$
+induisant une extension finie séparable des corps des fractions $K'/K$, et
+une famille stable de courbes $Y \to \Spec(R')$ de genre $g$ telle que
+$Y_{K'} \cong C_{K'}$ sur $K'$ ;
+\item il existe une extension finie séparable $L/K$ et une famille stable
+de courbes $Y \to \Spec(A)$ de genre $g$, où $A \subset L$
+est la clôture intégrale de $R$ dans $L$, telles que
+$Y_L \cong C_L$ sur $L$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+La partie (1) résulte immédiatement du lemme \ref{lemma-stable-reduction} et du
+théorème de Réduction semi-stable \ref{models-theorem-semistable-reduction}.
+
+\medskip\noindent
+Démontrons (2). Soit $L/K$ l'extension finie séparable obtenue dans la partie (3) du
+théorème de Réduction semi-stable \ref{models-theorem-semistable-reduction}.
+Soit $A \subset L$ la clôture intégrale de $R$.
+Rappelons que $A$ est un anneau de Dedekind fini sur $R$, possédant
+un nombre fini d'idéaux maximaux $\mathfrak m_1, \ldots, \mathfrak m_n$ ; voir
+Compléments d'algèbre, remarque \ref{more-algebra-remark-finite-separable-extension}.
+Posons $S = \Spec(A)$, $S_i = \Spec(A_{\mathfrak m_i})$,
+$U = \Spec(L)$ et $U_i = S_i \setminus \{\mathfrak m_i\}$.
+Observons que $U \cong U_i$ pour $i = 1, \ldots, n$.
+Posons $X = C_L$, considéré comme schéma sur le sous-schéma ouvert $U$ de $S$.
+Par le choix de $L$ et de $A$ et par le lemme \ref{lemma-stable-reduction},
+nous disposons de familles stables de courbes $X_i \to S_i$ et d'isomorphismes
+$X \times_U U_i \cong X_i \times_{S_i} U_i$.
+D'après Limites d'espaces, lemme
+\ref{spaces-limits-lemma-glueing-near-multiple-closed-points},
+on peut trouver un morphisme de présentation finie $Y \to S$
+dont le changement de base à $S_i$ est isomorphe à $X_i$ pour $i = 1, \ldots, n$.
+On peut aussi utiliser le fait que $S = \bigcup_{i = 1, \ldots, n} S_i$
+est un recouvrement ouvert de $S$ et que $S_i \cap S_j = U$ pour $i \not = j$,
+puis appliquer $n - 1$ fois
+Limites d'espaces, lemme \ref{spaces-limits-lemma-relative-glueing},
+afin d'obtenir $Y \to S$ dont le
+changement de base à $S_i$ est isomorphe à $X_i$ pour $i = 1, \ldots, n$.
+Il est clair que $Y \to S$ est la famille stable de courbes recherchée.
+\end{proof}
+
+
+
+
+
+
+\section{Propriétés du champ des courbes stables}
+\label{section-properties-stable}
+
+\noindent
+Dans cette section, nous démontrons le résultat structurel fondamental pour
+$\overline{\mathcal{M}}_g$ lorsque $g \geq 2$.
+
+\begin{lemma}
+\label{lemma-stable-separated}
+Soit $g \geq 2$. Le champ $\overline{\mathcal{M}}_g$ est séparé.
+\end{lemma}
+
+\begin{proof}
+Cet énoncé signifie que le morphisme
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$ est séparé.
+Nous allons le démontrer au moyen du critère valuatif noethérien raffiné
+énoncé dans
+Compléments sur les morphismes de champs, lemme
+\ref{stacks-more-morphisms-lemma-refined-valuative-criterion-separated}.
+
+\medskip\noindent
+Puisque $\overline{\mathcal{M}}_g$ est un sous-champ ouvert de
+$\Curvesstack$, le morphisme $\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$
+est quasi-séparé et
+localement de présentation finie d'après le lemme \ref{lemma-curves-qs-lfp}.
+En particulier, le champ $\overline{\mathcal{M}}_g$ est localement
+noethérien (Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}).
+D'après le lemme \ref{lemma-smooth-dense-in-stable}, l'immersion ouverte
+$\mathcal{M}_g \to \overline{\mathcal{M}}_g$
+est d'image dense. De plus, $\mathcal{M}_g \to \overline{\mathcal{M}}_g$
+est quasi-compact (Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-locally-closed-in-noetherian}),
+donc de type fini. Toutes les hypothèses préliminaires de
+Compléments sur les morphismes de champs, lemme
+\ref{stacks-more-morphisms-lemma-refined-valuative-criterion-separated},
+sont ainsi satisfaites pour les morphismes
+$$
+\mathcal{M}_g \to \overline{\mathcal{M}}_g
+\quad\text{et}\quad
+\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})
+$$
+et il suffit de vérifier ce qui suit : pour tout diagramme $2$-commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] &
+\mathcal{M}_g \ar[r] &
+\overline{\mathcal{M}}_g \ar[d] \\
+\Spec(R) \ar[rr] \ar@{..>}[rru] & & \Spec(\mathbf{Z})
+}
+$$
+où $R$ est un anneau de valuation discrète de corps des fractions $K$,
+la catégorie des flèches pointillées est soit vide, soit un sétoïde ayant exactement
+une classe d'isomorphisme. (Observons qu'il n'est pas nécessaire de trop se soucier
+des $2$-flèches ; voir Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-cat-dotted-arrows-independent}).
+En explicitant cet énoncé et en utilisant le fait que
+$\mathcal{M}_g$, resp.\ $\overline{\mathcal{M}}_g$, sont
+les champs algébriques qui paramètrent les familles lisses, resp.\ stables,
+de courbes de genre $g$, on constate que l'assertion à démontrer
+est exactement le résultat d'unicité énoncé et démontré dans le
+lemme \ref{lemma-unique-stable-model}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stable-quasi-compact}
+Soit $g \geq 2$. Le champ $\overline{\mathcal{M}}_g$ est quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Nous utiliserons les notations de la section \ref{section-polarized-curves}.
+Considérons le sous-ensemble
+$$
+T \subset |\textit{PolarizedCurves}|
+$$
+des points $\xi$ pour lesquels il existe un corps $k$ et une paire
+$(X, \mathcal{L})$ sur $k$ représentant $\xi$
+et possédant les deux propriétés suivantes :
+\begin{enumerate}
+\item $X$ est une courbe stable de genre $g$ ;
+\item $\mathcal{L} = \omega_X^{\otimes 3}$.
+\end{enumerate}
+Manifestement, par l'application continue
+$$
+|\textit{PolarizedCurves}|
+\longrightarrow
+|\Curvesstack|
+$$
+l'image de l'ensemble $T$ est exactement le sous-ensemble ouvert
+$$
+|\overline{\mathcal{M}}_g| \subset |\Curvesstack|
+$$
+Il suffit donc de montrer que $T$ est quasi-compact.
+D'après le lemme \ref{lemma-polarized-curves-in-polarized}, on a une
+immersion ouverte et fermée
+$$
+|\textit{PolarizedCurves}| \subset |\Polarizedstack|
+$$
+Il suffit donc de démontrer la quasi-compacité de $T$ comme sous-ensemble de
+$|\Polarizedstack|$. Nous appliquons pour cela le critère de
+Champs de modules, lemme \ref{moduli-lemma-bounded-polarized}.
+Observons d'abord que, pour $(X, \mathcal{L})$
+comme ci-dessus, le polynôme de Hilbert $P$ est la fonction
+$P(t) = (6g - 6)t + (1 - g)$ d'après Riemann--Roch ; voir
+Courbes algébriques, lemme \ref{curves-lemma-rr}.
+Observons ensuite que $H^1(X, \mathcal{L}) = 0$
+et que $\mathcal{L}$ est très ample d'après
+Courbes algébriques, lemme \ref{curves-lemma-tricanonical}.
+Cela signifie exactement que, pour $n = P(3) - 1$,
+il existe une immersion fermée
+$$
+i : X \longrightarrow \mathbf{P}^n_k
+$$
+telle que $\mathcal{L} = i^*\mathcal{O}_{\mathbf{P}^1_k}(1)$,
+comme souhaité.
+\end{proof}
+
+\noindent
+Voici le théorème principal de cette section.
+
+\begin{theorem}
+\label{theorem-stable-smooth-proper}
+Soit $g \geq 2$. Le champ algébrique $\overline{\mathcal{M}}_g$ est un
+champ de Deligne-Mumford, propre et lisse sur $\Spec(\mathbf{Z})$.
+De plus, le lieu $\mathcal{M}_g$ qui paramètre les courbes lisses
+est un sous-champ ouvert dense.
+\end{theorem}
+
+\begin{proof}
+La plupart des propriétés mentionnées dans l'énoncé ont déjà été démontrées.
+La lissité résulte du lemme \ref{lemma-stable-curves-smooth}.
+La propriété de Deligne-Mumford résulte du lemme \ref{lemma-stable-curves-deligne-mumford}.
+L'ouverture de $\mathcal{M}_g$ résulte du lemme \ref{lemma-smooth-dense-in-stable}.
+Nous savons que $\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$
+est séparé d'après le lemme \ref{lemma-stable-separated} et que
+$\overline{\mathcal{M}}_g$ est quasi-compact d'après le
+lemme \ref{lemma-stable-quasi-compact}.
+Ainsi, pour montrer que $\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$
+est propre et achever la démonstration, on peut appliquer
+Compléments sur les morphismes de champs, lemme
+\ref{stacks-more-morphisms-lemma-refined-valuative-criterion-proper},
+aux morphismes $\mathcal{M}_g \to \overline{\mathcal{M}}_g$ et
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$.
+Il suffit donc de vérifier ce qui suit : pour tout diagramme $2$-commutatif
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d]_j &
+\mathcal{M}_g \ar[r] &
+\overline{\mathcal{M}}_g \ar[d] \\
+\Spec(A) \ar[rr] & & \Spec(\mathbf{Z})
+}
+$$
+où $A$ est un anneau de valuation discrète de corps des fractions $K$, il
+existe une extension de corps $K'/K$ et un anneau de valuation $A' \subset K'$
+dominant $A$, tels que la catégorie des flèches pointillées du
+diagramme induit
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d]_{j'} & \overline{\mathcal{M}}_g \ar[d] \\
+\Spec(A') \ar[r] \ar@{..>}[ru] & \Spec(\mathbf{Z})
+}
+$$
+soit non vide (Morphismes de champs, définition
+\ref{stacks-morphisms-definition-fill-in-diagram}).
+(Observons qu'il n'est pas nécessaire de trop se soucier des
+$2$-flèches ; voir Morphismes de champs, lemme
+\ref{stacks-morphisms-lemma-cat-dotted-arrows-independent}).
+En explicitant cet énoncé et en utilisant le fait que
+$\mathcal{M}_g$, resp.\ $\overline{\mathcal{M}}_g$, sont les champs algébriques
+qui paramètrent les familles lisses, resp.\ stables, de courbes de genre $g$,
+on constate que l'assertion à démontrer est exactement le résultat contenu
+dans le théorème de réduction stable, c'est-à-dire le théorème
+\ref{theorem-stable-reduction}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
