@@ -25,6 +25,7 @@ confondus avec cette traduction.
 
 [Sources individuelles des 116 unités](editions/2026-09-30-faithful116/chapters/)
 · [Instructions de compilation](editions/2026-09-30-faithful116/COMPILATION.md)
+· [Version restaurée sur Zenodo](https://doi.org/10.5281/zenodo.23069850)
 · [Lignée Zenodo](https://doi.org/10.5281/zenodo.22134072).
 
 ## Ce qui a été vérifié
