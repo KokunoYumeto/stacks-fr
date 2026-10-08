@@ -1,4 +1,13 @@
-# Le projet Stacks en français traduction fidèle
+# Le projet Stacks en français — traduction fidèle complète
+
+**Restauration achevée et publiée.** La traduction française complète des
+116 unités a été rétablie sur le texte officiel figé du Stacks Project.
+Le PDF, le LaTeX intégral, les sources reproductibles et le lecteur HTML
+restaurés sont disponibles. Cette restauration n’est plus un travail en cours.
+
+[Édition restaurée sur GitHub](https://github.com/KokunoYumeto/stacks-fr/releases/tag/fr-2026.09.30-faithful116-r1)
+· [Édition restaurée sur Zenodo](https://doi.org/10.5281/zenodo.23069850)
+· [Lecture en ligne](https://kokunoyumeto.github.io/stacks-zh-hans-cn/fr/index.html).
 
 Cette édition rassemble les **116 unités de source**, l’index et la bibliographie
 dans un lecteur de **8 372 pages**. Elle rétablit le contenu du Stacks Project
@@ -83,3 +92,7 @@ linguistique ou une certification humaine de la traduction.
 La licence GNU FDL 1.2 ou ultérieure et les attributions originales sont
 conservées dans `COPYING`, `CONTRIBUTORS` et l’archive des sources. Aucun nouveau
 droit, aval des auteurs ou contrôle humain n’est revendiqué.
+
+Clarification des notices de publication du 8 octobre 2026 : OpenAI Codex —
+GPT-6 Astra (`gpt-6-astra`), effort Ultra. Cette mise à jour des notices ne
+modifie pas les fichiers de la traduction restaurée.
